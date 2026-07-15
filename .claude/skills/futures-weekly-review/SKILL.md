@@ -1,11 +1,11 @@
 ---
 name: futures-weekly-review
-description: 期货研究三段流水线编排器：meta future analysis → future change analysis →（条件）future adaption，每周跑一次；串联三个阶段 skill，处理"上一次调研"查找与框架回写。Use when asked to run the weekly futures pipeline end to end, either as a local dry run or from the scheduled cloud routine.
+description: 期货研究流水线编排器：meta future analysis → future change analysis →（条件）future adaption → future data sync，每周跑一次；串联四个阶段 skill，处理"上一次调研"查找、框架回写、配套取数脚本联动同步、以及最终统一开 PR。Use when asked to run the weekly futures pipeline end to end, either as a local dry run or from the scheduled cloud routine.
 ---
 
 # futures weekly review（编排器）
 
-串联三段流水线；不重复三个阶段各自的分析方法论，那些分别在 `meta-future-analysis`、`future-change-analysis`、`future-adaption` 各自的 SKILL.md 里。
+串联四个阶段 skill；不重复各阶段自己的方法论，那些分别在 `meta-future-analysis`、`future-change-analysis`、`future-adaption`、`future-data-sync` 各自的 SKILL.md 里。
 
 ## 步骤
 
@@ -29,11 +29,15 @@ description: 期货研究三段流水线编排器：meta future analysis → fut
    完整报告见 research/<AS_OF_DATE>-market-research.md 与 research/<AS_OF_DATE>-change-decision.md
    ```
 7. 若 `update_needed: no`：流程到此结束
-8. 若 `update_needed: yes`：读 `framework/futures_framework.md` 作为 `CURRENT_FUTURES_EXECUTION_FRAMEWORK`，连同阶段②的完整报告一起调用 `future-adaption` skill，按其"输出与提交"步骤开出 PR（不 push/merge 到 main；只有框架本身的改动走 PR 审阅门，第 6 步的研究日志已经直接进了 main）
+8. 若 `update_needed: yes`：
+   a. 读 `framework/futures_framework.md` 作为 `CURRENT_FUTURES_EXECUTION_FRAMEWORK`，连同阶段②的完整报告一起调用 `future-adaption` skill——它会新建分支 `futures-framework/<AS_OF_DATE>`、写新版框架和报告、在该分支上 commit，但**不会**开 PR，把分支名和报告内容返回给编排器
+   b. 在同一个分支上，连同新版框架全文、阶段③报告一起调用 `future-data-sync` skill——它会判断配套取数脚本 `scripts/future_data.py` 是否需要跟着改，改或不改都会在该分支上追加一个 commit（追加"8. 数据脚本同步"小节到报告里），返回是否改了脚本
+   c. 两个子步骤都提交完之后，编排器自己在该分支上执行一次 `gh pr create`：标题形如 `期货框架更新 <AS_OF_DATE>：<更新级别>`；正文汇总阶段③的"1. 更新结论"+"2. 受影响模块"，以及阶段④（data-sync）"是否改了取数脚本"的结论——一个 PR 里同时看到"框架改了什么"和"取数脚本要不要跟着改"。**这一步绝对不能直接 push 或 merge 到 main**，必须走 PR，等待人工审阅
 9. 输出一行摘要：`AS_OF_DATE` + `update_needed` + （若有）PR 链接，作为本次运行的可见结果
 
 ## 运行环境注意
 
 - 本 skill 可能被云端 scheduled routine（无本地 session）调用：调研阶段一律用内置 `WebSearch`，不要依赖 `gemini-search`、`lark-cli` 等本地专属 MCP/工具
-- 只有 `framework/futures_framework.md` 的改动需要走分支 + PR；阶段①②的研究日志直接 push 到 main（步骤6），不因为"这周没有框架变化"就不提交
-- 三个阶段各自可被单独手动调用（例如只想重跑调研，或针对两份已有调研结果重跑变化检测），不必每次都走完整编排；单独调用时不必执行步骤6的自动 push
+- 只有 `framework/futures_framework.md`（和联动的 `scripts/future_data.py`）的改动需要走分支 + PR；阶段①②的研究日志直接 push 到 main（步骤6），不因为"这周没有框架变化"就不提交
+- `gh pr create` 只在编排器最后统一执行一次（步骤8c）——`future-adaption` 和 `future-data-sync` 各自只管在同一分支上提交，不要各自开 PR，避免同一次更新开出两个 PR
+- 四个阶段各自可被单独手动调用（例如只想重跑调研，或针对两份已有调研结果重跑变化检测，或单独给已有的框架分支补一次数据脚本同步检查），不必每次都走完整编排；单独调用时不必执行步骤6的自动 push
