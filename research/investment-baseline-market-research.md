@@ -1,0 +1,1 @@
+<!-- day-0 基线（可选）：如果你手头有最近一次 meta investment analysis 的完整调研结果原文，粘贴到这里，供第一次自动化运行时的 investment change analysis 阶段作为 PREVIOUS_META_RESULT 使用。没有就留空文件不动，投资流水线首次运行时会自动退回处理"无历史基线"的情况——具体退回逻辑以 investment-change-analysis/SKILL.md 为准。 -->
