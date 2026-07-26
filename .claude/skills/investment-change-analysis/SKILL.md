@@ -10,13 +10,15 @@ description: 股票元框架变化检测（流水线阶段②）：对比本次�
 - `AS_OF_DATE`
 - `CURRENT_META_RESULT`：本次 meta-investment-analysis 产出的调研报告全文
 - `PREVIOUS_META_RESULT`：上一次调研报告全文（**可能不存在，见下方查找规则**）
+- `PREVIOUS_CHANGE_DECISION`：上一次的变化检测报告全文（与 `PREVIOUS_META_RESULT` 同日期的 `investment-<该日期>-change-decision.md`；找不到就视为无）
+- `CURRENT_FRAMEWORK`：`framework/investment_framework.md` 现行全文（跳过顶部 HTML 注释行）
 
 由 `investment-weekly-review` 编排器调用时，`PREVIOUS_META_RESULT` 按以下规则查找：
 1. 在 `research/` 下找文件名匹配 `investment-*-market-research.md`、日期早于 `AS_OF_DATE` 的文件，取日期最近的一份
 2. 找不到时，检查 `research/investment-baseline-market-research.md`——若该文件除了顶部说明注释外还有实质内容，用它作为 `PREVIOUS_META_RESULT`
 3. 上述两者都没有（`research/` 下没有任何历史 `investment-*-market-research.md`，且 baseline 文件仍是空的占位说明）：**这是真正的首次运行，没有基线可比**。此时不要虚构一个"上次结果"，也不要强行给出对比表；直接按下方"首次运行特殊路径"处理，不走正常的六步比较流程
 
-单独调用本 skill（不经编排器）时，由调用方直接给出这两份文本，不必套用上面的查找规则。
+单独调用本 skill（不经编排器）时，由调用方直接给出这些文本，不必套用上面的查找规则。
 
 ## 首次运行特殊路径（无 `PREVIOUS_META_RESULT` 时）
 
@@ -48,9 +50,11 @@ DO_NOT_OVERREACT_ITEMS: []
 
 ## 执行（有 `PREVIOUS_META_RESULT` 时的正常路径）
 
-1. 读取 `projects/investment_change_analysis/INSTRUCTIONS.md`，完整遵循其中的角色、目标、分析原则与六步分析流程；代入上面三个输入变量
-2. 只关注会改变研究重点、判断顺序、模块权重、阈值设置的变化；不把措辞差异或单周噪音误判为框架级变化
-3. 严格按 instruction 第六步给出的格式输出完整报告，末尾必须包含结构化字段 `FRAMEWORK_UPDATE_DECISION`（含 `update_needed: yes/no`、`update_level`、`decision_reason`）、`KEY_VARIABLE_CHANGES`（每项含 `research_meaning`——注意字段名是 `research_meaning` 不是期货那套的 `trading_meaning`）、`UPDATE_FOCUS`、`DO_NOT_OVERREACT_ITEMS`
+1. **上期预备观察项复核（先于一切比较）**：读 `PREVIOUS_CHANGE_DECISION`，找出其中带复核条件的遗留项——"预备观察项"、"下周复核"、"若 X 则触发 light/significant 更新"这类被上期显式推迟的判定。逐条判定本周是否已触发，并在报告里新增一节「0. 上期预备观察项复核」逐条给出处置（已触发 / 未触发 / 已失效），**不许静默丢弃**。任一遗留项已触发 → 其本身即构成 `update_needed: yes` 的充分依据（更新级别按该条目当时预设的档位，未预设则从 light 起步），不需要本周环比再额外达到触发门槛——上期说了"等验证后再更新"，验证到了就要兑现，否则"再等等"会退化成"永远不更"
+2. 读取 `projects/investment_change_analysis/INSTRUCTIONS.md`，完整遵循其中的角色、目标、分析原则与六步分析流程；代入上面的输入变量做周环比对比
+3. **框架-现实一致性检查（第二触发轴）**：对照 `CURRENT_FRAMEWORK` 里的 regime 性假设——紧缩体制判定、机制权重表、在册事件窗口清单、主线归属与叙事假设等——判断本周调研结果是否与框架的现状假设直接矛盾或错配已明显累积。**即使周环比变化不大，"框架假设 vs 当前现实"的错配同样构成触发依据**（防温水煮青蛙：变化逐周缓慢累积时，周环比永远显不出跳变，但框架已经过时）。报告里在总结论中明确给出这条轴的判定结果
+4. 只关注会改变研究重点、判断顺序、模块权重、阈值设置的变化；不把措辞差异或单周噪音误判为框架级变化
+5. 严格按 instruction 第六步给出的格式输出完整报告（外加第1步的「0. 上期预备观察项复核」节），末尾必须包含结构化字段 `FRAMEWORK_UPDATE_DECISION`（含 `update_needed: yes/no`、`update_level`、`decision_reason`）、`KEY_VARIABLE_CHANGES`（每项含 `research_meaning`——注意字段名是 `research_meaning` 不是期货那套的 `trading_meaning`）、`UPDATE_FOCUS`、`DO_NOT_OVERREACT_ITEMS`；若本次又产生了新的"等下周验证"型推迟判定，必须写成带明确触发条件的预备观察项（下周第1步会逐条复核它们）
 
 ## 输出
 
