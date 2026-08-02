@@ -30,12 +30,17 @@ description: 股票研究流水线编排器：meta investment analysis → inves
    完整报告见 research/investment-<AS_OF_DATE>-market-research.md 与 research/investment-<AS_OF_DATE>-change-decision.md
    ```
 7. 若 `update_needed: no`：流程到此结束
-8. 若 `update_needed: yes`：读 `framework/investment_framework.md` 作为 `CURRENT_STOCK_RESEARCH_FRAMEWORK`，连同阶段②的完整报告一起调用 `investment-adaption` skill——它会新建分支 `investment-framework/<AS_OF_DATE>`、写新版框架和报告、在该分支上 commit、**自己开 PR**（和期货那条轨道不同：股票没有联动的 data-sync 阶段，PR 创建就留在 `investment-adaption` 内部，不需要编排器再统一收一次）
+8. 若 `update_needed: yes`：
+   a. 读 `framework/investment_framework.md` 作为 `CURRENT_STOCK_RESEARCH_FRAMEWORK`，连同阶段②的完整报告一起调用 `investment-adaption` skill——它会新建分支 `investment-framework/<AS_OF_DATE>`、写新版框架和报告、在该分支上 commit，但**不会**开 PR
+   b. 在同一个分支上调用 `framework-condense` skill（`CANONICAL_PATH=framework/investment_framework.md`，`COMPACT_PATH=framework/investment_framework_compact.md`）——从新版框架全文无状态再生成供人阅读的 compact 衍生文件，过强制自审清单（数值参数无丢失、章节一致、历史标记清零），把「8. 精简版同步」小节追加到报告，在分支上追加一个 commit
+   c. 两个子步骤都提交完之后，编排器自己在该分支上执行一次 `gh pr create`：标题形如 `股票研究框架更新 <AS_OF_DATE>：<更新级别>`；正文用报告"1. 更新结论"+"2. 受影响模块"+"6. 版本变更记录"的摘要，外加 condense 的压缩统计一句话。**这一步绝对不能直接 push 或 merge 到 main**，必须走 PR，等待人工审阅
 9. 输出一行摘要：`AS_OF_DATE` + `update_needed` + （若有）PR 链接，作为本次运行的可见结果
 
 ## 运行环境注意
 
 - 本 skill 可能被云端 scheduled routine（无本地 session）调用：调研阶段一律用内置 `WebSearch`，不要依赖 `gemini-search`、`lark-cli` 等本地专属 MCP/工具
-- 只有 `framework/investment_framework.md` 的改动需要走分支 + PR；阶段①②的研究日志直接 push 到 main（步骤6），不因为"这周没有框架变化"就不提交
+- 只有 `framework/investment_framework.md`（和衍生的 `framework/investment_framework_compact.md`）的改动需要走分支 + PR；阶段①②的研究日志直接 push 到 main（步骤6），不因为"这周没有框架变化"就不提交
+- `gh pr create` 只在编排器最后统一执行一次（步骤8c）——`investment-adaption` 和 `framework-condense` 各自只管在同一分支上提交，不要各自开 PR
+- **compact 是给人读的衍生文件，任何 AI 环节（含本编排器的各阶段）一律读 canonical 完整版**，不要把 compact 接进任何阶段的输入
 - 首次运行（无历史 `research/investment-*-market-research.md` 且 baseline 文件是空占位）不是异常情况，`update_needed` 会自然落在 `no`，流程正常结束于步骤7，不需要特殊报错处理
-- 三个阶段各自可被单独手动调用（例如只想重跑调研，或针对两份已有调研结果重跑变化检测），不必每次都走完整编排；单独调用时不必执行步骤6的自动 push
+- 各阶段可被单独手动调用（例如只想重跑调研，或针对两份已有调研结果重跑变化检测，或单独刷一次 compact），不必每次都走完整编排；单独调用时不必执行步骤6的自动 push
