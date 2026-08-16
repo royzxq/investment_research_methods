@@ -7,7 +7,8 @@ description: 框架精简后处理（两条轨道共享）：把 canonical 这�
 
 ## 定位（先读这一段再动手）
 
-- **compact 不是"canonical 的缩写版"，是一次重构**：canonical 是研究过程记录型文档（论证、演变、当期叙述交织）；compact 是从中提炼的、面向人与未来下游执行方的**规则系统**——拿到一个待判断标的，按它就能走完判断，不需要回看 canonical。
+- **compact 不是"canonical 的缩写版"，是一次重构**：canonical 是研究过程记录型文档（论证、演变、当期叙述交织）；compact 是从中提炼的、**给 AI 投研分析当指导框架用的规则系统**——执行 AI 拿到一个待判断标的，按它就能走完判断，不需要回看 canonical。
+- **内容取舍的唯一判据**：一段内容如果不会在任何情形下改变执行 AI 的判断结果，就没有资格留在 compact 里。阅读舒适性文字、面向人的解释与铺垫、历史过程、与判断无关的市场叙述，一律删除——不是"压缩它们"，是整段不进。
 - **本流水线自身的 AI 环节（change-analysis / adaption）永远只读 canonical，不读 compact**。change-analysis 的反摇摆判断恰恰依赖 canonical 保留的历史脉络；compact 为了可执行性会主动剥离这些，两者服务不同消费者，谁也不能替代谁。
 - canonical 依旧由 adaption 逐次全文重写（本 skill 不改 adaption）；compact 每次从当期 canonical **无状态全量再生成**，不做增量修补。
 
