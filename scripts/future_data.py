@@ -237,7 +237,11 @@ CONV_MIN_PP = 3.0       # ★precheck④「明显收敛」量化门槛: 回看�
 OUTDIR = "./output"
 
 # ---- §0b 事件日历 (v2.9 0.0b / 1.4 事件轴; ★用户维护, 脚本只打印) ----
-# 条目: (起始YYYYMMDD, 结束YYYYMMDD, 标签, 受影响品种tuple 或 "ALL", 处置备注)
+# 条目: (起始YYYYMMDD, 结束YYYYMMDD, 标签, 受影响品种tuple 或 "ALL", 处置备注[, 自动打标])
+#   第6项「自动打标」省略=True: 按 T-3/±1 规则自动打 D12 事件判据与新开限制提示。
+#   置 False 用于**不可排期项的逐周顺延占位窗**(地缘轴): 只在清单里列出来提醒人工盯,
+#   不自动打标 —— 真正的触发日是质变 headline 当日, 不是占位窗里的每一天;
+#   否则 D12 会对能源链/贵金属长期常开, 与 3.5b「临近离散事件T-3」的定义脱钩。
 # ⚠ 日期确定性分三档, 越弱越要在官宣后回来改: (a)已定=8月非农9/4、OPEC+9/6;
 #   (b)「按框架1.4多源口径」=9/15-16 FOMC(框架据多源判定, 未见官方日历原文核对);
 #   (c)「暂估」=WASDE 9/11、中国8月硬数据 9/15-16。新节点随 1.4 表滚动增删;
@@ -252,12 +256,14 @@ EVENTS = [   # 2026-08-30 按框架 v2.18 的 1.4 事件轴刷新(1.4 表本身�
      "本窗是**占位提醒**不是事件日: ±1冻结与双向跳空预案针对真实质变headline当日; "
      "质变三形态: 谈判重启官宣→回签约裁决期(v2.14存档文本复用); 正式立法关闭/再袭船→中断复归侧评估; "
      "持续僵局(现状=名义封锁/经济安排/事实通行三层并存)→①维持未过; "
-     "锚已换版'通行恢复·多源证实'(海湾出口15-16百万桶/日≈战前2/3), 后续跟踪爬坡斜率"),
+     "锚已换版'通行恢复·多源证实'(海湾出口15-16百万桶/日≈战前2/3), 后续跟踪爬坡斜率",
+     False),
     ("20260831", "20260904", "俄乌轴质变监控窗(能源第二地缘轴, 不可排期; 未质变则逐周顺延)",
      ("MA", "SC", "AU", "AG"),
      "同为占位窗: 质变形态=停火信号(侵蚀逻辑回吐评估)/俄成品油出口禁令或配额(供给冲击升级)/"
      "更大规模打击(炼能损失量级跳变); 任一出现日=双向跳空预案日, 并入0.1低敞口判定; "
-     "'俄乌升级=能源新主升'列3.6脆弱叙事(原油端被海湾出口恢复对冲)"),
+     "'俄乌升级=能源新主升'列3.6脆弱叙事(原油端被海湾出口恢复对冲)",
+     False),
     ("20260904", "20260904", "8月非农(利率二次裁决链第一站; 框架1.4已定日期)",
      ("AU", "AG", "IM", "IC", "CU", "AL"),
      "Warsh鹰派落地后第一个硬数据裁决: 强劲→加息概率上行、贵金属回吐深化、有色宏观腿承压加重; "
@@ -672,19 +678,25 @@ def _event_flags():
 
     定义(与 v2.9 对齐):
       进行中 = AS_OF 落在 [起始, 结束] 内;
-      T-3内 = 尚未开始且距起始 ≤ EVENT_T3_BUSDAYS 个工作日(3.5b D12第三判据);
-      ±1窗口 = 距起始或结束 ≤1 工作日(0.1 节点±1新开限制核对提示)。
+      T-3内 = 尚未开始且距起始 ≤ EVENT_T3_BUSDAYS 个交易日(3.5b D12第三判据);
+      ±1窗口 = 距起始或结束 ≤1 交易日(0.1 节点±1新开限制核对提示)。
+
+    ★占位窗(条目第6项=False)只列清单、不打标: 地缘轴质变不可排期, 用占位窗代替真实
+    事件日会让 in_t3/near_pm1 在整个窗口内恒真, D12 对能源链/贵金属长期常开 ——
+    与 3.5b「临近离散事件T-3」的定义脱钩(PR#16 review P1)。
     """
     upcoming, t3_prods = [], set()
-    for st, ed, label, prods, note in EVENTS:
+    for ev in EVENTS:
+        st, ed, label, prods, note = ev[:5]
+        auto = ev[5] if len(ev) > 5 else True
         ongoing = (st <= AS_OF <= ed)
         d_start = _busdays(AS_OF, st)
         d_end = _busdays(AS_OF, ed)
-        in_t3 = ongoing or (AS_OF < st and d_start <= EVENT_T3_BUSDAYS)
-        near_pm1 = ongoing or abs(d_start) <= 1 or abs(d_end) <= 1
+        in_t3 = auto and (ongoing or (AS_OF < st and d_start <= EVENT_T3_BUSDAYS))
+        near_pm1 = auto and (ongoing or abs(d_start) <= 1 or abs(d_end) <= 1)
         if ongoing or (AS_OF < st and d_start <= EVENT_HORIZON_BD):
             upcoming.append((st, ed, label, prods, note,
-                             d_start, ongoing, in_t3, near_pm1))
+                             d_start, ongoing, in_t3, near_pm1, auto))
         if in_t3:
             t3_prods.update(prods if prods != "ALL" else ("ALL",))
     return upcoming, t3_prods
@@ -696,11 +708,15 @@ def print_event_calendar():
     upcoming, t3_prods = _event_flags()
     if not upcoming:
         print("  窗口内无已配置节点 —— 请核对框架 1.4 事件轴是否有新增/暂估项待修正")
-    for st, ed, label, prods, note, d_start, ongoing, in_t3, near_pm1 in upcoming:
+    for st, ed, label, prods, note, d_start, ongoing, in_t3, near_pm1, auto in upcoming:
         span = st if st == ed else f"{st}~{ed}"
-        stat = "进行中" if ongoing else f"T-{max(d_start, 0)}"
+        stat = ("占位窗·滚动" if not auto else
+                "进行中" if ongoing else f"T-{max(d_start, 0)}")
         pl = "全品种" if prods == "ALL" else "/".join(prods)
         marks = []
+        if not auto:
+            marks.append("占位窗**不自动打标**: 真正的D12/±1触发日=质变headline当日, "
+                         "由人工按0.0b第2-3步判定")
         if in_t3:
             marks.append("T-3内→D12事件判据生效(§2)")
         if near_pm1:
@@ -745,12 +761,33 @@ def spread_percentile(label, near, far, kind="A"):
     safe = f"{near}_{far}".replace("/", "")
     cur_df.to_csv(f"{OUTDIR}/spread_{safe}.csv", index=False)
 
-    if kind == "A":
-        tag = ("≥85 主仓触发" if pct_same >= 85 else
-               "≥70 候选触发" if pct_same >= 70 else "未触发")
-    elif kind == "候选A":
-        base = ("≥85 主仓触发" if pct_same >= 85 else
+    # ★两腿20日均成交(≤AS_OF口径)必须先算: 否决#2 是硬否决, 未过的对**不得**打出
+    #   ≥70/≥85 入场标签(PR#16 review P1: J2701-J2705 远腿仅325手却照打"主仓触发")。
+    #   用实测量能而不是手工"挂起"标签, 恢复条件(量能回到1万手以上)也就自动生效。
+    vn = vf = float("nan")
+    try:
+        def _v20(s_):
+            d = daily(s_)
+            d = d[d["trade_date"] <= AS_OF]
+            return float(pd.to_numeric(d["vol"], errors="coerce").tail(20).mean())
+        vn, vf = _v20(near), _v20(far)
+    except Exception:
+        pass
+    thin = [f"{lbl}腿{v:,.0f}手" for lbl, v in (("近", vn), ("远", vf))
+            if not np.isnan(v) and v < 10000]
+    veto2 = bool(thin)
+
+    def _trig():
+        if veto2:
+            return (f"**否决#2 未过({'/'.join(thin)}<1万手)→ 不进执行层、不产生入场信号**; "
+                    f"分位 {pct_same:.1f} 仅作序列留痕, 恢复条件=两腿20日均量均回到1万手以上")
+        return ("≥85 主仓触发" if pct_same >= 85 else
                 "≥70 候选触发" if pct_same >= 70 else "未触发")
+
+    if kind == "A":
+        tag = _trig()
+    elif kind == "候选A":
+        base = _trig()
         tag = (base + " —— 候选块(首期系数0.5): 激活前置全过才进执行层(0.3#13); "
                "①双模定方向; 美伊节点±1不新开")
     elif kind == "候选代理":
@@ -771,21 +808,14 @@ def spread_percentile(label, near, far, kind="A"):
     print(f"\n[{label}] {near} - {far}  (数据截至 {cur['trade_date']})")
     print(f"  当前价差: {cur['spread']:+.1f}  |  价差%: {cur['spread_pct']:+.3f}%")
 
-    # ★v1.5 两腿20日均成交(≤AS_OF口径): 远腿流动性(否决#2)不再是盲区
-    try:
-        def _v20(s):
-            d = daily(s)
-            d = d[d["trade_date"] <= AS_OF]
-            return float(pd.to_numeric(d["vol"], errors="coerce").tail(20).mean())
-        vn, vf = _v20(near), _v20(far)
+    # ★v1.5 两腿20日均成交(≤AS_OF口径): 远腿流动性(否决#2)不再是盲区; 值在上方已算
+    if not (np.isnan(vn) and np.isnan(vf)):
         warn = ""
         if not np.isnan(vf) and vf < 10000:
             warn = "  ⚠ 远腿<1万手(否决#2)"
         elif not np.isnan(vn) and vn < 10000:
             warn = "  ⚠ 近腿<1万手(否决#2)"
         print(f"  两腿20日均成交: 近 {vn:,.0f} / 远 {vf:,.0f}{warn}")
-    except Exception:
-        pass
 
     print(f"  近{YEARS}年同期分位(±{WIN}交易日): {pct_same:.1f}  → {tag}")
 
@@ -796,7 +826,12 @@ def spread_percentile(label, near, far, kind="A"):
     if kind in ("A", "候选A", "存档"):
         lv = np.percentile(hist["spread"], [10, 30, 50])
         lp = np.percentile(hist_pct, [10, 30, 50])
-        print(f"  同期池分位对应价差水平(SL/TP锚): 10分位={lv[0]:+.1f} / "
+        # 本行对 A/候选A 是入场锚, 对"存档"是**出场**参考(CU卡「达TP分位了结」)——
+        # 所以 #2 未过时只改称呼、不删数据: 删了会把存量了结的价位参考一并抹掉。
+        anchor_lbl = ("同期池分位对应价差水平(#2未过→仅序列留痕, 不作入场锚)"
+                      if veto2 and kind in ("A", "候选A")
+                      else "同期池分位对应价差水平(SL/TP锚)")
+        print(f"  {anchor_lbl}: 10分位={lv[0]:+.1f} / "
               f"30分位={lv[1]:+.1f} / 50分位={lv[2]:+.1f}"
               f"  (%口径: {lp[0]:+.3f}/{lp[1]:+.3f}/{lp[2]:+.3f})")
 
