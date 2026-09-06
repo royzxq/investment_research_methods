@@ -21,6 +21,8 @@ import sys
 RISK_RATE = Decimal("0.035")
 LOW_EXPOSURE_CASH_CAP = Decimal("5000")
 MIN_A_REWARD_RISK = Decimal("2.5")
+A_PRICE_UNIT = "CNY/tonne"
+A_PRODUCTS = frozenset(("MA", "RB", "SR"))
 
 # Each independent risk group appears once. The caller must resolve multiple
 # applicable rules within a group to the strictest value before sizing.
@@ -110,11 +112,19 @@ def _amount(number, result):
 
 
 def validate_a_plan(plan):
-    """Validate explicit S=near-far, same-product 1:1 A plans.
+    """Validate explicit S=near-far, same-product 1:1 MA/RB/SR A plans.
 
     Required: near_contract, far_contract, leg_ratio=[1,1], mode, side,
     percentile, entry, stop, tp1, tp2, invalidation_basis, multiplier,
-    tick_value, round_trip_fees. Optional round_trip_slippage is an amount:
+    tick_value, round_trip_fees, price_unit="CNY/tonne". All four spread
+    prices must be absolute yuan-per-tonne values, never spread percentages.
+    No unit inference or conversion is performed. Missing or incompatible
+    units leave all monetary calculations and reward/risk unset. Only the
+    framework's MA/RB/SR A products are supported; other contract quote units
+    require a separately verified model. Multiplier is tonnes per contract;
+    tick_value is CNY per tick per leg, while round-trip costs are CNY per
+    paired spread unit.
+    Optional round_trip_slippage is an amount:
     use the greater of the supplied amount and the 4*tick_value default.
     Continuation also requires an explicit
     continuation_permitted=True. Negative spread prices are valid.
@@ -136,9 +146,19 @@ def validate_a_plan(plan):
                 result["issues"].append(f"invalid_contract:{field}")
             else:
                 contracts.append((match[1].upper(), int(match[2] + match[3])))
-    if len(contracts) == 2 and (contracts[0][0] != contracts[1][0] or
-                                contracts[0][1] >= contracts[1][1]):
+    contracts_ordered = (len(contracts) == 2 and
+                         contracts[0][0] == contracts[1][0] and
+                         contracts[0][1] < contracts[1][1])
+    if len(contracts) == 2 and not contracts_ordered:
         result["issues"].append("require_same_product_and_near_before_far")
+    if any(product not in A_PRODUCTS for product, _ in contracts):
+        result["issues"].append("unsupported_a_product")
+    contracts_supported = (contracts_ordered and
+                           all(product in A_PRODUCTS for product, _ in contracts))
+    price_unit = _required(plan, "price_unit", result)
+    price_unit_valid = isinstance(price_unit, str) and price_unit == A_PRICE_UNIT
+    if price_unit is not None and not price_unit_valid:
+        result["issues"].append("invalid_price_unit")
     ratio = _required(plan, "leg_ratio", result)
     if ratio is not None and (not isinstance(ratio, list) or len(ratio) != 2 or
                               any(type(v) is not int or v != 1 for v in ratio)):
@@ -178,7 +198,8 @@ def validate_a_plan(plan):
         ordered = stop < entry < tp1 <= tp2 if side == "long" else stop > entry > tp1 >= tp2
         if not ordered:
             result["issues"].append("invalid_stop_entry_target_order")
-        elif all(value is not None for value in (multiplier, tick, fees)):
+        elif (price_unit_valid and contracts_supported and
+              all(value is not None for value in (multiplier, tick, fees))):
             direction = Decimal(1 if side == "long" else -1)
             cost = max(4 * tick, slippage) + fees if slippage is not None else 4 * tick + fees
             risk = direction * (entry - stop) * multiplier + cost

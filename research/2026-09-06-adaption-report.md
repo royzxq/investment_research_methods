@@ -1233,10 +1233,11 @@ final_lots = min(risk_lots, margin_capacity_lots, position_limit_capacity_lots)
 
 ## 8. 数据脚本同步
 
-- 结论：`scripts/future_data.py` v1.8 → v1.9，新增 `scripts/futures_risk.py` 和32项离线回归测试。
+- 结论：`scripts/future_data.py` v1.8 → v1.9，新增 `scripts/futures_risk.py` 和37项离线回归测试。
 - 取数脚本：保持4组价差/8个指标合约的池范围；A输出研究分位和历史价差参考，删除距50分位风险、手数及“主仓触发”；2ATR只作情景预检；不足20日完整成交量、缺失合约/交易日历等信息不能默认为过门；空登记明确提示账户未核验。
 - 风险工具：纯标准库，提供 `validate-a` 与 `size` JSON CLI；支持A成本与净R校验、规范风险组、持仓/挂单/加仓占用、带时区且同一北京时间日期的账户快照、预算单次取整、保证金/限仓容量。组合上限使用 `min(净值×3.5%, 5000元)`；输出 `portfolio_risk_cap_normal/current` 分开常规与当前上限，旧 `portfolio_risk_cap` 改为当前上限别名，移除 `portfolio_regime_factor`，新增 `low_exposure_cash_cap`，这是尚未发布接口的明确语义修正。输出始终含 `execution_permission=not_evaluated`；`capacity_lots`不代替完整许可。未知值保留null，已知否决照列。
-- 已运行：`python3 -m unittest discover -s tests -v`，32项通过；两个脚本 `py_compile`、`git diff --check`通过；4个修改的SKILL元数据校验通过；本次诊断YAML解析与8条唯一记录/账户unknown/最终数量null等不变量通过。
+- 已运行：`python3 -m unittest discover -s tests -v`，37项通过；两个脚本 `py_compile`、`git diff --check`通过；4个修改的SKILL元数据校验通过；本次诊断YAML解析与8条唯一记录/账户unknown/最终数量null等不变量通过。
+- PR #19单位校验修复：复现[审查意见](https://github.com/royzxq/investment_research_methods/pull/19#discussion_r3944265430)所指的缺单位20/21/0计划误报valid。A helper现强制 `price_unit="CNY/tonne"`，缺失记incomplete，不兼容单位/类型或非MA/RB/SR产品记blocked；单位与产品校验通过前，风险金额、成本、目标净收益和R均不计算。合法的小数或负价差仍可校验，不按数字大小猜单位。这是落实canonical已有的价格单位与适用品种约束，5,000元组合预算和框架正文不变。
 - 独立行为复核：原D12别名重复折减问题已复现并修复；规范D12=0.5、策略0.85、一组风险1,500元、常规空账户完整输入时容量1组；两种D12别名不再被静默相乘。独立T−1系数仍允许按规则叠加。
 - 验证边界：**本次未线上实测**。离线测试覆盖纯计算及模拟的缺失行情分支，不验证Tushare服务当前权限、真实字段完整性、实时行情或用户账户。脚本保留原有线上验证范围的历史说明，未将旧验证记为新版本实测。
 

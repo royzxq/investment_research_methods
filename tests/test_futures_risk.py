@@ -20,7 +20,7 @@ def a_plan():
     return dict(near_contract="MA2610", far_contract="MA2701", leg_ratio=[1, 1],
                 mode="reversion", side="short", percentile=100, entry=313,
                 stop=350, tp1=100, tp2=-33, invalidation_basis="供给冲击证据强化且价差突破350",
-                multiplier=10, tick_value=10, round_trip_fees=10)
+                price_unit="CNY/tonne", multiplier=10, tick_value=10, round_trip_fees=10)
 
 
 def sizing():
@@ -34,14 +34,100 @@ def sizing():
 
 
 class APlanTests(unittest.TestCase):
+    def assert_no_plan_amounts(self, result):
+        for field in ("risk_unit", "cost_unit", "net_reward_tp1", "reward_risk"):
+            self.assertIsNone(result[field], field)
+
     def test_short_plan_uses_real_stop_and_net_tp1(self):
         result = validate_a_plan(a_plan())
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["risk_unit"], 420)
+        self.assertEqual(result["cost_unit"], 50)
         self.assertEqual(result["net_reward_tp1"], 2080)
         self.assertAlmostEqual(result["reward_risk"], 2080 / 420)
         self.assertIsNone(result["final_lots"])
         self.assertEqual(result["execution_permission"], "not_evaluated")
+
+    def test_missing_or_null_price_unit_cannot_produce_money_from_unitless_prices(self):
+        for absent in (True, False):
+            with self.subTest(absent=absent):
+                plan = a_plan()
+                # This unitless example previously passed with R exactly 2.5.
+                plan.update(entry=20, stop=21, tp1=0, tp2=-1)
+                if absent:
+                    del plan["price_unit"]
+                else:
+                    plan["price_unit"] = None
+                result = validate_a_plan(plan)
+                self.assertEqual(result["status"], "incomplete")
+                self.assertIn("price_unit", result["missing_fields"])
+                self.assert_no_plan_amounts(result)
+
+    def test_wrong_price_units_and_types_are_rejected_without_conversion(self):
+        for unit in ("spread_pct", "%", "USD/tonne", "CNY/barrel", "",
+                     "CNY/t", "元/吨", "cny/tonne", " CNY/tonne ",
+                     17, True, {}, ["CNY/tonne"]):
+            with self.subTest(unit=unit):
+                plan = a_plan()
+                plan["price_unit"] = unit
+                result = validate_a_plan(plan)
+                self.assertEqual(result["status"], "blocked")
+                self.assertIn("invalid_price_unit", result["issues"])
+                self.assert_no_plan_amounts(result)
+
+    def test_canonical_products_keep_negative_price_spreads_in_cny_per_tonne(self):
+        for near, far in (("MA2610", "MA2701"), ("RB2610", "RB2701"),
+                          ("SR2701", "SR2705")):
+            with self.subTest(near=near, far=far):
+                plan = a_plan()
+                plan.update(near_contract=near, far_contract=far, entry=-100,
+                            stop=-80, tp1=-250, tp2=-300)
+                result = validate_a_plan(plan)
+                self.assertEqual(result["status"], "valid")
+                self.assertEqual(result["risk_unit"], 250)
+                self.assertEqual(result["cost_unit"], 50)
+                self.assertEqual(result["net_reward_tp1"], 1450)
+                self.assertAlmostEqual(result["reward_risk"], 5.8)
+
+    def test_tonne_unit_does_not_authorize_non_a_products(self):
+        for near, far in (("SC2610", "SC2611"), ("ZZ2610", "ZZ2611"),
+                          ("M2701", "M2705"), ("AU2610", "AU2612"),
+                          ("CF2701", "CF2705")):
+            with self.subTest(near=near, far=far):
+                plan = a_plan()
+                plan.update(near_contract=near, far_contract=far)
+                result = validate_a_plan(plan)
+                self.assertEqual(result["status"], "blocked")
+                self.assertIn("unsupported_a_product", result["issues"])
+                self.assert_no_plan_amounts(result)
+
+    def test_validate_a_cli_enforces_price_unit_and_product_contract(self):
+        command = [sys.executable, str(ROOT / "scripts/futures_risk.py"),
+                   "validate-a", "--input", "-"]
+        for change, expected_status, expected_reason in (
+                ({}, "incomplete", "price_unit"),
+                ({"price_unit": None}, "incomplete", "price_unit"),
+                ({"price_unit": "spread_pct"}, "blocked", "invalid_price_unit"),
+                ({"price_unit": "USD/tonne"}, "blocked", "invalid_price_unit"),
+                ({"price_unit": "CNY/tonne", "near_contract": "SC2610",
+                  "far_contract": "SC2611"}, "blocked", "unsupported_a_product")):
+            with self.subTest(change=change):
+                plan = a_plan()
+                del plan["price_unit"]
+                plan.update(change)
+                process = subprocess.run(command, input=json.dumps(plan), text=True,
+                                         capture_output=True)
+                self.assertEqual(process.returncode, 2, process.stderr)
+                result = json.loads(process.stdout)
+                self.assertEqual(result["status"], expected_status)
+                field = "missing_fields" if expected_status == "incomplete" else "issues"
+                self.assertIn(expected_reason, result[field])
+                self.assert_no_plan_amounts(result)
+        process = subprocess.run(command, input=json.dumps(a_plan()), text=True,
+                                 capture_output=True, check=True)
+        result = json.loads(process.stdout)
+        self.assertEqual(result["status"], "valid")
+        self.assertEqual(result["risk_unit"], 420)
 
     def test_old_median_stop_is_invalid(self):
         plan = a_plan()
