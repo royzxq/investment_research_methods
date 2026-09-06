@@ -109,20 +109,82 @@ class SizingTests(unittest.TestCase):
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["trade_risk_cap"], 5250)
         self.assertEqual(result["portfolio_risk_cap"], 5250)
+        self.assertEqual(result["portfolio_risk_cap_normal"], 5250)
+        self.assertEqual(result["portfolio_risk_cap_current"], 5250)
         self.assertEqual(result["trade_effective_risk"], 4462.5)
         self.assertEqual(result["risk_lots"], 1)
         self.assertEqual(result["final_lots"], 1)
         self.assertEqual(result["scope"], "risk_sizing_only")
 
-    def test_low_exposure_only_reduces_portfolio_cap(self):
+    def test_low_exposure_uses_fixed_cash_cap_only_on_portfolio(self):
         request = sizing()
         request.update(regime="low_exposure", risk_unit=1000)
         result = size_position(request)
         self.assertEqual(result["trade_effective_risk"], 4462.5)
-        self.assertEqual(result["remaining_portfolio_risk"], 2625)
-        self.assertEqual(result["risk_lots"], 2)
+        self.assertEqual(result["portfolio_risk_cap_normal"], 5250)
+        self.assertEqual(result["portfolio_risk_cap_current"], 5000)
+        self.assertEqual(result["portfolio_risk_cap"], 5000)
+        self.assertEqual(result["remaining_portfolio_risk"], 5000)
+        self.assertEqual(result["low_exposure_cash_cap"], 5000)
+        self.assertNotIn("portfolio_regime_factor", result)
+        self.assertEqual(result["risk_lots"], 4)
         request["risk_unit"] = 3500
-        self.assertEqual(size_position(request)["final_lots"], 0)
+        self.assertEqual(size_position(request)["final_lots"], 1)
+
+    def test_fixed_low_exposure_cap_is_not_an_equity_scaled_ratio(self):
+        for equity, normal_cap, current_cap, quantity in (
+                (150000, 5250, 5000, 5), (200000, 7000, 5000, 5),
+                (100000, 3500, 3500, 3)):
+            with self.subTest(equity=equity):
+                request = sizing()
+                request.update(equity=equity, regime="low_exposure", risk_unit=1000,
+                               factors={"strategy": 1})
+                result = size_position(request)
+                self.assertEqual(result["trade_risk_cap"], normal_cap)
+                self.assertEqual(result["portfolio_risk_cap_normal"], normal_cap)
+                self.assertEqual(result["portfolio_risk_cap_current"], current_cap)
+                self.assertEqual(result["risk_lots"], quantity)
+                request["regime"] = "normal"
+                self.assertEqual(size_position(request)["portfolio_risk_cap_current"], normal_cap)
+
+    def test_low_exposure_subtracts_positions_orders_and_trade_usage_once(self):
+        request = sizing()
+        request.update(regime="low_exposure", risk_unit=1000,
+                       open_position_risks=[1000, 500], reserved_order_risks=[500],
+                       existing_trade_risk=1000)
+        result = size_position(request)
+        self.assertEqual(result["portfolio_risk_cap_current"], 5000)
+        self.assertEqual(result["used_total_risk"], 2000)
+        self.assertEqual(result["remaining_portfolio_risk"], 3000)
+        self.assertEqual(result["remaining_trade_risk"], 3462.5)
+        self.assertEqual(result["risk_lots"], 3)
+
+    def test_low_exposure_exact_budget_boundary_and_overuse(self):
+        request = sizing()
+        request.update(regime="low_exposure", risk_unit=5000, factors={"strategy": 1})
+        self.assertEqual(size_position(request)["final_lots"], 1)
+        request["reserved_order_risks"] = ["0.01"]
+        result = size_position(request)
+        self.assertEqual(result["remaining_portfolio_risk"], 4999.99)
+        self.assertEqual(result["final_lots"], 0)
+        request.update(risk_unit="0.01", reserved_order_risks=["4999.99"])
+        result = size_position(request)
+        self.assertEqual(result["remaining_portfolio_risk"], .01)
+        self.assertEqual(result["final_lots"], 1)
+        request["reserved_order_risks"] = ["5000.01"]
+        result = size_position(request)
+        self.assertEqual(result["remaining_portfolio_risk"], 0)
+        self.assertEqual(result["final_lots"], 0)
+
+    def test_low_exposure_still_requires_account_and_capacity_facts(self):
+        for missing in ("reserved_order_risks", "position_snapshot_verified", "margin_capacity_lots"):
+            with self.subTest(missing=missing):
+                request = sizing()
+                request["regime"] = "low_exposure"
+                del request[missing]
+                result = size_position(request)
+                self.assertEqual(result["status"], "incomplete")
+                self.assertIsNone(result["final_lots"])
 
     def test_positions_and_unfilled_orders_both_use_budget(self):
         request = sizing()

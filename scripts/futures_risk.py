@@ -19,6 +19,7 @@ import re
 import sys
 
 RISK_RATE = Decimal("0.035")
+LOW_EXPOSURE_CASH_CAP = Decimal("5000")
 MIN_A_REWARD_RISK = Decimal("2.5")
 
 # Each independent risk group appears once. The caller must resolve multiple
@@ -203,7 +204,14 @@ def size_position(request):
     in the account lists; explicit zero for a new trade),
     factors (only FACTOR_GROUPS keys, including strategy), factors_complete=True,
     margin_capacity_lots, position_limit_capacity_lots, hard_vetoes.
-    A low-exposure factor is applied only to the portfolio cap, never per trade.
+    Normal portfolio and single-trade caps remain equity * 0.035. Low exposure
+    sets the current portfolio cap to min(normal cap, 5000 account-currency
+    units), once; it is a fixed cash cap, never a per-trade multiplier.
+    Read portfolio_risk_cap_normal and portfolio_risk_cap_current explicitly.
+    portfolio_risk_cap now aliases the CURRENT cap (previously the normal cap;
+    this is a schema correction, not a backward-compatibility guarantee).
+    portfolio_regime_factor has been removed; low_exposure_cash_cap records
+    the fixed configured ceiling, including when the normal regime is active.
     ``final_lots`` is a capacity calculation, not full-rule trade permission.
     Each intact structure is one combined risk amount; count uncovered partial
     fills as directional risk. Do not count the same fill in both lists and do
@@ -301,17 +309,20 @@ def size_position(request):
     non_veto_issues = [issue for issue in result["issues"] if not issue.startswith("hard_veto:")]
     if not non_veto_issues and not risk_missing:
         trade_cap = equity * RISK_RATE
-        portfolio_cap = equity * RISK_RATE
-        regime_factor = Decimal("0.5") if regime == "low_exposure" else Decimal(1)
+        portfolio_cap_normal = equity * RISK_RATE
+        portfolio_cap_current = (min(portfolio_cap_normal, LOW_EXPOSURE_CASH_CAP)
+                                 if regime == "low_exposure" else portfolio_cap_normal)
         effective = trade_cap * factor_product
         used = used_amounts["open_position_risks"] + used_amounts["reserved_order_risks"]
-        remaining = max(Decimal(0), portfolio_cap * regime_factor - used)
+        remaining = max(Decimal(0), portfolio_cap_current - used)
         trade_remaining = max(Decimal(0), effective - existing)
         available = min(trade_remaining, remaining)
         quantity = int((available / risk).to_integral_value(rounding=ROUND_FLOOR))
         result.update(trade_risk_cap=_amount(trade_cap, result),
-                      portfolio_risk_cap=_amount(portfolio_cap, result),
-                      portfolio_regime_factor=float(regime_factor),
+                      portfolio_risk_cap_normal=_amount(portfolio_cap_normal, result),
+                      portfolio_risk_cap_current=_amount(portfolio_cap_current, result),
+                      portfolio_risk_cap=_amount(portfolio_cap_current, result),
+                      low_exposure_cash_cap=_amount(LOW_EXPOSURE_CASH_CAP, result),
                       used_open_risk=_amount(used_amounts["open_position_risks"], result),
                       reserved_order_risk=_amount(used_amounts["reserved_order_risks"], result),
                       used_total_risk=_amount(used, result),

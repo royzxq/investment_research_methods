@@ -13,7 +13,7 @@
 - `research/` — `baseline-market-research.md`（day-0 基线）+ 按日期命名的 `<date>-market-research.md` / `<date>-change-decision.md`（始终直接 push 到 main）/ `<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
 - `.claude/skills/` — `meta-future-analysis` / `future-change-analysis` / `future-adaption` / `future-data-sync`（四个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `futures-weekly-review`（编排器，统一开 PR）
 
-期货离线回归验证：`python3 -m unittest discover -s tests -v`。A计划校验器仅支持同品种1:1月差；纯风险计算不访问行情或账户，输出不能当作已成交或账户实仓证明。取数脚本的2ATR数量是预检参考，旧版“距50分位风险”和“主仓触发”标签自v2.21起停用。
+期货离线回归验证：`python3 -m unittest discover -s tests -v`。A计划校验器仅支持同品种1:1月差；纯风险计算不访问行情或账户，输出不能当作已成交或账户实仓证明。取数脚本的2ATR数量是预检参考，旧版“距50分位风险”和“主仓触发”标签自v2.21起停用。 低敞口组合上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险；输出以 `portfolio_risk_cap_normal/current` 区分常规和当前生效上限，不使用低敞口比例乘数。
 
 ## 股票轨道：meta investment analysis → investment change analysis → investment adaption
 

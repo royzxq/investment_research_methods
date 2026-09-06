@@ -17,7 +17,7 @@
 
 旧版“MA到50分位风险3,500元、可做1组”失效，RB/SR同口径风险与手数也失效。50分位只是参考，不能充当通用止损。A的 `reversion` 与 `continuation` 必须分别审查；高分位做空回归的协议定义不代表本期触发或解禁，continuation没有显式许可也不能开仓。
 
-风险容量只引用 canonical Step5及 `scripts/futures_risk.py`。当前配置为单笔上限5,250元、常规全账户上限5,250元、低敞口全账户上限2,625元；低敞口只对账户上限作用一次，结构也受该上限。实际净值、存量风险、挂单预留、保证金未核验，故没有对这些候选运行真实最终容量计算。金额预算先应用适用系数、最终一次取整，不能沿用旧输出整数手数再逐层折半。
+风险容量只引用 canonical Step5及 `scripts/futures_risk.py`。当前配置为单笔上限5,250元、常规全账户上限5,250元、低敞口全账户上限5,000元（按用户裁决固定金额封顶且不高于常规净值3.5%预算）；低敞口只对账户上限作用一次，结构也受该上限。实际净值、存量风险、挂单预留、保证金未核验，故没有对这些候选运行真实最终容量计算。金额预算先应用适用系数、最终一次取整，不能沿用旧输出整数手数再逐层折半。
 
 现有材料没有完整历史候选账/成交账，不能证明连续八周空仓、计算规则省下或错失的收益，也不能把这里的记录数当独立机会数。后续优先补MA完整裁决、账户/挂单快照和农产品独立证据；负责人和截止日尚未指定，下面据实留空。
 
@@ -70,7 +70,8 @@ snapshot:
   configured_risk_limits:
     single_trade_cap: 5250
     portfolio_cap_normal: 5250
-    portfolio_cap_current: 2625
+    portfolio_cap_current: 5000
+    low_exposure_cash_cap: 5000
     source: "framework/futures_framework.md 0)与Step5；只是当前配置，实际净值/占用待核"
 coverage:
   completeness: "partial"
