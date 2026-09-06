@@ -1,253 +1,31 @@
 # -*- coding: utf-8 -*-
 """
-v2.20 框架数据脚本 — Tushare Pro 版 (v1.8)
+v2.21 框架数据脚本 — Tushare Pro 版 (v1.9)
 ====================================================================
-定位: 只负责取数与计算, 按框架 v2.9 的 1.1 输入接口填坑; 不复述框架机制档位,
-     框架每周滚动档位/参数时本脚本零改动。输出段与 v2.9 引用锚点对应:
-  §0  合约新鲜度自检      → v2.9 否决#1(距到期<20) 前置预警, 防陈旧合约码
-  §0b 事件日历核对辅助    → v2.9 0.0b(硬前置)第1/3步提示 + 3.5b「事件T-3」判据源;
-                           节点由用户在配置区维护, 脚本只打印(准确性=用户责任)
-  §1  价差同期分位        → v2.9 输入B: 策略A触发(≥70/≥85) / 黑色月差(RB候选启用) /
-                           候选块(SC近端·PS·LH, 补全门+首期0.5) / CU存档 /
-                           H-roll参考 / 国债期货价差代理(仅观察)
-  §2  单合约指标          → v2.9 输入A: D12提示(全品种·双向·含事件T-3判据) /
-                           ATR分层(3.5b错位分层) / 池内ATR250分位极差(0.1错位子维) /
-                           D11位置(H250,dist) / Entry参考 / 否决#1#2
-  §2c ATR重校准核验       → v2.9 0.3#25 / Step5: 方向性单边隔夜硬前置(空仓=无项)
-  §3/§4 股指年化贴水 / 国债30Y-10Y利差 → ★v1.8 已删除: IM/IC、TL/T 退出执行池(框架 v2.20 周度扫描),
-                           复活时从 git v1.7 取回代码与配置(输入C/④/D15 与曲线补全门随之停用)
+只负责取数、研究候选和情景预检，不输出完整交易许可。
+  §0/§0b: 合约期限、事件日历核对；缺数据不能视为过门。
+  §1: S=近腿-远腿，同品种1:1。同期分位≥70/≥85仅为研究候选强度，
+      不推导方向、SL、TP或可开手数；10/30/50分位仅参考。
+      真实A计划须用 futures_risk.py validate-a 离线验证，再完成全量规则。
+  §2: 单合约ATR、趋势与位置。2ATR金额及预算先折减后一次取整的数量
+      仅是该止损情景的预检上界，不是最终手数，不独立裁决#31。
+      实际策略止损、实际费用、账户已占用/挂单风险、保证金和限仓须另核。
+  §2c: 只核已登记方向性持仓；POSITIONS为空不证明账户空仓。
 
-v1.4 → v1.5 变更 (对应框架 v2.8→v2.9; 框架 YAML 所称「当前v1.2 / v1.3 backlog」
-                  实为「当前v1.4 → 本次v1.5」, 框架文档版本簿记待同步修正):
-  ★候选块接入(v2.9 CONTRACTS 三新品种, 月份按 2026-07-12 主力/次主力核定):
-     SC近端月差 = SC2609-SC2610 (INE, 主力-次月; ①近端结构联动; 每月滚动, 见维护注)
-     PS 月差代理 = PS2609-PS2611 (GFEX, 主力-活跃远月; 期现升水结构的月差【代理】,
-        期现基差/SMM现货维持人工 —— 用户裁决: 现货腿不走脚本)
-     LH 月差代理 = LH2609-LH2701 (DCE, 主力-次主力; 远月升水回归腿的月差【代理】,
-        期现升水/出栏节奏维持人工)
-     EXCH 新增 INE 交易所与 SC/PS/LH 映射; INDICATOR_CONTRACTS 增 SC2609/PS2609/
-     LH2609(供 0.2 可交易性与激活前置核对; 补全门未过不建仓)。
-  ★价差 kind 分型扩展「候选A」「候选代理」「存档」:
-     候选A(SC近端) = 照打 ≥70/≥85 触发标签 + 候选块注记(首期系数0.5, 0.3#13);
-     候选代理(PS/LH) = 不打 A 触发标签, 加印远月升水%与升水同期分位(轴反转重算),
-        注明「触发以期现升水分位(人工)为准」—— 防代理分位被误读为开闸信号;
-     存档(CU两对) = v2.9 CU back 轮出: 仅作存量了结参考(达TP分位/⑤口径事件/
-        换月前15日先到为准), 不打触发标签, 不新开不加仓。
-  ★RB月差启用: RB2610-RB2701 入黑色月差池候选(v2.9), 本序列即其数据补全项。
-  ★同期对照样本充足性警告: 对照不足 YEARS 年 → 显式⚠「实为近N年分位」并按
-     0.3#13 审慎(PS 上市于 2024-12-26, 当前仅 1/3 年, 触发本警告属预期而非故障)。
-  ★§1 加印两腿20日均成交(≤AS_OF口径): 远腿流动性(否决#2线)不再是盲区
-     (v1.4 遗留: MA2701 等远腿成交量需人工另核, 本版闭环)。
-  ★§1 对 A/候选A/存档 加印同期池 10/30/50 分位对应价差水平(绝对值+%两口径):
-     补齐 Step5-A 的 SL(50分位)/TP1(30)/TP2(10) 锚 与 CU 存档「达TP分位了结」的
-     水平参考 —— 即上轮 MA 交易解锁条件(2)「无50分位价位→无SL→R无法验证」的
-     脚本侧闭环; 并就地注记 v2.9 Step5-A 的 SL/TP 方向自洽性缺陷待框架侧修复。
-  ★新增 §0b 事件日历核对辅助: EVENTS 配置(用户维护) → 未来10交易日节点清单 +
-     T-3 / ±1 标记; §2a「D12提示」列并入「事件T-3」判据(v2.9 3.5b 第三触发条),
-     并按事件受影响品种逐合约打标; 低波层+事件T-3 → 按常规层处理(防低波陷阱)。
-  ★§2 新增「ATR分层」列(高波>80 / 常规40-80 / 低波<40, 3.5b 错位分层), 与
-     池内 ATR250 分位极差判定(>50=错位, 0.1 错位子维; 空仓期以监控池代理口径,
-     并另给剔除挂起腿 TL/T 的口径)。
-  ★新增 §2c ATR重校准核验(0.3#25 / Step5 硬规则): POSITIONS 配置逐仓登记方向性
-     单边 → ATR20_now/ATR20_entry 比值(>1.3) 与 ATR250 分位跨层(升入>80) 自动
-     核验; 核验失败一律按未过处理(不得隔夜)。当前空仓(2026-07-12确认), 默认为空。
-  ★§4 双改: (a) 措辞对齐 v2.9 曲线挂起态 —— 补全门=重启前置之一, 数据齐≠可执行,
-     复权还需「上层结构池复评重新纳入」; (b) yc_cb 权限不足 → 自动降级 akshare
-     bond_zh_us_rate(东财数据中心源; 已经 akshare v1.18.64 源码核验含
-     「中国国债收益率30年/10年」列), 强制按 CURVE_YEARS 回溯取数并计算近3年分位
-     (修正外部补丁「当年起算无法出3年分位 + 未算分位」两处缺陷)。
-  ★D12 口径注释全面更新: v2.9 扩展为全品种方向性单边·多空对称, 股指/国债的
-     D12 列由「仅供参考」转为实际生效(结构表达仍豁免); 全文锚点 v2.8→v2.9,
-     precheck 编号按 v2.9 1.7(①美伊×SC结构 ②数据窗+政治局 ③产能性判决
-     ④贴水 ⑤归档), D13=归档态。
+v1.9 对应框架v2.21：方向/止损/目标闭合校验与统一账户风险预算由
+scripts/futures_risk.py提供纯离线函数及JSON CLI。常规单笔/全账户风险上限
+均为净值3.5%；低敞口按Step5固定金额封顶，且不高于常规组合预算，不再减半。
+取数脚本不假定账户风险为零。
+此次修改只完成离线验证，未以v1.9联网重跑；已有output与1.txt是历史快照。
+离线范围覆盖A计划校验、预算/容量计算与模拟数据输出；线上API字段与权限
+仍沿用已配置Tushare Pro，本版未重新确认网络可用性或数据权限。
 
-v1.5 → v1.6 变更 (对应框架 v2.10→v2.11; 注: v2.10 框架更新(2026-07-15)无脚本侧
-                  结构性数据需求, 脚本版本未随动, 属预期而非遗漏):
-  ★LC候选块接入(v2.11 CONTRACTS 新增·广期所碳酸锂, 供需拐点单链条·不借道G池):
-     LC月差 = LC2609-LC2611 (GFEX, 主力-次主力按 2026-07 活跃月估定,
-        【激活前必核】实际主力/次主力与 fut_basic 代码样式);
-     kind="候选A"(照打 ≥70/≥85 触发标签 + 补全门注记) —— 框架 v2.11 LC卡触发
-        ="期现/月差结构分位沿A式", 月差分位为合法触发输入之一; 但激活仍需
-        库存/检修人工双验证(周度社会库存与去化幅度、检修产能追踪=人工项,
-        SMM等口径), 补全门未过不建仓, 首期系数0.5;
-     EXCH 增 LC→GFEX; INDICATOR_CONTRACTS 增 LC2609(0.2可交易性+激活前置核对;
-        限仓/保证金核联动广期所 SI/PS: ×0.8+限仓过滤)。
-  ★§0b EVENTS 日历随 v2.11 1.4 换版: 新增 7/20-7/22 长鑫缴款·权益资金面验证窗
-     (②'; IM/IC 多头新开冻结 0.3#28)、8/9 LC检修窗口复核点; FOMC 备注改
-     D13复活口径(常态×0.5恢复+T-1对冲); 政治局改 7/30 已明确日期; 过期节点
-     (7/13-17数据窗、7/17美伊节点)保留在表中仅作留痕, 未来10日清单自然不显示。
-  ★锚点簿记: 框架 v2.11 的 precheck 编号已改(①尾部监控门/②'资金面企稳门/
-     ②''FOMC·政治局双锚/③/④), D13=复活态; 本脚本注释中未逐处重写的 v2.9 编号
-     锚点, 其机制(输入A/B/C、D12判据、0.3#25、④量化门槛)在 v2.11 中未变,
-     引用继续有效; 资金面三指标(两融/成交额/跌停家数)为 v2.11 新增**人工输入项**
-     (框架 1.1 明示), 按适用边界不脚本化。
-
-v1.6 → v1.7 变更 (对应框架 v2.17→v2.18「合约滚动换代」; 主体是配置区合约腿全表换代
-                  + 维护规程重写, 另含换月过程中暴露的两处口径 BUG 修正):
-  ★全表换月: 2609/2610 系近腿已全线触及否决#1(距最后交易日<20交易日), 按 2026-08-28
-     收盘实测(fut_mapping 主力 + fut_basic 到期日 + 近20交易日均量/持仓)整表回填:
-       SPREAD_PAIRS  MA2609-2701→MA2610-2701 | CU2609-2611/2701→CU2610-2611/2701 |
-                     SR2609-2701→SR2701-2705 | AL2609-2611→AL2610-2611 |
-                     JM2609-2701→JM2701-2705 | J2609-2701→J2701-2705 |
-                     RB2610-2701 维持 | IM/IC-roll 2609-2612→2612-2703 |
-                     黑色J-RB J2609-RB2610→J2701-RB2701(同月对齐) |
-                     国债TL-T 2609→TL2612-T2612 | SC近端 2609-2610→SC2610-2611 |
-                     PS 2609-2611→PS2611-2612 | LH 2609-2701→LH2611-2701 |
-                     LC 2609-2611→LC2611-2701
-       INDICATOR_CONTRACTS 全表同步; BASIS_CONTRACTS IM/IC2609→IM/IC2612(§3口径变更, 见下);
-       CURVE_FUT_LEGS TL2609/T2609→TL2612/T2612
-  ★§3 口径变更(唯一一处非机械换月的改动): 股指年化贴水的计算腿由「近月主力」改为
-     「远季carry腿」—— IM2609/IC2609 剩 15 交易日触否决#1, 而次月腿 IM2610(7,498手)/
-     IC2610(5,328手)触否决#2, 框架合规的可持有腿只剩 2612。年化贴水水平因此系统性低于
-     近月口径(近月临交割会放大年化值, 见注2), **④门读数不可与换月前序列直接比较**;
-     框架 v2.18 1.7④行已同步写入该口径注记。
-  ★三处"结构性例外"显式化(写进维护注, 防下次换月被"修正"回主力):
-     IM/IC 主力恒为近月直到交割(换月中位剩余交易日=0)且次月腿不过#2 → 指标/贴水/roll
-       腿一律用季月, 不用主力; SC 主力存续期≈1个月(换月中位剩余9交易日), 近腿几乎恒在
-       #1线附近 → 月差按"主力-次月"读结构(不建仓, 不受#1约束); J 除主力外无第二个上万手
-       月份(J2705 仅 325 手) → J 月差对仅采集不执行, 双焦执行腿唯一=JM。
-  ★维护规程重写: 原「候选块维护注」中 SC 专属的"<25交易日"阈值删除(对 SC 恒成立,
-     换月刚落地即再次触发, 属无效阈值), 统一为「近腿触#1线 或 fut_mapping 主力换月,
-     先到为准 → 整对下滚; 目标腿须同时过#2, 过不了退到最近一个能过的月份并在框架 0.2
-     表标注降级」; 各品种主力月阶梯与下一次触发日见框架 v2.18「合约滚动阶梯」表。
-  ★BUG 修正(一)·合约解析主键: _match_rows 的定位主键由
-     「delist_date 年月 == 合约交割年月」改为「ts_code 全等」。INE 原油 SC 的最后
-     交易日在**交割月前一月**(SC2610 → 20260930), 旧主键使 resolve("SC2609") 实际
-     取到 SC2610、resolve("SC2610") 取到 SC2611 —— 20 个配置品种中仅 SC 命中该错位
-     (fut_basic 全表核验: SC 的 27 个在挂合约全错位, 其余 19 品种零错位)。错位被
-     年份平移腿同步抵消, 故历史分位数值自洽, 但**合约标签、§0 距到期、§2 单合约
-     指标全部张冠李戴**, 且 §0 从未对真正的 SC2609(8/31 到期)报过警。
-  ★BUG 修正(二)·交易日口径: _busdays 由「工作日近似」改为 trade_cal 真实交易日
-     (已剔节假日), §3 年化贴水的分母同步改用同一份日历(向量化 searchsorted)。
-     2026 国庆当口实测差 6 个交易日(CU/AL/RB/AU/AG 的 2610 腿: 近似33 vs 真实27) ——
-     旧口径会把否决#1(<20交易日)的 §0 预警从 9/10 推迟到 9/18, 而这段正是该批合约的
-     换月窗口; trade_cal 失败自动退回原近似(§0/§0b/§2b/§3 四处调用点口径统一)。
-  ★配套护栏(对抗审查后补): (a) 合约解析**不再**保留「交割年月」退化兜底 —— 该分支会
-     在合约根本不存在时命中邻月(实测 SC2710/SC2711 未挂牌, resolve("SC2711") 会返回
-     SC2712), 等于复活本次要修的错位; 现在一律抛 ValueError。(b) trade_cal 只发布到
-     **次年年底**(请求 20280830 实测只返回到 20271231, 静默截断) → 新增 _cal_covers
-     覆盖守卫, 盖不到目标日就退回 busday 而不是静默少算(否则 §3 分母变小会把年化贴水
-     成倍放大, 有让 ④ 假过门的风险)。(c) 任何一次降级都会在 §0 与注2 显式打印原因,
-     兑现注2「取数失败才退回近似并在此注明」的承诺。(d) end_date 改用 shift_year_date
-     以处理 2/29。
-  ★除上述两处 BUG 外, 取数/计算逻辑零改动: §0/§0b/§1/§2/§2a-2c/§4 的算法函数未动;
-     EVENTS 事件日历本次未随动(仍是 v2.16 口径, 属另一条用户维护项, 与换月无关)。
-
-v1.7 → v1.8 变更 (对应框架 v2.19→v2.20「选品重构」; 主体是配置区随执行池收缩 + §2b 两列新增
-                  + §3/§4 休眠守卫; 取数/计算算法零改动):
-  ★配置区收缩(框架 v2.20 0) CONTRACTS 分层: 核心 MA/JM/RB + 备选 M + 信号席 AU/SC + 周度扫描):
-     SPREAD_PAIRS 16 组 → 5 组: MA2610-MA2701(A) | JM2701-JM2705(A) | RB2610-RB2701(A, 9/10→RB2701-RB2703)
-                              | 黑色JM-RB JM2701-RB2701(结构监控, 原 J2701-RB2701 的 J 腿随 J 退出改 JM)
-                              | SC近端 SC2610-SC2611(kind="信号": 不打候选块建仓注记, 仅①back方向/护栏口径)
-       停采: CU 两对存档(空仓无存量)、SR、AL、J、IM/IC-roll、TL-T、PS、LH、LC —— 复活时按原行加回,
-             同期分位从零重建(历史平移腿由脚本自动跟随)。
-     INDICATOR_CONTRACTS 20 腿 → 7 腿: MA2610(主力·护栏腿) MA2701(执行腿) JM2701 RB2701 M2701
-                                    AU2612(信号) SC2610(信号·护栏口径腿)。
-     BASIS_CONTRACTS / CURVE_FUT_LEGS 配置随 §3/§4 删除(IM/IC、TL/T 退出执行池; 见下条)。
-  ★§2b 新增两列(框架 v2.20 输入A 扩展):
-     「周涨%」= px(结算价) 对 5 个交易日前的涨跌幅 —— 框架 1.5 MA 卡「原油周涨幅」护栏(>5%/>8%)的
-       口径腿=SC2610(随主力换月), 周五 AS_OF 即「周五对上周五」; 布伦特多源口径降为旁证。
-     「一手风险2ATR」「手数」= 2×ATR20×multiplier + 2×tick_value 与 floor(RISK_BUDGET/风险) ——
-       框架 0.3#31 一手风险门(2026-09-04 实测: AU 42,117/SC 57,253/IM 77,696 ≈ 净值 28%/38%/52%,
-       均 0 手; JM 6,569 临界 0 手; MA 1,682→3 手, RB 656→8 手, M 993→5 手)。
-       手数<1 → 「否决检查」列加印「一手风险>预算⚠(#31)」; 品种不在 CONTRACT_SPEC → 加印「合约参数缺⚠」。
-     新增配置 RISK_BUDGET(=框架 0) RISK_BUDGET 5,250)与 CONTRACT_SPEC(=框架 Step5 合约参数表, 两处同源)。
-  ★§3/§4 删除(奥卡姆: 不留"以后可能用到"的兼容分支): stock_index_basis / bond_curve_30_10 / dv01_ratio_hint /
-     _curve_frame_* / yc_term_series / index_spot 与 SPOT_INDEX / BASIS_* / CONV_MIN_PP / YC_* / CURVE_* /
-     DV01_REG_WIN 配置, spread_percentile 的 候选A/候选代理/存档/H-roll/国债期货价差 五个死分支, 池内 ATR 极差
-     的「剔除挂起腿」副行, 一并删除; 复活时从 git v1.7 取回。
-  ★周涨% 口径(二稿修正): 基准=AS_OF 前 7 个日历日内最近一个交易日的结算价(周五 AS_OF 即周五对上周五;
-     跨国庆/中秋等休市周同口径), 不再用「5 个交易日前」—— 后者在假期周会把跨假累计涨幅当一周涨幅喂给护栏。
-  ★#31 高波层(二稿修正): ATR250 分位>80 的腿按框架 0.3#31 「final_lots=floor(lots×0.5) 后仍须≥1手」——
-     「手数」列=×0.5 后的有效手数(高波层)或原手数(其余层), <1 手打「高波层×0.5后<1手⚠(#31)」。
-  ★信号腿豁免(二稿修正): SIGNAL_LEGS={AU2612, SC2610} 与 kind="信号" 的价差对不打 #1/#2 否决(框架 0)注c
-     「信号席不建仓, 不受#1#2」), §0 改打 ℹ 提示行(SC 随主力换月滚), §2b/§1 否决列改「信号腿·不受#1/#2」。
-  ★启动参数校验 spec_check()(二稿新增, 宁抛错不猜): CONTRACT_SPEC 未覆盖池内任一品种 → sys.exit;
-     multiplier 与 tushare fut_basic.per_unit(实测 MA 10/JM 60/M 10/RB 10/AU 1000/SC 1000; multiplier 字段
-     为 None 不可用)不一致 → sys.exit; per_unit 缺失 → 仅 ⚠。
-  ★§1 每组价差加印: 两腿距最后交易日 + 价差腿一手风险(|当前价差-50分位锚|×multiplier+4×tick_value, 0.3#31)
-     与手数 —— 框架 0)/0.2 表结构腿的 #31 数值自此由脚本给出, A 对 #31 未过时不打入场标签。
-  ★2026-09-06 用户裁决随动(仍 v1.8, 仅配置区): JM2701-JM2705 与 JM2701-RB2701 停采(JM 退出执行池, 黑色执行
-     表达唯一=RB 月差候选)、SR2701-SR2705(A)与 CF2701 指标腿加回(SR/CF 回归常驻备选)、JM2701 指标腿移除、
-     CONTRACT_SPEC 同步(去 JM, 加 SR/CF); kind="结构监控"分支随 JM-RB 停采删除; AU 信号腿维持(用户裁决不交易黄金)。
-  ★EVENTS 日历 2026-09-06 按框架 v2.20 的 1.4(沿 v2.19)刷新(用户维护项, 独立提交): 归档 9/4 非农等四项;
-     新增 9/10 PPI、9/11 CPI、9/12 调减硬截止、9/30 俄柴油禁令到期; FOMC 改 "ALL"(框架 1.4 "全品种事件窗口"
-     + 3.5b 全品种方向性单边), 处置备注按 v2.19 加息对半口径重写; 地缘两占位窗顺延至 9/7-9/11。
-     受影响品种元组沿框架 1.4 原文, 池外品种无指标腿、T-3 打标对其无效, 属预期。
-
-合约滚动(换月)维护注  ★v1.7 重写:
-  - 统一滚动判据(不再给单品种设特例阈值): 近腿触及否决#1线(距最后交易日<20交易日)
-    或 fut_mapping 主力换月, **先到为准** → 整对下滚; 目标腿必须同时过否决#2
-    (20日均量≥1万手), 过不了就退到最近一个能过的月份, 并在框架 0.2 表标注降级。
-    各品种主力月阶梯(实测)与下一次触发日: 见框架 v2.18「合约滚动阶梯」表。
-    换月后价差同期分位/涨幅分位序列全部作废重建(历史平移腿由脚本自动跟随),
-    重建完成前框架侧对应结构腿新开从严。
-  - 结构性例外(是结论不是疏漏, 下次换月勿"修正"回主力):
-    IM/IC —— 市场换月中位剩余交易日=0(主力恒为近月直到交割), 且次月腿过不了#2
-      (IM2610 7,498手/IC2610 5,328手) → 指标腿/§3贴水腿/H-roll 对一律用远季月(2612/2703)。
-    SC   —— 主力存续期≈1个月(换月中位剩余9交易日), 近腿几乎恒在#1线附近; 月差序列按
-      "主力-次月"读近端结构(候选块不建仓, 不受#1约束), ①门过要进执行层时建仓腿另按#1选。
-    J    —— 除主力外无第二个上万手月份(J2705 仅325手/J2610 709手) → J 月差对保留仅作采集,
-      双焦月差的执行腿唯一=JM。
-  - PS/LH 期现升水本体 = 人工输入项(SMM 多晶硅现货 / 生猪现货与出栏节奏);
-    本脚本月差代理仅供结构参考, 补全门核对以期现口径为准(1.5 品种卡)。
-  - 交易所风控现值(0.2表, 人工核对): SC 处 INE 风控升级期(2026-06 公告:
-    涨跌停14%、保证金16-24%区间; 2026-04 曾单日-13%, gap 纪律从严);
-    PS 类比 SI 广期所限仓过滤+保证金×0.8 沿用至公告明确退出。
-  - LC【激活前必核】广期所现行合约文本(交易单位1吨/手、tick 50元/吨 待核)、
-    保证金/限仓现值; 期现基差与社会库存/检修追踪=人工。
-
-适用边界 (对齐 v2.11 的 1.1 人工输入项):
-  - 本脚本覆盖: 输入A(★v1.8 含周涨%与一手风险/手数=否决#31数据)/输入B(池内 5 组序列:
-    MA/RB/SR 月差 + SC 近端信号, 每组含价差腿一手风险与两腿剩余td) + 否决#1#2数据
-    + 事件T-3判据 + ATR分层/极差 + ATR重校准核验 + 启动参数校验; 输入C(§3 股指贴水)与 §4 曲线利差
-    随 IM/IC、TL/T 退出执行池**已删除**(复活时从 git v1.7 取回)。
-  - 仍需手动/另接数据源: precheck①的现货/仓单追认代理与事件链进展、
-    ②'权益资金面三指标(两融余额/全A成交额/跌停家数, v2.11新增人工项)与②''窗口判定、
-    ③产能性判决硬数据(铁水/社库/盈利率/能繁/调减进度)、PS/LH期现升水与SMM现货、
-    LC期现基差与社会库存/检修追踪(★v1.6, SMM等口径)、
-    板块分化代理(AI链vs地产链)、D9宏观序列、商品现货基差/库存/开工、
-    保证金与限仓现值(交易所公告)、单周涨跌3年分位(D8, v1.7候选)、
-    gap_ratio(定义悬空: 框架0.3#7引用但1.1未列, 待框架侧补列或给定义后脚本化)。
-  - H250/dist/H20 等为单合约自身历史: 样本<250日时 H250 实为上市以来高点,
-    D11 口径偏松(看§2「分位样本N」列), 主力连续拼接版(fut_mapping)列后续候选。
-  - ★v1.7: 合约腿本身(SPREAD_PAIRS/INDICATOR_CONTRACTS/SIGNAL_LEGS; ★v1.8 起 BASIS_CONTRACTS/
-    CURVE_FUT_LEGS 已删除)是**配置区用户维护项**, 不自动跟随主力换月; 脚本只负责在 §0
-    用真实交易日预警陈旧腿。滚动判据与各品种主力月阶梯见上文「合约滚动(换月)维护注」
-    与框架 v2.18「合约滚动阶梯」表。
-
-使用方法
-  pip install tushare pandas numpy
-  设置环境变量 TUSHARE_TOKEN (或在配置区直接填 TOKEN)
-  python scripts/future_data.py [--as-of YYYYMMDD]   （已从 ai_investment 仓库迁移至此，随框架同仓维护）
-  把控制台输出整体贴回对话, 或上传 ./output/*.csv
-
-权限说明
-  fut_basic / fut_daily 需 Tushare Pro 期货档积分(通常2000分)。
-
-诚实声明
-  本脚本未经线上实测(沙箱无法访问 api.tushare.pro / 东财数据中心); 以下纯计算
-  路径已用合成数据离线自测: 候选代理轴反转(升水分位=价差取负后重算, 非100-x
-  近似)、样本充足性警告、事件窗口标记(T-3/±1/进行中)、ATR重校准比值与跨层、
-  存档/候选标签分支、ATR分层与池内极差; akshare bond_zh_us_rate 列名已经
-  v1.18.64 源码核验。★v1.6 新增的 LC 取数路径同样未经线上实测(本环境无法访问
-  tushare/akshare 实网), 且未做合成数据自测(复用既有 kind="候选A" 分支, 无新
-  计算逻辑, 仅新增配置行)。接口字段与权限仍请按实际环境核对, 尤其: SC/PS/LH/LC
-  在 fut_basic 的代码样式与历史平移腿存在性(PS 仅 25xx 一代; LC 上市于
-  2023-07-21, 3年对照样本临界, 样本充足性警告可能触发)、yc_cb 参数、
-  CFFEX 代码后缀。任何报错原样贴回, 我来修。
-  ★v1.7 更新(本版是第一次**真正线上跑通**的版本, 上面几段"未经线上实测"的历史声明
-  自本版起对以下范围失效): 2026-08-30 以真实 TUSHARE_TOKEN 对 api.tushare.pro 完整
-  跑通 §0/§0b/§1/§2a-2c/§3/§4: 34 个配置合约腿全部解析成功、§0 自检"全部通过"、
-  16 组价差的三年同期平移腿除 PS/LC 上市前年份的固有缺口(已由样本充足性⚠显式标注)
-  外全部命中(n=40~41)、§3 两只股指贴水与 ④ 判定、§4 利差分位与 DV01 回归均正常输出;
-  换月后的 SC/PS/LH/LC 取数路径(v1.5/v1.6 遗留的"未实测"项)本次一并实测通过。
-  (§3/§4 已于 v1.8 删除, 其实测记录随代码一并留在 git v1.7。)
-  §2c ATR 重校准仍无实数据可测(当前空仓, POSITIONS 为空)。
-  ★v1.8 更新: 2026-09-06 以真实 TUSHARE_TOKEN 按 --as-of 20260904 完整跑通收缩后的配置
-  (§0 自检+spec_check 参数校验 / §0b / §1 5 组含价差腿一手风险 / §2a-2c 含新列); 一手风险与周涨%
-  的数值与框架 v2.20 0)/0.2 表回填值同源(框架表按本脚本输出回填)。§2c 仍空仓无实测。
-====================================================================
+维护：合约近腿触#1或主力换月先到则滚动；执行目标两腿须同时核#2。
+历史分位按合约年份平移与±20日窗口计算，换月前后不得当作同一信号；
+不足3年或窗口不足会显式标注数据缺失。分位极值不是回归收益证明。
+指标250日窗口不足时标记实际样本数。SC信号席不建仓，随主力滚月。
+保证金、限仓、事件事实与账户快照仍为人工确认输入。
+历代实现与停用品种见git历史；本版不扩展市场取数或策略白名单。
 """
 
 import os
@@ -258,6 +36,11 @@ import argparse
 from datetime import datetime
 import numpy as np
 import pandas as pd
+
+try:
+    from .futures_risk import precheck_2atr
+except ImportError:  # direct script invocation
+    from futures_risk import precheck_2atr
 
 try:
     import tushare as ts
@@ -332,7 +115,7 @@ EVENTS = [   # ★v1.8 2026-09-06 按框架 v2.20 的 1.4 事件轴刷新(1.4 �
      "加息55-66%对半基准——**方向不预设, 加息与按兵两个剧本都入预案**: 加息→贵金属趋势级回吐评估、D13压制逻辑按新形态重写、"
      "金融属性多头全面重估; 按兵+鹰派指引→平台期延续、4404支撑测试、D13冻结延续; 按兵+转鸽→重定价反弹评估、D13复归档议题重启; "
      "**T-3(9/11)起自动D12(全品种方向性单边, 3.5b)、T-1(9/15)对冲(6.9)、#29已形式重启(T-3至T+1 AU/AG双向新开冻结)**; "
-     "贵金属gap收紧1.3; 事件后T+1复评fed_state/D13/①外全部状态行; 高密度簇低敞口条款(总敞口50%)持续至T+1复评"),
+     "贵金属gap收紧1.3; 事件后T+1复评fed_state/D13/①外全部状态行; 高密度簇低敞口条款(组合风险按Step5固定金额封顶)持续至T+1复评"),
     ("20260930", "20260930", "俄柴油/船用燃料出口禁令到期日(框架1.4俄乌轴行; 已定日期)",
      ("MA", "SC"),
      "到期前后=俄乌轴预设质变节点: 再延期或扩至汽油→供给冲击升级 / 到期解除→侵蚀逻辑回吐评估; "
@@ -349,7 +132,7 @@ EVENTS = [   # ★v1.8 2026-09-06 按框架 v2.20 的 1.4 事件轴刷新(1.4 �
 #   ⑤LC重启条件(池外·周度扫描; 证伪结案, 计数归零; 复活条件见框架0)扫描行);
 #   ⑥油轮通行量持续性(①锚已反转"再受阻": 持续<10艘/日=中断证真侧输入, 回升至10日均以上=回僵局侧输入, 日度);
 #   ⑦MA护栏口径(★v1.8): 原油周涨幅=§2b SC2610「周涨%」列(结算价周五对上周五), >5%→加仓权0.5/存量减50%,
-#     >8%→多头冻结·清仓; #30=MA2610单日±5%; 9/4当周SC +15.33%已命中>8%(空仓无存量动作);
+#     >8%→多头冻结·清仓; #30=MA2610单日±5%; 9/4历史SC读数+15.33%命中>8%(账户持仓另核);
 #   ⑧交易所风控措施公告(能源链/甲醇涨停周概率上升; 公告±1审慎, 日度核对);
 #   ⑨**换月触发点**(非市场事件, 不进本表以免误打D12/±1标记; §0 会按真实交易日预警,
 #     完整阶梯见框架 v2.20「合约滚动阶梯」表, ★v1.8 已收缩至池内): RB 2026-09-10(→RB2701-RB2703) /
@@ -362,19 +145,19 @@ EVENT_HORIZON_BD = 10    # §0b 前瞻清单范围(v2.9 0.0b: 未来10个交易�
 # 条目: (合约, 入场日YYYYMMDD, "多"/"空", 备注)
 POSITIONS = [
     # ("AU2610", "20260720", "多", "示例: 建仓当日即登记"),
-]   # ★当前空仓(2026-07-12 会话确认) —— 建仓当日起填入, §2c 自动核验
+]   # 仅表示本脚本没有登记；账户是否空仓及挂单风险必须另行核实
 
 # 价差对: (标签, 近腿, 远腿, kind) —— 历史对照自动按年份平移生成
-#   kind(★v1.8 收缩为两种): "A"=策略A触发(打≥70/≥85标签+SL/TP锚+价差腿一手风险#31) |
+#   kind: "A"=研究候选强度(≥70/≥85)，分位价差仅参考；计划另行校验 |
 #         "信号"=信号席(不建仓; 不打触发标签、不受#2; 分位作①back方向/护栏口径输入)
 #         ("结构监控"黑色价差分支随 JM 退出停用; 复活时从 git 取回)
 #   候选A/候选代理/存档/H-roll/国债期货价差 五种已随 PS·LH·CU·IM/IC·TL/T 退出删除(git v1.7 可取回)
-SPREAD_PAIRS = [   # ★v1.8: 随框架 v2.20 执行池收缩至 5 组(池外序列停采, 复活时按 git 历史行加回)
+SPREAD_PAIRS = [   # v2.21维持4组研究序列，计划需独立校验
     ("MA",   "MA2610", "MA2701", "A"),
     #   ★v1.7换月: 近腿→实测主力 MA2610; 远腿 MA2701。★v1.8: MA2705 9/4 实测 20 日均 12,561 已过#2,
     #   触发线 2026-09-16(近腿#1线)或主力换月 → 结构对下滚 MA2701-MA2705(执行日复核#2);
     #   方向性单边执行腿=MA2701(§2 单独取指标), 不随本对滚动
-    #   ★2026-09-06 用户裁决: JM2701-JM2705 停采(JM 退出执行池; 一手 6,569/月差腿 6,090 均 0 手), 复活时按 git 加回
+    #   2026-09-06 用户裁决: JM退出执行池并停采；历史风险估算不作新计划裁决
     ("RB",   "RB2610", "RB2701", "A"),      # RB 月差候选(黑色月差池); 触发线 2026-09-10(或主力换月先到)
     #   → 整对下滚 RB2701-RB2703(RB2703 9/4 实测 22,106 过#2; RB2705 7,717 未过)
     ("SR",   "SR2701", "SR2705", "A"),      # ★2026-09-06 用户裁决: SR 回归常驻备选, A 远月月差加回;
@@ -382,24 +165,25 @@ SPREAD_PAIRS = [   # ★v1.8: 随框架 v2.20 执行池收缩至 5 组(池外序
     #   黑色 JM-RB 价差(原 J2701-RB2701→JM2701-RB2701)随 JM 退出停采, 复活前提=JM 回池
     # ---- 信号席 (框架 v2.20: 不建仓, 只作①back方向与护栏口径输入) ----
     ("SC近端", "SC2610", "SC2611", "信号"),
-    #   ★v1.8: kind 由「候选A」改「信号」—— 0.3#31 单腿 57,253/价差腿(§1 打印行)均 0 手, 建仓路径关闭;
+    #   SC维持信号席，用户许可未扩展；不由研究分位自动开放建仓路径。
     #   分位仍照算(①「中断复归侧」待核要件=SC 近端 back 反弹); 主力换月日→SC2611-SC2612(SC2612 未过#2, 信号腿不受)
 ]
 
 # 指标计算合约 (§2; ★v1.8 按框架 v2.20 执行池: 核心 2 + 备选 3 + 信号 2 = 8 腿; 2026-09-06 用户裁决后)
 INDICATOR_CONTRACTS = [
-    "MA2610",   # 主力: #30 单日±5% 护栏判定腿 + A 结构近腿(9/16 或主力换月即下滚, 届时从本表移除); 高波层×0.5→1 手
-    "MA2701",   # 方向性单边执行腿(剩余 87td ≥ 20+持仓上限; 一手 1,682 → 3 手)
-    "RB2701",   # 核心② RB 月差候选=黑色唯一结构表达(不开方向性单边; 一手 656 → 8 手); 9/10 起替代 RB2610
-    "M2701",    # 独立备选(一手 993 → 5 手, 高波层×0.5→2 手); 12/18 或主力换月 → M2705
-    "SR2701",   # 独立备选·常驻(用户裁决 2026-09-06; 一手 1,113 → 4 手); 12/17 或主力换月 → SR2705
-    "CF2701",   # 独立备选·常驻(用户裁决 2026-09-06; 一手 2,236 → 2 手); 12/17 或主力换月 → CF2705(临界核#2)
-    "AU2612",   # 信号席: fed_state/D13 价格锚 + #31 复活核验(一手 42,117 ≈ 净值 28%, 0 手); 直接用 2612 不受 9/10 批次
-    "SC2610",   # 信号席: MA 护栏「原油周涨幅」口径腿(周涨%列) + ①输入; 随主力换月滚(SC 不受#1)
+    "MA2610",   # 主力#30护栏判定腿及A近腿；9/16或主力换月即滚动
+    "MA2701",   # 方向性执行候选，真实策略止损及账户预算另核
+    "RB2701",   # 黑色结构表达；不开方向性单边
+    "M2701",    # 独立备选；12/18或主力换月→M2705
+    "SR2701",   # 常驻备选；12/17或主力换月→SR2705
+    "CF2701",   # 常驻备选；12/17或主力换月→CF2705并核#2
+    "AU2612",   # 信号席：fed_state/D13价格锚；不建仓
+    "SC2610",   # 信号席：MA原油周涨护栏口径腿及①输入；随主力换月滚动
 ]
 
-# ---- ★v1.8 一手风险门 (框架 v2.20 0.3#31; 与框架 0) RISK_BUDGET / Step5 合约参数表同源) ----
-RISK_BUDGET = 5250      # 单笔最大亏损 = ACCOUNT_SIZE 150,000 × 3.5%(框架 0) 用户输入)
+# ---- v1.9 2ATR情景预检配置；真实#31计划裁决由futures_risk及完整规则负责 ----
+ACCOUNT_EQUITY = 150000  # 预检基准净值；不替代下单时核实的账户净值
+RISK_BUDGET = ACCOUNT_EQUITY * 0.035  # 2ATR情景预检的基础预算，不推断账户剩余额度
 # 品种 → (multiplier 每手乘数, tick_value 最小变动价值); 新品种入池前先与框架 Step5 合约参数表同步填列
 CONTRACT_SPEC = {"MA": (10, 10), "RB": (10, 10), "M": (10, 10), "SR": (10, 10), "CF": (5, 25),
                  "AU": (1000, 20), "SC": (1000, 100)}
@@ -643,7 +427,10 @@ def contract_freshness_check():
     if warns:
         print("\n".join(warns))
     else:
-        print(f"  全部通过: {len(seen)} 个配置合约距最后交易日均 ≥20 交易日")
+        if CAL_DEGRADED:
+            print("  #1数据未完成: 近似日历未提示临期，但不能认定真实交易日门已过")
+        else:
+            print(f"  #1数据检查: {len(seen)} 个配置合约距最后交易日均 ≥20 交易日；不代表完整交易许可")
 
 
 def _prod(sym):
@@ -682,7 +469,7 @@ def spec_check():
     if bad:
         sys.exit("CONTRACT_SPEC multiplier 与交易所合约乘数不一致: " + "; ".join(bad)
                  + " —— 修正后再跑(否则 0.3#31 一手风险失真)")
-    print(f"  ★v1.8 参数校验: CONTRACT_SPEC 覆盖 {len(first)} 个池内品种, multiplier 与 fut_basic.per_unit 一致"
+    print(f"  v1.9 参数校验: CONTRACT_SPEC 覆盖 {len(first)} 个池内品种, multiplier 与 fut_basic.per_unit 一致"
           + (f"; ⚠ per_unit 缺失未能核对: {unknown}" if unknown else ""))
 
 
@@ -744,116 +531,101 @@ def print_event_calendar():
 
 
 # ---------------------- §1 价差同期分位 ----------------------
+def _volume20(sym):
+    """A full, finite, nonnegative 20-observation volume window is required."""
+    data = daily(sym)
+    window = data[data["trade_date"] <= AS_OF].tail(20)
+    values = pd.to_numeric(window["vol"], errors="coerce")
+    if window["trade_date"].nunique() != 20 or len(values) != 20 or not np.isfinite(values).all() or (values < 0).any():
+        raise ValueError("#2缺失: 不足20个完整有效成交量样本")
+    return float(values.mean())
+
+
 def spread_percentile(label, near, far, kind="A"):
-    """kind: "A"=策略A触发(≥70/≥85 标签 + SL/TP锚 + 价差腿一手风险 0.3#31) |
-             "信号"=信号席(不建仓, 不受#2; 分位仅作①back方向/护栏口径输入, 不打触发标签)。
-    ("结构监控"=黑色JM-RB价差分支随 JM 退出执行池删除, 复活时从 git 取回。)"""
+    """Research-only S=near-far; no implied direction, stop or tradable size."""
     cur_df = pair_series(near, far)
     cur_df = cur_df[cur_df["trade_date"] <= AS_OF]
     if cur_df.empty:
-        raise RuntimeError(f"{near}-{far} 在 {AS_OF} 前无重叠数据")
+        raise RuntimeError(f"数据缺失: {near}-{far} 在 {AS_OF} 前无重叠数据")
     cur = cur_df.iloc[-1]
-
-    pool, used = [], []
+    if not np.isfinite(cur[["px_n", "px_f", "spread", "spread_pct"]].astype(float)).all() or min(cur["px_n"], cur["px_f"]) <= 0:
+        raise RuntimeError("数据缺失: 当前两腿价格无效，不计算分位")
+    pool, used, missing, blocked = [], [], [], []
     for k in range(1, YEARS + 1):
         n_k, f_k = shift_year_sym(near, k), shift_year_sym(far, k)
         try:
-            h = pair_series(n_k, f_k)
-            sub = window_around(h, shift_year_date(AS_OF, k), WIN)
+            hist_pair = pair_series(n_k, f_k)
+            sub = window_around(hist_pair, shift_year_date(AS_OF, k), WIN)
+            valid = np.isfinite(sub[["px_n", "px_f", "spread", "spread_pct"]]).all(axis=1)
+            valid &= (sub["px_n"] > 0) & (sub["px_f"] > 0)
+            sub = sub.loc[valid]
             if not sub.empty:
                 pool.append(sub[["spread", "spread_pct"]])
-                used.append(f"{n_k}-{f_k}(n={len(sub)})")
-        except Exception as e:
-            used.append(f"{n_k}-{f_k}(缺失:{e})")
-    if not pool:
-        raise RuntimeError("历史对照全部缺失, 无法计算同期分位")
+            used.append(f"{n_k}-{f_k}(n={len(sub)})")
+            if len(sub) < 2 * WIN + 1:
+                missing.append(f"同期窗口{n_k}-{f_k}仅{len(sub)}/{2 * WIN + 1}个有效样本")
+        except Exception as exc:
+            used.append(f"{n_k}-{f_k}(缺失:{exc})")
+            missing.append(f"历史对照{n_k}-{f_k}缺失")
+    hist = pd.concat(pool) if pool else pd.DataFrame(columns=["spread", "spread_pct"])
+    pct_same = float((hist["spread_pct"] < cur["spread_pct"]).mean() * 100) if len(hist) else None
+    if len(pool) < YEARS:
+        missing.append(f"历史年份不足{len(pool)}/{YEARS}")
+    life = cur_df.loc[np.isfinite(cur_df["spread_pct"]), "spread_pct"]
+    pct_life = float((life < cur["spread_pct"]).mean() * 100)
 
-    hist = pd.concat(pool)
-    hist_pct = hist["spread_pct"]
-    pct_same = float((hist_pct < cur["spread_pct"]).mean() * 100)
-    pct_life = float((cur_df["spread_pct"] < cur["spread_pct"]).mean() * 100)
-    ok_years = len(pool)
-
+    volumes, days = {}, {}
+    for name, sym in (("近", near), ("远", far)):
+        try:
+            volumes[name] = _volume20(sym)
+            if volumes[name] < 10000 and kind != "信号":
+                blocked.append(f"#2:{name}腿20日均成交<1万")
+        except Exception as exc:
+            volumes[name] = None
+            missing.append(f"#2:{name}腿成交量缺失({exc})")
+        try:
+            days[name] = _busdays(AS_OF, delist_date(sym))
+            if CAL_DEGRADED:
+                missing.append(f"#1:{name}腿交易日历已降级，需复核")
+            if days[name] < 20 and kind != "信号":
+                blocked.append(f"#1:{name}腿距最后交易日<20")
+        except Exception as exc:
+            days[name] = None
+            missing.append(f"#1:{name}腿到期数据缺失({exc})")
     os.makedirs(OUTDIR, exist_ok=True)
     safe = f"{near}_{far}".replace("/", "")
     cur_df.to_csv(f"{OUTDIR}/spread_{safe}.csv", index=False)
-
-    # ★两腿20日均成交(≤AS_OF口径)与距最后交易日: 否决#2/#1 是硬否决, 未过的对**不得**打出
-    #   ≥70/≥85 入场标签(PR#16 review P1); 信号对(kind="信号")不建仓故不受, 只留痕。
-    def _v20(s_):
-        d = daily(s_)
-        d = d[d["trade_date"] <= AS_OF]
-        return float(pd.to_numeric(d["vol"], errors="coerce").tail(20).mean())
-    vn = vf = float("nan")
-    try:
-        vn, vf = _v20(near), _v20(far)
-    except Exception:
-        pass
-    try:
-        dn, df_ = _busdays(AS_OF, delist_date(near)), _busdays(AS_OF, delist_date(far))
-    except Exception:
-        dn = df_ = None
-    thin = [f"{lbl}腿{v:,.0f}手" for lbl, v in (("近", vn), ("远", vf))
-            if not np.isnan(v) and v < 10000]
-    veto2 = bool(thin) and kind != "信号"
-
-    # ★v1.8 SL/TP 锚 + 价差腿一手风险(0.3#31): |当前价差-50分位锚|×multiplier + 4×tick_value(两腿各2tick)
-    lv = np.percentile(hist["spread"], [10, 30, 50])
-    lp = np.percentile(hist_pct, [10, 30, 50])
-    spec = CONTRACT_SPEC.get(_prod(near))
-    risk_sp = lots_sp = None
-    if spec:
-        risk_sp = abs(float(cur["spread"]) - float(lv[2])) * spec[0] + 4 * spec[1]
-        lots_sp = int(RISK_BUDGET // risk_sp) if risk_sp > 0 else 0
-
-    trig = ("≥85 主仓触发" if pct_same >= 85 else
-            "≥70 候选触发" if pct_same >= 70 else "未触发")
-    if kind == "A":
-        if veto2:
-            tag = (f"**否决#2 未过({'/'.join(thin)}<1万手)→ 不进执行层、不产生入场信号**; "
-                   f"分位 {pct_same:.1f} 仅作序列留痕, 恢复条件=两腿20日均量均回到1万手以上")
-        elif lots_sp is not None and lots_sp < 1:
-            tag = (f"分位{trig}, 但 **否决#31 未过(价差腿一手风险 {risk_sp:,.0f} > 预算 {RISK_BUDGET:,})"
-                   f"→ 不进执行层、不产生入场信号**; 解锁=价差向50分位锚回归至一手≤预算")
-        else:
-            tag = trig
-    elif kind == "信号":
-        lvl = ("同期极端高位(≥85)" if pct_same >= 85 else "同期偏高(≥70)" if pct_same >= 70 else
-               "同期极端低位(≤15)" if pct_same <= 15 else "同期中性")
-        tag = (f"信号腿·不建仓(0.3#31): 近端back {lvl} —— 作①'back反弹/回落'要件输入与护栏口径, "
-               f"不打触发标签、不受#2")
-    else:
-        tag = kind
-
     print(f"\n[{label}] {near} - {far}  (数据截至 {cur['trade_date']})")
     print(f"  当前价差: {cur['spread']:+.1f}  |  价差%: {cur['spread_pct']:+.3f}%")
-    if not (np.isnan(vn) and np.isnan(vf)):
-        warn = ""
-        if thin and kind == "信号":
-            warn = f"  ({'/'.join(thin)}<1万手; 信号腿不受#2)"
-        elif not np.isnan(vf) and vf < 10000:
-            warn = "  ⚠ 远腿<1万手(否决#2)"
-        elif not np.isnan(vn) and vn < 10000:
-            warn = "  ⚠ 近腿<1万手(否决#2)"
-        td = (f"  |  距最后交易日: 近 {dn} / 远 {df_} td"
-              + ("(信号腿不受#1)" if kind == "信号" else "")) if dn is not None else ""
-        print(f"  两腿20日均成交: 近 {vn:,.0f} / 远 {vf:,.0f}{warn}{td}")
-    print(f"  近{YEARS}年同期分位(±{WIN}交易日): {pct_same:.1f}  → {tag}")
-    if kind in ("A", "信号"):
-        lbl = ("同期池分位对应价差水平(SL/TP锚)" if kind == "A" and not veto2 and (lots_sp is None or lots_sp >= 1)
-               else "同期池分位对应价差水平(不作入场锚, 仅留痕/back极端度参考)")
-        print(f"  {lbl}: 10分位={lv[0]:+.1f} / 30分位={lv[1]:+.1f} / 50分位={lv[2]:+.1f}"
-              f"  (%口径: {lp[0]:+.3f}/{lp[1]:+.3f}/{lp[2]:+.3f})")
-        if spec:
-            print(f"  价差腿一手风险(至50分位锚, 0.3#31): {risk_sp:,.0f} → {lots_sp} 手"
-                  + ("  (信号腿不建仓, 仅留痕)" if kind == "信号" else ""))
-        else:
-            print("  价差腿一手风险: 合约参数缺(补 CONTRACT_SPEC 后再核 0.3#31)")
-    if ok_years < YEARS:
-        print(f"  ⚠ 同期对照仅 {ok_years}/{YEARS} 年 —— 本分位实为「近{ok_years}年"
-              f"同期分位」, 口径降级, 按 0.3#13 审慎处理")
-    print(f"  本对全生命周期分位: {pct_life:.1f}  (参考)")
+    for name in ("近", "远"):
+        volume_text = f"{volumes[name]:,.0f}" if volumes[name] is not None else "缺失"
+        day_text = str(days[name]) if days[name] is not None else "缺失"
+        print(f"  {name}腿20日均成交: {volume_text} | 距最后交易日: {day_text} td")
+    if pct_same is None:
+        tag = "数据缺失，不能评价研究候选强度"
+    elif kind == "信号":
+        tag = "信号席仅供back极端度参考，不建仓"
+    else:
+        strength = "高强度研究候选(≥85)" if pct_same >= 85 else "研究候选(≥70)" if pct_same >= 70 else "未达研究候选阈值"
+        tag = strength + "；计划未完成，方向/真实SL/TP/R/预算及完整规则另核"
+    qtext = f"{pct_same:.1f}" if pct_same is not None else "缺失"
+    print(f"  近{YEARS}年同期分位(±{WIN}交易日): {qtext} → {tag}")
+    if len(hist):
+        lv = np.percentile(hist["spread"], [10, 30, 50])
+        lp = np.percentile(hist["spread_pct"], [10, 30, 50])
+        print(f"  同期池价差水平(仅参考，不自动生成SL/TP): 10分位={lv[0]:+.1f} / 30分位={lv[1]:+.1f} / 50分位={lv[2]:+.1f}"
+              f" (%口径: {lp[0]:+.3f}/{lp[1]:+.3f}/{lp[2]:+.3f})")
+    print(f"  本对全生命周期分位: {pct_life:.1f} (参考，非收益预测)")
     print(f"  历史对照: {'; '.join(used)}")
+    for issue in blocked:
+        print(f"  ⚠ 明确否决: {issue}")
+    for issue in missing:
+        print(f"  ⚠ 数据缺失/不足: {issue}；不能视为已过门")
+    return {"scope": "research_only", "percentile": pct_same,
+            "data_status": "incomplete" if missing else "blocked" if blocked else "complete",
+            "missing_fields": missing, "hard_vetoes": blocked,
+            "plan_status": "incomplete" if kind == "A" else "not_applicable",
+            "final_lots": None}
 
 
 # ---------------------- §2 单合约指标 (Wilder口径) ----------------------
@@ -867,6 +639,10 @@ def _tr(df):
 def indicators(sym):
     df = daily(sym)
     df = df[df["trade_date"] <= AS_OF].reset_index(drop=True)
+    price_data = df[["px", "high", "low"]].apply(pd.to_numeric, errors="coerce")
+    if (not np.isfinite(price_data).all().all() or (price_data <= 0).any().any()
+            or (price_data["high"] < price_data["low"]).any()):
+        raise RuntimeError("数据缺失: OHLC/结算价无效，不计算指标")
     if len(df) < 70:
         raise RuntimeError(f"样本仅{len(df)}日, 不足以计算")
 
@@ -899,7 +675,10 @@ def indicators(sym):
     l60 = float(df["low"].tail(60).min())
     ma20 = float(df["px"].tail(20).mean())
     ma60 = float(df["px"].tail(60).mean())
-    vol20 = float(pd.to_numeric(df["vol"], errors="coerce").tail(20).mean())
+    try:
+        vol20 = _volume20(sym)
+    except (ValueError, KeyError, TypeError):
+        vol20 = np.nan
 
     try:
         dte = _busdays(AS_OF, delist_date(sym))
@@ -909,10 +688,14 @@ def indicators(sym):
     veto = []
     signal = sym in SIGNAL_LEGS          # ★v1.8 信号席: 不建仓, 不受#1/#2(框架 0)注c)
     if dte is None:
-        veto.append("到期解析失败⚠")
+        veto.append("#1数据缺失·到期解析失败⚠")
     elif dte < 20:
         veto.append("信号腿·不受#1(随主力换月)" if signal else "距到期<20⚠")
-    if not np.isnan(vol20) and vol20 < 10000:
+    if CAL_DEGRADED:
+        veto.append("#1数据缺失·交易日历降级需复核⚠")
+    if not np.isfinite(vol20):
+        veto.append("#2数据缺失·20日成交量不足或无效⚠")
+    elif vol20 < 10000:
         veto.append("信号腿·不受#2" if signal else "均成交<1万⚠")
 
     # ---- ★v1.5 D12 判据与 ATR 分层 (v2.9 3.5b) ----
@@ -943,20 +726,21 @@ def indicators(sym):
     prev = df[df["trade_date"] <= anchor]
     wk_chg = ((px_now / float(prev["px"].iloc[-1]) - 1) * 100
               if len(prev) and float(prev["px"].iloc[-1]) > 0 else np.nan)
-    # 一手风险 = 2×ATR20×multiplier + 2×tick_value; 手数 = floor(预算/一手风险);
-    #   高波层(ATR250分位>80)按框架 0.3#31 再 floor(×0.5) 后仍须 ≥1 手 —— 「手数」列即该有效手数。
+    # 仅2ATR情景上界：预算先折减后一次取整，不提供最终#31裁决。
     spec = CONTRACT_SPEC.get(prod)
+    risk1, lots1 = np.nan, None
     if spec:
-        risk1 = 2 * float(atr20.iloc[-1]) * spec[0] + 2 * spec[1]
-        lots_raw = int(RISK_BUDGET // risk1) if risk1 > 0 else 0
-        lots1 = lots_raw // 2 if atr_pct > 80 else lots_raw
-        if lots_raw < 1:
-            veto.append("一手风险>预算⚠(#31)")
-        elif lots1 < 1:
-            veto.append("高波层×0.5后<1手⚠(#31)")
+        check = precheck_2atr(float(atr20.iloc[-1]), spec[0], spec[1],
+                             equity=ACCOUNT_EQUITY, high_volatility=bool(atr_pct > 80))
+        if check["status"] == "valid":
+            risk1 = check["precheck_risk_unit"]
+            lots1 = check["precheck_lots_upper_bound"]
+        else:
+            veto.append("2ATR预检数据无效⚠")
     else:
-        risk1, lots1 = np.nan, np.nan
-        veto.append("合约参数缺⚠(#31无法核, 补 CONTRACT_SPEC)")
+        veto.append("2ATR预检缺合约参数⚠")
+    if len(tail) < 250:
+        veto.append(f"250日窗口样本不足({len(tail)})·指标仅代理")
 
     return {"合约": sym, "数据截至": df["trade_date"].iloc[-1],
             "px": round(px_now, 2),
@@ -978,15 +762,15 @@ def indicators(sym):
             "20日均成交": int(vol20) if not np.isnan(vol20) else np.nan,
             "距到期": dte if dte is not None else np.nan,
             "周涨%": round(wk_chg, 2) if not np.isnan(wk_chg) else np.nan,
-            "一手风险2ATR": int(round(risk1)) if not np.isnan(risk1) else np.nan,
-            "手数(高波×0.5后)": lots1,
-            "否决检查": "|".join(veto) if veto else "-"}
+            "2ATR情景金额(非真实SL风险)": int(round(risk1)) if not np.isnan(risk1) else np.nan,
+            "2ATR预检数量上界(非最终手数)": lots1,
+            "否决检查": "|".join(veto) if veto else "#1/#2数据未见否决；其余规则与账户预算未核"}
 
 
 COLS_VOLA = ["合约", "数据截至", "px", "ATR20", "ADX14", "HV20%", "HV60%",
              "HV20/HV60", "ATR20分位", "分位样本N", "ATR分层", "D12提示"]
 COLS_POS = ["合约", "H250", "dist_H250%", "H20", "L20", "H60", "L60",
-            "MA20", "MA60", "20日均成交", "距到期", "周涨%", "一手风险2ATR", "手数(高波×0.5后)", "否决检查"]
+            "MA20", "MA60", "20日均成交", "距到期", "周涨%", "2ATR情景金额(非真实SL风险)", "2ATR预检数量上界(非最终手数)", "否决检查"]
 
 
 def print_atr_dispersion(tab):
@@ -1004,14 +788,14 @@ def print_atr_dispersion(tab):
     print(f"\n  ★池内ATR250分位极差(0.1错位子维): {rng:.1f}  "
           f"({hi} {float(p[ok].max()):.1f} ↔ {lo} {float(p[ok].min()):.1f})")
     print(f"    判定: {verdict}")
-    print("    口径注: v2.9 以「持仓/候选池」为准; 空仓期以本监控池代理")
+    print("    口径注: 此处仅以监控池代理，不代表真实账户持仓或账户风险")
 
 
 # -------------- §2c ATR重校准核验 (v2.9 0.3#25 / Step5 硬规则) --------------
 def atr_recheck():
     print("\n---- 2c) ATR重校准核验 (v2.9 0.3#25 / Step5: 方向性单边隔夜硬前置) ----")
     if not POSITIONS:
-        print("  当前空仓 / 无登记的方向性单边 —— 无核验项。")
+        print("  本脚本未登记方向性持仓 —— 账户持仓与挂单风险未知，不能据此确认空仓。")
         print("  (建仓当日在配置区 POSITIONS 登记; 结构持仓豁免本节, 按各自分位/价差止损管理)")
         return
     for sym, entry_date, side, note in POSITIONS:
@@ -1054,15 +838,15 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v2.20 框架数据脚本 (Tushare Pro, v1.8)")
+        description="v2.21 框架数据脚本 (Tushare Pro, v1.9)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
     args = parser.parse_args()
     AS_OF = args.as_of
 
-    print(f"== v2.20 框架数据脚本 v1.8 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
-          f"单笔预算{RISK_BUDGET:,}(0.3#31) | 事件节点{len(EVENTS)}项(用户维护) ==")
+    print(f"== v2.21 框架数据脚本 v1.9 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
+          f"2ATR预检预算{RISK_BUDGET:,.0f}(非账户剩余额度) | 事件节点{len(EVENTS)}项(用户维护) ==")
 
     spec_check()                     # ★v1.8 合约参数校验, 不过直接退出
     contract_freshness_check()
@@ -1070,7 +854,7 @@ def main():
     # §0b: 先算事件窗口 → §2 的 D12「事件T-3」判据依赖本结果
     _T3_PRODS.update(print_event_calendar())
 
-    print("\n---- 1) 价差同期分位 (输入B: A触发·MA/RB/SR月差(含价差腿一手风险#31) / SC近端信号) ----")
+    print("\n---- 1) 价差同期分位 (输入B: MA/RB/SR研究候选·计划未完成 / SC近端信号) ----")
     for label, near, far, kind in SPREAD_PAIRS:
         try:
             spread_percentile(label, near, far, kind)
@@ -1091,7 +875,7 @@ def main():
                index=False, encoding="utf-8-sig")
     print("\n  -- 2a 波动率/趋势 (D12·含事件T-3判据 / ATR分层) --")
     print(tab.reindex(columns=COLS_VOLA).to_string(index=False))
-    print("\n  -- 2b 位置/均线/流动性 (D11 / Entry / 否决#1#2 / ★v1.8 周涨%(7日历日基准)·一手风险#31·手数含高波×0.5) --")
+    print("\n  -- 2b 位置/均线/流动性 (D11 / Entry / 否决#1#2 / v1.9 周涨%(7日历日基准)·2ATR情景金额/预检上界，非最终手数) --")
     print(tab.reindex(columns=COLS_POS).to_string(index=False))
 
     print_atr_dispersion(tab)

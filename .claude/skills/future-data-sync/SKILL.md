@@ -19,11 +19,14 @@ description: 期货框架配套取数脚本同步（流水线阶段③之后的�
 - `ADAPTION_REPORT`：阶段③产出的 `research/<AS_OF_DATE>-adaption-report.md`，重点看"2. 受影响模块"表的"修改类型"列
 - `CURRENT_SCRIPT`：`scripts/future_data.py` 现有全文，重点看文件头注释的版本号（形如"vX.Y 框架数据脚本 — Tushare Pro 版 (vA.B)"）与"适用边界"小节（明确列了脚本覆盖 vs 仍需手动的范围）
 
+若更新涉及 Step5 的计划风险、费用、系数或组合上限，同时读取 `scripts/futures_risk.py`：该 helper 是已提供输入的数值校验/容量计算入口，`future_data.py` 是行情与预检入口。保持职责分离，不在两个脚本或执行诊断模板里另存风险公式；人工输入未提供时返回缺口，不能把“能算数值容量”写成全部交易门通过。
+
 ## 第一步：判断是否需要改脚本
 
 对照 `ADAPTION_REPORT`"受影响模块"表逐项检查：
 
 - **需要改脚本的信号**（任一命中即需要）：新增/删除合约（0) CONTRACTS 表变化）、"1.1 输入接口"新增了脚本本该覆盖的结构化字段（价差/ATR/ADX/HV/贴水/利差类，不是现货/库存/产能性判决这类天然人工项）、"1.5 品种卡"新增品种且其验证输入里有结构化序列、修改类型标注为"新增字段"或"删除字段"且该字段属于脚本覆盖范围
+- **需要同步风险 helper 的信号**：canonical Step5 的计划/数值风险口径变化；同步 `scripts/futures_risk.py` 及调用方，诊断仅引用统一结果。未改变该口径时不改 helper
 - **不需要改脚本的信号**：修改类型是"参数调整""阈值收紧""阈值放宽""模块升权""模块降权""模块前置"且没有新增/删除结构化数据字段；新增的检查项本质上落在"适用边界"里已经标注为"仍需手动"的范畴（例如现货追认代理、产能性判决硬数据、SMM 口径——即使框架把这些从定性描述改成了量化门槛，只要数据源本身还是人工，脚本也不需要变）
 
 拿不准时以"适用边界"小节的现有分类为准——脚本自己已经说清楚了什么归它管。
@@ -61,8 +64,9 @@ description: 期货框架配套取数脚本同步（流水线阶段③之后的�
 - 验证状态：**未经线上实测**（本环境无法访问 tushare/akshare 实网）——纯计算路径已用合成数据自测的部分列出，涉及实际 API 字段/权限的部分请在有网络环境下运行并把报错贴回迭代
 ```
 
-6. `git add scripts/future_data.py research/<AS_OF_DATE>-adaption-report.md`，在该分支上追加一个 commit
+6. `git add scripts/future_data.py research/<AS_OF_DATE>-adaption-report.md`，若本次修改了 `scripts/futures_risk.py` 及其调用/测试一并纳入，在该分支上追加一个 commit
 
 ## 输出
 
 - 返回值：是否改动了脚本（yes/no）+ 一句话摘要，供编排器写进最终 PR 描述
+- 返回版本和旧输出失效项，供编排器按 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md` 刷新当期诊断；本阶段不另建诊断口径

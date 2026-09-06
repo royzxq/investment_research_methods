@@ -8,8 +8,12 @@
 - `framework/futures_framework.md` — 现行「期货投资分析框架」活文档，只能通过分支 + PR 更新，不直接改 main
 - `framework/futures_framework_compact.md` — **仅供人阅读**的去冗余衍生文件（剥离历代【本次更新】标记与版本簿记），由 `framework-condense` 阶段在每次框架更新时从 canonical 全文自动再生，勿手改；**任何 AI/流水线环节一律使用上面的 canonical 完整版**
 - `scripts/future_data.py` — 框架配套取数脚本（Tushare/akshare），版本随框架结构性变化同步迭代；本身无网络环境无法线上实测，改动需人工在有真实数据源的环境里运行验证
+- `scripts/futures_risk.py` — v2.21起的离线A计划校验与风险容量计算；JSON CLI为 `python3 scripts/futures_risk.py validate-a --input plan.json` / `python3 scripts/futures_risk.py size --input sizing.json`，字段见函数说明。计算通过只代表计划/容量校验完成，不授予完整交易许可；缺实际账户、止损或容量信息保留 `null`。
+- `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md` — 每周执行诊断的唯一口径；无论框架是否更新，都生成 `research/<date>-execution-audit.md`，分开记录未触发、已知阻断、研究未完成与满足执行条件。
 - `research/` — `baseline-market-research.md`（day-0 基线）+ 按日期命名的 `<date>-market-research.md` / `<date>-change-decision.md`（始终直接 push 到 main）/ `<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
 - `.claude/skills/` — `meta-future-analysis` / `future-change-analysis` / `future-adaption` / `future-data-sync`（四个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `futures-weekly-review`（编排器，统一开 PR）
+
+期货离线回归验证：`python3 -m unittest discover -s tests -v`。A计划校验器仅支持MA/RB/SR同品种1:1月差，必填 `price_unit="CNY/tonne"`；Entry/SL/TP必须为元/吨的绝对价差，乘数为吨/手。单位缺失或不兼容时不计算风险金额或R，不推断或换算百分比；纯风险计算不访问行情或账户，输出不能当作已成交或账户实仓证明。取数脚本的2ATR数量是预检参考，旧版“距50分位风险”和“主仓触发”标签自v2.21起停用。 低敞口组合上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险；输出以 `portfolio_risk_cap_normal/current` 区分常规和当前生效上限，不使用低敞口比例乘数。
 
 ## 股票轨道：meta investment analysis → investment change analysis → investment adaption
 
