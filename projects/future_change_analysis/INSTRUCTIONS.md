@@ -9,11 +9,20 @@
 3. 判断是否需要更新下层期货交易分析框架
 4. 如果需要更新，提炼出“关键变量变化清单”
 5. 输出供下一步“期货执行框架更新”直接使用的结构化结果
+6. 每周无论是否更新框架，按共享模板输出独立执行诊断，区分未触发、已否决、研究未完成和准备就绪
 
 # 输入
 - 调研时点：{{AS_OF_DATE}}
 - 本次期货元框架调研结果：{{CURRENT_META_RESULT}}
 - 上次期货元框架调研结果：{{PREVIOUS_META_RESULT}}
+- 上次变化检测结果（可无）：{{PREVIOUS_CHANGE_DECISION}}
+- 现行完整执行框架：{{CURRENT_FRAMEWORK}}
+- 执行证据：{{EXECUTION_EVIDENCE}}（可用行情输出、账户/订单快照、逐候选计划与既有审计；缺失来源明确记录为不可用，不阻止生成诊断）
+
+# 独立执行诊断（每周必出）
+先读取 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`，按该文件唯一口径将执行证据写入 `research/<AS_OF_DATE>-execution-audit.md`，返回为 `CURRENT_EXECUTION_AUDIT`。`update_needed=no` 只表示不改框架，不跳过诊断。缺数据可输出 `incomplete`，不得伪造人工研究输入、账户空仓或零个机会。
+
+诊断是框架有效性复评的证据输入，不能仅凭空仓持续时间、护栏命中次数或一次踏空就改风险边界。变更报告引用诊断路径与覆盖范围；缺少完整账时保留“不足以判断机会成本”的结论。若流水线随后修改框架，编排器须按最终版本重新核对诊断，并标明属于新版本重评而非历史实际决策。
 
 # 输入字段口径
 两次元框架调研结果均应包含以下字段：
@@ -165,3 +174,9 @@ UPDATE_FOCUS:
 DO_NOT_OVERREACT_ITEMS:
   - ""
   - ""
+
+EXECUTION_AUDIT:
+  path: "research/<AS_OF_DATE>-execution-audit.md"
+  framework_version: ""
+  coverage: complete / partial / unknown
+  summary: "按诊断证据概括；不以 incomplete 代称市场不值得交易"

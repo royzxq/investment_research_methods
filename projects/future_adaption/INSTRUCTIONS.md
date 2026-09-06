@@ -13,6 +13,7 @@
 # 输入
 - 当前期货执行框架：{{CURRENT_FUTURES_EXECUTION_FRAMEWORK}}
 - 上层变化检测结果：{{FRAMEWORK_UPDATE_RESULT}}
+- 当期执行诊断：{{CURRENT_EXECUTION_AUDIT}}（阶段②按共享模板生成；单独维护时可提供现有诊断，未提供则明确不可用）
 
 # 上层变化检测结果字段口径
 输入中至少应包含以下字段：
@@ -34,6 +35,8 @@
 - 除非必要，不轻易推翻已有框架结构
 - 若仅需轻微更新，应以微调代替重写
 - 必须尊重 DO_NOT_OVERREACT_ITEMS，避免过度改动
+- 执行诊断采用 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md` 唯一口径；只修已有证据支持的规则/定义缺陷，不能把缺失人工输入补成已核验。不得从连续空仓推定应增加交易频率。
+- 涉及风险/手数的变更同时核对 canonical Step5 与 `scripts/futures_risk.py` 的职责，模板和周报引用其结果，不另存风险公式。框架更新后由编排器在数据同步完成时刷新当期诊断的规则版本与已废弃输出。
 
 # 分析步骤
 
