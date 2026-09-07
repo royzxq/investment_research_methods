@@ -12,13 +12,13 @@ description: 期货执行框架更新（流水线阶段③，仅在阶段②判�
 ## 输入
 
 - `CURRENT_FUTURES_EXECUTION_FRAMEWORK`：`framework/futures_framework.md` 现行全文（跳过文件顶部的 HTML 注释行，那只是本仓库的维护说明，不属于框架正文）
-- `FRAMEWORK_UPDATE_RESULT`：阶段②产出的完整报告（含 `FRAMEWORK_UPDATE_DECISION` / `KEY_VARIABLE_CHANGES` / `UPDATE_FOCUS` / `DO_NOT_OVERREACT_ITEMS`）
+- `FRAMEWORK_UPDATE_RESULT`：阶段②产出的完整报告（含 `FRAMEWORK_UPDATE_DECISION` / `KEY_VARIABLE_CHANGES` / `UPDATE_FOCUS` / `DO_NOT_OVERREACT_ITEMS` / `DATA_FEASIBILITY` / `EVIDENCE_CORRECTIONS`）
 - `CURRENT_EXECUTION_AUDIT`：阶段②的 `research/<AS_OF_DATE>-execution-audit.md`；单独维护未提供时明确不可用，不从管理规则推断持仓
 
 ## 执行
 
-1. 读取 `projects/future_adaption/INSTRUCTIONS.md`，完整遵循其中的角色、目标、分析原则（只改真正受影响的部分、优先微调、尊重 DO_NOT_OVERREACT_ITEMS）与六步流程；代入上述输入变量。执行诊断口径读取 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`；列出新版本使哪些旧信号/风险输出失效，供数据同步后刷新诊断
-2. 严格按 instruction 第六步给出的格式，产出完整的「期货执行框架更新结果」报告，其中第 5 节"新版期货执行框架全文"必须是**完整、自包含**的新版框架正文（沿用现行框架自身的版本号+【本次更新】标注惯例，不是只给 diff 片段）
+1. 先读取 `framework/FUTURES_DATA_PROTOCOL.md`，再读取 `projects/future_adaption/INSTRUCTIONS.md`，完整遵循其中的角色、目标、分析原则与六步流程；代入上述输入变量。执行诊断口径读取 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`；区分市场变化、证据纠错与数据可得性变化，DO_NOT_OVERREACT_ITEMS 不阻止纠错。优先保证活跃池模型的最小公开证据能重复获取，专业依赖不可得的路线单列 `research_only` 与恢复条件，不新增全局必填数据或转成用户长期裁量项。公共数据模式的 A 评分沿 canonical 固定表统一归一化规定，D9 等中性值只引用 canonical，不在包装层复制另一套公式。列出新版本使哪些旧信号/风险输出失效，供数据同步后刷新诊断
+2. 严格按 instruction 第六步给出的格式，产出完整的「期货执行框架更新结果」报告，其中第 5 节"新版期货执行框架全文"必须是**完整、自包含**的新版框架正文（沿用现行框架自身的版本号+【本次更新】标注惯例，不是只给 diff 片段）；保留 `DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS` 及受影响范围，供下游数据同步与诊断重评使用
 
 ## 输出与提交（不直接改 main，本阶段不开 PR）
 

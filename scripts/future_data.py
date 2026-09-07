@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-v2.21 框架数据脚本 — Tushare Pro 版 (v1.9)
+v2.22 框架数据脚本 — Tushare Pro 版 (v1.10)
 ====================================================================
 只负责取数、研究候选和情景预检，不输出完整交易许可。
   §0/§0b: 合约期限、事件日历核对；缺数据不能视为过门。
@@ -12,17 +12,20 @@ v2.21 框架数据脚本 — Tushare Pro 版 (v1.9)
       实际策略止损、实际费用、账户已占用/挂单风险、保证金和限仓须另核。
   §2c: 只核已登记方向性持仓；POSITIONS为空不证明账户空仓。
 
-v1.9 对应框架v2.21：方向/止损/目标闭合校验与统一账户风险预算由
+v1.10 对应框架v2.22：公开价格证据保留原始口径和比较日期；SC原油护栏
+仅使用两端有效结算价，同对价差提供1/5/10交易日变化，缺样本为null。
+方向/止损/目标闭合校验与统一账户风险预算由
 scripts/futures_risk.py提供纯离线函数及JSON CLI。常规单笔/全账户风险上限
 均为净值3.5%；低敞口按Step5固定金额封顶，且不高于常规组合预算，不再减半。
 取数脚本不假定账户风险为零。
-此次修改只完成离线验证，未以v1.9联网重跑；已有output与1.txt是历史快照。
+此次修改只完成离线验证，未以v1.10联网重跑；已有output与1.txt是历史快照。
 离线范围覆盖A计划校验、预算/容量计算与模拟数据输出；线上API字段与权限
 仍沿用已配置Tushare Pro，本版未重新确认网络可用性或数据权限。
 
 维护：合约近腿触#1或主力换月先到则滚动；执行目标两腿须同时核#2。
 历史分位按合约年份平移与±20日窗口计算，换月前后不得当作同一信号；
-不足3年或窗口不足会显式标注数据缺失。分位极值不是回归收益证明。
+固定3年逐年须有至少33/41个有效唯一样本；33–40只警示，低于33/缺年/日期异常为必要缺项。
+不填补样本、不临时改年数或窗口；该治理门槛不是统计有效性保证。分位极值不是回归收益证明。
 指标250日窗口不足时标记实际样本数。SC信号席不建仓，随主力滚月。
 保证金、限仓、事件事实与账户快照仍为人工确认输入。
 历代实现与停用品种见git历史；本版不扩展市场取数或策略白名单。
@@ -39,8 +42,12 @@ import pandas as pd
 
 try:
     from .futures_risk import precheck_2atr
+    from .price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
+    from .price_evidence import sample_coverage, validate_unique_trade_dates, calendar_window
 except ImportError:  # direct script invocation
     from futures_risk import precheck_2atr
+    from price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
+    from price_evidence import sample_coverage, validate_unique_trade_dates, calendar_window
 
 try:
     import tushare as ts
@@ -343,13 +350,22 @@ def daily(sym):
         code = resolve(sym)
         df = api().fut_daily(
             ts_code=code,
-            fields="trade_date,settle,close,high,low,pre_settle,vol,oi")
+            fields="trade_date,settle,close,open,high,low,pre_settle,vol,oi")
         time.sleep(0.4)
         if df is None or df.empty:
             raise RuntimeError(f"{sym}({code}) 日线为空")
+        cutoff = min(AS_OF, completed_day_cutoff())
+        df = df[df["trade_date"].astype(str) <= cutoff].copy()
+        if "is_complete" in df:
+            df = df[df["is_complete"] != False].copy()
+        if df.empty:
+            raise RuntimeError(f"{sym} 在已完成日线上界 {cutoff} 前无可用数据")
+        validate_unique_trade_dates(df["trade_date"].tolist())
         df = df.sort_values("trade_date").reset_index(drop=True)
-        df["px"] = df["settle"].where(df["settle"].notna() & (df["settle"] > 0),
-                                      df["close"])
+        prices = [select_price(row.get("settle"), row.get("close"))
+                  for row in df.to_dict("records")]
+        df["px"] = [price for price, _ in prices]
+        df["price_basis"] = [basis for _, basis in prices]
         _daily_cache[sym] = df
     return _daily_cache[sym]
 
@@ -370,21 +386,33 @@ def shift_year_date(d, k):
 
 
 def pair_series(near, far):
-    """合并两腿 → spread / spread_pct(以远腿为基)。"""
+    """合并同一对两腿，保留原价/口径 → spread / spread_pct(以远腿为基)。"""
     a, b = daily(near), daily(far)
-    m = pd.merge(a[["trade_date", "px"]], b[["trade_date", "px"]],
+    validate_unique_trade_dates(a["trade_date"].tolist())
+    validate_unique_trade_dates(b["trade_date"].tolist())
+    columns = ["trade_date", "px", "price_basis", "settle", "pre_settle", "close", "open", "high", "low"]
+    m = pd.merge(a.reindex(columns=columns), b.reindex(columns=columns),
                  on="trade_date", suffixes=("_n", "_f"))
+    m["near_contract"], m["far_contract"] = near, far
     m["spread"] = m["px_n"] - m["px_f"]
     m["spread_pct"] = m["spread"] / m["px_f"] * 100
     return m
 
 
 def window_around(df, anchor, win):
-    """取 anchor 日历日附近 ±win 个交易日的切片。"""
-    dates = df["trade_date"].values
-    pos = int(np.searchsorted(dates, anchor))
-    pos = min(max(pos, 0), len(df) - 1)
-    return df.iloc[max(0, pos - win): pos + win + 1]
+    """真实交易日历固定±win日期范围；缺行情不向窗口外补行。"""
+    cal = _trade_cal()
+    if CAL_DEGRADED:
+        raise ValueError("同期样本交易日历已降级，不能验收固定窗口")
+    window = calendar_window(cal, anchor, win)
+    validate_unique_trade_dates(df["trade_date"].tolist())
+    in_bounds = df["trade_date"].between(window["window_start"], window["window_end"])
+    expected_date = df["trade_date"].isin(window["trading_dates"])
+    if (in_bounds & ~expected_date).any():
+        raise ValueError("同期窗口出现非交易日行情日期")
+    selected = df.loc[expected_date].copy()
+    selected.attrs["sample_window"] = {key: value for key, value in window.items() if key != "trading_dates"}
+    return selected
 
 
 # ---------------------- §0 合约新鲜度自检 ----------------------
@@ -469,7 +497,7 @@ def spec_check():
     if bad:
         sys.exit("CONTRACT_SPEC multiplier 与交易所合约乘数不一致: " + "; ".join(bad)
                  + " —— 修正后再跑(否则 0.3#31 一手风险失真)")
-    print(f"  v1.9 参数校验: CONTRACT_SPEC 覆盖 {len(first)} 个池内品种, multiplier 与 fut_basic.per_unit 一致"
+    print(f"  v1.10 参数校验: CONTRACT_SPEC 覆盖 {len(first)} 个池内品种, multiplier 与 fut_basic.per_unit 一致"
           + (f"; ⚠ per_unit 缺失未能核对: {unknown}" if unknown else ""))
 
 
@@ -550,27 +578,45 @@ def spread_percentile(label, near, far, kind="A"):
     cur = cur_df.iloc[-1]
     if not np.isfinite(cur[["px_n", "px_f", "spread", "spread_pct"]].astype(float)).all() or min(cur["px_n"], cur["px_f"]) <= 0:
         raise RuntimeError("数据缺失: 当前两腿价格无效，不计算分位")
-    pool, used, missing, blocked = [], [], [], []
+    market_trade_date = str(cur["trade_date"])
+    pool, used, missing, blocked, quality_warnings, year_counts = [], [], [], [], [], []
+    historical_windows, basis_pairs = [], set()
+    current_basis = (str(cur.get("price_basis_n", "unknown")), str(cur.get("price_basis_f", "unknown")))
     for k in range(1, YEARS + 1):
         n_k, f_k = shift_year_sym(near, k), shift_year_sym(far, k)
         try:
             hist_pair = pair_series(n_k, f_k)
-            sub = window_around(hist_pair, shift_year_date(AS_OF, k), WIN)
+            validate_unique_trade_dates(hist_pair["trade_date"].tolist())
+            sub = window_around(hist_pair, shift_year_date(market_trade_date, k), WIN)
+            window = sub.attrs["sample_window"]
             valid = np.isfinite(sub[["px_n", "px_f", "spread", "spread_pct"]]).all(axis=1)
             valid &= (sub["px_n"] > 0) & (sub["px_f"] > 0)
             sub = sub.loc[valid]
+            for row in sub.to_dict("records"):
+                basis_pairs.add((str(row.get("price_basis_n", "unknown")), str(row.get("price_basis_f", "unknown"))))
             if not sub.empty:
                 pool.append(sub[["spread", "spread_pct"]])
-            used.append(f"{n_k}-{f_k}(n={len(sub)})")
-            if len(sub) < 2 * WIN + 1:
-                missing.append(f"同期窗口{n_k}-{f_k}仅{len(sub)}/{2 * WIN + 1}个有效样本")
+            year_counts.append(len(sub))
+            historical_windows.append(dict(near_contract=n_k, far_contract=f_k, count=len(sub), **window))
+            used.append(f"{n_k}-{f_k}(n={len(sub)}/{2 * WIN + 1};"
+                        f"目标锚={window['target_anchor']},交易日锚={window['trading_anchor']};"
+                        f"窗口={window['window_start']}~{window['window_end']})")
         except Exception as exc:
-            used.append(f"{n_k}-{f_k}(缺失:{exc})")
-            missing.append(f"历史对照{n_k}-{f_k}缺失")
+            year_counts.append(None)
+            historical_windows.append(dict(near_contract=n_k, far_contract=f_k, count=None,
+                                           target_anchor=shift_year_date(market_trade_date, k), issue=str(exc)))
+            used.append(f"{n_k}-{f_k}(n=unknown/{2 * WIN + 1};缺失或日期异常:{exc})")
+    coverage = sample_coverage(year_counts, expected_per_year=2 * WIN + 1, expected_years=YEARS)
+    missing.extend(f"同期样本:{issue}" for issue in coverage["missing_fields"])
+    quality_warnings.extend(f"同期样本:{issue}" for issue in coverage["warnings"])
+    known_basis = all(basis in ("settle", "close") for pair in basis_pairs | {current_basis} for basis in pair)
+    basis_quality = ("unknown" if not known_basis or not basis_pairs else
+                     "consistent" if basis_pairs == {current_basis} else "basis_mixed")
+    if basis_quality != "consistent":
+        missing.append(f"分位价格口径={basis_quality}:当前{current_basis},历史{sorted(basis_pairs)}；"
+                       "分位仅供参考，不能确认#13/D4已过；须用完整同口径数据重跑，不填补/改写原价")
     hist = pd.concat(pool) if pool else pd.DataFrame(columns=["spread", "spread_pct"])
     pct_same = float((hist["spread_pct"] < cur["spread_pct"]).mean() * 100) if len(hist) else None
-    if len(pool) < YEARS:
-        missing.append(f"历史年份不足{len(pool)}/{YEARS}")
     life = cur_df.loc[np.isfinite(cur_df["spread_pct"]), "spread_pct"]
     pct_life = float((life < cur["spread_pct"]).mean() * 100)
 
@@ -592,17 +638,40 @@ def spread_percentile(label, near, far, kind="A"):
         except Exception as exc:
             days[name] = None
             missing.append(f"#1:{name}腿到期数据缺失({exc})")
+    # The change series belongs only to this pair, never to the historical
+    # percentile pool or an old pair before a roll. Missing sessions remain
+    # unknown instead of compressing the observed rows into "trading days".
+    cur_df = cur_df.copy()
+    for field, value in (("near_contract", near), ("far_contract", far),
+                         ("price_basis_n", "unknown"), ("price_basis_f", "unknown")):
+        if field not in cur_df:
+            cur_df[field] = value
+    changes = spread_change_series(cur_df.to_dict("records"), near, far, _trade_cal())
+    cur_df = cur_df.merge(pd.DataFrame(changes), on="trade_date", how="left")
+    cur = cur_df.iloc[-1]
     os.makedirs(OUTDIR, exist_ok=True)
     safe = f"{near}_{far}".replace("/", "")
     cur_df.to_csv(f"{OUTDIR}/spread_{safe}.csv", index=False)
     print(f"\n[{label}] {near} - {far}  (数据截至 {cur['trade_date']})")
+    print(f"  同期重算市场锚: {market_trade_date}（研究AS_OF={AS_OF}不改变同一行情日的历史窗口）")
     print(f"  当前价差: {cur['spread']:+.1f}  |  价差%: {cur['spread_pct']:+.3f}%")
+    print(f"  当前两腿价格口径: {near}={cur['price_basis_n']} / {far}={cur['price_basis_f']}")
+    for n in (1, 5, 10):
+        key = f"spread_change_{n}td"
+        value = cur[key]
+        change_text = f"{value:+.2f}" if pd.notna(value) else "null"
+        unit = "元/桶" if near.startswith("SC") else "元/吨"
+        print(f"  同对价差近{n}交易日变化: {change_text} {unit} | "
+              f"{cur[f'{key}_from']} → {cur['trade_date']} | {cur[f'{key}_status']}")
+    print("  正负变化仅说明固定合约对走阔/收窄；分位高不代表本期反弹，非供需证真。")
     for name in ("近", "远"):
         volume_text = f"{volumes[name]:,.0f}" if volumes[name] is not None else "缺失"
         day_text = str(days[name]) if days[name] is not None else "缺失"
         print(f"  {name}腿20日均成交: {volume_text} | 距最后交易日: {day_text} td")
     if pct_same is None:
         tag = "数据缺失，不能评价研究候选强度"
+        if kind == "A":
+            tag += "；计划未完成，方向/真实SL/TP/R/预算及完整规则另核"
     elif kind == "信号":
         tag = "信号席仅供back极端度参考，不建仓"
     else:
@@ -617,13 +686,22 @@ def spread_percentile(label, near, far, kind="A"):
               f" (%口径: {lp[0]:+.3f}/{lp[1]:+.3f}/{lp[2]:+.3f})")
     print(f"  本对全生命周期分位: {pct_life:.1f} (参考，非收益预测)")
     print(f"  历史对照: {'; '.join(used)}")
+    print(f"  同期样本验收: 每个固定历史年至少{coverage['minimum_per_year']}/{coverage['expected_per_year']}，"
+          f"共{YEARS}年 | {coverage['status']}；仅为治理最低线，非统计有效性保证")
+    for issue in quality_warnings:
+        print(f"  ⚠ 质量警示: {issue}；警示与必要缺项分别记录，不填补样本")
     for issue in blocked:
         print(f"  ⚠ 明确否决: {issue}")
     for issue in missing:
         print(f"  ⚠ 数据缺失/不足: {issue}；不能视为已过门")
-    return {"scope": "research_only", "percentile": pct_same,
+    return {"scope": "research_inputs", "percentile": pct_same,
             "data_status": "incomplete" if missing else "blocked" if blocked else "complete",
             "missing_fields": missing, "hard_vetoes": blocked,
+            "quality_warnings": quality_warnings, "sample_coverage": coverage,
+            "market_trade_date": market_trade_date, "historical_windows": historical_windows,
+            "percentile_price_basis_quality": basis_quality,
+            "price_basis": {near: cur["price_basis_n"], far: cur["price_basis_f"]},
+            "spread_changes": changes[-1],
             "plan_status": "incomplete" if kind == "A" else "not_applicable",
             "final_lots": None}
 
@@ -719,13 +797,16 @@ def indicators(sym):
     if atr_pct < 40 and ev_t3:
         layer = "低波→按常规(事件T-3)"
 
-    # ---- ★v1.8 周涨%(护栏口径) 与 一手风险(框架 0.3#31) ----
-    # 周涨% 基准 = AS_OF 前 7 个日历日内最近一个交易日的结算价(周五对上周五; 跨假期同口径),
-    #   不用「5 个交易日前」—— 假期周会把跨假累计涨幅当一周涨幅喂给 MA 护栏(>5%/>8%)。
-    anchor = (pd.to_datetime(AS_OF, format="%Y%m%d") - pd.Timedelta(days=7)).strftime("%Y%m%d")
-    prev = df[df["trade_date"] <= anchor]
-    wk_chg = ((px_now / float(prev["px"].iloc[-1]) - 1) * 100
-              if len(prev) and float(prev["px"].iloc[-1]) > 0 else np.nan)
+    # The weekly anchor is the latest completed market date minus 7 calendar
+    # days, not the research AS_OF date. Reference returns may use close fallback;
+    # the SC oil guard
+    # requires valid raw settlement at BOTH actual calendar-week endpoints.
+    week = weekly_price_evidence(df.to_dict("records"), AS_OF)
+    wk_chg = week["reference_change_pct"]
+    oil_change = week["settlement_change_pct"] if prod == "SC" else None
+    oil_status = week["settlement_status"] if prod == "SC" else "not_applicable"
+    if oil_status == "unknown":
+        veto.append("SC原油护栏数据unknown·两端有效结算价未齐，不据收盘/混合周涨判命中")
     # 仅2ATR情景上界：预算先折减后一次取整，不提供最终#31裁决。
     spec = CONTRACT_SPEC.get(prod)
     risk1, lots1 = np.nan, None
@@ -744,6 +825,11 @@ def indicators(sym):
 
     return {"合约": sym, "数据截至": df["trade_date"].iloc[-1],
             "px": round(px_now, 2),
+            "price_basis": week["end_basis"],
+            "settle": df["settle"].iloc[-1] if "settle" in df else None,
+            "pre_settle": df["pre_settle"].iloc[-1] if "pre_settle" in df else None,
+            "close": df["close"].iloc[-1] if "close" in df else None,
+            "open": df["open"].iloc[-1] if "open" in df else None,
             "ATR20": round(float(atr20.iloc[-1]), 2),
             "ADX14": round(float(adx14.iloc[-1]), 1),
             "HV20%": round(float(hv20.iloc[-1]), 1),
@@ -761,7 +847,14 @@ def indicators(sym):
             "MA20": round(ma20, 2), "MA60": round(ma60, 2),
             "20日均成交": int(vol20) if not np.isnan(vol20) else np.nan,
             "距到期": dte if dte is not None else np.nan,
-            "周涨%": round(wk_chg, 2) if not np.isnan(wk_chg) else np.nan,
+            "周涨%": round(wk_chg, 2) if wk_chg is not None else None,
+            "周涨锚日": week["anchor_date"],
+            "周涨起日": week["start_date"], "周涨止日": week["end_date"],
+            "周涨起价": week["start_price"], "周涨止价": week["end_price"],
+            "周涨起口径": week["start_basis"], "周涨止口径": week["end_basis"],
+            "周涨起结算": week["start_settle"], "周涨止结算": week["end_settle"],
+            "SC护栏结算周涨%": oil_change,
+            "SC护栏数据状态": oil_status,
             "2ATR情景金额(非真实SL风险)": int(round(risk1)) if not np.isnan(risk1) else np.nan,
             "2ATR预检数量上界(非最终手数)": lots1,
             "否决检查": "|".join(veto) if veto else "#1/#2数据未见否决；其余规则与账户预算未核"}
@@ -771,6 +864,9 @@ COLS_VOLA = ["合约", "数据截至", "px", "ATR20", "ADX14", "HV20%", "HV60%",
              "HV20/HV60", "ATR20分位", "分位样本N", "ATR分层", "D12提示"]
 COLS_POS = ["合约", "H250", "dist_H250%", "H20", "L20", "H60", "L60",
             "MA20", "MA60", "20日均成交", "距到期", "周涨%", "2ATR情景金额(非真实SL风险)", "2ATR预检数量上界(非最终手数)", "否决检查"]
+COLS_PRICE_EVIDENCE = ["合约", "数据截至", "px", "price_basis", "周涨锚日", "周涨起日", "周涨止日",
+                      "周涨起价", "周涨止价", "周涨起口径", "周涨止口径", "周涨%",
+                      "周涨起结算", "周涨止结算", "SC护栏结算周涨%", "SC护栏数据状态"]
 
 
 def print_atr_dispersion(tab):
@@ -838,15 +934,17 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v2.21 框架数据脚本 (Tushare Pro, v1.9)")
+        description="v2.22 框架数据脚本 (Tushare Pro, v1.10)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
     args = parser.parse_args()
     AS_OF = args.as_of
 
-    print(f"== v2.21 框架数据脚本 v1.9 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
+    print(f"== v2.22 框架数据脚本 v1.10 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
           f"2ATR预检预算{RISK_BUDGET:,.0f}(非账户剩余额度) | 事件节点{len(EVENTS)}项(用户维护) ==")
+    print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
+          "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")
 
     spec_check()                     # ★v1.8 合约参数校验, 不过直接退出
     contract_freshness_check()
@@ -875,8 +973,10 @@ def main():
                index=False, encoding="utf-8-sig")
     print("\n  -- 2a 波动率/趋势 (D12·含事件T-3判据 / ATR分层) --")
     print(tab.reindex(columns=COLS_VOLA).to_string(index=False))
-    print("\n  -- 2b 位置/均线/流动性 (D11 / Entry / 否决#1#2 / v1.9 周涨%(7日历日基准)·2ATR情景金额/预检上界，非最终手数) --")
+    print("\n  -- 2b 位置/均线/流动性 (D11 / Entry / 否决#1#2 / v1.10 参考周涨%·2ATR情景金额/预检上界，非最终手数) --")
     print(tab.reindex(columns=COLS_POS).to_string(index=False))
+    print("\n  -- 2b.1 价格证据与原油护栏 (参考周涨可含close；SC护栏只读两端settle专用列；unknown不等于触发或解除) --")
+    print(tab.reindex(columns=COLS_PRICE_EVIDENCE).to_string(index=False))
 
     print_atr_dispersion(tab)
 
@@ -888,18 +988,24 @@ def main():
     print(f"\n完成。CSV 已写入 {OUTDIR}/ ; 请将上方控制台输出整体贴回对话, 或上传 CSV。")
     print("注1: ATR20分位/H250/dist_H250%/H20等为单合约自身历史近似; 样本N<250时")
     print("     H250实为上市以来高点, D11口径偏松, 以「分位样本N」列酌情解读;")
-    print("     PS等新品种同期分位口径降级见§1⚠; 主力连续拼接(fut_mapping)与")
-    print("     单周涨跌3年分位(D8)列v1.6候选。")
+    print("     A同期样本按固定3年逐年至少33/41验收，33–40只警示；分位不证明回归收益。")
+    print("     主力连续拼接与单周涨跌3年分位(D8)仍未实现；A结构豁免D8，其他路线按适用项判断。")
     print("注2: 到期/距到期与事件T-n用trade_cal真实交易日(已剔节假日; ★v1.7);")
     print("     " + ("本次口径正常, 无降级。" if not CAL_DEGRADED else
                      "⚠本次已降级为busday近似, 原因: " + "; ".join(CAL_DEGRADED)))
-    print("     周涨%基准=AS_OF前7日历日内最近交易日结算价(周五对上周五, 跨假期同口径);")
-    print("     EVENTS暂估项(WASDE/8月硬数据)官宣后请立即修正。")
-    print("注3: 本脚本未覆盖(维持人工, 见v2.9 1.1人工输入项): ①现货/仓单追认代理与")
-    print("     事件链进展、②窗口与政治局判定、③产能性判决硬数据(铁水/社库/盈利率/")
-    print("     能繁/调减进度)、PS/LH期现升水与SMM现货(用户裁决:不走脚本)、板块分化")
-    print("     代理(AI链vs地产链)、保证金与限仓现值(交易所公告; SC处INE风控升级期)、")
-    print("     商品现货基差、单周涨跌3年分位(D8)、gap_ratio(定义悬空, 待框架补列)。")
+    print("     周涨%终点=最新已完成实际行情日，起点=该日-7自然日及之前最近交易日；显示两端日期/口径；")
+    print("     SC原油护栏仅用专用结算周涨列，两端任一结算价缺失或非正数则unknown，不用close填充；")
+    print("     同对价差1/5/10交易日变化须固定合约对、完整日历窗口和一致价格口径，缺项为null；")
+    print("     EVENTS为既有人工配置，含WASDE/硬数据暂估项；输出不代表当期已官宣核实。")
+    print("     执行前必须核官方日期、时区、交易日归属和实际适用窗口；旧事件备注不是当前事实。")
+    print("注3: 默认public_data；人工项按framework/futures_framework.md的0D与")
+    print("     framework/FUTURES_DATA_PROTOCOL.md区分必要项和增强项，不再要求专业数据全套。")
+    print("     必要执行人工项：具体方向/SL/TP与期限、真实费用、账户持仓/挂单、保证金/限仓、")
+    print("     最新可执行报价及压力场景；gap_ratio=压力止损损失/计划止损损失，本脚本未计算。")
+    print("     默认验证：已定义价格/结构确认＋至少一项独立当前产业事实；研究评分不等账户核验。")
+    print("     港口库存全链、铁水/利润、战争险/通行量/出口等按模型可选；缺失只影响依赖该证据的路线。")
+    print("     政策/地缘/供给强因果模型仍须自身专属证据；不可得则research_only，不以价格代理证真。")
+    print("     池外休眠品种不追加例行采集，不把背景缺项扩大为全池冻结。")
 
 
 if __name__ == "__main__":
