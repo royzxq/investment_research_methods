@@ -21,7 +21,7 @@
 - 同时保留所有**已核实**的阻断 `all_blockers` 和所有缺口 `unknown_checks`；不能因已发现一条阻断便把余下检查补写为已过。`first_blocker` 是实际检查顺序下第一条已核实否决，附检查顺序，不代表因果贡献最大。
 - `only_blocker=true` 仅在其他适用检查全部完成且只有该项否决时填写；至少两项已知阻断可填 `false`；否则填 `null`。删除第一条规则不代表可以交易。
 - `final_lots=null` 表示计划、账户或约束尚未补齐，`0` 表示所需输入齐全后计算/核验确实不可执行。不得把未提供的持仓、净值、保证金或风险占用填成零。`POSITIONS={}` / `[]` 是脚本配置，不足以证明账户空仓。实际持仓未知时组合已用风险与最终手数均为 null；挂单、部分成交未入持仓部分的预留风险也计入预算。
-- 实际持仓 `actual_position_status` 仅有 `verified_flat` / `verified_positions` / `unknown`：前两者须带时间戳、已核验的当期完整账户快照（可由用户提供），并保留来源与覆盖范围。报告里的“存量持有/减仓”等管理规则不证明曾持仓或成交。
+- 实际持仓 `actual_position_status` 仅有 `verified_flat` / `verified_positions` / `unknown`：前两者须带时间戳、已核验的当期完整账户快照（可由用户提供），并保留来源与覆盖范围。`verified_at` 必须为带时区的完整时间戳，转换为 Asia/Shanghai 后日期须等于本次 `as_of_date`；仅有日期或旧日快照不能支撑非 null 手数或 ready。报告里的“存量持有/减仓”等管理规则不证明曾持仓或成交。
 - 行情记录同时写观测交易日、采集时间/未知、来源与计算版本；账户写核验时间/未知；规则写版本和修订号。旧脚本输出可作为有日期的行情证据，已废弃风险或标签单列为不可沿用。
 
 ## 状态判定
@@ -40,6 +40,8 @@
 下面是无行情/账户的缺项示例，日期和标识由当次运行替换，不代表本期市场结论。`evaluated_checks`统一存对象与证据，`all_blockers`/`unknown_checks`只存对应rule_id；不得混存字符串解释和对象。背景缺失在全局evidence表留痕，不能伪装适用门失败。
 
 证据行字段：evidence_id、metric、value、unit、observation_date、published_at、source_url_or_file、original_source、price_basis、comparison_basis、role、quality、time_scope。role=required_execution/required_model/optional_context；quality=verified/missing/stale/conflicting/invalid；time_scope=current/historical。非价格/非比较指标可将对应basis设null；用户文件以可核快照时间记录，不猜发布日期。
+
+适用检查填 `result=pass` 时，其 `evidence_refs` 引用的每条 required_execution / required_model 证据必须为 `quality=verified`；同时引用其他已核实证据不能覆盖 missing/stale/conflicting/invalid。未通过或未完成的检查可以引用不可用证据说明原因，optional_context 缺失仍不自动阻断。行情证据允许完整日期及明确的历史观察值，不套用账户的当日时间戳要求。
 
 ```json
 {

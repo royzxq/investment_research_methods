@@ -6,7 +6,7 @@ CLI: python scripts/validate_futures_audit.py report.json
 
 Markdown must contain exactly one fenced ``json`` block. JSON duplicate keys
 and non-finite numbers are rejected. No network, credentials, market-data
-refresh, risk calculation, automatic freshness cutoff, or trading permission
+refresh, risk calculation, automatic market-evidence freshness cutoff, or trading permission
 evaluation occurs. A valid result only means the supplied structure and stated
 statuses are consistent; it does not establish source truth or rule coverage.
 """
@@ -63,21 +63,23 @@ def _required_fields(value, fields, path, errors):
             errors.append(f"{path}.{field}: missing field")
 
 
-def _date(value, path, errors, *, timestamp=False):
+def _date(value, path, errors, *, timestamp=False, require_timestamp=False):
     if not _text(value):
-        errors.append(f"{path}: expected ISO date" + (" or timestamp" if timestamp else ""))
+        expected = "timezone-qualified timestamp" if require_timestamp else "ISO date"
+        errors.append(f"{path}: expected {expected}" + (" or timestamp" if timestamp and not require_timestamp else ""))
         return None
     try:
-        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        if not require_timestamp and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
             return date.fromisoformat(value)
-        if timestamp:
+        if timestamp or require_timestamp:
             parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
             if parsed.tzinfo is None:
                 raise ValueError("timestamp requires timezone")
             return parsed.astimezone(CHINA_TIME).date()
     except (ValueError, OverflowError):
         pass
-    errors.append(f"{path}: invalid ISO date or timezone-qualified timestamp")
+    expected = "timezone-qualified timestamp" if require_timestamp else "ISO date or timezone-qualified timestamp"
+    errors.append(f"{path}: invalid {expected}")
     return None
 
 
@@ -141,8 +143,10 @@ def _account(snapshot, as_of, errors):
     if status not in ("verified_flat", "verified_positions"):
         return False
     start_errors = len(errors)
-    _dated(account.get("verified_at"), f"{path}.verified_at", as_of, errors,
-           timestamp=True, required=True)
+    verified_date = _date(account.get("verified_at"), f"{path}.verified_at", errors,
+                          require_timestamp=True)
+    if verified_date is not None and as_of is not None and verified_date != as_of:
+        errors.append(f"{path}.verified_at: must match as_of_date (Asia/Shanghai)")
     if not _text(account.get("evidence")):
         errors.append(f"{path}.evidence: verified account requires a source reference")
     for field in ("equity", "existing_risk", "reserved_order_risk", "margin_available"):
@@ -161,7 +165,7 @@ def _account(snapshot, as_of, errors):
 
 
 def _evidence(rows, as_of, errors):
-    evidence_ids = set()
+    evidence_by_id = {}
     for index, row in enumerate(rows):
         path = f"evidence[{index}]"
         item = _object(row, path, errors)
@@ -171,10 +175,10 @@ def _evidence(rows, as_of, errors):
         evidence_id = item.get("evidence_id")
         if not _text(evidence_id):
             errors.append(f"{path}.evidence_id: expected nonempty ID string")
-        elif evidence_id in evidence_ids:
+        elif evidence_id in evidence_by_id:
             errors.append(f"{path}.evidence_id: duplicate ID {evidence_id}")
         else:
-            evidence_ids.add(evidence_id)
+            evidence_by_id[evidence_id] = item
         if not _text(item.get("metric")):
             errors.append(f"{path}.metric: expected nonempty string")
         _enum(item.get("role"), {"required_execution", "required_model", "optional_context"},
@@ -194,10 +198,11 @@ def _evidence(rows, as_of, errors):
                required=required_verified)
         _dated(item.get("published_at"), f"{path}.published_at", as_of, errors,
                timestamp=True, required=required_verified)
-    return evidence_ids
+    return evidence_by_id
 
 
-def _candidate(row, index, evidence_ids, account_verified, errors):
+def _candidate(row, index, evidence_by_id, account_verified, errors):
+    evidence_ids = evidence_by_id.keys()
     path = f"candidates[{index}]"
     candidate = _object(row, path, errors)
     if candidate is None:
@@ -243,6 +248,12 @@ def _candidate(row, index, evidence_ids, account_verified, errors):
         references = _ids(check.get("evidence_refs"), f"{check_path}.evidence_refs", errors)
         for reference in sorted(references - evidence_ids):
             errors.append(f"{check_path}.evidence_refs: unresolved evidence ID {reference}")
+        if applicable is True and result == "pass":
+            for reference in sorted(references & evidence_ids):
+                item = evidence_by_id[reference]
+                if (item.get("role") in ("required_execution", "required_model")
+                        and item.get("quality") != "verified"):
+                    errors.append(f"{check_path}.evidence_refs: pass requires verified required evidence: {reference}")
     if "evidence_refs" in candidate:
         references = _ids(candidate["evidence_refs"], f"{path}.evidence_refs", errors)
         for reference in sorted(references - evidence_ids):
@@ -328,10 +339,10 @@ def validate_audit(doc):
         for field, timestamp in (("market_trade_date", False), ("market_captured_at", True)):
             _dated(snapshot.get(field), f"snapshot.{field}", as_of, errors, timestamp=timestamp)
     evidence = _list(document.get("evidence"), "evidence", errors)
-    evidence_ids = _evidence(evidence or [], as_of, errors)
+    evidence_by_id = _evidence(evidence or [], as_of, errors)
     candidates = _list(document.get("candidates"), "candidates", errors)
     for index, candidate in enumerate(candidates or []):
-        _candidate(candidate, index, evidence_ids, account_verified, errors)
+        _candidate(candidate, index, evidence_by_id, account_verified, errors)
     unresolved = _list(document.get("unresolved_items"), "unresolved_items", errors)
     for index, item in enumerate(unresolved or []):
         _object(item, f"unresolved_items[{index}]", errors)

@@ -174,6 +174,72 @@ class AuditStructureTests(unittest.TestCase):
                 document["candidates"][0]["final_lots"] = lots
                 self.assert_error(document, "expected nonnegative integer or null")
 
+    def test_account_requires_same_day_timezone_qualified_timestamp(self):
+        for value in ("2025-01-01T09:00:00+08:00", "2026-09-06T23:59:59+08:00",
+                      "2026-09-07", "2026-09-07T09:00:00", None,
+                      "2026-09-06T15:59:59Z", "2026-09-07T16:00:00Z"):
+            with self.subTest(verified_at=value):
+                document = audit()
+                verified_account(document)
+                document["snapshot"]["account"]["verified_at"] = value
+                candidate = checks(document, [("#31", True, "pass")])
+                candidate.update(status="ready", final_lots=1)
+                self.assert_error(document, "snapshot.account.verified_at:")
+                self.assert_error(document, "final_lots: must be null")
+                self.assert_error(document, "ready requires")
+
+    def test_account_day_is_compared_in_shanghai_timezone(self):
+        for value in ("2026-09-06T16:00:00Z", "2026-09-07T15:59:59Z",
+                      "2026-09-06T12:00:00-04:00", "2026-09-07T23:59:59+08:00"):
+            with self.subTest(verified_at=value):
+                document = audit()
+                verified_account(document)
+                document["snapshot"]["account"]["verified_at"] = value
+                candidate = checks(document, [("#31", True, "pass")])
+                candidate.update(status="ready", final_lots=1)
+                self.assertEqual(validate_audit(document), [])
+
+    def test_pass_rejects_any_explicitly_unavailable_required_evidence(self):
+        for role in ("required_execution", "required_model"):
+            for quality in ("missing", "stale", "conflicting", "invalid"):
+                with self.subTest(role=role, quality=quality):
+                    document = audit()
+                    verified_account(document)
+                    candidate = checks(document, [("#31", True, "pass")])
+                    candidate.update(status="ready", final_lots=1)
+                    unavailable = evidence()
+                    unavailable.update(evidence_id="unavailable", role=role, quality=quality)
+                    document["evidence"].append(unavailable)
+                    refs = candidate["evaluated_checks"][0]["evidence_refs"]
+                    refs.append("unavailable")
+                    self.assert_error(document, "pass requires verified required evidence: unavailable")
+                    refs.remove("inventory")
+                    self.assert_error(document, "pass requires verified required evidence: unavailable")
+
+    def test_unavailable_required_evidence_can_explain_unresolved_or_failed_checks(self):
+        for result, applicable, status in (("unknown", True, "incomplete"),
+                                           ("fail", True, "blocked"),
+                                           ("not_applicable", False, "incomplete")):
+            with self.subTest(result=result):
+                document = audit()
+                verified_account(document)
+                document["evidence"][0]["quality"] = "missing"
+                candidate = checks(document, [("#31", applicable, result)])
+                candidate["status"] = status
+                self.assertEqual(validate_audit(document), [])
+
+    def test_optional_missing_reference_does_not_block_ready(self):
+        document = audit()
+        verified_account(document)
+        candidate = checks(document, [("#31", True, "pass")])
+        candidate.update(status="ready", final_lots=1)
+        optional = evidence()
+        optional.update(evidence_id="context", role="optional_context", quality="missing",
+                        value=None, observation_date=None, published_at=None)
+        document["evidence"].append(optional)
+        candidate["evaluated_checks"][0]["evidence_refs"].append("context")
+        self.assertEqual(validate_audit(document), [])
+
     def test_invalid_signal_or_no_signal_label_is_rejected(self):
         for signal in ("incomplete", "no_signal", True, [], None):
             document = audit()
