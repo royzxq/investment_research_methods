@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-v2.22 框架数据脚本 — Tushare Pro 版 (v1.10)
+v2.23 框架数据脚本 — Tushare Pro 版 (v1.11)
 ====================================================================
 只负责取数、研究候选和情景预检，不输出完整交易许可。
   §0/§0b: 合约期限、事件日历核对；缺数据不能视为过门。
@@ -12,13 +12,14 @@ v2.22 框架数据脚本 — Tushare Pro 版 (v1.10)
       实际策略止损、实际费用、账户已占用/挂单风险、保证金和限仓须另核。
   §2c: 只核已登记方向性持仓；POSITIONS为空不证明账户空仓。
 
-v1.10 对应框架v2.22：公开价格证据保留原始口径和比较日期；SC原油护栏
+v1.11 对应框架v2.23：价格证据与OHLC指标独立输出；增加MA/RB换月准备，
+事件国内交易日与既有提前风险窗分列。公开价格证据保留原始口径和比较日期；SC原油护栏
 仅使用两端有效结算价，同对价差提供1/5/10交易日变化，缺样本为null。
 方向/止损/目标闭合校验与统一账户风险预算由
 scripts/futures_risk.py提供纯离线函数及JSON CLI。常规单笔/全账户风险上限
 均为净值3.5%；低敞口按Step5固定金额封顶，且不高于常规组合预算，不再减半。
 取数脚本不假定账户风险为零。
-此次修改只完成离线验证，未以v1.10联网重跑；已有output与1.txt是历史快照。
+此次修改只完成离线验证，未以v1.11联网重跑；已有output与1.txt是历史快照。
 离线范围覆盖A计划校验、预算/容量计算与模拟数据输出；线上API字段与权限
 仍沿用已配置Tushare Pro，本版未重新确认网络可用性或数据权限。
 
@@ -28,7 +29,7 @@ scripts/futures_risk.py提供纯离线函数及JSON CLI。常规单笔/全账户
 不填补样本、不临时改年数或窗口；该治理门槛不是统计有效性保证。分位极值不是回归收益证明。
 指标250日窗口不足时标记实际样本数。SC信号席不建仓，随主力滚月。
 保证金、限仓、事件事实与账户快照仍为人工确认输入。
-历代实现与停用品种见git历史；本版不扩展市场取数或策略白名单。
+历代实现与停用品种见git历史；新增取数仅为既定MA/RB下一合约对，不扩展策略白名单。
 """
 
 import os
@@ -36,6 +37,7 @@ import re
 import sys
 import time
 import argparse
+import json
 from datetime import datetime
 import numpy as np
 import pandas as pd
@@ -69,11 +71,9 @@ OUTDIR = "./output"
 #   置 False 用于**不可排期项的逐周顺延占位窗**(地缘轴): 只在清单里列出来提醒人工盯,
 #   不自动打标 —— 真正的触发日是质变 headline 当日, 不是占位窗里的每一天;
 #   否则 D12 会对能源链/贵金属长期常开, 与 3.5b「临近离散事件T-3」的定义脱钩。
-# ⚠ 日期确定性分三档, 越弱越要在官宣后回来改: (a)已定=OPEC+ 9/6、调减判决数据硬截止 9/12(框架0.3#23)、
-#   俄柴油出口禁令到期 9/30(框架1.4俄乌轴行);
-#   (b)「按框架1.4口径」=9/10 PPI、9/11 CPI(沃勒明示的裁决锚)、9/15-16 FOMC(多源判定, 未见官方日历原文核对);
-#   (c)「暂估」=WASDE 9/11、中国8月硬数据 9/15-16。新节点随 1.4 表滚动增删;
-#   两个地缘「监控窗」是不可排期项的逐周顺延占位, 到期未质变就整体后移一周。
+# 日期列使用国内影响交易日，官方发布时间/来源留在备注；会议起始日不代决议日。
+# 2026-09-09复核：BLS 9/10 PPI、9/11 CPI；USDA 9/11 WASDE；Fed 9/16决议。
+# 其余暂估/治理截止/地缘占位仅用于人工核验，不作为已核离散事件自动打标。
 EVENTS = [   # ★v1.8 2026-09-06 按框架 v2.20 的 1.4 事件轴刷新(1.4 表沿 v2.19 2026-09-05 判定; 用户维护项)
     #  归档移除(已落地, 见框架1.4【归档】段): 8月非农(9/4, 强: +16.2万→加息对半基准)、
     #  8000亿首批投放清单(9/1-9/2)、霍尔木兹质变日(9/1-9/3)、俄柴油禁令延期(8/29)。
@@ -97,32 +97,34 @@ EVENTS = [   # ★v1.8 2026-09-06 按框架 v2.20 的 1.4 事件轴刷新(1.4 �
      ("MA", "SC", "AU", "AG"),
      "9月+18.8万桶/日已于8/2落地; 同向背景下: 按兵→同向延续 / 增产或闲置产能释放表态→回吐触发、MA存量周五检视; "
      "节点±1按事件窗口纪律(9/7为节点+1)"),
-    ("20260910", "20260910", "8月PPI(9/11 CPI前哨; 利率裁决链第二站起点; 日期按框架1.4口径)",
+    ("20260911", "20260911", "美国8月PPI(官方发布映射国内交易日)",
      ("AU", "AG", "IM", "IC", "CU", "AL"),
-     "事件窗口从T-1(9/10)起: 贵金属gap收紧1.3(1.2表, 9/10-9/17连续)、金融/准金融方向性单边T-1对冲或×0.5; "
-     "PPI仅前哨, 裁决以9/11 CPI为准"),
-    ("20260911", "20260911", "8月CPI(沃勒明示的裁决锚; 日期按框架1.4口径)",
+     "发布=2026-09-10T08:30:00-04:00=北京9/10 20:30，随后夜盘属9/11交易日；"
+     "来源=https://www.bls.gov/schedule/2026/09_sched.htm；T-1按国内交易日计算，实际暴露/预案另核"),
+    ("20260914", "20260914", "美国8月CPI(官方发布映射国内交易日)",
      ("AU", "AG", "IM", "IC", "CU", "AL"),
-     "加息对半基准(55-66%)下CPI一个数据即定方向——热→加息概率>70%、金击穿4404进趋势级回吐评估、D13继续冻结、"
-     "有色宏观腿承压加重; 改善→加息<40%、4404成第一个真实支撑、FOMC按兵剧本升为基准; CPI落地即FOMC T-3, D12自动衔接; "
-     "AU为信号席(0.3#31)——本节点对其只作fed_state/D13状态行输入, 无开仓动作"),
-    ("20260911", "20260911", "WASDE(暂估, 官宣后改)",
+     "发布=2026-09-11T08:30:00-04:00=北京9/11 20:30，周五夜盘属9/14交易日；"
+     "来源=https://www.bls.gov/schedule/2026/09_sched.htm；落地后重核fed_state/D13，旧概率不作当前读数；AU仅信号"),
+    ("20260914", "20260914", "WASDE(USDA官方日程)",
      ("M", "CF", "SR"),
-     "M(独立备选): 报告前2日(9/9起)禁新开; ±1日农产品gap收紧1.3(1.2表); 方向一致才考虑轻仓"),
-    ("20260912", "20260912", "8月底调减进度判决·硬截止(框架0.3#23; 已定日期)",
+     "发布=2026-09-11T12:00:00-04:00=北京9/12 00:00，M/CF/SR夜盘已结束，首次日盘9/14；"
+     "来源=https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report；"
+     "M已有9/9起禁新开安排保留，不混称国内T-2；±1与首次可交易时刻逐品种核验"),
+    ("20260912", "20260914", "调减进度治理截止9/12·首个交易日处置9/14",
      ("SI", "PS", "RB", "AL", "LH"),
-     "9/12仍无可核数据 → 判决点'无法核验'、光伏端F腿(SI/PS)新开冻结(中性处置: 非罚则、无叙事扣减、存量不动)直至数据出现; "
-     "数据到位即裁决(达标→解锁评估/未达→F冻结+叙事扣减+1.5); 挂起不得再静默顺延; 池内仅RB受影响(F远月腿本就冻结)"),
+     "截止前pending，不预支到期裁定；到期仍无可核数据才记'无法核验'并按#23处置；"
+     "治理截止不是已核市场数据发布，不据此自动打D12/±1；池内RB既有F冻结另核",
+     False),
     ("20260915", "20260916", "中国8月硬数据窗(工业/社零/固投, 暂估, 官宣后改)",
      ("IM", "IC", "RB", "JM", "J", "CU", "AL"),
      "②''结构修复裁决的下一数据裁决(框架1.4; 权益端已随IM/IC退出执行池休眠); 池内RB按6.9横跨处置(JM池外); "
-     "**与FOMC同窗**——横跨持仓T-1处置时两个节点合并考虑"),
-    ("20260915", "20260916", "美联储9月FOMC(最大单点; fed_state终裁; 加息对半基准; 日期按框架1.4多源口径)",
+     "日期暂估，只提醒补官方时间；确认前不自动打D12/±1",
+     False),
+    ("20260917", "20260917", "美联储9月FOMC决议(官方发布映射国内交易日)",
      "ALL",
-     "加息55-66%对半基准——**方向不预设, 加息与按兵两个剧本都入预案**: 加息→贵金属趋势级回吐评估、D13压制逻辑按新形态重写、"
-     "金融属性多头全面重估; 按兵+鹰派指引→平台期延续、4404支撑测试、D13冻结延续; 按兵+转鸽→重定价反弹评估、D13复归档议题重启; "
-     "**T-3(9/11)起自动D12(全品种方向性单边, 3.5b)、T-1(9/15)对冲(6.9)、#29已形式重启(T-3至T+1 AU/AG双向新开冻结)**; "
-     "贵金属gap收紧1.3; 事件后T+1复评fed_state/D13/①外全部状态行; 高密度簇低敞口条款(组合风险按Step5固定金额封顶)持续至T+1复评"),
+     "发布=2026-09-16T14:00:00-04:00=北京9/17 02:00；来源=https://www.federalreserve.gov/newsevents/2026-september.htm；"
+     "国内T=9/17、T-3=9/14、T-1=9/16、T+1=9/18。各品种首次可交易时刻另核；"
+     "9/11起已有提前风险窗与9/15预案检查另列，不因时区纠错取消。落地后复评全部有效触发，不预设结果"),
     ("20260930", "20260930", "俄柴油/船用燃料出口禁令到期日(框架1.4俄乌轴行; 已定日期)",
      ("MA", "SC"),
      "到期前后=俄乌轴预设质变节点: 再延期或扩至汽油→供给冲击升级 / 到期解除→侵蚀逻辑回吐评估; "
@@ -147,6 +149,14 @@ EVENTS = [   # ★v1.8 2026-09-06 按框架 v2.20 的 1.4 事件轴刷新(1.4 �
 #     AU 信号腿≈11月中旬 / SR·CF 2026-12-17 / M 2026-12-18; 池外品种不再跟踪。
 EVENT_T3_BUSDAYS = 3     # 「临近离散事件T-3」窗口(v2.9 3.5b D12第三判据)
 EVENT_HORIZON_BD = 10    # §0b 前瞻清单范围(v2.9 0.0b: 未来10个交易日)
+
+# 既有固定安排与真实事件T-n分别显示；只提供方向性单边的预检提示。
+FIXED_RISK_WINDOWS = [
+    ("20260911", "20260917", "ALL", "FOMC既有D12提前风险窗",
+     "来源=框架3.5b/6.9及数据协议5.2；9/15预案检查保留；与实际T-3提示不重复折减，后续月份不自动续用", True),
+    ("20260911", "20260918", ("AU", "AG"), "#29既有新开冻结窗",
+     "来源=框架0.3#29；国内决议T+1=9/18复评，仅所列品种新开限制，不延长全池D12", False),
+]
 
 # ---- §2c 持仓登记 (v2.9 0.3#25 ATR重校准; ★方向性单边逐仓登记, 结构持仓豁免) ----
 # 条目: (合约, 入场日YYYYMMDD, "多"/"空", 备注)
@@ -175,6 +185,22 @@ SPREAD_PAIRS = [   # v2.21维持4组研究序列，计划需独立校验
     #   SC维持信号席，用户许可未扩展；不由研究分位自动开放建仓路径。
     #   分位仍照算(①「中断复归侧」待核要件=SC 近端 back 反弹); 主力换月日→SC2611-SC2612(SC2612 未过#2, 信号腿不受)
 ]
+
+# 已有路线的下一对提前取样，不替换当前对、不自动换月或授予交易许可。
+# 当前对配置完成换月后，重复合约对会自动去重。
+PREPARATION_PAIRS = [
+    ("MA换月准备", "MA2701", "MA2705", "A"),
+    ("RB换月准备", "RB2701", "RB2703", "A"),
+]
+
+
+def research_pairs():
+    seen = set()
+    for stage, pairs in (("current", SPREAD_PAIRS), ("roll_preparation", PREPARATION_PAIRS)):
+        for label, near, far, kind in pairs:
+            if (near, far) not in seen:
+                seen.add((near, far))
+                yield stage, label, near, far, kind
 
 # 指标计算合约 (§2; ★v1.8 按框架 v2.20 执行池: 核心 2 + 备选 3 + 信号 2 = 8 腿; 2026-09-06 用户裁决后)
 INDICATOR_CONTRACTS = [
@@ -216,6 +242,7 @@ _basic_cache, _daily_cache = {}, {}
 _cal_cache = None      # ★v1.7 §0/§0b/§2b 的「交易日数」口径源(trade_cal)
 CAL_DEGRADED = []      # ★v1.7 交易日口径降级为 busday 近似的原因(§0 与注3 会打印)
 _T3_PRODS = set()   # §0b 计算出的「事件T-3」受影响品种集合(供§2 D12判据)
+_EARLY_PRODS = set()  # 已有提前风险窗，不伪装为实际事件T-3
 
 
 def api():
@@ -419,7 +446,7 @@ def window_around(df, anchor, win):
 def contract_freshness_check():
     """全部配置合约: 解析 + 距最后交易日检查(否决#1前置预警, trade_cal真实交易日)。"""
     syms, seen = [], set()
-    for _label, n, f, _kind in SPREAD_PAIRS:
+    for _stage, _label, n, f, _kind in research_pairs():
         syms += [n, f]
     syms += list(INDICATOR_CONTRACTS)
     for _sym, _d, _side, _n in POSITIONS:
@@ -474,7 +501,7 @@ def spec_check():
     """★v1.8 启动参数校验(宁抛错不猜): CONTRACT_SPEC 必须覆盖全部池内品种, 且 multiplier 与
     tushare fut_basic.per_unit 一致 —— 乘数写错会让一手风险(0.3#31)成倍失真且无任何报错。
     (fut_basic.multiplier 字段实测为 None, per_unit 才是每手乘数: MA 10/SR 10/CF 5/AU 1000/SC 1000。)"""
-    legs = list(INDICATOR_CONTRACTS) + [n for _l, n, _f, _k in SPREAD_PAIRS]
+    legs = list(INDICATOR_CONTRACTS) + [s for _stage, _l, n, f, _k in research_pairs() for s in (n, f)]
     first = {}
     for sym in legs:
         first.setdefault(_prod(sym), sym)
@@ -497,7 +524,7 @@ def spec_check():
     if bad:
         sys.exit("CONTRACT_SPEC multiplier 与交易所合约乘数不一致: " + "; ".join(bad)
                  + " —— 修正后再跑(否则 0.3#31 一手风险失真)")
-    print(f"  v1.10 参数校验: CONTRACT_SPEC 覆盖 {len(first)} 个池内品种, multiplier 与 fut_basic.per_unit 一致"
+    print(f"  v1.11 参数校验: CONTRACT_SPEC 覆盖 {len(first)} 个池内品种, multiplier 与 fut_basic.per_unit 一致"
           + (f"; ⚠ per_unit 缺失未能核对: {unknown}" if unknown else ""))
 
 
@@ -523,7 +550,7 @@ def _event_flags():
         d_end = _busdays(AS_OF, ed)
         in_t3 = auto and (ongoing or (AS_OF < st and d_start <= EVENT_T3_BUSDAYS))
         near_pm1 = auto and (ongoing or abs(d_start) <= 1 or abs(d_end) <= 1)
-        if ongoing or (AS_OF < st and d_start <= EVENT_HORIZON_BD):
+        if ongoing or near_pm1 or (AS_OF < st and d_start <= EVENT_HORIZON_BD):
             upcoming.append((st, ed, label, prods, note,
                              d_start, ongoing, in_t3, near_pm1, auto))
         if in_t3:
@@ -539,13 +566,12 @@ def print_event_calendar():
         print("  窗口内无已配置节点 —— 请核对框架 1.4 事件轴是否有新增/暂估项待修正")
     for st, ed, label, prods, note, d_start, ongoing, in_t3, near_pm1, auto in upcoming:
         span = st if st == ed else f"{st}~{ed}"
-        stat = ("占位窗·滚动" if not auto else
+        stat = ("人工核验项·不自动打标" if not auto else
                 "进行中" if ongoing else f"T-{max(d_start, 0)}")
         pl = "全品种" if prods == "ALL" else "/".join(prods)
         marks = []
         if not auto:
-            marks.append("占位窗**不自动打标**: 真正的D12/±1触发日=质变headline当日, "
-                         "由人工按0.0b第2-3步判定")
+            marks.append("占位/暂估/治理截止不自动打标，待真实事件及适用性核验")
         if in_t3:
             marks.append("T-3内→D12事件判据生效(§2)")
         if near_pm1:
@@ -556,6 +582,17 @@ def print_event_calendar():
     print("  → 0.0b四步覆盖范围: 本节=第1步(节点清单)与第3步(±1限制)的提示;")
     print("    第2步(横跨判定+T-1对冲预案入6.9)与第4步(4.3模板必填字段)仍需人工完成")
     return t3_prods
+
+
+def print_fixed_risk_windows():
+    affected = set()
+    for start, end, prods, label, note, affects_d12 in FIXED_RISK_WINDOWS:
+        if AS_OF <= end:
+            active = start <= AS_OF <= end
+            print(f"  固定安排 {start}~{end} {label} [{'生效中' if active else '待到期'}]：{note}")
+            if active and affects_d12:
+                affected.update(prods if prods != "ALL" else ("ALL",))
+    return affected
 
 
 # ---------------------- §1 价差同期分位 ----------------------
@@ -707,6 +744,42 @@ def spread_percentile(label, near, far, kind="A"):
 
 
 # ---------------------- §2 单合约指标 (Wilder口径) ----------------------
+def contract_price_evidence(sym):
+    """Endpoint settlement evidence is independent of historical OHLC/ATR."""
+    df = daily(sym)
+    week = weekly_price_evidence(df.to_dict("records"), AS_OF)
+    is_oil = sym.startswith("SC")
+    return {"合约": sym, "数据截至": week["market_trade_date"],
+            "px": week["end_price"], "price_basis": week["end_basis"],
+            "周涨锚日": week["anchor_date"],
+            "周涨起日": week["start_date"], "周涨止日": week["end_date"],
+            "周涨起价": week["start_price"], "周涨止价": week["end_price"],
+            "周涨起口径": week["start_basis"], "周涨止口径": week["end_basis"],
+            "周涨%": week["reference_change_pct"],
+            "周涨起结算": week["start_settle"], "周涨止结算": week["end_settle"],
+            "SC护栏结算周涨%": week["settlement_change_pct"] if is_oil else None,
+            "SC护栏数据状态": week["settlement_status"] if is_oil else "not_applicable",
+            "结算证据缺项": "|".join(week["settlement_missing_fields"]),
+            "价格证据错误": None}
+
+
+def collect_contract_data(sym):
+    """Preserve each independent result; a calculation failure is not a veto."""
+    result = {"合约": sym, "数据截至": None,
+              "SC护栏数据状态": "unknown" if sym.startswith("SC") else "not_applicable"}
+    try:
+        result.update(contract_price_evidence(sym))
+    except Exception as exc:
+        result.update(价格证据错误=str(exc), 结算证据缺项="price_evidence_unavailable")
+    try:
+        result.update(indicators(sym))
+        result.update(指标状态="available", 指标错误=None)
+    except Exception as exc:
+        result.update(指标状态="unknown", 指标错误=str(exc),
+                      否决检查="指标计算未完成；不是已核策略否决，价格证据见独立列")
+    return result
+
+
 def _tr(df):
     pc = df["px"].shift(1)
     return pd.concat([df["high"] - df["low"],
@@ -784,6 +857,7 @@ def indicators(sym):
     #           隔夜须过§2c核验(0.3#25); 低波<40 + 事件T-3 → 按常规层处理(防低波陷阱)。
     prod = re.match(r"[A-Za-z]+", sym).group().upper()
     ev_t3 = ("ALL" in _T3_PRODS) or (prod in _T3_PRODS)
+    early_window = ("ALL" in _EARLY_PRODS) or (prod in _EARLY_PRODS)
     reasons = []
     if hv60.iloc[-1] and (hv20.iloc[-1] / hv60.iloc[-1] > 1.3):
         reasons.append("HV")
@@ -791,11 +865,13 @@ def indicators(sym):
         reasons.append("ATR分位")
     if ev_t3:
         reasons.append("事件T-3")
+    if early_window:
+        reasons.append("既有提前风险窗")
     d12_tag = ("切换升档(" + "+".join(reasons) + ")") if reasons else "-"
     layer = ("高波>80" if atr_pct > 80 else
              ("低波<40" if atr_pct < 40 else "常规40-80"))
-    if atr_pct < 40 and ev_t3:
-        layer = "低波→按常规(事件T-3)"
+    if atr_pct < 40 and (ev_t3 or early_window):
+        layer = "低波→按常规(事件T-3或既有提前风险窗)"
 
     # The weekly anchor is the latest completed market date minus 7 calendar
     # days, not the research AS_OF date. Reference returns may use close fallback;
@@ -860,13 +936,33 @@ def indicators(sym):
             "否决检查": "|".join(veto) if veto else "#1/#2数据未见否决；其余规则与账户预算未核"}
 
 
-COLS_VOLA = ["合约", "数据截至", "px", "ATR20", "ADX14", "HV20%", "HV60%",
+COLS_VOLA = ["合约", "数据截至", "指标状态", "指标错误", "px", "ATR20", "ADX14", "HV20%", "HV60%",
              "HV20/HV60", "ATR20分位", "分位样本N", "ATR分层", "D12提示"]
 COLS_POS = ["合约", "H250", "dist_H250%", "H20", "L20", "H60", "L60",
             "MA20", "MA60", "20日均成交", "距到期", "周涨%", "2ATR情景金额(非真实SL风险)", "2ATR预检数量上界(非最终手数)", "否决检查"]
 COLS_PRICE_EVIDENCE = ["合约", "数据截至", "px", "price_basis", "周涨锚日", "周涨起日", "周涨止日",
                       "周涨起价", "周涨止价", "周涨起口径", "周涨止口径", "周涨%",
-                      "周涨起结算", "周涨止结算", "SC护栏结算周涨%", "SC护栏数据状态"]
+                      "周涨起结算", "周涨止结算", "SC护栏结算周涨%", "SC护栏数据状态", "结算证据缺项", "价格证据错误"]
+
+
+def collect_spread_research():
+    results = []
+    for stage, label, near, far, kind in research_pairs():
+        print(f"\n研究阶段={stage}；当前对与换月准备分别验收，均不代表交易许可")
+        try:
+            result = spread_percentile(label, near, far, kind)
+        except Exception as exc:
+            result = dict(scope="research_inputs", data_status="incomplete",
+                          missing_fields=[str(exc)], hard_vetoes=[], final_lots=None)
+            print(f"[{label}] {near}-{far} 数据/计算未完成: {exc}；先记temporary_gap，不自动归为research_only")
+        result.update(research_stage=stage, label=label, near_contract=near, far_contract=far,
+                      execution_permission="not_evaluated")
+        results.append(result)
+    os.makedirs(OUTDIR, exist_ok=True)
+    with open(f"{OUTDIR}/spread_research_{AS_OF}.json", "w", encoding="utf-8") as output:
+        json.dump(dict(as_of_date=AS_OF, scope="research_inputs", pairs=results),
+                  output, ensure_ascii=False, indent=2, allow_nan=False)
+    return results
 
 
 def print_atr_dispersion(tab):
@@ -934,14 +1030,14 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v2.22 框架数据脚本 (Tushare Pro, v1.10)")
+        description="v2.23 框架数据脚本 (Tushare Pro, v1.11)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
     args = parser.parse_args()
     AS_OF = args.as_of
 
-    print(f"== v2.22 框架数据脚本 v1.10 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
+    print(f"== v2.23 框架数据脚本 v1.11 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
           f"2ATR预检预算{RISK_BUDGET:,.0f}(非账户剩余额度) | 事件节点{len(EVENTS)}项(用户维护) ==")
     print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
           "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")
@@ -950,30 +1046,24 @@ def main():
     contract_freshness_check()
 
     # §0b: 先算事件窗口 → §2 的 D12「事件T-3」判据依赖本结果
+    _T3_PRODS.clear()
+    _EARLY_PRODS.clear()
     _T3_PRODS.update(print_event_calendar())
+    _EARLY_PRODS.update(print_fixed_risk_windows())
 
     print("\n---- 1) 价差同期分位 (输入B: MA/RB/SR研究候选·计划未完成 / SC近端信号) ----")
-    for label, near, far, kind in SPREAD_PAIRS:
-        try:
-            spread_percentile(label, near, far, kind)
-        except Exception as e:
-            print(f"\n[{label}] {near}-{far}  失败: {e}")
+    collect_spread_research()
 
     print("\n---- 2) 单合约指标 (输入A: D12全品种·双向 / ATR分层与极差 / D11位置 / "
           "Entry参考 / 否决#1#2) ----")
-    rows = []
-    for sym in INDICATOR_CONTRACTS:
-        try:
-            rows.append(indicators(sym))
-        except Exception as e:
-            rows.append({"合约": sym, "数据截至": f"失败: {e}"})
+    rows = [collect_contract_data(sym) for sym in INDICATOR_CONTRACTS]
     tab = pd.DataFrame(rows)
     os.makedirs(OUTDIR, exist_ok=True)
     tab.to_csv(f"{OUTDIR}/indicators_{AS_OF}.csv",
                index=False, encoding="utf-8-sig")
     print("\n  -- 2a 波动率/趋势 (D12·含事件T-3判据 / ATR分层) --")
     print(tab.reindex(columns=COLS_VOLA).to_string(index=False))
-    print("\n  -- 2b 位置/均线/流动性 (D11 / Entry / 否决#1#2 / v1.10 参考周涨%·2ATR情景金额/预检上界，非最终手数) --")
+    print("\n  -- 2b 位置/均线/流动性 (D11 / Entry / 否决#1#2 / v1.11 参考周涨%·2ATR情景金额/预检上界，非最终手数) --")
     print(tab.reindex(columns=COLS_POS).to_string(index=False))
     print("\n  -- 2b.1 价格证据与原油护栏 (参考周涨可含close；SC护栏只读两端settle专用列；unknown不等于触发或解除) --")
     print(tab.reindex(columns=COLS_PRICE_EVIDENCE).to_string(index=False))

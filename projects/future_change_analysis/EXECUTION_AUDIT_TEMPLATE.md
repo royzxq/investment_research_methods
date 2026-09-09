@@ -4,7 +4,7 @@
 
 诊断只评估证据、候选与执行完备性，不代替成交记录。风险定义及计算以 `framework/futures_framework.md` 的 Step5 / #31 和 `scripts/futures_risk.py` 为唯一来源；本模板不保存第二套公式。行情脚本的分位或单腿参考手数不能替代真实交易计划、组合预算和保证金核验。风险 helper 只计算数值容量，滑点、跳空压力与完整执行门未核验时仍不能 ready。
 
-## 有限数据模式与发布前检查（v2.22）
+## 有限数据模式与发布前检查（v2.23）
 
 先读 `framework/FUTURES_DATA_PROTOCOL.md`。`research_mode=public_data`；逐模型记录 `data_feasibility=available / temporary_gap / research_only`，与交易status分开。强因果模型不可得时退出执行候选但保留历史记录、已知阻断及复活条件；coverage同时列研究范围和排除范围，不能声称全市场覆盖。
 
@@ -13,6 +13,10 @@
 以下错误发布前必须修复：A豁免D8却因其缺失判#13失败；完整结构计#16或单边D12；30–60参考期当固定最低期；未知账户风险填0；同源转载重复验证；SC收盘代结算；高分位代替近期反弹；only_blocker无充分依据。换月33/41样本下限及A固定评分口径只引用canonical，勿另改参数。
 
 机器块使用严格JSON（schema 2），便于标准库工具校验。运行 `python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`，失败先修。校验仅检查结构、状态和日期内部一致性，不核查网络内容真实、不覆盖完整交易许可或经济逻辑；通过不等于ready。流水线无本地执行环境时按同一清单检查并明确“未运行校验器”，不能虚构通过。
+
+发布时附校验器命令、退出码/错误摘要和待人工核验事项；不能仅更换JSON代码块标签而保留YAML或旧字段。AU/SC信号席记录在coverage或独立signal_observations，不用signal_only混入执行候选。已有许可但换月对未计算记temporary_gap，不能直接判research_only。
+
+#3逐个precheck说明适用理由；国内路线不自动引用全局①未知项。#5可在details分写价格确认与独立产业证据，检查result仍只取一个值：有充分已核失败依据可fail并同时保留未完成子项；只有缺项则unknown，不能写fail/unknown。第一条否决只来自已知fail；仅一项fail且仍有未知时only_blocker=null。逐项适用性和结果须与all_blockers/unknown_checks对应，不将“其余not_applicable或unknown”当作完成检查。
 
 ## 证据与计数口径
 
@@ -51,7 +55,7 @@
   "assessment_scope": "proposed_framework_reassessment",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.22",
+    "version": "v2.23",
     "revision": "working_tree"
   },
   "snapshot": {
@@ -132,6 +136,15 @@
         "stop": null,
         "targets": null,
         "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
         "holding_period": null,
         "latest_exit_date": null
       },
@@ -158,4 +171,6 @@
 }
 ```
 
-报告正文用一段结论、候选表及待补事项解释 YAML。对于受阻记录，写清是账户可执行性、策略否决还是研究未完成；缺少历史完整证据时明确不能判断连续空仓和机会成本。规则有效性比较须事前固定进出场/成本、纳入盈利与亏损影子候选，并按独立机会去重；命中数和事后涨幅都不是有效性证明。
+confirmation_definition为计划留痕字段：state=undefined/draft/frozen；其语义和事件日期口径按数据协议5.1/5.2人工核验，结构校验器不验证信号规则本身的经济有效性。未冻结的草案不能回填历史signal=triggered。
+
+报告正文用一段结论、候选表及待补事项解释 JSON。对于受阻记录，写清是账户可执行性、策略否决还是研究未完成；缺少历史完整证据时明确不能判断连续空仓和机会成本。规则有效性比较须事前固定进出场/成本、纳入盈利与亏损影子候选，并按独立机会去重；命中数和事后涨幅都不是有效性证明。未固定计划的影子记录仅为假设，不能写已避免损失。
