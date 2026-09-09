@@ -3,6 +3,7 @@
 import ast
 from datetime import datetime, timezone, timedelta
 import io
+import json
 import os
 from pathlib import Path
 import sys
@@ -288,7 +289,7 @@ class ScriptIntegrationTests(unittest.TestCase):
             np=np, pd=pd, re=re, AS_OF="20260904", daily=lambda sym: data,
             _volume20=lambda sym: 20000, _busdays=lambda start, end: 80,
             delist_date=lambda sym: "20270115", CAL_DEGRADED=[], SIGNAL_LEGS={"SC2610"},
-            _T3_PRODS=set(), CONTRACT_SPEC={}, weekly_price_evidence=weekly_price_evidence))
+            _T3_PRODS=set(), _EARLY_PRODS=set(), CONTRACT_SPEC={}, weekly_price_evidence=weekly_price_evidence))
         result = ns["indicators"]("SC2610")
         self.assertEqual(result["price_basis"], "close")
         self.assertIsNotNone(result["周涨%"])
@@ -296,6 +297,54 @@ class ScriptIntegrationTests(unittest.TestCase):
         self.assertEqual(result["SC护栏数据状态"], "unknown")
         self.assertEqual(result["周涨起日"], "20260828")
         self.assertEqual(result["周涨止口径"], "close")
+
+    def test_sc_settlement_survives_invalid_ohlc_and_short_indicator_history(self):
+        import numpy as np
+        import pandas as pd
+
+        for bad_high in (None, 101):
+            with self.subTest(high=bad_high):
+                data = pd.DataFrame([
+                    quote("20260831", 100) | dict(px=100, high=bad_high, low=99),
+                    quote("20260907", 110) | dict(px=110, high=111, low=109)])
+                ns = isolated_functions({"contract_price_evidence", "collect_contract_data", "indicators"},
+                                        dict(np=np, pd=pd, AS_OF="20260907", daily=lambda sym: data,
+                                             weekly_price_evidence=weekly_price_evidence))
+                result = ns["collect_contract_data"]("SC2610")
+                self.assertEqual(result["SC护栏数据状态"], "available")
+                self.assertEqual(result["SC护栏结算周涨%"], 10)
+                self.assertEqual(result["数据截至"], "20260907")
+                self.assertEqual(result["结算证据缺项"], "")
+                self.assertEqual(result["指标状态"], "unknown")
+                self.assertIn("OHLC" if bad_high is None else "样本仅2日", result["指标错误"])
+                self.assertIsNone(result.get("ATR20"))
+                self.assertIsNone(result.get("2ATR预检数量上界(非最终手数)"))
+
+    def test_endpoint_missing_is_reported_without_discarding_other_endpoint(self):
+        import pandas as pd
+
+        data = pd.DataFrame([quote("20260831", 100), quote("20260907", None, 120)])
+        ns = isolated_functions({"contract_price_evidence"}, dict(
+            AS_OF="20260907", daily=lambda sym: data, weekly_price_evidence=weekly_price_evidence))
+        result = ns["contract_price_evidence"]("SC2610")
+        self.assertEqual(result["周涨%"], 20)
+        self.assertEqual(result["周涨起结算"], 100)
+        self.assertIsNone(result["周涨止结算"])
+        self.assertIsNone(result["SC护栏结算周涨%"])
+        self.assertEqual(result["SC护栏数据状态"], "unknown")
+        self.assertEqual(result["结算证据缺项"], "end_settle")
+
+    def test_source_error_is_not_reported_as_known_missing_settlement(self):
+        def fail(sym):
+            raise RuntimeError("source unavailable")
+        ns = isolated_functions({"collect_contract_data"}, dict(
+            contract_price_evidence=fail, indicators=fail))
+        result = ns["collect_contract_data"]("SC2610")
+        self.assertEqual(result["价格证据错误"], "source unavailable")
+        self.assertEqual(result["结算证据缺项"], "price_evidence_unavailable")
+        self.assertEqual(result["指标状态"], "unknown")
+        self.assertEqual(result["SC护栏数据状态"], "unknown")
+        self.assertIsNone(result["数据截至"])
 
     def test_partial_historical_windows_warn_without_becoming_required_missing(self):
         import numpy as np
@@ -305,6 +354,8 @@ class ScriptIntegrationTests(unittest.TestCase):
 
         def fake_pair(near, far):
             year = 2000 + int(near[2:4])
+            if near.endswith("01"):
+                year -= 1  # January contracts are observed in September of the prior year.
             dates = pd.bdate_range(f"{year}0807", periods=40).strftime("%Y%m%d")
             if year == 2026:
                 dates = pd.bdate_range(end="20260904", periods=40).strftime("%Y%m%d")
@@ -327,6 +378,9 @@ class ScriptIntegrationTests(unittest.TestCase):
                 delist_date=lambda sym: "20270115", CAL_DEGRADED=[],
                 _trade_cal=lambda: pd.bdate_range("20220101", "20261231").strftime("%Y%m%d").tolist()))
             result = ns["spread_percentile"]("MA", "MA2610", "MA2701")
+            next_ma = ns["spread_percentile"]("MA换月准备", "MA2701", "MA2705")
+            next_rb = ns["spread_percentile"]("RB换月准备", "RB2701", "RB2703")
+            json.dumps([result, next_ma, next_rb], allow_nan=False)
             ns["AS_OF"] = "20260907"
             monday_result = ns["spread_percentile"]("MA", "MA2610", "MA2701")
             historical_basis["near"] = "close"
@@ -334,6 +388,10 @@ class ScriptIntegrationTests(unittest.TestCase):
             historical_basis["near"] = "unknown"
             unknown_result = ns["spread_percentile"]("MA", "MA2610", "MA2701")
         self.assertEqual(result["sample_coverage"]["status"], "complete")
+        self.assertEqual(next_ma["historical_windows"][0]["near_contract"], "MA2601")
+        self.assertEqual(next_ma["historical_windows"][0]["far_contract"], "MA2605")
+        self.assertEqual(next_rb["historical_windows"][0]["near_contract"], "RB2601")
+        self.assertEqual(next_rb["historical_windows"][0]["far_contract"], "RB2603")
         self.assertEqual(result["data_status"], "complete")
         self.assertEqual(result["missing_fields"], [])
         self.assertTrue(result["quality_warnings"])
@@ -349,6 +407,86 @@ class ScriptIntegrationTests(unittest.TestCase):
             self.assertEqual(item["percentile_price_basis_quality"], expected)
             self.assertIsNotNone(item["percentile"])
             self.assertTrue(any("不能确认#13/D4已过" in missing for missing in item["missing_fields"]))
+
+
+def script_config(name):
+    tree = ast.parse((ROOT / "scripts" / "future_data.py").read_text())
+    assignment = next(node for node in tree.body if isinstance(node, ast.Assign)
+                      and any(isinstance(target, ast.Name) and target.id == name for target in node.targets))
+    return ast.literal_eval(assignment.value)
+
+
+class ResearchPipelineTests(unittest.TestCase):
+    def test_preparation_pairs_are_separate_deduplicated_and_fail_independently(self):
+        current = script_config("SPREAD_PAIRS")
+        preparation = script_config("PREPARATION_PAIRS")
+        original = list(current)
+        calls = []
+
+        def spread(label, near, far, kind):
+            calls.append((near, far))
+            if far == "MA2705":
+                raise RuntimeError("new pair history unavailable")
+            return dict(scope="research_inputs", data_status="complete", percentile=80,
+                        missing_fields=[], hard_vetoes=[], final_lots=None)
+
+        with tempfile.TemporaryDirectory() as temp, redirect_stdout(io.StringIO()):
+            ns = isolated_functions({"research_pairs", "collect_spread_research"}, dict(
+                SPREAD_PAIRS=current, PREPARATION_PAIRS=preparation + [current[0]],
+                spread_percentile=spread, OUTDIR=temp, AS_OF="20260907", os=os, json=json))
+            result = ns["collect_spread_research"]()
+            saved = json.loads((Path(temp) / "spread_research_20260907.json").read_text())
+        self.assertEqual(current, original)
+        self.assertEqual(saved["pairs"], result)
+        self.assertEqual(len(calls), len(set(calls)))
+        self.assertIn(("MA2701", "MA2705"), calls)
+        self.assertIn(("RB2701", "RB2703"), calls)
+        ma = next(row for row in result if row["far_contract"] == "MA2705")
+        rb = next(row for row in result if row["far_contract"] == "RB2703")
+        self.assertEqual(ma["research_stage"], "roll_preparation")
+        self.assertEqual(ma["data_status"], "incomplete")
+        self.assertNotIn("percentile", ma)
+        self.assertEqual(rb["data_status"], "complete")
+        self.assertTrue(all(row["execution_permission"] == "not_evaluated" for row in result))
+
+    def test_event_countdown_uses_domestic_dates_and_retains_early_window(self):
+        import numpy as np
+
+        def distance(start, end):
+            return int(np.busday_count(datetime.strptime(start, "%Y%m%d").date(),
+                                       datetime.strptime(end, "%Y%m%d").date()))
+
+        ns = isolated_functions({"_event_flags", "print_fixed_risk_windows"}, dict(
+            EVENTS=script_config("EVENTS"), FIXED_RISK_WINDOWS=script_config("FIXED_RISK_WINDOWS"),
+            AS_OF="20260909", _busdays=distance, EVENT_T3_BUSDAYS=3, EVENT_HORIZON_BD=10))
+        upcoming, affected = ns["_event_flags"]()
+        fomc = next(row for row in upcoming if "FOMC决议" in row[2])
+        cpi = next(row for row in upcoming if "美国8月CPI" in row[2])
+        self.assertEqual(fomc[0], "20260917")
+        self.assertEqual(fomc[5], 6)
+        self.assertFalse(fomc[7])
+        self.assertEqual(cpi[0], "20260914")
+        self.assertEqual(cpi[5], 3)
+        self.assertNotIn("ALL", affected)
+        for row in upcoming:
+            if "治理截止" in row[2] or "暂估" in row[2] or "监控窗" in row[2]:
+                self.assertFalse(row[7])
+                self.assertFalse(row[8])
+        for day, expected in (("20260910", set()), ("20260911", {"ALL"}),
+                              ("20260917", {"ALL"}), ("20260918", set()), ("20260921", set())):
+            ns["AS_OF"] = day
+            with redirect_stdout(io.StringIO()):
+                self.assertEqual(ns["print_fixed_risk_windows"](), expected)
+        ns["AS_OF"] = "20260918"
+        output = io.StringIO()
+        with redirect_stdout(output):
+            self.assertEqual(ns["print_fixed_risk_windows"](), set())
+        self.assertIn("#29既有新开冻结窗", output.getvalue())
+        self.assertNotIn("FOMC既有D12提前风险窗", output.getvalue())
+        ns["AS_OF"] = "20260914"
+        fomc = next(row for row in ns["_event_flags"]()[0] if "FOMC决议" in row[2])
+        self.assertEqual(fomc[5], 3)
+        self.assertTrue(fomc[7])
 
 
 if __name__ == "__main__":

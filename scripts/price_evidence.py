@@ -141,7 +141,7 @@ def weekly_price_evidence(records, as_of):
                   start_basis="unknown", end_basis="unknown",
                   start_settle=None, end_settle=None,
                   reference_change_pct=None, settlement_change_pct=None,
-                  settlement_status="unknown")
+                  settlement_status="unknown", settlement_missing_fields=[])
     for endpoint, day in (("start", previous[-1] if previous else None),
                           ("end", end_day)):
         if day is None:
@@ -159,6 +159,11 @@ def weekly_price_evidence(records, as_of):
         result["settlement_change_pct"] = float(
             (Decimal(str(result["end_settle"])) / Decimal(str(result["start_settle"])) - 1) * 100)
         result["settlement_status"] = "available"
+    for endpoint in ("start", "end"):
+        if result[f"{endpoint}_date"] is None:
+            result["settlement_missing_fields"].append(f"{endpoint}_trade_date")
+        elif result[f"{endpoint}_settle"] is None:
+            result["settlement_missing_fields"].append(f"{endpoint}_settle")
     return result
 
 

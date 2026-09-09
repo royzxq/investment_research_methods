@@ -33,6 +33,8 @@
 
 专业增强数据缺失不自动生成 `unknown_checks` 或否决；只有当前模型仍适用且确实必要的未核项进入 `unknown_checks`。`all_blockers` 只放已核实失败；`first_blocker` 不能填“账户未知+计划未完成”。`only_blocker`、`signal`、`status` 和零值/null 一律沿用共享模板，不另造枚举。
 
+本阶段对发布结果负责：按数据协议5.1/5.2固定确认定义的版本与生效时间，区分筛选/信号、工具未输出/原始数据缺失、发布时间/国内交易日/既有提前风险窗。SC周涨证据独立读取；换月准备对逐对验收，不能继承旧分位或以开发待办判research_only。按共享模板生成唯一schema 2 JSON并运行校验器，附真实结果；无法运行须明示，同时完成适用性与证据人工核验。参考本地 `research/2026-09-07-execution-audit-reassessment.md` 的缺项表达，但不得复用其中的历史市场状态、日期或报价。
+
 # 输入字段口径
 两次元框架调研结果均应包含以下字段：
 - MAIN_CONTRADICTION

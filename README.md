@@ -4,13 +4,14 @@
 
 ## 期货轨道：meta future analysis → future change analysis → future adaption → future data sync
 
-- **v2.22 默认采用有限数据模式 `public_data`**：先查 MA/RB 的现有行情与合约资料，再为进入研究的候选选择至少一项合适的公开产业证据。专业船流、战争险、装置/利润数据库不再是全池必填项；依赖它们的强因果模型保留原验证要求并可转 `research_only`。详见 `framework/FUTURES_DATA_PROTOCOL.md`，三阶段及报告A都须与 canonical 一起读取。
+- **v2.23 默认采用有限数据模式 `public_data`**：先查 MA/RB 的现有行情与合约资料，再为进入研究的候选选择至少一项合适的公开产业证据。专业船流、战争险、装置/利润数据库不再是全池必填项；依赖它们的强因果模型保留原验证要求并可转 `research_only`。详见 `framework/FUTURES_DATA_PROTOCOL.md`，三阶段及报告A都须与 canonical 一起读取。v2.23将确认定义、逐门依赖、换月准备、事件时间及发布审计写入主框架；规则更新时间与市场快照日期分列。
 - 研究输出与执行核验分步：先给具体逻辑、方向、价格计划和期限，再核实际账户、挂单、费用、保证金与执行压力。研究无需付费专业全链，真实交易输入仍不得猜测。新版改动与验证记录见 `research/2026-09-07-data-accessibility-adaption.md`。
 - `projects/{meta_future_analysis,future_change_analysis,future_adaption}/INSTRUCTIONS.md` — 三个 Claude.ai Project 的原始 instruction
 - `framework/futures_framework.md` — 现行「期货投资分析框架」活文档，只能通过分支 + PR 更新，不直接改 main
 - `framework/futures_framework_compact.md` — **仅供人阅读**的去冗余衍生文件（剥离历代【本次更新】标记与版本簿记），由 `framework-condense` 阶段在每次框架更新时从 canonical 全文自动再生，勿手改；**任何 AI/流水线环节一律使用上面的 canonical 完整版**
 - `scripts/future_data.py` — 框架配套取数脚本（Tushare/akshare），版本随框架结构性变化同步迭代；本身无网络环境无法线上实测，改动需人工在有真实数据源的环境里运行验证
-- `scripts/price_evidence.py` — v1.10取数脚本使用的离线价格证据模块：区分 settle/close、SC专用结算周涨、固定合约对1/5/10交易日价差变化与同期样本验收。周涨按最新已完成行情日减7自然日，不按研究日减7天；没有最终结算则不使用收盘价替代护栏。脚本仍需用户已有Tushare权限，未新增无Token的CSV导入入口；可由研究方读取终端导出作为独立证据，不等于脚本自动支持导入。
+- `scripts/price_evidence.py` — v1.11取数脚本使用的离线价格证据模块：区分 settle/close、SC专用结算周涨、固定合约对1/5/10交易日价差变化与同期样本验收。周涨按最新已完成行情日减7自然日，不按研究日减7天；没有最终结算则不使用收盘价替代护栏。脚本仍需用户已有Tushare权限，未新增无Token的CSV导入入口；可由研究方读取终端导出作为独立证据，不等于脚本自动支持导入。
+- v1.11 的SC结算周涨不再因ATR/OHLC错误整行丢失，CSV分列指标错误、价格证据错误及具体结算缺项；默认额外准备MA2701–MA2705、RB2701–RB2703，按合约对独立输出CSV与 `output/spread_research_<AS_OF>.json` 样本摘要。准备输出不自动替换当前合约/分位、不授予许可。事件时间映射到国内交易日，已有提前风险安排另列；本次修订说明见 `research/2026-09-09-research-method-repair.md`。
 - `scripts/futures_risk.py` — v2.21起的离线A计划校验与风险容量计算；JSON CLI为 `python3 scripts/futures_risk.py validate-a --input plan.json` / `python3 scripts/futures_risk.py size --input sizing.json`，字段见函数说明。计算通过只代表计划/容量校验完成，不授予完整交易许可；缺实际账户、止损或容量信息保留 `null`。
 - `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md` — 每周执行诊断的唯一口径；无论框架是否更新，都生成 `research/<date>-execution-audit.md`，分开记录未触发、已知阻断、研究未完成与满足执行条件。
 - `scripts/validate_futures_audit.py` — schema 2 JSON或含唯一JSON审计块的Markdown结构校验器：`python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`。检查状态、门适用性、证据日期和未知账户空值；不验证来源真伪、不计算投资收益、不授予交易许可。无本地执行环境时须明确未运行，按模板清单检查。
