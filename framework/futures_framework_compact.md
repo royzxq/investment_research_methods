@@ -1,6 +1,6 @@
-<!-- 衍生规则系统（面向人与未来下游执行方，非本流水线 AI 环节输入）：由 framework-condense 自 framework/futures_framework.md v2.23 于 2026-09-09 按决策链骨架重构；勿手改；流水线的 change-analysis/adaption 一律使用 canonical -->
+<!-- 衍生规则系统（面向人与未来下游执行方，非本流水线 AI 环节输入）：由 framework-condense 自 framework/futures_framework.md v2.24 于 2026-09-10 按决策链骨架重构；勿手改；流水线的 change-analysis/adaption 一律使用 canonical -->
 
-# 期货交易分析框架 v2.23 · compact
+# 期货交易分析框架 v2.24 · compact
 
 ## 0. 决策链总览
 
@@ -37,7 +37,7 @@
 **ROUTE-structure**　完整结构配对；阈值：完整两腿；豁免横跨/单边D12/#16/#30/MA方向性护栏；例外：组合风险/费用/专属门不豁免;裸腿按单边；解除/更新：失去配对即撤销豁免。 [源: 0.0/Step5]
 
 <a id="r-data-authority"></a>
-**DATA-authority**　执行及调研使用；阈值：canonical规则/评分；协议取证；模板schema 2；脚本仅输入；0D覆盖旧全量必刷/条款一字不改/旧优先级；change-analysis与adaption只读canonical；例外：不以旧市场叙事或未完成研究证明护栏有效；解除/更新：已确认错误立即撤回对应触发，不受反摇摆拦截。 [源: 0D]
+**DATA-authority**　执行及调研使用；阈值：canonical规则/评分；协议取证；模板schema 3（schema 2仅旧版历史）；脚本仅输入；0D覆盖旧全量必刷/条款一字不改/旧优先级；change-analysis与adaption只读canonical；例外：不以旧市场叙事或未完成研究证明护栏有效；解除/更新：已确认错误立即撤回对应触发，不受反摇摆拦截。 [源: 0D]
 
 <a id="r-pool-independent"></a>
 **POOL-independent**　P/Y/OI等未入池独立候选；阈值：另行走候选纪律；不借C池白名单入池；例外：BU/EC不入池；未获池许可不计算成执行候选；解除/更新：独立证据及明确入池许可。 [源: Step5 C]
@@ -136,7 +136,7 @@
 **DATA-lineage**　采用产业/概率证据；阈值：完整年份、观测日、原发布者/转引者、单位、比较期；库存另列地域/样本/是否含下游工厂；同一对象时点口径才判conflicting；不同日期先作序列；例外：区域库存/仓单不代港库/社会库存；反证某假设不证明反向可交易；解除/更新：FedWatch补目标会议、利率区间、采样时刻；旧读数不拼当前概率。 [源: 1.1]
 
 <a id="r-data-quality"></a>
-**DATA-quality**　适用门拟判pass；阈值：必要证据missing/stale/conflicting/invalid；不得声称pass，必要未知分列unknown_checks；例外：可选背景缺失不阻断；解除/更新：有效证据齐后复核。 [源: 4.4]
+**DATA-quality**　适用门拟判pass/fail；阈值：必要证据missing/stale/conflicting/invalid；必要证据不可用不能作已核依据；必要未知分列unknown_checks，无效行仅诊断引用；例外：可选背景缺失不阻断；解除/更新：有效证据齐后复核。 [源: 4.4]
 
 <a id="r-input-preparation"></a>
 **INPUT-preparation**　换月准备；阈值：current与preparation分列；同对去重；同时准备MA2701-MA2705、RB2701-RB2703，逐对输出样本/缺项/research_stage；例外：取样不提前更改执行腿；失败不抹去其他对结果；解除/更新：日期或主力先到依阶梯生效。 [源: 1.1]
@@ -283,7 +283,7 @@
 ## 1.6 策略触发与参数
 
 <a id="r-trigger-b"></a>
-**TRIGGER-B**　季节策略；阈值：窗口内或前20交易日；按B评估；例外：须品种证据与许可；解除/更新：窗口结束。 [源: 2.1]
+**TRIGGER-B**　季节策略；阈值：[TRIGGER-B-window](#r-trigger-b-window)定义的窗口内或前20交易日；仅研究筛选；完整开仓另核[PLAN-B](#r-plan-b)与各适用门；例外：须品种证据与许可；解除/更新：窗口结束；新定义仅前瞻。 [源: 2.1]
 
 <a id="r-trigger-c"></a>
 **TRIGGER-C**　趋势策略；阈值：ADX>30+MA同向+dist>3%；按C评估；例外：只AU/AG;当前休眠；解除/更新：池复活及全门。 [源: 2.1]
@@ -323,6 +323,9 @@
 
 <a id="r-param-caps"></a>
 **PARAM-caps**　受总分上限限制候选；阈值：E上限4.0；无③政策deadline近月多头3.0；RB/SI无远月赔率近月出清多头3.0；③未过且judgement未达RB/SI远月多头4.0；②''未实质过IM/IC多头4.0；先限分再判门；例外：池外休眠；解除/更新：前置实质通过。 [源: 2.2]
+
+<a id="r-trigger-b-window"></a>
+**TRIGGER-B-window**　SR/CF季节筛选；阈值：SR-summer每年07-01至09-30；CF-spring每年03-01至04-30；CF-autumn每年09-01至10-31，均含首尾；真实郑商所日历映射区间首/末交易日；research_start=首日前20交易日；planned_exit=末日前5交易日；research_start≤审计交易日≤window_end才入研究；例外：窗外直接no_signal，不为下游TP/账户维持incomplete；CF两窗独立；季节主题不是期货上涨证据；解除/更新：窗口完毕；不使用普通工作日推算。 [源: 1.6 B-WINDOW]
 
 
 ## 1.7 评分与金额系数
@@ -418,7 +421,7 @@
 **SCORE-normalize**　基础分计算；阈值：Σ(固定原始权重×维度分)/Σ固定原始权重；A分母90、D95、F90；再叠适用扣减加成，其他池按完整固定表求和；例外：原始权重不必合计100%；不依当周可得项重加权；仅D9可固定默认；必要维度未知完整总分null；解除/更新：补齐必要评分。 [源: 3.1]
 
 <a id="r-conf-definition"></a>
-**CONF-definition**　A价格确认；阈值：价差指标、方向、阈值、窗口、价格口径、经济理由＋rule_version/带时区defined_at/effective_from；confirmation_definition=undefined/draft/frozen；仅冻结生效规则判对应观察期；草案/必要观察未知→unknown；例外：分位另列screening_evidence；三日/40元/两周示例非默认门槛；解除/更新：研究方提供草案或具体不能定义原因。 [源: 3.1]
+**CONF-definition**　A价格确认；阈值：价差指标、方向、阈值、窗口、价格口径、经济理由＋rule_version/带时区defined_at/effective_from；confirmation_definition=undefined/draft/frozen；仅冻结生效规则判对应观察期；草案/必要观察未知→unknown；例外：分位另列screening_evidence；三日/40元/两周示例非默认门槛；解除/更新：按[CONF-owner](#r-conf-owner)由研究方提供具体定义或不能成案原因。 [源: 3.1]
 
 <a id="r-conf-prospective"></a>
 **CONF-prospective**　确认定义创建或变更；阈值：仅前瞻生效；同机会保留版本，变更留原定义/理由/生效时间；例外：不回判定义前信号，不逐周重置窗口追随既成走势；解除/更新：生效后的必要观察齐备。 [源: 3.1]
@@ -437,6 +440,9 @@
 
 <a id="r-score-d5"></a>
 **SCORE-D5**　A公开数据D5；阈值：5=期限/流动性满足且不跨适用离散事件；3=满足但跨事件；1=已核期限或流动性失败；必要未知=null；单一档，不填1–3；事件门另核，不由分数代替；例外：治理锚，未声称收益回测验证；解除/更新：必要输入齐后依冻结规则重算。 [源: 3.1]
+
+<a id="r-conf-owner"></a>
+**CONF-owner**　MA四点包及确认未完成；阈值：至多两条最近候选；方向/经济失效SL/目标期限/净R；research负责具体计划、确认草拟冻结和前瞻观察；不能成案逐字段给事实/计算缺项、负责人、下一动作/期限；例外：既有许可内不另等用户批准；不编阈值或SL、不扩大许可；用户仅真实账户/挂单、偏好变更及新权限；解除/更新：首次用冻结后完整观察期；同opportunity_id/版本不逐周重开钟。 [源: 3.1 MA研究责任]
 
 
 ## 1.8 交易计划与真实容量
@@ -523,7 +529,7 @@
 **PLAN-C**　AU/AG许可后；阈值：多Entry=max(H20+1tick,突破K高+1tick)；dist>3%、ADX>30、MA同向；SL=min(突破K低,Entry−2×ATR20,MA20−0.5×ATR20)；TP1=Entry+2R，TP2移动止损；例外：周涨非前10%；空头#17；C仅AU/AG且当前休眠；解除/更新：模型重新许可。 [源: Step5 C]
 
 <a id="r-plan-b"></a>
-**PLAN-B**　季节窗口；阈值：多Entry=max(MA20,窗口前5日低点+1×ATR20)；SL=Entry−1.5×ATR20；TP1=季节性历史平均涨幅×0.7；TP2移动止损至窗口结束前5日；例外：原文未把涨幅换算为TP价格；未核单位前计划incomplete，不自行补Entry系数；解除/更新：窗口结束。 [源: Step5 B]
+**PLAN-B**　许可B做多且窗口筛选通过；阈值：Entry_raw=max(MA20,pre_window_low5+1×ATR20)；Entry向上对齐tick；SL向下对齐(Entry−1.5×ATR20)；价格元/吨；按[PLAN-B-history](#r-plan-b-history)算mean_return；TP1向下对齐Entry×(1+0.7×mean_return)，5%=0.05；例外：pre_window_low5为窗口开始前5个交易日最低low，固定不滚动；MA20/ATR20取具体合约最近完整交易日；缺数据unknown，不报定义未核；解除/更新：计划/行情变更须按新剩余期限重算；不抬TP缩SL凑R。 [源: Step5 B]
 
 <a id="r-risk-caps"></a>
 **RISK-caps** → [RISK-regime](#r-risk-regime)（同一规则，审计保留此 ID）。 [源: Step5仓位]
@@ -593,6 +599,21 @@
 
 <a id="r-plan-au-break"></a>
 **PLAN-AU-break**　AU/AG历史管理引用；阈值：破位区间<4000；原文仅称纪律待命，未给具体动作；不据此自行发出交易指令；例外：AU不交易/AG休眠，真实历史持仓仍核[MANAGE-AU](#r-manage-au)与[MANAGE-stop](#r-manage-stop)；解除/更新：需要时先明确缺失动作。 [源: 6.3]
+
+<a id="r-plan-b-time"></a>
+**PLAN-B-time**　B拟新开；阈值：window_start≤执行交易日<planned_exit；最晚退出=min(planned_exit,合约既有强制退出日)；前20交易日仅准备；期限不够则计划失败；例外：研究筛选到window_end不等可新开；旧榨季/新旧作快照不覆盖日期表；解除/更新：执行/合约日期更新即重核。 [源: 1.6 B-WINDOW]
+
+<a id="r-plan-b-version"></a>
+**PLAN-B-version**　采用新B定义；阈值：rule_version=B-v2.24；defined_at/effective_from带时区；生效不早于获准采用后的首个完整交易日；研究方登记后仅前瞻使用；窗口与新公式同版本；例外：日期为未校准的研究治理参数，不回判过去信号/收益；不随当期涨跌迁窗；解除/更新：每个窗口结束复评信号/可得性/成本；修订只用于以后窗口。 [源: 1.6 B-WINDOW]
+
+<a id="r-plan-b-history"></a>
+**PLAN-B-history**　拟入场及最晚退出已定；阈值：之前连续3个年份，每年同window_id一个收益率；r_y=P_exit_y/P_entry_y−1；mean_return=(r_y1+r_y2+r_y3)/3；同品种同交割月、交割年与窗口年的差值平移；2026秋CF2701对应2025秋CF2601；入场月日向后找首交易日、退出月日向前找末交易日，均在历史窗口且入场<退出、合约可交易期内；两端settle，逐年列日期/值/来源；例外：含亏损年份，不筛年/拼主力/用close/缩年/扩窗；任何一年未上市或缺端点/口径未知则具体unknown；现有日线或终端导出可用，不需专业季节库；解除/更新：按剩余持有区间重算；持续不可得按0D仅复评B可行性，三年目标样本不证明收益有效。 [源: Step5 B]
+
+<a id="r-plan-b-economics"></a>
+**PLAN-B-economics**　B价格及期限已算；阈值：mean_return≤0或TP1≤Entry或net_R<2或期限不行；已核计划失败；R/成本及金额容量按Step5统一定义，不另造公式；例外：参数未知才unknown；窗口筛选不代产业/#5；D8、原分数、策略0.7和ADX<25再×0.7保留；解除/更新：真实计划改动再验；失败与必要未知并存按AUDIT状态。 [源: Step5 B]
+
+<a id="r-plan-b-trail"></a>
+**PLAN-B-trail**　TP1触达后跟踪；阈值：SL=max(原有效SL,此前5个完整交易日最低low)，只上移；已穿越则按可执行报价处置；TP2按此跟踪，到最晚退出日收盘前清余仓，合约更早强制退出优先；例外：TP1只是跟踪启动线，不新增强制分批比例；6.1通用锁盈/止损和6.3贴顶规则取严；不挂虚假可成交SL；解除/更新：研究方交Entry/SL/TP1、TP2规则、入退日、成本/net_R；seasonal_plan.py仅离线算术、不授许可。 [源: Step5 B]
 
 
 ## 1.9 已核实持仓管理与换仓
@@ -716,13 +737,19 @@
 **AUDIT-pending**　未完成事项；阈值：负责人/缺件/期限/到期动作；不静默顺延；例外：未决不算用户选择；解除/更新：补齐或到期处置。 [源: 4.4]
 
 <a id="r-audit-fields"></a>
-**AUDIT-fields**　审计输出；阈值：schema 2；signal=triggered/not_triggered/unknown；status见[AUDIT-no](#r-audit-no)/[AUDIT-incomplete](#r-audit-incomplete)/[AUDIT-block](#r-audit-block)/[AUDIT-ready](#r-audit-ready)；正文与严格JSON同步；运行python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md，记录命令/退出码/实际结果，失败先修；例外：未运行明示；信号席单列范围；不可自造枚举或fail/unknown混值；校验器不核经济逻辑/来源真伪/收益、不授许可；解除/更新：真实填值。 [源: 4.3]
+**AUDIT-fields**　审计输出；阈值：schema 3；旧schema 2仅兼容历史版本；signal=triggered/not_triggered/unknown；status见[AUDIT-no](#r-audit-no)/[AUDIT-incomplete](#r-audit-incomplete)/[AUDIT-block](#r-audit-block)/[AUDIT-ready](#r-audit-ready)；正文与严格JSON同步；运行python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md，记录命令/退出码/实际结果，失败先修；例外：未运行明示；信号席单列范围；不可自造枚举或fail/unknown混值；校验器不核经济逻辑/来源真伪/收益、不授许可；解除/更新：真实填值。 [源: 4.3]
 
 <a id="r-audit-shadow"></a>
 **AUDIT-shadow**　空仓及踏空归因；阈值：同机会跨周去重；无事前入场/退出/费用/可核价格路径时收益或避免损失=null；只记风险假设；未算真实计划风险前不归因于5,000元上限；例外：允许暂无影子交易；一次涨跌/未交易不证明护栏有效；解除/更新：回溯用新版本且标proposed_framework_reassessment，不假装当日生效。 [源: 4.4]
 
 <a id="r-audit-rule-review"></a>
 **AUDIT-rule-review**　同一专业字段不可持续取得且重复拦截；阈值：连续两轮；复评公开替代或将该模型research_only结案，保留原机会/否决记录；错误数据/豁免/定义立即纠正；例外：护栏命中数、连续空仓、一次踏空不证明有效或过严；不为凑手数放宽金额边界；解除/更新：同时比较避免亏损与错失盈利，不预设下周更新级别。 [源: 0.4]
+
+<a id="r-audit-gap-owner"></a>
+**AUDIT-gap-owner**　适用检查unknown；阈值：gap.kind=definition/plan/calculation/raw_data/acquisition/not_published/account；附owner/next_action/due_at；definition/plan归research，calculation归data_pipeline；acquisition是已存在未取得；not_published须官方发布证据；例外：治理deadline不是发布时间；可选背景不进unknown_checks；SC周settle→原油护栏，MA#30另用MA日settle/pre_settle及涨停；D8/gap各归计算/计划缺口；解除/更新：按具体下一动作补齐；账户归user。 [源: 4.4]
+
+<a id="r-audit-retraction"></a>
+**AUDIT-retraction**　发现错年/未来时点/错口径；阈值：保留invalid旧行＋纠错记录；新证据另建ID；立即撤回触发并重算门/评分/系数/阻断清单/主状态/容量，列前后差异与仍有效独立冻结；替代未核则unknown；例外：不能只换数留罚分；周度247家日均铁水不新增等下一周才撤错的门；无完整输入只列待办，不声称结果不变；解除/更新：schema 3隔离诊断引用与判定依据；来源年份/观测期/单位仍核原文，校验器不从URL断真伪。 [源: 4.4]
 
 
 ## 2. 品种特例与休眠复活
@@ -752,10 +779,10 @@
 **CARD-M**　豆粕备选；阈值：已有许可路由的行情确认＋USDA/作物进度/国内公开供需中一项合适独立事实；独立证据升级首期0.5；WASDE方向同向才考虑轻仓；例外：WASDE前2日禁新开、±1交易日gap1.3；南美/压榨/能繁仅相关增强，实际依赖仍核，不自动入C；解除/更新：独立证据升级。 WASDE跨周末；阈值：限隔夜池；清仓；例外：常规不自动套限隔夜；解除/更新：事件结束。 [源: 1.5 M]
 
 <a id="r-card-sr"></a>
-**CARD-SR**　白糖备选；阈值：A/B路由＋产销/库存/交割供给等证据＋行情确认，升级首期0.5；A/B评估；例外：抛储多头降级；榨季初需产销率验证；连续2周回落减50%；月度值不外推周度，进口利润仅增强；解除/更新：证据恢复。 [源: 1.5 SR]
+**CARD-SR**　白糖备选；阈值：A/B路由＋产销/库存/交割供给等证据＋行情确认，升级首期0.5；B按[TRIGGER-B-window](#r-trigger-b-window)/[PLAN-B](#r-plan-b)；A/B评估；例外：抛储多头降级；榨季初需产销率验证；连续2周回落减50%；月度值不外推周度，进口利润仅增强；解除/更新：证据恢复。 [源: 1.5 SR]
 
 <a id="r-card-cf"></a>
-**CARD-CF**　棉花备选；阈值：季节窗＋独立证据，首期0.5；内外棉价差>3年90分位需额外验证；B评估；例外：轮储公告±3天暂停；公告后3日跌幅>1.5×ATR减50%；解除/更新：窗口/证据恢复。 [源: 1.5 CF]
+**CARD-CF**　棉花备选；阈值：季节窗＋独立证据，首期0.5；内外棉价差>3年90分位需额外验证；B按[TRIGGER-B-window](#r-trigger-b-window)/[PLAN-B](#r-plan-b)；B评估；例外：轮储公告±3天暂停；公告后3日跌幅>1.5×ATR减50%；解除/更新：窗口/证据恢复。 [源: 1.5 CF]
 
 <a id="r-card-au"></a>
 **CARD-AU** → [DYNAMIC-pool](#r-dynamic-pool)（同一规则，审计保留此 ID）。 [源: 1.5 AU/用户裁决]
@@ -782,7 +809,7 @@
 ## 3.1 动态配置与版本（旧行情不是本次调研结果）
 
 <a id="r-dynamic-version"></a>
-**DYNAMIC-version**　报告使用；阈值：canonical v2.23；脚本v1.11；FRAMEWORK_UPDATED_AT=2026-09-09；AS_OF_DATE/MARKET_SNAPSHOT_AS_OF=2026-09-05；行情2026-09-04；方法更新与旧行情分开，研究默认public_data；例外：未做新市场调研；本快照不证明当期触发，账户配置不证明持仓；解除/更新：下一核验。 [源: 0)]
+**DYNAMIC-version**　报告使用；阈值：canonical v2.24；脚本v1.12；FRAMEWORK_UPDATED_AT=2026-09-10；AS_OF_DATE/MARKET_SNAPSHOT_AS_OF=2026-09-05；行情2026-09-04；方法更新与旧行情分开，研究默认public_data；例外：未做新市场调研；本快照不证明当期触发，账户配置不证明持仓；解除/更新：下一核验。 [源: 0)]
 
 <a id="r-dynamic-caps"></a>
 **DYNAMIC-caps**　账户配置；阈值：用户裁决日2026-09-06；ACCOUNT_SIZE=150000；RISK_BUDGET/PORTFOLIO_RISK_CAP=5250；LOW_EXPOSURE_RISK_CAP=5000；示例#22=1,575元；配置上限按RISK-regime；实际账户核验后重新计算；例外：实际仓位未知;独立风险系数/门不变；解除/更新：账户实核/状态复评。 [源: 0)]
