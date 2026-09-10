@@ -1,4 +1,4 @@
-# 期货调研数据协议（v2.23，public_data）
+# 期货调研数据协议（v2.24，public_data）
 
 本协议由 `futures_framework.md` 的“0D 有限数据执行协议”授权，三阶段调研、报告A与执行审计共同使用。默认只依赖用户已有行情工具、交易所公开信息和可读取的公开产业资料，不购买新服务。Tushare 的接口权限依用户已有账户，不声称免费或已获授权。
 
@@ -57,6 +57,12 @@
 - 模块报错或整行 NaN 只说明结果未生成，不能据此声称某个原始字段缺失。SC 两端结算周涨独立于高低价、ATR、ADX 计算；分别记录两端交易日、settle、缺失字段与计算错误。仍不允许用 close 或价差反推绝对结算价补齐护栏。
 - 发现错年、错单位、误用收盘/结算、错误豁免，先撤回错误触发、修复证据，再做市场变化比较。纠错不是反摇摆违例，不需要新的市场事件来允许修正。
 
+### 3.1 纠错必须重算依赖
+
+原文年份、观察区间、发布日期和统计单位分别核对；URL编号仅作线索，不能据编号单独认证年份。周度247家统计的日均产量仍是周度样本，撤回错年读数无需等下周。保留错误行quality=invalid，新值用新evidence_id；在evidence_corrections列受影响candidate_id/rule_id、撤回原因及recalculation=completed/pending。无效行只放diagnostic_evidence_refs，不支撑pass/fail或signal。
+
+立即移除由错误值推出的触发、分数和系数，重新生成阻断清单/主状态/容量，并在正文列前后差异。替代值未核时相应门unknown，不沿用旧fail；其他独立有效的许可限制仍保留。只有完整重算后才说“结论不变”；未完成写pending。脚本不能验证正文真假或经济重算正确性，研究方仍负核验责任。
+
 ## 4. 默认公开数据路线与强因果路线分开
 
 `research_mode=public_data`。A 计划同时填写 `evidence_basis=domestic_public / geopolitical_fade`。
@@ -96,6 +102,8 @@ D1依据价格模式：有既定条件且未确认按评分卡为3，已核价�
 
 Entry/SL/TP须由经济失效与有依据的目标决定，历史分位水平仅作参考；期限短只能否决不适配该期限的具体计划，不能无路径依据断言全部目标不可达。没有足够证据形成计划时写明原因，不能缩止损或倒推目标凑R。
 
+MA四点包及常规确认规则的草拟、冻结和未来观察归研究方；在已许可范围内不额外等用户批准。按同一opportunity_id保存原版本，不每周重置。确实无法形成失效点/独立国内逻辑，写具体失败原因或必要证据缺项；不以“你来决定方向/SL”代替研究交付。需要新交易权限或改变金额预算时才交用户。
+
 ### 5.2 事件时间与提前风险窗
 
 日期计算与本月固定窗口的权威定义见canonical 0.0b；本节为取证步骤，出现重复说明时回到该处核对品种和终点。
@@ -115,7 +123,7 @@ Entry/SL/TP须由经济失效与有依据的目标决定，历史分位水平仅
 3. 最接近完成的最多两份具体计划，或各自无法形成计划的明确原因。
 4. 下一次重评条件及责任项；模型休眠单列，不重复展开池外历史议题。
 
-附 `EXECUTION_AUDIT_TEMPLATE.md` schema 2 JSON记录，发布前运行离线结构校验器；不能运行则明确未运行并按清单检查，不虚构通过。`all_blockers` 只放已核实 fail；未知账户风险不能填0；only_blocker 依据完整检查而定。不把 optional_context 的缺失列入 unknown_checks；但审计证据表保留其不可用事实。
+附 `EXECUTION_AUDIT_TEMPLATE.md` schema 3 JSON（schema 2仅兼容旧版历史报告）记录，发布前运行离线结构校验器；不能运行则明确未运行并按清单检查，不虚构通过。`all_blockers` 只放已核实 fail；未知账户风险不能填0；only_blocker 依据完整检查而定。不把 optional_context 的缺失列入 unknown_checks；但审计证据表保留其不可用事实。
 
 影子记录仍按独立机会去重、事前固定进出场与成本，同时记录避免的亏损和错过的盈利。连续两轮都因同一无法取得的专业字段停滞，应复评模型可得性并给公开替代或 research_only 结案；不自动放宽风险，也不无期限增添必查字段。
 
@@ -129,3 +137,13 @@ Entry/SL/TP须由经济失效与有依据的目标决定，历史分位水平仅
 - [Tushare 期货日线接口](https://tushare.pro/document/2?doc_id=138)：已有权限时使用；settle 与 close 分开保存，不把一般价格回退规则用于指定结算价的护栏。周涨以最新已完成行情日减7自然日锚定，研究日不改变比较起点；脚本无完成标志时保守排除北京时间18:00前当日线，18:00并不保证最终结算已发布，执行前仍核原始数据。
 
 此处是来源入口和调研方法，不证明本期已取到数据。手工读取、用户导出和现有脚本均可提供研究输入；不把接口失败等同于市场条件失败。行情脚本不证明账户持仓，离线风险 helper 不授予交易许可。
+
+## 8. B策略复现与缺口分工（v2.24）
+
+B窗口、历史取样与价格公式唯一出处是canonical 1.6及Step5-B，CARD-SR/CF只引用，不保留另一份日期表。按window_id和交易所日历先筛选；明确不在研究窗口时no_signal，不补无关TP历史。窗口内由研究方生成具体拟入场/最晚退出日，再按剩余期限映射前三年同交割月合约，保留负收益年份。季节排期不是价格方向证据；前三年收益也不是回测胜率。新定义仅前瞻采用。
+
+`python3 scripts/seasonal_plan.py --input <本地JSON>`可验算日历映射及Entry/SL/TP1。只提供窗口与日历也可先筛选；价格/样本未提供时不会伪造计划。完整输入字段见`scripts/SEASONAL_PLAN_INPUT.md`；行情可用既有接口或终端导出，研究方负责组装，不能转为用户购买数据库待办。helper不联网、不核来源真实性，不替代net_R/风险helper或执行门；主行情脚本尚不自动组装这份输入，应将未组装记calculation/acquisition而非框架定义缺失。
+
+每个适用unknown记录gap.kind/owner/next_action/due_at：definition、plan归research；calculation归data_pipeline；raw_data/acquisition按实际取证责任；account归user；not_published归publisher，另附带时区expected_release_at和已核官方发布安排release_evidence_refs。没有官方发布安排就不能把“9/12治理截止”当作发布日。可选D9背景用既有中性规则，不进入unknown_checks。
+
+SC指定两端settle是MA原油周涨护栏的数据；MA #30须MA日settle/pre_settle/涨停状态，不能拿SC缺项代替。D8未实现为适用单边路线的计算缺口（A豁免）；gap_ratio先有真实SL、成本与压力场景，再算数值，缺计划不报付费行情缺失。

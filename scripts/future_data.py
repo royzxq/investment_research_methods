@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-v2.23 框架数据脚本 — Tushare Pro 版 (v1.11)
+v2.24 框架数据脚本 — Tushare Pro 版 (v1.12)
 ====================================================================
 只负责取数、研究候选和情景预检，不输出完整交易许可。
   §0/§0b: 合约期限、事件日历核对；缺数据不能视为过门。
@@ -11,6 +11,10 @@ v2.23 框架数据脚本 — Tushare Pro 版 (v1.11)
       仅是该止损情景的预检上界，不是最终手数，不独立裁决#31。
       实际策略止损、实际费用、账户已占用/挂单风险、保证金和限仓须另核。
   §2c: 只核已登记方向性持仓；POSITIONS为空不证明账户空仓。
+
+v1.12 对应框架v2.24：B季节日历/计划价格由独立离线入口seasonal_plan.py验算；
+本主脚本不自动组装B历史输入，未取数须记录具体calculation/acquisition缺口。
+新增helper经合成数据测试；本版未重新联网核验API或真实历史样本。
 
 v1.11 对应框架v2.23：价格证据与OHLC指标独立输出；增加MA/RB换月准备，
 事件国内交易日与既有提前风险窗分列。公开价格证据保留原始口径和比较日期；SC原油护栏
@@ -1030,14 +1034,14 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v2.23 框架数据脚本 (Tushare Pro, v1.11)")
+        description="v2.24 框架数据脚本 (Tushare Pro, v1.12)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
     args = parser.parse_args()
     AS_OF = args.as_of
 
-    print(f"== v2.23 框架数据脚本 v1.11 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
+    print(f"== v2.24 框架数据脚本 v1.12 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
           f"2ATR预检预算{RISK_BUDGET:,.0f}(非账户剩余额度) | 事件节点{len(EVENTS)}项(用户维护) ==")
     print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
           "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")
@@ -1080,6 +1084,7 @@ def main():
     print("     H250实为上市以来高点, D11口径偏松, 以「分位样本N」列酌情解读;")
     print("     A同期样本按固定3年逐年至少33/41验收，33–40只警示；分位不证明回归收益。")
     print("     主力连续拼接与单周涨跌3年分位(D8)仍未实现；A结构豁免D8，其他路线按适用项判断。")
+    print("     B窗口/价格验算：python3 scripts/seasonal_plan.py --input <JSON>；输入需按SEASONAL_PLAN_INPUT.md组装，不因本表缺列报告定义缺失。")
     print("注2: 到期/距到期与事件T-n用trade_cal真实交易日(已剔节假日; ★v1.7);")
     print("     " + ("本次口径正常, 无降级。" if not CAL_DEGRADED else
                      "⚠本次已降级为busday近似, 原因: " + "; ".join(CAL_DEGRADED)))

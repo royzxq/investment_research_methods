@@ -33,7 +33,7 @@
 
 专业增强数据缺失不自动生成 `unknown_checks` 或否决；只有当前模型仍适用且确实必要的未核项进入 `unknown_checks`。`all_blockers` 只放已核实失败；`first_blocker` 不能填“账户未知+计划未完成”。`only_blocker`、`signal`、`status` 和零值/null 一律沿用共享模板，不另造枚举。
 
-本阶段对发布结果负责：按数据协议5.1/5.2固定确认定义的版本与生效时间，区分筛选/信号、工具未输出/原始数据缺失、发布时间/国内交易日/既有提前风险窗。SC周涨证据独立读取；换月准备对逐对验收，不能继承旧分位或以开发待办判research_only。按共享模板生成唯一schema 2 JSON并运行校验器，附真实结果；无法运行须明示，同时完成适用性与证据人工核验。参考本地 `research/2026-09-07-execution-audit-reassessment.md` 的缺项表达，但不得复用其中的历史市场状态、日期或报价。
+本阶段对发布结果负责：按数据协议5.1/5.2固定确认定义的版本与生效时间，区分筛选/信号、工具未输出/原始数据缺失、发布时间/国内交易日/既有提前风险窗。SC周涨证据独立读取；换月准备对逐对验收，不能继承旧分位或以开发待办判research_only。按共享模板生成唯一schema 3 JSON并运行校验器，附真实结果；无法运行须明示，同时完成适用性与证据人工核验。参考本地 `research/2026-09-07-execution-audit-reassessment.md` 的缺项表达，但不得复用其中的历史市场状态、日期或报价。
 
 # 输入字段口径
 两次元框架调研结果均应包含以下字段：
@@ -216,3 +216,11 @@ EXECUTION_AUDIT:
   active_scope: []
   research_only_scope: []
   summary: "按诊断证据概括；不以 incomplete 代称市场不值得交易"
+
+## v2.24 发布前回归检查
+
+- SR/CF的B研究先按canonical B-WINDOW计算日历，Step5-B定义已齐，不再开F5让用户补窗口/单位。日历或历史行情缺项如实归数据/计算责任；未触发可提前结束下游核验。
+- MA确认定义/四点包由研究方完成并在许可范围内冻结前瞻版本，不继续把F1/F2交用户。不能成案则给明确原因、下一动作与期限；同一机会不得每周重置观察期。
+- 有已知fail仍有账户/计划unknown，主状态incomplete；all_blockers保留。只有直接未触发证据足够时no_signal优先，不用缺少TP把未触发候选变成incomplete。
+- schema 3每条适用unknown须填gap；证据纠错须evidence_corrections和受影响检查链接。已撤回读数不能支持门失败；重算前不能声称状态/分数不变。TOP_MISTAKE注明错误实际出自Report A或B，不转移归属。
+- 独立核验SC原油周涨、MA #30、D8和gap_ratio所需输入；治理deadline与官方发布时间分列。付费指标是菜单或模型专属依赖，不增成全池必填项。
