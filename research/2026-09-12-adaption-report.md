@@ -1324,3 +1324,42 @@ final_lots = min(risk_lots, margin_capacity_lots, position_limit_capacity_lots)
   - §0b `EVENTS`：归档 9/6 OPEC+、9/11 PPI 国内响应日；新增 9/14 萨拉拉伊朗-海合会外长会（反向质变候选，占位不自动打标）、10/4 OPEC+；8 月硬数据窗按统计局日程改为 9/15 已核（自动打标，暴露品种收缩为池内 RB 与背景 CU/AL）；调减硬截止条目改写为"9/12 已到期无数据→9/14 记录无法核验（中性）"；霍尔木兹/俄乌占位窗顺延至 9/14-9/18 并按本周实况改写备注；滚动监测注释 ③（负反馈检验 unknown）/⑦（上周 SC +15.33% 命中已写回、本周 #30 9/8 涨停冷却）/⑨（RB 已切换、MA 9/16）同步。
   - 文件头：版本号 v2.23/v1.11 → v2.24/v1.12，追加 v1.11→v1.12 changelog 与诚实声明；`argparse` 描述与启动横幅同步；`spec_check` 打印版本号同步。`FIXED_RISK_WINDOWS`、`INDICATOR_CONTRACTS`、`CONTRACT_SPEC`、`SIGNAL_LEGS`、`POSITIONS` 未变。
 - 验证状态：**未经线上实测**（本环境无 Tushare 权限与网络，未以 v1.12 联网重跑；已有 output/1.txt 为历史快照）。离线验证：`python3 -m py_compile scripts/future_data.py` 通过；配置区 AST 解析检查通过（EVENTS 10 条元组形状与日期顺序合法；`research_pairs()` 去重后当前对 4 组 + 准备对 2 组、无重复；`CONTRACT_SPEC` 覆盖全部 13 条腿的 7 个品种；信号腿均在 `INDICATOR_CONTRACTS`）；`PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests`：**102 项通过、退出码 0**（本环境临时 `pip install numpy pandas tushare` 后运行）；`python3 scripts/future_data.py --help` 启动检查通过；`git diff --check` 通过。真实环境运行 v1.12 后须按输出逐字段核验 RB2701-RB2703 样本验收、§0 剩余交易日与 SC2610 §2b 结算周涨%，并把读数回填 canonical 0.2/阶梯表。
+
+## 9. 精简版同步
+
+### 生成与覆盖
+
+应用仓库技能 `.claude/skills/framework-condense/SKILL.md`，以 v2.24 canonical 为源再生成 `framework/futures_framework_compact.md`（v2.23 → v2.24）。v2.24 为 light 更新（规则本体零改动），因此固定规则层（§1–§2，通过决策链 9 步骨架与四轴拆分承载的 262 项原子）沿用 2026-09-09 的稳定 R-ID 与五元组，仅 `INPUT-preparation` 改为引用动态层（把具体当前对/准备对从固定层移入 §3.2，落实"固定/动态物理分层"）；动态层 §3.1–3.5 按 v2.24 全量重写（版本/快照日期、RISK_REGIME、频率、阶梯表与 9/11 推算 td、①/fed_state/D13/②''/③/RB 状态、利率链三剧本、事件簇 9/14–10/4 与已核发布表、护栏命中记录、#23 到期处置、本周缺项），并新增 §3.6 两条当期定性护栏原子（`DYNAMIC-overreact`＝0.4 十条＋6.9 十条、`DYNAMIC-narratives`＝3.6 六条），使 3.6 的 `PEN-narrative` 评分与 0.4 护栏在 compact 内可执行。
+
+[五元组审计](2026-09-12-compact-audit.json)：**264/264 已承载，缺失 0**。方法：以 09-09 的 262 项为清点索引，canonical 行段经 v2.23→v2.24 逐行 difflib 映射重定位，compact 承载位置按锚 ID 重定位；12 条动态/接口原子（DYNAMIC-version/caps/frequency/roll-table/regime/CPI/iron-sample/events/freezes/deadline/pending、INPUT-preparation）按新文更新五元组；固定规则原子五元组未变。这是人工语义清点后的承载覆盖率，不是形式化等价证明。
+
+| 统计 | canonical v2.24 | compact v2.24 |
+|---|---:|---:|
+| 行数 | 1,212 | 880 |
+| 字符（含 Markdown 与换行） | 112,900 | 47,608 |
+
+字符减少 **57.83%**，行数减少 27.39%（低于 30% 的行数口径说明：compact 每条原子独占一行并保留锚行，体积压缩体现在字符而非行数；canonical 本周新增的 v2.24 状态叙述全部未进 compact）。
+
+### 数值与来源校验
+
+[数值核对表](2026-09-12-framework-numeric-audit.md)与[全出现位置 JSON](2026-09-12-compact-numeric-audit.json)：canonical v2.24 全部 6,040 次数字出现、450 个不同 token；**197 个字面存在，253 个逐项豁免，未核项 0**。本周新增的 88 个非字面 token 分类：市场/宏观/产业观测值 76（价格、涨跌幅、库存、产销、资金流、概率读数——0D 禁止据此认定本期触发；改变判定的状态值 80–90%、10 艘/日、4404 击穿<1%、+6.03%、+15.33%、8.7% 等已字面承载）、版本/日期标记 3、2026-09-04 快照的剩余 td/腿数/已退出腿均量 6（compact 改载 9/11 推算值）、已撤回跨年数据 1、已到期合约参数 1；其余 165 个沿用 09-09 的豁免理由（历代版本、历史叙述、旧快照、作废算法）。canonical SHA-256 `ae5339af4f856e16aad3cc104cf509e5d774e0e9c1a9b4344f753fc72a945761`；compact SHA-256 `a7727d33c7d8…`（完整值见 JSON）。R-ID 引用完整性：264 个唯一锚，重复定义 0、悬空内部链接 0。
+
+### 副本冲突与未定义项
+
+v2.24 已按 09-09 提请在 canonical 权威位置收敛 5 项：0.4 旧第 2 条"SC 正套仍为候选"→信号席·建仓路径关闭；0.4 旧第 7 条"LC 序列继续采集"→池外仅复活复查补数；6.8 首条"距交割<10 日"→引用 0) 唯一滚动判据并废止旧表述；1.4 负反馈/铁水行暴露品种 JM/J→池外标注；3.5d RB 行"转 J-RB 价差"→转结构检视（J-RB 池外无许可）。compact 对应条目（SWAP-same、CARD-RB、D14-water、DYNAMIC-overreact①⑧）不再需要择一收敛。**仍待人工处理（不在 light 范围，compact 维持"保留缺项、不补造"）**：3.2 D9"三项中两项"分组判据；3.5 D11 相邻边界重合；Step5-F"三重验证"独立定义；Step5-B TP1 涨幅→价格换算；2.2 E 门槛与常规隔夜门槛 ≥4.2 的优先级；6.3 "<4000 待命"具体动作。新发现（格式，非语义）：canonical 1.4 俄乌轴行单元格内含"|"分隔符（v2.19 遗留），Markdown 单元格计数与表头不一致，建议下次 adaption 改为"/"；compact 未复制该格式。
+
+### 全清单随机自包含抽检
+
+以 `random.Random(20260912).sample(all_rule_ids, 3)`（264 项）抽到 `LATENT-H`、`DYNAMIC-roll-signal`、`D14-pass`。
+
+1. **LATENT-H**：假设脚本外取得 IM 年化贴水 22%、10 日收敛 3.5pp。仅凭 compact：LATENT-H 前置"④全过"→GATE-carry（≥20% 且 10 日≥3pp）形式满足，但条目自注"当前休眠"→POOL-sleep/DYNAMIC-pool：IM/IC 池外→REVIVE-finance：须账户规模或 RISK_BUDGET 变更后先核池许可再重建计划；结论=不可新开 H，先走复活许可；无需回看 canonical。
+2. **DYNAMIC-roll-signal**（→DYNAMIC-roll-table AU/SC 段）：假设 9/15 SC 主力换至 SC2611。仅凭 compact：SC2610-SC2611 当日改 SC2611-SC2612，只更新信号、不开仓、不受 #1/#2（ROLL-SC）；若目标月未挂牌按 ROLL-SC 回退到下一实际挂牌月；AU2612 维持至≈11 月中旬→AU2702；MA 护栏口径腿随之切换（CARD-MA-price）；无需回看 canonical。
+3. **D14-pass**：假设 RB2701-RB2703 国内独立月差候选，本周铁水缺数。仅凭 compact：D14-pass 及 D14 各条"仅实际依赖对应成本/收缩因子的计划"适用；独立国内月差不继承未知铁水（A-overrides/CARD-RB）→D14 not_applicable；若计划确依赖铁水≥230 则按 DYNAMIC-iron-sample 记 unknown、不填空；已知相关反证仍须处理；无需回看 canonical。
+
+三例均能凭 compact 得到下一动作或准确缺项。决策链自检：§0 九步各有对应固定规则（§1.1–1.12）与动态配置（§3.1–3.6），新增 §3.6 挂在"适用性与硬门/固定分母评分"两步之下，无断链、无空节。
+
+### 回归与交付边界
+
+- 锚/引用检查、五元组承载、数值全出现位置、源哈希检查通过；compact 流程未修改 canonical（canonical 哈希与 adaption-fix 提交一致）。
+- 本次 compact 为增量随动＋全量核对（固定层复用 09-09 已核条目、动态层全量重写），不声称固定层已重新逐字校对全文；规则本体零改动是复用的前提，下次 significant 更新须对固定层重新全量清点。
+- 未联网重跑 Tushare；未交易；未改变已授权风险金额。
