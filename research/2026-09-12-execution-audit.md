@@ -1,5 +1,7 @@
 # 2026-09-12 期货执行诊断
 
+> **拟议版本重评（proposed_framework_reassessment）**：本文件在分支 `futures-framework/2026-09-12` 上按拟议 canonical **v2.24**（light：仅市场状态层/日历/换月表/护栏命中记录/档位/定性表换版，规则本体零改动）与脚本 **v1.12**（RB 当前对→RB2701-RB2703、EVENTS 日历滚动）刷新。因 v2.24 未改任何规则、参数或门状态，各候选的适用门判定与 status **与现行 v2.23 判定完全一致**；差异只在框架版本标注、RB 当前对已由脚本配置承接（仍未计算）、事件窗口引用 v2.24 的 1.4/0.0b。这是新版本的重评，不是历史交易日已生效的规则；v2.24 待 PR 合并。
+
 **结论：截至 2026-09-12（最新已完成行情日 2026-09-11），已核研究范围内未形成可执行方案，仍有研究/账户核验缺项；不能据此写"市场没有机会"或"市场建议空仓"。** 本诊断按现行 `framework/futures_framework.md` v2.23（origin/main `547a36a`）与 `FUTURES_DATA_PROTOCOL.md` 生成；本环境无本周行情包（未运行 v1.11、无 `1.txt`/`output/`），价格/结构证据来自公开网页与 9/4、9/7 历史快照；实际账户与挂单快照未提供（`actual_position_status=unknown`），全部 `final_lots=null`，总体机会数 `null`。
 
 | 已观察记录 | 本次状态 | 已核否决 / 缺口 |
@@ -30,11 +32,13 @@
   "audit_schema_version": 2,
   "as_of_date": "2026-09-12",
   "research_mode": "public_data",
-  "assessment_scope": "weekly_execution_audit_current_framework",
+  "assessment_scope": "proposed_framework_reassessment",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.23",
-    "revision": "origin/main 547a36a (2026-09-09)"
+    "version": "v2.24",
+    "revision": "futures-framework/2026-09-12 branch (proposed, light, 待合并); baseline v2.23 origin/main 547a36a",
+    "data_script_version": "v1.12 (RB 当前对 RB2701-RB2703; EVENTS 9/14/9/15/10/4; 未联网实测)",
+    "rule_changes_affecting_candidates": "none (v2.24 仅状态层换版; 各候选适用门与 status 同 v2.23 判定)"
   },
   "snapshot": {
     "market_trade_date": "2026-09-11",
@@ -43,7 +47,8 @@
       "research/2026-09-12-market-research.md (WebSearch 公开来源, 2026-09-12)",
       "framework/futures_framework.md 0.2 表 2026-09-04 脚本 v1.8 快照",
       "research/2026-09-07-execution-audit-reassessment.md (用户 v1.10 输出 2026-09-07 观测值)",
-      "本环境未运行 scripts/future_data.py v1.11, 无 1.txt/output"
+      "本环境未运行 scripts/future_data.py v1.11/v1.12, 无 1.txt/output",
+      "research/2026-09-12-adaption-report.md (拟议 v2.24 全文与 v1.12 数据脚本同步记录)"
     ],
     "account": {
       "actual_position_status": "unknown",
@@ -68,7 +73,8 @@
       "2026-09-07 MA2610-MA2701 分位100/价差+272 (历史观测, 本周未更新)",
       "2026-09-07 RB2610-RB2701 分位61.5 (旧对已于9/10换月退出)",
       "2026-09-07 SR2701-SR2705 分位0 (历史观测, 本周未更新)",
-      "canonical 0.2 表剩余交易日 (2026-09-04 快照, 应减5)"
+      "canonical 0.2 表剩余交易日 (2026-09-04 快照, 应减5; v2.24 已按推算标注, 待脚本实测)",
+      "v2.24 新增失效项: 0) 阶梯表 RB 旧对 RB2610-RB2701 行 (已由 RB2701-RB2703 取代); 1.4 中 9/10 PPI、9/11 CPI、9/6 OPEC+、9/10 RB 换月行 (已归档); 0.4/3.6 的 v2.19 叙事表 (已换版)"
     ]
   },
   "coverage": {
@@ -809,7 +815,7 @@
 }
 ```
 
-校验命令：`python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md`。实际结果见下方"校验记录"。结构校验不检查门覆盖、独立经济因果、确认规则有效性或实际交易许可。
+校验命令：`python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md`。实际结果见下方"校验记录"（现行版本判定与拟议版本重评各运行一次）。结构校验不检查门覆盖、独立经济因果、确认规则有效性或实际交易许可。
 
 ## 校验记录
 
@@ -820,4 +826,10 @@
 $ python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md
 {"status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
 退出码: 0 （2026-09-12 本次运行）
+```
+
+```text
+$ python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md   # 拟议版本 v2.24 重评后再次运行
+{ "status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
+退出码: 0 （2026-09-12 本次运行，分支 futures-framework/2026-09-12）
 ```

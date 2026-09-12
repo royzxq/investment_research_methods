@@ -1306,6 +1306,14 @@ final_lots = min(risk_lots, margin_capacity_lots, position_limit_capacity_lots)
 - 活跃模型 / research_only 范围变化：活跃范围不变（MA A/RB A/SR·CF·M 备选/AU·SC 信号）；research_only 不变（geopolitical_fade）；本周新增 temporary_gap 范围（无行情包：MA/RB 当前对与准备对分位、SC 结算周涨、库存/铁水、甲醇库存数值），复活条件=运行 v1.11 与取得同口径周度数值
 - 仅修复研究输出、未改变规则的事项：跨年铁水数据撤回；FOMC T-n 日期口径按 0.0b 引用；9/10 换月批次范围按 v2.20 收缩；加息概率多读数按时间序列处理；多晶硅两读数标 conflicting；0.2 表剩余交易日推算标注；上周 SC +15.33% 命中写回（记录修复，非新市场事件）
 
+## 7. 执行诊断重评（拟议版本 v2.24）
+
+- 文件：`research/2026-09-12-execution-audit.md`（在本分支上刷新，`assessment_scope=proposed_framework_reassessment`，`framework.version=v2.24`，`data_script_version=v1.12`）。
+- 重评结论：v2.24 未改任何规则、参数或门状态，各候选适用门判定与 status **与现行 v2.23 判定一致**——10 条已观察记录全部 `incomplete`；已核否决 6 项（MA2610-MA2701 A 做空价差 #5 产业反证；RB2610-RB2701 旧对 #1；MA2701 多头 #16+#30；MA2701 空头 #16+#26；SR2701 B 产销率）；无 ready、无新计算的 no_signal；AU/SC 信号席另列；账户 `unknown`、`final_lots` 全 null、总体机会数 null。
+- 版本差异记录：RB 当前对已由脚本 v1.12 配置承接（RB2701-RB2703，仍未计算=temporary_gap）；事件窗口引用 v2.24 的 1.4/0.0b（9/14 萨拉拉会、9/15 统计局、9/17 02:00 FOMC、9/30、10/4）；旧输出失效项新增 0) 阶梯表 RB 旧对行、1.4 已归档四行、0.4/3.6 v2.19 表。
+- 风险计算：引用 canonical Step5 与 `scripts/futures_risk.py`（本次未改）；必要输入（账户/持仓/挂单/SL/成本）缺失，`risk_evaluation.result` 全部 null，不伪造容量；不把本周结果归因于 5,000 元组合上限。
+- 校验：`python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md` 在重评后再次运行，结果 valid、退出码 0（记录已附在诊断文件末尾）。这是新版本重评，不是历史当日生效版本；v2.24 待 PR 合并。
+
 ## 8. 数据脚本同步
 
 - 结论：已更新 scripts/future_data.py（v1.11 → v1.12，仅配置层随动，无算法改动）；`scripts/futures_risk.py` 未改（canonical Step5/#31 风险口径本次未变）。
