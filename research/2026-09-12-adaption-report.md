@@ -1305,3 +1305,13 @@ final_lots = min(risk_lots, margin_capacity_lots, position_limit_capacity_lots)
 - 下次复评重点：9/14 萨拉拉会结果×通行量方向；9/17 02:00 FOMC 指引（T+1=9/18 复评 fed_state/D13/AU 卡/低敞口条款）；9/16 MA 换月执行回填与 RB2701-RB2703 首次分位/样本验收（须运行 v1.11）；SC 结算周涨%核验；甲醇库存数值/钢材总库存/铁水/焦炭第五轮补数；交易所公告核对；9/15 统计局 8 月硬数据
 - 活跃模型 / research_only 范围变化：活跃范围不变（MA A/RB A/SR·CF·M 备选/AU·SC 信号）；research_only 不变（geopolitical_fade）；本周新增 temporary_gap 范围（无行情包：MA/RB 当前对与准备对分位、SC 结算周涨、库存/铁水、甲醇库存数值），复活条件=运行 v1.11 与取得同口径周度数值
 - 仅修复研究输出、未改变规则的事项：跨年铁水数据撤回；FOMC T-n 日期口径按 0.0b 引用；9/10 换月批次范围按 v2.20 收缩；加息概率多读数按时间序列处理；多晶硅两读数标 conflicting；0.2 表剩余交易日推算标注；上周 SC +15.33% 命中写回（记录修复，非新市场事件）
+
+## 8. 数据脚本同步
+
+- 结论：已更新 scripts/future_data.py（v1.11 → v1.12，仅配置层随动，无算法改动）；`scripts/futures_risk.py` 未改（canonical Step5/#31 风险口径本次未变）。
+- 判断依据：对照第 2 节"受影响模块"表——本次唯一落在脚本覆盖范围内的结构性变化是 **0) CONTRACTS/阶梯表的合约对变更**（RB 当前对 RB2610-RB2701 因 9/10 触发点到期切换为 RB2701-RB2703；MA 9/16 换月指令写死），以及 **1.4 事件轴滚动**（脚本 §0b EVENTS 为用户维护的日历配置）。其余修改类型（状态换版、命中记录、档位微调、0.4/3.6 换版、副本收敛）均不涉及脚本覆盖的结构化字段；护栏命中记录、库存/铁水、萨拉拉会结果等属"适用边界"中的人工项。
+- 改动摘要：
+  - §1 `SPREAD_PAIRS`：RB 当前对 → `("RB", "RB2701", "RB2703", "A")`（旧对 RB2610-RB2701 停采，git v1.11 可取回；新对首次运行按 3.1 验收、不继承 9/7 分位 61.5）；`PREPARATION_PAIRS` 的 RB 项顺延为下一对 `RB2703-RB2705` 取样（RB2705 9/4 实测 7,717 未过 #2，仅取样不授许可）；MA 当前对维持 MA2610-MA2701 至框架写死的 2026-09-16 执行日，届时与准备对 MA2701-MA2705 互换（用户维护项）。
+  - §0b `EVENTS`：归档 9/6 OPEC+、9/11 PPI 国内响应日；新增 9/14 萨拉拉伊朗-海合会外长会（反向质变候选，占位不自动打标）、10/4 OPEC+；8 月硬数据窗按统计局日程改为 9/15 已核（自动打标，暴露品种收缩为池内 RB 与背景 CU/AL）；调减硬截止条目改写为"9/12 已到期无数据→9/14 记录无法核验（中性）"；霍尔木兹/俄乌占位窗顺延至 9/14-9/18 并按本周实况改写备注；滚动监测注释 ③（负反馈检验 unknown）/⑦（上周 SC +15.33% 命中已写回、本周 #30 9/8 涨停冷却）/⑨（RB 已切换、MA 9/16）同步。
+  - 文件头：版本号 v2.23/v1.11 → v2.24/v1.12，追加 v1.11→v1.12 changelog 与诚实声明；`argparse` 描述与启动横幅同步；`spec_check` 打印版本号同步。`FIXED_RISK_WINDOWS`、`INDICATOR_CONTRACTS`、`CONTRACT_SPEC`、`SIGNAL_LEGS`、`POSITIONS` 未变。
+- 验证状态：**未经线上实测**（本环境无 Tushare 权限与网络，未以 v1.12 联网重跑；已有 output/1.txt 为历史快照）。离线验证：`python3 -m py_compile scripts/future_data.py` 通过；配置区 AST 解析检查通过（EVENTS 10 条元组形状与日期顺序合法；`research_pairs()` 去重后当前对 4 组 + 准备对 2 组、无重复；`CONTRACT_SPEC` 覆盖全部 13 条腿的 7 个品种；信号腿均在 `INDICATOR_CONTRACTS`）；`PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests`：**102 项通过、退出码 0**（本环境临时 `pip install numpy pandas tushare` 后运行）；`python3 scripts/future_data.py --help` 启动检查通过；`git diff --check` 通过。真实环境运行 v1.12 后须按输出逐字段核验 RB2701-RB2703 样本验收、§0 剩余交易日与 SC2610 §2b 结算周涨%，并把读数回填 canonical 0.2/阶梯表。
