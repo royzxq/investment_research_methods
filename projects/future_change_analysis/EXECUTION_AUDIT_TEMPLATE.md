@@ -4,7 +4,7 @@
 
 诊断只评估证据、候选与执行完备性，不代替成交记录。风险定义及计算以 `framework/futures_framework.md` 的 Step5 / #31 和 `scripts/futures_risk.py` 为唯一来源；本模板不保存第二套公式。行情脚本的分位或单腿参考手数不能替代真实交易计划、组合预算和保证金核验。风险 helper 只计算数值容量，滑点、跳空压力与完整执行门未核验时仍不能 ready。
 
-## 有限数据模式与发布前检查（v2.23）
+## 有限数据模式与发布前检查（v2.24）
 
 先读 `framework/FUTURES_DATA_PROTOCOL.md`。`research_mode=public_data`；逐模型记录 `data_feasibility=available / temporary_gap / research_only`，与交易status分开。强因果模型不可得时退出执行候选但保留历史记录、已知阻断及复活条件；coverage同时列研究范围和排除范围，不能声称全市场覆盖。
 
@@ -12,7 +12,7 @@
 
 以下错误发布前必须修复：A豁免D8却因其缺失判#13失败；完整结构计#16或单边D12；30–60参考期当固定最低期；未知账户风险填0；同源转载重复验证；SC收盘代结算；高分位代替近期反弹；only_blocker无充分依据。换月33/41样本下限及A固定评分口径只引用canonical，勿另改参数。
 
-机器块使用严格JSON（schema 2），便于标准库工具校验。运行 `python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`，失败先修。校验仅检查结构、状态和日期内部一致性，不核查网络内容真实、不覆盖完整交易许可或经济逻辑；通过不等于ready。流水线无本地执行环境时按同一清单检查并明确“未运行校验器”，不能虚构通过。
+机器块使用严格JSON（schema 3；schema 2仅兼容历史版本），便于标准库工具校验。运行 `python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`，失败先修。校验仅检查结构、状态和日期内部一致性，不核查网络内容真实、不覆盖完整交易许可或经济逻辑；通过不等于ready。流水线无本地执行环境时按同一清单检查并明确“未运行校验器”，不能虚构通过。
 
 发布时附校验器命令、退出码/错误摘要和待人工核验事项；不能仅更换JSON代码块标签而保留YAML或旧字段。AU/SC信号席记录在coverage或独立signal_observations，不用signal_only混入执行候选。已有许可但换月对未计算记temporary_gap，不能直接判research_only。
 
@@ -45,17 +45,17 @@
 
 证据行字段：evidence_id、metric、value、unit、observation_date、published_at、source_url_or_file、original_source、price_basis、comparison_basis、role、quality、time_scope。role=required_execution/required_model/optional_context；quality=verified/missing/stale/conflicting/invalid；time_scope=current/historical。非价格/非比较指标可将对应basis设null；用户文件以可核快照时间记录，不猜发布日期。
 
-适用检查填 `result=pass` 时，其 `evidence_refs` 引用的每条 required_execution / required_model 证据必须为 `quality=verified`；同时引用其他已核实证据不能覆盖 missing/stale/conflicting/invalid。未通过或未完成的检查可以引用不可用证据说明原因，optional_context 缺失仍不自动阻断。行情证据允许完整日期及明确的历史观察值，不套用账户的当日时间戳要求。
+适用检查填 `result=pass/fail` 时，其 `evidence_refs` 作为判定依据必须逐条 `quality=verified`；不可用证据只放 `diagnostic_evidence_refs` 解释撤回/缺项，不能保留为失败依据。optional_context留全局背景，不混入支持门的引用。行情证据允许完整日期及明确的历史观察值，不套用账户的当日时间戳要求。
 
 ```json
 {
-  "audit_schema_version": 2,
-  "as_of_date": "2026-09-07",
+  "audit_schema_version": 3,
+  "as_of_date": "2026-09-10",
   "research_mode": "public_data",
   "assessment_scope": "proposed_framework_reassessment",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.23",
+    "version": "v2.24",
     "revision": "working_tree"
   },
   "snapshot": {
@@ -105,14 +105,26 @@
           "applicable": true,
           "result": "unknown",
           "evidence_refs": [],
-          "details": "价格/结构确认与独立产业证据待核"
+          "details": "价格/结构确认与独立产业证据待核",
+          "gap": {
+            "kind": "acquisition",
+            "owner": "research",
+            "next_action": "取得所选合约报价和一项独立产业事实，完成具体计划",
+            "due_at": "next_report"
+          }
         },
         {
           "rule_id": "account",
           "applicable": true,
           "result": "unknown",
           "evidence_refs": [],
-          "details": "实际账户快照未提供"
+          "details": "实际账户快照未提供",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "核验当期账户及挂单",
+            "due_at": "before_execution"
+          }
         }
       ],
       "evaluation_order": [
@@ -162,15 +174,23 @@
   "unresolved_items": [
     {
       "item": "完成一份基于可得公开证据的具体计划",
-      "owner": null,
-      "due_at": null,
+      "owner": "research",
+      "due_at": "next_report",
       "required_evidence": [],
       "resolution": "pending"
     }
-  ]
+  ],
+  "evidence_corrections": []
 }
 ```
 
 confirmation_definition为计划留痕字段：state=undefined/draft/frozen；其语义和事件日期口径按数据协议5.1/5.2人工核验，结构校验器不验证信号规则本身的经济有效性。未冻结的草案不能回填历史signal=triggered。
 
 报告正文用一段结论、候选表及待补事项解释 JSON。对于受阻记录，写清是账户可执行性、策略否决还是研究未完成；缺少历史完整证据时明确不能判断连续空仓和机会成本。规则有效性比较须事前固定进出场/成本、纳入盈利与亏损影子候选，并按独立机会去重；命中数和事后涨幅都不是有效性证明。未固定计划的影子记录仅为假设，不能写已避免损失。
+
+## schema 3的新增约束
+
+- 每条适用unknown检查须有gap对象：kind=definition/plan/calculation/raw_data/acquisition/not_published/account；owner、next_action、due_at为非空字符串。definition/plan→research，calculation→data_pipeline，account→user，not_published→publisher。due_at可用明确日期或next_report/before_execution；不得无限“待裁”。not_published另须expected_release_at（带时区）及release_evidence_refs（已核官方日历证据），治理截止不算。
+- `signal=not_triggered`必须给非空signal_evidence_refs，直接引用有效的触发输入（如合约分位或B日历）；不以账户未知代替未触发。字段表达真实性仍由研究方核查。
+- 顶层evidence_corrections总是数组，无纠错时[]；每项含withdrawn_evidence_id、reason、affected_checks（candidate_id/rule_id对象数组）、recalculation=completed/pending。原证据必须保留为invalid，新证据另建ID。pending时受影响的适用检查为unknown，已知其他阻断不删除。completed须在正文展示门/评分/系数/状态/风险前后重算差异，不能只填枚举宣称完成。
+- candidate_id非空且唯一；撤回证据不能留在candidate evidence_refs/signal_evidence_refs或任何pass/fail依据，只能作diagnostic_evidence_refs。日期/来源年份需人工查看原文，校验器不凭URL猜年份、不证明所有门已评估或完成经济重算。
