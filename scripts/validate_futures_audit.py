@@ -1,4 +1,4 @@
-"""Offline structural checks for futures execution audit schema 2.
+"""Offline structural checks for futures execution audit schema 3 (schema 2 retained for historical reports).
 
 CLI: python scripts/validate_futures_audit.py report.json
      python scripts/validate_futures_audit.py --input report.md
@@ -201,7 +201,7 @@ def _evidence(rows, as_of, errors):
     return evidence_by_id
 
 
-def _candidate(row, index, evidence_by_id, account_verified, errors):
+def _candidate(row, index, evidence_by_id, account_verified, errors, schema=2):
     evidence_ids = evidence_by_id.keys()
     path = f"candidates[{index}]"
     candidate = _object(row, path, errors)
@@ -248,12 +248,39 @@ def _candidate(row, index, evidence_by_id, account_verified, errors):
         references = _ids(check.get("evidence_refs"), f"{check_path}.evidence_refs", errors)
         for reference in sorted(references - evidence_ids):
             errors.append(f"{check_path}.evidence_refs: unresolved evidence ID {reference}")
-        if applicable is True and result == "pass":
+        if schema == 3:
+            for reference in sorted(references & evidence_ids):
+                if evidence_by_id[reference].get("quality") == "invalid":
+                    errors.append(f"{check_path}.evidence_refs: invalid evidence must use diagnostic_evidence_refs: {reference}")
+        if schema == 3 and "diagnostic_evidence_refs" in check:
+            diagnostic = _ids(check["diagnostic_evidence_refs"], f"{check_path}.diagnostic_evidence_refs", errors)
+            for reference in sorted(diagnostic - evidence_ids):
+                errors.append(f"{check_path}.diagnostic_evidence_refs: unresolved evidence ID {reference}")
+        if schema == 3 and applicable is True and result == "unknown":
+            gap = _object(check.get("gap"), f"{check_path}.gap", errors)
+            if gap is not None:
+                _required_fields(gap, ("kind", "owner", "next_action", "due_at"), f"{check_path}.gap", errors)
+                kind = gap.get("kind")
+                _enum(kind, {"definition", "plan", "calculation", "raw_data", "acquisition", "not_published", "account"},
+                      f"{check_path}.gap.kind", errors)
+                owner = gap.get("owner")
+                expected = {"definition": "research", "plan": "research", "calculation": "data_pipeline",
+                            "account": "user", "not_published": "publisher"}.get(kind) if _text(kind) else None
+                if expected and owner != expected:
+                    errors.append(f"{check_path}.gap.owner: {kind} requires {expected}")
+                for field in ("owner", "next_action", "due_at"):
+                    if not _text(gap.get(field)):
+                        errors.append(f"{check_path}.gap.{field}: expected nonempty string")
+                if kind == "not_published":
+                    _date(gap.get("expected_release_at"), f"{check_path}.gap.expected_release_at", errors, timestamp=True, require_timestamp=True)
+                    release_refs = _ids(gap.get("release_evidence_refs"), f"{check_path}.gap.release_evidence_refs", errors)
+                    if not release_refs or any(ref not in evidence_by_id or evidence_by_id[ref].get("quality") != "verified" for ref in release_refs):
+                        errors.append(f"{check_path}.gap: not_published requires verified publication schedule evidence, not a governance deadline")
+        if applicable is True and (result == "pass" or (schema == 3 and result == "fail")):
             for reference in sorted(references & evidence_ids):
                 item = evidence_by_id[reference]
-                if (item.get("role") in ("required_execution", "required_model")
-                        and item.get("quality") != "verified"):
-                    errors.append(f"{check_path}.evidence_refs: pass requires verified required evidence: {reference}")
+                if (item.get("role") in ("required_execution", "required_model") or schema == 3) and item.get("quality") != "verified":
+                    errors.append(f"{check_path}.evidence_refs: {result} requires verified required evidence: {reference}")
     if "evidence_refs" in candidate:
         references = _ids(candidate["evidence_refs"], f"{path}.evidence_refs", errors)
         for reference in sorted(references - evidence_ids):
@@ -285,11 +312,17 @@ def _candidate(row, index, evidence_by_id, account_verified, errors):
         errors.append(f"{path}.only_blocker: true requires exactly one fail and no unknown checks")
     elif only is False and len(failed) < 2:
         errors.append(f"{path}.only_blocker: false requires at least two known failures; otherwise use null")
+    if schema == 3 and only is True and not account_verified:
+        errors.append(f"{path}.only_blocker: true requires a verified account, even if no explicit account check was listed")
     lots = candidate.get("final_lots")
     if lots is not None and (type(lots) is not int or lots < 0):
         errors.append(f"{path}.final_lots: expected nonnegative integer or null, never boolean")
     if not account_verified and lots is not None:
         errors.append(f"{path}.final_lots: must be null without a verified account snapshot")
+    if schema == 3 and signal == "not_triggered":
+        direct = _ids(candidate.get("signal_evidence_refs"), f"{path}.signal_evidence_refs", errors)
+        if not direct or any(ref not in evidence_by_id or evidence_by_id[ref].get("quality") != "verified" for ref in direct):
+            errors.append(f"{path}.signal_evidence_refs: no_signal requires verified direct trigger evidence")
     if status == "no_signal" and signal != "not_triggered":
         errors.append(f"{path}.status: no_signal requires signal=not_triggered")
     if signal == "not_triggered" and status != "no_signal":
@@ -304,6 +337,53 @@ def _candidate(row, index, evidence_by_id, account_verified, errors):
         if (signal != "triggered" or feasibility != "available" or failed or unknown
                 or not account_verified or type(lots) is not int or lots < 1):
             errors.append(f"{path}.status: ready requires triggered/available, no fail or unknown, verified account, final_lots >= 1")
+
+
+def _corrections(document, candidates, evidence_by_id, errors):
+    """Check explicit withdrawal dependencies; never infer years from a URL."""
+    candidate_ids = {}
+    for index, candidate in enumerate(candidates):
+        if not isinstance(candidate, dict):
+            continue
+        identifier = candidate.get("candidate_id")
+        if not _text(identifier) or identifier in candidate_ids:
+            errors.append(f"candidates[{index}].candidate_id: expected unique nonempty ID")
+        else:
+            candidate_ids[identifier] = candidate
+    rows = _list(document.get("evidence_corrections"), "evidence_corrections", errors)
+    for index, row in enumerate(rows or []):
+        path = f"evidence_corrections[{index}]"
+        correction = _object(row, path, errors)
+        if correction is None:
+            continue
+        _required_fields(correction, ("withdrawn_evidence_id", "reason", "affected_checks", "recalculation"), path, errors)
+        identifier = correction.get("withdrawn_evidence_id")
+        if not _text(identifier) or identifier not in evidence_by_id or evidence_by_id[identifier].get("quality") != "invalid":
+            errors.append(f"{path}.withdrawn_evidence_id: must reference preserved invalid evidence")
+        if not _text(correction.get("reason")):
+            errors.append(f"{path}.reason: expected nonempty explanation")
+        _enum(correction.get("recalculation"), {"completed", "pending"}, f"{path}.recalculation", errors)
+        affected = _list(correction.get("affected_checks"), f"{path}.affected_checks", errors)
+        if not affected:
+            errors.append(f"{path}.affected_checks: expected affected candidate/rule links")
+        for j, link in enumerate(affected or []):
+            if not isinstance(link, dict) or not _text(link.get("candidate_id")) or not _text(link.get("rule_id")):
+                errors.append(f"{path}.affected_checks[{j}]: expected candidate_id and rule_id")
+                continue
+            candidate = candidate_ids.get(link["candidate_id"])
+            checks = candidate.get("evaluated_checks", []) if candidate else []
+            checks = checks if isinstance(checks, list) else []
+            match = next((c for c in checks if isinstance(c, dict) and c.get("rule_id") == link["rule_id"]), None)
+            if match is None:
+                errors.append(f"{path}.affected_checks[{j}]: unresolved candidate/check")
+            elif correction.get("recalculation") == "pending" and match.get("applicable") is True and match.get("result") != "unknown":
+                errors.append(f"{path}.recalculation: pending correction cannot preserve an affected pass/fail")
+        # Invalid records can remain in diagnostic refs but never in decision refs.
+        for candidate in candidate_ids.values():
+            for key in ("evidence_refs", "signal_evidence_refs"):
+                references = candidate.get(key)
+                if isinstance(references, list) and identifier in references:
+                    errors.append(f"{path}: withdrawn evidence reused in candidate {key}")
 
 
 def validate_audit(doc):
@@ -326,11 +406,16 @@ def validate_audit(doc):
     _required_fields(document, ("audit_schema_version", "as_of_date", "research_mode", "framework",
                                 "snapshot", "coverage", "candidates", "evidence", "unresolved_items"),
                      "$", errors)
-    if type(document.get("audit_schema_version")) is not int or document["audit_schema_version"] != 2:
-        errors.append("audit_schema_version: expected integer 2")
+    schema = document.get("audit_schema_version")
+    if type(schema) is not int or schema not in (2, 3):
+        errors.append("audit_schema_version: expected integer 2 (historical) or 3")
     _enum(document.get("research_mode"), {"public_data"}, "research_mode", errors)
     as_of = _date(document.get("as_of_date"), "as_of_date", errors)
-    _object(document.get("framework"), "framework", errors)
+    framework = _object(document.get("framework"), "framework", errors)
+    if framework is not None and _text(framework.get("version")):
+        version = re.fullmatch(r"v(\d+)\.(\d+)", framework["version"])
+        if version and tuple(map(int, version.groups())) >= (2, 24) and schema != 3:
+            errors.append("audit_schema_version: v2.24+ reports require schema 3")
     _object(document.get("coverage"), "coverage", errors)
     snapshot = _object(document.get("snapshot"), "snapshot", errors)
     account_verified = False
@@ -342,7 +427,9 @@ def validate_audit(doc):
     evidence_by_id = _evidence(evidence or [], as_of, errors)
     candidates = _list(document.get("candidates"), "candidates", errors)
     for index, candidate in enumerate(candidates or []):
-        _candidate(candidate, index, evidence_by_id, account_verified, errors)
+        _candidate(candidate, index, evidence_by_id, account_verified, errors, schema=schema)
+    if schema == 3:
+        _corrections(document, candidates or [], evidence_by_id, errors)
     unresolved = _list(document.get("unresolved_items"), "unresolved_items", errors)
     for index, item in enumerate(unresolved or []):
         _object(item, f"unresolved_items[{index}]", errors)

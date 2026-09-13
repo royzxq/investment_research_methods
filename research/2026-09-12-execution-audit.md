@@ -1,6 +1,6 @@
 # 2026-09-12 期货执行诊断
 
-> **拟议版本重评（proposed_framework_reassessment）**：本文件在分支 `futures-framework/2026-09-12` 上按拟议 canonical **v2.24**（light：仅市场状态层/日历/换月表/护栏命中记录/档位/定性表换版，规则本体零改动）与脚本 **v1.12**（RB 当前对→RB2701-RB2703、EVENTS 日历滚动）刷新。因 v2.24 未改任何规则、参数或门状态，各候选的适用门判定与 status **与现行 v2.23 判定完全一致**；差异只在框架版本标注、RB 当前对已由脚本配置承接（仍未计算）、事件窗口引用 v2.24 的 1.4/0.0b。这是新版本的重评，不是历史交易日已生效的规则；v2.24 待 PR 合并。
+> **拟议版本重评（proposed_framework_reassessment）**：本文件在分支 `futures-framework/2026-09-12` 上按拟议 canonical **v2.25**（light：在 main 已合并的 v2.24 定义闭合版之上仅换市场状态层/日历/换月表/护栏命中记录/档位/定性表，规则本体零改动）与脚本 **v1.13**（承 main v1.12；RB 当前对→RB2701-RB2703、EVENTS 日历滚动）刷新。v2.25 本身未改任何规则，但合并进来的 **v2.24**（2026-09-10：1.6 B-WINDOW 日期表、Step5-B 价格公式、3.1 MA 研究交付责任、4.4 审计纠错闭环 / schema 3）改变了本审计的形式与两个 B 候选的检查项：SR2701/CF2701 新增 B_window_screen（按日期表 pass），B_trigger 改记为 Step5-B/PLAN-B-history 的 calculation 缺口；MA A 候选的确认定义/国内路线缺口归 research；全部 unknown 检查附 gap{kind,owner,next_action,due_at}；stale 库存读数移入 diagnostic_evidence_refs；检索命中的 2025 跨年铁水读数登记为 invalid 行并附 evidence_corrections。各候选 status 仍全部 incomplete，与现行 main 上的 v2.24 判定一致。这是新版本的重评，不是历史交易日已生效的规则；v2.25 待 PR #23 合并。
 
 **结论：截至 2026-09-12（最新已完成行情日 2026-09-11），已核研究范围内未形成可执行方案，仍有研究/账户核验缺项；不能据此写"市场没有机会"或"市场建议空仓"。** 本诊断按现行 `framework/futures_framework.md` v2.23（origin/main `547a36a`）与 `FUTURES_DATA_PROTOCOL.md` 生成；本环境无本周行情包（未运行 v1.11、无 `1.txt`/`output/`），价格/结构证据来自公开网页与 9/4、9/7 历史快照；实际账户与挂单快照未提供（`actual_position_status=unknown`），全部 `final_lots=null`，总体机会数 `null`。
 
@@ -14,8 +14,8 @@
 | MA2701，方向性空头 | incomplete | **#16、#26 已核失败**（①未证缓和期间能源链方向性空头否决）；其余同上 |
 | M2701，独立备选 | incomplete | 无已许可具体策略（仅观察）；WASDE 9/11 单产上调/库存下调混合；9 月到港 1018 万吨宽松 |
 | SR2701−SR2705，A 远月 | incomplete | 本周分位未计算（9/7 旧读数 0，不继承）；产销率/工业库存证据已核但方向未定 |
-| SR2701，B 季节做多 | incomplete | **品种卡专属否决已核失败**（榨季初期多头需产销率验证：广西 8 月产销率 80.56%、同比 −8.48pp，工业库存同比 +78.74 万吨——验证反向）；B 触发价格条件未计算 |
-| CF2701，B 季节做多 | incomplete | 窗口"新旧作切换（收尾）"、储备棉轮出持续（9/7 成交率 100%）、新棉零星收购；触发价格条件未计算；轮储公告 ±3 天暂停条款的当周适用性待核 |
+| SR2701，B 季节做多 | incomplete | B-WINDOW SR-summer（07-01–09-30）在窗内（日期筛选 pass）；**品种卡专属否决已核失败**（榨季初期多头需产销率验证：广西 8 月产销率 80.56%、同比 −8.48pp，工业库存同比 +78.74 万吨——验证反向）；B 触发价格条件未计算 |
+| CF2701，B 季节做多 | incomplete | B-WINDOW CF-autumn（09-01–10-31）在窗内（日期筛选 pass），旧窗口"新旧作切换（收尾）"快照已被日期表取代、储备棉轮出持续（9/7 成交率 100%）、新棉零星收购；触发价格条件未计算；轮储公告 ±3 天暂停条款的当周适用性待核 |
 
 信号席（不进候选 schema）：AU2612——现货金 9/11 收 4,385.61（低于 4404 观察位，击穿幅度 <1%）、沪金主力 942（−1.35%）、10Y 4.96%、9/16 加息概率约 85-90%：fed_state 输入=“加息高概率基准·指引裁决”，D13 复归档议题冻结至 FOMC 维持，#29 冻结 9/11-9/18；SC2610-SC2611——SC 主力 9/10 +6.44% 收 769、9/11 早盘 +8%（价格证据），结算价与近端月差分位未取得→①"back 反弹"要件 unknown、MA 周涨护栏 unknown。
 
@@ -25,20 +25,20 @@
 
 未完成事项按负责人/截止/到期处置列于 JSON `unresolved_items`。
 
-## 结构化记录（schema 2）
+## 结构化记录（schema 3，v2.24+ 必需）
 
 ```json
 {
-  "audit_schema_version": 2,
+  "audit_schema_version": 3,
   "as_of_date": "2026-09-12",
   "research_mode": "public_data",
   "assessment_scope": "proposed_framework_reassessment",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.24",
-    "revision": "futures-framework/2026-09-12 branch (proposed, light, 待合并); baseline v2.23 origin/main 547a36a",
-    "data_script_version": "v1.12 (RB 当前对 RB2701-RB2703; EVENTS 9/14/9/15/10/4; 未联网实测)",
-    "rule_changes_affecting_candidates": "none (v2.24 仅状态层换版; 各候选适用门与 status 同 v2.23 判定)"
+    "version": "v2.25",
+    "revision": "futures-framework/2026-09-12 branch (proposed, light, 待合并); 已合并 origin/main v2.24 定义闭合版 (d9e3d27, 2026-09-10) 后在其上重适配为 v2.25",
+    "data_script_version": "v1.13 (合并 main v1.12 后重适配: RB 当前对 RB2701-RB2703; EVENTS 9/14/9/15/10/4; 未联网实测)",
+    "rule_changes_affecting_candidates": "v2.25 本身仅状态层换版; 但合并进来的 v2.24 影响本审计: (1) SR2701/CF2701 B 候选新增 B_window_screen 检查 (1.6 B-WINDOW 日期表, pass), B_trigger 改按 Step5-B 公式与 PLAN-B-history 三年样本记 calculation 缺口, rule_version=B-v2.24 尚未登记 defined_at/effective_from; (2) MA A 候选 confirmation_definition/domestic_model_basis 按 3.1 MA 研究交付责任归 research; (3) 审计改 schema 3: 每个 unknown 检查附 gap{kind,owner,next_action,due_at}, 无效/过期证据只入 diagnostic_evidence_refs, 已撤回的 2025 跨年铁水读数登记为 invalid 行并附 evidence_corrections. 其余候选适用门判定与 status 同 v2.23/v2.24 判定"
   },
   "snapshot": {
     "market_trade_date": "2026-09-11",
@@ -47,8 +47,8 @@
       "research/2026-09-12-market-research.md (WebSearch 公开来源, 2026-09-12)",
       "framework/futures_framework.md 0.2 表 2026-09-04 脚本 v1.8 快照",
       "research/2026-09-07-execution-audit-reassessment.md (用户 v1.10 输出 2026-09-07 观测值)",
-      "本环境未运行 scripts/future_data.py v1.11/v1.12, 无 1.txt/output",
-      "research/2026-09-12-adaption-report.md (拟议 v2.24 全文与 v1.12 数据脚本同步记录)"
+      "本环境未运行 scripts/future_data.py v1.11/v1.12/v1.13, 无 1.txt/output; scripts/seasonal_plan.py (v2.24 新增, B-HISTORY/计划价格验算) 亦未运行",
+      "research/2026-09-12-adaption-report.md (拟议 v2.25 全文与 v1.13 数据脚本同步记录; 合并 main v2.24 后重生成)"
     ],
     "account": {
       "actual_position_status": "unknown",
@@ -73,8 +73,8 @@
       "2026-09-07 MA2610-MA2701 分位100/价差+272 (历史观测, 本周未更新)",
       "2026-09-07 RB2610-RB2701 分位61.5 (旧对已于9/10换月退出)",
       "2026-09-07 SR2701-SR2705 分位0 (历史观测, 本周未更新)",
-      "canonical 0.2 表剩余交易日 (2026-09-04 快照, 应减5; v2.24 已按推算标注, 待脚本实测)",
-      "v2.24 新增失效项: 0) 阶梯表 RB 旧对 RB2610-RB2701 行 (已由 RB2701-RB2703 取代); 1.4 中 9/10 PPI、9/11 CPI、9/6 OPEC+、9/10 RB 换月行 (已归档); 0.4/3.6 的 v2.19 叙事表 (已换版)"
+      "canonical 0.2 表剩余交易日 (2026-09-04 快照, 应减5; v2.25 已按推算标注, 待脚本实测)",
+      "v2.25 新增失效项 (承 v2.24 定义闭合版): 0) 阶梯表 RB 旧对 RB2610-RB2701 行 (已由 RB2701-RB2703 取代); 1.4 中 9/10 PPI、9/11 CPI、9/6 OPEC+、9/10 RB 换月行 (已归档); 0.4/3.6 的 v2.19 叙事表 (已换版); SR/CF 品种卡旧季节快照 (\"新旧作切换(收尾)\") 已由 1.6 B-WINDOW 日期表取代"
     ]
   },
   "coverage": {
@@ -84,15 +84,17 @@
       "MA2701 方向性多空的硬门 (#16/#26/#30) 与提前风险窗",
       "RB2610-RB2701 旧对期限门",
       "SR2701 B 季节专属否决 (产销率)",
-      "M2701/CF2701/SR2701-SR2705/RB2701-RB2703/MA2701-MA2705 缺口登记"
+      "M2701/CF2701/SR2701-SR2705/RB2701-RB2703/MA2701-MA2705 缺口登记",
+      "SR2701/CF2701 B 季节候选的 B-WINDOW 日期筛选 (v2.24 1.6 表: SR-summer 07-01–09-30、CF-autumn 09-01–10-31, 2026-09-11 均在窗内)"
     ],
     "missing_scope": [
-      "本周价差/分位/1-5-10td 变化 (未运行 v1.11)",
+      "本周价差/分位/1-5-10td 变化 (未运行 v1.13)",
       "SC 9/4 与 9/11 结算价 (MA 周涨护栏与 SC 近端 back)",
       "钢材总库存/247家铁水/盈利率 9/10-9/11 周度数值",
       "甲醇港口/华东社会库存 9/10-9/11 数值",
       "实际账户/持仓/挂单/保证金/费用",
-      "交易所对 MA2610/2701、SC 的保证金/涨跌停板公告原文"
+      "交易所对 MA2610/2701、SC 的保证金/涨跌停板公告原文",
+      "SR/CF B 的 PLAN-B-history 三年同窗样本、Entry/SL/TP1 与 planned_exit 剩余期限 (scripts/seasonal_plan.py 未运行); rule_version=B-v2.24 的 defined_at/effective_from 未登记"
     ],
     "research_only_scope": [
       "geopolitical_fade / 中断因果模型 (海湾出口量与战争险序列不可持续取得)",
@@ -465,6 +467,36 @@
       "role": "required_model",
       "quality": "verified",
       "time_scope": "current"
+    },
+    {
+      "evidence_id": "b_window_calendar",
+      "metric": "B-WINDOW 日期表下 2026-09-11 所处窗口 (SR-summer / CF-autumn)",
+      "value": "SR-summer 2026-07-01..2026-09-30 (在窗内, 距 window_end 13 个自然日); CF-autumn 2026-09-01..2026-10-31 (在窗内)",
+      "unit": "date_range",
+      "observation_date": "2026-09-11",
+      "published_at": "2026-09-10",
+      "source_url_or_file": "framework/futures_framework.md 1.6 B-WINDOW 表 (v2.24 定义, rule_version B-v2.24; v2.25 沿用)",
+      "original_source": "canonical v2.24 (origin/main d9e3d27, 2026-09-10); 郑商所交易日历 2026-09-11 为交易日",
+      "price_basis": "n/a (日历筛选)",
+      "comparison_basis": "自然日窗口 [window_start, window_end] 含首尾 vs 交易日 2026-09-11; research_start=window_start−20 交易日, planned_exit=window_end−5 交易日 (未按真实日历映射, 由 seasonal_plan.py 验算)",
+      "role": "required_execution",
+      "quality": "verified",
+      "time_scope": "current"
+    },
+    {
+      "evidence_id": "hot_metal_2025_crossyear",
+      "metric": "247家钢厂铁水日均产量 (检索命中值)",
+      "value": null,
+      "unit": "万吨/日",
+      "observation_date": "2025-09-26",
+      "published_at": "2025-09-26",
+      "source_url_or_file": "Mysteel 周报转引 (检索命中为 2025 年 9 月下旬读数)",
+      "original_source": "Mysteel (2025 年跨年数据, 已撤回, 不作 2026-09-10/11 当周读数)",
+      "price_basis": "n/a",
+      "comparison_basis": "错年: 观测年份 2025 ≠ 当周 2026-09-10/11",
+      "role": "optional_context",
+      "quality": "invalid",
+      "time_scope": "historical"
     }
   ],
   "candidates": [
@@ -472,7 +504,10 @@
       "candidate_id": "2026-09-11|MA2610-MA2701|A|short_spread|v2.23",
       "opportunity_id": "MA_A_2610_2701",
       "trade_date": "2026-09-11",
-      "contracts": ["MA2610", "MA2701"],
+      "contracts": [
+        "MA2610",
+        "MA2701"
+      ],
       "strategy": "A",
       "hypothesis": "reversion",
       "evidence_basis": "domestic_public",
@@ -483,36 +518,166 @@
       "signal_basis": null,
       "screening_evidence": "ma_spread_0907",
       "evaluated_checks": [
-        {"rule_id": "screening", "applicable": true, "result": "unknown", "evidence_refs": ["ma_spread_0907", "ma_spread_thisweek"], "details": "9/7 分位100为历史观测; 本周未重算, 不继承"},
-        {"rule_id": "#1", "applicable": true, "result": "pass", "evidence_refs": ["ma2610_td"], "details": "近腿剩余22个交易日≥20 (9/16 触#1); 结构腿按0)滚动判据, 本对仅剩3个交易日研究窗口"},
-        {"rule_id": "domestic_model_basis", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "海峡未缓和时支持收敛的独立国内变化仍未论证; 本周国内证据全部指向近月走强"},
-        {"rule_id": "confirmation_definition", "applicable": true, "result": "unknown", "evidence_refs": ["ma_spread_thisweek"], "details": "确认规则未事前冻结 (state=undefined); 本周价差观测缺失"},
-        {"rule_id": "#5", "applicable": true, "result": "fail", "evidence_refs": ["ma_spot_basis_0910", "ma_plant_outage_0910", "ma_inventory_0903", "ma_inventory_qual_0908"], "details": "(b)独立产业事实已核反证: 现货基差历史同期高位+中东62%装置停车+库存五年低位继续去库, 均支持近月走强, 与做空价差反向; (a)价格确认定义未冻结/观测缺失=unknown 子项单列"},
-        {"rule_id": "execution_plan", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无 Entry/真实失效SL/TP/净R/期限; 近腿9/16触#1使5-20日计划期限不足, 未形成计划"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无当期经核实账户与挂单快照"}
+        {
+          "rule_id": "screening",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "ma_spread_0907",
+            "ma_spread_thisweek"
+          ],
+          "details": "9/7 分位100为历史观测; 本周未重算, 不继承",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "运行 scripts/future_data.py v1.13 --as-of 20260911 重算 MA2610-MA2701 分位/价差/1-5-10td 变化 (本对 9/16 下滚, 执行前仅从严复核)",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "#1",
+          "applicable": true,
+          "result": "pass",
+          "evidence_refs": [
+            "ma2610_td"
+          ],
+          "details": "近腿剩余22个交易日≥20 (9/16 触#1); 结构腿按0)滚动判据, 本对仅剩3个交易日研究窗口"
+        },
+        {
+          "rule_id": "domestic_model_basis",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "海峡未缓和时支持收敛的独立国内变化仍未论证; 本周国内证据全部指向近月走强",
+          "gap": {
+            "kind": "definition",
+            "owner": "research",
+            "next_action": "按 3.1 MA 研究交付责任: 论证海峡未缓和时支持收敛的独立国内变化, 否则明确结案 (本对 9/16 下滚后不延续)",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "confirmation_definition",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "ma_spread_thisweek"
+          ],
+          "details": "确认规则未事前冻结 (state=undefined); 本周价差观测缺失",
+          "gap": {
+            "kind": "definition",
+            "owner": "research",
+            "next_action": "按 3.1 给出 confirmation_definition 草案 (价差指标/方向/阈值/窗口/价格口径/经济理由 + rule_version/defined_at/effective_from), 冻结前只作前瞻",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "#5",
+          "applicable": true,
+          "result": "fail",
+          "evidence_refs": [
+            "ma_spot_basis_0910",
+            "ma_plant_outage_0910",
+            "ma_inventory_qual_0908"
+          ],
+          "details": "(b)独立产业事实已核反证: 现货基差历史同期高位+中东62%装置停车+库存五年低位继续去库, 均支持近月走强, 与做空价差反向; (a)价格确认定义未冻结/观测缺失=unknown 子项单列 [schema 3: 9/3 港口库存数值 stale, 移入 diagnostic_evidence_refs; fail 仅依赖 9/8-9/10 已核证据]",
+          "diagnostic_evidence_refs": [
+            "ma_inventory_0903"
+          ]
+        },
+        {
+          "rule_id": "execution_plan",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无 Entry/真实失效SL/TP/净R/期限; 近腿9/16触#1使5-20日计划期限不足, 未形成计划",
+          "gap": {
+            "kind": "plan",
+            "owner": "research",
+            "next_action": "本对 9/16 触 #1 下滚, 5-20 日计划期限不足: 不再为旧对拟计划, 计划责任转 MA2701-MA2705 新对",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无当期经核实账户与挂单快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["screening", "#1", "domestic_model_basis", "confirmation_definition", "#5", "execution_plan", "account"],
-      "all_blockers": ["#5"],
-      "unknown_checks": ["screening", "domestic_model_basis", "confirmation_definition", "execution_plan", "account"],
+      "evaluation_order": [
+        "screening",
+        "#1",
+        "domestic_model_basis",
+        "confirmation_definition",
+        "#5",
+        "execution_plan",
+        "account"
+      ],
+      "all_blockers": [
+        "#5"
+      ],
+      "unknown_checks": [
+        "screening",
+        "domestic_model_basis",
+        "confirmation_definition",
+        "execution_plan",
+        "account"
+      ],
       "first_blocker": "#5",
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1 A公开数据评分卡", "result": null, "defaulted_dimensions": ["D9=3 default_neutral"], "notes": "D2=1 (已核反证); D1/D3/D4/D5=null (定义未冻结/计划缺失/本周分位未算)"},
-      "plan": {
-        "entry": null, "stop": null, "targets": null, "confirmation_rule": null,
-        "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": "国内回归假设与本周全部国内证据方向相反; 未形成可冻结定义, 本对9/16下滚后不再延续", "observed_values": null},
-        "holding_period": null, "latest_exit_date": "2026-09-16"
+      "score": {
+        "canonical_ref": "3.1 A公开数据评分卡",
+        "result": null,
+        "defaulted_dimensions": [
+          "D9=3 default_neutral"
+        ],
+        "notes": "D2=1 (已核反证); D1/D3/D4/D5=null (定义未冻结/计划缺失/本周分位未算)"
       },
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": "国内回归假设与本周全部国内证据方向相反; 未形成可冻结定义, 本对9/16下滚后不再延续",
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": "2026-09-16"
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["ma_spread_0907"]
+      "evidence_refs": [
+        "ma_spread_0907"
+      ]
     },
     {
       "candidate_id": "2026-09-11|MA2701-MA2705|A|unknown|v2.23",
       "opportunity_id": "MA_A_2701_2705",
       "trade_date": "2026-09-11",
-      "contracts": ["MA2701", "MA2705"],
+      "contracts": [
+        "MA2701",
+        "MA2705"
+      ],
       "strategy": "A",
       "hypothesis": "reversion",
       "evidence_basis": "domestic_public",
@@ -523,19 +688,101 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "#13", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "新对同期样本 (3年各≥33/41) 未计算; 按0D记 temporary_gap, 不进 first_blocker"},
-        {"rule_id": "#2", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "MA2705 9/4 实测12,561过#2, 执行日 (9/16) 复核; 本周未更新"},
-        {"rule_id": "execution_plan", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "新对方向与计划须另核, 不继承旧对"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "#13",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "新对同期样本 (3年各≥33/41) 未计算; 按0D记 temporary_gap, 不进 first_blocker",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "运行 v1.13 PREPARATION_PAIRS 取得 MA2701-MA2705 三年同期样本 (各≥33/41) 与当前分位",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "#2",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "MA2705 9/4 实测12,561过#2, 执行日 (9/16) 复核; 本周未更新",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "执行日 (9/16) 以 v1.13 §0 回填 MA2705 20 日均量 (9/4 实测 12,561 仅历史快照)",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "execution_plan",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "新对方向与计划须另核, 不继承旧对",
+          "gap": {
+            "kind": "plan",
+            "owner": "research",
+            "next_action": "新对方向/确认定义/Entry/SL/TP/净R 按 3.1 另立, 不继承旧对",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["#13", "#2", "execution_plan", "account"],
+      "evaluation_order": [
+        "#13",
+        "#2",
+        "execution_plan",
+        "account"
+      ],
       "all_blockers": [],
-      "unknown_checks": ["#13", "#2", "execution_plan", "account"],
+      "unknown_checks": [
+        "#13",
+        "#2",
+        "execution_plan",
+        "account"
+      ],
       "first_blocker": null,
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1 A公开数据评分卡", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1 A公开数据评分卡",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
@@ -545,7 +792,10 @@
       "candidate_id": "2026-09-11|RB2610-RB2701|A|unknown|v2.23",
       "opportunity_id": "RB_A_2610_2701",
       "trade_date": "2026-09-11",
-      "contracts": ["RB2610", "RB2701"],
+      "contracts": [
+        "RB2610",
+        "RB2701"
+      ],
       "strategy": "A",
       "hypothesis": "reversion",
       "evidence_basis": "domestic_public",
@@ -556,27 +806,83 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "#1", "applicable": true, "result": "fail", "evidence_refs": ["rb2610_td"], "details": "RB2610 剩余18个交易日<20; 9/10 换月触发点已到期 → 本对退出, 整对下滚 RB2701-RB2703"},
-        {"rule_id": "screening", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "9/7 分位61.5为历史观测, 本周未算; 退出后不再计算"}
+        {
+          "rule_id": "#1",
+          "applicable": true,
+          "result": "fail",
+          "evidence_refs": [
+            "rb2610_td"
+          ],
+          "details": "RB2610 剩余18个交易日<20; 9/10 换月触发点已到期 → 本对退出, 整对下滚 RB2701-RB2703"
+        },
+        {
+          "rule_id": "screening",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "9/7 分位61.5为历史观测, 本周未算; 退出后不再计算",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "旧对已于 9/10 换月退出, 不再重算; 本行仅留档, v1.13 §1 不含该对",
+            "due_at": "2026-09-16"
+          }
+        }
       ],
-      "evaluation_order": ["#1", "screening"],
-      "all_blockers": ["#1"],
-      "unknown_checks": ["screening"],
+      "evaluation_order": [
+        "#1",
+        "screening"
+      ],
+      "all_blockers": [
+        "#1"
+      ],
+      "unknown_checks": [
+        "screening"
+      ],
       "first_blocker": "#1",
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1 A公开数据评分卡", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": "2026-09-10"},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1 A公开数据评分卡",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": "2026-09-10"
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["rb2610_td"]
+      "evidence_refs": [
+        "rb2610_td"
+      ]
     },
     {
       "candidate_id": "2026-09-11|RB2701-RB2703|A|unknown|v2.23",
       "opportunity_id": "RB_A_2701_2703",
       "trade_date": "2026-09-11",
-      "contracts": ["RB2701", "RB2703"],
+      "contracts": [
+        "RB2701",
+        "RB2703"
+      ],
       "strategy": "A",
       "hypothesis": "reversion",
       "evidence_basis": "domestic_public",
@@ -587,21 +893,135 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "#13", "applicable": true, "result": "unknown", "evidence_refs": ["rb_new_pair"], "details": "新对同期样本未计算 (temporary_gap), 不入 first_blocker"},
-        {"rule_id": "#2", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "RB2703 9/4 实测22,106过#2; 执行日回填未做"},
-        {"rule_id": "#5", "applicable": true, "result": "unknown", "evidence_refs": ["steel_inventory_thisweek", "steel_inventory_0903", "building_steel_volume_0911"], "details": "钢材总库存本周数值缺失; 9/11 建材成交周降为定性反向读数, 未定方向不作已核否决"},
-        {"rule_id": "D14", "applicable": false, "result": "not_applicable", "evidence_refs": ["hot_metal_thisweek"], "details": "独立国内月差不依赖铁水/复产假设; 未知铁水不作硬否决 (0D/3.5d)"},
-        {"rule_id": "execution_plan", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "方向/确认/计划未形成"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "#13",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "rb_new_pair"
+          ],
+          "details": "新对同期样本未计算 (temporary_gap), 不入 first_blocker",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "运行 v1.13 SPREAD_PAIRS 取得 RB2701-RB2703 三年同期样本与当前分位 (9/7 旧对读数 61.5 作废)",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "#2",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "RB2703 9/4 实测22,106过#2; 执行日回填未做",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "以 v1.13 §0 回填 RB2703 20 日均量 (9/4 实测 22,106 仅历史快照)",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "#5",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "steel_inventory_thisweek",
+            "steel_inventory_0903",
+            "building_steel_volume_0911"
+          ],
+          "details": "钢材总库存本周数值缺失; 9/11 建材成交周降为定性反向读数, 未定方向不作已核否决",
+          "gap": {
+            "kind": "acquisition",
+            "owner": "research",
+            "next_action": "补核 9/10-9/11 钢材总库存/247 家铁水/盈利率同口径周度数值 (最多两个公开入口), 不用 2025 跨年读数",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "D14",
+          "applicable": false,
+          "result": "not_applicable",
+          "evidence_refs": [
+            "hot_metal_thisweek"
+          ],
+          "details": "独立国内月差不依赖铁水/复产假设; 未知铁水不作硬否决 (0D/3.5d); 检索命中的 2025 跨年铁水读数已撤回 (evidence_corrections)",
+          "diagnostic_evidence_refs": [
+            "hot_metal_2025_crossyear"
+          ]
+        },
+        {
+          "rule_id": "execution_plan",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "方向/确认/计划未形成",
+          "gap": {
+            "kind": "plan",
+            "owner": "research",
+            "next_action": "方向/确认定义/计划在新对样本与库存数据到位后另立",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["#13", "#2", "#5", "D14", "execution_plan", "account"],
+      "evaluation_order": [
+        "#13",
+        "#2",
+        "#5",
+        "D14",
+        "execution_plan",
+        "account"
+      ],
       "all_blockers": [],
-      "unknown_checks": ["#13", "#2", "#5", "execution_plan", "account"],
+      "unknown_checks": [
+        "#13",
+        "#2",
+        "#5",
+        "execution_plan",
+        "account"
+      ],
       "first_blocker": null,
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1 A公开数据评分卡", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1 A公开数据评分卡",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
@@ -611,7 +1031,9 @@
       "candidate_id": "2026-09-11|MA2701|directional|long|v2.23",
       "opportunity_id": "MA2701_long",
       "trade_date": "2026-09-11",
-      "contracts": ["MA2701"],
+      "contracts": [
+        "MA2701"
+      ],
       "strategy": "D/E (未定)",
       "hypothesis": null,
       "evidence_basis": "domestic_public",
@@ -622,33 +1044,164 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "#16", "applicable": true, "result": "fail", "evidence_refs": ["low_exposure_regime"], "details": "低敞口时段 (高密度簇条款命中) 内限隔夜池方向性单边新开 → 否决"},
-        {"rule_id": "#30", "applicable": true, "result": "fail", "evidence_refs": ["ma_limitup_0908"], "details": "甲醇9/8涨停+6.03%≥5% → 9/9-9/11 顺向方向性单边新开否决 (以9/11为行情日仍在冷却期; 9/14到期)"},
-        {"rule_id": "MA_oil_guard", "applicable": true, "result": "unknown", "evidence_refs": ["sc_settle_weekly", "brent_weekly_0911"], "details": "SC2610 9/4→9/11 结算周涨%未取得; 布伦特周+8.7%仅旁证; 上周>8%命中的冻结清仓处置仍有效, 不因缺结算解除"},
-        {"rule_id": "D12_fixed_window", "applicable": true, "result": "pass", "evidence_refs": ["fomc_calendar"], "details": "既有D12提前窗9/11-9/17命中: 非否决, 方向性单边×0.5+门槛+0.3; 记为已核适用"},
-        {"rule_id": "#3", "applicable": true, "result": "pass", "evidence_refs": ["precheck1_state"], "details": "多头不依赖①缓和; ①中断复归侧评估期对多头只经护栏 (#30/周涨/质变日) 作用, 质变日9/8-9/9±1冻结已于9/10到期"},
-        {"rule_id": "model_inputs", "applicable": true, "result": "unknown", "evidence_refs": ["ma_spread_thisweek"], "details": "D/E 具体模式、ATR重校准、方向确认未定"},
-        {"rule_id": "execution_plan", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无 Entry/SL/TP"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "#16",
+          "applicable": true,
+          "result": "fail",
+          "evidence_refs": [
+            "low_exposure_regime"
+          ],
+          "details": "低敞口时段 (高密度簇条款命中) 内限隔夜池方向性单边新开 → 否决"
+        },
+        {
+          "rule_id": "#30",
+          "applicable": true,
+          "result": "fail",
+          "evidence_refs": [
+            "ma_limitup_0908"
+          ],
+          "details": "甲醇9/8涨停+6.03%≥5% → 9/9-9/11 顺向方向性单边新开否决 (以9/11为行情日仍在冷却期; 9/14到期)"
+        },
+        {
+          "rule_id": "MA_oil_guard",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "sc_settle_weekly",
+            "brent_weekly_0911"
+          ],
+          "details": "SC2610 9/4→9/11 结算周涨%未取得; 布伦特周+8.7%仅旁证; 上周>8%命中的冻结清仓处置仍有效, 不因缺结算解除",
+          "gap": {
+            "kind": "acquisition",
+            "owner": "research",
+            "next_action": "取得 SC2610 2026-09-04 与 2026-09-11 结算价 (v1.13 §2b 或 INE 结算参数表) 计算结算周涨%; 取得前上周 >8% 的冻结/清仓处置不解除",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "D12_fixed_window",
+          "applicable": true,
+          "result": "pass",
+          "evidence_refs": [
+            "fomc_calendar"
+          ],
+          "details": "既有D12提前窗9/11-9/17命中: 非否决, 方向性单边×0.5+门槛+0.3; 记为已核适用"
+        },
+        {
+          "rule_id": "#3",
+          "applicable": true,
+          "result": "pass",
+          "evidence_refs": [
+            "precheck1_state"
+          ],
+          "details": "多头不依赖①缓和; ①中断复归侧评估期对多头只经护栏 (#30/周涨/质变日) 作用, 质变日9/8-9/9±1冻结已于9/10到期"
+        },
+        {
+          "rule_id": "model_inputs",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "ma_spread_thisweek"
+          ],
+          "details": "D/E 具体模式、ATR重校准、方向确认未定",
+          "gap": {
+            "kind": "plan",
+            "owner": "research",
+            "next_action": "确定 D/E 具体模式、当日 ATR 重校准与方向确认输入; 9/14 #30 冷却到期与 9/18 FOMC T+1 复评后再评估",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "execution_plan",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无 Entry/SL/TP",
+          "gap": {
+            "kind": "plan",
+            "owner": "research",
+            "next_action": "#16/#30 已核否决期间不拟计划; 9/18 复评后如许可恢复再立 Entry/SL/TP",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["#16", "#30", "MA_oil_guard", "D12_fixed_window", "#3", "model_inputs", "execution_plan", "account"],
-      "all_blockers": ["#16", "#30"],
-      "unknown_checks": ["MA_oil_guard", "model_inputs", "execution_plan", "account"],
+      "evaluation_order": [
+        "#16",
+        "#30",
+        "MA_oil_guard",
+        "D12_fixed_window",
+        "#3",
+        "model_inputs",
+        "execution_plan",
+        "account"
+      ],
+      "all_blockers": [
+        "#16",
+        "#30"
+      ],
+      "unknown_checks": [
+        "MA_oil_guard",
+        "model_inputs",
+        "execution_plan",
+        "account"
+      ],
       "first_blocker": "#16",
       "only_blocker": false,
-      "score": {"canonical_ref": "3.1 事件冲击池/均值回归", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1 事件冲击池/均值回归",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["ma_limitup_0908", "low_exposure_regime"]
+      "evidence_refs": [
+        "ma_limitup_0908",
+        "low_exposure_regime"
+      ]
     },
     {
       "candidate_id": "2026-09-11|MA2701|directional|short|v2.23",
       "opportunity_id": "MA2701_short",
       "trade_date": "2026-09-11",
-      "contracts": ["MA2701"],
+      "contracts": [
+        "MA2701"
+      ],
       "strategy": "D/E (未定)",
       "hypothesis": null,
       "evidence_basis": "geopolitical_fade",
@@ -659,29 +1212,108 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "#16", "applicable": true, "result": "fail", "evidence_refs": ["low_exposure_regime"], "details": "低敞口时段限隔夜池方向性单边新开否决"},
-        {"rule_id": "#26", "applicable": true, "result": "fail", "evidence_refs": ["precheck1_state"], "details": "①未证缓和 (中断复归侧评估期) → 能源链方向性空头新开否决"},
-        {"rule_id": "execution_plan", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "未形成计划"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "#16",
+          "applicable": true,
+          "result": "fail",
+          "evidence_refs": [
+            "low_exposure_regime"
+          ],
+          "details": "低敞口时段限隔夜池方向性单边新开否决"
+        },
+        {
+          "rule_id": "#26",
+          "applicable": true,
+          "result": "fail",
+          "evidence_refs": [
+            "precheck1_state"
+          ],
+          "details": "①未证缓和 (中断复归侧评估期) → 能源链方向性空头新开否决"
+        },
+        {
+          "rule_id": "execution_plan",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "未形成计划",
+          "gap": {
+            "kind": "plan",
+            "owner": "research",
+            "next_action": "#16/#26 已核否决期间不拟计划; ①缓和证据出现后另议",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["#16", "#26", "execution_plan", "account"],
-      "all_blockers": ["#16", "#26"],
-      "unknown_checks": ["execution_plan", "account"],
+      "evaluation_order": [
+        "#16",
+        "#26",
+        "execution_plan",
+        "account"
+      ],
+      "all_blockers": [
+        "#16",
+        "#26"
+      ],
+      "unknown_checks": [
+        "execution_plan",
+        "account"
+      ],
       "first_blocker": "#16",
       "only_blocker": false,
-      "score": {"canonical_ref": "3.1", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["precheck1_state"]
+      "evidence_refs": [
+        "precheck1_state"
+      ]
     },
     {
       "candidate_id": "2026-09-11|M2701|unknown|unknown|v2.23",
       "opportunity_id": "M2701_backup",
       "trade_date": "2026-09-11",
-      "contracts": ["M2701"],
+      "contracts": [
+        "M2701"
+      ],
       "strategy": "unknown",
       "hypothesis": null,
       "evidence_basis": "domestic_public",
@@ -692,27 +1324,88 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "permitted_route", "applicable": true, "result": "unknown", "evidence_refs": ["wasde_0911"], "details": "无已许可具体策略, 仅观察; WASDE 9/11 单产上调/期末库存下调混合; 首次日盘响应 9/14"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "permitted_route",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "wasde_0911"
+          ],
+          "details": "无已许可具体策略, 仅观察; WASDE 9/11 单产上调/期末库存下调混合; 首次日盘响应 9/14",
+          "gap": {
+            "kind": "plan",
+            "owner": "research",
+            "next_action": "M 无已许可具体策略: 仅观察 WASDE 9/11 与 9 月到港; 如提出具体策略先按 2.1 路由申请许可",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["permitted_route", "account"],
+      "evaluation_order": [
+        "permitted_route",
+        "account"
+      ],
       "all_blockers": [],
-      "unknown_checks": ["permitted_route", "account"],
+      "unknown_checks": [
+        "permitted_route",
+        "account"
+      ],
       "first_blocker": null,
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["wasde_0911"]
+      "evidence_refs": [
+        "wasde_0911"
+      ]
     },
     {
       "candidate_id": "2026-09-11|SR2701-SR2705|A|unknown|v2.23",
       "opportunity_id": "SR_A_2701_2705",
       "trade_date": "2026-09-11",
-      "contracts": ["SR2701", "SR2705"],
+      "contracts": [
+        "SR2701",
+        "SR2705"
+      ],
       "strategy": "A",
       "hypothesis": "reversion",
       "evidence_basis": "domestic_public",
@@ -723,27 +1416,87 @@
       "signal_basis": null,
       "screening_evidence": "sr_spread_0907",
       "evaluated_checks": [
-        {"rule_id": "screening", "applicable": true, "result": "unknown", "evidence_refs": ["sr_spread_0907"], "details": "9/7 分位0未触发研究筛选; 本周未重算, 不外推"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "screening",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "sr_spread_0907"
+          ],
+          "details": "9/7 分位0未触发研究筛选; 本周未重算, 不外推",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "运行 v1.13 SPREAD_PAIRS 重算 SR2701-SR2705 分位 (9/7 旧读数 0 不外推)",
+            "due_at": "2026-09-16"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["screening", "account"],
+      "evaluation_order": [
+        "screening",
+        "account"
+      ],
       "all_blockers": [],
-      "unknown_checks": ["screening", "account"],
+      "unknown_checks": [
+        "screening",
+        "account"
+      ],
       "first_blocker": null,
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1 A公开数据评分卡", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1 A公开数据评分卡",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["sr_spread_0907"]
+      "evidence_refs": [
+        "sr_spread_0907"
+      ]
     },
     {
       "candidate_id": "2026-09-11|SR2701|B|long|v2.23",
       "opportunity_id": "SR2701_B_long",
       "trade_date": "2026-09-11",
-      "contracts": ["SR2701"],
+      "contracts": [
+        "SR2701"
+      ],
       "strategy": "B",
       "hypothesis": null,
       "evidence_basis": "domestic_public",
@@ -754,28 +1507,107 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "SR_card_sales_ratio", "applicable": true, "result": "fail", "evidence_refs": ["sr_sales_ratio_aug"], "details": "品种卡专属否决: 榨季初期多头需产销率验证 — 广西8月产销率80.56%同比-8.48pp、工业库存同比+78.74万吨, 验证反向"},
-        {"rule_id": "B_trigger", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "窗口内/前20交易日成立, 但 Entry=max(MA20, 窗口前5日低点+1×ATR20) 未计算"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "SR_card_sales_ratio",
+          "applicable": true,
+          "result": "fail",
+          "evidence_refs": [
+            "sr_sales_ratio_aug"
+          ],
+          "details": "品种卡专属否决: 榨季初期多头需产销率验证 — 广西8月产销率80.56%同比-8.48pp、工业库存同比+78.74万吨, 验证反向"
+        },
+        {
+          "rule_id": "B_window_screen",
+          "applicable": true,
+          "result": "pass",
+          "evidence_refs": [
+            "b_window_calendar"
+          ],
+          "details": "1.6 B-WINDOW: 2026-09-11 在窗内 (仅研究筛选, 不等于开仓许可); research_start/planned_exit 的真实交易日映射待 seasonal_plan.py"
+        },
+        {
+          "rule_id": "B_trigger",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "B-WINDOW 在窗内 (SR-summer 至 9/30, planned_exit 更早), 但 Step5-B 的 Entry_raw=max(MA20, pre_window_low5+1×ATR20)/SL/TP1 与 PLAN-B-history 三年样本未组装; rule_version=B-v2.24 未登记",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "运行 scripts/seasonal_plan.py 组装 SR-summer 的 PLAN-B-history 三年同窗样本、Entry_raw=max(MA20, pre_window_low5+1×ATR20)/SL/TP1 与 planned_exit 剩余期限; window_end 9/30 临近, 期限不足则计划失败只登记不新开",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["SR_card_sales_ratio", "B_trigger", "account"],
-      "all_blockers": ["SR_card_sales_ratio"],
-      "unknown_checks": ["B_trigger", "account"],
+      "evaluation_order": [
+        "SR_card_sales_ratio",
+        "B_window_screen",
+        "B_trigger",
+        "account"
+      ],
+      "all_blockers": [
+        "SR_card_sales_ratio"
+      ],
+      "unknown_checks": [
+        "B_trigger",
+        "account"
+      ],
       "first_blocker": "SR_card_sales_ratio",
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1 季节性池", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1 季节性池",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["sr_sales_ratio_aug"]
+      "evidence_refs": [
+        "sr_sales_ratio_aug"
+      ]
     },
     {
       "candidate_id": "2026-09-11|CF2701|B|long|v2.23",
       "opportunity_id": "CF2701_B_long",
       "trade_date": "2026-09-11",
-      "contracts": ["CF2701"],
+      "contracts": [
+        "CF2701"
+      ],
       "strategy": "B",
       "hypothesis": null,
       "evidence_basis": "domestic_public",
@@ -786,31 +1618,181 @@
       "signal_basis": null,
       "screening_evidence": null,
       "evaluated_checks": [
-        {"rule_id": "CF_card_reserve", "applicable": true, "result": "unknown", "evidence_refs": ["cf_reserve_auction_0907"], "details": "储备棉轮出持续 (第八周, 成交率100%); '国储轮储公告日±3天暂停' 对滚动轮出周的适用性待核"},
-        {"rule_id": "B_trigger", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "窗口'新旧作切换(收尾)'; Entry 条件未计算; 丰产预期与新棉零星收购为反向背景"},
-        {"rule_id": "account", "applicable": true, "result": "unknown", "evidence_refs": [], "details": "无账户快照"}
+        {
+          "rule_id": "CF_card_reserve",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [
+            "cf_reserve_auction_0907"
+          ],
+          "details": "储备棉轮出持续 (第八周, 成交率100%); '国储轮储公告日±3天暂停' 对滚动轮出周的适用性待核",
+          "gap": {
+            "kind": "acquisition",
+            "owner": "research",
+            "next_action": "核对国储轮出周度公告原文与 \"公告日±3天暂停\" 条款对滚动轮出周的适用口径",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "B_window_screen",
+          "applicable": true,
+          "result": "pass",
+          "evidence_refs": [
+            "b_window_calendar"
+          ],
+          "details": "1.6 B-WINDOW: 2026-09-11 在窗内 (仅研究筛选, 不等于开仓许可); research_start/planned_exit 的真实交易日映射待 seasonal_plan.py"
+        },
+        {
+          "rule_id": "B_trigger",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "B-WINDOW CF-autumn 09-01–10-31 在窗内 (旧 '新旧作切换(收尾)' 快照已被日期表取代); Step5-B Entry/SL/TP1 与 PLAN-B-history 三年样本未组装; 丰产预期与新棉零星收购为反向背景",
+          "gap": {
+            "kind": "calculation",
+            "owner": "data_pipeline",
+            "next_action": "运行 scripts/seasonal_plan.py 组装 CF-autumn 的 PLAN-B-history 三年同窗样本 (CF2601/CF2501/CF2401 秋窗) 与 Entry/SL/TP1; 登记 rule_version=B-v2.24 的 defined_at/effective_from",
+            "due_at": "2026-09-18"
+          }
+        },
+        {
+          "rule_id": "account",
+          "applicable": true,
+          "result": "unknown",
+          "evidence_refs": [],
+          "details": "无账户快照",
+          "gap": {
+            "kind": "account",
+            "owner": "user",
+            "next_action": "执行核验阶段提供带时区时间戳的账户/持仓/挂单/费用/保证金快照; 研究阶段不催",
+            "due_at": "before_execution"
+          }
+        }
       ],
-      "evaluation_order": ["CF_card_reserve", "B_trigger", "account"],
+      "evaluation_order": [
+        "CF_card_reserve",
+        "B_window_screen",
+        "B_trigger",
+        "account"
+      ],
       "all_blockers": [],
-      "unknown_checks": ["CF_card_reserve", "B_trigger", "account"],
+      "unknown_checks": [
+        "CF_card_reserve",
+        "B_trigger",
+        "account"
+      ],
       "first_blocker": null,
       "only_blocker": null,
-      "score": {"canonical_ref": "3.1 季节性池", "result": null, "defaulted_dimensions": []},
-      "plan": {"entry": null, "stop": null, "targets": null, "confirmation_rule": null, "confirmation_definition": {"state": "undefined", "rule_version": null, "defined_at": null, "effective_from": null, "price_basis": null, "economic_rationale": null, "observed_values": null}, "holding_period": null, "latest_exit_date": null},
-      "risk_evaluation": {"canonical_ref": "framework/futures_framework.md Step5 / #31", "calculator_ref": "scripts/futures_risk.py", "result": null},
+      "score": {
+        "canonical_ref": "3.1 季节性池",
+        "result": null,
+        "defaulted_dimensions": []
+      },
+      "plan": {
+        "entry": null,
+        "stop": null,
+        "targets": null,
+        "confirmation_rule": null,
+        "confirmation_definition": {
+          "state": "undefined",
+          "rule_version": null,
+          "defined_at": null,
+          "effective_from": null,
+          "price_basis": null,
+          "economic_rationale": null,
+          "observed_values": null
+        },
+        "holding_period": null,
+        "latest_exit_date": null
+      },
+      "risk_evaluation": {
+        "canonical_ref": "framework/futures_framework.md Step5 / #31",
+        "calculator_ref": "scripts/futures_risk.py",
+        "result": null
+      },
       "final_lots": null,
       "status": "incomplete",
       "not_evaluated_after_no_signal": [],
-      "evidence_refs": ["cf_reserve_auction_0907"]
+      "evidence_refs": [
+        "cf_reserve_auction_0907"
+      ]
     }
   ],
   "unresolved_items": [
-    {"item": "运行 scripts/future_data.py v1.11 (--as-of 20260911): 当前对/准备对分位与样本、SC2610 9/4→9/11 结算周涨%、§0 剩余交易日回填、9/10 RB 换月执行核验", "owner": "研究方/已有行情环境", "due_at": "2026-09-16", "required_evidence": ["ma_spread_thisweek", "rb_new_pair", "sc_settle_weekly"], "resolution": "pending; 到期仍缺 → 下周诊断继续 temporary_gap, 不转 research_only"},
-    {"item": "MA 国内路线: 若无法论证海峡未缓和时支持收敛的独立国内变化, 明确结案 (本对 9/16 下滚后不延续); 新对 MA2701-MA2705 按 3.1 先给确认定义草案", "owner": "研究方", "due_at": "2026-09-18", "required_evidence": ["ma_spread_thisweek"], "resolution": "pending"},
-    {"item": "补核 9/10-9/11 甲醇港口/华东社会库存数值、钢材总库存/247家铁水/盈利率、焦炭第五轮是否发起 (各最多两个公开入口)", "owner": "研究方", "due_at": "2026-09-18", "required_evidence": ["steel_inventory_thisweek", "hot_metal_thisweek"], "resolution": "pending"},
-    {"item": "核对交易所对 MA2610/2701 与 SC 的保证金/涨跌停板公告原文 (涨停周)", "owner": "研究方", "due_at": "2026-09-14", "required_evidence": [], "resolution": "pending"},
-    {"item": "仅在执行核验阶段提供当期账户、持仓、挂单及实际费用/保证金 (带时区时间戳)", "owner": "账户持有人", "due_at": null, "required_evidence": [], "resolution": "pending"},
-    {"item": "9/14 萨拉拉会结果与 9/17 02:00 FOMC 指引落地后 (T+1=9/18) 复评 ①/fed_state/D13/AU 信号席及能源链护栏状态", "owner": "下周 change-analysis", "due_at": "2026-09-19", "required_evidence": [], "resolution": "pending"}
+    {
+      "item": "运行 scripts/future_data.py v1.13 (--as-of 20260911): 当前对/准备对分位与样本、SC2610 9/4→9/11 结算周涨%、§0 剩余交易日回填、9/10 RB 换月执行核验",
+      "owner": "研究方/已有行情环境",
+      "due_at": "2026-09-16",
+      "required_evidence": [
+        "ma_spread_thisweek",
+        "rb_new_pair",
+        "sc_settle_weekly"
+      ],
+      "resolution": "pending; 到期仍缺 → 下周诊断继续 temporary_gap, 不转 research_only"
+    },
+    {
+      "item": "MA 国内路线: 若无法论证海峡未缓和时支持收敛的独立国内变化, 明确结案 (本对 9/16 下滚后不延续); 新对 MA2701-MA2705 按 3.1 先给确认定义草案",
+      "owner": "研究方",
+      "due_at": "2026-09-18",
+      "required_evidence": [
+        "ma_spread_thisweek"
+      ],
+      "resolution": "pending"
+    },
+    {
+      "item": "补核 9/10-9/11 甲醇港口/华东社会库存数值、钢材总库存/247家铁水/盈利率、焦炭第五轮是否发起 (各最多两个公开入口)",
+      "owner": "研究方",
+      "due_at": "2026-09-18",
+      "required_evidence": [
+        "steel_inventory_thisweek",
+        "hot_metal_thisweek"
+      ],
+      "resolution": "pending"
+    },
+    {
+      "item": "运行 scripts/seasonal_plan.py (v2.24 新增离线入口): SR-summer/CF-autumn 的 research_start/planned_exit 真实交易日映射、PLAN-B-history 三年同窗样本、Entry/SL/TP1 与净R; 登记 rule_version=B-v2.24 的 defined_at/effective_from (带时区)",
+      "owner": "研究方 (计算由 data_pipeline 执行)",
+      "due_at": "2026-09-18",
+      "required_evidence": [
+        "b_window_calendar"
+      ],
+      "resolution": "pending"
+    },
+    {
+      "item": "核对交易所对 MA2610/2701 与 SC 的保证金/涨跌停板公告原文 (涨停周)",
+      "owner": "研究方",
+      "due_at": "2026-09-14",
+      "required_evidence": [],
+      "resolution": "pending"
+    },
+    {
+      "item": "仅在执行核验阶段提供当期账户、持仓、挂单及实际费用/保证金 (带时区时间戳)",
+      "owner": "账户持有人",
+      "due_at": null,
+      "required_evidence": [],
+      "resolution": "pending"
+    },
+    {
+      "item": "9/14 萨拉拉会结果与 9/17 02:00 FOMC 指引落地后 (T+1=9/18) 复评 ①/fed_state/D13/AU 信号席及能源链护栏状态",
+      "owner": "下周 change-analysis",
+      "due_at": "2026-09-19",
+      "required_evidence": [],
+      "resolution": "pending"
+    }
+  ],
+  "evidence_corrections": [
+    {
+      "withdrawn_evidence_id": "hot_metal_2025_crossyear",
+      "reason": "检索命中的 247 家钢厂铁水读数为 2025-09-26 跨年数据, 不是 2026-09-10/11 当周样本; 按 4.4 审计纠错闭环保留 invalid 行并撤回, 当周铁水以 hot_metal_thisweek=missing 记录, 不用错年读数冒充",
+      "affected_checks": [
+        {
+          "candidate_id": "2026-09-11|RB2701-RB2703|A|unknown|v2.23",
+          "rule_id": "D14"
+        }
+      ],
+      "recalculation": "completed",
+      "recalculation_note": "D14 对独立国内月差本就不适用 (applicable=false), 撤回后判定不变; RB 多头评估冻结与负反馈检验点保持 unknown, 未因撤回产生新的 pass/fail"
+    }
   ]
 }
 ```
@@ -829,7 +1811,13 @@ $ python3 scripts/validate_futures_audit.py --input research/2026-09-12-executio
 ```
 
 ```text
-$ python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md   # 拟议版本 v2.24 重评后再次运行
+$ python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md   # 拟议版本 v2.24 重评后再次运行（schema 2, 合并前）
 { "status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
 退出码: 0 （2026-09-12 本次运行，分支 futures-framework/2026-09-12）
+```
+
+```text
+$ python3 scripts/validate_futures_audit.py --input research/2026-09-12-execution-audit.md   # 合并 main v2.24 后按 schema 3 重评（v2.25/v1.13），main 版校验器
+{"status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
+退出码: 0 （2026-09-13 本次运行，分支 futures-framework/2026-09-12 合并 origin/main d9e3d27 后；schema 3）
 ```
