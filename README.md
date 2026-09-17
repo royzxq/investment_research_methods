@@ -14,9 +14,11 @@
 - v1.11 的SC结算周涨不再因ATR/OHLC错误整行丢失，CSV分列指标错误、价格证据错误及具体结算缺项；默认额外准备MA2701–MA2705、RB2701–RB2703，按合约对独立输出CSV与 `output/spread_research_<AS_OF>.json` 样本摘要。准备输出不自动替换当前合约/分位、不授予许可。事件时间映射到国内交易日，已有提前风险安排另列；本次修订说明见 `research/2026-09-09-research-method-repair.md`。
 - `scripts/futures_risk.py` — v2.21起的离线A计划校验与风险容量计算；JSON CLI为 `python3 scripts/futures_risk.py validate-a --input plan.json` / `python3 scripts/futures_risk.py size --input sizing.json`，字段见函数说明。计算通过只代表计划/容量校验完成，不授予完整交易许可；缺实际账户、止损或容量信息保留 `null`。
 - `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md` — 每周执行诊断的唯一口径；无论框架是否更新，都生成 `research/<date>-execution-audit.md`，分开记录未触发、已知阻断、研究未完成与满足执行条件。
-- `scripts/validate_futures_audit.py` — schema 2 JSON或含唯一JSON审计块的Markdown结构校验器：`python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`。检查状态、门适用性、证据日期和未知账户空值；不验证来源真伪、不计算投资收益、不授予交易许可。无本地执行环境时须明确未运行，按模板清单检查。
+- `scripts/validate_futures_audit.py` — schema 3（schema 2 仅兼容历史报告）JSON或含唯一JSON审计块的Markdown结构校验器（含 awaiting_account 状态与 shadow_plans 结构，计划字段校验与 `price_evidence.parse_shadow_plan` 共用）：`python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`。检查状态、门适用性、证据日期和未知账户空值；不验证来源真伪、不计算投资收益、不授予交易许可。无本地执行环境时须明确未运行，按模板清单检查。
 - `research/` — `baseline-market-research.md`（day-0 基线）+ 按日期命名的 `<date>-market-research.md` / `<date>-change-decision.md`（始终直接 push 到 main）/ `<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
 - `.claude/skills/` — `meta-future-analysis` / `future-change-analysis` / `future-adaption` / `future-data-sync`（四个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `futures-weekly-review`（编排器，统一开 PR）
+
+期货每周本地行情快照：在已设置 `TUSHARE_TOKEN` 的环境运行 `python3 scripts/future_data.py`，脚本自行写入 `research/<AS_OF>-data-snapshot.txt`（含 stderr，末行“快照完成”为完整标记），提交该文件；云端流水线只读这份快照（含§2d D8周涨分位与§5影子账本结算）。
 
 期货离线回归验证：`python3 -m unittest discover -s tests -v`。A计划校验器仅支持MA/RB/SR同品种1:1月差，必填 `price_unit="CNY/tonne"`；Entry/SL/TP必须为元/吨的绝对价差，乘数为吨/手。单位缺失或不兼容时不计算风险金额或R，不推断或换算百分比；纯风险计算不访问行情或账户，输出不能当作已成交或账户实仓证明。取数脚本的2ATR数量是预检参考，旧版“距50分位风险”和“主仓触发”标签自v2.21起停用。 低敞口组合上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险；输出以 `portfolio_risk_cap_normal/current` 区分常规和当前生效上限，不使用低敞口比例乘数。
 

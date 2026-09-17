@@ -79,4 +79,91 @@ class CurrentAuditTests(unittest.TestCase):
         self.assertEqual(validate_audit(doc), [])
 
 
+def research_complete(doc):
+    candidate = doc["candidates"][0]
+    candidate.update(signal="triggered", plan=dict(entry=3050, stop=2960, targets=[3230], latest_exit_date="2026-10-09"))
+    return candidate
+
+
+def shadow(**changes):
+    plan = dict(shadow_id="MA-plan-shadow-1", candidate_id="MA-plan", registered_at="2026-09-07T20:00:00+08:00",
+                instrument=dict(type="single", contracts=["MA2701"]), side="long", entry_type="limit",
+                entry=3050, stop=2960, target=3230, entry_expiry="2026-09-11", latest_exit_date="2026-10-09",
+                multiplier=10, round_trip_cost=40)
+    plan.update(changes)
+    return plan
+
+
+class FeedbackLoopAuditTests(unittest.TestCase):
+    def test_research_complete_except_account_cannot_hide_as_incomplete(self):
+        doc = current(); candidate = research_complete(doc)
+        self.assertTrue(any("requires awaiting_account" in e for e in validate_audit(doc)))
+        candidate["status"] = "awaiting_account"
+        self.assertEqual(validate_audit(doc), [])
+
+    def test_all_listed_checks_passing_with_unverified_account_is_awaiting_account(self):
+        doc = current(); candidate = research_complete(doc)
+        candidate.update(evaluated_checks=[dict(rule_id="#1", applicable=True, result="pass", evidence_refs=["inventory"])],
+                         unknown_checks=[])
+        self.assertTrue(any("requires awaiting_account" in e for e in validate_audit(doc)))
+        candidate["status"] = "awaiting_account"
+        self.assertEqual(validate_audit(doc), [])
+
+    def test_awaiting_account_rejects_research_gaps_failures_verified_accounts_and_schema_2(self):
+        def plan_unfinished(doc, c): c["plan"]["stop"] = None
+        def research_gap(doc, c): c["evaluated_checks"][0]["gap"].update(kind="plan", owner="research")
+        def known_failure(doc, c):
+            c["evaluated_checks"].append(dict(rule_id="#16", applicable=True, result="fail", evidence_refs=["inventory"]))
+            c.update(all_blockers=["#16"], first_blocker="#16")
+        def account_verified(doc, c): verified_account(doc)
+        def old_schema(doc, c): doc.update(audit_schema_version=2, framework=dict(doc["framework"], version="v2.22"))
+        for change in (plan_unfinished, research_gap, known_failure, account_verified, old_schema):
+            with self.subTest(change=change.__name__):
+                doc = current(); candidate = research_complete(doc); candidate["status"] = "awaiting_account"
+                change(doc, candidate)
+                self.assertTrue(any("awaiting_account requires" in e for e in validate_audit(doc)), validate_audit(doc))
+
+    def test_backdated_shadow_registration_is_rejected(self):
+        doc = current(); doc["shadow_plans"] = [shadow(registered_at="2026-08-29T20:00:00+08:00")]  # 9 days before as_of
+        self.assertTrue(any("backdated" in e for e in validate_audit(doc)))
+        doc["shadow_plans"] = [shadow(registered_at="2026-09-02T20:00:00+08:00")]  # inside the report week
+        self.assertEqual(validate_audit(doc), [])
+
+    def test_research_complete_needs_an_evaluated_rule_and_a_numeric_plan(self):
+        doc = current(); candidate = research_complete(doc)
+        candidate.update(evaluated_checks=[], unknown_checks=[])
+        self.assertEqual(validate_audit(doc), [])  # nothing evaluated: incomplete is right
+        candidate["status"] = "awaiting_account"
+        self.assertTrue(any("awaiting_account requires" in e for e in validate_audit(doc)))
+        for plan_change in (dict(entry="tbd"), dict(targets=[]), dict(targets=["3230"]), dict(latest_exit_date="20261009")):
+            with self.subTest(plan_change=plan_change):
+                doc = current(); candidate = research_complete(doc); candidate["plan"].update(plan_change)
+                self.assertEqual(validate_audit(doc), [])
+                candidate["status"] = "awaiting_account"
+                self.assertTrue(any("awaiting_account requires" in e for e in validate_audit(doc)))
+
+    def test_shadow_plans_are_frozen_ordered_and_linked(self):
+        doc = current(); doc["shadow_plans"] = [shadow()]
+        self.assertEqual(validate_audit(doc), [])
+        doc["shadow_plans"] = [shadow(instrument=dict(type="spread", contracts=["MA2701", "MA2705"]), entry=-20, stop=-40, target=10)]
+        self.assertEqual(validate_audit(doc), [])
+        bad = {
+            "later than as_of_date": dict(registered_at="2026-09-08T09:00:00+08:00"),
+            "timezone-qualified timestamp": dict(registered_at="2026-09-07"),
+            "stop and target on opposite sides": dict(stop=3100),
+            "must reference an audited candidate": dict(candidate_id="other"),
+            "requires 2 distinct contracts": dict(instrument=dict(type="spread", contracts=["MA2701"])),
+            "cannot precede registration": dict(entry_expiry="2026-09-06"),
+            "cannot precede entry_expiry": dict(latest_exit_date="2026-09-10"),
+            "expected finite positive number": dict(multiplier=True),
+            "expected finite nonnegative number": dict(round_trip_cost=-1),
+        }
+        for fragment, changes in bad.items():
+            with self.subTest(fragment=fragment):
+                doc = current(); doc["shadow_plans"] = [shadow(**changes)]
+                self.assertTrue(any(fragment in e for e in validate_audit(doc)), validate_audit(doc))
+        doc = current(); doc["shadow_plans"] = [shadow(), shadow()]
+        self.assertTrue(any("unique nonempty ID" in e for e in validate_audit(doc)))
+
+
 if __name__ == "__main__": unittest.main()

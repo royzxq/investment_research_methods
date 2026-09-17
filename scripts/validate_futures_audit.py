@@ -19,6 +19,11 @@ from pathlib import Path
 import re
 import sys
 
+try:
+    from .price_evidence import parse_shadow_plan
+except ImportError:  # direct script invocation
+    from price_evidence import parse_shadow_plan
+
 
 ACCOUNT_FACTS = (
     "equity", "open_positions", "pending_orders", "existing_risk",
@@ -213,9 +218,10 @@ def _candidate(row, index, evidence_by_id, account_verified, errors, schema=2):
     feasibility, signal, status = (candidate.get(key) for key in ("data_feasibility", "signal", "status"))
     _enum(feasibility, {"available", "temporary_gap", "research_only"}, f"{path}.data_feasibility", errors)
     _enum(signal, {"triggered", "not_triggered", "unknown"}, f"{path}.signal", errors)
-    _enum(status, {"no_signal", "incomplete", "blocked", "ready"}, f"{path}.status", errors)
+    _enum(status, {"no_signal", "incomplete", "awaiting_account", "blocked", "ready"}, f"{path}.status", errors)
     checks = _list(candidate.get("evaluated_checks"), f"{path}.evaluated_checks", errors)
     failed, unknown, seen = set(), set(), set()
+    gap_kinds = {}
     check_order = []
     for check_index, row in enumerate(checks or []):
         check_path = f"{path}.evaluated_checks[{check_index}]"
@@ -263,6 +269,8 @@ def _candidate(row, index, evidence_by_id, account_verified, errors, schema=2):
                 kind = gap.get("kind")
                 _enum(kind, {"definition", "plan", "calculation", "raw_data", "acquisition", "not_published", "account"},
                       f"{check_path}.gap.kind", errors)
+                if rule is not None:
+                    gap_kinds[rule] = kind
                 owner = gap.get("owner")
                 expected = {"definition": "research", "plan": "research", "calculation": "data_pipeline",
                             "account": "user", "not_published": "publisher"}.get(kind) if _text(kind) else None
@@ -337,6 +345,34 @@ def _candidate(row, index, evidence_by_id, account_verified, errors, schema=2):
         if (signal != "triggered" or feasibility != "available" or failed or unknown
                 or not account_verified or type(lots) is not int or lots < 1):
             errors.append(f"{path}.status: ready requires triggered/available, no fail or unknown, verified account, final_lots >= 1")
+    # Research finished except the user's account inputs must not hide inside incomplete: at least one
+    # applicable rule was evaluated, none failed, only account-kind gaps remain and the plan is numeric.
+    applicable = sum(1 for row in checks or [] if isinstance(row, dict) and row.get("applicable") is True)
+    research_complete = (schema == 3 and signal == "triggered" and feasibility == "available" and not failed
+                         and applicable > 0 and all(gap_kinds.get(rule) == "account" for rule in unknown)
+                         and _plan_complete(candidate.get("plan")))
+    if status == "awaiting_account" and (not research_complete or account_verified or lots is not None):
+        errors.append(f"{path}.status: awaiting_account requires schema 3, triggered/available, a complete plan, "
+                      "no fail, no unknown check other than account-kind, no verified account and final_lots=null")
+    if status == "incomplete" and research_complete and not account_verified:
+        errors.append(f"{path}.status: research complete except account checks requires awaiting_account")
+
+
+def _plan_complete(plan):
+    """Numeric entry/stop, at least one numeric target and a valid ISO latest exit date."""
+    if not isinstance(plan, dict) or not isinstance(plan.get("targets"), list) or not plan["targets"]:
+        return False
+    for value in [plan.get("entry"), plan.get("stop"), *plan["targets"]]:
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            return False
+    value = plan.get("latest_exit_date")
+    if not _text(value) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        return False
+    try:
+        date.fromisoformat(value)
+    except ValueError:
+        return False
+    return True
 
 
 def _corrections(document, candidates, evidence_by_id, errors):
@@ -386,6 +422,41 @@ def _corrections(document, candidates, evidence_by_id, errors):
                     errors.append(f"{path}: withdrawn evidence reused in candidate {key}")
 
 
+SHADOW_REGISTRATION_WINDOW_DAYS = 7
+
+
+def _shadow_plans(document, candidates, as_of, errors):
+    """Shadow plans must be well-formed (shared parser), linked, unique and registered within the report week.
+
+    Registration may not be later than as_of_date nor more than SHADOW_REGISTRATION_WINDOW_DAYS before it,
+    so a later report cannot add a backdated plan. Rewrites of an already registered shadow_id in a later
+    report cannot be seen here; the data script keeps the earliest registration and names any rewrite.
+    """
+    rows = _list(document.get("shadow_plans"), "shadow_plans", errors)
+    candidate_ids = {c.get("candidate_id") for c in candidates if isinstance(c, dict)}
+    seen = set()
+    for index, row in enumerate(rows or []):
+        path = f"shadow_plans[{index}]"
+        plan = _object(row, path, errors)
+        if plan is None:
+            continue
+        parsed, plan_errors = parse_shadow_plan(plan)
+        errors.extend(f"{path}.{message}" for message in plan_errors)
+        identifier = plan.get("shadow_id")
+        if _text(identifier):
+            if identifier in seen:
+                errors.append(f"{path}.shadow_id: expected unique nonempty ID; duplicate {identifier}")
+            seen.add(identifier)
+        if plan.get("candidate_id") not in candidate_ids:
+            errors.append(f"{path}.candidate_id: must reference an audited candidate")
+        if parsed is not None and as_of is not None:
+            registered_day = date.fromisoformat(f"{parsed['registered_day'][:4]}-{parsed['registered_day'][4:6]}-{parsed['registered_day'][6:]}")
+            if registered_day > as_of:
+                errors.append(f"{path}.registered_at: later than as_of_date (Asia/Shanghai)")
+            elif registered_day < as_of - timedelta(days=SHADOW_REGISTRATION_WINDOW_DAYS):
+                errors.append(f"{path}.registered_at: must fall within {SHADOW_REGISTRATION_WINDOW_DAYS} days before as_of_date; backdated plans are not accepted")
+
+
 def validate_audit(doc):
     """Return structural error strings; an empty list never grants permission.
 
@@ -430,6 +501,8 @@ def validate_audit(doc):
         _candidate(candidate, index, evidence_by_id, account_verified, errors, schema=schema)
     if schema == 3:
         _corrections(document, candidates or [], evidence_by_id, errors)
+        if "shadow_plans" in document:
+            _shadow_plans(document, candidates or [], as_of, errors)
     unresolved = _list(document.get("unresolved_items"), "unresolved_items", errors)
     for index, item in enumerate(unresolved or []):
         _object(item, f"unresolved_items[{index}]", errors)

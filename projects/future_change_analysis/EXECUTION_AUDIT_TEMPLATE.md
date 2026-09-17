@@ -34,8 +34,9 @@
 
 1. `signal=not_triggered` 且未触发有完整直接证据：`status=no_signal`；明确限定策略/方向覆盖范围，并列后续未评估项。不能外推为该品种所有策略均无机会。
 2. 必需证据、方向、计划或风险/账户核验有缺口，或 `signal=unknown`：`status=incomplete`，已知否决仍保留在 `all_blockers`。缺口不因另有阻断而消失。
-3. 其余适用检查全部完成且存在否决或最终手数为零：`status=blocked`。
-4. `signal=triggered`、所有适用检查完成、无否决、完整计划及账户组合核验通过且 `final_lots>=1`：`status=ready`。这仍是研究输出，不是已成交。
+3. `signal=triggered`、`data_feasibility=available`、至少一条适用检查已评估、plan 的 entry/stop/targets（数值）与 latest_exit_date（ISO日期）均已填、无已知否决，且没有账户类（`gap.kind=account`）以外的适用unknown：`status=awaiting_account`（研究已成案、待账户核验，`final_lots=null`），不得写成incomplete。
+4. 其余适用检查全部完成且存在否决或最终手数为零：`status=blocked`。
+5. `signal=triggered`、所有适用检查完成、无否决、完整计划及账户组合核验通过且 `final_lots>=1`：`status=ready`。这仍是研究输出，不是已成交。
 
 缺少完整候选账时，汇总填 `coverage=partial` / `unknown`，总体机会数用 `null`；可以汇总已观察记录但须标样本范围。不得写“市场建议空仓”“市场没有机会”“规则已节省亏损”，也不得以没有 `ready` 记录虚构“0 个机会”。
 
@@ -180,17 +181,20 @@
       "resolution": "pending"
     }
   ],
+  "shadow_plans": [],
   "evidence_corrections": []
 }
 ```
 
 confirmation_definition为计划留痕字段：state=undefined/draft/frozen；其语义和事件日期口径按数据协议5.1/5.2人工核验，结构校验器不验证信号规则本身的经济有效性。未冻结的草案不能回填历史signal=triggered。
 
-报告正文用一段结论、候选表及待补事项解释 JSON。对于受阻记录，写清是账户可执行性、策略否决还是研究未完成；缺少历史完整证据时明确不能判断连续空仓和机会成本。规则有效性比较须事前固定进出场/成本、纳入盈利与亏损影子候选，并按独立机会去重；命中数和事后涨幅都不是有效性证明。未固定计划的影子记录仅为假设，不能写已避免损失。
+报告正文用一段结论、候选表及待补事项解释 JSON。对于受阻记录，写清是账户可执行性、策略否决还是研究未完成；缺少历史完整证据时明确不能判断连续空仓和机会成本。规则有效性比较须事前固定进出场/成本、纳入盈利与亏损影子候选（`shadow_plans`，结算读快照§5），并按独立机会去重；命中数和事后涨幅都不是有效性证明。未登记计划的影子记录仅为假设，不能写已避免损失。
 
 ## schema 3的新增约束
 
 - 每条适用unknown检查须有gap对象：kind=definition/plan/calculation/raw_data/acquisition/not_published/account；owner、next_action、due_at为非空字符串。definition/plan→research，calculation→data_pipeline，account→user，not_published→publisher。due_at可用明确日期或next_report/before_execution；不得无限“待裁”。not_published另须expected_release_at（带时区）及release_evidence_refs（已核官方日历证据），治理截止不算。
 - `signal=not_triggered`必须给非空signal_evidence_refs，直接引用有效的触发输入（如合约分位或B日历）；不以账户未知代替未触发。字段表达真实性仍由研究方核查。
 - 顶层evidence_corrections总是数组，无纠错时[]；每项含withdrawn_evidence_id、reason、affected_checks（candidate_id/rule_id对象数组）、recalculation=completed/pending。原证据必须保留为invalid，新证据另建ID。pending时受影响的适用检查为unknown，已知其他阻断不删除。completed须在正文展示门/评分/系数/状态/风险前后重算差异，不能只填枚举宣称完成。
+- `awaiting_account`只用于schema 3；账户已核验、有已知否决、计划未填完或任一unknown不属account类时不得使用。
+- `shadow_plans`：每周为最接近成立的至多两条候选登记。每项含shadow_id（唯一）、candidate_id（须为本诊断候选）、registered_at（带时区，上海日期不晚于as_of_date且不早于as_of_date前7天，事后补登记无效）、instrument{type=single/spread，contracts分别1/2个}、side=long/short、entry_type=limit/stop、entry/stop/target（多头stop<entry<target，空头相反；单合约为正数）、entry_expiry与latest_exit_date（ISO日期 YYYY-MM-DD，前者不早于登记日，后者晚于登记日且不早于前者）、multiplier>0、round_trip_cost≥0。登记后不得改写；结算由`future_data.py` §5完成，校验器只查结构。
 - candidate_id非空且唯一；撤回证据不能留在candidate evidence_refs/signal_evidence_refs或任何pass/fail依据，只能作diagnostic_evidence_refs。日期/来源年份需人工查看原文，校验器不凭URL猜年份、不证明所有门已评估或完成经济重算。
