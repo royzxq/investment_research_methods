@@ -16,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
 from scripts.price_evidence import sample_coverage, validate_unique_trade_dates, calendar_window
+from scripts.price_evidence import week_start_day, weekly_anchor_days, d8_weekly_rank, settle_shadow_plan, parse_shadow_plan
+from scripts.validate_futures_audit import load_audit
+from contextlib import redirect_stderr
 
 
 def quote(day, settle, close=None):
@@ -421,11 +424,13 @@ class ResearchPipelineTests(unittest.TestCase):
         current = script_config("SPREAD_PAIRS")
         preparation = script_config("PREPARATION_PAIRS")
         original = list(current)
+        failing = tuple(preparation[0][1:3])  # the next roll pair's history is unavailable
+        healthy = tuple(current[0][1:3])
         calls = []
 
         def spread(label, near, far, kind):
             calls.append((near, far))
-            if far == "MA2705":
+            if (near, far) == failing:
                 raise RuntimeError("new pair history unavailable")
             return dict(scope="research_inputs", data_status="complete", percentile=80,
                         missing_fields=[], hard_vetoes=[], final_lots=None)
@@ -439,14 +444,16 @@ class ResearchPipelineTests(unittest.TestCase):
         self.assertEqual(current, original)
         self.assertEqual(saved["pairs"], result)
         self.assertEqual(len(calls), len(set(calls)))
-        self.assertIn(("MA2701", "MA2705"), calls)
-        self.assertIn(("RB2701", "RB2703"), calls)
-        ma = next(row for row in result if row["far_contract"] == "MA2705")
-        rb = next(row for row in result if row["far_contract"] == "RB2703")
-        self.assertEqual(ma["research_stage"], "roll_preparation")
-        self.assertEqual(ma["data_status"], "incomplete")
-        self.assertNotIn("percentile", ma)
-        self.assertEqual(rb["data_status"], "complete")
+        for pair in current:  # a rolled pair cannot linger in preparation for any product
+            self.assertNotIn(tuple(pair[1:3]), [tuple(prep[1:3]) for prep in preparation])
+        self.assertIn(failing, calls)
+        self.assertIn(healthy, calls)
+        prepared = next(row for row in result if (row["near_contract"], row["far_contract"]) == failing)
+        active = next(row for row in result if (row["near_contract"], row["far_contract"]) == healthy)
+        self.assertEqual(prepared["research_stage"], "roll_preparation")
+        self.assertEqual(prepared["data_status"], "incomplete")
+        self.assertNotIn("percentile", prepared)
+        self.assertEqual((active["research_stage"], active["data_status"]), ("current", "complete"))
         self.assertTrue(all(row["execution_permission"] == "not_evaluated" for row in result))
 
     def test_event_countdown_uses_domestic_dates_and_retains_early_window(self):
@@ -487,6 +494,310 @@ class ResearchPipelineTests(unittest.TestCase):
         fomc = next(row for row in ns["_event_flags"]()[0] if "FOMC决议" in row[2])
         self.assertEqual(fomc[5], 3)
         self.assertTrue(fomc[7])
+
+
+def weekdays(start, end, skip=()):
+    day, stop, days = datetime.strptime(start, "%Y%m%d"), datetime.strptime(end, "%Y%m%d"), []
+    while day <= stop:
+        if day.weekday() < 5 and day.strftime("%Y%m%d") not in skip:
+            days.append(day.strftime("%Y%m%d"))
+        day += timedelta(days=1)
+    return days
+
+
+class D8WeeklyRankTests(unittest.TestCase):
+    def roll_fixture(self):
+        calendar = weekdays("20250801", "20260916")
+        mapping = {day: ("OLD" if day < "20260910" else "NEW") for day in calendar}
+        settles = {"OLD": {day: 100 for day in calendar},
+                   "NEW": {day: 200 for day in calendar if day >= "20260901"}}
+        settles["NEW"]["20260916"] = 210
+        return calendar, mapping, settles
+
+    def test_anchors_are_last_sessions_per_week_excluding_the_current_week(self):
+        calendar = weekdays("20230801", "20260916", skip={"20250912"})
+        anchors = weekly_anchor_days(calendar, "20260916")
+        self.assertEqual((anchors[0], anchors[-1]), ("20230922", "20260911"))
+        self.assertIn("20250911", anchors)  # a Friday holiday moves that week's anchor to Thursday
+        self.assertNotIn("20250912", anchors)
+        self.assertEqual(week_start_day(calendar, "20250919"), "20250911")
+
+    def test_short_calendar_or_missing_end_session_cannot_shrink_the_sample(self):
+        for calendar in (weekdays("20240101", "20260916"), weekdays("20230801", "20260915")):
+            with self.assertRaisesRegex(ValueError, "does_not_cover"):
+                weekly_anchor_days(calendar, "20260916")
+
+    def test_each_week_uses_the_contract_mapped_on_its_end_day_for_both_ends(self):
+        calendar, mapping, settles = self.roll_fixture()
+        result = d8_weekly_rank(calendar, "20260916", mapping, settles, years=1)
+        self.assertEqual((result["main_contract"], result["start_date"]), ("NEW", "20260909"))
+        self.assertAlmostEqual(result["current_change_pct"], 5.0)  # 210/200, never 210/100 across the roll
+        self.assertEqual((result["status"], result["up_rank"], result["down_rank"]), ("available", 100.0, 0.0))
+        self.assertEqual(result["invalid_anchor_dates"], [])
+
+    def test_missing_mapping_voids_only_that_week_and_eighty_percent_floor_hides_ranks(self):
+        calendar, mapping, settles = self.roll_fixture()
+        anchors = weekly_anchor_days(calendar, "20260916", years=1)
+        required = (4 * len(anchors) + 4) // 5
+        for drop, status in ((len(anchors) - required, "available"),
+                             (len(anchors) - required + 1, "insufficient_samples")):
+            with self.subTest(drop=drop):
+                thinned = {day: code for day, code in mapping.items() if day not in anchors[:drop]}
+                result = d8_weekly_rank(calendar, "20260916", thinned, settles, years=1)
+                self.assertEqual(result["invalid_anchor_dates"], anchors[:drop])
+                self.assertEqual(result["status"], status)
+                self.assertEqual(result["up_rank"] is None, status != "available")
+
+    def test_current_week_without_settlement_is_unknown_not_borrowed(self):
+        calendar, mapping, settles = self.roll_fixture()
+        for missing in (None, float("nan"), 0):
+            with self.subTest(missing=missing):
+                settles["NEW"]["20260916"] = missing
+                result = d8_weekly_rank(calendar, "20260916", mapping, settles, years=1)
+                self.assertEqual((result["status"], result["up_rank"]), ("current_unavailable", None))
+
+    def test_equal_weeks_count_toward_neither_tail(self):
+        calendar = weekdays("20250801", "20260916")
+        fridays = [day for day in calendar if datetime.strptime(day, "%Y%m%d").weekday() == 4]
+        settles = {"C": {day: (101 if index % 2 else 99) for index, day in enumerate(fridays)}}
+        settles["C"].update({"20260909": 99, "20260916": 101})  # current week repeats the up-week move
+        result = d8_weekly_rank(calendar, "20260916", {day: "C" for day in calendar}, settles, years=1)
+        self.assertEqual((result["status"], result["down_rank"]), ("available", 0.0))
+        self.assertTrue(40 < result["up_rank"] < 60, result["up_rank"])
+
+
+def shadow_plan(**changes):
+    plan = dict(shadow_id="s1", candidate_id="c1", registered_at="2026-09-18T20:00:00+08:00",
+                instrument=dict(type="single", contracts=["MA2701"]), side="long", entry_type="limit",
+                entry=100, stop=95, target=110, entry_expiry="2026-09-25", latest_exit_date="2026-10-16",
+                multiplier=10, round_trip_cost=20)
+    plan.update(changes)
+    return plan
+
+
+def bar(day, open_, high, low, settle):
+    return dict(trade_date=day, open=open_, high=high, low=low, settle=settle)
+
+
+def spread_bar(day, settle):
+    return dict(trade_date=day, settle=settle)
+
+
+class ShadowSettlementTests(unittest.TestCase):
+    # Friday 09-18 bar precedes every list: plans registered 09-18 20:00 may use bars from the 21:00 night open.
+    PRE = bar("20260918", 100, 100, 100, 100)
+
+    def test_registration_session_is_ignored_and_limit_fills_at_plan_price(self):
+        bars = [bar("20260918", 100, 112, 90, 101),  # registered that evening: no hindsight fill or exit
+                bar("20260921", 101, 104, 99, 102), bar("20260922", 103, 111, 102, 108)]
+        result = settle_shadow_plan(shadow_plan(), bars)
+        self.assertEqual((result["fill_date"], result["fill_price"]), ("20260921", 100.0))
+        self.assertEqual((result["status"], result["exit_reason"], result["exit_price"]), ("closed", "target", 110.0))
+        self.assertAlmostEqual(result["pnl_cny"], 80.0)  # 10 points x 10 - 20 round trip
+        self.assertAlmostEqual(result["r_multiple"], 80 / 70)  # planned risk 5 x 10 + 20
+
+    def test_bar_opening_with_a_night_session_before_registration_is_skipped(self):
+        bars = [self.PRE, bar("20260921", 101, 104, 96, 97), bar("20260922", 97, 98, 96, 97)]
+        for registered_at in ("2026-09-18T22:00:00+08:00", "2026-09-19T10:00:00+08:00"):
+            with self.subTest(registered_at=registered_at):
+                # Monday's bar already holds Friday night's trading, seen before this registration.
+                result = settle_shadow_plan(shadow_plan(registered_at=registered_at, entry=97, stop=90), bars)
+                self.assertEqual(result["fill_date"], "20260922")
+        first_bar_only = settle_shadow_plan(shadow_plan(entry=97, stop=90), [bar("20260921", 101, 104, 96, 97)])
+        self.assertEqual(first_bar_only["status"], "pending_entry")  # no prior session: night open unknown
+
+    def test_session_touching_stop_and_target_exits_at_stop(self):
+        bars = [self.PRE, bar("20260921", 101, 104, 99, 102), bar("20260922", 103, 112, 94, 100)]
+        result = settle_shadow_plan(shadow_plan(), bars)
+        self.assertEqual((result["exit_reason"], result["exit_price"], result["pnl_cny"]), ("stop", 95.0, -70.0))
+        self.assertAlmostEqual(result["r_multiple"], -1.0)
+
+    def test_gap_through_stop_exits_at_the_worse_open(self):
+        bars = [self.PRE, bar("20260921", 101, 104, 99, 102), bar("20260922", 93, 96, 92, 94)]
+        result = settle_shadow_plan(shadow_plan(), bars)
+        self.assertEqual((result["exit_reason"], result["exit_price"], result["pnl_cny"]), ("stop", 93.0, -90.0))
+
+    def test_fill_session_counts_a_stop_touch_but_not_a_target(self):
+        result = settle_shadow_plan(shadow_plan(), [self.PRE, bar("20260921", 101, 111, 94, 100)])
+        self.assertEqual((result["exit_date"], result["exit_reason"]), ("20260921", "stop"))
+        result = settle_shadow_plan(shadow_plan(), [self.PRE, bar("20260921", 101, 111, 99, 108)])
+        self.assertEqual((result["status"], result["exit_reason"]), ("open", None))
+        self.assertAlmostEqual(result["unrealized_pnl_cny"], 60.0)  # marked at settle, not booked at target
+
+    def test_stop_entry_fills_at_worse_of_level_and_open(self):
+        bars = [self.PRE, bar("20260921", 103, 105, 102, 104), bar("20260922", 104, 110, 103, 109)]
+        result = settle_shadow_plan(shadow_plan(entry_type="stop"), bars)
+        self.assertEqual((result["fill_price"], result["exit_reason"], result["pnl_cny"]), (103.0, "target", 50.0))
+        short = settle_shadow_plan(shadow_plan(side="short", entry_type="stop", stop=105, target=90),
+                                   [self.PRE, bar("20260921", 97, 98, 96, 97)])
+        self.assertEqual((short["status"], short["fill_price"]), ("open", 97.0))
+
+    def test_unfilled_plan_lapses_only_after_its_expiry_is_observed(self):
+        quiet = [self.PRE, bar("20260921", 102, 104, 101, 103), bar("20260924", 102, 104, 101, 103)]
+        self.assertEqual(settle_shadow_plan(shadow_plan(), quiet)["status"], "pending_entry")
+        quiet.append(bar("20260925", 102, 104, 101, 103))
+        self.assertEqual(settle_shadow_plan(shadow_plan(), quiet)["status"], "not_filled")
+        late_touch = quiet + [bar("20260928", 99, 100, 90, 95)]
+        self.assertEqual(settle_shadow_plan(shadow_plan(), late_touch)["status"], "not_filled")
+
+    def test_time_exit_uses_last_session_not_after_latest_exit_date(self):
+        plan = shadow_plan(entry_expiry="2026-09-22", latest_exit_date="2026-09-26")  # Saturday
+        bars = [self.PRE, bar("20260921", 101, 104, 99, 102), bar("20260925", 102, 104, 101, 103)]
+        self.assertEqual(settle_shadow_plan(plan, bars)["status"], "open")  # data has not reached the exit date
+        result = settle_shadow_plan(plan, bars + [bar("20260928", 90, 91, 80, 85)])
+        self.assertEqual((result["exit_date"], result["exit_reason"], result["pnl_cny"]), ("20260925", "time", 10.0))
+
+    def test_contract_expiry_before_latest_exit_date_closes_or_lapses_the_plan(self):
+        filled = [self.PRE, bar("20260921", 101, 104, 99, 102), bar("20260925", 102, 104, 101, 103)]
+        result = settle_shadow_plan(shadow_plan(), filled, last_trading_day="20260925")
+        self.assertEqual((result["exit_date"], result["exit_reason"], result["pnl_cny"]), ("20260925", "time", 10.0))
+        quiet = [self.PRE, bar("20260921", 102, 104, 101, 103), bar("20260922", 102, 104, 101, 103)]
+        self.assertEqual(settle_shadow_plan(shadow_plan(), quiet, last_trading_day="20260922")["status"], "not_filled")
+        self.assertEqual(settle_shadow_plan(shadow_plan(), quiet, last_trading_day="20260918")["status"], "invalid")
+
+    def test_spread_uses_settlement_only_and_allows_negative_levels(self):
+        plan = shadow_plan(instrument=dict(type="spread", contracts=["MA2701", "MA2705"]), side="short",
+                           entry=300, stop=330, target=250)
+        pre = spread_bar("20260918", 280)
+        stopped = settle_shadow_plan(plan, [pre, spread_bar("20260921", 305), spread_bar("20260922", 335)])
+        self.assertEqual((stopped["fill_price"], stopped["exit_price"], stopped["pnl_cny"]), (300.0, 335.0, -370.0))
+        won = settle_shadow_plan(plan, [pre, spread_bar("20260921", 305), spread_bar("20260922", 240)])
+        self.assertEqual((won["exit_reason"], won["exit_price"], won["pnl_cny"]), ("target", 250.0, 480.0))
+        negative = shadow_plan(instrument=dict(type="spread", contracts=["RB2701", "RB2703"]),
+                               entry=-20, stop=-40, target=10)
+        self.assertEqual(settle_shadow_plan(negative, [pre, spread_bar("20260921", -25)])["fill_price"], -20.0)
+
+    def test_spread_filled_beyond_its_stop_exits_that_session_at_settlement(self):
+        plan = shadow_plan(instrument=dict(type="spread", contracts=["MA2701", "MA2705"]), entry=10, stop=0, target=30)
+        bars = [spread_bar("20260918", 12), spread_bar("20260921", -50), spread_bar("20260922", 20)]
+        result = settle_shadow_plan(plan, bars)
+        self.assertEqual((result["exit_date"], result["exit_reason"], result["exit_price"]), ("20260921", "stop", -50.0))
+        self.assertAlmostEqual(result["pnl_cny"], -620.0)
+
+    def test_missing_price_is_a_data_gap_not_a_guess(self):
+        result = settle_shadow_plan(shadow_plan(), [self.PRE, bar("20260921", 101, None, 99, 102)])
+        self.assertEqual((result["status"], result["error"]), ("data_gap", "missing_high:20260921"))
+
+    def test_fill_beyond_target_exits_at_once_at_the_fill_price(self):
+        bars = [self.PRE, bar("20260921", 115, 120, 114, 116), bar("20260922", 116, 118, 112, 113)]
+        result = settle_shadow_plan(shadow_plan(entry_type="stop"), bars)
+        self.assertEqual((result["fill_date"], result["fill_price"], result["exit_date"], result["exit_reason"]),
+                         ("20260921", 115.0, "20260921", "target"))
+        self.assertAlmostEqual(result["pnl_cny"], -20.0)  # only the round trip; never a 'target' booked below the fill
+        spread = shadow_plan(instrument=dict(type="spread", contracts=["MA2701", "MA2705"]), entry_type="stop",
+                             entry=10, stop=0, target=30)
+        result = settle_shadow_plan(spread, [spread_bar("20260918", 8), spread_bar("20260921", 40), spread_bar("20260922", 35)])
+        self.assertEqual((result["fill_price"], result["exit_price"], result["exit_reason"], result["pnl_cny"]),
+                         (40.0, 40.0, "target", -20.0))
+
+    def test_validator_and_settler_share_one_plan_definition(self):
+        same_day = shadow_plan(entry_expiry="2026-09-18", latest_exit_date="2026-09-18")
+        parsed, errors = parse_shadow_plan(same_day)
+        self.assertIsNone(parsed)
+        self.assertTrue(any("must fall after registration day" in e for e in errors), errors)
+        self.assertEqual(settle_shadow_plan(same_day, [self.PRE])["status"], "invalid")
+        compact_date = shadow_plan(entry_expiry="20260925")  # YYYYMMDD is rejected by both, not just the validator
+        self.assertTrue(any("entry_expiry" in e for e in parse_shadow_plan(compact_date)[1]))
+        self.assertEqual(settle_shadow_plan(compact_date, [self.PRE])["status"], "invalid")
+        parsed, errors = parse_shadow_plan(shadow_plan())
+        self.assertEqual(errors, [])
+        self.assertEqual((parsed["side"], parsed["registered_day"], parsed["latest_exit"], parsed["contracts"]),
+                         (1, "20260918", "20261016", ["MA2701"]))
+
+    def test_malformed_plans_are_invalid(self):
+        for changes in (dict(stop=101), dict(side="short"), dict(multiplier=True), dict(round_trip_cost=-1),
+                        dict(registered_at="2026-09-18T20:00:00"), dict(entry_expiry="2026-09-17"), dict(entry=-1),
+                        dict(latest_exit_date="2026-09-18"), dict(shadow_id=""), dict(candidate_id=None),
+                        dict(instrument=dict(type="spread", contracts=["MA2701"])),
+                        dict(instrument=dict(type="single", contracts=["MA2701", "MA2705"])),
+                        dict(instrument=dict(type="spread", contracts=["MA2701", "MA2701"]))):
+            with self.subTest(changes=changes):
+                self.assertEqual(settle_shadow_plan(shadow_plan(**changes), [])["status"], "invalid")
+
+
+class FeedbackLoopScriptTests(unittest.TestCase):
+    def test_shadow_ledger_keeps_first_registration_and_groups_closed_results_by_known_blockers(self):
+        import pandas as pd
+
+        import re
+
+        candidate = dict(candidate_id="c1", status="incomplete", all_blockers=["#16", "#30", 16])  # non-string ignored
+
+        def report(plans, candidates=None):
+            return "# audit\n```json\n" + json.dumps(dict(candidates=candidates or [candidate], shadow_plans=plans)) + "\n```\n"
+
+        bars = pd.DataFrame([bar("20260918", 100, 100, 100, 100), bar("20260921", 101, 104, 99, 102),
+                             bar("20260922", 103, 111, 102, 108)])
+        fetched = []
+        malformed = dict(shadow_plan(), shadow_id="bad", instrument=None)
+
+        def ledger(delist):
+            with tempfile.TemporaryDirectory() as temp, redirect_stdout(io.StringIO()) as output:
+                research = Path(temp)
+                (research / "2026-09-19-execution-audit.md").write_text(report([shadow_plan()]), encoding="utf-8")
+                (research / "2026-09-26-execution-audit.md").write_text(
+                    report([shadow_plan(target=101), malformed, dict(shadow_plan(), shadow_id="")]), encoding="utf-8")
+                (research / "2026-09-12-execution-audit.md").write_text("# legacy report\n", encoding="utf-8")
+                (research / "2026-09-05-execution-audit.md").write_text('# broken\n```json\n["shadow_plans"]\n```\n', encoding="utf-8")
+                ns = isolated_functions({"shadow_bars", "shadow_ledger"}, dict(
+                    RESEARCH_DIR=research, OUTDIR=temp, AS_OF="20260926", os=os, pd=pd, re=re, load_audit=load_audit,
+                    settle_shadow_plan=settle_shadow_plan, parse_shadow_plan=parse_shadow_plan, delist_date=delist,
+                    daily=lambda sym: fetched.append(sym) or bars))
+                return {row["shadow_id"]: row for row in ns["shadow_ledger"]()}, output.getvalue()
+
+        rows, text = ledger(lambda sym: "20270115")
+        self.assertEqual(set(rows), {"s1", "bad"})
+        self.assertEqual((rows["s1"]["exit_reason"], rows["s1"]["pnl_cny"]), ("target", 80.0))  # later rewrite ignored
+        self.assertEqual(rows["bad"]["status"], "invalid")  # structure error, not a market-data gap
+        self.assertEqual(fetched, ["MA2701"])
+        for fragment in ("#16: 1 笔", "#30: 1 笔", "事后改写已忽略(只认最早登记): s1@2026-09-26-execution-audit.md",
+                         "1 条无 shadow_id", "顶层不是对象"):
+            self.assertIn(fragment, text)
+        rows, _ = ledger(lambda sym: "nan")
+        self.assertEqual(rows["s1"]["status"], "data_gap")  # a bad delist date is a data problem, not a bad plan
+
+    def test_tee_output_mirrors_stdout_and_stderr_into_the_snapshot(self):
+        ns = isolated_functions({"tee_output"}, dict(sys=sys))
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "snap.txt"
+            captured = io.StringIO()
+            with redirect_stdout(captured), redirect_stderr(captured):
+                restore = ns["tee_output"](path)
+                try:
+                    print("out line")
+                    print("err line", file=sys.stderr)
+                finally:
+                    restore()
+            self.assertEqual(path.read_text(encoding="utf-8"), "out line\nerr line\n")
+            self.assertEqual(captured.getvalue(), "out line\nerr line\n")
+
+    def test_d8_research_records_failed_months_instead_of_filling_them(self):
+        calendar = weekdays("20220801", "20260916")
+        mapping = {day: ("MA2609.ZCE" if day < "20260601" else "MA2610.ZCE") for day in calendar}
+        requested = []
+
+        def fake_settles(code, start, end):
+            requested.append((code, start, end))
+            if code == "MA2609.ZCE":
+                raise RuntimeError("history unavailable")
+            return {day: 100.0 for day in calendar}
+
+        ns = isolated_functions({"d8_weekly_research"}, dict(
+            _trade_cal=lambda: calendar, AS_OF="20260916", YEARS=3, completed_day_cutoff=lambda: "20260916",
+            main_mapping=lambda prod: mapping, _settle_series=fake_settles, weekly_anchor_days=weekly_anchor_days,
+            d8_weekly_rank=d8_weekly_rank, PRODUCT_ATTR={"MA": "商品"},
+            shift_year_date=lambda d, k: f"{int(d[:4]) - k}{d[4:]}"))
+        result = ns["d8_weekly_research"]("MA")
+        self.assertEqual(result["fetch_errors"], ["MA2609.ZCE:RuntimeError"])
+        self.assertEqual((result["status"], result["main_contract"]), ("insufficient_samples", "MA2610.ZCE"))
+        self.assertEqual({r[1:] for r in requested}, {("20220916", "20260916")})  # date-bounded, not full lifetime
+        with self.assertRaises(KeyError):
+            ns["d8_weekly_research"]("XX")  # an unregistered attribute fails loudly instead of an 'unknown' tier
+
+    def test_d8_tier_hint_is_inclusive_at_the_tail_cutoff(self):
+        tier = isolated_functions({"_d8_tier"}, {})["_d8_tier"]
+        self.assertEqual([tier(rank, (20, 10)) for rank in (90.0, 85.0, 79.9, None)],
+                         ["否决档(前10%)", "扣分档(前20%)", "—", "unknown"])
 
 
 if __name__ == "__main__":
