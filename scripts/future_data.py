@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-v2.25 框架数据脚本 — Tushare Pro 版 (v1.13)
+v2.26 框架数据脚本 — Tushare Pro 版 (v1.15)
 ====================================================================
 只负责取数、研究候选和情景预检，不输出完整交易许可。
   §0/§0b: 合约期限、事件日历核对；缺数据不能视为过门。
@@ -11,6 +11,23 @@ v2.25 框架数据脚本 — Tushare Pro 版 (v1.13)
       仅是该止损情景的预检上界，不是最终手数，不独立裁决#31。
       实际策略止损、实际费用、账户已占用/挂单风险、保证金和限仓须另核。
   §2c: 只核已登记方向性持仓；POSITIONS为空不证明账户空仓。
+  §2d: D8周涨分位(主力同合约两端结算，近3年周样本)，只是输入。
+  §5: 影子账本——执行诊断里事前登记的影子计划按保守日线规则结算，只供规则复评。
+
+v1.15（2026-09-17，对应框架 v2.26）：
+  ★ 换月按框架0)阶梯执行：MA2610 9/16 实测剩余 19td(<20，#1 线)→结构对 MA2610-MA2701 整对下滚为 MA2701-MA2705
+    (MA2705 9/16 实测 20 日均 18,667 过#2)；MA2701 兼方向性执行腿与#30护栏判定腿，§2 不再取 MA2610；
+    MA 准备对顺延为 MA2705-MA2709(仅取样，不授许可)。SC 信号腿 SC2610 实测 9td 且 fut_mapping 主力已为 SC2611
+    →SC近端对下滚为 SC2611-SC2612，原油周涨护栏口径腿随之改为 SC2611。RB/M/SR/CF/AU 未到换月条件。
+  ★ 框架 v2.26 把 Kpler 通行量/海湾出口/战争险与 247 家铁水/盈利率降为参考：§0b 霍尔木兹占位窗与滚动监测注释同步改写，
+    脚本算法不变。
+
+v1.14（2026-09-16 方法修复，框架版本号不变）：
+  ★ §2d 实现 D8：fut_mapping 取锚日主力，同一合约两端结算价算周涨(终点前7自然日及以前最近交易日)，
+    近3年每自然周最后交易日为历史样本，有效样本<80%为unknown；口径经用户2026-09-16确认，写入canonical 3.4。
+  ★ §5 影子账本：扫描 research/*-execution-audit.md 的 shadow_plans，结算规则见 price_evidence.settle_shadow_plan；
+    已了结影子按登记时已核阻断归集盈亏，供 AUDIT 规则复评。
+  ★ 脚本自行把完整输出(含 stderr)写入 research/<AS_OF>-data-snapshot.txt(末行“快照完成”为完整标记)，提交后流水线据此读取实测值。
 
 v1.13 对应框架v2.25（2026-09-12 周度状态换版, light; 合并 v2.24/v1.12 后重适配）——仅配置层随动，无算法改动：
   ★ §1 SPREAD_PAIRS: RB 当前对按框架 0) 阶梯表 9/10 触发点到期切换 RB2610-RB2701 → RB2701-RB2703
@@ -55,6 +72,7 @@ import time
 import argparse
 import json
 from datetime import datetime
+from pathlib import Path
 import numpy as np
 import pandas as pd
 
@@ -62,10 +80,14 @@ try:
     from .futures_risk import precheck_2atr
     from .price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
     from .price_evidence import sample_coverage, validate_unique_trade_dates, calendar_window
+    from .price_evidence import weekly_anchor_days, d8_weekly_rank, settle_shadow_plan, parse_shadow_plan
+    from .validate_futures_audit import load_audit
 except ImportError:  # direct script invocation
     from futures_risk import precheck_2atr
     from price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
     from price_evidence import sample_coverage, validate_unique_trade_dates, calendar_window
+    from price_evidence import weekly_anchor_days, d8_weekly_rank, settle_shadow_plan, parse_shadow_plan
+    from validate_futures_audit import load_audit
 
 try:
     import tushare as ts
@@ -99,9 +121,10 @@ EVENTS = [   # ★v1.13 2026-09-12 按框架 v2.25 1.4 事件轴刷新(用户维
     ("20260914", "20260918", "霍尔木兹中断复归侧裁决监控窗(①离散裁决对象, 不可排期; 未质变则逐周顺延)",
      ("MA", "SC", "AU", "AG", "CU", "AL"),
      "占位提醒不是事件日: ±1冻结与双向跳空预案针对真实质变headline当日; "
-     "★v1.13 现状=中断复归侧评估延续: Kpler 10日均10艘/日(5月以来最低, 截至9/6; '持续<10艘'临界未满足), "
-     "同向质变日 9/8-9/9(美击沉5艘伊朗油轮+伊袭10船)±1冻结已执行至9/10; 待核两要件=SC近端back反弹(脚本§1)+海湾出口实质下降; "
-     "反向质变=通行量回升至10日均以上/停火或重开官宣/9-14萨拉拉会给出许可-收费机制或降级信号 → 回僵局/缓和侧评估、MA存量周五检视; "
+     "★v1.15 框架v2.26: Kpler通行量/海湾出口/战争险降为参考, 不再作①要件或质变日触发; "
+     "①中断证真=正式关闭或再袭船/布雷+SC近端back反弹(脚本§1), 缓和证真=名义解除或正式重开+back回落, 状态待周度按新要件复评; "
+     "同向质变日 9/8-9/9(美击沉5艘伊朗油轮+伊袭10船)±1冻结已执行至9/10; "
+     "反向质变=停火或重开官宣/9-14萨拉拉会给出许可-收费机制或降级信号 → 回僵局/缓和侧评估、MA存量周五检视; "
      "任一方向质变日=能源链/贵金属方向性单边新开冻结(0.1)",
      False),
     ("20260914", "20260918", "俄乌轴质变监控窗(能源第二地缘轴, 不可排期; 未质变则逐周顺延)",
@@ -155,18 +178,18 @@ EVENTS = [   # ★v1.13 2026-09-12 按框架 v2.25 1.4 事件轴刷新(用户维
 #   ③**黑色负反馈检验·第五轮提涨=检验点**(池内RB的背景输入; JM/J池外): ★v1.13 第五轮9/5-9/11无公开发起记录、
 #     钢材总库存/铁水本周缺数(temporary_gap)→检验点unknown; 第五轮落地+铁水/总库存去化延续→原料主线延续;
 #     受阻/钢厂减产或抵制/铁水回落/焦煤现货涨势中断→负反馈启动、原料存量多头止盈触发(不许"再看一周");
-#     247家铁水与盈利率=脚本外正式数据补核项;
+#     247家铁水与盈利率=参考信息(★v1.15 框架v2.26降级, 不作门或扣分依据);
 #   ④焦煤复产风险信号(安监放松/山西复产超预期/西曲矿复产→D14预案);
 #   ⑤LC重启条件(池外·周度扫描; 证伪结案, 计数归零; 复活条件见框架0)扫描行);
-#   ⑥油轮通行量持续性(①锚已反转"再受阻": 持续<10艘/日=中断证真侧输入, 回升至10日均以上=回僵局侧输入, 日度);
-#   ⑦MA护栏口径(★v1.8): 原油周涨幅=§2b SC2610「周涨%」列(结算价周五对上周五), >5%→加仓权0.5/存量减50%,
-#     >8%→多头冻结·清仓; #30=MA2610单日±5%; 9/4历史SC读数+15.33%命中>8%(账户持仓另核; ★v1.13 已写回框架1.5卡);
+#   ⑥油轮通行量持续性(★v1.15 框架v2.26降为参考: 只作背景, 不再作①要件或质变日触发);
+#   ⑦MA护栏口径(★v1.8; ★v1.15 随换月改腿): 原油周涨幅=§2b SC2611「SC护栏结算周涨%」列(最新已完成行情日对减7自然日), >5%→加仓权0.5/存量减50%,
+#     >8%→多头冻结·清仓; #30=MA2701单日±5%; 9/4历史SC读数+15.33%命中>8%(账户持仓另核; ★v1.13 已写回框架1.5卡);
 #     ★v1.13 本周: 甲醇9/8涨停+6.03%→#30顺向新开否决9/9-9/11(9/14到期≠新开窗口); SC 9/10 +6.44%/9/11早盘+8%(信号腿记录);
 #     9/4→9/11 SC结算周涨%本地未取得=unknown(缺结算不解除上周处置), 真实环境运行§2b后核;
 #   ⑧交易所风控措施公告(能源链/甲醇涨停周概率上升; 公告±1审慎, 日度核对);
 #   ⑨**换月触发点**(非市场事件, 不进本表以免误打D12/±1标记; §0 会按真实交易日预警,
 #     完整阶梯见框架 v2.25「合约滚动阶梯」表, ★v1.8 已收缩至池内): RB 2026-09-10 ★v1.13 已到期切换→RB2701-RB2703(当前对) /
-#     MA 2026-09-16(框架 v2.25 写死执行: 结构对→MA2701-MA2705, 执行腿维持 MA2701; 执行日互换 SPREAD_PAIRS/PREPARATION_PAIRS) / SC 信号腿随主力换月(约9月中旬) /
+#     ★v1.15 MA 2026-09-16 已执行(结构对→MA2701-MA2705, 下次=2026-12-17 或主力换月→MA2705-MA2709) / SC 9/16 已随主力换月→SC2611-SC2612 /
 #     AU 信号腿≈11月中旬 / SR·CF 2026-12-17 / M 2026-12-18; 池外品种不再跟踪。
 EVENT_T3_BUSDAYS = 3     # 「临近离散事件T-3」窗口(v2.9 3.5b D12第三判据)
 EVENT_HORIZON_BD = 10    # §0b 前瞻清单范围(v2.9 0.0b: 未来10个交易日)
@@ -191,9 +214,9 @@ POSITIONS = [
 #         ("结构监控"黑色价差分支随 JM 退出停用; 复活时从 git 取回)
 #   候选A/候选代理/存档/H-roll/国债期货价差 五种已随 PS·LH·CU·IM/IC·TL/T 退出删除(git v1.7 可取回)
 SPREAD_PAIRS = [   # v2.21维持4组研究序列，计划需独立校验
-    ("MA",   "MA2610", "MA2701", "A"),
-    #   ★v1.7换月: 近腿→实测主力 MA2610; 远腿 MA2701。★v1.8: MA2705 9/4 实测 20 日均 12,561 已过#2,
-    #   触发线 2026-09-16(近腿#1线)或主力换月 → 结构对下滚 MA2701-MA2705(执行日复核#2);
+    ("MA",   "MA2701", "MA2705", "A"),
+    #   ★v1.15 2026-09-16 触发线到期(MA2610 实测 19td<20)按框架0)阶梯整对下滚; MA2705 9/16 实测 20 日均 18,667 过#2;
+    #   下次触发=MA2701 #1线 2026-12-17 或主力换月 → MA2705-MA2709(届时核#2);
     #   方向性单边执行腿=MA2701(§2 单独取指标), 不随本对滚动
     #   2026-09-06 用户裁决: JM退出执行池并停采；历史风险估算不作新计划裁决
     ("RB",   "RB2701", "RB2703", "A"),      # ★v1.13 2026-09-10 触发线到期(RB2610 9/11 推算剩余 18td<20), 按框架 v2.25 阶梯表
@@ -203,15 +226,15 @@ SPREAD_PAIRS = [   # v2.21维持4组研究序列，计划需独立校验
     #   SR2705 9/4 实测 20 日均 30,222 过#2; 触发线 2026-12-17(或主力换月)→ SR2705-SR2709
     #   黑色 JM-RB 价差(原 J2701-RB2701→JM2701-RB2701)随 JM 退出停采, 复活前提=JM 回池
     # ---- 信号席 (框架 v2.20: 不建仓, 只作①back方向与护栏口径输入) ----
-    ("SC近端", "SC2610", "SC2611", "信号"),
+    ("SC近端", "SC2611", "SC2612", "信号"),   # ★v1.15 9/16 SC2610 剩 9td 且 fut_mapping 主力已为 SC2611 → 整对下滚
     #   SC维持信号席，用户许可未扩展；不由研究分位自动开放建仓路径。
-    #   分位仍照算(①「中断复归侧」待核要件=SC 近端 back 反弹); 主力换月日→SC2611-SC2612(SC2612 未过#2, 信号腿不受)
+    #   分位仍照算(①门要件之一=SC 近端 back 方向); 下次主力换到 SC2612 时→SC2612-SC2701(信号腿不受#1#2)
 ]
 
 # 已有路线的下一对提前取样，不替换当前对、不自动换月或授予交易许可。
 # 当前对配置完成换月后，重复合约对会自动去重。
 PREPARATION_PAIRS = [
-    ("MA换月准备", "MA2701", "MA2705", "A"),   # 框架 v2.25 写死 2026-09-16 执行: 届时与 SPREAD_PAIRS 的 MA 当前对互换
+    ("MA换月准备", "MA2705", "MA2709", "A"),   # ★v1.15 MA 当前对已下滚为 MA2701-MA2705; 下一对仅取样, MA2709 #2 未核、不授许可
     ("RB换月准备", "RB2703", "RB2705", "A"),   # ★v1.13 RB 当前对已切换为 RB2701-RB2703, 准备对顺延为下一对; RB2705 9/4 实测 7,717 未过#2, 仅取样不授许可
 ]
 
@@ -226,14 +249,13 @@ def research_pairs():
 
 # 指标计算合约 (§2; ★v1.8 按框架 v2.20 执行池: 核心 2 + 备选 3 + 信号 2 = 8 腿; 2026-09-06 用户裁决后)
 INDICATOR_CONTRACTS = [
-    "MA2610",   # 主力#30护栏判定腿及A近腿；9/16或主力换月即滚动
-    "MA2701",   # 方向性执行候选，真实策略止损及账户预算另核
+    "MA2701",   # 方向性执行候选兼#30护栏判定腿与A近腿(★v1.15 9/16下滚)；真实策略止损及账户预算另核
     "RB2701",   # 黑色结构表达；不开方向性单边
     "M2701",    # 独立备选；12/18或主力换月→M2705
     "SR2701",   # 常驻备选；12/17或主力换月→SR2705
     "CF2701",   # 常驻备选；12/17或主力换月→CF2705并核#2
     "AU2612",   # 信号席：fed_state/D13价格锚；不建仓
-    "SC2610",   # 信号席：MA原油周涨护栏口径腿及①输入；随主力换月滚动
+    "SC2611",   # 信号席：MA原油周涨护栏口径腿及①输入；★v1.15 9/16 随主力换月自SC2610滚入
 ]
 
 # ---- v1.9 2ATR情景预检配置；真实#31计划裁决由futures_risk及完整规则负责 ----
@@ -244,7 +266,13 @@ CONTRACT_SPEC = {"MA": (10, 10), "RB": (10, 10), "M": (10, 10), "SR": (10, 10), 
                  "AU": (1000, 20), "SC": (1000, 100)}
 #   启动时 spec_check() 会用 fut_basic.per_unit 交叉核对 multiplier, 不一致直接退出(宁抛错不猜)
 # 信号席单腿(框架 v2.20 0)注c: 不建仓, 不受 #1/#2; §0/§2b 只打提示不打否决)
-SIGNAL_LEGS = {"AU2612", "SC2610"}
+SIGNAL_LEGS = {"AU2612", "SC2611"}
+# ---- §2d D8 周涨分位(★v1.14, 口径见 canonical 3.4) / §5 影子账本 ----
+# 属性决定 D8 档位: (扣分档前X%, 否决档前X%); 品种取自 INDICATOR_CONTRACTS, 复活品种先补属性
+PRODUCT_ATTR = {"MA": "商品", "RB": "商品", "M": "商品", "SR": "商品", "CF": "商品", "SC": "商品", "AU": "金融"}
+D8_TIERS = {"商品": {"long": (20, 10), "short": (20, 10)},
+            "金融": {"long": (10, 5), "short": (30, 20)}}
+RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"   # 影子计划登记在执行诊断 JSON 的 shadow_plans
 # ===============================================================
 
 EXCH = {"MA": "CZCE", "SR": "CZCE", "CF": "CZCE",
@@ -258,9 +286,10 @@ EXCH = {"MA": "CZCE", "SR": "CZCE", "CF": "CZCE",
         "LH": "DCE",                          # ★v1.5 新增: 生猪(候选块)
         "LC": "GFEX",                         # ★v1.6 新增: 碳酸锂(候选块, v2.11)
         "IF": "CFFEX", "IH": "CFFEX"}         # 备用
+TS_SUFFIX = {"CZCE": "ZCE", "SHFE": "SHF", "DCE": "DCE", "INE": "INE", "GFEX": "GFE", "CFFEX": "CFX"}   # fut_mapping 连续代码后缀
 
 pro = None
-_basic_cache, _daily_cache = {}, {}
+_basic_cache, _daily_cache, _mapping_cache, _settle_cache = {}, {}, {}, {}
 _cal_cache = None      # ★v1.7 §0/§0b/§2b 的「交易日数」口径源(trade_cal)
 CAL_DEGRADED = []      # ★v1.7 交易日口径降级为 busday 近似的原因(§0 与注3 会打印)
 _T3_PRODS = set()   # §0b 计算出的「事件T-3」受影响品种集合(供§2 D12判据)
@@ -1041,6 +1070,212 @@ def atr_recheck():
     print("  注: 结构持仓(月差/升水/价差/carry)豁免本节; 本核验为收盘例行项, 未跑=未过")
 
 
+# -------------- §2d D8 周涨分位 (★v1.14, canonical 3.4) --------------
+def main_mapping(prod):
+    """fut_mapping 主力映射 {trade_date: ts_code}; 回看覆盖 D8 所需年份。"""
+    if prod not in _mapping_cache:
+        df = api().fut_mapping(ts_code=f"{prod}.{TS_SUFFIX[EXCH[prod]]}",
+                               start_date=shift_year_date(AS_OF, YEARS + 1), end_date=AS_OF)
+        time.sleep(0.4)
+        if df is None or df.empty:
+            raise RuntimeError(f"fut_mapping({prod}) 返回为空")
+        _mapping_cache[prod] = dict(zip(df["trade_date"].astype(str), df["mapping_ts_code"].astype(str)))
+    return _mapping_cache[prod]
+
+
+def _settle_series(code, start, end):
+    """历史主力的 {trade_date: settle}：已取过全生命周期日线的腿直接复用，其余只取窗口内 settle 列。"""
+    sym = code.split(".")[0]
+    if sym in _daily_cache:
+        df = _daily_cache[sym]
+        return dict(zip(df["trade_date"].astype(str), df["settle"]))
+    if code not in _settle_cache:
+        df = api().fut_daily(ts_code=code, start_date=start, end_date=end, fields="trade_date,settle")
+        time.sleep(0.4)
+        if df is None or df.empty:
+            raise RuntimeError(f"{code} 在 {start}~{end} 无结算价")
+        validate_unique_trade_dates(df["trade_date"].astype(str).tolist())
+        _settle_cache[code] = dict(zip(df["trade_date"].astype(str), df["settle"]))
+    return _settle_cache[code]
+
+
+def d8_weekly_research(prod):
+    """最新已完成行情日的主力结算周涨及其在近 YEARS 年周样本中的上/下尾位置。"""
+    attribute = PRODUCT_ATTR[prod]   # 品种未登记属性→本行计算失败，不静默降为 unknown 档
+    cal = _trade_cal()
+    if not cal:
+        raise ValueError("交易日历不可用，D8 不计算")
+    cutoff = min(AS_OF, completed_day_cutoff())
+    end_day = max(day for day in cal if day <= cutoff)
+    mapping = main_mapping(prod)
+    anchors = weekly_anchor_days(cal, end_day, YEARS)
+    contracts = {mapping[day] for day in anchors + [end_day] if day in mapping}
+    window_start = shift_year_date(end_day, YEARS + 1)
+    settles, errors = {}, []
+    for code in sorted(contracts):
+        try:
+            settles[code] = _settle_series(code, window_start, end_day)
+        except Exception as e:   # 单合约取数失败只令其样本无效，不补值
+            errors.append(f"{code}:{type(e).__name__}")
+    result = d8_weekly_rank(cal, end_day, mapping, settles, YEARS)
+    result.update(product=prod, attribute=attribute, fetch_errors=errors)
+    return result
+
+
+def _d8_tier(rank, cutoffs):
+    """按 (扣分档, 否决档) 的前X%提示；适用性与A结构豁免另核。"""
+    if rank is None or cutoffs is None:
+        return "unknown"
+    deduct, veto = cutoffs
+    if rank >= 100 - veto:
+        return f"否决档(前{veto}%)"
+    if rank >= 100 - deduct:
+        return f"扣分档(前{deduct}%)"
+    return "—"
+
+
+def print_d8_ranks():
+    print("\n---- 2d) D8 周涨分位 (canonical 3.4: fut_mapping主力·同合约两端结算·终点前7自然日·"
+          f"近{YEARS}年周样本; A结构豁免) ----")
+    rows = []
+    for prod in dict.fromkeys(_prod(sym) for sym in INDICATOR_CONTRACTS):
+        try:
+            r = d8_weekly_research(prod)
+        except Exception as e:
+            rows.append({"品种": prod, "状态": f"计算失败: {type(e).__name__}: {e}"})
+            continue
+        tiers = D8_TIERS.get(r["attribute"], {})
+        rows.append({
+            "品种": prod, "属性": r["attribute"], "主力": r["main_contract"],
+            "周涨起日": r["start_date"], "周涨止日": r["end_date"],
+            "结算周涨%": None if r["current_change_pct"] is None else round(r["current_change_pct"], 2),
+            "样本": f"{r['sample_count']}/{r['expected_samples']}(需≥{r['required_samples']})",
+            "上尾位": None if r["up_rank"] is None else round(r["up_rank"], 1),
+            "下尾位": None if r["down_rank"] is None else round(r["down_rank"], 1),
+            "多头档": _d8_tier(r["up_rank"], tiers.get("long")),
+            "空头档": _d8_tier(r["down_rank"], tiers.get("short")),
+            "状态": r["status"] + (f"·取数失败{len(r['fetch_errors'])}合约" if r["fetch_errors"] else "")})
+    tab = pd.DataFrame(rows)
+    os.makedirs(OUTDIR, exist_ok=True)
+    tab.to_csv(f"{OUTDIR}/d8_weekly_{AS_OF}.csv", index=False, encoding="utf-8-sig")
+    print(tab.to_string(index=False))
+    print("  读法: 上尾位=近3年周样本中低于本周涨幅的比例; 多头看上尾、空头看下尾; #20=上尾前10%且创近250日H;")
+    print("        #21=金融属性多头上尾前5%; E触发=被回归一侧前20%; 状态非available时D8=unknown, 不能当已过门。")
+    return rows
+
+
+# -------------- §5 影子账本 (★v1.14, canonical 4.4) --------------
+def shadow_bars(plan):
+    """单合约取OHLC与结算；价差只用两腿同日结算差，任一腿缺失保留为缺口。"""
+    kind, contracts = plan["instrument"]["type"], plan["instrument"]["contracts"]
+    if kind == "spread":
+        near, far = (daily(sym).reindex(columns=["trade_date", "settle"]) for sym in contracts)
+        merged = pd.merge(near, far, on="trade_date", how="outer", suffixes=("_n", "_f"))
+        merged["settle"] = (pd.to_numeric(merged["settle_n"], errors="coerce")
+                            - pd.to_numeric(merged["settle_f"], errors="coerce"))
+        return merged.reindex(columns=["trade_date", "settle"]).to_dict("records")
+    return daily(contracts[0]).reindex(columns=["trade_date", "open", "high", "low", "settle"]).to_dict("records")
+
+
+def shadow_ledger():
+    print("\n---- 5) 影子账本 (canonical 4.4: 事前登记计划的保守日线结算; 只供规则复评, 不是成交或账户记录) ----")
+    plans, rewritten, missing_id, skipped = {}, [], 0, []
+    for path in sorted(RESEARCH_DIR.glob("*-execution-audit.md")):
+        text = path.read_text(encoding="utf-8")
+        if '"shadow_plans"' not in text:
+            continue
+        try:
+            document = load_audit(text, markdown=True)
+        except ValueError as e:
+            skipped.append(f"{path.name}: {e}")
+            continue
+        if not isinstance(document, dict):
+            skipped.append(f"{path.name}: 顶层不是对象")
+            continue
+        candidates = {c.get("candidate_id"): c for c in (document.get("candidates") or []) if isinstance(c, dict)}
+        for plan in document.get("shadow_plans") or []:
+            if not isinstance(plan, dict) or not isinstance(plan.get("shadow_id"), str) or not plan["shadow_id"].strip():
+                missing_id += 1
+                continue
+            sid = plan["shadow_id"]
+            if sid in plans:
+                if plans[sid][1] != plan:   # 同一 shadow_id 只认最早登记，事后改写不生效——但要点名
+                    rewritten.append(f"{sid}@{path.name}")
+                continue
+            plans[sid] = (path.name, plan, candidates.get(plan.get("candidate_id")) or {})
+    for item in skipped:
+        print(f"  ⚠ 无法读取, 跳过: {item}")
+    if missing_id:
+        print(f"  ⚠ {missing_id} 条无 shadow_id 的计划已忽略(校验器应已拒绝)")
+    if rewritten:
+        print(f"  ⚠ 事后改写已忽略(只认最早登记): {', '.join(rewritten)}")
+    if not plans:
+        print("  尚无登记的影子计划(执行诊断 JSON 的 shadow_plans 为空或缺失)。")
+        return []
+    rows, gates = [], {}
+    for sid, (source, plan, candidate) in plans.items():
+        parsed, errors = parse_shadow_plan(plan)   # 先核计划结构：坏计划记 invalid，不去取数
+        if errors:
+            outcome = dict(shadow_id=sid, status="invalid", error="; ".join(errors))
+        else:
+            try:   # 取数失败(接口/合约解析)记数据缺口，不推断结果；结算本身在 try 之外，逻辑错误不被吞
+                last_days = [str(delist_date(sym)) for sym in parsed["contracts"]]
+                bars = shadow_bars(plan)
+            except Exception as e:
+                outcome = dict(shadow_id=sid, status="data_gap", error=f"{type(e).__name__}: {e}")
+            else:
+                if all(re.fullmatch(r"\d{8}", day) for day in last_days):
+                    outcome = settle_shadow_plan(plan, bars, last_trading_day=min(last_days))
+                else:
+                    outcome = dict(shadow_id=sid, status="data_gap", error=f"delist_date 无效: {last_days}")
+        blockers = [b for b in (candidate.get("all_blockers") or []) if isinstance(b, str)] \
+            if isinstance(candidate.get("all_blockers"), list) else []
+        rows.append(dict(outcome, source=source, candidate_status=candidate.get("status"),
+                         blockers=",".join(blockers) or "—"))
+        if outcome["status"] == "closed":
+            for gate in blockers or ["(无已核阻断)"]:
+                stat = gates.setdefault(gate, dict(count=0, pnl=0.0, r=0.0))
+                stat["count"] += 1
+                stat["pnl"] += outcome["pnl_cny"]
+                stat["r"] += outcome["r_multiple"]
+    tab = pd.DataFrame(rows).reindex(columns=[
+        "shadow_id", "source", "candidate_status", "blockers", "status", "fill_date", "fill_price",
+        "exit_date", "exit_price", "exit_reason", "pnl_cny", "r_multiple", "unrealized_pnl_cny", "last_date", "error"])
+    os.makedirs(OUTDIR, exist_ok=True)
+    tab.to_csv(f"{OUTDIR}/shadow_ledger_{AS_OF}.csv", index=False, encoding="utf-8-sig")
+    print(tab.to_string(index=False))
+    print("  已了结影子按登记时的已核阻断归集(一笔多条阻断各计一次, 非独立因果):")
+    for gate, stat in sorted(gates.items()):
+        print(f"    {gate}: {stat['count']} 笔, 合计 {stat['pnl']:+,.0f} 元, 平均 {stat['r'] / stat['count']:+.2f}R")
+    if not gates:
+        print("    暂无已了结影子计划。")
+    return rows
+
+
+def tee_output(path):
+    """把 stdout+stderr 同时写入快照文件；返回 restore()。sys.exit 的报错也会落进文件，末行“快照完成”才算完整。"""
+    class _Tee:
+        def __init__(self, stream, sink):
+            self.stream, self.sink = stream, sink
+
+        def write(self, data):
+            self.stream.write(data)
+            self.sink.write(data)
+
+        def flush(self):
+            self.stream.flush()
+            self.sink.flush()
+
+    sink = open(path, "w", encoding="utf-8")
+    originals = sys.stdout, sys.stderr
+    sys.stdout, sys.stderr = _Tee(originals[0], sink), _Tee(originals[1], sink)
+
+    def restore():
+        sys.stdout, sys.stderr = originals
+        sink.close()
+    return restore
+
+
 def _valid_date(s):
     try:
         datetime.strptime(s, "%Y%m%d")
@@ -1052,14 +1287,26 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v2.25 框架数据脚本 (Tushare Pro, v1.13)")
+        description="v2.26 框架数据脚本 (Tushare Pro, v1.15)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
+    parser.add_argument("--no-snapshot", action="store_true",
+                        help="只打印，不写 research/<AS_OF>-data-snapshot.txt(框架0D行情快照)")
     args = parser.parse_args()
     AS_OF = args.as_of
+    snapshot = None if args.no_snapshot else RESEARCH_DIR / f"{AS_OF[:4]}-{AS_OF[4:6]}-{AS_OF[6:]}-data-snapshot.txt"
+    restore = tee_output(snapshot) if snapshot else None
+    try:
+        run(snapshot)
+    finally:
+        if restore:
+            restore()
 
-    print(f"== v2.25 框架数据脚本 v1.13 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
+
+def run(snapshot):
+
+    print(f"== v2.26 框架数据脚本 v1.15 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
           f"2ATR预检预算{RISK_BUDGET:,.0f}(非账户剩余额度) | 事件节点{len(EVENTS)}项(用户维护) ==")
     print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
           "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")
@@ -1094,14 +1341,18 @@ def main():
 
     atr_recheck()
 
+    print_d8_ranks()
+
     print("\n---- 3)/4) 股指年化贴水 / 国债30Y-10Y利差: ★v1.8 已随 IM/IC、TL/T 退出执行池删除"
           "(框架 v2.20 周度扫描; 复活时从 git v1.7 取回 §3/§4 代码与配置) ----")
 
-    print(f"\n完成。CSV 已写入 {OUTDIR}/ ; 请将上方控制台输出整体贴回对话, 或上传 CSV。")
+    shadow_ledger()
+
+    print(f"\n完成。CSV 已写入 {OUTDIR}/ ; 快照={snapshot or '未写(--no-snapshot)'}，提交后即为框架0D行情快照。")
     print("注1: ATR20分位/H250/dist_H250%/H20等为单合约自身历史近似; 样本N<250时")
     print("     H250实为上市以来高点, D11口径偏松, 以「分位样本N」列酌情解读;")
     print("     A同期样本按固定3年逐年至少33/41验收，33–40只警示；分位不证明回归收益。")
-    print("     主力连续拼接与单周涨跌3年分位(D8)仍未实现；A结构豁免D8，其他路线按适用项判断。")
+    print("     D8按fut_mapping主力逐周取同一合约两端结算(不拼接复权)，有效周样本<80%为unknown；A结构豁免D8。")
     print("     B窗口/价格验算：python3 scripts/seasonal_plan.py --input <JSON>；输入需按SEASONAL_PLAN_INPUT.md组装，不因本表缺列报告定义缺失。")
     print("注2: 到期/距到期与事件T-n用trade_cal真实交易日(已剔节假日; ★v1.7);")
     print("     " + ("本次口径正常, 无降级。" if not CAL_DEGRADED else
@@ -1119,6 +1370,7 @@ def main():
     print("     港口库存全链、铁水/利润、战争险/通行量/出口等按模型可选；缺失只影响依赖该证据的路线。")
     print("     政策/地缘/供给强因果模型仍须自身专属证据；不可得则research_only，不以价格代理证真。")
     print("     池外休眠品种不追加例行采集，不把背景缺项扩大为全池冻结。")
+    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.15 | 本行存在即输出完整 ==")
 
 
 if __name__ == "__main__":

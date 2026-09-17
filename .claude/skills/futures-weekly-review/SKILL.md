@@ -11,7 +11,7 @@ description: 期货研究流水线编排器：meta future analysis → future ch
 
 1. 开始前先 `git pull`（或确认已是 origin/main 最新），确保能看到其他历史周次已提交的 `research/*.md`——`PREVIOUS_META_RESULT` 的查找依赖这些文件已经在远程仓库里
 2. 取今天日期为 `AS_OF_DATE`（`YYYY-MM-DD`）
-   先读取 `framework/FUTURES_DATA_PROTOCOL.md`、canonical `framework/futures_framework.md` 与共享审计模板。收集 `EXECUTION_EVIDENCE` 来源清单：现有行情输出及其交易日/版本、公开公告和产业来源、当期完整账户与挂单快照、已有候选计划/成交记录/前期执行诊断。按协议先做初步 `DATA_FEASIBILITY` 分类（available / temporary_gap / research_only），区分必要输入和专业增强项，再启动元研究；现有证据中的跨年、单位/口径错误单列 `EVIDENCE_CORRECTIONS`。缺少来源就记录不可用，不能用脚本空 `POSITIONS` 推定账户空仓；研究观察模型或增强数据不可得不使整个活跃池自动 incomplete。
+   先读取 `framework/FUTURES_DATA_PROTOCOL.md`、canonical `framework/futures_framework.md` 与共享审计模板。收集 `EXECUTION_EVIDENCE` 来源清单：最新提交的 `research/*-data-snapshot.txt`（记录其 AS_OF、脚本版本与最新行情日；落后于最近已完成交易日则标滞后，不以推算补齐）、公开公告和产业来源、当期完整账户与挂单快照、已有候选计划/成交记录/前期执行诊断。按协议先做初步 `DATA_FEASIBILITY` 分类（available / temporary_gap / research_only），区分必要输入和专业增强项，再启动元研究；现有证据中的跨年、单位/口径错误单列 `EVIDENCE_CORRECTIONS`。缺少来源就记录不可用，不能用脚本空 `POSITIONS` 推定账户空仓；研究观察模型或增强数据不可得不使整个活跃池自动 incomplete。
 3. 调用 `meta-future-analysis` skill（输入 `AS_OF_DATE`、`EXECUTION_EVIDENCE`、初步 `DATA_FEASIBILITY` 和 `EVIDENCE_CORRECTIONS`），得到 `CURRENT_META_RESULT`，已落盘 `research/<AS_OF_DATE>-market-research.md`；确认其先完成活跃池最小数据，再按需补充宏观/海外研究，并输出完整 `DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS`
 4. 按 `future-change-analysis` SKILL.md 里的查找规则确定 `PREVIOUS_META_RESULT`（注意排除 `investment-` 前缀的股票轨道文件）及配套的 `PREVIOUS_CHANGE_DECISION`（上一次的变化检测报告，承载上期留下的预备观察项）
 5. 调用 `future-change-analysis` skill（输入 `AS_OF_DATE`、`CURRENT_META_RESULT`、`PREVIOUS_META_RESULT`、`PREVIOUS_CHANGE_DECISION`、`CURRENT_FRAMEWORK=framework/futures_framework.md` 现行全文、`EXECUTION_EVIDENCE`），得到 `update_needed` 与 `CURRENT_EXECUTION_AUDIT`——该 skill 先核对证据年份/口径、处理可得性与纠错，再生成执行诊断及比较市场变化。完整传递两份报告里的 `DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS`，不只抽取市场变量；反摇摆护栏不阻止纠错，旧专业数据待办/休眠路线可明确归档研究观察并附复活条件。检查诊断已实际生成；活跃候选确有必要缺项时保留 `incomplete`，其他模型按自身证据完成判断，不能因增强缺失跳过整个文件。
@@ -42,6 +42,7 @@ description: 期货研究流水线编排器：meta future analysis → future ch
 
 ## 运行环境注意
 
+- 云端 routine 不运行 `scripts/future_data.py`：行情、D8 周涨分位与影子结算只读用户在本机运行后提交的数据快照；找不到快照时相关项按数据协议记 temporary_gap，不从新闻推算
 - 本 skill 可能被云端 scheduled routine（无本地 session）调用：公开检索使用内置 `WebSearch`，原文核对使用环境已有的读取能力，不依赖 `gemini-search`、`lark-cli` 等本地专属 MCP/工具；无法核验原文时按数据协议降级证据，不把摘要补成已核验事实
 - `framework/futures_framework.md`（和联动的 `scripts/future_data.py` / `scripts/futures_risk.py`、衍生的 `framework/futures_framework_compact.md`）改动走分支 + PR；阶段①②的研究与执行诊断日志直接 push 到 main（步骤6），不因为"这周没有框架变化"就不提交。新版本的诊断重评与框架一起提交到同一 PR
 - `gh pr create` 只在编排器最后统一执行一次（步骤8d）——`future-adaption`、`future-data-sync`、`framework-condense` 各自只管在同一分支上提交，不要各自开 PR，避免同一次更新开出多个 PR
