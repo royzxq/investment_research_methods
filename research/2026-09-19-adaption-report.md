@@ -1393,3 +1393,16 @@ final_lots = min(risk_lots, margin_capacity_lots, position_limit_capacity_lots)
 - 下次复评重点：①反向要件监测与回改（官方停火/重开/许可-收费机制、back 方向、IRGC 再袭船多源确认、沙特管道全量恢复、萨拉拉新日期、俄禁令 9/30 官宣）；国庆长假窗口纪律（9/21、9/29 公告节点、9/30 T-1、10/9 复盘、低敞口复评）；黑色负反馈临界（钢厂减产落地/第六轮/Mysteel 同口径库存）；甲醇 A 研究交付（港口库存数值、确认定义冻结或结案、国内路线论证、#30 逐日结算）；影子计划首批结算（脚本§5，首个可用日线 9/22）；10 月 FOMC 概率与 D13 复归档条件；SR 9 月产销/CF 新棉；MA2705-MA2709 准备对样本
 - 活跃模型 / research_only 范围变化：活跃=MA A 当前对（available；#5(b) 反证）、MA2705-MA2709 准备对（temporary_gap 维持）、RB A 当前对/准备对（available；未触发）、MA2701 多空（available；#16/#26 否决）、SR A（未触发）/SR B（窗口尾段、产销率否决）、CF B（供给端反证、B 触发未组装）；research_only=geopolitical_fade（维持；①改判后更不适用）、M 无已许可策略；temporary_gap 范围较上周大幅收窄（快照解除行情类缺口），剩 MA2701 逐日结算、甲醇港口库存数值、Mysteel 同口径总库存、B-HISTORY
 - 仅修复研究输出、未改变规则的事项：焦炭第五轮"无记录"纠错；SC 周涨/D8/剩余 td/ATR 分位读数刷新；"甲醇主力 3559"为 MA2610 的口径澄清；CENTCOM vs Vortexa/Kpler、SC2611 762.5、俄禁令延期报道级的 conflicting 标注；本环境原文读取被封锁的证据降级说明
+
+## 8. 数据脚本同步
+
+- 结论：已更新 scripts/future_data.py（v1.15 → v1.16，对应框架 v2.27）
+- 判断依据（按 future-data-sync SKILL 第一步）：本次"受影响模块"表中唯一落在脚本覆盖范围内的项是 **1.1 接口注意记录的"判定腿逐日结算涨跌"**——0.3#30 以 MA 护栏判定腿（9/16 起 MA2701）结算价对 pre_settle 的单日涨跌为唯一依据，脚本 §2b 已取得 settle/pre_settle 字段但从未输出逐日涨跌列，2026-09-19 执行诊断因此把 MA2701 的 #30 记为 unknown（raw_data）；这是"脚本本该覆盖但未覆盖"的结构化数据点，属新增字段。其余修改类型（状态换版、日历滚动、回填、纠错、定性表）均不落在脚本覆盖范围；合约 0) CONTRACTS 表无增删（SPREAD_PAIRS/PREPARATION_PAIRS/INDICATOR_CONTRACTS/SIGNAL_LEGS 不动）；Step5 风险口径未变（`scripts/futures_risk.py` 不动）。EVENTS/FIXED_RISK_WINDOWS 为用户维护配置，按 v1.13/v1.15 先例随 1.4 日历同步。
+- 改动摘要：
+  - §0b `EVENTS` 日历滚动：归档 9/14 萨拉拉会（推迟）、9/14 CPI/WASDE 响应日、9/15 统计局硬数据、9/17 FOMC、9/14-9/18 霍尔木兹/俄乌占位窗、调减硬截止条目；新增 9/21、9/29 郑商所国庆前分级提保扩板节点（非发布型事件，不自动打 D12，仅提示公告 ±1 日门槛 +0.3/×0.8/核占用）、10/1-10/8 国庆长假占位（不自动打标；9/30=T-1 处置日）、10/27-28 FOMC（自动打 T-3/±1；官方时间与国内 T-n 待下月核）；9/30 俄禁令条目加注延期报道级与长假 T-1；10/4 OPEC+ 加注闭市期/10/9 首个响应日。共 6 条，元组形状经离线 ast 检查。
+  - `FIXED_RISK_WINDOWS`：两条 9 月窗（9/11-9/17 D12 提前窗、9/11-9/18 #29）已到期，脚本按 AS_OF>end 自动不再显示；保留条目作历史口径并加注，不新增 10 月窗。
+  - §2b.1 新增纯函数 `daily_settlement_changes(records)` 与三列：「日结算涨跌%」（最新交易日 settle/pre_settle）、「近5日结算涨跌%」（逐日序列，缺端点=null）、「#30近3日≥5%」（数值提示：命中日期与方向 / 近3日无≥5% / unknown）。脚本只算数值，不判定冷却期、不授许可；对应框架 0.3#30 与 1.5 MA 卡"护栏口径"。
+  - 滚动监测注释 ①/③/⑥/⑦/⑧ 按 v2.27 改写（①反向监测、第五轮纠错、交易所收紧、#30 列说明）。
+  - 文件头版本 v1.16 与 changelog；无算法改动，§1/§2a/§2c/§2d/§5 逻辑不变。
+- 验证状态：**未经线上实测**（本环境无 tushare/pandas/numpy 与网络）。已完成：`python3 -m py_compile scripts/future_data.py` 通过；配置区离线 ast 执行检查（EVENTS 6 条日期/品种元组形状、FIXED_RISK_WINDOWS 2 条）；`daily_settlement_changes` 以合成 records 自测四例（正常 5 日序列→`-0.77 / ... / 近3日无≥5%`；末日 settle 缺失→`None / ...:null / unknown(近3日结算端点缺失)`；单日 754.4/829.0→`-9.0 / ≥5%命中:20260918(-9.0%)`；空记录→`unknown`）；`python3 -m unittest discover -s tests`：Ran 144，134 通过，10 项脚本集成测试因本环境缺 numpy/pandas 报 ModuleNotFoundError（与改动前基线完全相同，非本次引入）。请在有 Tushare 环境运行 `python3 scripts/future_data.py --as-of 20260919` 核 §2b.1 新列（尤其 MA2701 9/14-9/18 逐日读数）与 §0b 新条目显示，并把报错贴回迭代。
+- 旧输出失效项（供诊断刷新）：9/19 快照（v1.15）无逐日结算涨跌列→#30 判定仍 unknown，待 v1.16 重跑；v2.26 canonical 写入的 9/16 快照读数已由 v2.27 按 9/19 快照替换。
