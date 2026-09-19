@@ -1,3 +1,5 @@
 # future_data.py 本地运行产物（行情快照 CSV），不入库
 output/
 __pycache__/
+# etf_data.py 未跑完的快照（跑完整才会改名为正式文件）
+research/*.partial
