@@ -1,6 +1,8 @@
 """Offline checks for ETF decision card schema 1 (reference: framework/etf_card_schema.md).
 
-CLI: python scripts/validate_etf_card.py research/etf-cards/<card_id>-<as_of_date>.md [...]
+CLI: python scripts/validate_etf_card.py [CARD.md ...]   (default: every card under research/etf-cards/)
+     python scripts/validate_etf_card.py --export        (all cards valid -> write research/etf-cards/current.json,
+                                                          the only file the execution side reads)
 
 A card is a Markdown file with exactly one fenced ``json`` block. Duplicate
 keys, non-finite numbers and unknown keys are rejected. Every number sits in a
@@ -13,7 +15,7 @@ traceable, which does not make its thesis right.
 """
 
 import argparse
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 import inspect
 import json
 import math
@@ -28,6 +30,9 @@ except ImportError:  # direct script invocation
 
 SCHEMA_VERSION = 1
 REPO_ROOT = Path(__file__).resolve().parents[1]
+CARDS_DIR = REPO_ROOT / "research" / "etf-cards"
+EXPORT = CARDS_DIR / "current.json"
+PARAMS = REPO_ROOT / "framework" / "etf_portfolio_params.json"
 
 TASKS = {"core", "tactical", "defensive"}
 STATUSES = {"active", "watch", "no_buy", "closed"}
@@ -41,23 +46,27 @@ VALUATION_METRICS = {"erp_spread", "pe_ttm", "pb"}
 INSTRUMENT_TYPES = {"otc_fund", "exchange_etf"}
 ROLES = {"primary", "backup", "held_other", "rejected"}
 INSTRUMENT_ACTIONS = {"buy", "hold", "stop_dca", "switch_out", "none"}
-DCA_ACTIONS = {"continue", "pause"}
 REDUCE_MODES = {"to_target_ratio", "exit_all"}
 TRIGGER_KINDS = {"auto", "manual"}
-AUTO_METRICS = {"index_level", "index_vs_sma200_pct", "index_vs_sma10m_pct", "index_drawdown_from_ref_pct",
-                "instrument_premium_pct", "bet_group_value_cny", "bet_group_weight_pct"}
+AUTO_METRICS = {"index_level", "index_vs_sma200_pct", "index_vs_sma10m_pct"}   # 条件只挂指数点位，执行侧每日可算
+CLAIMING_ROLES = {"primary", "backup", "held_other"}
 OPERATORS = {"<", "<=", ">", ">="}
 FREQUENCIES = {"daily", "weekly", "monthly", "quarterly", "event"}
-MONITOR_ACTIONS = {"alert", "review", "pause_dca", "reduce", "close", "swap_tool"}
+MONITOR_ACTIONS = {"alert", "review", "reduce", "close", "swap_tool"}
 EXIT_ACTIONS = {"close", "reduce", "swap_tool"}
 SCENARIOS = ("bear", "base", "bull")
 SCENARIO_INPUTS = ("eps_growth_pct", "dividend_yield_pct", "current_multiple", "terminal_multiple", "years", "drag_pct")
 ASSUMPTION_INPUTS = {"eps_growth_pct", "dividend_yield_pct", "years", "drag_pct"}
 
+INSTRUMENT_CODE = re.compile(r"\d{6}\.(OF|SZ|SH)|\d{5}\.HK")     # mainland fund ts_code, or an HK-listed ETF
+CONSTITUENT_CODE = re.compile(r"\d{6}\.(SZ|SH|BJ)|\d{5}\.HK")  # A-share or HK stock; other markets are out of scope
+CHINA_TIME = timezone(timedelta(hours=8))
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 SNAPSHOT_REF = re.compile(r"research/etf-\d{4}-\d{2}-\d{2}-data-snapshot\.txt")
 SOURCE = re.compile(r"snapshot§[0-8]|calc:([a-z_]+)|framework:A\d{1,2}|user:\d{4}-\d{2}-\d{2}|ai_estimate")
 NUMBER_TOKEN = re.compile(r"[-+]?\d[\d,]*(?:\.\d+)?")
+REGISTRY = {entry["key"]: entry for entry in json.loads(
+    (REPO_ROOT / "framework" / "etf_index_registry.json").read_text(encoding="utf-8"))["indexes"]}
 CALCULATORS = {name for name, member in vars(etf_calc).items() if not name.startswith("_")
                and inspect.isfunction(member) and member.__module__ == etf_calc.__name__}
 
@@ -136,6 +145,29 @@ class _Card:
         if exactly is not None and len(value) != exactly:
             self.error(path, f"expected exactly {exactly} items")
 
+    def index(self, value, path, *, nullable=False, priced=True):
+        """An index key from framework/etf_index_registry.json: both repos fetch it the same way.
+
+        priced=False also admits registered indexes that have no price source (exposure only).
+        """
+        if value is None and nullable:
+            return None
+        if not isinstance(value, str) or value not in REGISTRY:
+            self.error(path, "expected an index key registered in framework/etf_index_registry.json"
+                       + (" or null" if nullable else ""))
+            return None
+        if priced and REGISTRY[value]["source"] is None:
+            self.error(path, f"{value} has no price source in the registry")
+            return None
+        return value
+
+    def code(self, value, path, pattern):
+        if not isinstance(value, str) or not pattern.fullmatch(value):
+            self.error(path, "expected ts_code with suffix such as 022448.OF, 160630.SZ, 600519.SH, 02800.HK; "
+                             "bare codes are ambiguous")
+            return None
+        return value
+
     def number(self, value, path, *, assumption=False, required=False, minimum=None, maximum=None):
         """Sourced number {"value", "source"[, "note"]}; returns the value or None when unknown."""
         if not isinstance(value, dict) or "value" not in value or "source" not in value:
@@ -177,11 +209,13 @@ def _exposure(card, exposure):
                                          "china_equity", "view_mismatch_note", "structure"))
     if exposure is None:
         return None
-    card.text(exposure["index_code"], f"{path}.index_code")
+    index_code = card.index(exposure["index_code"], f"{path}.index_code", priced=False)
     card.text(exposure["index_name"], f"{path}.index_name")
     card.enum(exposure["asset_type"], f"{path}.asset_type", ASSET_TYPES)
     if not isinstance(exposure["currency"], str) or not re.fullmatch(r"[A-Z]{3}", exposure["currency"]):
         card.error(f"{path}.currency", "expected ISO 4217 code such as CNY")
+    elif index_code is not None and REGISTRY[index_code]["currency"] not in (None, exposure["currency"]):
+        card.error(f"{path}.currency", f"the registry lists {index_code} in {REGISTRY[index_code]['currency']}")
     card.boolean(exposure["counts_toward_sector_cap"], f"{path}.counts_toward_sector_cap")
     card.boolean(exposure["china_equity"], f"{path}.china_equity")
     card.text(exposure["view_mismatch_note"], f"{path}.view_mismatch_note", allow_empty=True)
@@ -201,10 +235,10 @@ def _exposure(card, exposure):
             row_path = f"{path}.top_constituents[{index}]"
             row = card.obj(row, row_path, ("code", "name", "weight_pct"))
             if row is not None:
-                card.text(row["code"], f"{row_path}.code")
+                card.code(row["code"], f"{row_path}.code", CONSTITUENT_CODE)
                 card.text(row["name"], f"{row_path}.name")
                 card.number(row["weight_pct"], f"{row_path}.weight_pct", required=True, minimum=0, maximum=100)
-    return exposure
+    return exposure if index_code is not None else None
 
 
 def _expectation(card, expectation):
@@ -246,7 +280,7 @@ def _expectation(card, expectation):
     state = card.obj(expectation["valuation_state"], path, ("index_code", "metric", "value", "percentile_expanding",
                                                             "percentile_10y", "sample_n", "as_of"))
     if state is not None:
-        quoted = card.text(state["index_code"], f"{path}.index_code", nullable=True)
+        quoted = card.index(state["index_code"], f"{path}.index_code", nullable=True)
         metric = card.enum(state["metric"], f"{path}.metric", VALUATION_METRICS, nullable=True)
         value = card.number(state["value"], f"{path}.value")
         for key in ("percentile_expanding", "percentile_10y"):
@@ -261,20 +295,22 @@ def _instruments(card, instruments, status):
     path = "instruments"
     instruments = card.obj(instruments, path, ("list", "merge_note"))
     if instruments is None:
-        return None
+        return False, False
     card.text(instruments["merge_note"], f"{path}.merge_note", allow_empty=True)
     rows = instruments["list"]
     if not isinstance(rows, list):
         card.error(f"{path}.list", "expected array")
-        return None
-    primary, codes = None, set()
+        return False, False
+    primary, codes, claims, buys = None, set(), False, False
     for index, row in enumerate(rows):
         row_path = f"{path}.list[{index}]"
-        row = card.obj(row, row_path, ("code", "name", "instrument_type", "share_class", "platform_account",
-                                       "role", "action", "reason"))
+        row = card.obj(row, row_path, ("code", "name", "instrument_type", "share_class", "currency",
+                                       "platform_account", "role", "action", "reason"))
         if row is None:
             continue
-        code = card.text(row["code"], f"{row_path}.code")
+        code = card.code(row["code"], f"{row_path}.code", INSTRUMENT_CODE)
+        if not isinstance(row["currency"], str) or not re.fullmatch(r"[A-Z]{3}", row["currency"]):
+            card.error(f"{row_path}.currency", "expected the instrument's own pricing currency, ISO 4217")
         if code in codes:
             card.error(f"{row_path}.code", f"duplicate instrument {code}")
         codes.add(code)
@@ -285,6 +321,8 @@ def _instruments(card, instruments, status):
         role = card.enum(row["role"], f"{row_path}.role", ROLES)
         action = card.enum(row["action"], f"{row_path}.action", INSTRUMENT_ACTIONS)
         card.text(row["reason"], f"{row_path}.reason")
+        claims = claims or role in CLAIMING_ROLES
+        buys = buys or action == "buy"
         if role == "primary":
             if primary is not None:
                 card.error(f"{row_path}.role", "only one primary instrument")
@@ -295,7 +333,7 @@ def _instruments(card, instruments, status):
             card.error(f"{row_path}.action", "buy requires card status active")
     if primary is None and status in ("active", "watch"):
         card.error(f"{path}.list", "an active or watch card names exactly one primary instrument")
-    return primary
+    return claims, buys
 
 
 def _trigger(card, trigger, path, actions):
@@ -362,18 +400,17 @@ def _anchor(card, anchor, path):
     return level, ratio
 
 
-def _decision(card, decision, exposure):
+def _decision(card, decision, exposure, as_of):
     path = "decision"
-    decision = card.obj(decision, path, ("rule_refs", "anchors", "dca_action"))
+    decision = card.obj(decision, path, ("rule_refs", "anchors"))
     if decision is None:
-        return
+        return None
     card.texts(decision["rule_refs"], f"{path}.rule_refs")
-    card.enum(decision["dca_action"], f"{path}.dca_action", DCA_ACTIONS)
     path = "decision.anchors"
     anchors = card.obj(decision["anchors"], path, ("basis", "index_code", "add_below", "buy_below", "reduce_above",
                                                    "reduce_mode", "no_anchor_reason", "valid_until"))
     if anchors is None:
-        return
+        return None
     if anchors["basis"] != "index_level":
         card.error(f"{path}.basis", "conditions hang on index_level, never on fund NAV or ETF price")
     if exposure is not None and anchors["index_code"] != exposure["index_code"]:
@@ -383,7 +420,9 @@ def _decision(card, decision, exposure):
     mode = card.enum(anchors["reduce_mode"], f"{path}.reduce_mode", REDUCE_MODES)
     reason = card.text(anchors["no_anchor_reason"], f"{path}.no_anchor_reason", nullable=True)
     present = [level is not None for level in (add, buy, reduce)]
-    card.day(anchors["valid_until"], f"{path}.valid_until", nullable=not any(present))
+    valid_until = card.day(anchors["valid_until"], f"{path}.valid_until", nullable=not any(present))
+    if valid_until is not None and as_of is not None and valid_until < as_of:
+        card.error(f"{path}.valid_until", "earlier than as_of_date: the buy-side anchors would be dead on arrival")
     if any(present) != all(present):
         card.error(path, "the three anchors are all present or all null: a partial ladder cannot be read statelessly")
     if any(present) == (reason is not None):
@@ -395,13 +434,14 @@ def _decision(card, decision, exposure):
             card.error(path, "expected add_below ratio >= buy_below ratio > reduce_above ratio")
         if (mode == "exit_all") != (reduce_ratio == 0):
             card.error(f"{path}.reduce_mode", "exit_all goes with a reduce_above target_ratio_pct of 0, and only then")
+    return all(present)
 
 
 def _sizing(card, sizing):
     path = "sizing"
     sizing = card.obj(sizing, path, ("bet_group", "stress_drawdown_pct", "loss_budget_cny", "standalone_cap_cny"))
     if sizing is None:
-        return
+        return None
     if not isinstance(sizing["bet_group"], str) or not SLUG.fullmatch(sizing["bet_group"]):
         card.error(f"{path}.bet_group", "expected lowercase slug shared by every card of the same bet")
     drawdown = card.number(sizing["stress_drawdown_pct"], f"{path}.stress_drawdown_pct", minimum=-100, maximum=-1e-9)
@@ -411,6 +451,7 @@ def _sizing(card, sizing):
         expected = etf_calc.loss_budget_cap(budget, drawdown)
         if expected is None or abs(cap - expected) > 1:
             card.error(f"{path}.standalone_cap_cny.value", f"does not match calc:loss_budget_cap ({expected})")
+    return cap
 
 
 def _bare_numbers(card, value, path):
@@ -459,6 +500,8 @@ def validate_card(document, *, snapshot_text=None, filename=None):
     if not isinstance(card_id, str) or not SLUG.fullmatch(card_id):
         card.error("card_id", "expected lowercase slug such as cn-hk-pharma-tactical")
     as_of = card.day(document["as_of_date"], "as_of_date")
+    if as_of is not None and as_of > datetime.now(CHINA_TIME).date():   # would outrank every later version of this card
+        card.error("as_of_date", "later than today (Asia/Shanghai)")
     if filename is not None and filename != f"{card_id}-{document['as_of_date']}.md":
         card.error("card_id", f"file must be named <card_id>-<as_of_date>.md, got {filename}")
     card.text(document["supersedes"], "supersedes", nullable=True)
@@ -489,23 +532,29 @@ def validate_card(document, *, snapshot_text=None, filename=None):
         card.texts(thesis["counter_evidence"], "thesis.counter_evidence", exactly=2)
         card.integer(thesis["horizon_months"], "thesis.horizon_months", minimum=1 if task == "tactical" else 0)
     _expectation(card, document["expectation"])
-    primary = _instruments(card, document["instruments"], status)
+    claims, buys = _instruments(card, document["instruments"], status)
+    claims = claims and status != "closed"   # a closed card no longer governs a holding
 
-    rules = card.obj(document["trade_rules"], "trade_rules", ("min_holding_days", "purchase_limit_note",
-                                                              "max_premium_pct", "sell_if_premium_above_pct"))
+    rules = card.obj(document["trade_rules"], "trade_rules", ("min_holding_days", "purchase_limit_note"))
     if rules is not None:
         card.integer(rules["min_holding_days"], "trade_rules.min_holding_days", nullable=True)
         card.text(rules["purchase_limit_note"], "trade_rules.purchase_limit_note", nullable=True)
-        premiums = [card.number(rules[key], f"trade_rules.{key}", minimum=0)
-                    for key in ("max_premium_pct", "sell_if_premium_above_pct")]
-        if primary is not None and primary["instrument_type"] == "otc_fund" and premiums != [None, None]:
-            card.error("trade_rules", "an OTC fund trades at NAV: premium fields must be null")
 
-    _decision(card, document["decision"], exposure)
-    _sizing(card, document["sizing"])
+    anchored = _decision(card, document["decision"], exposure, as_of)
+    cap = _sizing(card, document["sizing"])
     monitors = _triggers(card, document["monitor_variables"], "monitor_variables", MONITOR_ACTIONS)
     if live and not 3 <= monitors <= 5:
         card.error("monitor_variables", "an active or watch card carries 3 to 5 monitor variables")
+    if claims and monitors == 0:
+        card.error("monitor_variables", "a card that claims a holding carries at least one monitor variable")
+    if (claims or anchored) and cap is None:
+        card.error("sizing.standalone_cap_cny.value", "required when the card claims a holding or carries anchors: "
+                                                      "target ratios and the position limit have no base without it")
+    if buys and not anchored:
+        card.error("decision.anchors", "an instrument with action buy needs the three anchors: buy, but at what level?")
+    unsourced = exposure is not None and REGISTRY[exposure["index_code"]]["source"] is None
+    if unsourced and (anchored or (status, no_buy) != ("no_buy", "data")):
+        card.error("exposure.index_code", "this index has no price source: the card must be no_buy/data without anchors")
 
     exits = card.obj(document["exit"], "exit", ("invalidation", "latest_review_date"))
     if exits is not None:
@@ -519,7 +568,10 @@ def validate_card(document, *, snapshot_text=None, filename=None):
     score = card.obj(document["scorecard"], "scorecard", ("benchmark", "preregistered_at", "confidence_pct",
                                                           "entry_ref_index_level"))
     if score is not None:
-        card.text(score["benchmark"], "scorecard.benchmark")
+        benchmark = card.obj(score["benchmark"], "scorecard.benchmark", ("code", "name"))
+        if benchmark is not None:
+            card.index(benchmark["code"], "scorecard.benchmark.code", nullable=True)
+            card.text(benchmark["name"], "scorecard.benchmark.name")
         registered = card.day(score["preregistered_at"], "scorecard.preregistered_at")
         if registered is not None and as_of is not None and registered > as_of:
             card.error("scorecard.preregistered_at", "later than as_of_date")
@@ -555,12 +607,13 @@ def load_card(markdown):
     return json.loads(blocks[0], object_pairs_hook=_unique_object, parse_constant=_reject_constant)
 
 
-def validate_file(path):
+def _checked(path):
+    """(errors, document): document is None when the file could not be parsed."""
     path = Path(path)
     try:
         document = load_card(path.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
-        return [f"{path}: {exc}"]
+        return [f"{path}: {exc}"], None
     snapshot_text, errors = None, []
     reference = document.get("snapshot_ref") if isinstance(document, dict) else None
     if isinstance(reference, str) and SNAPSHOT_REF.fullmatch(reference):
@@ -571,36 +624,104 @@ def validate_file(path):
         else:
             if "快照完成" not in snapshot_text:
                 errors.append(f"snapshot_ref: {reference} is incomplete (no 快照完成 line)")
-    return errors + validate_card(document, snapshot_text=snapshot_text, filename=path.name)
+    return errors + validate_card(document, snapshot_text=snapshot_text, filename=path.name), document
 
 
-def bet_group_conflicts(paths):
-    """One bet, one card: a bet_group carries one cap and one ladder, so two card_ids may not share it."""
-    owners = {}
-    for path in paths:
-        try:
-            document = load_card(Path(path).read_text(encoding="utf-8"))
-            owners.setdefault(document["sizing"]["bet_group"], set()).add(document["card_id"])
-        except (OSError, ValueError, KeyError, TypeError):
-            continue  # already reported by validate_file
-    return [f"sizing.bet_group: {group} is shared by cards {', '.join(sorted(ids))}; merge them into one card"
-            for group, ids in sorted(owners.items()) if len(ids) > 1]
+def validate_file(path):
+    return _checked(path)[0]
+
+
+def current_cards(documents):
+    """The latest as_of_date of each card_id: the one version that is in force."""
+    latest = {}
+    for document in documents:
+        held = latest.get(document["card_id"])
+        if held is None or document["as_of_date"] > held["as_of_date"]:
+            latest[document["card_id"]] = document
+    return [latest[card_id] for card_id in sorted(latest)]
+
+
+def cross_card_errors(documents):
+    """Invariants no single card can see; documents must each have passed validate_card.
+
+    One bet, one card: a bet_group carries one cap and one ladder. One holding, one card: an instrument
+    claimed twice would get two ladders and two sets of monitors with no tiebreak.
+    """
+    groups, claims = {}, {}
+    for document in current_cards(documents):
+        if document["status"] == "closed":   # history stays on file; it no longer owns a bet or a holding
+            continue
+        groups.setdefault(document["sizing"]["bet_group"], []).append(document["card_id"])
+        for row in document["instruments"]["list"]:
+            if row["role"] in CLAIMING_ROLES:
+                claims.setdefault(row["code"], []).append(document["card_id"])
+    return ([f"sizing.bet_group: {group} is shared by cards {', '.join(ids)}; merge them into one card"
+             for group, ids in sorted(groups.items()) if len(ids) > 1]
+            + [f"instruments: {code} is claimed by cards {', '.join(ids)}; every other card lists it as rejected"
+               for code, ids in sorted(claims.items()) if len(ids) > 1])
+
+
+def export_payload(documents, generated_at):
+    """The one artifact the execution side reads: current cards plus the parameters and index list they rely on."""
+    params = {key: value for key, value in json.loads(PARAMS.read_text(encoding="utf-8")).items()
+              if not key.startswith("_")}
+    params["sector_etf_cap_cny"] = params["etf_plan_total_cny"] * params["sector_cap_pct_of_etf_plan"] / 100
+    params["single_bet_cap_cny"] = etf_calc.loss_budget_cap(params["single_bet_loss_budget_cny"],
+                                                            params["sector_stress_drawdown_pct"])
+    return dict(generated_at=generated_at, card_schema_version=SCHEMA_VERSION, portfolio_params=params,
+                index_registry=[{key: entry.get(key) for key in ("key", "name", "source", "code", "currency")}
+                                for entry in REGISTRY.values()],
+                cards=current_cards(documents))
+
+
+def export_drift(documents):
+    """A committed current.json that no longer matches the cards would keep steering the execution side."""
+    if not EXPORT.exists():
+        return []
+    try:
+        exported = json.loads(EXPORT.read_text(encoding="utf-8"))
+    except ValueError as exc:
+        return [f"{EXPORT}: {exc}"]
+    fresh = export_payload(documents, None)
+    stale = [key for key in ("card_schema_version", "portfolio_params", "index_registry", "cards")
+             if not isinstance(exported, dict) or exported.get(key) != fresh[key]]
+    return [f"{EXPORT}: out of date ({', '.join(stale)}); rerun with --export and commit the result"] if stale else []
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=f"Validate ETF decision cards (schema {SCHEMA_VERSION})")
-    parser.add_argument("cards", nargs="+", metavar="CARD.md")
-    cards = parser.parse_args(argv).cards
-    failed = False
-    for card in cards:
-        errors = validate_file(card)
+    parser.add_argument("cards", nargs="*", metavar="CARD.md", help="default: every card under research/etf-cards/")
+    parser.add_argument("--export", action="store_true",
+                        help="validate every card under research/etf-cards/ and, only if all pass, write current.json")
+    args = parser.parse_args(argv)
+    if args.export and args.cards:
+        parser.error("--export always covers every card under research/etf-cards/; drop the file arguments")
+    directory = sorted(CARDS_DIR.glob("*.md"))
+    named = [Path(card).resolve() for card in args.cards]
+    if not directory and not named:
+        print(f"no cards under {CARDS_DIR}")
+        return 1
+    failed, documents, in_directory = False, [], []
+    for card in dict.fromkeys(named + directory):   # cross-card checks always see the whole directory
+        errors, document = _checked(card)
+        if not errors:
+            documents.append(document)
+            in_directory += [document] if card in directory else []
+        if named and card not in named:
+            continue
         failed = failed or bool(errors)
         print(f"{card}: " + ("valid" if not errors else f"{len(errors)} error(s)"))
         for error in errors:
             print(f"  - {error}")
-    for conflict in bet_group_conflicts(cards):
+    for error in cross_card_errors(documents) + ([] if args.export else export_drift(in_directory)):
         failed = True
-        print(f"  - {conflict}")
+        print(f"  - {error}")
+    if args.export and not failed:
+        now = datetime.now(CHINA_TIME).isoformat(timespec="seconds")
+        partial = EXPORT.with_name(EXPORT.name + ".partial")
+        partial.write_text(json.dumps(export_payload(documents, now), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        partial.replace(EXPORT)
+        print(f"exported {len(current_cards(documents))} current card(s) to {EXPORT}")
     return 1 if failed else 0
 
 

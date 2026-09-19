@@ -30,6 +30,7 @@ akshare 费率来自天天基金页面，未与基金公告逐只核对。
 
 import argparse
 import csv
+import json
 import os
 import re
 import sys
@@ -77,39 +78,11 @@ RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"
 TRACKING_YEARS = 3
 MARK = "[需人工补充]"
 
-# 指数池（第 0 天按实际持仓 + 分散器候选）。source=tushare 接口名；None=无现成源。
-# tr_code=全收益指数；weight_code=index_weight 代码；valuation_code=index_dailybasic 代码；
-# currency=None 表示指数币种未核，凡需同币种比较的计算一律落缺口。
-INDEX_POOL = [
-    dict(key="000300.SH", name="沪深300(估值锚)", source="index_daily", code="000300.SH", tr_code="H00300.CSI",
-         weight_code="000300.SH", valuation_code="000300.SH", lg_symbol="沪深300", currency="CNY",
-         decomposition_anchors=[("自2007-10-31估值高点", "20071031")]),
-    dict(key="000510.SH", name="中证A500", source="index_daily", code="000510.SH", tr_code="000510CNY010.CSI",
-         weight_code="000510.SH", currency="CNY"),
-    dict(key="HKTECH", name="恒生科技", source="index_global", code="HKTECH", currency="HKD"),
-    dict(key="HSI", name="恒生指数", source="index_global", code="HSI", currency="HKD"),
-    dict(key="HSHYLV", name="恒生港股通红利低波动", source=None, code=None, currency="HKD"),
-    dict(key="399973.SZ", name="中证国防", source="index_daily", code="399973.SZ", tr_code="H20321.CSI",
-         weight_code="399973.SZ", currency="CNY"),
-    dict(key="987018.CNI", name="国证港股通创新药", source="index_daily", code="987018.CNI",
-         weight_code="987018.CNI", currency=None,
-         note="指数币种未核；2026-09-19 试算折不折汇率 TE 都约 9%，tushare 该序列与基金净值疑似口径或日期不匹配"),
-    dict(key="931787.CSI", name="中证香港创新药", source="index_daily", code="931787.CSI",
-         weight_code="931787.CSI", currency="HKD"),
-    dict(key="931152.CSI", name="中证创新药产业", source="index_daily", code="931152.CSI", tr_code="H21152.CSI",
-         weight_code="931152.CSI", currency="CNY"),
-    dict(key="399989.SZ", name="中证医疗", source="index_daily", code="399989.SZ", tr_code="H20451.CSI",
-         weight_code="399989.SZ", currency="CNY"),
-    dict(key="000688.SH", name="科创50", source="index_daily", code="000688.SH", tr_code="000688CNY01.CSI",
-         weight_code="000688.SH", valuation_code="000688.SH", currency="CNY"),
-    dict(key="000819.SH", name="中证申万有色金属", source="index_daily", code="000819.SH", tr_code="H00819.CSI",
-         weight_code="000819.SH", currency="CNY"),
-    dict(key="000813.CSI", name="中证细分化工", source="index_daily", code="000813.CSI", tr_code="H00813.CSI",
-         weight_code="000813.CSI", currency="CNY"),
-    dict(key="Au99.99", name="黄金现货Au99.99", source="sge_daily", code="Au99.99", currency="CNY"),
-    dict(key="000012.SH", name="上证国债指数", source="index_daily", code="000012.SH", currency="CNY"),
-    dict(key="SPX", name="标普500", source="index_global", code="SPX", currency="USD"),
-]
+# 指数池取自 framework/etf_index_registry.json（与卡校验器、执行侧导出产物共用一份清单）。
+# source=tushare 接口名，null=无现成源；tr_code=全收益指数；weight_code=index_weight 代码；
+# valuation_code=index_dailybasic 代码；currency=null 表示指数币种未核，凡需同币种比较的计算一律落缺口。
+INDEX_POOL = json.loads((Path(__file__).resolve().parents[1] / "framework" / "etf_index_registry.json")
+                        .read_text(encoding="utf-8"))["indexes"]
 
 # 持仓工具：(fund_basic 的 ts_code, fund_basic 的全名——逐次运行核对, 跟踪指数 key)
 HOLDINGS = [

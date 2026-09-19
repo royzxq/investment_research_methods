@@ -1,0 +1,11 @@
+{
+  "_doc": "ETF 轨道组合级参数：只放用户拍板的基数，派生量（行业合计上限、单笔上限）由导出脚本用 etf_calc 现算，不在这里抄第二份。改数须同步通知执行侧。",
+  "effective_from": "2026-09-18",
+  "decided_by": "user",
+  "etf_plan_total_cny": 700000,
+  "sector_cap_pct_of_etf_plan": 30,
+  "single_bet_loss_budget_cny": 35000,
+  "sector_stress_drawdown_pct": -70,
+  "china_equity_cap_pct": 90,
+  "total_assets_basis": "全部资产 = 个股市值（折人民币）+ ETF 市值（折人民币），不含现金、货币基金与尚未确认份额的在途定投；个股与 ETF 允许取各自最新的估值日"
+}

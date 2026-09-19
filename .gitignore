@@ -2,4 +2,4 @@
 output/
 __pycache__/
 # etf_data.py 未跑完的快照（跑完整才会改名为正式文件）
-research/*.partial
+research/**/*.partial

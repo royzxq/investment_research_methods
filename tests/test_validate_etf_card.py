@@ -5,10 +5,12 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+import unittest.mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.etf_calc import level_at_multiple, scenario_annual_return
-from scripts.validate_etf_card import bet_group_conflicts, load_card, validate_card, validate_file
+from scripts.validate_etf_card import (cross_card_errors, current_cards, export_drift, export_payload, load_card,
+                                       validate_card, validate_file)
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = """== ETF 框架 v0.1 数据快照 | AS_OF=20260918 ==
@@ -90,14 +92,13 @@ def card():
                                             "sample_n": number(258, "snapshot§1"), "as_of": "2026-09-18"}},
         "instruments": {"merge_note": "四只医药基金穿透后是同一笔押注，合并为一只",
                         "list": [{"code": "012781.OF", "name": "银华中证创新药产业ETF联接-A", "instrument_type": "otc_fund",
-                                  "share_class": "A", "platform_account": "支付宝", "role": "primary", "action": "buy",
+                                  "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "buy",
                                   "reason": "同指数 A 类无销售服务费"},
                                  {"code": "012782.OF", "name": "银华中证创新药产业ETF联接-C", "instrument_type": "otc_fund",
-                                  "share_class": "C", "platform_account": "支付宝", "role": "held_other",
+                                  "share_class": "C", "currency": "CNY", "platform_account": "支付宝", "role": "held_other",
                                   "action": "stop_dca", "reason": "长期持有 C 类更贵"}]},
-        "trade_rules": {"min_holding_days": 7, "purchase_limit_note": None, "max_premium_pct": number(None),
-                        "sell_if_premium_above_pct": number(None)},
-        "decision": {"rule_refs": ["A8", "A9", "A10"], "dca_action": "pause",
+        "trade_rules": {"min_holding_days": 7, "purchase_limit_note": None},
+        "decision": {"rule_refs": ["A8", "A9", "A10"],
                      "anchors": {"basis": "index_level", "index_code": "931152.CSI", "reduce_mode": "to_target_ratio",
                                  "no_anchor_reason": None, "valid_until": "2026-12-31",
                                  "add_below": anchor(9.5, 100), "buy_below": anchor(11.0, 50),
@@ -107,7 +108,7 @@ def card():
                    "standalone_cap_cny": number(50000, "calc:loss_budget_cap")},
         "monitor_variables": [trigger("auto", "alert"), trigger(), trigger()],
         "exit": {"invalidation": [trigger(action="close")], "latest_review_date": "2026-12-19"},
-        "scorecard": {"benchmark": "同一笔钱放在中证A500联接", "preregistered_at": "2026-09-19", "confidence_pct": 55,
+        "scorecard": {"benchmark": {"code": "000510.SH", "name": "同一笔钱放在中证A500联接"}, "preregistered_at": "2026-09-19", "confidence_pct": 55,
                       "entry_ref_index_level": number(1880.55, "snapshot§6")},
     }
 
@@ -210,8 +211,9 @@ class RejectionTests(unittest.TestCase):
     def test_conditions_hang_on_the_index_and_otc_funds_have_no_premium(self):
         self.assert_error(lambda d: d["decision"]["anchors"].update(basis="fund_nav"), "conditions hang on index_level")
         self.assert_error(lambda d: d["decision"]["anchors"].update(index_code="000300.SH"), "must equal exposure.index_code")
-        self.assert_error(lambda d: d["trade_rules"].update(max_premium_pct=number(3, "framework:A7")), "premium fields must be null")
-        self.assert_error(lambda d: d["decision"].update(dca_action="scale"), "decision.dca_action: expected one of")
+        self.assert_error(lambda d: d["trade_rules"].update(max_premium_pct=number(3, "framework:A7")), "trade_rules.max_premium_pct: unknown field")
+        self.assert_error(lambda d: d["decision"].update(dca_action="pause"), "decision.dca_action: unknown field")
+        self.assert_error(lambda d: d["monitor_variables"][0].update(metric="bet_group_weight_pct"), "monitor_variables[0].metric")
 
     def test_anchors_are_a_strict_stateless_three_point_ladder(self):
         anchors = lambda d: d["decision"]["anchors"]
@@ -244,6 +246,63 @@ class RejectionTests(unittest.TestCase):
                                        "stress_drawdown_pct": number(30, "user:2026-09-19")}
         self.assert_error(misuse, "etf_calc.loss_budget_cap rejects these inputs: stress_drawdown_pct_must_be_in")
         self.assert_error(lambda d: buy(d)["level"].update(source="calc:timedelta"), "etf_calc has no function timedelta")
+
+    def test_a_card_that_governs_money_carries_a_cap_monitors_and_a_price_source(self):
+        def no_buy_holding(document):   # held but not added to: still claimed, so still governed
+            document.update(status="no_buy", no_buy_reason="price", monitor_variables=[])
+            document["instruments"]["list"][0]["action"] = "hold"
+        self.assert_error(no_buy_holding, "a card that claims a holding carries at least one monitor variable")
+        self.assert_error(lambda d: d["sizing"].update(loss_budget_cny=number(None), standalone_cap_cny=number(None)),
+                          "sizing.standalone_cap_cny.value: required when the card claims a holding or carries anchors")
+
+        def buy_without_anchors(document):
+            document["decision"]["anchors"].update(add_below=no_anchor(), buy_below=no_anchor(), reduce_above=no_anchor(),
+                                                   no_anchor_reason="无估值源", valid_until=None)
+        self.assert_error(buy_without_anchors, "an instrument with action buy needs the three anchors")
+
+        def unsourced_index(document):
+            document["exposure"]["index_code"] = document["decision"]["anchors"]["index_code"] = "HSHYLV"
+        self.assert_error(unsourced_index, "this index has no price source: the card must be no_buy/data without anchors")
+
+    def test_identifiers_are_unambiguous(self):
+        first = lambda d: d["instruments"]["list"][0]
+        for bare in ("012781", "02800", "012781.of", "HSI"):
+            self.assert_error(lambda d, v=bare: first(d).update(code=v), "instruments.list[0].code: expected ts_code with suffix")
+        self.assert_error(lambda d: d["exposure"]["structure"]["top_constituents"][0].update(code="600001"),
+                          "top_constituents[0].code: expected ts_code with suffix")
+        self.assert_error(lambda d: first(d).update(currency="人民币"), "instruments.list[0].currency")
+        self.assert_error(lambda d: first(d).pop("currency"), "instruments.list[0].currency: missing field")
+        self.assert_error(lambda d: d["exposure"].update(index_code="HSTECH"), "exposure.index_code: expected an index key registered")
+        self.assert_error(lambda d: d["scorecard"]["benchmark"].update(code="货币基金"), "scorecard.benchmark.code")
+        self.assertEqual(errors_of(lambda d: d["scorecard"]["benchmark"].update(code=None)), [])
+        self.assert_error(lambda d: d.update(as_of_date="2999-01-01"), "as_of_date: later than today")
+        self.assert_error(lambda d: d["exposure"].update(currency="USD"), "the registry lists 931152.CSI in CNY")
+        for path in (("expectation", "valuation_state"), ("scorecard", "benchmark")):
+            def unpriced(document, path=path):
+                target = document
+                for key in path:
+                    target = target[key]
+                target["index_code" if path[0] == "expectation" else "code"] = "HSHYLV"
+            self.assert_error(unpriced, "HSHYLV has no price source in the registry")
+        self.assert_error(lambda d: d["decision"]["anchors"].update(valid_until="2026-09-18"),
+                          "valid_until: earlier than as_of_date")
+        self.assert_error(lambda d: d["monitor_variables"][0].update(action="pause_dca"), "monitor_variables[0].action")
+        self.assert_error(lambda d: d["exposure"]["structure"]["top_constituents"][0].update(code="022448.OF"),
+                          "top_constituents[0].code")   # a fund is not a constituent
+
+    def test_a_committed_export_must_match_the_cards(self):
+        document = card()
+        with tempfile.TemporaryDirectory() as folder, unittest.mock.patch("scripts.validate_etf_card.EXPORT",
+                                                                          Path(folder) / "current.json") as export:
+            self.assertEqual(export_drift([document]), [])   # nothing committed yet
+            export.write_text(json.dumps(export_payload([document], "2026-09-19T00:00:00+08:00"), ensure_ascii=False),
+                              encoding="utf-8")
+            self.assertEqual(export_drift([document]), [])   # generated_at is not compared
+            changed = card()
+            changed["status"], changed["close_reason"] = "closed", "expired"
+            self.assertEqual(export_drift([changed]), [f"{export}: out of date (cards); rerun with --export and commit the result"])
+            export.write_text("{", encoding="utf-8")
+            self.assertTrue(export_drift([document])[0].startswith(f"{export}: "))
 
     def test_triggers(self):
         def auto_without_threshold(document):
@@ -278,19 +337,34 @@ class LoadTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 load_card(self.wrap(block))
 
-    def test_one_bet_group_belongs_to_one_card(self):
-        with tempfile.TemporaryDirectory() as folder:
-            paths = []
-            for card_id, as_of in (("cn-pharma-tactical", "2026-09-19"), ("cn-pharma-tactical", "2026-10-19"),
-                                   ("hk-pharma-tactical", "2026-09-19")):
-                document = card()
-                document.update(card_id=card_id, as_of_date=as_of)
-                paths.append(Path(folder) / f"{card_id}-{as_of}.md")
-                paths[-1].write_text(self.wrap(json.dumps(document, ensure_ascii=False)), encoding="utf-8")
-            self.assertEqual(bet_group_conflicts(paths[:2]), [])   # two versions of one card share their group
-            self.assertEqual(bet_group_conflicts(paths + [Path(folder) / "missing.md"]),
-                             ["sizing.bet_group: cn-hk-pharma is shared by cards cn-pharma-tactical, hk-pharma-tactical; "
-                              "merge them into one card"])
+    def test_cross_card_invariants_look_at_current_versions_only(self):
+        def version(card_id, as_of, **sizing):
+            document = card()
+            document.update(card_id=card_id, as_of_date=as_of)
+            document["sizing"].update(sizing)
+            return document
+        old, new = version("cn-pharma-tactical", "2026-08-19"), version("cn-pharma-tactical", "2026-09-19")
+        self.assertEqual(current_cards([new, old]), [new])
+        self.assertEqual(cross_card_errors([old, new]), [])   # two versions of one card share group and holdings
+        other = version("hk-pharma-tactical", "2026-09-19")
+        self.assertEqual(cross_card_errors([old, new, other]), [
+            "sizing.bet_group: cn-hk-pharma is shared by cards cn-pharma-tactical, hk-pharma-tactical; merge them into one card",
+            "instruments: 012781.OF is claimed by cards cn-pharma-tactical, hk-pharma-tactical; every other card lists it as rejected",
+            "instruments: 012782.OF is claimed by cards cn-pharma-tactical, hk-pharma-tactical; every other card lists it as rejected"])
+        other.update(status="closed", close_reason="budget")   # a closed card releases its bet and its instruments
+        self.assertEqual(cross_card_errors([new, other]), [])
+
+    def test_export_carries_current_cards_and_derived_portfolio_params(self):
+        old, new = card(), card()
+        old["as_of_date"] = "2026-08-19"
+        payload = export_payload([old, new], "2026-09-19T20:00:00+08:00")
+        self.assertEqual((payload["card_schema_version"], payload["cards"]), (1, [new]))
+        params = payload["portfolio_params"]
+        self.assertEqual((params["sector_etf_cap_cny"], params["single_bet_cap_cny"], params["china_equity_cap_pct"]),
+                         (210000, 50000, 90))
+        self.assertNotIn("_doc", params)
+        self.assertIn({"key": "HKTECH", "name": "恒生科技", "source": "index_global", "code": "HKTECH", "currency": "HKD"},
+                      payload["index_registry"])
 
     def test_missing_snapshot_file_is_an_error(self):
         document = copy.deepcopy(card())

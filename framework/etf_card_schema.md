@@ -9,10 +9,12 @@
 
 - 路径与命名：`research/etf-cards/<card_id>-<as_of_date>.md`，例 `research/etf-cards/cn-hk-pharma-tactical-2026-09-19.md`。
 - `card_id` 是跨版本稳定的身份（小写 slug，不含日期）；同一张卡更新 = 新日期的新文件，旧文件留作历史，新文件的 `supersedes` 指向旧文件相对路径。
-  **执行侧按 `card_id` 分组、取 `as_of_date` 最大的一份为现行卡。**
+  现行卡 = 同一 `card_id` 下 `as_of_date` 最大的一份；`as_of_date` 不得晚于当天（未来日期会永久压住此后所有版本）。
 - 每个文件**恰好一个** ```` ```json ```` 围栏块；正文其余部分是给人看的论证，执行侧不解析。重复键、`NaN`/`Infinity` 拒收。
-- 新鲜度由执行侧判断：`as_of_date` 起 30 天提醒、45 天过期；超过 `exit.latest_review_date` 视为待复评。校验器只查结构，不查新鲜度。
-- 校验：`python3 scripts/validate_etf_card.py research/etf-cards/*.md`，零错误才可提交。
+- 卡的过期时点只认 `exit.latest_review_date`；提醒提前量与过期后的处置由执行侧定义。`latest_review_date` 按任务如实写：核心卡与持有期相称（季度或更长），战术卡写短。不设固定天数的过期线——给个股锚点用的 45 天搬到持有十年的宽基上没有依据。
+- 校验：`python3 scripts/validate_etf_card.py`（缺省校验 `research/etf-cards/` 下全部卡；给了文件参数也仍以整个目录做跨卡检查），零错误才可提交。除单卡规则外还查两条跨卡不变量（只看现行卡，`closed` 的卡既不占 `bet_group` 也不认领工具）：一个 `bet_group` 只属于一张卡；一只工具至多被一张卡认领。已提交的 `current.json` 与卡不一致时也报错——改了卡必须重新 `--export`。
+- **执行侧只读一个文件：`research/etf-cards/current.json`**，由 `python3 scripts/validate_etf_card.py --export` 在全部卡零错误时生成（先写 `.partial` 再原子替换）并随卡一起提交；结构为
+  `{generated_at, card_schema_version, portfolio_params, index_registry, cards}`——`cards` 是每张现行卡的完整 JSON，`portfolio_params` 取自 `framework/etf_portfolio_params.json`（用户拍板的基数）加两个现算的派生量 `sector_etf_cap_cny`、`single_bet_cap_cny`，`index_registry` 取自 `framework/etf_index_registry.json`。执行侧不扫目录、不自行挑现行卡，只读默认分支上的这一份；文件缺失、解析失败、`cards` 为空或 `generated_at` 过旧一律报错，不静默当作"今天没有卡"。
 
 ## 2. 通用约定
 
@@ -54,13 +56,13 @@
 
 | 字段 | 说明 |
 |---|---|
-| `index_code` / `index_name` | 跟踪指数（tushare 代码） |
+| `index_code` / `index_name` | 跟踪指数。`index_code` 只能取 `framework/etf_index_registry.json` 里登记的 key（该清单写明每个指数走哪个取数接口，两仓共用）。清单里 `source` 为空的指数（无行情源，例：恒生港股通红利低波动 `HSHYLV`）只能出现在 `exposure.index_code`，且卡只能是 `no_buy` + `data`、不带锚点；`valuation_state.index_code` 与 `scorecard.benchmark.code` 必须是有行情源的指数 |
 | `asset_type` | `broad_equity` / `dividend_value` / `growth_theme` / `sector` / `cyclical` / `bond` / `gold_commodity` / `cross_border_equity`，决定估值方法 |
-| `currency` | 指数计价币种，ISO 4217 |
+| `currency` | 指数计价币种，ISO 4217；登记清单里有币种时必须一致 |
 | `counts_toward_sector_cap` | 布尔。是否占「行业合计」额度（用户裁定：恒生科技=否，科创50=是） |
 | `china_equity` | 布尔。是否计入「中国权益」上限 |
 | `view_mismatch_note` | 观点-持仓错位说明，可为空串 |
-| `structure` | `weights_as_of`（日期，可空）、`constituent_count`、`max_constituent_weight_pct`、`top10_weight_pct`、`research_coverage_pct`（带来源的数）、`top_constituents`（`[{code, name, weight_pct}]`，无源时为空数组；执行侧做穿透时未披露部分记为未解析，不摊到已知成分上） |
+| `structure` | `weights_as_of`（日期，可空）、`constituent_count`、`max_constituent_weight_pct`、`top10_weight_pct`、`research_coverage_pct`（带来源的数）、`top_constituents`（`[{code, name, weight_pct}]`，`code` 为 `6 位.(SZ|SH|BJ)` 或 `5 位.HK` 的股票代码；其他市场的成分（例如标普500）不在范围内，留空数组；无源时为空数组；执行侧做穿透时未披露部分记为未解析，不摊到已知成分上） |
 
 `thesis`：`statement`（1 句主判断）、`evidence`（恰好 3 条）、`counter_evidence`（恰好 2 条）、`horizon_months`（整数；`tactical` ≥1）。
 
@@ -70,35 +72,35 @@
 |---|---|
 | `method` | `return_decomposition` / `reverse_valuation` / `mid_cycle` / `ytm_duration` / `scenario_only` |
 | `scenarios.bear/base/bull` | 每个含 `inputs`（可空；非空则六项齐全：`eps_growth_pct`、`dividend_yield_pct`、`current_multiple`、`terminal_multiple`、`years`、`drag_pct`）、`valuation_change_pct`、`annual_return_pct`。**基准情景估值零变化**：前三种方法要求 `base.valuation_change_pct.value == 0`，后两种为 `0` 或 `null`。三个年化回报齐全时须 bear ≤ base ≤ bull |
-| `valuation_state` | `index_code`（估值取自哪个指数，可以是代理指数）、`metric`（`erp_spread` / `pe_ttm` / `pb`）、`value`、`percentile_expanding`、`percentile_10y`、`sample_n`、`as_of`。无估值源时 `index_code`/`metric`/`value`/`as_of` 同时为 `null` |
+| `valuation_state` | `index_code`（估值取自哪个指数，可以是代理指数，同样须在登记清单内）、`metric`（`erp_spread` / `pe_ttm` / `pb`）、`value`、`percentile_expanding`、`percentile_10y`、`sample_n`、`as_of`。无估值源时 `index_code`/`metric`/`value`/`as_of` 同时为 `null` |
 
 `instruments`：`merge_note`（同一观点多只基金是否合并及理由，可为空串）+ `list`，每项：
 
 | 字段 | 说明 |
 |---|---|
-| `code` / `name` | `fund_basic` 返回的 `ts_code` 与全名（不按前缀推断交易所）；港股 ETF 用 `02800.HK` |
+| `code` / `name` | 带后缀的 ts_code：内地基金 `6 位.(OF|SZ|SH)`，港股 ETF `5 位.HK`，裸码拒收（场外基金与 A 股的 6 位代码空间重叠）。内地基金取 `fund_basic` 返回的 `ts_code` 与全名，不按前缀推断交易所；港股 ETF 不在 `fund_basic` 里，写 `<5 位代码>.HK`（例 `02800.HK`）与基金全称 |
 | `instrument_type` | `otc_fund` / `exchange_etf` |
 | `share_class` | `A` / `C` / `E` / … ，可空 |
 | `platform_account` | `支付宝` / `盈立证券` / … |
-| `role` | `primary`（至多一个；`active`/`watch` 卡恰好一个）/ `backup` / `held_other`（已持有、属于同一笔押注的其他工具）/ `rejected` |
-| `action` | `buy`（仅 `status=active`）/ `hold` / `stop_dca` / `switch_out` / `none`（`rejected` 必为 `none`） |
+| `currency` | 该工具**自身**的计价币种（场外基金 `CNY`，`02800.HK` 为 `HKD`）。持仓市值折人民币用它；`exposure.currency` 是指数币种，**不得**用于持仓折算 |
+| `role` | `primary`（至多一个；`active`/`watch` 卡恰好一个）/ `backup` / `held_other`（已持有、属于同一笔押注的其他工具）/ `rejected`（**未持有**的落选工具；已持有而要换出的写 `held_other` + `switch_out`，要停投的写 `held_other` + `stop_dca`） |
+| `action` | `buy`（仅 `status=active`，且要求三锚点齐全；可按锚点一次性买入，定投继续）/ `hold`（持有，定投继续）/ `stop_dca`（持有，停定投）/ `switch_out`（换出）/ `none`（`rejected` 必为 `none`）。**定投指令只此一处**，逐只工具给 |
 | `reason` | 首选、备选、落选或处置的理由 |
 
-**执行侧据 `list` 里 `role != rejected` 的全部代码认领持仓；不在任何现行卡里的 ETF 持仓走「无卡」告警。**
+**认领规则**：只有 `status ∈ {active, watch, no_buy}` 的现行卡认领持仓，认领范围 = `list` 里 `role ∈ {primary, backup, held_other}` 的全部代码；`closed` 卡不认领——上一版认领过、本版已 `closed` 而持仓仍在的，执行侧发「卡已关闭但持仓仍在」告警。一只工具在全部现行卡里至多被认领一次，其他卡提到它只能写 `rejected`。不在任何现行卡认领范围内的 ETF 持仓走「无卡」告警。认领了持仓的卡必须至少带 1 条监控变量，且 `sizing.standalone_cap_cny` 非空——持仓从股票纪律切到卡规则后，仓位上限只能由它提供。
 
-`trade_rules`：`min_holding_days`（整数，可空）、`purchase_limit_note`（可空）、`max_premium_pct`、`sell_if_premium_above_pct`。首选工具是 `otc_fund` 时两个溢价字段的 `value` 必须为 `null`（场外按净值申赎）。
+`trade_rules`：`min_holding_days`（整数，可空）、`purchase_limit_note`（可空）。不设溢价字段：用户的工具全是按净值申赎的场外基金，唯一的场内 ETF（02800）没有净值源，溢价无从计算。
 
 `decision`（候选池里每只 ETF 的买卖点位判断；形状对齐执行侧个股的"加仓价 / 首次买入价 / 卖出价"三锚点）：
 
 | 字段 | 说明 |
 |---|---|
 | `rule_refs` | 引用的框架规则编号 |
-| `dca_action` | `continue` / `pause`。用户默认保留小额定投，卡判断需要停时写 `pause` |
 | `anchors.basis` / `index_code` | 恒为 `index_level`；`index_code` 须等于 `exposure.index_code` |
 | `anchors.add_below` / `buy_below` / `reduce_above` | 三个锚点，各含 `level`、`target_ratio_pct`、`inputs`、`rationale`（见下） |
 | `anchors.reduce_mode` | `to_target_ratio`（减到 `reduce_above.target_ratio_pct`）/ `exit_all`（清仓，此时该比例必须为 0）。显式枚举，不靠文字 |
 | `anchors.no_anchor_reason` | 三个锚点全为空时必填（例：无估值源且无可用推导方法），否则为 `null` |
-| `anchors.valid_until` | 点位有效期；有锚点时必填 |
+| `anchors.valid_until` | 点位有效期；有锚点时必填，不得早于 `as_of_date`。**过期之后买入侧锚点失效、不再产生买入指令；减仓侧锚点与 `exit.invalidation` 继续生效**，直到本卡被新版取代或转为 `closed` |
 
 锚点字段：
 
@@ -115,11 +117,11 @@
 |---|---|---|
 | `L ≤ add_below` | `add_below.target_ratio_pct` | 现持仓低于目标 → 买到目标；高于目标 → **不动** |
 | `add_below < L ≤ buy_below` | `buy_below.target_ratio_pct` | 同上（从更低一档回升到这一档时，多出来的仓位不卖） |
-| `buy_below < L < reduce_above` | — | **不产生任何买卖指令**，保持现状；定投按 `dca_action` |
-| `L ≥ reduce_above` | `reduce_above.target_ratio_pct` | 现持仓高于目标 → 减到目标（`exit_all` 即清仓）；低于目标 → 不动 |
+| `buy_below < L < reduce_above` | — | **不产生任何买卖指令**，保持现状；定投按各工具的 `action` |
+| `L ≥ reduce_above` | `reduce_above.target_ratio_pct` | 现持仓高于目标 → 减到目标（`exit_all` 即清仓）；低于目标 → 不动。**本档定投一律暂停**，优先于各工具的 `action`；其余三档定投照常 |
 
 单向的理由：点位在某一档边界附近来回时，双向调整会在买入区制造往返交易，而场外基金持有不满 7 天赎回要付 1.5%。
-语义因此是"越跌买得越多的棘轮，贵了才减"。持仓口径 = 该卡 `instruments.list` 里 `role != rejected` 的全部工具的人民币市值合计。
+语义因此是"越跌买得越多的棘轮，贵了才减"。**买入侧锚点只在 `status=active` 且该工具 `action=buy` 时产生买入指令**；`watch` 卡的买入侧锚点只产生「到点提示复评」告警。减仓侧锚点对 `active` 与 `watch` 一律生效。持仓口径 = 该卡 `instruments.list` 里 `role != rejected` 的全部工具的人民币市值合计。
 
 校验器钉死：三个锚点要么齐全要么全空；`add_below.level < buy_below.level < reduce_above.level` 严格成立；
 比例满足 `add_below ≥ buy_below > reduce_above`。**`add_below` 是加仓位，不是止损位**——执行侧不得继承个股机器里"加仓价兼作止损距离"的耦合；
@@ -128,7 +130,7 @@
 `sizing`：`bet_group`（slug）、`stress_drawdown_pct`（负数）、`loss_budget_cny`、`standalone_cap_cny`。
 **一笔押注 = 一张卡**：`bet_group` 与 `card_id` 一一对应，一个 `bet_group` 只有一个上限、一套锚点。穿透后属于同一笔押注的多只基金
 （例：四只医药基金）合写成一张卡，锚点挂在主指数上，其余基金列进 `instruments.list`（`held_other` + 处置动作）。
-校验器批量校验时，同一 `bet_group` 出现在两个不同 `card_id` 下即报错。行业合计上限、中国权益上限这类组合级参数不进卡，由框架参数总表给出、执行侧统一检查。
+校验器批量校验时，同一 `bet_group` 出现在两个不同 `card_id` 下即报错。行业合计上限、中国权益上限这类组合级参数不进卡，由 `framework/etf_portfolio_params.json` 给出、随 `current.json` 导出，执行侧统一检查；执行侧比对上限以最近一次持仓快照为准，报数须附快照日期。卡带锚点或认领持仓时 `standalone_cap_cny` 必填（`target_ratio_pct` 没有它就没有基数）。
 
 `monitor_variables`（`active`/`watch` 卡 3–5 条）与 `exit.invalidation`（`tactical` 且 `active`/`watch` 至少 1 条）共用同一种触发器：
 
@@ -140,28 +142,24 @@
 | `condition_text` | 人读的条件；`manual` 的条件只写在这里 |
 | `data_source` / `current_text` | 来源；当前状态的文字描述（可空） |
 | `frequency` | `daily` / `weekly` / `monthly` / `quarterly` / `event` |
-| `action` / `action_note` | 监控变量：`alert` / `review` / `pause_dca` / `reduce` / `close` / `swap_tool`；失效条件只能 `close` / `reduce` / `swap_tool`（对应卖出三分法） |
+| `action` / `action_note` | 监控变量：`alert` / `review` / `reduce` / `close` / `swap_tool`（没有 `pause_dca`：定投指令只在各工具的 `action` 上，触发器要停定投就 `review` 后出新版卡）；失效条件只能 `close` / `reduce` / `swap_tool`（对应卖出三分法） |
 
-`auto` 的 `metric` 定义（执行侧实现）：
+`auto` 的 `metric` 只有三个，全部只依赖指数点位（执行侧每日可算；仓位类、溢价类条件执行侧没有可靠的每日数据，一律写成 `manual`）：
 
 | metric | 定义 |
 |---|---|
 | `index_level` | `exposure.index_code` 最新日收盘点位 |
 | `index_vs_sma200_pct` | (最新收盘 ÷ 近 200 个交易日收盘均值 − 1) × 100 |
 | `index_vs_sma10m_pct` | (最近已完成月月末收盘 ÷ 最近 10 个已完成月月末收盘均值 − 1) × 100；当月未完成不参与，月末评估 |
-| `index_drawdown_from_ref_pct` | (最新收盘 ÷ `scorecard.entry_ref_index_level` − 1) × 100 |
-| `instrument_premium_pct` | 首选工具收盘价 ÷ 当日收盘净值 − 1，× 100；仅 `exchange_etf` |
-| `bet_group_value_cny` | 同 `bet_group` 全部认领持仓的人民币市值合计 |
-| `bet_group_weight_pct` | 上者 ÷ 全部资产（个股 + ETF）× 100 |
 
 `exit`：`invalidation`、`latest_review_date`（除 `closed` 外必填，且晚于 `as_of_date`）。
 
-`scorecard`：`benchmark`（不买它时这笔钱放哪，即记分基准）、`preregistered_at`（不晚于 `as_of_date`）、`confidence_pct`（0–100 的裸数字，主观判断）、`entry_ref_index_level`（写卡时的指数点位，来自快照）。
+`scorecard`：`benchmark`（`{code, name}`：不买它时这笔钱放哪，即记分基准；`code` 取登记清单里的 key，没有合适代码时为 `null`）、`preregistered_at`（不晚于 `as_of_date`）、`confidence_pct`（0–100 的裸数字，主观判断）、`entry_ref_index_level`（写卡时 `exposure.index_code` 的点位，来自快照；**只用于事后记分，不得作为任何触发器的输入**——每次刷卡它都会变）。
 
 ## 4. 变更记录
 
 - v1（2026-09-19）：首版。相对任务说明 §6 草案的改动——数字统一为带来源的对象并加 `_pct`/`_cny` 后缀；`instruments` 由 primary/backup/rejected 三槽改为带 `role` 的列表（同一笔押注下的多只已持有基金要能表达）；新增 `supersedes`、`exposure.counts_toward_sector_cap` / `china_equity` / `structure`、`valuation_state.index_code`、情景 `inputs`、结构化触发器；`latest_review_date` 对所有未关闭的卡必填。
-- v1 发布前修订（2026-09-19，首批卡尚未写，不升版本号）：用户澄清 ETF 同样要择时选标的——候选池逐只投研、给买卖点位，而不是"战略权重 + 估值缩放定投 + 再平衡"。`decision` 块据此重做：删除 `strategic_weight`、`zones`、`dca_multiplier`，`dca_action` 去掉 `scale`；新增无状态三锚点 `anchors`（`add_below` / `buy_below` / `reduce_above`，各带 `level`、`target_ratio_pct`、`inputs`、`rationale`）、`reduce_mode`、`no_anchor_reason`。锚点形状、只写比例不写金额、推导方法记名、减仓语义显式枚举四条来自执行侧评审。同日再按执行侧评审补两条语义：`bet_group` 与卡一一对应（同组多卡会对同一个持仓池给出互相冲突的目标仓位）；买入区只买不卖、减仓区只卖不买（避免 7 天惩罚性赎回期内的往返交易）。快照引用核对由"按打印精度取整"收紧为"与打印数字完全相等"（取整比较会让 `10年`、`P75` 这类整数给相邻的小数背书）。
+- v1 发布前修订（2026-09-19，首批卡尚未写，不升版本号）：用户澄清 ETF 同样要择时选标的——候选池逐只投研、给买卖点位，而不是"战略权重 + 估值缩放定投 + 再平衡"。`decision` 块据此重做：删除 `strategic_weight`、`zones`、`dca_multiplier`，`dca_action` 去掉 `scale`；新增无状态三锚点 `anchors`（`add_below` / `buy_below` / `reduce_above`，各带 `level`、`target_ratio_pct`、`inputs`、`rationale`）、`reduce_mode`、`no_anchor_reason`。锚点形状、只写比例不写金额、推导方法记名、减仓语义显式枚举四条来自执行侧评审。同日按执行侧四视角评审再收紧（仍未发布）：新增导出产物 `current.json`、指数登记清单与组合参数文件；`instruments` 加 `currency`、代码必须带后缀、`rejected` 限未持有；删除 `trade_rules` 的溢价字段与 `decision.dca_action`（定投只由各工具的 `action` 给）；`auto` 指标由 7 个收缩为 3 个；`scorecard.benchmark` 改为 `{code, name}`；新增规则——认领持仓的卡须带监控变量与仓位上限、`action=buy` 须三锚点齐全、无行情源的指数只能 `no_buy/data`、`as_of_date` 不得晚于当天、一只工具至多被一张卡认领；删除固定 30/45 天过期线，只认 `latest_review_date`；写明 `valid_until` 过期后与减仓区的定投语义。第二轮代码审查后再补：`closed` 卡释放 `bet_group`；`valid_until` 不得早于 `as_of_date`；`exposure.currency` 须与登记清单一致；估值与记分基准只能引用有行情源的指数；删除触发器动作 `pause_dca`；缺省校验会比对已提交的 `current.json`。此前同日补的两条语义：`bet_group` 与卡一一对应（同组多卡会对同一个持仓池给出互相冲突的目标仓位）；买入区只买不卖、减仓区只卖不买（避免 7 天惩罚性赎回期内的往返交易）。快照引用核对由"按打印精度取整"收紧为"与打印数字完全相等"（取整比较会让 `10年`、`P75` 这类整数给相邻的小数背书）。
 
 ## 5. 示例
 
@@ -259,21 +257,15 @@
   "instruments": {
     "merge_note": "",
     "list": [
-      {"code": "022448.OF", "name": "国泰中证A500ETF联接-A", "instrument_type": "otc_fund", "share_class": "A",
-       "platform_account": "支付宝", "role": "primary", "action": "hold", "reason": "示例：A 类无销售服务费"},
-      {"code": "022449.OF", "name": "国泰中证A500ETF联接-C", "instrument_type": "otc_fund", "share_class": "C",
-       "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "示例：长期持有 C 类年费更高"}
+      {"code": "022448.OF", "name": "国泰中证A500ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY",
+       "platform_account": "支付宝", "role": "primary", "action": "hold", "reason": "示例：A 类无销售服务费；hold = 持有且定投继续"},
+      {"code": "022449.OF", "name": "国泰中证A500ETF联接-C", "instrument_type": "otc_fund", "share_class": "C", "currency": "CNY",
+       "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "示例：未持有的落选工具——长期持有 C 类年费更高"}
     ]
   },
-  "trade_rules": {
-    "min_holding_days": 7,
-    "purchase_limit_note": null,
-    "max_premium_pct": {"value": null, "source": null},
-    "sell_if_premium_above_pct": {"value": null, "source": null}
-  },
+  "trade_rules": {"min_holding_days": 7, "purchase_limit_note": null},
   "decision": {
     "rule_refs": ["A8", "A9"],
-    "dca_action": "continue",
     "anchors": {
       "basis": "index_level",
       "index_code": "000510.SH",
@@ -309,14 +301,14 @@
       },
       "reduce_mode": "to_target_ratio",
       "no_anchor_reason": null,
-      "valid_until": "2026-10-19"
+      "valid_until": "2026-10-31"
     }
   },
   "sizing": {
     "bet_group": "cn-a-broad",
     "stress_drawdown_pct": {"value": -72, "source": "framework:A8"},
-    "loss_budget_cny": {"value": null, "source": null},
-    "standalone_cap_cny": {"value": null, "source": null}
+    "loss_budget_cny": {"value": 35000, "source": "user:2026-09-18", "note": "示例借用行业单笔亏损预算；核心仓的亏损预算用户尚未拍板"},
+    "standalone_cap_cny": {"value": 48611.11, "source": "calc:loss_budget_cap"}
   },
   "monitor_variables": [
     {"name": "指数相对10月均线", "kind": "auto", "metric": "index_vs_sma10m_pct", "operator": "<",
@@ -329,9 +321,9 @@
      "threshold": {"value": null, "source": null}, "condition_text": "指数公司公告修订编制方案",
      "data_source": "中证指数公司公告", "current_text": null, "frequency": "event", "action": "review", "action_note": ""}
   ],
-  "exit": {"invalidation": [], "latest_review_date": "2026-10-19"},
+  "exit": {"invalidation": [], "latest_review_date": "2026-12-19"},
   "scorecard": {
-    "benchmark": "同一笔钱放在货币基金",
+    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
     "preregistered_at": "2026-09-19",
     "confidence_pct": 50,
     "entry_ref_index_level": {"value": 5586.09, "source": "snapshot§6"}
