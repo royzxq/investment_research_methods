@@ -1,5 +1,5 @@
 {
-  "_doc": "ETF 轨道组合级参数：只放用户拍板的基数，派生量（行业合计上限、单笔上限）由导出脚本用 etf_calc 现算，不在这里抄第二份。改数须同步通知执行侧。",
+  "_doc": "ETF 轨道组合级参数：只放用户拍板的数，派生量（行业合计上限、单笔上限）由导出脚本用 etf_calc 现算，不在这里抄第二份。改数须同步通知执行侧。core_seats 是用户 2026-09-19 拍板的核心席位上限表（先定块再定席位，不套用亏损预算÷压力跌幅；loss_budget_cny 为上限×压力跌幅反推，随表一并认可），核心卡的 sizing 三个数必须与此表一致。",
   "effective_from": "2026-09-18",
   "decided_by": "user",
   "etf_plan_total_cny": 700000,
@@ -7,5 +7,38 @@
   "single_bet_loss_budget_cny": 35000,
   "sector_stress_drawdown_pct": -70,
   "china_equity_cap_pct": 90,
-  "total_assets_basis": "全部资产 = 个股市值（折人民币）+ ETF 市值（折人民币），不含现金、货币基金与尚未确认份额的在途定投；个股与 ETF 允许取各自最新的估值日"
+  "total_assets_basis": "全部资产 = 个股市值（折人民币）+ ETF 市值（折人民币），不含现金、货币基金与尚未确认份额的在途定投；个股与 ETF 允许取各自最新的估值日",
+  "blocks": {
+    "decided_on": "2026-09-19",
+    "core_cny": 350000,
+    "sector_cny": 210000,
+    "diversifier_cny": 140000,
+    "note": "核心 50% / 行业 30% / 分散器 20%；分散器 ≥13.6 万来自中国权益 ≤90% × 全部资产约 136 万"
+  },
+  "core_seats": {
+    "000510.SH": {
+      "cap_cny": 120000,
+      "stress_drawdown_pct": -72,
+      "loss_budget_cny": 86400,
+      "note": "沪深300 2007–08 实测约 -72%"
+    },
+    "HSI": {
+      "cap_cny": 100000,
+      "stress_drawdown_pct": -66,
+      "loss_budget_cny": 66000,
+      "note": "恒指 2007-10 高点 31958 → 2008-10 低点 10676 约 -66%"
+    },
+    "HSHYLV": {
+      "cap_cny": 80000,
+      "stress_drawdown_pct": -50,
+      "loss_budget_cny": 40000,
+      "note": "估计值：低波类同类资产的保守估计，无 HSHYLV 历史序列支撑；补上序列后重算"
+    },
+    "HKTECH": {
+      "cap_cny": 50000,
+      "stress_drawdown_pct": -75,
+      "loss_budget_cny": 37500,
+      "note": "恒生科技 2021-02 → 2022-10 约 -75%；现持仓 53211 已超上限"
+    }
+  }
 }

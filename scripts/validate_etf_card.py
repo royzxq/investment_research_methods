@@ -67,6 +67,7 @@ SOURCE = re.compile(r"snapshot§[0-8]|calc:([a-z_]+)|framework:A\d{1,2}|user:\d{
 NUMBER_TOKEN = re.compile(r"[-+]?\d[\d,]*(?:\.\d+)?")
 REGISTRY = {entry["key"]: entry for entry in json.loads(
     (REPO_ROOT / "framework" / "etf_index_registry.json").read_text(encoding="utf-8"))["indexes"]}
+CORE_SEATS = json.loads(PARAMS.read_text(encoding="utf-8")).get("core_seats", {})
 CALCULATORS = {name for name, member in vars(etf_calc).items() if not name.startswith("_")
                and inspect.isfunction(member) and member.__module__ == etf_calc.__name__}
 
@@ -542,6 +543,13 @@ def validate_card(document, *, snapshot_text=None, filename=None):
 
     anchored = _decision(card, document["decision"], exposure, as_of)
     cap = _sizing(card, document["sizing"])
+    seat = CORE_SEATS.get(exposure["index_code"]) if exposure is not None else None
+    if seat is not None and not card.errors_at("sizing"):   # core caps are decided as a table, not per card
+        for key, field in (("cap_cny", "standalone_cap_cny"), ("stress_drawdown_pct", "stress_drawdown_pct"),
+                           ("loss_budget_cny", "loss_budget_cny")):
+            if document["sizing"][field]["value"] != seat[key]:
+                card.error(f"sizing.{field}.value", f"core seat {exposure['index_code']} is fixed at {seat[key]} "
+                                                    "in framework/etf_portfolio_params.json")
     monitors = _triggers(card, document["monitor_variables"], "monitor_variables", MONITOR_ACTIONS)
     if live and not 3 <= monitors <= 5:
         card.error("monitor_variables", "an active or watch card carries 3 to 5 monitor variables")

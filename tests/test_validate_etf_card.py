@@ -290,6 +290,17 @@ class RejectionTests(unittest.TestCase):
         self.assert_error(lambda d: d["exposure"]["structure"]["top_constituents"][0].update(code="022448.OF"),
                           "top_constituents[0].code")   # a fund is not a constituent
 
+    def test_core_seat_sizing_must_match_the_approved_table(self):
+        def core(document, cap=120000, drawdown=-72, budget=86400):
+            document["exposure"].update(index_code="000510.SH", currency="CNY")
+            document["decision"]["anchors"]["index_code"] = "000510.SH"
+            document["sizing"].update(stress_drawdown_pct=number(drawdown, "user:2026-09-19"),
+                                      loss_budget_cny=number(budget, "user:2026-09-19"),
+                                      standalone_cap_cny=number(cap, "calc:loss_budget_cap"))
+        self.assertEqual(errors_of(core), [])
+        self.assert_error(lambda d: core(d, cap=100000, budget=72000), "core seat 000510.SH is fixed at 120000")
+        self.assert_error(lambda d: core(d, drawdown=-60, budget=72000), "core seat 000510.SH is fixed at -72")
+
     def test_a_committed_export_must_match_the_cards(self):
         document = card()
         with tempfile.TemporaryDirectory() as folder, unittest.mock.patch("scripts.validate_etf_card.EXPORT",

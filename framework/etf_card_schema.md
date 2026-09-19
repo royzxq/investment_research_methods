@@ -130,7 +130,7 @@
 `sizing`：`bet_group`（slug）、`stress_drawdown_pct`（负数）、`loss_budget_cny`、`standalone_cap_cny`。
 **一笔押注 = 一张卡**：`bet_group` 与 `card_id` 一一对应，一个 `bet_group` 只有一个上限、一套锚点。穿透后属于同一笔押注的多只基金
 （例：四只医药基金）合写成一张卡，锚点挂在主指数上，其余基金列进 `instruments.list`（`held_other` + 处置动作）。
-校验器批量校验时，同一 `bet_group` 出现在两个不同 `card_id` 下即报错。行业合计上限、中国权益上限这类组合级参数不进卡，由 `framework/etf_portfolio_params.json` 给出、随 `current.json` 导出，执行侧统一检查；执行侧比对上限以最近一次持仓快照为准，报数须附快照日期。卡带锚点或认领持仓时 `standalone_cap_cny` 必填（`target_ratio_pct` 没有它就没有基数）。
+校验器批量校验时，同一 `bet_group` 出现在两个不同 `card_id` 下即报错。行业合计上限、中国权益上限这类组合级参数不进卡，由 `framework/etf_portfolio_params.json` 给出、随 `current.json` 导出，执行侧统一检查；执行侧比对上限以最近一次持仓快照为准，报数须附快照日期。卡带锚点或认领持仓时 `standalone_cap_cny` 必填（`target_ratio_pct` 没有它就没有基数）。**核心席位的上限不逐卡算**：`framework/etf_portfolio_params.json` 的 `core_seats` 表（用户 2026-09-19 拍板：先定块——核心 35 万 / 行业 21 万 / 分散器 14 万——再定席位，压力跌幅取各自历史实测）给出上限、压力跌幅与反推的亏损预算，核心卡的 `sizing` 三个数必须与表一致，校验器强制。行业席位仍按 `loss_budget_cap(3.5 万, −70%)` = 5 万。
 
 `monitor_variables`（`active`/`watch` 卡 3–5 条）与 `exit.invalidation`（`tactical` 且 `active`/`watch` 至少 1 条）共用同一种触发器：
 
@@ -306,9 +306,9 @@
   },
   "sizing": {
     "bet_group": "cn-a-broad",
-    "stress_drawdown_pct": {"value": -72, "source": "framework:A8"},
-    "loss_budget_cny": {"value": 35000, "source": "user:2026-09-18", "note": "示例借用行业单笔亏损预算；核心仓的亏损预算用户尚未拍板"},
-    "standalone_cap_cny": {"value": 48611.11, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {"value": -72, "source": "user:2026-09-19", "note": "核心席位上限表：沪深300 2007–08 实测"},
+    "loss_budget_cny": {"value": 86400, "source": "user:2026-09-19", "note": "核心席位上限表：上限 × 压力跌幅反推"},
+    "standalone_cap_cny": {"value": 120000, "source": "calc:loss_budget_cap"}
   },
   "monitor_variables": [
     {"name": "指数相对10月均线", "kind": "auto", "metric": "index_vs_sma10m_pct", "operator": "<",
