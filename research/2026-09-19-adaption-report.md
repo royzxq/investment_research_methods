@@ -1394,6 +1394,14 @@ final_lots = min(risk_lots, margin_capacity_lots, position_limit_capacity_lots)
 - 活跃模型 / research_only 范围变化：活跃=MA A 当前对（available；#5(b) 反证）、MA2705-MA2709 准备对（temporary_gap 维持）、RB A 当前对/准备对（available；未触发）、MA2701 多空（available；#16/#26 否决）、SR A（未触发）/SR B（窗口尾段、产销率否决）、CF B（供给端反证、B 触发未组装）；research_only=geopolitical_fade（维持；①改判后更不适用）、M 无已许可策略；temporary_gap 范围较上周大幅收窄（快照解除行情类缺口），剩 MA2701 逐日结算、甲醇港口库存数值、Mysteel 同口径总库存、B-HISTORY
 - 仅修复研究输出、未改变规则的事项：焦炭第五轮"无记录"纠错；SC 周涨/D8/剩余 td/ATR 分位读数刷新；"甲醇主力 3559"为 MA2610 的口径澄清；CENTCOM vs Vortexa/Kpler、SC2611 762.5、俄禁令延期报道级的 conflicting 标注；本环境原文读取被封锁的证据降级说明
 
+## 7. 执行诊断按拟议版本刷新
+
+- 文件：`research/2026-09-19-execution-audit.md`（同分支提交；`assessment_scope=proposed_framework_reassessment`，framework.version=v2.27，data_script_version=v1.16）
+- 结论：v2.27 规则本体零改动→10 条候选的适用门判定与 status 与现行 v2.26 诊断完全一致（3 条 no_signal：RB2701-RB2703 56.1、RB2703-RB2705 61.8、SR2701-SR2705 0.0；7 条 incomplete；已核否决 5 项：MA A #5 产业反证、MA 多头 #16、MA 空头 #16+#26、SR B 产销率、CF B #5 供给端反证；无 ready/awaiting_account/blocked；影子计划 2 条）。状态层变更已在各候选 details 体现（①改判→MA 空头 #26；交易所收紧→exchange_notice 与 #16；第五轮纠错→RB D14 不适用注记）。
+- 旧输出失效项：canonical v2.26 的 9/16 快照读数与 0.1/1.4/1.5/1.7 状态行已换版；9/19 快照（v1.15）无 v1.16 新增的逐日结算涨跌列→MA2701 #30 仍 unknown（raw_data，next_action 改为重跑 v1.16 或终端导出）；DATA_FEASIBILITY 与 EVIDENCE_CORRECTIONS 沿用阶段②并复核无变化（焦炭第五轮纠错保留 invalid 行 + evidence_corrections，recalculation=completed）。
+- 风险计算：仍引用 canonical Step5 / #31 与 `scripts/futures_risk.py`；账户 unknown、final_lots 全 null、总体机会数 null；不伪造新行情或人工核验；新版本为拟议重评，不当作历史当日生效版本。
+- 校验器：`python3 scripts/validate_futures_audit.py --input research/2026-09-19-execution-audit.md` 在拟议版本刷新后再次运行，结果 valid / 退出码 0（记录见该文件"校验记录"第二条）。
+
 ## 8. 数据脚本同步
 
 - 结论：已更新 scripts/future_data.py（v1.15 → v1.16，对应框架 v2.27）
