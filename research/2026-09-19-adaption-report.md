@@ -1414,3 +1414,21 @@ final_lots = min(risk_lots, margin_capacity_lots, position_limit_capacity_lots)
   - 文件头版本 v1.16 与 changelog；无算法改动，§1/§2a/§2c/§2d/§5 逻辑不变。
 - 验证状态：**未经线上实测**（本环境无 tushare/pandas/numpy 与网络）。已完成：`python3 -m py_compile scripts/future_data.py` 通过；配置区离线 ast 执行检查（EVENTS 6 条日期/品种元组形状、FIXED_RISK_WINDOWS 2 条）；`daily_settlement_changes` 以合成 records 自测四例（正常 5 日序列→`-0.77 / ... / 近3日无≥5%`；末日 settle 缺失→`None / ...:null / unknown(近3日结算端点缺失)`；单日 754.4/829.0→`-9.0 / ≥5%命中:20260918(-9.0%)`；空记录→`unknown`）；`python3 -m unittest discover -s tests`：Ran 144，134 通过，10 项脚本集成测试因本环境缺 numpy/pandas 报 ModuleNotFoundError（与改动前基线完全相同，非本次引入）。请在有 Tushare 环境运行 `python3 scripts/future_data.py --as-of 20260919` 核 §2b.1 新列（尤其 MA2701 9/14-9/18 逐日读数）与 §0b 新条目显示，并把报错贴回迭代。
 - 旧输出失效项（供诊断刷新）：9/19 快照（v1.15）无逐日结算涨跌列→#30 判定仍 unknown，待 v1.16 重跑；v2.26 canonical 写入的 9/16 快照读数已由 v2.27 按 9/19 快照替换。
+
+## 9. 精简版同步
+
+- 生成方式：由 v2.27 canonical 全文无状态再生成 `framework/futures_framework_compact.md`（不基于旧 compact 增量改写）；固定层（§0–§2）277 个 R-ID 全部沿用，0 新增 / 0 删除 / 0 重复 / 0 悬空链接；动态层 §3.1–§3.6 按 v2.27 的 0)/0.1/0.2/阶梯表/1.4/1.5/1.7/0.4/3.6/6.9 全量重写（版本与 AS_OF、账户配置与 low_exposure 触发、9/19 快照阶梯与准备对、①=中断证真及回改标准、fed_state=加息+连续加息指引、郑商所 9/21·9/29 收紧节点与 10/1–10/8 长假、缺项清单、不过度反应清单、脆弱叙事表）。
+- 固定层语义变化仅 1 处：CARD-MA-price 增补 v1.16 §2b.1「日结算涨跌%/近5日结算涨跌%」列出处与"列缺失→#30 unknown"；其余固定层差异仅为头注释、标题与 §0 说明行。
+- 压缩统计：canonical v2.27 1,284 行 / 153,736 字符 → compact v2.27 919 行 / 59,854 字符（字符 −61.1%，行 −28.4%；compact v2.26 为 919 行 / 55,286 字符，动态层因回改标准与阈值读数扩写 +4.6k 字符）。
+- 强制自审：
+  - 数值参数：canonical v2.26→v2.27 新增数值 token 133 个，125 个已进 compact；8 个逐项豁免（SC D8 上尾位 47.1、AU/M 周涨 0.17%/0.20%、SC 价差% 口径 6.12%、LC 仓单 15.62%（池外）、Mysteel 9/3 旧读数 1,572.90、YAML 注释 20260919、正则伪 token "100,10"），清单与理由见 `research/2026-09-19-framework-numeric-audit.md`；canonical 删除的 26 个 token 均为 9/16 快照读数被 9/19 快照替换，compact 同步替换。
+  - 章节一致：§0–§2 结构与 v2.26 compact 相同，§3 动态六节齐全；Step0–Step6 各自的 R-ID 来源标注（[源: …]）保持。
+  - 历史标记清零：compact 内不含任何 【本次更新】/【v2.xx】 变更历史标记；残留 6 处 "v2.2x" 字样均为语义版本引用（rule_version=B-v2.24、D14 铁水 "v2.26 起不适用"、v2.26 新增锚说明、①按 v2.26 要件改判），非历史标记。
+  - 自足性抽检（随机 3 条，对照 canonical 原条款）：`r-gate-8`（#8 结构支持=1 否决，解除条件完整）、`r-risk-snapshot`（verified_at 时区/同日/不晚于测算，空列表须实核、脚本空 POSITIONS 不作证明，与 Step5 一致）、`r-gate-29`（#29 T−10 复评重入、T−3…T+1 冻结、只作用 AU/AG，提前窗指向 DYNAMIC-freezes 且不得扩为全池 D12）——三条脱离上下文均可独立执行。
+  - 决策链检查：§0 决策链 → 池许可/路由 → 状态与事件 → 硬否决 → Precheck → 策略 → 评分/金额 → 计划/容量 → 持仓 → 审计 → 周诊断的顺序未变；本周新增的 ①改判、交易所收紧、fed_state 均落在 §3 动态层并由固定层条款引用（#26/#29/#30/D12/D13）。
+- 审计留痕：`research/2026-09-19-compact-audit.json`（锚点集合对比、固定层 difflib 变更行、数值 token 对比、抽检样本）。
+- 沿袭的副本矛盾/待人工项（compact 忠实复制 canonical，未自行裁决）：D9 分组口径、D11 边界表述、F 策略"三重验证"定义、E 策略与隔夜阈值优先级、6.3 "<4000" 处置动作、JM-RB/G 需求门；canonical 3.6 "俄乌轴"行的表格列数不齐（HEAD 即如此）未改。
+
+## 10. 版本记录（补）
+
+- v2.27 canonical + 数据脚本 v1.16 + compact v2.27 于分支 `futures-framework/2026-09-19` 一并提交，经 PR 人工审阅后生效；main 上的 v2.26/v1.15 在审阅前仍为现行版本。
