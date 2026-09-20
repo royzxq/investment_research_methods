@@ -1,5 +1,7 @@
 # 2026-09-19 期货执行诊断
 
+> **拟议版本重评（proposed_framework_reassessment）**：本文件在分支 `futures-framework/2026-09-19` 上按拟议 canonical **v2.27**（significant：仅状态机层面三项门/状态变更——①评估期→中断证真、D13 冻结→加息落地重写、交易所风控常规→收紧；规则本体、参数、门槛、评分权重、池分层零改动）与脚本 **v1.16**（EVENTS 日历滚动；§2b.1 新增判定腿逐日结算涨跌列，服务既有 #30；未联网实测）刷新。**规则零改动→各候选的适用门判定与 status 与现行 v2.26 诊断完全一致**；状态层变更已体现在：MA2701 空头 #26 details（①改判中断证真）、MA2701 多空 exchange_notice/#16（交易所收紧、低敞口继续）、RB D14 注记（第五轮纠错）。v1.16 的 #30 输入列在本次回填所用 9/19 快照（v1.15）中尚不存在→#30 仍 unknown（raw_data，next_action 改为重跑 v1.16）。这是新版本的重评，不是历史交易日已生效的规则；v2.27 待 PR 合并。首次运行（现行 v2.26）记录保留于"校验记录"第一条。
+
 **结论：截至 2026-09-19（最新已完成行情日 2026-09-18），已核研究范围内未形成可执行方案，仍有研究/账户核验缺项；不能据此写"市场没有机会"或"市场建议空仓"。** 本诊断按现行 `framework/futures_framework.md` v2.26（origin/main `b6069b2`，2026-09-17）与 `FUTURES_DATA_PROTOCOL.md` v2.26 生成；**本周有用户提交的行情快照 `research/2026-09-19-data-snapshot.txt`**（脚本 v1.15、AS_OF=20260919、最新行情日 20260918、末行"快照完成"），价差/分位/样本/周涨/D8/ATR 分层全部取自快照实测；公开信息来自 WebSearch 摘要（本环境原文读取被出口代理封锁，按协议降级：多源同口径官方数据 verified、单源/无日期/摘要冲突项分别标注）；实际账户与挂单快照未提供（`actual_position_status=unknown`），全部 `final_lots=null`，总体机会数 `null`。
 
 | 已观察记录 | 本次状态 | 已核否决 / 缺口 |
@@ -32,13 +34,13 @@
   "audit_schema_version": 3,
   "as_of_date": "2026-09-19",
   "research_mode": "public_data",
-  "assessment_scope": "current_framework",
+  "assessment_scope": "proposed_framework_reassessment",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.26",
-    "revision": "origin/main b6069b2 (v2.26, 2026-09-17 方法修复与换月; 市场状态层为 2026-09-12 调研)",
-    "data_script_version": "v1.15 (research/2026-09-19-data-snapshot.txt, AS_OF=20260919, 最新行情日 20260918, 快照完成标记存在)",
-    "rule_changes_affecting_candidates": "v2.26 相对上周诊断所用 v2.25: (1) 行情快照为唯一行情来源, 已有实测值不得写推算——本周全部价差/分位/样本/周涨/D8/ATR 取自快照; (2) D8 按 3.4 由脚本 §2d 计算 (MA 主力 MA2610 上尾 66.7 无档; SR/CF 空头否决档对 B 做多不适用); (3) 新增 awaiting_account 状态 (本周无候选满足: 无 signal=triggered); (4) shadow_plans 首批登记 2 条 (脚本 §5 结算); (5) 参考级数据: Kpler 通行量/海湾出口/战争险与 247 家铁水/盈利率不进门不记缺口; ① 量化锚=脚本 §1 SC 近端 back 方向; (6) 9/16 换月: MA 结构对 MA2701-MA2705、#30 判定腿与 A 近腿=MA2701、SC 信号对 SC2611-SC2612"
+    "version": "v2.27",
+    "revision": "futures-framework/2026-09-19 branch (proposed, significant, 待合并); 基于 origin/main b6069b2 v2.26 (2026-09-17); 首次诊断按现行 v2.26 生成后于同分支按拟议 v2.27 刷新",
+    "data_script_version": "v1.16 (branch; §0b EVENTS 滚动 + §2b.1 新增日结算涨跌列; 未联网实测). 本次回填仍用 v1.15 的 research/2026-09-19-data-snapshot.txt (AS_OF=20260919, 最新行情日 20260918, 快照完成标记存在)",
+    "rule_changes_affecting_candidates": "v2.27 相对 v2.26: 规则本体零改动→候选判定与 status 不变; 状态层: ①改判中断证真 (MA 空头 #26 details 已按此; 方向许可不变), 交易所风控收紧 (exchange_notice 已核 9/21、9/29), D13 加息落地重写 (池外无候选), 负反馈行纠错 (RB D14 不适用, 判定不变), 低敞口继续 (#16 fail 维持); v1.16 新增 #30 输入列但本快照 (v1.15) 无该列→#30 仍 unknown. v2.26 相对上周诊断所用 v2.25: (1) 行情快照为唯一行情来源, 已有实测值不得写推算——本周全部价差/分位/样本/周涨/D8/ATR 取自快照; (2) D8 按 3.4 由脚本 §2d 计算 (MA 主力 MA2610 上尾 66.7 无档; SR/CF 空头否决档对 B 做多不适用); (3) 新增 awaiting_account 状态 (本周无候选满足: 无 signal=triggered); (4) shadow_plans 首批登记 2 条 (脚本 §5 结算); (5) 参考级数据: Kpler 通行量/海湾出口/战争险与 247 家铁水/盈利率不进门不记缺口; ① 量化锚=脚本 §1 SC 近端 back 方向; (6) 9/16 换月: MA 结构对 MA2701-MA2705、#30 判定腿与 A 近腿=MA2701、SC 信号对 SC2611-SC2612"
   },
   "snapshot": {
     "market_trade_date": "2026-09-18",
@@ -73,7 +75,8 @@
       "canonical v2.26 写入的 9/16 快照读数: MA2701-MA2705 +309/分位 100, RB2701-RB2703 58.5, SC2611-SC2612 +56.7, SC2611 结算周涨 +22.56%(9/9→9/16), D8 MA 上尾 80.4 扣分档, 剩余 td 79/80/158, MA2701 ATR 分位 86.4, 极差 79.0——全部由 9/19 快照刷新",
       "上一读数 '周涨 >8% → 多头冻结·清仓' 处置已到期执行(条件式), 不续延; 本周 -0.30% 未命中, 不恢复多头新开(#16 仍否决)",
       "D12 既有提前窗 9/11-9/17、#29 AU/AG 冻结 9/11-9/18、0.0b 固定安排 (fixed_risk_window) 到期归档",
-      "2026-09-12 诊断的 temporary_gap 项 (MA/RB 对分位与样本、SC 结算周涨、剩余 td 推算) 已由快照解除; 其 MA2610-MA2701 与 RB2610-RB2701 旧对记录随换月结案"
+      "2026-09-12 诊断的 temporary_gap 项 (MA/RB 对分位与样本、SC 结算周涨、剩余 td 推算) 已由快照解除; 其 MA2610-MA2701 与 RB2610-RB2701 旧对记录随换月结案",
+      "v2.27 新增失效项 (拟议): canonical v2.26 的 0.1/1.4/1.5/1.7 状态行 (①'中断复归侧评估'、D13'冻结至 FOMC'、交易所风控'阴性'、负反馈行'第五轮无记录'、fed_state'高概率基准'、AU 卡'趋势级回吐评估期') 已换版; 0.4/3.6/6.9 的 v2.25 定性表已换版; 9/16 快照读数由 9/19 快照替换"
     ]
   },
   "coverage": {
@@ -1239,7 +1242,7 @@
           "gap": {
             "kind": "raw_data",
             "owner": "data_pipeline",
-            "next_action": "脚本 §2b 增列或用户终端导出 MA2701 逐日 settle/pre_settle (9/14-9/18 及后续), 核 ≥5% 命中与冷却期",
+            "next_action": "在有 Tushare 环境重跑 scripts/future_data.py v1.16 (§2b.1 新增 日结算涨跌%/近5日结算涨跌%/#30近3日≥5% 列) 或用户终端导出 MA2701 逐日 settle/pre_settle (9/14-9/18 及后续), 核 ≥5% 命中与冷却期",
             "due_at": "next_report"
           }
         },
@@ -1383,7 +1386,7 @@
           "gap": {
             "kind": "raw_data",
             "owner": "data_pipeline",
-            "next_action": "同多头记录: 补 MA2701 逐日 settle/pre_settle",
+            "next_action": "同多头记录: 重跑 v1.16 §2b.1 或终端导出 MA2701 逐日 settle/pre_settle",
             "due_at": "next_report"
           }
         },
@@ -1875,7 +1878,7 @@
       "resolution": "pending"
     },
     {
-      "item": "补核 MA2701 逐日 settle/pre_settle (9/14-9/18 及后续; #30 判定腿) 与 SC 逐日结算 (护栏两端); 建议脚本 §2b 增列逐日涨跌或用户终端导出",
+      "item": "补核 MA2701 逐日 settle/pre_settle (9/14-9/18 及后续; #30 判定腿) 与 SC 逐日结算 (护栏两端); 脚本 v1.16 §2b.1 已增列 (拟议, 未实测), 在有 Tushare 环境重跑或用户终端导出",
       "owner": "data_pipeline / 研究方",
       "due_at": "2026-09-25",
       "required_evidence": ["ma2701_daily_settle"],
@@ -1988,4 +1991,10 @@
 $ python3 scripts/validate_futures_audit.py --input research/2026-09-19-execution-audit.md
 {"status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
 退出码: 0 （2026-09-19 本次运行，现行 v2.26 / origin/main b6069b2）
+```
+
+```text
+$ python3 scripts/validate_futures_audit.py --input research/2026-09-19-execution-audit.md   # 拟议版本 v2.27 / 脚本 v1.16 重评后再次运行（分支 futures-framework/2026-09-19）
+{ "status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
+退出码: 0 （2026-09-19 本次运行，拟议 v2.27 / v1.16）
 ```
