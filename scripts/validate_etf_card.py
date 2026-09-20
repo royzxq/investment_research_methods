@@ -50,6 +50,7 @@ REDUCE_MODES = {"to_target_ratio", "exit_all"}
 TRIGGER_KINDS = {"auto", "manual"}
 AUTO_METRICS = {"index_level", "index_vs_sma200_pct", "index_vs_sma10m_pct"}   # 条件只挂指数点位，执行侧每日可算
 CLAIMING_ROLES = {"primary", "backup", "held_other"}
+ANCHOR_DERIVATIONS = {"level_at_drawdown_state"}   # only derivations whose rule passed the pre-registered validation (framework A13)
 OPERATORS = {"<", "<=", ">", ">="}
 FREQUENCIES = {"daily", "weekly", "monthly", "quarterly", "event"}
 MONITOR_ACTIONS = {"alert", "review", "reduce", "close", "swap_tool"}
@@ -382,6 +383,9 @@ def _anchor(card, anchor, path):
     function = SOURCE.fullmatch(source).group(1) if isinstance(source, str) and SOURCE.fullmatch(source) else None
     if level is not None and function is None:
         card.error(f"{path}.level.source", "an anchor level names the calculator that derived it (calc:<function>)")
+    elif level is not None and function not in ANCHOR_DERIVATIONS:
+        card.error(f"{path}.level.source", f"{function} is not a validated anchor derivation (framework A13 allows: "
+                                           f"{', '.join(sorted(ANCHOR_DERIVATIONS))})")
     if anchor["inputs"] is None:
         return level, ratio
     if not isinstance(anchor["inputs"], dict):

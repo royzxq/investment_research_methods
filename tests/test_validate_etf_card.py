@@ -8,7 +8,7 @@ import unittest
 import unittest.mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.etf_calc import level_at_multiple, scenario_annual_return
+from scripts.etf_calc import level_at_drawdown_state, scenario_annual_return
 from scripts.validate_etf_card import (cross_card_errors, current_cards, export_drift, export_payload, load_card,
                                        validate_card, validate_file)
 
@@ -26,6 +26,8 @@ SNAPSHOT = """== ETF 框架 v0.1 数据快照 | AS_OF=20260918 ==
   费率: 管理 0.50% + 托管 0.05% + 销售服务 0.10% = 年费合计 0.65%
 ---- §6 趋势 ----
  某指数 931152.CSI 20260918 1,880.55 1,888.98
+  -- 6b 回撤分位阶梯 --
+ 某指数 931152.CSI 20260918 1,880.55 2,202.33 0.8539 61.3 142 20141231 0.5376 0.6423 0.8994
 == 快照完成 ==
 """
 
@@ -45,13 +47,12 @@ def scenario(growth, terminal):
             "annual_return_pct": number(round(result["annual_return_pct"], 4), "calc:scenario_annual_return")}
 
 
-def anchor(target_multiple, ratio):
-    inputs = dict(current_level=1880.55, current_multiple=12.68, target_multiple=target_multiple)
-    sources = dict(current_level="snapshot§6", current_multiple="snapshot§1", target_multiple="snapshot§1")
-    return {"level": number(round(level_at_multiple(**inputs), 2), "calc:level_at_multiple"),
-            "target_ratio_pct": number(ratio, "framework:A9"),
-            "inputs": {key: number(value, sources[key]) for key, value in inputs.items()},
-            "rationale": f"PE 回到 {target_multiple} 倍对应的点位"}
+def anchor(state, ratio):
+    inputs = dict(rolling_high=2202.33, state=state)
+    return {"level": number(round(level_at_drawdown_state(**inputs), 2), "calc:level_at_drawdown_state"),
+            "target_ratio_pct": number(ratio, "framework:A13"),
+            "inputs": {key: number(value, "snapshot§6") for key, value in inputs.items()},
+            "rationale": f"回撤状态回到 {state} 对应的点位"}
 
 
 def no_anchor():
@@ -101,8 +102,8 @@ def card():
         "decision": {"rule_refs": ["A8", "A9", "A10"],
                      "anchors": {"basis": "index_level", "index_code": "931152.CSI", "reduce_mode": "to_target_ratio",
                                  "no_anchor_reason": None, "valid_until": "2026-12-31",
-                                 "add_below": anchor(9.5, 100), "buy_below": anchor(11.0, 50),
-                                 "reduce_above": anchor(15.0, 30)}},
+                                 "add_below": anchor(0.5376, 100), "buy_below": anchor(0.6423, 50),
+                                 "reduce_above": anchor(0.8994, 30)}},
         "sizing": {"bet_group": "cn-hk-pharma", "stress_drawdown_pct": number(-70, "framework:A8"),
                    "loss_budget_cny": number(35000, "user:2026-09-18"),
                    "standalone_cap_cny": number(50000, "calc:loss_budget_cap")},
@@ -151,7 +152,7 @@ class RejectionTests(unittest.TestCase):
         self.assert_error(lambda d: d.update(status="paused"), "status: expected one of")
 
     def test_ai_estimate_is_rejected_on_levels_weights_amounts_and_valuations(self):
-        for path in (("decision", "anchors", "buy_below", "inputs", "current_level"),
+        for path in (("decision", "anchors", "buy_below", "inputs", "rolling_high"),
                      ("decision", "anchors", "reduce_above", "target_ratio_pct"), ("sizing", "loss_budget_cny"),
                      ("exposure", "structure", "top10_weight_pct"), ("expectation", "valuation_state", "value"),
                      ("expectation", "scenarios", "bear", "inputs", "terminal_multiple"),
@@ -217,11 +218,11 @@ class RejectionTests(unittest.TestCase):
 
     def test_anchors_are_a_strict_stateless_three_point_ladder(self):
         anchors = lambda d: d["decision"]["anchors"]
-        self.assert_error(lambda d: anchors(d).update(buy_below=anchor(9.5, 50)), "add_below.level < buy_below.level < reduce_above.level")
-        self.assert_error(lambda d: anchors(d).update(reduce_above=anchor(11.0, 30)), "add_below.level < buy_below.level < reduce_above.level")
-        self.assert_error(lambda d: anchors(d).update(buy_below=anchor(11.0, 20)), "add_below ratio >= buy_below ratio > reduce_above ratio")
+        self.assert_error(lambda d: anchors(d).update(buy_below=anchor(0.5376, 50)), "add_below.level < buy_below.level < reduce_above.level")
+        self.assert_error(lambda d: anchors(d).update(reduce_above=anchor(0.6423, 30)), "add_below.level < buy_below.level < reduce_above.level")
+        self.assert_error(lambda d: anchors(d).update(buy_below=anchor(0.6423, 20)), "add_below ratio >= buy_below ratio > reduce_above ratio")
         self.assert_error(lambda d: anchors(d).update(reduce_mode="exit_all"), "exit_all goes with a reduce_above target_ratio_pct of 0")
-        self.assert_error(lambda d: anchors(d).update(reduce_above=anchor(15.0, 0)), "exit_all goes with a reduce_above target_ratio_pct of 0")
+        self.assert_error(lambda d: anchors(d).update(reduce_above=anchor(0.8994, 0)), "exit_all goes with a reduce_above target_ratio_pct of 0")
         self.assert_error(lambda d: anchors(d).update(add_below=no_anchor()), "all present or all null")
         self.assert_error(lambda d: anchors(d).update(no_anchor_reason="无估值源"), "present exactly when the card carries no anchors")
         self.assert_error(lambda d: anchors(d).update(valid_until=None), "decision.anchors.valid_until: expected ISO date")
@@ -229,22 +230,20 @@ class RejectionTests(unittest.TestCase):
     def test_anchor_levels_come_from_a_named_calculator_and_are_recomputed(self):
         buy = lambda d: d["decision"]["anchors"]["buy_below"]
         self.assert_error(lambda d: buy(d)["level"].update(source="snapshot§6"), "names the calculator that derived it")
-        self.assert_error(lambda d: buy(d)["level"].update(value=1500.0), "does not match calc:level_at_multiple of the inputs")
-        self.assert_error(lambda d: buy(d)["inputs"].update(pe=number(11.0, "snapshot§1")), "etf_calc.level_at_multiple rejects these inputs")
-        self.assert_error(lambda d: buy(d)["inputs"]["target_multiple"].update(value=11.7), "11.7 is not printed in snapshot§1")
+        self.assert_error(lambda d: buy(d)["level"].update(value=1500.0), "does not match calc:level_at_drawdown_state of the inputs")
+        self.assert_error(lambda d: buy(d)["inputs"].update(pe=number(12.68, "snapshot§1")), "etf_calc.level_at_drawdown_state rejects these inputs")
+        self.assert_error(lambda d: buy(d)["inputs"]["state"].update(value=0.6), "0.6 is not printed in snapshot§6")
+        self.assert_error(lambda d: buy(d)["level"].update(source="calc:level_at_multiple"),   # its rule was rejected in validation
+                          "level_at_multiple is not a validated anchor derivation")
         self.assertEqual(errors_of(lambda d: buy(d).update(inputs=None)), [])
 
     def test_anchor_recompute_never_crashes_or_passes_unverified(self):
         buy = lambda d: d["decision"]["anchors"]["buy_below"]
         self.assert_error(lambda d: buy(d)["level"].update(source=5), "decision.anchors.buy_below.level.source")
-        self.assert_error(lambda d: buy(d)["inputs"]["current_multiple"].update(value=-12.68, source="user:2026-09-19"),
-                          "etf_calc.level_at_multiple does not yield a level from these inputs (None)")
-
-        def misuse(document):
-            buy(document)["level"]["source"] = "calc:loss_budget_cap"
-            buy(document)["inputs"] = {"loss_budget": number(1000, "user:2026-09-19"),
-                                       "stress_drawdown_pct": number(30, "user:2026-09-19")}
-        self.assert_error(misuse, "etf_calc.loss_budget_cap rejects these inputs: stress_drawdown_pct_must_be_in")
+        self.assert_error(lambda d: buy(d)["inputs"]["state"].update(value=-0.64, source="user:2026-09-19"),
+                          "etf_calc.level_at_drawdown_state does not yield a level from these inputs (None)")
+        self.assert_error(lambda d: buy(d)["inputs"]["state"].update(value=64.23, source="user:2026-09-19"),   # a percent where a ratio belongs
+                          "etf_calc.level_at_drawdown_state rejects these inputs: state_is_close_over_rolling_high")
         self.assert_error(lambda d: buy(d)["level"].update(source="calc:timedelta"), "etf_calc has no function timedelta")
 
     def test_a_card_that_governs_money_carries_a_cap_monitors_and_a_price_source(self):

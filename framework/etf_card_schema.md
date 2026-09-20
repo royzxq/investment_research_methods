@@ -106,7 +106,7 @@
 
 | 字段 | 说明 |
 |---|---|
-| `level` | 指数点位。**来源必须是 `calc:<函数名>`，这就是点位的推导方法**（估值分位换算、回撤分位、趋势带……各有其函数）；方法日后被证伪时按函数名批量召回 |
+| `level` | 指数点位。**来源必须是 `calc:<函数名>`，这就是点位的推导方法**；方法日后被证伪时按函数名批量召回。目前唯一通过规则验证的推导是 `calc:level_at_drawdown_state`（入参 `rolling_high`、`state` 取自快照 §6b；框架 A9）。`level_at_multiple`（估值倍数换算）对应的规则已被否，不得用于锚点 |
 | `target_ratio_pct` | 指数到达该锚点时，这笔押注（同 `bet_group`）应有的仓位，占 `sizing.standalone_cap_cny` 的百分比。**卡里只写比例不写金额**，金额由执行侧按当期上限换算 |
 | `inputs` | 推导函数的入参（键 = `etf_calc` 函数的参数名，值为带来源的数），可空。齐全时校验器用该函数复算 `level`（容差 0.01 或万分之一） |
 | `rationale` | 为什么取这个锚 |
@@ -171,7 +171,10 @@
   "card_id": "example-csi-a500-core",
   "as_of_date": "2026-09-19",
   "supersedes": null,
-  "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+  "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+  },
   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
   "task": "core",
   "status": "watch",
@@ -187,21 +190,61 @@
     "view_mismatch_note": "",
     "structure": {
       "weights_as_of": "2026-08-31",
-      "constituent_count": {"value": 500, "source": "snapshot§3"},
-      "max_constituent_weight_pct": {"value": 3.20, "source": "snapshot§3"},
-      "top10_weight_pct": {"value": 20.25, "source": "snapshot§3"},
-      "research_coverage_pct": {"value": 28.5, "source": "snapshot§3"},
+      "constituent_count": {
+        "value": 500,
+        "source": "snapshot§3"
+      },
+      "max_constituent_weight_pct": {
+        "value": 3.2,
+        "source": "snapshot§3"
+      },
+      "top10_weight_pct": {
+        "value": 20.25,
+        "source": "snapshot§3"
+      },
+      "research_coverage_pct": {
+        "value": 28.5,
+        "source": "snapshot§3"
+      },
       "top_constituents": [
-        {"code": "300750.SZ", "name": "宁德时代", "weight_pct": {"value": 3.20, "source": "snapshot§3"}},
-        {"code": "300308.SZ", "name": "中际旭创", "weight_pct": {"value": 3.16, "source": "snapshot§3"}},
-        {"code": "600519.SH", "name": "贵州茅台", "weight_pct": {"value": 2.70, "source": "snapshot§3"}}
+        {
+          "code": "300750.SZ",
+          "name": "宁德时代",
+          "weight_pct": {
+            "value": 3.2,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "300308.SZ",
+          "name": "中际旭创",
+          "weight_pct": {
+            "value": 3.16,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "600519.SH",
+          "name": "贵州茅台",
+          "weight_pct": {
+            "value": 2.7,
+            "source": "snapshot§3"
+          }
+        }
       ]
     }
   },
   "thesis": {
     "statement": "示例：以当前股债利差持有 A 股宽基，长期回报主要来自盈利增长而非估值修复",
-    "evidence": ["示例证据一", "示例证据二", "示例证据三"],
-    "counter_evidence": ["示例反证一", "示例反证二"],
+    "evidence": [
+      "示例证据一",
+      "示例证据二",
+      "示例证据三"
+    ],
+    "counter_evidence": [
+      "示例反证一",
+      "示例反证二"
+    ],
     "horizon_months": 120
   },
   "expectation": {
@@ -209,95 +252,246 @@
     "scenarios": {
       "bear": {
         "inputs": {
-          "eps_growth_pct": {"value": 3, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 2.5, "source": "ai_estimate"},
-          "current_multiple": {"value": 12.68, "source": "snapshot§1"},
-          "terminal_multiple": {"value": 10.08, "source": "snapshot§1", "note": "沪深300 PE 扩张窗 P10"},
-          "years": {"value": 10, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.20, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 2.5,
+            "source": "ai_estimate"
+          },
+          "current_multiple": {
+            "value": 12.68,
+            "source": "snapshot§1"
+          },
+          "terminal_multiple": {
+            "value": 10.08,
+            "source": "snapshot§1",
+            "note": "沪深300 PE 扩张窗 P10"
+          },
+          "years": {
+            "value": 10,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": -2.27, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 3.03, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": -2.27,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 3.03,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "base": {
         "inputs": {
-          "eps_growth_pct": {"value": 6, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 2.5, "source": "ai_estimate"},
-          "current_multiple": {"value": 12.68, "source": "snapshot§1"},
-          "terminal_multiple": {"value": 12.68, "source": "snapshot§1"},
-          "years": {"value": 10, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.20, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 6,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 2.5,
+            "source": "ai_estimate"
+          },
+          "current_multiple": {
+            "value": 12.68,
+            "source": "snapshot§1"
+          },
+          "terminal_multiple": {
+            "value": 12.68,
+            "source": "snapshot§1"
+          },
+          "years": {
+            "value": 10,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 8.30, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 8.3,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "bull": {
         "inputs": {
-          "eps_growth_pct": {"value": 8, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 2.5, "source": "ai_estimate"},
-          "current_multiple": {"value": 12.68, "source": "snapshot§1"},
-          "terminal_multiple": {"value": 14.46, "source": "snapshot§1", "note": "沪深300 PE 扩张窗 P75"},
-          "years": {"value": 10, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.20, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 8,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 2.5,
+            "source": "ai_estimate"
+          },
+          "current_multiple": {
+            "value": 12.68,
+            "source": "snapshot§1"
+          },
+          "terminal_multiple": {
+            "value": 14.46,
+            "source": "snapshot§1",
+            "note": "沪深300 PE 扩张窗 P75"
+          },
+          "years": {
+            "value": 10,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 1.32, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 11.62, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 1.32,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 11.62,
+          "source": "calc:scenario_annual_return"
+        }
       }
     },
     "valuation_state": {
       "index_code": "000300.SH",
       "metric": "erp_spread",
-      "value": {"value": 6.20, "source": "snapshot§1", "note": "中证A500 无估值源，以沪深300 为代理"},
-      "percentile_expanding": {"value": 73.7, "source": "snapshot§1"},
-      "percentile_10y": {"value": 71.1, "source": "snapshot§1"},
-      "sample_n": {"value": 247, "source": "snapshot§1"},
+      "value": {
+        "value": 6.2,
+        "source": "snapshot§1",
+        "note": "中证A500 无估值源，以沪深300 为代理"
+      },
+      "percentile_expanding": {
+        "value": 73.7,
+        "source": "snapshot§1"
+      },
+      "percentile_10y": {
+        "value": 71.1,
+        "source": "snapshot§1"
+      },
+      "sample_n": {
+        "value": 247,
+        "source": "snapshot§1"
+      },
       "as_of": "2026-09-18"
     }
   },
   "instruments": {
     "merge_note": "",
     "list": [
-      {"code": "022448.OF", "name": "国泰中证A500ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY",
-       "platform_account": "支付宝", "role": "primary", "action": "hold", "reason": "示例：A 类无销售服务费；hold = 持有且定投继续"},
-      {"code": "022449.OF", "name": "国泰中证A500ETF联接-C", "instrument_type": "otc_fund", "share_class": "C", "currency": "CNY",
-       "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "示例：未持有的落选工具——长期持有 C 类年费更高"}
+      {
+        "code": "022448.OF",
+        "name": "国泰中证A500ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "primary",
+        "action": "hold",
+        "reason": "示例：A 类无销售服务费；hold = 持有且定投继续"
+      },
+      {
+        "code": "022449.OF",
+        "name": "国泰中证A500ETF联接-C",
+        "instrument_type": "otc_fund",
+        "share_class": "C",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "示例：未持有的落选工具——长期持有 C 类年费更高"
+      }
     ]
   },
-  "trade_rules": {"min_holding_days": 7, "purchase_limit_note": null},
+  "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+  },
   "decision": {
-    "rule_refs": ["A8", "A9"],
+    "rule_refs": [
+      "A8",
+      "A9",
+      "A13"
+    ],
     "anchors": {
       "basis": "index_level",
       "index_code": "000510.SH",
       "add_below": {
-        "level": {"value": 4440.68, "source": "calc:level_at_multiple"},
-        "target_ratio_pct": {"value": 100, "source": "framework:A9"},
-        "inputs": {
-          "current_level": {"value": 5586.09, "source": "snapshot§6"},
-          "current_multiple": {"value": 12.68, "source": "snapshot§1"},
-          "target_multiple": {"value": 10.08, "source": "snapshot§1", "note": "沪深300 PE 扩张窗 P10"}
+        "level": {
+          "value": 3928.56,
+          "source": "calc:level_at_drawdown_state"
         },
-        "rationale": "示例：代理指数 PE 回到历史 P10 对应的点位"
+        "target_ratio_pct": {
+          "value": 100,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 6314.99,
+            "source": "snapshot§6",
+            "note": "近 36 个月末收盘最高值"
+          },
+          "state": {
+            "value": 0.6221,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P10"
+          }
+        },
+        "rationale": "示例：回撤状态回到自身历史 P10 对应的点位（框架 A9，预注册 R2 validated）"
       },
       "buy_below": {
-        "level": {"value": 4951.71, "source": "calc:level_at_multiple"},
-        "target_ratio_pct": {"value": 50, "source": "framework:A9"},
-        "inputs": {
-          "current_level": {"value": 5586.09, "source": "snapshot§6"},
-          "current_multiple": {"value": 12.68, "source": "snapshot§1"},
-          "target_multiple": {"value": 11.24, "source": "snapshot§1", "note": "沪深300 PE 扩张窗 P25"}
+        "level": {
+          "value": 4354.19,
+          "source": "calc:level_at_drawdown_state"
         },
-        "rationale": "示例：代理指数 PE 回到历史 P25 对应的点位"
+        "target_ratio_pct": {
+          "value": 50,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 6314.99,
+            "source": "snapshot§6",
+            "note": "近 36 个月末收盘最高值"
+          },
+          "state": {
+            "value": 0.6895,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P25"
+          }
+        },
+        "rationale": "示例：回撤状态回到自身历史 P25 对应的点位（框架 A9，预注册 R2 validated）"
       },
       "reduce_above": {
-        "level": {"value": 6370.26, "source": "calc:level_at_multiple"},
-        "target_ratio_pct": {"value": 30, "source": "framework:A9"},
-        "inputs": {
-          "current_level": {"value": 5586.09, "source": "snapshot§6"},
-          "current_multiple": {"value": 12.68, "source": "snapshot§1"},
-          "target_multiple": {"value": 14.46, "source": "snapshot§1", "note": "沪深300 PE 扩张窗 P75"}
+        "level": {
+          "value": 5965.14,
+          "source": "calc:level_at_drawdown_state"
         },
-        "rationale": "示例：代理指数 PE 升到历史 P75 对应的点位"
+        "target_ratio_pct": {
+          "value": 30,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 6314.99,
+            "source": "snapshot§6",
+            "note": "近 36 个月末收盘最高值"
+          },
+          "state": {
+            "value": 0.9446,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P75"
+          }
+        },
+        "rationale": "示例：回撤状态回到自身历史 P75 对应的点位（框架 A9，预注册 R2 validated）"
       },
       "reduce_mode": "to_target_ratio",
       "no_anchor_reason": null,
@@ -306,27 +500,86 @@
   },
   "sizing": {
     "bet_group": "cn-a-broad",
-    "stress_drawdown_pct": {"value": -72, "source": "user:2026-09-19", "note": "核心席位上限表：沪深300 2007–08 实测"},
-    "loss_budget_cny": {"value": 86400, "source": "user:2026-09-19", "note": "核心席位上限表：上限 × 压力跌幅反推"},
-    "standalone_cap_cny": {"value": 120000, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {
+      "value": -72,
+      "source": "user:2026-09-19",
+      "note": "核心席位上限表：沪深300 2007–08 实测"
+    },
+    "loss_budget_cny": {
+      "value": 86400,
+      "source": "user:2026-09-19",
+      "note": "核心席位上限表：上限 × 压力跌幅反推"
+    },
+    "standalone_cap_cny": {
+      "value": 120000,
+      "source": "calc:loss_budget_cap"
+    }
   },
   "monitor_variables": [
-    {"name": "指数相对10月均线", "kind": "auto", "metric": "index_vs_sma10m_pct", "operator": "<",
-     "threshold": {"value": 0, "source": "framework:A9"}, "condition_text": "月末收盘低于10月均线",
-     "data_source": "ai_investment 日频计算", "current_text": null, "frequency": "monthly", "action": "alert", "action_note": ""},
-    {"name": "沪深300 股债利差分位", "kind": "manual", "metric": null, "operator": null,
-     "threshold": {"value": null, "source": null}, "condition_text": "扩张窗分位跌破框架参数总表的低估值线",
-     "data_source": "月度快照 §1", "current_text": null, "frequency": "monthly", "action": "review", "action_note": ""},
-    {"name": "中证A500 编制规则", "kind": "manual", "metric": null, "operator": null,
-     "threshold": {"value": null, "source": null}, "condition_text": "指数公司公告修订编制方案",
-     "data_source": "中证指数公司公告", "current_text": null, "frequency": "event", "action": "review", "action_note": ""}
+    {
+      "name": "指数相对10月均线",
+      "kind": "auto",
+      "metric": "index_vs_sma10m_pct",
+      "operator": "<",
+      "threshold": {
+        "value": 0,
+        "source": "framework:A9"
+      },
+      "condition_text": "月末收盘低于10月均线",
+      "data_source": "ai_investment 日频计算",
+      "current_text": null,
+      "frequency": "monthly",
+      "action": "alert",
+      "action_note": ""
+    },
+    {
+      "name": "沪深300 股债利差分位",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "扩张窗分位跌破框架参数总表的低估值线",
+      "data_source": "月度快照 §1",
+      "current_text": null,
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": ""
+    },
+    {
+      "name": "中证A500 编制规则",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "指数公司公告修订编制方案",
+      "data_source": "中证指数公司公告",
+      "current_text": null,
+      "frequency": "event",
+      "action": "review",
+      "action_note": ""
+    }
   ],
-  "exit": {"invalidation": [], "latest_review_date": "2026-12-19"},
+  "exit": {
+    "invalidation": [],
+    "latest_review_date": "2026-12-19"
+  },
   "scorecard": {
-    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
+    "benchmark": {
+      "code": "H11025.CSI",
+      "name": "同一笔钱放在货币基金"
+    },
     "preregistered_at": "2026-09-19",
     "confidence_pct": 50,
-    "entry_ref_index_level": {"value": 5586.09, "source": "snapshot§6"}
+    "entry_ref_index_level": {
+      "value": 5586.09,
+      "source": "snapshot§6"
+    }
   }
 }
 ```
