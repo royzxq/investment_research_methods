@@ -27,6 +27,8 @@ LADDER = ((10, 1.0), (25, 0.5))          # q <= threshold -> buy up to this shar
 REDUCE_AT, REDUCE_TO = 75, 0.3           # q >= REDUCE_AT -> sell down to REDUCE_TO
 FOLDS = (("F1", "200501", "201012"), ("F2", "201101", "201612"), ("F3", "201701", "202212"), ("F4", "202301", "202608"))
 MIN_SIGNAL_SHARE = 0.8
+TIE = 1e-9   # "strictly better" must not be decided by float noise: once a ladder is fully invested its drawdown equals
+             # buy-and-hold's exactly, and the two came out 1.1e-16 apart (first real run, CSI 300 F2, 2026-09-20)
 CYCLICAL_KEYS = {"000819.SH", "000813.CSI", "399975.SZ", "931151.CSI", "399976.SZ"}   # R1 uses PB for these
 ANNUAL_FEE = {"broad": 0.0020, "sector": 0.0060, "gold": 0.0060}
 
@@ -156,7 +158,7 @@ def judge(folds, *, skill=False):
     folds = [fold for fold in folds if None not in fold["annual"] and None not in fold.get("annual_mix", ())]
     if len(folds) < 3:
         return dict(verdict="insufficient_data", folds=len(folds))
-    better = sum(1 for fold in folds if fold["drawdown"][0] > fold["drawdown"][1])     # drawdowns are <= 0
+    better = sum(1 for fold in folds if fold["drawdown"][0] - fold["drawdown"][1] > TIE)     # drawdowns are <= 0
     gaps = [fold["annual"][0] - fold["annual"][1] for fold in folds]
     mean, sigma = statistics.mean(gaps), statistics.stdev(gaps)
     cost_ok = mean >= 0 or (sigma > 0 and abs(mean) / sigma < 1)
@@ -273,6 +275,11 @@ ROOT = Path(__file__).resolve().parents[1]
 CASH_KEY = "H11025.CSI"
 BROAD_KEYS = {"000300.SH", "000510.SH", "000905.SH", "HSI", "H30269.CSI", "000012.SH", "SPX"}
 PRIMARY = {"R1": "000300.SH", "R2": "HSI", "R3(R1)": "000300.SH", "R3(R2)": "HSI", "R4": "000300.SH"}
+FIXES_AFTER_RESULTS = [   # the prereg requires every post-result code fix to be shown with before/after numbers
+    "2026-09-20 回撤「严格优于」的比较被浮点误差左右：沪深300 在 R1 的 F2 里 2011-12 起满仓，回撤与满仓买入持有在数学上完全相同，"
+    "两者算出来相差 1.1e-16，原代码用 `>` 判成「更优」。修复：差值须大于 1e-9 才算更优（平手不算）。规则、参数、门槛未动。"
+    "修复前后逐项比对，只有三处变化，全部是平手被误判为更优：R1 沪深300 回撤更优折数 3→2，pass→fail，R1 规则结论 validated(primary_index_only)→rejected；R3(R1) 沪深300 回撤更优折数 2→1（结论仍 fail）；R3(R2) 中证医疗 3→2，pass→fail（R3(R2) 其余指数通过数 2/9→1/9，规则结论仍 rejected）。R2、R4 的全部数字不变。修复前的完整报告原样保存为 research/etf-2026-09-18-rule-validation-before-fix.md。",
+]
 
 
 def prereg_commit():
@@ -433,6 +440,7 @@ def main(argv=None):
                 f"结论：{'可用' if check['usable'] else '不可用'}。", "",
                 "| " + " | ".join(check["rows"][0]) + " |", "|" + "---|" * len(check["rows"][0])]
         out += ["| " + " | ".join(str(value) for value in row.values()) + " |" for row in check["rows"]]
+    out += ["", "## 出结果之后的代码修复（预注册要求并列披露）", ""] + [f"- {item}" for item in FIXES_AFTER_RESULTS]
     if blocked:
         out += ["", f"**R1 与 R3(R1) 记「数据不可验证」，不出 validated / rejected 结论**：{blocked}。"]
     out += ["", "## 结论", "", "| 规则 | 主指数 | 主指数结论 | 其余参与指数 通过/有结论 | 规则结论 |", "|---|---|---|---|---|"]

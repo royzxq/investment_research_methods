@@ -111,6 +111,8 @@ class MetricTests(unittest.TestCase):
         self.assertTrue(judge(noisy)["cost_ok"])                                       # mean -1pp, sigma 5.3pp
         unskilled = [fold((-0.2, -0.4), (0.07, 0.07), (0.07, 0.08))] * 3           # safer than holding, no worse, but a plain mix does better
         self.assertEqual(judge(unskilled, skill=True)["verdict"], "no_timing_skill")
+        float_tie = good[:2] + [fold((-0.39873147464696324, -0.39873147464696335), (0.08, 0.05), (0.08, 0.06))]
+        self.assertEqual((judge(float_tie, skill=True)["drawdown_better"], judge(float_tie, skill=True)["verdict"]), (2, "fail"))
         tied_but_behind = [fold((-0.2, -0.4), (0.06, 0.07))] * 3                       # sigma 0 and mean < 0
         self.assertEqual(judge(tied_but_behind)["verdict"], "fail")
         with_a_hole = good + [fold((-0.2, -0.4), (None, 0.07), (None, 0.05))]          # an uncomputable fold does not vote or crash
