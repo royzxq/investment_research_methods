@@ -375,6 +375,10 @@ class LoadTests(unittest.TestCase):
         self.assertNotIn("_doc", params)
         self.assertIn({"key": "HKTECH", "name": "恒生科技", "source": "index_global", "code": "HKTECH", "currency": "HKD"},
                       payload["index_registry"])
+        # an index without a price source is exported with source null, never left out: the execution side reads
+        # "registered but unsourced" as a quiet downgrade and "not registered" as a fault
+        self.assertIn({"key": "HSHYLV", "name": "恒生港股通红利低波动", "source": None, "code": None, "currency": "HKD"},
+                      payload["index_registry"])
 
     def test_missing_snapshot_file_is_an_error(self):
         document = copy.deepcopy(card())
