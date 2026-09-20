@@ -10,7 +10,7 @@ ETF 轨道数据快照 — Tushare Pro + akshare (etf_data v0.1)
   §3 指数结构：前十大、最大单一成分、行业权重、近12个月成分变动、研究覆盖率(--pool-csv)
   §4 指数口径估值自聚合：成分权重 × 个股估值逐月回算 PE/PB/股息率，含沪深300 交叉核对与分位点→点位表
   §5 工具池：持仓基金的代码/费率/净值/规模/跟踪偏离(TD)与跟踪误差(TE)，及同基金其他份额
-  §6 趋势：200日均线、10月均线（只用已完成月）
+  §6 趋势：200日均线、10月均线（只用已完成月）；6b 回撤分位阶梯——规则验证通过的买卖点位推导
   §7 宏观代理：中美10年国债、汇率中间价、金价
   §8 记分结算：随决策卡上线（M3/M4），本版不做
 
@@ -42,12 +42,14 @@ from pathlib import Path
 import pandas as pd
 
 try:
-    from .etf_calc import (aggregate_valuation, erp_spread, expanding_percentile, history_quantiles, month_end_levels,
-                           return_decomposition, sma_state, tracking_difference, tracking_error)
+    from .etf_calc import (aggregate_valuation, drawdown_states, erp_spread, expanding_percentile, history_quantiles,
+                           level_at_drawdown_state, month_end_levels, return_decomposition, sma_state,
+                           tracking_difference, tracking_error)
     from .price_evidence import completed_day_cutoff
 except ImportError:  # direct script invocation
-    from etf_calc import (aggregate_valuation, erp_spread, expanding_percentile, history_quantiles, month_end_levels,
-                          return_decomposition, sma_state, tracking_difference, tracking_error)
+    from etf_calc import (aggregate_valuation, drawdown_states, erp_spread, expanding_percentile, history_quantiles,
+                          level_at_drawdown_state, month_end_levels, return_decomposition, sma_state,
+                          tracking_difference, tracking_error)
     from price_evidence import completed_day_cutoff
 
 try:
@@ -172,6 +174,17 @@ def pairs(df, column):
 
 
 # ============================ 取数 ============================
+def full_levels(code, source):
+    """指数/现货全历史日线收盘（翻页取全）。§6b 的回撤状态分位是扩张窗，必须用全部历史，与规则验证同口径。"""
+    df, complete = paged_history(f"{source}:{code}", lambda end: getattr(api(), source)(ts_code=code, end_date=end),
+                                 pause=6.5 if source == "index_global" else 0.35)   # index_global 每分钟限 10 次
+    if df is None:
+        return None
+    if not complete:
+        gap("§6", f"{code} 历史翻页中断，回撤状态分位基于 {df['trade_date'].iloc[0]} 之后的截断样本")
+    return df[["trade_date", "close"]].dropna().reset_index(drop=True)
+
+
 def daily_levels(code, source, start):
     """指数/现货日线收盘 -> DataFrame(trade_date, close)，升序、去重、截至 CUTOFF。"""
     df = fetch(f"{source}:{code}", lambda: getattr(api(), source)(ts_code=code, start_date=start, end_date=CUTOFF))
@@ -782,6 +795,31 @@ def section_trend(levels):
     return lines + [pd.DataFrame(rows).fillna("").to_string(index=False)]
 
 
+def section_drawdown_ladder(levels):
+    """§6b：规则验证通过的点位推导（预注册 R2）。状态 = 月末收盘 ÷ 近 36 个月末收盘最高值；点位 = 36 月高点 × 状态的历史分位点。"""
+    lines = ["\n  -- 6b 回撤分位阶梯 (预注册 R2 validated @26e3adc；状态=月末收盘÷近36个月末收盘最高值，含当月；当月未完成时以最新收盘代月末；"
+             "分位=扩张窗、低=跌得深；点位=36月高点×状态分位点，由 etf_calc.level_at_drawdown_state 复算) --"]
+    rows = []
+    for entry in INDEX_POOL:
+        level = levels.get(entry["key"])
+        if level is None:
+            continue
+        months = month_end_levels(pairs(level, "close"))
+        days, closes = [day for day, _ in months], [close for _, close in months]
+        states = drawdown_states(closes)
+        observations = list(zip(days, states))
+        position, points = expanding_percentile(observations), history_quantiles(observations, (10, 25, 75))
+        if points["levels"] is None:
+            rows.append({"指数": entry["name"], "代码": entry["code"], "备注": gap("§6", f"{entry['name']} 回撤状态: " + ",".join(points["missing_fields"]))})
+            continue
+        high = max(closes[-36:])
+        rows.append({"指数": entry["name"], "代码": entry["code"], "最新日": iso(days[-1]), "收盘": num(closes[-1]), "36月高点": num(high),
+                     "状态": num(states[-1], 4), "状态分位": num(position["percentile"], 1), "样本月数": position["sample_n"], "自": iso(position["first_date"]),
+                     **{f"P{point}状态": num(state, 4) for point, state in points["levels"].items()},
+                     **{f"P{point}点位": num(level_at_drawdown_state(high, state)) for point, state in points["levels"].items()}})
+    return lines + [pd.DataFrame(rows).fillna("").to_string(index=False)]
+
+
 # ============================ §7 宏观代理 ============================
 def section_macro(bonds, fx, levels):
     lines = ["\n---- §7 宏观代理 ----"]
@@ -853,9 +891,7 @@ def run(snapshot, pool_csv):
         if entry.get("valuation_code"):
             basics[entry["key"]] = valuation_history(entry["valuation_code"])
         if entry["source"]:
-            basic = basics.get(entry["key"])    # §2 日频分解需要与估值同长的点位史
-            start = history_start if basic is None else min(history_start, basic["trade_date"].iloc[0])
-            levels[entry["key"]] = daily_levels(entry["code"], entry["source"], start)
+            levels[entry["key"]] = full_levels(entry["code"], entry["source"])
         if entry.get("tr_code"):
             levels[entry["tr_code"]] = daily_levels(entry["tr_code"], "index_daily", history_start)
 
@@ -865,6 +901,7 @@ def run(snapshot, pool_csv):
     body += section_aggregation(bonds, lg, basics, levels)
     body += section_tools(fund_universe(), levels, fx)
     body += section_trend(levels)
+    body += section_drawdown_ladder(levels)
     body += section_macro(bonds, fx, levels)
     body += ["\n---- §8 记分结算: 随决策卡上线，本版不做 ----"]
 

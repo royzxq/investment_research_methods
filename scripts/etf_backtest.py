@@ -18,9 +18,9 @@ import sys
 from pathlib import Path
 
 try:
-    from .etf_calc import expanding_percentile, month_end_levels, sma_state
+    from .etf_calc import drawdown_states as drawdown_state, expanding_percentile, month_end_levels, sma_state
 except ImportError:  # direct script invocation
-    from etf_calc import expanding_percentile, month_end_levels, sma_state
+    from etf_calc import drawdown_states as drawdown_state, expanding_percentile, month_end_levels, sma_state
 
 BUY_COST = 0.0015
 LADDER = ((10, 1.0), (25, 0.5))          # q <= threshold -> buy up to this share of the account
@@ -193,11 +193,6 @@ def percentile_series(days, values):
         outcome = expanding_percentile(list(zip(days[:t + 1], values[:t + 1])))
         result.append(outcome["percentile"])
     return result
-
-
-def drawdown_state(closes, window=36):
-    """1 + drawdown from the trailing `window`-month high (incl. the current month); lower = deeper."""
-    return [close / max(closes[max(0, t - window + 1):t + 1]) for t, close in enumerate(closes)]
 
 
 def trend_gate(closes, window=10):

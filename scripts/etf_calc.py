@@ -219,6 +219,25 @@ def aggregate_valuation(weights_pct, fundamentals, *, min_coverage_pct=90):
     return result
 
 
+def drawdown_states(month_end_closes, window=36):
+    """State variable of the validated drawdown ladder (prereg R2): each month-end close over the highest
+    of the last `window` month-end closes, itself included. 1.0 = at the high; lower = deeper drawdown."""
+    closes = [_number(close, positive=True) for close in month_end_closes]
+    if None in closes:
+        raise ValueError("month_end_closes_must_be_positive_numbers")
+    return [close / max(closes[max(0, t - window + 1):t + 1]) for t, close in enumerate(closes)]
+
+
+def level_at_drawdown_state(rolling_high, state):
+    """Index level at which close / rolling_high equals `state` (a quantile of the state's own history, in (0, 1])."""
+    rolling_high, state = _number(rolling_high, positive=True), _number(state, positive=True)
+    if rolling_high is None or state is None:
+        return None
+    if state > 1:
+        raise ValueError("state_is_close_over_rolling_high_and_cannot_exceed_1")
+    return rolling_high * state
+
+
 def level_at_multiple(current_level, current_multiple, target_multiple):
     """Index level at which the valuation multiple would equal target_multiple, earnings held constant."""
     values = [_number(value, positive=True) for value in (current_level, current_multiple, target_multiple)]

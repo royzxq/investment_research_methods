@@ -6,7 +6,8 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.etf_calc import (aggregate_valuation, erp_spread, expanding_percentile, history_quantiles, joint_stress_loss, level_at_multiple,
+from scripts.etf_calc import (aggregate_valuation, drawdown_states, erp_spread, expanding_percentile, history_quantiles, joint_stress_loss, level_at_drawdown_state,
+                              level_at_multiple,
                               lookthrough_weights, loss_budget_cap, month_end_levels, premium_pct, return_decomposition,
                               scenario_annual_return, sma_state, tracking_difference, tracking_error)
 
@@ -156,6 +157,18 @@ class ScalarTests(unittest.TestCase):
         self.assertAlmostEqual(level_at_multiple(4507.39, 12.68, 12.68), 4507.39)
         for args in ((None, 12, 10), (4500, 0, 10), (4500, -3, 10), (4500, 12, None), (0, 12, 10)):
             self.assertIsNone(level_at_multiple(*args))
+
+    def test_drawdown_state_and_the_level_it_implies(self):
+        self.assertEqual(drawdown_states([10, 20, 10, 5, 5], window=3), [1.0, 1.0, 0.5, 0.25, 0.5])
+        self.assertEqual(drawdown_states([]), [])
+        with self.assertRaises(ValueError):
+            drawdown_states([10, None, 5])
+        self.assertAlmostEqual(level_at_drawdown_state(28000, 0.72), 20160)
+        self.assertEqual(level_at_drawdown_state(28000, 1.0), 28000)
+        for args in ((None, 0.7), (28000, None), (0, 0.7), (28000, 0)):
+            self.assertIsNone(level_at_drawdown_state(*args))
+        with self.assertRaises(ValueError):       # 72 instead of 0.72: a percent slipped in where a ratio belongs
+            level_at_drawdown_state(28000, 72)
 
     def test_premium_pct_and_the_ten_percent_collapse(self):
         self.assertAlmostEqual(premium_pct(1.10, 1.00), 10.0)
