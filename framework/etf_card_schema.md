@@ -248,9 +248,9 @@
       "index_code": "000300.SH",
       "metric": "erp_spread",
       "value": {"value": 6.20, "source": "snapshot§1", "note": "中证A500 无估值源，以沪深300 为代理"},
-      "percentile_expanding": {"value": 74.8, "source": "snapshot§1"},
+      "percentile_expanding": {"value": 73.7, "source": "snapshot§1"},
       "percentile_10y": {"value": 71.1, "source": "snapshot§1"},
-      "sample_n": {"value": 258, "source": "snapshot§1"},
+      "sample_n": {"value": 247, "source": "snapshot§1"},
       "as_of": "2026-09-18"
     }
   },

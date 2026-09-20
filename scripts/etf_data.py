@@ -8,7 +8,7 @@ ETF 轨道数据快照 — Tushare Pro + akshare (etf_data v0.1)
   §1 估值：PE/PB、股债利差(100/PE − 10年国债) 及分位（扩张窗 + 10年窗，附样本数）
   §2 回报分解：价格年化 = 隐含每股盈利增长 ⊗ 估值变化（复利关系，非简单相加）
   §3 指数结构：前十大、最大单一成分、行业权重、近12个月成分变动、研究覆盖率(--pool-csv)
-  §4 指数口径基本面：第二期，本版不做
+  §4 指数口径估值自聚合：成分权重 × 个股估值逐月回算 PE/PB/股息率，含沪深300 交叉核对与分位点→点位表
   §5 工具池：持仓基金的代码/费率/净值/规模/跟踪偏离(TD)与跟踪误差(TE)，及同基金其他份额
   §6 趋势：200日均线、10月均线（只用已完成月）
   §7 宏观代理：中美10年国债、汇率中间价、金价
@@ -23,8 +23,9 @@ ETF 轨道数据快照 — Tushare Pro + akshare (etf_data v0.1)
     index_weight 取 AS_OF 前 45 天内最近一期。回放历史日期时这几项不是 point-in-time。
 
 诚实声明(v0.1, 2026-09-19)：各接口于 2026-09-19 本地实测可用(tushare 1.4.29 / akshare 1.18.64)。
-乐咕乐股月频 PE 与 tushare index_dailybasic 日频 PE 算法不同(同日 12.68 vs 13.43)，不可混用；
-两者是否 point-in-time 未验证，作回测输入前须按任务说明 §5 抽 5 个历史日期自算核对。
+乐咕乐股月频 PE 与 tushare index_dailybasic 日频 PE 都是总市值加权口径(同日 12.68 vs 13.43)；§4 自聚合是指数权重口径
+(同日 15.86)，三者不可混用。§4a 在 5 个固定历史日 + 当日用同一份成分与个股数据按总市值口径复算，与两个现成源的偏差
+均在 4% 以内(2026-09-19 实测)，说明成分与个股估值是当时口径；tushare 个股 pe_ttm 本身是否逐日 point-in-time 无法独立验证。
 akshare 费率来自天天基金页面，未与基金公告逐只核对。
 """
 
@@ -41,11 +42,11 @@ from pathlib import Path
 import pandas as pd
 
 try:
-    from .etf_calc import (erp_spread, expanding_percentile, history_quantiles, month_end_levels,
+    from .etf_calc import (aggregate_valuation, erp_spread, expanding_percentile, history_quantiles, month_end_levels,
                            return_decomposition, sma_state, tracking_difference, tracking_error)
     from .price_evidence import completed_day_cutoff
 except ImportError:  # direct script invocation
-    from etf_calc import (erp_spread, expanding_percentile, history_quantiles, month_end_levels,
+    from etf_calc import (aggregate_valuation, erp_spread, expanding_percentile, history_quantiles, month_end_levels,
                           return_decomposition, sma_state, tracking_difference, tracking_error)
     from price_evidence import completed_day_cutoff
 
@@ -75,6 +76,9 @@ TOKEN = os.getenv("TUSHARE_TOKEN", "")
 AS_OF = datetime.now().strftime("%Y%m%d")
 CUTOFF = AS_OF                       # run() 内按已完成交易日收紧
 RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"
+OUTDIR = Path(__file__).resolve().parents[1] / "output"      # 已 gitignore：§4 自聚合的原始取数缓存
+AGGREGATION_START = 2005                                     # index_weight / daily_basic 的最早有效年份
+PIT_CHECK_DATES = ("20071031", "20081031", "20140630", "20181228", "20210226")   # 与现成估值源交叉核对的固定日
 TRACKING_YEARS = 3
 MARK = "[需人工补充]"
 
@@ -102,7 +106,7 @@ HOLDINGS = [
 HK_ETF = ("02800", "盈富基金", "HSI")    # 盈立证券直持；akshare 新浪港股日线，无净值源
 
 STATIC_GAPS = [   # 运行时探测不到的缺口；探测得到的由 gap() 逐次登记
-    "§1 港股指数(恒生科技/恒指/港股通红利低波/两只港股创新药)与多数行业指数的估值无现成源；指数口径自聚合属 §4 第二期",
+    "§1 港股指数(恒生科技/恒指/港股通红利低波/两只港股创新药)无估值源，§4 自聚合也覆盖不了港股成分（个股估值无源）",
     "§3 恒生科技、恒指、恒生港股通红利低波动的成分与权重无现成源；QDII 标的成分无源",
     "§5 港股与跨境指数无全收益序列 → TD 对价格指数计算，含分红差",
     "§5 02800 的费率与净值无源",
@@ -177,22 +181,33 @@ def daily_levels(code, source, start):
     return df.reset_index(drop=True)
 
 
-def valuation_history(code):
-    """index_dailybasic 单次上限 3000 行：按日期向前翻页取全。"""
-    frames, end, label = [], CUTOFF, f"index_dailybasic:{code}"
+def paged_history(label, call, pause=0.35):
+    """tushare 按行数封顶（index_dailybasic 3000、index_global 4000）：按 end_date 向前翻页取全。call(end) -> DataFrame。
+    index_global 另有每分钟 10 次的限频，调用方须把 pause 调到 6.5 秒以上。
+
+    返回 (升序去重后的 DataFrame 或 None, 是否完整)。后续页失败时保留 §0 的失败状态并返回不完整，由调用方决定怎么声明。
+    """
+    frames, end = [], CUTOFF
     while True:
-        df = fetch(label, lambda: api().index_dailybasic(ts_code=code, end_date=end, fields="ts_code,trade_date,pe_ttm,pb"))
+        df = fetch(label, lambda: call(end), pause)
         if df is None or df["trade_date"].max() > end:   # 后者=接口忽略了 end_date，再翻页只会死循环
             break
         frames.append(df)
         end = (datetime.strptime(df["trade_date"].min(), "%Y%m%d") - timedelta(days=1)).strftime("%Y%m%d")
     if not frames:
-        return None
-    if INTERFACES[label].startswith("失败"):   # 后续页失败：保留失败状态，分位将基于截断的历史
-        gap("§1", f"{code} 估值历史翻页中断于 {end}，分位与分位点基于截断样本")
-    else:
+        return None, False
+    complete = not INTERFACES[label].startswith("失败")
+    if complete:
         INTERFACES[label] = "通"          # 翻到空页是正常终点
-    return pd.concat(frames).drop_duplicates("trade_date").sort_values("trade_date").reset_index(drop=True)
+    return pd.concat(frames).drop_duplicates("trade_date").sort_values("trade_date").reset_index(drop=True), complete
+
+
+def valuation_history(code):
+    df, complete = paged_history(f"index_dailybasic:{code}", lambda end: api().index_dailybasic(
+        ts_code=code, end_date=end, fields="ts_code,trade_date,pe_ttm,pb"))
+    if df is not None and not complete:
+        gap("§1", f"{code} 估值历史翻页中断于 {df['trade_date'].iloc[0]} 之前，分位与分位点基于截断样本")
+    return df
 
 
 def fund_universe():
@@ -254,12 +269,33 @@ def fx_rates():
 
 
 def bond_yields():
-    df = fetch("ak.bond_zh_us_rate", lambda: ak.bond_zh_us_rate(start_date="20050101"), pause=0)
-    if df is None:
+    """中国 10 年国债取中债国债收益率曲线（chinabond，经 akshare，单次最多一年，逐年取并缓存）；
+    美国 10 年取东财汇总接口，仅供 §7 展示——该接口时通时断(2026-09-19 多次超时)，失败不影响股债利差。"""
+    frames = []
+    for year in range(AGGREGATION_START, int(CUTOFF[:4]) + 1):
+        end = min(f"{year}1231", CUTOFF)
+        df = cached_csv(f"bond_china_yield_{year}.csv", f"ak.bond_china_yield:{year}",
+                        lambda y=year, e=end: ak.bond_china_yield(start_date=f"{y}0101", end_date=e), immutable=end < days_ago(10))
+        if df is not None:
+            frames.append(df[df["曲线名称"] == "中债国债收益率曲线"][["日期", "10年"]])
+        elif INTERFACES.get(f"ak.bond_china_yield:{year}", "").startswith("失败"):
+            gap("§1", f"中债国债收益率 {year} 年取数失败 → 整条收益率序列弃用，股债利差不可算（已成功的年份已缓存，重跑即可）")
+            return None   # 缺一年会把那一年的利差压成一条平线，缺当年则会拿去年底的收益率冒充现值
+    if not frames:
         return None
-    df = df.rename(columns={"日期": "trade_date", "中国国债收益率10年": "cn10y", "美国国债收益率10年": "us10y"})
-    df["trade_date"] = pd.to_datetime(df["trade_date"]).dt.strftime("%Y%m%d")
-    return df[df["trade_date"] <= CUTOFF][["trade_date", "cn10y", "us10y"]].sort_values("trade_date").reset_index(drop=True)
+    china = pd.concat(frames).rename(columns={"日期": "trade_date", "10年": "cn10y"})
+    china["trade_date"] = pd.to_datetime(china["trade_date"]).dt.strftime("%Y%m%d")
+    china["cn10y"] = pd.to_numeric(china["cn10y"], errors="coerce")
+    china = china.dropna().drop_duplicates("trade_date")
+    china["cn10y_date"] = china["trade_date"]
+    us = fetch("ak.bond_zh_us_rate", lambda: ak.bond_zh_us_rate(start_date=days_ago(30)), pause=0)
+    if us is not None:
+        us = us.rename(columns={"日期": "trade_date", "美国国债收益率10年": "us10y"})[["trade_date", "us10y"]]
+        us["trade_date"] = pd.to_datetime(us["trade_date"]).dt.strftime("%Y%m%d")
+        china = china.merge(us, how="outer", on="trade_date")
+    else:
+        china["us10y"] = None
+    return china[china["trade_date"] <= CUTOFF].sort_values("trade_date").reset_index(drop=True)
 
 
 def asof_join(left, right, columns):
@@ -297,11 +333,12 @@ def valuation_block(title, df, bonds):
     """df: trade_date, pe_ttm, pb。打印当前值与两种窗口的分位。"""
     lines = [f"\n[{title}]  数据 {df['trade_date'].iloc[0]} → {df['trade_date'].iloc[-1]}，共 {len(df)} 期"]
     if bonds is not None:
-        df = asof_join(df, bonds, ["cn10y"])
+        df = asof_join(df, bonds, ["cn10y", "cn10y_date"])
         df["erp"] = [erp_spread(pe, y) for pe, y in zip(df["pe_ttm"], df["cn10y"])]
     else:
-        df["cn10y"] = df["erp"] = None
-        gap("§1", f"{title}: 10年国债收益率不可得 → 股债利差不可算")
+        df["cn10y"] = df["erp"] = df["cn10y_date"] = None
+        if not any("10年国债收益率不可得" in item for item in GAPS):
+            gap("§1", "10年国债收益率不可得 → 各指数的股债利差不可算")
     last = df.iloc[-1]
     rows = [("PE_TTM (分位高=贵)", "pe_ttm", num(last["pe_ttm"])), ("PB (分位高=贵)", "pb", num(last["pb"])),
             ("股债利差 100/PE−10年国债 (分位高=便宜)", "erp", num(last["erp"], suffix="pp"))]
@@ -311,7 +348,9 @@ def valuation_block(title, df, bonds):
         levels = history_quantiles(pairs(df, column))["levels"]
         if levels is not None:   # 情景的期末倍数只能取自这里，不由 AI 估
             lines.append("    历史分位点(扩张窗): " + " / ".join(f"P{point} {level:.2f}" for point, level in levels.items()))
-    lines.append(f"  10年国债(估值日或之前最近一期): {num(last['cn10y'], 4, '%')}")
+    lines.append(f"  10年国债(估值日或之前最近一期): {num(last['cn10y'], 4, '%')} @{last['cn10y_date'] or '—'}")
+    if last["cn10y_date"] and (datetime.strptime(last["trade_date"], "%Y%m%d") - datetime.strptime(last["cn10y_date"], "%Y%m%d")).days > 10:
+        lines.append(f"  ⚠ 收益率比估值日早 10 天以上 → {gap('§1', title + ': 国债收益率过旧，当前股债利差存疑')}")
     return lines
 
 
@@ -427,6 +466,204 @@ def section_structure(pool_codes):
             covered = now[now["con_code"].str.split(".").str[0].isin(pool_codes)]
             lines.append(f"  研究覆盖率: {covered['weight'].sum():.1f}% ({len(covered)} 只在个股研究池内)")
     return lines
+
+
+# ============================ §4 指数口径估值自聚合 ============================
+def cached_csv(name, label, call, *, immutable):
+    """output/ 下的 CSV 缓存。immutable=True 的历史片段命中即不重取；未完结的当年片段每次重取。
+
+    接口明确返回空表（指数当年尚未发布、当日非交易日）也是不可变事实，缓存成 0 字节文件；
+    取数失败不缓存——否则一次断网会被永久记成"无数据"。空表不算接口异常，不进 §0。
+    """
+    path = OUTDIR / name
+    if immutable and path.exists():
+        return pd.read_csv(path, dtype=str) if path.stat().st_size else None
+    df = fetch(label, call)
+    empty = df is None and INTERFACES.get(label) == "空表"
+    if empty:
+        del INTERFACES[label]
+    if immutable and (df is not None or empty):
+        OUTDIR.mkdir(exist_ok=True)
+        path.touch() if empty else df.to_csv(path, index=False)
+    return df
+
+
+def weight_history(code):
+    """index_weight 全历史，按半年取（500 只成分 × 6 个月末 = 3000 行，低于单次 6000 行上限）。"""
+    frames = []
+    for year in range(AGGREGATION_START, int(CUTOFF[:4]) + 1):
+        for half, (start, end) in enumerate(((f"{year}0101", f"{year}0630"), (f"{year}0701", f"{year}1231")), 1):
+            if start > CUTOFF:
+                break
+            df = cached_csv(f"index_weight_{code}_{year}H{half}.csv", f"index_weight:{code}:{year}H{half}",
+                            lambda s=start, e=min(end, CUTOFF): api().index_weight(index_code=code, start_date=s, end_date=e),
+                            immutable=end < days_ago(45))   # 月末权重发布有滞后：半年结束 45 天后才视为定稿
+            if df is not None:
+                frames.append(df)
+    if not frames:
+        return None
+    df = pd.concat(frames, ignore_index=True).drop_duplicates(["trade_date", "con_code"])
+    df["weight"] = df["weight"].astype(float)
+    return df[df["trade_date"] <= CUTOFF]
+
+
+def market_fundamentals(day):
+    """全市场当日 pe_ttm / pb / dv_ttm（一次调用）。返回 (实际估值日, {代码: 读数}) 或 None。
+
+    接口明确返回空表 = 非交易日，回退到之前最近的交易日（最多 6 天）；取数**失败**不回退——拿前一天的估值配当天的权重是静默错数。
+    近 5 天的空表可能只是 tushare 尚未发布，不当作定稿缓存。
+    """
+    for back in range(7):
+        probe = (datetime.strptime(day, "%Y%m%d") - timedelta(days=back)).strftime("%Y%m%d")
+        label = f"daily_basic:{probe}"
+        df = cached_csv(f"daily_basic_{probe}.csv", label, lambda p=probe: api().daily_basic(
+            trade_date=p, fields="ts_code,pe_ttm,pb,dv_ttm"), immutable=probe < days_ago(5))
+        if df is not None:
+            for column in ("pe_ttm", "pb", "dv_ttm"):
+                df[column] = pd.to_numeric(df[column], errors="coerce")
+            return probe, df.set_index("ts_code")[["pe_ttm", "pb", "dv_ttm"]].to_dict("index")
+        if INTERFACES.get(label, "").startswith("失败"):
+            return None
+    return None
+
+
+def aggregate_all(weights_by_key):
+    """逐月末：成分权重 × 个股估值 → 各指数的 PE/PB/股息率序列。按日期外层循环，内存里只留一天的全市场表。
+
+    每个指数在最新一期权重之后追加一行「数据上界当日」：最新权重 × 当日个股估值（忽略月内权重漂移），与 §6 点位同日。
+    """
+    plan = {}
+    for key, weights in weights_by_key.items():
+        months = [(day, dict(zip(month["con_code"], month["weight"]))) for day, month in weights.groupby("trade_date")]
+        if months and months[-1][0] < CUTOFF:
+            months.append((CUTOFF, months[-1][1]))
+        for day, members in months:
+            plan.setdefault(day, []).append((key, members))
+    rows = {key: [] for key in weights_by_key}
+    for day in sorted(plan):
+        found = market_fundamentals(day)
+        if found is None:
+            gap("§4", f"{day}: 全市场估值不可得，{len(plan[day])} 个指数该期跳过")
+            continue
+        priced_on, fundamentals = found
+        for key, members in plan[day]:
+            if rows[key] and priced_on <= rows[key][-1]["trade_date"]:
+                continue
+            result = aggregate_valuation(members, fundamentals)
+            rows[key].append(dict(trade_date=priced_on, pe_ttm=result["pe_ttm"], pb=result["pb"],
+                                  dividend_yield_pct=result["dividend_yield_pct"], loss_weight_pct=result["loss_weight_pct"],
+                                  coverage_pct=result["coverage_pct"], status=result["status"]))
+    return {key: pd.DataFrame(series) for key, series in rows.items() if series}
+
+
+def section_aggregation(bonds, lg, basics, levels):
+    lines = ["\n---- §4 指数口径估值自聚合 (成分权重 × 个股 pe_ttm/pb/dv_ttm；亏损股盈利按 0 计，PE 因此偏低；月末口径) ----",
+             "  口径：按**指数权重**（自由流通调整）调和加权 = 持有该指数的组合市盈率，点位换算与它自洽。"
+             "乐咕与 tushare index_dailybasic 是**总市值加权**（Σ总市值÷Σ净利润），低估值大盘股占比更高，读数系统性偏低；两种口径不可混用。"]
+    weights_by_key, skipped = {}, {}
+    for entry in INDEX_POOL:
+        code = entry.get("weight_code")
+        if not code:
+            continue
+        latest = latest_weights(code, days_ago(45), CUTOFF)   # 先看最新一期：港股成分为主的指数不必再取 20 年权重史
+        hk_share = 0 if latest is None else latest.loc[latest["con_code"].str.endswith(".HK"), "weight"].sum()
+        if hk_share > 50:
+            skipped[entry["key"]] = f"港股成分权重 {hk_share:.0f}%，个股估值无源 → {gap('§4', f'{code} 港股成分估值无源，未自聚合')}"
+            continue
+        weights = weight_history(code)
+        if weights is None:
+            skipped[entry["key"]] = gap("§4", f"{code} 成分权重历史不可得")
+            continue
+        weights_by_key[entry["key"]] = weights
+    series_by_key, aggregated = aggregate_all(weights_by_key), {}
+    OUTDIR.mkdir(exist_ok=True)
+    for entry in INDEX_POOL:
+        key, code = entry["key"], entry.get("weight_code")
+        if key in skipped:
+            lines.append(f"\n[{entry['name']} {code}] {skipped[key]}")
+        if key not in weights_by_key:
+            continue
+        series = series_by_key.get(key)
+        if series is None or series["status"].eq("complete").sum() == 0:
+            lines.append(f"\n[{entry['name']} {code}] {gap('§4', f'{code} 自聚合无完整月份')}")
+            continue
+        usable = series[series["status"] == "complete"].reset_index(drop=True)
+        aggregated[key] = usable
+        series.to_csv(OUTDIR / f"etf_valuation_{key}.csv", index=False)   # 规则验证(etf_backtest.py)读这一份
+        lines += valuation_block(f"{entry['name']} {code} | 自聚合月频", usable[["trade_date", "pe_ttm", "pb"]].copy(), bonds)
+        last = usable.iloc[-1]
+        lines.append(f"  股息率(权重加权): 当前 {num(last['dividend_yield_pct'], suffix='%')} | 扩张窗分位 "
+                     f"{percentile_cell(usable, 'dividend_yield_pct', None)} | 亏损股权重 {num(last['loss_weight_pct'])}% | "
+                     f"个股估值覆盖 {num(last['coverage_pct'])}% | 不完整月份 {int((series['status'] != 'complete').sum())} 个")
+    lines += pit_cross_check(weights_by_key.get("000300.SH"), aggregated.get("000300.SH"), lg.get("000300.SH"), basics.get("000300.SH"))
+    lines += level_table(aggregated, lg, basics, levels)
+    return lines
+
+
+def total_cap_pe(weights, day):
+    """现成源的口径：Σ成分总市值 ÷ Σ成分净利润(总市值÷pe_ttm，亏损股不计)。只在核对日取数。"""
+    current = weights[weights["trade_date"] <= day]
+    if current.empty:
+        return None
+    members = set(current.loc[current["trade_date"] == current["trade_date"].max(), "con_code"])
+    df = cached_csv(f"daily_basic_mv_{day}.csv", f"daily_basic_mv:{day}",
+                    lambda: api().daily_basic(trade_date=day, fields="ts_code,pe_ttm,total_mv"), immutable=day < CUTOFF)
+    if df is None:
+        return None
+    df = df[df["ts_code"].isin(members)].assign(pe_ttm=lambda d: pd.to_numeric(d["pe_ttm"], errors="coerce"),
+                                                 total_mv=lambda d: pd.to_numeric(d["total_mv"], errors="coerce"))
+    profitable = df[df["pe_ttm"] > 0]
+    earnings = (profitable["total_mv"] / profitable["pe_ttm"]).sum()
+    return df["total_mv"].sum() / earnings if earnings > 0 else None
+
+
+def pit_cross_check(weights, own, monthly, daily):
+    """沪深300：用同一份成分与个股数据按现成源的口径（总市值加权）复算，能复现才说明原始数据与成分是当时口径。"""
+    lines = ["\n  -- 4a 沪深300 数据核对：按现成源口径(总市值加权)复算 ÷ 现成源；各核对日 |偏差| ≤ 10% 视为原始数据与成分口径可用 --"]
+    if weights is None or own is None:
+        return lines + [f"  {gap('§4', '沪深300 未自聚合，数据核对未做')}"]
+    rows, deviations = [], []
+    for day in PIT_CHECK_DATES + (own["trade_date"].iloc[-1],):
+        pick = lambda df: df[df["trade_date"] <= day].iloc[-1]["pe_ttm"] if df is not None and (df["trade_date"] <= day).any() else None
+        replica, references = total_cap_pe(weights, day), (pick(monthly), pick(daily))
+        ratios = [replica / reference if replica and pd.notna(reference) and reference > 0 else None for reference in references]
+        deviations += [abs(ratio - 1) for ratio in ratios if ratio is not None]
+        rows.append({"核对日": day, "总市值口径复算": num(replica), "乐咕": num(references[0]), "÷乐咕": num(ratios[0], 3),
+                     "tushare": num(references[1]), "÷tushare": num(ratios[1], 3), "指数权重口径(本节)": num(pick(own))})
+    lines.append(pd.DataFrame(rows).to_string(index=False))
+    checked = sum(1 for row in rows if row["÷乐咕"] != "—" or row["÷tushare"] != "—")
+    usable = bool(checked >= 3 and max(deviations) <= 0.10)   # numpy 标量进不了 json
+    if checked < 3:
+        lines.append(f"  判定: 可核对日 {checked} 个，不足 3 个 → {gap('§4', '沪深300 数据核对样本不足')}")
+    else:
+        lines.append(f"  判定: 可核对日 {checked} 个，最大偏差 {max(deviations) * 100:.1f}% → 原始数据与成分口径{'可用' if usable else '不可用'}")
+    (OUTDIR / "etf_valuation_check.json").write_text(json.dumps(   # 预注册 §1 的前置条件，etf_backtest.py 据此决定 R1 出不出结论
+        dict(as_of=AS_OF, cutoff=CUTOFF, checked_days=checked, max_deviation_pct=float(max(deviations)) * 100 if deviations else None,
+             usable=usable, rows=rows), ensure_ascii=False, indent=1), encoding="utf-8")
+    return lines
+
+
+def level_table(aggregated, lg, basics, levels):
+    """估值分位点 → 指数点位（盈利不变假设：点位 × 目标倍数 ÷ 当前倍数）。卡里仍须引用分位点与当前值经 calc 复算。"""
+    lines = ["\n  -- 4b 估值分位点对应的指数点位（PE 扩张窗 P10/P25/P50/P75/P90；来源优先：自聚合 > 乐咕 > tushare） --"]
+    rows = []
+    for entry in INDEX_POOL:
+        key = entry["key"]
+        source, df = next(((label, table[key]) for label, table in (("自聚合", aggregated), ("乐咕", lg), ("tushare", basics))
+                           if table.get(key) is not None), (None, None))
+        level = levels.get(key)
+        if df is None or level is None:
+            continue
+        quantiles = history_quantiles(pairs(df, "pe_ttm"))["levels"]
+        priced = level[level["trade_date"] <= df["trade_date"].iloc[-1]]   # 点位取估值日当天：两者不同日则换算出的点位是错的
+        current_pe = df["pe_ttm"].iloc[-1]
+        if quantiles is None or pd.isna(current_pe) or priced.empty:
+            continue
+        current_level = priced["close"].iloc[-1]
+        rows.append({"指数": entry["name"], "来源": source, "估值日": df["trade_date"].iloc[-1], "当前PE": num(current_pe),
+                     "点位日": priced["trade_date"].iloc[-1], "当前点位": num(current_level),
+                     **{f"P{p}": num(current_level * q / current_pe) for p, q in quantiles.items()}})
+    return lines + ([pd.DataFrame(rows).to_string(index=False)] if rows else ["  （无可用估值序列）"])
 
 
 # ============================ §5 工具池 ============================
@@ -549,9 +786,10 @@ def section_trend(levels):
 def section_macro(bonds, fx, levels):
     lines = ["\n---- §7 宏观代理 ----"]
     if bonds is not None:
-        for label, column in (("中国10年国债", "cn10y"), ("美国10年国债", "us10y")):
+        for label, column in (("中国10年国债(中债曲线)", "cn10y"), ("美国10年国债", "us10y")):
             series = bonds.dropna(subset=[column])
-            lines.append(f"  {label}: {num(series[column].iloc[-1], 4, '%')} @{series['trade_date'].iloc[-1]}")
+            lines.append(f"  {label}: {num(series[column].iloc[-1], 4, '%')} @{series['trade_date'].iloc[-1]}" if not series.empty
+                         else f"  {label}: {gap('§7', label + ' 不可得')}")
     else:
         lines.append(f"  国债收益率: {gap('§7', '中美10年国债收益率不可得')}")
     if fx is not None:
@@ -624,7 +862,7 @@ def run(snapshot, pool_csv):
     body = section_valuation(bonds, lg, basics)
     body += section_decomposition(lg, basics, levels)
     body += section_structure(load_pool_codes(pool_csv) if pool_csv else None)
-    body += ["\n---- §4 指数口径基本面: 第二期，本版不做 ----"]
+    body += section_aggregation(bonds, lg, basics, levels)
     body += section_tools(fund_universe(), levels, fx)
     body += section_trend(levels)
     body += section_macro(bonds, fx, levels)

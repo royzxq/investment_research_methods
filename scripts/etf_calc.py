@@ -176,6 +176,49 @@ def scenario_annual_return(eps_growth_pct, dividend_yield_pct, current_multiple,
     return _finish(result, keys)
 
 
+def aggregate_valuation(weights_pct, fundamentals, *, min_coverage_pct=90):
+    """Index-level PE, PB and dividend yield from constituent weights and per-stock readings.
+
+    weights_pct {code: % of index}; fundamentals {code: {"pe_ttm", "pb", "dv_ttm"}} (dv_ttm in %).
+    PE and PB are weight-harmonic (index earnings over index price) across constituents whose
+    multiple is positive; a constituent whose pe_ttm is missing or non-positive is a loss-maker
+    (tushare reports no pe_ttm for them) and its weight is reported as loss_weight_pct, so the
+    aggregate PE overstates earnings by exactly that omission; a missing or non-positive pb is
+    treated the same way (book counted as zero). Constituents absent from
+    fundamentals reduce coverage_pct; below min_coverage_pct nothing is concluded.
+    """
+    keys = ("pe_ttm", "pb", "dividend_yield_pct", "loss_weight_pct", "coverage_pct")
+    result = _result(**dict.fromkeys(keys), total_weight_pct=0.0)
+    covered = earnings = book = dividends = losses = 0.0
+    for code, weight in weights_pct.items():
+        weight = _number(weight)
+        if weight is None or weight < 0:
+            raise ValueError(f"invalid_weight:{code}")
+        result["total_weight_pct"] += weight
+        row = fundamentals.get(code)
+        if row is None:
+            continue
+        covered += weight
+        pe, pb, dividend = (_number(row.get(key)) for key in ("pe_ttm", "pb", "dv_ttm"))
+        if pe is not None and pe > 0:
+            earnings += weight / pe
+        else:
+            losses += weight
+        if pb is not None and pb > 0:
+            book += weight / pb
+        dividends += weight * (dividend or 0.0)
+    if result["total_weight_pct"] <= 0:
+        result["missing_fields"].append("weights")
+        return _finish(result, keys)
+    result.update(coverage_pct=100 * covered / result["total_weight_pct"], loss_weight_pct=100 * losses / result["total_weight_pct"])
+    if result["coverage_pct"] < min_coverage_pct:
+        result["missing_fields"].append(f"coverage_pct:{result['coverage_pct']:.1f}/{min_coverage_pct}")
+        return _finish(result, ("pe_ttm", "pb", "dividend_yield_pct"))
+    result.update(pe_ttm=covered / earnings if earnings > 0 else None, pb=covered / book if book > 0 else None,
+                  dividend_yield_pct=dividends / covered)
+    return result
+
+
 def level_at_multiple(current_level, current_multiple, target_multiple):
     """Index level at which the valuation multiple would equal target_multiple, earnings held constant."""
     values = [_number(value, positive=True) for value in (current_level, current_multiple, target_multiple)]

@@ -6,7 +6,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.etf_calc import (erp_spread, expanding_percentile, history_quantiles, joint_stress_loss, level_at_multiple,
+from scripts.etf_calc import (aggregate_valuation, erp_spread, expanding_percentile, history_quantiles, joint_stress_loss, level_at_multiple,
                               lookthrough_weights, loss_budget_cap, month_end_levels, premium_pct, return_decomposition,
                               scenario_annual_return, sma_state, tracking_difference, tracking_error)
 
@@ -111,6 +111,37 @@ class ExpandingPercentileTests(unittest.TestCase):
         for bad in ((0,), (100,), (12.5,)):
             with self.assertRaises(ValueError):
                 history_quantiles(monthly(list(range(80))), bad)
+
+
+class AggregateValuationTests(unittest.TestCase):
+    def test_weight_harmonic_multiples_and_weighted_yield(self):
+        weights = {"A": 50, "B": 30, "C": 20}
+        rows = {"A": dict(pe_ttm=10, pb=1.0, dv_ttm=4.0), "B": dict(pe_ttm=20, pb=2.0, dv_ttm=2.0), "C": dict(pe_ttm=40, pb=4.0, dv_ttm=0.0)}
+        result = aggregate_valuation(weights, rows)
+        self.assertEqual(result["status"], "complete")
+        self.assertAlmostEqual(result["pe_ttm"], 100 / (50 / 10 + 30 / 20 + 20 / 40))   # 14.29: earnings-weighted, not mean of PEs
+        self.assertAlmostEqual(result["pb"], 100 / (50 / 1 + 30 / 2 + 20 / 4))
+        self.assertAlmostEqual(result["dividend_yield_pct"], (50 * 4 + 30 * 2) / 100)
+        self.assertEqual((result["loss_weight_pct"], result["coverage_pct"], result["total_weight_pct"]), (0.0, 100.0, 100.0))
+
+    def test_loss_makers_are_counted_not_guessed(self):
+        rows = {"A": dict(pe_ttm=10, pb=1.0, dv_ttm=None), "B": dict(pe_ttm=None, pb=0.8, dv_ttm=1.0), "C": dict(pe_ttm=-5, pb=None, dv_ttm=None)}
+        result = aggregate_valuation({"A": 60, "B": 25, "C": 15}, rows)
+        self.assertAlmostEqual(result["pe_ttm"], 100 / (60 / 10))   # B and C excluded from earnings
+        self.assertAlmostEqual(result["loss_weight_pct"], 40.0)
+        self.assertAlmostEqual(result["pb"], 100 / (60 / 1 + 25 / 0.8))   # C's book treated as zero, like a loss-maker's earnings
+        self.assertAlmostEqual(result["dividend_yield_pct"], 25 * 1.0 / 100)
+
+    def test_thin_coverage_gives_no_multiple(self):
+        result = aggregate_valuation({"A": 50, "B": 50}, {"A": dict(pe_ttm=10, pb=1, dv_ttm=1)})
+        self.assertEqual((result["status"], result["pe_ttm"], result["pb"]), ("incomplete", None, None))
+        self.assertEqual(result["missing_fields"], ["coverage_pct:50.0/90"])
+        self.assertEqual(result["coverage_pct"], 50.0)
+        self.assertEqual(aggregate_valuation({}, {})["missing_fields"], ["weights"])
+        with self.assertRaises(ValueError):
+            aggregate_valuation({"A": -1}, {})
+        all_losses = aggregate_valuation({"A": 100}, {"A": dict(pe_ttm=None, pb=None, dv_ttm=None)})
+        self.assertEqual((all_losses["status"], all_losses["pe_ttm"], all_losses["loss_weight_pct"]), ("complete", None, 100.0))
 
 
 class ScalarTests(unittest.TestCase):
