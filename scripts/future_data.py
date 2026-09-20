@@ -17,15 +17,23 @@ v2.27 框架数据脚本 — Tushare Pro 版 (v1.16)
 v1.16（2026-09-19，对应框架 v2.27 周度状态换版）——配置层随动 + §2b 一列新增，无算法改动：
   ★ §0b EVENTS 日历滚动：归档 9/14 萨拉拉会(推迟无新日期)、9/14 CPI/WASDE 国内响应日、9/15 统计局硬数据、9/17 FOMC(加息 25bp)、
     9/14-9/18 霍尔木兹/俄乌占位窗、调减硬截止条目；新增 9/21、9/29 郑商所国庆前分级提保扩板节点(交易所公告日程, 不自动打 D12,
-    仅提示 ±1 日门槛+0.3)、10/1-10/8 国庆长假占位(9/30=T-1 处置日; 不自动打标)、10/27-10/28 FOMC(自动打标 T-3/±1; 官方时间与
-    国内 T-n 待下月核)；9/30 俄禁令条目加注 Vedomosti 延期报道级与长假 T-1；10/4 OPEC+ 加注闭市期/10/9 首个响应日。
+    仅提示 ±1 日门槛+0.3)、10/1-10/8 国庆长假占位(9/30=T-1 处置日; 不自动打标)、10/27-10/29 FOMC(★PR#26 review P1 修正:
+    美东会期 10/27-28 的起始日不是决议交易日(框架 v2.23 唯一计算口径), 按会期自动打标会把 D12 的 T-3 锚在会议首日、10/28 后
+    失效, 恰好漏掉国内决议日(预计 10/29)→改为占位项不自动打标, 官方 released_at 核实后改写为单一国内交易日并恢复自动打标)；
+    9/30 俄禁令条目加注 Vedomosti 延期报道级与长假 T-1；10/4 OPEC+ 加注闭市期/10/9 首个响应日。
     FIXED_RISK_WINDOWS 两条 9 月窗已到期(脚本按 AS_OF 自动不再显示), 保留条目作历史口径, 不新增 10 月窗(待官方日历)。
-  ★ §2b.1 新增「日结算涨跌%」「近5日结算涨跌%」「#30近3日≥5%」三列：用同一合约 settle/pre_settle 逐日计算(缺任一端或非正数=None),
+  ★ §2b.1 新增「日结算涨跌%」「近5日结算涨跌%」「#30近3日≥5%」三列：用同一合约 settle/pre_settle 逐日计算
+    (缺任一端、非有限值(NaN/±inf)或非正数=None; ★PR#26 review P2 修正: 由只挡 NaN 改为 math.isfinite 有限性校验,
+    与 price_evidence._number(positive=True) 同口径, 避免 inf 端点伪造 ∞/-100% 涨跌而误触 #30, 或落成静默 NaN 被读作"无命中"),
     供框架 0.3#30(能源链单日结算涨跌≥5%→顺向新开否决 3 交易日)按判定腿(MA2701)人工核验；脚本只算数值, 不判定命中/冷却、不授许可。
     背景：9/19 快照只有周涨列, 2026-09-19 执行诊断把 MA2701 #30 记为 unknown(raw_data)。
+  ★ 版本串同步(★PR#26 review P2 修正): argparse description、运行抬头与「快照完成」标记行由 v2.26/v1.15 改为 v2.27/v1.16,
+    否则本版快照会被下游审计当作未含 #30 新列的 v1.15 快照。
   ★ 滚动监测注释 ①/③/⑥/⑦/⑧ 按框架 v2.27 改写(①改判中断证真的反向监测; 第五轮 9/10 已落地纠错; 交易所收紧)。
   ★ 诚实声明: 本版**未经线上实测**(本环境无 tushare/pandas/numpy 与网络); 已做 python3 -m py_compile、配置区离线 ast 检查
-    (EVENTS/FIXED_RISK_WINDOWS 元组形状)与仓库单元测试(134 项通过; 10 项脚本集成测试因本环境缺 numpy/pandas 未运行, 与改动前基线相同)。
+    (EVENTS/FIXED_RISK_WINDOWS 元组形状)与仓库单元测试(150 项中 141 项通过; 9 项脚本集成测试因本环境缺 numpy/pandas 未运行,
+    与改动前基线相同 —— 原第 10 项 test_event_countdown 因本次日历滚动归档了它硬编码的 9 月条目而失效, 已改为冻结 fixture
+    并去掉 numpy 依赖, 现离线可跑; 新增 6 项回归覆盖 PR#26 三条 review: 自动打标条目锚单日、非有限结算端点、版本串一致性)。
     新增三列的纯计算路径以合成 records 离线自测(见适配报告第 8 节); 真实环境运行后须核 settle/pre_settle 字段与 MA2701 逐日读数。
 
 v1.15（2026-09-17，对应框架 v2.26）：
@@ -82,6 +90,7 @@ scripts/futures_risk.py提供纯离线函数及JSON CLI。常规单笔/全账户
 import os
 import re
 import sys
+import math
 import time
 import argparse
 import json
@@ -159,11 +168,15 @@ EVENTS = [   # ★v1.16 2026-09-19 按框架 v2.27 1.4 事件轴刷新(用户维
      ("MA", "SC", "AU"),
      "★v1.13 9/6七国维持10月产量水平不变='按兵→同向延续'分支兑现; 10/4: 按兵→延续 / 增产或闲置产能释放表态→回吐触发、MA存量10/9检视; "
      "节点±1按事件窗口纪律(闭市期→10/9按落地次日确认)"),
-    ("20261027", "20261028", "美联储10月FOMC(10/27-28; ★v1.16 官方发布时间与国内T-n待下月按0.0b核; 暂按会议日期占位并自动打T-3/±1提示)",
+    ("20261027", "20261029", "美联储10月FOMC(美东会期10/27-28, 国内响应日待核; ★v1.16 占位不自动打标, 待官方发布时间核实后改写为单一国内交易日)",
      "ALL",
+     "★v1.16 会议起始日不是决议交易日(框架v2.23事件时间唯一计算口径): 美东10/28 14:00=北京10/29 02:00→国内T预计=10/29(未核), "
+     "按会期10/27自动打T-3/±1会把D12锚在会议首日并在10/28后失效, 恰好漏掉国内决议日→本条按占位项人工核验, 不自动打标; "
+     "核实官方released_at与来源后, 改写为单一国内交易日(如20261029-20261029)并删除第6项恢复自动打标, 届时T-3/T-1/T+1按真实交易日历重算; "
+     "核实前人工口径: 国内T预计10/29→T-3≈10/26、±1=10/28-10/30(0.1新开限制核对), 不得当已核离散事件用; "
      "★v1.16 9/17加息25bp后点阵16/18年内再加、10月再加息概率49%(记者会后)→57%(9/18); 三剧本: 再加息→D13压制延续/美元10Y新高评估; "
-     "按兵或转鸽→D13复归档议题重启评估前置(需美元连涨中断周度确认); #29 AU/AG按T-10核重入(AU信号席不建仓); "
-     "决议映射到国内交易日(美东10/28 14:00=北京10/29 02:00→国内T大概率=10/29)待官方日历核实后改写本条日期"),
+     "按兵或转鸽→D13复归档议题重启评估前置(需美元连涨中断周度确认); #29 AU/AG按T-10核重入(AU信号席不建仓)",
+     False),
 ]
 # 滚动/不可排期监测(无精确日期可登记, 人工跟踪; ★v1.8 按框架 v2.20(1.4/6.8 沿 v2.19)刷新):
 #   ①政策资金结构修复裁决第二读数(②''形式过门·结构核对未过: 投放后一至两周流入结构是否向成长腿修复
@@ -799,18 +812,21 @@ def daily_settlement_changes(records, days=5, guard_days=3, guard_pct=5.0):
     """★v1.16 Per-session settle/pre_settle change for the latest ``days`` sessions (0.3#30 input).
 
     Returns (latest_pct, series_text, guard_text). A session is valid only when both settle and
-    pre_settle are finite positives; otherwise it is reported as None. The script only computes the
-    numbers: whether #30 is hit, which direction is frozen and when the cooling window ends are
-    judged by the framework reader against the designated leg (MA2701 since 9/16).
+    pre_settle are finite positives; ★v1.16 inf/-inf are rejected by math.isfinite together with
+    NaN (same contract as price_evidence._number(positive=True)), so a broken endpoint can neither
+    fabricate an infinite/-100% move that falsely trips #30 nor sink to a silent NaN that reads as
+    "no hit"; it is reported as None instead. The script only computes the numbers: whether #30 is
+    hit, which direction is frozen and when the cooling window ends are judged by the framework
+    reader against the designated leg (MA2701 since 9/16).
     """
     rows = []
     for rec in list(records)[-days:]:
         try:
             settle = float(rec.get("settle")) if rec.get("settle") is not None else float("nan")
             pre = float(rec.get("pre_settle")) if rec.get("pre_settle") is not None else float("nan")
-        except (TypeError, ValueError):
+        except (TypeError, ValueError, OverflowError):
             settle, pre = float("nan"), float("nan")
-        ok = settle == settle and pre == pre and settle > 0 and pre > 0
+        ok = (math.isfinite(settle) and math.isfinite(pre) and settle > 0 and pre > 0)
         pct = round((settle / pre - 1) * 100, 2) if ok else None
         rows.append((str(rec.get("trade_date")), pct))
     if not rows:
@@ -1322,7 +1338,7 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v2.26 框架数据脚本 (Tushare Pro, v1.15)")
+        description="v2.27 框架数据脚本 (Tushare Pro, v1.16)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
@@ -1341,7 +1357,7 @@ def main():
 
 def run(snapshot):
 
-    print(f"== v2.26 框架数据脚本 v1.15 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
+    print(f"== v2.27 框架数据脚本 v1.16 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
           f"2ATR预检预算{RISK_BUDGET:,.0f}(非账户剩余额度) | 事件节点{len(EVENTS)}项(用户维护) ==")
     print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
           "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")
@@ -1405,7 +1421,7 @@ def run(snapshot):
     print("     港口库存全链、铁水/利润、战争险/通行量/出口等按模型可选；缺失只影响依赖该证据的路线。")
     print("     政策/地缘/供给强因果模型仍须自身专属证据；不可得则research_only，不以价格代理证真。")
     print("     池外休眠品种不追加例行采集，不把背景缺项扩大为全池冻结。")
-    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.15 | 本行存在即输出完整 ==")
+    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.16 | 本行存在即输出完整 ==")
 
 
 if __name__ == "__main__":

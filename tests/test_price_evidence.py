@@ -4,7 +4,9 @@ import ast
 from datetime import datetime, timezone, timedelta
 import io
 import json
+import math
 import os
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -412,6 +414,17 @@ class ScriptIntegrationTests(unittest.TestCase):
             self.assertTrue(any("不能确认#13/D4已过" in missing for missing in item["missing_fields"]))
 
 
+def busday_distance(start, end):
+    """np.busday_count 同口径的纯 Python 替身: 左闭右开, end 在 start 之前为负。"""
+    first, last = (datetime.strptime(day, "%Y%m%d").date() for day in (start, end))
+    sign = 1 if last >= first else -1
+    day, stop, count = min(first, last), max(first, last), 0
+    while day < stop:
+        count += day.weekday() < 5
+        day += timedelta(days=1)
+    return sign * count
+
+
 def script_config(name):
     tree = ast.parse((ROOT / "scripts" / "future_data.py").read_text())
     assignment = next(node for node in tree.body if isinstance(node, ast.Assign)
@@ -457,15 +470,17 @@ class ResearchPipelineTests(unittest.TestCase):
         self.assertTrue(all(row["execution_permission"] == "not_evaluated" for row in result))
 
     def test_event_countdown_uses_domestic_dates_and_retains_early_window(self):
-        import numpy as np
-
-        def distance(start, end):
-            return int(np.busday_count(datetime.strptime(start, "%Y%m%d").date(),
-                                       datetime.strptime(end, "%Y%m%d").date()))
-
+        # EVENTS is rolled every week, so the countdown behaviour is pinned to a frozen
+        # fixture instead of whichever live entries happen to survive this week's roll;
+        # the live table keeps its own invariants below.
+        events = [
+            ("20260914", "20260918", "霍尔木兹中断复归侧裁决监控窗(不可排期占位)", "ALL", "占位不打标", False),
+            ("20260914", "20260914", "美国8月CPI(官方发布映射国内交易日)", ("MA", "SC"), "国内T=9/14"),
+            ("20260917", "20260917", "美联储9月FOMC决议(官方发布映射国内交易日)", "ALL", "国内T=9/17"),
+        ]
         ns = isolated_functions({"_event_flags", "print_fixed_risk_windows"}, dict(
-            EVENTS=script_config("EVENTS"), FIXED_RISK_WINDOWS=script_config("FIXED_RISK_WINDOWS"),
-            AS_OF="20260909", _busdays=distance, EVENT_T3_BUSDAYS=3, EVENT_HORIZON_BD=10))
+            EVENTS=events, FIXED_RISK_WINDOWS=script_config("FIXED_RISK_WINDOWS"),
+            AS_OF="20260909", _busdays=busday_distance, EVENT_T3_BUSDAYS=3, EVENT_HORIZON_BD=10))
         upcoming, affected = ns["_event_flags"]()
         fomc = next(row for row in upcoming if "FOMC决议" in row[2])
         cpi = next(row for row in upcoming if "美国8月CPI" in row[2])
@@ -494,6 +509,101 @@ class ResearchPipelineTests(unittest.TestCase):
         fomc = next(row for row in ns["_event_flags"]()[0] if "FOMC决议" in row[2])
         self.assertEqual(fomc[5], 3)
         self.assertTrue(fomc[7])
+
+    def test_auto_tagged_events_are_pinned_to_a_single_domestic_trade_date(self):
+        """v2.23「会议起始日不是决议交易日」: a multi-day span may never auto-tag D12.
+
+        `_event_flags` anchors T-3 on the first day and drops `in_t3` after the last one,
+        so auto-tagging a meeting span (e.g. the 10/27-28 FOMC) both opens D12 days early
+        and leaves the domestic decision day (10/29) uncovered; such entries stay manual
+        until the official release time pins them to one domestic trade date.
+        """
+        for start, end, label, prods, note, *auto in script_config("EVENTS"):
+            with self.subTest(event=label[:24]):
+                self.assertLessEqual(start, end)
+                if not auto or auto[0]:
+                    self.assertEqual(start, end, "自动打标条目必须锚在单一国内交易日")
+
+    def test_a_meeting_span_left_on_auto_would_miss_the_domestic_decision_day(self):
+        events = [("20261027", "20261028", "美联储10月FOMC(会期)", "ALL", "起始日≠决议日")]
+        ns = isolated_functions({"_event_flags"}, dict(
+            EVENTS=events, AS_OF="20261029", _busdays=busday_distance,
+            EVENT_T3_BUSDAYS=3, EVENT_HORIZON_BD=10))
+        self.assertEqual(ns["_event_flags"]()[1], set())
+        ns["AS_OF"] = "20261022"
+        self.assertEqual(ns["_event_flags"]()[1], {"ALL"})
+
+
+class DailySettlementChangeTests(unittest.TestCase):
+    """0.3#30 输入列: settle/pre_settle 两端必须是有限正数, 否则该交易日报 None。"""
+
+    def changes(self, records, **kwargs):
+        ns = isolated_functions({"daily_settlement_changes"}, dict(math=math))
+        return ns["daily_settlement_changes"](records, **kwargs)
+
+    def test_finite_endpoints_give_the_percentage_series_and_guard_text(self):
+        rows = [{"trade_date": "20260916", "settle": 2000, "pre_settle": 2000},
+                {"trade_date": "20260917", "settle": 1880, "pre_settle": 2000},
+                {"trade_date": "20260918", "settle": 1900, "pre_settle": 1880}]
+        latest, series, guard = self.changes(rows)
+        self.assertEqual(latest, 1.06)
+        self.assertEqual(series, "20260916:0.0|20260917:-6.0|20260918:1.06")
+        self.assertEqual(guard, "≥5%命中:20260917(-6.0%)")
+
+    def test_non_finite_endpoints_neither_fake_a_hit_nor_silently_read_as_no_hit(self):
+        """PR#26 review P2: 只挡 NaN 会让 inf 端点算出 ∞/-100% 误触 #30, 或落成静默 NaN。"""
+        for settle, pre in ((float("inf"), 2000.0), (2000.0, float("inf")),
+                            (float("inf"), float("inf")), (float("-inf"), 2000.0),
+                            (float("nan"), 2000.0), (2000.0, float("nan")),
+                            (10 ** 400, 2000.0), (0.0, 2000.0), (-2000.0, 2000.0),
+                            (None, 2000.0), ("2000", None), ("x", 2000.0)):
+            with self.subTest(settle=settle, pre=pre):
+                latest, series, guard = self.changes(
+                    [{"trade_date": "20260918", "settle": settle, "pre_settle": pre}])
+                self.assertIsNone(latest)
+                self.assertEqual(series, "20260918:null")
+                self.assertEqual(guard, "unknown(近3日结算端点缺失)")
+
+    def test_one_broken_session_does_not_void_the_finite_ones(self):
+        rows = [{"trade_date": "20260916", "settle": float("inf"), "pre_settle": 2000.0},
+                {"trade_date": "20260917", "settle": 2000.0, "pre_settle": 2000.0},
+                {"trade_date": "20260918", "settle": 2200.0, "pre_settle": 2000.0}]
+        latest, series, guard = self.changes(rows, guard_days=2)
+        self.assertEqual(latest, 10.0)
+        self.assertEqual(series, "20260916:null|20260917:0.0|20260918:10.0")
+        self.assertEqual(guard, "≥5%命中:20260918(+10.0%)")
+
+
+class ScriptVersionTests(unittest.TestCase):
+    """PR#26 review P2: 快照必须自报产出它的版本, 否则下游审计分不清是否含 #30 新列。"""
+
+    SOURCE = (ROOT / "scripts" / "future_data.py").read_text()
+    HEADER = r"v(\d+\.\d+) 框架数据脚本 — Tushare Pro 版 \(v(\d+\.\d+)\)"
+
+    def declared(self):
+        header = ast.get_docstring(ast.parse(self.SOURCE)).splitlines()[0]
+        match = re.match(self.HEADER, header)
+        self.assertIsNotNone(match, f"文件头版本行格式已变更: {header!r}")
+        return match.group(1), match.group(2)
+
+    def test_every_emitted_version_string_matches_the_declared_header(self):
+        framework, script = self.declared()
+        for label, pattern, expected in (
+                ("argparse description",
+                 r'description="v(\d+\.\d+) 框架数据脚本 \(Tushare Pro, v(\d+\.\d+)\)"',
+                 (framework, script)),
+                ("运行抬头",
+                 r"== v(\d+\.\d+) 框架数据脚本 v(\d+\.\d+) \|",
+                 (framework, script)),
+                ("快照完成标记",
+                 r"== 快照完成 \| AS_OF=\{AS_OF\} \| 脚本 v(\d+\.\d+) \|",
+                 (script,))):
+            with self.subTest(emitted=label):
+                found = re.findall(pattern, self.SOURCE)
+                self.assertEqual(len(found), 1, f"{label} 版本串应恰好出现一次")
+                actual = found[0] if isinstance(found[0], tuple) else (found[0],)
+                self.assertEqual(actual, expected,
+                                 f"{label} 仍在输出旧版本, 与文件头 v{framework}/v{script} 不一致")
 
 
 def weekdays(start, end, skip=()):
