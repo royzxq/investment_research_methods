@@ -16,7 +16,7 @@ ETF 轨道数据快照 — Tushare Pro + akshare (etf_data v0.1)
 
 口径：
   · 分位=样本中严格低于当前值的占比(0-100，当前值计入样本)，历史不足5年不出结论。
-  · TD/TE 取基金复权净值对指数，窗口=两者共同日期的近3年；优先全收益指数，
+  · TD/TE 取基金复权净值对指数，窗口=两者共同日期的近3年（剔除基金成立后半年的建仓期）；优先全收益指数，
     只有价格指数时照算并标"指数不含分红"；外币指数按外管局中间价折人民币；币种未核=缺口。
   · 基金代码后缀一律取 fund_basic 返回的 ts_code，不按前缀推断交易所。
   · --as-of 只截断行情、净值与估值序列；基金清单、费率、赎回费、股票名称与行业是运行当日口径，
@@ -697,7 +697,8 @@ def tracking_cells(nav, entry, levels, fx, found_date):
     if level is None:
         return f"TD/TE {gap('§5', entry['name'] + ' TD/TE: 指数行情不可得')}(指数行情不可得)"
     index_cny = to_cny(level, entry["currency"], fx)
-    start = days_ago(int(TRACKING_YEARS * 365.25))
+    settled = (datetime.strptime(found_date, "%Y%m%d") + timedelta(days=183)).strftime("%Y%m%d")
+    start = max(days_ago(int(TRACKING_YEARS * 365.25)), settled)   # 成立后半年是建仓期，算进去会把 TD/TE 放大数倍(021031.OF 实测 9% 对 4%)
     kwargs = dict(fund_basis="adj_nav", index_basis=basis, fund_currency="CNY",
                   index_currency="CNY" if index_cny is not None else entry["currency"])
     index_series = pairs((index_cny if index_cny is not None else level).query("trade_date >= @start"), "close")
@@ -708,12 +709,11 @@ def tracking_cells(nav, entry, levels, fx, found_date):
         reasons = ",".join(td["missing_fields"]) + ("；" + entry["note"] if entry.get("note") else "")
         return f"TD/TE {gap('§5', entry['name'] + ' TD/TE: ' + reasons)}({reasons})"
     converted = "" if entry["currency"] == "CNY" else f"，{entry['currency']}按中间价折人民币"
-    build_up = (td["window_start"] - datetime.strptime(found_date, "%Y%m%d").date()).days < 183
     return (f"TD 年化 {num(td['annual_td_pct'], suffix='pp')} / 区间 {num(td['period_td_pct'], suffix='pp')}；"
             f"TE 年化 {num(te['annual_te_pct'], suffix='%')} | 窗口 {iso(td['window_start'])}→{iso(td['window_end'])}"
             f" n={td['observations']} | 基准口径={basis}{converted}"
             + ("（指数不含分红，TD 含分红差）" if td["warnings"] else "")
-            + (" ⚠窗口含成立后半年内的建仓期，TD/TE 失真" if build_up else ""))
+            + ("；窗口已剔除成立后半年的建仓期" if start == settled else ""))
 
 
 def fee_cells(code, row):
