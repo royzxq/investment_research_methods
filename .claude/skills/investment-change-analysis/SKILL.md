@@ -1,6 +1,6 @@
 ---
 name: investment-change-analysis
-description: 股票元框架变化检测（流水线阶段②）：对比本次与上一次 meta investment analysis 调研结果，判定是否需要更新股票投资分析框架，写入 research/investment-<AS_OF_DATE>-change-decision.md。Use when asked to run the change-detection stage, or to standalone-compare two existing research reports without running the full pipeline.
+description: 股票元框架变化检测（流水线阶段②）：对比本次与上一次 meta investment analysis 调研结果，判定是否需要更新股票投资分析框架，写入 research/investment-日期-change-decision.md。Use when asked to run the change-detection stage, or to standalone-compare two existing research reports without running the full pipeline.
 ---
 
 # investment change analysis（流水线阶段②）
@@ -11,7 +11,7 @@ description: 股票元框架变化检测（流水线阶段②）：对比本次�
 - `CURRENT_META_RESULT`：本次 meta-investment-analysis 产出的调研报告全文
 - `PREVIOUS_META_RESULT`：上一次调研报告全文（**可能不存在，见下方查找规则**）
 - `PREVIOUS_CHANGE_DECISION`：上一次的变化检测报告全文（与 `PREVIOUS_META_RESULT` 同日期的 `investment-<该日期>-change-decision.md`；找不到就视为无）
-- `CURRENT_FRAMEWORK`：`framework/investment_framework.md` 现行全文（跳过顶部 HTML 注释行）
+- `CURRENT_FRAMEWORK`：`framework/investment_framework.md` 现行全文（跳过顶部 HTML 注释行）；方法修订、参数核对和歧义裁决仍以此为准，实际个股研究可用保真 compact 导航
 
 由 `investment-weekly-review` 编排器调用时，`PREVIOUS_META_RESULT` 按以下规则查找：
 1. 在 `research/` 下找文件名匹配 `investment-*-market-research.md`、日期早于 `AS_OF_DATE` 的文件，取日期最近的一份
@@ -49,6 +49,8 @@ DO_NOT_OVERREACT_ITEMS: []
 ```
 
 ## 执行（有 `PREVIOUS_META_RESULT` 时的正常路径）
+
+历史脉络先读已有 `research/investment-<date>-market-research.md`、`research/investment-<date>-change-decision.md` 和必要的 `research/investment-<date>-adaption-report.md`；规则来由不清时再查相关 git 变更。canonical 保存现行有效框架，不要求保留全部历周状态和修订经过；下列三条触发轴及输出字段不变。
 
 1. **上期预备观察项复核（先于一切比较）**：读 `PREVIOUS_CHANGE_DECISION`，找出其中带复核条件的遗留项——"预备观察项"、"下周复核"、"若 X 则触发 light/significant 更新"这类被上期显式推迟的判定。逐条判定本周是否已触发，并在报告里新增一节「0. 上期预备观察项复核」逐条给出处置（已触发 / 未触发 / 已失效），**不许静默丢弃**。任一遗留项已触发 → 其本身即构成 `update_needed: yes` 的充分依据（更新级别按该条目当时预设的档位，未预设则从 light 起步），不需要本周环比再额外达到触发门槛——上期说了"等验证后再更新"，验证到了就要兑现，否则"再等等"会退化成"永远不更"
 2. 读取 `projects/investment_change_analysis/INSTRUCTIONS.md`，完整遵循其中的角色、目标、分析原则与六步分析流程；代入上面的输入变量做周环比对比

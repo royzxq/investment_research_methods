@@ -4,11 +4,12 @@
 
 ## 期货轨道：meta future analysis → future change analysis → future adaption → future data sync
 
-- **v2.23 默认采用有限数据模式 `public_data`**：先查 MA/RB 的现有行情与合约资料，再为进入研究的候选选择至少一项合适的公开产业证据。专业船流、战争险、装置/利润数据库不再是全池必填项；依赖它们的强因果模型保留原验证要求并可转 `research_only`。详见 `framework/FUTURES_DATA_PROTOCOL.md`，三阶段及报告A都须与 canonical 一起读取。v2.23将确认定义、逐门依赖、换月准备、事件时间及发布审计写入主框架；规则更新时间与市场快照日期分列。
+- **v2.23 默认采用有限数据模式 `public_data`**：先查 MA/RB 的现有行情与合约资料，再为进入研究的候选选择至少一项合适的公开产业证据。专业船流、战争险、装置/利润数据库不再是全池必填项；依赖它们的强因果模型保留原验证要求并可转 `research_only`。详见 `framework/FUTURES_DATA_PROTOCOL.md`，三阶段及报告A都须读取该协议；标的研究可用 compact 导航，方法与参数核对以 canonical 为准。v2.23将确认定义、逐门依赖、换月准备、事件时间及发布审计写入主框架；规则更新时间与市场快照日期分列。
 - 研究输出与执行核验分步：先给具体逻辑、方向、价格计划和期限，再核实际账户、挂单、费用、保证金与执行压力。研究无需付费专业全链，真实交易输入仍不得猜测。新版改动与验证记录见 `research/2026-09-07-data-accessibility-adaption.md`。
 - `projects/{meta_future_analysis,future_change_analysis,future_adaption}/INSTRUCTIONS.md` — 三个 Claude.ai Project 的原始 instruction
 - `framework/futures_framework.md` — 现行「期货投资分析框架」活文档，只能通过分支 + PR 更新，不直接改 main
-- `framework/futures_framework_compact.md` — **仅供人阅读**的去冗余衍生文件（剥离历代【本次更新】标记与版本簿记），由 `framework-condense` 阶段在每次框架更新时从 canonical 全文自动再生，勿手改；**任何 AI/流水线环节一律使用上面的 canonical 完整版**
+- `framework/futures_framework_compact.md` — 完整框架的**保真精简版**，删除重复表述、历代修订标记与版本簿记，保留有效规则、阈值、例外和当前状态；由 `framework-condense` 从 canonical 生成，勿分别手改规则；**实际标的研究可用 compact 执行导航；遇到歧义、方法修订或参数核对时回到 canonical 权威定义**
+- 维护时只局部更新受影响内容，适配报告记录变更并链接完整文件，不再粘贴全文；最新周度状态在主文对应统一区域更新，历史留在 git 和日期报告。文本精简不改变现行策略范围、评分、风险或每周执行审计要求。
 - `scripts/future_data.py` — 框架配套取数脚本（Tushare/akshare），版本随框架结构性变化同步迭代；本身无网络环境无法线上实测，改动需人工在有真实数据源的环境里运行验证
 - `scripts/price_evidence.py` — v1.11取数脚本使用的离线价格证据模块：区分 settle/close、SC专用结算周涨、固定合约对1/5/10交易日价差变化与同期样本验收。周涨按最新已完成行情日减7自然日，不按研究日减7天；没有最终结算则不使用收盘价替代护栏。脚本仍需用户已有Tushare权限，未新增无Token的CSV导入入口；可由研究方读取终端导出作为独立证据，不等于脚本自动支持导入。
 - v1.11 的SC结算周涨不再因ATR/OHLC错误整行丢失，CSV分列指标错误、价格证据错误及具体结算缺项；默认额外准备MA2701–MA2705、RB2701–RB2703，按合约对独立输出CSV与 `output/spread_research_<AS_OF>.json` 样本摘要。准备输出不自动替换当前合约/分位、不授予许可。事件时间映射到国内交易日，已有提前风险安排另列；本次修订说明见 `research/2026-09-09-research-method-repair.md`。
@@ -26,7 +27,8 @@
 
 - `projects/{meta_investment_analysis,investment_change_analysis,investment_adaption}/INSTRUCTIONS.md` — 三个 Claude.ai Project 的原始 instruction；字段口径与期货那套不同（`DOMINANT_RETURN_DRIVERS`/`FRAGILE_NARRATIVE`/`research_meaning`，`investment_adaption` 输入变量名为 `CURRENT_STOCK_RESEARCH_FRAMEWORK`）
 - `framework/investment_framework.md` — 现行「个股调研框架」活文档，本质是逐股分析用的参数化模板（含 `{{COMPANY_NAME}}`/`{{TICKER_OR_CODE}}`/`{{VALUATION_DATE}}` 占位符），不是像期货框架那样对所有标的通用的执行规则集；同样只能通过分支 + PR 更新
-- `framework/investment_framework_compact.md` — **仅供人阅读**的去冗余衍生文件，由 `framework-condense` 阶段自动再生，勿手改；**任何 AI/流水线环节一律使用 canonical 完整版**
+- `framework/investment_framework_compact.md` — 完整框架的保真精简版，由 `framework-condense` 从 canonical 生成；保留有效规则、阈值、例外、当前状态与模板占位符，不分别维护另一套判据。可供 AI 个股研究导航，方法修订、参数核对及歧义裁决仍以 canonical 为准
+- 股票框架只局部更新受影响内容，当前状态原位替换，不累加旧状态或历代修订标记。适配报告链接完整文件并记录必要变更片段，不粘全文；变化检测从日期研究报告和必要 git 变更读取历史。现行研究范围、分析要求、输入输出字段和发布边界保持不变
 - 框架 Section 0 提到配套取数脚本 `stock_data_pack.py`（对应期货侧 `future_data.py` 的角色），目前本仓库与 `ai_investment` 均未找到该脚本，暂未设计联动同步阶段
 - `research/` — `investment-baseline-market-research.md`（day-0 基线，可为空——为空时首次运行按"无历史基线"处理，不是错误）+ `investment-<date>-market-research.md` / `investment-<date>-change-decision.md`（始终直接 push 到 main）/ `investment-<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
 - `.claude/skills/` — `meta-investment-analysis` / `investment-change-analysis` / `investment-adaption`（三个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `investment-weekly-review`（编排器，统一开 PR）

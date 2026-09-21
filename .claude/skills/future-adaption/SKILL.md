@@ -1,6 +1,6 @@
 ---
 name: future-adaption
-description: 期货执行框架更新（流水线阶段③，仅在阶段②判定 update_needed=yes 时触发）：据变化检测结果起草新版期货执行框架，写入 research/ 下的日期适配报告并整篇替换 framework/futures_framework.md，在新分支上提交等待后续阶段与人工确认，不直接改 main、本阶段自己不开 PR。Use when asked to run the framework-update stage or draft a framework revision from an existing change-decision report.
+description: 期货执行框架更新（流水线阶段③，仅在阶段②判定 update_needed=yes 时触发）：据变化检测结果起草新版期货执行框架，写入 research/ 下的日期适配报告并局部更新 framework/futures_framework.md，在新分支上提交等待后续阶段与人工确认，不直接改 main、本阶段自己不开 PR。Use when asked to run the framework-update stage or draft a framework revision from an existing change-decision report.
 ---
 
 # future adaption（流水线阶段③）
@@ -18,11 +18,11 @@ description: 期货执行框架更新（流水线阶段③，仅在阶段②判�
 ## 执行
 
 1. 先读取 `framework/FUTURES_DATA_PROTOCOL.md`，再读取 `projects/future_adaption/INSTRUCTIONS.md`，完整遵循其中的角色、目标、分析原则与六步流程；代入上述输入变量。执行诊断口径读取 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`；区分市场变化、证据纠错与数据可得性变化，DO_NOT_OVERREACT_ITEMS 不阻止纠错。优先保证活跃池模型的最小公开证据能重复获取，专业依赖不可得的路线单列 `research_only` 与恢复条件，不新增全局必填数据或转成用户长期裁量项。公共数据模式的 A 评分沿 canonical 固定表统一归一化规定，D9 等中性值只引用 canonical，不在包装层复制另一套公式。列出新版本使哪些旧信号/风险输出失效，供数据同步后刷新诊断
-2. 严格按 instruction 第六步给出的格式，产出完整的「期货执行框架更新结果」报告，其中第 5 节"新版期货执行框架全文"必须是**完整、自包含**的新版框架正文（沿用现行框架自身的版本号+【本次更新】标注惯例，不是只给 diff 片段）；保留 `DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS` 及受影响范围，供下游数据同步与诊断重评使用
+2. 严格按 instruction 第六步给出的格式产出「期货执行框架更新结果」报告；第 5 节引用工作区完整框架文件，只列受影响章节和必要变更片段，不粘全文。只局部更新受影响内容，主文不追加【本次更新】等历代标记；保留 `DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS` 及受影响范围，供下游数据同步与诊断重评使用。现行策略、评分与执行审计要求不因文本精简改变
 
 ## 输出与提交（不直接改 main，本阶段不开 PR）
 
 1. 把完整报告写入 `research/<AS_OF_DATE>-adaption-report.md`
-2. 取报告"5. 新版期货执行框架全文"的完整正文，替换 `framework/futures_framework.md` 里 HTML 注释行之后的全部内容（注释行本身保留不动）
+2. 按报告列出的变更局部修改 `framework/futures_framework.md`，保留未受影响的有效内容与维护说明；最新状态在对应统一区域更新，修订历史留在报告与 git。新版完整正文由工作区文件提供，不再从报告提取全文替换
 3. 新建分支 `futures-framework/<AS_OF_DATE>`，在该分支上 `git add` + commit 以上两处改动（commit message 用报告"1. 更新结论"摘要即可）
 4. 返回值：分支名 + 报告全文，交给编排器传给下一步 `future-data-sync`；**到此为止，不要 push、不要 `gh pr create`**——PR 由编排器在 `future-data-sync` 也提交完之后统一打开
