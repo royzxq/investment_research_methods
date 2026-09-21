@@ -261,13 +261,14 @@
             "source": "ai_estimate"
           },
           "current_multiple": {
-            "value": 12.68,
-            "source": "snapshot§1"
+            "value": 15.86,
+            "source": "snapshot§4",
+            "note": "沪深300 自聚合 PE_TTM（指数权重口径），A500 无估值源以之代理"
           },
           "terminal_multiple": {
-            "value": 10.08,
-            "source": "snapshot§1",
-            "note": "沪深300 PE 扩张窗 P10"
+            "value": 11.72,
+            "source": "snapshot§4",
+            "note": "沪深300 自聚合 PE 扩张窗 P10"
           },
           "years": {
             "value": 10,
@@ -279,11 +280,11 @@
           }
         },
         "valuation_change_pct": {
-          "value": -2.27,
+          "value": -2.98,
           "source": "calc:scenario_annual_return"
         },
         "annual_return_pct": {
-          "value": 3.03,
+          "value": 2.32,
           "source": "calc:scenario_annual_return"
         }
       },
@@ -298,12 +299,13 @@
             "source": "ai_estimate"
           },
           "current_multiple": {
-            "value": 12.68,
-            "source": "snapshot§1"
+            "value": 15.86,
+            "source": "snapshot§4",
+            "note": "沪深300 自聚合 PE_TTM（指数权重口径），A500 无估值源以之代理"
           },
           "terminal_multiple": {
-            "value": 12.68,
-            "source": "snapshot§1"
+            "value": 15.86,
+            "source": "snapshot§4"
           },
           "years": {
             "value": 10,
@@ -315,7 +317,7 @@
           }
         },
         "valuation_change_pct": {
-          "value": 0,
+          "value": 0.0,
           "source": "calc:scenario_annual_return"
         },
         "annual_return_pct": {
@@ -334,13 +336,14 @@
             "source": "ai_estimate"
           },
           "current_multiple": {
-            "value": 12.68,
-            "source": "snapshot§1"
+            "value": 15.86,
+            "source": "snapshot§4",
+            "note": "沪深300 自聚合 PE_TTM（指数权重口径），A500 无估值源以之代理"
           },
           "terminal_multiple": {
-            "value": 14.46,
-            "source": "snapshot§1",
-            "note": "沪深300 PE 扩张窗 P75"
+            "value": 17.69,
+            "source": "snapshot§4",
+            "note": "沪深300 自聚合 PE 扩张窗 P75"
           },
           "years": {
             "value": 10,
@@ -352,34 +355,34 @@
           }
         },
         "valuation_change_pct": {
-          "value": 1.32,
+          "value": 1.1,
           "source": "calc:scenario_annual_return"
         },
         "annual_return_pct": {
-          "value": 11.62,
+          "value": 11.4,
           "source": "calc:scenario_annual_return"
         }
       }
     },
     "valuation_state": {
       "index_code": "000300.SH",
-      "metric": "erp_spread",
+      "metric": "pe_ttm",
       "value": {
-        "value": 6.2,
-        "source": "snapshot§1",
-        "note": "中证A500 无估值源，以沪深300 为代理"
+        "value": 15.86,
+        "source": "snapshot§4",
+        "note": "中证A500 无估值源，以沪深300 自聚合（指数权重口径）为代理"
       },
       "percentile_expanding": {
-        "value": 73.7,
-        "source": "snapshot§1"
+        "value": 57.9,
+        "source": "snapshot§4"
       },
       "percentile_10y": {
-        "value": 71.1,
-        "source": "snapshot§1"
+        "value": 64.5,
+        "source": "snapshot§4"
       },
       "sample_n": {
         "value": 247,
-        "source": "snapshot§1"
+        "source": "snapshot§4"
       },
       "as_of": "2026-09-18"
     }
