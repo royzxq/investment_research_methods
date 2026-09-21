@@ -16,7 +16,7 @@
 - 本次期货元框架调研结果：{{CURRENT_META_RESULT}}
 - 上次期货元框架调研结果：{{PREVIOUS_META_RESULT}}
 - 上次变化检测结果（可无）：{{PREVIOUS_CHANGE_DECISION}}
-- 现行完整执行框架：{{CURRENT_FRAMEWORK}}
+- 现行完整执行框架：{{CURRENT_FRAMEWORK}}（方法变更和参数核对的权威输入；实际标的研究可先用保真 compact 导航，歧义回此框架核对）
 - 执行证据：{{EXECUTION_EVIDENCE}}（可用行情输出、账户/订单快照、逐候选计划与既有审计；缺失来源明确记录为不可用，不阻止生成诊断）
 - 数据可得性协议：`framework/FUTURES_DATA_PROTOCOL.md`（与 canonical 完整框架及共享审计模板一起读取）
 

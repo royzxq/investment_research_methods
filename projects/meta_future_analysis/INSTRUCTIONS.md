@@ -13,7 +13,7 @@
 
 # 输入
 - 调研时点：{{AS_OF_DATE}}
-- 现行完整执行框架：`framework/futures_framework.md`（记录版本与修订号；不以 compact 作为 AI 输入）
+- 现行执行框架：实际标的研究可用 `framework/futures_framework_compact.md` 的保真精简内容导航；记录版本，遇到歧义或参数核对时读 `framework/futures_framework.md` 的权威定义。策略范围与判据不因输入精简改变
 - 数据可得性协议：`framework/FUTURES_DATA_PROTOCOL.md`（与本指令一起读取）
 
 # 固定范围

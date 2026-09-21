@@ -11,7 +11,7 @@ description: 期货元框架变化检测（流水线阶段②）：对比本次�
 - `CURRENT_META_RESULT`：本次 meta-future-analysis 产出的调研报告全文
 - `PREVIOUS_META_RESULT`：上一次调研报告全文
 - `PREVIOUS_CHANGE_DECISION`：上一次的变化检测报告全文（与 `PREVIOUS_META_RESULT` 同日期的 `<该日期>-change-decision.md`；找不到就视为无）
-- `CURRENT_FRAMEWORK`：`framework/futures_framework.md` 现行全文（跳过顶部 HTML 注释行）
+- `CURRENT_FRAMEWORK`：`framework/futures_framework.md` 现行全文（跳过顶部 HTML 注释行）；方法变更与参数核对仍以此为准，实际标的研究可用保真 compact 导航，歧义回 canonical
 - `EXECUTION_EVIDENCE`：最新提交的 `research/*-data-snapshot.txt`（行情脚本完整输出，含D8周涨分位与影子账本）、账户/挂单快照、逐候选计划和历史诊断的来源清单；单独调用未提供时读取已有材料并明确缺口，不假定账户空仓
 
 由 `futures-weekly-review` 编排器调用时，`PREVIOUS_META_RESULT` 按以下规则查找：
