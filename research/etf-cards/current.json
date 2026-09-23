@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-23T22:05:53+08:00",
+ "generated_at": "2026-09-23T22:19:03+08:00",
  "card_schema_version": 1,
  "portfolio_params": {
   "effective_from": "2026-09-18",
@@ -225,6 +225,1914 @@
   }
  ],
  "cards": [
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-brokers-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "watch",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "399975.SZ",
+    "index_name": "证券公司",
+    "asset_type": "cyclical",
+    "currency": "CNY",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "论点押经纪与两融的 β；前三大里东方财富 13.02% 是互联网平台 + 基金销售、国泰海通 10.75% 处于合并整合期，方向一致、错位小",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 49,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 14.39,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 60.33,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 14.4,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "600030.SH",
+       "name": "中信证券",
+       "weight_pct": {
+        "value": 14.39,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "300059.SZ",
+       "name": "东方财富",
+       "weight_pct": {
+        "value": 13.02,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "601211.SH",
+       "name": "国泰海通",
+       "weight_pct": {
+        "value": 10.75,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "券商上半年净利大增近五成、PB 1.21 处 11.0 分位账面便宜，但盈利靠成交与两融的高位，9 月成交已回落到 2 万亿以下、回撤阶梯离减仓区只差 5%；按已验证规则现在不是建仓点，等 buy_below 458.91",
+    "evidence": [
+     "43 家上市券商 2026 上半年营收 3,647.1 亿元、+45.87%，归母净利 1,553.7 亿元、+49.01%，仅 3 家下滑；中信证券 233.43 亿元居首",
+     "9 月 17 日两融余额 26,390.98 亿元、占流通市值 2.69%；年内日均成交同比 +94.78%、两融日均 +47.57%",
+     "自聚合 PB 1.21 处扩张窗 11.0 分位；股息率 2.15% 处 87.5 分位、股债利差 6.45pp 处 97.8 分位"
+    ],
+    "counter_evidence": [
+     "9 月 7–11 日成交 1.95/1.96/1.86/1.65/1.97 万亿，五日均低于 2 万亿、9/10 为年内次低；两融 9/4 单日 -188.62 亿——上半年 31 天破 3 万亿才是 +49% 利润的底子",
+     "回撤状态分位 69.4，reduce_above 769.99 只在当前上方 4.9%；PE 12.30 处 3.7 分位，是高峰利润压低估值的形状"
+    ],
+    "horizon_months": 12
+   },
+   "expectation": {
+    "method": "mid_cycle",
+    "scenarios": {
+     "bear": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": -5,
+        "source": "ai_estimate",
+        "note": "自营亏损吃掉利润，净资产小幅下降"
+       },
+       "dividend_yield_pct": {
+        "value": 2.15,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 1.21,
+        "source": "snapshot§4",
+        "note": "自聚合 PB"
+       },
+       "terminal_multiple": {
+        "value": 1.21,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P10（与当前值相同）"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.2,
+        "source": "ai_estimate",
+        "note": "首选工具华夏 A 类年费 0.15%+0.05%，2026-09-23 实测，不在快照 §5"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": -3.05,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "base": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "dividend_yield_pct": {
+        "value": 2.15,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 1.21,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 1.21,
+        "source": "snapshot§4"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.2,
+        "source": "ai_estimate"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 6.95,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "bull": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 12,
+        "source": "ai_estimate"
+       },
+       "dividend_yield_pct": {
+        "value": 2.15,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 1.21,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 1.74,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P75"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.2,
+        "source": "ai_estimate"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 12.87,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 26.82,
+       "source": "calc:scenario_annual_return"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "399975.SZ",
+     "metric": "pb",
+     "value": {
+      "value": 1.21,
+      "source": "snapshot§4",
+      "note": "自聚合、指数权重口径；估值史自 2015-05 含泡沫顶部，低分位要打折看；PE 12.30（分位 3.7）只作参考"
+     },
+     "percentile_expanding": {
+      "value": 11.0,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": 12.5,
+      "source": "snapshot§4"
+     },
+     "sample_n": {
+      "value": 136,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "无持仓；首选工具按 2026-09-23 tushare/akshare 实测比选，下次快照纳入 §5 后复核",
+    "list": [
+     {
+      "code": "007992.OF",
+      "name": "华夏中证全指证券公司ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "none",
+      "reason": "未持有的首选：年费 0.20%（0.15%+0.05%+0）为最低档且规模最大（13.85 亿 @2026-06-30）、成立最早（2020-04）；赎回费 7–30 天 0.50%。到 buy_below 复评后改 buy"
+     },
+     {
+      "code": "016842.OF",
+      "name": "嘉实中证全指证券公司ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "backup",
+      "action": "none",
+      "reason": "备选：年费 0.25%，赎回费 7–30 天仅 0.10%，但规模 3.30 亿"
+     },
+     {
+      "code": "025193.OF",
+      "name": "银华中证全指证券公司ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "年费同为 0.20%，但 2025-08 成立、规模 2.89 亿"
+     },
+     {
+      "code": "012044.OF",
+      "name": "鹏华中证全指证券公司指数(LOF)-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "管理 1.00% + 托管 0.20% 另加销售服务费，是首选的 6 倍"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 30,
+    "purchase_limit_note": "首选工具 30 天内赎回收 0.50%（7 天内 1.50%）"
+   },
+   "decision": {
+    "rule_refs": [
+     "A2",
+     "A5",
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "399975.SZ",
+     "add_below": {
+      "level": {
+       "value": 399.44,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 935.02,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.4272,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10：相当于 2018 年底那类券商底部"
+     },
+     "buy_below": {
+      "level": {
+       "value": 458.91,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 935.02,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.4908,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；当前 734.12 在其上方约 60%。watch 卡到点只告警复评，改 active 后才按 50% 目标建仓"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 769.99,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 935.02,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.8235,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 18%），只在当前上方 4.9%；无持仓，减仓侧无动作"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-brokers",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数点位跌破买入锚点",
+     "kind": "auto",
+     "metric": "index_level",
+     "operator": "<",
+     "threshold": {
+      "value": 458.91,
+      "source": "calc:level_at_drawdown_state"
+     },
+     "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：734.12",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "复评论点，成立则改 active、首选工具 action 改 buy"
+    },
+    {
+     "name": "指数相对 200 日均线",
+     "kind": "auto",
+     "metric": "index_vs_sma200_pct",
+     "operator": "<",
+     "threshold": {
+      "value": 0,
+      "source": "framework:A11"
+     },
+     "condition_text": "收盘持续低于 200 日均线",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：-6.39%，below",
+     "frequency": "daily",
+     "action": "alert",
+     "action_note": ""
+    },
+    {
+     "name": "A 股日均成交额",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "月均日成交额低于 1.5 万亿",
+     "data_source": "交易所 / 公开统计",
+     "current_text": "9 月 7–11 日 1.65–1.97 万亿",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "命中即触发失效条件①的评估"
+    },
+    {
+     "name": "两融余额",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "跌破 2 万亿",
+     "data_source": "交易所",
+     "current_text": "9 月 17 日 26,390.98 亿",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": ""
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "盈利底子塌掉",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "A 股日均成交额连续两个月低于 1.5 万亿",
+      "data_source": "交易所 / 公开统计",
+      "current_text": "9 月上旬 1.65–1.97 万亿",
+      "frequency": "monthly",
+      "action": "close",
+      "action_note": "无持仓时撤销候选资格"
+     },
+     {
+      "name": "杠杆资金退潮",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "两融余额跌破 2 万亿",
+      "data_source": "交易所",
+      "current_text": "26,390.98 亿",
+      "frequency": "monthly",
+      "action": "reduce",
+      "action_note": "有仓时减，无仓时降低目标比例"
+     }
+    ],
+    "latest_review_date": "2026-11-23"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-23",
+    "confidence_pct": 40,
+    "entry_ref_index_level": {
+     "value": 734.12,
+     "source": "snapshot§6"
+    }
+   }
+  },
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-chemicals-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "active",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "000813.CSI",
+    "index_name": "中证细分化工",
+    "asset_type": "cyclical",
+    "currency": "CNY",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "论点押一体化龙头的定价权（万华、巨化、宝丰、卫星约 20%），指数近三成是钾肥与锂盐资源周期；错位约三成",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 50,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 9.65,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 42.65,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 1.8,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "600309.SH",
+       "name": "万华化学",
+       "weight_pct": {
+        "value": 9.65,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "000792.SZ",
+       "name": "盐湖股份",
+       "weight_pct": {
+        "value": 6.03,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "000408.SZ",
+       "name": "藏格矿业",
+       "weight_pct": {
+        "value": 4.14,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "反内卷加龙头提价已把化工利润拉回上行段，但指数盈利含钾肥、锂盐、MDI 的周期高位价格，且油价站上 100 美元正在挤压中下游；持有、定投照常，不一次性追加，等回撤阶梯给点位",
+    "evidence": [
+     "万华化学 2026 上半年归母净利约 100.63 亿元、同比 +64.35%，二季度 63.45 亿元同比翻倍，8 月 MDI、TDI 再提价；万华占指数 9.65%",
+     "盐湖股份 2026 上半年营收 130.52 亿元、+79.88%，归母净利 61.69 亿元、+137.88%，钾肥产销两旺、锂盐放量；盐湖 6.03%、藏格 4.14%",
+     "反内卷通过政策端对无序扩产设边界、协会与龙头自律开工率与价格；反倾销落地、全球炼能进入紧平衡"
+    ],
+    "counter_evidence": [
+     "布伦特 9 月 9–11 日结算连续三日站上 100 美元，8 月购进价格 +5.8% 高于出厂价 +3.8%（剪刀差 2 个百分点）；指数 51.0% 化工原料、15.0% 化纤正处被挤的一段",
+     "钾肥、碳酸锂、MDI 都在价格高位，PE 17.86 的 25.8 分位是景气利润压低 PE 的形状；PB 2.31 在 47.0 分位只是中位数"
+    ],
+    "horizon_months": 18
+   },
+   "expectation": {
+    "method": "mid_cycle",
+    "scenarios": {
+     "bear": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 0,
+        "source": "ai_estimate",
+        "note": "净资产零增长"
+       },
+       "dividend_yield_pct": {
+        "value": 1.88,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.31,
+        "source": "snapshot§4",
+        "note": "自聚合 PB"
+       },
+       "terminal_multiple": {
+        "value": 2.04,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P25"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.2,
+        "source": "snapshot§5",
+        "note": "A 类年费"
+       }
+      },
+      "valuation_change_pct": {
+       "value": -4.06,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": -2.38,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "base": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "dividend_yield_pct": {
+        "value": 1.88,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.31,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 2.31,
+        "source": "snapshot§4"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.2,
+        "source": "snapshot§5"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 6.68,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "bull": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 10,
+        "source": "ai_estimate"
+       },
+       "dividend_yield_pct": {
+        "value": 1.88,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.31,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 2.93,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P75"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.2,
+        "source": "snapshot§5"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 8.25,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 19.93,
+       "source": "calc:scenario_annual_return"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "000813.CSI",
+     "metric": "pb",
+     "value": {
+      "value": 2.31,
+      "source": "snapshot§4",
+      "note": "自聚合、指数权重口径；周期席位按 A5 用 PB，PE 17.86（分位 25.8）只作参考"
+     },
+     "percentile_expanding": {
+      "value": 47.0,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": 42.2,
+      "source": "snapshot§4"
+     },
+     "sample_n": {
+      "value": 151,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "本席位只有一只持仓；新增资金走同基金 A 类，存量不换",
+    "list": [
+     {
+      "code": "013528.OF",
+      "name": "嘉实中证细分化工产业主题ETF联接-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "hold",
+      "reason": "现有持仓，持有、定投继续；年费 0.30%，TD 年化 -0.94pp、TE 1.48%（全收益口径），规模 10.98 亿"
+     },
+     {
+      "code": "013527.OF",
+      "name": "嘉实中证细分化工产业主题ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；年费 0.20%，若日后新增资金走 A 类，存量不值一次申赎"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+   },
+   "decision": {
+    "rule_refs": [
+     "A5",
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "000813.CSI",
+     "add_below": {
+      "level": {
+       "value": 2336.37,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 4474.09,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.5222,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10：相当于 2015–2016、2018、2024 的周期底部区域"
+     },
+     "buy_below": {
+      "level": {
+       "value": 2664.77,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 4474.09,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.5956,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；当前 3,539.58 在其上方约 33%。跌破时不自动买而是复评（见监控）"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 3955.99,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 4474.09,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.8842,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 12%）：升破即把这笔押注减到上限的 30%（3 万）；现持仓在其下，届时不动"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-chemicals",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数相对 200 日均线",
+     "kind": "auto",
+     "metric": "index_vs_sma200_pct",
+     "operator": "<",
+     "threshold": {
+      "value": 0,
+      "source": "framework:A11"
+     },
+     "condition_text": "收盘持续低于 200 日均线",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：-9.65%，below",
+     "frequency": "daily",
+     "action": "alert",
+     "action_note": ""
+    },
+    {
+     "name": "指数点位跌破买入锚点",
+     "kind": "auto",
+     "metric": "index_level",
+     "operator": "<",
+     "threshold": {
+      "value": 2664.77,
+      "source": "calc:level_at_drawdown_state"
+     },
+     "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：3,539.58",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "不自动买；复评论点后再决定是否用剩余额度加"
+    },
+    {
+     "name": "购进价格与出厂价格剪刀差",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "工业购进价格同比高于出厂价格同比 3 个百分点以上",
+     "data_source": "统计局 PPI 月报",
+     "current_text": "8 月：购进 +5.8%、出厂 +3.8%，差 2 个百分点",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "成本挤压加深"
+    },
+    {
+     "name": "主要化工品价格（MDI、钾肥、碳酸锂）",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "回落至 2025 年低点区域",
+     "data_source": "百川 / 卓创 / 公司公告",
+     "current_text": "MDI、TDI 8 月提价；盐湖钾肥、锂盐量价齐升",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "命中即触发失效条件①的评估"
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "供给纪律失效",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "主要化工品价格回落至 2025 年低点区域且龙头开工率回升",
+      "data_source": "百川 / 卓创 / 公司公告",
+      "current_text": "未发生",
+      "frequency": "monthly",
+      "action": "reduce",
+      "action_note": ""
+     },
+     {
+      "name": "龙头利润转负",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "万华化学季度归母净利同比转负",
+      "data_source": "季报",
+      "current_text": "2026 二季度同比翻倍",
+      "frequency": "event",
+      "action": "close",
+      "action_note": ""
+     }
+    ],
+    "latest_review_date": "2026-11-23"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-23",
+    "confidence_pct": 50,
+    "entry_ref_index_level": {
+     "value": 3539.58,
+     "source": "snapshot§6"
+    }
+   }
+  },
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-consumer-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "watch",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "000932.SH",
+    "index_name": "中证主要消费",
+    "asset_type": "sector",
+    "currency": "CNY",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "论点是必选消费整体的极端估值，与指数一致；白酒只占 35.1%、养殖 20.0%——押的不是单一子行业。席位内另一候选中证白酒已低于自身 P10（状态分位 2.8），若改用它，启用后阶梯今天就给出目标 100% 的买入",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 36,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 10.33,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 67.88,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 37.2,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "002714.SZ",
+       "name": "牧原股份",
+       "weight_pct": {
+        "value": 10.33,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "600887.SH",
+       "name": "伊利股份",
+       "weight_pct": {
+        "value": 10.31,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "600519.SH",
+       "name": "贵州茅台",
+       "weight_pct": {
+        "value": 10.16,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "主要消费指数 PB 处于 2010 年以来第 1.1 分位、股息率 4.17% 处于第 98.9 分位，白酒渠道库存到低位、生猪去化进入第四个季度——这是买极端估值等均值回归的押注，不是买景气；当前点位已在阶梯买入区",
+    "evidence": [
+     "白酒渠道库存处于低位、头部品牌库存下降，飞天茅台批价回升至约 1750 元并企稳；56.6% 经销商反映价格倒挂加剧、61.9% 终端门店收缩，出清痛感是周期后段特征",
+     "生猪收购价 12.14 元/公斤同比 -18.4%、每头深亏约 226 元；牧原上半年亏 60.78 亿但完全成本降至 11.5 元/公斤，能繁母猪自 362 万头降至 313 万头，去化持续四个季度",
+     "伊利上半年核心经营利润 83.8 亿同比 +10% 并拟最高 20 亿回购注销；1–8 月粮油食品零售额 +6.8%，基本生活类消费好于社零总体"
+    ],
+    "counter_evidence": [
+     "需求无回暖信号：8 月社零同比仅 +0.4%、1–8 月 +1.1%；白酒中秋动销持平到小幅下滑，300–800 元价格带承压。极端估值可以维持很久",
+     "指数 35.1% 白酒 + 20.0% 养殖都是深周期；亏损股权重 20.94% 使 PE 失真，PB 极端便宜有一部分是盈利能力下台阶而非错杀"
+    ],
+    "horizon_months": 24
+   },
+   "expectation": {
+    "method": "mid_cycle",
+    "scenarios": {
+     "bear": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": -3,
+        "source": "ai_estimate",
+        "note": "以 PB 为倍数，此处为账面价值增速：猪价全年低于成本、白酒继续去化"
+       },
+       "dividend_yield_pct": {
+        "value": 4.17,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.78,
+        "source": "snapshot§4",
+        "note": "PB，指数权重口径"
+       },
+       "terminal_multiple": {
+        "value": 2.78,
+        "source": "snapshot§4",
+        "note": "估值不回归"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.6,
+        "source": "ai_estimate",
+        "note": "首选工具年费 0.60%（tushare/akshare 2026-09-23 实测）"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 0.57,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "base": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 3,
+        "source": "ai_estimate",
+        "note": "账面价值增速"
+       },
+       "dividend_yield_pct": {
+        "value": 4.17,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.78,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 2.78,
+        "source": "snapshot§4"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.6,
+        "source": "ai_estimate"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 6.57,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "bull": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 5,
+        "source": "ai_estimate",
+        "note": "账面价值增速"
+       },
+       "dividend_yield_pct": {
+        "value": 4.17,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.78,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 3.51,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P25"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.6,
+        "source": "ai_estimate"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 4.77,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 13.34,
+       "source": "calc:scenario_annual_return"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "000932.SH",
+     "metric": "pb",
+     "value": {
+      "value": 2.78,
+      "source": "snapshot§4",
+      "note": "亏损股权重 20.94% 超过 15% 降级线，PE 23.70（分位 32.2）只作参考"
+     },
+     "percentile_expanding": {
+      "value": 1.1,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": 1.7,
+      "source": "snapshot§4"
+     },
+     "sample_n": {
+      "value": 183,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "新席位，无持仓；首选与备选跟踪同一指数，只比可靠与便宜",
+    "list": [
+     {
+      "code": "000248.OF",
+      "name": "汇添富中证主要消费ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "none",
+      "reason": "未持有；同类里规模最大（43.9 亿）、成立最早（2015-03），年费 0.60%。启用时改 action=buy"
+     },
+     {
+      "code": "009179.OF",
+      "name": "嘉实中证主要消费ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "backup",
+      "action": "none",
+      "reason": "未持有；费率相同，规模未核"
+     },
+     {
+      "code": "161725.SZ",
+      "name": "招商中证白酒指数(LOF)-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "跟踪席位内另一指数（中证白酒），年费 1.20% 为首选两倍；若用户改主指数为白酒则它成为首选"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+   },
+   "decision": {
+    "rule_refs": [
+     "A5",
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "000932.SH",
+     "add_below": {
+      "level": {
+       "value": 12012.11,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 18429.13,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.6518,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10；当前 12,214.41 只在其上方 1.7%"
+     },
+     "buy_below": {
+      "level": {
+       "value": 13388.76,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 18429.13,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.7265,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；当前已在其下方（买入区第一档），status=watch 只告警"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 17535.32,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 18429.13,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.9515,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 5%）：升破即减到上限的 30%"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-consumer-tactical",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数相对 200 日均线",
+     "kind": "auto",
+     "metric": "index_vs_sma200_pct",
+     "operator": ">",
+     "threshold": {
+      "value": 0,
+      "source": "framework:A11"
+     },
+     "condition_text": "收盘回到 200 日均线之上（趋势转正）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：-11.75%，below",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "复评启用时机，不自动买"
+    },
+    {
+     "name": "飞天茅台批价",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "跌破 1600 元/瓶",
+     "data_source": "今日酒价 / 券商渠道调研",
+     "current_text": "约 1750 元，双节前企稳回升",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": ""
+    },
+    {
+     "name": "生猪收购价",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "连续 4 周高于 15 元/公斤（周期反转）",
+     "data_source": "农业农村部周报",
+     "current_text": "9 月第一周 12.14 元/公斤，同比 -18.4%",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "养殖部分的估值逻辑由底部转为上行，重算情景"
+    },
+    {
+     "name": "社零当月同比",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "连续两个月为负",
+     "data_source": "国家统计局",
+     "current_text": "8 月 +0.4%，1–8 月 +1.1%",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": ""
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "白酒渠道重新累库",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "飞天茅台批价跌破 1600 元且经销商库存回升",
+      "data_source": "券商渠道调研、酒协报告",
+      "current_text": "库存低位、批价约 1750",
+      "frequency": "monthly",
+      "action": "close",
+      "action_note": "去库存后段的判断错了"
+     },
+     {
+      "name": "猪周期底部判断错",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "能繁母猪存栏连续 3 个月回升",
+      "data_source": "农业农村部月度数据",
+      "current_text": "牧原能繁母猪 313 万头，仍在去化",
+      "frequency": "monthly",
+      "action": "close",
+      "action_note": ""
+     }
+    ],
+    "latest_review_date": "2026-11-20"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-23",
+    "confidence_pct": 50,
+    "entry_ref_index_level": {
+     "value": 12214.41,
+     "source": "snapshot§6"
+    }
+   }
+  },
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-defense-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "active",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "399973.SZ",
+    "index_name": "中证国防",
+    "asset_type": "sector",
+    "currency": "CNY",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "论点里的增长来源（船舶、兵装、军贸）在指数里权重很小；指数 43.2% 是航空，实际买到的是“十五五航空装备放量”",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 50,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 8.28,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 47.7,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 0.0,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "688002.SH",
+       "name": "睿创微纳",
+       "weight_pct": {
+        "value": 8.28,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "600760.SH",
+       "name": "中航沈飞",
+       "weight_pct": {
+        "value": 6.33,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "600893.SH",
+       "name": "航发动力",
+       "weight_pct": {
+        "value": 6.13,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "军工盈利修复已在 2026 年中报出现，但指数权重最大的航空主机厂仍在利润下滑；十五五规模化订单落地前持有并继续定投，不做一次性买入，等阶梯点位",
+    "evidence": [
+     "军工板块 2026 上半年营收 +7.93%、归母净利润 +20.98%，毛利率回升 0.92 个百分点至 18.85%",
+     "2026 一季度板块合同负债较年初 +15.68%、存货 +7.08%，订单先行指标转正",
+     "十五五装备目录逐步明确、规模化订单渐近；9·3 阅兵后军贸订单陆续落地"
+    ],
+    "counter_evidence": [
+     "修复未到指数主体：指数 43.2% 是航空，而增长来自船舶、兵装与军贸；中航沈飞 2026 中报营收 -57.68%、净利润 -58.37%",
+     "订单渐近的日期不确定，指数 2026 年内已跌约 15%，自聚合 PE 63.49、分位 60.9 并不便宜，推迟的等待成本由持仓者承担"
+    ],
+    "horizon_months": 24
+   },
+   "expectation": {
+    "method": "return_decomposition",
+    "scenarios": {
+     "bear": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 5,
+        "source": "ai_estimate",
+        "note": "航空主机厂交付节奏持续拖累"
+       },
+       "dividend_yield_pct": {
+        "value": 0.56,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 63.49,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 39.58,
+        "source": "snapshot§4",
+        "note": "PE 扩张窗 P10"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 1.2,
+        "source": "snapshot§5",
+        "note": "160630.SZ 年费合计"
+       }
+      },
+      "valuation_change_pct": {
+       "value": -9.02,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": -4.66,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "base": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 15,
+        "source": "ai_estimate",
+        "note": "中报净利润 +20.98% 的修复趋势打折延续"
+       },
+       "dividend_yield_pct": {
+        "value": 0.56,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 63.49,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 63.49,
+        "source": "snapshot§4",
+        "note": "估值零变化"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 1.2,
+        "source": "snapshot§5"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0.0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 14.36,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "bull": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 25,
+        "source": "ai_estimate",
+        "note": "十五五规模化订单 + 军贸"
+       },
+       "dividend_yield_pct": {
+        "value": 0.56,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 63.49,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 72.96,
+        "source": "snapshot§4",
+        "note": "PE 扩张窗 P75"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 1.2,
+        "source": "snapshot§5"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 2.82,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 27.18,
+       "source": "calc:scenario_annual_return"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "399973.SZ",
+     "metric": "pe_ttm",
+     "value": {
+      "value": 63.49,
+      "source": "snapshot§4",
+      "note": "自聚合、指数权重口径；PB 3.19 分位 31.9 偏便宜，盈利在底部抬高了 PE"
+     },
+     "percentile_expanding": {
+      "value": 60.9,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": 71.9,
+      "source": "snapshot§4"
+     },
+     "sample_n": {
+      "value": 138,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "本席位只有一只持仓，bet_group=cn-defense 与 card_id 一一对应",
+    "list": [
+     {
+      "code": "160630.SZ",
+      "name": "鹏华中证国防指数(LOF)-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "hold",
+      "reason": "现有持仓；年费 1.20% 为池内最贵，但 3 年 TD +1.28pp、规模 25.96 亿；赎回费满两年为 0，不因费率换出"
+     },
+     {
+      "code": "012041.OF",
+      "name": "鹏华中证国防指数(LOF)-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；比 A 类多 0.10% 销售服务费"
+     },
+     {
+      "code": "512670.SH",
+      "name": "鹏华中证国防ETF",
+      "instrument_type": "exchange_etf",
+      "share_class": null,
+      "currency": "CNY",
+      "platform_account": "券商账户",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；年费 0.40% 比 LOF 低 0.80 个百分点，但需场内账户。日后在本席位新增大额资金时优先它"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 730,
+    "purchase_limit_note": "LOF A 赎回费阶梯：7 天内 1.5%、7–365 天 0.50%、365–730 天 0.25%、满两年 0"
+   },
+   "decision": {
+    "rule_refs": [
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "399973.SZ",
+     "add_below": {
+      "level": {
+       "value": 1044.82,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2174.45,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.4805,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10：相当于 2018 年与 2022–2024 年的底部区域"
+     },
+     "buy_below": {
+      "level": {
+       "value": 1230.3,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2174.45,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.5658,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；跌破时不自动买而是复评，届时若十五五订单已可见，用剩余额度在买入区加"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 1835.45,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2174.45,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.8441,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 16%）：升破即把这笔押注减到上限的 30%（3 万）"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-defense",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数相对 200 日均线",
+     "kind": "auto",
+     "metric": "index_vs_sma200_pct",
+     "operator": "<",
+     "threshold": {
+      "value": 0,
+      "source": "framework:A11"
+     },
+     "condition_text": "收盘持续低于 200 日均线",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：-10.98%，below",
+     "frequency": "daily",
+     "action": "alert",
+     "action_note": ""
+    },
+    {
+     "name": "指数点位跌破买入锚点",
+     "kind": "auto",
+     "metric": "index_level",
+     "operator": "<",
+     "threshold": {
+      "value": 1230.3,
+      "source": "calc:level_at_drawdown_state"
+     },
+     "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：1,599.31",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "不自动买；复评十五五订单进展后决定是否用剩余额度加"
+    },
+    {
+     "name": "十五五规划及装备目录批复、规模化订单公告",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "主机厂公告大额订单，或合同负债单季环比增长 30% 以上",
+     "data_source": "国务院/军方公告、主机厂季报合同负债",
+     "current_text": "装备目录逐步明确，规模化订单未下达",
+     "frequency": "event",
+     "action": "review",
+     "action_note": "考虑用剩余额度在买入区加"
+    },
+    {
+     "name": "航空主机厂利润增速",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "沈飞、航发动力、西飞连续两个季报归母净利润同比转正",
+     "data_source": "季报",
+     "current_text": "中航沈飞 2026 中报净利润 -58.37%",
+     "frequency": "quarterly",
+     "action": "review",
+     "action_note": "修复到达指数主体的信号"
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "订单叙事证伪",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "十五五规划批复后一年内，板块合同负债同比转负",
+      "data_source": "板块季报合同负债汇总（券商研报）",
+      "current_text": "2026Q1 合同负债较年初 +15.68%",
+      "frequency": "quarterly",
+      "action": "close",
+      "action_note": ""
+     },
+     {
+      "name": "航空主机厂持续下滑",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "航空主机厂 2026、2027 两个年度归母净利润连续同比下滑",
+      "data_source": "年报",
+      "current_text": "2026 中报下滑",
+      "frequency": "event",
+      "action": "reduce",
+      "action_note": ""
+     }
+    ],
+    "latest_review_date": "2026-11-20"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-23",
+    "confidence_pct": 50,
+    "entry_ref_index_level": {
+     "value": 1599.31,
+     "source": "snapshot§6"
+    }
+   }
+  },
   {
    "card_schema_version": 1,
    "card_id": "cn-hk-pharma-tactical",
@@ -659,6 +2567,1388 @@
     "confidence_pct": 45,
     "entry_ref_index_level": {
      "value": 1796.75,
+     "source": "snapshot§6"
+    }
+   }
+  },
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-newenergy-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "watch",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "399976.SZ",
+    "index_name": "中证新能源汽车",
+    "asset_type": "cyclical",
+    "currency": "CNY",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "论点是产业链盈利修复，指数覆盖整车、电池、材料、锂矿，一致；席位内另一候选光伏产业亏损股权重 36.82%，是从亏损回到盈亏平衡的赌注，留作季度复评的替换候选",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 50,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 10.94,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 52.97,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 21.4,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "002594.SZ",
+       "name": "比亚迪",
+       "weight_pct": {
+        "value": 10.94,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "300750.SZ",
+       "name": "宁德时代",
+       "weight_pct": {
+        "value": 10.46,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "300124.SZ",
+       "name": "汇川技术",
+       "weight_pct": {
+        "value": 6.77,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "新能源车指数 PB 处于 2015 年以来第 11.5 分位而销量、渗透率、出口创新高，便宜是价格战把利润率打到底；反内卷能否抬起利润率决定成败，当前在阶梯中间区，等回撤到买入区再动",
+    "evidence": [
+     "8 月新能源汽车产销 165.3 万 / 164.3 万辆同比 +18.9% / +17.8%，渗透率 60.6%、零售渗透率 65.2% 创新高，出口 52.6 万辆同比增长 1.3 倍",
+     "宁德时代上半年营收 2769.17 亿同比 +54.80%、归母净利 432.84 亿同比 +41.98% 并抛出最高 400 亿回购；宁德与比亚迪合计占指数逾五分之一",
+     "电池行业反内卷上升为政策导向、四部门定调；电池出口退税 2026-04 起 9%→6%、2027 年取消，倒逼低价产能退出"
+    ],
+    "counter_evidence": [
+     "利润率仍在下行：宁德综合毛利率 23.93% 同比 -1.09pp、动力电池 20.63% 同比 -1.78pp；比亚迪中报净利同比 -20.54%、净利率 3.58%。反内卷目前是倡议，不是兑现的利润",
+     "碳酸锂主力 9 月 1 日 155,820 元/吨 → 9 月 7 日 140,500 元/吨；指数 17.2% 是小金属，锂价再下台阶直接拖累这部分账面价值"
+    ],
+    "horizon_months": 18
+   },
+   "expectation": {
+    "method": "mid_cycle",
+    "scenarios": {
+     "bear": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": -8,
+        "source": "ai_estimate",
+        "note": "以 PB 为倍数，此处为账面价值增速：价格战延续、锂价再下台阶"
+       },
+       "dividend_yield_pct": {
+        "value": 0.97,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.54,
+        "source": "snapshot§4",
+        "note": "PB，指数权重口径"
+       },
+       "terminal_multiple": {
+        "value": 2.54,
+        "source": "snapshot§4",
+        "note": "估值不回归"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.55,
+        "source": "ai_estimate",
+        "note": "首选工具年费 0.55%（tushare/akshare 2026-09-23 实测）"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": -7.58,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "base": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 6,
+        "source": "ai_estimate",
+        "note": "账面价值增速：销量增长被利润率下行部分抵消"
+       },
+       "dividend_yield_pct": {
+        "value": 0.97,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.54,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 2.54,
+        "source": "snapshot§4"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.55,
+        "source": "ai_estimate"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 6.42,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "bull": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 10,
+        "source": "ai_estimate",
+        "note": "账面价值增速：反内卷兑现"
+       },
+       "dividend_yield_pct": {
+        "value": 0.97,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 2.54,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 2.94,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P25"
+       },
+       "years": {
+        "value": 5,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.55,
+        "source": "ai_estimate"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 2.97,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 13.39,
+       "source": "calc:scenario_annual_return"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "399976.SZ",
+     "metric": "pb",
+     "value": {
+      "value": 2.54,
+      "source": "snapshot§4",
+      "note": "周期席位以 PB 为主；PE_TTM 22.21（分位 17.6）作参考，亏损股权重 1.87%"
+     },
+     "percentile_expanding": {
+      "value": 11.5,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": 12.4,
+      "source": "snapshot§4"
+     },
+     "sample_n": {
+      "value": 131,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "新席位，无持仓；三只候选跟踪同一指数，只比可靠与便宜；平安那只跟踪的是另一条指数，名字相近但点位不对应",
+    "list": [
+     {
+      "code": "010805.OF",
+      "name": "东财中证新能源汽车ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "none",
+      "reason": "未持有；同指数联接基金里最便宜（0.55%）、规模最大（4.0 亿）。启用时改 action=buy，启用前核清盘风险"
+     },
+     {
+      "code": "009067.OF",
+      "name": "国泰中证新能源汽车ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "backup",
+      "action": "none",
+      "reason": "未持有；成立最早（2020-04），年费 0.60%，规模 3.4 亿"
+     },
+     {
+      "code": "013013.OF",
+      "name": "华夏中证新能源汽车ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "费率同备选、规模更小（2.6 亿）"
+     },
+     {
+      "code": "012698.OF",
+      "name": "平安中证新能源汽车产业ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "年费最低（0.20%）但跟踪中证新能源汽车产业指数（930997），不是本卡的 399976.SZ，点位不对应"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+   },
+   "decision": {
+    "rule_refs": [
+     "A5",
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "399976.SZ",
+     "add_below": {
+      "level": {
+       "value": 2535.18,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 5086.64,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.4984,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10（距 36 月高点约 50%）"
+     },
+     "buy_below": {
+      "level": {
+       "value": 3173.55,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 5086.64,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.6239,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；当前 3,538.03 在其上方 11.5%，status=watch 跌破只告警"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 4817.56,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 5086.64,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.9471,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 5%）：升破即减到上限的 30%"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-newenergy-tactical",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数点位跌破买入锚点",
+     "kind": "auto",
+     "metric": "index_level",
+     "operator": "<",
+     "threshold": {
+      "value": 3173.55,
+      "source": "calc:level_at_drawdown_state"
+     },
+     "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：3,538.03",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "复评论点后决定是否启用（改 active + buy）"
+    },
+    {
+     "name": "新能源乘用车零售当月同比",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "连续两个月为负",
+     "data_source": "乘联分会月报",
+     "current_text": "8 月新能源汽车销量同比 +17.8%（中汽协）",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": ""
+    },
+    {
+     "name": "电池级碳酸锂期货主力价",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "跌破 100,000 元/吨或升破 200,000 元/吨",
+     "data_source": "广期所",
+     "current_text": "9 月 7 日 140,500 元/吨，一周跌约 10%",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "跌破：上游成分账面减值；升破：中游成本挤压"
+    },
+    {
+     "name": "宁德时代动力电池毛利率",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "连续两个季度环比下降",
+     "data_source": "季报",
+     "current_text": "上半年 20.63%，同比 -1.78pp",
+     "frequency": "quarterly",
+     "action": "review",
+     "action_note": "反内卷未兑现的直接证据"
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "量的前提消失",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "新能源乘用车零售连续两个季度同比负增长",
+      "data_source": "乘联分会",
+      "current_text": "8 月同比 +17.8%",
+      "frequency": "quarterly",
+      "action": "close",
+      "action_note": ""
+     },
+     {
+      "name": "反内卷失败",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "宁德时代动力电池毛利率跌破 15%",
+      "data_source": "季报",
+      "current_text": "上半年 20.63%",
+      "frequency": "quarterly",
+      "action": "close",
+      "action_note": "价格战进入新一轮"
+     }
+    ],
+    "latest_review_date": "2026-11-20"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-23",
+    "confidence_pct": 40,
+    "entry_ref_index_level": {
+     "value": 3538.03,
+     "source": "snapshot§6"
+    }
+   }
+  },
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-nonferrous-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "active",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "000819.SH",
+    "index_name": "中证申万有色金属",
+    "asset_type": "cyclical",
+    "currency": "CNY",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "论点押铜与黄金（合计约 38%），指数最大一块是小金属 38.8%（稀土、锂），走另一条周期；错位约四成",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 50,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 11.18,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 44.73,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 26.3,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "601899.SH",
+       "name": "紫金矿业",
+       "weight_pct": {
+        "value": 11.18,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "603993.SH",
+       "name": "洛阳钼业",
+       "weight_pct": {
+        "value": 7.39,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "600111.SH",
+       "name": "北方稀土",
+       "weight_pct": {
+        "value": 4.56,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "铜、金量价双升把有色指数盈利推到周期高位；PE 分位 14.6 与 PB 分位 69.6 的组合是周期顶部形状，持有、定投照常，不一次性追加，等回撤阶梯给点位",
+    "evidence": [
+     "伦铜 9 月 10 日触及 14,875 美元/吨历史新高、年内 +27%，全球铜矿或迎近 10 年首次减产",
+     "紫金矿业 2026 上半年归母净利约 391 亿元、同比 +68%；洛阳钼业 155–165 亿元、同比 +79%～+90%，两者占指数 18.57%",
+     "高盛、摩根大通、美银均预期 2026 年金价挑战 5,000 美元，央行购金为主要支撑；指数含黄金股 13.4%"
+    ],
+    "counter_evidence": [
+     "美联储 9 月 16 日加息并定价年内再加，黄金 9 月 11 日跌破 4,300、美元站稳 99 上方，伦铜 9 月中旬曾跌破 14,000",
+     "高峰利润不可外推：PE 16.84 处于 14.6 分位正是景气顶部形状；高盛预测铝价到 2026 年底较当前降 18%，指数含铝 12.0%"
+    ],
+    "horizon_months": 18
+   },
+   "expectation": {
+    "method": "mid_cycle",
+    "scenarios": {
+     "bear": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 0,
+        "source": "ai_estimate",
+        "note": "净资产零增长（周期下行、利润回落）"
+       },
+       "dividend_yield_pct": {
+        "value": 1.73,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 3.06,
+        "source": "snapshot§4",
+        "note": "自聚合 PB"
+       },
+       "terminal_multiple": {
+        "value": 2.14,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P25"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.6,
+        "source": "snapshot§5",
+        "note": "A 类年费"
+       }
+      },
+      "valuation_change_pct": {
+       "value": -11.24,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": -10.11,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "base": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 6,
+        "source": "ai_estimate",
+        "note": "净资产增速"
+       },
+       "dividend_yield_pct": {
+        "value": 1.73,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 3.06,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 3.06,
+        "source": "snapshot§4"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.6,
+        "source": "snapshot§5"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 7.13,
+       "source": "calc:scenario_annual_return"
+      }
+     },
+     "bull": {
+      "inputs": {
+       "eps_growth_pct": {
+        "value": 10,
+        "source": "ai_estimate"
+       },
+       "dividend_yield_pct": {
+        "value": 1.73,
+        "source": "snapshot§4"
+       },
+       "current_multiple": {
+        "value": 3.06,
+        "source": "snapshot§4"
+       },
+       "terminal_multiple": {
+        "value": 3.15,
+        "source": "snapshot§4",
+        "note": "PB 扩张窗 P75"
+       },
+       "years": {
+        "value": 3,
+        "source": "ai_estimate"
+       },
+       "drag_pct": {
+        "value": 0.6,
+        "source": "snapshot§5"
+       }
+      },
+      "valuation_change_pct": {
+       "value": 0.97,
+       "source": "calc:scenario_annual_return"
+      },
+      "annual_return_pct": {
+       "value": 12.1,
+       "source": "calc:scenario_annual_return"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "000819.SH",
+     "metric": "pb",
+     "value": {
+      "value": 3.06,
+      "source": "snapshot§4",
+      "note": "自聚合、指数权重口径；周期席位按 A5 用 PB，PE 16.84（分位 14.6）只作参考"
+     },
+     "percentile_expanding": {
+      "value": 69.6,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": 70.7,
+      "source": "snapshot§4"
+     },
+     "sample_n": {
+      "value": 158,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "本席位只有一只持仓；新增资金走同基金 A 类，存量不换",
+    "list": [
+     {
+      "code": "010990.OF",
+      "name": "南方中证申万有色金属ETF联接-E",
+      "instrument_type": "otc_fund",
+      "share_class": "E",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "hold",
+      "reason": "现有持仓，持有、定投继续；年费 0.70%，TD 年化 -2.28pp、TE 1.72%，规模 90.71 亿"
+     },
+     {
+      "code": "004432.OF",
+      "name": "南方中证申万有色金属ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；年费 0.60% 优于 E 类 0.10 个百分点，若日后新增资金走 A 类，存量不值一次申赎"
+     },
+     {
+      "code": "004433.OF",
+      "name": "南方中证申万有色金属ETF联接-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；年费 1.00%，同基金最贵份额"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+   },
+   "decision": {
+    "rule_refs": [
+     "A5",
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "000819.SH",
+     "add_below": {
+      "level": {
+       "value": 5360.06,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 11703.19,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.458,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10：相当于 2015–2016、2018 那几轮周期底部"
+     },
+     "buy_below": {
+      "level": {
+       "value": 6694.22,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 11703.19,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.572,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；当前 8,690.98 在其上方约 30%。跌破时不自动买而是复评（见监控）"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 9655.13,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 11703.19,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.825,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 17%）：升破即把这笔押注减到上限的 30%（3 万）；现持仓在其下，届时不动"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-nonferrous",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数相对 200 日均线",
+     "kind": "auto",
+     "metric": "index_vs_sma200_pct",
+     "operator": "<",
+     "threshold": {
+      "value": 0,
+      "source": "framework:A11"
+     },
+     "condition_text": "收盘持续低于 200 日均线",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：-10.01%，below",
+     "frequency": "daily",
+     "action": "alert",
+     "action_note": ""
+    },
+    {
+     "name": "指数点位跌破买入锚点",
+     "kind": "auto",
+     "metric": "index_level",
+     "operator": "<",
+     "threshold": {
+      "value": 6694.22,
+      "source": "calc:level_at_drawdown_state"
+     },
+     "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：8,690.98",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "不自动买；复评论点后再决定是否用剩余额度加"
+    },
+    {
+     "name": "伦铜价格",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "跌破 11,000 美元/吨且持续一个月",
+     "data_source": "LME / 新浪期货",
+     "current_text": "2026-09-18 收 14,515 美元/吨",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "命中即触发失效条件①的评估"
+    },
+    {
+     "name": "美元指数与金价",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "美元指数站稳 105 且金价跌破 4,000 美元",
+     "data_source": "公开行情",
+     "current_text": "美元 99 上方、金价 9/11 跌破 4,300",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": ""
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "矿端短缺叙事被证伪",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "伦铜跌破 11,000 美元/吨且持续一个月",
+      "data_source": "LME",
+      "current_text": "14,515 美元/吨",
+      "frequency": "monthly",
+      "action": "reduce",
+      "action_note": ""
+     },
+     {
+      "name": "价格拐点进入报表",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "紫金矿业与洛阳钼业 2026 年报归母净利同比转负",
+      "data_source": "年报",
+      "current_text": "2026 上半年分别 +68%、+79%～+90%",
+      "frequency": "event",
+      "action": "close",
+      "action_note": ""
+     }
+    ],
+    "latest_review_date": "2026-11-23"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-23",
+    "confidence_pct": 50,
+    "entry_ref_index_level": {
+     "value": 8690.98,
+     "source": "snapshot§6"
+    }
+   }
+  },
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-star50-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "active",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "000688.SH",
+    "index_name": "科创50",
+    "asset_type": "sector",
+    "currency": "CNY",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "指数 80.2% 是半导体，与“AI 算力驱动的国产半导体”论点错位小；但它按市值追涨调样（2026-09-14 调样在上半年大涨之后），不是半导体龙头指数",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 50,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 8.41,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 58.9,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 4.0,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "688256.SH",
+       "name": "寒武纪",
+       "weight_pct": {
+        "value": 8.41,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "688012.SH",
+       "name": "中微公司",
+       "weight_pct": {
+        "value": 8.18,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "688981.SH",
+       "name": "中芯国际",
+       "weight_pct": {
+        "value": 7.9,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "科创50 是一笔 80% 押在半导体上的 AI 算力叙事，盈利预期很高、价格已计入大半（上半年 +64% 后回撤 20%，处中间区）；小仓位持有并继续定投，不做一次性买入，等阶梯点位",
+    "evidence": [
+     "Wind 一致预期科创50 指数 2026 年归母净利润同比增速超过 170%",
+     "海光信息、寒武纪 2026 一季度业绩继续高增；中芯国际 2026 年继续扩产，代工环节确定性强",
+     "2026 三季度调样 5 进 5 出，调入盛合晶微等半导体公司、调出生物与医疗器械公司，指数纯度上升，调整后总市值 5.9 万亿元"
+    ],
+    "counter_evidence": [
+     "自聚合 PB 7.76、分位 84.0，股息率 0.27%、分位 9.3：价格已计入高增；上半年 +64.25% 后 7–8 月回撤超 20 个百分点",
+     "半导体 80.2%、前十大 58.90%、亏损股权重 16.07%：单一景气周期与美国出口管制能同时打击全部成分，PE 77.17 不可作估值锚"
+    ],
+    "horizon_months": 18
+   },
+   "expectation": {
+    "method": "scenario_only",
+    "scenarios": {
+     "bear": {
+      "inputs": null,
+      "valuation_change_pct": {
+       "value": null,
+       "source": null
+      },
+      "annual_return_pct": {
+       "value": -30,
+       "source": "ai_estimate",
+       "note": "AI 资本开支放缓或出口管制扩大到成分主体，PB 向 P50 回归"
+      }
+     },
+     "base": {
+      "inputs": null,
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "framework:A5"
+      },
+      "annual_return_pct": {
+       "value": 10,
+       "source": "ai_estimate",
+       "note": "盈利如一致预期兑现但估值随之消化"
+      }
+     },
+     "bull": {
+      "inputs": null,
+      "valuation_change_pct": {
+       "value": null,
+       "source": null
+      },
+      "annual_return_pct": {
+       "value": 35,
+       "source": "ai_estimate",
+       "note": "算力需求超预期、国产替代加速"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "000688.SH",
+     "metric": "pb",
+     "value": {
+      "value": 7.76,
+      "source": "snapshot§4",
+      "note": "亏损股权重 16.07% 超过 15% 降级线，按框架 A5 用 PB；PE 77.17（分位 69.3）只作参考"
+     },
+     "percentile_expanding": {
+      "value": 84.0,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": null,
+      "source": null,
+      "note": "估值史自 2020-07，不足 10 年"
+     },
+     "sample_n": {
+      "value": 75,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "本席位只有一只持仓，bet_group=cn-star50 与 card_id 一一对应",
+    "list": [
+     {
+      "code": "011615.OF",
+      "name": "工银瑞信上证科创板50成份ETF联接-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "hold",
+      "reason": "现有持仓；年费 0.45%，3 年 TD -2.17pp、TE 2.38%（联接基金在大涨年份的现金拖累，同类共性）"
+     },
+     {
+      "code": "011614.OF",
+      "name": "工银瑞信上证科创板50成份ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；年费 0.35%，长期定投比 C 类便宜 0.10%/年，可考虑把定投计划改到 A 类，存量不动"
+     },
+     {
+      "code": "022932.OF",
+      "name": "工银瑞信上证科创板50成份ETF联接-Y",
+      "instrument_type": "otc_fund",
+      "share_class": "Y",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；Y 份额限个人养老金账户"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 30,
+    "purchase_limit_note": null
+   },
+   "decision": {
+    "rule_refs": [
+     "A5",
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "000688.SH",
+     "add_below": {
+      "level": {
+       "value": 1184.08,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2207.86,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.5363,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10：从 36 月高点跌 46%，相当于 2022–2024 年的底部区域"
+     },
+     "buy_below": {
+      "level": {
+       "value": 1396.47,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2207.86,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.6325,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；跌破时不自动买而是复评，盈利兑现路径未变则用额度加到 50%"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 2076.49,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2207.86,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.9405,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 6%）：升破即把这笔押注减到上限的 30%（3 万）；现持仓 1.2 万低于该目标，届时只停定投"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-star50",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数相对 200 日均线",
+     "kind": "auto",
+     "metric": "index_vs_sma200_pct",
+     "operator": "<",
+     "threshold": {
+      "value": 0,
+      "source": "framework:A11"
+     },
+     "condition_text": "收盘持续低于 200 日均线",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：+4.84%，above",
+     "frequency": "daily",
+     "action": "alert",
+     "action_note": ""
+    },
+    {
+     "name": "指数点位跌破买入锚点",
+     "kind": "auto",
+     "metric": "index_level",
+     "operator": "<",
+     "threshold": {
+      "value": 1396.47,
+      "source": "calc:level_at_drawdown_state"
+     },
+     "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：1,652.63",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "不自动买；复评盈利兑现路径后决定是否加到 50%"
+    },
+    {
+     "name": "美国对华半导体出口管制/实体清单变化",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "寒武纪、海光、中微、中芯任一被新增实质性限制",
+     "data_source": "美国商务部 BIS 公告",
+     "current_text": "无新增针对成分主体的限制",
+     "frequency": "event",
+     "action": "review",
+     "action_note": "命中即触发失效条件①的评估"
+    },
+    {
+     "name": "核心成分季报营收增速",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "寒武纪、海光、中芯国际、中微中三家以上单季营收同比增速降到 30% 以下",
+     "data_source": "季报",
+     "current_text": "2026Q1 海光、寒武纪继续高增",
+     "frequency": "quarterly",
+     "action": "review",
+     "action_note": ""
+    },
+    {
+     "name": "指数调样",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "半导体权重降到 60% 以下，或前十大变动 3 只以上",
+     "data_source": "上交所/中证指数公告（6 月、12 月）",
+     "current_text": "2026-09-14 生效 5 进 5 出，快照权重尚未反映",
+     "frequency": "event",
+     "action": "review",
+     "action_note": "论点与指数是否仍匹配"
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "出口管制扩大到成分主体",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "美国新的实质性限制（实体清单、EDA/设备断供）扩大到寒武纪、海光、中芯、中微等成分主体且业务受实质影响",
+      "data_source": "美国商务部 BIS 公告、公司公告",
+      "current_text": "未发生",
+      "frequency": "event",
+      "action": "reduce",
+      "action_note": ""
+     },
+     {
+      "name": "盈利预期落空",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "2026 年报指数归母净利润增速低于 50%（一致预期 170% 落空一半以上）",
+      "data_source": "年报汇总（Wind/券商）",
+      "current_text": "一致预期 +170%",
+      "frequency": "event",
+      "action": "close",
+      "action_note": ""
+     }
+    ],
+    "latest_review_date": "2026-11-20"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-23",
+    "confidence_pct": 40,
+    "entry_ref_index_level": {
+     "value": 1652.63,
      "source": "snapshot§6"
     }
    }
