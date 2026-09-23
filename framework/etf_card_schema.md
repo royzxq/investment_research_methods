@@ -26,7 +26,7 @@
 | 数字 | 除四个结构性字段（`card_schema_version`、`thesis.horizon_months`、`trade_rules.min_holding_days`、`scorecard.confidence_pct`）外，**所有数字都写成带来源的数** `{"value": 数字或null, "source": 来源或null, "note": 可选说明}`；裸数字拒收 |
 | 来源 | `snapshot§N`（N=0–8，`snapshot_ref` 所指快照的章节）、`calc:<函数名>`（`scripts/etf_calc.py` 的公开函数）、`framework:A<n>`（框架参数总表条目）、`user:<ISO日期>`（用户拍板的参数）、`ai_estimate` |
 | `ai_estimate` | 只允许出现在情景假设上：`scenarios.*.inputs` 的 `eps_growth_pct` / `dividend_yield_pct` / `years` / `drag_pct`，以及 `method=scenario_only` 时的 `annual_return_pct`。点位、权重、金额、估值（含期末倍数）出现即拒收 |
-| 快照引用核对 | 来源为 `snapshot§N` 的数，必须与该快照第 N 节里打印的某个数字**完全相等**——照抄，不再另行取整（`12.68` 不能写成 `12.7`）。快照文件不存在或没有「快照完成」行即报错 |
+| 快照引用核对 | 来源为 `snapshot§N` 的数，必须与该快照第 N 节里打印的某个数字**完全相等**——照抄，不再另行取整（`12.68` 不能写成 `12.7`）。锚点 `inputs` 对照 `decision.anchors.snapshot_ref`（为空时即卡的快照），其余数字对照卡的 `snapshot_ref`。快照文件不存在或没有「快照完成」行即报错 |
 | 计算器复算 | `sizing.standalone_cap_cny` 用 `loss_budget_cap(loss_budget_cny, stress_drawdown_pct)` 复算（容差 1 元）；情景 `inputs` 齐全时用 `scenario_annual_return` 复算 `valuation_change_pct` 与 `annual_return_pct`（容差 0.01）；锚点 `inputs` 齐全时用其 `level.source` 所指函数复算点位 |
 
 慢变量随卡走（估值状态、情景回报、指数结构，月频，来自快照）；快变量执行侧每日自算（指数点位、基金净值、趋势、持仓权重）。
@@ -97,6 +97,7 @@
 |---|---|
 | `rule_refs` | 引用的框架规则编号 |
 | `anchors.basis` / `index_code` | 恒为 `index_level`；`index_code` 须等于 `exposure.index_code` |
+| `anchors.snapshot_ref` | 锚点入参所用的快照；`null` = 与卡的 `snapshot_ref` 相同。机械刷新（`scripts/etf_refresh_cards.py`）只把它指向新快照，卡的 `snapshot_ref`（论点数据）不动，两者可以不同 |
 | `anchors.add_below` / `buy_below` / `reduce_above` | 三个锚点，各含 `level`、`target_ratio_pct`、`inputs`、`rationale`（见下） |
 | `anchors.reduce_mode` | `to_target_ratio`（减到 `reduce_above.target_ratio_pct`）/ `exit_all`（清仓，此时该比例必须为 0）。显式枚举，不靠文字 |
 | `anchors.no_anchor_reason` | 三个锚点全为空时必填（例：无估值源且无可用推导方法），否则为 `null` |
@@ -130,7 +131,7 @@
 `sizing`：`bet_group`（slug）、`stress_drawdown_pct`（负数）、`loss_budget_cny`、`standalone_cap_cny`。
 **一笔押注 = 一张卡**：`bet_group` 与 `card_id` 一一对应，一个 `bet_group` 只有一个上限、一套锚点。穿透后属于同一笔押注的多只基金
 （例：四只医药基金）合写成一张卡，锚点挂在主指数上，其余基金列进 `instruments.list`（`held_other` + 处置动作）。
-校验器批量校验时，同一 `bet_group` 出现在两个不同 `card_id` 下即报错。行业合计上限、中国权益上限这类组合级参数不进卡，由 `framework/etf_portfolio_params.json` 给出、随 `current.json` 导出，执行侧统一检查；执行侧比对上限以最近一次持仓快照为准，报数须附快照日期。卡带锚点或认领持仓时 `standalone_cap_cny` 必填（`target_ratio_pct` 没有它就没有基数）。**核心席位的上限不逐卡算**：`framework/etf_portfolio_params.json` 的 `core_seats` 表（用户 2026-09-19 拍板：先定块——核心 35 万 / 行业 21 万 / 分散器 14 万——再定席位，压力跌幅取各自历史实测）给出上限、压力跌幅与反推的亏损预算，核心卡的 `sizing` 三个数必须与表一致，校验器强制。行业席位仍按 `loss_budget_cap(3.5 万, −70%)` = 5 万。
+校验器批量校验时，同一 `bet_group` 出现在两个不同 `card_id` 下即报错。行业合计上限、中国权益上限这类组合级参数不进卡，由 `framework/etf_portfolio_params.json` 给出、随 `current.json` 导出，执行侧统一检查；执行侧比对上限以最近一次持仓快照为准，报数须附快照日期。卡带锚点或认领持仓时 `standalone_cap_cny` 必填（`target_ratio_pct` 没有它就没有基数）。**核心席位的上限不逐卡算**：`framework/etf_portfolio_params.json` 的 `core_seats` 表（用户 2026-09-19 拍板：先定块——核心 35 万 / 行业 50 万（2026-09-24，此前 21 万）/ 分散器 14 万——再定席位，压力跌幅取各自历史实测）给出上限、压力跌幅与反推的亏损预算，核心卡的 `sizing` 三个数必须与表一致，校验器强制。行业席位按 `loss_budget_cap(7 万, −70%)` = 10 万（用户 2026-09-23，此前 3.5 万 / 5 万）。
 
 `monitor_variables`（`active`/`watch` 卡 3–5 条）与 `exit.invalidation`（`tactical` 且 `active`/`watch` 至少 1 条）共用同一种触发器：
 
@@ -159,6 +160,7 @@
 ## 4. 变更记录
 
 - v1（2026-09-19）：首版。相对任务说明 §6 草案的改动——数字统一为带来源的对象并加 `_pct`/`_cny` 后缀；`instruments` 由 primary/backup/rejected 三槽改为带 `role` 的列表（同一笔押注下的多只已持有基金要能表达）；新增 `supersedes`、`exposure.counts_toward_sector_cap` / `china_equity` / `structure`、`valuation_state.index_code`、情景 `inputs`、结构化触发器；`latest_review_date` 对所有未关闭的卡必填。
+- 2026-09-24（仍 v1，首批卡随本次一并改）：`decision.anchors` 新增可空字段 `snapshot_ref`——机械刷新只移动锚点所依据的快照，论点数据留在原快照上；校验器按两份快照分别核对。
 - v1 发布前修订（2026-09-19，首批卡尚未写，不升版本号）：用户澄清 ETF 同样要择时选标的——候选池逐只投研、给买卖点位，而不是"战略权重 + 估值缩放定投 + 再平衡"。`decision` 块据此重做：删除 `strategic_weight`、`zones`、`dca_multiplier`，`dca_action` 去掉 `scale`；新增无状态三锚点 `anchors`（`add_below` / `buy_below` / `reduce_above`，各带 `level`、`target_ratio_pct`、`inputs`、`rationale`）、`reduce_mode`、`no_anchor_reason`。锚点形状、只写比例不写金额、推导方法记名、减仓语义显式枚举四条来自执行侧评审。同日按执行侧四视角评审再收紧（仍未发布）：新增导出产物 `current.json`、指数登记清单与组合参数文件；`instruments` 加 `currency`、代码必须带后缀、`rejected` 限未持有；删除 `trade_rules` 的溢价字段与 `decision.dca_action`（定投只由各工具的 `action` 给）；`auto` 指标由 7 个收缩为 3 个；`scorecard.benchmark` 改为 `{code, name}`；新增规则——认领持仓的卡须带监控变量与仓位上限、`action=buy` 须三锚点齐全、无行情源的指数只能 `no_buy/data`、`as_of_date` 不得晚于当天、一只工具至多被一张卡认领；删除固定 30/45 天过期线，只认 `latest_review_date`；写明 `valid_until` 过期后与减仓区的定投语义。第二轮代码审查后再补：`closed` 卡释放 `bet_group`；`valid_until` 不得早于 `as_of_date`；`exposure.currency` 须与登记清单一致；估值与记分基准只能引用有行情源的指数；删除触发器动作 `pause_dca`；缺省校验会比对已提交的 `current.json`。此前同日补的两条语义：`bet_group` 与卡一一对应（同组多卡会对同一个持仓池给出互相冲突的目标仓位）；买入区只买不卖、减仓区只卖不买（避免 7 天惩罚性赎回期内的往返交易）。快照引用核对由"按打印精度取整"收紧为"与打印数字完全相等"（取整比较会让 `10年`、`P75` 这类整数给相邻的小数背书）。
 
 ## 5. 示例
@@ -427,6 +429,7 @@
     "anchors": {
       "basis": "index_level",
       "index_code": "000510.SH",
+      "snapshot_ref": null,
       "add_below": {
         "level": {
           "value": 3928.56,

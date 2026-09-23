@@ -78,7 +78,10 @@
   "card_id": "cn-chemicals-tactical",
   "as_of_date": "2026-09-23",
   "supersedes": null,
-  "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+  "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+  },
   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
   "task": "tactical",
   "status": "active",
@@ -94,14 +97,47 @@
     "view_mismatch_note": "论点押一体化龙头的定价权（万华、巨化、宝丰、卫星约 20%），指数近三成是钾肥与锂盐资源周期；错位约三成",
     "structure": {
       "weights_as_of": "2026-08-31",
-      "constituent_count": {"value": 50, "source": "snapshot§3"},
-      "max_constituent_weight_pct": {"value": 9.65, "source": "snapshot§3"},
-      "top10_weight_pct": {"value": 42.65, "source": "snapshot§3"},
-      "research_coverage_pct": {"value": 1.8, "source": "snapshot§3"},
+      "constituent_count": {
+        "value": 50,
+        "source": "snapshot§3"
+      },
+      "max_constituent_weight_pct": {
+        "value": 9.65,
+        "source": "snapshot§3"
+      },
+      "top10_weight_pct": {
+        "value": 42.65,
+        "source": "snapshot§3"
+      },
+      "research_coverage_pct": {
+        "value": 1.8,
+        "source": "snapshot§3"
+      },
       "top_constituents": [
-        {"code": "600309.SH", "name": "万华化学", "weight_pct": {"value": 9.65, "source": "snapshot§3"}},
-        {"code": "000792.SZ", "name": "盐湖股份", "weight_pct": {"value": 6.03, "source": "snapshot§3"}},
-        {"code": "000408.SZ", "name": "藏格矿业", "weight_pct": {"value": 4.14, "source": "snapshot§3"}}
+        {
+          "code": "600309.SH",
+          "name": "万华化学",
+          "weight_pct": {
+            "value": 9.65,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "000792.SZ",
+          "name": "盐湖股份",
+          "weight_pct": {
+            "value": 6.03,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "000408.SZ",
+          "name": "藏格矿业",
+          "weight_pct": {
+            "value": 4.14,
+            "source": "snapshot§3"
+          }
+        }
       ]
     }
   },
@@ -123,80 +159,248 @@
     "scenarios": {
       "bear": {
         "inputs": {
-          "eps_growth_pct": {"value": 0, "source": "ai_estimate", "note": "净资产零增长"},
-          "dividend_yield_pct": {"value": 1.88, "source": "snapshot§4"},
-          "current_multiple": {"value": 2.31, "source": "snapshot§4", "note": "自聚合 PB"},
-          "terminal_multiple": {"value": 2.04, "source": "snapshot§4", "note": "PB 扩张窗 P25"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.2, "source": "snapshot§5", "note": "A 类年费"}
+          "eps_growth_pct": {
+            "value": 0,
+            "source": "ai_estimate",
+            "note": "净资产零增长"
+          },
+          "dividend_yield_pct": {
+            "value": 1.88,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 2.31,
+            "source": "snapshot§4",
+            "note": "自聚合 PB"
+          },
+          "terminal_multiple": {
+            "value": 2.04,
+            "source": "snapshot§4",
+            "note": "PB 扩张窗 P25"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "snapshot§5",
+            "note": "A 类年费"
+          }
         },
-        "valuation_change_pct": {"value": -4.06, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": -2.38, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": -4.06,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": -2.38,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "base": {
         "inputs": {
-          "eps_growth_pct": {"value": 5, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 1.88, "source": "snapshot§4"},
-          "current_multiple": {"value": 2.31, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 2.31, "source": "snapshot§4"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.2, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 1.88,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 2.31,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 2.31,
+            "source": "snapshot§4"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 6.68, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 6.68,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "bull": {
         "inputs": {
-          "eps_growth_pct": {"value": 10, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 1.88, "source": "snapshot§4"},
-          "current_multiple": {"value": 2.31, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 2.93, "source": "snapshot§4", "note": "PB 扩张窗 P75"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.2, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 10,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 1.88,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 2.31,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 2.93,
+            "source": "snapshot§4",
+            "note": "PB 扩张窗 P75"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 8.25, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 19.93, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 8.25,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 19.93,
+          "source": "calc:scenario_annual_return"
+        }
       }
     },
     "valuation_state": {
       "index_code": "000813.CSI",
       "metric": "pb",
-      "value": {"value": 2.31, "source": "snapshot§4", "note": "自聚合、指数权重口径；周期席位按 A5 用 PB，PE 17.86（分位 25.8）只作参考"},
-      "percentile_expanding": {"value": 47.0, "source": "snapshot§4"},
-      "percentile_10y": {"value": 42.2, "source": "snapshot§4"},
-      "sample_n": {"value": 151, "source": "snapshot§4"},
+      "value": {
+        "value": 2.31,
+        "source": "snapshot§4",
+        "note": "自聚合、指数权重口径；周期席位按 A5 用 PB，PE 17.86（分位 25.8）只作参考"
+      },
+      "percentile_expanding": {
+        "value": 47.0,
+        "source": "snapshot§4"
+      },
+      "percentile_10y": {
+        "value": 42.2,
+        "source": "snapshot§4"
+      },
+      "sample_n": {
+        "value": 151,
+        "source": "snapshot§4"
+      },
       "as_of": "2026-09-18"
     }
   },
   "instruments": {
     "merge_note": "本席位只有一只持仓；新增资金走同基金 A 类，存量不换",
     "list": [
-      {"code": "013528.OF", "name": "嘉实中证细分化工产业主题ETF联接-C", "instrument_type": "otc_fund", "share_class": "C", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "hold", "reason": "现有持仓，持有、定投继续；年费 0.30%，TD 年化 -0.94pp、TE 1.48%（全收益口径），规模 10.98 亿"},
-      {"code": "013527.OF", "name": "嘉实中证细分化工产业主题ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "未持有；年费 0.20%，若日后新增资金走 A 类，存量不值一次申赎"}
+      {
+        "code": "013528.OF",
+        "name": "嘉实中证细分化工产业主题ETF联接-C",
+        "instrument_type": "otc_fund",
+        "share_class": "C",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "primary",
+        "action": "hold",
+        "reason": "现有持仓，持有、定投继续；年费 0.30%，TD 年化 -0.94pp、TE 1.48%（全收益口径），规模 10.98 亿"
+      },
+      {
+        "code": "013527.OF",
+        "name": "嘉实中证细分化工产业主题ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "未持有；年费 0.20%，若日后新增资金走 A 类，存量不值一次申赎"
+      }
     ]
   },
-  "trade_rules": {"min_holding_days": 7, "purchase_limit_note": null},
+  "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+  },
   "decision": {
-    "rule_refs": ["A5", "A8", "A9", "A10", "A13"],
+    "rule_refs": [
+      "A5",
+      "A8",
+      "A9",
+      "A10",
+      "A13"
+    ],
     "anchors": {
       "basis": "index_level",
       "index_code": "000813.CSI",
+      "snapshot_ref": null,
       "add_below": {
-        "level": {"value": 2336.37, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 100, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 4474.09, "source": "snapshot§6"}, "state": {"value": 0.5222, "source": "snapshot§6", "note": "回撤状态扩张窗 P10"}},
+        "level": {
+          "value": 2336.37,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 100,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 4474.09,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.5222,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P10"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P10：相当于 2015–2016、2018、2024 的周期底部区域"
       },
       "buy_below": {
-        "level": {"value": 2664.77, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 50, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 4474.09, "source": "snapshot§6"}, "state": {"value": 0.5956, "source": "snapshot§6", "note": "回撤状态扩张窗 P25"}},
+        "level": {
+          "value": 2664.77,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 50,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 4474.09,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.5956,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P25"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P25；当前 3,539.58 在其上方约 33%。跌破时不自动买而是复评（见监控）"
       },
       "reduce_above": {
-        "level": {"value": 3955.99, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 30, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 4474.09, "source": "snapshot§6"}, "state": {"value": 0.8842, "source": "snapshot§6", "note": "回撤状态扩张窗 P75"}},
+        "level": {
+          "value": 3955.99,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 30,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 4474.09,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.8842,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P75"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 12%）：升破即把这笔押注减到上限的 30%（3 万）；现持仓在其下，届时不动"
       },
       "reduce_mode": "to_target_ratio",
@@ -206,28 +410,133 @@
   },
   "sizing": {
     "bet_group": "cn-chemicals",
-    "stress_drawdown_pct": {"value": -70, "source": "user:2026-09-18"},
-    "loss_budget_cny": {"value": 70000, "source": "user:2026-09-23"},
-    "standalone_cap_cny": {"value": 100000, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {
+      "value": -70,
+      "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+      "value": 70000,
+      "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+      "value": 100000,
+      "source": "calc:loss_budget_cap"
+    }
   },
   "monitor_variables": [
-    {"name": "指数相对 200 日均线", "kind": "auto", "metric": "index_vs_sma200_pct", "operator": "<", "threshold": {"value": 0, "source": "framework:A11"}, "condition_text": "收盘持续低于 200 日均线", "data_source": "执行侧日频计算", "current_text": "快照 §6：-9.65%，below", "frequency": "daily", "action": "alert", "action_note": ""},
-    {"name": "指数点位跌破买入锚点", "kind": "auto", "metric": "index_level", "operator": "<", "threshold": {"value": 2664.77, "source": "calc:level_at_drawdown_state"}, "condition_text": "收盘跌破 buy_below（回撤状态 P25）", "data_source": "执行侧日频计算", "current_text": "快照 §6：3,539.58", "frequency": "daily", "action": "review", "action_note": "不自动买；复评论点后再决定是否用剩余额度加"},
-    {"name": "购进价格与出厂价格剪刀差", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "工业购进价格同比高于出厂价格同比 3 个百分点以上", "data_source": "统计局 PPI 月报", "current_text": "8 月：购进 +5.8%、出厂 +3.8%，差 2 个百分点", "frequency": "monthly", "action": "review", "action_note": "成本挤压加深"},
-    {"name": "主要化工品价格（MDI、钾肥、碳酸锂）", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "回落至 2025 年低点区域", "data_source": "百川 / 卓创 / 公司公告", "current_text": "MDI、TDI 8 月提价；盐湖钾肥、锂盐量价齐升", "frequency": "monthly", "action": "review", "action_note": "命中即触发失效条件①的评估"}
+    {
+      "name": "指数相对 200 日均线",
+      "kind": "auto",
+      "metric": "index_vs_sma200_pct",
+      "operator": "<",
+      "threshold": {
+        "value": 0,
+        "source": "framework:A11"
+      },
+      "condition_text": "收盘持续低于 200 日均线",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：-9.65%，below",
+      "frequency": "daily",
+      "action": "alert",
+      "action_note": ""
+    },
+    {
+      "name": "指数点位跌破买入锚点",
+      "kind": "auto",
+      "metric": "index_level",
+      "operator": "<",
+      "threshold": {
+        "value": 2664.77,
+        "source": "calc:level_at_drawdown_state"
+      },
+      "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：3,539.58",
+      "frequency": "daily",
+      "action": "review",
+      "action_note": "不自动买；复评论点后再决定是否用剩余额度加"
+    },
+    {
+      "name": "购进价格与出厂价格剪刀差",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "工业购进价格同比高于出厂价格同比 3 个百分点以上",
+      "data_source": "统计局 PPI 月报",
+      "current_text": "8 月：购进 +5.8%、出厂 +3.8%，差 2 个百分点",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": "成本挤压加深"
+    },
+    {
+      "name": "主要化工品价格（MDI、钾肥、碳酸锂）",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "回落至 2025 年低点区域",
+      "data_source": "百川 / 卓创 / 公司公告",
+      "current_text": "MDI、TDI 8 月提价；盐湖钾肥、锂盐量价齐升",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": "命中即触发失效条件①的评估"
+    }
   ],
   "exit": {
     "invalidation": [
-      {"name": "供给纪律失效", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "主要化工品价格回落至 2025 年低点区域且龙头开工率回升", "data_source": "百川 / 卓创 / 公司公告", "current_text": "未发生", "frequency": "monthly", "action": "reduce", "action_note": ""},
-      {"name": "龙头利润转负", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "万华化学季度归母净利同比转负", "data_source": "季报", "current_text": "2026 二季度同比翻倍", "frequency": "event", "action": "close", "action_note": ""}
+      {
+        "name": "供给纪律失效",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "主要化工品价格回落至 2025 年低点区域且龙头开工率回升",
+        "data_source": "百川 / 卓创 / 公司公告",
+        "current_text": "未发生",
+        "frequency": "monthly",
+        "action": "reduce",
+        "action_note": ""
+      },
+      {
+        "name": "龙头利润转负",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "万华化学季度归母净利同比转负",
+        "data_source": "季报",
+        "current_text": "2026 二季度同比翻倍",
+        "frequency": "event",
+        "action": "close",
+        "action_note": ""
+      }
     ],
     "latest_review_date": "2026-11-23"
   },
   "scorecard": {
-    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
+    "benchmark": {
+      "code": "H11025.CSI",
+      "name": "同一笔钱放在货币基金"
+    },
     "preregistered_at": "2026-09-23",
     "confidence_pct": 50,
-    "entry_ref_index_level": {"value": 3539.58, "source": "snapshot§6"}
+    "entry_ref_index_level": {
+      "value": 3539.58,
+      "source": "snapshot§6"
+    }
   }
 }
 ```

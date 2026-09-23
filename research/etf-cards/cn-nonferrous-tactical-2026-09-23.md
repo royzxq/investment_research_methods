@@ -79,7 +79,10 @@
   "card_id": "cn-nonferrous-tactical",
   "as_of_date": "2026-09-23",
   "supersedes": null,
-  "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+  "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+  },
   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
   "task": "tactical",
   "status": "active",
@@ -95,14 +98,47 @@
     "view_mismatch_note": "论点押铜与黄金（合计约 38%），指数最大一块是小金属 38.8%（稀土、锂），走另一条周期；错位约四成",
     "structure": {
       "weights_as_of": "2026-08-31",
-      "constituent_count": {"value": 50, "source": "snapshot§3"},
-      "max_constituent_weight_pct": {"value": 11.18, "source": "snapshot§3"},
-      "top10_weight_pct": {"value": 44.73, "source": "snapshot§3"},
-      "research_coverage_pct": {"value": 26.3, "source": "snapshot§3"},
+      "constituent_count": {
+        "value": 50,
+        "source": "snapshot§3"
+      },
+      "max_constituent_weight_pct": {
+        "value": 11.18,
+        "source": "snapshot§3"
+      },
+      "top10_weight_pct": {
+        "value": 44.73,
+        "source": "snapshot§3"
+      },
+      "research_coverage_pct": {
+        "value": 26.3,
+        "source": "snapshot§3"
+      },
       "top_constituents": [
-        {"code": "601899.SH", "name": "紫金矿业", "weight_pct": {"value": 11.18, "source": "snapshot§3"}},
-        {"code": "603993.SH", "name": "洛阳钼业", "weight_pct": {"value": 7.39, "source": "snapshot§3"}},
-        {"code": "600111.SH", "name": "北方稀土", "weight_pct": {"value": 4.56, "source": "snapshot§3"}}
+        {
+          "code": "601899.SH",
+          "name": "紫金矿业",
+          "weight_pct": {
+            "value": 11.18,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "603993.SH",
+          "name": "洛阳钼业",
+          "weight_pct": {
+            "value": 7.39,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "600111.SH",
+          "name": "北方稀土",
+          "weight_pct": {
+            "value": 4.56,
+            "source": "snapshot§3"
+          }
+        }
       ]
     }
   },
@@ -124,81 +160,260 @@
     "scenarios": {
       "bear": {
         "inputs": {
-          "eps_growth_pct": {"value": 0, "source": "ai_estimate", "note": "净资产零增长（周期下行、利润回落）"},
-          "dividend_yield_pct": {"value": 1.73, "source": "snapshot§4"},
-          "current_multiple": {"value": 3.06, "source": "snapshot§4", "note": "自聚合 PB"},
-          "terminal_multiple": {"value": 2.14, "source": "snapshot§4", "note": "PB 扩张窗 P25"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.6, "source": "snapshot§5", "note": "A 类年费"}
+          "eps_growth_pct": {
+            "value": 0,
+            "source": "ai_estimate",
+            "note": "净资产零增长（周期下行、利润回落）"
+          },
+          "dividend_yield_pct": {
+            "value": 1.73,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 3.06,
+            "source": "snapshot§4",
+            "note": "自聚合 PB"
+          },
+          "terminal_multiple": {
+            "value": 2.14,
+            "source": "snapshot§4",
+            "note": "PB 扩张窗 P25"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.6,
+            "source": "snapshot§5",
+            "note": "A 类年费"
+          }
         },
-        "valuation_change_pct": {"value": -11.24, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": -10.11, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": -11.24,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": -10.11,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "base": {
         "inputs": {
-          "eps_growth_pct": {"value": 6, "source": "ai_estimate", "note": "净资产增速"},
-          "dividend_yield_pct": {"value": 1.73, "source": "snapshot§4"},
-          "current_multiple": {"value": 3.06, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 3.06, "source": "snapshot§4"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.6, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 6,
+            "source": "ai_estimate",
+            "note": "净资产增速"
+          },
+          "dividend_yield_pct": {
+            "value": 1.73,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 3.06,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 3.06,
+            "source": "snapshot§4"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.6,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 7.13, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 7.13,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "bull": {
         "inputs": {
-          "eps_growth_pct": {"value": 10, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 1.73, "source": "snapshot§4"},
-          "current_multiple": {"value": 3.06, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 3.15, "source": "snapshot§4", "note": "PB 扩张窗 P75"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.6, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 10,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 1.73,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 3.06,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 3.15,
+            "source": "snapshot§4",
+            "note": "PB 扩张窗 P75"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.6,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 0.97, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 12.1, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0.97,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 12.1,
+          "source": "calc:scenario_annual_return"
+        }
       }
     },
     "valuation_state": {
       "index_code": "000819.SH",
       "metric": "pb",
-      "value": {"value": 3.06, "source": "snapshot§4", "note": "自聚合、指数权重口径；周期席位按 A5 用 PB，PE 16.84（分位 14.6）只作参考"},
-      "percentile_expanding": {"value": 69.6, "source": "snapshot§4"},
-      "percentile_10y": {"value": 70.7, "source": "snapshot§4"},
-      "sample_n": {"value": 158, "source": "snapshot§4"},
+      "value": {
+        "value": 3.06,
+        "source": "snapshot§4",
+        "note": "自聚合、指数权重口径；周期席位按 A5 用 PB，PE 16.84（分位 14.6）只作参考"
+      },
+      "percentile_expanding": {
+        "value": 69.6,
+        "source": "snapshot§4"
+      },
+      "percentile_10y": {
+        "value": 70.7,
+        "source": "snapshot§4"
+      },
+      "sample_n": {
+        "value": 158,
+        "source": "snapshot§4"
+      },
       "as_of": "2026-09-18"
     }
   },
   "instruments": {
     "merge_note": "本席位只有一只持仓；新增资金走同基金 A 类，存量不换",
     "list": [
-      {"code": "010990.OF", "name": "南方中证申万有色金属ETF联接-E", "instrument_type": "otc_fund", "share_class": "E", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "hold", "reason": "现有持仓，持有、定投继续；年费 0.70%，TD 年化 -2.28pp、TE 1.72%，规模 90.71 亿"},
-      {"code": "004432.OF", "name": "南方中证申万有色金属ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "未持有；年费 0.60% 优于 E 类 0.10 个百分点，若日后新增资金走 A 类，存量不值一次申赎"},
-      {"code": "004433.OF", "name": "南方中证申万有色金属ETF联接-C", "instrument_type": "otc_fund", "share_class": "C", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "未持有；年费 1.00%，同基金最贵份额"}
+      {
+        "code": "010990.OF",
+        "name": "南方中证申万有色金属ETF联接-E",
+        "instrument_type": "otc_fund",
+        "share_class": "E",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "primary",
+        "action": "hold",
+        "reason": "现有持仓，持有、定投继续；年费 0.70%，TD 年化 -2.28pp、TE 1.72%，规模 90.71 亿"
+      },
+      {
+        "code": "004432.OF",
+        "name": "南方中证申万有色金属ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "未持有；年费 0.60% 优于 E 类 0.10 个百分点，若日后新增资金走 A 类，存量不值一次申赎"
+      },
+      {
+        "code": "004433.OF",
+        "name": "南方中证申万有色金属ETF联接-C",
+        "instrument_type": "otc_fund",
+        "share_class": "C",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "未持有；年费 1.00%，同基金最贵份额"
+      }
     ]
   },
-  "trade_rules": {"min_holding_days": 7, "purchase_limit_note": null},
+  "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+  },
   "decision": {
-    "rule_refs": ["A5", "A8", "A9", "A10", "A13"],
+    "rule_refs": [
+      "A5",
+      "A8",
+      "A9",
+      "A10",
+      "A13"
+    ],
     "anchors": {
       "basis": "index_level",
       "index_code": "000819.SH",
+      "snapshot_ref": null,
       "add_below": {
-        "level": {"value": 5360.06, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 100, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 11703.19, "source": "snapshot§6"}, "state": {"value": 0.458, "source": "snapshot§6", "note": "回撤状态扩张窗 P10"}},
+        "level": {
+          "value": 5360.06,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 100,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 11703.19,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.458,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P10"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P10：相当于 2015–2016、2018 那几轮周期底部"
       },
       "buy_below": {
-        "level": {"value": 6694.22, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 50, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 11703.19, "source": "snapshot§6"}, "state": {"value": 0.572, "source": "snapshot§6", "note": "回撤状态扩张窗 P25"}},
+        "level": {
+          "value": 6694.22,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 50,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 11703.19,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.572,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P25"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P25；当前 8,690.98 在其上方约 30%。跌破时不自动买而是复评（见监控）"
       },
       "reduce_above": {
-        "level": {"value": 9655.13, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 30, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 11703.19, "source": "snapshot§6"}, "state": {"value": 0.825, "source": "snapshot§6", "note": "回撤状态扩张窗 P75"}},
+        "level": {
+          "value": 9655.13,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 30,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 11703.19,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.825,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P75"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 17%）：升破即把这笔押注减到上限的 30%（3 万）；现持仓在其下，届时不动"
       },
       "reduce_mode": "to_target_ratio",
@@ -208,28 +423,133 @@
   },
   "sizing": {
     "bet_group": "cn-nonferrous",
-    "stress_drawdown_pct": {"value": -70, "source": "user:2026-09-18"},
-    "loss_budget_cny": {"value": 70000, "source": "user:2026-09-23"},
-    "standalone_cap_cny": {"value": 100000, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {
+      "value": -70,
+      "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+      "value": 70000,
+      "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+      "value": 100000,
+      "source": "calc:loss_budget_cap"
+    }
   },
   "monitor_variables": [
-    {"name": "指数相对 200 日均线", "kind": "auto", "metric": "index_vs_sma200_pct", "operator": "<", "threshold": {"value": 0, "source": "framework:A11"}, "condition_text": "收盘持续低于 200 日均线", "data_source": "执行侧日频计算", "current_text": "快照 §6：-10.01%，below", "frequency": "daily", "action": "alert", "action_note": ""},
-    {"name": "指数点位跌破买入锚点", "kind": "auto", "metric": "index_level", "operator": "<", "threshold": {"value": 6694.22, "source": "calc:level_at_drawdown_state"}, "condition_text": "收盘跌破 buy_below（回撤状态 P25）", "data_source": "执行侧日频计算", "current_text": "快照 §6：8,690.98", "frequency": "daily", "action": "review", "action_note": "不自动买；复评论点后再决定是否用剩余额度加"},
-    {"name": "伦铜价格", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "跌破 11,000 美元/吨且持续一个月", "data_source": "LME / 新浪期货", "current_text": "2026-09-18 收 14,515 美元/吨", "frequency": "monthly", "action": "review", "action_note": "命中即触发失效条件①的评估"},
-    {"name": "美元指数与金价", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "美元指数站稳 105 且金价跌破 4,000 美元", "data_source": "公开行情", "current_text": "美元 99 上方、金价 9/11 跌破 4,300", "frequency": "monthly", "action": "review", "action_note": ""}
+    {
+      "name": "指数相对 200 日均线",
+      "kind": "auto",
+      "metric": "index_vs_sma200_pct",
+      "operator": "<",
+      "threshold": {
+        "value": 0,
+        "source": "framework:A11"
+      },
+      "condition_text": "收盘持续低于 200 日均线",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：-10.01%，below",
+      "frequency": "daily",
+      "action": "alert",
+      "action_note": ""
+    },
+    {
+      "name": "指数点位跌破买入锚点",
+      "kind": "auto",
+      "metric": "index_level",
+      "operator": "<",
+      "threshold": {
+        "value": 6694.22,
+        "source": "calc:level_at_drawdown_state"
+      },
+      "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：8,690.98",
+      "frequency": "daily",
+      "action": "review",
+      "action_note": "不自动买；复评论点后再决定是否用剩余额度加"
+    },
+    {
+      "name": "伦铜价格",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "跌破 11,000 美元/吨且持续一个月",
+      "data_source": "LME / 新浪期货",
+      "current_text": "2026-09-18 收 14,515 美元/吨",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": "命中即触发失效条件①的评估"
+    },
+    {
+      "name": "美元指数与金价",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "美元指数站稳 105 且金价跌破 4,000 美元",
+      "data_source": "公开行情",
+      "current_text": "美元 99 上方、金价 9/11 跌破 4,300",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": ""
+    }
   ],
   "exit": {
     "invalidation": [
-      {"name": "矿端短缺叙事被证伪", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "伦铜跌破 11,000 美元/吨且持续一个月", "data_source": "LME", "current_text": "14,515 美元/吨", "frequency": "monthly", "action": "reduce", "action_note": ""},
-      {"name": "价格拐点进入报表", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "紫金矿业与洛阳钼业 2026 年报归母净利同比转负", "data_source": "年报", "current_text": "2026 上半年分别 +68%、+79%～+90%", "frequency": "event", "action": "close", "action_note": ""}
+      {
+        "name": "矿端短缺叙事被证伪",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "伦铜跌破 11,000 美元/吨且持续一个月",
+        "data_source": "LME",
+        "current_text": "14,515 美元/吨",
+        "frequency": "monthly",
+        "action": "reduce",
+        "action_note": ""
+      },
+      {
+        "name": "价格拐点进入报表",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "紫金矿业与洛阳钼业 2026 年报归母净利同比转负",
+        "data_source": "年报",
+        "current_text": "2026 上半年分别 +68%、+79%～+90%",
+        "frequency": "event",
+        "action": "close",
+        "action_note": ""
+      }
     ],
     "latest_review_date": "2026-11-23"
   },
   "scorecard": {
-    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
+    "benchmark": {
+      "code": "H11025.CSI",
+      "name": "同一笔钱放在货币基金"
+    },
     "preregistered_at": "2026-09-23",
     "confidence_pct": 50,
-    "entry_ref_index_level": {"value": 8690.98, "source": "snapshot§6"}
+    "entry_ref_index_level": {
+      "value": 8690.98,
+      "source": "snapshot§6"
+    }
   }
 }
 ```

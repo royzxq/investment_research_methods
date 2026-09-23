@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-24T02:23:07+08:00",
+ "generated_at": "2026-09-24T02:33:01+08:00",
  "card_schema_version": 1,
  "portfolio_params": {
   "effective_from": "2026-09-18",
@@ -510,6 +510,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "399975.SZ",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 399.44,
@@ -975,6 +976,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "000813.CSI",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 2336.37,
@@ -1453,6 +1455,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "000932.SH",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 12012.11,
@@ -1946,6 +1949,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "399973.SZ",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 1044.82,
@@ -2367,6 +2371,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "987018.CNI",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 753.69,
@@ -2873,6 +2878,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "399976.SZ",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 2535.18,
@@ -3350,6 +3356,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "000819.SH",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 5360.06,
@@ -3750,6 +3757,7 @@
     "anchors": {
      "basis": "index_level",
      "index_code": "000688.SH",
+     "snapshot_ref": null,
      "add_below": {
       "level": {
        "value": 1184.08,

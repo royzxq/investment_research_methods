@@ -34,7 +34,7 @@ python3 scripts/etf_refresh_cards.py --dry-run     # 先看会改什么
 python3 scripts/etf_refresh_cards.py               # 每张输入有变化的现行卡出新版 <card_id>-<日期>.md，supersedes 指向旧版
 ```
 
-只改锚点、valid_until、挂在锚点上的自动监控、snapshot_ref；正文只替换旧点位数字并加一行"机械刷新"注记。
+只改锚点及其 `decision.anchors.snapshot_ref`、valid_until、挂在锚点上的自动监控；卡的 `snapshot_ref`（论点数据）不动。正文只替换旧点位数字并加一行"机械刷新"注记。同一天已有版本的卡不刷新（脚本拒绝覆盖）。
 
 ### 3. 复评队列（AI 判断，只对进队列的卡重写）
 
@@ -46,6 +46,7 @@ python3 scripts/etf_refresh_cards.py               # 每张输入有变化的现
 | 失效条件或监控触发 | 执行侧日报 / 用户告知 / 本月事实核对命中卡里的 `exit.invalidation` 或 manual 监控 | 同上；命中失效条件的卡按其 action 转 `reduce` / `close`，closed 卡写 `close_reason` |
 | 进入减仓区或跌破买入锚点 | 快照 §6b 的当前状态分位 ≥ 75 或 ≤ 25（对应卡的 `reduce_above` / `buy_below` 已被穿越） | 重核论点后决定：维持阶梯动作、或改 status |
 | 持仓变化 | `HOLDINGS` 显示某席位超上限、或新增/清出了工具 | 更新 instruments 的 role/action 与 sizing 说明；超上限 → 相关工具 `stop_dca` |
+| 论点数据过旧 | 现行卡的 `snapshot_ref`（论点数据所用快照，机械刷新不动它）比 AS_OF_DATE 早 100 天以上 | 用 `etf-card-research` 重写，让论点重新对着当期快照 |
 
 不在队列里的卡只做步骤 2 的机械刷新，不重写。
 
@@ -85,7 +86,7 @@ python3 -m unittest discover -s tests
 - 逐卡：进队列的原因、处理结果（重写/转 reduce/转 close/维持）
 
 ## 4. 持仓与预算
-- 各席位现持仓 vs 上限；行业合计 vs 21 万；中国权益 vs 90%（分母=全部资产）；已知敞口（A8）重述
+- 各席位现持仓 vs 上限；行业合计 vs `etf_portfolio_params.json` 的行业块上限（现为 50 万）；中国权益 vs 90%（分母=全部资产）；已知敞口（A8）重述
 
 ## 5. 变化检测
 - 四类触发逐条：命中/未命中；预备观察项（下月必复核）

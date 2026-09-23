@@ -360,6 +360,7 @@
     "anchors": {
       "basis": "index_level",
       "index_code": "000932.SH",
+      "snapshot_ref": null,
       "add_below": {
         "level": {
           "value": 12012.11,

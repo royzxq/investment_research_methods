@@ -100,7 +100,7 @@ def card():
                                   "action": "stop_dca", "reason": "长期持有 C 类更贵"}]},
         "trade_rules": {"min_holding_days": 7, "purchase_limit_note": None},
         "decision": {"rule_refs": ["A8", "A9", "A10"],
-                     "anchors": {"basis": "index_level", "index_code": "931152.CSI", "reduce_mode": "to_target_ratio",
+                     "anchors": {"basis": "index_level", "index_code": "931152.CSI", "snapshot_ref": None, "reduce_mode": "to_target_ratio",
                                  "no_anchor_reason": None, "valid_until": "2026-12-31",
                                  "add_below": anchor(0.5376, 100), "buy_below": anchor(0.6423, 50),
                                  "reduce_above": anchor(0.8994, 30)}},
@@ -299,6 +299,19 @@ class RejectionTests(unittest.TestCase):
         self.assertEqual(errors_of(core), [])
         self.assert_error(lambda d: core(d, cap=100000, budget=72000), "core seat 000510.SH is fixed at 120000")
         self.assert_error(lambda d: core(d, drawdown=-60, budget=72000), "core seat 000510.SH is fixed at -72")
+
+    def test_anchor_inputs_are_checked_against_the_anchors_own_snapshot(self):
+        moved = card()
+        moved["decision"]["anchors"]["snapshot_ref"] = "research/etf-2026-10-16-data-snapshot.txt"
+        for name in ("add_below", "buy_below", "reduce_above"):
+            moved["decision"]["anchors"][name]["inputs"]["rolling_high"]["value"] = 2400.0
+        other = "---- §6 趋势 ----\n 某指数 931152.CSI 20261016 2,100.00 2,400.00 0.8750 60.0 143 20141231 0.5376 0.6423 0.8994\n"
+        errors = validate_card(moved, snapshot_text=SNAPSHOT, anchor_snapshot_text=other)
+        self.assertEqual([e for e in errors if "rolling_high" in e], [])
+        self.assertTrue(all("does not match calc:level_at_drawdown_state" in e for e in errors))   # levels were not recomputed here
+        without = validate_card(moved, snapshot_text=SNAPSHOT)
+        self.assertTrue(any("2400.0 is not printed in snapshot§6" in e for e in without))
+        self.assert_error(lambda d: d["decision"]["anchors"].update(snapshot_ref="research/foo.txt"), "decision.anchors.snapshot_ref")
 
     def test_a_committed_export_must_match_the_cards(self):
         document = card()

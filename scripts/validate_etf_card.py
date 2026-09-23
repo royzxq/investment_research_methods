@@ -170,7 +170,7 @@ class _Card:
             return None
         return value
 
-    def number(self, value, path, *, assumption=False, required=False, minimum=None, maximum=None):
+    def number(self, value, path, *, assumption=False, required=False, minimum=None, maximum=None, scope="card"):
         """Sourced number {"value", "source"[, "note"]}; returns the value or None when unknown."""
         if not isinstance(value, dict) or "value" not in value or "source" not in value:
             self.error(path, 'expected sourced number {"value", "source"}')
@@ -199,7 +199,7 @@ class _Card:
         elif match.group(1) is not None and match.group(1) not in CALCULATORS:
             self.error(f"{path}.source", f"etf_calc has no function {match.group(1)}")
         else:
-            self.sourced.append((path, amount, source))
+            self.sourced.append((path, amount, source, scope))
         if minimum is not None and amount < minimum or maximum is not None and amount > maximum:
             self.error(f"{path}.value", f"outside [{minimum}, {maximum}]")
         return amount
@@ -391,7 +391,7 @@ def _anchor(card, anchor, path):
     if not isinstance(anchor["inputs"], dict):
         card.error(f"{path}.inputs", "expected object of sourced numbers or null")
         return level, ratio
-    values = {key: card.number(value, f"{path}.inputs.{key}") for key, value in anchor["inputs"].items()}
+    values = {key: card.number(value, f"{path}.inputs.{key}", scope="anchor") for key, value in anchor["inputs"].items()}
     if function in CALCULATORS and None not in values.values():
         try:
             expected = getattr(etf_calc, function)(**values)
@@ -412,8 +412,8 @@ def _decision(card, decision, exposure, as_of):
         return None
     card.texts(decision["rule_refs"], f"{path}.rule_refs")
     path = "decision.anchors"
-    anchors = card.obj(decision["anchors"], path, ("basis", "index_code", "add_below", "buy_below", "reduce_above",
-                                                   "reduce_mode", "no_anchor_reason", "valid_until"))
+    anchors = card.obj(decision["anchors"], path, ("basis", "index_code", "snapshot_ref", "add_below", "buy_below",
+                                                   "reduce_above", "reduce_mode", "no_anchor_reason", "valid_until"))
     if anchors is None:
         return None
     if anchors["basis"] != "index_level":
@@ -426,6 +426,9 @@ def _decision(card, decision, exposure, as_of):
     reason = card.text(anchors["no_anchor_reason"], f"{path}.no_anchor_reason", nullable=True)
     present = [level is not None for level in (add, buy, reduce)]
     valid_until = card.day(anchors["valid_until"], f"{path}.valid_until", nullable=not any(present))
+    if anchors["snapshot_ref"] is not None and (not isinstance(anchors["snapshot_ref"], str)
+                                                or not SNAPSHOT_REF.fullmatch(anchors["snapshot_ref"])):
+        card.error(f"{path}.snapshot_ref", "expected research/etf-YYYY-MM-DD-data-snapshot.txt or null (null = the card's snapshot)")
     if valid_until is not None and as_of is not None and valid_until < as_of:
         card.error(f"{path}.valid_until", "earlier than as_of_date: the buy-side anchors would be dead on arrival")
     if any(present) != all(present):
@@ -474,24 +477,35 @@ def _bare_numbers(card, value, path):
         card.error(path, 'bare number; wrap it as {"value", "source"}')
 
 
-def _snapshot_citations(card, snapshot_text):
-    """A number citing snapshot§N must equal a number printed in that section: copied, never rounded further."""
+def _printed_numbers(snapshot_text):
     sections = {}
     for block in re.split(r"(?m)^(?=---- §\d)", snapshot_text):
         match = re.match(r"---- §(\d)", block)
         if match:
             sections[match.group(1)] = {float(token.replace(",", "")) for token in NUMBER_TOKEN.findall(block)}
-    for path, amount, source in card.sourced:
+    return sections
+
+
+def _snapshot_citations(card, snapshot_text, anchor_snapshot_text=None):
+    """A number citing snapshot§N must equal a number printed in that section: copied, never rounded further.
+
+    Anchor inputs are checked against the anchors' own snapshot when the card names one (a mechanically
+    refreshed card keeps its thesis data on the older snapshot and moves only the ladder to the new one).
+    """
+    printed = {"card": _printed_numbers(snapshot_text),
+               "anchor": _printed_numbers(anchor_snapshot_text) if anchor_snapshot_text is not None else None}
+    for path, amount, source, scope in card.sourced:
         if not source.startswith("snapshot§"):
             continue
-        printed = sections.get(source[-1])
-        if printed is None:
+        sections = printed[scope] if printed.get(scope) is not None else printed["card"]
+        numbers = sections.get(source[-1])
+        if numbers is None:
             card.error(f"{path}.source", f"{source} is not a section of the referenced snapshot")
-        elif not any(math.isclose(amount, number, rel_tol=0, abs_tol=1e-9) for number in printed):
+        elif not any(math.isclose(amount, number, rel_tol=0, abs_tol=1e-9) for number in numbers):
             card.error(f"{path}.value", f"{amount} is not printed in {source} of the referenced snapshot")
 
 
-def validate_card(document, *, snapshot_text=None, filename=None):
+def validate_card(document, *, snapshot_text=None, filename=None, anchor_snapshot_text=None):
     """Return a list of error strings; empty means the card is structurally valid."""
     card = _Card()
     keys = ("card_schema_version", "card_id", "as_of_date", "supersedes", "framework", "snapshot_ref", "task", "status",
@@ -594,7 +608,7 @@ def validate_card(document, *, snapshot_text=None, filename=None):
 
     _bare_numbers(card, document, "")
     if snapshot_text is not None:
-        _snapshot_citations(card, snapshot_text)
+        _snapshot_citations(card, snapshot_text, anchor_snapshot_text)
     return card.errors
 
 
@@ -619,6 +633,20 @@ def load_card(markdown):
     return json.loads(blocks[0], object_pairs_hook=_unique_object, parse_constant=_reject_constant)
 
 
+def _snapshot(reference, label, errors):
+    """Read a snapshot the card refers to; a missing or incomplete file is an error, not a silent skip."""
+    if not (isinstance(reference, str) and SNAPSHOT_REF.fullmatch(reference)):
+        return None
+    try:
+        snapshot_text = (REPO_ROOT / reference).read_text(encoding="utf-8")
+    except OSError:
+        errors.append(f"{label}: {reference} not found under {REPO_ROOT}")
+        return None
+    if "快照完成" not in snapshot_text:
+        errors.append(f"{label}: {reference} is incomplete (no 快照完成 line)")
+    return snapshot_text
+
+
 def _checked(path):
     """(errors, document): document is None when the file could not be parsed."""
     path = Path(path)
@@ -626,17 +654,12 @@ def _checked(path):
         document = load_card(path.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
         return [f"{path}: {exc}"], None
-    snapshot_text, errors = None, []
-    reference = document.get("snapshot_ref") if isinstance(document, dict) else None
-    if isinstance(reference, str) and SNAPSHOT_REF.fullmatch(reference):
-        try:
-            snapshot_text = (REPO_ROOT / reference).read_text(encoding="utf-8")
-        except OSError:
-            errors.append(f"snapshot_ref: {reference} not found under {REPO_ROOT}")
-        else:
-            if "快照完成" not in snapshot_text:
-                errors.append(f"snapshot_ref: {reference} is incomplete (no 快照完成 line)")
-    return errors + validate_card(document, snapshot_text=snapshot_text, filename=path.name), document
+    errors = []
+    snapshot_text = _snapshot(document.get("snapshot_ref") if isinstance(document, dict) else None, "snapshot_ref", errors)
+    anchors = document.get("decision", {}).get("anchors", {}) if isinstance(document, dict) else {}
+    anchor_text = _snapshot(anchors.get("snapshot_ref") if isinstance(anchors, dict) else None, "decision.anchors.snapshot_ref", errors)
+    return errors + validate_card(document, snapshot_text=snapshot_text, filename=path.name,
+                                  anchor_snapshot_text=anchor_text), document
 
 
 def validate_file(path):

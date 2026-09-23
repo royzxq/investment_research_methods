@@ -80,7 +80,10 @@ TD 年化 −2.17pp 明显大于年费 0.45%，说明联接基金在指数大涨
   "card_id": "cn-star50-tactical",
   "as_of_date": "2026-09-23",
   "supersedes": null,
-  "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+  "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+  },
   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
   "task": "tactical",
   "status": "active",
@@ -96,14 +99,47 @@ TD 年化 −2.17pp 明显大于年费 0.45%，说明联接基金在指数大涨
     "view_mismatch_note": "指数 80.2% 是半导体，与“AI 算力驱动的国产半导体”论点错位小；但它按市值追涨调样（2026-09-14 调样在上半年大涨之后），不是半导体龙头指数",
     "structure": {
       "weights_as_of": "2026-08-31",
-      "constituent_count": {"value": 50, "source": "snapshot§3"},
-      "max_constituent_weight_pct": {"value": 8.41, "source": "snapshot§3"},
-      "top10_weight_pct": {"value": 58.9, "source": "snapshot§3"},
-      "research_coverage_pct": {"value": 4.0, "source": "snapshot§3"},
+      "constituent_count": {
+        "value": 50,
+        "source": "snapshot§3"
+      },
+      "max_constituent_weight_pct": {
+        "value": 8.41,
+        "source": "snapshot§3"
+      },
+      "top10_weight_pct": {
+        "value": 58.9,
+        "source": "snapshot§3"
+      },
+      "research_coverage_pct": {
+        "value": 4.0,
+        "source": "snapshot§3"
+      },
       "top_constituents": [
-        {"code": "688256.SH", "name": "寒武纪", "weight_pct": {"value": 8.41, "source": "snapshot§3"}},
-        {"code": "688012.SH", "name": "中微公司", "weight_pct": {"value": 8.18, "source": "snapshot§3"}},
-        {"code": "688981.SH", "name": "中芯国际", "weight_pct": {"value": 7.9, "source": "snapshot§3"}}
+        {
+          "code": "688256.SH",
+          "name": "寒武纪",
+          "weight_pct": {
+            "value": 8.41,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "688012.SH",
+          "name": "中微公司",
+          "weight_pct": {
+            "value": 8.18,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "688981.SH",
+          "name": "中芯国际",
+          "weight_pct": {
+            "value": 7.9,
+            "source": "snapshot§3"
+          }
+        }
       ]
     }
   },
@@ -123,50 +159,185 @@ TD 年化 −2.17pp 明显大于年费 0.45%，说明联接基金在指数大涨
   "expectation": {
     "method": "scenario_only",
     "scenarios": {
-      "bear": {"inputs": null, "valuation_change_pct": {"value": null, "source": null}, "annual_return_pct": {"value": -30, "source": "ai_estimate", "note": "AI 资本开支放缓或出口管制扩大到成分主体，PB 向 P50 回归"}},
-      "base": {"inputs": null, "valuation_change_pct": {"value": 0, "source": "framework:A5"}, "annual_return_pct": {"value": 10, "source": "ai_estimate", "note": "盈利如一致预期兑现但估值随之消化"}},
-      "bull": {"inputs": null, "valuation_change_pct": {"value": null, "source": null}, "annual_return_pct": {"value": 35, "source": "ai_estimate", "note": "算力需求超预期、国产替代加速"}}
+      "bear": {
+        "inputs": null,
+        "valuation_change_pct": {
+          "value": null,
+          "source": null
+        },
+        "annual_return_pct": {
+          "value": -30,
+          "source": "ai_estimate",
+          "note": "AI 资本开支放缓或出口管制扩大到成分主体，PB 向 P50 回归"
+        }
+      },
+      "base": {
+        "inputs": null,
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "framework:A5"
+        },
+        "annual_return_pct": {
+          "value": 10,
+          "source": "ai_estimate",
+          "note": "盈利如一致预期兑现但估值随之消化"
+        }
+      },
+      "bull": {
+        "inputs": null,
+        "valuation_change_pct": {
+          "value": null,
+          "source": null
+        },
+        "annual_return_pct": {
+          "value": 35,
+          "source": "ai_estimate",
+          "note": "算力需求超预期、国产替代加速"
+        }
+      }
     },
     "valuation_state": {
       "index_code": "000688.SH",
       "metric": "pb",
-      "value": {"value": 7.76, "source": "snapshot§4", "note": "亏损股权重 16.07% 超过 15% 降级线，按框架 A5 用 PB；PE 77.17（分位 69.3）只作参考"},
-      "percentile_expanding": {"value": 84.0, "source": "snapshot§4"},
-      "percentile_10y": {"value": null, "source": null, "note": "估值史自 2020-07，不足 10 年"},
-      "sample_n": {"value": 75, "source": "snapshot§4"},
+      "value": {
+        "value": 7.76,
+        "source": "snapshot§4",
+        "note": "亏损股权重 16.07% 超过 15% 降级线，按框架 A5 用 PB；PE 77.17（分位 69.3）只作参考"
+      },
+      "percentile_expanding": {
+        "value": 84.0,
+        "source": "snapshot§4"
+      },
+      "percentile_10y": {
+        "value": null,
+        "source": null,
+        "note": "估值史自 2020-07，不足 10 年"
+      },
+      "sample_n": {
+        "value": 75,
+        "source": "snapshot§4"
+      },
       "as_of": "2026-09-18"
     }
   },
   "instruments": {
     "merge_note": "本席位只有一只持仓，bet_group=cn-star50 与 card_id 一一对应",
     "list": [
-      {"code": "011615.OF", "name": "工银瑞信上证科创板50成份ETF联接-C", "instrument_type": "otc_fund", "share_class": "C", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "hold", "reason": "现有持仓；年费 0.45%，3 年 TD -2.17pp、TE 2.38%（联接基金在大涨年份的现金拖累，同类共性）"},
-      {"code": "011614.OF", "name": "工银瑞信上证科创板50成份ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "未持有；年费 0.35%，长期定投比 C 类便宜 0.10%/年，可考虑把定投计划改到 A 类，存量不动"},
-      {"code": "022932.OF", "name": "工银瑞信上证科创板50成份ETF联接-Y", "instrument_type": "otc_fund", "share_class": "Y", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "未持有；Y 份额限个人养老金账户"}
+      {
+        "code": "011615.OF",
+        "name": "工银瑞信上证科创板50成份ETF联接-C",
+        "instrument_type": "otc_fund",
+        "share_class": "C",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "primary",
+        "action": "hold",
+        "reason": "现有持仓；年费 0.45%，3 年 TD -2.17pp、TE 2.38%（联接基金在大涨年份的现金拖累，同类共性）"
+      },
+      {
+        "code": "011614.OF",
+        "name": "工银瑞信上证科创板50成份ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "未持有；年费 0.35%，长期定投比 C 类便宜 0.10%/年，可考虑把定投计划改到 A 类，存量不动"
+      },
+      {
+        "code": "022932.OF",
+        "name": "工银瑞信上证科创板50成份ETF联接-Y",
+        "instrument_type": "otc_fund",
+        "share_class": "Y",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "未持有；Y 份额限个人养老金账户"
+      }
     ]
   },
-  "trade_rules": {"min_holding_days": 30, "purchase_limit_note": null},
+  "trade_rules": {
+    "min_holding_days": 30,
+    "purchase_limit_note": null
+  },
   "decision": {
-    "rule_refs": ["A5", "A8", "A9", "A10", "A13"],
+    "rule_refs": [
+      "A5",
+      "A8",
+      "A9",
+      "A10",
+      "A13"
+    ],
     "anchors": {
       "basis": "index_level",
       "index_code": "000688.SH",
+      "snapshot_ref": null,
       "add_below": {
-        "level": {"value": 1184.08, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 100, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 2207.86, "source": "snapshot§6"}, "state": {"value": 0.5363, "source": "snapshot§6", "note": "回撤状态扩张窗 P10"}},
+        "level": {
+          "value": 1184.08,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 100,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 2207.86,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.5363,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P10"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P10：从 36 月高点跌 46%，相当于 2022–2024 年的底部区域"
       },
       "buy_below": {
-        "level": {"value": 1396.47, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 50, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 2207.86, "source": "snapshot§6"}, "state": {"value": 0.6325, "source": "snapshot§6", "note": "回撤状态扩张窗 P25"}},
+        "level": {
+          "value": 1396.47,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 50,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 2207.86,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.6325,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P25"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P25；跌破时不自动买而是复评，盈利兑现路径未变则用额度加到 50%"
       },
       "reduce_above": {
-        "level": {"value": 2076.49, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 30, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 2207.86, "source": "snapshot§6"}, "state": {"value": 0.9405, "source": "snapshot§6", "note": "回撤状态扩张窗 P75"}},
+        "level": {
+          "value": 2076.49,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 30,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 2207.86,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.9405,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P75"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 6%）：升破即把这笔押注减到上限的 30%（3 万）；现持仓 1.2 万低于该目标，届时只停定投"
       },
       "reduce_mode": "to_target_ratio",
@@ -176,29 +347,149 @@ TD 年化 −2.17pp 明显大于年费 0.45%，说明联接基金在指数大涨
   },
   "sizing": {
     "bet_group": "cn-star50",
-    "stress_drawdown_pct": {"value": -70, "source": "user:2026-09-18"},
-    "loss_budget_cny": {"value": 70000, "source": "user:2026-09-23"},
-    "standalone_cap_cny": {"value": 100000, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {
+      "value": -70,
+      "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+      "value": 70000,
+      "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+      "value": 100000,
+      "source": "calc:loss_budget_cap"
+    }
   },
   "monitor_variables": [
-    {"name": "指数相对 200 日均线", "kind": "auto", "metric": "index_vs_sma200_pct", "operator": "<", "threshold": {"value": 0, "source": "framework:A11"}, "condition_text": "收盘持续低于 200 日均线", "data_source": "执行侧日频计算", "current_text": "快照 §6：+4.84%，above", "frequency": "daily", "action": "alert", "action_note": ""},
-    {"name": "指数点位跌破买入锚点", "kind": "auto", "metric": "index_level", "operator": "<", "threshold": {"value": 1396.47, "source": "calc:level_at_drawdown_state"}, "condition_text": "收盘跌破 buy_below（回撤状态 P25）", "data_source": "执行侧日频计算", "current_text": "快照 §6：1,652.63", "frequency": "daily", "action": "review", "action_note": "不自动买；复评盈利兑现路径后决定是否加到 50%"},
-    {"name": "美国对华半导体出口管制/实体清单变化", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "寒武纪、海光、中微、中芯任一被新增实质性限制", "data_source": "美国商务部 BIS 公告", "current_text": "无新增针对成分主体的限制", "frequency": "event", "action": "review", "action_note": "命中即触发失效条件①的评估"},
-    {"name": "核心成分季报营收增速", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "寒武纪、海光、中芯国际、中微中三家以上单季营收同比增速降到 30% 以下", "data_source": "季报", "current_text": "2026Q1 海光、寒武纪继续高增", "frequency": "quarterly", "action": "review", "action_note": ""},
-    {"name": "指数调样", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "半导体权重降到 60% 以下，或前十大变动 3 只以上", "data_source": "上交所/中证指数公告（6 月、12 月）", "current_text": "2026-09-14 生效 5 进 5 出，快照权重尚未反映", "frequency": "event", "action": "review", "action_note": "论点与指数是否仍匹配"}
+    {
+      "name": "指数相对 200 日均线",
+      "kind": "auto",
+      "metric": "index_vs_sma200_pct",
+      "operator": "<",
+      "threshold": {
+        "value": 0,
+        "source": "framework:A11"
+      },
+      "condition_text": "收盘持续低于 200 日均线",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：+4.84%，above",
+      "frequency": "daily",
+      "action": "alert",
+      "action_note": ""
+    },
+    {
+      "name": "指数点位跌破买入锚点",
+      "kind": "auto",
+      "metric": "index_level",
+      "operator": "<",
+      "threshold": {
+        "value": 1396.47,
+        "source": "calc:level_at_drawdown_state"
+      },
+      "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：1,652.63",
+      "frequency": "daily",
+      "action": "review",
+      "action_note": "不自动买；复评盈利兑现路径后决定是否加到 50%"
+    },
+    {
+      "name": "美国对华半导体出口管制/实体清单变化",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "寒武纪、海光、中微、中芯任一被新增实质性限制",
+      "data_source": "美国商务部 BIS 公告",
+      "current_text": "无新增针对成分主体的限制",
+      "frequency": "event",
+      "action": "review",
+      "action_note": "命中即触发失效条件①的评估"
+    },
+    {
+      "name": "核心成分季报营收增速",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "寒武纪、海光、中芯国际、中微中三家以上单季营收同比增速降到 30% 以下",
+      "data_source": "季报",
+      "current_text": "2026Q1 海光、寒武纪继续高增",
+      "frequency": "quarterly",
+      "action": "review",
+      "action_note": ""
+    },
+    {
+      "name": "指数调样",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "半导体权重降到 60% 以下，或前十大变动 3 只以上",
+      "data_source": "上交所/中证指数公告（6 月、12 月）",
+      "current_text": "2026-09-14 生效 5 进 5 出，快照权重尚未反映",
+      "frequency": "event",
+      "action": "review",
+      "action_note": "论点与指数是否仍匹配"
+    }
   ],
   "exit": {
     "invalidation": [
-      {"name": "出口管制扩大到成分主体", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "美国新的实质性限制（实体清单、EDA/设备断供）扩大到寒武纪、海光、中芯、中微等成分主体且业务受实质影响", "data_source": "美国商务部 BIS 公告、公司公告", "current_text": "未发生", "frequency": "event", "action": "reduce", "action_note": ""},
-      {"name": "盈利预期落空", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "2026 年报指数归母净利润增速低于 50%（一致预期 170% 落空一半以上）", "data_source": "年报汇总（Wind/券商）", "current_text": "一致预期 +170%", "frequency": "event", "action": "close", "action_note": ""}
+      {
+        "name": "出口管制扩大到成分主体",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "美国新的实质性限制（实体清单、EDA/设备断供）扩大到寒武纪、海光、中芯、中微等成分主体且业务受实质影响",
+        "data_source": "美国商务部 BIS 公告、公司公告",
+        "current_text": "未发生",
+        "frequency": "event",
+        "action": "reduce",
+        "action_note": ""
+      },
+      {
+        "name": "盈利预期落空",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "2026 年报指数归母净利润增速低于 50%（一致预期 170% 落空一半以上）",
+        "data_source": "年报汇总（Wind/券商）",
+        "current_text": "一致预期 +170%",
+        "frequency": "event",
+        "action": "close",
+        "action_note": ""
+      }
     ],
     "latest_review_date": "2026-11-20"
   },
   "scorecard": {
-    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
+    "benchmark": {
+      "code": "H11025.CSI",
+      "name": "同一笔钱放在货币基金"
+    },
     "preregistered_at": "2026-09-23",
     "confidence_pct": 40,
-    "entry_ref_index_level": {"value": 1652.63, "source": "snapshot§6"}
+    "entry_ref_index_level": {
+      "value": 1652.63,
+      "source": "snapshot§6"
+    }
   }
 }
 ```

@@ -78,7 +78,8 @@ TOKEN = os.getenv("TUSHARE_TOKEN", "")
 AS_OF = datetime.now().strftime("%Y%m%d")
 CUTOFF = AS_OF                       # run() 内按已完成交易日收紧
 RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"
-LADDER_SIDECAR = RESEARCH_DIR / "etf-ladder-latest.json"   # §6b 的机器可读副本（随快照提交），供 etf_refresh_cards.py 机械刷新点位
+LADDER_SIDECAR = RESEARCH_DIR / "etf-ladder-latest.json"   # §6b 的机器可读副本（随快照提交），供 etf_refresh_cards.py 机械刷新点位；
+                                                           # 只在正式快照写成功后更新——--no-snapshot、历史回放、中途崩溃都不会动它
 OUTDIR = Path(__file__).resolve().parents[1] / "output"      # 已 gitignore：§4 自聚合的原始取数缓存
 AGGREGATION_START = 2005                                     # index_weight / daily_basic 的最早有效年份
 PIT_CHECK_DATES = ("20071031", "20081031", "20140630", "20181228", "20210226")   # 与现成估值源交叉核对的固定日
@@ -119,6 +120,7 @@ STATIC_GAPS = [   # 运行时探测不到的缺口；探测得到的由 gap() �
 pro = None
 INTERFACES = {}
 GAPS = []
+LADDER_ROWS = {}   # §6b 的机器可读行；只有正式快照写成功后才落到 LADDER_SIDECAR
 
 
 def api():
@@ -823,8 +825,8 @@ def section_drawdown_ladder(levels):
                      **{f"P{point}状态": num(state, 4) for point, state in points["levels"].items()},
                      **{f"P{point}点位": num(level_at_drawdown_state(round(high, 2), round(state, 4)))   # 按打印的四舍五入值算，与卡的复算一致
                         for point, state in points["levels"].items()}})
-    LADDER_SIDECAR.write_text(json.dumps(dict(as_of=AS_OF, cutoff=CUTOFF, indexes=sidecar), ensure_ascii=False, indent=1) + "\n",
-                              encoding="utf-8")
+    LADDER_ROWS.clear()
+    LADDER_ROWS.update(sidecar)
     return lines + [pd.DataFrame(rows).fillna("").to_string(index=False)]
 
 
@@ -947,6 +949,8 @@ def main():
     finally:
         restore()
     partial.replace(snapshot)
+    LADDER_SIDECAR.write_text(json.dumps(dict(as_of=AS_OF, cutoff=CUTOFF, snapshot=str(snapshot.relative_to(RESEARCH_DIR.parent)),
+                                              indexes=LADDER_ROWS), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

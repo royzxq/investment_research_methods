@@ -77,7 +77,10 @@
   "card_id": "cn-defense-tactical",
   "as_of_date": "2026-09-23",
   "supersedes": null,
-  "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+  "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+  },
   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
   "task": "tactical",
   "status": "active",
@@ -93,14 +96,47 @@
     "view_mismatch_note": "论点里的增长来源（船舶、兵装、军贸）在指数里权重很小；指数 43.2% 是航空，实际买到的是“十五五航空装备放量”",
     "structure": {
       "weights_as_of": "2026-08-31",
-      "constituent_count": {"value": 50, "source": "snapshot§3"},
-      "max_constituent_weight_pct": {"value": 8.28, "source": "snapshot§3"},
-      "top10_weight_pct": {"value": 47.7, "source": "snapshot§3"},
-      "research_coverage_pct": {"value": 0.0, "source": "snapshot§3"},
+      "constituent_count": {
+        "value": 50,
+        "source": "snapshot§3"
+      },
+      "max_constituent_weight_pct": {
+        "value": 8.28,
+        "source": "snapshot§3"
+      },
+      "top10_weight_pct": {
+        "value": 47.7,
+        "source": "snapshot§3"
+      },
+      "research_coverage_pct": {
+        "value": 0.0,
+        "source": "snapshot§3"
+      },
       "top_constituents": [
-        {"code": "688002.SH", "name": "睿创微纳", "weight_pct": {"value": 8.28, "source": "snapshot§3"}},
-        {"code": "600760.SH", "name": "中航沈飞", "weight_pct": {"value": 6.33, "source": "snapshot§3"}},
-        {"code": "600893.SH", "name": "航发动力", "weight_pct": {"value": 6.13, "source": "snapshot§3"}}
+        {
+          "code": "688002.SH",
+          "name": "睿创微纳",
+          "weight_pct": {
+            "value": 8.28,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "600760.SH",
+          "name": "中航沈飞",
+          "weight_pct": {
+            "value": 6.33,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "600893.SH",
+          "name": "航发动力",
+          "weight_pct": {
+            "value": 6.13,
+            "source": "snapshot§3"
+          }
+        }
       ]
     }
   },
@@ -122,81 +158,260 @@
     "scenarios": {
       "bear": {
         "inputs": {
-          "eps_growth_pct": {"value": 5, "source": "ai_estimate", "note": "航空主机厂交付节奏持续拖累"},
-          "dividend_yield_pct": {"value": 0.56, "source": "snapshot§4"},
-          "current_multiple": {"value": 63.49, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 39.58, "source": "snapshot§4", "note": "PE 扩张窗 P10"},
-          "years": {"value": 5, "source": "ai_estimate"},
-          "drag_pct": {"value": 1.2, "source": "snapshot§5", "note": "160630.SZ 年费合计"}
+          "eps_growth_pct": {
+            "value": 5,
+            "source": "ai_estimate",
+            "note": "航空主机厂交付节奏持续拖累"
+          },
+          "dividend_yield_pct": {
+            "value": 0.56,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 63.49,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 39.58,
+            "source": "snapshot§4",
+            "note": "PE 扩张窗 P10"
+          },
+          "years": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 1.2,
+            "source": "snapshot§5",
+            "note": "160630.SZ 年费合计"
+          }
         },
-        "valuation_change_pct": {"value": -9.02, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": -4.66, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": -9.02,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": -4.66,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "base": {
         "inputs": {
-          "eps_growth_pct": {"value": 15, "source": "ai_estimate", "note": "中报净利润 +20.98% 的修复趋势打折延续"},
-          "dividend_yield_pct": {"value": 0.56, "source": "snapshot§4"},
-          "current_multiple": {"value": 63.49, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 63.49, "source": "snapshot§4", "note": "估值零变化"},
-          "years": {"value": 5, "source": "ai_estimate"},
-          "drag_pct": {"value": 1.2, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 15,
+            "source": "ai_estimate",
+            "note": "中报净利润 +20.98% 的修复趋势打折延续"
+          },
+          "dividend_yield_pct": {
+            "value": 0.56,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 63.49,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 63.49,
+            "source": "snapshot§4",
+            "note": "估值零变化"
+          },
+          "years": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 1.2,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 0.0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 14.36, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0.0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 14.36,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "bull": {
         "inputs": {
-          "eps_growth_pct": {"value": 25, "source": "ai_estimate", "note": "十五五规模化订单 + 军贸"},
-          "dividend_yield_pct": {"value": 0.56, "source": "snapshot§4"},
-          "current_multiple": {"value": 63.49, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 72.96, "source": "snapshot§4", "note": "PE 扩张窗 P75"},
-          "years": {"value": 5, "source": "ai_estimate"},
-          "drag_pct": {"value": 1.2, "source": "snapshot§5"}
+          "eps_growth_pct": {
+            "value": 25,
+            "source": "ai_estimate",
+            "note": "十五五规模化订单 + 军贸"
+          },
+          "dividend_yield_pct": {
+            "value": 0.56,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 63.49,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 72.96,
+            "source": "snapshot§4",
+            "note": "PE 扩张窗 P75"
+          },
+          "years": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 1.2,
+            "source": "snapshot§5"
+          }
         },
-        "valuation_change_pct": {"value": 2.82, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 27.18, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 2.82,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 27.18,
+          "source": "calc:scenario_annual_return"
+        }
       }
     },
     "valuation_state": {
       "index_code": "399973.SZ",
       "metric": "pe_ttm",
-      "value": {"value": 63.49, "source": "snapshot§4", "note": "自聚合、指数权重口径；PB 3.19 分位 31.9 偏便宜，盈利在底部抬高了 PE"},
-      "percentile_expanding": {"value": 60.9, "source": "snapshot§4"},
-      "percentile_10y": {"value": 71.9, "source": "snapshot§4"},
-      "sample_n": {"value": 138, "source": "snapshot§4"},
+      "value": {
+        "value": 63.49,
+        "source": "snapshot§4",
+        "note": "自聚合、指数权重口径；PB 3.19 分位 31.9 偏便宜，盈利在底部抬高了 PE"
+      },
+      "percentile_expanding": {
+        "value": 60.9,
+        "source": "snapshot§4"
+      },
+      "percentile_10y": {
+        "value": 71.9,
+        "source": "snapshot§4"
+      },
+      "sample_n": {
+        "value": 138,
+        "source": "snapshot§4"
+      },
       "as_of": "2026-09-18"
     }
   },
   "instruments": {
     "merge_note": "本席位只有一只持仓，bet_group=cn-defense 与 card_id 一一对应",
     "list": [
-      {"code": "160630.SZ", "name": "鹏华中证国防指数(LOF)-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "hold", "reason": "现有持仓；年费 1.20% 为池内最贵，但 3 年 TD +1.28pp、规模 25.96 亿；赎回费满两年为 0，不因费率换出"},
-      {"code": "012041.OF", "name": "鹏华中证国防指数(LOF)-C", "instrument_type": "otc_fund", "share_class": "C", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "未持有；比 A 类多 0.10% 销售服务费"},
-      {"code": "512670.SH", "name": "鹏华中证国防ETF", "instrument_type": "exchange_etf", "share_class": null, "currency": "CNY", "platform_account": "券商账户", "role": "rejected", "action": "none", "reason": "未持有；年费 0.40% 比 LOF 低 0.80 个百分点，但需场内账户。日后在本席位新增大额资金时优先它"}
+      {
+        "code": "160630.SZ",
+        "name": "鹏华中证国防指数(LOF)-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "primary",
+        "action": "hold",
+        "reason": "现有持仓；年费 1.20% 为池内最贵，但 3 年 TD +1.28pp、规模 25.96 亿；赎回费满两年为 0，不因费率换出"
+      },
+      {
+        "code": "012041.OF",
+        "name": "鹏华中证国防指数(LOF)-C",
+        "instrument_type": "otc_fund",
+        "share_class": "C",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "未持有；比 A 类多 0.10% 销售服务费"
+      },
+      {
+        "code": "512670.SH",
+        "name": "鹏华中证国防ETF",
+        "instrument_type": "exchange_etf",
+        "share_class": null,
+        "currency": "CNY",
+        "platform_account": "券商账户",
+        "role": "rejected",
+        "action": "none",
+        "reason": "未持有；年费 0.40% 比 LOF 低 0.80 个百分点，但需场内账户。日后在本席位新增大额资金时优先它"
+      }
     ]
   },
-  "trade_rules": {"min_holding_days": 730, "purchase_limit_note": "LOF A 赎回费阶梯：7 天内 1.5%、7–365 天 0.50%、365–730 天 0.25%、满两年 0"},
+  "trade_rules": {
+    "min_holding_days": 730,
+    "purchase_limit_note": "LOF A 赎回费阶梯：7 天内 1.5%、7–365 天 0.50%、365–730 天 0.25%、满两年 0"
+  },
   "decision": {
-    "rule_refs": ["A8", "A9", "A10", "A13"],
+    "rule_refs": [
+      "A8",
+      "A9",
+      "A10",
+      "A13"
+    ],
     "anchors": {
       "basis": "index_level",
       "index_code": "399973.SZ",
+      "snapshot_ref": null,
       "add_below": {
-        "level": {"value": 1044.82, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 100, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 2174.45, "source": "snapshot§6"}, "state": {"value": 0.4805, "source": "snapshot§6", "note": "回撤状态扩张窗 P10"}},
+        "level": {
+          "value": 1044.82,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 100,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 2174.45,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.4805,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P10"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P10：相当于 2018 年与 2022–2024 年的底部区域"
       },
       "buy_below": {
-        "level": {"value": 1230.3, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 50, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 2174.45, "source": "snapshot§6"}, "state": {"value": 0.5658, "source": "snapshot§6", "note": "回撤状态扩张窗 P25"}},
+        "level": {
+          "value": 1230.3,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 50,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 2174.45,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.5658,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P25"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P25；跌破时不自动买而是复评，届时若十五五订单已可见，用剩余额度在买入区加"
       },
       "reduce_above": {
-        "level": {"value": 1835.45, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 30, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 2174.45, "source": "snapshot§6"}, "state": {"value": 0.8441, "source": "snapshot§6", "note": "回撤状态扩张窗 P75"}},
+        "level": {
+          "value": 1835.45,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 30,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 2174.45,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.8441,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P75"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 16%）：升破即把这笔押注减到上限的 30%（3 万）"
       },
       "reduce_mode": "to_target_ratio",
@@ -206,28 +421,133 @@
   },
   "sizing": {
     "bet_group": "cn-defense",
-    "stress_drawdown_pct": {"value": -70, "source": "user:2026-09-18"},
-    "loss_budget_cny": {"value": 70000, "source": "user:2026-09-23"},
-    "standalone_cap_cny": {"value": 100000, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {
+      "value": -70,
+      "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+      "value": 70000,
+      "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+      "value": 100000,
+      "source": "calc:loss_budget_cap"
+    }
   },
   "monitor_variables": [
-    {"name": "指数相对 200 日均线", "kind": "auto", "metric": "index_vs_sma200_pct", "operator": "<", "threshold": {"value": 0, "source": "framework:A11"}, "condition_text": "收盘持续低于 200 日均线", "data_source": "执行侧日频计算", "current_text": "快照 §6：-10.98%，below", "frequency": "daily", "action": "alert", "action_note": ""},
-    {"name": "指数点位跌破买入锚点", "kind": "auto", "metric": "index_level", "operator": "<", "threshold": {"value": 1230.3, "source": "calc:level_at_drawdown_state"}, "condition_text": "收盘跌破 buy_below（回撤状态 P25）", "data_source": "执行侧日频计算", "current_text": "快照 §6：1,599.31", "frequency": "daily", "action": "review", "action_note": "不自动买；复评十五五订单进展后决定是否用剩余额度加"},
-    {"name": "十五五规划及装备目录批复、规模化订单公告", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "主机厂公告大额订单，或合同负债单季环比增长 30% 以上", "data_source": "国务院/军方公告、主机厂季报合同负债", "current_text": "装备目录逐步明确，规模化订单未下达", "frequency": "event", "action": "review", "action_note": "考虑用剩余额度在买入区加"},
-    {"name": "航空主机厂利润增速", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "沈飞、航发动力、西飞连续两个季报归母净利润同比转正", "data_source": "季报", "current_text": "中航沈飞 2026 中报净利润 -58.37%", "frequency": "quarterly", "action": "review", "action_note": "修复到达指数主体的信号"}
+    {
+      "name": "指数相对 200 日均线",
+      "kind": "auto",
+      "metric": "index_vs_sma200_pct",
+      "operator": "<",
+      "threshold": {
+        "value": 0,
+        "source": "framework:A11"
+      },
+      "condition_text": "收盘持续低于 200 日均线",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：-10.98%，below",
+      "frequency": "daily",
+      "action": "alert",
+      "action_note": ""
+    },
+    {
+      "name": "指数点位跌破买入锚点",
+      "kind": "auto",
+      "metric": "index_level",
+      "operator": "<",
+      "threshold": {
+        "value": 1230.3,
+        "source": "calc:level_at_drawdown_state"
+      },
+      "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：1,599.31",
+      "frequency": "daily",
+      "action": "review",
+      "action_note": "不自动买；复评十五五订单进展后决定是否用剩余额度加"
+    },
+    {
+      "name": "十五五规划及装备目录批复、规模化订单公告",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "主机厂公告大额订单，或合同负债单季环比增长 30% 以上",
+      "data_source": "国务院/军方公告、主机厂季报合同负债",
+      "current_text": "装备目录逐步明确，规模化订单未下达",
+      "frequency": "event",
+      "action": "review",
+      "action_note": "考虑用剩余额度在买入区加"
+    },
+    {
+      "name": "航空主机厂利润增速",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "沈飞、航发动力、西飞连续两个季报归母净利润同比转正",
+      "data_source": "季报",
+      "current_text": "中航沈飞 2026 中报净利润 -58.37%",
+      "frequency": "quarterly",
+      "action": "review",
+      "action_note": "修复到达指数主体的信号"
+    }
   ],
   "exit": {
     "invalidation": [
-      {"name": "订单叙事证伪", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "十五五规划批复后一年内，板块合同负债同比转负", "data_source": "板块季报合同负债汇总（券商研报）", "current_text": "2026Q1 合同负债较年初 +15.68%", "frequency": "quarterly", "action": "close", "action_note": ""},
-      {"name": "航空主机厂持续下滑", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "航空主机厂 2026、2027 两个年度归母净利润连续同比下滑", "data_source": "年报", "current_text": "2026 中报下滑", "frequency": "event", "action": "reduce", "action_note": ""}
+      {
+        "name": "订单叙事证伪",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "十五五规划批复后一年内，板块合同负债同比转负",
+        "data_source": "板块季报合同负债汇总（券商研报）",
+        "current_text": "2026Q1 合同负债较年初 +15.68%",
+        "frequency": "quarterly",
+        "action": "close",
+        "action_note": ""
+      },
+      {
+        "name": "航空主机厂持续下滑",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "航空主机厂 2026、2027 两个年度归母净利润连续同比下滑",
+        "data_source": "年报",
+        "current_text": "2026 中报下滑",
+        "frequency": "event",
+        "action": "reduce",
+        "action_note": ""
+      }
     ],
     "latest_review_date": "2026-11-20"
   },
   "scorecard": {
-    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
+    "benchmark": {
+      "code": "H11025.CSI",
+      "name": "同一笔钱放在货币基金"
+    },
     "preregistered_at": "2026-09-23",
     "confidence_pct": 50,
-    "entry_ref_index_level": {"value": 1599.31, "source": "snapshot§6"}
+    "entry_ref_index_level": {
+      "value": 1599.31,
+      "source": "snapshot§6"
+    }
   }
 }
 ```

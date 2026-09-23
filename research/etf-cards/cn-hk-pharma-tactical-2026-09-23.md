@@ -304,6 +304,7 @@
     "anchors": {
       "basis": "index_level",
       "index_code": "987018.CNI",
+      "snapshot_ref": null,
       "add_below": {
         "level": {
           "value": 753.69,

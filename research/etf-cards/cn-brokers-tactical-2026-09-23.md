@@ -80,7 +80,10 @@
   "card_id": "cn-brokers-tactical",
   "as_of_date": "2026-09-23",
   "supersedes": null,
-  "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+  "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+  },
   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
   "task": "tactical",
   "status": "watch",
@@ -96,14 +99,47 @@
     "view_mismatch_note": "论点押经纪与两融的 β；前三大里东方财富 13.02% 是互联网平台 + 基金销售、国泰海通 10.75% 处于合并整合期，方向一致、错位小",
     "structure": {
       "weights_as_of": "2026-08-31",
-      "constituent_count": {"value": 49, "source": "snapshot§3"},
-      "max_constituent_weight_pct": {"value": 14.39, "source": "snapshot§3"},
-      "top10_weight_pct": {"value": 60.33, "source": "snapshot§3"},
-      "research_coverage_pct": {"value": 14.4, "source": "snapshot§3"},
+      "constituent_count": {
+        "value": 49,
+        "source": "snapshot§3"
+      },
+      "max_constituent_weight_pct": {
+        "value": 14.39,
+        "source": "snapshot§3"
+      },
+      "top10_weight_pct": {
+        "value": 60.33,
+        "source": "snapshot§3"
+      },
+      "research_coverage_pct": {
+        "value": 14.4,
+        "source": "snapshot§3"
+      },
       "top_constituents": [
-        {"code": "600030.SH", "name": "中信证券", "weight_pct": {"value": 14.39, "source": "snapshot§3"}},
-        {"code": "300059.SZ", "name": "东方财富", "weight_pct": {"value": 13.02, "source": "snapshot§3"}},
-        {"code": "601211.SH", "name": "国泰海通", "weight_pct": {"value": 10.75, "source": "snapshot§3"}}
+        {
+          "code": "600030.SH",
+          "name": "中信证券",
+          "weight_pct": {
+            "value": 14.39,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "300059.SZ",
+          "name": "东方财富",
+          "weight_pct": {
+            "value": 13.02,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "601211.SH",
+          "name": "国泰海通",
+          "weight_pct": {
+            "value": 10.75,
+            "source": "snapshot§3"
+          }
+        }
       ]
     }
   },
@@ -125,82 +161,271 @@
     "scenarios": {
       "bear": {
         "inputs": {
-          "eps_growth_pct": {"value": -5, "source": "ai_estimate", "note": "自营亏损吃掉利润，净资产小幅下降"},
-          "dividend_yield_pct": {"value": 2.15, "source": "snapshot§4"},
-          "current_multiple": {"value": 1.21, "source": "snapshot§4", "note": "自聚合 PB"},
-          "terminal_multiple": {"value": 1.21, "source": "snapshot§4", "note": "PB 扩张窗 P10（与当前值相同）"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.2, "source": "ai_estimate", "note": "首选工具华夏 A 类年费 0.15%+0.05%，2026-09-23 实测，不在快照 §5"}
+          "eps_growth_pct": {
+            "value": -5,
+            "source": "ai_estimate",
+            "note": "自营亏损吃掉利润，净资产小幅下降"
+          },
+          "dividend_yield_pct": {
+            "value": 2.15,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 1.21,
+            "source": "snapshot§4",
+            "note": "自聚合 PB"
+          },
+          "terminal_multiple": {
+            "value": 1.21,
+            "source": "snapshot§4",
+            "note": "PB 扩张窗 P10（与当前值相同）"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "ai_estimate",
+            "note": "首选工具华夏 A 类年费 0.15%+0.05%，2026-09-23 实测，不在快照 §5"
+          }
         },
-        "valuation_change_pct": {"value": 0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": -3.05, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": -3.05,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "base": {
         "inputs": {
-          "eps_growth_pct": {"value": 5, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 2.15, "source": "snapshot§4"},
-          "current_multiple": {"value": 1.21, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 1.21, "source": "snapshot§4"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.2, "source": "ai_estimate"}
+          "eps_growth_pct": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 2.15,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 1.21,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 1.21,
+            "source": "snapshot§4"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "ai_estimate"
+          }
         },
-        "valuation_change_pct": {"value": 0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 6.95, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 6.95,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "bull": {
         "inputs": {
-          "eps_growth_pct": {"value": 12, "source": "ai_estimate"},
-          "dividend_yield_pct": {"value": 2.15, "source": "snapshot§4"},
-          "current_multiple": {"value": 1.21, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 1.74, "source": "snapshot§4", "note": "PB 扩张窗 P75"},
-          "years": {"value": 3, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.2, "source": "ai_estimate"}
+          "eps_growth_pct": {
+            "value": 12,
+            "source": "ai_estimate"
+          },
+          "dividend_yield_pct": {
+            "value": 2.15,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 1.21,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 1.74,
+            "source": "snapshot§4",
+            "note": "PB 扩张窗 P75"
+          },
+          "years": {
+            "value": 3,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.2,
+            "source": "ai_estimate"
+          }
         },
-        "valuation_change_pct": {"value": 12.87, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 26.82, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 12.87,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 26.82,
+          "source": "calc:scenario_annual_return"
+        }
       }
     },
     "valuation_state": {
       "index_code": "399975.SZ",
       "metric": "pb",
-      "value": {"value": 1.21, "source": "snapshot§4", "note": "自聚合、指数权重口径；估值史自 2015-05 含泡沫顶部，低分位要打折看；PE 12.30（分位 3.7）只作参考"},
-      "percentile_expanding": {"value": 11.0, "source": "snapshot§4"},
-      "percentile_10y": {"value": 12.5, "source": "snapshot§4"},
-      "sample_n": {"value": 136, "source": "snapshot§4"},
+      "value": {
+        "value": 1.21,
+        "source": "snapshot§4",
+        "note": "自聚合、指数权重口径；估值史自 2015-05 含泡沫顶部，低分位要打折看；PE 12.30（分位 3.7）只作参考"
+      },
+      "percentile_expanding": {
+        "value": 11.0,
+        "source": "snapshot§4"
+      },
+      "percentile_10y": {
+        "value": 12.5,
+        "source": "snapshot§4"
+      },
+      "sample_n": {
+        "value": 136,
+        "source": "snapshot§4"
+      },
       "as_of": "2026-09-18"
     }
   },
   "instruments": {
     "merge_note": "无持仓；首选工具按 2026-09-23 tushare/akshare 实测比选，下次快照纳入 §5 后复核",
     "list": [
-      {"code": "007992.OF", "name": "华夏中证全指证券公司ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "none", "reason": "未持有的首选：年费 0.20%（0.15%+0.05%+0）为最低档且规模最大（13.85 亿 @2026-06-30）、成立最早（2020-04）；赎回费 7–30 天 0.50%。到 buy_below 复评后改 buy"},
-      {"code": "016842.OF", "name": "嘉实中证全指证券公司ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "backup", "action": "none", "reason": "备选：年费 0.25%，赎回费 7–30 天仅 0.10%，但规模 3.30 亿"},
-      {"code": "025193.OF", "name": "银华中证全指证券公司ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "年费同为 0.20%，但 2025-08 成立、规模 2.89 亿"},
-      {"code": "012044.OF", "name": "鹏华中证全指证券公司指数(LOF)-C", "instrument_type": "otc_fund", "share_class": "C", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "管理 1.00% + 托管 0.20% 另加销售服务费，是首选的 6 倍"}
+      {
+        "code": "007992.OF",
+        "name": "华夏中证全指证券公司ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "primary",
+        "action": "none",
+        "reason": "未持有的首选：年费 0.20%（0.15%+0.05%+0）为最低档且规模最大（13.85 亿 @2026-06-30）、成立最早（2020-04）；赎回费 7–30 天 0.50%。到 buy_below 复评后改 buy"
+      },
+      {
+        "code": "016842.OF",
+        "name": "嘉实中证全指证券公司ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "backup",
+        "action": "none",
+        "reason": "备选：年费 0.25%，赎回费 7–30 天仅 0.10%，但规模 3.30 亿"
+      },
+      {
+        "code": "025193.OF",
+        "name": "银华中证全指证券公司ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "年费同为 0.20%，但 2025-08 成立、规模 2.89 亿"
+      },
+      {
+        "code": "012044.OF",
+        "name": "鹏华中证全指证券公司指数(LOF)-C",
+        "instrument_type": "otc_fund",
+        "share_class": "C",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "管理 1.00% + 托管 0.20% 另加销售服务费，是首选的 6 倍"
+      }
     ]
   },
-  "trade_rules": {"min_holding_days": 30, "purchase_limit_note": "首选工具 30 天内赎回收 0.50%（7 天内 1.50%）"},
+  "trade_rules": {
+    "min_holding_days": 30,
+    "purchase_limit_note": "首选工具 30 天内赎回收 0.50%（7 天内 1.50%）"
+  },
   "decision": {
-    "rule_refs": ["A2", "A5", "A8", "A9", "A10", "A13"],
+    "rule_refs": [
+      "A2",
+      "A5",
+      "A8",
+      "A9",
+      "A10",
+      "A13"
+    ],
     "anchors": {
       "basis": "index_level",
       "index_code": "399975.SZ",
+      "snapshot_ref": null,
       "add_below": {
-        "level": {"value": 399.44, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 100, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 935.02, "source": "snapshot§6"}, "state": {"value": 0.4272, "source": "snapshot§6", "note": "回撤状态扩张窗 P10"}},
+        "level": {
+          "value": 399.44,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 100,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 935.02,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.4272,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P10"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P10：相当于 2018 年底那类券商底部"
       },
       "buy_below": {
-        "level": {"value": 458.91, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 50, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 935.02, "source": "snapshot§6"}, "state": {"value": 0.4908, "source": "snapshot§6", "note": "回撤状态扩张窗 P25"}},
+        "level": {
+          "value": 458.91,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 50,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 935.02,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.4908,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P25"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P25；当前 734.12 在其上方约 60%。watch 卡到点只告警复评，改 active 后才按 50% 目标建仓"
       },
       "reduce_above": {
-        "level": {"value": 769.99, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 30, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 935.02, "source": "snapshot§6"}, "state": {"value": 0.8235, "source": "snapshot§6", "note": "回撤状态扩张窗 P75"}},
+        "level": {
+          "value": 769.99,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 30,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 935.02,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.8235,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P75"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 18%），只在当前上方 4.9%；无持仓，减仓侧无动作"
       },
       "reduce_mode": "to_target_ratio",
@@ -210,28 +435,133 @@
   },
   "sizing": {
     "bet_group": "cn-brokers",
-    "stress_drawdown_pct": {"value": -70, "source": "user:2026-09-18"},
-    "loss_budget_cny": {"value": 70000, "source": "user:2026-09-23"},
-    "standalone_cap_cny": {"value": 100000, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {
+      "value": -70,
+      "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+      "value": 70000,
+      "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+      "value": 100000,
+      "source": "calc:loss_budget_cap"
+    }
   },
   "monitor_variables": [
-    {"name": "指数点位跌破买入锚点", "kind": "auto", "metric": "index_level", "operator": "<", "threshold": {"value": 458.91, "source": "calc:level_at_drawdown_state"}, "condition_text": "收盘跌破 buy_below（回撤状态 P25）", "data_source": "执行侧日频计算", "current_text": "快照 §6：734.12", "frequency": "daily", "action": "review", "action_note": "复评论点，成立则改 active、首选工具 action 改 buy"},
-    {"name": "指数相对 200 日均线", "kind": "auto", "metric": "index_vs_sma200_pct", "operator": "<", "threshold": {"value": 0, "source": "framework:A11"}, "condition_text": "收盘持续低于 200 日均线", "data_source": "执行侧日频计算", "current_text": "快照 §6：-6.39%，below", "frequency": "daily", "action": "alert", "action_note": ""},
-    {"name": "A 股日均成交额", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "月均日成交额低于 1.5 万亿", "data_source": "交易所 / 公开统计", "current_text": "9 月 7–11 日 1.65–1.97 万亿", "frequency": "monthly", "action": "review", "action_note": "命中即触发失效条件①的评估"},
-    {"name": "两融余额", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "跌破 2 万亿", "data_source": "交易所", "current_text": "9 月 17 日 26,390.98 亿", "frequency": "monthly", "action": "review", "action_note": ""}
+    {
+      "name": "指数点位跌破买入锚点",
+      "kind": "auto",
+      "metric": "index_level",
+      "operator": "<",
+      "threshold": {
+        "value": 458.91,
+        "source": "calc:level_at_drawdown_state"
+      },
+      "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：734.12",
+      "frequency": "daily",
+      "action": "review",
+      "action_note": "复评论点，成立则改 active、首选工具 action 改 buy"
+    },
+    {
+      "name": "指数相对 200 日均线",
+      "kind": "auto",
+      "metric": "index_vs_sma200_pct",
+      "operator": "<",
+      "threshold": {
+        "value": 0,
+        "source": "framework:A11"
+      },
+      "condition_text": "收盘持续低于 200 日均线",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：-6.39%，below",
+      "frequency": "daily",
+      "action": "alert",
+      "action_note": ""
+    },
+    {
+      "name": "A 股日均成交额",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "月均日成交额低于 1.5 万亿",
+      "data_source": "交易所 / 公开统计",
+      "current_text": "9 月 7–11 日 1.65–1.97 万亿",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": "命中即触发失效条件①的评估"
+    },
+    {
+      "name": "两融余额",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "跌破 2 万亿",
+      "data_source": "交易所",
+      "current_text": "9 月 17 日 26,390.98 亿",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": ""
+    }
   ],
   "exit": {
     "invalidation": [
-      {"name": "盈利底子塌掉", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "A 股日均成交额连续两个月低于 1.5 万亿", "data_source": "交易所 / 公开统计", "current_text": "9 月上旬 1.65–1.97 万亿", "frequency": "monthly", "action": "close", "action_note": "无持仓时撤销候选资格"},
-      {"name": "杠杆资金退潮", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "两融余额跌破 2 万亿", "data_source": "交易所", "current_text": "26,390.98 亿", "frequency": "monthly", "action": "reduce", "action_note": "有仓时减，无仓时降低目标比例"}
+      {
+        "name": "盈利底子塌掉",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "A 股日均成交额连续两个月低于 1.5 万亿",
+        "data_source": "交易所 / 公开统计",
+        "current_text": "9 月上旬 1.65–1.97 万亿",
+        "frequency": "monthly",
+        "action": "close",
+        "action_note": "无持仓时撤销候选资格"
+      },
+      {
+        "name": "杠杆资金退潮",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "两融余额跌破 2 万亿",
+        "data_source": "交易所",
+        "current_text": "26,390.98 亿",
+        "frequency": "monthly",
+        "action": "reduce",
+        "action_note": "有仓时减，无仓时降低目标比例"
+      }
     ],
     "latest_review_date": "2026-11-23"
   },
   "scorecard": {
-    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
+    "benchmark": {
+      "code": "H11025.CSI",
+      "name": "同一笔钱放在货币基金"
+    },
     "preregistered_at": "2026-09-23",
     "confidence_pct": 40,
-    "entry_ref_index_level": {"value": 734.12, "source": "snapshot§6"}
+    "entry_ref_index_level": {
+      "value": 734.12,
+      "source": "snapshot§6"
+    }
   }
 }
 ```

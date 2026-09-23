@@ -85,7 +85,10 @@
   "card_id": "cn-newenergy-tactical",
   "as_of_date": "2026-09-23",
   "supersedes": null,
-  "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+  "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+  },
   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
   "task": "tactical",
   "status": "watch",
@@ -101,14 +104,47 @@
     "view_mismatch_note": "论点是产业链盈利修复，指数覆盖整车、电池、材料、锂矿，一致；席位内另一候选光伏产业亏损股权重 36.82%，是从亏损回到盈亏平衡的赌注，留作季度复评的替换候选",
     "structure": {
       "weights_as_of": "2026-08-31",
-      "constituent_count": {"value": 50, "source": "snapshot§3"},
-      "max_constituent_weight_pct": {"value": 10.94, "source": "snapshot§3"},
-      "top10_weight_pct": {"value": 52.97, "source": "snapshot§3"},
-      "research_coverage_pct": {"value": 21.4, "source": "snapshot§3"},
+      "constituent_count": {
+        "value": 50,
+        "source": "snapshot§3"
+      },
+      "max_constituent_weight_pct": {
+        "value": 10.94,
+        "source": "snapshot§3"
+      },
+      "top10_weight_pct": {
+        "value": 52.97,
+        "source": "snapshot§3"
+      },
+      "research_coverage_pct": {
+        "value": 21.4,
+        "source": "snapshot§3"
+      },
       "top_constituents": [
-        {"code": "002594.SZ", "name": "比亚迪", "weight_pct": {"value": 10.94, "source": "snapshot§3"}},
-        {"code": "300750.SZ", "name": "宁德时代", "weight_pct": {"value": 10.46, "source": "snapshot§3"}},
-        {"code": "300124.SZ", "name": "汇川技术", "weight_pct": {"value": 6.77, "source": "snapshot§3"}}
+        {
+          "code": "002594.SZ",
+          "name": "比亚迪",
+          "weight_pct": {
+            "value": 10.94,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "300750.SZ",
+          "name": "宁德时代",
+          "weight_pct": {
+            "value": 10.46,
+            "source": "snapshot§3"
+          }
+        },
+        {
+          "code": "300124.SZ",
+          "name": "汇川技术",
+          "weight_pct": {
+            "value": 6.77,
+            "source": "snapshot§3"
+          }
+        }
       ]
     }
   },
@@ -130,82 +166,272 @@
     "scenarios": {
       "bear": {
         "inputs": {
-          "eps_growth_pct": {"value": -8, "source": "ai_estimate", "note": "以 PB 为倍数，此处为账面价值增速：价格战延续、锂价再下台阶"},
-          "dividend_yield_pct": {"value": 0.97, "source": "snapshot§4"},
-          "current_multiple": {"value": 2.54, "source": "snapshot§4", "note": "PB，指数权重口径"},
-          "terminal_multiple": {"value": 2.54, "source": "snapshot§4", "note": "估值不回归"},
-          "years": {"value": 5, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.55, "source": "ai_estimate", "note": "首选工具年费 0.55%（tushare/akshare 2026-09-23 实测）"}
+          "eps_growth_pct": {
+            "value": -8,
+            "source": "ai_estimate",
+            "note": "以 PB 为倍数，此处为账面价值增速：价格战延续、锂价再下台阶"
+          },
+          "dividend_yield_pct": {
+            "value": 0.97,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 2.54,
+            "source": "snapshot§4",
+            "note": "PB，指数权重口径"
+          },
+          "terminal_multiple": {
+            "value": 2.54,
+            "source": "snapshot§4",
+            "note": "估值不回归"
+          },
+          "years": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.55,
+            "source": "ai_estimate",
+            "note": "首选工具年费 0.55%（tushare/akshare 2026-09-23 实测）"
+          }
         },
-        "valuation_change_pct": {"value": 0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": -7.58, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": -7.58,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "base": {
         "inputs": {
-          "eps_growth_pct": {"value": 6, "source": "ai_estimate", "note": "账面价值增速：销量增长被利润率下行部分抵消"},
-          "dividend_yield_pct": {"value": 0.97, "source": "snapshot§4"},
-          "current_multiple": {"value": 2.54, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 2.54, "source": "snapshot§4"},
-          "years": {"value": 5, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.55, "source": "ai_estimate"}
+          "eps_growth_pct": {
+            "value": 6,
+            "source": "ai_estimate",
+            "note": "账面价值增速：销量增长被利润率下行部分抵消"
+          },
+          "dividend_yield_pct": {
+            "value": 0.97,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 2.54,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 2.54,
+            "source": "snapshot§4"
+          },
+          "years": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.55,
+            "source": "ai_estimate"
+          }
         },
-        "valuation_change_pct": {"value": 0, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 6.42, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 0,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 6.42,
+          "source": "calc:scenario_annual_return"
+        }
       },
       "bull": {
         "inputs": {
-          "eps_growth_pct": {"value": 10, "source": "ai_estimate", "note": "账面价值增速：反内卷兑现"},
-          "dividend_yield_pct": {"value": 0.97, "source": "snapshot§4"},
-          "current_multiple": {"value": 2.54, "source": "snapshot§4"},
-          "terminal_multiple": {"value": 2.94, "source": "snapshot§4", "note": "PB 扩张窗 P25"},
-          "years": {"value": 5, "source": "ai_estimate"},
-          "drag_pct": {"value": 0.55, "source": "ai_estimate"}
+          "eps_growth_pct": {
+            "value": 10,
+            "source": "ai_estimate",
+            "note": "账面价值增速：反内卷兑现"
+          },
+          "dividend_yield_pct": {
+            "value": 0.97,
+            "source": "snapshot§4"
+          },
+          "current_multiple": {
+            "value": 2.54,
+            "source": "snapshot§4"
+          },
+          "terminal_multiple": {
+            "value": 2.94,
+            "source": "snapshot§4",
+            "note": "PB 扩张窗 P25"
+          },
+          "years": {
+            "value": 5,
+            "source": "ai_estimate"
+          },
+          "drag_pct": {
+            "value": 0.55,
+            "source": "ai_estimate"
+          }
         },
-        "valuation_change_pct": {"value": 2.97, "source": "calc:scenario_annual_return"},
-        "annual_return_pct": {"value": 13.39, "source": "calc:scenario_annual_return"}
+        "valuation_change_pct": {
+          "value": 2.97,
+          "source": "calc:scenario_annual_return"
+        },
+        "annual_return_pct": {
+          "value": 13.39,
+          "source": "calc:scenario_annual_return"
+        }
       }
     },
     "valuation_state": {
       "index_code": "399976.SZ",
       "metric": "pb",
-      "value": {"value": 2.54, "source": "snapshot§4", "note": "周期席位以 PB 为主；PE_TTM 22.21（分位 17.6）作参考，亏损股权重 1.87%"},
-      "percentile_expanding": {"value": 11.5, "source": "snapshot§4"},
-      "percentile_10y": {"value": 12.4, "source": "snapshot§4"},
-      "sample_n": {"value": 131, "source": "snapshot§4"},
+      "value": {
+        "value": 2.54,
+        "source": "snapshot§4",
+        "note": "周期席位以 PB 为主；PE_TTM 22.21（分位 17.6）作参考，亏损股权重 1.87%"
+      },
+      "percentile_expanding": {
+        "value": 11.5,
+        "source": "snapshot§4"
+      },
+      "percentile_10y": {
+        "value": 12.4,
+        "source": "snapshot§4"
+      },
+      "sample_n": {
+        "value": 131,
+        "source": "snapshot§4"
+      },
       "as_of": "2026-09-18"
     }
   },
   "instruments": {
     "merge_note": "新席位，无持仓；三只候选跟踪同一指数，只比可靠与便宜；平安那只跟踪的是另一条指数，名字相近但点位不对应",
     "list": [
-      {"code": "010805.OF", "name": "东财中证新能源汽车ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "none", "reason": "未持有；同指数联接基金里最便宜（0.55%）、规模最大（4.0 亿）。启用时改 action=buy，启用前核清盘风险"},
-      {"code": "009067.OF", "name": "国泰中证新能源汽车ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "backup", "action": "none", "reason": "未持有；成立最早（2020-04），年费 0.60%，规模 3.4 亿"},
-      {"code": "013013.OF", "name": "华夏中证新能源汽车ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "费率同备选、规模更小（2.6 亿）"},
-      {"code": "012698.OF", "name": "平安中证新能源汽车产业ETF联接-A", "instrument_type": "otc_fund", "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "rejected", "action": "none", "reason": "年费最低（0.20%）但跟踪中证新能源汽车产业指数（930997），不是本卡的 399976.SZ，点位不对应"}
+      {
+        "code": "010805.OF",
+        "name": "东财中证新能源汽车ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "primary",
+        "action": "none",
+        "reason": "未持有；同指数联接基金里最便宜（0.55%）、规模最大（4.0 亿）。启用时改 action=buy，启用前核清盘风险"
+      },
+      {
+        "code": "009067.OF",
+        "name": "国泰中证新能源汽车ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "backup",
+        "action": "none",
+        "reason": "未持有；成立最早（2020-04），年费 0.60%，规模 3.4 亿"
+      },
+      {
+        "code": "013013.OF",
+        "name": "华夏中证新能源汽车ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "费率同备选、规模更小（2.6 亿）"
+      },
+      {
+        "code": "012698.OF",
+        "name": "平安中证新能源汽车产业ETF联接-A",
+        "instrument_type": "otc_fund",
+        "share_class": "A",
+        "currency": "CNY",
+        "platform_account": "支付宝",
+        "role": "rejected",
+        "action": "none",
+        "reason": "年费最低（0.20%）但跟踪中证新能源汽车产业指数（930997），不是本卡的 399976.SZ，点位不对应"
+      }
     ]
   },
-  "trade_rules": {"min_holding_days": 7, "purchase_limit_note": null},
+  "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+  },
   "decision": {
-    "rule_refs": ["A5", "A8", "A9", "A10", "A13"],
+    "rule_refs": [
+      "A5",
+      "A8",
+      "A9",
+      "A10",
+      "A13"
+    ],
     "anchors": {
       "basis": "index_level",
       "index_code": "399976.SZ",
+      "snapshot_ref": null,
       "add_below": {
-        "level": {"value": 2535.18, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 100, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 5086.64, "source": "snapshot§6"}, "state": {"value": 0.4984, "source": "snapshot§6", "note": "回撤状态扩张窗 P10"}},
+        "level": {
+          "value": 2535.18,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 100,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 5086.64,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.4984,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P10"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P10（距 36 月高点约 50%）"
       },
       "buy_below": {
-        "level": {"value": 3173.55, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 50, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 5086.64, "source": "snapshot§6"}, "state": {"value": 0.6239, "source": "snapshot§6", "note": "回撤状态扩张窗 P25"}},
+        "level": {
+          "value": 3173.55,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 50,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 5086.64,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.6239,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P25"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P25；当前 3,538.03 在其上方 11.5%，status=watch 跌破只告警"
       },
       "reduce_above": {
-        "level": {"value": 4817.56, "source": "calc:level_at_drawdown_state"},
-        "target_ratio_pct": {"value": 30, "source": "framework:A13"},
-        "inputs": {"rolling_high": {"value": 5086.64, "source": "snapshot§6"}, "state": {"value": 0.9471, "source": "snapshot§6", "note": "回撤状态扩张窗 P75"}},
+        "level": {
+          "value": 4817.56,
+          "source": "calc:level_at_drawdown_state"
+        },
+        "target_ratio_pct": {
+          "value": 30,
+          "source": "framework:A13"
+        },
+        "inputs": {
+          "rolling_high": {
+            "value": 5086.64,
+            "source": "snapshot§6"
+          },
+          "state": {
+            "value": 0.9471,
+            "source": "snapshot§6",
+            "note": "回撤状态扩张窗 P75"
+          }
+        },
         "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 5%）：升破即减到上限的 30%"
       },
       "reduce_mode": "to_target_ratio",
@@ -215,28 +441,133 @@
   },
   "sizing": {
     "bet_group": "cn-newenergy-tactical",
-    "stress_drawdown_pct": {"value": -70, "source": "user:2026-09-18"},
-    "loss_budget_cny": {"value": 70000, "source": "user:2026-09-23"},
-    "standalone_cap_cny": {"value": 100000, "source": "calc:loss_budget_cap"}
+    "stress_drawdown_pct": {
+      "value": -70,
+      "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+      "value": 70000,
+      "source": "user:2026-09-23"
+    },
+    "standalone_cap_cny": {
+      "value": 100000,
+      "source": "calc:loss_budget_cap"
+    }
   },
   "monitor_variables": [
-    {"name": "指数点位跌破买入锚点", "kind": "auto", "metric": "index_level", "operator": "<", "threshold": {"value": 3173.55, "source": "calc:level_at_drawdown_state"}, "condition_text": "收盘跌破 buy_below（回撤状态 P25）", "data_source": "执行侧日频计算", "current_text": "快照 §6：3,538.03", "frequency": "daily", "action": "review", "action_note": "复评论点后决定是否启用（改 active + buy）"},
-    {"name": "新能源乘用车零售当月同比", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "连续两个月为负", "data_source": "乘联分会月报", "current_text": "8 月新能源汽车销量同比 +17.8%（中汽协）", "frequency": "monthly", "action": "review", "action_note": ""},
-    {"name": "电池级碳酸锂期货主力价", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "跌破 100,000 元/吨或升破 200,000 元/吨", "data_source": "广期所", "current_text": "9 月 7 日 140,500 元/吨，一周跌约 10%", "frequency": "monthly", "action": "review", "action_note": "跌破：上游成分账面减值；升破：中游成本挤压"},
-    {"name": "宁德时代动力电池毛利率", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "连续两个季度环比下降", "data_source": "季报", "current_text": "上半年 20.63%，同比 -1.78pp", "frequency": "quarterly", "action": "review", "action_note": "反内卷未兑现的直接证据"}
+    {
+      "name": "指数点位跌破买入锚点",
+      "kind": "auto",
+      "metric": "index_level",
+      "operator": "<",
+      "threshold": {
+        "value": 3173.55,
+        "source": "calc:level_at_drawdown_state"
+      },
+      "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+      "data_source": "执行侧日频计算",
+      "current_text": "快照 §6：3,538.03",
+      "frequency": "daily",
+      "action": "review",
+      "action_note": "复评论点后决定是否启用（改 active + buy）"
+    },
+    {
+      "name": "新能源乘用车零售当月同比",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "连续两个月为负",
+      "data_source": "乘联分会月报",
+      "current_text": "8 月新能源汽车销量同比 +17.8%（中汽协）",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": ""
+    },
+    {
+      "name": "电池级碳酸锂期货主力价",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "跌破 100,000 元/吨或升破 200,000 元/吨",
+      "data_source": "广期所",
+      "current_text": "9 月 7 日 140,500 元/吨，一周跌约 10%",
+      "frequency": "monthly",
+      "action": "review",
+      "action_note": "跌破：上游成分账面减值；升破：中游成本挤压"
+    },
+    {
+      "name": "宁德时代动力电池毛利率",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+        "value": null,
+        "source": null
+      },
+      "condition_text": "连续两个季度环比下降",
+      "data_source": "季报",
+      "current_text": "上半年 20.63%，同比 -1.78pp",
+      "frequency": "quarterly",
+      "action": "review",
+      "action_note": "反内卷未兑现的直接证据"
+    }
   ],
   "exit": {
     "invalidation": [
-      {"name": "量的前提消失", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "新能源乘用车零售连续两个季度同比负增长", "data_source": "乘联分会", "current_text": "8 月同比 +17.8%", "frequency": "quarterly", "action": "close", "action_note": ""},
-      {"name": "反内卷失败", "kind": "manual", "metric": null, "operator": null, "threshold": {"value": null, "source": null}, "condition_text": "宁德时代动力电池毛利率跌破 15%", "data_source": "季报", "current_text": "上半年 20.63%", "frequency": "quarterly", "action": "close", "action_note": "价格战进入新一轮"}
+      {
+        "name": "量的前提消失",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "新能源乘用车零售连续两个季度同比负增长",
+        "data_source": "乘联分会",
+        "current_text": "8 月同比 +17.8%",
+        "frequency": "quarterly",
+        "action": "close",
+        "action_note": ""
+      },
+      {
+        "name": "反内卷失败",
+        "kind": "manual",
+        "metric": null,
+        "operator": null,
+        "threshold": {
+          "value": null,
+          "source": null
+        },
+        "condition_text": "宁德时代动力电池毛利率跌破 15%",
+        "data_source": "季报",
+        "current_text": "上半年 20.63%",
+        "frequency": "quarterly",
+        "action": "close",
+        "action_note": "价格战进入新一轮"
+      }
     ],
     "latest_review_date": "2026-11-20"
   },
   "scorecard": {
-    "benchmark": {"code": "H11025.CSI", "name": "同一笔钱放在货币基金"},
+    "benchmark": {
+      "code": "H11025.CSI",
+      "name": "同一笔钱放在货币基金"
+    },
     "preregistered_at": "2026-09-23",
     "confidence_pct": 40,
-    "entry_ref_index_level": {"value": 3538.03, "source": "snapshot§6"}
+    "entry_ref_index_level": {
+      "value": 3538.03,
+      "source": "snapshot§6"
+    }
   }
 }
 ```
