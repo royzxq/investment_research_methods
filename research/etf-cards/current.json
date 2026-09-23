@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-23T22:33:53+08:00",
+ "generated_at": "2026-09-24T02:23:07+08:00",
  "card_schema_version": 1,
  "portfolio_params": {
   "effective_from": "2026-09-18",
@@ -1180,7 +1180,7 @@
   {
    "card_schema_version": 1,
    "card_id": "cn-consumer-tactical",
-   "as_of_date": "2026-09-23",
+   "as_of_date": "2026-09-24",
    "supersedes": null,
    "framework": {
     "path": "framework/etf_framework.md",
@@ -1541,23 +1541,7 @@
    },
    "monitor_variables": [
     {
-     "name": "指数相对 200 日均线",
-     "kind": "auto",
-     "metric": "index_vs_sma200_pct",
-     "operator": ">",
-     "threshold": {
-      "value": 0,
-      "source": "framework:A11"
-     },
-     "condition_text": "收盘回到 200 日均线之上（趋势转正）",
-     "data_source": "执行侧日频计算",
-     "current_text": "快照 §6：-11.75%，below",
-     "frequency": "daily",
-     "action": "review",
-     "action_note": "复评启用时机，不自动买"
-    },
-    {
-     "name": "飞天茅台批价",
+     "name": "宏观传动轴：财政力度与内需读数",
      "kind": "manual",
      "metric": null,
      "operator": null,
@@ -1565,12 +1549,60 @@
       "value": null,
       "source": null
      },
-     "condition_text": "跌破 1600 元/瓶",
-     "data_source": "今日酒价 / 券商渠道调研",
-     "current_text": "约 1750 元，双节前企稳回升",
+     "condition_text": "财政政策力度读数从 −0.95 向 0 回升且资金去向为收入端（社保、生育、消费补贴），同时内需/总需求读数的置信度从 −1.0 松动到 −0.5 一带",
+     "data_source": "吸引子宏观数据服务（macro_latest.py：中国-财政政策力度、中国-内需、中国-总需求）",
+     "current_text": "2026-09-24：财政力度 −0.95、内需 −1.0、总需求 −1.0，均为下降·维持",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "启用条件之一：便宜是价格给的，回归要靠这根传动轴焊上"
+    },
+    {
+     "name": "居民中长期贷款",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "当月新增居民中长期贷款同比转正",
+     "data_source": "人民银行金融统计数据",
+     "current_text": "2026 年 7 月居民中长贷同比多减；8 月数据待核",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "私人信用派生重启的唯一硬证据"
+    },
+    {
+     "name": "核心 CPI",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "核心 CPI 同比站上 1.5%（而非上游涨价推着 CPI 走）",
+     "data_source": "国家统计局",
+     "current_text": "2026 年 8 月核心 CPI +1.0%，CPI +0.8%",
      "frequency": "monthly",
      "action": "review",
      "action_note": ""
+    },
+    {
+     "name": "白酒量价齐动",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "中秋、春节任一节点白酒动销同比转正，且飞天批价不跌破 1600 元/瓶；只有批价涨、进货量降仍算清淤未回暖",
+     "data_source": "华创食饮等渠道调研 / 今日酒价",
+     "current_text": "2026 年中秋：批价约 1730 元坚挺，动销同比持平到小幅下滑，渠道库存低位",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": "跌破 1600 且经销商累库 → 走失效条件①"
     },
     {
      "name": "生猪收购价",
@@ -1583,26 +1615,10 @@
      },
      "condition_text": "连续 4 周高于 15 元/公斤（周期反转）",
      "data_source": "农业农村部周报",
-     "current_text": "9 月第一周 12.14 元/公斤，同比 -18.4%",
+     "current_text": "12.14 元/公斤（2026 年 9 月第一周）",
      "frequency": "monthly",
      "action": "review",
-     "action_note": "养殖部分的估值逻辑由底部转为上行，重算情景"
-    },
-    {
-     "name": "社零当月同比",
-     "kind": "manual",
-     "metric": null,
-     "operator": null,
-     "threshold": {
-      "value": null,
-      "source": null
-     },
-     "condition_text": "连续两个月为负",
-     "data_source": "国家统计局",
-     "current_text": "8 月 +0.4%，1–8 月 +1.1%",
-     "frequency": "monthly",
-     "action": "review",
-     "action_note": ""
+     "action_note": "养殖部分的估值逻辑改变"
     }
    ],
    "exit": {
