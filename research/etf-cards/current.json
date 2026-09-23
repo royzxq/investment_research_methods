@@ -1,0 +1,667 @@
+{
+ "generated_at": "2026-09-23T22:05:53+08:00",
+ "card_schema_version": 1,
+ "portfolio_params": {
+  "effective_from": "2026-09-18",
+  "decided_by": "user",
+  "etf_plan_total_cny": 700000,
+  "sector_cap_pct_of_etf_plan": 30,
+  "single_bet_loss_budget_cny": 70000,
+  "sector_stress_drawdown_pct": -70,
+  "china_equity_cap_pct": 90,
+  "total_assets_basis": "全部资产 = 个股市值（折人民币）+ ETF 市值（折人民币），不含现金、货币基金与尚未确认份额的在途定投；个股与 ETF 允许取各自最新的估值日",
+  "blocks": {
+   "decided_on": "2026-09-19",
+   "core_cny": 350000,
+   "sector_cny": 210000,
+   "diversifier_cny": 140000,
+   "note": "核心 50% / 行业 30% / 分散器 20%；分散器 ≥13.6 万来自中国权益 ≤90% × 全部资产约 136 万"
+  },
+  "core_seats": {
+   "000510.SH": {
+    "cap_cny": 120000,
+    "stress_drawdown_pct": -72,
+    "loss_budget_cny": 86400,
+    "note": "沪深300 2007–08 实测约 -72%"
+   },
+   "HSI": {
+    "cap_cny": 100000,
+    "stress_drawdown_pct": -66,
+    "loss_budget_cny": 66000,
+    "note": "恒指 2007-10 高点 31958 → 2008-10 低点 10676 约 -66%"
+   },
+   "HSHYLV": {
+    "cap_cny": 80000,
+    "stress_drawdown_pct": -50,
+    "loss_budget_cny": 40000,
+    "note": "估计值：低波类同类资产的保守估计，无 HSHYLV 历史序列支撑；补上序列后重算"
+   },
+   "HKTECH": {
+    "cap_cny": 50000,
+    "stress_drawdown_pct": -75,
+    "loss_budget_cny": 37500,
+    "note": "恒生科技 2021-02 → 2022-10 约 -75%；现持仓 53211 已超上限"
+   }
+  },
+  "single_bet_loss_budget_note": "2026-09-23 用户由 3.5 万提到 7 万（单笔上限 5 万→10 万）：行业席位高度同向，21 万块不该按 4 笔独立押注切",
+  "sector_etf_cap_cny": 210000.0,
+  "single_bet_cap_cny": 100000.0
+ },
+ "index_registry": [
+  {
+   "key": "000300.SH",
+   "name": "沪深300(估值锚)",
+   "source": "index_daily",
+   "code": "000300.SH",
+   "currency": "CNY"
+  },
+  {
+   "key": "000510.SH",
+   "name": "中证A500",
+   "source": "index_daily",
+   "code": "000510.SH",
+   "currency": "CNY"
+  },
+  {
+   "key": "HKTECH",
+   "name": "恒生科技",
+   "source": "index_global",
+   "code": "HKTECH",
+   "currency": "HKD"
+  },
+  {
+   "key": "HSI",
+   "name": "恒生指数",
+   "source": "index_global",
+   "code": "HSI",
+   "currency": "HKD"
+  },
+  {
+   "key": "HSHYLV",
+   "name": "恒生港股通红利低波动",
+   "source": null,
+   "code": null,
+   "currency": "HKD"
+  },
+  {
+   "key": "399973.SZ",
+   "name": "中证国防",
+   "source": "index_daily",
+   "code": "399973.SZ",
+   "currency": "CNY"
+  },
+  {
+   "key": "987018.CNI",
+   "name": "国证港股通创新药",
+   "source": "index_daily",
+   "code": "987018.CNI",
+   "currency": "HKD"
+  },
+  {
+   "key": "931787.CSI",
+   "name": "中证香港创新药",
+   "source": "index_daily",
+   "code": "931787.CSI",
+   "currency": "HKD"
+  },
+  {
+   "key": "931152.CSI",
+   "name": "中证创新药产业",
+   "source": "index_daily",
+   "code": "931152.CSI",
+   "currency": "CNY"
+  },
+  {
+   "key": "399989.SZ",
+   "name": "中证医疗",
+   "source": "index_daily",
+   "code": "399989.SZ",
+   "currency": "CNY"
+  },
+  {
+   "key": "000688.SH",
+   "name": "科创50",
+   "source": "index_daily",
+   "code": "000688.SH",
+   "currency": "CNY"
+  },
+  {
+   "key": "000819.SH",
+   "name": "中证申万有色金属",
+   "source": "index_daily",
+   "code": "000819.SH",
+   "currency": "CNY"
+  },
+  {
+   "key": "000813.CSI",
+   "name": "中证细分化工",
+   "source": "index_daily",
+   "code": "000813.CSI",
+   "currency": "CNY"
+  },
+  {
+   "key": "Au99.99",
+   "name": "黄金现货Au99.99",
+   "source": "sge_daily",
+   "code": "Au99.99",
+   "currency": "CNY"
+  },
+  {
+   "key": "000012.SH",
+   "name": "上证国债指数",
+   "source": "index_daily",
+   "code": "000012.SH",
+   "currency": "CNY"
+  },
+  {
+   "key": "SPX",
+   "name": "标普500",
+   "source": "index_global",
+   "code": "SPX",
+   "currency": "USD"
+  },
+  {
+   "key": "H11025.CSI",
+   "name": "中证货币基金指数(记分基准)",
+   "source": "index_daily",
+   "code": "H11025.CSI",
+   "currency": "CNY"
+  },
+  {
+   "key": "000905.SH",
+   "name": "中证500",
+   "source": "index_daily",
+   "code": "000905.SH",
+   "currency": "CNY"
+  },
+  {
+   "key": "H30269.CSI",
+   "name": "红利低波",
+   "source": "index_daily",
+   "code": "H30269.CSI",
+   "currency": "CNY"
+  },
+  {
+   "key": "000932.SH",
+   "name": "中证主要消费",
+   "source": "index_daily",
+   "code": "000932.SH",
+   "currency": "CNY"
+  },
+  {
+   "key": "399997.SZ",
+   "name": "中证白酒",
+   "source": "index_daily",
+   "code": "399997.SZ",
+   "currency": "CNY"
+  },
+  {
+   "key": "931151.CSI",
+   "name": "光伏产业",
+   "source": "index_daily",
+   "code": "931151.CSI",
+   "currency": "CNY"
+  },
+  {
+   "key": "399976.SZ",
+   "name": "中证新能源汽车",
+   "source": "index_daily",
+   "code": "399976.SZ",
+   "currency": "CNY"
+  },
+  {
+   "key": "399975.SZ",
+   "name": "证券公司",
+   "source": "index_daily",
+   "code": "399975.SZ",
+   "currency": "CNY"
+  },
+  {
+   "key": "930914.CSI",
+   "name": "中证港股通高股息(港股红利低波的候选代理)",
+   "source": "index_daily",
+   "code": "930914.CSI",
+   "currency": "HKD"
+  }
+ ],
+ "cards": [
+  {
+   "card_schema_version": 1,
+   "card_id": "cn-hk-pharma-tactical",
+   "as_of_date": "2026-09-23",
+   "supersedes": null,
+   "framework": {
+    "path": "framework/etf_framework.md",
+    "version": "v0.1"
+   },
+   "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
+   "task": "tactical",
+   "status": "active",
+   "no_buy_reason": null,
+   "close_reason": null,
+   "exposure": {
+    "index_code": "987018.CNI",
+    "index_name": "国证港股通创新药",
+    "asset_type": "sector",
+    "currency": "HKD",
+    "counts_toward_sector_cap": true,
+    "china_equity": true,
+    "view_mismatch_note": "同一押注下的 931787.CSI 含约五分之一 CXO、931152.CSI 含约四分之一 CXO、399989.SZ 以器械与 CXO 为主；只有 987018.CNI 纯粹表达“创新药出海授权兑现”",
+    "structure": {
+     "weights_as_of": "2026-08-31",
+     "constituent_count": {
+      "value": 36,
+      "source": "snapshot§3"
+     },
+     "max_constituent_weight_pct": {
+      "value": 11.82,
+      "source": "snapshot§3"
+     },
+     "top10_weight_pct": {
+      "value": 75.67,
+      "source": "snapshot§3"
+     },
+     "research_coverage_pct": {
+      "value": 13.5,
+      "source": "snapshot§3"
+     },
+     "top_constituents": [
+      {
+       "code": "01801.HK",
+       "name": "信达生物",
+       "weight_pct": {
+        "value": 11.82,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "06160.HK",
+       "name": "百济神州",
+       "weight_pct": {
+        "value": 11.02,
+        "source": "snapshot§3"
+       }
+      },
+      {
+       "code": "01093.HK",
+       "name": "石药集团",
+       "weight_pct": {
+        "value": 10.87,
+        "source": "snapshot§3"
+       }
+      }
+     ]
+    }
+   },
+   "thesis": {
+    "statement": "创新药出海授权收入正从预期进入报表，但港股创新药指数已把这一点定价到近三年高点附近；这笔押注现在该持有、不追加一次性买入，等阶梯给出的点位",
+    "evidence": [
+     "2026 年以来创新药对外授权总额突破 1200 亿美元、同比 +36%，2025 年全年 1356.55 亿美元，中国占全球跨境授权近 49%",
+     "代表性创新药公司 2026 上半年营收 A 股 +50.11%、H 股 +40.71%，多家率先盈利，首付款与里程碑集中确认",
+     "2026 年医保目录与商保创新药目录双目录调整，首次允许预申报、新增 3 条申报通道，政策由控费转向创新驱动"
+    ],
+    "counter_evidence": [
+     "COINS Act 留有把生物技术纳入对外投资审查的口子，2026 年 2 月、5 月议员两度施压，5 月 28 日传闻即引发大跌；本轮业绩主来源正是对美 BD",
+     "中证香港创新药指数回撤状态分位 76.4 已在减仓区；首付款是一次性收入，2027 年面对高基数，再上涨要靠新交易维持规模"
+    ],
+    "horizon_months": 18
+   },
+   "expectation": {
+    "method": "scenario_only",
+    "scenarios": {
+     "bear": {
+      "inputs": null,
+      "valuation_change_pct": {
+       "value": null,
+       "source": null
+      },
+      "annual_return_pct": {
+       "value": -30,
+       "source": "ai_estimate",
+       "note": "生物技术纳入 COINS Act 受管辖领域或对美 BD 明显收缩"
+      }
+     },
+     "base": {
+      "inputs": null,
+      "valuation_change_pct": {
+       "value": 0,
+       "source": "framework:A5"
+      },
+      "annual_return_pct": {
+       "value": 8,
+       "source": "ai_estimate",
+       "note": "BD 规模维持、兑现但增速回落，估值零变化"
+      }
+     },
+     "bull": {
+      "inputs": null,
+      "valuation_change_pct": {
+       "value": null,
+       "source": null
+      },
+      "annual_return_pct": {
+       "value": 25,
+       "source": "ai_estimate",
+       "note": "新一批大额授权 + 商保目录放量"
+      }
+     }
+    },
+    "valuation_state": {
+     "index_code": "931152.CSI",
+     "metric": "pe_ttm",
+     "value": {
+      "value": 31.47,
+      "source": "snapshot§4",
+      "note": "港股创新药指数无估值源，以同一押注里的 A 股中证创新药产业代理；指数权重口径"
+     },
+     "percentile_expanding": {
+      "value": 37.8,
+      "source": "snapshot§4"
+     },
+     "percentile_10y": {
+      "value": null,
+      "source": null,
+      "note": "估值史自 2019-04，不足 10 年"
+     },
+     "sample_n": {
+      "value": 90,
+      "source": "snapshot§4"
+     },
+     "as_of": "2026-09-18"
+    }
+   },
+   "instruments": {
+    "merge_note": "四只基金穿透后是同一笔押注（两港股创新药指数周收益相关 0.99，与 A 股创新药产业 0.81），共用 bet_group=cn-hk-pharma 与 10 万上限；上限内不强制换出，论点错位只决定日后收缩的先后顺序",
+    "list": [
+     {
+      "code": "021031.OF",
+      "name": "汇添富国证港股通创新药ETF联接-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "primary",
+      "action": "hold",
+      "reason": "跟踪主指数；持有、定投继续；TD 年化 -2.16pp、TE 3.97%（剔除建仓期）"
+     },
+     {
+      "code": "019670.OF",
+      "name": "广发中证香港创新药ETF联接(QDII)-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "held_other",
+      "action": "hold",
+      "reason": "港股创新药暴露保留；QDII、含约五分之一 CXO，TD 年化 -4.57pp 为四只中最差"
+     },
+     {
+      "code": "012782.OF",
+      "name": "银华中证创新药产业ETF联接-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "held_other",
+      "action": "hold",
+      "reason": "持有；A 股 CXO 占比高、与论点有错位，若收缩排第二；跟踪本身最好（TD -0.55pp）"
+     },
+     {
+      "code": "012323.OF",
+      "name": "华宝中证医疗ETF联接-C",
+      "instrument_type": "otc_fund",
+      "share_class": "C",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "held_other",
+      "action": "hold",
+      "reason": "持有；器械与 CXO 为主、不表达创新药出海论点，若收缩排第一；持有已超 7 天，届时赎回费 0"
+     },
+     {
+      "code": "021030.OF",
+      "name": "汇添富国证港股通创新药ETF联接-A",
+      "instrument_type": "otc_fund",
+      "share_class": "A",
+      "currency": "CNY",
+      "platform_account": "支付宝",
+      "role": "rejected",
+      "action": "none",
+      "reason": "未持有；本卡不新增资金。若将来在主指数上加钱，A 类年费 0.60% 优于 C 类 0.80%"
+     }
+    ]
+   },
+   "trade_rules": {
+    "min_holding_days": 7,
+    "purchase_limit_note": null
+   },
+   "decision": {
+    "rule_refs": [
+     "A8",
+     "A9",
+     "A10",
+     "A13"
+    ],
+    "anchors": {
+     "basis": "index_level",
+     "index_code": "987018.CNI",
+     "add_below": {
+      "level": {
+       "value": 753.69,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 100,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2342.11,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.3218,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P10"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P10：相当于 2021–2024 深熊的底部区域"
+     },
+     "buy_below": {
+      "level": {
+       "value": 950.9,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 50,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2342.11,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.406,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P25"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P25；当前 1,796.75 在其上方约 89%。持仓已近上限，跌破时不自动买而是复评（见监控）"
+     },
+     "reduce_above": {
+      "level": {
+       "value": 2297.84,
+       "source": "calc:level_at_drawdown_state"
+      },
+      "target_ratio_pct": {
+       "value": 30,
+       "source": "framework:A13"
+      },
+      "inputs": {
+       "rolling_high": {
+        "value": 2342.11,
+        "source": "snapshot§6"
+       },
+       "state": {
+        "value": 0.9811,
+        "source": "snapshot§6",
+        "note": "回撤状态扩张窗 P75"
+       }
+      },
+      "rationale": "回撤状态回到自身历史 P75（距 36 月高点约 2%）：升破即把这笔押注减到上限的 30%（3 万）"
+     },
+     "reduce_mode": "to_target_ratio",
+     "no_anchor_reason": null,
+     "valid_until": "2026-10-31"
+    }
+   },
+   "sizing": {
+    "bet_group": "cn-hk-pharma",
+    "stress_drawdown_pct": {
+     "value": -70,
+     "source": "user:2026-09-18"
+    },
+    "loss_budget_cny": {
+     "value": 70000,
+     "source": "user:2026-09-23",
+     "note": "2026-09-23 由 3.5 万上调"
+    },
+    "standalone_cap_cny": {
+     "value": 100000,
+     "source": "calc:loss_budget_cap"
+    }
+   },
+   "monitor_variables": [
+    {
+     "name": "指数相对 200 日均线",
+     "kind": "auto",
+     "metric": "index_vs_sma200_pct",
+     "operator": "<",
+     "threshold": {
+      "value": 0,
+      "source": "framework:A11"
+     },
+     "condition_text": "收盘持续低于 200 日均线",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：-4.46%，below",
+     "frequency": "daily",
+     "action": "alert",
+     "action_note": ""
+    },
+    {
+     "name": "指数点位跌破买入锚点",
+     "kind": "auto",
+     "metric": "index_level",
+     "operator": "<",
+     "threshold": {
+      "value": 950.9,
+      "source": "calc:level_at_drawdown_state"
+     },
+     "condition_text": "收盘跌破 buy_below（回撤状态 P25）",
+     "data_source": "执行侧日频计算",
+     "current_text": "快照 §6：1,796.75",
+     "frequency": "daily",
+     "action": "review",
+     "action_note": "持仓已近上限，不自动买；复评论点后再决定是否用剩余额度加"
+    },
+    {
+     "name": "生物技术是否纳入 COINS Act 受管辖领域",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "美国财政部启动规则制定或发布拟议规则，把生物技术纳入对外投资审查",
+     "data_source": "美国财政部公告、国会信函",
+     "current_text": "未纳入，仅留口子；2026-02、05 议员两度致信",
+     "frequency": "event",
+     "action": "review",
+     "action_note": "命中即触发失效条件①的评估"
+    },
+    {
+     "name": "创新药对外授权月度交易额",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "连续两个月同比下降",
+     "data_source": "医药魔方 / 公开统计",
+     "current_text": "2026 年累计突破 1200 亿美元，同比 +36%",
+     "frequency": "monthly",
+     "action": "review",
+     "action_note": ""
+    },
+    {
+     "name": "2026 医保谈判与商保创新药目录结果",
+     "kind": "manual",
+     "metric": null,
+     "operator": null,
+     "threshold": {
+      "value": null,
+      "source": null
+     },
+     "condition_text": "创新药平均降幅显著高于 2025 年，或商保目录纳入数远低于申报数",
+     "data_source": "国家医保局公告（预计 11–12 月）",
+     "current_text": "初审公示已出：目录外 375 个通用名通过 334 个",
+     "frequency": "event",
+     "action": "review",
+     "action_note": ""
+    }
+   ],
+   "exit": {
+    "invalidation": [
+     {
+      "name": "对美 BD 通道被切断",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "生物技术被正式纳入美国对外投资禁止清单",
+      "data_source": "美国财政部最终规则",
+      "current_text": "未发生",
+      "frequency": "event",
+      "action": "close",
+      "action_note": "论点的收入来源被切断"
+     },
+     {
+      "name": "BD 收入不可持续",
+      "kind": "manual",
+      "metric": null,
+      "operator": null,
+      "threshold": {
+       "value": null,
+       "source": null
+      },
+      "condition_text": "2027 年上半年代表性创新药公司合计营收同比转负",
+      "data_source": "中报",
+      "current_text": "2026 上半年 H 股 +40.71%",
+      "frequency": "event",
+      "action": "reduce",
+      "action_note": ""
+     }
+    ],
+    "latest_review_date": "2026-11-20"
+   },
+   "scorecard": {
+    "benchmark": {
+     "code": "H11025.CSI",
+     "name": "同一笔钱放在货币基金"
+    },
+    "preregistered_at": "2026-09-21",
+    "confidence_pct": 45,
+    "entry_ref_index_level": {
+     "value": 1796.75,
+     "source": "snapshot§6"
+    }
+   }
+  }
+ ]
+}

@@ -35,7 +35,7 @@ description: ETF 决策卡研究：对候选池里的一个席位，读最新数
    用脚本算，不要心算：`python3 -c "from scripts.etf_calc import level_at_drawdown_state as f; print(round(f(<高点>, <状态>), 2))"`。
    `inputs` 里照抄快照的两个数，校验器会复算。黄金、无行情源的指数、§6b 给不出分位点的指数：三锚点全空 + `no_anchor_reason`。
    同时在正文写明该席位在验证报告里的逐折结果与空仓期的机会成本（A9「必须一并交代的代价」）。
-6. **仓位**（A8）：核心席位的 `sizing` 三个数照抄 `etf_portfolio_params.json` 的 `core_seats`；行业席位为 3.5 万 / −70% / 5 万（`calc:loss_budget_cap`）。
+6. **仓位**（A8）：核心席位的 `sizing` 三个数照抄 `etf_portfolio_params.json` 的 `core_seats`；行业席位为 7 万 / −70% / 10 万（`calc:loss_budget_cap`，来源 `user:2026-09-23`）。
    现持仓超上限 → 所有工具 `stop_dca`，不给 `buy`；`status` 用 `watch` 或 `no_buy(portfolio)`。
 7. **监控与退出**（A10–A12）：3–5 个监控变量，自动类只能用三个指数点位指标；战术卡至少一条失效条件；`latest_review_date` 核心卡写一个季度后、战术卡不超过两个月；
    记分基准 `H11025.CSI` 或核心宽基；`entry_ref_index_level` 取快照 §6 的收盘。

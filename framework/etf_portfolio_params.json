@@ -4,7 +4,7 @@
   "decided_by": "user",
   "etf_plan_total_cny": 700000,
   "sector_cap_pct_of_etf_plan": 30,
-  "single_bet_loss_budget_cny": 35000,
+  "single_bet_loss_budget_cny": 70000,
   "sector_stress_drawdown_pct": -70,
   "china_equity_cap_pct": 90,
   "total_assets_basis": "全部资产 = 个股市值（折人民币）+ ETF 市值（折人民币），不含现金、货币基金与尚未确认份额的在途定投；个股与 ETF 允许取各自最新的估值日",
@@ -40,5 +40,6 @@
       "loss_budget_cny": 37500,
       "note": "恒生科技 2021-02 → 2022-10 约 -75%；现持仓 53211 已超上限"
     }
-  }
+  },
+  "single_bet_loss_budget_note": "2026-09-23 用户由 3.5 万提到 7 万（单笔上限 5 万→10 万）：行业席位高度同向，21 万块不该按 4 笔独立押注切"
 }

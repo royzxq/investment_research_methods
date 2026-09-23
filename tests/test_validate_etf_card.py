@@ -105,8 +105,8 @@ def card():
                                  "add_below": anchor(0.5376, 100), "buy_below": anchor(0.6423, 50),
                                  "reduce_above": anchor(0.8994, 30)}},
         "sizing": {"bet_group": "cn-hk-pharma", "stress_drawdown_pct": number(-70, "framework:A8"),
-                   "loss_budget_cny": number(35000, "user:2026-09-18"),
-                   "standalone_cap_cny": number(50000, "calc:loss_budget_cap")},
+                   "loss_budget_cny": number(70000, "user:2026-09-23"),
+                   "standalone_cap_cny": number(100000, "calc:loss_budget_cap")},
         "monitor_variables": [trigger("auto", "alert"), trigger(), trigger()],
         "exit": {"invalidation": [trigger(action="close")], "latest_review_date": "2026-12-19"},
         "scorecard": {"benchmark": {"code": "000510.SH", "name": "同一笔钱放在中证A500联接"}, "preregistered_at": "2026-09-19", "confidence_pct": 55,
@@ -165,7 +165,7 @@ class RejectionTests(unittest.TestCase):
             self.assert_error(mutate, "ai_estimate is accepted only on scenario assumptions")
 
     def test_numbers_need_a_wrapper_and_a_known_source(self):
-        self.assert_error(lambda d: d["sizing"].update(loss_budget_cny=35000), "sizing.loss_budget_cny: expected sourced number")
+        self.assert_error(lambda d: d["sizing"].update(loss_budget_cny=70000), "sizing.loss_budget_cny: expected sourced number")
         self.assert_error(lambda d: d["thesis"].update(target_price=12.5), "thesis.target_price: bare number")
         self.assert_error(lambda d: d["sizing"]["loss_budget_cny"].update(source="wind"), "sizing.loss_budget_cny.source")
         self.assert_error(lambda d: d["sizing"]["standalone_cap_cny"].update(source="calc:kelly"), "etf_calc has no function kelly")
@@ -371,7 +371,7 @@ class LoadTests(unittest.TestCase):
         self.assertEqual((payload["card_schema_version"], payload["cards"]), (1, [new]))
         params = payload["portfolio_params"]
         self.assertEqual((params["sector_etf_cap_cny"], params["single_bet_cap_cny"], params["china_equity_cap_pct"]),
-                         (210000, 50000, 90))
+                         (210000, 100000, 90))
         self.assertNotIn("_doc", params)
         self.assertIn({"key": "HKTECH", "name": "恒生科技", "source": "index_global", "code": "HKTECH", "currency": "HKD"},
                       payload["index_registry"])
