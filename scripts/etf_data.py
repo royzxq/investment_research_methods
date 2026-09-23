@@ -821,7 +821,8 @@ def section_drawdown_ladder(levels):
         rows.append({"指数": entry["name"], "代码": entry["code"], "最新日": iso(days[-1]), "收盘": num(closes[-1]), "36月高点": num(high),
                      "状态": num(states[-1], 4), "状态分位": num(position["percentile"], 1), "样本月数": position["sample_n"], "自": iso(position["first_date"]),
                      **{f"P{point}状态": num(state, 4) for point, state in points["levels"].items()},
-                     **{f"P{point}点位": num(level_at_drawdown_state(high, state)) for point, state in points["levels"].items()}})
+                     **{f"P{point}点位": num(level_at_drawdown_state(round(high, 2), round(state, 4)))   # 按打印的四舍五入值算，与卡的复算一致
+                        for point, state in points["levels"].items()}})
     LADDER_SIDECAR.write_text(json.dumps(dict(as_of=AS_OF, cutoff=CUTOFF, indexes=sidecar), ensure_ascii=False, indent=1) + "\n",
                               encoding="utf-8")
     return lines + [pd.DataFrame(rows).fillna("").to_string(index=False)]
