@@ -78,6 +78,7 @@ TOKEN = os.getenv("TUSHARE_TOKEN", "")
 AS_OF = datetime.now().strftime("%Y%m%d")
 CUTOFF = AS_OF                       # run() 内按已完成交易日收紧
 RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"
+LADDER_SIDECAR = RESEARCH_DIR / "etf-ladder-latest.json"   # §6b 的机器可读副本（随快照提交），供 etf_refresh_cards.py 机械刷新点位
 OUTDIR = Path(__file__).resolve().parents[1] / "output"      # 已 gitignore：§4 自聚合的原始取数缓存
 AGGREGATION_START = 2005                                     # index_weight / daily_basic 的最早有效年份
 PIT_CHECK_DATES = ("20071031", "20081031", "20140630", "20181228", "20210226")   # 与现成估值源交叉核对的固定日
@@ -799,7 +800,7 @@ def section_drawdown_ladder(levels):
     """§6b：规则验证通过的点位推导（预注册 R2）。状态 = 月末收盘 ÷ 近 36 个月末收盘最高值；点位 = 36 月高点 × 状态的历史分位点。"""
     lines = ["\n  -- 6b 回撤分位阶梯 (预注册 R2 validated @26e3adc；状态=月末收盘÷近36个月末收盘最高值，含当月；当月未完成时以最新收盘代月末；"
              "分位=扩张窗、低=跌得深；点位=36月高点×状态分位点，由 etf_calc.level_at_drawdown_state 复算) --"]
-    rows = []
+    rows, sidecar = [], {}
     for entry in INDEX_POOL:
         level = levels.get(entry["key"])
         if level is None:
@@ -813,10 +814,16 @@ def section_drawdown_ladder(levels):
             rows.append({"指数": entry["name"], "代码": entry["code"], "备注": gap("§6", f"{entry['name']} 回撤状态: " + ",".join(points["missing_fields"]))})
             continue
         high = max(closes[-36:])
+        sidecar[entry["key"]] = dict(   # 与表格打印值同精度：卡的点位刷新读这一份，写进卡的数必须能在快照文本里找到
+            last_date=iso(days[-1]), close=round(closes[-1], 2), rolling_high=round(high, 2), state=round(states[-1], 4),
+            percentile=round(position["percentile"], 1), sample_n=position["sample_n"],
+            states={f"P{point}": round(state, 4) for point, state in points["levels"].items()})
         rows.append({"指数": entry["name"], "代码": entry["code"], "最新日": iso(days[-1]), "收盘": num(closes[-1]), "36月高点": num(high),
                      "状态": num(states[-1], 4), "状态分位": num(position["percentile"], 1), "样本月数": position["sample_n"], "自": iso(position["first_date"]),
                      **{f"P{point}状态": num(state, 4) for point, state in points["levels"].items()},
                      **{f"P{point}点位": num(level_at_drawdown_state(high, state)) for point, state in points["levels"].items()}})
+    LADDER_SIDECAR.write_text(json.dumps(dict(as_of=AS_OF, cutoff=CUTOFF, indexes=sidecar), ensure_ascii=False, indent=1) + "\n",
+                              encoding="utf-8")
     return lines + [pd.DataFrame(rows).fillna("").to_string(index=False)]
 
 
