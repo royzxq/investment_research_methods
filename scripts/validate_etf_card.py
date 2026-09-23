@@ -677,7 +677,6 @@ def export_payload(documents, generated_at):
     """The one artifact the execution side reads: current cards plus the parameters and index list they rely on."""
     params = {key: value for key, value in json.loads(PARAMS.read_text(encoding="utf-8")).items()
               if not key.startswith("_")}
-    params["sector_etf_cap_cny"] = params["etf_plan_total_cny"] * params["sector_cap_pct_of_etf_plan"] / 100
     params["single_bet_cap_cny"] = etf_calc.loss_budget_cap(params["single_bet_loss_budget_cny"],
                                                             params["sector_stress_drawdown_pct"])
     return dict(generated_at=generated_at, card_schema_version=SCHEMA_VERSION, portfolio_params=params,

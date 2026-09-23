@@ -371,7 +371,7 @@ class LoadTests(unittest.TestCase):
         self.assertEqual((payload["card_schema_version"], payload["cards"]), (1, [new]))
         params = payload["portfolio_params"]
         self.assertEqual((params["sector_etf_cap_cny"], params["single_bet_cap_cny"], params["china_equity_cap_pct"]),
-                         (210000, 100000, 90))
+                         (500000, 100000, 90))
         self.assertNotIn("_doc", params)
         self.assertIn({"key": "HKTECH", "name": "恒生科技", "source": "index_global", "code": "HKTECH", "currency": "HKD"},
                       payload["index_registry"])
