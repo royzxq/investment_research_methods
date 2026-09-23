@@ -1,6 +1,7 @@
 {
  "as_of": "20260918",
  "cutoff": "20260918",
+ "snapshot": "research/etf-2026-09-18-data-snapshot.txt",
  "indexes": {
   "000300.SH": {
    "last_date": "20260918",
