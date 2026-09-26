@@ -1,5 +1,7 @@
 # 2026-09-26 期货执行诊断
 
+> **拟议版本重评（proposed_framework_reassessment）**：本文件在分支 `futures-framework/2026-09-26` 上按拟议 canonical **v2.28**（light：交易所休市日历纠错、交易所风控全池换版、①维持中断证真记录、负反馈"启动（发起级）"、MA 国内路线结案＋确认定义 v1、无快照 stale 标注；规则本体、参数、门槛、评分权重、池分层、门状态零改动）与脚本 **v1.17**（仅 EVENTS 配置随动；未联网实测）刷新。**规则零改动→各候选的适用门判定与 status 与现行 v2.27 诊断完全一致**；状态层变更已体现在：#16 details 的事件簇日期（10/8 复盘）、exchange_notice 的全池口径、MA A 的国内路线结案与 v1 冻结、SR B 的 planned_exit 9/22。这是新版本的重评，不是历史交易日已生效的规则；v2.28 待 PR 合并。首次运行（现行 v2.27）记录保留于"校验记录"第一条。
+
 **结论：截至 2026-09-26（最近已完成行情日 2026-09-24；本周国内期货仅 9/21-9/24 四个交易日，9/25-9/27 中秋休市），已核研究范围内未形成可执行方案，仍有研究/账户核验缺项；不能据此写"市场没有机会"或"市场建议空仓"。** 本诊断按现行 `framework/futures_framework.md` **v2.27**（origin/main `192b793`；方法/状态日期 2026-09-19，2026-09-20 治理整理）与 `FUTURES_DATA_PROTOCOL.md` v2.26 生成。**本周没有新的行情快照**：仓库最新快照仍为 `research/2026-09-19-data-snapshot.txt`（脚本 v1.15、最新行情日 2026-09-18），落后最近已完成交易日四个交易日→按 0D/协议记 **stale**：全部价差分位、1-5-10td 变化、同期样本验收、ATR 分层/极差、D8 周涨分位、SC2611 结算周涨（9/17→9/24）、MA2701 逐日结算涨跌（#30）、§5 影子结算均为 **temporary_gap/unknown**，不以媒体收盘涨跌推算、不沿用 9/18 读数作本周判定。公开信息来自 WebSearch 摘要（调研阶段只用 WebSearch；多源同口径官方数据 verified，单源/冲突项分别标注；三条跨年/往年命中已标 invalid）。实际账户与挂单快照未提供（`actual_position_status=unknown`），全部 `final_lots=null`，总体机会数 `null`。
 
 | 已观察记录 | 本次状态 | 已核否决 / 缺口 |
@@ -34,13 +36,13 @@
   "audit_schema_version": 3,
   "as_of_date": "2026-09-26",
   "research_mode": "public_data",
-  "assessment_scope": "current_framework",
+  "assessment_scope": "proposed_framework_reassessment",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.27",
-    "revision": "origin/main 192b793 (2026-09-20 治理整理; 方法/状态日期 2026-09-19)",
-    "data_script_version": "v1.16 (main; §2b.1 判定腿逐日结算涨跌列已实现, 本周未运行). 本周无新快照; 最新快照 research/2026-09-19-data-snapshot.txt (v1.15, 最新行情日 2026-09-18) 为 stale, 仅作对照/diagnostic",
-    "rule_changes_affecting_candidates": "v2.27 相对上周诊断所用 v2.26: 规则本体零改动 (①改判中断证真、D13 加息落地重写、交易所风控收紧为状态层). 本周判定差异全部来自证据状态: (1) 无快照→分位/样本/ATR/D8/周涨/#30/影子结算 unknown, 上周 no_signal 记录回到 incomplete; (2) 日历纠错 (10/8 恢复交易而非 10/9; 9/25-9/27 休市) → SR-summer planned_exit 9/22 已过 → no_signal (直接日历证据); (3) 交易所风控扩至全池 (INE/SHFE 9/23, DCE/CZCE 9/29); (4) MA 国内路线论证按可得证据结案为未成案 (fail), 确认定义冻结 v1 (前瞻); (5) 港口库存数值按协议 6 降为增强级第二指标"
+    "version": "v2.28",
+    "revision": "futures-framework/2026-09-26 branch (proposed, light, 待合并); 基于 origin/main 3b812e6 的 v2.27 (192b793, 2026-09-20 治理整理); 首次诊断按现行 v2.27 生成后于同分支按拟议 v2.28 刷新",
+    "data_script_version": "v1.17 (branch; 仅 §0b EVENTS 配置随动: 休市日历纠错 20261001-20261007、10/8 首个响应日、全池提保扩板节点、新增 20261012 WASDE; 未联网实测). v1.16 §2b.1 判定腿逐日结算涨跌列已实现但本周未运行. 本周无新快照; 最新快照 research/2026-09-19-data-snapshot.txt (v1.15, 最新行情日 2026-09-18) 为 stale, 仅作对照/diagnostic",
+    "rule_changes_affecting_candidates": "v2.28 相对 v2.27 (拟议): 规则本体零改动→候选判定与 status 不变; 状态层: 0.0b 日历纠正 (10/8 复盘; #16 事件簇日期与 SR B planned_exit 已按此), 交易所风控全池 (exchange_notice details 已按此), ①维持中断证真记录 (#26 details 已按此), 负反馈启动 (RB D14 不适用, 判定不变), MA 国内路线结案+v1 冻结 (domestic_model_basis fail/confirmation_definition pass 已按此), 无快照 stale 标注 (raw_data 缺口已按此); v1.17 仅日历配置, 不改任何列. v2.27 相对上周诊断所用 v2.26: 规则本体零改动 (①改判中断证真、D13 加息落地重写、交易所风控收紧为状态层). 本周判定差异全部来自证据状态: (1) 无快照→分位/样本/ATR/D8/周涨/#30/影子结算 unknown, 上周 no_signal 记录回到 incomplete; (2) 日历纠错 (10/8 恢复交易而非 10/9; 9/25-9/27 休市) → SR-summer planned_exit 9/22 已过 → no_signal (直接日历证据); (3) 交易所风控扩至全池 (INE/SHFE 9/23, DCE/CZCE 9/29); (4) MA 国内路线论证按可得证据结案为未成案 (fail), 确认定义冻结 v1 (前瞻); (5) 港口库存数值按协议 6 降为增强级第二指标"
   },
   "snapshot": {
     "market_trade_date": "2026-09-24",
@@ -78,7 +80,8 @@
       "上周 '#30 判定腿逐日结算 next_action=重跑 v1.16': v1.16 已在 main, 本周仍未运行 → 缺口性质由 calculation 转为 raw_data (需用户本机 Tushare 运行)",
       "上周 'INE 对 SC 公告阴性' 与 '9/21 起 PTA/甲醇/PX 单独通知未核' 结案: INE 9/21 已发布 (9/23 起 SC 16-18%/18-20%); 单独通知即郑商所主通知第一阶段",
       "上周 MA 确认定义 draft1 (含已退出的 MA2610 腿条款) 由 A-MA-2701-2705-v1 (frozen, effective_from 2026-09-28) 替换; draft1 不回判",
-      "上周影子计划 entry_expiry 2026-09-25 为休市日, 实际最后可入场日 9/24; 登记不改写, 由脚本 §5 机械处理"
+      "上周影子计划 entry_expiry 2026-09-25 为休市日, 实际最后可入场日 9/24; 登记不改写, 由脚本 §5 机械处理",
+      "v2.28 新增失效项 (拟议): canonical v2.27 的 0.0b/1.4/6.1 长假日历 (10/1-10/8、10/9 复盘)、0.1 交易所风控行 (甲醇单品种、INE 阴性)、1.5 MA 卡 draft1 与 9/25 前待办、AU 卡 '预期兑现型反弹评估'、1.4 负反馈行 '临界'、SR 卡 '窗口尾段可评估'、0.2 表 9/18 读数作当期实测的标注已换版; 脚本 v1.16 EVENTS 的 20261001-20261008 与 '10/9 首个响应日' 条目由 v1.17 纠正"
     ]
   },
   "coverage": {
@@ -2043,4 +2046,10 @@
 $ python3 scripts/validate_futures_audit.py --input research/2026-09-26-execution-audit.md
 {"status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
 退出码: 0 （2026-09-26 本次运行，现行 v2.27 / origin/main 192b793）
+```
+
+```text
+$ python3 scripts/validate_futures_audit.py --input research/2026-09-26-execution-audit.md   # 拟议版本 v2.28 / 脚本 v1.17 重评后再次运行（分支 futures-framework/2026-09-26）
+{ "status": "valid", "scope": "structure_validation_only", "execution_permission": "not_evaluated", "errors": []}
+退出码: 0 （2026-09-26 本次运行，拟议 v2.28 / v1.17）
 ```

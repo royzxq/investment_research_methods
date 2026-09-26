@@ -1,0 +1,38 @@
+{
+ "as_of": "2026-09-26",
+ "canonical": "v2.28",
+ "compact": "v2.28",
+ "anchors": 277,
+ "duplicate_anchors": [],
+ "dangling_links": [],
+ "anchors_added": [],
+ "anchors_removed": [],
+ "fixed_layer_changed_lines": [
+  "-# 期货交易分析框架 v2.27 · 精简版",
+  "+# 期货交易分析框架 v2.28 · 精简版"
+ ],
+ "dynamic_layer_rewritten": [
+  "DYNAMIC-version",
+  "DYNAMIC-caps",
+  "DYNAMIC-pool(SC 一句)",
+  "DYNAMIC-frequency",
+  "DYNAMIC-roll-table(读数标注 stale、td 9/24 口径)",
+  "DYNAMIC-regime",
+  "DYNAMIC-CPI",
+  "DYNAMIC-iron-sample",
+  "DYNAMIC-events(+表)",
+  "DYNAMIC-gap",
+  "DYNAMIC-freezes",
+  "DYNAMIC-deadline(一句)",
+  "DYNAMIC-pending",
+  "DYNAMIC-overreact",
+  "DYNAMIC-narratives"
+ ],
+ "bytes": {
+  "canonical_before": 214869,
+  "canonical_after": 229492,
+  "compact_before": 103311,
+  "compact_after": 111131
+ },
+ "governance_check": "python3 scripts/futures_framework_governance.py --check: passed (structure only)"
+}
