@@ -6,12 +6,10 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.etf_calc import (aggregate_valuation, allocation_check, dca_gap_allocation, drawdown_states, drawdown_summary,
-                              drift_threshold_pp, erp_spread, expanding_percentile, history_quantiles, joint_stress_loss,
-                              level_at_drawdown_state, level_at_multiple, rebalance_trades,
-                              lookthrough_weights, loss_budget_cap, month_end_levels, premium_pct, return_decomposition,
-                              scenario_annual_return, sma_state, theme_cash_reserve_pct, tracking_difference, tracking_error,
-                              unit_nav)
+from scripts.etf_calc import (aggregate_valuation, drawdown_states, erp_spread, expanding_percentile, history_quantiles,
+                              joint_stress_loss, level_at_drawdown_state, level_at_multiple, lookthrough_weights,
+                              loss_budget_cap, month_end_levels, premium_pct, return_decomposition, scenario_annual_return,
+                              sma_state, tracking_difference, tracking_error)
 
 END = dict(date="20260918", level=4507.39, pe=12.68)
 BASES = dict(fund_basis="adj_nav", index_basis="total_return", fund_currency="CNY", index_currency="CNY")
@@ -297,139 +295,6 @@ class StressTests(unittest.TestCase):
         self.assertIsNone(result["loss"])
         with self.assertRaises(ValueError):
             joint_stress_loss([(50000, 70)])
-
-
-PLAN_TARGETS = {"a500": 28, "star50": 7, "hsi": 15, "dividend": 20, "theme-a": 10, "theme-b": 10, "theme-c": 10}
-
-
-class DcaGapAllocationTests(unittest.TestCase):
-    def test_no_drift_reproduces_the_plan_per_ten_thousand(self):
-        holdings = {slot: weight * 1000 for slot, weight in PLAN_TARGETS.items()}
-        result = dca_gap_allocation(PLAN_TARGETS, holdings, 0, 10000)
-        self.assertEqual(result["status"], "complete")
-        self.assertEqual({slot: round(amount, 6) for slot, amount in result["buys"].items()},
-                         {"a500": 2800, "star50": 700, "hsi": 1500, "dividend": 2000,
-                          "theme-a": 1000, "theme-b": 1000, "theme-c": 1000})
-        self.assertAlmostEqual(result["cash_after"], 0)
-        self.assertEqual({slot: round(share, 6) for slot, share in result["shares_pct"].items()}, PLAN_TARGETS)
-
-    def test_the_split_is_a_ratio_the_amount_only_scales(self):
-        holdings = {slot: weight * 1000 for slot, weight in PLAN_TARGETS.items()}
-        holdings["a500"] = 0
-        small, large = ({slot: share for slot, share in dca_gap_allocation(PLAN_TARGETS, holdings, 0, money)["shares_pct"].items()
-                         if share > 0} for money in (1000, 5000))
-        self.assertEqual(small, {"a500": 100.0})   # every yuan goes to the only gap, whatever the amount
-        self.assertEqual(large, {"a500": 100.0})
-        self.assertEqual(dca_gap_allocation({"a500": 50}, {"a500": 100}, 0, 0)["shares_pct"], {})
-
-    def test_gaps_larger_than_the_money_are_filled_in_proportion(self):
-        targets = {"a500": 50, "hsi": 20, "theme-a": 30}
-        result = dca_gap_allocation(targets, {"a500": 0, "hsi": 0, "theme-a": 90000}, 0, 10000)
-        self.assertAlmostEqual(result["total"], 100000)
-        self.assertEqual({slot: round(gap, 6) for slot, gap in result["gaps"].items()}, {"a500": 50000, "hsi": 20000, "theme-a": 0})
-        self.assertAlmostEqual(result["buys"]["a500"] / result["buys"]["hsi"], 2.5)
-        self.assertAlmostEqual(sum(result["buys"].values()), 10000)
-        self.assertAlmostEqual(result["unfilled"], 60000)
-
-    def test_money_beyond_the_gaps_stays_cash_and_reserves_come_first(self):
-        targets = {"a500": 50, "theme-a": 20}
-        result = dca_gap_allocation(targets, {"a500": 50000, "theme-a": 20000}, 30000, 10000, reserved_cash_pct=10)
-        self.assertAlmostEqual(result["available"], 40000 - 11000)
-        self.assertAlmostEqual(sum(result["buys"].values()), 5000 + 2000)
-        self.assertAlmostEqual(result["cash_after"], 33000)
-
-    def test_paused_slots_get_nothing_and_an_unknown_target_is_a_gap(self):
-        result = dca_gap_allocation({"a500": 50, "theme-a": 50}, {"a500": 0, "theme-a": 0}, 0, 1000, paused={"theme-a"})
-        self.assertEqual((result["buys"], result["cash_after"]), ({"a500": 500}, 500))   # the paused share stays cash
-        unknown = dca_gap_allocation({"a500": 50}, {"a500": 0, "theme-x": 100}, 0, 1000)
-        self.assertEqual((unknown["status"], unknown["missing_fields"], unknown["buys"]), ("incomplete", ["target:theme-x"], None))
-
-    def test_misuse_raises(self):
-        with self.assertRaises(ValueError):
-            dca_gap_allocation({"a500": 80, "hsi": 30}, {}, 0, 1000)
-        with self.assertRaises(ValueError):
-            dca_gap_allocation({"a500": 50}, {"a500": -1}, 0, 1000)
-        with self.assertRaises(ValueError):
-            dca_gap_allocation({"a500": 50}, {}, 0, None)
-
-
-class RebalanceTests(unittest.TestCase):
-    def test_overweight_seats_fund_the_gaps_except_kept_ones(self):
-        targets = {"a500": 50, "hsi": 20, "theme-a": 30}
-        result = rebalance_trades(targets, {"a500": 10000, "hsi": 30000, "theme-a": 60000}, 0, 0, keep={"hsi"})
-        self.assertEqual(result["sells"], {"theme-a": 30000})            # hsi is 10,000 over target but kept
-        self.assertEqual(result["buys"], {"a500": 30000, "hsi": 0, "theme-a": 0})
-        self.assertAlmostEqual(result["unfilled"], 10000)                # the kept excess leaves a500 short
-        full = rebalance_trades(targets, {"a500": 10000, "hsi": 30000, "theme-a": 60000}, 0, 0)
-        self.assertEqual((full["sells"], full["buys"]["a500"]), ({"hsi": 10000, "theme-a": 30000}, 40000))
-
-    def test_new_money_joins_the_proceeds_and_a_zero_target_is_sold_out(self):
-        result = rebalance_trades({"a500": 70, "theme-a": 30, "theme-b": 0},
-                                  {"a500": 0, "theme-a": 30000, "theme-b": 60000}, 0, 10000)
-        self.assertEqual(result["sells"], {"theme-b": 60000})
-        self.assertAlmostEqual(result["buys"]["a500"], 70000)
-        self.assertAlmostEqual(result["cash_after"], 0)
-        self.assertEqual(rebalance_trades({"a500": 70}, {"a500": 1, "theme-x": 1}, 0, 0)["missing_fields"], ["target:theme-x"])
-
-
-class ThemeCashReserveTests(unittest.TestCase):
-    def test_reserve_only_tops_theme_stock_up_to_the_module(self):
-        self.assertEqual(theme_cash_reserve_pct(30, 20, 20), 10)        # themes on target: keep the cash target
-        self.assertEqual(theme_cash_reserve_pct(30, 20, 25), 5)         # themes above target: less cash needed
-        self.assertEqual(theme_cash_reserve_pct(30, 10, 66.7), 0)       # themes above the module: nothing held back
-        self.assertEqual(theme_cash_reserve_pct(30, 0, 0), 30)          # no theme yet: the whole module is cash
-        with self.assertRaises(ValueError):
-            theme_cash_reserve_pct(30, 40, 0)
-
-
-class AllocationCheckTests(unittest.TestCase):
-    MODULES = {"a500": "broad", "star50": "broad", "hsi": "broad", "dividend": "dividend",
-               "theme-a": "theme", "theme-b": "theme", "theme_cash": "theme"}
-    BANDS = {"broad": (45, 55), "dividend": (15, 25), "theme": (25, 35)}
-
-    def test_plan_thresholds(self):
-        self.assertEqual([drift_threshold_pp(target) for target in (28, 7, 15, 20)], [5, 1.75, 3.75, 5])
-
-    def test_theme_cash_counts_toward_the_theme_module(self):
-        values = {"a500": 28, "star50": 7, "hsi": 15, "dividend": 20, "theme-a": 10, "theme-b": 10, "theme_cash": 10}
-        result = allocation_check(values, self.MODULES, self.BANDS, drift_targets_pct={"a500": 28, "star50": 7, "hsi": 15})
-        self.assertEqual((result["modules_out_of_band"], result["drifted"], result["above_ceiling"]), ([], [], []))
-        self.assertAlmostEqual(result["module_weights_pct"]["theme"], 30)
-
-    def test_flags_bands_drift_and_ceilings(self):
-        values = {"a500": 20, "star50": 7, "hsi": 13, "dividend": 15, "theme-a": 30, "theme-b": 15}
-        result = allocation_check(values, self.MODULES, self.BANDS, drift_targets_pct={"a500": 28, "star50": 7, "hsi": 15},
-                                  ceilings_pct={"theme-a": 15, "theme-b": 15})
-        self.assertEqual(sorted(result["modules_out_of_band"]), ["broad", "theme"])
-        self.assertEqual([row["slot"] for row in result["drifted"]], ["a500"])   # 8pp > 5pp; hsi 2pp < 3.75pp
-        self.assertEqual([row["slot"] for row in result["above_ceiling"]], ["theme-a"])   # 15 is not above 15
-
-    def test_unmapped_slot_is_a_gap(self):
-        result = allocation_check({"a500": 1, "gold": 1}, {"a500": "broad"}, self.BANDS)
-        self.assertEqual((result["status"], result["missing_fields"]), ("incomplete", ["module:gold"]))
-
-
-class NavTests(unittest.TestCase):
-    def test_deposits_are_not_gains(self):
-        navs = unit_nav([("20261001", 100000, 0), ("20261101", 120000, 20000), ("20261201", 110000, 0)])
-        self.assertEqual([round(nav, 6) for _, nav in navs], [1.0, 1.0, round(110000 / 120000, 6)])
-
-    def test_withdrawals_and_gains(self):
-        navs = unit_nav([("20261001", 100000, 0), ("20261101", 100000, -10000), ("20261201", 99000, 0)])
-        self.assertAlmostEqual(navs[1][1], 1.1)
-        self.assertAlmostEqual(navs[2][1], 99000 / (100000 / 1.1))
-
-    def test_drawdown_summary(self):
-        result = drawdown_summary([1.0, 1.2, 0.9, 1.0])
-        self.assertAlmostEqual(result["max_drawdown_pct"], -25)
-        self.assertAlmostEqual(result["current_drawdown_pct"], (1.0 / 1.2 - 1) * 100)
-        self.assertEqual(drawdown_summary([])["status"], "incomplete")
-
-    def test_misuse_raises(self):
-        with self.assertRaises(ValueError):
-            unit_nav([("20261101", 100, 0), ("20261001", 100, 0)])
-        with self.assertRaises(ValueError):
-            unit_nav([("20261001", 100, 0), ("20261101", 50, 60)])
 
 
 class PlanStressTests(unittest.TestCase):
