@@ -10,8 +10,8 @@ description: ETF 轨道月度编排器（框架 v1.0）：本地出快照 → �
 ## 输入
 
 - `AS_OF_DATE`：缺省当天（北京时间）。
-- `HOLDINGS`：用户本月的持仓市值（人民币，含盈立的 02800 折算）与策略现金，写成 `scripts/etf_allocate.py` 说明里的 JSON。没给就问，不要沿用旧数下单。
-- `F`：本月入金；缺省取 `framework/etf_portfolio_params.json` 的 `new_money.monthly_amount_cny`（为空就问）。
+- `HOLDINGS`：用户本月的持仓市值与策略现金，写成 `scripts/etf_allocate.py` 说明里的 JSON。02800 按港币填 `value` + `currency`，在 `fx_to_cny` 里写快照 §7 的中间价及来源。没给就问，不要沿用旧数下单。
+- `F`：本月入金；缺省取 `framework/etf_portfolio_params.json` 的 `new_money.monthly_amount_cny`（测算按 1 万）。**规则是比例**：报告先写各席位占本月买入的比例，再按 F 折金额。
 
 ## 本月要做哪几层（框架 A14）
 
@@ -48,8 +48,10 @@ description: ETF 轨道月度编排器（框架 v1.0）：本地出快照 → �
 python3 scripts/etf_allocate.py --holdings <持仓.json> --new-money <F> --ledger research/etf-nav-ledger.csv
 ```
 
-输出：各席位缺口与建议买入额（先留足主题待配现金，缺口超过可用资金按比例，余额留现金）、模块区间、核心子项偏离、单主题 >15%、两套压力损失、回撤复核状态。
-暂停接收新增资金的席位（卡上 `pause`，或回撤 −25% 起的全部主题）自动跳过。**这是建议清单，交易由用户确认。**
+输出：各席位占本月买入的比例与折算金额（先留足主题待配现金，缺口超过可用资金按缺口比例，余额留现金）、模块区间、核心子项偏离、单主题 >15%、两套压力损失、回撤复核状态。
+暂停接收新增资金的席位（卡上 `pause`、还没有目标的主题、回撤 −25% 起的全部主题）自动跳过。**这是建议清单，交易由用户确认。**
+
+迁移（首期主题比较定出目标后）与季度再平衡：加 `--rebalance --keep core-hsi`，高于目标的席位卖到目标（02800 以港币在境外持有，不卖），所得与入金按缺口比例补其他席位。迁移按参数 `migration`：按实际账户把主题调到 30%，可分批，最迟在其后的第一次季度检查前完成。
 
 ### 4. 回撤复核（触发才做，A10）
 

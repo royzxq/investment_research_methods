@@ -422,9 +422,10 @@ def dca_gap_allocation(target_weights_pct, holdings, cash, new_money, *, reserve
     gap = max(target x T - holding, 0) for every slot not in `paused`. Money available for buying is
     cash + new_money - reserved_cash_pct x T (approved theme cash is kept first), floored at zero. Gaps that fit are
     filled in full, otherwise in proportion to the gaps; the rest stays as cash, nothing is bought beyond a target.
+    shares_pct gives each buy as % of everything bought this time: the rule is a ratio, the amount only scales it.
     A held slot without a target is a gap in the inputs, not a zero target.
     """
-    keys = ("total", "available", "gaps", "buys", "cash_after", "unfilled")
+    keys = ("total", "available", "gaps", "buys", "shares_pct", "cash_after", "unfilled")
     result = _result(**dict.fromkeys(keys))
     targets = {slot: _amount(weight, f"target:{slot}") for slot, weight in target_weights_pct.items()}
     values = {slot: _amount(value, f"holding:{slot}") for slot, value in holdings.items()}
@@ -442,8 +443,33 @@ def dca_gap_allocation(target_weights_pct, holdings, cash, new_money, *, reserve
     need = sum(gaps.values())
     scale = 1.0 if need <= available else available / need
     buys = {slot: gap * scale for slot, gap in gaps.items()}
+    spent = sum(buys.values())
     result.update(total=total, available=available, gaps=gaps, buys=buys,
-                  cash_after=cash + new_money - sum(buys.values()), unfilled=need - sum(buys.values()))
+                  shares_pct={slot: 100 * amount / spent for slot, amount in buys.items()} if spent > 0 else {},
+                  cash_after=cash + new_money - spent, unfilled=need - spent)
+    return result
+
+
+def rebalance_trades(target_weights_pct, holdings, cash, new_money, *, reserved_cash_pct=0.0, keep=(), paused=()):
+    """Bring holdings back to their targets (framework v1.0 A9, and the first migration).
+
+    Slots above target are sold down to target x T, except those in `keep` (e.g. a holding whose sale would need a
+    cross-border transfer); the proceeds plus cash and new money then fill the other slots' gaps by the rule of
+    dca_gap_allocation. T is unchanged by trades inside the account. A held slot without a target is a gap.
+    """
+    keys = ("total", "available", "gaps", "buys", "shares_pct", "cash_after", "unfilled", "sells")
+    result = _result(**dict.fromkeys(keys))
+    values = {slot: _amount(value, f"holding:{slot}") for slot, value in holdings.items()}
+    result["missing_fields"] = [f"target:{slot}" for slot in sorted(values) if slot not in target_weights_pct]
+    if result["missing_fields"]:
+        return _finish(result, keys)
+    total = sum(values.values()) + _amount(cash, "cash") + _amount(new_money, "new_money")
+    sells = {slot: max(value - _amount(target_weights_pct[slot], f"target:{slot}") * total / 100, 0.0)
+             for slot, value in values.items() if slot not in keep}
+    sells = {slot: amount for slot, amount in sells.items() if amount > 0}
+    after = {slot: value - sells.get(slot, 0.0) for slot, value in values.items()}
+    result.update(dca_gap_allocation(target_weights_pct, after, cash + sum(sells.values()), new_money,
+                                     reserved_cash_pct=reserved_cash_pct, paused=paused), sells=sells)
     return result
 
 

@@ -51,13 +51,45 @@ class PlanMonthTests(unittest.TestCase):
     def test_unknowns_stop_the_run_instead_of_becoming_zeros(self):
         with self.assertRaisesRegex(ValueError, "claimed by no current card"):
             plan_month([], {"positions": [{"code": "012349.OF", "value_cny": 1}]}, 1000)
-        with self.assertRaisesRegex(ValueError, "theme seats held without a target"):
-            plan_month([], holdings({"hk-tech": 5000}), 1000)
+        with self.assertRaisesRegex(ValueError, "a rebalance needs every held theme's target"):
+            plan_month([], holdings({"hk-tech": 5000}), 1000, rebalance=True)
+        with self.assertRaisesRegex(ValueError, "fx_to_cny"):
+            plan_month([], {"positions": [{"code": "02800.HK", "value": 75000, "currency": "HKD", "slot": "core-hsi"}]}, 1000)
         with self.assertRaisesRegex(ValueError, "the current cards say defense"):
             plan_month([theme_card("defense", 10, "160630.SZ")],
                        {"positions": [{"code": "160630.SZ", "value_cny": 1, "slot": "chemicals"}]}, 1000)
         with self.assertRaisesRegex(ValueError, "approved steps"):
             plan_month([], holdings({"hk-tech": 5000}, theme_targets_pct={"hk-tech": 7}), 1000)
+
+    def test_before_the_first_theme_review_new_money_goes_to_the_core_gaps(self):
+        values = {"core-a500": 20000, "core-star50": 10000, "core-hk-dividend-lowvol": 40000, "hk-tech": 50000,
+                  "innovative-drug": 95000}
+        report = plan_month([], holdings(values), 10000)
+        self.assertEqual(report["undecided"], ["hk-tech", "innovative-drug"])
+        self.assertEqual(report["theme_cash_reserve_pct"], 0)   # themes already hold far more than the module
+        shares = {slot: round(share, 1) for slot, share in report["allocation"]["shares_pct"].items() if share > 0}
+        self.assertEqual(set(shares), {"core-a500", "core-star50", "core-hsi", "core-hk-dividend-lowvol"})
+        self.assertAlmostEqual(sum(shares.values()), 100, places=0)
+
+    def test_hkd_rows_convert_at_the_stated_rate(self):
+        report = plan_month([], {"as_of": "2026-10-01", "cash_cny": 0, "fx_to_cny": {"HKD": {"rate": 0.86062, "source": "snapshot§7"}},
+                                 "positions": [{"code": "02800.HK", "value": 75000, "currency": "HKD", "slot": "core-hsi"}]}, 0)
+        self.assertAlmostEqual(report["allocation"]["total"], 64546.5)
+
+    def test_rebalance_keeps_the_cross_border_seat_and_moves_theme_excess_to_the_core(self):
+        values = {"core-a500": 20000, "core-star50": 10000, "core-hsi": 65000, "core-hk-dividend-lowvol": 40000,
+                  "hk-tech": 50000, "innovative-drug": 95000, "defense": 50000, "chemicals": 9000}
+        targets = {"hk-tech": 10, "innovative-drug": 10, "defense": 10, "chemicals": 0}
+        report = plan_month([], holdings(values, theme_targets_pct=targets), 10000, rebalance=True, keep=["core-hsi"])
+        sells = report["allocation"]["sells"]
+        self.assertNotIn("core-hsi", sells)
+        self.assertEqual(sorted(sells), ["chemicals", "defense", "hk-tech", "innovative-drug"])
+        self.assertAlmostEqual(sells["chemicals"], 9000)                                        # target 0: sold out
+        self.assertAlmostEqual(sells["innovative-drug"], 95000 - 0.10 * report["allocation"]["total"])
+        self.assertAlmostEqual(report["check_after"]["module_weights_pct"]["theme"], 30)
+        self.assertEqual(report["theme_cash_reserve_pct"], 0)
+        with self.assertRaisesRegex(ValueError, "--keep names seats that are not held"):
+            plan_month([], holdings(values, theme_targets_pct=targets), 0, rebalance=True, keep=["core-a50"])
 
     def test_a_theme_being_exited_takes_no_new_money(self):
         cards = [theme_card("hk-tech", 0, "012349.OF", status="no_buy", money="pause")]

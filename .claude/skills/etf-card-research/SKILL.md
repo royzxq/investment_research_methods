@@ -28,6 +28,7 @@ description: ETF 决策卡研究（框架 v1.0，卡 schema v2）：对一个核
 3. **指数匹配与估值**（A6）：结构读数取快照 §3；估值状态与情景倍数只取快照 §4 自聚合（亏损股权重 >15% 的看 PB）；三情景用 `scenario_annual_return`，期末倍数只取快照分位点，基准情景估值零变化。
    **主题卡 `years` = 1（12 个月窗口，校验器强制）**；核心卡用与持有期相称的年数。盈利增长、股息率、年数标 `ai_estimate`。
 4. **工具比选**（A11）：首选、备选、落选取自快照 §5（费率、A/C 份额、TD/TE）。首选 `role=primary`、`action=hold`（本席位的新增资金只买它）；用户已持有的同席位其他基金写 `held_other` + `hold` 或 `switch_out`；`rejected` 只用于未持有的落选工具。红利低波须比较港股通渠道与直持港股 ETF 的股息税差。
+   `core-hsi`：02800 以港币在盈立直持（无红利税），新增资金是人民币定投——比较"支付宝恒指联接作 primary、02800 作 held_other + hold"与"定期换汇买 02800"的费用、税与操作成本；02800 不为再平衡而卖。
 5. **目标与动作**（A2、A7）：
    - 核心卡：`target_weight_pct` 照抄参数表（来源 `user:2026-09-30`），`status` 用 `active`（工具待核实或暂不成交时 `watch` + `new_money_action=pause`），`exception_note` 为 null。
    - 主题卡：`target_weight_pct` 只能 0/5/10/15，来源 `user:<确认日>`；`previous_target_weight_pct` 抄上一版（首版 null）；`active` ⇔ 目标 > 0；15% 必须写 `exception_note`。

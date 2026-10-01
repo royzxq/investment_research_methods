@@ -8,7 +8,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.etf_calc import (aggregate_valuation, allocation_check, dca_gap_allocation, drawdown_states, drawdown_summary,
                               drift_threshold_pp, erp_spread, expanding_percentile, history_quantiles, joint_stress_loss,
-                              level_at_drawdown_state, level_at_multiple,
+                              level_at_drawdown_state, level_at_multiple, rebalance_trades,
                               lookthrough_weights, loss_budget_cap, month_end_levels, premium_pct, return_decomposition,
                               scenario_annual_return, sma_state, theme_cash_reserve_pct, tracking_difference, tracking_error,
                               unit_nav)
@@ -311,6 +311,16 @@ class DcaGapAllocationTests(unittest.TestCase):
                          {"a500": 2800, "star50": 700, "hsi": 1500, "dividend": 2000,
                           "theme-a": 1000, "theme-b": 1000, "theme-c": 1000})
         self.assertAlmostEqual(result["cash_after"], 0)
+        self.assertEqual({slot: round(share, 6) for slot, share in result["shares_pct"].items()}, PLAN_TARGETS)
+
+    def test_the_split_is_a_ratio_the_amount_only_scales(self):
+        holdings = {slot: weight * 1000 for slot, weight in PLAN_TARGETS.items()}
+        holdings["a500"] = 0
+        small, large = ({slot: share for slot, share in dca_gap_allocation(PLAN_TARGETS, holdings, 0, money)["shares_pct"].items()
+                         if share > 0} for money in (1000, 5000))
+        self.assertEqual(small, {"a500": 100.0})   # every yuan goes to the only gap, whatever the amount
+        self.assertEqual(large, {"a500": 100.0})
+        self.assertEqual(dca_gap_allocation({"a500": 50}, {"a500": 100}, 0, 0)["shares_pct"], {})
 
     def test_gaps_larger_than_the_money_are_filled_in_proportion(self):
         targets = {"a500": 50, "hsi": 20, "theme-a": 30}
@@ -341,6 +351,25 @@ class DcaGapAllocationTests(unittest.TestCase):
             dca_gap_allocation({"a500": 50}, {"a500": -1}, 0, 1000)
         with self.assertRaises(ValueError):
             dca_gap_allocation({"a500": 50}, {}, 0, None)
+
+
+class RebalanceTests(unittest.TestCase):
+    def test_overweight_seats_fund_the_gaps_except_kept_ones(self):
+        targets = {"a500": 50, "hsi": 20, "theme-a": 30}
+        result = rebalance_trades(targets, {"a500": 10000, "hsi": 30000, "theme-a": 60000}, 0, 0, keep={"hsi"})
+        self.assertEqual(result["sells"], {"theme-a": 30000})            # hsi is 10,000 over target but kept
+        self.assertEqual(result["buys"], {"a500": 30000, "hsi": 0, "theme-a": 0})
+        self.assertAlmostEqual(result["unfilled"], 10000)                # the kept excess leaves a500 short
+        full = rebalance_trades(targets, {"a500": 10000, "hsi": 30000, "theme-a": 60000}, 0, 0)
+        self.assertEqual((full["sells"], full["buys"]["a500"]), ({"hsi": 10000, "theme-a": 30000}, 40000))
+
+    def test_new_money_joins_the_proceeds_and_a_zero_target_is_sold_out(self):
+        result = rebalance_trades({"a500": 70, "theme-a": 30, "theme-b": 0},
+                                  {"a500": 0, "theme-a": 30000, "theme-b": 60000}, 0, 10000)
+        self.assertEqual(result["sells"], {"theme-b": 60000})
+        self.assertAlmostEqual(result["buys"]["a500"], 70000)
+        self.assertAlmostEqual(result["cash_after"], 0)
+        self.assertEqual(rebalance_trades({"a500": 70}, {"a500": 1, "theme-x": 1}, 0, 0)["missing_fields"], ["target:theme-x"])
 
 
 class ThemeCashReserveTests(unittest.TestCase):

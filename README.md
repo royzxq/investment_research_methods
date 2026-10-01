@@ -39,7 +39,7 @@
 - `framework/etf_portfolio_params.json` — 用户拍板的组合参数（预算、目标权重与区间、主题池、两套压力情景、回撤复核线、比较基准、迁移路径），校验器与导出脚本都读它
 - `framework/etf_card_schema.md` + `scripts/validate_etf_card.py` — 决策卡 schema v2（目标权重、新增资金动作、存量动作）与校验器；`--export` 生成执行侧唯一读取的 `research/etf-cards/current.json`
 - `scripts/etf_data.py`（本地，需 `TUSHARE_TOKEN`）写快照 `research/etf-<AS_OF>-data-snapshot.txt`；`scripts/etf_calc.py` 是纯函数计算器（回报分解、分位、TD/TE、缺口分配、区间检查、单位净值与回撤、压力损失）
-- `scripts/etf_allocate.py` — 月度新增资金分配与检查：`python3 scripts/etf_allocate.py --holdings <持仓.json> --new-money <F> [--ledger research/etf-nav-ledger.csv]`，输出建议清单，交易由用户确认
+- `scripts/etf_allocate.py` — 月度新增资金分配与检查：`python3 scripts/etf_allocate.py --holdings <持仓.json> [--new-money <F>] [--ledger research/etf-nav-ledger.csv]`，先给各席位占本月买入的比例再折金额；迁移与季度再平衡加 `--rebalance --keep core-hsi`。输出是建议清单，交易由用户确认
 - `.claude/skills/` — `etf-monthly-review`（月度编排器）、`etf-theme-review`（双月主题评审）、`etf-card-research`（写单张卡）
 - v0.1 的点位锚点卡已归档到 `research/etf-cards/v1-archive/`；升级说明与迁移测算见 `research/etf-2026-10-01-framework-v1.0-migration.md`
 - ETF 离线验证：`python3 -m unittest tests.test_etf_calc tests.test_validate_etf_card tests.test_etf_allocate tests.test_etf_backtest`
