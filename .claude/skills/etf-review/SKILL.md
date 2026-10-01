@@ -9,7 +9,7 @@ description: ETF 主题双月评审（框架 v2.0）：按 framework/etf_framewo
 
 - `AS_OF_DATE`：缺省当天（北京时间）。
 - 持仓（可选）：用户给的一行各主题市值与 ETF 账户总值（不含黄金）。没给就只出名单。
-- 自行读取：`framework/etf_framework.md`、`research/` 下最新的 `etf-*-data-snapshot.txt`、上一期 `research/etf-*-review.md`（首期读 `research/etf-cards/v1-archive/`）。
+- 自行读取：`framework/etf_framework.md`、`research/` 下最新的 `etf-*-data-snapshot.txt`、上一期评审报告——文件名严格为 `research/etf-YYYY-MM-DD-review.md`（日期后直接接 `-review.md`；`etf-2026-09-23-monthly-review.md` 这类 v0.1 月报不算）。没有这样的文件就是首期，读 `research/etf-cards/v1-archive/`。
 
 ## 步骤
 
