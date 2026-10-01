@@ -33,10 +33,9 @@
 - `research/` — `investment-baseline-market-research.md`（day-0 基线，可为空——为空时首次运行按"无历史基线"处理，不是错误）+ `investment-<date>-market-research.md` / `investment-<date>-change-decision.md`（始终直接 push 到 main）/ `investment-<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
 - `.claude/skills/` — `meta-investment-analysis` / `investment-change-analysis` / `investment-adaption`（三个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `investment-weekly-review`（编排器，统一开 PR）
 
-## ETF 轨道：调研框架 → 调研报告（方向与预期）
+## ETF 轨道：每 2 个月的主题 ETF 调研
 
-- `framework/etf_framework.md` — 现行「ETF 调研框架」v1.1，定位与个股框架相同：AI 按它对 ETF 组合给出每个方向的调仓方向（增配/维持/降配/退出/观察）、建议目标权重、12 个月预期、理由、失效与复评条件；**不给交易指令、金额、点位或时点，不参与交易决策**。组合基准为用户方案 v1.0：70% 长期规则配置（A500 28 / 科创50 7 / 恒指 15 / 红利低波 20）+ 30% 动态主题（8 个研究方向，常态持有 2–3 个）。只走分支 + PR 更新
-- `scripts/etf_data.py`（本地，需 `TUSHARE_TOKEN`）写快照 `research/etf-<AS_OF>-data-snapshot.txt`；`scripts/etf_calc.py` 是纯函数计算器（回报分解、分位、情景回报、TD/TE、压力损失）；`framework/etf_index_registry.json` 是指数取数清单
-- `.claude/skills/` — `etf-review`（按框架出一期调研报告 `research/etf-<日期>-review.md`）、`etf-monthly-review`（月度：出快照、到评审月份出报告、框架变化检测）
-- 规则验证（为什么不做点位择时）：`research/etf-2026-09-19-rule-prereg.md`、`research/etf-2026-09-18-rule-validation.md`；v0.1 的点位锚点卡归档在 `research/etf-cards/v1-archive/`
+- `framework/etf_framework.md` — 「ETF 主题调研框架」v2.0：每 2 个月回答两个问题——未来两个月定投哪 2–3 个主题 ETF（8 个主题的研究池里选，各 5% 或 10%）、现有主题持仓怎么处理（不动 / 只倾斜新增 / 部分切换 / 退出 / 持有不投）。宽基 50% 与红利低波 20% 由用户长期持有，本仓不研究。只出研究结论，不给金额、点位或时点。只走分支 + PR 更新
+- 用法：本地跑 `scripts/etf_data.py`（需 `TUSHARE_TOKEN`）出快照 → 在 Claude Code 里说「跑 etf-review」（可附一行持仓）→ 得到 `research/etf-<日期>-review.md`
+- `framework/etf_index_registry.json` 是指数取数清单；`scripts/etf_calc.py` 是纯函数计算器；为什么不做点位择时见 `research/etf-2026-09-18-rule-validation.md`
 - ETF 离线验证：`python3 -m unittest tests.test_etf_calc tests.test_etf_backtest`
