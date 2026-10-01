@@ -405,3 +405,173 @@ def sma_state(levels, window):
         result.update(last=tail[-1], sma=sma, distance_pct=distance,
                       state="above" if distance > 0 else "below" if distance < 0 else "at")
     return _finish(result, keys)
+
+
+def _amount(value, label):
+    amount = _number(value)
+    if amount is None or amount < 0:
+        raise ValueError(f"amount_must_be_non_negative:{label}")
+    return amount
+
+
+def dca_gap_allocation(target_weights_pct, holdings, cash, new_money, *, reserved_cash_pct=0.0, paused=()):
+    """Monthly new money by effective gaps (framework v1.0 B3).
+
+    target_weights_pct {slot: % of the strategy account}; holdings {slot: market value}; cash: strategy cash before
+    this month's inflow; new_money: this month's inflow. With T = sum(holdings) + cash + new_money,
+    gap = max(target x T - holding, 0) for every slot not in `paused`. Money available for buying is
+    cash + new_money - reserved_cash_pct x T (approved theme cash is kept first), floored at zero. Gaps that fit are
+    filled in full, otherwise in proportion to the gaps; the rest stays as cash, nothing is bought beyond a target.
+    shares_pct gives each buy as % of everything bought this time: the rule is a ratio, the amount only scales it.
+    A held slot without a target is a gap in the inputs, not a zero target.
+    """
+    keys = ("total", "available", "gaps", "buys", "shares_pct", "cash_after", "unfilled")
+    result = _result(**dict.fromkeys(keys))
+    targets = {slot: _amount(weight, f"target:{slot}") for slot, weight in target_weights_pct.items()}
+    values = {slot: _amount(value, f"holding:{slot}") for slot, value in holdings.items()}
+    cash, new_money = _amount(cash, "cash"), _amount(new_money, "new_money")
+    reserved_pct = _amount(reserved_cash_pct, "reserved_cash_pct")
+    if sum(targets.values()) + reserved_pct > 100 + 1e-9:
+        raise ValueError("targets_and_reserve_exceed_100")
+    result["missing_fields"] = [f"target:{slot}" for slot in sorted(values) if slot not in targets]
+    if result["missing_fields"]:
+        return _finish(result, keys)
+    total = sum(values.values()) + cash + new_money
+    available = max(cash + new_money - reserved_pct * total / 100, 0.0)
+    gaps = {slot: max(weight * total / 100 - values.get(slot, 0.0), 0.0)
+            for slot, weight in targets.items() if slot not in paused}
+    need = sum(gaps.values())
+    scale = 1.0 if need <= available else available / need
+    buys = {slot: gap * scale for slot, gap in gaps.items()}
+    spent = sum(buys.values())
+    result.update(total=total, available=available, gaps=gaps, buys=buys,
+                  shares_pct={slot: 100 * amount / spent for slot, amount in buys.items()} if spent > 0 else {},
+                  cash_after=cash + new_money - spent, unfilled=need - spent)
+    return result
+
+
+def rebalance_trades(target_weights_pct, holdings, cash, new_money, *, reserved_cash_pct=0.0, keep=(), paused=()):
+    """Bring holdings back to their targets (framework v1.0 A9, and the first migration).
+
+    Slots above target are sold down to target x T, except those in `keep` (e.g. a holding whose sale would need a
+    cross-border transfer); the proceeds plus cash and new money then fill the other slots' gaps by the rule of
+    dca_gap_allocation. T is unchanged by trades inside the account. A held slot without a target is a gap.
+    """
+    keys = ("total", "available", "gaps", "buys", "shares_pct", "cash_after", "unfilled", "sells")
+    result = _result(**dict.fromkeys(keys))
+    values = {slot: _amount(value, f"holding:{slot}") for slot, value in holdings.items()}
+    result["missing_fields"] = [f"target:{slot}" for slot in sorted(values) if slot not in target_weights_pct]
+    if result["missing_fields"]:
+        return _finish(result, keys)
+    total = sum(values.values()) + _amount(cash, "cash") + _amount(new_money, "new_money")
+    sells = {slot: max(value - _amount(target_weights_pct[slot], f"target:{slot}") * total / 100, 0.0)
+             for slot, value in values.items() if slot not in keep}
+    sells = {slot: amount for slot, amount in sells.items() if amount > 0}
+    after = {slot: value - sells.get(slot, 0.0) for slot, value in values.items()}
+    result.update(dca_gap_allocation(target_weights_pct, after, cash + sum(sells.values()), new_money,
+                                     reserved_cash_pct=reserved_cash_pct, paused=paused), sells=sells)
+    return result
+
+
+def theme_cash_reserve_pct(theme_module_pct, theme_stock_target_pct, theme_held_pct):
+    """Approved theme cash to keep, in % of the account (framework v1.0 A2, A8).
+
+    Theme stock plus theme cash make the theme module together, so the reserve is the module's cash target
+    (module - theme stock targets) but never more than what tops the theme stock already held up to the module;
+    themes held above the module leave nothing to reserve.
+    """
+    module = _amount(theme_module_pct, "theme_module_pct")
+    stock_target = _amount(theme_stock_target_pct, "theme_stock_target_pct")
+    held = _amount(theme_held_pct, "theme_held_pct")
+    if stock_target > module + 1e-9:
+        raise ValueError("theme_stock_target_exceeds_module")
+    return max(0.0, min(module - stock_target, module - held))
+
+
+def drift_threshold_pp(target_weight_pct, relative_pct=25, cap_pp=5):
+    """Review threshold for a sub-item's drift: min(target x relative%, cap), in percentage points."""
+    target = _amount(target_weight_pct, "target_weight_pct")
+    return min(target * _amount(relative_pct, "relative_pct") / 100, _amount(cap_pp, "cap_pp"))
+
+
+def allocation_check(values, module_of, module_bands_pct, *, drift_targets_pct=None, drift_relative_pct=25,
+                     drift_cap_pp=5, ceilings_pct=None):
+    """Quarterly band check (framework v1.0 B4): module weights against their bands, drift of named sub-items
+    against min(target x relative%, cap), and items above a review ceiling (e.g. a single theme above 15%).
+
+    values {slot: amount, cash slots included}; module_of {slot: module}; module_bands_pct {module: (low, high)}.
+    Flags call for a review, not automatically for a trade.
+    """
+    keys = ("total", "weights_pct", "module_weights_pct", "modules_out_of_band", "drifted", "above_ceiling")
+    result = _result(**dict.fromkeys(keys))
+    amounts = {slot: _amount(value, f"value:{slot}") for slot, value in values.items()}
+    result["missing_fields"] = [f"module:{slot}" for slot in sorted(amounts) if slot not in module_of]
+    result["missing_fields"] += [f"band:{module}" for module in sorted(set(module_of.values()) - set(module_bands_pct))]
+    total = sum(amounts.values())
+    if total <= 0:
+        result["missing_fields"].append("total")
+    if result["missing_fields"]:
+        return _finish(result, keys)
+    weights = {slot: 100 * amount / total for slot, amount in amounts.items()}
+    modules = {module: 0.0 for module in module_bands_pct}
+    for slot, weight in weights.items():
+        modules[module_of[slot]] += weight
+    drifted = []
+    for slot, target in (drift_targets_pct or {}).items():
+        threshold = drift_threshold_pp(target, drift_relative_pct, drift_cap_pp)
+        weight = weights.get(slot, 0.0)
+        if abs(weight - target) > threshold + 1e-9:
+            drifted.append(dict(slot=slot, weight_pct=weight, target_pct=target, threshold_pp=threshold))
+    result.update(total=total, weights_pct=weights, module_weights_pct=modules,
+                  modules_out_of_band=[module for module, weight in modules.items()
+                                       if not module_bands_pct[module][0] - 1e-9 <= weight <= module_bands_pct[module][1] + 1e-9],
+                  drifted=drifted,
+                  above_ceiling=[dict(slot=slot, weight_pct=weights[slot], ceiling_pct=ceiling)
+                                 for slot, ceiling in (ceilings_pct or {}).items() if weights.get(slot, 0.0) > ceiling + 1e-9])
+    return result
+
+
+def unit_nav(observations):
+    """Unitized NAV of an account with external money flows, so deposits never count as gains (framework v1.0 B9).
+
+    observations: (day, value_after_flow, external_flow) ascending; flow > 0 is money in, < 0 money out.
+    The first value seeds the units at NAV 1. On each later day NAV = (value - flow) / units, then the flow buys
+    (or redeems) units at that NAV.
+    """
+    rows = [(_day(day), _number(value), _number(flow) if flow is not None else 0.0) for day, value, flow in observations]
+    if any(later[0] <= earlier[0] for earlier, later in zip(rows, rows[1:])):
+        raise ValueError("observations_must_be_strictly_ascending_by_date")
+    navs, units = [], None
+    for day, value, flow in rows:
+        if value is None or flow is None or value < 0:
+            raise ValueError(f"value_and_flow_must_be_numbers:{day}")
+        if units is None:
+            if value <= 0:
+                raise ValueError("first_value_must_be_positive")
+            units, nav = value, 1.0
+        else:
+            if value - flow <= 0:
+                raise ValueError(f"value_before_flow_must_be_positive:{day}")
+            nav = (value - flow) / units
+            units += flow / nav
+        navs.append((day, nav))
+    return navs
+
+
+def drawdown_summary(levels):
+    """Current and maximum drawdown of a level series, in % (0 at a high, negative below it)."""
+    keys = ("current_drawdown_pct", "max_drawdown_pct")
+    result = _result(**dict.fromkeys(keys))
+    series = [_number(level, positive=True) for level in levels]
+    if not series:
+        result["missing_fields"].append("levels")
+    elif None in series:
+        result["missing_fields"].append("invalid_level")
+    if result["missing_fields"]:
+        return _finish(result, keys)
+    peak, worst = series[0], 0.0
+    for level in series:
+        peak = max(peak, level)
+        worst = min(worst, (level / peak - 1) * 100)
+    result.update(current_drawdown_pct=(series[-1] / peak - 1) * 100, max_drawdown_pct=worst)
+    return result

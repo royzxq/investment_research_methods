@@ -10,7 +10,7 @@ ETF 轨道数据快照 — Tushare Pro + akshare (etf_data v0.1)
   §3 指数结构：前十大、最大单一成分、行业权重、近12个月成分变动、研究覆盖率(--pool-csv)
   §4 指数口径估值自聚合：成分权重 × 个股估值逐月回算 PE/PB/股息率，含沪深300 交叉核对与分位点→点位表
   §5 工具池：持仓基金的代码/费率/净值/规模/跟踪偏离(TD)与跟踪误差(TE)，及同基金其他份额
-  §6 趋势：200日均线、10月均线（只用已完成月）；6b 回撤分位阶梯——规则验证通过的买卖点位推导
+  §6 趋势：200日均线、10月均线（只用已完成月）；6b 回撤分位阶梯——预注册 R2 的回撤状态读数（框架 v1.0 起不再生成卡上的买卖点位）
   §7 宏观代理：中美10年国债、汇率中间价、金价
   §8 记分结算：随决策卡上线（M3/M4），本版不做
 
@@ -78,7 +78,7 @@ TOKEN = os.getenv("TUSHARE_TOKEN", "")
 AS_OF = datetime.now().strftime("%Y%m%d")
 CUTOFF = AS_OF                       # run() 内按已完成交易日收紧
 RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"
-LADDER_SIDECAR = RESEARCH_DIR / "etf-ladder-latest.json"   # §6b 的机器可读副本（随快照提交），供 etf_refresh_cards.py 机械刷新点位；
+LADDER_SIDECAR = RESEARCH_DIR / "etf-ladder-latest.json"   # §6b 的机器可读副本（随快照提交）；框架 v1.0 起只作回撤状态读数；
                                                            # 只在正式快照写成功后更新——--no-snapshot、历史回放、中途崩溃都不会动它
 OUTDIR = Path(__file__).resolve().parents[1] / "output"      # 已 gitignore：§4 自聚合的原始取数缓存
 AGGREGATION_START = 2005                                     # index_weight / daily_basic 的最早有效年份

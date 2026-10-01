@@ -1,0 +1,21 @@
+{
+ "_note": "ETF 策略账户持仓输入（scripts/etf_allocate.py --holdings）。02800 为用户 2026-10-01 确认的当前值（港币），其余基金沿用用户 2026-09-18 提供的金额，执行前须换成当前市值。slot 在对应现行卡出来后可删。",
+ "as_of": "2026-10-01（02800 当前值，其余 2026-09-18 值）",
+ "cash_cny": 0,
+ "fx_to_cny": {"HKD": {"rate": 0.86062, "source": "snapshot§7 research/etf-2026-09-18-data-snapshot.txt 人民币中间价"}},
+ "positions": [
+  {"code": "022448.OF", "value_cny": 18916, "slot": "core-a500"},
+  {"code": "011615.OF", "value_cny": 11774, "slot": "core-star50"},
+  {"code": "02800.HK", "value": 75000, "currency": "HKD", "slot": "core-hsi"},
+  {"code": "021457.OF", "value_cny": 39873, "slot": "core-hk-dividend-lowvol"},
+  {"code": "012349.OF", "value_cny": 53211, "slot": "hk-tech"},
+  {"code": "160630.SZ", "value_cny": 49024, "slot": "defense"},
+  {"code": "021031.OF", "value_cny": 33641, "slot": "innovative-drug"},
+  {"code": "012782.OF", "value_cny": 25749, "slot": "innovative-drug"},
+  {"code": "012323.OF", "value_cny": 18354, "slot": "innovative-drug"},
+  {"code": "019670.OF", "value_cny": 16605, "slot": "innovative-drug"},
+  {"code": "010990.OF", "value_cny": 11570, "slot": "industrial-metals"},
+  {"code": "013528.OF", "value_cny": 8845, "slot": "chemicals"},
+  {"code": "000307.OF", "value_cny": 11562}
+ ]
+}

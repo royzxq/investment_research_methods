@@ -1,45 +1,273 @@
 {
-  "_doc": "ETF 轨道组合级参数：只放用户拍板的数，派生量（行业合计上限、单笔上限）由导出脚本用 etf_calc 现算，不在这里抄第二份。改数须同步通知执行侧。core_seats 是用户 2026-09-19 拍板的核心席位上限表（先定块再定席位，不套用亏损预算÷压力跌幅；loss_budget_cny 为上限×压力跌幅反推，随表一并认可），核心卡的 sizing 三个数必须与此表一致。",
-  "effective_from": "2026-09-18",
+  "_doc": "ETF 轨道组合级参数（框架 v1.0）：只放用户拍板或用户采用的数，派生量（压力损失、主题待配现金）由导出脚本用 etf_calc 现算，不在这里抄第二份。卡的校验器读本文件：核心卡的目标权重必须等于 core_seats，主题卡的席位必须在 theme_pool 里、目标权重只能取 theme_rules.weight_steps_pct。改数须在框架 A13 与变更记录里写明日期和理由，并重新导出 current.json。",
+  "framework_version": "v1.0",
+  "effective_from": "2026-10-01",
   "decided_by": "user",
-  "sector_etf_cap_cny": 500000,
-  "sector_etf_cap_note": "2026-09-24 用户拍板：行业块上限 50 万（此前 30%×70 万 = 21 万），后续可能提到 100 万；三块之和 99 万即 ETF 计划总仓，不再单独维护总仓数",
-  "single_bet_loss_budget_cny": 70000,
-  "sector_stress_drawdown_pct": -70,
-  "china_equity_cap_pct": 90,
-  "total_assets_basis": "全部资产 = 个股市值（折人民币）+ ETF 市值（折人民币），不含现金、货币基金与尚未确认份额的在途定投；个股与 ETF 允许取各自最新的估值日",
-  "blocks": {
-    "decided_on": "2026-09-24",
-    "core_cny": 350000,
-    "sector_cny": 500000,
-    "diversifier_cny": 140000,
-    "note": "核心 35 万 / 行业 50 万 / 分散器 14 万（分散器 ≥13.6 万来自中国权益 ≤90% × 全部资产约 136 万，按 2026-09-18 口径；行业块扩大后该分母与非中国权益的最低额须重算）"
+  "decision_note": "用户 2026-09-30 提出《A股与港股ETF投资与投研方案 v1.0》并补充四点（ETF 总仓 50 万；ETF 先不管中国权益 ≤90%；科创50 算宽基、恒生科技算主题、恒生科技与半导体是两个主题；新增资金只以定投进入）；2026-10-01 采纳对比分析的修正建议（历史压力情景、回撤复核不停固定仓定投、全量主题比较对齐财报季、持仓口径核对 02800）。 2026-10-01 用户确认盈富基金 02800 仍持有（约 7.5 万港元），每月定投先按 1 万元测算、规则按比例执行，并要求改造按最初讨论的方案执行（迁移按方案 v1.0 §九路径 A）。",
+  "budget": {
+    "etf_total_cny": 500000,
+    "strategy_account_target_cny": 490000,
+    "gold_reserved_cny": 10000,
+    "note": "50 万是 ETF 总仓位假设（用户 2026-09-30），含盈立直持的 02800。黄金约 1 万单列管理，不计入策略账户；其余约 49 万是股票 ETF 策略账户的规划规模。规划规模只用于测算，比例一律按实际市值计算，不得把未投入的钱提前计入分母。到达规划规模后是否继续定投，由用户在半年或年度复核决定。"
+  },
+  "account_basis": "策略账户总资产 = 股票 ETF 市值 + 已纳入本策略管理的现金（含主题待配现金）；黄金、尚未划入的未来预算不计入。市值用实际市值，不用成本价。",
+  "new_money": {
+    "mode": "monthly_dca_only",
+    "monthly_amount_cny": 10000,
+    "monthly_amount_note": "测算假设（用户 2026-10-01）。规则只规定比例：每月入金按各席位缺口的比例分配，无偏离时比例即目标权重 28/7/15/20/30；F 只决定纠偏速度（2026-10-01 约占策略账户 2.8%/月）。",
+    "note": "新增资金只以按月定投进入（用户 2026-09-30）。F 按现金流预算确定，不随当月涨跌临时放大。"
+  },
+  "modules": {
+    "broad_core": {
+      "name": "长期指数底仓（A500 + 科创50 + 恒指）",
+      "target_pct": 50,
+      "band_pct": [
+        45,
+        55
+      ]
+    },
+    "dividend_core": {
+      "name": "长期风格配置（红利低波）",
+      "target_pct": 20,
+      "band_pct": [
+        15,
+        25
+      ]
+    },
+    "theme": {
+      "name": "动态主题模块（主题股票 + 明确归属的待配现金）",
+      "target_pct": 30,
+      "band_pct": [
+        25,
+        35
+      ]
+    }
   },
   "core_seats": {
     "000510.SH": {
-      "cap_cny": 120000,
-      "stress_drawdown_pct": -72,
-      "loss_budget_cny": 86400,
-      "note": "沪深300 2007–08 实测约 -72%"
+      "bet_group": "core-a500",
+      "module": "broad_core",
+      "name": "中证A500",
+      "target_weight_pct": 28,
+      "stress_plan_pct": -35,
+      "stress_historical_pct": -72,
+      "note": "历史压力取沪深300 2007–08 实测约 -72%"
+    },
+    "000688.SH": {
+      "bet_group": "core-star50",
+      "module": "broad_core",
+      "name": "科创50",
+      "target_weight_pct": 7,
+      "stress_plan_pct": -50,
+      "stress_historical_pct": -70,
+      "note": "按宽基固定持有（用户 2026-09-30），风险统计上仍是科创板倾斜；历史不足一个完整周期，历史压力沿用行业默认 -70%"
     },
     "HSI": {
-      "cap_cny": 100000,
-      "stress_drawdown_pct": -66,
-      "loss_budget_cny": 66000,
+      "bet_group": "core-hsi",
+      "module": "broad_core",
+      "name": "恒生指数",
+      "target_weight_pct": 15,
+      "stress_plan_pct": -35,
+      "stress_historical_pct": -66,
       "note": "恒指 2007-10 高点 31958 → 2008-10 低点 10676 约 -66%"
     },
     "HSHYLV": {
-      "cap_cny": 80000,
-      "stress_drawdown_pct": -50,
-      "loss_budget_cny": 40000,
-      "note": "估计值：低波类同类资产的保守估计，无 HSHYLV 历史序列支撑；补上序列后重算"
-    },
-    "HKTECH": {
-      "cap_cny": 50000,
-      "stress_drawdown_pct": -75,
-      "loss_budget_cny": 37500,
-      "note": "恒生科技 2021-02 → 2022-10 约 -75%；现持仓 53211 已超上限"
+      "bet_group": "core-hk-dividend-lowvol",
+      "module": "dividend_core",
+      "name": "恒生港股通高股息低波动（现持仓口径，正式执行前核实指数与产品）",
+      "target_weight_pct": 20,
+      "stress_plan_pct": -25,
+      "stress_historical_pct": -50,
+      "note": "历史压力为估计值：该指数无行情源，按低波类同类资产保守估计；补上序列后重算"
     }
   },
-  "single_bet_loss_budget_note": "2026-09-23 用户由 3.5 万提到 7 万（单笔上限 5 万→10 万）：行业席位高度同向，21 万块不该按 4 笔独立押注切"
+  "theme_rules": {
+    "weight_steps_pct": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "exception_above_pct": 10,
+    "max_single_pct": 15,
+    "review_above_pct": 15,
+    "typical_count": [
+      2,
+      3
+    ],
+    "max_seat_changes_per_regular_review": 1,
+    "scenario_years": 1,
+    "stress_plan_pct": -50,
+    "stress_historical_pct": -70,
+    "review_months": [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "full_comparison_months": [
+      5,
+      9,
+      11
+    ],
+    "pool_change_months": [
+      6,
+      12
+    ],
+    "note": "单主题目标通常 5% 或 10%，15% 是例外须书面说明估值、把握和下行风险；实际权重超过 15% 提前复核。常规双月评审最多新增或退出一个主题席位（逻辑证伪、重大事件、超限纠偏除外）。全量 8 主题横向比较放在 A 股报告披露截止（4/30、8/31、10/31）之后的 5、9、11 月；1、3、7 月只更新已持有主题与被触发的方向。情景窗口统一 12 个月。"
+  },
+  "theme_pool": {
+    "hk-tech": {
+      "name": "恒生科技",
+      "index_candidates": [
+        "HKTECH"
+      ],
+      "note": "在恒指底仓之外加配港股科技；与恒指近 3 年周相关 0.93、波动约为恒指的 1.4 倍，风险统计与恒指合并看"
+    },
+    "semiconductor": {
+      "name": "半导体",
+      "index_candidates": [],
+      "note": "先研究较广泛的芯片路线，设备材料另做映射。主指数未登记：首期比较时在中证全指半导体（H30184.CSI，任务说明实测成分可得）、国证芯片、中华半导体芯片等之间比选，实测行情与全收益代码后登记。与科创50 近 3 年周相关 0.97，风险统计合并看"
+    },
+    "innovative-drug": {
+      "name": "创新药（A 股、港股路线共用一个预算）",
+      "index_candidates": [
+        "987018.CNI",
+        "931787.CSI",
+        "931152.CSI",
+        "399989.SZ"
+      ],
+      "note": "四只现持医药基金穿透后是同一笔押注；港股两指数相关 0.99、A 股两指数 0.88、A/H 之间 0.81"
+    },
+    "defense": {
+      "name": "国防军工",
+      "index_candidates": [
+        "399973.SZ"
+      ],
+      "note": "核实现有国防基金对应指数后锁定比较口径；中证国防航空权重约 43%"
+    },
+    "grid-equipment": {
+      "name": "电网设备",
+      "index_candidates": [],
+      "note": "设备企业，不与电力运营混用。主指数未登记：首期比较时实测行情代码后登记"
+    },
+    "consumer-staples": {
+      "name": "主要消费",
+      "index_candidates": [
+        "000932.SH"
+      ],
+      "note": "固定主要消费指数，不混用白酒等其他消费主题"
+    },
+    "industrial-metals": {
+      "name": "工业有色",
+      "index_candidates": [
+        "000819.SH"
+      ],
+      "note": "工业有色路线，不等同于铜价或金价。现持仓跟踪中证申万有色金属（含贵金属），首期比较时核实是否换到工业有色口径的指数"
+    },
+    "chemicals": {
+      "name": "化工",
+      "index_candidates": [
+        "000813.CSI"
+      ],
+      "note": "核实现有产品对应指数，区分子行业"
+    }
+  },
+  "theme_watchlist": [
+    "人工智能",
+    "通信",
+    "软件",
+    "机器人",
+    "光伏",
+    "电池",
+    "证券",
+    "新能源汽车"
+  ],
+  "risk_overlaps": [
+    {
+      "members": [
+        "000688.SH",
+        "semiconductor"
+      ],
+      "corr_3y": 0.97,
+      "note": "科创50 × 半导体"
+    },
+    {
+      "members": [
+        "HSI",
+        "hk-tech"
+      ],
+      "corr_3y": 0.93,
+      "note": "恒指 × 恒生科技"
+    },
+    {
+      "members": [
+        "987018.CNI",
+        "931152.CSI"
+      ],
+      "corr_3y": 0.81,
+      "note": "港股创新药 × A 股创新药，已在一个主题预算里"
+    },
+    {
+      "members": [
+        "HSI",
+        "HSHYLV",
+        "hk-tech",
+        "innovative-drug"
+      ],
+      "corr_3y": null,
+      "note": "港股市场敞口：跨模块合计统计（红利低波按港股计；创新药按港股路线占比计）"
+    }
+  ],
+  "risk_overlaps_source": "research/etf-2026-09-19-pool-research.md（周收益相关，近 3 年 157 周）；每季度重算",
+  "rebalance": {
+    "check": "quarterly",
+    "drift_relative_pct": 25,
+    "drift_cap_pp": 5,
+    "drift_items": [
+      "000510.SH",
+      "000688.SH",
+      "HSI"
+    ],
+    "note": "季度检查时模块超出区间，原则上调回目标附近；区间内优先用新增资金修正。核心内部子项偏离超过 min(目标×25%, 5pp) 触发复核，不必然交易。重大风险、单主题超限、动态模块超过 35% 提前处理。"
+  },
+  "drawdown_review": {
+    "basis": "剔除外部入出金影响的策略账户单位净值（calc:unit_nav）",
+    "special_review_pct": -20,
+    "pause_new_theme_risk_pct": -25,
+    "reapprove_risk_budget_pct": -30,
+    "review_deadline_days": 14,
+    "core_dca_continues": true,
+    "note": "复核在 14 天内完成。复核期间固定仓定投默认照常（暂停定投在仓库验证里被否：沪深300 年化平均少 4.7 个百分点），-25% 起只暂停主题的新增；-30% 时重新批准风险预算——不批准就正式降低权益目标，而不是停投等待。这些是复核流程，不是止损线。"
+  },
+  "stress_note": "两套压力情景并列：plan 是方案 v1.0 设定的温和情景（合计约 38.55%），historical 取各指数 2007–08 等历史深跌（合计约 66%）。都不是预测或上限；30% 若是硬约束，只能降低权益比例。",
+  "benchmark": {
+    "weights_pct": {
+      "000510.SH": 49,
+      "000688.SH": 7,
+      "HSI": 24,
+      "HSHYLV": 20
+    },
+    "theme_replacement_pct": {
+      "000510.SH": 70,
+      "HSI": 30
+    },
+    "note": "比较基准 = 固定 70% 不变、动态 30% 换成 21% A500 + 9% 恒指；相同外部资金流、人民币含分红口径、可比费用、相同的模块再平衡原则。主题卡的记分基准是其替代物（A500:恒指 = 70:30）。红利低波在指数行情源补上前用 021457.OF 复权净值代理。另保留「初始主题篮子不轮换」的模拟账户。"
+  },
+  "out_of_scope_holdings": {
+    "000307.OF": "易方达黄金ETF联接A：黄金单列管理，不计入策略账户"
+  },
+  "migration": {
+    "path": "actual_account",
+    "decided_on": "2026-10-01",
+    "rule": "方案 v1.0 §九路径 A：新增资金只以定投进入时，按实际策略账户管理，主题合计调到实际账户的 30%，不按 49 万规划规模计算。首期 8 主题比较定出各主题目标后执行，可分批，最迟在其后的第一次季度检查前完成；首期比较不受常规评审「最多变动一个席位」的限制。",
+    "keep": [
+      "core-hsi"
+    ],
+    "keep_note": "02800 以港币在盈立持有，卖出所得不能直接买支付宝人民币基金；恒指超配靠新增资金稀释，迁移与常规再平衡都不卖 02800。",
+    "not_adopted": "先只卖 49 万规模时的必卖部分、其余靠定投稀释：与方案 v1.0「不能因为将来会有 49 万元，就现在按 49 万元的主题额度宣称已达标」冲突，迁移期主题会长期高于 35% 上限。",
+    "note": "卖哪些由首期 8 主题比较决定，不按盈亏或是否回本排序；交易清单用 scripts/etf_allocate.py --rebalance --keep core-hsi 生成。首期比较前，未定目标的主题不接收新增资金。测算见 research/etf-2026-10-01-framework-v1.0-migration.md。"
+  }
 }
