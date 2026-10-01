@@ -13,10 +13,11 @@ description: ETF 主题双月评审（框架 v2.0）：按 framework/etf_framewo
 
 ## 步骤
 
-1. 快照末行有「快照完成」且距 `AS_OF_DATE` 不超过 10 天；否则停下，请用户本地运行
+1. 快照末行有「快照完成」、距 `AS_OF_DATE` 不超过 10 天、头行为「ETF 框架 v2.0」且含 `H30184.CSI` 与 `931994.CSI`；否则停下，请用户本地运行
    `/Users/xinquanzhou/miniconda3/bin/python3 scripts/etf_data.py --pool-csv /Users/xinquanzhou/Workspace/ai_investment/investment_prediction.csv`。
 2. 按框架 §3 做：核对上期失效条件 → 8 个主题各填一行 → 只给有变化 / 拟新进 / 拟退出的主题写要点 → 定名单 → 定现有持仓处理。
    当期事实联网核实并标 [出处, 日期]；查不到写"未知"。有持仓时先算主题实际合计，超过 30% 就写"主题定投暂停"。
+   名单上每个主题写一只定投工具（代码、份额），多基金主题只选一只，其余"只持有"。
 3. 按框架 §6 模板写报告，第一屏就是本期结论。
 
 不写金额、点位、时点、分批计划；不提交、不开 PR，由用户决定。
