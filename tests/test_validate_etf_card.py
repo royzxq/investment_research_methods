@@ -8,9 +8,9 @@ import unittest
 import unittest.mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.etf_calc import level_at_drawdown_state, scenario_annual_return
-from scripts.validate_etf_card import (cross_card_errors, current_cards, export_drift, export_payload, load_card,
-                                       validate_card, validate_file)
+from scripts.etf_calc import joint_stress_loss, scenario_annual_return
+from scripts.validate_etf_card import (allocation_targets, cross_card_errors, current_cards, export_drift, export_payload,
+                                       load_card, validate_card, validate_file)
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = """== ETF 框架 v0.1 数据快照 | AS_OF=20260918 ==
@@ -26,8 +26,6 @@ SNAPSHOT = """== ETF 框架 v0.1 数据快照 | AS_OF=20260918 ==
   费率: 管理 0.50% + 托管 0.05% + 销售服务 0.10% = 年费合计 0.65%
 ---- §6 趋势 ----
  某指数 931152.CSI 20260918 1,880.55 1,888.98
-  -- 6b 回撤分位阶梯 --
- 某指数 931152.CSI 20260918 1,880.55 2,202.33 0.8539 61.3 142 20141231 0.5376 0.6423 0.8994
 == 快照完成 ==
 """
 
@@ -36,9 +34,9 @@ def number(value, source=None):
     return {"value": value, "source": source if value is not None else None}
 
 
-def scenario(growth, terminal):
+def scenario(growth, terminal, years=1):
     inputs = dict(eps_growth_pct=growth, dividend_yield_pct=1.0, current_multiple=12.68, terminal_multiple=terminal,
-                  years=5, drag_pct=0.65)
+                  years=years, drag_pct=0.65)
     result = scenario_annual_return(**inputs)
     sources = dict(eps_growth_pct="ai_estimate", dividend_yield_pct="ai_estimate", current_multiple="snapshot§1",
                    terminal_multiple="snapshot§1", years="ai_estimate", drag_pct="snapshot§5")
@@ -47,36 +45,28 @@ def scenario(growth, terminal):
             "annual_return_pct": number(round(result["annual_return_pct"], 4), "calc:scenario_annual_return")}
 
 
-def anchor(state, ratio):
-    inputs = dict(rolling_high=2202.33, state=state)
-    return {"level": number(round(level_at_drawdown_state(**inputs), 2), "calc:level_at_drawdown_state"),
-            "target_ratio_pct": number(ratio, "framework:A13"),
-            "inputs": {key: number(value, "snapshot§6") for key, value in inputs.items()},
-            "rationale": f"回撤状态回到 {state} 对应的点位"}
-
-
-def no_anchor():
-    return {"level": number(None), "target_ratio_pct": number(None), "inputs": None, "rationale": None}
-
-
 def trigger(kind="manual", action="review"):
     auto = kind == "auto"
     return {"name": "指数跌破10月线" if auto else "集采续约降价幅度", "kind": kind,
             "metric": "index_vs_sma10m_pct" if auto else None, "operator": "<" if auto else None,
-            "threshold": number(0 if auto else None, "framework:A9"),
+            "threshold": number(0 if auto else None, "framework:A12"),
             "condition_text": "月末收盘低于10月均线" if auto else "续约平均降幅超过上一轮",
             "data_source": "ai_investment 日频计算" if auto else "国家医保局公告", "current_text": None,
             "frequency": "monthly" if auto else "event", "action": action, "action_note": ""}
 
 
+def contribution(target, stress):
+    return number(joint_stress_loss([(target, stress)])["loss"], "calc:joint_stress_loss")
+
+
 def card():
     return {
-        "card_schema_version": 1, "card_id": "cn-pharma-tactical", "as_of_date": "2026-09-19", "supersedes": None,
-        "framework": {"path": "framework/etf_framework.md", "version": "v0.1"},
+        "card_schema_version": 2, "card_id": "theme-innovative-drug", "as_of_date": "2026-09-19", "supersedes": None,
+        "framework": {"path": "framework/etf_framework.md", "version": "v1.0"},
         "snapshot_ref": "research/etf-2026-09-18-data-snapshot.txt",
-        "task": "tactical", "status": "active", "no_buy_reason": None, "close_reason": None,
+        "task": "theme", "status": "active", "no_buy_reason": None, "close_reason": None,
         "exposure": {"index_code": "931152.CSI", "index_name": "中证创新药产业", "asset_type": "sector", "currency": "CNY",
-                     "counts_toward_sector_cap": True, "china_equity": True, "view_mismatch_note": "CXO 占比高于创新药本身",
+                     "view_mismatch_note": "CXO 占比高于创新药本身",
                      "structure": {"weights_as_of": "2026-08-31", "constituent_count": number(50, "snapshot§3"),
                                    "max_constituent_weight_pct": number(13.45, "snapshot§3"),
                                    "top10_weight_pct": number(47.91, "snapshot§3"),
@@ -84,34 +74,50 @@ def card():
                                    "top_constituents": [{"code": "600001.SH", "name": "甲公司",
                                                          "weight_pct": number(13.45, "snapshot§3")}]}},
         "thesis": {"statement": "出海授权收入开始兑现而估值仍在中位以下", "evidence": ["证据一", "证据二", "证据三"],
-                   "counter_evidence": ["反证一", "反证二"], "horizon_months": 18},
+                   "counter_evidence": ["反证一", "反证二"], "horizon_months": 12,
+                   "key_variables": ["授权首付款到账", "医保谈判降价幅度"], "why_now": "三季报出现首笔授权收入确认"},
         "expectation": {"method": "return_decomposition",
                         "scenarios": {"bear": scenario(2, 9.5), "base": scenario(8, 12.68), "bull": scenario(12, 15.0)},
                         "valuation_state": {"index_code": "931152.CSI", "metric": "pe_ttm", "value": number(12.68, "snapshot§1"),
                                             "percentile_expanding": number(52.7, "snapshot§1"),
                                             "percentile_10y": number(62.8, "snapshot§1"),
                                             "sample_n": number(258, "snapshot§1"), "as_of": "2026-09-18"}},
-        "instruments": {"merge_note": "四只医药基金穿透后是同一笔押注，合并为一只",
+        "instruments": {"merge_note": "四只医药基金穿透后是同一笔押注，合并为一个席位",
                         "list": [{"code": "012781.OF", "name": "银华中证创新药产业ETF联接-A", "instrument_type": "otc_fund",
-                                  "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "buy",
+                                  "share_class": "A", "currency": "CNY", "platform_account": "支付宝", "role": "primary", "action": "hold",
                                   "reason": "同指数 A 类无销售服务费"},
                                  {"code": "012782.OF", "name": "银华中证创新药产业ETF联接-C", "instrument_type": "otc_fund",
                                   "share_class": "C", "currency": "CNY", "platform_account": "支付宝", "role": "held_other",
-                                  "action": "stop_dca", "reason": "长期持有 C 类更贵"}]},
+                                  "action": "switch_out", "reason": "长期持有 C 类更贵"}]},
         "trade_rules": {"min_holding_days": 7, "purchase_limit_note": None},
-        "decision": {"rule_refs": ["A8", "A9", "A10"],
-                     "anchors": {"basis": "index_level", "index_code": "931152.CSI", "snapshot_ref": None, "reduce_mode": "to_target_ratio",
-                                 "no_anchor_reason": None, "valid_until": "2026-12-31",
-                                 "add_below": anchor(0.5376, 100), "buy_below": anchor(0.6423, 50),
-                                 "reduce_above": anchor(0.8994, 30)}},
-        "sizing": {"bet_group": "cn-hk-pharma", "stress_drawdown_pct": number(-70, "framework:A8"),
-                   "loss_budget_cny": number(70000, "user:2026-09-23"),
-                   "standalone_cap_cny": number(100000, "calc:loss_budget_cap")},
+        "decision": {"rule_refs": ["A7", "A8"], "target_weight_pct": number(10, "user:2026-09-19"),
+                     "previous_target_weight_pct": number(None), "new_money_action": "continue", "stock_action": "reduce",
+                     "exception_note": None, "trigger_basis": "首期比较：授权兑现但估值不便宜，从现持仓降到 10%",
+                     "effective_from": "2026-09-19"},
+        "sizing": {"module": "theme", "bet_group": "innovative-drug", "stress_drawdown_pct": number(-50, "framework:A9"),
+                   "stress_loss_contribution_pct": contribution(10, -50),
+                   "overlap_note": "与港股通红利低波、恒指的医药成分重叠小；A/H 创新药相关 0.81，已在一个预算里"},
         "monitor_variables": [trigger("auto", "alert"), trigger(), trigger()],
-        "exit": {"invalidation": [trigger(action="close")], "latest_review_date": "2026-12-19"},
-        "scorecard": {"benchmark": {"code": "000510.SH", "name": "同一笔钱放在中证A500联接"}, "preregistered_at": "2026-09-19", "confidence_pct": 55,
+        "exit": {"invalidation": [trigger(action="close")], "latest_review_date": "2026-11-19"},
+        "scorecard": {"benchmark": {"name": "比较基准里被主题替代的部分",
+                                    "components": [{"code": "000510.SH", "weight_pct": number(70, "user:2026-09-30")},
+                                                   {"code": "HSI", "weight_pct": number(30, "user:2026-09-30")}]},
+                      "preregistered_at": "2026-09-19", "confidence_pct": 55,
                       "entry_ref_index_level": number(1880.55, "snapshot§6")},
     }
+
+
+def core_card(index="000510.SH", target=28, stress=-35, group="core-a500", module="broad_core"):
+    document = card()
+    document.update(card_id=group, task="core")
+    document["exposure"].update(index_code=index, currency="CNY" if index != "HSHYLV" else "HKD", asset_type="broad_equity")
+    document["thesis"].update(key_variables=[], why_now=None, horizon_months=60)
+    document["decision"].update(target_weight_pct=number(target, "user:2026-09-30"), stock_action="none")
+    document["sizing"] = {"module": module, "bet_group": group, "stress_drawdown_pct": number(stress, "user:2026-09-30"),
+                          "stress_loss_contribution_pct": contribution(target, stress), "overlap_note": ""}
+    document["exit"]["invalidation"] = []
+    document["scorecard"]["benchmark"] = {"name": "组合层面记分", "components": []}
+    return document
 
 
 def errors_of(mutate, **kwargs):
@@ -120,24 +126,43 @@ def errors_of(mutate, **kwargs):
     return validate_card(document, snapshot_text=SNAPSHOT, **kwargs)
 
 
+def no_buy(document):
+    document.update(status="no_buy", no_buy_reason="price", monitor_variables=[])
+    document["instruments"]["list"] = []
+    document["exit"]["invalidation"] = []
+    document["decision"].update(target_weight_pct=number(0, "user:2026-09-19"), new_money_action="pause", stock_action="none")
+    document["sizing"]["stress_loss_contribution_pct"] = contribution(0, -50)
+
+
 class ValidCardTests(unittest.TestCase):
     def test_fixture_is_valid(self):
-        self.assertEqual(validate_card(card(), snapshot_text=SNAPSHOT,
-                                       filename="cn-pharma-tactical-2026-09-19.md"), [])
+        self.assertEqual(validate_card(card(), snapshot_text=SNAPSHOT, filename="theme-innovative-drug-2026-09-19.md"), [])
 
     def test_schema_reference_example_is_valid_against_its_committed_snapshot(self):
         document = load_card((ROOT / "framework" / "etf_card_schema.md").read_text(encoding="utf-8"))
         snapshot = (ROOT / document["snapshot_ref"]).read_text(encoding="utf-8")
         self.assertEqual(validate_card(document, snapshot_text=snapshot), [])
 
-    def test_no_buy_card_needs_no_primary_zones_or_monitors(self):
-        def mutate(document):
-            document.update(status="no_buy", no_buy_reason="portfolio", monitor_variables=[])
-            document["instruments"]["list"] = []
-            document["exit"]["invalidation"] = []
-            document["decision"]["anchors"].update(add_below=no_anchor(), buy_below=no_anchor(), reduce_above=no_anchor(),
-                                                   no_anchor_reason="已超单笔上限，不设买入点位", valid_until=None)
-        self.assertEqual(errors_of(mutate), [])
+    def test_no_buy_theme_card_targets_zero_and_takes_no_new_money(self):
+        self.assertEqual(errors_of(no_buy), [])
+
+    def test_core_cards_carry_the_approved_weight(self):
+        self.assertEqual(validate_card(core_card(), snapshot_text=SNAPSHOT), [])
+        watch = core_card()
+        watch.update(status="watch")
+        watch["decision"]["new_money_action"] = "pause"
+        self.assertEqual(validate_card(watch, snapshot_text=SNAPSHOT), [])
+
+    def test_a_core_seat_without_a_price_source_runs_on_fund_values(self):
+        document = core_card("HSHYLV", 20, -25, "core-hk-dividend-lowvol", "dividend_core")
+        document["monitor_variables"] = [trigger(), trigger(), trigger()]
+        document["scorecard"]["entry_ref_index_level"] = number(None)
+        self.assertEqual(validate_card(document, snapshot_text=SNAPSHOT), [])
+        document["monitor_variables"][0] = trigger("auto", "alert")
+        document["scorecard"]["entry_ref_index_level"] = number(1880.55, "snapshot§6")
+        errors = validate_card(document, snapshot_text=SNAPSHOT)
+        self.assertTrue(any("no auto trigger can be computed" in error for error in errors), errors)
+        self.assertTrue(any("keep the reference level null" in error for error in errors), errors)
 
 
 class RejectionTests(unittest.TestCase):
@@ -145,15 +170,19 @@ class RejectionTests(unittest.TestCase):
         errors = errors_of(mutate, **kwargs)
         self.assertTrue(any(fragment in error for error in errors), f"{fragment!r} not in {errors}")
 
+    def assert_core_error(self, document, fragment):
+        errors = validate_card(document, snapshot_text=SNAPSHOT)
+        self.assertTrue(any(fragment in error for error in errors), f"{fragment!r} not in {errors}")
+
     def test_status_reason_combinations(self):
         self.assert_error(lambda d: d.update(status="no_buy"), "no_buy_reason: present exactly when")
         self.assert_error(lambda d: d.update(no_buy_reason="price"), "no_buy_reason: present exactly when")
         self.assert_error(lambda d: d.update(status="closed"), "close_reason: present exactly when")
         self.assert_error(lambda d: d.update(status="paused"), "status: expected one of")
+        self.assert_error(lambda d: d.update(task="tactical"), "task: expected one of")
 
-    def test_ai_estimate_is_rejected_on_levels_weights_amounts_and_valuations(self):
-        for path in (("decision", "anchors", "buy_below", "inputs", "rolling_high"),
-                     ("decision", "anchors", "reduce_above", "target_ratio_pct"), ("sizing", "loss_budget_cny"),
+    def test_ai_estimate_is_rejected_on_weights_amounts_valuations_and_levels(self):
+        for path in (("decision", "target_weight_pct"), ("sizing", "stress_drawdown_pct"),
                      ("exposure", "structure", "top10_weight_pct"), ("expectation", "valuation_state", "value"),
                      ("expectation", "scenarios", "bear", "inputs", "terminal_multiple"),
                      ("scorecard", "entry_ref_index_level")):
@@ -165,25 +194,32 @@ class RejectionTests(unittest.TestCase):
             self.assert_error(mutate, "ai_estimate is accepted only on scenario assumptions")
 
     def test_numbers_need_a_wrapper_and_a_known_source(self):
-        self.assert_error(lambda d: d["sizing"].update(loss_budget_cny=70000), "sizing.loss_budget_cny: expected sourced number")
-        self.assert_error(lambda d: d["thesis"].update(target_price=12.5), "thesis.target_price: bare number")
-        self.assert_error(lambda d: d["sizing"]["loss_budget_cny"].update(source="wind"), "sizing.loss_budget_cny.source")
-        self.assert_error(lambda d: d["sizing"]["standalone_cap_cny"].update(source="calc:kelly"), "etf_calc has no function kelly")
-        self.assert_error(lambda d: d["sizing"]["loss_budget_cny"].update(value=None), "source: must be null while value is null")
-        self.assert_error(lambda d: d["sizing"]["loss_budget_cny"].update(value=True), "expected finite number or null")
-        self.assert_error(lambda d: d["sizing"]["loss_budget_cny"].update(value=float("inf")), "expected finite number or null")
+        self.assert_error(lambda d: d["sizing"].update(stress_drawdown_pct=-50), "sizing.stress_drawdown_pct: expected sourced number")
+        self.assert_error(lambda d: d["thesis"].update(target_price=12.5), "thesis.target_price")
+        self.assert_error(lambda d: d["decision"]["target_weight_pct"].update(source="wind"), "decision.target_weight_pct.source")
+        self.assert_error(lambda d: d["sizing"]["stress_loss_contribution_pct"].update(source="calc:kelly"), "etf_calc has no function kelly")
+        self.assert_error(lambda d: d["decision"]["target_weight_pct"].update(value=None), "source: must be null while value is null")
+        self.assert_error(lambda d: d["decision"]["target_weight_pct"].update(value=None, source=None), "required here, null is not accepted")
+        self.assert_error(lambda d: d["decision"]["target_weight_pct"].update(value=True), "expected finite number or null")
+        self.assert_error(lambda d: d["decision"]["target_weight_pct"].update(value=float("inf")), "expected finite number or null")
 
     def test_calculator_outputs_are_recomputed(self):
-        self.assert_error(lambda d: d["sizing"]["standalone_cap_cny"].update(value=60000), "does not match calc:loss_budget_cap")
+        self.assert_error(lambda d: d["sizing"]["stress_loss_contribution_pct"].update(value=7.0), "does not match calc:joint_stress_loss")
         self.assert_error(lambda d: d["expectation"]["scenarios"]["bull"]["annual_return_pct"].update(value=25.0),
                           "does not match calc:scenario_annual_return")
-        self.assert_error(lambda d: d["sizing"]["stress_drawdown_pct"].update(value=70), "sizing.stress_drawdown_pct.value: outside")
+        self.assert_error(lambda d: d["sizing"]["stress_drawdown_pct"].update(value=50), "sizing.stress_drawdown_pct.value: outside")
 
     def test_base_scenario_assumes_zero_valuation_change(self):
-        def mutate(document):
-            document["expectation"]["scenarios"]["base"] = scenario(8, 15.0)
-        self.assert_error(mutate, "base scenario must assume zero valuation change")
+        self.assert_error(lambda d: d["expectation"]["scenarios"].update(base=scenario(8, 15.0)),
+                          "base scenario must assume zero valuation change")
         self.assert_error(lambda d: d["expectation"]["scenarios"].update(bear=scenario(20, 20.0)), "expected bear <= base <= bull")
+
+    def test_theme_scenarios_share_one_window(self):
+        self.assert_error(lambda d: d["expectation"]["scenarios"].update(bull=scenario(12, 15.0, years=5)),
+                          "theme scenarios share one window of 1 year")
+        self.assertEqual(validate_card(dict(core_card(), expectation=dict(card()["expectation"], scenarios={
+            "bear": scenario(2, 9.5, 5), "base": scenario(8, 12.68, 5), "bull": scenario(12, 15.0, 5)})),
+            snapshot_text=SNAPSHOT), [])
 
     def test_snapshot_citations_must_be_printed_in_the_cited_section(self):
         self.assert_error(lambda d: d["expectation"]["valuation_state"]["value"].update(value=11.9),
@@ -199,69 +235,106 @@ class RejectionTests(unittest.TestCase):
             self.assert_error(lambda d, v=near_an_integer_token: d["expectation"]["valuation_state"]["value"].update(value=v),
                               f"{near_an_integer_token} is not printed in snapshot§1")
 
-    def test_tactical_and_live_card_obligations(self):
+    def test_live_theme_card_obligations(self):
         self.assert_error(lambda d: d["exit"].update(invalidation=[]), "preregisters at least one invalidation")
         self.assert_error(lambda d: d["exit"].update(latest_review_date="2026-09-19"), "must be later than as_of_date")
         self.assert_error(lambda d: d["exit"].update(latest_review_date=None), "exit.latest_review_date: expected ISO date")
         self.assert_error(lambda d: d.update(monitor_variables=[trigger()] * 2), "3 to 5 monitor variables")
         self.assert_error(lambda d: d["thesis"].update(evidence=["只有一条"]), "thesis.evidence: expected exactly 3")
         self.assert_error(lambda d: d["thesis"].update(horizon_months=0), "thesis.horizon_months: expected integer >= 1")
+        self.assert_error(lambda d: d["thesis"].update(key_variables=["只有一个"]), "2 to 3 key variables")
+        self.assert_error(lambda d: d["thesis"].update(why_now=None), "thesis.why_now: expected nonempty string")
+        self.assert_error(lambda d: d["sizing"].update(overlap_note=""), "sizing.overlap_note: expected nonempty string")
         self.assert_error(lambda d: d["instruments"].update(list=d["instruments"]["list"][1:]), "exactly one primary")
         self.assert_error(lambda d: d["scorecard"].update(preregistered_at="2026-09-20"), "later than as_of_date")
+        self.assert_error(lambda d: d["decision"].update(effective_from="2026-09-18"), "effective_from: earlier than as_of_date")
 
-    def test_conditions_hang_on_the_index_and_otc_funds_have_no_premium(self):
-        self.assert_error(lambda d: d["decision"]["anchors"].update(basis="fund_nav"), "conditions hang on index_level")
-        self.assert_error(lambda d: d["decision"]["anchors"].update(index_code="000300.SH"), "must equal exposure.index_code")
-        self.assert_error(lambda d: d["trade_rules"].update(max_premium_pct=number(3, "framework:A7")), "trade_rules.max_premium_pct: unknown field")
-        self.assert_error(lambda d: d["decision"].update(dca_action="pause"), "decision.dca_action: unknown field")
+    def test_theme_targets_are_steps_and_fifteen_needs_a_written_case(self):
+        target = lambda d, value: d["decision"].update(target_weight_pct=number(value, "user:2026-09-19"))
+        self.assert_error(lambda d: target(d, 7), "a theme target is one of 0/5/10/15")
+        self.assert_error(lambda d: target(d, 20), "a theme target is one of 0/5/10/15")
+
+        def fifteen(document, note=None):
+            target(document, 15)
+            document["decision"]["exception_note"] = note
+            document["sizing"]["stress_loss_contribution_pct"] = contribution(15, -50)
+        self.assert_error(fifteen, "a written case on valuation, conviction and downside goes with a target above 10%")
+        self.assertEqual(errors_of(lambda d: fifteen(d, "估值 P20、订单可见度高，压力损失 7.5% 可承受")), [])
+        self.assert_error(lambda d: d["decision"].update(exception_note="不需要"), "goes with a target above 10%, and only then")
+
+    def test_status_target_and_action_combinations(self):
+        def zero(document):
+            document["decision"]["target_weight_pct"] = number(0, "user:2026-09-19")
+            document["sizing"]["stress_loss_contribution_pct"] = contribution(0, -50)
+        self.assert_error(zero, "an active theme card holds a target above 0")
+        self.assert_error(lambda d: d.update(status="watch"), "watch and no_buy hold 0")
+
+        def watch_with_money(document):
+            zero(document)
+            document.update(status="watch")
+            document["decision"]["stock_action"] = "none"
+        self.assert_error(watch_with_money, "only an active card takes new money")
+        self.assert_error(lambda d: (watch_with_money(d), d["decision"].update(new_money_action="pause", stock_action="build")),
+                          "build goes with an active card")
+        self.assert_error(lambda d: d["decision"].update(stock_action="exit"), "exit goes with a 0 target")
+        self.assert_error(lambda d: (no_buy(d), d["decision"].update(stock_action="reduce")), "reducing to a 0 target is exit")
+        self.assertEqual(errors_of(lambda d: (no_buy(d), d["decision"].update(stock_action="exit"))), [])
+
+        def closed(document, action):
+            no_buy(document)
+            document.update(status="closed", no_buy_reason=None, close_reason="thesis_invalidated")
+            document["decision"]["stock_action"] = action
+        self.assertEqual(errors_of(lambda d: closed(d, "none")), [])
+        self.assert_error(lambda d: closed(d, "exit"), "a closed card has nothing left to trade")
+        self.assert_error(lambda d: d["decision"].update(new_money_action="later"), "decision.new_money_action: expected one of")
+        self.assert_error(lambda d: d["decision"].update(stock_action="sell"), "decision.stock_action: expected one of")
+
+    def test_core_seats_are_fixed_by_the_parameter_table(self):
+        document = core_card(target=30)
+        self.assert_core_error(document, "core seat 000510.SH is fixed at 28%")
+        self.assert_core_error(core_card(group="core-hs300"), "sizing.bet_group: core seat 000510.SH is fixed at core-a500")
+        self.assert_core_error(core_card(stress=-40), "sizing.stress_drawdown_pct.value: core seat 000510.SH is fixed at -35")
+        self.assert_core_error(core_card(module="dividend_core"), "sizing.module: core seat 000510.SH is fixed at broad_core")
+        self.assert_core_error(core_card(module="theme"), "a core card belongs to broad_core or dividend_core")
+        self.assert_core_error(core_card(index="000932.SH"), "a core card covers one of the core seats")
+        no_buy_core = core_card()
+        no_buy_core.update(status="no_buy", no_buy_reason="price")
+        self.assert_core_error(no_buy_core, "a core seat's weight is a rule, not a research verdict")
+        noted = core_card()
+        noted["decision"]["exception_note"] = "例外"
+        self.assert_core_error(noted, "core weights are strategic, not exceptions")
+
+    def test_theme_cards_take_a_pool_seat_and_its_registered_index(self):
+        self.assert_error(lambda d: d["sizing"].update(bet_group="biotech"), "a theme card takes one seat of the theme pool")
+        self.assert_error(lambda d: d["exposure"].update(index_code="399973.SZ"),
+                          "not a registered main index of theme seat innovative-drug")
+        self.assert_error(lambda d: d["sizing"].update(bet_group="semiconductor"), "none yet: register one first")
+        self.assert_error(lambda d: d["sizing"].update(module="broad_core"), "a theme card belongs to the theme module")
+        self.assert_error(lambda d: d["sizing"]["stress_drawdown_pct"].update(value=-35), "theme stress is fixed at -50")
+
+    def test_themes_are_scored_against_what_they_replace(self):
+        components = lambda d: d["scorecard"]["benchmark"]["components"]
+        self.assert_error(lambda d: components(d).pop(), "weights add up to 100")
+        self.assert_error(lambda d: d["scorecard"]["benchmark"].update(components=[
+            {"code": "H11025.CSI", "weight_pct": number(100, "user:2026-09-30")}]), "a theme is scored against its replacement")
+        self.assert_error(lambda d: components(d)[0].update(code="HSHYLV"), "HSHYLV has no price source in the registry")
+        self.assert_error(lambda d: d["scorecard"].update(benchmark={"code": "000510.SH", "name": "旧格式"}),
+                          "scorecard.benchmark.code: unknown field")
+
+    def test_new_money_goes_to_the_primary_only(self):
+        first, second = (lambda d: d["instruments"]["list"][0]), (lambda d: d["instruments"]["list"][1])
+        self.assert_error(lambda d: first(d).update(action="switch_out"), "the primary instrument takes action hold")
+        for retired in ("buy", "stop_dca"):
+            self.assert_error(lambda d, a=retired: second(d).update(action=a), "instruments.list[1].action: expected one of")
+        self.assert_error(lambda d: second(d).update(role="rejected"), "a rejected instrument takes action none")
+
+    def test_no_price_anchors_and_otc_funds_have_no_premium(self):
+        self.assert_error(lambda d: d["decision"].update(anchors={}), "decision.anchors: unknown field")
+        self.assert_error(lambda d: d["sizing"].update(standalone_cap_cny=number(100000, "calc:loss_budget_cap")),
+                          "sizing.standalone_cap_cny: unknown field")
+        self.assert_error(lambda d: d["exposure"].update(china_equity=True), "exposure.china_equity: unknown field")
+        self.assert_error(lambda d: d["trade_rules"].update(max_premium_pct=number(3, "framework:A6")), "trade_rules.max_premium_pct: unknown field")
         self.assert_error(lambda d: d["monitor_variables"][0].update(metric="bet_group_weight_pct"), "monitor_variables[0].metric")
-
-    def test_anchors_are_a_strict_stateless_three_point_ladder(self):
-        anchors = lambda d: d["decision"]["anchors"]
-        self.assert_error(lambda d: anchors(d).update(buy_below=anchor(0.5376, 50)), "add_below.level < buy_below.level < reduce_above.level")
-        self.assert_error(lambda d: anchors(d).update(reduce_above=anchor(0.6423, 30)), "add_below.level < buy_below.level < reduce_above.level")
-        self.assert_error(lambda d: anchors(d).update(buy_below=anchor(0.6423, 20)), "add_below ratio >= buy_below ratio > reduce_above ratio")
-        self.assert_error(lambda d: anchors(d).update(reduce_mode="exit_all"), "exit_all goes with a reduce_above target_ratio_pct of 0")
-        self.assert_error(lambda d: anchors(d).update(reduce_above=anchor(0.8994, 0)), "exit_all goes with a reduce_above target_ratio_pct of 0")
-        self.assert_error(lambda d: anchors(d).update(add_below=no_anchor()), "all present or all null")
-        self.assert_error(lambda d: anchors(d).update(no_anchor_reason="无估值源"), "present exactly when the card carries no anchors")
-        self.assert_error(lambda d: anchors(d).update(valid_until=None), "decision.anchors.valid_until: expected ISO date")
-
-    def test_anchor_levels_come_from_a_named_calculator_and_are_recomputed(self):
-        buy = lambda d: d["decision"]["anchors"]["buy_below"]
-        self.assert_error(lambda d: buy(d)["level"].update(source="snapshot§6"), "names the calculator that derived it")
-        self.assert_error(lambda d: buy(d)["level"].update(value=1500.0), "does not match calc:level_at_drawdown_state of the inputs")
-        self.assert_error(lambda d: buy(d)["inputs"].update(pe=number(12.68, "snapshot§1")), "etf_calc.level_at_drawdown_state rejects these inputs")
-        self.assert_error(lambda d: buy(d)["inputs"]["state"].update(value=0.6), "0.6 is not printed in snapshot§6")
-        self.assert_error(lambda d: buy(d)["level"].update(source="calc:level_at_multiple"),   # its rule was rejected in validation
-                          "level_at_multiple is not a validated anchor derivation")
-        self.assertEqual(errors_of(lambda d: buy(d).update(inputs=None)), [])
-
-    def test_anchor_recompute_never_crashes_or_passes_unverified(self):
-        buy = lambda d: d["decision"]["anchors"]["buy_below"]
-        self.assert_error(lambda d: buy(d)["level"].update(source=5), "decision.anchors.buy_below.level.source")
-        self.assert_error(lambda d: buy(d)["inputs"]["state"].update(value=-0.64, source="user:2026-09-19"),
-                          "etf_calc.level_at_drawdown_state does not yield a level from these inputs (None)")
-        self.assert_error(lambda d: buy(d)["inputs"]["state"].update(value=64.23, source="user:2026-09-19"),   # a percent where a ratio belongs
-                          "etf_calc.level_at_drawdown_state rejects these inputs: state_is_close_over_rolling_high")
-        self.assert_error(lambda d: buy(d)["level"].update(source="calc:timedelta"), "etf_calc has no function timedelta")
-
-    def test_a_card_that_governs_money_carries_a_cap_monitors_and_a_price_source(self):
-        def no_buy_holding(document):   # held but not added to: still claimed, so still governed
-            document.update(status="no_buy", no_buy_reason="price", monitor_variables=[])
-            document["instruments"]["list"][0]["action"] = "hold"
-        self.assert_error(no_buy_holding, "a card that claims a holding carries at least one monitor variable")
-        self.assert_error(lambda d: d["sizing"].update(loss_budget_cny=number(None), standalone_cap_cny=number(None)),
-                          "sizing.standalone_cap_cny.value: required when the card claims a holding or carries anchors")
-
-        def buy_without_anchors(document):
-            document["decision"]["anchors"].update(add_below=no_anchor(), buy_below=no_anchor(), reduce_above=no_anchor(),
-                                                   no_anchor_reason="无估值源", valid_until=None)
-        self.assert_error(buy_without_anchors, "an instrument with action buy needs the three anchors")
-
-        def unsourced_index(document):
-            document["exposure"]["index_code"] = document["decision"]["anchors"]["index_code"] = "HSHYLV"
-        self.assert_error(unsourced_index, "this index has no price source: the card must be no_buy/data without anchors")
 
     def test_identifiers_are_unambiguous(self):
         first = lambda d: d["instruments"]["list"][0]
@@ -272,60 +345,13 @@ class RejectionTests(unittest.TestCase):
         self.assert_error(lambda d: first(d).update(currency="人民币"), "instruments.list[0].currency")
         self.assert_error(lambda d: first(d).pop("currency"), "instruments.list[0].currency: missing field")
         self.assert_error(lambda d: d["exposure"].update(index_code="HSTECH"), "exposure.index_code: expected an index key registered")
-        self.assert_error(lambda d: d["scorecard"]["benchmark"].update(code="货币基金"), "scorecard.benchmark.code")
-        self.assertEqual(errors_of(lambda d: d["scorecard"]["benchmark"].update(code=None)), [])
         self.assert_error(lambda d: d.update(as_of_date="2999-01-01"), "as_of_date: later than today")
         self.assert_error(lambda d: d["exposure"].update(currency="USD"), "the registry lists 931152.CSI in CNY")
-        for path in (("expectation", "valuation_state"), ("scorecard", "benchmark")):
-            def unpriced(document, path=path):
-                target = document
-                for key in path:
-                    target = target[key]
-                target["index_code" if path[0] == "expectation" else "code"] = "HSHYLV"
-            self.assert_error(unpriced, "HSHYLV has no price source in the registry")
-        self.assert_error(lambda d: d["decision"]["anchors"].update(valid_until="2026-09-18"),
-                          "valid_until: earlier than as_of_date")
+        self.assert_error(lambda d: d["expectation"]["valuation_state"].update(index_code="HSHYLV"),
+                          "HSHYLV has no price source in the registry")
         self.assert_error(lambda d: d["monitor_variables"][0].update(action="pause_dca"), "monitor_variables[0].action")
         self.assert_error(lambda d: d["exposure"]["structure"]["top_constituents"][0].update(code="022448.OF"),
                           "top_constituents[0].code")   # a fund is not a constituent
-
-    def test_core_seat_sizing_must_match_the_approved_table(self):
-        def core(document, cap=120000, drawdown=-72, budget=86400):
-            document["exposure"].update(index_code="000510.SH", currency="CNY")
-            document["decision"]["anchors"]["index_code"] = "000510.SH"
-            document["sizing"].update(stress_drawdown_pct=number(drawdown, "user:2026-09-19"),
-                                      loss_budget_cny=number(budget, "user:2026-09-19"),
-                                      standalone_cap_cny=number(cap, "calc:loss_budget_cap"))
-        self.assertEqual(errors_of(core), [])
-        self.assert_error(lambda d: core(d, cap=100000, budget=72000), "core seat 000510.SH is fixed at 120000")
-        self.assert_error(lambda d: core(d, drawdown=-60, budget=72000), "core seat 000510.SH is fixed at -72")
-
-    def test_anchor_inputs_are_checked_against_the_anchors_own_snapshot(self):
-        moved = card()
-        moved["decision"]["anchors"]["snapshot_ref"] = "research/etf-2026-10-16-data-snapshot.txt"
-        for name in ("add_below", "buy_below", "reduce_above"):
-            moved["decision"]["anchors"][name]["inputs"]["rolling_high"]["value"] = 2400.0
-        other = "---- §6 趋势 ----\n 某指数 931152.CSI 20261016 2,100.00 2,400.00 0.8750 60.0 143 20141231 0.5376 0.6423 0.8994\n"
-        errors = validate_card(moved, snapshot_text=SNAPSHOT, anchor_snapshot_text=other)
-        self.assertEqual([e for e in errors if "rolling_high" in e], [])
-        self.assertTrue(all("does not match calc:level_at_drawdown_state" in e for e in errors))   # levels were not recomputed here
-        without = validate_card(moved, snapshot_text=SNAPSHOT)
-        self.assertTrue(any("2400.0 is not printed in snapshot§6" in e for e in without))
-        self.assert_error(lambda d: d["decision"]["anchors"].update(snapshot_ref="research/foo.txt"), "decision.anchors.snapshot_ref")
-
-    def test_a_committed_export_must_match_the_cards(self):
-        document = card()
-        with tempfile.TemporaryDirectory() as folder, unittest.mock.patch("scripts.validate_etf_card.EXPORT",
-                                                                          Path(folder) / "current.json") as export:
-            self.assertEqual(export_drift([document]), [])   # nothing committed yet
-            export.write_text(json.dumps(export_payload([document], "2026-09-19T00:00:00+08:00"), ensure_ascii=False),
-                              encoding="utf-8")
-            self.assertEqual(export_drift([document]), [])   # generated_at is not compared
-            changed = card()
-            changed["status"], changed["close_reason"] = "closed", "expired"
-            self.assertEqual(export_drift([changed]), [f"{export}: out of date (cards); rerun with --export and commit the result"])
-            export.write_text("{", encoding="utf-8")
-            self.assertTrue(export_drift([document])[0].startswith(f"{export}: "))
 
     def test_triggers(self):
         def auto_without_threshold(document):
@@ -338,8 +364,8 @@ class RejectionTests(unittest.TestCase):
     def test_unknown_missing_and_misnamed(self):
         self.assert_error(lambda d: d.update(price_target=1), "card.price_target: unknown field")
         self.assert_error(lambda d: d.pop("sizing"), "card.sizing: missing field")
-        self.assert_error(lambda d: d.update(card_schema_version=2), "card_schema_version: expected 1")
-        self.assert_error(lambda d: d.update(card_schema_version=1.0), "card_schema_version: expected 1")
+        self.assert_error(lambda d: d.update(card_schema_version=1), "card_schema_version: expected 2")
+        self.assert_error(lambda d: d.update(card_schema_version=2.0), "card_schema_version: expected 2")
         self.assert_error(lambda d: d.update(as_of_date="2026-02-30"), "as_of_date: invalid calendar date")
         self.assert_error(lambda d: None, "file must be named", filename="pharma.md")
         self.assertTrue(validate_card([]))
@@ -350,7 +376,7 @@ class LoadTests(unittest.TestCase):
         return "# 卡\n\n" + "\n\n".join(f"```json\n{block}\n```" for block in blocks) + "\n"
 
     def test_exactly_one_json_block(self):
-        self.assertEqual(load_card(self.wrap(json.dumps(card())))["card_id"], "cn-pharma-tactical")
+        self.assertEqual(load_card(self.wrap(json.dumps(card())))["card_id"], "theme-innovative-drug")
         for text in (self.wrap(), self.wrap("{}", "{}")):
             with self.assertRaises(ValueError):
                 load_card(text)
@@ -361,43 +387,72 @@ class LoadTests(unittest.TestCase):
                 load_card(self.wrap(block))
 
     def test_cross_card_invariants_look_at_current_versions_only(self):
-        def version(card_id, as_of, **sizing):
+        def version(card_id, as_of, group="innovative-drug", code="012781.OF", target=10):
             document = card()
             document.update(card_id=card_id, as_of_date=as_of)
-            document["sizing"].update(sizing)
+            document["sizing"]["bet_group"] = group
+            document["instruments"]["list"] = document["instruments"]["list"][:1]
+            document["instruments"]["list"][0]["code"] = code
+            document["decision"]["target_weight_pct"] = number(target, "user:2026-09-19")
             return document
-        old, new = version("cn-pharma-tactical", "2026-08-19"), version("cn-pharma-tactical", "2026-09-19")
+        old, new = version("theme-innovative-drug", "2026-08-19"), version("theme-innovative-drug", "2026-09-19")
         self.assertEqual(current_cards([new, old]), [new])
-        self.assertEqual(cross_card_errors([old, new]), [])   # two versions of one card share group and holdings
-        other = version("hk-pharma-tactical", "2026-09-19")
+        self.assertEqual(cross_card_errors([old, new]), [])   # two versions of one card share seat and holdings
+        other = version("theme-hk-drug", "2026-09-19")
         self.assertEqual(cross_card_errors([old, new, other]), [
-            "sizing.bet_group: cn-hk-pharma is shared by cards cn-pharma-tactical, hk-pharma-tactical; merge them into one card",
-            "instruments: 012781.OF is claimed by cards cn-pharma-tactical, hk-pharma-tactical; every other card lists it as rejected",
-            "instruments: 012782.OF is claimed by cards cn-pharma-tactical, hk-pharma-tactical; every other card lists it as rejected"])
-        other.update(status="closed", close_reason="budget")   # a closed card releases its bet and its instruments
+            "sizing.bet_group: innovative-drug is shared by cards theme-hk-drug, theme-innovative-drug; merge them into one card",
+            "instruments: 012781.OF is claimed by cards theme-hk-drug, theme-innovative-drug; every other card lists it as rejected"])
+        other.update(status="closed", close_reason="budget")   # a closed card releases its seat and its instruments
         self.assertEqual(cross_card_errors([new, other]), [])
+        themes = [new] + [version(f"theme-{group}", "2026-09-19", group, f"00000{index}.OF")
+                          for index, group in enumerate(("defense", "chemicals", "consumer-staples"))]
+        self.assertEqual(cross_card_errors(themes),
+                         ["decision.target_weight_pct: theme targets add up to 40%, above the 30% theme module"])
 
-    def test_export_carries_current_cards_and_derived_portfolio_params(self):
+    def test_export_carries_targets_theme_cash_and_both_stress_scenarios(self):
         old, new = card(), card()
         old["as_of_date"] = "2026-08-19"
-        payload = export_payload([old, new], "2026-09-19T20:00:00+08:00")
-        self.assertEqual((payload["card_schema_version"], payload["cards"]), (1, [new]))
+        paused = core_card()
+        paused.update(status="watch")
+        paused["decision"]["new_money_action"] = "pause"
+        payload = export_payload([old, new, paused], "2026-09-19T20:00:00+08:00")
+        self.assertEqual((payload["card_schema_version"], payload["cards"]), (2, [paused, new]))
+        self.assertEqual(payload["allocation"], {
+            "targets_pct": {"core-a500": 28, "core-star50": 7, "core-hsi": 15, "core-hk-dividend-lowvol": 20, "innovative-drug": 10},
+            "theme_stock_pct": 10, "theme_cash_pct": 20, "paused": ["core-a500"]})
         params = payload["portfolio_params"]
-        self.assertEqual((params["sector_etf_cap_cny"], params["single_bet_cap_cny"], params["china_equity_cap_pct"]),
-                         (500000, 100000, 90))
+        self.assertAlmostEqual(params["stress_loss_pct"]["plan"], 38.55)
+        self.assertAlmostEqual(params["stress_loss_pct"]["historical"], 65.96)
         self.assertNotIn("_doc", params)
+        self.assertNotIn("single_bet_cap_cny", params)
         self.assertIn({"key": "HKTECH", "name": "恒生科技", "source": "index_global", "code": "HKTECH", "currency": "HKD"},
                       payload["index_registry"])
-        # an index without a price source is exported with source null, never left out: the execution side reads
-        # "registered but unsourced" as a quiet downgrade and "not registered" as a fault
         self.assertIn({"key": "HSHYLV", "name": "恒生港股通红利低波动", "source": None, "code": None, "currency": "HKD"},
                       payload["index_registry"])
+
+    def test_without_theme_cards_the_whole_theme_module_is_cash(self):
+        self.assertEqual(allocation_targets([])["theme_cash_pct"], 30)
+
+    def test_a_committed_export_must_match_the_cards(self):
+        document = card()
+        with tempfile.TemporaryDirectory() as folder, unittest.mock.patch("scripts.validate_etf_card.EXPORT",
+                                                                          Path(folder) / "current.json") as export:
+            self.assertEqual(export_drift([document]), [])   # nothing committed yet
+            export.write_text(json.dumps(export_payload([document], "2026-09-19T00:00:00+08:00"), ensure_ascii=False),
+                              encoding="utf-8")
+            self.assertEqual(export_drift([document]), [])   # generated_at is not compared
+            changed = card()
+            changed["decision"]["target_weight_pct"] = number(5, "user:2026-09-19")
+            self.assertEqual(export_drift([changed]),
+                             [f"{export}: out of date (allocation, cards); rerun with --export and commit the result"])
+            export.write_text("{", encoding="utf-8")
+            self.assertTrue(export_drift([document])[0].startswith(f"{export}: "))
 
     def test_missing_snapshot_file_is_an_error(self):
         document = copy.deepcopy(card())
         document["snapshot_ref"] = "research/etf-1999-01-01-data-snapshot.txt"
         with tempfile.TemporaryDirectory() as folder:
-            path = Path(folder) / "cn-pharma-tactical-2026-09-19.md"
+            path = Path(folder) / "theme-innovative-drug-2026-09-19.md"
             path.write_text(self.wrap(json.dumps(document, ensure_ascii=False)), encoding="utf-8")
             errors = validate_file(path)
             self.assertEqual([error for error in errors if "snapshot" in error],

@@ -1,4 +1,4 @@
-"""Offline checks for ETF decision card schema 1 (reference: framework/etf_card_schema.md).
+"""Offline checks for ETF decision card schema 2 (reference: framework/etf_card_schema.md).
 
 CLI: python scripts/validate_etf_card.py [CARD.md ...]   (default: every card under research/etf-cards/)
      python scripts/validate_etf_card.py --export        (all cards valid -> write research/etf-cards/current.json,
@@ -9,9 +9,11 @@ keys, non-finite numbers and unknown keys are rejected. Every number sits in a
 sourced-number object {"value", "source"} except a few structural integers;
 ``ai_estimate`` is accepted only on scenario assumptions. Where the inputs are
 on the card, calculator outputs are recomputed with etf_calc; numbers citing
-``snapshot§N`` must appear in that section of the referenced snapshot. No
-network, no market data refresh: a valid card is internally consistent and
-traceable, which does not make its thesis right.
+``snapshot§N`` must appear in that section of the referenced snapshot. Target
+weights are checked against framework/etf_portfolio_params.json: a core card
+carries the approved strategic weight, a theme card one of the approved steps
+inside its pool seat. No network, no market data refresh: a valid card is
+internally consistent and traceable, which does not make its thesis right.
 """
 
 import argparse
@@ -28,13 +30,13 @@ try:
 except ImportError:  # direct script invocation
     import etf_calc
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CARDS_DIR = REPO_ROOT / "research" / "etf-cards"
 EXPORT = CARDS_DIR / "current.json"
 PARAMS = REPO_ROOT / "framework" / "etf_portfolio_params.json"
 
-TASKS = {"core", "tactical", "defensive"}
+TASKS = {"core", "theme"}
 STATUSES = {"active", "watch", "no_buy", "closed"}
 NO_BUY_REASONS = {"thesis", "price", "tool", "portfolio", "data"}
 CLOSE_REASONS = {"thesis_realized", "thesis_invalidated", "budget", "tool", "expired"}
@@ -45,12 +47,12 @@ MULTIPLE_METHODS = {"return_decomposition", "reverse_valuation", "mid_cycle"}
 VALUATION_METRICS = {"erp_spread", "pe_ttm", "pb"}
 INSTRUMENT_TYPES = {"otc_fund", "exchange_etf"}
 ROLES = {"primary", "backup", "held_other", "rejected"}
-INSTRUMENT_ACTIONS = {"buy", "hold", "stop_dca", "switch_out", "none"}
-REDUCE_MODES = {"to_target_ratio", "exit_all"}
+INSTRUMENT_ACTIONS = {"hold", "switch_out", "none"}
+NEW_MONEY_ACTIONS = {"continue", "pause"}
+STOCK_ACTIONS = {"none", "build", "reduce", "exit"}
 TRIGGER_KINDS = {"auto", "manual"}
 AUTO_METRICS = {"index_level", "index_vs_sma200_pct", "index_vs_sma10m_pct"}   # 条件只挂指数点位，执行侧每日可算
 CLAIMING_ROLES = {"primary", "backup", "held_other"}
-ANCHOR_DERIVATIONS = {"level_at_drawdown_state"}   # only derivations whose rule passed the pre-registered validation (framework A13)
 OPERATORS = {"<", "<=", ">", ">="}
 FREQUENCIES = {"daily", "weekly", "monthly", "quarterly", "event"}
 MONITOR_ACTIONS = {"alert", "review", "reduce", "close", "swap_tool"}
@@ -68,7 +70,12 @@ SOURCE = re.compile(r"snapshot§[0-8]|calc:([a-z_]+)|framework:A\d{1,2}|user:\d{
 NUMBER_TOKEN = re.compile(r"[-+]?\d[\d,]*(?:\.\d+)?")
 REGISTRY = {entry["key"]: entry for entry in json.loads(
     (REPO_ROOT / "framework" / "etf_index_registry.json").read_text(encoding="utf-8"))["indexes"]}
-CORE_SEATS = json.loads(PARAMS.read_text(encoding="utf-8")).get("core_seats", {})
+_PARAMS = json.loads(PARAMS.read_text(encoding="utf-8"))
+CORE_SEATS = _PARAMS["core_seats"]                  # index_code -> approved strategic weight, module, bet_group, stresses
+THEME_POOL = _PARAMS["theme_pool"]                  # seat slug -> index candidates
+THEME_RULES = _PARAMS["theme_rules"]
+MODULES = _PARAMS["modules"]
+THEME_BENCHMARK = _PARAMS["benchmark"]["theme_replacement_pct"]
 CALCULATORS = {name for name, member in vars(etf_calc).items() if not name.startswith("_")
                and inspect.isfunction(member) and member.__module__ == etf_calc.__name__}
 
@@ -113,10 +120,6 @@ class _Card:
             self.error(path, "expected one of " + ", ".join(sorted(allowed)) + (" or null" if nullable else ""))
             return None
         return value
-
-    def boolean(self, value, path):
-        if not isinstance(value, bool):
-            self.error(path, "expected true or false")
 
     def day(self, value, path, *, nullable=False):
         if value is None and nullable:
@@ -170,7 +173,7 @@ class _Card:
             return None
         return value
 
-    def number(self, value, path, *, assumption=False, required=False, minimum=None, maximum=None, scope="card"):
+    def number(self, value, path, *, assumption=False, required=False, minimum=None, maximum=None):
         """Sourced number {"value", "source"[, "note"]}; returns the value or None when unknown."""
         if not isinstance(value, dict) or "value" not in value or "source" not in value:
             self.error(path, 'expected sourced number {"value", "source"}')
@@ -199,7 +202,7 @@ class _Card:
         elif match.group(1) is not None and match.group(1) not in CALCULATORS:
             self.error(f"{path}.source", f"etf_calc has no function {match.group(1)}")
         else:
-            self.sourced.append((path, amount, source, scope))
+            self.sourced.append((path, amount, source))
         if minimum is not None and amount < minimum or maximum is not None and amount > maximum:
             self.error(f"{path}.value", f"outside [{minimum}, {maximum}]")
         return amount
@@ -207,8 +210,8 @@ class _Card:
 
 def _exposure(card, exposure):
     path = "exposure"
-    exposure = card.obj(exposure, path, ("index_code", "index_name", "asset_type", "currency", "counts_toward_sector_cap",
-                                         "china_equity", "view_mismatch_note", "structure"))
+    exposure = card.obj(exposure, path, ("index_code", "index_name", "asset_type", "currency", "view_mismatch_note",
+                                         "structure"))
     if exposure is None:
         return None
     index_code = card.index(exposure["index_code"], f"{path}.index_code", priced=False)
@@ -218,8 +221,6 @@ def _exposure(card, exposure):
         card.error(f"{path}.currency", "expected ISO 4217 code such as CNY")
     elif index_code is not None and REGISTRY[index_code]["currency"] not in (None, exposure["currency"]):
         card.error(f"{path}.currency", f"the registry lists {index_code} in {REGISTRY[index_code]['currency']}")
-    card.boolean(exposure["counts_toward_sector_cap"], f"{path}.counts_toward_sector_cap")
-    card.boolean(exposure["china_equity"], f"{path}.china_equity")
     card.text(exposure["view_mismatch_note"], f"{path}.view_mismatch_note", allow_empty=True)
     path = "exposure.structure"
     structure = card.obj(exposure["structure"], path, ("weights_as_of", "constituent_count", "max_constituent_weight_pct",
@@ -243,7 +244,7 @@ def _exposure(card, exposure):
     return exposure if index_code is not None else None
 
 
-def _expectation(card, expectation):
+def _expectation(card, expectation, task):
     path = "expectation"
     expectation = card.obj(expectation, path, ("method", "scenarios", "valuation_state"))
     if expectation is None:
@@ -268,6 +269,9 @@ def _expectation(card, expectation):
             continue
         values = {key: card.number(inputs[key], f"{scenario_path}.inputs.{key}", assumption=key in ASSUMPTION_INPUTS)
                   for key in SCENARIO_INPUTS}
+        if task == "theme" and values["years"] is not None and values["years"] != THEME_RULES["scenario_years"]:
+            card.error(f"{scenario_path}.inputs.years.value", f"theme scenarios share one window of "
+                                                             f"{THEME_RULES['scenario_years']} year(s) so themes compare")
         if None in values.values():
             continue
         expected = etf_calc.scenario_annual_return(**values)
@@ -297,13 +301,13 @@ def _instruments(card, instruments, status):
     path = "instruments"
     instruments = card.obj(instruments, path, ("list", "merge_note"))
     if instruments is None:
-        return False, False
+        return False
     card.text(instruments["merge_note"], f"{path}.merge_note", allow_empty=True)
     rows = instruments["list"]
     if not isinstance(rows, list):
         card.error(f"{path}.list", "expected array")
-        return False, False
-    primary, codes, claims, buys = None, set(), False, False
+        return False
+    primary, codes, claims = None, set(), False
     for index, row in enumerate(rows):
         row_path = f"{path}.list[{index}]"
         row = card.obj(row, row_path, ("code", "name", "instrument_type", "share_class", "currency",
@@ -324,18 +328,17 @@ def _instruments(card, instruments, status):
         action = card.enum(row["action"], f"{row_path}.action", INSTRUMENT_ACTIONS)
         card.text(row["reason"], f"{row_path}.reason")
         claims = claims or role in CLAIMING_ROLES
-        buys = buys or action == "buy"
         if role == "primary":
             if primary is not None:
                 card.error(f"{row_path}.role", "only one primary instrument")
             primary = row
+            if action != "hold":
+                card.error(f"{row_path}.action", "the primary instrument takes action hold: new money goes to it")
         if role == "rejected" and action != "none":
             card.error(f"{row_path}.action", "a rejected instrument takes action none")
-        if action == "buy" and status != "active":
-            card.error(f"{row_path}.action", "buy requires card status active")
     if primary is None and status in ("active", "watch"):
         card.error(f"{path}.list", "an active or watch card names exactly one primary instrument")
-    return claims, buys
+    return claims
 
 
 def _trigger(card, trigger, path, actions):
@@ -369,97 +372,96 @@ def _triggers(card, rows, path, actions):
     return len(rows)
 
 
-def _anchor(card, anchor, path):
-    """One price anchor: index level from a named calculator, plus the position it calls for."""
-    anchor = card.obj(anchor, path, ("level", "target_ratio_pct", "inputs", "rationale"))
-    if anchor is None:
-        return None, None
-    level = card.number(anchor["level"], f"{path}.level", minimum=1e-9)
-    ratio = card.number(anchor["target_ratio_pct"], f"{path}.target_ratio_pct", minimum=0, maximum=100)
-    card.text(anchor["rationale"], f"{path}.rationale", nullable=level is None)
-    if (level is None) != (ratio is None):
-        card.error(path, "level and target_ratio_pct are both present or both null")
-    source = anchor["level"]["source"] if level is not None else None
-    function = SOURCE.fullmatch(source).group(1) if isinstance(source, str) and SOURCE.fullmatch(source) else None
-    if level is not None and function is None:
-        card.error(f"{path}.level.source", "an anchor level names the calculator that derived it (calc:<function>)")
-    elif level is not None and function not in ANCHOR_DERIVATIONS:
-        card.error(f"{path}.level.source", f"{function} is not a validated anchor derivation (framework A13 allows: "
-                                           f"{', '.join(sorted(ANCHOR_DERIVATIONS))})")
-    if anchor["inputs"] is None:
-        return level, ratio
-    if not isinstance(anchor["inputs"], dict):
-        card.error(f"{path}.inputs", "expected object of sourced numbers or null")
-        return level, ratio
-    values = {key: card.number(value, f"{path}.inputs.{key}", scope="anchor") for key, value in anchor["inputs"].items()}
-    if function in CALCULATORS and None not in values.values():
-        try:
-            expected = getattr(etf_calc, function)(**values)
-        except (TypeError, ValueError) as exc:
-            card.error(f"{path}.inputs", f"etf_calc.{function} rejects these inputs: {exc}")
-        else:
-            if not isinstance(expected, float):
-                card.error(f"{path}.inputs", f"etf_calc.{function} does not yield a level from these inputs ({expected!r})")
-            elif abs(level - expected) > max(0.01, 1e-4 * expected):
-                card.error(f"{path}.level.value", f"does not match {source} of the inputs ({expected})")
-    return level, ratio
-
-
-def _decision(card, decision, exposure, as_of):
+def _decision(card, decision, task, status, as_of):
+    """Target weight plus the two actions of the review's action table: new money and the existing holding."""
     path = "decision"
-    decision = card.obj(decision, path, ("rule_refs", "anchors"))
+    decision = card.obj(decision, path, ("rule_refs", "target_weight_pct", "previous_target_weight_pct", "new_money_action",
+                                         "stock_action", "exception_note", "trigger_basis", "effective_from"))
     if decision is None:
         return None
     card.texts(decision["rule_refs"], f"{path}.rule_refs")
-    path = "decision.anchors"
-    anchors = card.obj(decision["anchors"], path, ("basis", "index_code", "snapshot_ref", "add_below", "buy_below",
-                                                   "reduce_above", "reduce_mode", "no_anchor_reason", "valid_until"))
-    if anchors is None:
+    target = card.number(decision["target_weight_pct"], f"{path}.target_weight_pct", required=True, minimum=0, maximum=100)
+    card.number(decision["previous_target_weight_pct"], f"{path}.previous_target_weight_pct", minimum=0, maximum=100)
+    money = card.enum(decision["new_money_action"], f"{path}.new_money_action", NEW_MONEY_ACTIONS)
+    stock = card.enum(decision["stock_action"], f"{path}.stock_action", STOCK_ACTIONS)
+    note = card.text(decision["exception_note"], f"{path}.exception_note", nullable=True)
+    card.text(decision["trigger_basis"], f"{path}.trigger_basis")
+    effective = card.day(decision["effective_from"], f"{path}.effective_from")
+    if effective is not None and as_of is not None and effective < as_of:
+        card.error(f"{path}.effective_from", "earlier than as_of_date")
+    if target is None:
         return None
-    if anchors["basis"] != "index_level":
-        card.error(f"{path}.basis", "conditions hang on index_level, never on fund NAV or ETF price")
-    if exposure is not None and anchors["index_code"] != exposure["index_code"]:
-        card.error(f"{path}.index_code", "must equal exposure.index_code")
-    (add, add_ratio), (buy, buy_ratio), (reduce, reduce_ratio) = (
-        _anchor(card, anchors[key], f"{path}.{key}") for key in ("add_below", "buy_below", "reduce_above"))
-    mode = card.enum(anchors["reduce_mode"], f"{path}.reduce_mode", REDUCE_MODES)
-    reason = card.text(anchors["no_anchor_reason"], f"{path}.no_anchor_reason", nullable=True)
-    present = [level is not None for level in (add, buy, reduce)]
-    valid_until = card.day(anchors["valid_until"], f"{path}.valid_until", nullable=not any(present))
-    if anchors["snapshot_ref"] is not None and (not isinstance(anchors["snapshot_ref"], str)
-                                                or not SNAPSHOT_REF.fullmatch(anchors["snapshot_ref"])):
-        card.error(f"{path}.snapshot_ref", "expected research/etf-YYYY-MM-DD-data-snapshot.txt or null (null = the card's snapshot)")
-    if valid_until is not None and as_of is not None and valid_until < as_of:
-        card.error(f"{path}.valid_until", "earlier than as_of_date: the buy-side anchors would be dead on arrival")
-    if any(present) != all(present):
-        card.error(path, "the three anchors are all present or all null: a partial ladder cannot be read statelessly")
-    if any(present) == (reason is not None):
-        card.error(f"{path}.no_anchor_reason", "present exactly when the card carries no anchors")
-    if all(present) and not card.errors_at(path):
-        if not add < buy < reduce:
-            card.error(path, "expected add_below.level < buy_below.level < reduce_above.level, strictly")
-        if not add_ratio >= buy_ratio > reduce_ratio:
-            card.error(path, "expected add_below ratio >= buy_below ratio > reduce_above ratio")
-        if (mode == "exit_all") != (reduce_ratio == 0):
-            card.error(f"{path}.reduce_mode", "exit_all goes with a reduce_above target_ratio_pct of 0, and only then")
-    return all(present)
+    if task == "theme":
+        if target not in THEME_RULES["weight_steps_pct"]:
+            card.error(f"{path}.target_weight_pct.value", "a theme target is one of "
+                       + "/".join(str(step) for step in THEME_RULES["weight_steps_pct"]) + " (framework A8)")
+        if (target > THEME_RULES["exception_above_pct"]) != (note is not None):
+            card.error(f"{path}.exception_note", f"a written case on valuation, conviction and downside goes with a target "
+                                                 f"above {THEME_RULES['exception_above_pct']}%, and only then")
+        if status in ("active", "watch", "no_buy") and (status == "active") != (target > 0):
+            card.error(f"{path}.target_weight_pct.value", "an active theme card holds a target above 0; watch and no_buy hold 0")
+    elif note is not None:
+        card.error(f"{path}.exception_note", "core weights are strategic, not exceptions: keep null")
+    if status == "closed" and target != 0:
+        card.error(f"{path}.target_weight_pct.value", "a closed card targets 0")
+    if money == "continue" and status != "active":
+        card.error(f"{path}.new_money_action", "only an active card takes new money")
+    if stock in ("build", "reduce") and status != "active":
+        card.error(f"{path}.stock_action", f"{stock} goes with an active card")
+    if stock == "reduce" and target == 0:
+        card.error(f"{path}.stock_action", "reducing to a 0 target is exit")
+    if stock == "exit" and target != 0:
+        card.error(f"{path}.stock_action", "exit goes with a 0 target")
+    if status == "closed" and stock != "none":
+        card.error(f"{path}.stock_action", "a closed card has nothing left to trade")
+    return target
 
 
-def _sizing(card, sizing):
+def _sizing(card, sizing, task, status, exposure, target):
     path = "sizing"
-    sizing = card.obj(sizing, path, ("bet_group", "stress_drawdown_pct", "loss_budget_cny", "standalone_cap_cny"))
+    sizing = card.obj(sizing, path, ("module", "bet_group", "stress_drawdown_pct", "stress_loss_contribution_pct", "overlap_note"))
     if sizing is None:
-        return None
-    if not isinstance(sizing["bet_group"], str) or not SLUG.fullmatch(sizing["bet_group"]):
-        card.error(f"{path}.bet_group", "expected lowercase slug shared by every card of the same bet")
-    drawdown = card.number(sizing["stress_drawdown_pct"], f"{path}.stress_drawdown_pct", minimum=-100, maximum=-1e-9)
-    budget = card.number(sizing["loss_budget_cny"], f"{path}.loss_budget_cny", minimum=0)
-    cap = card.number(sizing["standalone_cap_cny"], f"{path}.standalone_cap_cny", minimum=0)
-    if cap is not None and not card.errors_at(path):
-        expected = etf_calc.loss_budget_cap(budget, drawdown)
-        if expected is None or abs(cap - expected) > 1:
-            card.error(f"{path}.standalone_cap_cny.value", f"does not match calc:loss_budget_cap ({expected})")
-    return cap
+        return
+    module = card.enum(sizing["module"], f"{path}.module", set(MODULES))
+    group = sizing["bet_group"]
+    if not isinstance(group, str) or not SLUG.fullmatch(group):
+        card.error(f"{path}.bet_group", "expected lowercase slug: a core seat or a theme pool seat")
+        group = None
+    stress = card.number(sizing["stress_drawdown_pct"], f"{path}.stress_drawdown_pct", required=True, minimum=-100, maximum=-1e-9)
+    contribution = card.number(sizing["stress_loss_contribution_pct"], f"{path}.stress_loss_contribution_pct", minimum=0, maximum=100)
+    card.text(sizing["overlap_note"], f"{path}.overlap_note", allow_empty=task == "core")
+    index_code = exposure["index_code"] if exposure is not None else None
+    if task == "core" and status != "closed" and index_code is not None:
+        seat = CORE_SEATS.get(index_code)
+        if seat is None:
+            card.error("exposure.index_code", "a core card covers one of the core seats in framework/etf_portfolio_params.json: "
+                                              + ", ".join(sorted(CORE_SEATS)))
+        else:
+            for field, value, expected in (("module", module, seat["module"]), ("bet_group", group, seat["bet_group"]),
+                                           ("stress_drawdown_pct.value", stress, seat["stress_plan_pct"])):
+                if value is not None and value != expected:
+                    card.error(f"{path}.{field}", f"core seat {index_code} is fixed at {expected} in framework/etf_portfolio_params.json")
+            if target is not None and target != seat["target_weight_pct"]:
+                card.error("decision.target_weight_pct.value", f"core seat {index_code} is fixed at {seat['target_weight_pct']}% "
+                                                               "in framework/etf_portfolio_params.json")
+    if task == "theme":
+        if module is not None and module != "theme":
+            card.error(f"{path}.module", "a theme card belongs to the theme module")
+        if stress is not None and stress != THEME_RULES["stress_plan_pct"]:
+            card.error(f"{path}.stress_drawdown_pct.value", f"theme stress is fixed at {THEME_RULES['stress_plan_pct']} "
+                                                            "in framework/etf_portfolio_params.json")
+        if group is not None and group not in THEME_POOL:
+            card.error(f"{path}.bet_group", "a theme card takes one seat of the theme pool: " + ", ".join(sorted(THEME_POOL)))
+        elif group is not None and index_code is not None and index_code not in THEME_POOL[group]["index_candidates"]:
+            card.error("exposure.index_code", f"not a registered main index of theme seat {group} "
+                       f"({', '.join(THEME_POOL[group]['index_candidates']) or 'none yet: register one first'})")
+    if task == "core" and module == "theme":
+        card.error(f"{path}.module", "a core card belongs to broad_core or dividend_core")
+    if None not in (target, stress) and not card.errors_at(f"{path}.stress"):
+        expected = etf_calc.joint_stress_loss([(target, stress)])["loss"]
+        if contribution is None or abs(contribution - expected) > 0.01:
+            card.error(f"{path}.stress_loss_contribution_pct.value", f"does not match calc:joint_stress_loss of the target "
+                                                                     f"and stress ({expected})")
 
 
 def _bare_numbers(card, value, path):
@@ -486,18 +488,12 @@ def _printed_numbers(snapshot_text):
     return sections
 
 
-def _snapshot_citations(card, snapshot_text, anchor_snapshot_text=None):
-    """A number citing snapshot§N must equal a number printed in that section: copied, never rounded further.
-
-    Anchor inputs are checked against the anchors' own snapshot when the card names one (a mechanically
-    refreshed card keeps its thesis data on the older snapshot and moves only the ladder to the new one).
-    """
-    printed = {"card": _printed_numbers(snapshot_text),
-               "anchor": _printed_numbers(anchor_snapshot_text) if anchor_snapshot_text is not None else None}
-    for path, amount, source, scope in card.sourced:
+def _snapshot_citations(card, snapshot_text):
+    """A number citing snapshot§N must equal a number printed in that section: copied, never rounded further."""
+    sections = _printed_numbers(snapshot_text)
+    for path, amount, source in card.sourced:
         if not source.startswith("snapshot§"):
             continue
-        sections = printed[scope] if printed.get(scope) is not None else printed["card"]
         numbers = sections.get(source[-1])
         if numbers is None:
             card.error(f"{path}.source", f"{source} is not a section of the referenced snapshot")
@@ -505,7 +501,7 @@ def _snapshot_citations(card, snapshot_text, anchor_snapshot_text=None):
             card.error(f"{path}.value", f"{amount} is not printed in {source} of the referenced snapshot")
 
 
-def validate_card(document, *, snapshot_text=None, filename=None, anchor_snapshot_text=None):
+def validate_card(document, *, snapshot_text=None, filename=None):
     """Return a list of error strings; empty means the card is structurally valid."""
     card = _Card()
     keys = ("card_schema_version", "card_id", "as_of_date", "supersedes", "framework", "snapshot_ref", "task", "status",
@@ -517,7 +513,7 @@ def validate_card(document, *, snapshot_text=None, filename=None, anchor_snapsho
         card.error("card_schema_version", f"expected {SCHEMA_VERSION}")
     card_id = document["card_id"]
     if not isinstance(card_id, str) or not SLUG.fullmatch(card_id):
-        card.error("card_id", "expected lowercase slug such as cn-hk-pharma-tactical")
+        card.error("card_id", "expected lowercase slug such as theme-innovative-drug")
     as_of = card.day(document["as_of_date"], "as_of_date")
     if as_of is not None and as_of > datetime.now(CHINA_TIME).date():   # would outrank every later version of this card
         card.error("as_of_date", "later than today (Asia/Shanghai)")
@@ -543,15 +539,23 @@ def validate_card(document, *, snapshot_text=None, filename=None, anchor_snapsho
         card.error("close_reason", "present exactly when status is closed")
     live = status in ("active", "watch")
 
+    if task == "core" and status == "no_buy":
+        card.error("status", "a core seat's weight is a rule, not a research verdict: active, watch, or closed if the seat is removed")
     exposure = _exposure(card, document["exposure"])
-    thesis = card.obj(document["thesis"], "thesis", ("statement", "evidence", "counter_evidence", "horizon_months"))
+    thesis = card.obj(document["thesis"], "thesis", ("statement", "evidence", "counter_evidence", "horizon_months",
+                                                     "key_variables", "why_now"))
     if thesis is not None:
         card.text(thesis["statement"], "thesis.statement")
         card.texts(thesis["evidence"], "thesis.evidence", exactly=3)
         card.texts(thesis["counter_evidence"], "thesis.counter_evidence", exactly=2)
-        card.integer(thesis["horizon_months"], "thesis.horizon_months", minimum=1 if task == "tactical" else 0)
-    _expectation(card, document["expectation"])
-    claims, buys = _instruments(card, document["instruments"], status)
+        card.integer(thesis["horizon_months"], "thesis.horizon_months", minimum=1 if task == "theme" else 0)
+        card.texts(thesis["key_variables"], "thesis.key_variables")
+        variables = len(thesis["key_variables"]) if isinstance(thesis["key_variables"], list) else 0
+        if task == "theme" and live and not 2 <= variables <= 3:
+            card.error("thesis.key_variables", "a live theme card names 2 to 3 key variables to verify next time")
+        card.text(thesis["why_now"], "thesis.why_now", nullable=not (task == "theme" and live))
+    _expectation(card, document["expectation"], task)
+    claims = _instruments(card, document["instruments"], status)
     claims = claims and status != "closed"   # a closed card no longer governs a holding
 
     rules = card.obj(document["trade_rules"], "trade_rules", ("min_holding_days", "purchase_limit_note"))
@@ -559,34 +563,26 @@ def validate_card(document, *, snapshot_text=None, filename=None, anchor_snapsho
         card.integer(rules["min_holding_days"], "trade_rules.min_holding_days", nullable=True)
         card.text(rules["purchase_limit_note"], "trade_rules.purchase_limit_note", nullable=True)
 
-    anchored = _decision(card, document["decision"], exposure, as_of)
-    cap = _sizing(card, document["sizing"])
-    seat = CORE_SEATS.get(exposure["index_code"]) if exposure is not None else None
-    if seat is not None and not card.errors_at("sizing"):   # core caps are decided as a table, not per card
-        for key, field in (("cap_cny", "standalone_cap_cny"), ("stress_drawdown_pct", "stress_drawdown_pct"),
-                           ("loss_budget_cny", "loss_budget_cny")):
-            if document["sizing"][field]["value"] != seat[key]:
-                card.error(f"sizing.{field}.value", f"core seat {exposure['index_code']} is fixed at {seat[key]} "
-                                                    "in framework/etf_portfolio_params.json")
+    target = _decision(card, document["decision"], task, status, as_of)
+    _sizing(card, document["sizing"], task, status, exposure, target)
     monitors = _triggers(card, document["monitor_variables"], "monitor_variables", MONITOR_ACTIONS)
     if live and not 3 <= monitors <= 5:
         card.error("monitor_variables", "an active or watch card carries 3 to 5 monitor variables")
     if claims and monitors == 0:
         card.error("monitor_variables", "a card that claims a holding carries at least one monitor variable")
-    if (claims or anchored) and cap is None:
-        card.error("sizing.standalone_cap_cny.value", "required when the card claims a holding or carries anchors: "
-                                                      "target ratios and the position limit have no base without it")
-    if buys and not anchored:
-        card.error("decision.anchors", "an instrument with action buy needs the three anchors: buy, but at what level?")
     unsourced = exposure is not None and REGISTRY[exposure["index_code"]]["source"] is None
-    if unsourced and (anchored or (status, no_buy) != ("no_buy", "data")):
-        card.error("exposure.index_code", "this index has no price source: the card must be no_buy/data without anchors")
+    if unsourced:   # weights run on fund market values; only index-level conditions and scoring need a price source
+        if any(isinstance(row, dict) and row.get("kind") == "auto" for row in document["monitor_variables"] or []):
+            card.error("monitor_variables", "this index has no price source: no auto trigger can be computed on it")
+        entry = document["scorecard"].get("entry_ref_index_level") if isinstance(document["scorecard"], dict) else None
+        if isinstance(entry, dict) and entry.get("value") is not None:
+            card.error("scorecard.entry_ref_index_level", "this index has no price source: keep the reference level null")
 
     exits = card.obj(document["exit"], "exit", ("invalidation", "latest_review_date"))
     if exits is not None:
         invalidations = _triggers(card, exits["invalidation"], "exit.invalidation", EXIT_ACTIONS)
-        if task == "tactical" and live and invalidations == 0:
-            card.error("exit.invalidation", "a live tactical card preregisters at least one invalidation")
+        if task == "theme" and live and invalidations == 0:
+            card.error("exit.invalidation", "a live theme card preregisters at least one invalidation")
         review = card.day(exits["latest_review_date"], "exit.latest_review_date", nullable=status == "closed")
         if review is not None and as_of is not None and review <= as_of and status != "closed":
             card.error("exit.latest_review_date", "must be later than as_of_date")
@@ -594,10 +590,7 @@ def validate_card(document, *, snapshot_text=None, filename=None, anchor_snapsho
     score = card.obj(document["scorecard"], "scorecard", ("benchmark", "preregistered_at", "confidence_pct",
                                                           "entry_ref_index_level"))
     if score is not None:
-        benchmark = card.obj(score["benchmark"], "scorecard.benchmark", ("code", "name"))
-        if benchmark is not None:
-            card.index(benchmark["code"], "scorecard.benchmark.code", nullable=True)
-            card.text(benchmark["name"], "scorecard.benchmark.name")
+        _benchmark(card, score["benchmark"], task)
         registered = card.day(score["preregistered_at"], "scorecard.preregistered_at")
         if registered is not None and as_of is not None and registered > as_of:
             card.error("scorecard.preregistered_at", "later than as_of_date")
@@ -608,8 +601,37 @@ def validate_card(document, *, snapshot_text=None, filename=None, anchor_snapsho
 
     _bare_numbers(card, document, "")
     if snapshot_text is not None:
-        _snapshot_citations(card, snapshot_text, anchor_snapshot_text)
+        _snapshot_citations(card, snapshot_text)
     return card.errors
+
+
+def _benchmark(card, benchmark, task):
+    """Where the money would sit without this card; a theme is scored against what it replaced in the benchmark."""
+    path = "scorecard.benchmark"
+    benchmark = card.obj(benchmark, path, ("name", "components"))
+    if benchmark is None:
+        return
+    card.text(benchmark["name"], f"{path}.name")
+    rows = benchmark["components"]
+    if not isinstance(rows, list):
+        card.error(f"{path}.components", "expected array")
+        return
+    weights = {}
+    for index, row in enumerate(rows):
+        row_path = f"{path}.components[{index}]"
+        row = card.obj(row, row_path, ("code", "weight_pct"))
+        if row is None:
+            continue
+        code = card.index(row["code"], f"{row_path}.code")
+        weight = card.number(row["weight_pct"], f"{row_path}.weight_pct", required=True, minimum=0, maximum=100)
+        if code is not None and weight is not None:
+            weights[code] = weights.get(code, 0) + weight
+    if weights and abs(sum(weights.values()) - 100) > 1e-9:
+        card.error(f"{path}.components", "weights add up to 100")
+    if task == "theme" and not card.errors_at(path) and weights != THEME_BENCHMARK:
+        card.error(f"{path}.components", "a theme is scored against its replacement in the benchmark: "
+                   + ", ".join(f"{code} {weight}" for code, weight in THEME_BENCHMARK.items())
+                   + " (framework/etf_portfolio_params.json)")
 
 
 def _unique_object(pairs):
@@ -656,10 +678,7 @@ def _checked(path):
         return [f"{path}: {exc}"], None
     errors = []
     snapshot_text = _snapshot(document.get("snapshot_ref") if isinstance(document, dict) else None, "snapshot_ref", errors)
-    anchors = document.get("decision", {}).get("anchors", {}) if isinstance(document, dict) else {}
-    anchor_text = _snapshot(anchors.get("snapshot_ref") if isinstance(anchors, dict) else None, "decision.anchors.snapshot_ref", errors)
-    return errors + validate_card(document, snapshot_text=snapshot_text, filename=path.name,
-                                  anchor_snapshot_text=anchor_text), document
+    return errors + validate_card(document, snapshot_text=snapshot_text, filename=path.name), document
 
 
 def validate_file(path):
@@ -679,33 +698,57 @@ def current_cards(documents):
 def cross_card_errors(documents):
     """Invariants no single card can see; documents must each have passed validate_card.
 
-    One bet, one card: a bet_group carries one cap and one ladder. One holding, one card: an instrument
-    claimed twice would get two ladders and two sets of monitors with no tiebreak.
+    One seat, one card: a bet_group carries one target weight. One holding, one card: an instrument claimed
+    twice would get two targets and two sets of monitors with no tiebreak. Theme targets together stay within
+    the theme module; what they leave free is the theme's cash.
     """
-    groups, claims = {}, {}
+    groups, claims, themes = {}, {}, 0
     for document in current_cards(documents):
-        if document["status"] == "closed":   # history stays on file; it no longer owns a bet or a holding
+        if document["status"] == "closed":   # history stays on file; it no longer owns a seat or a holding
             continue
         groups.setdefault(document["sizing"]["bet_group"], []).append(document["card_id"])
         for row in document["instruments"]["list"]:
             if row["role"] in CLAIMING_ROLES:
                 claims.setdefault(row["code"], []).append(document["card_id"])
+        if document["task"] == "theme":
+            themes += document["decision"]["target_weight_pct"]["value"]
+    budget = MODULES["theme"]["target_pct"]
     return ([f"sizing.bet_group: {group} is shared by cards {', '.join(ids)}; merge them into one card"
              for group, ids in sorted(groups.items()) if len(ids) > 1]
             + [f"instruments: {code} is claimed by cards {', '.join(ids)}; every other card lists it as rejected"
-               for code, ids in sorted(claims.items()) if len(ids) > 1])
+               for code, ids in sorted(claims.items()) if len(ids) > 1]
+            + ([f"decision.target_weight_pct: theme targets add up to {themes}%, above the {budget}% theme module"]
+               if themes > budget else []))
+
+
+def allocation_targets(documents):
+    """Target weights the execution side fills with new money: core seats from the approved table, themes from
+    their current cards, and the theme module's remainder as approved theme cash."""
+    current = [document for document in current_cards(documents) if document["status"] != "closed"]
+    targets = {seat["bet_group"]: seat["target_weight_pct"] for seat in CORE_SEATS.values()}
+    themes = {document["sizing"]["bet_group"]: document["decision"]["target_weight_pct"]["value"]
+              for document in current if document["task"] == "theme" and document["status"] == "active"}
+    targets.update(themes)
+    return dict(targets_pct=targets, theme_stock_pct=sum(themes.values()),
+                theme_cash_pct=MODULES["theme"]["target_pct"] - sum(themes.values()),
+                paused=sorted(document["sizing"]["bet_group"] for document in current
+                              if document["decision"]["new_money_action"] == "pause"))
 
 
 def export_payload(documents, generated_at):
     """The one artifact the execution side reads: current cards plus the parameters and index list they rely on."""
     params = {key: value for key, value in json.loads(PARAMS.read_text(encoding="utf-8")).items()
               if not key.startswith("_")}
-    params["single_bet_cap_cny"] = etf_calc.loss_budget_cap(params["single_bet_loss_budget_cny"],
-                                                            params["sector_stress_drawdown_pct"])
+    theme = params["modules"]["theme"]["target_pct"]
+    params["stress_loss_pct"] = {
+        scenario: etf_calc.joint_stress_loss(
+            [(seat["target_weight_pct"], seat[f"stress_{scenario}_pct"]) for seat in params["core_seats"].values()]
+            + [(theme, params["theme_rules"][f"stress_{scenario}_pct"])])["loss"]
+        for scenario in ("plan", "historical")}
     return dict(generated_at=generated_at, card_schema_version=SCHEMA_VERSION, portfolio_params=params,
                 index_registry=[{key: entry.get(key) for key in ("key", "name", "source", "code", "currency")}
                                 for entry in REGISTRY.values()],
-                cards=current_cards(documents))
+                allocation=allocation_targets(documents), cards=current_cards(documents))
 
 
 def export_drift(documents):
@@ -717,7 +760,7 @@ def export_drift(documents):
     except ValueError as exc:
         return [f"{EXPORT}: {exc}"]
     fresh = export_payload(documents, None)
-    stale = [key for key in ("card_schema_version", "portfolio_params", "index_registry", "cards")
+    stale = [key for key in ("card_schema_version", "portfolio_params", "index_registry", "allocation", "cards")
              if not isinstance(exported, dict) or exported.get(key) != fresh[key]]
     return [f"{EXPORT}: out of date ({', '.join(stale)}); rerun with --export and commit the result"] if stale else []
 
@@ -733,7 +776,7 @@ def main(argv=None):
     directory = sorted(CARDS_DIR.glob("*.md"))
     named = [Path(card).resolve() for card in args.cards]
     if not directory and not named:
-        print(f"no cards under {CARDS_DIR}")
+        print(f"no cards under {CARDS_DIR}: write the core seat cards and the first theme review (framework A1, A14) first")
         return 1
     failed, documents, in_directory = False, [], []
     for card in dict.fromkeys(named + directory):   # cross-card checks always see the whole directory
