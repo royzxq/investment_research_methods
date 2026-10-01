@@ -1,5 +1,6 @@
 """Synthetic card and snapshot; none of these numbers is market data."""
 import copy
+from datetime import date
 import json
 from pathlib import Path
 import sys
@@ -9,8 +10,8 @@ import unittest.mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.etf_calc import joint_stress_loss, scenario_annual_return
-from scripts.validate_etf_card import (allocation_targets, cross_card_errors, current_cards, export_drift, export_payload,
-                                       load_card, validate_card, validate_file)
+from scripts.validate_etf_card import (allocation_targets, cross_card_errors, current_cards, effective_cards, export_drift,
+                                       export_payload, load_card, validate_card, validate_file)
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = """== ETF 框架 v0.1 数据快照 | AS_OF=20260918 ==
@@ -419,7 +420,8 @@ class LoadTests(unittest.TestCase):
         self.assertEqual((payload["card_schema_version"], payload["cards"]), (2, [paused, new]))
         self.assertEqual(payload["allocation"], {
             "targets_pct": {"core-a500": 28, "core-star50": 7, "core-hsi": 15, "core-hk-dividend-lowvol": 20, "innovative-drug": 10},
-            "theme_stock_pct": 10, "theme_cash_pct": 20, "paused": ["core-a500"]})
+            "theme_stock_pct": 10, "theme_cash_pct": 20, "paused": ["core-a500"],
+            "stock_actions": {"innovative-drug": "reduce"}, "pending": []})
         params = payload["portfolio_params"]
         self.assertAlmostEqual(params["stress_loss_pct"]["plan"], 38.55)
         self.assertAlmostEqual(params["stress_loss_pct"]["historical"], 65.96)
@@ -429,6 +431,54 @@ class LoadTests(unittest.TestCase):
                       payload["index_registry"])
         self.assertIn({"key": "HSHYLV", "name": "恒生港股通红利低波动", "source": None, "code": None, "currency": "HKD"},
                       payload["index_registry"])
+
+    def test_a_decision_steers_money_only_from_its_effective_date(self):
+        old, new = card(), card()
+        new.update(as_of_date="2026-09-25")
+        new["decision"].update(target_weight_pct=number(5, "user:2026-09-25"), previous_target_weight_pct=number(10, "user:2026-09-19"),
+                               effective_from="2026-10-15")
+        new["sizing"]["stress_loss_contribution_pct"] = number(2.5, "calc:joint_stress_loss")
+        self.assertEqual(validate_card(new, snapshot_text=SNAPSHOT), [])
+        self.assertEqual(effective_cards([old, new], date(2026, 10, 1)), [old])
+        before = allocation_targets([old, new], date(2026, 10, 1))
+        self.assertEqual((before["targets_pct"]["innovative-drug"], before["theme_cash_pct"]), (10, 20))
+        self.assertEqual([(row["card_id"], row["target_weight_pct"], row["effective_from"]) for row in before["pending"]],
+                         [("theme-innovative-drug", 5, "2026-10-15")])
+        after = allocation_targets([old, new], date(2026, 10, 15))
+        self.assertEqual((after["targets_pct"]["innovative-drug"], after["pending"]), (5, []))
+        self.assertEqual(effective_cards([new], date(2026, 10, 1)), [])   # a first version waits too
+
+    def test_an_export_goes_stale_when_a_pending_decision_takes_effect(self):
+        old, new = card(), card()
+        new.update(as_of_date="2026-09-25")
+        new["decision"]["effective_from"] = "2026-10-15"
+        new["decision"]["target_weight_pct"] = number(5, "user:2026-09-25")
+        with tempfile.TemporaryDirectory() as folder, \
+                unittest.mock.patch("scripts.validate_etf_card.EXPORT", Path(folder) / "current.json") as export, \
+                unittest.mock.patch("scripts.validate_etf_card._today") as today:
+            today.return_value = date(2026, 10, 1)
+            export.write_text(json.dumps(export_payload([old, new], "2026-10-01T00:00:00+08:00"), ensure_ascii=False), encoding="utf-8")
+            self.assertEqual(export_drift([old, new]), [])
+            today.return_value = date(2026, 10, 15)
+            self.assertEqual(export_drift([old, new]),
+                             [f"{export}: out of date (allocation); rerun with --export and commit the result"])
+
+    def test_theme_targets_in_effect_stay_within_the_module_too(self):
+        def version(card_id, group, as_of, target, effective):
+            document = card()
+            document.update(card_id=card_id, as_of_date=as_of)
+            document["sizing"]["bet_group"] = group
+            document["instruments"]["list"] = [dict(document["instruments"]["list"][0], code=f"{len(card_id):06d}.OF")]
+            document["decision"].update(target_weight_pct=number(target, f"user:{as_of}"), effective_from=effective)
+            return document
+        cards = [version("theme-defense", "defense", "2026-09-19", 15, "2026-09-19"),
+                 version("theme-defense", "defense", "2026-09-25", 5, "2026-11-01"),     # cut takes effect later...
+                 version("theme-chemicals", "chemicals", "2026-09-25", 15, "2026-09-25"),  # ...than this raise
+                 version("theme-innovative", "innovative-drug", "2026-09-19", 10, "2026-09-19")]
+        self.assertEqual(cross_card_errors(cards, date(2026, 10, 1)), [
+            "decision.effective_from: theme targets in effect add up to 40%, above the 30% theme module; "
+            "align the effective dates of the cards that move together"])
+        self.assertEqual(cross_card_errors(cards, date(2026, 11, 1)), [])
 
     def test_without_theme_cards_the_whole_theme_module_is_cash(self):
         self.assertEqual(allocation_targets([])["theme_cash_pct"], 30)

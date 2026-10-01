@@ -15,11 +15,11 @@
 - 每个文件**恰好一个** ```` ```json ```` 围栏块；正文其余部分是给人看的论证，执行侧不解析。重复键、`NaN`/`Infinity` 拒收。
 - schema v1 的卡（带点位锚点）已归档到 `research/etf-cards/v1-archive/`，校验器只扫 `research/etf-cards/` 这一层，不再校验它们。
 - 卡的过期时点只认 `exit.latest_review_date`：主题卡写到下一次双月评审，核心卡写到下一次半年复核。
-- 校验：`python3 scripts/validate_etf_card.py`（缺省校验 `research/etf-cards/` 下全部卡；给了文件参数也仍以整个目录做跨卡检查），零错误才可提交。跨卡不变量（只看现行卡，`closed` 的卡不占席位也不认领工具）：一个 `bet_group` 只属于一张卡；一只工具至多被一张卡认领；现行主题卡的目标权重合计不超过主题模块的 30%。已提交的 `current.json` 与卡不一致时也报错——改了卡必须重新 `--export`。
+- 校验：`python3 scripts/validate_etf_card.py`（缺省校验 `research/etf-cards/` 下全部卡；给了文件参数也仍以整个目录做跨卡检查），零错误才可提交。跨卡不变量（只看现行卡，`closed` 的卡不占席位也不认领工具）：一个 `bet_group` 只属于一张卡；一只工具至多被一张卡认领；现行主题卡的目标权重合计不超过主题模块的 30%，按今天已生效的版本算也不超过（一起调整的卡要对齐生效日）。已提交的 `current.json` 与卡不一致时也报错——改了卡必须重新 `--export`。
 - **执行侧只读一个文件：`research/etf-cards/current.json`**，由 `python3 scripts/validate_etf_card.py --export` 在全部卡零错误时生成（先写 `.partial` 再原子替换）并随卡一起提交；结构为
   `{generated_at, card_schema_version, portfolio_params, index_registry, allocation, cards}`：
   - `portfolio_params` 取自 `framework/etf_portfolio_params.json`，另加现算的 `stress_loss_pct`（`plan` / `historical` 两套压力情景下按目标权重的账户损失百分比，`calc:joint_stress_loss`）；
-  - `allocation` 是执行侧补缺口用的目标：`targets_pct`（核心席位取参数表，主题取 `active` 主题卡）、`theme_stock_pct`、`theme_cash_pct`（主题模块 30% 减去主题目标合计 = 批准的主题待配现金）、`paused`（`new_money_action = pause` 的席位）；
+  - `allocation` 是执行侧补缺口用的目标，**按导出当天已生效的卡版本**计算（每个 `card_id` 取 `decision.effective_from` 已到的最新一版）：`targets_pct`（核心席位取参数表，主题取 `active` 主题卡）、`theme_stock_pct`、`theme_cash_pct`（主题模块 30% 减去主题目标合计 = 批准的主题待配现金）、`paused`（`new_money_action = pause` 的席位）、`stock_actions`（存量动作不是 `none` 的席位，`reduce` / `exit` 进当月卖出清单）、`pending`（最新一版尚未生效的卡：席位、目标、两类动作与生效日）。待生效的一版到期后，已提交的导出与重新计算的不一致，校验器报「out of date」，须重新 `--export`；
   - `cards` 是每张现行卡的完整 JSON；`index_registry` 取自 `framework/etf_index_registry.json`。
   执行侧不扫目录、不自行挑现行卡，只读默认分支上的这一份；文件缺失、解析失败、`cards` 为空或 `generated_at` 过旧一律报错，不静默当作"今天没有卡"。
 
@@ -115,10 +115,11 @@
 | `stock_action` | 存量动作：`none`（不动存量）/ `build`（用迁移或再平衡腾出的资金建仓到目标附近，仅 `active`）/ `reduce`（减到目标，目标须 > 0，仅 `active`）/ `exit`（全部退出，目标须为 0）。`closed` 卡为 `none` |
 | `exception_note` | 主题目标超过 10%（即 15%）时必填：估值、把握与下行风险的书面说明；其余为 `null` |
 | `trigger_basis` | 触发依据：新证据与估值变化，或"维持不变"的理由 |
-| `effective_from` | 生效日，不早于 `as_of_date` |
+| `effective_from` | 生效日，不早于 `as_of_date`。生效前上一版继续决定目标与动作（导出列入 `allocation.pending`）；首版在生效前不参与分配 |
 
 执行侧语义：`target_weight_pct` × 本月入金后的账户总资产 − 当前持仓 = 缺口；`continue` 的席位按缺口分配新增资金（`calc:dca_gap_allocation`，先留足主题待配现金，缺口超过可用资金时按比例，补足后的余额留现金）。
-当月实际留存的主题现金 = `calc:theme_cash_reserve_pct(30, 主题目标合计, 主题持仓占比)`：只把主题股票补到 30%，主题已超配时为 0。`stock_action` 不由执行侧自动下单，进月度交易清单由用户确认。
+`stock_action = reduce` / `exit` 的席位当月就进卖出清单（减到目标或清仓，`calc:rebalance_trades`），卖出所得与入金一起补其他席位的缺口；`build` 由这些资金按缺口补足。
+当月实际留存的主题现金 = `calc:theme_cash_reserve_pct(30, 主题目标合计, 主题持仓占比)`：只把主题股票补到 30%，主题已超配时为 0。交易清单不由执行侧自动下单，由用户确认。
 
 `sizing`：
 

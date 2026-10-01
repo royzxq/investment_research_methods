@@ -695,12 +695,37 @@ def current_cards(documents):
     return [latest[card_id] for card_id in sorted(latest)]
 
 
-def cross_card_errors(documents):
+def effective_cards(documents, on):
+    """Per card_id, the latest version whose decision.effective_from has arrived by `on` (a date).
+
+    A review may be dated before its decision takes effect; until then the previous version keeps steering money.
+    """
+    effective = {}
+    for document in documents:
+        if date.fromisoformat(document["decision"]["effective_from"]) > on:
+            continue
+        held = effective.get(document["card_id"])
+        if held is None or document["as_of_date"] > held["as_of_date"]:
+            effective[document["card_id"]] = document
+    return [effective[card_id] for card_id in sorted(effective)]
+
+
+def _today():
+    return datetime.now(CHINA_TIME).date()
+
+
+def _theme_total(documents):
+    return sum(document["decision"]["target_weight_pct"]["value"] for document in documents
+               if document["task"] == "theme" and document["status"] != "closed")
+
+
+def cross_card_errors(documents, on=None):
     """Invariants no single card can see; documents must each have passed validate_card.
 
     One seat, one card: a bet_group carries one target weight. One holding, one card: an instrument claimed
     twice would get two targets and two sets of monitors with no tiebreak. Theme targets together stay within
-    the theme module; what they leave free is the theme's cash.
+    the theme module, both in the latest versions and in the versions in effect on `on` (default today); what
+    they leave free is the theme's cash.
     """
     groups, claims, themes = {}, {}, 0
     for document in current_cards(documents):
@@ -713,29 +738,44 @@ def cross_card_errors(documents):
         if document["task"] == "theme":
             themes += document["decision"]["target_weight_pct"]["value"]
     budget = MODULES["theme"]["target_pct"]
+    in_effect = _theme_total(effective_cards(documents, on or _today()))
     return ([f"sizing.bet_group: {group} is shared by cards {', '.join(ids)}; merge them into one card"
              for group, ids in sorted(groups.items()) if len(ids) > 1]
             + [f"instruments: {code} is claimed by cards {', '.join(ids)}; every other card lists it as rejected"
                for code, ids in sorted(claims.items()) if len(ids) > 1]
             + ([f"decision.target_weight_pct: theme targets add up to {themes}%, above the {budget}% theme module"]
-               if themes > budget else []))
+               if themes > budget else [])
+            + ([f"decision.effective_from: theme targets in effect add up to {in_effect}%, above the {budget}% theme module; "
+                "align the effective dates of the cards that move together"] if in_effect > budget >= themes else []))
 
 
-def allocation_targets(documents):
+def allocation_targets(documents, on=None):
     """Target weights the execution side fills with new money: core seats from the approved table, themes from
-    their current cards, and the theme module's remainder as approved theme cash."""
-    current = [document for document in current_cards(documents) if document["status"] != "closed"]
+    the card versions in effect on `on` (default today), and the theme module's remainder as approved theme cash.
+    Latest versions that take effect later are listed under `pending`, with their dates; once one takes effect,
+    a committed export no longer matches and must be regenerated."""
+    on = on or _today()
+    live = [document for document in effective_cards(documents, on) if document["status"] != "closed"]
     targets = {seat["bet_group"]: seat["target_weight_pct"] for seat in CORE_SEATS.values()}
     themes = {document["sizing"]["bet_group"]: document["decision"]["target_weight_pct"]["value"]
-              for document in current if document["task"] == "theme" and document["status"] == "active"}
+              for document in live if document["task"] == "theme" and document["status"] == "active"}
     targets.update(themes)
+    pending = [dict(card_id=document["card_id"], bet_group=document["sizing"]["bet_group"], status=document["status"],
+                    target_weight_pct=document["decision"]["target_weight_pct"]["value"],
+                    new_money_action=document["decision"]["new_money_action"],
+                    stock_action=document["decision"]["stock_action"],
+                    effective_from=document["decision"]["effective_from"])
+               for document in current_cards(documents) if date.fromisoformat(document["decision"]["effective_from"]) > on]
     return dict(targets_pct=targets, theme_stock_pct=sum(themes.values()),
                 theme_cash_pct=MODULES["theme"]["target_pct"] - sum(themes.values()),
-                paused=sorted(document["sizing"]["bet_group"] for document in current
-                              if document["decision"]["new_money_action"] == "pause"))
+                paused=sorted(document["sizing"]["bet_group"] for document in live
+                              if document["decision"]["new_money_action"] == "pause"),
+                stock_actions={document["sizing"]["bet_group"]: document["decision"]["stock_action"] for document in live
+                               if document["decision"]["stock_action"] != "none"},
+                pending=pending)
 
 
-def export_payload(documents, generated_at):
+def export_payload(documents, generated_at, on=None):
     """The one artifact the execution side reads: current cards plus the parameters and index list they rely on."""
     params = {key: value for key, value in json.loads(PARAMS.read_text(encoding="utf-8")).items()
               if not key.startswith("_")}
@@ -748,7 +788,7 @@ def export_payload(documents, generated_at):
     return dict(generated_at=generated_at, card_schema_version=SCHEMA_VERSION, portfolio_params=params,
                 index_registry=[{key: entry.get(key) for key in ("key", "name", "source", "code", "currency")}
                                 for entry in REGISTRY.values()],
-                allocation=allocation_targets(documents), cards=current_cards(documents))
+                allocation=allocation_targets(documents, on), cards=current_cards(documents))
 
 
 def export_drift(documents):

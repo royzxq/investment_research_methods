@@ -18,8 +18,9 @@ HOLDINGS.json (market values as of one date):
   current card claims. `theme_targets_pct` overrides the theme cards' targets (a what-if, or the migration once the
   first theme review has set them). A held theme seat with no target yet takes no new money this month (framework
   A8); a rebalance needs every held seat's target. Gold and other out-of-scope holdings stay outside the account.
---rebalance: sell every seat above target down to target (except --keep seats, e.g. core-hsi held in HKD abroad),
-  then split the proceeds plus this month's money by the gaps. This is the migration and the quarterly trade list.
+Sales: a card in effect with stock_action reduce or exit is sold this month (down to its target, or out), and the
+  proceeds join this month's money. --rebalance sells every seat above target instead (except --keep seats, e.g.
+  core-hsi held in HKD abroad): the migration and the quarterly trade list.
 LEDGER.csv: header `date,value_cny,flow_cny`, one row per month-end: strategy account total after that day's external
   flow, and the flow (deposits positive). Gives the unitized NAV and the drawdown review level.
 """
@@ -40,10 +41,10 @@ except ImportError:  # direct script invocation
 CASH = "cash"
 
 
-def _theme_targets(documents, override):
-    targets = validator.allocation_targets(documents)
+def _theme_targets(documents, override, on):
+    targets = validator.allocation_targets(documents, on)
     theme = {document["sizing"]["bet_group"]: document["decision"]["target_weight_pct"]["value"]   # watch/no_buy hold 0
-             for document in validator.current_cards(documents)
+             for document in validator.effective_cards(documents, on)
              if document["task"] == "theme" and document["status"] != "closed"}
     if override is not None:
         unknown = sorted(set(override) - set(validator.THEME_POOL))
@@ -55,7 +56,9 @@ def _theme_targets(documents, override):
         theme = dict(override)
     if sum(theme.values()) > validator.MODULES["theme"]["target_pct"]:
         raise ValueError("theme targets add up to more than the theme module")
-    return theme, set(targets["paused"])
+    directed = {slot: action for slot, action in targets["stock_actions"].items()
+                if action in ("reduce", "exit") and (override is None or slot not in validator.THEME_POOL)}
+    return theme, set(targets["paused"]), directed
 
 
 def _value_cny(row, fx):
@@ -68,8 +71,13 @@ def _value_cny(row, fx):
     return row["value"] * rate
 
 
-def plan_month(documents, holdings, new_money, ledger_rows=None, *, rebalance=False, keep=()):
-    """Pure core of the CLI: documents are current cards that passed validation; returns a report dict."""
+def plan_month(documents, holdings, new_money, ledger_rows=None, *, rebalance=False, keep=(), on=None):
+    """Pure core of the CLI: documents are cards that passed validation; returns a report dict.
+
+    Targets, pauses and stock actions come from the card versions in effect on `on` (default today). A card's
+    reduce or exit is a sale this month even without --rebalance; --rebalance sells every seat above target.
+    """
+    on = on or validator._today()
     params = validator._PARAMS
     claims = {row["code"]: document["sizing"]["bet_group"]
               for document in validator.current_cards(documents) if document["status"] != "closed"
@@ -97,7 +105,7 @@ def plan_month(documents, holdings, new_money, ledger_rows=None, *, rebalance=Fa
     if unknown_keep:
         raise ValueError("--keep names seats that are not held: " + ", ".join(unknown_keep))
 
-    theme, paused = _theme_targets(documents, holdings.get("theme_targets_pct"))
+    theme, paused, directed = _theme_targets(documents, holdings.get("theme_targets_pct"), on)
     undecided = sorted(slot for slot in values if slot in validator.THEME_POOL and slot not in theme)
     if undecided and rebalance:
         raise ValueError("a rebalance needs every held theme's target (finish the theme review or write theme_targets_pct): "
@@ -121,20 +129,15 @@ def plan_month(documents, holdings, new_money, ledger_rows=None, *, rebalance=Fa
     held_zero = {slot: 0 for slot in values if slot not in targets}   # a theme at 0 or undecided takes nothing
     cash = holdings.get("cash_cny", 0)
     total = sum(values.values()) + cash + new_money
-    theme_held_pct = 100 * sum(value for slot, value in values.items() if slot in validator.THEME_POOL) / total if total else 0.0
-    reserve_pct = etf_calc.theme_cash_reserve_pct(validator.MODULES["theme"]["target_pct"], sum(theme.values()), theme_held_pct)
-    if rebalance:   # the reserve follows the theme stock left after the sells (kept seats are not sold)
-        weights = {**targets, **held_zero}
-        theme_after = sum(value if slot in keep else min(value, weights[slot] * total / 100)
-                          for slot, value in values.items() if slot in validator.THEME_POOL)
-        reserve_pct = etf_calc.theme_cash_reserve_pct(validator.MODULES["theme"]["target_pct"], sum(theme.values()),
-                                                      100 * theme_after / total if total else 0.0)
-        allocation = etf_calc.rebalance_trades(weights, values, cash, new_money,
-                                               reserved_cash_pct=reserve_pct, keep=set(keep), paused=paused)
-    else:
-        allocation = etf_calc.dca_gap_allocation({**targets, **held_zero}, values, cash, new_money,
-                                                 reserved_cash_pct=reserve_pct, paused=paused)
-        allocation["sells"] = {}
+    # what gets sold: every seat above target on --rebalance, otherwise only the cards' reduce/exit (framework A7, A12)
+    selling = (set(values) if rebalance else set(directed) & set(values)) - set(keep)
+    weights = {**targets, **held_zero}
+    theme_after = sum(min(value, weights[slot] * total / 100) if slot in selling else value
+                      for slot, value in values.items() if slot in validator.THEME_POOL)
+    reserve_pct = etf_calc.theme_cash_reserve_pct(validator.MODULES["theme"]["target_pct"], sum(theme.values()),
+                                                  100 * theme_after / total if total else 0.0)
+    allocation = etf_calc.rebalance_trades(weights, values, cash, new_money, reserved_cash_pct=reserve_pct,
+                                           keep=set(values) - selling, paused=paused)
 
     def check(slot_values, cash):
         reserve = min(cash, reserve_pct * allocation["total"] / 100)
@@ -158,6 +161,7 @@ def plan_month(documents, holdings, new_money, ledger_rows=None, *, rebalance=Fa
     after = check(after_values, allocation["cash_after"])
     return dict(as_of=holdings.get("as_of"), skipped=skipped, targets_pct=targets, theme_cash_pct=theme_cash_pct,
                 theme_cash_reserve_pct=reserve_pct, undecided=undecided, paused=sorted(paused), new_money=new_money,
+                directed=directed,
                 rebalance=rebalance, allocation=allocation, check_before=before, check_after=after,
                 stress_loss_pct=stress, drawdown=drawdown, drawdown_review=review)
 
@@ -181,7 +185,8 @@ def _print(report):
     print(f"主题待配现金目标 {report['theme_cash_pct']}%，本次留存 {report['theme_cash_reserve_pct']:.1f}%"
           f"（主题股票已占的部分不重复留现金）；暂停接收新增资金: {', '.join(report['paused']) or '无'}")
     for slot, amount in sorted(allocation["sells"].items()):
-        print(f"  卖出 {slot:<26} {amount:>10,.0f}（减到目标 {report['targets_pct'].get(slot, 0)}%）")
+        reason = f"卡上存量动作 {report['directed'][slot]}，" if slot in report["directed"] else ""
+        print(f"  卖出 {slot:<26} {amount:>10,.0f}（{reason}减到目标 {report['targets_pct'].get(slot, 0)}%）")
     print("分配比例（规则按比例执行，金额只是按本次可用资金折算）:")
     for slot in sorted(allocation["shares_pct"], key=lambda key: -allocation["shares_pct"][key]):
         if allocation["buys"][slot] > 0.5:
