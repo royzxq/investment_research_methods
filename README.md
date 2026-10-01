@@ -33,13 +33,9 @@
 - `research/` — `investment-baseline-market-research.md`（day-0 基线，可为空——为空时首次运行按"无历史基线"处理，不是错误）+ `investment-<date>-market-research.md` / `investment-<date>-change-decision.md`（始终直接 push 到 main）/ `investment-<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
 - `.claude/skills/` — `meta-investment-analysis` / `investment-change-analysis` / `investment-adaption`（三个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `investment-weekly-review`（编排器，统一开 PR）
 
-## ETF 轨道：月度分配 → 双月主题评审 → 季度检查 → 半年 / 年度复核
+## ETF 轨道：每 2 个月的主题 ETF 调研
 
-- `framework/etf_framework.md` — 现行「ETF 研究框架」v1.0：70% 长期规则配置（A500 28 / 科创50 7 / 恒指 15 / 红利低波 20）+ 30% 动态主题预算（8 席研究池，常态持有 2–3 个，单主题 5% 或 10%）；新增资金按月定投、按有效缺口分配；季度区间再平衡；对照固定基准记分。只走分支 + PR 更新
-- `framework/etf_portfolio_params.json` — 用户拍板的组合参数（预算、目标权重与区间、主题池、两套压力情景、回撤复核线、比较基准、迁移路径），校验器与导出脚本都读它
-- `framework/etf_card_schema.md` + `scripts/validate_etf_card.py` — 决策卡 schema v2（目标权重、新增资金动作、存量动作）与校验器；`--export` 生成执行侧唯一读取的 `research/etf-cards/current.json`
-- `scripts/etf_data.py`（本地，需 `TUSHARE_TOKEN`）写快照 `research/etf-<AS_OF>-data-snapshot.txt`；`scripts/etf_calc.py` 是纯函数计算器（回报分解、分位、TD/TE、缺口分配、区间检查、单位净值与回撤、压力损失）
-- `scripts/etf_allocate.py` — 月度新增资金分配与检查：`python3 scripts/etf_allocate.py --holdings <持仓.json> [--new-money <F>] [--ledger research/etf-nav-ledger.csv]`，先给各席位占本月买入的比例再折金额；迁移与季度再平衡加 `--rebalance --keep core-hsi`。输出是建议清单，交易由用户确认
-- `.claude/skills/` — `etf-monthly-review`（月度编排器）、`etf-theme-review`（双月主题评审）、`etf-card-research`（写单张卡）
-- v0.1 的点位锚点卡已归档到 `research/etf-cards/v1-archive/`；升级说明与迁移测算见 `research/etf-2026-10-01-framework-v1.0-migration.md`
-- ETF 离线验证：`python3 -m unittest tests.test_etf_calc tests.test_validate_etf_card tests.test_etf_allocate tests.test_etf_backtest`
+- `framework/etf_framework.md` — 「ETF 主题调研框架」v2.0：每 2 个月回答两个问题——未来两个月定投哪 2–3 个主题 ETF（8 个主题的研究池里选，各 5% 或 10%）、现有主题持仓怎么处理（不动 / 只倾斜新增 / 部分切换 / 退出 / 持有不投）。宽基 50% 与红利低波 20% 由用户长期持有，本仓不研究。只出研究结论，不给金额、点位或时点。只走分支 + PR 更新
+- 用法：本地跑 `scripts/etf_data.py`（需 `TUSHARE_TOKEN`）出快照 → 在 Claude Code 里说「跑 etf-review」（可附一行持仓）→ 得到 `research/etf-<日期>-review.md`
+- `framework/etf_index_registry.json` 是指数取数清单；`scripts/etf_calc.py` 是纯函数计算器；为什么不做点位择时见 `research/etf-2026-09-18-rule-validation.md`
+- ETF 离线验证：`python3 -m unittest tests.test_etf_calc tests.test_etf_backtest`
