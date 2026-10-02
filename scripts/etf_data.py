@@ -73,7 +73,7 @@ def _request_with_timeout(self, *args, **kwargs):
 
 # ============================ 配置区 ============================
 SCRIPT_VERSION = "v0.1"
-FRAMEWORK_VERSION = "v2.0"          # 与 framework/etf_framework.md 同步；etf-review 的先决检查读快照头行的这个版本
+FRAMEWORK_VERSION = "v2.0"          # 快照格式版本（框架 v2.1 未改快照格式，仍为 v2.0）；etf-review 的先决检查读快照头行的这个版本
 TOKEN = os.getenv("TUSHARE_TOKEN", "")
 AS_OF = datetime.now().strftime("%Y%m%d")
 CUTOFF = AS_OF                       # run() 内按已完成交易日收紧
