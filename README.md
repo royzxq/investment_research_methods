@@ -35,7 +35,7 @@
 
 ## ETF 轨道：每 2 个月的主题 ETF 调研
 
-- `framework/etf_framework.md` — 「ETF 主题调研框架」v2.0：每 2 个月回答两个问题——未来两个月定投哪 2–3 个主题 ETF（8 个主题的研究池里选，各 5% 或 10%）、现有主题持仓怎么处理（不动 / 只倾斜新增 / 部分切换 / 退出 / 持有不投）。宽基 50% 与红利低波 20% 由用户长期持有，本仓不研究。只出研究结论，不给金额、点位或时点。只走分支 + PR 更新
+- `framework/etf_framework.md` — 「ETF 主题调研框架」v2.1：每 2 个月回答两个问题——未来两个月定投哪 2–3 个主题 ETF（8 个主题的研究池里选，各 5% 或 10%），以及每个持有主题的目标权重和处理（按实际账户管理，目标可以是 0%）。宽基 50% 与红利低波 20% 由用户长期持有，本仓不研究。只出研究结论，不给金额、点位、时点或分批计划；执行由用户按自己的方案处理。只走分支 + PR 更新
 - 用法：本地跑 `scripts/etf_data.py`（需 `TUSHARE_TOKEN`）出快照 → 在 Claude Code 里说「跑 etf-review」（可附一行持仓）→ 得到 `research/etf-<日期>-review.md`
 - `framework/etf_index_registry.json` 是指数取数清单；`scripts/etf_calc.py` 是纯函数计算器；为什么不做点位择时见 `research/etf-2026-09-18-rule-validation.md`
 - ETF 离线验证：`python3 -m unittest tests.test_etf_calc tests.test_etf_backtest`
