@@ -152,3 +152,16 @@
   - 版本串：文件头 docstring、argparse description、运行抬头、「快照完成」标记行 v2.27/v1.16 → v2.28/v1.17。
 - 验证状态：**未经线上实测**（本环境无 tushare/pandas/numpy 与网络；连续第二周用户未在本机运行快照）。已做：`python3 -m py_compile scripts/future_data.py` 通过；配置区离线 ast 检查（EVENTS 11 条、元组形状 5/6 元、起止日 8 位且 start≤end；FIXED_RISK_WINDOWS 3 条 6 元）通过；仓库单元测试 `python3 -m unittest discover -s tests`：221 项中 212 项通过、9 项脚本集成测试因本环境缺 numpy/pandas 报 ModuleNotFoundError——**与改动前基线（stash 后重跑）完全一致**；版本串一致性测试（argparse description/运行抬头/快照完成标记）通过。§2b.1 三列（v1.16）仍待真实环境首次运行核 settle/pre_settle 字段与 MA2701 逐日读数；10/8 前建议以 `--as-of 20260930`（或脚本等价参数）补跑一份回填 9/28-9/30 结算列。
 - 旧输出失效项（供诊断刷新）：v1.15/v1.16 快照的 §0b 事件清单（10/9 首个响应日、FOMC 占位）失效；`research/2026-09-19-data-snapshot.txt` 行情读数继续 stale（落后 7 td）；影子计划 SP-2026-09-19-* 有效期已过待 §5 机械确认。
+
+## 9. 精简版同步
+
+- 结论：已对照工作区 canonical v2.28 同步 `framework/futures_framework_compact.md`（基于 2026-09-26 未合并草案的 compact v2.28 再更新至 2026-10-03）。固定规则层（§1/§2，277 个 R-ID）零改动（与 origin/main 版逐行 difflib 仅标题一行 v2.27→v2.28）；动态配置层 §3.1–§3.6 按新版 canonical 重写：DYNAMIC-version（2026-10-03、连续第二周无快照落后 7 td、脚本 v1.17）、DYNAMIC-caps（低敞口命中项含质变日±1 与 10 月节点）、DYNAMIC-pool/frequency（10/8 四重核验日）、DYNAMIC-roll-table（9/30 口径剩余 td：MA2701 69/MA2705 148/RB2701 70/RB2703 106/RB2705 149/M2701 70/SR2701 69/CF2701 69/AU2612 48/SC2611 16/SC2612 37；SR-summer 结案、CF-autumn 可新开区间 10/8–10/22）、DYNAMIC-regime（①10/3 复核、俄乌轴质变落地、fed_state 17–18%×期限溢价、D13 复归档条件 A/B、负反馈启动确认、交易所风控全池已生效+10/8 回落条件）、DYNAMIC-CPI（驱动换版、#29 10/15–10/30）、DYNAMIC-iron-sample（Mysteel 9/30 当周）、DYNAMIC-events（10/4→10/30 事件簇＋10 月已核日历表 9 行）、DYNAMIC-gap、DYNAMIC-freezes（#30/周涨/D8/D12 连续两周 unknown；9/28–9/29、9/30、10/1 质变日记录；v1 观测 unknown）、DYNAMIC-pending（12 项）、DYNAMIC-overreact（11 条＋首要纪律风险）、DYNAMIC-narratives（首要/首要之二/三条改版/一条新增/一条延续/换版存档）。
+- 强制自审清单：
+  1. 有效内容覆盖：canonical 本次受影响章节（0D/0)/0.0b/0.1/0.2/0.3 命中记录/0.4/1.1/1.2/1.4/1.5/1.6/1.7/2.1/2.3/3.5b/3.5c/3.6/Step5 D·E·C/6.1/6.3/6.5/6.8）逐条对应到 §3 条目；规则本体未变故固定层无需增删；新增 1.4 日历行（纪要/CPI/PPI）与 0.0b 日历表均已进 DYNAMIC-events。
+  2. 数值与公式核对：见 `research/2026-10-03-framework-numeric-audit.md`——canonical 新增数值 token 156，compact 已承载 124，二次核对补入 2 项，余 30 项为历史读数/背景价格/M 背景/池外档位/无效证据，逐类豁免并说明；旧日期仍参与判据者（9/18 实测对照、9/28 v1 生效、9/30 质变日、10/15 T−10）保留。
+  3. R-ID 引用完整性：277 锚无新增/删除/重复；`](#r-…)` 引用无悬空（脚本核对）。
+  4. 自包含执行抽检：三例（10/8 MA 多头新开、10/8 RB 空头、10/26 D12 事件判据）仅凭 compact 得出与 canonical 一致结论，见数值核对文件。
+  5. 副本矛盾检测：fed_state 与 price_position 分开记录（canonical 3.6 注记）；D13 复归档条件在 DYNAMIC-regime/DYNAMIC-CPI 两处表述一致（A 趋近/B 反向/须同时满足）；无新增待澄清矛盾；延续待澄清项 6 条＋CF 轮储条款定义口径 1 条列于数值核对文件。
+  6. 决策链自检：「0. 决策链总览」十步在 §1 固定层均有承载，§3 动态层对应"行情快照/当前状态与日历/持仓管理/执行审计"四步均有当期配置，无断链。
+  7. 体积与范围：compact origin/main 103311 B/1039 行 → 121647 B/1038 行（UTF-8 字节/行数；较 main 版增长源于 10 月日历表、双轴质变记录与两周 unknown 标注；不设压缩目标）；canonical 248802 B/1246 行；compact/canonical ≈ 48.9%。未引入额外方法模块、研究范围限制或新必办门。`python3 scripts/futures_framework_governance.py --check` 通过（结构检查不能证明语义等价）。
+- 验证限制：语义等价由人工逐条对照与数值 token 核对支撑，未做全文自动语义比对；compact 文件头只保留当前元信息。
