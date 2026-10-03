@@ -1,6 +1,6 @@
 # 2026-10-03 期货执行诊断
 
-**结论：截至 2026-10-03（最近已完成行情日 2026-09-30；本周国内期货仅 9/28-9/30 三个交易日，10/1-10/7 国庆休市、10/8 恢复交易），已核研究范围内未形成可执行方案，仍有研究/账户核验缺项；不能据此写"市场没有机会"或"市场建议空仓"。** 本诊断按 canonical 现行 **v2.27**（origin/main `8f68043`）生成，数据协议 `FUTURES_DATA_PROTOCOL.md` v2.26。**连续第二周没有新的行情快照**：仓库最新快照仍为 `research/2026-09-19-data-snapshot.txt`（脚本 v1.15、最新行情日 2026-09-18），落后最近已完成交易日**七个交易日**（9/21-9/24、9/28-9/30）→按 0D/协议记 **stale**：全部价差分位、1-5-10td 变化、同期样本验收、ATR 分层/极差、D8 周涨分位、SC2611 结算周涨（9/23→9/30）、MA2701 逐日结算涨跌（#30；媒体口径 9/28 主力日内一度 +5% 为"可能触及"线索）、确认定义 v1 观测值、§5 影子结算均为 **temporary_gap/unknown**，不以媒体收盘推算、不沿用 9/18 读数。公开信息来自 WebSearch，本周部分原文经 WebFetch 核验（TASS/中新网/Mysteel/同花顺/大越/BLS/美联储等），未核项按摘要标注；五条跨年/跨月/口径错误命中（网易焦炭 7 月、ChemNet 伊朗 7 月、西本 2022、24/7 布油 113.96、生意社月均 3,797）已标 invalid。**上周框架更新 PR #30（v2.28 草案）于 2026-10-01 关闭未合并**，canonical 仍为 v2.27（0.0b 日历、交易所风控、AU 卡、负反馈行、MA 卡文本均为已核过期项），本周阶段③重做。实际账户与挂单快照未提供（`actual_position_status=unknown`），全部 `final_lots=null`，总体机会数 `null`。
+**结论：截至 2026-10-03（最近已完成行情日 2026-09-30；本周国内期货仅 9/28-9/30 三个交易日，10/1-10/7 国庆休市、10/8 恢复交易），已核研究范围内未形成可执行方案，仍有研究/账户核验缺项；不能据此写"市场没有机会"或"市场建议空仓"。** 本诊断按拟议 **v2.28**（分支 `futures-framework/2026-10-03` 工作区；取代 2026-10-01 关闭未合并的 PR #30 草案）刷新为 `proposed_framework_reassessment`——候选判定与 status 与 v2.27 版相同，仅版本串、日历与状态行引用随新版本刷新，不伪装为历史交易日已生效的规则，数据协议 `FUTURES_DATA_PROTOCOL.md` v2.26。**连续第二周没有新的行情快照**：仓库最新快照仍为 `research/2026-09-19-data-snapshot.txt`（脚本 v1.15、最新行情日 2026-09-18），落后最近已完成交易日**七个交易日**（9/21-9/24、9/28-9/30）→按 0D/协议记 **stale**：全部价差分位、1-5-10td 变化、同期样本验收、ATR 分层/极差、D8 周涨分位、SC2611 结算周涨（9/23→9/30）、MA2701 逐日结算涨跌（#30；媒体口径 9/28 主力日内一度 +5% 为"可能触及"线索）、确认定义 v1 观测值、§5 影子结算均为 **temporary_gap/unknown**，不以媒体收盘推算、不沿用 9/18 读数。公开信息来自 WebSearch，本周部分原文经 WebFetch 核验（TASS/中新网/Mysteel/同花顺/大越/BLS/美联储等），未核项按摘要标注；五条跨年/跨月/口径错误命中（网易焦炭 7 月、ChemNet 伊朗 7 月、西本 2022、24/7 布油 113.96、生意社月均 3,797）已标 invalid。**上周框架更新 PR #30（v2.28 草案）于 2026-10-01 关闭未合并**，canonical 仍为 v2.27（0.0b 日历、交易所风控、AU 卡、负反馈行、MA 卡文本均为已核过期项），本周阶段③重做。实际账户与挂单快照未提供（`actual_position_status=unknown`），全部 `final_lots=null`，总体机会数 `null`。
 
 | 已观察记录 | 本次状态 | 已核否决 / 缺口 |
 |---|---|---|
@@ -34,13 +34,13 @@
   "audit_schema_version": 3,
   "as_of_date": "2026-10-03",
   "research_mode": "public_data",
-  "assessment_scope": "current_framework",
+  "assessment_scope": "proposed_framework_reassessment",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.27",
-    "revision": "origin/main 8f68043 (2026-09-20 治理整理; 方法/状态日期 2026-09-19); 上周 PR #30 (v2.28 草案) 2026-10-01 关闭未合并, canonical 仍为 v2.27",
-    "data_script_version": "v1.16 (main; 本周与上周均未运行). 最新快照 research/2026-09-19-data-snapshot.txt (v1.15, 最新行情日 2026-09-18) 落后最近已完成交易日 2026-09-30 七个交易日 → stale, 仅作对照/diagnostic",
-    "rule_changes_affecting_candidates": "规则本体零改动 (canonical v2.27; 上周 v2.28 草案 PR #30 关闭未合并, 其内容为状态行/日历纠错, 不改门/参数). 本周判定差异全部来自证据状态: (1) 连续第二周无快照 → 分位/样本/ATR/D8/周涨/#30/v1 观测/影子结算 unknown (落后 7 td); (2) 俄乌轴 9/30 官宣延期 = 预设质变形态落地 → 新增检查 geo_quake_day_pm1 (0.1/2.3 既有条款机械执行, 9/30 与 10/8 能源链方向性单边新开冻结); (3) ①维持中断证真 (要件一 9/28-10/1 四起袭船; 美方反提案未官方化) → #26 fail 延续; (4) 焦炭首轮提降 9/29 落地 → 1.4 负反馈 '启动确认' (RB 背景); (5) 甲醇港口库存数值可得但两口径冲突 → 仍不作判定依据; MA 国内路线复活条件均未观测 → 结案维持; (6) 10 月官方日历 (CPI 10/15、PPI 10/16、FOMC T 10/29、WASDE 10/12) 已核, 事件簇按此刷新; (7) SR-summer 窗口 9/30 结束 → no_signal 结案延续; CF-autumn 轮出 9/30 结束, 可新开区间 10/8-10/22"
+    "version": "v2.28",
+    "revision": "working_tree (futures-framework/2026-10-03); 基于 main 8f68043 v2.27; 本版吸收并取代 2026-10-01 关闭未合并的 PR #30 草案",
+    "data_script_version": "v1.17 (分支 futures-framework/2026-10-03; EVENTS 配置层随动, 无算法改动, 未经线上实测; 本周未运行). 最新快照 research/2026-09-19-data-snapshot.txt (v1.15, 最新行情日 2026-09-18) 落后 2026-09-30 七个交易日 → stale, 仅作对照/diagnostic",
+    "rule_changes_affecting_candidates": "规则本体零改动 (canonical v2.27; 上周 v2.28 草案 PR #30 关闭未合并, 其内容为状态行/日历纠错, 不改门/参数). 本周判定差异全部来自证据状态: (1) 连续第二周无快照 → 分位/样本/ATR/D8/周涨/#30/v1 观测/影子结算 unknown (落后 7 td); (2) 俄乌轴 9/30 官宣延期 = 预设质变形态落地 → 新增检查 geo_quake_day_pm1 (0.1/2.3 既有条款机械执行, 9/30 与 10/8 能源链方向性单边新开冻结); (3) ①维持中断证真 (要件一 9/28-10/1 四起袭船; 美方反提案未官方化) → #26 fail 延续; (4) 焦炭首轮提降 9/29 落地 → 1.4 负反馈 '启动确认' (RB 背景); (5) 甲醇港口库存数值可得但两口径冲突 → 仍不作判定依据; MA 国内路线复活条件均未观测 → 结案维持; (6) 10 月官方日历 (CPI 10/15、PPI 10/16、FOMC T 10/29、WASDE 10/12) 已核, 事件簇按此刷新; (7) SR-summer 窗口 9/30 结束 → no_signal 结案延续; CF-autumn 轮出 9/30 结束, 可新开区间 10/8-10/22; (8) 本次为拟议 v2.28 (工作区) 的重评: 候选判定与 status 与 current_framework 版相同, 仅框架/脚本版本串、日历与状态行引用随新版本刷新, 不伪装为历史交易日已生效的规则"
   },
   "snapshot": {
     "market_trade_date": "2026-09-30",
@@ -766,7 +766,7 @@
   ],
   "candidates": [
     {
-      "candidate_id": "2026-09-30|MA2701-MA2705|A|short_spread|v2.27",
+      "candidate_id": "2026-09-30|MA2701-MA2705|A|short_spread|v2.28",
       "opportunity_id": "MA_A_2701_2705",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -979,7 +979,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|MA2705-MA2709|A|unknown|v2.27",
+      "candidate_id": "2026-09-30|MA2705-MA2709|A|unknown|v2.28",
       "opportunity_id": "MA_A_2705_2709_prep",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -1109,7 +1109,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|RB2701-RB2703|A|unknown|v2.27",
+      "candidate_id": "2026-09-30|RB2701-RB2703|A|unknown|v2.28",
       "opportunity_id": "RB_A_2701_2703",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -1270,7 +1270,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|RB2703-RB2705|A|unknown|v2.27",
+      "candidate_id": "2026-09-30|RB2703-RB2705|A|unknown|v2.28",
       "opportunity_id": "RB_A_2703_2705_prep",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -1382,7 +1382,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|MA2701|directional|long|v2.27",
+      "candidate_id": "2026-09-30|MA2701|directional|long|v2.28",
       "opportunity_id": "MA_D_long_2701",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -1651,7 +1651,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|MA2701|directional|short|v2.27",
+      "candidate_id": "2026-09-30|MA2701|directional|short|v2.28",
       "opportunity_id": "MA_short_2701",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -1895,7 +1895,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|M2701|unknown|unknown|v2.27",
+      "candidate_id": "2026-09-30|M2701|unknown|unknown|v2.28",
       "opportunity_id": "M_observe_2701",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -1998,7 +1998,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|SR2701-SR2705|A|unknown|v2.27",
+      "candidate_id": "2026-09-30|SR2701-SR2705|A|unknown|v2.28",
       "opportunity_id": "SR_A_2701_2705",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -2132,7 +2132,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|SR2701|B|long|v2.27",
+      "candidate_id": "2026-09-30|SR2701|B|long|v2.28",
       "opportunity_id": "SR_B_summer_2026",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -2215,7 +2215,7 @@
       ]
     },
     {
-      "candidate_id": "2026-09-30|CF2701|B|long|v2.27",
+      "candidate_id": "2026-09-30|CF2701|B|long|v2.28",
       "opportunity_id": "CF_B_autumn_2026",
       "trade_date": "2026-09-30",
       "contracts": [
@@ -2527,15 +2527,15 @@
       "reason": "canonical v2.27 长假日历 '10/1-10/8、10/9 复盘/首个响应日、低敞口 10/9 复评' 与交易所 2026-09-21 官方通知不符 (实际 10/1-10/7 休市、10/8 恢复交易并恢复夜盘); 上周已纠错并写入 PR #30, 该 PR 2026-10-01 关闭未合并 → canonical 文本仍错, 本周继续以 cal_holiday_0921 替代; 属日历纠错, 非市场变化",
       "affected_checks": [
         {
-          "candidate_id": "2026-09-30|MA2701|directional|long|v2.27",
+          "candidate_id": "2026-09-30|MA2701|directional|long|v2.28",
           "rule_id": "#16"
         },
         {
-          "candidate_id": "2026-09-30|MA2701|directional|short|v2.27",
+          "candidate_id": "2026-09-30|MA2701|directional|short|v2.28",
           "rule_id": "#16"
         },
         {
-          "candidate_id": "2026-09-30|SR2701|B|long|v2.27",
+          "candidate_id": "2026-09-30|SR2701|B|long|v2.28",
           "rule_id": "B_new_open_window"
         }
       ],
@@ -2547,7 +2547,7 @@
       "reason": "检索命中 '焦炭第一轮提降落地' (网易) 原文为 2026-07-22 (首轮 -50~55, 河北/山东), 非本周事件; 未用于任何判定; 本周首轮提降 (9/29 发起/10/1 执行, -100/-110) 采信光大 9/30 与 Mysteel 10/2 月报 (原文已核)",
       "affected_checks": [
         {
-          "candidate_id": "2026-09-30|RB2701-RB2703|A|unknown|v2.27",
+          "candidate_id": "2026-09-30|RB2701-RB2703|A|unknown|v2.28",
           "rule_id": "#5"
         }
       ],
@@ -2559,7 +2559,7 @@
       "reason": "检索命中 '伊朗甲醇分阶段复产 60-70%/90 万吨' 为 2026-07-09 文章 (6 月停火期), 与当前 '伊朗装置大部分停车' 相反; 不能作为 MA 复活条件 (ii) 到港回升的观测",
       "affected_checks": [
         {
-          "candidate_id": "2026-09-30|MA2701-MA2705|A|short_spread|v2.27",
+          "candidate_id": "2026-09-30|MA2701-MA2705|A|short_spread|v2.28",
           "rule_id": "domestic_model_basis"
         }
       ],
@@ -2571,7 +2571,7 @@
       "reason": "检索命中 '9/30 商品期货日盘综述 (西本)' 为 2022-09-30 文章 (合约 2301); 未用于任何判定",
       "affected_checks": [
         {
-          "candidate_id": "2026-09-30|MA2701|directional|long|v2.27",
+          "candidate_id": "2026-09-30|MA2701|directional|long|v2.28",
           "rule_id": "MA_oil_guard"
         }
       ],
@@ -2583,11 +2583,11 @@
       "reason": "检索命中 '布油 9/29 113.96、峰 130.80' 与路透经同花顺 (9/29 布伦特 12 月结算 96.16)、TE (10/2 102.70)、straits.live (10/1 102.38) 多源不符; 标 invalid 不用",
       "affected_checks": [
         {
-          "candidate_id": "2026-09-30|MA2701|directional|long|v2.27",
+          "candidate_id": "2026-09-30|MA2701|directional|long|v2.28",
           "rule_id": "MA_oil_guard"
         },
         {
-          "candidate_id": "2026-09-30|MA2701|directional|short|v2.27",
+          "candidate_id": "2026-09-30|MA2701|directional|short|v2.28",
           "rule_id": "#26"
         }
       ],
@@ -2599,7 +2599,7 @@
       "reason": "检索命中 '太仓甲醇均价 3,797 (较上月 +1,063)' 为生意社月度均价口径, 与日度现货 (同花顺 iFInD 9/28 江苏 4,575、大越 9/29 4,600) 不同对象; 不作基差/现货输入",
       "affected_checks": [
         {
-          "candidate_id": "2026-09-30|MA2701-MA2705|A|short_spread|v2.27",
+          "candidate_id": "2026-09-30|MA2701-MA2705|A|short_spread|v2.28",
           "rule_id": "#5"
         }
       ],
@@ -2625,5 +2625,5 @@ $ python3 scripts/validate_futures_audit.py --input research/2026-10-03-executio
   "execution_permission": "not_evaluated",
   "errors": []
 }
-退出码: 0 （2026-10-03 本次运行，现行 v2.27 / origin/main 8f68043）
+退出码: 0 （2026-10-03 本次运行，拟议 v2.28 / 分支 futures-framework/2026-10-03 工作区）
 ```
