@@ -47,7 +47,7 @@
 - 离线全量回归 231 项通过，框架结构检查通过。回归曾复现 HEAD 基线的一个 error 和两个子测试失败；仅为两个隔离测试夹具补注入 `daily_settlement_changes` 与 `math` 后通过，未改生产脚本、策略或参数。
 - 独立只读场景验收检查单阶段 compare、无更新仍出期货审计、账户/专业资料缺口、ETF 10/04 合格与 10/20 过期前置、缺适配报告时 data-sync 停止，以及精简保真约束。验收为前置检查和任务推演，未执行新的完整投研。
 - 四个归档 SHA-256、全部成员可读性、11 个迁移前工作文件原样与私有权限已核验。原 MCP 定义保留；新增配置与文件未出现现有 Gemini/Tushare 凭据字面值。
-- Gemini 注册、stdio 握手、工具发现及六项离线回归通过；Codex 本地 `mcpServerStatus/list` 实际加载 `gemini-search` 并发现 `gemini_web_search`。允许联网的真实 API 查询返回 HTTP 400 地区不支持，成功搜索尚未通过；[上期所官网](https://www.shfe.com.cn/) 的内置搜索及正文读取兜底已完成。已有聊天重新载入 MCP 配置与可用地区网络条件仍须在后续环境确认。
+- Gemini 注册、stdio 握手、工具发现及六项离线回归通过；Codex 本地 `mcpServerStatus/list` 实际加载 `gemini-search` 并发现 `gemini_web_search`。允许联网的真实 API 查询返回 HTTP 400 地区不支持，成功搜索尚未通过；[上期所官网](https://www.shfe.com.cn/) 的内置搜索及正文读取兜底已完成。2026-10-05 按用户要求回退为内置搜索：全局/项目规则、深度研究技能和本机股票/期货周更任务统一使用默认搜索，Codex Gemini MCP 暂停启用，保留服务与凭据配置供以后恢复。
 
 ## 研究目录迁移（2026-10-05）
 

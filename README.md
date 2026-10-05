@@ -55,15 +55,15 @@ python3 scripts/validate_futures_audit.py --input research/futures/weekly/YYYY-M
 
 结构校验不证明语义等价或投资有效性；汇报实际结果和未验证范围。
 
-## Gemini 搜索
+## 默认搜索与 Gemini 暂停
 
 服务代码已迁入 [.codex/mcp/gemini_search_mcp.py](.codex/mcp/gemini_search_mcp.py)，只使用 Python 标准库。当前机器已在 `~/.codex/config.toml` 注册 `gemini-search`，通过 `env_vars` 继承 `GEMINI_API_KEY`；可选 `GEMINI_SEARCH_MODEL` 和 `GEMINI_SEARCH_API_TIMEOUT`。密钥值不写入配置或仓库。
 
-普通联网检索优先 `gemini_web_search`。工具不可用或返回失败标记时使用会话内置网页搜索和页面读取，完成兜底后无需重试 Gemini。关键事实读取原始来源后引用；OpenAI 产品问题遵循 `openai-docs`。
+2026-10-05 起，普通联网检索默认使用会话内置网页搜索和页面读取，暂不调用或先尝试 `gemini_web_search`。全局规则、项目规则、深度研究技能和本机股票/期货周更任务采用同一路由；Codex 的 Gemini MCP 注册保留，设置 `enabled = false`。关键事实读取原始来源后引用；OpenAI 产品问题遵循 `openai-docs`。
 
 2026-10-04 验收：注册、stdio 握手与工具发现通过；真实 Google API 调用返回 HTTP 400 `User location is not supported for the API use.`，目前无法验证成功搜索。内置搜索与页面读取兜底已实测通过。地区限制属于待解决的外部运行条件，注册成功不等于 Gemini 搜索已可用。
 
-注册后已有聊天可能尚未载入新 MCP；重新打开 Codex 会话后确认工具可见。命令 `codex mcp get gemini-search --json` 可检查注册状态。换机时安装同一仓库，再按本机路径注册 stdio 服务，凭据仍从环境继承。
+服务代码和环境变量配置保留，便于以后明确要求时恢复。命令 `codex mcp get gemini-search --json` 可检查注册及启用状态；已有聊天可能仍保留旧工具或指令，新会话载入更新后的配置。
 
 ## 迁移边界与备份
 

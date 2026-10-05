@@ -24,8 +24,8 @@
 
 ## 搜索与证据
 
-- 普通联网检索优先发现并使用 `gemini-search` MCP 的 `gemini_web_search`。缺少该工具，或返回 `[SEARCH_FAILED]` / `[gemini_web_search]` 失败标记时，使用当前会话内置网页搜索与页面读取；完成兜底后无需再重试 Gemini。
-- Gemini 输出和检索摘要用于发现资料；关键事实继续打开原始来源核验并记录日期，不能声称未读的正文已验证。OpenAI 产品问题遵循 `openai-docs` 的官方来源顺序。
+- 普通联网检索默认使用当前会话内置网页搜索与页面读取；暂不调用 `gemini-search` / `gemini_web_search`，也不先尝试 Gemini。
+- 检索摘要用于发现资料；关键事实继续打开原始来源核验并记录日期，不能声称未读的正文已验证。OpenAI 产品问题遵循 `openai-docs` 的官方来源顺序。
 - Gemini 密钥只从 `GEMINI_API_KEY` 环境变量读取；不输出变量值，不将密钥写入仓库。服务实现为 `.codex/mcp/gemini_search_mcp.py`。
 
 ## 输出、更新与协作
