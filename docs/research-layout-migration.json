@@ -976,6 +976,41 @@
       "tracked_before": true,
       "sha256_before": "799affcd88e0dd161e39c1992584b02c8e82496948b7c1bf9f3eb3ede9aec0a2",
       "sha256_after": "799affcd88e0dd161e39c1992584b02c8e82496948b7c1bf9f3eb3ede9aec0a2"
+    },
+    {
+      "old": "research/2026-10-03-change-decision.md",
+      "new": "research/futures/weekly/2026-10-03/2026-10-03-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "5db476bfce75e35da3e2f1de5acb63d572dd06baecc95272a1bd3468fc589edc",
+      "sha256_after": "8d3ca3f8be8285bbced9bf4e9863b708562a948a4ae2206b33eb8def79bc988d"
+    },
+    {
+      "old": "research/2026-10-03-execution-audit.md",
+      "new": "research/futures/weekly/2026-10-03/2026-10-03-execution-audit.md",
+      "tracked_before": true,
+      "sha256_before": "3e4cb4c0b733501aa68f44fcb244b00e4311a45afb854e3cfe978c01d9b3b226",
+      "sha256_after": "4e8997f9030c49184e1cbab7742eb2b79690dfb511979645281f3e8eb20b321f"
+    },
+    {
+      "old": "research/2026-10-03-market-research.md",
+      "new": "research/futures/weekly/2026-10-03/2026-10-03-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "c72ee3d33f83ff8a2e9d6a163184bfb79e14ad20ed5244d4d9938f581486d8df",
+      "sha256_after": "328489342184889800f4378999f02464d1b06d4cc2668cca6565903e92f28238"
+    },
+    {
+      "old": "research/investment-2026-10-03-change-decision.md",
+      "new": "research/investment/weekly/2026-10-03/investment-2026-10-03-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "2c2ae6204c86634ce532dd6287531556fda1305e4ddf9301f83647d83e3e69e3",
+      "sha256_after": "2c2ae6204c86634ce532dd6287531556fda1305e4ddf9301f83647d83e3e69e3"
+    },
+    {
+      "old": "research/investment-2026-10-03-market-research.md",
+      "new": "research/investment/weekly/2026-10-03/investment-2026-10-03-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "6cca9f0ec2d0d06e8ecc749dcde47856092a88d17fb744f66f3959b29d50fc77",
+      "sha256_after": "6cca9f0ec2d0d06e8ecc749dcde47856092a88d17fb744f66f3959b29d50fc77"
     }
   ],
   "preregistration": {

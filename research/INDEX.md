@@ -7,6 +7,7 @@
 
 | 日期 | 已保存报告 |
 |---|---|
+| 2026-10-03 | [change-decision](futures/weekly/2026-10-03/2026-10-03-change-decision.md) · [execution-audit](futures/weekly/2026-10-03/2026-10-03-execution-audit.md) · [market-research](futures/weekly/2026-10-03/2026-10-03-market-research.md) |
 | 2026-09-26 | [change-decision](futures/weekly/2026-09-26/2026-09-26-change-decision.md) · [execution-audit](futures/weekly/2026-09-26/2026-09-26-execution-audit.md) · [market-research](futures/weekly/2026-09-26/2026-09-26-market-research.md) |
 | 2026-09-19 | [adaption-report](futures/weekly/2026-09-19/2026-09-19-adaption-report.md) · [change-decision](futures/weekly/2026-09-19/2026-09-19-change-decision.md) · [execution-audit](futures/weekly/2026-09-19/2026-09-19-execution-audit.md) · [market-research](futures/weekly/2026-09-19/2026-09-19-market-research.md) |
 | 2026-09-12 | [adaption-report](futures/weekly/2026-09-12/2026-09-12-adaption-report.md) · [change-decision](futures/weekly/2026-09-12/2026-09-12-change-decision.md) · [execution-audit](futures/weekly/2026-09-12/2026-09-12-execution-audit.md) · [market-research](futures/weekly/2026-09-12/2026-09-12-market-research.md) |
@@ -29,6 +30,7 @@
 
 | 日期 | 已保存报告 |
 |---|---|
+| 2026-10-03 | [change-decision](investment/weekly/2026-10-03/investment-2026-10-03-change-decision.md) · [market-research](investment/weekly/2026-10-03/investment-2026-10-03-market-research.md) |
 | 2026-09-26 | [change-decision](investment/weekly/2026-09-26/investment-2026-09-26-change-decision.md) · [market-research](investment/weekly/2026-09-26/investment-2026-09-26-market-research.md) |
 | 2026-09-19 | [adaption-report](investment/weekly/2026-09-19/investment-2026-09-19-adaption-report.md) · [change-decision](investment/weekly/2026-09-19/investment-2026-09-19-change-decision.md) · [market-research](investment/weekly/2026-09-19/investment-2026-09-19-market-research.md) |
 | 2026-09-12 | [adaption-report](investment/weekly/2026-09-12/investment-2026-09-12-adaption-report.md) · [change-decision](investment/weekly/2026-09-12/investment-2026-09-12-change-decision.md) · [market-research](investment/weekly/2026-09-12/investment-2026-09-12-market-research.md) |

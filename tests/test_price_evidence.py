@@ -312,8 +312,9 @@ class ScriptIntegrationTests(unittest.TestCase):
                 data = pd.DataFrame([
                     quote("20260831", 100) | dict(px=100, high=bad_high, low=99),
                     quote("20260907", 110) | dict(px=110, high=111, low=109)])
-                ns = isolated_functions({"daily_settlement_changes", "contract_price_evidence", "collect_contract_data", "indicators"},
-                                        dict(math=math, np=np, pd=pd, AS_OF="20260907", daily=lambda sym: data,
+                ns = isolated_functions({"contract_price_evidence", "daily_settlement_changes",
+                                         "collect_contract_data", "indicators"},
+                                        dict(np=np, pd=pd, math=math, AS_OF="20260907", daily=lambda sym: data,
                                              weekly_price_evidence=weekly_price_evidence))
                 result = ns["collect_contract_data"]("SC2610")
                 self.assertEqual(result["SC护栏数据状态"], "available")
@@ -329,7 +330,7 @@ class ScriptIntegrationTests(unittest.TestCase):
         import pandas as pd
 
         data = pd.DataFrame([quote("20260831", 100), quote("20260907", None, 120)])
-        ns = isolated_functions({"daily_settlement_changes", "contract_price_evidence"}, dict(
+        ns = isolated_functions({"contract_price_evidence", "daily_settlement_changes"}, dict(
             math=math, AS_OF="20260907", daily=lambda sym: data, weekly_price_evidence=weekly_price_evidence))
         result = ns["contract_price_evidence"]("SC2610")
         self.assertEqual(result["周涨%"], 20)
