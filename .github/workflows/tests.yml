@@ -25,6 +25,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 预注册溯源测试需要读取迁移前的原始提交，不能使用浅克隆。
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:

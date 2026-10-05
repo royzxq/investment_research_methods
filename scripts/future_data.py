@@ -47,9 +47,9 @@ v1.15（2026-09-17，对应框架 v2.26）：
 v1.14（2026-09-16 方法修复，框架版本号不变）：
   ★ §2d 实现 D8：fut_mapping 取锚日主力，同一合约两端结算价算周涨(终点前7自然日及以前最近交易日)，
     近3年每自然周最后交易日为历史样本，有效样本<80%为unknown；口径经用户2026-09-16确认，写入canonical 3.4。
-  ★ §5 影子账本：扫描 research/*-execution-audit.md 的 shadow_plans，结算规则见 price_evidence.settle_shadow_plan；
+  ★ §5 影子账本：扫描 research/futures/weekly/<日期>/*-execution-audit.md 的 shadow_plans，结算规则见 price_evidence.settle_shadow_plan；
     已了结影子按登记时已核阻断归集盈亏，供 AUDIT 规则复评。
-  ★ 脚本自行把完整输出(含 stderr)写入 research/<AS_OF>-data-snapshot.txt(末行“快照完成”为完整标记)，提交后流水线据此读取实测值。
+  ★ 脚本自行把完整输出(含 stderr)写入 research/futures/snapshots/<AS_OF>-data-snapshot.txt(末行“快照完成”为完整标记)，提交后流水线据此读取实测值。
 
 v1.13 对应框架v2.25（2026-09-12 周度状态换版, light; 合并 v2.24/v1.12 后重适配）——仅配置层随动，无算法改动：
   ★ §1 SPREAD_PAIRS: RB 当前对按框架 0) 阶梯表 9/10 触发点到期切换 RB2610-RB2701 → RB2701-RB2703
@@ -117,6 +117,11 @@ try:
 except ImportError:
     sys.exit("缺少依赖: 请先执行  pip install tushare pandas numpy")
 
+try:
+    from .research_paths import ROOT, artifact_path, discover, snapshot_output
+except ImportError:
+    from research_paths import ROOT, artifact_path, discover, snapshot_output
+
 # ============================ 配置区 ============================
 # 环境变量优先; 也可直接在此粘贴:  TOKEN = "你的tushare_token"
 TOKEN = os.getenv("TUSHARE_TOKEN", "")
@@ -124,7 +129,7 @@ TOKEN = os.getenv("TUSHARE_TOKEN", "")
 AS_OF = datetime.now().strftime("%Y%m%d")
 YEARS = 3               # 价差同期分位回看年数
 WIN = 20                # 同期对齐窗口: 历史各年同日历日 ±20 个交易日
-OUTDIR = "./output"
+OUTDIR = ROOT / "output/cache/futures"
 
 # ---- §0b 事件日历 (v2.9 0.0b / 1.4 事件轴; ★用户维护, 脚本只打印) ----
 # 条目: (起始YYYYMMDD, 结束YYYYMMDD, 标签, 受影响品种tuple 或 "ALL", 处置备注[, 自动打标])
@@ -285,7 +290,6 @@ SIGNAL_LEGS = {"AU2612", "SC2611"}
 PRODUCT_ATTR = {"MA": "商品", "RB": "商品", "M": "商品", "SR": "商品", "CF": "商品", "SC": "商品", "AU": "金融"}
 D8_TIERS = {"商品": {"long": (20, 10), "short": (20, 10)},
             "金融": {"long": (10, 5), "short": (30, 20)}}
-RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"   # 影子计划登记在执行诊断 JSON 的 shadow_plans
 # ===============================================================
 
 EXCH = {"MA": "CZCE", "SR": "CZCE", "CF": "CZCE",
@@ -1231,7 +1235,7 @@ def shadow_bars(plan):
 def shadow_ledger():
     print("\n---- 5) 影子账本 (canonical 4.4: 事前登记计划的保守日线结算; 只供规则复评, 不是成交或账户记录) ----")
     plans, rewritten, missing_id, skipped = {}, [], 0, []
-    for path in sorted(RESEARCH_DIR.glob("*-execution-audit.md")):
+    for path in discover("futures", "execution-audit", AS_OF):
         text = path.read_text(encoding="utf-8")
         if '"shadow_plans"' not in text:
             continue
@@ -1303,30 +1307,6 @@ def shadow_ledger():
     return rows
 
 
-def tee_output(path):
-    """把 stdout+stderr 同时写入快照文件；返回 restore()。sys.exit 的报错也会落进文件，末行“快照完成”才算完整。"""
-    class _Tee:
-        def __init__(self, stream, sink):
-            self.stream, self.sink = stream, sink
-
-        def write(self, data):
-            self.stream.write(data)
-            self.sink.write(data)
-
-        def flush(self):
-            self.stream.flush()
-            self.sink.flush()
-
-    sink = open(path, "w", encoding="utf-8")
-    originals = sys.stdout, sys.stderr
-    sys.stdout, sys.stderr = _Tee(originals[0], sink), _Tee(originals[1], sink)
-
-    def restore():
-        sys.stdout, sys.stderr = originals
-        sink.close()
-    return restore
-
-
 def _valid_date(s):
     try:
         datetime.strptime(s, "%Y%m%d")
@@ -1343,16 +1323,18 @@ def main():
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
     parser.add_argument("--no-snapshot", action="store_true",
-                        help="只打印，不写 research/<AS_OF>-data-snapshot.txt(框架0D行情快照)")
+                        help="只打印，不写 research/futures/snapshots/<AS_OF>-data-snapshot.txt(框架0D行情快照)")
+    parser.add_argument("--overwrite", action="store_true", help="显式覆盖同日快照；失败保留旧正式文件")
     args = parser.parse_args()
     AS_OF = args.as_of
-    snapshot = None if args.no_snapshot else RESEARCH_DIR / f"{AS_OF[:4]}-{AS_OF[4:6]}-{AS_OF[6:]}-data-snapshot.txt"
-    restore = tee_output(snapshot) if snapshot else None
+    snapshot = None if args.no_snapshot else artifact_path("futures", "data-snapshot", AS_OF)
+    if snapshot is None:
+        return run(None)
     try:
-        run(snapshot)
-    finally:
-        if restore:
-            restore()
+        with snapshot_output(snapshot, AS_OF, overwrite=args.overwrite):
+            run(snapshot)
+    except (FileExistsError, ValueError) as exc:
+        parser.exit(2, str(exc) + "\n")
 
 
 def run(snapshot):
