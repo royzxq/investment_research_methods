@@ -3,3 +3,7 @@ output/
 __pycache__/
 # etf_data.py 未跑完的快照（跑完整才会改名为正式文件）
 research/**/*.partial
+# 本机环境、旧 Claude worktree 与含会话/账户资料的私有迁移备份
+.venv/
+.claude/worktrees/
+.migration-backups/

@@ -1,41 +1,67 @@
 # investment_research_methods
 
-两条并行的研究方法论自动化流水线的本地存档，每周分别由 claude.ai 云端 Routine 自动运行。两条轨道共享同一个仓库，文件互不重叠（期货侧文件无前缀，股票侧文件统一带 `investment-` 前缀），互相独立、互不干扰。第三条 ETF 轨道（文件带 `etf-` 前缀）按月在本地运行，见文末。
+股票、期货、主题 ETF 三条研究轨道的共享仓库。后续工作使用 Codex；原有方法、脚本和日期报告继续原位维护。项目约定见 [AGENTS.md](AGENTS.md)，当前版本、待办与历史边界见 [项目状态](docs/context/project-state.md)。
 
-## 期货轨道：meta future analysis → future change analysis → future adaption → future data sync
+## 在 Codex 中使用
 
-- **v2.23 默认采用有限数据模式 `public_data`**：先查 MA/RB 的现有行情与合约资料，再为进入研究的候选选择至少一项合适的公开产业证据。专业船流、战争险、装置/利润数据库不再是全池必填项；依赖它们的强因果模型保留原验证要求并可转 `research_only`。详见 `framework/FUTURES_DATA_PROTOCOL.md`，三阶段及报告A都须读取该协议；标的研究可用 compact 导航，方法与参数核对以 canonical 为准。v2.23将确认定义、逐门依赖、换月准备、事件时间及发布审计写入主框架；规则更新时间与市场快照日期分列。
-- 研究输出与执行核验分步：先给具体逻辑、方向、价格计划和期限，再核实际账户、挂单、费用、保证金与执行压力。研究无需付费专业全链，真实交易输入仍不得猜测。新版改动与验证记录见 `research/2026-09-07-data-accessibility-adaption.md`。
-- `projects/{meta_future_analysis,future_change_analysis,future_adaption}/INSTRUCTIONS.md` — 三个 Claude.ai Project 的原始 instruction
-- `framework/futures_framework.md` — 现行「期货投资分析框架」活文档，只能通过分支 + PR 更新，不直接改 main
-- `framework/futures_framework_compact.md` — 完整框架的**保真精简版**，删除重复表述、历代修订标记与版本簿记，保留有效规则、阈值、例外和当前状态；由 `framework-condense` 从 canonical 生成，勿分别手改规则；**实际标的研究可用 compact 执行导航；遇到歧义、方法修订或参数核对时回到 canonical 权威定义**
-- 维护时只局部更新受影响内容，适配报告记录变更并链接完整文件，不再粘贴全文；最新周度状态在主文对应统一区域更新，历史留在 git 和日期报告。文本精简不改变现行策略范围、评分、风险或每周执行审计要求。
-- `scripts/future_data.py` — 框架配套取数脚本（Tushare/akshare），版本随框架结构性变化同步迭代；本身无网络环境无法线上实测，改动需人工在有真实数据源的环境里运行验证
-- `scripts/price_evidence.py` — v1.11取数脚本使用的离线价格证据模块：区分 settle/close、SC专用结算周涨、固定合约对1/5/10交易日价差变化与同期样本验收。周涨按最新已完成行情日减7自然日，不按研究日减7天；没有最终结算则不使用收盘价替代护栏。脚本仍需用户已有Tushare权限，未新增无Token的CSV导入入口；可由研究方读取终端导出作为独立证据，不等于脚本自动支持导入。
-- v1.11 的SC结算周涨不再因ATR/OHLC错误整行丢失，CSV分列指标错误、价格证据错误及具体结算缺项；默认额外准备MA2701–MA2705、RB2701–RB2703，按合约对独立输出CSV与 `output/spread_research_<AS_OF>.json` 样本摘要。准备输出不自动替换当前合约/分位、不授予许可。事件时间映射到国内交易日，已有提前风险安排另列；本次修订说明见 `research/2026-09-09-research-method-repair.md`。
-- `scripts/futures_risk.py` — v2.21起的离线A计划校验与风险容量计算；JSON CLI为 `python3 scripts/futures_risk.py validate-a --input plan.json` / `python3 scripts/futures_risk.py size --input sizing.json`，字段见函数说明。计算通过只代表计划/容量校验完成，不授予完整交易许可；缺实际账户、止损或容量信息保留 `null`。
-- `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md` — 每周执行诊断的唯一口径；无论框架是否更新，都生成 `research/<date>-execution-audit.md`，分开记录未触发、已知阻断、研究未完成与满足执行条件。
-- `scripts/validate_futures_audit.py` — schema 3（schema 2 仅兼容历史报告）JSON或含唯一JSON审计块的Markdown结构校验器（含 awaiting_account 状态与 shadow_plans 结构，计划字段校验与 `price_evidence.parse_shadow_plan` 共用）：`python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`。检查状态、门适用性、证据日期和未知账户空值；不验证来源真伪、不计算投资收益、不授予交易许可。无本地执行环境时须明确未运行，按模板清单检查。
-- `research/` — `baseline-market-research.md`（day-0 基线）+ 按日期命名的 `<date>-market-research.md` / `<date>-change-decision.md`（始终直接 push 到 main）/ `<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
-- `.claude/skills/` — `meta-future-analysis` / `future-change-analysis` / `future-adaption` / `future-data-sync`（四个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `futures-weekly-review`（编排器，统一开 PR）
+在本仓库打开 Codex 聊天，直接描述任务，或使用以下 skill 名称。项目入口位于 `.agents/skills/`；原 Claude 的七个阶段包装已成为股票/期货入口的 references，仍支持单阶段请求。
 
-期货每周本地行情快照：在已设置 `TUSHARE_TOKEN` 的环境运行 `python3 scripts/future_data.py`，脚本自行写入 `research/<AS_OF>-data-snapshot.txt`（含 stderr，末行“快照完成”为完整标记），提交该文件；云端流水线只读这份快照（含§2d D8周涨分位与§5影子账本结算）。
+| 入口 | 示例 | 流程与交付 |
+|---|---|---|
+| [investment-weekly-review](.agents/skills/investment-weekly-review/SKILL.md) | “执行股票完整周更”；“仅比较指定的新旧股票研究报告” | 元研究 → 变化检测 → 条件适配 → 保真精简；报告带 `investment-` 前缀 |
+| [futures-weekly-review](.agents/skills/futures-weekly-review/SKILL.md) | “执行期货完整周更”；“仅同步本次适配的数据脚本” | 元研究 → 变化检测与每期审计 → 条件适配 → 脚本同步 → 诊断重评 → 保真精简；日期报告无前缀 |
+| [etf-review](.agents/skills/etf-review/SKILL.md) | “执行本期 ETF 主题评审”，可附持仓 | 每两个月评审定投主题与持有主题目标；报告带 `etf-` 前缀 |
+| [framework-condense](.agents/skills/framework-condense/SKILL.md) | “仅同步期货 canonical 与 compact” | 保留五元组、数值、逻辑、例外、稳定编号及当前状态，完成七项自审 |
 
-期货离线回归验证：`python3 -m unittest discover -s tests -v`。A计划校验器仅支持MA/RB/SR同品种1:1月差，必填 `price_unit="CNY/tonne"`；Entry/SL/TP必须为元/吨的绝对价差，乘数为吨/手。单位缺失或不兼容时不计算风险金额或R，不推断或换算百分比；纯风险计算不访问行情或账户，输出不能当作已成交或账户实仓证明。取数脚本的2ATR数量是预检参考，旧版“距50分位风险”和“主仓触发”标签自v2.21起停用。 低敞口组合上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险；输出以 `portfolio_risk_cap_normal/current` 区分常规和当前生效上限，不使用低敞口比例乘数。
+日期默认北京时间当天，可明确指定 `AS_OF_DATE`。默认本地保存；单阶段请求在该阶段结束，同日已有产物先核对并复用。需要框架更新时使用分支或隔离 worktree；只有已明确授权发布时，才提交、推送并统一创建一个 PR，人工审核后合并。原 routine 的自动推送行为不作为新任务授权。
 
-## 股票轨道：meta investment analysis → investment change analysis → investment adaption
+## 方法与证据
 
-- `projects/{meta_investment_analysis,investment_change_analysis,investment_adaption}/INSTRUCTIONS.md` — 三个 Claude.ai Project 的原始 instruction；字段口径与期货那套不同（`DOMINANT_RETURN_DRIVERS`/`FRAGILE_NARRATIVE`/`research_meaning`，`investment_adaption` 输入变量名为 `CURRENT_STOCK_RESEARCH_FRAMEWORK`）
-- `framework/investment_framework.md` — 现行「个股调研框架」活文档，本质是逐股分析用的参数化模板（含 `{{COMPANY_NAME}}`/`{{TICKER_OR_CODE}}`/`{{VALUATION_DATE}}` 占位符），不是像期货框架那样对所有标的通用的执行规则集；同样只能通过分支 + PR 更新
-- `framework/investment_framework_compact.md` — 完整框架的保真精简版，由 `framework-condense` 从 canonical 生成；保留有效规则、阈值、例外、当前状态与模板占位符，不分别维护另一套判据。可供 AI 个股研究导航，方法修订、参数核对及歧义裁决仍以 canonical 为准
-- 股票框架只局部更新受影响内容，当前状态原位替换，不累加旧状态或历代修订标记。适配报告链接完整文件并记录必要变更片段，不粘全文；变化检测从日期研究报告和必要 git 变更读取历史。现行研究范围、分析要求、输入输出字段和发布边界保持不变
-- 框架 Section 0 提到配套取数脚本 `stock_data_pack.py`（对应期货侧 `future_data.py` 的角色），目前本仓库与 `ai_investment` 均未找到该脚本，暂未设计联动同步阶段
-- `research/` — `investment-baseline-market-research.md`（day-0 基线，可为空——为空时首次运行按"无历史基线"处理，不是错误）+ `investment-<date>-market-research.md` / `investment-<date>-change-decision.md`（始终直接 push 到 main）/ `investment-<date>-adaption-report.md`（框架需要更新时才有，走分支 + PR）
-- `.claude/skills/` — `meta-investment-analysis` / `investment-change-analysis` / `investment-adaption`（三个阶段包装）+ `framework-condense`（compact 再生，两轨道共享）+ `investment-weekly-review`（编排器，统一开 PR）
+- **期货**：[canonical](framework/futures_framework.md) 当前 v2.27；[compact](framework/futures_framework_compact.md) 为同一框架的执行导航。[数据协议](framework/FUTURES_DATA_PROTOCOL.md) v2.26 默认 `public_data`，先满足活跃模型的最小公开数据，专业增强项按各自模型处理。研究先给逻辑、方向、价格计划与期限，实际账户、挂单、费用、保证金和许可另核。
+- **股票**：[canonical](framework/investment_framework.md) 是逐股研究的参数化模板，保留公司、代码、估值日期占位符；[compact](framework/investment_framework_compact.md) 不另设判据。`projects/{meta_investment_analysis,investment_change_analysis,investment_adaption}/INSTRUCTIONS.md` 保留原方法与字段契约。空 day-0 基线按首次运行处理，本期元研究结果始终必传。框架提到的 `stock_data_pack.py` 尚未在本仓及关联 `ai_investment` 找到。
+- **ETF**：[canonical](framework/etf_framework.md) 当前 v2.1，在八个主题研究池中回答未来两个月定投哪 2–3 个主题，以及持有主题的目标权重和处理。未提供持仓时只给主题名单；宽基 50% 与红利低波 20% 是用户长期安排，本仓不研究。只交付研究结论，执行由用户处理。
 
-## ETF 轨道：每 2 个月的主题 ETF 调研
+canonical 是方法、参数及歧义裁决的权威；compact 必须保真同步。框架只局部更新受影响条目，规则与动态状态分区维护，历史保留在 Git 与日期报告。适配报告链接完整文件，不粘贴框架全文。
 
-- `framework/etf_framework.md` — 「ETF 主题调研框架」v2.1：每 2 个月回答两个问题——未来两个月定投哪 2–3 个主题 ETF（8 个主题的研究池里选，各 5% 或 10%），以及每个持有主题的目标权重和处理（按实际账户管理，目标可以是 0%）。宽基 50% 与红利低波 20% 由用户长期持有，本仓不研究。只出研究结论，不给金额、点位、时点或分批计划；执行由用户按自己的方案处理。只走分支 + PR 更新
-- 用法：本地跑 `scripts/etf_data.py`（需 `TUSHARE_TOKEN`）出快照 → 在 Claude Code 里说「跑 etf-review」（可附一行持仓）→ 得到 `research/etf-<日期>-review.md`
-- `framework/etf_index_registry.json` 是指数取数清单；`scripts/etf_calc.py` 是纯函数计算器；为什么不做点位择时见 `research/etf-2026-09-18-rule-validation.md`
-- ETF 离线验证：`python3 -m unittest tests.test_etf_calc tests.test_etf_backtest`
+快照生成日、实际行情日、规则整理日与评审日分别记录，不能把旧报告的“最新”声明沿用到新一期。完整快照末行须有“快照完成”；`.partial` 不可引用。ETF v2.1 接受 v2.0 快照格式，另检查不晚于评审日、10天以内和两只指定指数，详见入口。
+
+## 本地取数与校验
+
+解释器、凭据继承和外部研究池配置见 [运行环境](docs/context/environment.md)。脚本读取已有 `TUSHARE_TOKEN`，不把 Token 写入仓库。以下命令从仓库根运行：
+
+```sh
+/Users/xinquanzhou/miniconda3/bin/python3 scripts/future_data.py --as-of YYYYMMDD
+/Users/xinquanzhou/miniconda3/bin/python3 scripts/etf_data.py --as-of YYYYMMDD --pool-csv /absolute/path/investment_prediction.csv
+```
+
+ETF 研究池可由技能读取 `ETF_POOL_CSV` 并转为 `--pool-csv`；脚本自身不读取这个环境变量。不默认覆盖同日快照。联网、账户权限和字段可用性以实际调用验收，不能将离线测试或 Token 存在当作线上验证。
+
+- [future_data.py](scripts/future_data.py) 当前 v1.16，负责取数、研究候选和情景预检。`POSITIONS` 为空不证明账户空仓；2ATR 数量与月差分位不等于最终手数或交易许可。
+- [price_evidence.py](scripts/price_evidence.py) 区分 settle/close、SC 结算周涨和固定合约对的同期样本。周涨以最新完成行情日减七个自然日；不使用收盘替代结算护栏。快照还准备合约对研究 CSV 与 `output/spread_research_<AS_OF>.json`，不自动替换当前合约或授予许可。
+- [futures_risk.py](scripts/futures_risk.py) 提供离线 A 计划校验与风险容量计算：`validate-a --input plan.json` / `size --input sizing.json`。A 校验仅支持 MA/RB/SR 同品种 1:1 月差，必填 `price_unit="CNY/tonne"`，Entry/SL/TP 为绝对价差。单位不兼容不换算，缺实际账户、止损或容量保留 `null`。低敞口上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险，常规和当前上限分列。
+- [执行审计模板](projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md) 是每期诊断唯一口径。无论框架是否更新都生成执行审计；[validate_futures_audit.py](scripts/validate_futures_audit.py) 校验 schema 3（schema 2 仅兼容历史），不验证来源真伪、收益或交易许可。
+- [etf_index_registry.json](framework/etf_index_registry.json) 为指数清单；[etf_calc.py](scripts/etf_calc.py) 为纯函数计算器。旧回测只按其记录的判据解释；新增历史发现见 [ETF 验证记录](docs/context/etf-timing-validation.md) 和 [恒指全收益代理](docs/context/hsi-total-return-proxy.md)，两者均待复现。
+
+```sh
+/Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v
+python3 scripts/futures_framework_governance.py --check
+python3 scripts/validate_futures_audit.py --input research/YYYY-MM-DD-execution-audit.md
+```
+
+结构校验不证明语义等价或投资有效性；汇报实际结果和未验证范围。
+
+## Gemini 搜索
+
+服务代码已迁入 [.codex/mcp/gemini_search_mcp.py](.codex/mcp/gemini_search_mcp.py)，只使用 Python 标准库。当前机器已在 `~/.codex/config.toml` 注册 `gemini-search`，通过 `env_vars` 继承 `GEMINI_API_KEY`；可选 `GEMINI_SEARCH_MODEL` 和 `GEMINI_SEARCH_API_TIMEOUT`。密钥值不写入配置或仓库。
+
+普通联网检索优先 `gemini_web_search`。工具不可用或返回失败标记时使用会话内置网页搜索和页面读取，完成兜底后无需重试 Gemini。关键事实读取原始来源后引用；OpenAI 产品问题遵循 `openai-docs`。
+
+2026-10-04 验收：注册、stdio 握手与工具发现通过；真实 Google API 调用返回 HTTP 400 `User location is not supported for the API use.`，目前无法验证成功搜索。内置搜索与页面读取兜底已实测通过。地区限制属于待解决的外部运行条件，注册成功不等于 Gemini 搜索已可用。
+
+注册后已有聊天可能尚未载入新 MCP；重新打开 Codex 会话后确认工具可见。命令 `codex mcp get gemini-search --json` 可检查注册状态。换机时安装同一仓库，再按本机路径注册 stdio 服务，凭据仍从环境继承。
+
+## 迁移边界与备份
+
+Codex 已有的通用投研、飞书技能和新版吸引子继续复用，避免平行副本。独有项目约定写入 `AGENTS.md`，环境与研究发现写入 `docs/context/`；没有手工填充 Codex 原生自动记忆库。`.claude/` 原文件保留为历史来源。
+
+迁移前项目会话、七份记忆、独有 skills、未提交研究、临时回测和行情缓存已保存到本机私有 `.migration-backups/2026-10-04-claude-to-codex/`，带 SHA-256 清单并被 Git 忽略。恢复步骤见项目状态文档。`.venv/` 与旧 Claude worktree 保留并忽略，未删除或合并。股票/期货周度、ETF 双月的研究节奏保留；本次未创建定时任务，原云端 Routine 的运行时间与授权需单独衔接。
