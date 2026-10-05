@@ -1,6 +1,6 @@
 # 期货周度执行诊断：共享口径与模板
 
-每周由 `future-change-analysis` 生成 `research/<AS_OF_DATE>-execution-audit.md`，不以 `update_needed=yes` 为前提。完整流水线如更新了框架，编排器在数据同步后按最终版本刷新同一诊断，标明版本尚待合并；不得把新规则伪装成历史交易日已生效的规则。单独定向维护只写本次诊断，不重跑或覆盖历史市场调研。
+每周由 `future-change-analysis` 生成 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md`，不以 `update_needed=yes` 为前提。完整流水线如更新了框架，编排器在数据同步后按最终版本刷新同一诊断，标明版本尚待合并；不得把新规则伪装成历史交易日已生效的规则。单独定向维护只写本次诊断，不重跑或覆盖历史市场调研。
 
 诊断只评估证据、候选与执行完备性，不代替成交记录。风险定义及计算以 `framework/futures_framework.md` 的 Step5 / #31 和 `scripts/futures_risk.py` 为唯一来源；本模板不保存第二套公式。行情脚本的分位或单腿参考手数不能替代真实交易计划、组合预算和保证金核验。风险 helper 只计算数值容量，滑点、跳空压力与完整执行门未核验时仍不能 ready。
 
@@ -12,7 +12,7 @@
 
 以下错误发布前必须修复：A豁免D8却因其缺失判#13失败；完整结构计#16或单边D12；30–60参考期当固定最低期；未知账户风险填0；同源转载重复验证；SC收盘代结算；高分位代替近期反弹；only_blocker无充分依据。换月33/41样本下限及A固定评分口径只引用canonical，勿另改参数。
 
-机器块使用严格JSON（schema 3；schema 2仅兼容历史版本），便于标准库工具校验。运行 `python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md`，失败先修。校验仅检查结构、状态和日期内部一致性，不核查网络内容真实、不覆盖完整交易许可或经济逻辑；通过不等于ready。流水线无本地执行环境时按同一清单检查并明确“未运行校验器”，不能虚构通过。
+机器块使用严格JSON（schema 3；schema 2仅兼容历史版本），便于标准库工具校验。运行 `python3 scripts/validate_futures_audit.py --input research/futures/weekly/<date>/<date>-execution-audit.md`，失败先修。校验仅检查结构、状态和日期内部一致性，不核查网络内容真实、不覆盖完整交易许可或经济逻辑；通过不等于ready。流水线无本地执行环境时按同一清单检查并明确“未运行校验器”，不能虚构通过。
 
 发布时附校验器命令、退出码/错误摘要和待人工核验事项；不能仅更换JSON代码块标签而保留YAML或旧字段。AU/SC信号席记录在coverage或独立signal_observations，不用signal_only混入执行候选。已有许可但换月对未计算记temporary_gap，不能直接判research_only。
 

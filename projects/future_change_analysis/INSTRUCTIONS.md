@@ -21,7 +21,7 @@
 - 数据可得性协议：`framework/FUTURES_DATA_PROTOCOL.md`（与 canonical 完整框架及共享审计模板一起读取）
 
 # 独立执行诊断（每周必出）
-先读取 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`，按该文件唯一口径将执行证据写入 `research/<AS_OF_DATE>-execution-audit.md`，返回为 `CURRENT_EXECUTION_AUDIT`。`update_needed=no` 只表示不改框架，不跳过诊断。缺数据可输出 `incomplete`，不得伪造人工研究输入、账户空仓或零个机会。
+先读取 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`，按该文件唯一口径将执行证据写入 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md`，返回为 `CURRENT_EXECUTION_AUDIT`。`update_needed=no` 只表示不改框架，不跳过诊断。缺数据可输出 `incomplete`，不得伪造人工研究输入、账户空仓或零个机会。
 
 诊断是框架有效性复评的证据输入，不能仅凭空仓持续时间、护栏命中次数或一次踏空就改风险边界。变更报告引用诊断路径与覆盖范围；缺少完整账时保留“不足以判断机会成本”的结论。若流水线随后修改框架，编排器须按最终版本重新核对诊断，并标明属于新版本重评而非历史实际决策。
 
@@ -33,7 +33,7 @@
 
 专业增强数据缺失不自动生成 `unknown_checks` 或否决；只有当前模型仍适用且确实必要的未核项进入 `unknown_checks`。`all_blockers` 只放已核实失败；`first_blocker` 不能填“账户未知+计划未完成”。`only_blocker`、`signal`、`status` 和零值/null 一律沿用共享模板，不另造枚举。
 
-本阶段对发布结果负责：按数据协议5.1/5.2固定确认定义的版本与生效时间，区分筛选/信号、工具未输出/原始数据缺失、发布时间/国内交易日/既有提前风险窗。SC周涨证据独立读取；换月准备对逐对验收，不能继承旧分位或以开发待办判research_only。按共享模板生成唯一schema 3 JSON并运行校验器，附真实结果；无法运行须明示，同时完成适用性与证据人工核验。参考本地 `research/2026-09-07-execution-audit-reassessment.md` 的缺项表达，但不得复用其中的历史市场状态、日期或报价。
+本阶段对发布结果负责：按数据协议5.1/5.2固定确认定义的版本与生效时间，区分筛选/信号、工具未输出/原始数据缺失、发布时间/国内交易日/既有提前风险窗。SC周涨证据独立读取；换月准备对逐对验收，不能继承旧分位或以开发待办判research_only。按共享模板生成唯一schema 3 JSON并运行校验器，附真实结果；无法运行须明示，同时完成适用性与证据人工核验。参考本地 `research/futures/maintenance/2026-09-07/2026-09-07-execution-audit-reassessment.md` 的缺项表达，但不得复用其中的历史市场状态、日期或报价。
 
 # 输入字段口径
 两次元框架调研结果均应包含以下字段：
@@ -210,7 +210,7 @@ DO_NOT_OVERREACT_ITEMS:
   - ""
 
 EXECUTION_AUDIT:
-  path: "research/<AS_OF_DATE>-execution-audit.md"
+  path: "research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md"
   framework_version: ""
   coverage: complete / partial / unknown
   active_scope: []

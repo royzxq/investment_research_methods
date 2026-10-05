@@ -6,6 +6,8 @@
 
 | 请求 | Codex 入口 |
 |---|---|
+| 个股深度调研、价格地图或复评 | `.agents/skills/stock-research/SKILL.md` |
+| 独立深度研究或个股研究取证后端 | `.agents/skills/deep-research-auto/SKILL.md` |
 | 股票市场元研究、变化比较、框架更新或完整周更 | `.agents/skills/investment-weekly-review/SKILL.md` |
 | 期货元研究、执行诊断、框架/脚本同步或完整周更 | `.agents/skills/futures-weekly-review/SKILL.md` |
 | 主题 ETF 双月研究与持仓目标复核 | `.agents/skills/etf-review/SKILL.md` |
@@ -18,7 +20,7 @@
 - ETF 框架 v2.1 接受 v2.0 快照；旧卡片、旧 schema、旧预算和已删除的分配工具仅属历史。
 - 当前待办与历史边界见 `docs/context/project-state.md`；运行数据脚本或排查环境时读 `docs/context/environment.md`。
 - 涉及回测判据时读 `docs/context/etf-timing-validation.md`；涉及恒指含分红序列时读 `docs/context/hsi-total-return-proxy.md`。两者是待复现研究发现，不能自行升级为有效投资规则。
-- `.claude/` 保留为历史来源，不是 Codex 技能发现位置。`framework/reference.md` 依赖缺失文件，是未采用草稿，不作为第三份权威框架。
+- `.claude/` 不是 Codex 技能发现位置；其中 `stock-research`、`deep-research-auto` 仅作指向 `.agents/skills/` 同名技能的 Claude 兼容入口，其余保留为历史来源。`framework/reference.md` 依赖缺失文件，是未采用草稿，不作为第三份权威框架。
 
 ## 搜索与证据
 
@@ -28,7 +30,7 @@
 
 ## 输出、更新与协作
 
-- 研究报告写入原 `research/` 命名体系；复用已有通用投研 skills 的证据与计算方法时，保留本仓输出契约、参数及用户裁决。
+- 输出位置统一遵循 [research/README.md](research/README.md)：按轨道、业务类型和日期存放；保留文件名前缀，不向 research 根目录新增报告。通用技能的 reports/、outputs/ 映射到该表的正式位置，work/ 与中间材料映射到 output/；不修改全局技能默认值。脚本用 scripts/research_paths.py 构造路径与严格发现历史。持续状态（thesis/watchlist 等）不是可丢弃缓存。
 - 默认本地保存。运行研究或更新框架的请求本身不授权 Git 推送、创建/合并 PR、对外发消息或交易；用户已有明确授权时按授权完成，不重复确认。
 - 框架发布使用分支与单一 PR；子阶段不各自开 PR。已授权的发布按原流水线处理研究日志与框架分支；创建 PR 后附加到当前 Codex 聊天。分支默认 `codex/` 前缀。
 - 同日重复运行先检查已有产物；默认复用或写隔离输出，覆盖须有用户明确指示。取数脚本仍以正式完成标记区分 `.partial`，不以已有文件名证明完成。

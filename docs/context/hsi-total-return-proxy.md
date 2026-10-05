@@ -4,7 +4,7 @@
 
 ## 来源与已覆盖背景
 
-`tushare index_global:HSI` 在原研究中作为价格指数使用；本仓 [ETF 取数脚本](../../scripts/etf_data.py) 已提示港股与跨境指数缺少全收益序列，当前 TD 对价格指数计算、含分红差。[2026-10-01 ETF 框架迁移说明](../../research/etf-2026-10-01-framework-v1.0-migration.md) 也已记录恒指回测未计股息而现金臂计息的问题。
+`tushare index_global:HSI` 在原研究中作为价格指数使用；本仓 [ETF 取数脚本](../../scripts/etf_data.py) 已提示港股与跨境指数缺少全收益序列，当前 TD 对价格指数计算、含分红差。[2026-10-01 ETF 框架迁移说明](../../research/etf/maintenance/2026-10-01/etf-2026-10-01-framework-v1.0-migration.md) 也已记录恒指回测未计股息而现金臂计息的问题。
 
 原始 Claude 记忆与研究 scratchpad 已有持久私有备份。scratchpad 位于仓库根目录的 `.migration-backups/2026-10-04-claude-to-codex/etf-study-2026-09-30.tar.gz`；关键成员是 `scratchpad/build_hsi_tr.py`、`scratchpad/check_2800.py`、`scratchpad/fetch_2800_raw.py`，以及 `scratchpad/series/02800_sina_raw.csv`、`02800_hfq_eastmoney.csv`、`HSI_TR_2800.csv`、`HSI.csv` 和 `fx.csv`。迁移时只读核对了构造脚本，未重算或调用接口。
 

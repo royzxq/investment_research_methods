@@ -1,0 +1,345 @@
+{
+ "as_of": "20261002",
+ "cutoff": "20261002",
+ "snapshot": "research/etf/snapshots/etf-2026-10-02-data-snapshot.txt",
+ "indexes": {
+  "000300.SH": {
+   "last_date": "20260930",
+   "close": 4357.62,
+   "rolling_high": 4979.43,
+   "state": 0.8751,
+   "percentile": 69.4,
+   "sample_n": 297,
+   "states": {
+    "P10": 0.6062,
+    "P25": 0.6752,
+    "P75": 0.9093
+   }
+  },
+  "000510.SH": {
+   "last_date": "20260930",
+   "close": 5370.26,
+   "rolling_high": 6314.99,
+   "state": 0.8504,
+   "percentile": 59.5,
+   "sample_n": 262,
+   "states": {
+    "P10": 0.6221,
+    "P25": 0.6895,
+    "P75": 0.9446
+   }
+  },
+  "HKTECH": {
+   "last_date": "20261002",
+   "close": 4157.94,
+   "rolling_high": 6465.66,
+   "state": 0.6431,
+   "percentile": 26.6,
+   "sample_n": 143,
+   "states": {
+    "P10": 0.4423,
+    "P25": 0.6239,
+    "P75": 0.9258
+   }
+  },
+  "HSI": {
+   "last_date": "20261002",
+   "close": 23972.29,
+   "rolling_high": 27387.11,
+   "state": 0.8753,
+   "percentile": 53.4,
+   "sample_n": 731,
+   "states": {
+    "P10": 0.558,
+    "P25": 0.6889,
+    "P75": 0.9767
+   }
+  },
+  "399973.SZ": {
+   "last_date": "20260930",
+   "close": 1530.02,
+   "rolling_high": 2174.45,
+   "state": 0.7036,
+   "percentile": 50.0,
+   "sample_n": 184,
+   "states": {
+    "P10": 0.4805,
+    "P25": 0.5658,
+    "P75": 0.8441
+   }
+  },
+  "987018.CNI": {
+   "last_date": "20260930",
+   "close": 1916.64,
+   "rolling_high": 2342.11,
+   "state": 0.8183,
+   "percentile": 53.2,
+   "sample_n": 94,
+   "states": {
+    "P10": 0.3218,
+    "P25": 0.406,
+    "P75": 0.9811
+   }
+  },
+  "931787.CSI": {
+   "last_date": "20260930",
+   "close": 1539.85,
+   "rolling_high": 1587.95,
+   "state": 0.9697,
+   "percentile": 82.1,
+   "sample_n": 106,
+   "states": {
+    "P10": 0.4017,
+    "P25": 0.4987,
+    "P75": 0.8868
+   }
+  },
+  "931152.CSI": {
+   "last_date": "20260930",
+   "close": 1963.8,
+   "rolling_high": 2202.33,
+   "state": 0.8917,
+   "percentile": 72.5,
+   "sample_n": 142,
+   "states": {
+    "P10": 0.5376,
+    "P25": 0.6423,
+    "P75": 0.8994
+   }
+  },
+  "399989.SZ": {
+   "last_date": "20260930",
+   "close": 6883.56,
+   "rolling_high": 8481.79,
+   "state": 0.8116,
+   "percentile": 58.0,
+   "sample_n": 262,
+   "states": {
+    "P10": 0.4714,
+    "P25": 0.571,
+    "P75": 0.9283
+   }
+  },
+  "000688.SH": {
+   "last_date": "20260930",
+   "close": 1530.01,
+   "rolling_high": 2207.86,
+   "state": 0.693,
+   "percentile": 37.8,
+   "sample_n": 82,
+   "states": {
+    "P10": 0.5363,
+    "P25": 0.6325,
+    "P75": 0.9405
+   }
+  },
+  "000819.SH": {
+   "last_date": "20260930",
+   "close": 8145.95,
+   "rolling_high": 11703.19,
+   "state": 0.696,
+   "percentile": 53.8,
+   "sample_n": 262,
+   "states": {
+    "P10": 0.458,
+    "P25": 0.572,
+    "P75": 0.825
+   }
+  },
+  "000813.CSI": {
+   "last_date": "20260930",
+   "close": 3399.22,
+   "rolling_high": 4474.09,
+   "state": 0.7598,
+   "percentile": 59.2,
+   "sample_n": 262,
+   "states": {
+    "P10": 0.5222,
+    "P25": 0.5956,
+    "P75": 0.8842
+   }
+  },
+  "Au99.99": {
+   "last_date": "20260930",
+   "close": 907.32,
+   "rolling_high": 1163.95,
+   "state": 0.7795,
+   "percentile": 12.5,
+   "sample_n": 288,
+   "states": {
+    "P10": 0.7043,
+    "P25": 0.8947,
+    "P75": 1.0
+   }
+  },
+  "000012.SH": {
+   "last_date": "20260930",
+   "close": 230.95,
+   "rolling_high": 230.95,
+   "state": 1.0,
+   "percentile": 29.0,
+   "sample_n": 286,
+   "states": {
+    "P10": 0.993,
+    "P25": 0.9995,
+    "P75": 1.0
+   }
+  },
+  "SPX": {
+   "last_date": "20261001",
+   "close": 7666.45,
+   "rolling_high": 7686.14,
+   "state": 0.9974,
+   "percentile": 70.4,
+   "sample_n": 1187,
+   "states": {
+    "P10": 0.6851,
+    "P25": 0.8304,
+    "P75": 1.0
+   }
+  },
+  "H11025.CSI": {
+   "last_date": "20260929",
+   "close": 1747.7,
+   "rolling_high": 1747.7,
+   "state": 1.0,
+   "percentile": 0.0,
+   "sample_n": 273,
+   "states": {
+    "P10": 1.0,
+    "P25": 1.0,
+    "P75": 1.0
+   }
+  },
+  "000905.SH": {
+   "last_date": "20260930",
+   "close": 7435.16,
+   "rolling_high": 9031.38,
+   "state": 0.8233,
+   "percentile": 53.8,
+   "sample_n": 262,
+   "states": {
+    "P10": 0.6177,
+    "P25": 0.6714,
+    "P75": 0.9433
+   }
+  },
+  "H30269.CSI": {
+   "last_date": "20260930",
+   "close": 10971.43,
+   "rolling_high": 11544.86,
+   "state": 0.9503,
+   "percentile": 65.6,
+   "sample_n": 250,
+   "states": {
+    "P10": 0.7054,
+    "P25": 0.7901,
+    "P75": 0.9737
+   }
+  },
+  "000932.SH": {
+   "last_date": "20260930",
+   "close": 12295.96,
+   "rolling_high": 18429.13,
+   "state": 0.6672,
+   "percentile": 13.4,
+   "sample_n": 262,
+   "states": {
+    "P10": 0.6518,
+    "P25": 0.7265,
+    "P75": 0.9515
+   }
+  },
+  "399997.SZ": {
+   "last_date": "20260930",
+   "close": 6228.9,
+   "rolling_high": 13907.78,
+   "state": 0.4479,
+   "percentile": 3.3,
+   "sample_n": 214,
+   "states": {
+    "P10": 0.513,
+    "P25": 0.6249,
+    "P75": 0.9726
+   }
+  },
+  "931151.CSI": {
+   "last_date": "20260930",
+   "close": 2285.3,
+   "rolling_high": 3379.4,
+   "state": 0.6762,
+   "percentile": 45.2,
+   "sample_n": 166,
+   "states": {
+    "P10": 0.4436,
+    "P25": 0.5766,
+    "P75": 0.922
+   }
+  },
+  "399976.SZ": {
+   "last_date": "20260930",
+   "close": 3425.3,
+   "rolling_high": 5086.64,
+   "state": 0.6734,
+   "percentile": 30.9,
+   "sample_n": 178,
+   "states": {
+    "P10": 0.4984,
+    "P25": 0.6239,
+    "P75": 0.9471
+   }
+  },
+  "399975.SZ": {
+   "last_date": "20260930",
+   "close": 715.39,
+   "rolling_high": 935.02,
+   "state": 0.7651,
+   "percentile": 65.5,
+   "sample_n": 232,
+   "states": {
+    "P10": 0.4272,
+    "P25": 0.4908,
+    "P75": 0.8235
+   }
+  },
+  "930914.CSI": {
+   "last_date": "20261002",
+   "close": 5024.63,
+   "rolling_high": 5408.08,
+   "state": 0.9291,
+   "percentile": 69.4,
+   "sample_n": 144,
+   "states": {
+    "P10": 0.6664,
+    "P25": 0.7342,
+    "P75": 0.962
+   }
+  },
+  "H30184.CSI": {
+   "last_date": "20260930",
+   "close": 12036.57,
+   "rolling_high": 18871.88,
+   "state": 0.6378,
+   "percentile": 37.0,
+   "sample_n": 262,
+   "states": {
+    "P10": 0.4685,
+    "P25": 0.5637,
+    "P75": 0.9152
+   }
+  },
+  "931994.CSI": {
+   "last_date": "20260930",
+   "close": 2621.7,
+   "rolling_high": 3546.44,
+   "state": 0.7392,
+   "percentile": 41.9,
+   "sample_n": 148,
+   "states": {
+    "P10": 0.619,
+    "P25": 0.6592,
+    "P75": 0.9265
+   }
+  }
+ }
+}

@@ -29,6 +29,6 @@ DO_NOT_OVERREACT_ITEMS: []
 
 ## 输出
 
-- 写 `research/investment-<AS_OF_DATE>-change-decision.md`，保留观察项节及 instruction 的完整模板。
+- 写 `research/investment/weekly/<AS_OF_DATE>/investment-<AS_OF_DATE>-change-decision.md`，保留观察项节及 instruction 的完整模板。
 - 末尾保留 `FRAMEWORK_UPDATE_DECISION`（`update_needed`、`update_level`、`decision_reason`）、`KEY_VARIABLE_CHANGES`（用 `research_meaning`，不是期货 `trading_meaning`）、`UPDATE_FOCUS`、`DO_NOT_OVERREACT_ITEMS`。
 - 返回报告全文、路径及解析出的 `update_needed`。单阶段到此结束；无更新不动 canonical。同日写入与发布按入口规则。

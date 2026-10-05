@@ -1,6 +1,6 @@
 """Pre-registered rule validation for the ETF track.
 
-Protocol: research/etf-2026-09-19-rule-prereg.md. Nothing here may be tuned after results are seen.
+Protocol: research/etf/studies/timing-validation/etf-2026-09-19-rule-prereg.md. Nothing here may be tuned after results are seen.
 The simulation core is pure Python on monthly lists (a fold has at most 72 months), so the unit
 tests need no pandas; the data layer at the bottom imports pandas/tushare lazily and is only used by
 the CLI:  python3 scripts/etf_backtest.py --as-of 20260918
@@ -265,7 +265,7 @@ def evaluate_dca_pause(months, returns, cash_returns, closes, gate=None):
 
 
 # ------------------------------------------------------------------ data layer and report (CLI only)
-PREREG = "research/etf-2026-09-19-rule-prereg.md"
+PREREG = "research/etf/studies/timing-validation/etf-2026-09-19-rule-prereg.md"
 ROOT = Path(__file__).resolve().parents[1]
 CASH_KEY = "H11025.CSI"
 BROAD_KEYS = {"000300.SH", "000510.SH", "000905.SH", "HSI", "H30269.CSI", "000012.SH", "SPX"}
@@ -273,22 +273,25 @@ PRIMARY = {"R1": "000300.SH", "R2": "HSI", "R3(R1)": "000300.SH", "R3(R2)": "HSI
 FIXES_AFTER_RESULTS = [   # the prereg requires every post-result code fix to be shown with before/after numbers
     "2026-09-20 回撤「严格优于」的比较被浮点误差左右：沪深300 在 R1 的 F2 里 2011-12 起满仓，回撤与满仓买入持有在数学上完全相同，"
     "两者算出来相差 1.1e-16，原代码用 `>` 判成「更优」。修复：差值须大于 1e-9 才算更优（平手不算）。规则、参数、门槛未动。"
-    "修复前后逐项比对，只有三处变化，全部是平手被误判为更优：R1 沪深300 回撤更优折数 3→2，pass→fail，R1 规则结论 validated(primary_index_only)→rejected；R3(R1) 沪深300 回撤更优折数 2→1（结论仍 fail）；R3(R2) 中证医疗 3→2，pass→fail（R3(R2) 其余指数通过数 2/9→1/9，规则结论仍 rejected）。R2、R4 的全部数字不变。修复前的完整报告原样保存为 research/etf-2026-09-18-rule-validation-before-fix.md。",
+    "修复前后逐项比对，只有三处变化，全部是平手被误判为更优：R1 沪深300 回撤更优折数 3→2，pass→fail，R1 规则结论 validated(primary_index_only)→rejected；R3(R1) 沪深300 回撤更优折数 2→1（结论仍 fail）；R3(R2) 中证医疗 3→2，pass→fail（R3(R2) 其余指数通过数 2/9→1/9，规则结论仍 rejected）。R2、R4 的全部数字不变。修复前的完整报告原样保存为 research/etf/studies/timing-validation/etf-2026-09-18-rule-validation-before-fix.md。",
 ]
 
 
 def prereg_commit():
-    """The protocol is only worth something if it was frozen first: refuse to run on an uncommitted prereg."""
-    run = lambda *args: subprocess.run(["git", *args, "--", PREREG], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-    commit = run("log", "-1", "--format=%h %cI")
-    if run("status", "--porcelain") or not commit:
-        sys.exit(f"{PREREG} 尚未提交或有未提交改动；先提交预注册，再跑验证。")
-    return commit
+    """Verify the original frozen blob, not the later directory-migration commit."""
+    import hashlib
+    record = json.loads((ROOT / "docs/research-layout-migration.json").read_text())["preregistration"]
+    current = (ROOT / PREREG).read_bytes()
+    original = subprocess.run(["git", "show", f"{record['commit']}:{record['original_path']}"],
+                              cwd=ROOT, capture_output=True, check=True).stdout
+    if current != original or hashlib.sha256(current).hexdigest() != record["sha256"]:
+        sys.exit(f"{PREREG} 与已冻结预注册不一致；不可用迁移或未提交改动替代原判据。")
+    return f"{record['commit']} {record['committed_at']}"
 
 
 def valuation_check(as_of):
     """Prereg section 1: R1 gets a verdict only if this snapshot's section 4a replication of the vendor PE passed."""
-    path = ROOT / "output" / "etf_valuation_check.json"
+    path = ROOT / "output/cache/etf" / "etf_valuation_check.json"
     if not path.exists():
         return None, f"缺少 {path.name}：先用同一 --as-of 跑 scripts/etf_data.py"
     check = json.loads(path.read_text(encoding="utf-8"))
@@ -351,7 +354,7 @@ def index_inputs(data, entry, fx, cash, notes):
 def valuation_quantiles(key):
     """Lagged expanding percentile of the self-aggregated multiple (PB for cyclicals), keyed by month; None without a series."""
     import pandas as pd
-    path = ROOT / "output" / f"etf_valuation_{key}.csv"
+    path = ROOT / "output/cache/etf" / f"etf_valuation_{key}.csv"
     if not path.exists():
         return None, None
     column = "pb" if key in CYCLICAL_KEYS else "pe_ttm"
@@ -457,8 +460,19 @@ def main(argv=None):
             body.append("")
     failed = {label: status for label, status in data.INTERFACES.items() if status != "通"}
     out += body + ["## 数据", ""] + [f"- {note}" for note in notes] + [f"- 接口异常 {label}: {status}" for label, status in failed.items()]
-    target = ROOT / "research" / f"etf-{args.as_of[:4]}-{args.as_of[4:6]}-{args.as_of[6:]}-rule-validation.md"
-    target.write_text("\n".join(out) + "\n", encoding="utf-8")
+    target = ROOT / "research/etf/studies/timing-validation" / f"etf-{args.as_of[:4]}-{args.as_of[4:6]}-{args.as_of[6:]}-rule-validation.md"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    # Re-runs are isolated; the preregistered historical result is never overwritten.
+    revision = 2
+    base = target
+    while True:
+        try:
+            with target.open("x", encoding="utf-8") as handle:
+                handle.write("\n".join(out) + "\n")
+            break
+        except FileExistsError:
+            target = base.with_name(f"{base.stem}-r{revision}.md")
+            revision += 1
     print(f"written {target}")
 
 

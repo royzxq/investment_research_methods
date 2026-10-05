@@ -11,5 +11,5 @@
 
 ## 输出
 
-- 按 instruction 完整模板写 `research/<AS_OF_DATE>-market-research.md`，保留第 9 节全部结构化字段，特别是 `DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS`。
+- 按 instruction 完整模板写 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-market-research.md`，保留第 9 节全部结构化字段，特别是 `DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS`。
 - 返回报告全文和路径作为 `CURRENT_META_RESULT`，不只传市场摘要。单阶段到此结束；同日与发布边界沿用入口。

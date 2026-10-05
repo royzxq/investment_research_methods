@@ -1,0 +1,1014 @@
+{
+  "date": "2026-10-05",
+  "scope": "path migration only; historical audit hashes are unchanged",
+  "files": [
+    {
+      "old": "research/2026-07-12-change-decision.md",
+      "new": "research/futures/weekly/2026-07-12/2026-07-12-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "78189dcd4e1eacc99c8ef7f3000f21f1fa5f1c7507dcef2aea6502dc103b1dc6",
+      "sha256_after": "439e2e198eb151b3610f4be9f7c069d831bc0446cc7e1b11528154f65be6039c"
+    },
+    {
+      "old": "research/2026-07-12-market-research.md",
+      "new": "research/futures/weekly/2026-07-12/2026-07-12-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "bc70bc61c184f84204237ccfcb8aa2f861b01e0f7dd2ebf1a057acab7d9276cc",
+      "sha256_after": "bc70bc61c184f84204237ccfcb8aa2f861b01e0f7dd2ebf1a057acab7d9276cc"
+    },
+    {
+      "old": "research/2026-07-15-adaption-report.md",
+      "new": "research/futures/weekly/2026-07-15/2026-07-15-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "41f1a6937319abbd4a9b9fc3baedd831ffbd19e540122f4f4aca5a7559497972",
+      "sha256_after": "6a6027d8f9ba9a20c92570998d3351ca631566a7cad33bfef835f24447d06b38"
+    },
+    {
+      "old": "research/2026-07-15-change-decision.md",
+      "new": "research/futures/weekly/2026-07-15/2026-07-15-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "594f49ac77df652533f740d689e0edc1b551cb2c71c6679eb98d117f4a065718",
+      "sha256_after": "594f49ac77df652533f740d689e0edc1b551cb2c71c6679eb98d117f4a065718"
+    },
+    {
+      "old": "research/2026-07-15-market-research.md",
+      "new": "research/futures/weekly/2026-07-15/2026-07-15-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "4c5a9e30bc8d72b151f3370db380b508160bf6097e1fa24b5d58d78a46c27bef",
+      "sha256_after": "4c5a9e30bc8d72b151f3370db380b508160bf6097e1fa24b5d58d78a46c27bef"
+    },
+    {
+      "old": "research/2026-07-18-adaption-report.md",
+      "new": "research/futures/weekly/2026-07-18/2026-07-18-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "89cfb0328f8cbee085cdfcf3033813237702a4ffd475b2b2e9e278e1ddc50ae8",
+      "sha256_after": "825dd23fd2f6c6962c708be2537da8afafd36a0dc8b288cb2da01a6c97aa4400"
+    },
+    {
+      "old": "research/2026-07-18-change-decision.md",
+      "new": "research/futures/weekly/2026-07-18/2026-07-18-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "8367a44b29354721c58e63bcced08b50162ffef090c2bfc498ed4aa48623bbe3",
+      "sha256_after": "6e08abb83d831d9c16582b92182bf5bf0f1448bc9f919348ede1a93d5e00d99a"
+    },
+    {
+      "old": "research/2026-07-18-market-research.md",
+      "new": "research/futures/weekly/2026-07-18/2026-07-18-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "f87605882fb64a262607e213a8eedad0e088ed2b03edc48d219c98dafb6a066f",
+      "sha256_after": "f87605882fb64a262607e213a8eedad0e088ed2b03edc48d219c98dafb6a066f"
+    },
+    {
+      "old": "research/2026-07-25-adaption-report.md",
+      "new": "research/futures/weekly/2026-07-25/2026-07-25-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "72c28796e536d42f5c8aeee17e097c065439f950160c29318d6599b49bec9932",
+      "sha256_after": "72c28796e536d42f5c8aeee17e097c065439f950160c29318d6599b49bec9932"
+    },
+    {
+      "old": "research/2026-07-25-change-decision.md",
+      "new": "research/futures/weekly/2026-07-25/2026-07-25-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "a8513ec5bb1e649e0c11aeeaded19196c73e7c04f18d39a69531afd794b75d4e",
+      "sha256_after": "40e53598cc203e404025371038757df74bd634990d3893d15d4a4676971e893b"
+    },
+    {
+      "old": "research/2026-07-25-market-research.md",
+      "new": "research/futures/weekly/2026-07-25/2026-07-25-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "6daeef286093384b0e37a46e873e0f56bc50ba873bb6ff2f426752501887f925",
+      "sha256_after": "6daeef286093384b0e37a46e873e0f56bc50ba873bb6ff2f426752501887f925"
+    },
+    {
+      "old": "research/2026-08-01-adaption-report.md",
+      "new": "research/futures/weekly/2026-08-01/2026-08-01-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "2285998c0938eb2ccb24a9f9c384f7898311e9a0def505727a69c3481cf73cd2",
+      "sha256_after": "2285998c0938eb2ccb24a9f9c384f7898311e9a0def505727a69c3481cf73cd2"
+    },
+    {
+      "old": "research/2026-08-01-change-decision.md",
+      "new": "research/futures/weekly/2026-08-01/2026-08-01-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "4f6c38b4ebf9d4b14490f89f607424a5439b4c3bca2c61597c93b07dadadb2b6",
+      "sha256_after": "482683c6abb250630d67f1402e06dcf18df4917b0fa74cb9c96668fbdedd8d19"
+    },
+    {
+      "old": "research/2026-08-01-market-research.md",
+      "new": "research/futures/weekly/2026-08-01/2026-08-01-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "88b55be7be36b91e0471d8d4f3b84fc1f56b4e2e76b2c09b703907d3011e1db7",
+      "sha256_after": "88b55be7be36b91e0471d8d4f3b84fc1f56b4e2e76b2c09b703907d3011e1db7"
+    },
+    {
+      "old": "research/2026-08-08-adaption-report.md",
+      "new": "research/futures/weekly/2026-08-08/2026-08-08-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "9061002ef93daf3661fab3030947d8ea1a9ef74e08bbea2ab646f9c54a6bb1ee",
+      "sha256_after": "9061002ef93daf3661fab3030947d8ea1a9ef74e08bbea2ab646f9c54a6bb1ee"
+    },
+    {
+      "old": "research/2026-08-08-change-decision.md",
+      "new": "research/futures/weekly/2026-08-08/2026-08-08-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "c8d94f55d133d292e8c904b0200b5344f6ac1944fa22874768a9721e1327d53b",
+      "sha256_after": "18c1608b36f2cd9451afe639f651c484ea744d2a91b262290bd7df06b3870f40"
+    },
+    {
+      "old": "research/2026-08-08-market-research.md",
+      "new": "research/futures/weekly/2026-08-08/2026-08-08-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "affc2c2258b411d51d8bdc00eaaee94fdd38758d3f6e7c299af4c7ae85f8afcf",
+      "sha256_after": "affc2c2258b411d51d8bdc00eaaee94fdd38758d3f6e7c299af4c7ae85f8afcf"
+    },
+    {
+      "old": "research/2026-08-15-adaption-report.md",
+      "new": "research/futures/weekly/2026-08-15/2026-08-15-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "229ed5a53f30746c5edaebb6bc08ddedd45f977be85507e81b0f593d7a96e579",
+      "sha256_after": "229ed5a53f30746c5edaebb6bc08ddedd45f977be85507e81b0f593d7a96e579"
+    },
+    {
+      "old": "research/2026-08-15-change-decision.md",
+      "new": "research/futures/weekly/2026-08-15/2026-08-15-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "3e3074efc832cc465f8fe57c64d60fc06637ab094b3d06a239e2b184a4ea6d77",
+      "sha256_after": "f565626ecd9ac969f79bf7d63316b0807925e21f2d46c81313b7e893f06fe545"
+    },
+    {
+      "old": "research/2026-08-15-market-research.md",
+      "new": "research/futures/weekly/2026-08-15/2026-08-15-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "bf68af646ca2b591b561beadc04d4c09a8055aed010ceac31cc7025cea84947e",
+      "sha256_after": "bf68af646ca2b591b561beadc04d4c09a8055aed010ceac31cc7025cea84947e"
+    },
+    {
+      "old": "research/2026-08-22-adaption-report.md",
+      "new": "research/futures/weekly/2026-08-22/2026-08-22-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "1e80bca74f14902219007ca7373b2f81a1b31fae694e29c6f53f113ef4d2134b",
+      "sha256_after": "1e80bca74f14902219007ca7373b2f81a1b31fae694e29c6f53f113ef4d2134b"
+    },
+    {
+      "old": "research/2026-08-22-change-decision.md",
+      "new": "research/futures/weekly/2026-08-22/2026-08-22-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "5a066afa17c33a425c8f64d1931bfa6a63f1efd18d76022cbd990d471536f2c1",
+      "sha256_after": "b06eb316bdc1c5c5ea695f9e98c7a0475a5de013f69f83f51161cf03fbfcfd90"
+    },
+    {
+      "old": "research/2026-08-22-market-research.md",
+      "new": "research/futures/weekly/2026-08-22/2026-08-22-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "3f76e52c80737fde68933cf5f8663912ae440ae75a6484764747f0f0d7cc3c94",
+      "sha256_after": "3f76e52c80737fde68933cf5f8663912ae440ae75a6484764747f0f0d7cc3c94"
+    },
+    {
+      "old": "research/2026-08-29-adaption-report.md",
+      "new": "research/futures/weekly/2026-08-29/2026-08-29-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "0c6069a0386f18c2293772d744fef9e6a154afab02a065c8b239397821b29bd2",
+      "sha256_after": "0c6069a0386f18c2293772d744fef9e6a154afab02a065c8b239397821b29bd2"
+    },
+    {
+      "old": "research/2026-08-29-change-decision.md",
+      "new": "research/futures/weekly/2026-08-29/2026-08-29-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "4855fa39a3144365f244a3c583a567ba02ff3105b5ad8676f874d683da48c2ed",
+      "sha256_after": "a189d4bee0659892d996255aeebe4093e9941f2bca4fa292f6ed714dd2929d5c"
+    },
+    {
+      "old": "research/2026-08-29-market-research.md",
+      "new": "research/futures/weekly/2026-08-29/2026-08-29-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "e4f22965ee776f8edcc281e3b784bb28f2836089d4ef20a46be25ae16a206bc8",
+      "sha256_after": "e4f22965ee776f8edcc281e3b784bb28f2836089d4ef20a46be25ae16a206bc8"
+    },
+    {
+      "old": "research/2026-08-30-adaption-report.md",
+      "new": "research/futures/weekly/2026-08-30/2026-08-30-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "610ed81ea3ba75030c113ce32e6fb4b5439df8f89ed2917c7e867b9279a5199a",
+      "sha256_after": "610ed81ea3ba75030c113ce32e6fb4b5439df8f89ed2917c7e867b9279a5199a"
+    },
+    {
+      "old": "research/2026-09-05-adaption-report.md",
+      "new": "research/futures/weekly/2026-09-05/2026-09-05-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "a3d321db0c094c210f30f0116e5f646eec1b399f89362b924fa21c89d59f2abb",
+      "sha256_after": "a3d321db0c094c210f30f0116e5f646eec1b399f89362b924fa21c89d59f2abb"
+    },
+    {
+      "old": "research/2026-09-05-change-decision.md",
+      "new": "research/futures/weekly/2026-09-05/2026-09-05-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "2f96667ffd48c4c38b8ffd412e6759cebbca8200a24d840ab824db0096da4821",
+      "sha256_after": "5e14ed29dc2c17890d3a9dbe104031766c80557f3851af69f3c090ff58b7b0e8"
+    },
+    {
+      "old": "research/2026-09-05-market-research.md",
+      "new": "research/futures/weekly/2026-09-05/2026-09-05-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "b5983f699b81905b71f07c6d52f387d4c69193e02338fa8cb1a1ee38e663275d",
+      "sha256_after": "b5983f699b81905b71f07c6d52f387d4c69193e02338fa8cb1a1ee38e663275d"
+    },
+    {
+      "old": "research/2026-09-06-adaption-report.md",
+      "new": "research/futures/weekly/2026-09-06/2026-09-06-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "40a1911e58859f4c13f26a89d03fa54640efad9e1d99dd036ab21b6b560eb8a1",
+      "sha256_after": "63fa95062230335759e34a4da153addd7fb90261563706bb17c3697867ce46b8"
+    },
+    {
+      "old": "research/2026-09-06-compact-audit.json",
+      "new": "research/futures/weekly/2026-09-06/evidence/2026-09-06-compact-audit.json",
+      "tracked_before": true,
+      "sha256_before": "b59c75b7cc3b1981d93eb73d56de9cf3b0cfaddb2f24f1b2283d6f1b7a1f226d",
+      "sha256_after": "b59c75b7cc3b1981d93eb73d56de9cf3b0cfaddb2f24f1b2283d6f1b7a1f226d"
+    },
+    {
+      "old": "research/2026-09-06-execution-audit.md",
+      "new": "research/futures/weekly/2026-09-06/2026-09-06-execution-audit.md",
+      "tracked_before": true,
+      "sha256_before": "ee0add435fdfb8ab83340b89dd9228aeb4a500f253b89b9cb50b379e63c637ff",
+      "sha256_after": "ea37374398ea2a422bd44b73dcd90d828f58c0fcea55bc0bfc6d545a2efc1c07"
+    },
+    {
+      "old": "research/2026-09-06-pool-restructure.md",
+      "new": "research/futures/maintenance/2026-09-06/2026-09-06-pool-restructure.md",
+      "tracked_before": true,
+      "sha256_before": "82460960e426a7d6c3dcc40d66eda272a58f87d7553303ad049dd91294e3fba6",
+      "sha256_after": "82460960e426a7d6c3dcc40d66eda272a58f87d7553303ad049dd91294e3fba6"
+    },
+    {
+      "old": "research/2026-09-07-data-accessibility-adaption.md",
+      "new": "research/futures/maintenance/2026-09-07/2026-09-07-data-accessibility-adaption.md",
+      "tracked_before": true,
+      "sha256_before": "485c09b9e47a6ee134712de3c2a6b8d8f12d17d1b72a3bbb31b066af0c8c8d8c",
+      "sha256_after": "f179ed64d1aaf5b39112073e13f57cdcb4275fffec1030286995bf655973a9af"
+    },
+    {
+      "old": "research/2026-09-07-execution-audit-reassessment.md",
+      "new": "research/futures/maintenance/2026-09-07/2026-09-07-execution-audit-reassessment.md",
+      "tracked_before": true,
+      "sha256_before": "fafd7508d30567462d9d3f6f6ae0318987dac39b201eef9382481cd2258e4d0b",
+      "sha256_after": "8f44b40a6eeb136de011febc0c6418b75bbb3fe748ce0ec23a56185bb067ee62"
+    },
+    {
+      "old": "research/2026-09-09-adaption-report.md",
+      "new": "research/futures/weekly/2026-09-09/2026-09-09-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "a5e36f0a18a53eef198f478d8c1e809e5cbaf1bc92707fbc242ef93bd297dd92",
+      "sha256_after": "451857a9c2f8d3ec205e86c01b0aa6a324b1ef6a2214d09a067310d3536c32e0"
+    },
+    {
+      "old": "research/2026-09-09-compact-audit.json",
+      "new": "research/futures/weekly/2026-09-09/evidence/2026-09-09-compact-audit.json",
+      "tracked_before": true,
+      "sha256_before": "0a913510280e0498c3d0b79f017f2bcb49a5b437f2bcd94b6597dc46791436d3",
+      "sha256_after": "0a913510280e0498c3d0b79f017f2bcb49a5b437f2bcd94b6597dc46791436d3"
+    },
+    {
+      "old": "research/2026-09-09-compact-numeric-audit.json",
+      "new": "research/futures/weekly/2026-09-09/evidence/2026-09-09-compact-numeric-audit.json",
+      "tracked_before": true,
+      "sha256_before": "8eabd17754356477af4ae621e472c3f217062546f76a50baaf88cd6b92c9a386",
+      "sha256_after": "8eabd17754356477af4ae621e472c3f217062546f76a50baaf88cd6b92c9a386"
+    },
+    {
+      "old": "research/2026-09-09-framework-numeric-audit.md",
+      "new": "research/futures/weekly/2026-09-09/evidence/2026-09-09-framework-numeric-audit.md",
+      "tracked_before": true,
+      "sha256_before": "891631f1d2c94380225764912452e0cbd8b1774aa749477552fc2e4cc20ed5a7",
+      "sha256_after": "891631f1d2c94380225764912452e0cbd8b1774aa749477552fc2e4cc20ed5a7"
+    },
+    {
+      "old": "research/2026-09-09-report-a-review.md",
+      "new": "research/futures/maintenance/2026-09-09/2026-09-09-report-a-review.md",
+      "tracked_before": true,
+      "sha256_before": "72b730ba168708832cfb9c434158f2026296fd2379cd187a566b7c288e74ed50",
+      "sha256_after": "7530b2ad0830544ce3a7f58f26dc79ffb250297c132f2f2facd879986884ddd4"
+    },
+    {
+      "old": "research/2026-09-09-research-method-repair.md",
+      "new": "research/futures/maintenance/2026-09-09/2026-09-09-research-method-repair.md",
+      "tracked_before": true,
+      "sha256_before": "a88a4c4d130ba1dbd5a108abda5b5a5cab80eb9a01e7aa981fdc766ebfa9c65d",
+      "sha256_after": "68347c16ed593249a8188ab244faf08383a427645a5272a59f11ff924d29723c"
+    },
+    {
+      "old": "research/2026-09-10-adaption-report.md",
+      "new": "research/futures/weekly/2026-09-10/2026-09-10-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "d0dbd15263672d5e670f90960ea16d3a81f92206afc8e0b7ebba00cae26a3086",
+      "sha256_after": "9872b59f2a78e7c59a249db04121e8a4560f86a8efca309984663eb84e8e7781"
+    },
+    {
+      "old": "research/2026-09-10-compact-audit.json",
+      "new": "research/futures/weekly/2026-09-10/evidence/2026-09-10-compact-audit.json",
+      "tracked_before": true,
+      "sha256_before": "9059243cf84bc85217b22b22146dd0df1becb6b0436224942ba73614d9fc8c47",
+      "sha256_after": "9059243cf84bc85217b22b22146dd0df1becb6b0436224942ba73614d9fc8c47"
+    },
+    {
+      "old": "research/2026-09-10-compact-numeric-audit.json",
+      "new": "research/futures/weekly/2026-09-10/evidence/2026-09-10-compact-numeric-audit.json",
+      "tracked_before": true,
+      "sha256_before": "9344aa8488eb9450ed1f3aa2c46447a0494221bd35514dbf893711a1c4c43504",
+      "sha256_after": "9344aa8488eb9450ed1f3aa2c46447a0494221bd35514dbf893711a1c4c43504"
+    },
+    {
+      "old": "research/2026-09-10-framework-numeric-audit.md",
+      "new": "research/futures/weekly/2026-09-10/evidence/2026-09-10-framework-numeric-audit.md",
+      "tracked_before": true,
+      "sha256_before": "da3eabdb85f88c2f1e6c02d3981cbb186bbe568dcda2ffa95e14f9fbd0985a51",
+      "sha256_after": "da3eabdb85f88c2f1e6c02d3981cbb186bbe568dcda2ffa95e14f9fbd0985a51"
+    },
+    {
+      "old": "research/2026-09-12-adaption-report.md",
+      "new": "research/futures/weekly/2026-09-12/2026-09-12-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "ad9aa6af838d6703258e9c23006a8f89c48d34c46f3df9ab45b2f97406e63f47",
+      "sha256_after": "ccf6dbb8dea1aab4bee1bb053ca9e484303d9b31b7c71002e9e2bb8cef662536"
+    },
+    {
+      "old": "research/2026-09-12-change-decision.md",
+      "new": "research/futures/weekly/2026-09-12/2026-09-12-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "01662268ba01b964663fa9d59faf0635420f6a6495edcc74e04ccd1b8e4aee23",
+      "sha256_after": "7c7c317e87991c85ad35c46b4455639bc450d538327fda6baabd1275df72788a"
+    },
+    {
+      "old": "research/2026-09-12-compact-audit.json",
+      "new": "research/futures/weekly/2026-09-12/evidence/2026-09-12-compact-audit.json",
+      "tracked_before": true,
+      "sha256_before": "9508bdb0d46b01415236c7b93b1da81bc54258337abd7e5b25919d8324ed8700",
+      "sha256_after": "9508bdb0d46b01415236c7b93b1da81bc54258337abd7e5b25919d8324ed8700"
+    },
+    {
+      "old": "research/2026-09-12-compact-numeric-audit.json",
+      "new": "research/futures/weekly/2026-09-12/evidence/2026-09-12-compact-numeric-audit.json",
+      "tracked_before": true,
+      "sha256_before": "1d2a2cf61f6db58e6916c187387c40dfc6dcecac7146dff38f270c30fb8e88a7",
+      "sha256_after": "1d2a2cf61f6db58e6916c187387c40dfc6dcecac7146dff38f270c30fb8e88a7"
+    },
+    {
+      "old": "research/2026-09-12-execution-audit.md",
+      "new": "research/futures/weekly/2026-09-12/2026-09-12-execution-audit.md",
+      "tracked_before": true,
+      "sha256_before": "25dfff0b276cfe595ea02e8fb8c3846e1a31ec8ccf3c5141ad6b3640e750ad81",
+      "sha256_after": "ce107ed0e39b369388fcab0b706a6c1f9a75ef1932df19ec0a01b6896aaeb81f"
+    },
+    {
+      "old": "research/2026-09-12-framework-numeric-audit.md",
+      "new": "research/futures/weekly/2026-09-12/evidence/2026-09-12-framework-numeric-audit.md",
+      "tracked_before": true,
+      "sha256_before": "754137302c4fa004ed1f80733e09c5b9201008dc271803ecc663e13e284d98cc",
+      "sha256_after": "754137302c4fa004ed1f80733e09c5b9201008dc271803ecc663e13e284d98cc"
+    },
+    {
+      "old": "research/2026-09-12-market-research.md",
+      "new": "research/futures/weekly/2026-09-12/2026-09-12-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "b413332c8c3ef990f8ea7bddf3747962fc22d26b82f48e48e375181f2a513b3a",
+      "sha256_after": "2ca6598b0b6cbed8f2fa13f7cd8f5e8a4d718dfce8760876bb1b5d1a7c74ca53"
+    },
+    {
+      "old": "research/2026-09-16-compact-audit.json",
+      "new": "research/futures/maintenance/2026-09-16/evidence/2026-09-16-compact-audit.json",
+      "tracked_before": true,
+      "sha256_before": "2b6f1af061e73c6b52aad2c10fb42aa616665fea68c4c9f635103f0f87ce136c",
+      "sha256_after": "2b6f1af061e73c6b52aad2c10fb42aa616665fea68c4c9f635103f0f87ce136c"
+    },
+    {
+      "old": "research/2026-09-16-compact-numeric-audit.json",
+      "new": "research/futures/maintenance/2026-09-16/evidence/2026-09-16-compact-numeric-audit.json",
+      "tracked_before": true,
+      "sha256_before": "cc682a7d9a2f15249905b83d5e117581ba64adee9dba120555a01d8d6a74605d",
+      "sha256_after": "cc682a7d9a2f15249905b83d5e117581ba64adee9dba120555a01d8d6a74605d"
+    },
+    {
+      "old": "research/2026-09-16-data-snapshot.txt",
+      "new": "research/futures/snapshots/2026-09-16-data-snapshot.txt",
+      "tracked_before": true,
+      "sha256_before": "64092293fe8691d2ab28f34031537fe49f1db3f4771f82d2e3d83c32c3aa755f",
+      "sha256_after": "64092293fe8691d2ab28f34031537fe49f1db3f4771f82d2e3d83c32c3aa755f"
+    },
+    {
+      "old": "research/2026-09-16-feedback-loop-repair.md",
+      "new": "research/futures/maintenance/2026-09-16/2026-09-16-feedback-loop-repair.md",
+      "tracked_before": true,
+      "sha256_before": "af21bd48df60e8fe8ced43677950b33fddcfe650666be1e6bdd3b520fb1dd9d1",
+      "sha256_after": "c28a6fde6753c0cf1f1d9b0938952d3511f166a40a51168d56e0ac4744b5ce49"
+    },
+    {
+      "old": "research/2026-09-16-framework-numeric-audit.md",
+      "new": "research/futures/maintenance/2026-09-16/evidence/2026-09-16-framework-numeric-audit.md",
+      "tracked_before": true,
+      "sha256_before": "68dba66fca186e268651daee211dc434413721c819cd633c0e299089e09d1b02",
+      "sha256_after": "68dba66fca186e268651daee211dc434413721c819cd633c0e299089e09d1b02"
+    },
+    {
+      "old": "research/2026-09-18-data-snapshot.txt",
+      "new": "research/futures/snapshots/2026-09-18-data-snapshot.txt",
+      "tracked_before": true,
+      "sha256_before": "e7669d274c066445c0657ed9462c128e2df8a961cab06974dc9e6e1b96e024e4",
+      "sha256_after": "e7669d274c066445c0657ed9462c128e2df8a961cab06974dc9e6e1b96e024e4"
+    },
+    {
+      "old": "research/2026-09-19-adaption-report.md",
+      "new": "research/futures/weekly/2026-09-19/2026-09-19-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "0cbcf2f0342bdbcba2df8f89f05c567122c05fb3a23a21cce8bf4d4a4cbb087a",
+      "sha256_after": "08d4252afd281a07a472c1b2af693ad5bd3dc353251b4c9c77d4b2593883eec8"
+    },
+    {
+      "old": "research/2026-09-19-change-decision.md",
+      "new": "research/futures/weekly/2026-09-19/2026-09-19-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "2abf1f41a85af90c23e59ae8fd69c25d84fb322611e56e126871d04636d8db81",
+      "sha256_after": "22a8746ea0c431c0567f598e22b22404d58939e39fff8dc85750819a1b48ca7c"
+    },
+    {
+      "old": "research/2026-09-19-compact-audit.json",
+      "new": "research/futures/weekly/2026-09-19/evidence/2026-09-19-compact-audit.json",
+      "tracked_before": true,
+      "sha256_before": "1ed06e304403a5fd8eb8f43c42aa0f95af4ab2b127859e828a702e8798a90512",
+      "sha256_after": "1ed06e304403a5fd8eb8f43c42aa0f95af4ab2b127859e828a702e8798a90512"
+    },
+    {
+      "old": "research/2026-09-19-data-snapshot.txt",
+      "new": "research/futures/snapshots/2026-09-19-data-snapshot.txt",
+      "tracked_before": true,
+      "sha256_before": "f551c443529d1735ad4bb340eef339ff3cf5d7c0a305e8d2c733190a5d2506f6",
+      "sha256_after": "f551c443529d1735ad4bb340eef339ff3cf5d7c0a305e8d2c733190a5d2506f6"
+    },
+    {
+      "old": "research/2026-09-19-execution-audit.md",
+      "new": "research/futures/weekly/2026-09-19/2026-09-19-execution-audit.md",
+      "tracked_before": true,
+      "sha256_before": "1b21ae5505fa212bfb16f473cf7b2bfb4a2a6f139ab7e77de0bf31c585fd265a",
+      "sha256_after": "3ef0589561e2716861cd6a447039c948e27bb64286851088ff5436687591c6e8"
+    },
+    {
+      "old": "research/2026-09-19-framework-numeric-audit.md",
+      "new": "research/futures/weekly/2026-09-19/evidence/2026-09-19-framework-numeric-audit.md",
+      "tracked_before": true,
+      "sha256_before": "11ceda982d4c0637255a719cfedb24dc8b2193fa6f28080ebe50f78c3f7a625f",
+      "sha256_after": "3988555f7109feb391bdee34807d7bc603ac09e75df2cb5345c8911c35cb2bf1"
+    },
+    {
+      "old": "research/2026-09-19-market-research.md",
+      "new": "research/futures/weekly/2026-09-19/2026-09-19-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "a7135a6be0edfe277838fd0c88e0763bb0da6647ec33fb51126713b258aa32b9",
+      "sha256_after": "5d7377d7a78b522ff161321d1e068283eb7c4b4b2bb606fc586737cad4139f06"
+    },
+    {
+      "old": "research/2026-09-20-framework-governance.md",
+      "new": "research/futures/maintenance/2026-09-20/2026-09-20-framework-governance.md",
+      "tracked_before": true,
+      "sha256_before": "dd96b7f00304857ad3604fdd1d8900ab3846b4d0dc300b656aa4405be09a28b1",
+      "sha256_after": "dd96b7f00304857ad3604fdd1d8900ab3846b4d0dc300b656aa4405be09a28b1"
+    },
+    {
+      "old": "research/2026-09-21-data-snapshot.txt",
+      "new": "research/futures/snapshots/2026-09-21-data-snapshot.txt",
+      "tracked_before": true,
+      "sha256_before": "d419cfcc940fbbe91e22ac4517b246bfb826660b88d94f985338589c9f1e0f0b",
+      "sha256_after": "d419cfcc940fbbe91e22ac4517b246bfb826660b88d94f985338589c9f1e0f0b"
+    },
+    {
+      "old": "research/2026-09-26-change-decision.md",
+      "new": "research/futures/weekly/2026-09-26/2026-09-26-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "70f8c1acd3939c7bcc4b355a1b5cc878ce8badabdf57d252001859588ba3fb00",
+      "sha256_after": "4bff008d9c10bd55ce4b34d2eb887457f38f50bd2c406f289aa84faaa1f97e32"
+    },
+    {
+      "old": "research/2026-09-26-execution-audit.md",
+      "new": "research/futures/weekly/2026-09-26/2026-09-26-execution-audit.md",
+      "tracked_before": true,
+      "sha256_before": "45983ad3fa7be3861fe10bf2dc371d1e150c1bf997e1ffa2e96c2e51881a06bb",
+      "sha256_after": "2b647e6b81b7f94b85e60683e3a2b12af055db7f2fe2dd558ec71b9e9542b9a3"
+    },
+    {
+      "old": "research/2026-09-26-market-research.md",
+      "new": "research/futures/weekly/2026-09-26/2026-09-26-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "ab837b713dc451a54d76da9b694b48f75f76cf5abc991c1aee90c11c96d92884",
+      "sha256_after": "6029c4d2e664806a42c8fe1e572d78d8331ded2941285b4e19a2a9088adbf657"
+    },
+    {
+      "old": "research/baseline-market-research.md",
+      "new": "research/futures/baselines/baseline-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "bc2eb06c61389ffc72690aef1529b60ffc2a16784529203fa86e793986f5fd97",
+      "sha256_after": "bc2eb06c61389ffc72690aef1529b60ffc2a16784529203fa86e793986f5fd97"
+    },
+    {
+      "old": "research/etf-2026-09-18-data-snapshot.txt",
+      "new": "research/etf/snapshots/etf-2026-09-18-data-snapshot.txt",
+      "tracked_before": true,
+      "sha256_before": "611aab08e40015a52bb21fc06d9070b916a5aa14c984298a5b66eb2aaf50f6d0",
+      "sha256_after": "611aab08e40015a52bb21fc06d9070b916a5aa14c984298a5b66eb2aaf50f6d0"
+    },
+    {
+      "old": "research/etf-2026-09-18-rule-validation-before-fix.md",
+      "new": "research/etf/studies/timing-validation/etf-2026-09-18-rule-validation-before-fix.md",
+      "tracked_before": true,
+      "sha256_before": "5b61cf5b450d106687e3dd890735e3d53b7ee56278299b02e7811494e35ec22c",
+      "sha256_after": "bf54b635531df214e23aead34ac646b6043c4baa87508b710d3c5a045d103cbe"
+    },
+    {
+      "old": "research/etf-2026-09-18-rule-validation.md",
+      "new": "research/etf/studies/timing-validation/etf-2026-09-18-rule-validation.md",
+      "tracked_before": true,
+      "sha256_before": "f3a39fc0f37cc74c514d5cf3a87cda51b0be53e4953db9c990e575ffb4de061c",
+      "sha256_after": "411368ca1f000f0cfd73c7b544b4dade5cc9a6db622718ef90a5a27c619cda4c"
+    },
+    {
+      "old": "research/etf-2026-09-19-pool-research.md",
+      "new": "research/etf/studies/theme-pool/etf-2026-09-19-pool-research.md",
+      "tracked_before": true,
+      "sha256_before": "a6d7303b4d020296bf0e886bdfa46a5c998aa6c4cd7543ca1f644f28fc3b9ec4",
+      "sha256_after": "a6d7303b4d020296bf0e886bdfa46a5c998aa6c4cd7543ca1f644f28fc3b9ec4"
+    },
+    {
+      "old": "research/etf-2026-09-19-rule-prereg.md",
+      "new": "research/etf/studies/timing-validation/etf-2026-09-19-rule-prereg.md",
+      "tracked_before": true,
+      "sha256_before": "00e66af425f5e8d9421ebfb8275d40cf49b9a7c7a4842351279117d5ad883261",
+      "sha256_after": "00e66af425f5e8d9421ebfb8275d40cf49b9a7c7a4842351279117d5ad883261"
+    },
+    {
+      "old": "research/etf-2026-09-19-task-spec-v0.md",
+      "new": "research/etf/archive/design/etf-2026-09-19-task-spec-v0.md",
+      "tracked_before": true,
+      "sha256_before": "6ce76682127b1aaec305c49300376a484382b6f3d562c2cdf40ef7f4c7761e8a",
+      "sha256_after": "6ce76682127b1aaec305c49300376a484382b6f3d562c2cdf40ef7f4c7761e8a"
+    },
+    {
+      "old": "research/etf-2026-09-23-monthly-review.md",
+      "new": "research/etf/archive/reviews/2026-09-23/etf-2026-09-23-monthly-review.md",
+      "tracked_before": true,
+      "sha256_before": "b5e71e43848bfab9ef91584415b1a6319d778828e2694a813cb07c9f811b16b4",
+      "sha256_after": "6b5e3c211bf86928a604c7a092831f55cb6f21ff86ae14621a30958b2138c4d1"
+    },
+    {
+      "old": "research/etf-2026-10-01-data-snapshot.txt",
+      "new": "research/etf/snapshots/etf-2026-10-01-data-snapshot.txt",
+      "tracked_before": true,
+      "sha256_before": "32787b9d4dc94791a0c285a6ba3d2eb2ff5bdca4afac10d76b0e74e4922700a1",
+      "sha256_after": "32787b9d4dc94791a0c285a6ba3d2eb2ff5bdca4afac10d76b0e74e4922700a1"
+    },
+    {
+      "old": "research/etf-2026-10-01-framework-v1.0-migration.md",
+      "new": "research/etf/maintenance/2026-10-01/etf-2026-10-01-framework-v1.0-migration.md",
+      "tracked_before": true,
+      "sha256_before": "a2cefbd30a5ce631d944bd661ed1236eef32ec044ebdd4e5bb0d0c05eb937a91",
+      "sha256_after": "9f076ead0bce640b0a24bfe0ef1b26768011964d86cf9c40cbbc64ebd3a6ed96"
+    },
+    {
+      "old": "research/etf-2026-10-01-review.md",
+      "new": "research/etf/reviews/2026-10-01/etf-2026-10-01-review.md",
+      "tracked_before": true,
+      "sha256_before": "a2609154492b206392d8c4e9774282faea52028ca217498d26e4adde6d01020f",
+      "sha256_after": "a2609154492b206392d8c4e9774282faea52028ca217498d26e4adde6d01020f"
+    },
+    {
+      "old": "research/etf-2026-10-02-data-snapshot.txt",
+      "new": "research/etf/snapshots/etf-2026-10-02-data-snapshot.txt",
+      "tracked_before": true,
+      "sha256_before": "ee2ca9af5e2807c7230c63d2ad5fb07a3e42eafa99030f415be087556f6f8e9f",
+      "sha256_after": "ee2ca9af5e2807c7230c63d2ad5fb07a3e42eafa99030f415be087556f6f8e9f"
+    },
+    {
+      "old": "research/etf-cards/cn-a500-core-2026-09-25.md",
+      "new": "research/etf/archive/legacy-cards/cn-a500-core-2026-09-25.md",
+      "tracked_before": true,
+      "sha256_before": "804c8df285eed44b6033341b7b34afeb714e0a8c0a0563c27c289a3838842b61",
+      "sha256_after": "6566ad8c0b34c404cd9c5abba97547e683c08e217b90a06dd4840a0d228ff3ab"
+    },
+    {
+      "old": "research/etf-cards/gold-core-2026-09-25.md",
+      "new": "research/etf/archive/legacy-cards/gold-core-2026-09-25.md",
+      "tracked_before": true,
+      "sha256_before": "c95768315210b0ee5f2870adc4268048d37b27d06c25d0b43349e6660977cd62",
+      "sha256_after": "f5a203cbe5a3a6509081407bf008386d9b4e352a933a7beeb74c7ca140257a4b"
+    },
+    {
+      "old": "research/etf-cards/hk-dividend-lowvol-core-2026-09-25.md",
+      "new": "research/etf/archive/legacy-cards/hk-dividend-lowvol-core-2026-09-25.md",
+      "tracked_before": true,
+      "sha256_before": "8880e9ced3c0c825b5498f204ba8c72bb9d17f7fd22bdd3e8ad0938a605fa956",
+      "sha256_after": "d90c40b1e617d681764092d42d9483111a696f2df27b647d9a3cb97506f532ed"
+    },
+    {
+      "old": "research/etf-cards/hk-hsi-core-2026-09-25.md",
+      "new": "research/etf/archive/legacy-cards/hk-hsi-core-2026-09-25.md",
+      "tracked_before": true,
+      "sha256_before": "41a5dc26d577d0cac7f78e109e27c352e59285c7ca514c80098a1dfd45ad5877",
+      "sha256_after": "94442e40ff00d4af740ab421e6c23fdd99432df7417b3ef2c1bec8e4ac6fdffc"
+    },
+    {
+      "old": "research/etf-cards/hk-tech-core-2026-09-25.md",
+      "new": "research/etf/archive/legacy-cards/hk-tech-core-2026-09-25.md",
+      "tracked_before": true,
+      "sha256_before": "54990a006180c03b9c23832c86a15521d5a9e93d2c871c09bb0b21795233c299",
+      "sha256_after": "2d9c85c1418922c94df008afb16ccdef62a48aca976a23ff8c9ff25350041948"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/README.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/README.md",
+      "tracked_before": true,
+      "sha256_before": "9abd407bbc2c26f1baeefb38a1773d0d39650614df9582a0032209b732683737",
+      "sha256_after": "9770cb9c21c40f32d625bf8b757e70cac5fc6a8bd305f41497066ffec1d02595"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-brokers-tactical-2026-09-23.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-brokers-tactical-2026-09-23.md",
+      "tracked_before": true,
+      "sha256_before": "aef8e799bf1ea8fb27f45ee491ca496ae0c40e2a8d66cab58a503b1f61df71e9",
+      "sha256_after": "42270ed6d43814aa1bc1af1eee201513d21e5545e4dae2e3188d5f772c1cb43c"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-chemicals-tactical-2026-09-23.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-chemicals-tactical-2026-09-23.md",
+      "tracked_before": true,
+      "sha256_before": "3963341231a746aed5667e75b23fa47bc1fed54bfc4ac5bf60d56e7f57bb9ba6",
+      "sha256_after": "e63bc1ab127c7b3f6cee02695bcb0cec9bd93ea211c6837c551fb2f02a86dd33"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-consumer-tactical-2026-09-24.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-consumer-tactical-2026-09-24.md",
+      "tracked_before": true,
+      "sha256_before": "a19d569e3f772deac22a0b406b313ffa957eda07ad730dfa9a3fb87634b27206",
+      "sha256_after": "b5a8e65c195a1f0e54850c244a7246b7cb1d292c41b1cd21dbeef82aa44aaabf"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-defense-tactical-2026-09-23.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-defense-tactical-2026-09-23.md",
+      "tracked_before": true,
+      "sha256_before": "30496f903cad94dea73e1a37f72dbd11656e21976ca61e673bdd97a4b83ab72a",
+      "sha256_after": "e505121b7b24c287f6bce7ed0c52963136d52c43b6b853f6f453468189b31ceb"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-hk-pharma-tactical-2026-09-23.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-hk-pharma-tactical-2026-09-23.md",
+      "tracked_before": true,
+      "sha256_before": "677f83652f36b60c6b9f6dadc56a00c9c59c5cb678a2d600b844d98bf202e82b",
+      "sha256_after": "cd4c5158db309226bf191eba16d730f39ba22e160d84496b3a11cbeb3bc838ae"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-newenergy-tactical-2026-09-23.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-newenergy-tactical-2026-09-23.md",
+      "tracked_before": true,
+      "sha256_before": "4a2127b20aff5bf336f3923fe5012bdd659aa1401be16087bb53d42932e044f2",
+      "sha256_after": "7202f45d1de934a506782c6f73a75326b7a8a5066221f3bb0adbe8b4a6b913f2"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-nonferrous-tactical-2026-09-23.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-nonferrous-tactical-2026-09-23.md",
+      "tracked_before": true,
+      "sha256_before": "e4a4604c7bb02fe8033f98159234a635b5ce4617294c24acfbc1a3e77246f7b8",
+      "sha256_after": "68b2906a8dee5d37a4f861f4d9b8eed667f6dee836b700157215cabfcbfcc836"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/cn-star50-tactical-2026-09-23.md",
+      "new": "research/etf/archive/legacy-cards/v1-archive/cn-star50-tactical-2026-09-23.md",
+      "tracked_before": true,
+      "sha256_before": "77e5fee05c44e66ddee78e96b36760bca0f9526821c319e196fe3efbb37d2264",
+      "sha256_after": "ad9bee73c7ff94f4cce9032893e905ee32463c5620851d4094d93c21f6bda8b9"
+    },
+    {
+      "old": "research/etf-cards/v1-archive/current-v1.json",
+      "new": "research/etf/archive/legacy-cards/v1-archive/current-v1.json",
+      "tracked_before": true,
+      "sha256_before": "9d6286be94fc788e45262accb194e5477b5a9ba376bd1485bd11d94a90203089",
+      "sha256_after": "9261ff35039bce19dec224d1cfe1b7d14b067e8926906c6c248ff51d7fed56af"
+    },
+    {
+      "old": "research/etf-ladder-latest.json",
+      "new": "research/etf/snapshots/etf-2026-10-02-drawdown.json",
+      "tracked_before": true,
+      "sha256_before": "7aa33c40c24b0d0824bf905692b3ebae36dde637371beb5e2faca93b2ea69411",
+      "sha256_after": "90220b61c6747b836333bee4b5ed3a84e02e68c1bfa8ee2c95851d62892b47dd"
+    },
+    {
+      "old": "research/investment-01952-2026-10-05-price-map.json",
+      "new": "research/investment/companies/HK-01952/2026-10-05/investment-01952-2026-10-05-price-map.json",
+      "tracked_before": false,
+      "sha256_before": "654b540bc401d8930a85fbee7ae3e2a660fc510c5805ae560b45f4374b16833e",
+      "sha256_after": "15b18c26df10ec03c1cf514320026b1e202b248e08ede9e162d6df2e2206c1b8"
+    },
+    {
+      "old": "research/investment-01952-2026-10-05-research.md",
+      "new": "research/investment/companies/HK-01952/2026-10-05/investment-01952-2026-10-05-research.md",
+      "tracked_before": false,
+      "sha256_before": "fc62bb36fa64f0becfd250213c391d8bce550c49857e0ee137067f68fbc92c10",
+      "sha256_after": "7c2ebe914c697000e16725723bae111523d5bb6bea04fcaa56e85e404cc7e630"
+    },
+    {
+      "old": "research/investment-01952-latest.json",
+      "new": "output/indexes/investment/HK-01952/investment-01952-latest.json",
+      "tracked_before": false,
+      "sha256_before": "75891081621e3e79935dc2dd98d7ebba979497c6a0ae5d84f7624a45474023a1",
+      "sha256_after": "15b18c26df10ec03c1cf514320026b1e202b248e08ede9e162d6df2e2206c1b8",
+      "note": "Rebuilt cache from migrated dated JSON; old bytes retained in ignored before backup."
+    },
+    {
+      "old": "research/investment-2026-07-18-change-decision.md",
+      "new": "research/investment/weekly/2026-07-18/investment-2026-07-18-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "0d22f9697ffdeb2df629663e0d10b3cd0d41095544d1e71ba21dbdbdcf0dd143",
+      "sha256_after": "0d22f9697ffdeb2df629663e0d10b3cd0d41095544d1e71ba21dbdbdcf0dd143"
+    },
+    {
+      "old": "research/investment-2026-07-18-market-research.md",
+      "new": "research/investment/weekly/2026-07-18/investment-2026-07-18-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "fdc65695afd92e4402988244b6637eef8c19da41030d7da8d8a14074fecbe713",
+      "sha256_after": "fdc65695afd92e4402988244b6637eef8c19da41030d7da8d8a14074fecbe713"
+    },
+    {
+      "old": "research/investment-2026-07-25-change-decision.md",
+      "new": "research/investment/weekly/2026-07-25/investment-2026-07-25-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "0d5e6eb9ae230382c6dbf6a407d8d4dc405a8cfccb65bb1e9dd738f900b330bf",
+      "sha256_after": "0d5e6eb9ae230382c6dbf6a407d8d4dc405a8cfccb65bb1e9dd738f900b330bf"
+    },
+    {
+      "old": "research/investment-2026-07-25-market-research.md",
+      "new": "research/investment/weekly/2026-07-25/investment-2026-07-25-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "2af79b18d7c465618c5716a6a2e345f642856fda71d2ae8165592a88cf13ed37",
+      "sha256_after": "2af79b18d7c465618c5716a6a2e345f642856fda71d2ae8165592a88cf13ed37"
+    },
+    {
+      "old": "research/investment-2026-07-26-change-decision.md",
+      "new": "research/investment/weekly/2026-07-26/investment-2026-07-26-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "8e9ef333eef77e13da2ee60d427e96b764c3274b067d0b96816e93e94d4e32c7",
+      "sha256_after": "8e9ef333eef77e13da2ee60d427e96b764c3274b067d0b96816e93e94d4e32c7"
+    },
+    {
+      "old": "research/investment-2026-07-26-market-research.md",
+      "new": "research/investment/weekly/2026-07-26/investment-2026-07-26-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "401b3b7b92862a275de8f6aa751640ed0adbb27ebe798eecf4856bc90d0f6226",
+      "sha256_after": "401b3b7b92862a275de8f6aa751640ed0adbb27ebe798eecf4856bc90d0f6226"
+    },
+    {
+      "old": "research/investment-2026-08-01-adaption-report.md",
+      "new": "research/investment/weekly/2026-08-01/investment-2026-08-01-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "3bda8c74810fb9e4256615022182ea870541de461480205fe7a15b37280c231a",
+      "sha256_after": "9d4ab80c8acee1f2e969a63c082c5e020db036089ad50df5f6e8d443ee6aee95"
+    },
+    {
+      "old": "research/investment-2026-08-01-change-decision.md",
+      "new": "research/investment/weekly/2026-08-01/investment-2026-08-01-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "f036dbb1f68cbdb06d66b8aa373f2dd248e253d0b28931c58b50297056ed5329",
+      "sha256_after": "f036dbb1f68cbdb06d66b8aa373f2dd248e253d0b28931c58b50297056ed5329"
+    },
+    {
+      "old": "research/investment-2026-08-01-market-research.md",
+      "new": "research/investment/weekly/2026-08-01/investment-2026-08-01-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "ec7c6fb845b6b349afe71c4618a04e638fc77d97db081e85766da4926af4a42c",
+      "sha256_after": "ec7c6fb845b6b349afe71c4618a04e638fc77d97db081e85766da4926af4a42c"
+    },
+    {
+      "old": "research/investment-2026-08-08-adaption-report.md",
+      "new": "research/investment/weekly/2026-08-08/investment-2026-08-08-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "6f1f1da21efba314adbbaf1f6c0d26992cfb3e0f2273d553155d757280d9d468",
+      "sha256_after": "08a00b5ce94b70173f0a54b93b2d6c527804f6a1877bda9f80d8b4bc3610c65d"
+    },
+    {
+      "old": "research/investment-2026-08-08-change-decision.md",
+      "new": "research/investment/weekly/2026-08-08/investment-2026-08-08-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "d86cd83d8b1076c0d0687620bb21b0ead81083f77565837e21c1cdacd4f018b0",
+      "sha256_after": "d86cd83d8b1076c0d0687620bb21b0ead81083f77565837e21c1cdacd4f018b0"
+    },
+    {
+      "old": "research/investment-2026-08-08-market-research.md",
+      "new": "research/investment/weekly/2026-08-08/investment-2026-08-08-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "361be58510b786f7e032536198f6ba3ee932b2ff8efe26ab54b626708a94003a",
+      "sha256_after": "361be58510b786f7e032536198f6ba3ee932b2ff8efe26ab54b626708a94003a"
+    },
+    {
+      "old": "research/investment-2026-08-15-adaption-report.md",
+      "new": "research/investment/weekly/2026-08-15/investment-2026-08-15-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "70cc18fe3b9b9e214db642c5d472f24445d2a5150950372db424829bad512fc1",
+      "sha256_after": "70cc18fe3b9b9e214db642c5d472f24445d2a5150950372db424829bad512fc1"
+    },
+    {
+      "old": "research/investment-2026-08-15-change-decision.md",
+      "new": "research/investment/weekly/2026-08-15/investment-2026-08-15-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "0548f24815eda7cb07c5efadb5d51e8a5cbe88d7be8ac693a4ac2c4a40bd95f4",
+      "sha256_after": "0548f24815eda7cb07c5efadb5d51e8a5cbe88d7be8ac693a4ac2c4a40bd95f4"
+    },
+    {
+      "old": "research/investment-2026-08-15-market-research.md",
+      "new": "research/investment/weekly/2026-08-15/investment-2026-08-15-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "7cf5adf091e56cd54c3d9ccaeeeaf6fbc51cc79b6fd9670db7c81bff25c509c2",
+      "sha256_after": "7cf5adf091e56cd54c3d9ccaeeeaf6fbc51cc79b6fd9670db7c81bff25c509c2"
+    },
+    {
+      "old": "research/investment-2026-08-22-adaption-report.md",
+      "new": "research/investment/weekly/2026-08-22/investment-2026-08-22-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "c43110f5cf5c2bba12e4b99fc66f983a661ccfebfbf7cc5b3d1251ce4ac17f29",
+      "sha256_after": "c43110f5cf5c2bba12e4b99fc66f983a661ccfebfbf7cc5b3d1251ce4ac17f29"
+    },
+    {
+      "old": "research/investment-2026-08-22-change-decision.md",
+      "new": "research/investment/weekly/2026-08-22/investment-2026-08-22-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "2a138910275630d0fb7953dc8cf81c59e9834febce27f4efe9590a384532c222",
+      "sha256_after": "2a138910275630d0fb7953dc8cf81c59e9834febce27f4efe9590a384532c222"
+    },
+    {
+      "old": "research/investment-2026-08-22-market-research.md",
+      "new": "research/investment/weekly/2026-08-22/investment-2026-08-22-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "f099df6f6ca54a8b308222785481d50aa115ac3c0686ecd369a708945d42ce72",
+      "sha256_after": "f099df6f6ca54a8b308222785481d50aa115ac3c0686ecd369a708945d42ce72"
+    },
+    {
+      "old": "research/investment-2026-08-29-adaption-report.md",
+      "new": "research/investment/weekly/2026-08-29/investment-2026-08-29-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "f60f12cb492be36bbe7f0fac66b3ec1700be7b1dc0391a102ca53fd06102bb42",
+      "sha256_after": "f60f12cb492be36bbe7f0fac66b3ec1700be7b1dc0391a102ca53fd06102bb42"
+    },
+    {
+      "old": "research/investment-2026-08-29-change-decision.md",
+      "new": "research/investment/weekly/2026-08-29/investment-2026-08-29-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "d1c854cf9fad8e016ca91beb86ee07b7779be26d47d68a46da69d07f1d79fddc",
+      "sha256_after": "d1c854cf9fad8e016ca91beb86ee07b7779be26d47d68a46da69d07f1d79fddc"
+    },
+    {
+      "old": "research/investment-2026-08-29-market-research.md",
+      "new": "research/investment/weekly/2026-08-29/investment-2026-08-29-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "8d8a6966c9aa38f1c7771b1edeff859c34764011d011c1b3d0add80f54eb6695",
+      "sha256_after": "8d8a6966c9aa38f1c7771b1edeff859c34764011d011c1b3d0add80f54eb6695"
+    },
+    {
+      "old": "research/investment-2026-09-05-change-decision.md",
+      "new": "research/investment/weekly/2026-09-05/investment-2026-09-05-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "09b4c8a6a708f5add415f044b67f17b070342130192c0919aa6f45671338e71e",
+      "sha256_after": "09b4c8a6a708f5add415f044b67f17b070342130192c0919aa6f45671338e71e"
+    },
+    {
+      "old": "research/investment-2026-09-05-market-research.md",
+      "new": "research/investment/weekly/2026-09-05/investment-2026-09-05-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "e9b08ba395872eb285e789808584c88364e1a8678e071be7c2e0e97987670ecf",
+      "sha256_after": "e9b08ba395872eb285e789808584c88364e1a8678e071be7c2e0e97987670ecf"
+    },
+    {
+      "old": "research/investment-2026-09-12-adaption-report.md",
+      "new": "research/investment/weekly/2026-09-12/investment-2026-09-12-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "7bd55ba763204b1566878ab518d792aad59cc97d717740ecab409b893308b98b",
+      "sha256_after": "7bd55ba763204b1566878ab518d792aad59cc97d717740ecab409b893308b98b"
+    },
+    {
+      "old": "research/investment-2026-09-12-change-decision.md",
+      "new": "research/investment/weekly/2026-09-12/investment-2026-09-12-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "0036549cb71610920d6c0e0703fbbc9c2195d42e331f6f7650fb256786d883c9",
+      "sha256_after": "0036549cb71610920d6c0e0703fbbc9c2195d42e331f6f7650fb256786d883c9"
+    },
+    {
+      "old": "research/investment-2026-09-12-market-research.md",
+      "new": "research/investment/weekly/2026-09-12/investment-2026-09-12-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "4281f077967d0e2258c9475d4c9b79ee74f83a2411acb73d458da3c95f38e7e1",
+      "sha256_after": "4281f077967d0e2258c9475d4c9b79ee74f83a2411acb73d458da3c95f38e7e1"
+    },
+    {
+      "old": "research/investment-2026-09-19-adaption-report.md",
+      "new": "research/investment/weekly/2026-09-19/investment-2026-09-19-adaption-report.md",
+      "tracked_before": true,
+      "sha256_before": "a9d32fa771abc05a8b2c81fc03128b19a3d043c7c51dbf4a5bda617fbd474464",
+      "sha256_after": "a9d32fa771abc05a8b2c81fc03128b19a3d043c7c51dbf4a5bda617fbd474464"
+    },
+    {
+      "old": "research/investment-2026-09-19-change-decision.md",
+      "new": "research/investment/weekly/2026-09-19/investment-2026-09-19-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "1c2d1996ac694b840552ddc59c51cf7efd20bde8ab670de476c3f6cc670d485d",
+      "sha256_after": "1c2d1996ac694b840552ddc59c51cf7efd20bde8ab670de476c3f6cc670d485d"
+    },
+    {
+      "old": "research/investment-2026-09-19-market-research.md",
+      "new": "research/investment/weekly/2026-09-19/investment-2026-09-19-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "f239660da961546c0020e3f7b3adc42471c1cef3c85f29f79f6cd70abf001c06",
+      "sha256_after": "f239660da961546c0020e3f7b3adc42471c1cef3c85f29f79f6cd70abf001c06"
+    },
+    {
+      "old": "research/investment-2026-09-21-framework-governance.md",
+      "new": "research/investment/maintenance/2026-09-21/investment-2026-09-21-framework-governance.md",
+      "tracked_before": true,
+      "sha256_before": "f7d9f23465f36d1af633d9736fc0eb62e9463c585693f8fcd1c2c5a0978d6507",
+      "sha256_after": "f7d9f23465f36d1af633d9736fc0eb62e9463c585693f8fcd1c2c5a0978d6507"
+    },
+    {
+      "old": "research/investment-2026-09-26-change-decision.md",
+      "new": "research/investment/weekly/2026-09-26/investment-2026-09-26-change-decision.md",
+      "tracked_before": true,
+      "sha256_before": "5b9edae60807db3f697be6e49758e78e5b9e627cfa8a53735b85099dd1e72c83",
+      "sha256_after": "5b9edae60807db3f697be6e49758e78e5b9e627cfa8a53735b85099dd1e72c83"
+    },
+    {
+      "old": "research/investment-2026-09-26-market-research.md",
+      "new": "research/investment/weekly/2026-09-26/investment-2026-09-26-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "b3210c2ce83fc7f4ca1c87fd333215350f7fe0351c5e2854fdab3997837efa39",
+      "sha256_after": "b3210c2ce83fc7f4ca1c87fd333215350f7fe0351c5e2854fdab3997837efa39"
+    },
+    {
+      "old": "research/investment-600066-2026-10-05-price-map.json",
+      "new": "research/investment/companies/SH-600066/2026-10-05/investment-600066-2026-10-05-price-map.json",
+      "tracked_before": false,
+      "sha256_before": "745a69e936127e5438bf73f9e80b304618d39547c5ed854cef4f9a55cf491171",
+      "sha256_after": "a1d11f1f80bc9f495935b5d4103d0a208c67f7ee27ea96b4c32421380b17f9a8"
+    },
+    {
+      "old": "research/investment-600066-2026-10-05-research.md",
+      "new": "research/investment/companies/SH-600066/2026-10-05/investment-600066-2026-10-05-research.md",
+      "tracked_before": false,
+      "sha256_before": "6daeb2aa4a0a3db3e3d1ad4503b654dac97088685428a022fc2bbdd5c3767943",
+      "sha256_after": "68d323b4cc0934b9720ff9db08c6cb13e1b9cac1bb944abbf984997ebe874954"
+    },
+    {
+      "old": "research/investment-600066-latest.json",
+      "new": "output/indexes/investment/SH-600066/investment-600066-latest.json",
+      "tracked_before": false,
+      "sha256_before": "de1a4b3645381baa339f10a5e27c6e370377fae4da830a7dbd35fefc359270a4",
+      "sha256_after": "194311bcc85237a7869b98ef000508ef031e3b419d88e2a8a4ff3bafe6934a0b",
+      "note": "Rebuilt cache from migrated dated JSON; old bytes retained in ignored before backup."
+    },
+    {
+      "old": "research/investment-baseline-market-research.md",
+      "new": "research/investment/baselines/investment-baseline-market-research.md",
+      "tracked_before": true,
+      "sha256_before": "fd00937fc86e14c62a77b6b96c8b034e3968ec133e5e7d48e318248220bec36a",
+      "sha256_after": "fd00937fc86e14c62a77b6b96c8b034e3968ec133e5e7d48e318248220bec36a"
+    },
+    {
+      "old": "1.txt",
+      "new": "research/futures/archive/2026-09-13-legacy-output.txt",
+      "tracked_before": true,
+      "sha256_before": "799affcd88e0dd161e39c1992584b02c8e82496948b7c1bf9f3eb3ede9aec0a2",
+      "sha256_after": "799affcd88e0dd161e39c1992584b02c8e82496948b7c1bf9f3eb3ede9aec0a2"
+    }
+  ],
+  "preregistration": {
+    "original_path": "research/etf-2026-09-19-rule-prereg.md",
+    "path": "research/etf/studies/timing-validation/etf-2026-09-19-rule-prereg.md",
+    "commit": "dc3ea4a204ec13b40eef3e76658096793b8a348a",
+    "committed_at": "2026-09-20T08:29:16+08:00",
+    "sha256": "00e66af425f5e8d9421ebfb8275d40cf49b9a7c7a4842351279117d5ad883261"
+  },
+  "validation": {
+    "date": "2026-10-05",
+    "baseline_offline_tests": 243,
+    "final_offline_tests": 258,
+    "offline_tests": "passed",
+    "framework_governance": "passed (structure only)",
+    "skill_quick_validate": {
+      "passed": 6,
+      "python": "python3 (PyYAML available)"
+    },
+    "markdown_local_links": {
+      "checked": 176,
+      "broken": 0,
+      "excluded_historical_draft": "framework/reference.md"
+    },
+    "moved_files_verified": 139,
+    "cache_files_verified": 1115,
+    "framework_change_scope": "only output path substitutions; compared against before backup",
+    "shadow_ledger": {
+      "reports": 4,
+      "plan_registrations": 2,
+      "content_and_order": "unchanged"
+    },
+    "market_api": "not run; CLI orchestration tested with synthetic producers",
+    "publication": "local branch only; no commit/push/PR or schedule changes"
+  }
+}

@@ -19,6 +19,6 @@
 
 ## 输出
 
-- 完整变化报告写 `research/<AS_OF_DATE>-change-decision.md`；独立诊断写 `research/<AS_OF_DATE>-execution-audit.md`。缺历史完整账时，不对连续空仓／规则有效性作确定归因。
+- 完整变化报告写 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-change-decision.md`；独立诊断写 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md`。缺历史完整账时，不对连续空仓／规则有效性作确定归因。
 - 按 instruction 保留 `FRAMEWORK_UPDATE_DECISION`（`update_needed`、级别、理由）、`KEY_VARIABLE_CHANGES`、`UPDATE_FOCUS`、`DO_NOT_OVERREACT_ITEMS`、`DATA_FEASIBILITY`、`EVIDENCE_CORRECTIONS`、`EXECUTION_AUDIT`（路径、框架版本、活跃／研究观察范围及证据结论）。
 - 返回变化报告全文与路径、`update_needed`、`CURRENT_EXECUTION_AUDIT` 全文及路径，完整更新并透传可得性和纠错字段。单阶段到此结束，同日与发布边界沿用入口。

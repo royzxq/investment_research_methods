@@ -12,7 +12,7 @@
 
 ## 输出与交接
 
-1. 在入口确定的更新分支／隔离 worktree 写 `research/<AS_OF_DATE>-adaption-report.md`，保留可得性、纠错及影响范围。按 instruction 输出，第 5 节链接工作区完整框架，仅列受影响章节及必要片段，不粘全文。
+1. 在入口确定的更新分支／隔离 worktree 写 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-adaption-report.md`，保留可得性、纠错及影响范围。按 instruction 输出，第 5 节链接工作区完整框架，仅列受影响章节及必要片段，不粘全文。
 2. 按报告局部更新 `framework/futures_framework.md`，保留未受影响有效内容及维护说明；新版正文由工作区文件提供，不从报告抽取全文替换。
 3. 返回分支／worktree、报告全文与路径、旧输出失效项。完整流程由入口接 data-sync，并在同一分支完成审计重评和 compact。
 4. 默认本地保存；已获 `publish` 授权时仅提交本阶段 framework 与 report 的独立记录，摘要取「1. 更新结论」，不自己 push 或开 PR。

@@ -1,8 +1,12 @@
-# future_data.py 本地运行产物（行情快照 CSV），不入库
-output/
+# 本地缓存、临时研究、机械扫描和可重建索引
+/output/
 __pycache__/
-# etf_data.py 未跑完的快照（跑完整才会改名为正式文件）
-research/**/*.partial
+*.py[cod]
+.pytest_cache/
+.DS_Store
+# 未完成产物；正式 txt/json 证据继续入库
+/research/**/*.partial
+/research/**/*.tmp
 # 本机环境、旧 Claude worktree 与含会话/账户资料的私有迁移备份
 .venv/
 .claude/worktrees/

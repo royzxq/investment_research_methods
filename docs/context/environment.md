@@ -29,6 +29,8 @@ ETF 快照的研究覆盖率默认参考 `/Users/xinquanzhou/Workspace/ai_invest
 
 ## 快照与缓存
 
-取数脚本把完整快照写入 `research/`；末行“快照完成”是完整标记。期货协议见 [FUTURES_DATA_PROTOCOL.md](../../framework/FUTURES_DATA_PROTOCOL.md)。ETF v2.1 沿用 v2.0 快照格式，不能仅因头行为 v2.0 判旧；还须按当前 skill 检查日期、完整性和指数覆盖。
+取数脚本把完整快照写入 `research/futures/snapshots/` 或 `research/etf/snapshots/`；末行“快照完成”是完整标记。期货协议见 [FUTURES_DATA_PROTOCOL.md](../../framework/FUTURES_DATA_PROTOCOL.md)。ETF v2.1 沿用 v2.0 快照格式，不能仅因头行为 v2.0 判旧；还须按当前 skill 检查日期、完整性和指数覆盖。
 
 `output/` 是 Git 忽略的行情与自聚合原始缓存，已作为迁移资产单独备份。历史快照和缓存只证明各自日期的数据，不证明当前行情、事件状态或账户持仓。
+
+目录迁移后缓存分到 `output/cache/futures/` 与 `output/cache/etf/`；两脚本均以仓库根定位，不依赖 shell 当前目录。正式快照默认拒绝覆盖，成功且标记一致才原子发布；失败保留被忽略的 `.partial`，旧正式快照不变。显式 `--overwrite` 仍须符合任务授权。ETF 日期机器读数保存在 snapshots，latest 只在 `output/indexes/`。

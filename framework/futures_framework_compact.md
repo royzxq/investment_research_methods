@@ -126,7 +126,7 @@
 **DATA-feasibility**　判断资料是否持续可得；available / temporary_gap / research_only；与候选status独立；专业数据长期不可持续的模型research_only，列排除范围/复活条件；例外：已有许可新对未计算/模块失败/导出缺列=temporary_gap；最低研究资料齐备可available，即使反证/未成案/账户未知；解除/更新：专业模型所需证据恢复后复评；不传染全池。
 
 <a id="r-data-snapshot"></a>
-**DATA-snapshot**　行情/D8/影子结算输入；最新提交的 research/<AS_OF>-data-snapshot.txt（本地已配 TUSHARE_TOKEN 运行 scripts/future_data.py，脚本自行写入含 stderr 的完整输出，末行“快照完成”为完整标记；云端流水线不跑脚本）；各阶段先读快照并记录其 AS_OF、脚本版本与最新行情日；例外：快照已有实测值不得用推算、旧快照或叙事替代；解除/更新：无快照、缺完整标记或快照最新行情日落后于应有最近已完成交易日→受影响项 temporary_gap 并写快照日期。
+**DATA-snapshot**　行情/D8/影子结算输入；最新提交的 research/futures/snapshots/<AS_OF>-data-snapshot.txt（本地已配 TUSHARE_TOKEN 运行 scripts/future_data.py，脚本自行写入含 stderr 的完整输出，末行“快照完成”为完整标记；云端流水线不跑脚本）；各阶段先读快照并记录其 AS_OF、脚本版本与最新行情日；例外：快照已有实测值不得用推算、旧快照或叙事替代；解除/更新：无快照、缺完整标记或快照最新行情日落后于应有最近已完成交易日→受影响项 temporary_gap 并写快照日期。
 
 <a id="r-data-reference"></a>
 **DATA-reference**　参考级数据；Kpler 油轮通行量/海湾出口量/战争险费率、247 家钢厂日均铁水/钢厂盈利率等流水线不可持续取得的专业数据；只作参考旁证；例外：不进任何门、不触发扣分/系数/冻结/收紧，缺失不记 unknown/temporary_gap、不列补核必办；①门量化锚=脚本§1 SC 近端 back 方向（[GATE-calm](#r-gate-calm)/[GATE-resume](#r-gate-resume)），黑色需求侧证据=公开周度库存/产销/现货；解除/更新：依赖它们的休眠模型（[LATENT-JMRB](#r-latent-jmrb)、[PLAN-G](#r-plan-g)需求门）复活前须用公开数据重定义触发。
@@ -725,7 +725,7 @@
 **AUDIT-pending**　未完成事项；负责人/缺件/期限/到期动作；不静默顺延；例外：未决不算用户选择；解除/更新：补齐或到期处置。
 
 <a id="r-audit-fields"></a>
-**AUDIT-fields**　审计输出；schema 3；旧schema 2仅兼容历史版本；signal=triggered/not_triggered/unknown；status见[AUDIT-no](#r-audit-no)/[AUDIT-incomplete](#r-audit-incomplete)/[AUDIT-awaiting](#r-audit-awaiting)/[AUDIT-block](#r-audit-block)/[AUDIT-ready](#r-audit-ready)；shadow_plans字段见[AUDIT-shadow](#r-audit-shadow)；正文与严格JSON同步；运行python3 scripts/validate_futures_audit.py --input research/<date>-execution-audit.md，记录命令/退出码/实际结果，失败先修；例外：未运行明示；信号席单列范围；不可自造枚举或fail/unknown混值；校验器不核经济逻辑/来源真伪/收益、不授许可；解除/更新：真实填值。
+**AUDIT-fields**　审计输出；schema 3；旧schema 2仅兼容历史版本；signal=triggered/not_triggered/unknown；status见[AUDIT-no](#r-audit-no)/[AUDIT-incomplete](#r-audit-incomplete)/[AUDIT-awaiting](#r-audit-awaiting)/[AUDIT-block](#r-audit-block)/[AUDIT-ready](#r-audit-ready)；shadow_plans字段见[AUDIT-shadow](#r-audit-shadow)；正文与严格JSON同步；运行python3 scripts/validate_futures_audit.py --input research/futures/weekly/<date>/<date>-execution-audit.md，记录命令/退出码/实际结果，失败先修；例外：未运行明示；信号席单列范围；不可自造枚举或fail/unknown混值；校验器不核经济逻辑/来源真伪/收益、不授许可；解除/更新：真实填值。
 
 <a id="r-audit-shadow"></a>
 **AUDIT-shadow**　影子计划登记、结算与归因；每周为最接近成立的至多两条候选（不论incomplete/awaiting_account/blocked）在JSON shadow_plans登记：shadow_id、candidate_id、instrument{single/spread，contracts 1/2个}、side、entry_type=limit/stop、entry/stop/target（多头stop<entry<target，空头相反）、entry_expiry、latest_exit_date、multiplier、round_trip_cost、带时区registered_at（上海日期≤as_of_date）；登记须在报告周内（registered_at上海日期∈[as_of_date−7天, as_of_date]，事后补登记无效）、最晚退出日晚于登记日；登记后不改，同一shadow_id只认最早（改写由脚本点名忽略）；脚本§5结算规则：只用登记之后才开盘的已完成日线（日线含前一交易日21:00起夜盘）；限价按计划价成交，突破单取计划价与开盘价较差者；成交价已越过目标价→按成交价即时了结（只付成本）；成交当日只认止损（价差按当日结算价出场）；同日触及止损与目标按止损；跳空穿止损按开盘价；价差只用两腿结算价之差；过入场有效期未成交作废；最晚退出日或合约最后交易日先到者按结算价了结；缺价停止评估；已了结影子按登记时已核阻断归集人民币盈亏与R；例外：一笔多阻断各计一次，非独立因果；无登记时避免损失/错过收益=null；一次涨跌/未交易不证明护栏有效；未算真实计划风险前不归因于5,000元上限；解除/更新：回溯重评标proposed_framework_reassessment，不假装当日生效。
@@ -795,7 +795,7 @@
 ## 3.1 当期配置（旧行情不是新一轮调研结果）
 
 <a id="r-dynamic-version"></a>
-**DYNAMIC-version**　当期配置截止 **2026-09-19**，方法版本 v2.27，FRAMEWORK_UPDATED_AT/AS_OF_DATE=该日；MARKET_SNAPSHOT_AS_OF=2026-09-18。行情来源 research/2026-09-19-data-snapshot.txt（脚本 v1.15 实测）；脚本 v1.16 的 EVENTS 滚动、§2b.1逐日结算涨跌列为分支拟议，未联网实测。研究默认 public_data；本期搜索证据为摘要转引（原文读取被封锁），不冒充原文核验；快照实测值不受影响。配置不证明持仓，旧快照不证明新一轮触发；下次 change-analysis 更新，10/9 长假复盘逐项复评。
+**DYNAMIC-version**　当期配置截止 **2026-09-19**，方法版本 v2.27，FRAMEWORK_UPDATED_AT/AS_OF_DATE=该日；MARKET_SNAPSHOT_AS_OF=2026-09-18。行情来源 research/futures/snapshots/2026-09-19-data-snapshot.txt（脚本 v1.15 实测）；脚本 v1.16 的 EVENTS 滚动、§2b.1逐日结算涨跌列为分支拟议，未联网实测。研究默认 public_data；本期搜索证据为摘要转引（原文读取被封锁），不冒充原文核验；快照实测值不受影响。配置不证明持仓，旧快照不证明新一轮触发；下次 change-analysis 更新，10/9 长假复盘逐项复评。
 
 <a id="r-dynamic-caps"></a>
 **DYNAMIC-caps**　账户配置；用户裁决日2026-09-06；ACCOUNT_SIZE=150000；RISK_BUDGET/PORTFOLIO_RISK_CAP=5250；LOW_EXPOSURE_RISK_CAP=5000；示例#22=1,575元；RISK_REGIME=low_exposure（当期命中：高密度簇 9/21、9/29 提保扩板/9/30/10/1–10/8/10/27–28＋交易所公告±1日＋D12 高波层 MA2701 82.9；组合current=5000）；配置上限按RISK-regime；实际账户核验后重新计算；例外：实际仓位未知;独立风险系数/门不变；解除/更新：10/9 长假复盘按0.1复评全部有效触发后才可解除。
@@ -987,7 +987,7 @@
 ## 3.5 未完成事项
 
 <a id="r-dynamic-pending"></a>
-**DYNAMIC-pending**　本周缺项（负责人/期限见执行诊断 research/2026-09-19-execution-audit.md）：
+**DYNAMIC-pending**　本周缺项（负责人/期限见执行诊断 research/futures/weekly/2026-09-19/2026-09-19-execution-audit.md）：
 
 - ①MA 国内路线论证与确认定义冻结（研究方，2026-09-25）：新对 MA2701-MA2705 已给 draft A-MA-2701-2705-draft1（S 连续 2 个交易日收于前 10 个交易日最高值−0.65×MA2701 ATR20 之下且 MA2610-MA2701 不再走阔；state=draft，未冻结不回判），须用已观测的港口库存/到港/装置开工数值论证"海峡未缓和时仍支持收敛的独立国内变化"，否则明确结案
 - ②MA2701 逐日 settle/pre_settle（#30 判定腿）与 SC 逐日结算（data_pipeline/研究方，2026-09-25）：重跑脚本 v1.16 §2b.1 或终端导出

@@ -11,7 +11,7 @@
 
 ## 输出与交接
 
-1. 在入口指定的框架更新分支或隔离 worktree 写 `research/investment-<AS_OF_DATE>-adaption-report.md`，按 instruction 格式产出。第 5 节链接完整工作区框架，只列受影响章节和必要片段，不粘全文。
+1. 在入口指定的框架更新分支或隔离 worktree 写 `research/investment/weekly/<AS_OF_DATE>/investment-<AS_OF_DATE>-adaption-report.md`，按 instruction 格式产出。第 5 节链接完整工作区框架，只列受影响章节和必要片段，不粘全文。
 2. 按报告局部更新 `framework/investment_framework.md`，保留有效未受影响内容、维护说明和占位符；完整新版以工作区文件提供，不从报告抽取全文替换。
 3. 返回分支／worktree、报告全文与路径、受影响范围。完整流程由入口接着调用共用 `framework-condense`，写「8. 精简版同步」。
 4. 默认保留本地结果；已获 `publish` 授权时本阶段只提交 canonical 和适配报告的独立记录，提交摘要取「1. 更新结论」。不自己 push 或开 PR，交回入口统一发布。

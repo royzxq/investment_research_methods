@@ -15,7 +15,7 @@
 
 原“择时技能”对照用策略在同一窗口的**事后平均股票仓位**构造恒定比例组合。逆向加仓策略可能在上涨窗口平均仓位较低、下跌窗口较高，使这个对照本身随已实现路径改变。即使打乱后的收益顺序没有原来的时间结构，策略相对该对照仍可能显得占优。因此，策略超过这个对照不足以单独证明择时能力。
 
-仓库保留的历史回测代码仍有该构造：`scripts/etf_backtest.py` 的 `evaluate_ladder` 以 `statistics.mean(weights)` 调用 `run_constant_mix`。正式迁移说明已记录价格指数未计股息、现金臂计息及长期现金积累的问题，见 [2026-10-01 ETF 框架迁移说明](../../research/etf-2026-10-01-framework-v1.0-migration.md)。置换诊断是额外的待复核问题。
+仓库保留的历史回测代码仍有该构造：`scripts/etf_backtest.py` 的 `evaluate_ladder` 以 `statistics.mean(weights)` 调用 `run_constant_mix`。正式迁移说明已记录价格指数未计股息、现金臂计息及长期现金积累的问题，见 [2026-10-01 ETF 框架迁移说明](../../research/etf/maintenance/2026-10-01/etf-2026-10-01-framework-v1.0-migration.md)。置换诊断是额外的待复核问题。
 
 备份脚本采用窗口内置换作诊断：
 

@@ -71,16 +71,19 @@ def _request_with_timeout(self, *args, **kwargs):
         kwargs["timeout"] = HTTP_TIMEOUT
     return _session_request(self, *args, **kwargs)
 
+try:
+    from .research_paths import ROOT, artifact_path, snapshot_output, write_json
+except ImportError:
+    from research_paths import ROOT, artifact_path, snapshot_output, write_json
+
 # ============================ 配置区 ============================
 SCRIPT_VERSION = "v0.1"
 FRAMEWORK_VERSION = "v2.0"          # 快照格式版本（框架 v2.1 未改快照格式，仍为 v2.0）；etf-review 的先决检查读快照头行的这个版本
 TOKEN = os.getenv("TUSHARE_TOKEN", "")
 AS_OF = datetime.now().strftime("%Y%m%d")
 CUTOFF = AS_OF                       # run() 内按已完成交易日收紧
-RESEARCH_DIR = Path(__file__).resolve().parents[1] / "research"
-LADDER_SIDECAR = RESEARCH_DIR / "etf-ladder-latest.json"   # §6b 的机器可读副本（随快照提交）；框架 v1.0 起只作回撤状态读数；
-                                                           # 只在正式快照写成功后更新——--no-snapshot、历史回放、中途崩溃都不会动它
-OUTDIR = Path(__file__).resolve().parents[1] / "output"      # 已 gitignore：§4 自聚合的原始取数缓存
+LADDER_SIDECAR = ROOT / "output/indexes/etf/etf-ladder-latest.json"  # 可重建索引；日期副本随完整快照保存
+OUTDIR = ROOT / "output/cache/etf"  # 本地缓存；与期货缓存分开
 AGGREGATION_START = 2005                                     # index_weight / daily_basic 的最早有效年份
 PIT_CHECK_DATES = ("20071031", "20081031", "20140630", "20181228", "20210226")   # 与现成估值源交叉核对的固定日
 TRACKING_YEARS = 3
@@ -499,7 +502,7 @@ def cached_csv(name, label, call, *, immutable):
     if empty:
         del INTERFACES[label]
     if immutable and (df is not None or empty):
-        OUTDIR.mkdir(exist_ok=True)
+        OUTDIR.mkdir(parents=True, exist_ok=True)
         path.touch() if empty else df.to_csv(path, index=False)
     return df
 
@@ -592,7 +595,7 @@ def section_aggregation(bonds, lg, basics, levels):
             continue
         weights_by_key[entry["key"]] = weights
     series_by_key, aggregated = aggregate_all(weights_by_key), {}
-    OUTDIR.mkdir(exist_ok=True)
+    OUTDIR.mkdir(parents=True, exist_ok=True)
     for entry in INDEX_POOL:
         key, code = entry["key"], entry.get("weight_code")
         if key in skipped:
@@ -852,30 +855,6 @@ def section_macro(bonds, fx, levels):
 
 
 # ============================ 主流程 ============================
-def tee_output(path):
-    """stdout 同时写入快照文件，末行“快照完成”才算完整。stderr 不入快照：akshare 的进度条走 stderr。"""
-    class _Tee:
-        def __init__(self, stream, sink):
-            self.stream, self.sink = stream, sink
-
-        def write(self, data):
-            self.stream.write(data)
-            self.sink.write(data)
-
-        def flush(self):
-            self.stream.flush()
-            self.sink.flush()
-
-    sink = open(path, "w", encoding="utf-8")
-    original = sys.stdout
-    sys.stdout = _Tee(original, sink)
-
-    def restore():
-        sys.stdout = original
-        sink.close()
-    return restore
-
-
 def _valid_date(text):
     try:
         datetime.strptime(text, "%Y%m%d")
@@ -932,25 +911,37 @@ def main():
     parser = argparse.ArgumentParser(description=f"ETF 轨道数据快照 (etf_data {SCRIPT_VERSION})")
     parser.add_argument("--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
                         help="基准日 (缺省=运行当天, 当前默认 %(default)s)")
-    parser.add_argument("--no-snapshot", action="store_true", help="只打印，不写 research/etf-<AS_OF>-data-snapshot.txt")
+    parser.add_argument("--no-snapshot", action="store_true", help="只打印，不写 research/etf/snapshots/etf-<AS_OF>-data-snapshot.txt")
     parser.add_argument("--pool-csv", metavar="PATH", help="ai_investment 的 investment_prediction.csv，用于 §3 研究覆盖率")
     parser.add_argument("--overwrite", action="store_true", help="覆盖同一 AS_OF 的已有快照（引用它的决策卡须重新校验）")
     args = parser.parse_args()
     AS_OF = args.as_of
-    snapshot = None if args.no_snapshot else RESEARCH_DIR / f"etf-{AS_OF[:4]}-{AS_OF[4:6]}-{AS_OF[6:]}-data-snapshot.txt"
+    snapshot = None if args.no_snapshot else artifact_path("etf", "data-snapshot", AS_OF)
     if snapshot is None:
         return run(None, args.pool_csv)
-    if snapshot.exists() and not args.overwrite:
-        sys.exit(f"{snapshot} 已存在；决策卡按章节引用其中的数字，重跑会改数。确需覆盖请加 --overwrite")
-    partial = snapshot.with_name(snapshot.name + ".partial")   # 跑完整才替换正式文件，中途失败不毁掉旧快照
-    restore = tee_output(partial)
+    dated_sidecar = artifact_path("etf", "drawdown", AS_OF)
+    if dated_sidecar.exists() and not args.overwrite:
+        parser.exit(2, f"{dated_sidecar} 已存在；覆盖须明确使用 --overwrite\n")
     try:
-        run(snapshot, args.pool_csv)
-    finally:
-        restore()
-    partial.replace(snapshot)
-    LADDER_SIDECAR.write_text(json.dumps(dict(as_of=AS_OF, cutoff=CUTOFF, snapshot=str(snapshot.relative_to(RESEARCH_DIR.parent)),
-                                              indexes=LADDER_ROWS), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        # Preserve the ETF format: akshare progress bars on stderr are not evidence.
+        with snapshot_output(snapshot, AS_OF, overwrite=args.overwrite, capture_stderr=False):
+            run(snapshot, args.pool_csv)
+        payload = dict(as_of=AS_OF, cutoff=CUTOFF, snapshot=str(snapshot.relative_to(ROOT)), indexes=LADDER_ROWS)
+        write_json(dated_sidecar, payload, overwrite=args.overwrite)
+        # 历史回放不得把索引倒退；正式日期证据始终可直接发现。
+        try:
+            previous = json.loads(LADDER_SIDECAR.read_text()) if LADDER_SIDECAR.exists() else {}
+            if not isinstance(previous, dict):
+                previous = {}
+        except (ValueError, OSError):
+            previous = {}  # 索引可重建；损坏缓存不否定已完成的日期证据
+        previous_date = previous.get("as_of", "")
+        if not isinstance(previous_date, str):
+            previous_date = ""
+        if AS_OF >= previous_date:
+            write_json(LADDER_SIDECAR, payload, overwrite=True)
+    except (FileExistsError, ValueError) as exc:
+        parser.exit(2, str(exc) + "\n")
 
 
 if __name__ == "__main__":

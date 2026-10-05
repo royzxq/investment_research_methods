@@ -4,7 +4,7 @@
 
 ## 输入与职责
 
-- `AS_OF_DATE`、`NEW_FRAMEWORK`（工作区新版 `framework/futures_framework.md`）、`ADAPTION_REPORT`（`research/<AS_OF_DATE>-adaption-report.md`）、`CURRENT_SCRIPT`（`scripts/future_data.py`，含版本及适用边界）。
+- `AS_OF_DATE`、`NEW_FRAMEWORK`（工作区新版 `framework/futures_framework.md`）、`ADAPTION_REPORT`（`research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-adaption-report.md`）、`CURRENT_SCRIPT`（`scripts/future_data.py`，含版本及适用边界）。
 - 先核适配报告日期、新版框架版本与实际修订是否匹配工作区 canonical；已有「8. 数据脚本同步」还须核对其中最终版本与实际脚本/helper。缺报告或不匹配时返回具体缺口，不用 change-decision 的拟议版本替代已完成适配，也不自动补跑适配。已完成且一致的同步按根同日约定复用；输入变化则先列差异，不静默覆盖原同步记录。
 - `future_data.py` 负责结构化行情与预检，不因每周档位／参数变化自动改。现货基差、库存、产能性判决、SMM 等仍按现有适用边界处理，不把天然人工项强行脚本化。
 - 涉及 canonical Step5 计划风险、费用、系数或组合上限时，读取 `scripts/futures_risk.py` 及实际调用方：helper 是数值校验与容量计算入口，不在数据脚本／诊断模板另存风险公式。人工输入不足返回缺口，数值容量可算不等于全部交易门通过。

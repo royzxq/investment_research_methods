@@ -135,7 +135,7 @@ MA四点包及常规确认规则的草拟、冻结和未来观察归研究方；
 - [郑商所](https://www.czce.com.cn/) / [大商所](https://www.dce.com.cn/)：交易数据、合约与业务公告；经纪商实际保证金/费用另核。
 - [USDA WASDE 官方日程与报告](https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report) / [国家统计局](https://www.stats.gov.cn/)：日历、官方发布，不把海外当地时间直接写成北京时间。
 - [Tushare 期货日线接口](https://tushare.pro/document/2?doc_id=138)：已有权限时使用；settle 与 close 分开保存，不把一般价格回退规则用于指定结算价的护栏。周涨以最新已完成行情日减7自然日锚定，研究日不改变比较起点；脚本无完成标志时保守排除北京时间18:00前当日线，18:00并不保证最终结算已发布，执行前仍核原始数据。
-- 行情快照：每周在已配置 `TUSHARE_TOKEN` 的本机运行 `python3 scripts/future_data.py`，脚本自行把完整输出（含 stderr）写入 `research/<AS_OF>-data-snapshot.txt`（末行“快照完成”为完整标记；`--no-snapshot` 只打印），提交后生效（云端流水线不跑该脚本）。快照含合约期限、价差分位、单合约指标、§2d D8周涨分位与§5影子账本；阶段①②先读最新快照，已有实测值的项不得写推算或unknown。
+- 行情快照：每周在已配置 `TUSHARE_TOKEN` 的本机运行 `python3 scripts/future_data.py`，脚本自行把完整输出（含 stderr）写入 `research/futures/snapshots/<AS_OF>-data-snapshot.txt`（末行“快照完成”为完整标记；`--no-snapshot` 只打印），提交后生效（云端流水线不跑该脚本）。快照含合约期限、价差分位、单合约指标、§2d D8周涨分位与§5影子账本；阶段①②先读最新快照，已有实测值的项不得写推算或unknown。
 
 此处是来源入口和调研方法，不证明本期已取到数据。手工读取、用户导出和现有脚本均可提供研究输入；不把接口失败等同于市场条件失败。行情脚本不证明账户持仓，离线风险 helper 不授予交易许可。
 

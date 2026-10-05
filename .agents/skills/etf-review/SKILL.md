@@ -5,14 +5,16 @@ description: 按本仓 ETF 主题框架完成双月评审，给出未来两个�
 
 # ETF 主题评审
 
-按 `framework/etf_framework.md` 的现行规则与报告模板交付 `research/etf-<AS_OF_DATE>-review.md`。先读根 `AGENTS.md` 和 `docs/context/environment.md`，按其执行、搜索及发布约定工作；本入口不另设自动提交、推送或 PR 动作。
+按 `framework/etf_framework.md` 的现行规则与报告模板交付 `research/etf/reviews/<AS_OF_DATE>/etf-<AS_OF_DATE>-review.md`。先读根 `AGENTS.md` 和 `docs/context/environment.md`，按其执行、搜索及发布约定工作；本入口不另设自动提交、推送或 PR 动作。
+
+输出目录、通用技能映射与发现命令统一见仓库 `research/README.md`；正式产物不写 `research/` 根目录。
 
 ## 输入与承接
 
 - `AS_OF_DATE`：用户指定日期，缺省取北京时间当天；解释器、可选 `pool-csv` 路径采用环境文档配置或用户覆盖，不在 skill 写死机器路径。
 - 持仓可选：各主题市值、主题待配现金、ETF 账户总值（不含黄金）；个股与私募可选。未提供时只出主题名单，不从脚本工具清单或历史估算推定当前持仓。
-- 快照严格匹配 `research/etf-YYYY-MM-DD-data-snapshot.txt`，核对文件名日期、正文 `AS_OF`、完整标记与各序列实际行情日期。以不晚于本期的真实快照日期选择最新文件，记录日线上界及所用序列市场锚；不按文件修改时间或旧报告的“最新”声明选取，不把上界或快照生成日当成实际行情日。
-- 上期报告严格匹配 `research/etf-YYYY-MM-DD-review.md`，取早于本期日期的最近一期；`*-monthly-review.md` 不算。同日既有报告视为本期修订对象，不重复记为一期。无上期时读 `research/etf-cards/v1-archive/`；承接失效条件、工具和首期记分基点，不把旧行情当作当前事实。
+- 快照严格匹配 `research/etf/snapshots/etf-YYYY-MM-DD-data-snapshot.txt`，核对文件名日期、正文 `AS_OF`、完整标记与各序列实际行情日期。以不晚于本期的真实快照日期选择最新文件，记录日线上界及所用序列市场锚；不按文件修改时间或旧报告的“最新”声明选取，不把上界或快照生成日当成实际行情日。
+- 上期报告严格匹配 `research/etf/reviews/YYYY-MM-DD/etf-YYYY-MM-DD-review.md`，取早于本期日期的最近一期；`*-monthly-review.md` 不算。同日既有报告视为本期修订对象，不重复记为一期。无上期时读 `research/etf/archive/legacy-cards/v1-archive/`；承接失效条件、工具和首期记分基点，不把旧行情当作当前事实。
 
 ## 快照前置
 

@@ -14,7 +14,7 @@
 - 判断窗口：主题看未来 6–18 个月，横向比较默认 12 个月。2 个月是评审周期，不是判断周期。
 - 边界：本框架只做研究，输出目标权重、处理方向和理由。
   - 金额、点位、下单时点、分批、再平衡区间、回撤处置都属于执行，由用户按方案 §六、§七、§八.3、§九 处理，不写进框架和报告。
-  - 点位、均线、估值分位这类择时规则在本仓预注册验证中被否（`research/etf-2026-09-18-rule-validation.md`），没有新的验证不得加回。
+  - 点位、均线、估值分位这类择时规则在本仓预注册验证中被否（`research/etf/studies/timing-validation/etf-2026-09-18-rule-validation.md`），没有新的验证不得加回。
 
 ## 1. 主题规则（方案 §二.3、§五、§九）
 
@@ -55,7 +55,7 @@
 ## 3. 每期怎么做
 
 1. **核对上期**
-   - 上期 = 最近一份 `research/etf-YYYY-MM-DD-review.md`（v0.1 的 `*-monthly-review.md` 不算）。首期改读 `research/etf-cards/v1-archive/`。
+   - 上期 = 最近一份 `research/etf/reviews/YYYY-MM-DD/etf-YYYY-MM-DD-review.md`（v0.1 的 `*-monthly-review.md` 不算）。首期改读 `research/etf/archive/legacy-cards/v1-archive/`。
    - 逐条核对上期台账里的失效条件：触发、未触发或无法判断。
 2. **记分**（方案 §十一）：用快照 §6 收盘价，算上期至今三条线的指数涨跌（价格指数，不含分红）。
    - 主题模块：上期名单按目标权重，加上待配现金（按货币基金指数 `H11025.CSI`）；
@@ -123,7 +123,7 @@
 
 ## 6. 报告模板
 
-写入 `research/etf-<AS_OF_DATE>-review.md`：
+写入 `research/etf/reviews/<AS_OF_DATE>/etf-<AS_OF_DATE>-review.md`：
 
 ```markdown
 # ETF 主题评审 · {{AS_OF_DATE}}
@@ -176,4 +176,4 @@
   - 删除：固定仓研究、组合压力测试，季度、半年、年度层级，月度编排 skill，以及每个主题每期都做的工具比选和 12 个月数字情景（v2.1 补回其中的研究部分）。
   - 节奏：每期 8 个主题都比较。
   - 指数：补登半导体 `H30184.CSI`、电网设备 `931994.CSI`，2026-10-01 本地快照实测可用。
-  - 更早的版本（v0.1 点位锚点、v1.0 执行工具、v1.1 组合报告）见 git 历史与 `research/etf-2026-10-01-framework-v1.0-migration.md`。
+  - 更早的版本（v0.1 点位锚点、v1.0 执行工具、v1.1 组合报告）见 git 历史与 `research/etf/maintenance/2026-10-01/etf-2026-10-01-framework-v1.0-migration.md`。

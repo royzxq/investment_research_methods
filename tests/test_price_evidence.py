@@ -842,15 +842,21 @@ class FeedbackLoopScriptTests(unittest.TestCase):
         malformed = dict(shadow_plan(), shadow_id="bad", instrument=None)
 
         def ledger(delist):
+            from scripts.research_paths import artifact_path, discover
             with tempfile.TemporaryDirectory() as temp, redirect_stdout(io.StringIO()) as output:
                 research = Path(temp)
-                (research / "2026-09-19-execution-audit.md").write_text(report([shadow_plan()]), encoding="utf-8")
-                (research / "2026-09-26-execution-audit.md").write_text(
-                    report([shadow_plan(target=101), malformed, dict(shadow_plan(), shadow_id="")]), encoding="utf-8")
-                (research / "2026-09-12-execution-audit.md").write_text("# legacy report\n", encoding="utf-8")
-                (research / "2026-09-05-execution-audit.md").write_text('# broken\n```json\n["shadow_plans"]\n```\n', encoding="utf-8")
+                def save(day, text):
+                    path = artifact_path("futures", "execution-audit", day, research)
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text(text, encoding="utf-8")
+                save("2026-09-19", report([shadow_plan()]))
+                save("2026-09-26", report([shadow_plan(target=101), malformed, dict(shadow_plan(), shadow_id="")]))
+                save("2026-09-12", "# legacy report\n")
+                save("2026-09-05", '# broken\n```json\n["shadow_plans"]\n```\n')
+                save("2026-10-03", report([dict(shadow_plan(), shadow_id="future")]))
                 ns = isolated_functions({"shadow_bars", "shadow_ledger"}, dict(
-                    RESEARCH_DIR=research, OUTDIR=temp, AS_OF="20260926", os=os, pd=pd, re=re, load_audit=load_audit,
+                    discover=lambda track, kind, day: discover(track, kind, day, research),
+                    OUTDIR=temp, AS_OF="20260926", os=os, pd=pd, re=re, load_audit=load_audit,
                     settle_shadow_plan=settle_shadow_plan, parse_shadow_plan=parse_shadow_plan, delist_date=delist,
                     daily=lambda sym: fetched.append(sym) or bars))
                 return {row["shadow_id"]: row for row in ns["shadow_ledger"]()}, output.getvalue()
@@ -866,20 +872,19 @@ class FeedbackLoopScriptTests(unittest.TestCase):
         rows, _ = ledger(lambda sym: "nan")
         self.assertEqual(rows["s1"]["status"], "data_gap")  # a bad delist date is a data problem, not a bad plan
 
-    def test_tee_output_mirrors_stdout_and_stderr_into_the_snapshot(self):
-        ns = isolated_functions({"tee_output"}, dict(sys=sys))
+    def test_snapshot_output_mirrors_stdout_and_stderr_into_the_snapshot(self):
+        from scripts.research_paths import snapshot_output
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "snap.txt"
             captured = io.StringIO()
             with redirect_stdout(captured), redirect_stderr(captured):
-                restore = ns["tee_output"](path)
-                try:
+                with snapshot_output(path, "20260926"):
+                    print("== header AS_OF=20260926 ==")
                     print("out line")
                     print("err line", file=sys.stderr)
-                finally:
-                    restore()
-            self.assertEqual(path.read_text(encoding="utf-8"), "out line\nerr line\n")
-            self.assertEqual(captured.getvalue(), "out line\nerr line\n")
+                    print("== 快照完成 | AS_OF=20260926 | done ==")
+            self.assertEqual(path.read_text(encoding="utf-8"), captured.getvalue())
+            self.assertIn("out line\nerr line\n", captured.getvalue())
 
     def test_d8_research_records_failed_months_instead_of_filling_them(self):
         calendar = weekdays("20220801", "20260916")
