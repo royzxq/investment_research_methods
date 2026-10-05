@@ -185,7 +185,7 @@ def company_runs(market, code, as_of, root=ROOT):
                 except ImportError:
                     from stock_price_map import validate_document
                 validate_document(data)
-                if data["meta"]["valuation_date"] != day or data["meta"]["code"] != code:
+                if data["meta"]["valuation_date"] != day or data["meta"]["code"] != f"{code}.{market}":
                     continue
                 if (Path(root) / data["meta"]["report_path"]).resolve() != report.resolve():
                     continue

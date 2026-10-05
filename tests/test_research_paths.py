@@ -8,6 +8,7 @@ import io
 import json
 from pathlib import Path
 import subprocess
+import shutil
 import tempfile
 import sys
 import unittest
@@ -128,6 +129,74 @@ class LayoutTests(unittest.TestCase):
         self.assertEqual(json.loads(index.read_text()),json.loads(first.read_text()))
         index.unlink()
         self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root),[first])
+
+    def company_v2(self, market, code, day, revision=None):
+        from scripts.stock_price_map import build_document
+        report = paths.company_path(market, code, day, 'research', self.root, revision=revision)
+        price_map = paths.company_path(market, code, day, 'price-map', self.root, revision=revision)
+        currency = 'HKD' if market == 'HK' else 'CNY'
+        document = build_document({
+            'meta': dict(code=f'{code}.{market}', name='Offline fixture', valuation_date=day,
+                         currency=currency, report_path=report.relative_to(self.root).as_posix()),
+            'mode': 'tracking', 'reason': 'Offline fixture',
+            'valuation': dict(kind='per_share', values=dict(low=10, base=20, high=30),
+                              currency=currency, unit='per_share', fx_to_quote=1),
+            'discounts': dict(d_base=0.1, r_chip=0, r_v5=0, r_gov=0, r_terminal=0),
+            'step_down': 0.05, 'p2': dict(status='active', reason=None),
+            't1': dict(price_condition='Review valuation', events=['Earnings release']),
+            't2': dict(price_condition='Review valuation', events=['Thesis invalidation']),
+            'monitoring': [dict(variable='Margin', current=None, as_of=None,
+                                trigger='Margin deterioration', action='Revalue',
+                                source='Offline fixture', next_check='Next report')],
+        })
+        self.write(report, 'Offline report')
+        self.write(price_map, json.dumps(document))
+        return price_map
+
+    def test_v2_builder_outputs_are_discovered_and_indexes_keep_newest_valid_pair(self):
+        for market, code in [('SH', '600066'), ('SZ', '000001'), ('HK', '01952')]:
+            with self.subTest(market=market):
+                first = self.company_v2(market, code, '2026-10-01')
+                newest = self.company_v2(market, code, '2026-10-03')
+                self.company_v2(market, code, '2026-10-04', revision=2)
+                self.company_v2(market, code, '2026-10-07')
+                self.assertEqual(paths.company_runs(market, code, '2026-10-05', self.root),
+                                 [first, newest])
+                paths.rebuild_indexes('2026-10-05', self.root)
+                index = self.root / f'output/indexes/investment/{market}-{code}/investment-{code}-latest.json'
+                self.assertEqual(json.loads(index.read_text()), json.loads(newest.read_text()))
+                index.unlink()
+                self.assertEqual(paths.company_runs(market, code, '2026-10-05', self.root)[-1], newest)
+
+    def test_v2_discovery_rejects_wrong_identity_date_path_and_incomplete_pairs(self):
+        path = self.company_v2('SH', '600066', '2026-10-03')
+        original = path.read_text()
+        for field, value in [('code', '600066.SZ'), ('code', '600067.SH'),
+                             ('code', '600066'), ('valuation_date', '2026-10-02'),
+                             ('report_path', 'research/different-report.md')]:
+            with self.subTest(field=field, value=value):
+                document = json.loads(original)
+                document['meta'][field] = value
+                path.write_text(json.dumps(document))
+                self.assertEqual(paths.company_runs('SH', '600066', '2026-10-05', self.root), [])
+        path.write_text(original)
+        report = paths.company_path('SH', '600066', '2026-10-03', 'research', self.root)
+        report.write_text(' ')
+        self.assertEqual(paths.company_runs('SH', '600066', '2026-10-05', self.root), [])
+        report.unlink()
+        self.assertEqual(paths.company_runs('SH', '600066', '2026-10-05', self.root), [])
+
+    def test_latest_company_cli_finds_v2_without_latest_cache(self):
+        newest = self.company_v2('HK', '01952', '2026-10-03')
+        scripts = self.root / 'scripts'
+        scripts.mkdir()
+        for name in ['research_paths.py', 'stock_price_map.py']:
+            shutil.copyfile(paths.ROOT / 'scripts' / name, scripts / name)
+        result = subprocess.run([sys.executable, str(scripts / 'research_paths.py'),
+                                 'latest-company', '--market', 'HK', '--code', '01952',
+                                 '--as-of', '2026-10-05'], cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), newest.relative_to(self.root).as_posix())
 
     def test_etf_index_rebuild_requires_complete_matching_snapshot(self):
         snapshot=self.snapshot(track='etf')
