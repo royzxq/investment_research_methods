@@ -52,5 +52,5 @@
 
 ## 公司研究
 
-- [HK-01952 · 2026-10-05](investment/companies/HK-01952/2026-10-05/investment-01952-2026-10-05-research.md)
-- [SH-600066 · 2026-10-05](investment/companies/SH-600066/2026-10-05/investment-600066-2026-10-05-research.md)
+- [HK-01952 · 2026-10-05 · v1 历史研究](investment/companies/HK-01952/2026-10-05/investment-01952-2026-10-05-research.md)
+- [SH-600066 · 2026-10-05 · v1 历史研究](investment/companies/SH-600066/2026-10-05/investment-600066-2026-10-05-research.md)

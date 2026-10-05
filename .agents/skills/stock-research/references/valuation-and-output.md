@@ -79,4 +79,5 @@ python3 scripts/stock_price_map.py check output/<本次目录>/price-map.json
 
 - 正式报告必须含本次模型输入的数值、单位、来源、假设和敏感性；不要求用户翻 scratch 才能复核价格。
 - JSON 与报告同一版本、同一隔离后缀；报告 §0 记录数据包和两个框架的指纹及本次证据截止。新增来源、参数或证据状态变化都不能只凭旧文件存在而复用。
-- 首次成功运行校验报告与 JSON 后复制到 `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest.json`，内容保持完全相同；删除缓存后仍能通过 `research_paths.py latest-company` 找到日期产物。隔离版不更新 latest；升级须用户已有明确授权。v1 仅用于读取上期事实与变化，不自动转换其单位混杂或示例价位。
+- `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest.json` 只缓存截止日内最近合格的正式 v2 配对，保持与日期 JSON 完全相同；`research_paths.py latest-company` 默认同口径，`rebuild-indexes --as-of <日期>` 按该截止日重建，找不到合格 v2 时清除该公司的旧缓存。选择按估值日期而非文件修改时间或价格是否非空：较新的 frozen/rejected/unavailable v2 仍优先，禁止回退到旧的有价结果。
+- v1 只可经 `latest-company --include-legacy` 作为历史研究读取，不参与当前价格缓存。若日期更晚的文件仍是 v1，明确告知“最近 v2 估值日”和“较晚 v1 历史日”，不能把旧空值误当本次计算结果，或把较早 v2 重新标成后日期估值。隔离版不更新 latest；升级须用户已有明确授权。

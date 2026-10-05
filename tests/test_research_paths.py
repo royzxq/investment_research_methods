@@ -123,12 +123,12 @@ class LayoutTests(unittest.TestCase):
         self.company('2026-10-03',revision=2)
         self.company('2026-10-07')
         malformed=self.company('2026-10-04'); malformed.write_text('[]')
-        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root),[first])
+        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root),[])
+        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root,include_legacy=True),[first])
         paths.rebuild_indexes('2026-10-05',self.root)
         index=self.root/'output/indexes/investment/HK-01952/investment-01952-latest.json'
-        self.assertEqual(json.loads(index.read_text()),json.loads(first.read_text()))
-        index.unlink()
-        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root),[first])
+        self.assertFalse(index.exists())
+        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root,include_legacy=True),[first])
 
     def company_v2(self, market, code, day, revision=None):
         from scripts.stock_price_map import build_document
@@ -188,15 +188,69 @@ class LayoutTests(unittest.TestCase):
 
     def test_latest_company_cli_finds_v2_without_latest_cache(self):
         newest = self.company_v2('HK', '01952', '2026-10-03')
+        legacy = self.company('2026-10-05')
         scripts = self.root / 'scripts'
         scripts.mkdir()
         for name in ['research_paths.py', 'stock_price_map.py']:
             shutil.copyfile(paths.ROOT / 'scripts' / name, scripts / name)
-        result = subprocess.run([sys.executable, str(scripts / 'research_paths.py'),
-                                 'latest-company', '--market', 'HK', '--code', '01952',
-                                 '--as-of', '2026-10-05'], cwd=self.root, capture_output=True, text=True)
+        command = [sys.executable, str(scripts / 'research_paths.py'),
+                   'latest-company', '--market', 'HK', '--code', '01952', '--as-of', '2026-10-05']
+        result = subprocess.run(command, cwd=self.root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), newest.relative_to(self.root).as_posix())
+        self.assertIn('2026-10-03', result.stderr)
+        self.assertIn('2026-10-05', result.stderr)
+        historical = subprocess.run(command + ['--include-legacy'], cwd=self.root,
+                                    capture_output=True, text=True)
+        self.assertEqual(historical.returncode, 0, historical.stderr)
+        self.assertEqual(historical.stdout.strip(), legacy.relative_to(self.root).as_posix())
+        self.assertIn('历史输入', historical.stderr)
+        newest.unlink()
+        missing = subprocess.run(command, cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(missing.returncode, 1)
+        self.assertEqual(missing.stdout, '')
+        self.assertIn('--include-legacy', missing.stderr)
+
+    def test_newer_legacy_null_map_cannot_replace_current_v2_index(self):
+        current = self.company_v2('HK', '01952', '2026-10-04')
+        legacy = self.company('2026-10-05')
+        old = json.loads(legacy.read_text())
+        old['price_map'] = dict(p1=None, p2=None)
+        legacy.write_text(json.dumps(old))
+        index = self.root / 'output/indexes/investment/HK-01952/investment-01952-latest.json'
+        self.write(index, legacy.read_text())
+        self.assertEqual(paths.company_runs('HK', '01952', '2026-10-05', self.root), [current])
+        paths.rebuild_indexes('2026-10-05', self.root)
+        self.assertEqual(json.loads(index.read_text()), json.loads(current.read_text()))
+        historical = paths.company_runs('HK', '01952', '2026-10-05', self.root, include_legacy=True)
+        self.assertEqual(historical, [current, legacy])
+        self.assertEqual(json.loads(legacy.read_text()), old)
+        self.assertIn('2026-10-05 · v1 历史研究', paths.render_index('2026-10-05', self.root))
+
+    def test_rebuild_removes_legacy_cache_when_no_current_v2_pair_exists(self):
+        legacy = self.company('2026-10-01')
+        index = self.root / 'output/indexes/investment/HK-01952/investment-01952-latest.json'
+        self.write(index, legacy.read_text())
+        self.company_v2('HK', '01952', '2026-10-07')
+        paths.rebuild_indexes('2026-10-05', self.root)
+        self.assertFalse(index.exists())
+        self.assertTrue(legacy.is_file())
+
+    def test_newer_unavailable_v2_is_not_hidden_by_older_priced_result(self):
+        from scripts.stock_price_map import validate_document
+        self.company_v2('HK', '01952', '2026-10-01')
+        latest = self.company_v2('HK', '01952', '2026-10-04')
+        document = json.loads(latest.read_text())
+        document['price_map'].update(mode='unavailable', reason='Unresolved cash balance',
+                                     v50=None, p1=None,
+                                     p2=dict(status='unavailable', price=None, reason='Missing inputs'))
+        validate_document(document)
+        latest.write_text(json.dumps(document))
+        self.company('2026-10-05')
+        paths.rebuild_indexes('2026-10-05', self.root)
+        index = self.root / 'output/indexes/investment/HK-01952/investment-01952-latest.json'
+        self.assertEqual(json.loads(index.read_text()), document)
+        self.assertEqual(paths.company_runs('HK', '01952', '2026-10-05', self.root)[-1], latest)
 
     def test_etf_index_rebuild_requires_complete_matching_snapshot(self):
         snapshot=self.snapshot(track='etf')

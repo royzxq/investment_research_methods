@@ -164,8 +164,8 @@ def snapshot_output(path, as_of, overwrite=False, capture_stderr=True):
         partial.unlink()
 
 
-def company_runs(market, code, as_of, root=ROOT):
-    """Return complete report/JSON pairs; isolated -rN runs require explicit promotion."""
+def company_runs(market, code, as_of, root=ROOT, *, include_legacy=False):
+    """Return v2 report/JSON pairs; v1 is opt-in historical input, never a current index."""
     cutoff = iso_date(as_of)
     results = []
     for path in company_dir(market, code, root).glob(f"*/investment-{code}-*-price-map.json"):
@@ -189,7 +189,7 @@ def company_runs(market, code, as_of, root=ROOT):
                     continue
                 if (Path(root) / data["meta"]["report_path"]).resolve() != report.resolve():
                     continue
-            elif data.get("schema_version") == "stock-research/v1":
+            elif include_legacy and data.get("schema_version") == "stock-research/v1":
                 if data.get("valuation_date") != day:
                     continue
             else:
@@ -208,9 +208,12 @@ def rebuild_indexes(as_of, root=ROOT):
         if not match:
             continue
         runs = company_runs(match[1], match[2], as_of, root)
+        target = root / "output/indexes/investment" / directory.name / f"investment-{match[2]}-latest.json"
         if runs:
-            target = root / "output/indexes/investment" / directory.name / f"investment-{match[2]}-latest.json"
             write_json(target, json.loads(runs[-1].read_text()), overwrite=True)
+        elif target.is_file():
+            # A rebuilt current index must not keep a legacy or otherwise ineligible result.
+            target.unlink()
     paths = discover("etf", "drawdown", as_of, root)
     for path in reversed(paths):
         try:
@@ -246,9 +249,11 @@ def render_index(as_of, root=ROOT):
     for directory in sorted((root / "research/investment/companies").glob("*")):
         match = re.fullmatch(r"(SH|SZ|HK)-(\d{5,6})", directory.name)
         if match:
-            for path in reversed(company_runs(match[1], match[2], as_of, root)):
+            for path in reversed(company_runs(match[1], match[2], as_of, root, include_legacy=True)):
                 report = company_path(match[1], match[2], path.parent.name, "research", root)
-                lines.append(f"- [{directory.name} · {path.parent.name}]({report.relative_to(root / 'research').as_posix()})")
+                legacy = json.loads(path.read_text()).get("schema_version") == "stock-research/v1"
+                label = " · v1 历史研究" if legacy else " · v2"
+                lines.append(f"- [{directory.name} · {path.parent.name}{label}]({report.relative_to(root / 'research').as_posix()})")
     return "\n".join(lines) + "\n"
 
 
@@ -267,6 +272,8 @@ def main():
     p.add_argument("--market", required=True)
     p.add_argument("--code", required=True)
     p.add_argument("--as-of", required=True)
+    p.add_argument("--include-legacy", action="store_true",
+                   help="Include v1 reports for historical research only; default selects v2")
     p = sub.add_parser("rebuild-indexes")
     p.add_argument("--as-of", required=True)
     p = sub.add_parser("index")
@@ -282,10 +289,19 @@ def main():
     elif args.command == "index":
         (ROOT / "research/INDEX.md").write_text(render_index(args.as_of), encoding="utf-8")
     else:
-        paths = company_runs(args.market, args.code, args.as_of)
+        paths = company_runs(args.market, args.code, args.as_of, include_legacy=args.include_legacy)
         if paths:
             print(paths[-1].relative_to(ROOT))
+            history = company_runs(args.market, args.code, args.as_of, include_legacy=True)
+            if json.loads(paths[-1].read_text()).get("schema_version") == "stock-research/v1":
+                print("历史输入：v1 不代表当前 v2 价格地图，不可直接转换旧参数或价位。", file=sys.stderr)
+            elif history and history[-1].parent.name > paths[-1].parent.name:
+                print(f"存在更晚的 v1 历史研究（{history[-1].parent.name}）；"
+                      f"返回的 v2 估值日仍为 {paths[-1].parent.name}，不代表已复评至 {args.as_of}。",
+                      file=sys.stderr)
         else:
+            print("未找到截止日内合格的 v2 报告/JSON 配对；旧 v1 仅可用 --include-legacy 查找历史输入。"
+                  if not args.include_legacy else "未找到截止日内完整的研究配对。", file=sys.stderr)
             return 1
     return 0
 

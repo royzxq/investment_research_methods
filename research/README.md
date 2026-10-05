@@ -57,6 +57,7 @@ python3 scripts/research_paths.py path --track futures --kind execution-audit --
 python3 scripts/research_paths.py list --track investment --kind market-research --as-of 2026-10-05 --before
 python3 scripts/research_paths.py list --track futures --kind data-snapshot --as-of 2026-10-05 --committed
 python3 scripts/research_paths.py latest-company --market HK --code 01952 --as-of 2026-10-05
+python3 scripts/research_paths.py latest-company --market HK --code 01952 --as-of 2026-10-05 --include-legacy
 python3 scripts/research_paths.py rebuild-indexes --as-of 2026-10-05
 python3 scripts/research_paths.py index --as-of 2026-10-05
 ```
@@ -65,7 +66,7 @@ python3 scripts/research_paths.py index --as-of 2026-10-05
 
 期货与 ETF 取数默认拒绝覆盖同日快照。失败保留 `.partial`，旧正式文件不变；成功后才原子发布。`--no-snapshot` 不写正式快照及 latest。完整快照与必要日期 JSON 应提交；CSV 缓存、机械扫描、partial 和可重建索引不提交。
 
-`output/indexes/` 的个股 latest 与 ETF latest 是可重建缓存；个股发现从日期报告/JSON 配对开始，旧 v1 只作历史输入，不升级其结论。隔离版须明确授权提升；提升时更新正式配对并保留被替代版本。thesis、watchlist、组合维护文件等含独有状态的文件不适用“latest 可忽略”规则。
+`output/indexes/` 的个股 latest 与 ETF latest 是可重建缓存。`latest-company` 默认只选截止日内最近合格的正式 v2 配对；`--include-legacy` 用于另查旧 v1 历史研究，不能将其作为当前价格地图。个股缓存重建也仅使用 v2，无合格配对则清除该公司的旧缓存；选择按估值日而非修改时间或价格是否非空，较新的冻结/不可估 v2 不能被旧的有价结果替代。较晚日期 v1 与较早日期 v2 并存时命令提示日期差异，不把较早估值升级到请求日期；报告索引保留并标注 v1 历史研究。隔离版须明确授权提升；提升时更新正式配对并保留被替代版本。thesis、watchlist、组合维护文件等含独有状态的文件不适用“latest 可忽略”规则。
 
 新审计可将机械明细放 `output/audits/`，正式记录须保留人工核对、豁免理由、缺项、输入版本/哈希、生成命令和限制。未建立可复现生成器前不能删除旧证据。
 
