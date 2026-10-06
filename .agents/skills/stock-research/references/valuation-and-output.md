@@ -14,7 +14,7 @@
 
 | 对象 | 固定字段 | 语义 |
 |---|---|---|
-| `meta` | `schema_version, code, name, valuation_date, currency, report_path` | schema 固定 `stock-research/v2`；报告路径相对仓库根；币种为上市报价币种 |
+| `meta` | `schema_version, code, name, valuation_date, currency, report_path, generator` | schema 固定 `stock-research/v2`；报告路径相对仓库根；币种为上市报价币种；新产物 generator 为 `codex` 或 `claude` |
 | `price_map` | `mode, reason, v50, p1, p2, t1, t2` | 全部数值价格统一为报价币种/股；没有仓位、Gate 全树或证据副本 |
 | `monitoring[]` | `variable, current, as_of, trigger, action, source, next_check` | 1–10 项，变量不重复；当前值不能与报告底稿矛盾 |
 
@@ -25,16 +25,18 @@
 - `monitoring.current` 为数值、明确带单位的文字或 null；非空必须有 `as_of`，不能晚于估值日。来源写可追溯 URL/公告章节或数据包字段；`trigger` 包含窗口、单位和方向，`action` 指定重算/撤价位/取消 P2 等动作。`next_check` 为日期或明确事件文字。未取得当前值时 current/as_of 可 null，原因及补证路径写报告，不用 0 代替。
 - 字段不再重复保存 precheck/rules/valuation 全推导/terminal/qualitative_findings/key_inputs/gaps。折扣、cap、评级、解除条件和其它框架必答仍保留在报告；schema 精简不等于研究删项。
 
+新生成必须标注 `meta.generator`，含义为实际执行宿主。历史 v2 缺此字段仍可校验和作为未标注来源的历史读取，不自动归类 Claude 或 Codex，不批量改写历史。
+
 ## 确定性计算工具
 
 从已核验底稿与研究假设组装临时模型文件，放本次 `output/stock-research-.../`。先生成候选 JSON、完成报告和语义验收，再移到未占用的最终日期路径。工具不取行情、不判 Gate、不更新 latest、不覆盖文件。
 
 ```sh
-python3 scripts/stock_price_map.py build --input output/<本次目录>/model-input.json --output output/<本次目录>/price-map.json
-python3 scripts/stock_price_map.py check output/<本次目录>/price-map.json
+python3 scripts/stock_price_map.py build --generator codex --input output/<本次目录>/model-input.json --output output/<本次目录>/investment-<代码>-<日期>-price-map-codex.json
+python3 scripts/stock_price_map.py check output/<本次目录>/investment-<代码>-<日期>-price-map-codex.json
 ```
 
-临时输入只有 `meta, mode, reason, valuation, discounts, step_down, p2, t1, t2, monitoring`。除计算相关项外与最终字段同义；meta 可省略 schema_version，工具自动补齐。输入 p2 不带 price。
+临时输入只有 `meta, mode, reason, valuation, discounts, step_down, p2, t1, t2, monitoring`。除计算相关项外与最终字段同义；meta 可省略 schema_version，工具自动补齐。CLI 必传 `--generator codex|claude` 并补入 meta；与已有 meta.generator 冲突时拒绝。输出文件和 meta.report_path 的文件名必须按代码、估值日、生成端和可选 `-rN` 后缀配对，Claude 运行将上述 codex 替换为 claude。输入 p2 不带 price。
 
 `valuation` 二选一：
 
@@ -78,6 +80,6 @@ python3 scripts/stock_price_map.py check output/<本次目录>/price-map.json
 ## 验收后发布到本地
 
 - 正式报告必须含本次模型输入的数值、单位、来源、假设和敏感性；不要求用户翻 scratch 才能复核价格。
-- JSON 与报告同一版本、同一隔离后缀；报告 §0 记录数据包和两个框架的指纹及本次证据截止。新增来源、参数或证据状态变化都不能只凭旧文件存在而复用。
-- `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest.json` 只缓存截止日内最近合格的正式 v2 配对，保持与日期 JSON 完全相同；`research_paths.py latest-company` 默认同口径，`rebuild-indexes --as-of <日期>` 按该截止日重建，找不到合格 v2 时清除该公司的旧缓存。选择按估值日期而非文件修改时间或价格是否非空：较新的 frozen/rejected/unavailable v2 仍优先，禁止回退到旧的有价结果。
-- v1 只可经 `latest-company --include-legacy` 作为历史研究读取，不参与当前价格缓存。若日期更晚的文件仍是 v1，明确告知“最近 v2 估值日”和“较晚 v1 历史日”，不能把旧空值误当本次计算结果，或把较早 v2 重新标成后日期估值。隔离版不更新 latest；升级须用户已有明确授权。
+- JSON 与报告同一生成端、同一版本、同一隔离后缀（如 `-price-map-codex-r2.json` 与 `-research-codex-r2.md`）；报告 §0 记录数据包和两个框架的指纹及本次证据截止。新增来源、参数或证据状态变化都不能只凭旧文件存在而复用。
+- `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest-<生成端>.json` 只缓存同一生成端截止日内最近合格的正式 v2 配对，保持与日期 JSON 完全相同；`research_paths.py latest-company --generator <生成端>` 同口径；省略生成端或指定 `unattributed` 只查旧的未标注文件，`rebuild-indexes --as-of <日期>` 按该截止日重建，找不到合格 v2 时清除该公司的旧缓存。选择按估值日期而非文件修改时间或价格是否非空：较新的 frozen/rejected/unavailable v2 仍优先，禁止回退到旧的有价结果。
+- v1 只可经 `latest-company --generator unattributed --include-legacy` 作为历史研究读取，不参与当前价格缓存。若日期更晚的文件仍是 v1，明确告知“最近 v2 估值日”和“较晚 v1 历史日”，不能把旧空值误当本次计算结果，或把较早 v2 重新标成后日期估值。隔离版不更新 latest；升级须用户已有明确授权。

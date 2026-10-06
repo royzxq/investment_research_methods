@@ -1,6 +1,6 @@
 # 研究成果导航与输出契约
 
-正式研究、必要证据及持续状态保存在本目录；缓存和中间文件保存在被 Git 忽略的 `output/`。目录按领域、对象、一期研究组织；程序使用 `scripts/research_paths.py`。以下路径均相对仓库根，日期采用 Asia/Shanghai，目录按需创建。
+正式研究、必要证据及持续状态保存在本目录；缓存和中间文件保存在被 Git 忽略的 `output/`。公司研究按日期优先组织，打开一天即可查看当天研究的公司；程序使用 `scripts/research_paths.py`。以下路径均相对仓库根，日期采用 Asia/Shanghai，目录按需创建。公司研究目录目前整体被 Git 忽略，只在本地保留，正式交付不等于自动入库。
 
 ## 阅读入口
 
@@ -22,10 +22,16 @@
 | ETF 双月评审 | `etf/reviews/<评审日>/etf-<评审日>-review.md` | `output/runs/etf/<日期>/<run-id>/` |
 | ETF 预注册、验证 | `etf/studies/timing-validation/`；冻结原件不重写，重跑隔离为 `-r2/-r3` | ETF 缓存及运行目录 |
 | ETF 候选池研究 | `etf/studies/theme-pool/` | 本次运行目录 |
-| 个股研究及复评 | `investment/companies/<市场>-<代码>/<估值日>/investment-<代码>-<估值日>-{research.md,price-map.json}` | 沿用 `output/stock-research-<代码>-<日期>[-rN]/` |
+| 个股研究及复评 | `investment/companies/<估值日>/<市场>-<代码>/investment-<代码>-<估值日>-{research,price-map}-<生成端>.{md,json}` | `output/stock-research-<市场>-<代码>-<日期>-<生成端>[-rN]/` |
 | 独立深度研究 | 优先具体公司或行业；未指定归属时 `investment/studies/<slug>/<日期>/investment-deep-<日期>-<slug>.md` | `output/deep-research/<日期>-<slug>/` |
 
 目录日期与原产物日期一致，不按迁移时间或文件修改时间重命名。同一期修订留在该期；隔离版报告和 JSON 保持成对的 `-r2/-r3…` 后缀，不能混成下一期或自动提升为正式最新。公司标识使用 SH/SZ/HK 与证券代码。
+
+公司研究示例：`investment/companies/2026-10-06/SH-601919/`。同一天不同公司并列，同一公司不同日期分别归档；附件跟随当期公司目录。报告索引按日期倒序列出公司名称、代码及报告/价格地图链接；跨日期复评继续由 `latest-company` 查找。
+
+个股新产物按实际生成端区分：Codex 为 `codex`，Claude Code 为 `claude`。例如同一公司同日分别生成 `investment-601919-2026-10-06-price-map-codex.json` 与 `investment-601919-2026-10-06-price-map-claude.json`，报告对应 `-research-codex.md` / `-research-claude.md`；JSON 的 `meta.generator` 同步标注。同端重复运行追加 `-r2/-r3`（如 `-price-map-codex-r2.json`），不同端互不占用版本号；附件使用本期公司目录内的 `evidence/<生成端>/`。
+
+历史无生成端后缀、无 generator 字段的产物继续原样保留，视为“来源未标注”，不自动归类为 Claude。`latest-company --generator codex|claude` 只查本端，缺少结果不会回退到另一端；省略参数或使用 `--generator unattributed` 只查无来源历史。跨端报告可明确作为研究材料引用，不能冒充本端结果。latest 分别为 `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest-codex.json` 和 `-latest-claude.json`；旧无后缀缓存只对应未标注来源的历史。
 
 基线只放各轨 `baselines/`。普通旧报告留在原日期目录；`archive/` 仅存退出现行流程的类型，如 ETF 旧卡片、monthly-review、task-spec。旧 v1 卡片层级保留，不能据旧状态推定当前账户。历史审计 JSON 包含人工核对、豁免和原哈希，不能作为可重建日志批量删除。
 
@@ -35,8 +41,8 @@
 
 | 技能 / 业务 | 归属（research 下） |
 |---|---|
-| investment-research、investment-team、earnings-review、management-deep-dive、news-pulse、单公司 checklist / quality-screen / dyp-ask | `investment/companies/<公司标识>/<日期>/`，不同业务使用不同文件名 |
-| thesis-tracker | 公司目录的 `tracking/`；论文是持续状态，日期检查另存或追加 |
+| investment-research、investment-team、earnings-review、management-deep-dive、news-pulse、单公司 checklist / quality-screen / dyp-ask | `investment/companies/<日期>/<公司标识>/`，不同业务使用不同文件名 |
+| thesis-tracker | `investment/tracking/<公司标识>/`；投资逻辑是持续状态，日期检查另存或追加，不随某一期报告复制 |
 | industry-research、industry-funnel | `investment/industries/<行业>/<日期>/` |
 | 多公司 checklist、quality-screen | `investment/screens/<日期>/<主题>/` |
 | bottleneck-hunter | `investment/bottlenecks/<主题>/`；保留总地图、watchlist、日期扫描和 deep-dive 的关系 |
@@ -56,7 +62,8 @@
 python3 scripts/research_paths.py path --track futures --kind execution-audit --as-of 2026-10-05
 python3 scripts/research_paths.py list --track investment --kind market-research --as-of 2026-10-05 --before
 python3 scripts/research_paths.py list --track futures --kind data-snapshot --as-of 2026-10-05 --committed
-python3 scripts/research_paths.py latest-company --market HK --code 01952 --as-of 2026-10-05
+python3 scripts/research_paths.py company-path --market HK --code 01952 --as-of 2026-10-06 --kind price-map --generator codex
+python3 scripts/research_paths.py latest-company --market HK --code 01952 --as-of 2026-10-06 --generator codex
 python3 scripts/research_paths.py latest-company --market HK --code 01952 --as-of 2026-10-05 --include-legacy
 python3 scripts/research_paths.py rebuild-indexes --as-of 2026-10-05
 python3 scripts/research_paths.py index --as-of 2026-10-05
@@ -66,12 +73,14 @@ python3 scripts/research_paths.py index --as-of 2026-10-05
 
 期货与 ETF 取数默认拒绝覆盖同日快照。失败保留 `.partial`，旧正式文件不变；成功后才原子发布。`--no-snapshot` 不写正式快照及 latest。完整快照与必要日期 JSON 应提交；CSV 缓存、机械扫描、partial 和可重建索引不提交。
 
-`output/indexes/` 的个股 latest 与 ETF latest 是可重建缓存。`latest-company` 默认只选截止日内最近合格的正式 v2 配对；`--include-legacy` 用于另查旧 v1 历史研究，不能将其作为当前价格地图。个股缓存重建也仅使用 v2，无合格配对则清除该公司的旧缓存；选择按估值日而非修改时间或价格是否非空，较新的冻结/不可估 v2 不能被旧的有价结果替代。较晚日期 v1 与较早日期 v2 并存时命令提示日期差异，不把较早估值升级到请求日期；报告索引保留并标注 v1 历史研究。隔离版须明确授权提升；提升时更新正式配对并保留被替代版本。thesis、watchlist、组合维护文件等含独有状态的文件不适用“latest 可忽略”规则。
+`output/indexes/` 的个股 latest 与 ETF latest 是可重建缓存。`latest-company` 默认只选截止日内最近合格的正式 v2 配对；`--include-legacy` 用于另查旧 v1 历史研究，不能将其作为当前价格地图。个股缓存按生成端分别重建且仅使用 v2，无合格配对则清除该公司该生成端的旧缓存；选择按估值日而非修改时间或价格是否非空，较新的冻结/不可估 v2 不能被旧的有价结果替代。较晚日期 v1 与较早日期 v2 并存时命令提示日期差异，不把较早估值升级到请求日期；报告索引保留并标注 v1 历史研究。隔离版须明确授权提升；提升时更新正式配对并保留被替代版本。thesis、watchlist、组合维护文件等含独有状态的文件不适用“latest 可忽略”规则。
 
 新审计可将机械明细放 `output/audits/`，正式记录须保留人工核对、豁免理由、缺项、输入版本/哈希、生成命令和限制。未建立可复现生成器前不能删除旧证据。
 
 ## 迁移与运行边界
 
 [逐文件迁移清单](../docs/research-layout-migration.json)记录旧新路径、迁移前跟踪状态及前后哈希。冻结 ETF 预注册保留原文与原提交；文内旧输出路径是当时契约，由本文件映射到现行目录，不能用迁移提交冒充预注册提交。审计 JSON 的历史正文与来源哈希同样保留。
+
+2026-10-06 公司目录改为日期优先：旧 `investment/companies/<公司标识>/<日期>/` 对应现行 `investment/companies/<日期>/<公司标识>/`。旧迁移清单与报告中的历史运行叙述保留当时路径；当前 JSON 的 `meta.report_path` 与导航使用新路径。本次本地迁移备份及逐文件校验记录位于 `output/layout-migration/2026-10-06-company-date-first/`。
 
 本地备份位于被忽略的 `output/layout-migration/2026-10-05/`。迁移本身不授权 commit/push/PR。两个周更自动化通过根 AGENTS 和 skill 读取本契约；远端基线需包含完整迁移才能使用新规则，未提交新路径不能冒充已提交证据。

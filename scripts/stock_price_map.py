@@ -65,7 +65,9 @@ def numeric_range(value, label):
 
 def validate_meta(meta, exported=False):
     fields(meta, META_KEYS | ({"schema_version"} if exported else set()), "meta",
-           optional=set() if exported else {"schema_version"})
+           optional={"generator"} if exported else {"schema_version", "generator"})
+    if "generator" in meta:
+        require(meta["generator"] in ("codex", "claude"), "meta.generator: expected codex or claude")
     for k in META_KEYS:
         string(meta[k], f"meta.{k}")
     require(re.fullmatch(r"(?:\d{6}\.(?:SH|SZ|BJ)|\d{5}\.HK)", meta["code"]), "meta.code: unsupported code")
@@ -264,12 +266,27 @@ def main(argv=None):
     build = sub.add_parser("build", help="calculate from researched scratch assumptions; never overwrite")
     build.add_argument("--input", required=True)
     build.add_argument("--output", required=True)
+    build.add_argument("--generator", required=True, choices=["codex", "claude"],
+                       help="Actual host producing the research, not the source of cited material")
     check = sub.add_parser("check", help="validate v2 structure/state, not facts or full arithmetic")
     check.add_argument("file")
     args = parser.parse_args(argv)
     try:
         if args.command == "build":
-            result = build_document(load_json(args.input))
+            data = load_json(args.input)
+            require(isinstance(data, dict) and isinstance(data.get("meta"), dict), "input.meta: expected object")
+            require(data["meta"].get("generator", args.generator) == args.generator,
+                    "meta.generator conflicts with --generator")
+            data["meta"]["generator"] = args.generator
+            result = build_document(data)
+            meta = result["meta"]
+            stem = f"investment-{meta['code'].split('.')[0]}-{meta['valuation_date']}"
+            pattern = rf"{re.escape(stem)}-price-map-{args.generator}(-r[2-9]\d*|-r1\d+)?\.json"
+            match = re.fullmatch(pattern, Path(args.output).name)
+            require(match, "output filename must include code/date and -price-map-<generator>[-rN].json")
+            report_name = f"{stem}-research-{args.generator}{match[1] or ''}.md"
+            require(Path(meta["report_path"]).name == report_name,
+                    "meta.report_path must match output code/date/generator/revision")
             payload = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False, default=json_number) + "\n"
             with Path(args.output).open("x", encoding="utf-8") as stream:
                 stream.write(payload)

@@ -1,6 +1,6 @@
 # 报告索引
 
-生成截止：2026-10-05。仅导航，不代表证据新鲜或已通过研究验收。
+生成截止：2026-10-06。仅导航，不代表证据新鲜或已通过研究验收。
 由 `python3 scripts/research_paths.py index --as-of YYYY-MM-DD` 重建。
 
 ## 期货
@@ -52,5 +52,13 @@
 
 ## 公司研究
 
-- [HK-01952 · 2026-10-05 · v1 历史研究](investment/companies/HK-01952/2026-10-05/investment-01952-2026-10-05-research.md)
-- [SH-600066 · 2026-10-05 · v1 历史研究](investment/companies/SH-600066/2026-10-05/investment-600066-2026-10-05-research.md)
+### 2026-10-06（2 家公司）
+
+- [中远海控（SH-601919）](investment/companies/2026-10-06/SH-601919/investment-601919-2026-10-06-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-06/SH-601919/investment-601919-2026-10-06-price-map.json)
+- [键凯科技（SH-688356）](investment/companies/2026-10-06/SH-688356/investment-688356-2026-10-06-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-06/SH-688356/investment-688356-2026-10-06-price-map.json)
+
+### 2026-10-05（3 家公司）
+
+- [石药集团（HK-01093）](investment/companies/2026-10-05/HK-01093/investment-01093-2026-10-05-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-05/HK-01093/investment-01093-2026-10-05-price-map.json)
+- [云顶新耀（HK-01952）](investment/companies/2026-10-05/HK-01952/investment-01952-2026-10-05-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-05/HK-01952/investment-01952-2026-10-05-price-map.json)
+- [中国神华（SH-601088）](investment/companies/2026-10-05/SH-601088/investment-601088-2026-10-05-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-05/SH-601088/investment-601088-2026-10-05-price-map.json)

@@ -15,6 +15,8 @@
 
 按请求读取对应入口及需要的阶段 reference；用户只要求单阶段时仅执行该阶段。阶段方法继续使用 `projects/*/INSTRUCTIONS.md`，不假定存在专用 skill 调用 API。
 
+自然语言“使用进行股票投研：<股票信息>”路由到 `stock-research`，默认按北京时间当天估值并本地保存。Codex 运行标记 `generator=codex`；报告、JSON 和 latest 与 Claude 按生成端隔离，遵循 `research/README.md`，不改写未标注来源的历史文件。
+
 - 方法、参数及歧义裁决以现行 canonical 为准：`framework/investment_framework.md`、`framework/futures_framework.md`、`framework/etf_framework.md`。compact 是同一框架的执行导航，保留数值、逻辑、例外与解除条件。
 - 股票文件以 `investment-` 开头，ETF 文件以 `etf-` 开头，期货日期报告无前缀；发现历史时严格匹配本轨文件类型。实际读取完整标记、数据日期和行情锚，不继承旧报告对“最新”的断言。
 - ETF 框架 v2.1 接受 v2.0 快照；旧卡片、旧 schema、旧预算和已删除的分配工具仅属历史。
