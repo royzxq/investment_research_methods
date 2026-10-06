@@ -77,6 +77,21 @@ python3 scripts/research_paths.py index --as-of 2026-10-05
 
 新审计可将机械明细放 `output/audits/`，正式记录须保留人工核对、豁免理由、缺项、输入版本/哈希、生成命令和限制。未建立可复现生成器前不能删除旧证据。
 
+## 个股复研批次交接验收
+
+`ai_investment` 发布本轮 `stock-research-request/v1` 请求与量价数据包，本仓使用真实生成端 `codex/claude` 研究；独立 `stock-research-result/v1` 清单绑定请求原始字节哈希及确切报告/JSON 路径。Codex 接替原 Gemini 业务席位，历史 Gemini 不改身份。只消费本轮结果，不使用七天窗口补历史来源；部分端尚无回执即缺席，不能记成拒绝或失败。单端成功可进入后续单席计算并披露。
+
+本批入口只做离线验收，不启动模型或调度、不更新 CSV/latest，不判断事实真实性或估值合理性：
+
+```sh
+python3 scripts/research_exchange.py check-request /path/to/request.json
+python3 scripts/research_exchange.py check-results /path/to/result.json --request /path/to/request.json --artifact-root .
+```
+
+请求数据包路径相对请求所在目录，结果报告/JSON 路径相对 `--artifact-root`；均须根内、非空且 SHA-256 匹配。拒绝绝对路径、父目录穿越、逃出根的符号链接、重复 JSON 键和非有限数。请求估值日不得晚于请求创建时刻的北京时间日期；不依赖验收当天，可重放历史。
+
+成功回执只接受日期优先目录内同生成端、同修订后缀的正式 v2 报告/JSON 配对，验证证券身份、名称、估值日、真实 `meta.generator`、`meta.report_path`、九节可见且非空的报告及时间顺序；HTML 注释和代码块内的标题不计章节。冻结/否决/不可估仍可以是成功研究交付，结构验收不增加执行许可。`-rN` 可作为本轮精确交付读取，不因此提升 latest。失败回执必须有理由且产物为 null；任务/端重复、错批次、错请求哈希或跨端配对均拒绝。
+
 ## 迁移与运行边界
 
 [逐文件迁移清单](../docs/research-layout-migration.json)记录旧新路径、迁移前跟踪状态及前后哈希。冻结 ETF 预注册保留原文与原提交；文内旧输出路径是当时契约，由本文件映射到现行目录，不能用迁移提交冒充预注册提交。审计 JSON 的历史正文与来源哈希同样保留。
