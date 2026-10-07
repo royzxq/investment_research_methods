@@ -7,7 +7,7 @@
 - 期货：[周更](futures/weekly/)、[快照](futures/snapshots/)、[维护](futures/maintenance/)、[基线](futures/baselines/)、[旧输出](futures/archive/)
 - 股票：[周更](investment/weekly/)、[公司](investment/companies/)、[维护](investment/maintenance/)、[基线](investment/baselines/)
 - ETF：[评审](etf/reviews/)、[快照](etf/snapshots/)、[专项研究](etf/studies/)、[维护](etf/maintenance/)、[历史方案](etf/archive/)
-- [按日期生成的报告索引](INDEX.md)：只用于导航，正文的证据完整性、市场日期和版本才决定可用性。
+- [按日期生成的共享报告索引](INDEX.md)：不链接仅本地保存的公司产物；公司导航使用 `index --local` 生成到 `output/indexes/INDEX.md`。索引只用于导航，正文的证据完整性、市场日期和版本才决定可用性。新克隆不会包含公司产物，`latest-company` 无结果属于正常情况，不应以共享索引暗示这些报告已入库。
 
 ## 当前任务输出
 
@@ -67,6 +67,7 @@ python3 scripts/research_paths.py latest-company --market HK --code 01952 --as-o
 python3 scripts/research_paths.py latest-company --market HK --code 01952 --as-of 2026-10-05 --include-legacy
 python3 scripts/research_paths.py rebuild-indexes --as-of 2026-10-05
 python3 scripts/research_paths.py index --as-of 2026-10-05
+python3 scripts/research_paths.py index --as-of 2026-10-05 --local
 ```
 
 `list` 按日期升序，严格匹配轨道、类型和目录日期；默认不晚于截止日，`--before` 排除本期。`--committed` 要求路径与内容均和 HEAD 一致，暂存改动不算已提交。快照还核对头尾 AS_OF 与末行完整标记；ETF 的 v2.0 格式、10 天时效、指数覆盖和各市场锚仍由 etf-review 验收，路径检查不能替代业务验收。原框架审计与拟议重评按周更契约保留来源，不让归档和隔离副本进入影子账本扫描。
@@ -103,6 +104,8 @@ python3 scripts/research_runner.py run --request /absolute/path/to/request.json 
 ```
 
 默认使用 PATH 中对应 CLI 和它已有的模型配置；可用 `--cli /absolute/path/to/cli` 指定安装位置。运行需要实际登录/网络，使用正常自动审批；拒绝权限或模型失败会留失败回执，不跳过权限检查。`--timeout-seconds` 默认3600，超时终止本次进程组。该入口不安装定时任务、不写飞书/CSV、不提交Git，也不更新 INDEX/latest；自动扫描、预算和失败自动恢复仍未接入。
+
+Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，以及结构化输出、临时会话等执行参数；本机已核验 `codex-cli 0.160.1`。旧版（例如审查环境的 `0.144.0-alpha.4`）不满足此能力契约，不能直接使用。runner 在领取任务前读取两级 `--help` 检查能力；不兼容、检查失败或超时即拒绝启动，不生成任务失败回执、不消耗本批次启动机会，可通过 `--cli` 选择兼容版本后重试。保留自动审批及独立进程清理语义，不自动降级为跳过权限检查。能力检查及命令解析通过不等于模型登录、联网研究或交付验收通过。
 
 准备前校验请求及包，要求上游发布器标准 `packs/<task_id>.md` 路径和匹配证券的量价包标题；包内财务缺口可以进入研究补证。原始请求和包字节复制到 `output/runs/investment/<估值日>/<batch_id>/`，请求文件最后发布。每项 `execution/<task_id>/<generator>/prompt.txt` 直接包含完整包正文、触发元数据、框架指纹及确切配对目标；`input.json` 记录请求/包/提示词哈希、标准输入字节数和目标，`targets.json` 保存准备时在证券锁内选出的空闲版本。启动前重验全部准备材料；标准输入直接使用校验返回的冻结字节，验收使用同一份框架指纹，研究期间框架变化单独记录。不能在交付时再次构造输入或换用后来更新的指纹。
 

@@ -52,22 +52,6 @@
 
 ## 公司研究
 
-### 2026-10-07（3 家公司）
-
-- [国电南瑞（SH-600406）](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-research-claude.md) · v2 · claude · [价格地图](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-price-map-claude.json)
-- [国电南瑞（SH-600406）](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-research-codex.md) · v2 · codex · [价格地图](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-price-map-codex.json)
-- [赤峰黄金（SH-600988）](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-research-claude.md) · v2 · claude · [价格地图](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-price-map-claude.json)
-- [赤峰黄金（SH-600988）](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-research-codex.md) · v2 · codex · [价格地图](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-price-map-codex.json)
-- [正泰电器（SH-601877）](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-research-claude.md) · v2 · claude · [价格地图](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-price-map-claude.json)
-- [正泰电器（SH-601877）](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-research-codex.md) · v2 · codex · [价格地图](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-price-map-codex.json)
-
-### 2026-10-06（2 家公司）
-
-- [中远海控（SH-601919）](investment/companies/2026-10-06/SH-601919/investment-601919-2026-10-06-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-06/SH-601919/investment-601919-2026-10-06-price-map.json)
-- [键凯科技（SH-688356）](investment/companies/2026-10-06/SH-688356/investment-688356-2026-10-06-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-06/SH-688356/investment-688356-2026-10-06-price-map.json)
-
-### 2026-10-05（3 家公司）
-
-- [石药集团（HK-01093）](investment/companies/2026-10-05/HK-01093/investment-01093-2026-10-05-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-05/HK-01093/investment-01093-2026-10-05-price-map.json)
-- [云顶新耀（HK-01952）](investment/companies/2026-10-05/HK-01952/investment-01952-2026-10-05-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-05/HK-01952/investment-01952-2026-10-05-price-map.json)
-- [中国神华（SH-601088）](investment/companies/2026-10-05/SH-601088/investment-601088-2026-10-05-research.md) · v2 · 来源未标注 · [价格地图](investment/companies/2026-10-05/SH-601088/investment-601088-2026-10-05-price-map.json)
+公司报告按仓库约定仅本地保存，共享索引不链接未入库文件。
+运行 `python3 scripts/research_paths.py index --as-of YYYY-MM-DD --local`，
+在 `output/indexes/INDEX.md` 查看本机公司报告及价格地图；新克隆没有这些本地产物，`latest-company` 无结果属正常。

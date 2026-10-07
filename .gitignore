@@ -11,4 +11,5 @@ __pycache__/
 .venv/
 .claude/worktrees/
 .migration-backups/
+# 公司研究按既有策略仅本地保存；本机导航使用 index --local
 research/investment/companies/

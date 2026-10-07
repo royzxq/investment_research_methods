@@ -20,6 +20,16 @@ import scripts.research_runner as runner
 FAKE_CLI = r'''#!/usr/bin/env python3
 import hashlib,json,os,re,sys,time,subprocess,signal
 from pathlib import Path
+args=sys.argv[1:]
+if '--help' in args:
+ if os.environ.get('MOCK_CODEX_HELP')=='error': sys.exit(2)
+ if os.environ.get('MOCK_CODEX_HELP')=='legacy':
+  print('  -a, --ask-for-approval <POLICY>\n  --json\n  --ephemeral')
+ elif 'exec' in args:
+  print('  --approve-for-me\n  --ephemeral\n  --json\n  --color <COLOR>\n  --output-schema <FILE>\n  -o, --output-last-message <FILE>\n  -C, --cd <DIR>\n  -c, --config <key=value>')
+ else:
+  print('  --no-daemon')
+ sys.exit(0)
 payload=sys.stdin.buffer.read()
 Path(os.environ['MOCK_INPUT']).write_bytes(payload)
 mode=os.environ.get('MOCK_MODE','success')
@@ -203,6 +213,36 @@ class ResearchRunnerTests(unittest.TestCase):
         claude=self.execute()
         self.assertTrue(manifest.exists())
         self.assertNotEqual(manifest,claude)
+
+    def test_legacy_codex_rejected_without_consuming_batch_and_can_retry(self):
+        with patch.dict(os.environ, {'MOCK_CODEX_HELP':'legacy'}):
+            with self.assertRaisesRegex(ValueError, 'Incompatible Codex CLI.*--no-daemon'):
+                run_batch(self.request_path,self.methods,generator='codex',cli=str(self.fake))
+        self.assertFalse(self.capture.exists())
+        run=prepare_request(self.request_path,self.methods)
+        self.assertFalse(list(run.glob('execution/*/codex/launched.json')))
+        self.assertFalse(list(run.glob('execution/*/codex/process.json')))
+        self.assertFalse((run/'results-codex.json').exists())
+        result=run_batch(self.request_path,self.methods,generator='codex',cli=str(self.fake))
+        self.assertEqual(json.loads(result.read_text())['results'][0]['status'],'completed')
+
+    def test_codex_help_failure_rejected_before_launch(self):
+        with patch.dict(os.environ, {'MOCK_CODEX_HELP':'error'}):
+            with self.assertRaisesRegex(ValueError, 'capability check failed'):
+                run_batch(self.request_path,self.methods,generator='codex',cli=str(self.fake))
+        self.assertFalse(self.capture.exists())
+
+    def test_codex_missing_auto_review_never_falls_back_to_bypass(self):
+        replies=[subprocess.CompletedProcess([],0,'  --no-daemon\n',''),
+                 subprocess.CompletedProcess([],0,'  -a, --ask-for-approval <POLICY>\n','')]
+        with patch.object(runner.subprocess,'run',side_effect=replies):
+            with self.assertRaisesRegex(ValueError, '--approve-for-me'):
+                runner.check_codex_cli(str(self.fake),self.methods)
+
+    def test_codex_help_timeout_is_clear_rejection(self):
+        with patch.object(runner.subprocess,'run',side_effect=subprocess.TimeoutExpired('codex',10)):
+            with self.assertRaisesRegex(ValueError, 'capability check failed'):
+                runner.check_codex_cli(str(self.fake),self.methods)
 
     def test_binding_hidden_in_comment_rejected(self):
         os.environ['MOCK_MODE']='hidden_binding'

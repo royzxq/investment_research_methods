@@ -268,6 +268,36 @@ def stock_lock(root, task_id, generator):
             fcntl.flock(lock, fcntl.LOCK_UN)
 
 
+def check_codex_cli(cli, root):
+    """Reject incompatible CLIs before claiming any single-use batch tasks.
+
+    Automatic approval review and standalone process cleanup are required by
+    this runner. Older CLIs must not silently fall back to bypassing approvals
+    or to a shared daemon whose children outlive our process group.
+    """
+    for args, required in (
+        (['--help'], ('--no-daemon',)),
+        (['exec', '--help'], ('--approve-for-me', '--ephemeral', '--json',
+                            '--color', '--output-schema', '--output-last-message',
+                            '--cd', '--config')),
+    ):
+        try:
+            result = subprocess.run([cli, *args], cwd=root, stdin=subprocess.DEVNULL,
+                                    capture_output=True, text=True, timeout=10)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            raise ValueError(f'Codex CLI capability check failed: {cli}: {exc}') from exc
+        if result.returncode:
+            raise ValueError(f'Codex CLI capability check failed: {cli} {" ".join(args)} '
+                             f'exited {result.returncode}')
+        # Match option declarations, not incidental mentions in prose.
+        options = set(re.findall(r'^\s+(?:-\w, )?(--[\w-]+)\b', result.stdout, re.M))
+        missing = [flag for flag in required if flag not in options]
+        if missing:
+            raise ValueError(f'Incompatible Codex CLI {cli}: {" ".join(args)} lacks '
+                             f'{", ".join(missing)}; select a compatible CLI with --cli '
+                             '(verified: Codex CLI 0.160.1). No research tasks launched.')
+
+
 def command(cli, generator, folder, root):
     if generator == 'claude':
         return [cli, '-p', '--permission-mode', 'auto', '--permission-prompts', 'none',
@@ -503,6 +533,8 @@ def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeou
         claim = run / 'execution' / task['task_id'] / generator / 'launched.json'
         if claim.exists():
             raise ValueError(f"task already launched: {task['task_id']} {generator}; retry requires a new batch")
+    if generator == 'codex':
+        check_codex_cli(cli, root)
     for task in request['tasks']:
         write_new(run / 'execution' / task['task_id'] / generator / 'launched.json',
                   encode(dict(claimed_at=stamp(), request_sha256=sha(request_raw))))

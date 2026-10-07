@@ -6,6 +6,7 @@ from datetime import datetime
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import subprocess
 import shutil
@@ -70,7 +71,7 @@ class LayoutTests(unittest.TestCase):
         self.company_v2('SH', '600066', '2026-10-03')
         self.company_v2('SH', '600066', '2026-10-04', revision=2)
         self.company_v2('SH', '600066', '2026-10-07')
-        index = paths.render_index('2026-10-05', self.root)
+        index = paths.render_index('2026-10-05', self.root, local=True)
         self.assertLess(index.index('### 2026-10-03（2 家公司）'), index.index('### 2026-10-01（1 家公司）'))
         self.assertEqual(index.count(latest.relative_to(self.root/'research').as_posix()), 1)
         self.assertIn('Offline fixture（HK-01952）', index)
@@ -86,6 +87,28 @@ class LayoutTests(unittest.TestCase):
         self.assertEqual(paths.discover('futures','data-snapshot','2026-10-05',self.root),[good])
         bad.write_bytes(b'\xff')
         self.assertFalse(paths.snapshot_complete(bad, '2026-10-02'))
+
+    def test_shared_index_is_independent_of_local_company_artifacts(self):
+        before = paths.render_index('2026-10-05', self.root)
+        self.company_v2('HK', '01952', '2026-10-03')
+        after = paths.render_index('2026-10-05', self.root)
+        self.assertEqual(after, before)
+        self.assertNotIn('](investment/companies/', after)
+        self.assertIn('--local', after)
+
+    def test_local_index_links_resolve_and_cli_preserves_shared_index(self):
+        self.company_v2('HK', '01952', '2026-10-03')
+        self.write(paths.artifact_path('futures', 'market-research', '2026-10-03', self.root))
+        shared = self.write(self.root/'research/INDEX.md', 'shared sentinel')
+        with patch.object(paths, 'ROOT', self.root), patch.object(sys, 'argv',
+                ['research_paths.py', 'index', '--as-of', '2026-10-05', '--local']):
+            paths.main()
+        local = self.root/'output/indexes/INDEX.md'
+        self.assertEqual(shared.read_text(), 'shared sentinel')
+        links = re.findall(r'\]\(([^)]+)\)', local.read_text())
+        self.assertEqual(len(links), 3)
+        for target in links:
+            self.assertTrue((local.parent/target).is_file(), target)
 
     def test_committed_selection_excludes_new_staged_and_modified_evidence(self):
         def git(*args):
@@ -195,7 +218,7 @@ class LayoutTests(unittest.TestCase):
                 suffix = '' if generator is None else '-' + generator
                 index = self.root / f'output/indexes/investment/HK-01952/investment-01952-latest{suffix}.json'
                 self.assertEqual(index.read_bytes(), expected.read_bytes())
-        rendered = paths.render_index('2026-10-05', self.root)
+        rendered = paths.render_index('2026-10-05', self.root, local=True)
         self.assertIn('### 2026-10-03（1 家公司）', rendered)
         for path in (old, codex, claude, newer_claude):
             self.assertIn(path.relative_to(self.root / 'research').as_posix(), rendered)
@@ -313,7 +336,7 @@ class LayoutTests(unittest.TestCase):
         historical = paths.company_runs('HK', '01952', '2026-10-05', self.root, include_legacy=True)
         self.assertEqual(historical, [current, legacy])
         self.assertEqual(json.loads(legacy.read_text()), old)
-        rendered = paths.render_index('2026-10-05', self.root)
+        rendered = paths.render_index('2026-10-05', self.root, local=True)
         self.assertIn('### 2026-10-05（1 家公司）', rendered)
         self.assertIn('v1 历史研究', rendered)
 

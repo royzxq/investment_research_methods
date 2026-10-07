@@ -261,21 +261,30 @@ def rebuild_indexes(as_of, root=ROOT):
             break
 
 
-def render_index(as_of, root=ROOT):
+def render_index(as_of, root=ROOT, *, local=False):
     root = Path(root)
+    index_dir = root / ('output/indexes' if local else 'research')
+    def link(path):
+        return Path(os.path.relpath(path, index_dir)).as_posix()
+    command = 'python3 scripts/research_paths.py index --as-of YYYY-MM-DD' + (' --local' if local else '')
     lines = ["# 报告索引", "", f"生成截止：{iso_date(as_of)}。仅导航，不代表证据新鲜或已通过研究验收。",
-             "由 `python3 scripts/research_paths.py index --as-of YYYY-MM-DD` 重建。", ""]
+             f"由 `{command}` 重建。", ""]
     for track, label in [("futures", "期货"), ("investment", "股票框架"), ("etf", "ETF")]:
         lines += [f"## {label}", "", "| 日期 | 已保存报告 |", "|---|---|"]
         families = ["review"] if track == "etf" else sorted(WEEKLY_KINDS - ({"execution-audit"} if track == "investment" else set()))
         dates = {}
         for kind in families:
             for path in discover(track, kind, as_of, root):
-                dates.setdefault(path.parent.name, []).append(f"[{kind}]({path.relative_to(root / 'research').as_posix()})")
+                dates.setdefault(path.parent.name, []).append(f"[{kind}]({link(path)})")
         for day, links in sorted(dates.items(), reverse=True):
             lines.append(f"| {day} | {' · '.join(links)} |")
         lines.append("")
     lines += ["## 公司研究", ""]
+    if not local:
+        lines += ["公司报告按仓库约定仅本地保存，共享索引不链接未入库文件。",
+                  "运行 `python3 scripts/research_paths.py index --as-of YYYY-MM-DD --local`，",
+                  "在 `output/indexes/INDEX.md` 查看本机公司报告及价格地图；新克隆没有这些本地产物，`latest-company` 无结果属正常。"]
+        return "\n".join(lines).rstrip() + "\n"
     dates = {}
     identities_by_day = {}
     for market, code in company_identities(root):
@@ -292,8 +301,8 @@ def render_index(as_of, root=ROOT):
             label = ("v1 历史研究" if legacy else "v2") + f" · {generator or '来源未标注'}"
             identities_by_day.setdefault(day, set()).add((market, code))
             dates.setdefault(day, []).append(
-                f"- [{name}（{market}-{code}）]({report.relative_to(root / 'research').as_posix()})"
-                f" · {label} · [价格地图]({path.relative_to(root / 'research').as_posix()})")
+                f"- [{name}（{market}-{code}）]({link(report)})"
+                f" · {label} · [价格地图]({link(path)})")
     for day, entries in sorted(dates.items(), reverse=True):
         lines += [f"### {day}（{len(identities_by_day[day])} 家公司）", "", *entries, ""]
     return "\n".join(lines).rstrip() + "\n"
@@ -329,6 +338,8 @@ def main():
     p.add_argument("--as-of", required=True)
     p = sub.add_parser("index")
     p.add_argument("--as-of", required=True)
+    p.add_argument("--local", action="store_true",
+                   help="Include local company reports and write output/indexes/INDEX.md instead of the shared index")
     args = parser.parse_args()
     if args.command == "path":
         print(artifact_path(args.track, args.kind, args.as_of).relative_to(ROOT))
@@ -341,7 +352,9 @@ def main():
     elif args.command == "rebuild-indexes":
         rebuild_indexes(args.as_of)
     elif args.command == "index":
-        (ROOT / "research/INDEX.md").write_text(render_index(args.as_of), encoding="utf-8")
+        target = ROOT / ("output/indexes/INDEX.md" if args.local else "research/INDEX.md")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(render_index(args.as_of, ROOT, local=args.local), encoding="utf-8")
     else:
         generator = None if args.generator == "unattributed" else args.generator
         paths = company_runs(args.market, args.code, args.as_of, include_legacy=args.include_legacy, generator=generator)
