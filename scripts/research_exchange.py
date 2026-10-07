@@ -169,10 +169,13 @@ def _report_sections(raw):
     section_pattern = re.compile(r"^#{1,6}[ \t]+(?:\*\*)?([0-8])(?:[.．、:：)）|｜—–-](?![0-9])|\s|$)")
     headings = [(i, int(match[1])) for i, line in enumerate(visible) if (match := section_pattern.match(line))]
     require([number for _, number in headings] == list(range(9)), "report: requires sections 0-8 in order")
+    sections = {}
     for index, (start, number) in enumerate(headings):
         end = headings[index + 1][0] if index + 1 < len(headings) else len(visible)
         require(any(line.strip() and not re.match(r"^#{1,6}\s", line) for line in visible[start + 1:end]),
                 f"report.section {number}: empty body")
+        sections[number] = "\n".join(visible[start + 1:end])
+    return sections
 
 
 def _validate_pair(entry, task, request, artifact_root):

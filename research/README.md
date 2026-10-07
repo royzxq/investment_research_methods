@@ -81,7 +81,7 @@ python3 scripts/research_paths.py index --as-of 2026-10-05
 
 `ai_investment` 发布本轮 `stock-research-request/v1` 请求与量价数据包，本仓使用真实生成端 `codex/claude` 研究；独立 `stock-research-result/v1` 清单绑定请求原始字节哈希及确切报告/JSON 路径。Codex 接替原 Gemini 业务席位，历史 Gemini 不改身份。只消费本轮结果，不使用七天窗口补历史来源；部分端尚无回执即缺席，不能记成拒绝或失败。单端成功可进入后续单席计算并披露。
 
-本批入口只做离线验收，不启动模型或调度、不更新 CSV/latest，不判断事实真实性或估值合理性：
+以下 research_exchange 入口只做验收，不启动模型或调度、不更新 CSV/latest，不判断事实真实性或估值合理性：
 
 ```sh
 python3 scripts/research_exchange.py check-request /path/to/request.json
@@ -91,6 +91,24 @@ python3 scripts/research_exchange.py check-results /path/to/result.json --reques
 请求数据包路径相对请求所在目录，结果报告/JSON 路径相对 `--artifact-root`；均须根内、非空且 SHA-256 匹配。拒绝绝对路径、父目录穿越、逃出根的符号链接、重复 JSON 键和非有限数。请求估值日不得晚于请求创建时刻的北京时间日期；不依赖验收当天，可重放历史。
 
 成功回执只接受日期优先目录内同生成端、同修订后缀的正式 v2 报告/JSON 配对，验证证券身份、名称、估值日、真实 `meta.generator`、`meta.report_path`、九节可见且非空的报告及时间顺序；HTML 注释和代码块内的标题不计章节。冻结/否决/不可估仍可以是成功研究交付，结构验收不增加执行许可。`-rN` 可作为本轮精确交付读取，不因此提升 latest。失败回执必须有理由且产物为 null；任务/端重复、错批次、错请求哈希或跨端配对均拒绝。
+
+## 个股研究 CLI 执行（2026-10-07）
+
+`scripts/research_runner.py` 在本仓准备并执行已验收请求，复用 stock-research 技能。必须使用请求中已计划的真实生成端；不要只给股票代码就启动研究。
+
+```sh
+python3 scripts/research_runner.py prepare --request /absolute/path/to/request.json
+python3 scripts/research_runner.py run --request /absolute/path/to/request.json --generator claude --workers 3
+python3 scripts/research_runner.py run --request /absolute/path/to/request.json --generator codex --workers 1
+```
+
+默认使用 PATH 中对应 CLI 和它已有的模型配置；可用 `--cli /absolute/path/to/cli` 指定安装位置。运行需要实际登录/网络，使用正常自动审批；拒绝权限或模型失败会留失败回执，不跳过权限检查。`--timeout-seconds` 默认3600，超时终止本次进程组。该入口不安装定时任务、不写飞书/CSV、不提交Git，也不更新 INDEX/latest；自动扫描、预算和失败自动恢复仍未接入。
+
+准备前校验请求及包，要求上游发布器标准 `packs/<task_id>.md` 路径和匹配证券的量价包标题；包内财务缺口可以进入研究补证。原始请求和包字节复制到 `output/runs/investment/<估值日>/<batch_id>/`，请求文件最后发布。每项 `execution/<task_id>/<generator>/prompt.txt` 直接包含完整包正文、触发元数据、框架指纹及确切配对目标；`input.json` 记录请求/包/提示词哈希、标准输入字节数和目标，`targets.json` 保存准备时在证券锁内选出的空闲版本。启动前重验全部准备材料；标准输入直接使用校验返回的冻结字节，验收使用同一份框架指纹，研究期间框架变化单独记录。不能在交付时再次构造输入或换用后来更新的指纹。
+
+`process.json` 的 PID/状态证明实际进程启动，`events.jsonl`/`stderr.log` 保存执行原文；`cli-receipt.json` 是模型回执，不能代替正式价格JSON。正式产物仍位于日期优先公司目录；同日同端已有文件写配对隔离版本。模型只写本批 staged/<task_id>/<generator>/ 内的同结构暂存文件，JSON meta.report_path和回执使用确切最终相对路径；runner先读全并验证两份暂存字节，再复制成独立inode、以只创建的原子链接发布，拒绝覆盖旧文件。完成回执reason必须null、结论写summary；失败则reason有说明、两个路径null。报告第0节正文须绑定本批ID、包与框架指纹；输入匹配且原九节/v2/配对验收通过才产生完成回执，不能把连接成功、文件准备或退出码0等同于完整研究交付。
+
+每端生成独立 `results-claude.json` / `results-codex.json`，使用原 `stock-research-result/v1` 协议，不相互覆盖；缺席生成端不记失败。任务失败会留原因和 null 产物，同一批次同任务同端拒绝再次启动；修复后显式发布新批次重试，保留旧尝试。跨批同证券同端使用进程锁，执行前再次检查准备时目标未被占用。超时与SIGTERM/SIGINT统一清理进程组（含忽略SIGTERM的同组后代），清理完成后才释放证券锁；SIGKILL、断电或刻意脱离组的守护进程不作恢复保证。部分准备目录没有 request.json 则不可执行，不自动修补或覆盖。
 
 ## 迁移与运行边界
 
