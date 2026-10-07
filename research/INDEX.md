@@ -1,6 +1,6 @@
 # 报告索引
 
-生成截止：2026-10-05。仅导航，不代表证据新鲜或已通过研究验收。
+生成截止：2026-10-07。仅导航，不代表证据新鲜或已通过研究验收。
 由 `python3 scripts/research_paths.py index --as-of YYYY-MM-DD` 重建。
 
 ## 期货
@@ -52,5 +52,6 @@
 
 ## 公司研究
 
-- [HK-01952 · 2026-10-05](investment/companies/HK-01952/2026-10-05/investment-01952-2026-10-05-research.md)
-- [SH-600066 · 2026-10-05](investment/companies/SH-600066/2026-10-05/investment-600066-2026-10-05-research.md)
+公司报告按仓库约定仅本地保存，共享索引不链接未入库文件。
+运行 `python3 scripts/research_paths.py index --as-of YYYY-MM-DD --local`，
+在 `output/indexes/INDEX.md` 查看本机公司报告及价格地图；新克隆没有这些本地产物，`latest-company` 无结果属正常。

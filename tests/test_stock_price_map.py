@@ -197,19 +197,70 @@ class StockPriceMapTests(unittest.TestCase):
     def test_cli_build_check_and_refusal_to_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "input.json"
-            destination = Path(directory) / "map.json"
-            source.write_text(json.dumps(yutong_example()), encoding="utf-8")
+            destination = Path(directory) / "investment-600066-2026-10-05-price-map-codex.json"
+            data = yutong_example()
+            data['meta']['report_path'] = "research/investment-600066-2026-10-05-research-codex.md"
+            source.write_text(json.dumps(data), encoding="utf-8")
             command = [sys.executable, str(ROOT / "scripts/stock_price_map.py")]
-            args = ["build", "--input", str(source), "--output", str(destination)]
+            args = ["build", "--generator", "codex", "--input", str(source), "--output", str(destination)]
             built = subprocess.run(command + args, capture_output=True, text=True)
             self.assertEqual(built.returncode, 0, built.stderr)
             original = destination.read_bytes()
             self.assertEqual(set(json.loads(original)), {"meta", "price_map", "monitoring"})
+            self.assertEqual(json.loads(original)['meta']['generator'], 'codex')
             checked = subprocess.run(command + ["check", str(destination)], capture_output=True, text=True)
             self.assertEqual(checked.returncode, 0, checked.stderr)
             refused = subprocess.run(command + args, capture_output=True, text=True)
             self.assertNotEqual(refused.returncode, 0)
             self.assertEqual(destination.read_bytes(), original)
+
+    def test_generator_metadata_is_optional_only_for_historical_compatibility(self):
+        data = yutong_example()
+        self.assertNotIn('generator', build_document(data)['meta'])
+        for generator in ('codex', 'claude'):
+            data['meta']['generator'] = generator
+            self.assertEqual(build_document(data)['meta']['generator'], generator)
+        for generator in ('unknown', '', None, ['codex']):
+            data['meta']['generator'] = generator
+            with self.assertRaisesRegex(ValueError, 'generator'):
+                build_document(data)
+
+    def test_cli_generator_conflicts_and_mismatched_filenames_are_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'input.json'
+            command = [sys.executable, str(ROOT / 'scripts/stock_price_map.py'), 'build',
+                       '--generator', 'codex', '--input', str(source)]
+            for generator, output_name, report_name in [
+                ('claude', 'price-map-codex.json', 'research-codex.md'),
+                ('codex', 'price-map-claude.json', 'research-codex.md'),
+                ('codex', 'price-map-codex.json', 'research-claude.md'),
+                ('codex', 'price-map-codex-r2.json', 'research-codex.md'),
+            ]:
+                with self.subTest(generator=generator, output=output_name, report=report_name):
+                    stem = 'investment-600066-2026-10-05-'
+                    data = yutong_example()
+                    data['meta'].update(generator=generator, report_path='research/' + stem + report_name)
+                    source.write_text(json.dumps(data))
+                    destination = Path(directory) / (stem + output_name)
+                    result = subprocess.run(command + ['--output', str(destination)], capture_output=True, text=True)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertFalse(destination.exists())
+
+    def test_cli_claude_revision_and_required_generator(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'input.json'
+            destination = Path(directory) / 'investment-600066-2026-10-05-price-map-claude-r12.json'
+            data = yutong_example()
+            data['meta']['report_path'] = 'research/investment-600066-2026-10-05-research-claude-r12.md'
+            source.write_text(json.dumps(data))
+            command = [sys.executable, str(ROOT / 'scripts/stock_price_map.py'), 'build',
+                       '--input', str(source), '--output', str(destination)]
+            missing = subprocess.run(command, capture_output=True, text=True)
+            self.assertNotEqual(missing.returncode, 0)
+            self.assertFalse(destination.exists())
+            result = subprocess.run(command + ['--generator', 'claude'], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(destination.read_text())['meta']['generator'], 'claude')
 
 
 if __name__ == "__main__":

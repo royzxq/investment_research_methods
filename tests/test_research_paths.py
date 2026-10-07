@@ -6,6 +6,7 @@ from datetime import datetime
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import subprocess
 import shutil
@@ -51,7 +52,31 @@ class LayoutTests(unittest.TestCase):
         for day in ['2026-02-30', '../2026-10-01', '2026-10-01/extra']:
             with self.assertRaises(ValueError): paths.artifact_path('futures', 'data-snapshot', day, self.root)
         with self.assertRaises(ValueError): paths.artifact_path('investment', 'execution-audit', '20261001', self.root)
-        with self.assertRaises(ValueError): paths.company_dir('../HK', '01952', self.root)
+        with self.assertRaises(ValueError): paths.company_dir('../HK', '01952', '20261001', self.root)
+
+    def test_company_paths_are_date_first_and_invalid_layouts_are_not_discovered(self):
+        current = self.company_v2('HK', '01952', '2026-10-03')
+        self.assertEqual(current.relative_to(self.root).as_posix(),
+                         'research/investment/companies/2026-10-03/HK-01952/investment-01952-2026-10-03-price-map.json')
+        base = self.root / 'research/investment/companies'
+        for directory in [base/'HK-01952/2026-10-03', base/'2026-10-04/HK-01952',
+                          base/'20261003/HK-01952', base/'archive/HK-01952']:
+            self.write(directory/current.name, current.read_text())
+        self.assertEqual(paths.company_runs('HK', '01952', '2026-10-05', self.root), [current])
+        self.assertEqual(paths.company_identities(self.root), [('HK', '01952')])
+
+    def test_company_index_groups_by_date_and_lists_each_company_once(self):
+        self.company_v2('HK', '01952', '2026-10-01')
+        latest = self.company_v2('HK', '01952', '2026-10-03')
+        self.company_v2('SH', '600066', '2026-10-03')
+        self.company_v2('SH', '600066', '2026-10-04', revision=2)
+        self.company_v2('SH', '600066', '2026-10-07')
+        index = paths.render_index('2026-10-05', self.root, local=True)
+        self.assertLess(index.index('### 2026-10-03（2 家公司）'), index.index('### 2026-10-01（1 家公司）'))
+        self.assertEqual(index.count(latest.relative_to(self.root/'research').as_posix()), 1)
+        self.assertIn('Offline fixture（HK-01952）', index)
+        self.assertNotIn('2026-10-04', index)
+        self.assertNotIn('2026-10-07', index)
 
     def test_snapshot_discovery_requires_matching_header_and_final_marker(self):
         good = self.snapshot()
@@ -62,6 +87,28 @@ class LayoutTests(unittest.TestCase):
         self.assertEqual(paths.discover('futures','data-snapshot','2026-10-05',self.root),[good])
         bad.write_bytes(b'\xff')
         self.assertFalse(paths.snapshot_complete(bad, '2026-10-02'))
+
+    def test_shared_index_is_independent_of_local_company_artifacts(self):
+        before = paths.render_index('2026-10-05', self.root)
+        self.company_v2('HK', '01952', '2026-10-03')
+        after = paths.render_index('2026-10-05', self.root)
+        self.assertEqual(after, before)
+        self.assertNotIn('](investment/companies/', after)
+        self.assertIn('--local', after)
+
+    def test_local_index_links_resolve_and_cli_preserves_shared_index(self):
+        self.company_v2('HK', '01952', '2026-10-03')
+        self.write(paths.artifact_path('futures', 'market-research', '2026-10-03', self.root))
+        shared = self.write(self.root/'research/INDEX.md', 'shared sentinel')
+        with patch.object(paths, 'ROOT', self.root), patch.object(sys, 'argv',
+                ['research_paths.py', 'index', '--as-of', '2026-10-05', '--local']):
+            paths.main()
+        local = self.root/'output/indexes/INDEX.md'
+        self.assertEqual(shared.read_text(), 'shared sentinel')
+        links = re.findall(r'\]\(([^)]+)\)', local.read_text())
+        self.assertEqual(len(links), 3)
+        for target in links:
+            self.assertTrue((local.parent/target).is_file(), target)
 
     def test_committed_selection_excludes_new_staged_and_modified_evidence(self):
         def git(*args):
@@ -123,17 +170,17 @@ class LayoutTests(unittest.TestCase):
         self.company('2026-10-03',revision=2)
         self.company('2026-10-07')
         malformed=self.company('2026-10-04'); malformed.write_text('[]')
-        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root),[first])
+        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root),[])
+        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root,include_legacy=True),[first])
         paths.rebuild_indexes('2026-10-05',self.root)
         index=self.root/'output/indexes/investment/HK-01952/investment-01952-latest.json'
-        self.assertEqual(json.loads(index.read_text()),json.loads(first.read_text()))
-        index.unlink()
-        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root),[first])
+        self.assertFalse(index.exists())
+        self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root,include_legacy=True),[first])
 
-    def company_v2(self, market, code, day, revision=None):
+    def company_v2(self, market, code, day, revision=None, generator=None):
         from scripts.stock_price_map import build_document
-        report = paths.company_path(market, code, day, 'research', self.root, revision=revision)
-        price_map = paths.company_path(market, code, day, 'price-map', self.root, revision=revision)
+        report = paths.company_path(market, code, day, 'research', self.root, revision=revision, generator=generator)
+        price_map = paths.company_path(market, code, day, 'price-map', self.root, revision=revision, generator=generator)
         currency = 'HKD' if market == 'HK' else 'CNY'
         document = build_document({
             'meta': dict(code=f'{code}.{market}', name='Offline fixture', valuation_date=day,
@@ -149,9 +196,73 @@ class LayoutTests(unittest.TestCase):
                                 trigger='Margin deterioration', action='Revalue',
                                 source='Offline fixture', next_check='Next report')],
         })
+        if generator is not None:
+            document['meta']['generator'] = generator
         self.write(report, 'Offline report')
         self.write(price_map, json.dumps(document))
         return price_map
+
+    def test_generators_coexist_with_independent_latest_and_history(self):
+        old = self.company_v2('HK', '01952', '2026-10-05')
+        codex = self.company_v2('HK', '01952', '2026-10-03', generator='codex')
+        claude = self.company_v2('HK', '01952', '2026-10-03', generator='claude')
+        newer_claude = self.company_v2('HK', '01952', '2026-10-04', generator='claude')
+        self.company_v2('HK', '01952', '2026-10-04', generator='codex', revision=2)
+        self.company_v2('HK', '01952', '2026-10-07', generator='codex')
+        paths.rebuild_indexes('2026-10-05', self.root)
+        for generator, expected, runs in [(None, old, [old]), ('codex', codex, [codex]),
+                                           ('claude', newer_claude, [claude, newer_claude])]:
+            with self.subTest(generator=generator):
+                self.assertEqual(paths.company_runs('HK', '01952', '2026-10-05', self.root,
+                                                   generator=generator), runs)
+                suffix = '' if generator is None else '-' + generator
+                index = self.root / f'output/indexes/investment/HK-01952/investment-01952-latest{suffix}.json'
+                self.assertEqual(index.read_bytes(), expected.read_bytes())
+        rendered = paths.render_index('2026-10-05', self.root, local=True)
+        self.assertIn('### 2026-10-03（1 家公司）', rendered)
+        for path in (old, codex, claude, newer_claude):
+            self.assertIn(path.relative_to(self.root / 'research').as_posix(), rendered)
+        self.assertIn('v2 · codex', rendered)
+        self.assertIn('v2 · claude', rendered)
+        self.assertIn('来源未标注', rendered)
+        self.assertNotIn('-r2', rendered)
+        codex.unlink()
+        paths.rebuild_indexes('2026-10-05', self.root)
+        self.assertFalse((self.root / 'output/indexes/investment/HK-01952/investment-01952-latest-codex.json').exists())
+        self.assertEqual(paths.company_runs('HK', '01952', '2026-10-05', self.root, generator='codex'), [])
+
+    def test_generator_discovery_rejects_mislabeled_metadata_and_report(self):
+        self.company_v2('SH', '600066', '2026-10-03', generator='claude')
+        current = self.company_v2('SH', '600066', '2026-10-03', generator='codex')
+        original = json.loads(current.read_text())
+        for meta in [dict(original['meta'], generator='claude'),
+                     {k: v for k, v in original['meta'].items() if k != 'generator'},
+                     dict(original['meta'], report_path=original['meta']['report_path'].replace('codex', 'claude'))]:
+            current.write_text(json.dumps(dict(original, meta=meta)))
+            self.assertEqual(paths.company_runs('SH', '600066', '2026-10-05', self.root, generator='codex'), [])
+        with self.assertRaises(ValueError):
+            paths.company_path('SH', '600066', '2026-10-03', 'price-map', self.root, generator='../codex')
+
+    def test_generator_cli_path_and_latest_are_consistent_and_never_fallback(self):
+        current = self.company_v2('SH', '600066', '2026-10-03', generator='codex')
+        self.company_v2('SH', '600066', '2026-10-04', generator='claude')
+        scripts = self.root / 'scripts'
+        scripts.mkdir()
+        for name in ['research_paths.py', 'stock_price_map.py']:
+            shutil.copyfile(paths.ROOT / 'scripts' / name, scripts / name)
+        command = [sys.executable, str(scripts / 'research_paths.py')]
+        identity = ['--market', 'SH', '--code', '600066', '--as-of', '2026-10-03', '--generator', 'codex']
+        result = subprocess.run(command + ['company-path', '--kind', 'price-map'] + identity, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), current.relative_to(self.root).as_posix())
+        result = subprocess.run(command + ['latest-company'] + identity, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), current.relative_to(self.root).as_posix())
+        current.unlink()
+        identity[identity.index('2026-10-03')] = '2026-10-05'
+        missing = subprocess.run(command + ['latest-company'] + identity, capture_output=True, text=True)
+        self.assertEqual(missing.returncode, 1, missing.stderr)
+        self.assertEqual(missing.stdout, '')
 
     def test_v2_builder_outputs_are_discovered_and_indexes_keep_newest_valid_pair(self):
         for market, code in [('SH', '600066'), ('SZ', '000001'), ('HK', '01952')]:
@@ -188,15 +299,71 @@ class LayoutTests(unittest.TestCase):
 
     def test_latest_company_cli_finds_v2_without_latest_cache(self):
         newest = self.company_v2('HK', '01952', '2026-10-03')
+        legacy = self.company('2026-10-05')
         scripts = self.root / 'scripts'
         scripts.mkdir()
         for name in ['research_paths.py', 'stock_price_map.py']:
             shutil.copyfile(paths.ROOT / 'scripts' / name, scripts / name)
-        result = subprocess.run([sys.executable, str(scripts / 'research_paths.py'),
-                                 'latest-company', '--market', 'HK', '--code', '01952',
-                                 '--as-of', '2026-10-05'], cwd=self.root, capture_output=True, text=True)
+        command = [sys.executable, str(scripts / 'research_paths.py'),
+                   'latest-company', '--market', 'HK', '--code', '01952', '--as-of', '2026-10-05']
+        result = subprocess.run(command, cwd=self.root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), newest.relative_to(self.root).as_posix())
+        self.assertIn('2026-10-03', result.stderr)
+        self.assertIn('2026-10-05', result.stderr)
+        historical = subprocess.run(command + ['--include-legacy'], cwd=self.root,
+                                    capture_output=True, text=True)
+        self.assertEqual(historical.returncode, 0, historical.stderr)
+        self.assertEqual(historical.stdout.strip(), legacy.relative_to(self.root).as_posix())
+        self.assertIn('历史输入', historical.stderr)
+        newest.unlink()
+        missing = subprocess.run(command, cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(missing.returncode, 1)
+        self.assertEqual(missing.stdout, '')
+        self.assertIn('--include-legacy', missing.stderr)
+
+    def test_newer_legacy_null_map_cannot_replace_current_v2_index(self):
+        current = self.company_v2('HK', '01952', '2026-10-04')
+        legacy = self.company('2026-10-05')
+        old = json.loads(legacy.read_text())
+        old['price_map'] = dict(p1=None, p2=None)
+        legacy.write_text(json.dumps(old))
+        index = self.root / 'output/indexes/investment/HK-01952/investment-01952-latest.json'
+        self.write(index, legacy.read_text())
+        self.assertEqual(paths.company_runs('HK', '01952', '2026-10-05', self.root), [current])
+        paths.rebuild_indexes('2026-10-05', self.root)
+        self.assertEqual(json.loads(index.read_text()), json.loads(current.read_text()))
+        historical = paths.company_runs('HK', '01952', '2026-10-05', self.root, include_legacy=True)
+        self.assertEqual(historical, [current, legacy])
+        self.assertEqual(json.loads(legacy.read_text()), old)
+        rendered = paths.render_index('2026-10-05', self.root, local=True)
+        self.assertIn('### 2026-10-05（1 家公司）', rendered)
+        self.assertIn('v1 历史研究', rendered)
+
+    def test_rebuild_removes_legacy_cache_when_no_current_v2_pair_exists(self):
+        legacy = self.company('2026-10-01')
+        index = self.root / 'output/indexes/investment/HK-01952/investment-01952-latest.json'
+        self.write(index, legacy.read_text())
+        self.company_v2('HK', '01952', '2026-10-07')
+        paths.rebuild_indexes('2026-10-05', self.root)
+        self.assertFalse(index.exists())
+        self.assertTrue(legacy.is_file())
+
+    def test_newer_unavailable_v2_is_not_hidden_by_older_priced_result(self):
+        from scripts.stock_price_map import validate_document
+        self.company_v2('HK', '01952', '2026-10-01')
+        latest = self.company_v2('HK', '01952', '2026-10-04')
+        document = json.loads(latest.read_text())
+        document['price_map'].update(mode='unavailable', reason='Unresolved cash balance',
+                                     v50=None, p1=None,
+                                     p2=dict(status='unavailable', price=None, reason='Missing inputs'))
+        validate_document(document)
+        latest.write_text(json.dumps(document))
+        self.company('2026-10-05')
+        paths.rebuild_indexes('2026-10-05', self.root)
+        index = self.root / 'output/indexes/investment/HK-01952/investment-01952-latest.json'
+        self.assertEqual(json.loads(index.read_text()), document)
+        self.assertEqual(paths.company_runs('HK', '01952', '2026-10-05', self.root)[-1], latest)
 
     def test_etf_index_rebuild_requires_complete_matching_snapshot(self):
         snapshot=self.snapshot(track='etf')
@@ -275,8 +442,9 @@ class LayoutTests(unittest.TestCase):
         manifest=json.loads((root/'docs/research-layout-migration.json').read_text())
         self.assertEqual(len({r['new'] for r in manifest['files']}),len(manifest['files']))
         for item in manifest['files']:
-            # Local indexes may be missing on a fresh clone; all research evidence must exist.
-            if item['new'].startswith('output/'): continue
+            # Local indexes and company outputs (untracked by c3b4424) are absent on fresh clones.
+            # This manifest records the original migration, before the date-first company layout.
+            if item['new'].startswith(('output/', 'research/investment/companies/')): continue
             p=root/item['new']; self.assertTrue(p.is_file(),item['new'])
             if 'compact-audit.json' in p.name or 'compact-numeric-audit.json' in p.name or 'rule-prereg.md' in p.name or p.suffix=='.txt':
                 self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),item['sha256_before'],item['new'])

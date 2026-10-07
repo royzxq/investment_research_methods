@@ -10,7 +10,7 @@
 
 | 入口 | 示例 | 流程与交付 |
 |---|---|---|
-| [stock-research](.agents/skills/stock-research/SKILL.md) | “调研 600066 宇通客车”；“给 01952 做价格地图” | 自动取证 → 框架判断 → 参数论证与数值校验；完整报告 + 仅含价格地图和监控变量的 v2 JSON |
+| [stock-research](.agents/skills/stock-research/SKILL.md) | “使用进行股票投研：600066.SH 宇通客车”；“给 01952.HK 做价格地图” | 自动取证 → 框架判断 → 参数论证与数值校验；完整报告 + 仅含价格地图和监控变量的 v2 JSON |
 | [deep-research-auto](.agents/skills/deep-research-auto/SKILL.md) | “深度调研这个问题”，或由个股技能调用 | 多代理取证 → 关键冲突裁决 → 定向补研 → 可追溯报告与笔记 |
 | [investment-weekly-review](.agents/skills/investment-weekly-review/SKILL.md) | “执行股票完整周更”；“仅比较指定的新旧股票研究报告” | 元研究 → 变化检测 → 条件适配 → 保真精简；报告带 `investment-` 前缀 |
 | [futures-weekly-review](.agents/skills/futures-weekly-review/SKILL.md) | “执行期货完整周更”；“仅同步本次适配的数据脚本” | 元研究 → 变化检测与每期审计 → 条件适配 → 脚本同步 → 诊断重评 → 保真精简；日期报告无前缀 |
@@ -18,6 +18,8 @@
 | [framework-condense](.agents/skills/framework-condense/SKILL.md) | “仅同步期货 canonical 与 compact” | 保留五元组、数值、逻辑、例外、稳定编号及当前状态，完成七项自审 |
 
 日期默认北京时间当天，可明确指定 `AS_OF_DATE`。默认本地保存；单阶段请求在该阶段结束，同日已有产物先核对并复用。需要框架更新时使用分支或隔离 worktree；只有已明确授权发布时，才提交、推送并统一创建一个 PR，人工审核后合并。原 routine 的自动推送行为不作为新任务授权。
+
+个股投研也可显式输入：`使用 $stock-research 进行股票投研：600066.SH 宇通客车`。研究完成后，Codex 自动在 `research/investment/companies/<北京时间估值日>/<市场>-<代码>/` 保存报告与 `investment-<代码>-<日期>-price-map-codex.json`，JSON 内含 `meta.generator="codex"`。Claude Code 通过兼容入口保存 `-claude.json` 和 `meta.generator="claude"`；两端 latest 分开，同端重复运行按隔离版本保存。旧文件不改名或推定来源，详见[输出契约](research/README.md)。
 
 ## 方法与证据
 
@@ -41,7 +43,7 @@ canonical 是方法、参数及歧义裁决的权威；compact 必须保真同�
 ETF 研究池可由技能读取 `ETF_POOL_CSV` 并转为 `--pool-csv`；脚本自身不读取这个环境变量。不默认覆盖同日快照。联网、账户权限和字段可用性以实际调用验收，不能将离线测试或 Token 存在当作线上验证。
 
 - [future_data.py](scripts/future_data.py) 当前 v1.16，负责取数、研究候选和情景预检。`POSITIONS` 为空不证明账户空仓；2ATR 数量与月差分位不等于最终手数或交易许可。
-- [stock_price_map.py](scripts/stock_price_map.py) 负责个股价格地图的离线计算与 `stock-research/v2` 导出：`build --input <临时模型> --output <新JSON>` / `check <JSON>`。固定币种/股本口径，P2 从 P1 下沿计算；校验不代表证据或估值合理性已获确认，完整论证留在报告。
+- [stock_price_map.py](scripts/stock_price_map.py) 负责个股价格地图的离线计算与 `stock-research/v2` 导出：`build --generator codex --input <临时模型> --output <新JSON>` / `check <JSON>`。固定币种/股本口径，P2 从 P1 下沿计算；校验不代表证据或估值合理性已获确认，完整论证留在报告。
 - [price_evidence.py](scripts/price_evidence.py) 区分 settle/close、SC 结算周涨和固定合约对的同期样本。周涨以最新完成行情日减七个自然日；不使用收盘替代结算护栏。快照还准备合约对研究 CSV 与 `output/cache/futures/spread_research_<AS_OF>.json`，不自动替换当前合约或授予许可。
 - [futures_risk.py](scripts/futures_risk.py) 提供离线 A 计划校验与风险容量计算：`validate-a --input plan.json` / `size --input sizing.json`。A 校验仅支持 MA/RB/SR 同品种 1:1 月差，必填 `price_unit="CNY/tonne"`，Entry/SL/TP 为绝对价差。单位不兼容不换算，缺实际账户、止损或容量保留 `null`。低敞口上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险，常规和当前上限分列。
 - [执行审计模板](projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md) 是每期诊断唯一口径。无论框架是否更新都生成执行审计；[validate_futures_audit.py](scripts/validate_futures_audit.py) 校验 schema 3（schema 2 仅兼容历史），不验证来源真伪、收益或交易许可。
@@ -55,15 +57,15 @@ python3 scripts/validate_futures_audit.py --input research/futures/weekly/YYYY-M
 
 结构校验不证明语义等价或投资有效性；汇报实际结果和未验证范围。
 
-## Gemini 搜索
+## 默认搜索与 Gemini 暂停
 
 服务代码已迁入 [.codex/mcp/gemini_search_mcp.py](.codex/mcp/gemini_search_mcp.py)，只使用 Python 标准库。当前机器已在 `~/.codex/config.toml` 注册 `gemini-search`，通过 `env_vars` 继承 `GEMINI_API_KEY`；可选 `GEMINI_SEARCH_MODEL` 和 `GEMINI_SEARCH_API_TIMEOUT`。密钥值不写入配置或仓库。
 
-普通联网检索优先 `gemini_web_search`。工具不可用或返回失败标记时使用会话内置网页搜索和页面读取，完成兜底后无需重试 Gemini。关键事实读取原始来源后引用；OpenAI 产品问题遵循 `openai-docs`。
+2026-10-05 起，普通联网检索默认使用会话内置网页搜索和页面读取，暂不调用或先尝试 `gemini_web_search`。全局规则、项目规则、深度研究技能和本机股票/期货周更任务采用同一路由；Codex 的 Gemini MCP 注册保留，设置 `enabled = false`。关键事实读取原始来源后引用；OpenAI 产品问题遵循 `openai-docs`。
 
 2026-10-04 验收：注册、stdio 握手与工具发现通过；真实 Google API 调用返回 HTTP 400 `User location is not supported for the API use.`，目前无法验证成功搜索。内置搜索与页面读取兜底已实测通过。地区限制属于待解决的外部运行条件，注册成功不等于 Gemini 搜索已可用。
 
-注册后已有聊天可能尚未载入新 MCP；重新打开 Codex 会话后确认工具可见。命令 `codex mcp get gemini-search --json` 可检查注册状态。换机时安装同一仓库，再按本机路径注册 stdio 服务，凭据仍从环境继承。
+服务代码和环境变量配置保留，便于以后明确要求时恢复。命令 `codex mcp get gemini-search --json` 可检查注册及启用状态；已有聊天可能仍保留旧工具或指令，新会话载入更新后的配置。
 
 ## 迁移边界与备份
 
