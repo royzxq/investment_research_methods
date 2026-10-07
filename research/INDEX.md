@@ -1,6 +1,6 @@
 # 报告索引
 
-生成截止：2026-10-06。仅导航，不代表证据新鲜或已通过研究验收。
+生成截止：2026-10-07。仅导航，不代表证据新鲜或已通过研究验收。
 由 `python3 scripts/research_paths.py index --as-of YYYY-MM-DD` 重建。
 
 ## 期货
@@ -51,6 +51,15 @@
 | 2026-10-01 | [review](etf/reviews/2026-10-01/etf-2026-10-01-review.md) |
 
 ## 公司研究
+
+### 2026-10-07（3 家公司）
+
+- [国电南瑞（SH-600406）](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-research-claude.md) · v2 · claude · [价格地图](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-price-map-claude.json)
+- [国电南瑞（SH-600406）](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-research-codex.md) · v2 · codex · [价格地图](investment/companies/2026-10-07/SH-600406/investment-600406-2026-10-07-price-map-codex.json)
+- [赤峰黄金（SH-600988）](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-research-claude.md) · v2 · claude · [价格地图](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-price-map-claude.json)
+- [赤峰黄金（SH-600988）](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-research-codex.md) · v2 · codex · [价格地图](investment/companies/2026-10-07/SH-600988/investment-600988-2026-10-07-price-map-codex.json)
+- [正泰电器（SH-601877）](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-research-claude.md) · v2 · claude · [价格地图](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-price-map-claude.json)
+- [正泰电器（SH-601877）](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-research-codex.md) · v2 · codex · [价格地图](investment/companies/2026-10-07/SH-601877/investment-601877-2026-10-07-price-map-codex.json)
 
 ### 2026-10-06（2 家公司）
 
