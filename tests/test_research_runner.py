@@ -116,6 +116,13 @@ class ResearchRunnerTests(unittest.TestCase):
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
 
+    def test_midnight_reservation_is_checked_before_durable_launch(self):
+        with patch('scripts.research_runner.stamp', return_value='2026-10-08T00:00:01+08:00'):
+            with self.assertRaisesRegex(ValueError, 'reservation expired'):
+                self.execute(launch_date='2026-10-07')
+        self.assertFalse(self.capture.exists())
+        self.assertEqual(list(self.methods.rglob('launched.json')), [])
+
     def test_prepare_embeds_exact_full_pack_for_both_providers(self):
         run = prepare_request(self.request_path, self.methods)
         self.assertEqual((run/'request.json').read_bytes(),self.request_path.read_bytes())

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from datetime import datetime
 import fcntl
 import hashlib
@@ -511,6 +511,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
         entry = dict(task_id=task['task_id'], generator=generator, status='failed', reason=str(exc),
                      started_at=started, completed_at=completed, report=None, price_map=None)
     process.update(status=entry['status'], completed_at=completed, reason=entry['reason'])
+    process['actual_model'] = observed_model(folder, generator)
     save(folder / 'process.json', process)
     save(folder / 'entry.json', entry)
     emit(dict(event='research_finished', task_id=task['task_id'], generator=generator,
@@ -518,10 +519,44 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
     return entry
 
 
-def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600):
+def observed_model(folder, generator):
+    """Record only model identifiers emitted by the runtime, never infer a brand."""
+    path = folder / 'events.jsonl'
+    if not path.exists():
+        return None
+    for line in path.read_bytes().splitlines():
+        try:
+            event = _strict_json(line, 'event')
+        except (ValueError, UnicodeError):
+            continue
+        if not isinstance(event, dict):
+            continue
+        expected = (event.get('type') == 'system' and event.get('subtype') == 'init'
+                    if generator == 'claude' else event.get('type') == 'turn.started')
+        if expected and isinstance(event.get('model'), str) and event['model'].strip():
+            return event['model']
+    return None
+
+
+def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
+              task_ids=None, cancelled=None, launch_date=None):
+    request, _, _ = read_request(request_path)
+    with stock_lock(root, 'batch-' + request['batch_id'], generator):
+        return _run_batch(request_path, root, generator=generator, cli=cli,
+                          workers=workers, timeout=timeout, task_ids=task_ids, cancelled=cancelled,
+                          launch_date=launch_date)
+
+
+def _run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
+               task_ids=None, cancelled=None, launch_date=None):
     if workers < 1 or timeout <= 0:
         raise ValueError('workers and timeout must be positive')
     request, request_raw, _ = read_request(request_path)
+    tasks = request['tasks']
+    if task_ids is not None:
+        if not task_ids or len(set(task_ids)) != len(task_ids) or not set(task_ids) <= {t['task_id'] for t in tasks}:
+            raise ValueError('task selection is empty, duplicated or outside request')
+        tasks = [t for t in tasks if t['task_id'] in task_ids]
     if generator not in request['generators']:
         raise ValueError('generator not planned in request')
     cli = shutil.which(generator) if cli is None else cli
@@ -529,20 +564,28 @@ def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeou
         raise ValueError(f'{generator} CLI executable unavailable')
     run = prepare_request(request_path, root)
     verify_prepared(run, request_raw, root)
-    for task in request['tasks']:
+    for task in tasks:
         claim = run / 'execution' / task['task_id'] / generator / 'launched.json'
         if claim.exists():
             raise ValueError(f"task already launched: {task['task_id']} {generator}; retry requires a new batch")
     if generator == 'codex':
         check_codex_cli(cli, root)
-    for task in request['tasks']:
+    for task in tasks:
+        claimed_at = stamp()
+        if launch_date is not None and claimed_at[:10] != launch_date:
+            raise ValueError('daily reservation expired before first launch; fresh input required')
         write_new(run / 'execution' / task['task_id'] / generator / 'launched.json',
-                  encode(dict(claimed_at=stamp(), request_sha256=sha(request_raw))))
-    with cancellation_scope() as cancelled:
+                  encode(dict(claimed_at=claimed_at, request_sha256=sha(request_raw))))
+    with (nullcontext(cancelled) if cancelled is not None else cancellation_scope()) as cancelled:
         with ThreadPoolExecutor(max_workers=workers) as pool:
             futures = [pool.submit(execute_task, run, request, request_raw, task, generator, cli, root, timeout, cancelled)
-                       for task in request['tasks']]
+                       for task in tasks]
             entries = [future.result() for future in futures]
+    selected = {t['task_id'] for t in tasks}
+    for task in request['tasks']:
+        previous = run / 'execution' / task['task_id'] / generator / 'entry.json'
+        if task['task_id'] not in selected and previous.exists():
+            entries.append(_strict_json(previous.read_bytes(), 'previous result'))
     target = run / f'results-{generator}.json'
     save(target, manifest(request, request_raw, entries))
     load_results(target, run / 'request.json', root)
