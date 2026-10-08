@@ -482,7 +482,12 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 proc = subprocess.Popen(args, cwd=root, env=env, stdin=subprocess.PIPE,
                                         stdout=stdout, stderr=stderr, start_new_session=True)
                 try:
-                    process.update(status='running', pid=proc.pid)
+                    # Popen returned successfully: preflight/lock waits must not
+                    # shorten the listing's research cooldown. This timestamp
+                    # conservatively follows the actual process start.
+                    started = stamp()
+                    process.update(status='running', pid=proc.pid,
+                                   started_at=started, launched_at=started)
                     save(folder / 'process.json', process)
                     emit(dict(event='research_started', task_id=task['task_id'],
                               generator=generator, pid=proc.pid, stdin_bytes=len(payload)))

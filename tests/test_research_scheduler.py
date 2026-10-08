@@ -1,5 +1,6 @@
 import copy
-from datetime import datetime
+import hashlib
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import tempfile
 from pathlib import Path
@@ -199,3 +200,269 @@ class SchedulerTests(unittest.TestCase):
         merge_candidates(state, fresh, tomorrow)
         self.assertEqual(len(reserve(state, tomorrow)), 4)
         self.assertTrue(all(e['first_seen']==NOW.isoformat() for e in state['entries'].values()))
+
+
+class CooldownTests(unittest.TestCase):
+    def history(self, started=NOW):
+        return dict(started_at=started.isoformat(), batch_id='a'*32, request_sha256='b'*64)
+
+    def prior_run(self, root, task='SH-600004', *, pid=321, generator='codex', started=NOW, exact=True):
+        run = root/'output/runs/investment/2026-10-07'/('a'*32)
+        pack = run/'packs'/f'{task}.md'
+        pack.parent.mkdir(parents=True, exist_ok=True)
+        market, code = task.split('-')
+        pack.write_text(f'# {code}.{market} 量价与基本面数据包\n')
+        request = dict(schema_version='stock-research-request/v1', batch_id='a'*32,
+                       created_at=NOW.isoformat(), valuation_date='2026-10-07', generators=['codex','claude'],
+                       tasks=[dict(task_id=task, code=f'{code}.{market}', name='fixture', sources=['monitor'],
+                                   data_pack=dict(path=f'packs/{task}.md', sha256=hashlib.sha256(pack.read_bytes()).hexdigest()),
+                                   data_pack_meta={})])
+        raw = json.dumps(request).encode()
+        (run/'request.json').write_bytes(raw)
+        folder = run/'execution'/task/generator
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder/'launched.json').write_text(json.dumps(dict(claimed_at=NOW.isoformat(), request_sha256=hashlib.sha256(raw).hexdigest())))
+        (folder/'process.json').write_text(json.dumps(dict(task_id=task, generator=generator, status='failed',
+            started_at=started.isoformat(), completed_at=(started+timedelta(minutes=1)).isoformat(), pid=pid, exit_code=3,
+            **({'launched_at':started.isoformat()} if exact and pid is not None else {}))))
+        return run, hashlib.sha256(raw).hexdigest()
+
+    def test_new_event_and_batch_cannot_bypass_exact_seven_days(self):
+        state = new_state()
+        state['last_started'] = {'SH-600004': self.history()}
+        fresh = dict(candidates()[3], created_at=(NOW+timedelta(days=7)).isoformat(),
+                     valuation_date='2026-10-14', event_key='f'*64, batch_id='c'*32)
+        merge_candidates(state, [fresh], NOW+timedelta(days=7))
+        before = NOW+timedelta(days=7)-timedelta(microseconds=1)
+        self.assertEqual(reserve(copy.deepcopy(state), before), [])
+        self.assertEqual([e['task_id'] for e in reserve(state, NOW+timedelta(days=7))], ['SH-600004'])
+
+    def test_filter_before_priority_limit_and_a_h_are_separate(self):
+        state = new_state()
+        state['last_started'] = {'SH-600004': self.history()}
+        tomorrow = NOW+timedelta(days=1)
+        fresh = [dict(e, valuation_date='2026-10-08', created_at=tomorrow.isoformat()) for e in candidates()]
+        merge_candidates(state, fresh+[dict(fresh[3], task_id='HK-60004', priority=1)], tomorrow)
+        chosen = reserve(state, tomorrow)
+        self.assertEqual([e['task_id'] for e in chosen], ['HK-60004','SH-600005','SH-600003','SH-600002'])
+        self.assertEqual(state['entries']['SH-600004']['status'], 'pending')
+
+    def test_legacy_state_plan_uses_failed_process_start_and_is_read_only(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.prior_run(root)
+            queue = root/'output/research_queue'; queue.mkdir(parents=True)
+            state = new_state(); state.pop('last_started', None)
+            state['days']['2026-10-07'] = {'SH-600004':'e'*64}
+            path = queue/'state.json'; path.write_text(json.dumps(state)); before = path.read_bytes()
+            fresh = dict(candidates()[3], valuation_date='2026-10-08', created_at=(NOW+timedelta(days=1)).isoformat())
+            with patch('scripts.research_scheduler.datetime') as clock, patch('scripts.research_scheduler.scan_requests',return_value=([fresh], [])):
+                clock.now.return_value = NOW+timedelta(days=1)
+                result = tick(root/'exchange', root)
+            self.assertEqual(result['selected'], [])
+            self.assertEqual(result['cooldown_skipped'][0]['next_eligible_at'], '2026-10-14T08:00:00+08:00')
+            self.assertEqual(path.read_bytes(), before)
+
+    def test_pure_preflight_failure_does_not_start_cooldown(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); self.prior_run(root, pid=None)
+            fresh = dict(candidates()[3], valuation_date='2026-10-08', created_at=(NOW+timedelta(days=1)).isoformat())
+            with patch('scripts.research_scheduler.datetime') as clock, patch('scripts.research_scheduler.scan_requests',return_value=([fresh], [])):
+                clock.now.return_value = NOW+timedelta(days=1)
+                result = tick(root/'exchange', root)
+            self.assertEqual(len(result['selected']), 1)
+            self.assertEqual(result['cooldown_skipped'], [])
+
+    def test_two_providers_use_first_start_and_run_saves_migration_without_reset(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); self.prior_run(root)
+            self.prior_run(root, generator='claude', started=NOW+timedelta(hours=2))
+            queue = root/'output/research_queue'; queue.mkdir(parents=True)
+            state = new_state(); state.pop('last_started', None)
+            state['days']['2026-10-07'] = {'SH-600004':'e'*64}
+            (queue/'state.json').write_text(json.dumps(state))
+            with patch('scripts.research_scheduler.datetime') as clock:
+                clock.now.return_value = NOW+timedelta(days=1)
+                tick(root/'exchange', root, execute=True, clis={})
+            saved = load_state(queue/'state.json')
+            self.assertEqual(saved['last_started']['SH-600004']['started_at'], NOW.isoformat())
+            self.assertEqual(saved['days'], state['days'])
+
+    def test_unlaunched_reservation_respects_history_and_releases_slot(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); self.prior_run(root)
+            queue = root/'output/research_queue'; queue.mkdir(parents=True)
+            now = NOW+timedelta(days=1)
+            record = dict(candidates()[3], valuation_date='2026-10-08', created_at=now.isoformat(), batch_id='c'*32)
+            state = new_state(); merge_candidates(state, [record], now); reserve(state, now)
+            (queue/'state.json').write_text(json.dumps(state))
+            with patch('scripts.research_scheduler.datetime') as clock:
+                clock.now.return_value = now
+                result = tick(root/'exchange', root, execute=True, clis={})
+            self.assertEqual(result['used'], 0)
+            self.assertEqual(result['failures'], [])
+            self.assertEqual(load_state(queue/'state.json')['entries'][record['task_id']]['status'], 'pending')
+
+    def test_started_same_round_resume_is_allowed_and_does_not_move_start(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); run, digest = self.prior_run(root)
+            queue = root/'output/research_queue'; queue.mkdir(parents=True)
+            record = dict(candidates()[3], request=str(run/'request.json'), batch_id='a'*32, request_sha256=digest)
+            state = new_state(); merge_candidates(state, [record], NOW); entry = reserve(state, NOW)[0]
+            entry['status'] = 'interrupted'; (queue/'state.json').write_text(json.dumps(state))
+            def finish(entry, *args):
+                entry.update(status='failed', sealed='fixture')
+            with patch('scripts.research_scheduler.datetime') as clock, patch('scripts.research_scheduler.check_codex_cli'), \
+                 patch('scripts.research_scheduler.run_entry', side_effect=finish) as dispatch:
+                clock.now.return_value = NOW+timedelta(days=1)
+                tick(root/'exchange', root, execute=True, clis={'codex':sys.executable,'claude':sys.executable})
+            dispatch.assert_called_once()
+            saved = load_state(queue/'state.json')
+            self.assertEqual(saved['last_started'][entry['task_id']]['started_at'], NOW.isoformat())
+            self.assertEqual(saved['days']['2026-10-07'], state['days']['2026-10-07'])
+            self.assertEqual(len(saved['days'].get('2026-10-08', {})), 0)
+
+    def test_corrupt_start_history_is_not_reset(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/'state.json'; state = new_state()
+            state['last_started'] = {'SH-600004':dict(self.history(), started_at='bad')}
+            path.write_text(json.dumps(state))
+            with self.assertRaisesRegex(ValueError, 'start|timestamp'):
+                load_state(path)
+
+
+    def test_all_trigger_priorities_defer_and_log_without_requiring_clis(self):
+        for priority in range(1, 5):
+            with self.subTest(priority=priority), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp); self.prior_run(root)
+                now = NOW+timedelta(days=1)
+                record = dict(candidates()[3], priority=priority, valuation_date='2026-10-08',
+                              created_at=now.isoformat(), batch_id='d'*32, event_key='f'*64)
+                with patch('scripts.research_scheduler.datetime') as clock, \
+                     patch('scripts.research_scheduler.scan_requests', return_value=([record], [])):
+                    clock.now.return_value = now
+                    result = tick(root/'exchange', root, execute=True, clis={}, event_log=root/'events.jsonl')
+                self.assertEqual(result['used'], 0)
+                events = [json.loads(line) for line in (root/'events.jsonl').read_text().splitlines()]
+                skipped = [event for event in events if event['event']=='cooldown_skipped']
+                self.assertEqual(len(skipped), 1)
+                self.assertEqual(skipped[0]['details']['next_eligible_at'], '2026-10-14T08:00:00+08:00')
+                state = load_state(root/'output/research_queue/state.json')
+                self.assertEqual(state['entries'][record['task_id']]['status'], 'pending')
+                self.assertEqual(json.loads((root/'output/research_queue/refresh-needed.json').read_text())[0]['task_id'], record['task_id'])
+
+    def test_dispatch_preflight_error_releases_reservation_without_start_history(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); record = candidates()[3]
+            with patch('scripts.research_scheduler.datetime') as clock, \
+                 patch('scripts.research_scheduler.scan_requests', return_value=([record], [])), \
+                 patch('scripts.research_scheduler.check_codex_cli'), \
+                 patch('scripts.research_scheduler.run_entry', side_effect=OSError('prepare failed')):
+                clock.now.return_value = NOW
+                result = tick(root/'exchange', root, execute=True, clis={'codex':sys.executable,'claude':sys.executable})
+            self.assertEqual(result['used'], 0)
+            self.assertIn('prepare failed', result['failures'][0]['reason'])
+            saved = load_state(root/'output/research_queue/state.json')
+            self.assertEqual(saved['last_started'], {})
+            self.assertEqual(saved['entries'][record['task_id']]['status'], 'pending')
+
+    def test_dispatch_failure_after_launch_keeps_quota_and_survives_new_input(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); run, digest = self.prior_run(root)
+            folder = run/'execution/SH-600004/codex'
+            (folder/'launched.json').unlink(); (folder/'process.json').unlink()
+            record = dict(candidates()[3], request=str(run/'request.json'), batch_id='a'*32, request_sha256=digest)
+            def fail_after_launch(*args):
+                self.prior_run(root)
+                raise RuntimeError('cancelled after launch')
+            with patch('scripts.research_scheduler.datetime') as clock, \
+                 patch('scripts.research_scheduler.scan_requests', return_value=([record], [])), \
+                 patch('scripts.research_scheduler.check_codex_cli'), \
+                 patch('scripts.research_scheduler.run_entry', side_effect=fail_after_launch):
+                clock.now.return_value = NOW
+                result = tick(root/'exchange', root, execute=True, clis={'codex':sys.executable,'claude':sys.executable})
+            self.assertEqual(result['used'], 1)
+            state = load_state(root/'output/research_queue/state.json')
+            self.assertEqual(state['last_started'][record['task_id']]['started_at'], NOW.isoformat())
+            state['entries'][record['task_id']]['status'] = 'failed'
+            (root/'output/research_queue/state.json').write_text(json.dumps(state))
+            fresh = dict(record, batch_id='c'*32, event_key='f'*64, valuation_date='2026-10-08',
+                         created_at=(NOW+timedelta(days=1)).isoformat(), request_sha256='c'*64)
+            with patch('scripts.research_scheduler.datetime') as clock, \
+                 patch('scripts.research_scheduler.scan_requests', return_value=([fresh], [])):
+                clock.now.return_value = NOW+timedelta(days=1)
+                result = tick(root/'exchange', root)
+            self.assertEqual(result['selected'], [])
+            self.assertEqual(len(result['cooldown_skipped']), 1)
+
+
+    def test_entry_start_is_used_if_process_was_archived(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); run, _ = self.prior_run(root)
+            folder=run/'execution/SH-600004/codex'; (folder/'process.json').unlink()
+            started=NOW+timedelta(seconds=1)
+            (folder/'entry.json').write_text(json.dumps(dict(task_id='SH-600004',generator='codex',status='failed',
+                reason='CLI failed', started_at=started.isoformat(), completed_at=(started+timedelta(minutes=1)).isoformat(),
+                report=None, price_map=None)))
+            fresh=dict(candidates()[3],valuation_date='2026-10-08',created_at=(NOW+timedelta(days=1)).isoformat())
+            with patch('scripts.research_scheduler.datetime') as clock, \
+                 patch('scripts.research_scheduler.scan_requests',return_value=([fresh], [])):
+                clock.now.return_value=NOW+timedelta(days=1)
+                result=tick(root/'exchange',root)
+            self.assertEqual(result['cooldown_skipped'][0]['next_eligible_at'],'2026-10-14T08:01:01+08:00')
+
+    def test_ambiguous_claim_cannot_silently_refund_or_start_new_round(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); run, _ = self.prior_run(root)
+            (run/'execution/SH-600004/codex/process.json').unlink()
+            fresh=dict(candidates()[3],valuation_date='2026-10-08',created_at=(NOW+timedelta(days=1)).isoformat())
+            with patch('scripts.research_scheduler.datetime') as clock, \
+                 patch('scripts.research_scheduler.scan_requests',return_value=([fresh], [])):
+                clock.now.return_value=NOW+timedelta(days=1)
+                result=tick(root/'exchange',root)
+            self.assertEqual(result['selected'],[])
+            self.assertEqual(len(result['cooldown_skipped']),1)
+
+
+    def test_one_daily_check_admits_fresh_pack_after_old_unlaunched_reservation(self):
+        for execute in (False, True):
+            with self.subTest(execute=execute), tempfile.TemporaryDirectory() as temp:
+                root=Path(temp); queue=root/'output/research_queue'; queue.mkdir(parents=True)
+                state=new_state(); merge_candidates(state,[candidates()[3]],NOW); reserve(state,NOW)
+                (queue/'state.json').write_text(json.dumps(state))
+                tomorrow=NOW+timedelta(days=1)
+                fresh=dict(candidates()[3],valuation_date='2026-10-08',created_at=tomorrow.isoformat(),
+                           batch_id='c'*32,request_sha256='c'*64)
+                def finish(entry,*args): entry['status']='failed'
+                with patch('scripts.research_scheduler.datetime') as clock, \
+                     patch('scripts.research_scheduler.scan_requests',return_value=([fresh],[])), \
+                     patch('scripts.research_scheduler.check_codex_cli'), \
+                     patch('scripts.research_scheduler.run_entry',side_effect=finish) as dispatch:
+                    clock.now.return_value=tomorrow
+                    result=tick(root/'exchange',root,execute=execute,once_daily=execute,
+                                clis={'codex':sys.executable,'claude':sys.executable})
+                if execute:
+                    dispatch.assert_called_once()
+                    self.assertEqual(dispatch.call_args.args[0]['batch_id'],'c'*32)
+                    saved=load_state(queue/'state.json')
+                    self.assertEqual(saved['days']['2026-10-07'],{})
+                else:
+                    self.assertEqual([e['batch_id'] for e in result['selected']],['c'*32])
+
+    def test_legacy_precheck_timestamp_uses_completion_and_advances_old_history(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); run,digest=self.prior_run(root,exact=False)
+            path=run/'execution/SH-600004/codex/process.json'
+            process=json.loads(path.read_text()); process['completed_at']=(NOW+timedelta(hours=4)).isoformat()
+            path.write_text(json.dumps(process))
+            queue=root/'output/research_queue'; queue.mkdir(parents=True)
+            state=new_state(); state['last_started']={'SH-600004':dict(self.history(),request_sha256=digest)}
+            (queue/'state.json').write_text(json.dumps(state))
+            now=NOW+timedelta(days=7,hours=1)
+            fresh=dict(candidates()[3],valuation_date='2026-10-14',created_at=now.isoformat(),batch_id='c'*32)
+            with patch('scripts.research_scheduler.datetime') as clock, \
+                 patch('scripts.research_scheduler.scan_requests',return_value=([fresh],[])):
+                clock.now.return_value=now
+                result=tick(root/'exchange',root)
+            self.assertEqual(result['selected'],[])
+            self.assertEqual(result['cooldown_skipped'][0]['next_eligible_at'],'2026-10-14T12:00:00+08:00')

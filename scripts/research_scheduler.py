@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import argparse
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import datetime, timedelta
 import fcntl
 import hashlib
 import importlib.util
@@ -24,13 +24,15 @@ from uuid import uuid4
 try:
     from .research_runner import (ROOT, read_request, run_batch, manifest, group_alive,
                                   check_codex_cli, observed_model, cancellation_scope, prepare_request)
-    from .research_exchange import _strict_json, load_results, _timestamp
+    from .research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
 except ImportError:
     from research_runner import (ROOT, read_request, run_batch, manifest, group_alive,
                                  check_codex_cli, observed_model, cancellation_scope, prepare_request)
-    from research_exchange import _strict_json, load_results, _timestamp
+    from research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
 
 DAILY_LIMIT = 4
+RESEARCH_INTERVAL = timedelta(days=7)
+LISTING = r'(?:SH|SZ)-\d{6}|HK-\d{5}'
 ZONE = ZoneInfo('Asia/Shanghai')
 
 
@@ -72,7 +74,7 @@ def queue_lock(root):
 
 
 def new_state():
-    return dict(schema_version='research-queue/v1', entries={}, days={}, completed_events={})
+    return dict(schema_version='research-queue/v1', entries={}, days={}, completed_events={}, last_started={})
 
 
 def load_state(path):
@@ -81,9 +83,22 @@ def load_state(path):
             raise ValueError('queue ledger missing after initialization; restore it before running')
         return new_state()
     state = _strict_json(path.read_bytes(), 'queue')
-    if (set(state) != set(new_state()) or state['schema_version'] != 'research-queue/v1'
+    if (not isinstance(state, dict) or set(state) not in (set(new_state()), set(new_state())-{'last_started'})
+            or state['schema_version'] != 'research-queue/v1'
             or any(not isinstance(state[k], dict) for k in ('entries', 'days', 'completed_events'))):
         raise ValueError('invalid queue ledger; refuse resetting daily budget')
+    history = state.setdefault('last_started', {})
+    if not isinstance(history, dict):
+        raise ValueError('invalid research start history')
+    for task, started in history.items():
+        if (not re.fullmatch(LISTING, task) or not isinstance(started, dict)
+                or set(started) != {'started_at', 'batch_id', 'request_sha256'}
+                or not isinstance(started['batch_id'], str)
+                or not re.fullmatch(r'[0-9a-f]{32}', started['batch_id'])
+                or not isinstance(started['request_sha256'], str)
+                or not re.fullmatch(r'[0-9a-f]{64}', started['request_sha256'])):
+            raise ValueError('invalid research start history')
+        _timestamp(started['started_at'], 'research started_at')
     for day, used in state['days'].items():
         datetime.strptime(day, '%Y-%m-%d')
         if not isinstance(used, dict) or len(used) > DAILY_LIMIT:
@@ -95,6 +110,129 @@ def load_state(path):
         if entry['status'] in {'reserved','running','interrupted'} and key not in state['days'].get(entry.get('budget_date'), {}):
             raise ValueError('active entry missing durable daily reservation')
     return state
+
+
+def sync_started(state, methods):
+    """Rebuild missing starts from immutable runner evidence, never from reservations.
+
+    New launched_at timestamps follow Popen; legacy preflight timestamps use
+    completion instead. A PID proves launch; missing evidence remains conservative.
+    Both providers in a batch share its earliest start, including resumed runs.
+    """
+    rounds, uncertain = {}, {}
+    for request_path in sorted((methods/'output/runs/investment').glob('*/*/request.json')):
+        if not re.fullmatch(r'[0-9a-f]{32}', request_path.parent.name):
+            continue  # The retired runner used a different layout and no current contract.
+        claims = sorted(request_path.parent.glob('execution/*/*/launched.json'))
+        if not claims:
+            continue
+        request, raw, _ = read_request(request_path)
+        if (request['batch_id'] != request_path.parent.name
+                or request['valuation_date'] != request_path.parent.parent.name):
+            raise ValueError('research history request path mismatch')
+        digest = hashlib.sha256(raw).hexdigest()
+        tasks = {task['task_id'] for task in request['tasks']}
+        for claim_path in claims:
+            folder = claim_path.parent
+            task, generator = folder.parent.name, folder.name
+            claim = _strict_json(claim_path.read_bytes(), 'research claim')
+            if (task not in tasks or generator not in request['generators']
+                    or not isinstance(claim, dict) or set(claim) != {'claimed_at', 'request_sha256'}
+                    or claim['request_sha256'] != digest):
+                raise ValueError('invalid research history claim')
+            claimed = _timestamp(claim['claimed_at'], 'research claimed_at')
+            if claimed < _timestamp(request['created_at'], 'request created_at'):
+                raise ValueError('research claim precedes request')
+            started, proven = datetime.now(ZONE), False
+            process_path = folder/'process.json'
+            if process_path.exists():
+                process = _strict_json(process_path.read_bytes(), 'research process')
+                if (not isinstance(process, dict) or process.get('task_id') != task
+                        or process.get('generator') != generator
+                        or process.get('status') not in {'starting','running','completed','failed'}):
+                    raise ValueError('invalid research history process')
+                started = _timestamp(process.get('started_at'), 'research process started_at')
+                if started < claimed:
+                    raise ValueError('research process precedes claim')
+                pid = process.get('pid')
+                if pid is None and process['status'] == 'failed':
+                    continue  # Runner positively recorded a failure before Popen.
+                if pid is not None and (type(pid) is not int or pid <= 0):
+                    raise ValueError('invalid research process pid')
+                if process['status'] in {'running','completed'} and pid is None:
+                    raise ValueError('launched research process missing pid')
+                proven = pid is not None
+                if process.get('launched_at') is not None:
+                    launched = _timestamp(process['launched_at'], 'research launched_at')
+                    if not proven or launched != started:
+                        raise ValueError('invalid actual research launch timestamp')
+                elif process.get('completed_at') is not None:
+                    completed = _timestamp(process['completed_at'], 'research process completed_at')
+                    if completed < started:
+                        raise ValueError('invalid research process chronology')
+                    started = completed  # Legacy started_at preceded Popen; delay safely.
+                else:
+                    started = datetime.now(ZONE)  # Unfinished legacy evidence has no safe exact start.
+            elif (folder/'entry.json').exists():
+                result = _strict_json((folder/'entry.json').read_bytes(), 'research entry')
+                if (not isinstance(result, dict) or set(result) != ENTRY_KEYS
+                        or result['task_id'] != task or result['generator'] != generator
+                        or result['status'] not in {'completed','failed'}):
+                    raise ValueError('invalid research history entry')
+                started = _timestamp(result['started_at'], 'research entry started_at')
+                completed = _timestamp(result['completed_at'], 'research entry completed_at')
+                if not claimed <= started <= completed:
+                    raise ValueError('invalid research entry chronology')
+                started, proven = completed, result['status'] == 'completed'
+            identity = (task, request['batch_id'], digest)
+            evidence = rounds if proven else uncertain
+            evidence[identity] = min(evidence.get(identity, started), started)
+    for identity, started in uncertain.items():
+        rounds.setdefault(identity, started)
+    for (task, batch, digest), started in rounds.items():
+        previous = state['last_started'].get(task)
+        if previous:
+            old = _timestamp(previous['started_at'], 'research started_at')
+            if (previous['batch_id'], previous['request_sha256']) != (batch, digest) and old >= started:
+                continue
+        state['last_started'][task] = dict(started_at=started.astimezone(ZONE).isoformat(),
+                                           batch_id=batch, request_sha256=digest)
+    return rounds
+
+
+def cooldown_until(state, entry, now):
+    previous = state['last_started'].get(entry['task_id'])
+    if previous:
+        eligible = _timestamp(previous['started_at'], 'research started_at') + RESEARCH_INTERVAL
+        if now < eligible:
+            return eligible.astimezone(ZONE).isoformat()
+    return None
+
+
+def release_reservation(state, entry):
+    state['days'].get(entry.get('budget_date'), {}).pop(entry['task_id'], None)
+    entry.pop('budget_date', None)
+    entry['status'] = 'pending'
+
+
+def apply_cooldown(state, methods, now, held):
+    started_rounds = sync_started(state, methods)
+    skipped = []
+    for entry in state['entries'].values():
+        if (entry['task_id'], entry['event_key']) in held:
+            continue
+        identity = (entry['task_id'], entry['batch_id'], entry['request_sha256'])
+        active = entry['status'] in {'reserved','running','interrupted'}
+        if active and identity in started_rounds:
+            continue  # Completing the original pair is not a fresh round.
+        next_eligible = cooldown_until(state, entry, now)
+        if active and (next_eligible or entry['budget_date'] != now.astimezone(ZONE).date().isoformat()):
+            release_reservation(state, entry)
+        if (next_eligible and entry['status'] == 'pending'
+                and (entry['task_id'], entry['event_key']) not in held):
+            skipped.append(dict(task_id=entry['task_id'], batch_id=entry['batch_id'],
+                                event_key=entry['event_key'], next_eligible_at=next_eligible))
+    return sorted(skipped, key=lambda item: item['task_id'])
 
 
 def load_manual_holds(root):
@@ -177,7 +315,8 @@ def reserve(state, now, *, held=frozenset()):
     remaining = max(0, DAILY_LIMIT - len(used))
     candidates = [e for e in state['entries'].values() if e['status']=='pending'
                   and e['valuation_date']==today and e['task_id'] not in used
-                  and (e['task_id'], e['event_key']) not in held]
+                  and (e['task_id'], e['event_key']) not in held
+                  and cooldown_until(state, e, now) is None]
     candidates.sort(key=lambda e: (e['priority'], e['first_seen'], e['task_id']))
     chosen = candidates[:remaining]
     for entry in chosen:
@@ -264,11 +403,13 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         records, rejected = scan_requests(exchange, now)
         held = load_manual_holds(state_root)
         state = load_state(state_root / 'state.json')
+        apply_cooldown(state, methods, now, held)
         merge_candidates(state, records, now)
+        cooldown_skipped = apply_cooldown(state, methods, now, held)
         selected = reserve(state, now, held=held)
         manual_held = sorted(e['task_id'] for e in state['entries'].values()
                              if (e['task_id'], e['event_key']) in held)
-        return dict(selected=selected, rejected=rejected, mode='plan', manual_held=manual_held)
+        return dict(selected=selected, rejected=rejected, mode='plan', manual_held=manual_held, cooldown_skipped=cooldown_skipped)
     with queue_lock(state_root), cancellation_scope() as cancelled:
         run_id='research-'+uuid4().hex
         check_path=state_root/'daily-check.json'
@@ -290,7 +431,12 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         if once_daily:
             atomic_json(check_path,dict(checked_on=now.date().isoformat(),checked_at=now.isoformat()))
         records, rejected = scan_requests(exchange, now)
+        apply_cooldown(state, methods, now, held)
         merge_candidates(state, records, now)
+        cooldown_skipped = apply_cooldown(state, methods, now, held)
+        for skipped in cooldown_skipped:
+            journal(event_log,'cooldown_skipped',run_id=run_id,task_id=skipped['task_id'],
+                    batch_id=skipped['batch_id'],details=skipped)
         eligible = [e for e in state['entries'].values() if (e['task_id'], e['event_key']) not in held]
         manual_held = sorted(e['task_id'] for e in state['entries'].values()
                              if (e['task_id'], e['event_key']) in held)
@@ -299,6 +445,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         active = any(e['status'] in {'reserved','running','interrupted'} for e in eligible)
         available = any(e['status']=='pending' and e['valuation_date']==now.date().isoformat()
                         and e['task_id'] not in state['days'].get(now.date().isoformat(), {})
+                        and cooldown_until(state, e, now) is None
                         for e in eligible)
         if not active and (not available or len(state['days'].get(now.date().isoformat(), {})) >= DAILY_LIMIT):
             atomic_json(state_path, state)
@@ -306,7 +453,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             atomic_json(state_root/'refresh-needed.json', pending)
             journal(event_log,'no_research',run_id=run_id,details=dict(deferred=len(pending)))
             return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
-                        deferred=len(pending), rejected=rejected, failures=[], manual_held=manual_held)
+                        deferred=len(pending), rejected=rejected, failures=[], manual_held=manual_held, cooldown_skipped=cooldown_skipped)
         clis = clis or {g: shutil.which(g) for g in ('codex', 'claude')}
         # Fail before reserving any daily slots on invalid executables.
         for generator in ('codex', 'claude'):
@@ -346,12 +493,19 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
                 entry.update(status='interrupted', error=str(exc))
                 failures.append(dict(task_id=entry['task_id'], reason=str(exc)))
                 journal(event_log,'stock_failed',run_id=run_id,task_id=entry['task_id'],details={'reason':str(exc)})
+            started_rounds = sync_started(state, methods)
+            identity = (entry['task_id'], entry['batch_id'], entry['request_sha256'])
+            if identity not in started_rounds:
+                state['days'].get(entry.get('budget_date'), {}).pop(entry['task_id'], None)
+                if entry['status'] == 'interrupted':
+                    entry['status'] = 'pending'
+                    entry.pop('budget_date', None)
             atomic_json(state_path, state)
         pending = [e for e in eligible if e['status'] in {'pending','failed'}]
         atomic_json(state_root / 'refresh-needed.json', pending)
         journal(event_log,'finished',run_id=run_id,details=dict(deferred=len(pending),failures=failures))
         return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
-                    deferred=len(pending), rejected=rejected, failures=failures, manual_held=manual_held)
+                    deferred=len(pending), rejected=rejected, failures=failures, manual_held=manual_held, cooldown_skipped=cooldown_skipped)
 
 
 def main(argv=None):

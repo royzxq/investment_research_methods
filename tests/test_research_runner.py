@@ -205,6 +205,23 @@ class ResearchRunnerTests(unittest.TestCase):
         self.assertEqual(record['exit_code'],0)
         self.assertEqual(record['status'],'completed')
 
+    def test_started_at_is_recorded_after_popen_not_before_preflight(self):
+        clock={'value':'2026-10-06T08:00:00+08:00'}
+        real_popen=runner.subprocess.Popen
+        def launch(*args,**kwargs):
+            # The preflight and stock lock can consume an arbitrary duration.
+            clock['value']='2026-10-06T09:00:00+08:00'
+            return real_popen(*args,**kwargs)
+        with patch.object(runner,'stamp',side_effect=lambda:clock['value']), \
+             patch.object(runner.subprocess,'Popen',side_effect=launch):
+            manifest=self.execute()
+        folder=manifest.parent/'execution/SH-600066/claude'
+        process=json.loads((folder/'process.json').read_text())
+        entry=json.loads((folder/'entry.json').read_text())
+        self.assertEqual(process['started_at'],'2026-10-06T09:00:00+08:00')
+        self.assertEqual(process['launched_at'],process['started_at'])
+        self.assertEqual(entry['started_at'],process['started_at'])
+
     def test_same_batch_task_not_launched_twice(self):
         self.execute()
         before=self.capture.read_bytes()
