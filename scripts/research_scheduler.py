@@ -10,6 +10,7 @@ from contextlib import contextmanager
 from datetime import datetime
 import fcntl
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -18,6 +19,7 @@ import shutil
 import sys
 import tempfile
 from zoneinfo import ZoneInfo
+from uuid import uuid4
 
 try:
     from .research_runner import (ROOT, read_request, run_batch, manifest, group_alive,
@@ -30,6 +32,16 @@ except ImportError:
 
 DAILY_LIMIT = 4
 ZONE = ZoneInfo('Asia/Shanghai')
+
+
+def journal(path, event, **fields):
+    if path is None:
+        return
+    source=ROOT.parent/'ai_investment/src/infrastructure/research_loop_log.py'
+    spec=importlib.util.spec_from_file_location('_shared_research_journal',source)
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    module.record(path,repository='investment_research_methods',stage='research',event=event,**fields)
 
 
 def atomic_json(path, value):
@@ -174,7 +186,7 @@ def reserve(state, now, *, held=frozenset()):
     return chosen
 
 
-def run_entry(entry, methods, state_root, clis, timeout, cancelled):
+def run_entry(entry, methods, state_root, clis, timeout, cancelled, event_log=None, run_id=None):
     request_path = Path(entry['request'])
     request, raw, _ = read_request(request_path)
     if hashlib.sha256(raw).hexdigest() != entry['request_sha256']:
@@ -202,6 +214,8 @@ def run_entry(entry, methods, state_root, clis, timeout, cancelled):
             if cancelled.is_set():
                 raise RuntimeError('scheduler cancelled; unlaunched provider remains pending')
             try:
+                journal(event_log,'provider_dispatch',run_id=run_id,batch_id=entry['batch_id'],
+                        task_id=entry['task_id'],generator=generator,details={'execution':str(folder)})
                 launched = any((run/'execution'/entry['task_id']/g/'launched.json').exists()
                                for g in request['generators'])
                 run_batch(request_path, methods, generator=generator, cli=clis[generator],
@@ -214,6 +228,10 @@ def run_entry(entry, methods, state_root, clis, timeout, cancelled):
                                             status='failed', reason=str(exc), started_at=stamp,
                                             completed_at=stamp, report=None, price_map=None))
         result = _strict_json(saved.read_bytes(), 'entry')
+        journal(event_log,'provider_finished',run_id=run_id,batch_id=entry['batch_id'],
+                task_id=entry['task_id'],generator=generator,status=result['status'],
+                details=dict(reason=result['reason'],actual_model=observed_model(folder,generator),
+                             report=result.get('report'),price_map=result.get('price_map'),execution=str(folder)))
         succeeded = succeeded or result['status']=='completed'
         result_manifest = folder / 'queue-result.json'
         if not result_manifest.exists():
@@ -233,14 +251,17 @@ def run_entry(entry, methods, state_root, clis, timeout, cancelled):
     else:
         atomic_json(path, seal)
     entry.update(status='completed' if succeeded else 'failed', sealed=str(path))
+    journal(event_log,'stock_sealed',run_id=run_id,batch_id=entry['batch_id'],task_id=entry['task_id'],
+            status=entry['status'],details={'seal':str(path)})
 
 
-def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, timeout=3600):
+def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, timeout=3600,
+         once_daily=False,event_log=None):
     methods = Path(methods).resolve()
     state_root = Path(state_root or methods / 'output/research_queue')
     now = datetime.now(ZONE)
-    records, rejected = scan_requests(exchange, now)
     if not execute:
+        records, rejected = scan_requests(exchange, now)
         held = load_manual_holds(state_root)
         state = load_state(state_root / 'state.json')
         merge_candidates(state, records, now)
@@ -249,13 +270,32 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
                              if (e['task_id'], e['event_key']) in held)
         return dict(selected=selected, rejected=rejected, mode='plan', manual_held=manual_held)
     with queue_lock(state_root), cancellation_scope() as cancelled:
+        run_id='research-'+uuid4().hex
+        check_path=state_root/'daily-check.json'
+        if once_daily and check_path.exists():
+            checked=_strict_json(check_path.read_bytes(),'daily research check')
+            if (not isinstance(checked,dict) or set(checked)!={'checked_on','checked_at'}
+                    or not isinstance(checked['checked_on'],str)
+                    or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',checked['checked_on'])
+                    or checked['checked_on']>now.date().isoformat()
+                    or _timestamp(checked['checked_at'],'checked_at').astimezone(ZONE).date().isoformat()!=checked['checked_on']):
+                raise ValueError('invalid daily research check; refuse a second admission')
+            if checked['checked_on']==now.date().isoformat():
+                journal(event_log,'already_checked',run_id=run_id)
+                return dict(mode='run',status='already_checked',failures=[],rejected=[])
+        journal(event_log,'check_started',run_id=run_id)
         held = load_manual_holds(state_root)
         state_path = state_root / 'state.json'
         state = load_state(state_path)
+        if once_daily:
+            atomic_json(check_path,dict(checked_on=now.date().isoformat(),checked_at=now.isoformat()))
+        records, rejected = scan_requests(exchange, now)
         merge_candidates(state, records, now)
         eligible = [e for e in state['entries'].values() if (e['task_id'], e['event_key']) not in held]
         manual_held = sorted(e['task_id'] for e in state['entries'].values()
                              if (e['task_id'], e['event_key']) in held)
+        journal(event_log,'queue_checked',run_id=run_id,
+                details=dict(candidates=len(eligible),manual_held=manual_held,rejected=rejected))
         active = any(e['status'] in {'reserved','running','interrupted'} for e in eligible)
         available = any(e['status']=='pending' and e['valuation_date']==now.date().isoformat()
                         and e['task_id'] not in state['days'].get(now.date().isoformat(), {})
@@ -264,6 +304,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             atomic_json(state_path, state)
             pending = [e for e in eligible if e['status'] in {'pending','failed'}]
             atomic_json(state_root/'refresh-needed.json', pending)
+            journal(event_log,'no_research',run_id=run_id,details=dict(deferred=len(pending)))
             return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
                         deferred=len(pending), rejected=rejected, failures=[], manual_held=manual_held)
         clis = clis or {g: shutil.which(g) for g in ('codex', 'claude')}
@@ -274,6 +315,9 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         check_codex_cli(clis['codex'], methods)
         reserve(state, now, held=held)
         atomic_json(state_path, state)
+        journal(event_log,'quota_reserved',run_id=run_id,details=dict(
+            used=len(state['days'][now.date().isoformat()]),
+            selected=[dict(task_id=e['task_id'],priority=e['priority']) for e in eligible if e['status']=='reserved']))
         if not (state_root/'initialized.json').exists():
             atomic_json(state_root/'initialized.json', dict(created_at=now.isoformat()))
         failures = []
@@ -293,7 +337,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             entry['status'] = 'running'
             atomic_json(state_path, state)
             try:
-                run_entry(entry, methods, state_root, clis, timeout, cancelled)
+                run_entry(entry, methods, state_root, clis, timeout, cancelled,event_log,run_id)
                 if entry['status']=='completed':
                     state['completed_events'][entry['event_key']] = entry['sealed']
                 else:
@@ -301,9 +345,11 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             except (ValueError, OSError, RuntimeError) as exc:
                 entry.update(status='interrupted', error=str(exc))
                 failures.append(dict(task_id=entry['task_id'], reason=str(exc)))
+                journal(event_log,'stock_failed',run_id=run_id,task_id=entry['task_id'],details={'reason':str(exc)})
             atomic_json(state_path, state)
         pending = [e for e in eligible if e['status'] in {'pending','failed'}]
         atomic_json(state_root / 'refresh-needed.json', pending)
+        journal(event_log,'finished',run_id=run_id,details=dict(deferred=len(pending),failures=failures))
         return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
                     deferred=len(pending), rejected=rejected, failures=failures, manual_held=manual_held)
 
@@ -316,14 +362,20 @@ def main(argv=None):
     parser.add_argument('--codex-cli', default=shutil.which('codex'))
     parser.add_argument('--claude-cli', default=shutil.which('claude'))
     parser.add_argument('--timeout-seconds', type=float, default=3600)
+    parser.add_argument('--scheduled',action='store_true',help='Consume the daily check even when no input exists; no later admission today')
     args = parser.parse_args(argv)
     if args.timeout_seconds <= 0:
         parser.error('timeout must be positive')
     try:
         result = tick(args.exchange, state_root=args.state_root, execute=args.mode=='run',
-                      clis={'codex': args.codex_cli, 'claude': args.claude_cli}, timeout=args.timeout_seconds)
+                      clis={'codex': args.codex_cli, 'claude': args.claude_cli}, timeout=args.timeout_seconds,
+                      once_daily=args.scheduled,
+                      event_log=ROOT.parent/'ai_investment/logs/research_loop/events.jsonl' if args.mode=='run' else None)
     except BlockingIOError:
         result = dict(mode=args.mode, status='already_running')
+    except (ValueError,OSError,RuntimeError) as exc:
+        journal(ROOT.parent/'ai_investment/logs/research_loop/events.jsonl','check_failed',details={'reason':str(exc)})
+        result=dict(mode=args.mode,failures=[{'reason':str(exc)}],rejected=[])
     print(json.dumps(result, ensure_ascii=False))
     return 2 if result.get('failures') or result.get('rejected') else 0
 

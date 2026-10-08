@@ -22,6 +22,61 @@ def candidates():
 
 
 class SchedulerTests(unittest.TestCase):
+    def test_service_runs_at_five_without_load_or_interval_trigger(self):
+        from scripts.install_research_service import service
+        plist=service(sys.executable,sys.executable,sys.executable)
+        self.assertEqual(plist['StartCalendarInterval'], {'Hour':5,'Minute':0})
+        self.assertNotIn('StartInterval',plist)
+        self.assertFalse(plist.get('RunAtLoad',False))
+        self.assertEqual(plist['EnvironmentVariables']['TZ'],'Asia/Shanghai')
+
+    def test_schedule_replacement_waits_for_active_run(self):
+        from scripts import install_research_service as installer
+        from types import SimpleNamespace
+        import plistlib
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            target=root/'Library/LaunchAgents'/f'{installer.LABEL}.plist'
+            target.parent.mkdir(parents=True)
+            target.write_bytes(b'old-plist')
+            calls=[]; prints=iter(['  pid = 123\n','  state = waiting\n'])
+            def command(args,**kwargs):
+                calls.append(args)
+                if args[1]=='print':return SimpleNamespace(stdout=next(prints),returncode=0)
+                return SimpleNamespace(returncode=0)
+            args=['install','--python',sys.executable,'--codex-cli',sys.executable,
+                  '--claude-cli',sys.executable,'--install','--replace-when-idle']
+            with patch.object(installer,'ROOT',root),patch.object(installer.Path,'home',return_value=root),\
+                 patch.object(installer.subprocess,'run',side_effect=command),\
+                 patch.object(installer.time,'sleep') as sleep,patch('scripts.research_scheduler.journal'),\
+                 patch.dict(sys.modules,{'research_scheduler':sys.modules['scripts.research_scheduler']}),patch.object(sys,'argv',args):
+                installer.main()
+            sleep.assert_called_once_with(30)
+            self.assertEqual([c[1] for c in calls],['print','print','bootout','enable','bootstrap'])
+            self.assertEqual(target.with_suffix('.plist.bak').read_bytes(),b'old-plist')
+            self.assertEqual(plistlib.loads(target.read_bytes())['StartCalendarInterval'],{'Hour':5,'Minute':0})
+
+    def test_scheduled_empty_check_is_durable_and_not_repeated(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            result=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
+            self.assertEqual(result['used'],0)
+            self.assertTrue((root/'output/research_queue/daily-check.json').exists())
+            with patch('scripts.research_scheduler.scan_requests',side_effect=AssertionError('second scan')):
+                again=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
+            self.assertEqual(again['status'],'already_checked')
+            phases=[json.loads(line)['event'] for line in (root/'events.jsonl').read_text().splitlines()]
+            self.assertIn('no_research',phases)
+            self.assertIn('already_checked',phases)
+
+    def test_corrupt_daily_marker_stops_before_reserving(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); queue=root/'output/research_queue'; queue.mkdir(parents=True)
+            (queue/'daily-check.json').write_text(json.dumps({'checked_on':123,'checked_at':NOW.isoformat()}))
+            with self.assertRaisesRegex(ValueError,'daily research check'):
+                tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
+            self.assertFalse((queue/'state.json').exists())
+
     def test_manual_handoff_blocks_same_event_but_allows_new_evidence(self):
         state = new_state()
         record = candidates()[3]
