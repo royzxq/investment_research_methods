@@ -7,6 +7,7 @@ import unittest
 import json
 import subprocess
 import sys
+from unittest.mock import patch
 
 from scripts.research_scheduler import reserve, new_state, merge_candidates, load_state, queue_lock, tick
 
@@ -21,6 +22,61 @@ def candidates():
 
 
 class SchedulerTests(unittest.TestCase):
+    def test_manual_handoff_blocks_same_event_but_allows_new_evidence(self):
+        state = new_state()
+        record = candidates()[3]
+        held = {(record['task_id'], record['event_key'])}
+        merge_candidates(state, [record], NOW)
+        self.assertEqual(reserve(state, NOW, held=held), [])
+        fresh = dict(record, valuation_date='2026-10-08', created_at=NOW.replace(day=8).isoformat())
+        merge_candidates(state, [fresh], NOW.replace(day=8))
+        self.assertEqual(reserve(state, NOW.replace(day=8), held=held), [])
+        fresh['event_key'] = 'f'*64
+        merge_candidates(state, [fresh], NOW.replace(day=8))
+        self.assertEqual(len(reserve(state, NOW.replace(day=8), held=held)), 1)
+
+    def test_held_interrupted_task_does_not_resume_or_require_clis(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            queue = root/'output/research_queue'
+            queue.mkdir(parents=True)
+            state = new_state()
+            merge_candidates(state, [candidates()[3]], NOW)
+            entry = reserve(state, NOW)[0]
+            entry['status'] = 'interrupted'
+            (queue/'state.json').write_text(json.dumps(state))
+            hold = dict(event_key=entry['event_key'], reason='user manually started both providers', created_at=NOW.isoformat())
+            (queue/'manual_holds.json').write_text(json.dumps(dict(schema_version='research-manual-holds/v1', tasks={entry['task_id']:hold})))
+            result = tick(root/'exchange', root, execute=True, clis={})
+            self.assertEqual(result['manual_held'], [entry['task_id']])
+            self.assertEqual(result['failures'], [])
+            saved = json.loads((queue/'state.json').read_text())
+            self.assertEqual(saved['days']['2026-10-07'], state['days']['2026-10-07'])
+            self.assertEqual(json.loads((queue/'refresh-needed.json').read_text()), [])
+
+    def test_manual_hold_is_applied_to_plan_and_corruption_stops_run(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            queue = root/'output/research_queue'
+            queue.mkdir(parents=True)
+            now = datetime.now(ZoneInfo('Asia/Shanghai'))
+            record = dict(candidates()[3], valuation_date=now.date().isoformat(), created_at=now.isoformat())
+            hold = dict(event_key=record['event_key'], reason='manual research', created_at=NOW.isoformat())
+            path = queue/'manual_holds.json'
+            path.write_text(json.dumps(dict(schema_version='research-manual-holds/v1', tasks={record['task_id']:hold})))
+            with patch('scripts.research_scheduler.scan_requests', return_value=([record], [])):
+                result = tick(root/'exchange', root)
+            self.assertEqual(result['manual_held'], [record['task_id']])
+            self.assertEqual(result['selected'], [])
+            self.assertFalse((queue/'state.json').exists())
+            path.unlink()
+            with patch('scripts.research_scheduler.scan_requests', return_value=([record], [])):
+                self.assertEqual(len(tick(root/'exchange', root)['selected']), 1)
+            hold['event_key'] = 'invalid'
+            path.write_text(json.dumps(dict(schema_version='research-manual-holds/v1', tasks={record['task_id']:hold})))
+            with self.assertRaisesRegex(ValueError, 'manual hold'):
+                tick(root/'exchange', root, execute=True, clis={})
+
     def test_corrupt_or_missing_durable_budget_is_not_reset(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import sys
 import tempfile
@@ -84,6 +85,29 @@ def load_state(path):
     return state
 
 
+def load_manual_holds(root):
+    """User-declared handoffs suppress an event, without claiming completion."""
+    path = Path(root)/'manual_holds.json'
+    if not path.exists():
+        return set()
+    document = _strict_json(path.read_bytes(), 'manual holds')
+    if (not isinstance(document, dict) or set(document) != {'schema_version', 'tasks'}
+            or document['schema_version'] != 'research-manual-holds/v1'
+            or not isinstance(document['tasks'], dict)):
+        raise ValueError('invalid manual holds document')
+    held = set()
+    for task, entry in document['tasks'].items():
+        if (not re.fullmatch(r'(?:SH|SZ)-\d{6}|HK-\d{5}', task)
+                or not isinstance(entry, dict) or set(entry) != {'event_key', 'reason', 'created_at'}
+                or not isinstance(entry['event_key'], str)
+                or not re.fullmatch(r'[0-9a-f]{64}', entry['event_key'])
+                or not isinstance(entry['reason'], str) or not entry['reason'].strip()):
+            raise ValueError('invalid manual hold entry')
+        _timestamp(entry['created_at'], 'manual hold created_at')
+        held.add((task, entry['event_key']))
+    return held
+
+
 def scan_requests(exchange, now):
     records, rejected = [], []
     for path in sorted(Path(exchange).glob('requests/*/request.json')):
@@ -135,12 +159,13 @@ def merge_candidates(state, records, now):
         state['entries'][key] = dict(record, first_seen=first, status='pending')
 
 
-def reserve(state, now):
+def reserve(state, now, *, held=frozenset()):
     today = now.astimezone(ZONE).date().isoformat()
     used = state['days'].setdefault(today, {})
     remaining = max(0, DAILY_LIMIT - len(used))
     candidates = [e for e in state['entries'].values() if e['status']=='pending'
-                  and e['valuation_date']==today and e['task_id'] not in used]
+                  and e['valuation_date']==today and e['task_id'] not in used
+                  and (e['task_id'], e['event_key']) not in held]
     candidates.sort(key=lambda e: (e['priority'], e['first_seen'], e['task_id']))
     chosen = candidates[:remaining]
     for entry in chosen:
@@ -216,36 +241,43 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
     now = datetime.now(ZONE)
     records, rejected = scan_requests(exchange, now)
     if not execute:
+        held = load_manual_holds(state_root)
         state = load_state(state_root / 'state.json')
         merge_candidates(state, records, now)
-        selected = reserve(state, now)
-        return dict(selected=selected, rejected=rejected, mode='plan')
+        selected = reserve(state, now, held=held)
+        manual_held = sorted(e['task_id'] for e in state['entries'].values()
+                             if (e['task_id'], e['event_key']) in held)
+        return dict(selected=selected, rejected=rejected, mode='plan', manual_held=manual_held)
     with queue_lock(state_root), cancellation_scope() as cancelled:
+        held = load_manual_holds(state_root)
         state_path = state_root / 'state.json'
         state = load_state(state_path)
         merge_candidates(state, records, now)
-        active = any(e['status'] in {'reserved','running','interrupted'} for e in state['entries'].values())
+        eligible = [e for e in state['entries'].values() if (e['task_id'], e['event_key']) not in held]
+        manual_held = sorted(e['task_id'] for e in state['entries'].values()
+                             if (e['task_id'], e['event_key']) in held)
+        active = any(e['status'] in {'reserved','running','interrupted'} for e in eligible)
         available = any(e['status']=='pending' and e['valuation_date']==now.date().isoformat()
                         and e['task_id'] not in state['days'].get(now.date().isoformat(), {})
-                        for e in state['entries'].values())
+                        for e in eligible)
         if not active and (not available or len(state['days'].get(now.date().isoformat(), {})) >= DAILY_LIMIT):
             atomic_json(state_path, state)
-            pending = [e for e in state['entries'].values() if e['status'] in {'pending','failed'}]
+            pending = [e for e in eligible if e['status'] in {'pending','failed'}]
             atomic_json(state_root/'refresh-needed.json', pending)
             return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
-                        deferred=len(pending), rejected=rejected, failures=[])
+                        deferred=len(pending), rejected=rejected, failures=[], manual_held=manual_held)
         clis = clis or {g: shutil.which(g) for g in ('codex', 'claude')}
         # Fail before reserving any daily slots on invalid executables.
         for generator in ('codex', 'claude'):
             if not clis.get(generator) or not os.access(clis[generator], os.X_OK):
                 raise ValueError(f'{generator} executable unavailable; no quota reserved')
         check_codex_cli(clis['codex'], methods)
-        reserve(state, now)
+        reserve(state, now, held=held)
         atomic_json(state_path, state)
         if not (state_root/'initialized.json').exists():
             atomic_json(state_root/'initialized.json', dict(created_at=now.isoformat()))
         failures = []
-        for entry in sorted(state['entries'].values(), key=lambda e: (e['priority'], e['first_seen'], e['task_id'])):
+        for entry in sorted(eligible, key=lambda e: (e['priority'], e['first_seen'], e['task_id'])):
             if entry['status'] not in {'reserved', 'running', 'interrupted'}:
                 continue
             if cancelled.is_set():
@@ -270,10 +302,10 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
                 entry.update(status='interrupted', error=str(exc))
                 failures.append(dict(task_id=entry['task_id'], reason=str(exc)))
             atomic_json(state_path, state)
-        pending = [e for e in state['entries'].values() if e['status'] in {'pending','failed'}]
+        pending = [e for e in eligible if e['status'] in {'pending','failed'}]
         atomic_json(state_root / 'refresh-needed.json', pending)
         return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
-                    deferred=len(pending), rejected=rejected, failures=failures)
+                    deferred=len(pending), rejected=rejected, failures=failures, manual_held=manual_held)
 
 
 def main(argv=None):

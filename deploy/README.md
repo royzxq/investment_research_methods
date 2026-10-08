@@ -13,6 +13,10 @@ plan 不写台账、不启动研究。run 会真实使用 CLI 账户；默认每
 
 台账在 `output/research_queue/state.json`；`sealed/` 是 ai 消费依据，`refresh-needed.json` 提供延期财报重抓线索。已开始的任务恢复时先查原 entry/process/claim；不能确认原进程终止时不重复启动。坏账或初始化后台账消失拒绝运行，不能删除台账重置额度。需要备份整个 queue、相应 `output/runs/investment` 和正式 `research/investment/companies` 文件。
 
+用户确认已手动接手的股票，可在同一 queue 中保存 `manual_holds.json`（`research-manual-holds/v1`）。顶层为 `schema_version` 和 `tasks`；后者按 task_id 映射 `event_key`、`reason`、带时区的 `created_at`。plan/run 均跳过这些证券的同轮信号，包括中断恢复和次日重新抓包；触发证据改变产生新事件后可正常入队。这是人工声明，不代表研究完成，不复用人工报告或伪造封口。格式损坏时停止调度。
+
+增加或清除人工接手记录前先暂停本服务，确认本服务在途子进程已结束，在 `queue.lock` 下备份并原子写入记录。接手条目结束自动恢复状态：已启动并取消的记 failed，未启动的改回 pending。已实际启动的名额仍保留；确认两端均没有 claim/进程记录的预留才可释放。保留旧 entry/process/claim 和输入，不修改用户手动任务。人工研究已完成且需重新允许同轮信号时，显式删除对应记录；不得自动把“已接手”标成“已完成”。
+
 安装前先输出 plist 供核对，传入本机已验证的绝对可执行路径：
 
 ```bash
@@ -21,7 +25,7 @@ plan 不写台账、不启动研究。run 会真实使用 CLI 账户；默认每
   --codex-cli /绝对路径/codex --claude-cli /绝对路径/claude
 ```
 
-增加 `--install` 才会安装到当前用户 LaunchAgents，标签为 `com.investment-research-methods.research`；每15分钟检查一次队列，运行中的实例不会重入。默认只展示 plist；本次开发未安装服务。已有服务的替换需先 bootout 并移除原 plist，再执行安装，不通过重复安装开启第二份调度。
+增加 `--install` 才会安装到当前用户 LaunchAgents，标签为 `com.investment-research-methods.research`；每15分钟检查一次队列，运行中的实例不会重入。默认只展示 plist；2026-10-08 已获用户授权安装并启动影子研究。已有服务的替换需先 bootout 并移除原 plist，再执行安装，不通过重复安装开启第二份调度。
 
 启动脚本与 ai 已有 launchd 入口一致，只加载 `~/.zshrc` 的 export 行，不输出凭据；runner 会移除生产应用环境变量。登录状态、模型访问权限、CLI技能/工具能力及睡眠/合盖条件需在部署前实测。服务日志在 `output/research_queue/service*.log`；逐股过程保存在原 runner 目录。没有新候选时不调用 CLI。
 
