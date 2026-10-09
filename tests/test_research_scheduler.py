@@ -23,10 +23,10 @@ def candidates():
 
 
 class SchedulerTests(unittest.TestCase):
-    def test_service_runs_at_five_without_load_or_interval_trigger(self):
+    def test_service_wakes_clock_gate_without_load_or_interval_trigger(self):
         from scripts.install_research_service import service
         plist=service(sys.executable,sys.executable,sys.executable)
-        self.assertEqual(plist['StartCalendarInterval'], {'Hour':5,'Minute':0})
+        self.assertEqual(plist['StartCalendarInterval'], [{'Minute': m} for m in (0, 15, 30, 45)])
         self.assertNotIn('StartInterval',plist)
         self.assertFalse(plist.get('RunAtLoad',False))
         self.assertEqual(plist['EnvironmentVariables']['TZ'],'Asia/Shanghai')
@@ -55,7 +55,7 @@ class SchedulerTests(unittest.TestCase):
             sleep.assert_called_once_with(30)
             self.assertEqual([c[1] for c in calls],['print','print','bootout','enable','bootstrap'])
             self.assertEqual(target.with_suffix('.plist.bak').read_bytes(),b'old-plist')
-            self.assertEqual(plistlib.loads(target.read_bytes())['StartCalendarInterval'],{'Hour':5,'Minute':0})
+            self.assertEqual(plistlib.loads(target.read_bytes())['StartCalendarInterval'], [{'Minute': m} for m in (0, 15, 30, 45)])
 
     def test_scheduled_empty_check_is_durable_and_not_repeated(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -69,6 +69,97 @@ class SchedulerTests(unittest.TestCase):
             phases=[json.loads(line)['event'] for line in (root/'events.jsonl').read_text().splitlines()]
             self.assertIn('no_research',phases)
             self.assertIn('already_checked',phases)
+
+    def test_calendar_wakeups_only_scan_once_from_shanghai_five(self):
+        from scripts.install_research_service import service
+        from scripts import research_scheduler as scheduler
+        alarms = service(sys.executable, sys.executable, sys.executable)['StartCalendarInterval']
+        for host in ('America/Los_Angeles', 'Europe/London', 'Asia/Kathmandu', 'Pacific/Chatham'):
+            for day in (datetime(2026, 1, 9, tzinfo=ZoneInfo('Asia/Shanghai')),
+                        datetime(2026, 7, 9, tzinfo=ZoneInfo('Asia/Shanghai'))):
+                with self.subTest(host=host, day=day), tempfile.TemporaryDirectory() as temp:
+                    root = Path(temp)
+                    due = day.replace(hour=5)
+                    local_due = due.astimezone(ZoneInfo(host))
+                    self.assertTrue(any(alarm.get('Minute') == local_due.minute
+                                        and ('Hour' not in alarm or alarm['Hour'] == local_due.hour)
+                                        for alarm in alarms))
+                    with patch.object(scheduler, 'datetime') as clock, \
+                         patch.object(scheduler, 'scan_requests', return_value=([], [])) as scan:
+                        instant = due - timedelta(seconds=1)
+                        clock.now.side_effect = lambda zone: instant.astimezone(zone)
+                        before = tick(root/'exchange', root, execute=True, clis={}, once_daily=True)
+                        self.assertEqual(before['status'], 'not_due')
+                        self.assertFalse((root/'output').exists())
+                        scan.assert_not_called()
+                        instant = due
+                        at_five = tick(root/'exchange', root, execute=True, clis={}, once_daily=True)
+                        self.assertEqual(at_five['used'], 0)
+                        scan.assert_called_once()
+                        instant += timedelta(minutes=15)
+                        after = tick(root/'exchange', root, execute=True, clis={}, once_daily=True)
+                        self.assertEqual(after['status'], 'already_checked')
+                        scan.assert_called_once()
+
+    def test_late_wakeup_catches_up_and_next_day_still_waits_until_five(self):
+        from scripts import research_scheduler as scheduler
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            with patch.object(scheduler, 'datetime') as clock, \
+                 patch.object(scheduler, 'scan_requests', return_value=([], [])) as scan:
+                clock.now.return_value = NOW.replace(hour=10)
+                tick(root/'exchange', root, execute=True, clis={}, once_daily=True)
+                scan.assert_called_once()
+                marker = root/'output/research_queue/daily-check.json'
+                before = marker.read_bytes()
+                clock.now.return_value = (NOW+timedelta(days=1)).replace(hour=4)
+                self.assertEqual(tick(root/'exchange', root, execute=True, clis={}, once_daily=True)['status'], 'not_due')
+                self.assertEqual(marker.read_bytes(), before)
+                clock.now.return_value = (NOW+timedelta(days=1)).replace(hour=5)
+                tick(root/'exchange', root, execute=True, clis={}, once_daily=True)
+                self.assertEqual(scan.call_count, 2)
+                self.assertEqual(json.loads(marker.read_text())['checked_on'], '2026-10-08')
+
+    def test_stopped_unlaunched_held_entries_allow_fresh_evidence(self):
+        from scripts import research_scheduler as scheduler
+        for status in ('reserved', 'running', 'interrupted'):
+            with self.subTest(status=status), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                queue = root/'output/research_queue'
+                queue.mkdir(parents=True)
+                state = new_state()
+                old = candidates()[3]
+                merge_candidates(state, [old], NOW)
+                entry = reserve(state, NOW)[0]
+                entry['status'] = status
+                (queue/'state.json').write_text(json.dumps(state))
+                hold = dict(event_key=old['event_key'], reason='manual handoff', created_at=NOW.isoformat())
+                (queue/'manual_holds.json').write_text(json.dumps(dict(schema_version='research-manual-holds/v1',
+                                                                     tasks={entry['task_id']: hold})))
+                fresh = dict(old, event_key='f'*64, batch_id='c'*32, request_sha256='c'*64,
+                             created_at=(NOW+timedelta(minutes=1)).isoformat())
+                with patch.object(scheduler, 'datetime') as clock, \
+                     patch.object(scheduler, 'scan_requests', return_value=([fresh], [])):
+                    clock.now.return_value = NOW+timedelta(minutes=2)
+                    result = tick(root/'exchange', root)
+                self.assertEqual([e['batch_id'] for e in result['selected']], ['c'*32])
+                self.assertEqual(result['manual_held'], [])
+                self.assertEqual(json.loads((queue/'state.json').read_text()), state, 'Plan must remain read-only')
+                # The same held evidence still cannot re-enter after retirement.
+                with patch.object(scheduler, 'datetime') as clock, \
+                     patch.object(scheduler, 'scan_requests', return_value=([old], [])):
+                    clock.now.return_value = NOW+timedelta(minutes=2)
+                    self.assertEqual(tick(root/'exchange', root)['selected'], [])
+
+    def test_unheld_active_entry_is_not_replaced_by_fresh_evidence(self):
+        state = new_state()
+        old = candidates()[3]
+        merge_candidates(state, [old], NOW)
+        reserve(state, NOW)[0]['status'] = 'interrupted'
+        fresh = dict(old, event_key='f'*64, batch_id='c'*32, request_sha256='c'*64,
+                     created_at=(NOW+timedelta(minutes=1)).isoformat())
+        merge_candidates(state, [fresh], NOW+timedelta(minutes=2))
+        self.assertEqual(state['entries'][old['task_id']]['batch_id'], old['batch_id'])
 
     def test_corrupt_daily_marker_stops_before_reserving(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -107,7 +198,8 @@ class SchedulerTests(unittest.TestCase):
             self.assertEqual(result['manual_held'], [entry['task_id']])
             self.assertEqual(result['failures'], [])
             saved = json.loads((queue/'state.json').read_text())
-            self.assertEqual(saved['days']['2026-10-07'], state['days']['2026-10-07'])
+            self.assertEqual(saved['days']['2026-10-07'], {})
+            self.assertEqual(saved['entries'][entry['task_id']]['status'], 'pending')
             self.assertEqual(json.loads((queue/'refresh-needed.json').read_text()), [])
 
     def test_manual_hold_is_applied_to_plan_and_corruption_stops_run(self):
@@ -397,6 +489,78 @@ class CooldownTests(unittest.TestCase):
             self.assertEqual(result['selected'], [])
             self.assertEqual(len(result['cooldown_skipped']), 1)
 
+
+    def test_held_started_round_can_retain_new_event_without_refunding_or_bypassing_cooldown(self):
+        from scripts import research_scheduler as scheduler
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            run, digest = self.prior_run(root)
+            old = dict(candidates()[3], batch_id='a'*32, request_sha256=digest,
+                       request=str(run/'request.json'))
+            queue = root/'output/research_queue'
+            queue.mkdir(parents=True)
+            state = new_state()
+            merge_candidates(state, [old], NOW)
+            reserve(state, NOW)[0]['status'] = 'interrupted'
+            (queue/'state.json').write_text(json.dumps(state))
+            hold = dict(event_key=old['event_key'], reason='manual handoff', created_at=NOW.isoformat())
+            (queue/'manual_holds.json').write_text(json.dumps(dict(schema_version='research-manual-holds/v1',
+                                                                 tasks={old['task_id']: hold})))
+            tomorrow = NOW+timedelta(days=1)
+            fresh = dict(old, event_key='f'*64, batch_id='c'*32, request_sha256='c'*64,
+                         created_at=tomorrow.isoformat(), valuation_date='2026-10-08')
+            process = run/'execution'/old['task_id']/'codex/process.json'
+            original_process = process.read_bytes()
+            with patch.object(scheduler, 'datetime') as clock, \
+                 patch.object(scheduler, 'scan_requests', return_value=([fresh], [])), \
+                 patch.object(scheduler, 'group_alive', return_value=False):
+                clock.now.return_value = tomorrow
+                result = tick(root/'exchange', root, execute=True, clis={})
+            self.assertEqual(result['failures'], [])
+            self.assertEqual(result['cooldown_skipped'][0]['batch_id'], 'c'*32)
+            saved = load_state(queue/'state.json')
+            self.assertEqual(saved['entries'][old['task_id']]['event_key'], 'f'*64)
+            self.assertEqual(saved['entries'][old['task_id']]['status'], 'pending')
+            self.assertEqual(saved['days']['2026-10-07'], state['days']['2026-10-07'])
+            self.assertEqual(saved['last_started'][old['task_id']]['started_at'], NOW.isoformat())
+            self.assertEqual(process.read_bytes(), original_process)
+            fresh['valuation_date'] = '2026-10-14'
+            fresh['created_at'] = (NOW+timedelta(days=7, seconds=1)).isoformat()
+            with patch.object(scheduler, 'datetime') as clock, \
+                 patch.object(scheduler, 'scan_requests', return_value=([fresh], [])):
+                clock.now.return_value = NOW+timedelta(days=7, seconds=1)
+                self.assertEqual([e['batch_id'] for e in tick(root/'exchange', root)['selected']], ['c'*32])
+
+    def test_live_or_uncertain_held_round_blocks_replacement(self):
+        from scripts import research_scheduler as scheduler
+        for live in (True, None):
+            with self.subTest(live=live), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                run, digest = self.prior_run(root)
+                old = dict(candidates()[3], batch_id='a'*32, request_sha256=digest,
+                           request=str(run/'request.json'))
+                queue = root/'output/research_queue'
+                queue.mkdir(parents=True)
+                state = new_state()
+                merge_candidates(state, [old], NOW)
+                reserve(state, NOW)[0]['status'] = 'interrupted'
+                path = queue/'state.json'
+                path.write_text(json.dumps(state))
+                before = path.read_bytes()
+                hold = dict(event_key=old['event_key'], reason='manual handoff', created_at=NOW.isoformat())
+                (queue/'manual_holds.json').write_text(json.dumps(dict(schema_version='research-manual-holds/v1',
+                                                                     tasks={old['task_id']: hold})))
+                if live is None:
+                    (run/'execution'/old['task_id']/'codex/process.json').unlink()
+                fresh = dict(old, event_key='f'*64, batch_id='c'*32, request_sha256='c'*64,
+                             created_at=(NOW+timedelta(minutes=1)).isoformat())
+                with patch.object(scheduler, 'datetime') as clock, \
+                     patch.object(scheduler, 'scan_requests', return_value=([fresh], [])), \
+                     patch.object(scheduler, 'group_alive', return_value=True):
+                    clock.now.return_value = NOW+timedelta(minutes=2)
+                    with self.assertRaises(RuntimeError):
+                        tick(root/'exchange', root)
+                self.assertEqual(path.read_bytes(), before)
 
     def test_entry_start_is_used_if_process_was_archived(self):
         with tempfile.TemporaryDirectory() as temp:

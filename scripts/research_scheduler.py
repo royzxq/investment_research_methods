@@ -12,7 +12,6 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta
 import fcntl
 import hashlib
-import importlib.util
 import json
 import os
 from pathlib import Path
@@ -27,10 +26,12 @@ try:
     from .research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
                                   check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure)
     from .research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
+    from .research_loop_log import record
 except ImportError:
     from research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
                                  check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure)
     from research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
+    from research_loop_log import record
 
 DAILY_LIMIT = 4
 MAX_CONCURRENCY = 3
@@ -42,11 +43,7 @@ ZONE = ZoneInfo('Asia/Shanghai')
 def journal(path, event, **fields):
     if path is None:
         return
-    source=ROOT.parent/'ai_investment/src/infrastructure/research_loop_log.py'
-    spec=importlib.util.spec_from_file_location('_shared_research_journal',source)
-    module=importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    module.record(path,repository='investment_research_methods',stage='research',event=event,**fields)
+    record(path, repository='investment_research_methods', stage='research', event=event, **fields)
 
 
 def atomic_json(path, value):
@@ -224,10 +221,21 @@ def apply_cooldown(state, methods, now, held):
     started_rounds = sync_started(state, methods)
     skipped = []
     for entry in state['entries'].values():
-        if (entry['task_id'], entry['event_key']) in held:
-            continue
         identity = (entry['task_id'], entry['batch_id'], entry['request_sha256'])
         active = entry['status'] in {'reserved','running','interrupted'}
+        if (entry['task_id'], entry['event_key']) in held:
+            if active:
+                # Retire a stopped automatic round before merging fresh evidence.
+                # Keep its files, charged quota and launch history; a live or
+                # uncertain process still blocks replacement and new admission.
+                execution = methods/'output/runs/investment'/entry['valuation_date']/entry['batch_id']/'execution'/entry['task_id']
+                for claim in [*execution.glob('*/launched.json'), *execution.glob('*/retry-1/launched.json')]:
+                    require_stopped_process(claim.parent)
+                if identity in started_rounds:
+                    entry.update(status='failed', error='manual handoff; original automatic round retained')
+                else:
+                    release_reservation(state, entry)
+            continue
         if active and identity in started_rounds:
             continue  # Completing the original pair is not a fresh round.
         next_eligible = cooldown_until(state, entry, now)
@@ -454,6 +462,10 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
     methods = Path(methods).resolve()
     state_root = Path(state_root or methods / 'output/research_queue')
     now = datetime.now(ZONE)
+    if execute and once_daily and now.hour < 5:
+        # Calendar wakeups are only a clock gate, not a research check. A host
+        # timezone change or DST must never consume today's marker before 05:00.
+        return dict(mode='run', status='not_due', failures=[], rejected=[])
     if not execute:
         records, rejected = scan_requests(exchange, now)
         held = load_manual_holds(state_root)

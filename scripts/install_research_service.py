@@ -18,7 +18,11 @@ def service(python, codex, claude, root=ROOT):
             raise ValueError('Python and both CLI paths must be absolute executables')
     return dict(Label=LABEL,
                 ProgramArguments=['/bin/zsh', str(root/'deploy/launchd/run_research.sh'), python, codex, claude],
-                WorkingDirectory=str(root), StartCalendarInterval={'Hour':5,'Minute':0},
+                WorkingDirectory=str(root),
+                # launchd's calendar follows the host timezone. Quarter-hour
+                # wakeups reach 05:00 Shanghai even in half/quarter-hour zones;
+                # the scheduler gates admissions by Shanghai's date and clock.
+                StartCalendarInterval=[{'Minute': minute} for minute in (0, 15, 30, 45)],
                 EnvironmentVariables={'TZ':'Asia/Shanghai'},
                 ThrottleInterval=60, ExitTimeOut=45,
                 StandardOutPath=str(root/'output/research_queue/service.log'),
@@ -64,7 +68,7 @@ def main():
     subprocess.run(['launchctl','enable',f'gui/{os.getuid()}/{LABEL}'],check=True)
     subprocess.run(['launchctl', 'bootstrap', f'gui/{os.getuid()}', str(target)], check=True)
     journal(event_log,'service_installed',details={'time':'05:00','plist':str(target)})
-    print(f'Installed {LABEL}; daily check 05:00 Asia/Shanghai; daily cap 4',flush=True)
+    print(f'Installed {LABEL}; quarter-hour wakeups, one daily check from 05:00 Asia/Shanghai; daily cap 4',flush=True)
 
 
 if __name__ == '__main__':
