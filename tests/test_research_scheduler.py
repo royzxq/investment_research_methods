@@ -313,10 +313,12 @@ class CooldownTests(unittest.TestCase):
             def finish(entry, *args):
                 entry.update(status='failed', sealed='fixture')
             with patch('scripts.research_scheduler.datetime') as clock, patch('scripts.research_scheduler.check_codex_cli'), \
-                 patch('scripts.research_scheduler.run_entry', side_effect=finish) as dispatch:
+                 patch('scripts.research_scheduler.prepare_entry', return_value=({'generators':['codex','claude']},b'',run)), \
+                 patch('scripts.research_scheduler.run_provider_entry', return_value=('failed',{})) as dispatch, \
+                 patch('scripts.research_scheduler.seal_entry', side_effect=finish):
                 clock.now.return_value = NOW+timedelta(days=1)
                 tick(root/'exchange', root, execute=True, clis={'codex':sys.executable,'claude':sys.executable})
-            dispatch.assert_called_once()
+            self.assertEqual(dispatch.call_count,2)
             saved = load_state(queue/'state.json')
             self.assertEqual(saved['last_started'][entry['task_id']]['started_at'], NOW.isoformat())
             self.assertEqual(saved['days']['2026-10-07'], state['days']['2026-10-07'])
@@ -357,7 +359,7 @@ class CooldownTests(unittest.TestCase):
             with patch('scripts.research_scheduler.datetime') as clock, \
                  patch('scripts.research_scheduler.scan_requests', return_value=([record], [])), \
                  patch('scripts.research_scheduler.check_codex_cli'), \
-                 patch('scripts.research_scheduler.run_entry', side_effect=OSError('prepare failed')):
+                 patch('scripts.research_scheduler.prepare_entry', side_effect=OSError('prepare failed')):
                 clock.now.return_value = NOW
                 result = tick(root/'exchange', root, execute=True, clis={'codex':sys.executable,'claude':sys.executable})
             self.assertEqual(result['used'], 0)
@@ -378,7 +380,7 @@ class CooldownTests(unittest.TestCase):
             with patch('scripts.research_scheduler.datetime') as clock, \
                  patch('scripts.research_scheduler.scan_requests', return_value=([record], [])), \
                  patch('scripts.research_scheduler.check_codex_cli'), \
-                 patch('scripts.research_scheduler.run_entry', side_effect=fail_after_launch):
+                 patch('scripts.research_scheduler.prepare_entry', side_effect=fail_after_launch):
                 clock.now.return_value = NOW
                 result = tick(root/'exchange', root, execute=True, clis={'codex':sys.executable,'claude':sys.executable})
             self.assertEqual(result['used'], 1)
@@ -437,12 +439,14 @@ class CooldownTests(unittest.TestCase):
                 with patch('scripts.research_scheduler.datetime') as clock, \
                      patch('scripts.research_scheduler.scan_requests',return_value=([fresh],[])), \
                      patch('scripts.research_scheduler.check_codex_cli'), \
-                     patch('scripts.research_scheduler.run_entry',side_effect=finish) as dispatch:
+                     patch('scripts.research_scheduler.prepare_entry',return_value=({'generators':['codex','claude']},b'',root)), \
+                     patch('scripts.research_scheduler.run_provider_entry',return_value=('failed',{})) as dispatch, \
+                     patch('scripts.research_scheduler.seal_entry',side_effect=finish):
                     clock.now.return_value=tomorrow
                     result=tick(root/'exchange',root,execute=execute,once_daily=execute,
                                 clis={'codex':sys.executable,'claude':sys.executable})
                 if execute:
-                    dispatch.assert_called_once()
+                    self.assertEqual(dispatch.call_count,2)
                     self.assertEqual(dispatch.call_args.args[0]['batch_id'],'c'*32)
                     saved=load_state(queue/'state.json')
                     self.assertEqual(saved['days']['2026-10-07'],{})

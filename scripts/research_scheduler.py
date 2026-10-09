@@ -6,6 +6,8 @@ receipts are the only input to the AI repository's preview/writeback consumer.
 from __future__ import annotations
 
 import argparse
+from collections import deque
+from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 from contextlib import contextmanager
 from datetime import datetime, timedelta
 import fcntl
@@ -22,15 +24,16 @@ from zoneinfo import ZoneInfo
 from uuid import uuid4
 
 try:
-    from .research_runner import (ROOT, read_request, run_batch, manifest, group_alive,
-                                  check_codex_cli, observed_model, cancellation_scope, prepare_request)
+    from .research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
+                                  check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure)
     from .research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
 except ImportError:
-    from research_runner import (ROOT, read_request, run_batch, manifest, group_alive,
-                                 check_codex_cli, observed_model, cancellation_scope, prepare_request)
+    from research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
+                                 check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure)
     from research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
 
 DAILY_LIMIT = 4
+MAX_CONCURRENCY = 3
 RESEARCH_INTERVAL = timedelta(days=7)
 LISTING = r'(?:SH|SZ)-\d{6}|HK-\d{5}'
 ZONE = ZoneInfo('Asia/Shanghai')
@@ -123,7 +126,8 @@ def sync_started(state, methods):
     for request_path in sorted((methods/'output/runs/investment').glob('*/*/request.json')):
         if not re.fullmatch(r'[0-9a-f]{32}', request_path.parent.name):
             continue  # The retired runner used a different layout and no current contract.
-        claims = sorted(request_path.parent.glob('execution/*/*/launched.json'))
+        claims = sorted([*request_path.parent.glob('execution/*/*/launched.json'),
+                         *request_path.parent.glob('execution/*/*/retry-1/launched.json')])
         if not claims:
             continue
         request, raw, _ = read_request(request_path)
@@ -134,7 +138,8 @@ def sync_started(state, methods):
         tasks = {task['task_id'] for task in request['tasks']}
         for claim_path in claims:
             folder = claim_path.parent
-            task, generator = folder.parent.name, folder.name
+            endpoint = folder.parent if folder.name == 'retry-1' else folder
+            task, generator = endpoint.parent.name, endpoint.name
             claim = _strict_json(claim_path.read_bytes(), 'research claim')
             if (task not in tasks or generator not in request['generators']
                     or not isinstance(claim, dict) or set(claim) != {'claimed_at', 'request_sha256'}
@@ -304,7 +309,7 @@ def merge_candidates(state, records, now):
         if previous and previous['created_at'] > record['created_at']:
             continue
         if previous and previous['status'] == 'failed' and previous['request_sha256'] == record['request_sha256']:
-            continue  # Retry requires a fresh immutable input, not a reused single-use run.
+            continue  # Exhausted rounds need fresh input after cooldown; do not reopen a seal.
         first = previous['first_seen'] if previous and previous['status'] != 'completed' else now.isoformat()
         state['entries'][key] = dict(record, first_seen=first, status='pending')
 
@@ -325,7 +330,7 @@ def reserve(state, now, *, held=frozenset()):
     return chosen
 
 
-def run_entry(entry, methods, state_root, clis, timeout, cancelled, event_log=None, run_id=None):
+def prepare_entry(entry, methods):
     request_path = Path(entry['request'])
     request, raw, _ = read_request(request_path)
     if hashlib.sha256(raw).hexdigest() != entry['request_sha256']:
@@ -333,56 +338,94 @@ def run_entry(entry, methods, state_root, clis, timeout, cancelled, event_log=No
     # Prepare once before recording any provider failures; an incomplete run
     # directory must never prevent the second provider from receiving its pack.
     run = prepare_request(request_path, methods)
-    results, succeeded = [], False
-    for generator in request['generators']:
-        folder = run / 'execution' / entry['task_id'] / generator
+    return request, raw, run
+
+
+def require_stopped_process(folder):
+    """A durable claim without launch/stop evidence may hide an orphaned CLI."""
+    path = folder / 'process.json'
+    process = _strict_json(path.read_bytes(), 'process') if path.exists() else {}
+    if not isinstance(process, dict):
+        raise ValueError('invalid research process record')
+    pid = process.get('pid')
+    if ((folder / 'launched.json').exists()
+            and ('pid' not in process or pid is None and process.get('status') != 'failed')):
+        raise RuntimeError(f'previous research launch uncertain; inspect attempt before recovery: {folder}')
+    if pid is not None:
+        if type(pid) is not int or pid <= 0:
+            raise ValueError('invalid research process pid')
+        if group_alive(pid):
+            raise RuntimeError('research process group still exists; preserve result and concurrency slot')
+    return process
+
+
+def run_provider_entry(entry, generator, request, raw, run, methods, clis, timeout,
+                       cancelled, event_log=None, run_id=None):
+    task = next(task for task in request['tasks'] if task['task_id']==entry['task_id'])
+    # Retrying stays in the same worker slot. The coordinator receives only the
+    # terminal outcome, so a first failure cannot prematurely seal a stock.
+    for attempt in (1, 2):
+        folder = execution_folder(run, task, generator, attempt)
         saved = folder / 'entry.json'
         if (folder / 'launched.json').exists() and not saved.exists():
-            process_path = folder / 'process.json'
-            process = _strict_json(process_path.read_bytes(), 'process') if process_path.exists() else {}
-            if process.get('pid') and group_alive(process['pid']):
-                raise RuntimeError('interrupted research process group still exists; no duplicate launch')
-            # Ambiguous claims never launch again. Preserve their failure evidence.
+            process = require_stopped_process(folder)
             stamp = datetime.now(ZONE).isoformat()
-            failure = dict(task_id=entry['task_id'], generator=generator, status='failed',
-                           reason='interrupted after durable claim; original attempt retained',
-                           started_at=process.get('started_at', stamp), completed_at=stamp,
-                           report=None, price_map=None)
-            atomic_json(saved, failure)
+            atomic_json(saved, dict(task_id=entry['task_id'], generator=generator, status='failed',
+                                   reason='interrupted after durable claim; original attempt retained',
+                                   started_at=process.get('started_at', stamp), completed_at=stamp,
+                                   report=None, price_map=None))
         if not saved.exists():
             if cancelled.is_set():
                 raise RuntimeError('scheduler cancelled; unlaunched provider remains pending')
             try:
                 journal(event_log,'provider_dispatch',run_id=run_id,batch_id=entry['batch_id'],
-                        task_id=entry['task_id'],generator=generator,details={'execution':str(folder)})
-                launched = any((run/'execution'/entry['task_id']/g/'launched.json').exists()
-                               for g in request['generators'])
-                run_batch(request_path, methods, generator=generator, cli=clis[generator],
-                          timeout=timeout, task_ids=[entry['task_id']], cancelled=cancelled,
-                          launch_date=None if launched else entry['budget_date'])
+                        task_id=entry['task_id'],generator=generator,
+                        details={'execution':str(folder),'attempt':attempt})
+                run_provider(run, request, raw, task, generator, clis[generator], methods,
+                             timeout, cancelled, launch_date=entry['budget_date'], attempt=attempt)
             except (ValueError, OSError) as exc:
                 if not saved.exists():
+                    if cancelled.is_set():
+                        raise RuntimeError('scheduler cancelled; unlaunched provider remains pending') from exc
+                    process_path = folder/'process.json'
+                    process = _strict_json(process_path.read_bytes(), 'process') if process_path.exists() else {}
+                    if process.get('pid') and group_alive(process['pid']):
+                        raise RuntimeError('research process group still exists; preserve active attempt') from exc
                     stamp = datetime.now(ZONE).isoformat()
                     atomic_json(saved, dict(task_id=entry['task_id'], generator=generator,
                                             status='failed', reason=str(exc), started_at=stamp,
                                             completed_at=stamp, report=None, price_map=None))
         result = _strict_json(saved.read_bytes(), 'entry')
+        require_stopped_process(folder)
+        model = observed_model(folder, generator)
+        retry = attempt == 1 and result['status'] == 'failed' and retryable_failure(folder)
         journal(event_log,'provider_finished',run_id=run_id,batch_id=entry['batch_id'],
                 task_id=entry['task_id'],generator=generator,status=result['status'],
-                details=dict(reason=result['reason'],actual_model=observed_model(folder,generator),
-                             report=result.get('report'),price_map=result.get('price_map'),execution=str(folder)))
-        succeeded = succeeded or result['status']=='completed'
+                details=dict(reason=result['reason'],actual_model=model,attempt=attempt,
+                             retryable=retry,report=result.get('report'),
+                             price_map=result.get('price_map'),execution=str(folder)))
         result_manifest = folder / 'queue-result.json'
         if not result_manifest.exists():
             atomic_json(result_manifest, manifest(request, raw, [result]))
-        load_results(result_manifest, request_path, methods)
-        results.append(dict(generator=generator, manifest=str(result_manifest.relative_to(methods)),
-                            manifest_sha256=hashlib.sha256(result_manifest.read_bytes()).hexdigest(),
-                            actual_model=observed_model(folder, generator)))
+        load_results(result_manifest, Path(entry['request']), methods)
+        if retry:
+            if cancelled.is_set():
+                raise RuntimeError('scheduler cancelled; retry remains pending without a final seal')
+            journal(event_log,'provider_retry_scheduled',run_id=run_id,batch_id=entry['batch_id'],
+                    task_id=entry['task_id'],generator=generator,
+                    details=dict(reason=result['reason'],attempt=2,max_attempts=2,execution=str(folder/'retry-1')))
+            continue
+        return result['status'], dict(generator=generator, manifest=str(result_manifest.relative_to(methods)),
+                                     manifest_sha256=hashlib.sha256(result_manifest.read_bytes()).hexdigest(),
+                                     actual_model=model)
+
+
+def seal_entry(entry, state_root, request, results, event_log=None, run_id=None):
+    succeeded = any(results[g][0]=='completed' for g in request['generators'])
     seal = dict(schema_version='research-sealed/v1', task_id=entry['task_id'],
                 batch_id=entry['batch_id'], event_key=entry['event_key'],
                 request=entry['request'], request_sha256=entry['request_sha256'],
-                budget_date=entry['budget_date'], results=results)
+                budget_date=entry['budget_date'], results=[results[g][1] for g in request['generators']])
     path = state_root / 'sealed' / f"{entry['batch_id']}-{entry['task_id']}.json"
     if path.exists():
         if _strict_json(path.read_bytes(), 'seal') != seal:
@@ -394,8 +437,20 @@ def run_entry(entry, methods, state_root, clis, timeout, cancelled, event_log=No
             status=entry['status'],details={'seal':str(path)})
 
 
+def reject_live_previous_attempts(state, methods):
+    """An orphaned old CLI must not sit outside the new concurrency budget."""
+    for entry in state['entries'].values():
+        if entry['status'] not in {'reserved','running','interrupted'}:
+            continue
+        execution = methods/'output/runs/investment'/entry['valuation_date']/entry['batch_id']/'execution'/entry['task_id']
+        for claim in [*execution.glob('*/launched.json'), *execution.glob('*/retry-1/launched.json')]:
+            require_stopped_process(claim.parent)
+
+
 def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, timeout=3600,
-         once_daily=False,event_log=None):
+         once_daily=False,event_log=None,max_concurrency=MAX_CONCURRENCY):
+    if type(max_concurrency) is not int or not 1 <= max_concurrency <= MAX_CONCURRENCY:
+        raise ValueError(f'max_concurrency must be an integer from 1 to {MAX_CONCURRENCY}')
     methods = Path(methods).resolve()
     state_root = Path(state_root or methods / 'output/research_queue')
     now = datetime.now(ZONE)
@@ -428,6 +483,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         held = load_manual_holds(state_root)
         state_path = state_root / 'state.json'
         state = load_state(state_path)
+        reject_live_previous_attempts(state, methods)
         if once_daily:
             atomic_json(check_path,dict(checked_on=now.date().isoformat(),checked_at=now.isoformat()))
         records, rejected = scan_requests(exchange, now)
@@ -467,7 +523,26 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             selected=[dict(task_id=e['task_id'],priority=e['priority']) for e in eligible if e['status']=='reserved']))
         if not (state_root/'initialized.json').exists():
             atomic_json(state_root/'initialized.json', dict(created_at=now.isoformat()))
-        failures = []
+        failures, contexts, jobs, outcomes, errors = [], {}, deque(), {}, {}
+        def persist_entry(entry, error=None):
+            if error is not None:
+                entry.update(status='interrupted', error=str(error))
+                failures.append(dict(task_id=entry['task_id'], reason=str(error)))
+                journal(event_log,'stock_failed',run_id=run_id,task_id=entry['task_id'],details={'reason':str(error)})
+            elif entry['status']=='completed':
+                entry.pop('error', None)
+                state['completed_events'][entry['event_key']] = entry['sealed']
+            elif entry['status']=='failed':
+                failures.append(dict(task_id=entry['task_id'], reason='all providers failed'))
+            started_rounds = sync_started(state, methods)
+            identity = (entry['task_id'], entry['batch_id'], entry['request_sha256'])
+            if identity not in started_rounds:
+                state['days'].get(entry.get('budget_date'), {}).pop(entry['task_id'], None)
+                if entry['status'] == 'interrupted':
+                    entry['status'] = 'pending'
+                    entry.pop('budget_date', None)
+            atomic_json(state_path, state)
+
         for entry in sorted(eligible, key=lambda e: (e['priority'], e['first_seen'], e['task_id'])):
             if entry['status'] not in {'reserved', 'running', 'interrupted'}:
                 continue
@@ -484,23 +559,54 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             entry['status'] = 'running'
             atomic_json(state_path, state)
             try:
-                run_entry(entry, methods, state_root, clis, timeout, cancelled,event_log,run_id)
-                if entry['status']=='completed':
-                    state['completed_events'][entry['event_key']] = entry['sealed']
-                else:
-                    failures.append(dict(task_id=entry['task_id'], reason='all providers failed'))
+                request, raw, run = prepare_entry(entry, methods)
+                contexts[entry['task_id']] = (entry, request)
+                outcomes[entry['task_id']] = {}
+                jobs.extend((entry, generator, request, raw, run) for generator in request['generators'])
             except (ValueError, OSError, RuntimeError) as exc:
-                entry.update(status='interrupted', error=str(exc))
-                failures.append(dict(task_id=entry['task_id'], reason=str(exc)))
-                journal(event_log,'stock_failed',run_id=run_id,task_id=entry['task_id'],details={'reason':str(exc)})
-            started_rounds = sync_started(state, methods)
-            identity = (entry['task_id'], entry['batch_id'], entry['request_sha256'])
-            if identity not in started_rounds:
-                state['days'].get(entry.get('budget_date'), {}).pop(entry['task_id'], None)
-                if entry['status'] == 'interrupted':
-                    entry['status'] = 'pending'
-                    entry.pop('budget_date', None)
-            atomic_json(state_path, state)
+                persist_entry(entry, exc)
+        journal(event_log,'parallel_dispatch_started',run_id=run_id,
+                details=dict(max_concurrency=max_concurrency, max_attempts=2, providers=len(jobs)))
+        active = {}
+        with ThreadPoolExecutor(max_workers=max_concurrency) as pool:
+            try:
+                while active or jobs and not cancelled.is_set():
+                    while jobs and len(active)<max_concurrency and not cancelled.is_set():
+                        entry, generator, request, raw, run = jobs.popleft()
+                        future = pool.submit(run_provider_entry, entry, generator, request, raw, run,
+                                             methods, clis, timeout, cancelled, event_log, run_id)
+                        active[future] = (entry, generator)
+                    if not active:
+                        break
+                    finished, _ = wait(active, timeout=.25, return_when=FIRST_COMPLETED)
+                    for future in finished:
+                        entry, generator = active.pop(future)
+                        task_id = entry['task_id']
+                        try:
+                            outcomes[task_id][generator] = future.result()
+                        except (ValueError, OSError, RuntimeError) as exc:
+                            if isinstance(exc, RuntimeError):
+                                # Cancellation or an old group still occupies a slot:
+                                # stop admission rather than release it into new work.
+                                cancelled.set()
+                            errors[task_id] = str(exc)
+                            outcomes[task_id][generator] = None
+                        request = contexts[task_id][1]
+                        if len(outcomes[task_id]) == len(request['generators']):
+                            try:
+                                if task_id in errors:
+                                    raise RuntimeError(errors[task_id])
+                                seal_entry(entry, state_root, request, outcomes[task_id], event_log, run_id)
+                                persist_entry(entry)
+                            except (ValueError, OSError, RuntimeError) as exc:
+                                cancelled.set()  # Even a transient coordinator write failure stops admission.
+                                persist_entry(entry, exc)
+            except BaseException:
+                cancelled.set()
+                raise
+        for task_id, (entry, request) in contexts.items():
+            if len(outcomes[task_id]) < len(request['generators']):
+                persist_entry(entry, errors.get(task_id, 'scheduler cancelled; unlaunched provider remains pending'))
         pending = [e for e in eligible if e['status'] in {'pending','failed'}]
         atomic_json(state_root / 'refresh-needed.json', pending)
         journal(event_log,'finished',run_id=run_id,details=dict(deferred=len(pending),failures=failures))
@@ -516,6 +622,8 @@ def main(argv=None):
     parser.add_argument('--codex-cli', default=shutil.which('codex'))
     parser.add_argument('--claude-cli', default=shutil.which('claude'))
     parser.add_argument('--timeout-seconds', type=float, default=3600)
+    parser.add_argument('--max-concurrency',type=int,choices=range(1,MAX_CONCURRENCY+1),default=MAX_CONCURRENCY,
+                        help='Maximum live Codex/Claude research CLI processes combined (default: 3)')
     parser.add_argument('--scheduled',action='store_true',help='Consume the daily check even when no input exists; no later admission today')
     args = parser.parse_args(argv)
     if args.timeout_seconds <= 0:
@@ -524,6 +632,7 @@ def main(argv=None):
         result = tick(args.exchange, state_root=args.state_root, execute=args.mode=='run',
                       clis={'codex': args.codex_cli, 'claude': args.claude_cli}, timeout=args.timeout_seconds,
                       once_daily=args.scheduled,
+                      max_concurrency=args.max_concurrency,
                       event_log=ROOT.parent/'ai_investment/logs/research_loop/events.jsonl' if args.mode=='run' else None)
     except BlockingIOError:
         result = dict(mode=args.mode, status='already_running')
