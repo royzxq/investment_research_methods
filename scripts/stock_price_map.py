@@ -200,6 +200,7 @@ def build_document(data):
             "monitoring": data["monitoring"],
         }
     validate_document(result)
+    validate_price_references(result)
     return result
 
 
@@ -235,6 +236,25 @@ def validate_document(document):
     validate_triggers(p["t1"], "t1")
     validate_triggers(p["t2"], "t2")
     validate_monitoring(document["monitoring"], document["meta"]["valuation_date"])
+
+
+def validate_price_references(document):
+    """New-delivery check; never retroactively invalidate sealed input loading."""
+    p = document["price_map"]
+    v50 = numeric_range(p["v50"], "v50") if p["v50"] is not None else None
+    # Only check literal references to a named V50 boundary. Other amounts
+    # (current quotes, independent thresholds) need not equal that boundary.
+    if v50 is not None:
+        for label in ("t1", "t2"):
+            condition = re.sub(r"[\s*`]+", "", p[label]["price_condition"])
+            for match in re.finditer(
+                    r"V50(?:估值|区间|合理价值|价值)?(?:的)?(上沿|上限|高位|upper|下沿|下限|lower|中枢|基准|base)"
+                    r"(?:为|[:：=（(])?(\d+(?:\.\d+)?)(?:港元|元|HKD|CNY)", condition, re.I):
+                word = match[1].lower()
+                edge = ("high" if word in ("上沿", "上限", "高位", "upper") else
+                        "low" if word in ("下沿", "下限", "lower") else "base")
+                require(abs(Decimal(match[2]) - v50[edge]) <= Decimal("0.011"),
+                        f"{label}: quoted V50.{edge} {match[2]} disagrees with {v50[edge]}")
 
 
 def no_duplicates(pairs):
@@ -292,8 +312,10 @@ def main(argv=None):
                 stream.write(payload)
             print(f"Built {args.output}; arithmetic/state checked, research evidence not checked")
         else:
-            validate_document(load_json(args.file))
-            print(f"Valid {SCHEMA}; structure/state only, evidence and discount assumptions not checked")
+            document = load_json(args.file)
+            validate_document(document)
+            validate_price_references(document)
+            print(f"Valid {SCHEMA}; structure/state/V50 references checked; evidence and discount assumptions not checked")
     except (ValueError, TypeError, OSError, DecimalException) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

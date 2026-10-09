@@ -21,7 +21,7 @@
 - `mode`：`buy_candidate` 买入型候选、`tracking` 跟踪、`observation` 观察、`frozen` 冻结、`rejected` 否决、`unavailable` 因输入不足不可估。它是研究用途，不是下单许可；除买入型可为 null 外，`reason` 必须解释限制。
 - 前三种模式必须有数值 `v50/p1={low,base,high}`，价格为正且有序。后三种不产新的 P1/P2；允许在 `v50` 保留此前已核验参考值，但报告必须说明其来源与失效边界。没有则为 null。
 - `p2={status,price,reason}`：`active` 有效参考价；`cancelled` 按规则取消，价格 null；`suspended` 暂停触发，保留已计算参考价格和恢复条件；`unavailable` 不可计算，价格 null。除 active 外均必须理由；冻结/否决/不可估模式只能 cancelled/unavailable。tracking 下 active 仅指跟踪参考有效，不代表可以开仓。
-- `t1/t2={price_condition,events}`：前者为可解释的价格条件文字，后者为非空事件条件列表。没有适用价格边界时明确写“当前不适用：原因”，不要捏造数值阈值。接近 V50 上沿/明显高于 V50 如需量化，必须在报告注明研究假设，不能称为框架固定比例。
+- `t1/t2={price_condition,events}`：前者为可解释的价格条件文字，后者为非空事件条件列表。 `price_condition` 只写本轮价格条件，现价、行情日期及距阈值百分比放报告；引用 V50 边界优先写“接近 V50 上沿”，需要列数值时从最终 V50 回读，不手工保留旧数字。没有适用价格边界时明确写“当前不适用：原因”，不要捏造数值阈值。接近 V50 上沿/明显高于 V50 如需量化，必须在报告注明研究假设，不能称为框架固定比例。
 - `monitoring.current` 为数值、明确带单位的文字或 null；非空必须有 `as_of`，不能晚于估值日。来源写可追溯 URL/公告章节或数据包字段；`trigger` 包含窗口、单位和方向，`action` 指定重算/撤价位/取消 P2 等动作。`next_check` 为日期或明确事件文字。未取得当前值时 current/as_of 可 null，原因及补证路径写报告，不用 0 代替。
 - 字段不再重复保存 precheck/rules/valuation 全推导/terminal/qualitative_findings/key_inputs/gaps。折扣、cap、评级、解除条件和其它框架必答仍保留在报告；schema 精简不等于研究删项。
 
@@ -75,7 +75,7 @@ python3 scripts/stock_price_map.py check output/<本次目录>/investment-<代�
 
 冻结/否决/不可估时 `discounts` 和 `step_down` 必须 null，不继续生成进入价位，valuation 可 null。取消的 P2 永远没有数值；暂停 P2 保留参考价格但不得表述为有效执行档。
 
-计算使用十进制、未舍入中间值；P1 每个情景乘五项折扣，P2 只用 P1 低档；最终 CNY 2 位、HKD 3 位。构建拒绝非有限数、布尔伪数值、重复键、错误币种和状态。build 验算算式与状态，check 只校验导出结构/数值范围/状态（最终没有折扣输入，不能完整重算）。报告中汇率桥、Terminal、现金桥与监控基线仍须独立复核。
+计算使用十进制、未舍入中间值；P1 每个情景乘五项折扣，P2 只用 P1 低档；最终 CNY 2 位、HKD 3 位。构建拒绝非有限数、布尔伪数值、重复键、错误币种和状态。build 验算算式与状态，check 校验导出结构/数值范围/状态及 T1/T2 的显式 V50 边界数值引用（最终没有折扣输入，不能完整重算）。报告中汇率桥、Terminal、现金桥与监控基线仍须独立复核。
 
 ## 验收后发布到本地
 

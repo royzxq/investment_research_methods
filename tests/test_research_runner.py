@@ -116,6 +116,14 @@ class ResearchRunnerTests(unittest.TestCase):
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
 
+    def test_new_delivery_rejects_stale_v50_reference_before_publication(self):
+        self.fake.write_text(FAKE_CLI.replace("'price_condition':'V50'",
+                                             "'price_condition':'V50上沿31元'"))
+        entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('V50.high', entry['reason'])
+        self.assertEqual(list((self.methods/'research').rglob('*.json')), [])
+
     def test_midnight_reservation_is_checked_before_durable_launch(self):
         with patch('scripts.research_runner.stamp', return_value='2026-10-08T00:00:01+08:00'):
             with self.assertRaisesRegex(ValueError, 'reservation expired'):

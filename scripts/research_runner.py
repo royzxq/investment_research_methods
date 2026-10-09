@@ -31,12 +31,14 @@ try:
         _strict_json, _validate_request, load_results,
     )
     from .research_paths import company_path
+    from .stock_price_map import validate_price_references
 except ImportError:
     from research_exchange import (
         RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
     )
     from research_paths import company_path
+    from stock_price_map import validate_price_references
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
@@ -585,6 +587,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             save(check_path, manifest(request, request_raw, [entry]))
             load_results(check_path, run / 'request.json', staged)
             if entry['status'] == 'completed':
+                _, price_raw = _artifact(entry['price_map'], staged, 'price map')
+                validate_price_references(_strict_json(price_raw, 'price map'))
                 retryable = False  # Publication must never be retried over possibly visible files.
                 publish_pair(entry, staged, root)
                 process['framework_changed_during_run'] = framework_hashes(root) != frozen['frameworks']

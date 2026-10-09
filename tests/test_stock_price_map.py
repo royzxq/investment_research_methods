@@ -11,6 +11,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+import scripts.stock_price_map as price_map_module
 from scripts.stock_price_map import build_document, load_json, quote_value, validate_document
 
 
@@ -42,6 +43,32 @@ def yutong_example():
 
 
 class StockPriceMapTests(unittest.TestCase):
+    def test_t1_t2_v50_reference_checks_only_the_referenced_amount(self):
+        for field in ('t1', 't2'):
+            with self.subTest(field=field):
+                data = yutong_example()
+                data['valuation'] = dict(kind='per_share', values=dict(low=20, base=30, high=40),
+                                         currency='CNY', unit='per_share', fx_to_quote=1)
+                data[field]['price_condition'] = '接近 V50 上沿 40 元；当前价格 25 元'
+                document = build_document(data)
+                document['price_map'][field]['price_condition'] = '接近V50上沿41元；现价25元'
+                # Historical sealed results retain structure-only loading;
+                # an independent buy refusal must survive a T1 semantic error.
+                validate_document(document)
+                with self.assertRaisesRegex(ValueError, field + '.*V50.high'):
+                    price_map_module.validate_price_references(document)
+                data[field]['price_condition'] = '接近V50上沿41元；现价25元'
+                with self.assertRaisesRegex(ValueError, field + '.*V50.high'):
+                    build_document(data)
+
+    def test_symbolic_v50_and_independent_threshold_remain_valid(self):
+        data = yutong_example()
+        data['t1']['price_condition'] = '接近V50上沿时复核；当前25元'
+        data['t2']['price_condition'] = '股价达到50元时复核'
+        build_document(data)
+        data['t2']['price_condition'] = '高于V50上沿20%即42.93元/股，研究假设'
+        build_document(data)
+
     def test_yutong_p2_uses_lower_bound_and_tracking_needs_no_account_cap(self):
         result = build_document(yutong_example())
         prices = result["price_map"]
