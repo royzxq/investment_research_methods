@@ -116,6 +116,13 @@ class ResearchRunnerTests(unittest.TestCase):
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
 
+    def test_midnight_reservation_is_checked_before_durable_launch(self):
+        with patch('scripts.research_runner.stamp', return_value='2026-10-08T00:00:01+08:00'):
+            with self.assertRaisesRegex(ValueError, 'reservation expired'):
+                self.execute(launch_date='2026-10-07')
+        self.assertFalse(self.capture.exists())
+        self.assertEqual(list(self.methods.rglob('launched.json')), [])
+
     def test_prepare_embeds_exact_full_pack_for_both_providers(self):
         run = prepare_request(self.request_path, self.methods)
         self.assertEqual((run/'request.json').read_bytes(),self.request_path.read_bytes())
@@ -197,6 +204,23 @@ class ResearchRunnerTests(unittest.TestCase):
         self.assertGreater(record['pid'],0)
         self.assertEqual(record['exit_code'],0)
         self.assertEqual(record['status'],'completed')
+
+    def test_started_at_is_recorded_after_popen_not_before_preflight(self):
+        clock={'value':'2026-10-06T08:00:00+08:00'}
+        real_popen=runner.subprocess.Popen
+        def launch(*args,**kwargs):
+            # The preflight and stock lock can consume an arbitrary duration.
+            clock['value']='2026-10-06T09:00:00+08:00'
+            return real_popen(*args,**kwargs)
+        with patch.object(runner,'stamp',side_effect=lambda:clock['value']), \
+             patch.object(runner.subprocess,'Popen',side_effect=launch):
+            manifest=self.execute()
+        folder=manifest.parent/'execution/SH-600066/claude'
+        process=json.loads((folder/'process.json').read_text())
+        entry=json.loads((folder/'entry.json').read_text())
+        self.assertEqual(process['started_at'],'2026-10-06T09:00:00+08:00')
+        self.assertEqual(process['launched_at'],process['started_at'])
+        self.assertEqual(entry['started_at'],process['started_at'])
 
     def test_same_batch_task_not_launched_twice(self):
         self.execute()

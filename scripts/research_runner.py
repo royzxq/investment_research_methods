@@ -1,13 +1,14 @@
 """Prepare verified stock-research inputs and run a planned CLI provider.
 
-No scheduler, production CSV/Feishu writes, latest promotion or automatic retry.
+No scheduler, production CSV/Feishu writes or latest promotion. The scheduler
+may request one isolated retry of an explicitly retryable failed endpoint.
 Both providers receive the exact, complete data pack through standard input.
 """
 from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from datetime import datetime
 import fcntl
 import hashlib
@@ -56,8 +57,15 @@ def encode(value):
 
 def write_new(path, raw):
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open('xb') as sink:
-        sink.write(raw)
+    fd, temporary = tempfile.mkstemp(dir=path.parent, prefix='.new-')
+    try:
+        with os.fdopen(fd, 'wb') as sink:
+            sink.write(raw)
+            sink.flush()
+            os.fsync(sink.fileno())
+        os.link(temporary, path)  # Complete bytes become visible in one create-only operation.
+    finally:
+        os.unlink(temporary)
 
 
 def save(path, value):
@@ -112,9 +120,10 @@ def framework_hashes(root):
     return {name: sha((Path(root) / 'framework' / name).read_bytes()) for name in FRAMEWORKS}
 
 
-def make_prompt(request, task, generator, pack, root, frameworks, targets):
+def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1):
     day, task_id = request['valuation_date'], task['task_id']
-    staged = staging_root(root, request, task, generator)
+    staged = staging_root(root, request, task, generator, attempt)
+    execution = f'execution/{task_id}/{generator}' + ('/retry-1' if attempt == 2 else '')
     prefix = f'''使用 stock-research 技能进行股票复研：{task['code']} {task['name']}。估值日{day}，Asia/Shanghai。
 用户授权的候选信号驱动研究，必须实际保存完整报告及价格JSON，不只返回计划。
 工作根：{Path(root).resolve()}；生成端固定为{generator}，不是数据源或业务席位标签。
@@ -131,7 +140,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets):
 1. 读根 AGENTS.md、docs/context/project-state.md、.agents/skills/stock-research/SKILL.md 及引用的必要 references、完整 compact 和必要 canonical。Claude 侧兼容入口为 .claude/skills/stock-research/SKILL.md。按 deep-research-auto 补证，实际工具允许时按缺口组织子代理，否则主代理完成并披露。默认宿主内置 WebSearch/网页读取，不使用 Gemini 搜索。
 2. 查找同生成端历史有效配对，明确沿用/更新/补证范围；另一生成端报告只能作标明来源的参考，不能照抄成独立结论。未披露/窗口未到不是基本面恶化，候选复核只是待核验触发线索。
 3. 报告第0节必须写明本批次ID、任务、输入包路径及SHA256、两份框架SHA256、行情/抓取日期、包内收盘价/成交量/换手率（缺失如实记录），复用及更新范围。后续框架判断、估值、现金/股本/币种算术、敏感性、监控均按 skill。
-4. 交付九节(0–8)完整 Markdown 和 stock-research/v2 JSON，按上面两条确切相对路径写入「本次交付暂存根」内，不直接写最终公司目录。JSON meta.report_path 保持上述最终报告相对路径，不添加暂存前缀；build/check 使用 --generator {generator}，meta.generator={generator}。完成后runner会验收并以只创建方式发布到正式公司目录。回执的report_path/price_map_path也填写上述最终相对路径。不要自行换名或覆盖。取证临时材料只写 output/stock-research-{task_id}-{day}-{generator}*/ 和本批 execution/{task_id}/{generator}/。
+4. 交付九节(0–8)完整 Markdown 和 stock-research/v2 JSON，按上面两条确切相对路径写入「本次交付暂存根」内，不直接写最终公司目录。JSON meta.report_path 保持上述最终报告相对路径，不添加暂存前缀；build/check 使用 --generator {generator}，meta.generator={generator}。完成后runner会验收并以只创建方式发布到正式公司目录。回执的report_path/price_map_path也填写上述最终相对路径。不要自行换名或覆盖。取证临时材料只写 output/stock-research-{task_id}-{day}-{generator}*/ 和本批 {execution}/。
 5. 冻结/否决/确实不可估仍交付依据、补证尝试和解除条件，不为了出数编造；取消P2保持null和原因，不补旧价或派生价。不写 research/INDEX.md、共享索引/latest、框架、技能、代码、生产CSV/飞书，不读凭据，不发消息/交易，不提交或推送Git。
 6. 调用 scripts/stock_price_map.py build 和 check，回读实际暂存文件并核对报告与JSON。结构化回执必须绑定本批ID、任务、生成端、日期及输入包SHA256；status=completed时reason必须是JSON null，研究结论写summary，两个路径填上述确切最终相对路径；status=failed时reason写失败原因，两个路径都为null。不能把连接测试或准备文件当成研究完成。
 
@@ -168,8 +177,30 @@ def input_record(request, request_raw, task, generator, prompt, frameworks, targ
                 stdin_bytes=len(prompt), framework_sha256=frameworks, targets=targets)
 
 
-def staging_root(root, request, task, generator):
-    return owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}/staged/{task['task_id']}/{generator}")
+def execution_folder(run, task, generator, attempt=1):
+    if type(attempt) is not int or attempt not in (1, 2):
+        raise ValueError('provider attempt must be 1 or 2')
+    folder = run / 'execution' / task['task_id'] / generator
+    return folder / 'retry-1' if attempt == 2 else folder
+
+
+def staging_root(root, request, task, generator, attempt=1):
+    if type(attempt) is not int or attempt not in (1, 2):
+        raise ValueError('provider attempt must be 1 or 2')
+    suffix = '/retry-1' if attempt == 2 else ''
+    return owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}/staged/{task['task_id']}/{generator}{suffix}")
+
+
+def retryable_failure(folder):
+    """Positive terminal failure evidence grants one retry, subject to group cleanup."""
+    process_path, entry_path = folder / 'process.json', folder / 'entry.json'
+    if not process_path.exists() or not entry_path.exists():
+        return False
+    process = _strict_json(process_path.read_bytes(), 'process')
+    entry = _strict_json(entry_path.read_bytes(), 'entry')
+    pid = process.get('pid')
+    return (entry.get('status') == 'failed' and process.get('status') == 'failed'
+            and process.get('retryable') is True and type(pid) is int and pid > 0)
 
 
 def targets_for_revision(root, request, task, generator, revision=None):
@@ -415,6 +446,8 @@ def stop_group(proc):
         except ProcessLookupError:
             pass
     proc.wait()
+    if proc.stdin is not None:
+        proc.stdin.close()
 
 
 @contextmanager
@@ -447,30 +480,76 @@ def communicate(proc, payload, timeout, cancelled):
             first = False
 
 
+def check_launch_day(run, request, task, launch_date):
+    """Only an actual launch can carry the original pair across midnight."""
+    if launch_date is None or stamp()[:10] == launch_date:
+        return
+    for generator in request['generators']:
+        path = run / 'execution' / task['task_id'] / generator / 'process.json'
+        if path.exists():
+            process = _strict_json(path.read_bytes(), 'process')
+            if type(process.get('pid')) is int and process['pid'] > 0:
+                return
+    raise ValueError('daily reservation expired before first launch; fresh input required')
+
+
+def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
+                 cancelled, launch_date=None, attempt=1):
+    """Claim an endpoint attempt once; no shared batch manifest is written here."""
+    if cancelled.is_set():
+        raise ValueError('research runner cancelled before launch')
+    check_launch_day(run, request, task, launch_date)
+    folder = execution_folder(run, task, generator, attempt)
+    if attempt == 2:
+        first = execution_folder(run, task, generator)
+        if not retryable_failure(first):
+            raise ValueError('retry requires a retryable failed first attempt')
+        process = _strict_json((first / 'process.json').read_bytes(), 'process')
+        if group_alive(process['pid']):
+            raise RuntimeError('first attempt process group still exists; retry remains pending')
+    claim = folder / 'launched.json'
+    if claim.exists():
+        raise ValueError(f"task attempt already launched: {task['task_id']} {generator} attempt={attempt}")
+    write_new(claim, encode(dict(claimed_at=stamp(), request_sha256=sha(request_raw))))
+    return execute_task(run, request, request_raw, task, generator, cli, root, timeout,
+                        cancelled, launch_date=launch_date, attempt=attempt)
+
+
 def manifest(request, request_raw, entries):
     return dict(schema_version=RESULT_SCHEMA, batch_id=request['batch_id'],
                 request_sha256=sha(request_raw), created_at=stamp(), results=entries)
 
 
-def execute_task(run, request, request_raw, task, generator, cli, root, timeout, cancelled):
-    folder = run / 'execution' / task['task_id'] / generator
+def execute_task(run, request, request_raw, task, generator, cli, root, timeout, cancelled,
+                 launch_date=None, attempt=1):
+    folder = execution_folder(run, task, generator, attempt)
     started = stamp()
     process = dict(task_id=task['task_id'], generator=generator, status='starting',
-                   started_at=started, completed_at=None, pid=None, exit_code=None)
+                   started_at=started, completed_at=None, pid=None, exit_code=None,
+                   attempt=attempt, retryable=False)
     save(folder / 'process.json', process)
+    retryable = False
     try:
         with stock_lock(root, task['task_id'], generator):
             if cancelled.is_set():
                 raise ValueError('research runner cancelled before launch')
-            *_, verified = verify_prepared(run, request_raw, root)
+            _, _, packs, verified = verify_prepared(run, request_raw, root)
             frozen = verified[(task['task_id'], generator)]
-            payload = frozen['prompt']
             targets = frozen['targets']
+            payload = frozen['prompt']
+            if attempt == 2:
+                payload = make_prompt(request, task, generator, packs[task['task_id']],
+                                      root, frozen['frameworks'], targets, attempt)
+                for name, data in (('prompt.txt', payload), ('targets.json', encode(targets)),
+                                   ('receipt-schema.json', encode(receipt_schema(request, task, generator, targets))),
+                                   ('input.json', encode(input_record(request, request_raw, task, generator,
+                                                                     payload, frozen['frameworks'], targets)))):
+                    write_new(folder / name, data)
             for relative in targets.values():
                 target = owned_path(root, relative)
                 if target.exists() or target.is_symlink():
                     raise ValueError('prepared formal target is already occupied; new batch required')
-            staged = staging_root(root, request, task, generator)
+            staged = staging_root(root, request, task, generator, attempt)
             staged.mkdir(parents=True, exist_ok=False)
             env = os.environ.copy()
             for key in list(env):
@@ -479,13 +558,20 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             env['PYTHONDONTWRITEBYTECODE'] = '1'
             args = command(cli, generator, folder, root)
             with (folder / 'events.jsonl').open('wb') as stdout, (folder / 'stderr.log').open('wb') as stderr:
+                check_launch_day(run, request, task, launch_date)
                 proc = subprocess.Popen(args, cwd=root, env=env, stdin=subprocess.PIPE,
                                         stdout=stdout, stderr=stderr, start_new_session=True)
                 try:
-                    process.update(status='running', pid=proc.pid)
+                    # Popen returned successfully: preflight/lock waits must not
+                    # shorten the listing's research cooldown. This timestamp
+                    # conservatively follows the actual process start.
+                    started = stamp()
+                    process.update(status='running', pid=proc.pid,
+                                   started_at=started, launched_at=started)
                     save(folder / 'process.json', process)
                     emit(dict(event='research_started', task_id=task['task_id'],
-                              generator=generator, pid=proc.pid, stdin_bytes=len(payload)))
+                              generator=generator, attempt=attempt, pid=proc.pid, stdin_bytes=len(payload)))
+                    retryable = True  # Only model execution/output failures may retry.
                     communicate(proc, payload, timeout, cancelled)
                 finally:
                     stop_group(proc)
@@ -499,6 +585,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             save(check_path, manifest(request, request_raw, [entry]))
             load_results(check_path, run / 'request.json', staged)
             if entry['status'] == 'completed':
+                retryable = False  # Publication must never be retried over possibly visible files.
                 publish_pair(entry, staged, root)
                 process['framework_changed_during_run'] = framework_hashes(root) != frozen['frameworks']
             completed = stamp()
@@ -510,18 +597,54 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
         completed = stamp()
         entry = dict(task_id=task['task_id'], generator=generator, status='failed', reason=str(exc),
                      started_at=started, completed_at=completed, report=None, price_map=None)
-    process.update(status=entry['status'], completed_at=completed, reason=entry['reason'])
+    process.update(status=entry['status'], completed_at=completed, reason=entry['reason'],
+                   retryable=attempt == 1 and entry['status'] == 'failed' and retryable and not cancelled.is_set())
+    process['actual_model'] = observed_model(folder, generator)
     save(folder / 'process.json', process)
     save(folder / 'entry.json', entry)
     emit(dict(event='research_finished', task_id=task['task_id'], generator=generator,
-              status=entry['status'], process_path=str(folder / 'process.json')))
+              status=entry['status'], attempt=attempt, process_path=str(folder / 'process.json')))
     return entry
 
 
-def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600):
+def observed_model(folder, generator):
+    """Record only model identifiers emitted by the runtime, never infer a brand."""
+    path = folder / 'events.jsonl'
+    if not path.exists():
+        return None
+    for line in path.read_bytes().splitlines():
+        try:
+            event = _strict_json(line, 'event')
+        except (ValueError, UnicodeError):
+            continue
+        if not isinstance(event, dict):
+            continue
+        expected = (event.get('type') == 'system' and event.get('subtype') == 'init'
+                    if generator == 'claude' else event.get('type') == 'turn.started')
+        if expected and isinstance(event.get('model'), str) and event['model'].strip():
+            return event['model']
+    return None
+
+
+def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
+              task_ids=None, cancelled=None, launch_date=None):
+    request, _, _ = read_request(request_path)
+    with stock_lock(root, 'batch-' + request['batch_id'], generator):
+        return _run_batch(request_path, root, generator=generator, cli=cli,
+                          workers=workers, timeout=timeout, task_ids=task_ids, cancelled=cancelled,
+                          launch_date=launch_date)
+
+
+def _run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
+               task_ids=None, cancelled=None, launch_date=None):
     if workers < 1 or timeout <= 0:
         raise ValueError('workers and timeout must be positive')
     request, request_raw, _ = read_request(request_path)
+    tasks = request['tasks']
+    if task_ids is not None:
+        if not task_ids or len(set(task_ids)) != len(task_ids) or not set(task_ids) <= {t['task_id'] for t in tasks}:
+            raise ValueError('task selection is empty, duplicated or outside request')
+        tasks = [t for t in tasks if t['task_id'] in task_ids]
     if generator not in request['generators']:
         raise ValueError('generator not planned in request')
     cli = shutil.which(generator) if cli is None else cli
@@ -529,20 +652,35 @@ def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeou
         raise ValueError(f'{generator} CLI executable unavailable')
     run = prepare_request(request_path, root)
     verify_prepared(run, request_raw, root)
-    for task in request['tasks']:
+    for task in tasks:
         claim = run / 'execution' / task['task_id'] / generator / 'launched.json'
         if claim.exists():
             raise ValueError(f"task already launched: {task['task_id']} {generator}; retry requires a new batch")
     if generator == 'codex':
         check_codex_cli(cli, root)
-    for task in request['tasks']:
-        write_new(run / 'execution' / task['task_id'] / generator / 'launched.json',
-                  encode(dict(claimed_at=stamp(), request_sha256=sha(request_raw))))
-    with cancellation_scope() as cancelled:
+    for task in tasks:
+        check_launch_day(run, request, task, launch_date)
+    with (nullcontext(cancelled) if cancelled is not None else cancellation_scope()) as cancelled:
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            futures = [pool.submit(execute_task, run, request, request_raw, task, generator, cli, root, timeout, cancelled)
-                       for task in request['tasks']]
-            entries = [future.result() for future in futures]
+            futures = [pool.submit(run_provider, run, request, request_raw, task, generator, cli,
+                                   root, timeout, cancelled, launch_date)
+                       for task in tasks]
+            entries = []
+            for task, future in zip(tasks, futures):
+                try:
+                    entries.append(future.result())
+                except (ValueError, OSError) as exc:
+                    # Preserve a final batch manifest when cancellation leaves
+                    # a queued endpoint unclaimed; no durable attempt is invented.
+                    completed = stamp()
+                    entries.append(dict(task_id=task['task_id'], generator=generator, status='failed',
+                                        reason=str(exc), started_at=completed, completed_at=completed,
+                                        report=None, price_map=None))
+    selected = {t['task_id'] for t in tasks}
+    for task in request['tasks']:
+        previous = run / 'execution' / task['task_id'] / generator / 'entry.json'
+        if task['task_id'] not in selected and previous.exists():
+            entries.append(_strict_json(previous.read_bytes(), 'previous result'))
     target = run / f'results-{generator}.json'
     save(target, manifest(request, request_raw, entries))
     load_results(target, run / 'request.json', root)
