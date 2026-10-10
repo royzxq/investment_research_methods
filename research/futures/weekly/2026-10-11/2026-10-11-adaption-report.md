@@ -79,3 +79,12 @@
 阶段②原版执行审计：[`2026-10-11-execution-audit.md`](2026-10-11-execution-audit.md)，基于当时已生效v2.27及10/10完整快照；不可把拟议v2.28结果回写成历史已生效。其完整保留副本为[`evidence/2026-10-11-execution-audit-original-v2.27.md`](evidence/2026-10-11-execution-audit-original-v2.27.md)，SHA256 `1c031f20ffc145ea003fb112000380e7633a71f604da7c5bc880278a6c9814bb`。原审计schema3、10候选：MA A domestic_model_basis已核失败且冻结v1观测unknown，MA D方向性多D8/#30失败，RB A77.2入筛选但D14成案前不适用；§5两份9/19影子均not_filled、无已结收益；账户/总体机会null。新框架不得从这些缺项推定空仓或无机会。
 
 正式拟议框架审计重评由独立审计阶段在canonical适配及§8数据脚本同步完成后另写，`assessment_scope=proposed_framework_reassessment`；须保留原candidate_id/opportunity_id并明确before/after规则版本，不把原版audit覆写为“v2.28当时生效”。本报告仅标明需重评的具体差异：事件T、MA D8/#30/SC>5%的当期适用性、RB A筛选与D14依赖范围、低敞口`unknown`下#16、保证金恢复未知及MA国内路线仍结案。所有已核市场事实与必要未知应逐项携带，不据治理文本将`unknown`机械改`pass/fail`。
+
+## 8. 数据脚本同步
+
+- 是否改脚本：**是，仅配置层和版本元数据**。`scripts/future_data.py`由框架v2.27/脚本v1.16更新为**拟议框架v2.28/脚本v1.17**；§1/§2/§2c/§2d/§5行情与计算算法、合约对、`scripts/futures_risk.py`风险公式和状态枚举均未改。适配阶段提交`a116522ac245ad2133a336ea8fd2a6f2693eabd8`已独立完成，本节为其后的单独同步结果；是否生效以最终发布/合并为准。
+- 对应框架变化：`EVENTS`只保留当前前瞻配置。USDA WASDE排期10/09 12:00 ET，北京10/10 00:00，[东鼎期货2026/02/25交易时间表](https://www.ddqh.com/bocupload/2026/02/26/1772101558264ywp7n.pdf)列豆粕夜盘21:00–23:00（经纪商表，DCE原公告本轮读取超时，不能称交易所原文已核）；发布时间晚于该周五夜盘结束，首个**可能**国内响应日为10/12；报告正文/大豆数字未核、M无已许可具体策略，设`window_only`/`auto=False`人工提醒，**不自动产生D12或新开限制**。CPI 10/14 08:30 ET→国内T10/15、PPI 10/15 08:30 ET→T10/16、FOMC决议10/28 14:00 ET→T10/29分别锚单一国内交易日，按既有`automatic`机制提示T−3/±1；这只提供候选日历提示，不替代品种、真实夜盘时段、账户、事件结果或T−1持仓核验。FOMC会期首日10/27不作决议T。
+- 归档与固定窗：9月提保公告、9/30长假T−1、10/1–7休市及10/04 OPEC+已经发生，从**前瞻**`EVENTS`移除；10/08为节后首交易日、10/09第二交易日。`FIXED_RISK_WINDOWS`原两条9月窗留作历史（结束9/17和9/18，按AS_OF不再生效），**未新建10月固定提前窗**；CPI/PPI/FOMC常规T−3依事件日期算，不把不同事件连成持续提前窗。真实保证金回落及经纪商实收仍是人工必要检查，不脚本化或自动解除×0.8。
+- 旧输出失效项：已提交10/10快照仍是**v2.27/v1.16**的当时历史产物，不能改标签或视作由v1.17重新生成；其行情锚10/09及可用列作为本期研究输入不被此次配置同步抹除。旧脚本§0b“窗口内无已配置节点”以及10/09首响应、10/27会期起始自动锚的配置不再用于拟议版。同步阶段没有运行行情取数或产生新快照。
+- 离线验证：首次`py_compile`尝试因工作树外沙箱拒绝写`__pycache__`，改设`PYTHONPYCACHEPREFIX=/private/tmp/futures-pycache`后编译成功；`test_price_evidence.py` **67/67通过**，`test_futures*.py` **63/63通过**。AST读取真实`EVENTS`/`FIXED_RISK_WINDOWS`配置，核四个事件、三条自动节点均为单日、WASDE `auto=False`、历史固定窗已过期；用`America/New_York`→`Asia/Shanghai`核四项发布时间，并用已核国庆休市日与周末构造的10月离线日历核CPI/PPI/FOMC的T−3/T−1/T+1（未代替Tushare实际`trade_cal`），全部通过。`git diff --check`与框架结构检查也通过；结构检查不证明语义等价。
+- 仍需验证：**未经线上行情API实测**，未核Tushare字段、权限、真实`trade_cal`返回和脚本输出的新快照；自动提示的实际受影响合约及保证金须在执行前人工核。阶段②拟议审计重评须在本同步结果后按schema3另写，不把旧审计或影子账本改成已交易收益。
