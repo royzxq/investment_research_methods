@@ -1,6 +1,6 @@
 # 2026-10-11 期货执行框架更新结果
 
-生成端：`generator=codex`，`model=gpt-6-sol`，`reasoning=high`。研究日与日界：2026-10-11，Asia/Shanghai。本文件为基于已发布日志的**拟议**适配；正式生效以框架发布/合并为准。市场行情最后完成日为2026-10-09，研究快照为已提交的`research/futures/snapshots/2026-10-10-data-snapshot.txt`（AS_OF=20261010、脚本v1.16、末行“快照完成”；SHA256 `dd8699ec302663cf63b6c700b96bfb2443942a7d27a8ffd9598082115c82f26a`）。未运行取数脚本。输入为同日[元研究](2026-10-11-market-research.md)、[变化检测](2026-10-11-change-decision.md)及[原版执行审计](2026-10-11-execution-audit.md)；发布基线main日志commit `63b3df1d51c8cab620fec707f31ff29fc5b2ed79`，生效版本仍v2.27。
+生成端：`generator=codex`，`model=gpt-6-sol`，`reasoning=high`。研究日与日界：2026-10-11，Asia/Shanghai。本文件为基于已发布日志的**拟议**适配；正式生效以框架发布/合并为准。市场行情最后完成日为2026-10-09，研究快照为已提交的`research/futures/snapshots/2026-10-10-data-snapshot.txt`（AS_OF=20261010、脚本v1.16、末行“快照完成”；SHA256 `dd8699ec302663cf63b6c700b96bfb2443942a7d27a8ffd9598082115c82f26a`）。未运行取数脚本。输入为同日[元研究](2026-10-11-market-research.md)、[变化检测](2026-10-11-change-decision.md)及[原版执行审计完整副本](evidence/2026-10-11-execution-audit-original-v2.27.md)；发布基线main日志commit `63b3df1d51c8cab620fec707f31ff29fc5b2ed79`，生效版本仍v2.27。
 
 ## 1. 更新结论
 
@@ -67,7 +67,7 @@
 ## 6. 版本变更记录
 
 - 旧版本：已生效canonical v2.27；数据脚本v1.16。
-- 新版本：拟议canonical **v2.28**；本阶段**尚未**改数据脚本。更新级别light，待发布合并才生效。
+- 新版本：拟议canonical **v2.28**；适配阶段仅改canonical，后续§8已单独完成脚本**v1.17**同步。更新级别light，待发布合并才生效。
 - 变更摘要：10/09快照行情状态、MA/RB A筛选与方向性门、官方10月事件T/国庆日历、Fed归因、产业证据质量和保证金条件待核。
 - 受影响最大的交易类型：MA方向性单边与MA/RB A结构**研究**。方向性硬门实测变动不迁移到完整A配对；结构尚无合规完整计划。
 - 下次复评重点：MA domestic_public三项复活证据＋冻结v1逐日确认、RB同口径完整周原表/前瞻价格确认、交易所与经纪商实际保证金、CPI/PPI/FOMC真实T与Fed美元双条件、CF B历史和需求、账户与计划。
@@ -76,9 +76,11 @@
 
 ## 7. 原版执行审计溯源与拟议重评边界
 
-阶段②原版执行审计：[`2026-10-11-execution-audit.md`](2026-10-11-execution-audit.md)，基于当时已生效v2.27及10/10完整快照；不可把拟议v2.28结果回写成历史已生效。其完整保留副本为[`evidence/2026-10-11-execution-audit-original-v2.27.md`](evidence/2026-10-11-execution-audit-original-v2.27.md)，SHA256 `1c031f20ffc145ea003fb112000380e7633a71f604da7c5bc880278a6c9814bb`。原审计schema3、10候选：MA A domestic_model_basis已核失败且冻结v1观测unknown，MA D方向性多D8/#30失败，RB A77.2入筛选但D14成案前不适用；§5两份9/19影子均not_filled、无已结收益；账户/总体机会null。新框架不得从这些缺项推定空仓或无机会。
+阶段②原版v2.27执行审计已随三份日志发布于main commit `63b3df1d51c8cab620fec707f31ff29fc5b2ed79`，完整保留副本为[`evidence/2026-10-11-execution-audit-original-v2.27.md`](evidence/2026-10-11-execution-audit-original-v2.27.md)，SHA256 `1c031f20ffc145ea003fb112000380e7633a71f604da7c5bc880278a6c9814bb`。它记录当时已生效v2.27的判断，不能由拟议结果覆盖其历史来源。
 
-正式拟议框架审计重评由独立审计阶段在canonical适配及§8数据脚本同步完成后另写，`assessment_scope=proposed_framework_reassessment`；须保留原candidate_id/opportunity_id并明确before/after规则版本，不把原版audit覆写为“v2.28当时生效”。本报告仅标明需重评的具体差异：事件T、MA D8/#30/SC>5%的当期适用性、RB A筛选与D14依赖范围、低敞口`unknown`下#16、保证金恢复未知及MA国内路线仍结案。所有已核市场事实与必要未知应逐项携带，不据治理文本将`unknown`机械改`pass/fail`。
+§8数据同步完成后，[主路径拟议版本审计](2026-10-11-execution-audit.md)已按同一10/10已提交历史快照完成重评，`assessment_scope=proposed_framework_reassessment`，拟议canonical v2.28/脚本v1.17；原快照仍标v2.27/v1.16、行情锚10/09，未重跑或改标。10候选的candidate_id/opportunity_id、status、data_feasibility、signal及已核门的适用性/结果均与原版逐项相同。MA国内做空路线未复活且冻结v1逐日观测缺，MA方向性多头D8/#30失败；RB A77.2仅研究筛选，D14成案前不适用。方向性#16仍unknown，账户、总体机会、实际组合cap和最终手数均null，无新shadow；两份9/19旧影子仍not_filled，不能估计已交易收益或机会成本。
+
+重评变动仅为官方十月T及前瞻EVENTS配置、unknown regime的实际核算前置、一般geopolitical_fade与旧专业依赖子模型的作用域澄清。默认地缘路线仍按①官方事实＋SC back及自身结构，当前缓和门与#26未解除；只有旧专业依赖子模型在公开替代触发条件定义并验证前为research_only。原审计笼统research_only_scope已在拟议版明确失效范围，不回写原版记录。两版schema3结构校验均为valid/errors=[]，仅证明结构与所填状态一致，`execution_permission=not_evaluated`，不证明资料真实性、全门覆盖或交易许可。
 
 ## 8. 数据脚本同步
 
