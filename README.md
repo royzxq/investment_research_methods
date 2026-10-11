@@ -23,7 +23,7 @@
 
 ## 方法与证据
 
-- **期货**：[canonical](framework/futures_framework.md) 当前 v2.27；[compact](framework/futures_framework_compact.md) 为同一框架的执行导航。[数据协议](framework/FUTURES_DATA_PROTOCOL.md) v2.26 默认 `public_data`，先满足活跃模型的最小公开数据，专业增强项按各自模型处理。研究先给逻辑、方向、价格计划与期限，实际账户、挂单、费用、保证金和许可另核。
+- **期货**：[canonical](framework/futures_framework.md) 与 [compact](framework/futures_framework_compact.md) 当前 v3.0，仅顺势与有经济依据的回归两类，优先豆粕、螺纹；取消加权评分，以 G1–G6 核验信号、计划和核心风控。[数据协议](framework/FUTURES_DATA_PROTOCOL.md) v3.0 默认 `public_data`，研究先成案、账户后核；旧模型工具仅作历史复现，新参数尚未完成收益验证。
 - **股票**：[canonical](framework/investment_framework.md) 是逐股研究的参数化模板，保留公司、代码、估值日期占位符；[compact](framework/investment_framework_compact.md) 不另设判据。`projects/{meta_investment_analysis,investment_change_analysis,investment_adaption}/INSTRUCTIONS.md` 保留原方法与字段契约。空 day-0 基线按首次运行处理，本期元研究结果始终必传。框架提到的 `stock_data_pack.py` 尚未在本仓及关联 `ai_investment` 找到。
 - **ETF**：[canonical](framework/etf_framework.md) 当前 v2.1，在八个主题研究池中回答未来两个月定投哪 2–3 个主题，以及持有主题的目标权重和处理。未提供持仓时只给主题名单；宽基 50% 与红利低波 20% 是用户长期安排，本仓不研究。只交付研究结论，执行由用户处理。
 

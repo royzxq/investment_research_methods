@@ -1,150 +1,99 @@
-# 期货调研数据协议（v2.26，public_data）
+# 期货数据与执行协议 v3.0
 
-本协议由 `futures_framework.md` 的“0D 有限数据执行协议”授权，三阶段调研、报告A与执行审计共同使用。默认只依赖用户已有行情工具、交易所公开信息和可读取的公开产业资料，不购买新服务。Tushare 的接口权限依用户已有账户，不声称免费或已获授权。
+日期：2026-10-11（Asia/Shanghai）。方法、阈值与池范围以[canonical](futures_framework.md)为准；本文件只定义取证、输入交接及工具边界。默认`research_mode=public_data`，研究方先完成具体计划，再核账户。旧A–H、分位评分与D系列字段不作为v3必填。
 
-## 1. 先定可研究范围，再找数据
+## 1. 取数与频率
 
-每周先处理 MA、RB；M/SR/CF 仅在已有路由、季节/事件窗口和独立公开证据成立时升级。AU/SC 只作信号。池外品种、无许可的 C 趋势或 continuation 模式不因数据简化自动开放。
+周度更新产业假设、模型与最多两份计划；机械信号应在交易日收盘后和拟入场前刷新。未部署逐日运行时说明监测空窗，不能声称周更覆盖了2交易日内所有信号，也不能延长过期信号。未触发可先列条件观察方案，状态仍no_signal。本次维护不创建调度或执行交易。
 
-逐“品种×模型”记录 `data_feasibility`，不新增交易状态：
+按[环境文档](../docs/context/environment.md)使用可用Python，继承`TUSHARE_TOKEN`，不输出密钥：
 
-| 值 | 含义 | 处置 |
+```sh
+/Users/xinquanzhou/miniconda3/bin/python3 scripts/future_data.py --as-of YYYYMMDD
+```
+
+正式快照在`research/futures/snapshots/<AS_OF>-data-snapshot.txt`，末行“快照完成”才算写入完整；`.partial`不是完成。默认拒绝覆盖，同日复跑按现有产物和用户授权选择隔离输出，不以文件名证明行情有效。`--no-snapshot`只打印，`--legacy-v2`额外输出历史方法模块，不进入v3准入。
+
+v1.18默认输出v3 T行情输入、V两腿结算原料，机器包位于`output/cache/futures/v3_research_inputs_<AS_OF>.json`（实际OUTDIR以脚本为准）；是可重建中间文件，正式报告须保存所用原料、来源引用或可追溯产物，不能只留将来会失效的缓存指针。研究阶段按文件完成标记、行情日及每字段状态读取，发布流程仍遵守入口的已提交快照要求。v1.16快照只作历史原料，不因格式可读就当成v3完整输入。
+
+`as_of_date`研究日、`market_trade_date`完整行情日、实际`fetched_at`分列；交易所和来源随原料保留。18:00等取数截止只是避免未完成日线的保护，不证明最终结算已正式发布。所有交易日/事件窗口以真实交易所日历与夜盘归属为准，降级的普通工作日日历不能给v3信号或计划有效期。
+
+## 2. 必要证据与可选背景
+
+| 输入 | v3用途 | 缺项归属 |
 |---|---|---|
-| available | 模型最低研究数据齐备 | 继续研究、评分、计划；不表示账户可执行或已 ready |
-| temporary_gap | 本来可取得的必要资料本期缺失、过期或冲突 | 只将受影响候选记 incomplete，写具体缺项；其他候选继续 |
-| research_only | 必须依赖目前无法持续取得的数据，或没有已许可路由 | 模型退出本轮执行候选，保留原因、复活条件；不让其缺项拖累其他模型 |
+| T真实合约61根连续完整close/high/low，交易日历 | prior20突破、固定Wilder ATR及波动预算；不读settle回退或旧px | 原始获取/计算，非用户定义 |
+| V确切近远腿同日settle与日历 | 3日价格确认、61日价差变动波动；不拼接换月 | 原始获取/计算 |
+| 合约最后交易日、各腿20日均量、规格/tick、当前报价 | G1期限/流动性、G3成本、G4执行 | 研究方核有效规则与报价 |
+| 当前独立产业事实及最强反证 | G2；只要求实际逻辑依赖的字段 | research取证与论证 |
+| V经济锚、计算/假设、来源日、适用月份/截止、收敛与失效 | G2/G3；不是历史分位自动生成 | research，不交给用户猜目标 |
+| 事件时区/国内T、公开交易规则、压力情景和双腿方案 | G4；仅实际相关事件 | research |
+| 权益、持仓挂单、资金、账户专属保证金/费用/限额 | G5/G6；当日实际快照 | user提供后研究方计算 |
 
-`research_only` 不能隐藏已核实否决。报告分别列可研究范围、模型排除范围和数据缺口，不能把缩小分母后的“覆盖完整”说成全市场覆盖。既有机会记录保留原始身份和阻断，不因改名重置。
+M按“大豆到港/库存→压榨→粕库存/提货/基差”取最低可解释链；RB按“同口径螺纹产量→厂库社库→表需/成交→相应现货”取证。不能把大豆紧直接等于粕紧、五大材库存当螺纹库存、减产去库当需求改善。月度/旬度统计可作适用背景，不伪造周度或交割地基差。
 
-分类看模型依赖，不看脚本是否已经实现：已有许可路由的新合约对尚未计算、模块失败或导出缺列先记 temporary_gap，并注明“未计算/计算失败/原始字段缺失”。确认最低研究数据齐备后可为 available，即使产业事实反向、计划未完成或账户未知也不因此改成数据不可得。仅在明确必要资料不可持续取得或无许可路由时用 research_only。
+来源记录原发布者、链接、观察期、发布时间、单位、地域/样本及比较期。搜索摘要不能充作已读原文；可信公开转引标明原源及口径限制，不声称核过未读原表。不同日期不是同一观察值冲突；同对象/日/口径矛盾才列conflicting。预期尚未发布须给官方安排。强因果计划依赖的专业数据长期不可得则research_only；增强背景缺失不进necessary unknown、不扩成全池冻结。
 
-每个缺失产业指标最多尝试两个不同公开来源入口，足以判断可得性后停止。已知有可访问原文时直接读取，不机械凑两家。找不到则按上表处理，不能用相近月份、搜索抓取日期或往年同周数字填空，也不要求用户购买专业终端。
+## 3. 数值工具接口
 
-## 2. 三类数据，不做全量必填清单
+工具状态`valid/blocked/incomplete/input_error`描述该工具范围，**不等于候选的ready**。输出`execution_permission=not_evaluated`；产业因果、来源真实、发布时间、实际成交和G1–G6须另核。工具核可计算边界，规则出处是canonical。
 
-| 类别 | 最小内容 | 可得方式 | 缺失处置 |
-|---|---|---|---|
-| 执行必需 | 确切合约、价格单位/乘数、期限与交易日历、成交量、计划 Entry/SL/TP、成本、适用事件与交易所风控、实际账户/持仓/挂单、保证金/限仓 | 已有行情输出或终端导出；交易所/经纪商规则；用户当期账户快照 | 不猜、不用代理放行；对应执行项 incomplete。账户不阻止前面的市场研究 |
-| 模型最低研究数据 | 所选合约/价差历史与确认条件，以及至少一项与方向有关、独立于该期货价格的当前产业事实 | 交易所、政府/协会、公开期货公司周报或可读的产业报道 | 只影响依赖它的模型；替代必须保持经济含义，不能改名充数 |
-| 增强信息 | 精确船流/海湾出口、战争险报价、专有装置/利润/开工数据库、资金流细分、PPI精确归因比例 | 已有且可追溯则用 | 默认不计入完整性分母，不因不可得扣分或新增冻结；【v2.26】Kpler 通行量/海湾出口/战争险与 247 家铁水/盈利率为参考级：①门与 D14 已改用公开锚，专门依赖它们的休眠模型复活前须用公开数据重定义触发 |
+### 3.1 行情与计划：futures_strategy.py
 
-默认每候选只采“一份行情包＋一项合适产业指标＋相关日历/规则”。第二项独立产业指标可增强证据，不要求库存、利润、开工、现货四条链全部齐备。**一条新闻不等于一个可验证指标**；必须有观测对象、时间、方向及可复核内容。
+```sh
+python3 scripts/futures_strategy.py trend-inputs --input market.json
+python3 scripts/futures_strategy.py reversion-inputs --input market.json
+python3 scripts/futures_strategy.py validate-plan --input plan-request.json
+```
 
-可用来源及语义边界：
+`--input -`可读stdin；不联网。合法日期为YYYY-MM-DD或YYYYMMDD，`trading_dates`必须有序唯一，覆盖原始历史、两日入场窗与拟退出日。
 
-| 对象 | 优先公开证据 | 禁止替换 |
-|---|---|---|
-| MA 国内月差 | 当前公开港库/到港/装置公告/现货基差；或与交割供给相关的注册仓单变化 | 仓单不是港口总库存；海外油价不是国内甲醇库存 |
-| RB 月差 | 钢材库存/产量/需求公开周报；或交割相关仓单、钢厂公开产销信息 | 不把铁水或焦炭涨价单独等同于螺纹需求；无铁水不自动否决独立月差模型 |
-| SR | 协会产销、官方进出口/储备公告、工业库存或交割仓单 | 月度产销不能生成“连续两周回落” |
-| CF | 官方/行业产销、储备公告、作物进度、交割仓单 | 期价上涨不能代替下游需求改善 |
-| M | USDA 官方报告、公开作物进度、国内公开供需资料 | 无压榨利润全链不禁止研究；但没有已许可具体策略时只观察，不自动进入 C 池 |
+| 入口 | JSON输入 |
+|---|---|
+| trend-inputs | `contract, as_of_date, trading_dates, records`；每行`trade_date, close, high, low`，可带contract/is_complete，真实合约不能混入其他腿 |
+| reversion-inputs | `near_contract, far_contract, anchor_low, anchor_high, as_of_date, trading_dates, records`；每行必须带同对`near_contract,far_contract,trade_date,near_settle,far_settle` |
+| validate-plan | `rule_version:"v3.0", strategy:"trend"或"economic_reversion", market:<上面输入>, plan:<下面字段>` |
 
-交易所公开仓单可支持“可交割供给”的论点；若注册/注销季节、换月或交割会造成机械变化，应先排除该解释。不能用不相关的易取数据替代真正必要的经济证据。
+共同plan字段：`side,entry,entry_date,latest_exit_date,price_unit:"CNY/tonne",multiplier,tick_value,round_trip_fees`；`tick_value`为人民币/手tick，`round_trip_fees`为T一手或V一组两腿开平合计，滑点由`round_trip_slippage`显式输入或使用canonical最低预算。工具内规格匹配只是支持范围，不替代当前交易所核验。
 
-## 3. 每个改变判定的数据都要留下证据行
+T：显式`targets:null`，`exit_rule:"initial_2atr_and_prior10_channel_tighten_only_max20_sessions"`。helper返回`stop,entry_range,signal_date,valid_until,latest_exit_date,risk_unit`。可提交更窄entry_range和stop供一致性校验；入场仍在突破侧，范围与0.5ATR限制取交集按tick向内，SL向外取整；不得给伪TP。`prior10_channel_stop`是信号日之前的参考通道，不是后续持仓日自动更新的止损；持有时用最近10完整日重新计算，下一时段生效。
 
-最低字段：`evidence_id, metric, value, unit, observation_date, published_at, source_url_or_file, original_source, price_basis, comparison_basis, role, quality`。
+V：`leg_ratio:[1,1],stop,entry_range,convergence_sessions`，及`economic_anchor_basis,convergence_mechanism,invalidation_basis,economic_evidence_refs`。范围可单点，整个范围均应满足价位顺序与最差点净R；`convergence_sessions`与可持有窗匹配。helper输出targets、选定Entry的`reward_risk`及全区间最差`entry_range_min_reward_risk`；审计`targets`对应targets，`net_R`必须取全区间最差值（选定Entry另可记selected_entry_net_R），经济锚另记`anchor_band={low,high,source,as_of_date}`、有效截止与假设。非空说明仅证明有文字，不能证明经济锚成立。
 
-- `role`：required_execution / required_model / optional_context；`quality`：verified / missing / stale / conflicting / invalid。
-- 观测日期必须含年份，不能将发布日、转载日、抓取日当作观测日。比较项同时写本期/前期的日期、数值、单位、样本范围；历史样本单列为历史，不能冒充当前。
-- 当期日行情对应最近已完成交易日；周/月指标对应截至 AS_OF 已发布的最近一期。跨正常发布周期仍无更新记 stale；如果当前一期尚未发布，上一期可作带滞后说明的背景，但不能推断尚未发布期间的变化。
-- 阈值与同口径可计算变化可直接判定；“高位”不能证明“上涨”，“低于战前”不能证明“较10日均继续下降”。对连续 N 期条件须有 N 期完整读数及比较基准。
-- 同一机构数据被多站转载仍只算一个来源；同一价差的分位、均线和涨幅仍只算价格确认，不算三条独立产业证据。
-- 搜索摘要只作线索；改变执行门的数值应读取有日期的正文、原表或用户来源文件。付费原始库不可读时允许可靠公开转引，但须写转引来源与已核范围，不能自称核过原始库。
-- 来源冲突不选“最保守数字”冒充真值：标 conflicting，保留两边证据，只暂停依赖该指标的判定。
-- 不同日期的读数先按时间序列处理；判断来源冲突须先统一观察时点、对象与口径。FedWatch 同时写目标会议、目标利率区间及采样时刻，旧读数不能拼成当期概率。区域库存、全港口样本、可流通库存分别记录；相关反证可以阻止一条方向假设，但不自动证明反向交易有利可图。
-- 模块报错或整行 NaN 只说明结果未生成，不能据此声称某个原始字段缺失。SC 两端结算周涨独立于高低价、ATR、ADX 计算；分别记录两端交易日、settle、缺失字段与计算错误。仍不允许用 close 或价差反推绝对结算价补齐护栏。
-- 发现错年、错单位、误用收盘/结算、错误豁免，先撤回错误触发、修复证据，再做市场变化比较。纠错不是反摇摆违例，不需要新的市场事件来允许修正。
+工具重算价格信号和计划日期；已提交signal_date/valid_until若与重算矛盾则拒绝。`signal=triggered`只是行情条件，不代表独立产业证据或前瞻生效已核。T/V手续费、tick、真实Entry、SL与计划版本都须留痕；实际成交变化后重算，不能拿原计划风险继续报手数。
 
-### 3.1 纠错必须重算依赖
+### 3.2 账户容量：futures_risk.py size-v3
 
-原文年份、观察区间、发布日期和统计单位分别核对；URL编号仅作线索，不能据编号单独认证年份。周度247家统计的日均产量仍是周度样本，撤回错年读数无需等下周。保留错误行quality=invalid，新值用新evidence_id；在evidence_corrections列受影响candidate_id/rule_id、撤回原因及recalculation=completed/pending。无效行只放diagnostic_evidence_refs，不支撑pass/fail或signal。
+```sh
+python3 scripts/futures_risk.py size-v3 --input risk-request.json
+```
 
-立即移除由错误值推出的触发、分数和系数，重新生成阻断清单/主状态/容量，并在正文列前后差异。替代值未核时相应门unknown，不沿用旧fail；其他独立有效的许可限制仍保留。只有完整重算后才说“结论不变”；未完成写pending。脚本不能验证正文真假或经济重算正确性，研究方仍负核验责任。
+输入：`rule_version:"v3.0",equity,risk_unit,regime`（normal/low_exposure）、`open_position_risks,reserved_order_risks,existing_trade_risk`、`position_snapshot_verified,position_snapshot_as_of,sizing_as_of`、`factors,factors_complete`、`margin_capacity_lots,position_limit_capacity_lots,execution_capacity_lots,hard_vetoes`。
 
-## 4. 默认公开数据路线与强因果路线分开
+`factors`只接受`strategy,market_risk,exchange_buffer`及canonical固定取值；不得混旧D系列，不能把该字段齐全当作其事实已核。各风险列表是人民币金额，来自真实持仓/未撤单；没有账户时不要调用示例空列表伪造空仓。
 
-`research_mode=public_data`。A 计划同时填写 `evidence_basis=domestic_public / geopolitical_fade`。
+`stress_capacity_applicable,weekend_capacity_applicable`为显式布尔；适用时对应`stress_capacity_lots,weekend_capacity_lots`须为可新增整数≥0，不适用则容量显式null。执行容量必填整数。未知或未核适用性保留final_lots=null，已核0为阻断；所有硬容量与风险手数取最小，不能只报告risk_lots。容量须保留金额/规则/报价依据，不能随意填一个大数。预算与取整只由helper计算，不在报告另抄一套实现。
 
-**domestic_public**：MA/RB/SR 已有 A 高价差回归路线，依赖国内交割/供需证据及所选价差自身确认。#5 的默认最低验证为两类同时成立：①预先写明的价格/结构确认；②至少一项独立产业事实支持拟定方向。缺一类不能形成完整信号。仍需研究筛选、样本、真实失效 SL、净 R、期限和全部适用执行门。
+本工具只核输入数值与当日时间关系，不连接真实账户，也不能验证保证金/限仓来源、压力场景或挂单是否真的已撤。账户更新、报价/事件变化后重算；G1–G4已齐且仅账户未知为awaiting_account，其他必要未知仍incomplete。
 
-**geopolitical_fade 或政策/供给强因果模型**：如果获利前提是“海峡通行恢复、战争溢价消失、实际产能退出”，保留①/③及该模型原有定量/因果门。①的量化门自 v2.26 起=官方解除/关闭（或再袭船·布雷）事实＋脚本§1 SC 近端 back 方向；Kpler 通行量、海湾出口、战争险与 247 家铁水/钢厂盈利率为参考级信息，不进门、不记缺口、不列补核必办。必要专业数据无法持续取得时标 research_only，不长期把“四点包”等整包交用户决定。只有模型证据齐备才回执行研究。
+## 4. 审计、前瞻轨迹及历史兼容
 
-MA 国内回归不能只是给同一个地缘 fade 换名：计划须回答“即使海峡状态未缓和，哪项独立国内变化仍支持这组价差收敛”，并写相反地缘冲击的失效与压力处置；答不出就仍属于 geopolitical_fade。国内路线不宣称①已证真，不解禁 MA 方向性空头，事件日冻结、双腿风险和组合预算继续适用。
+输出使用[共享schema 3模板](../projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md)。当前v3仍是schema 3，历史schema 2/3按其当时框架解释；不因schema相同沿用旧A–H许可。候选使用trend/economic_reversion、G1–G6和五种状态，数据可行性分列。
 
-审计按具体依赖拆开 #3：记录适用的 precheck 名称、依赖该门的原因、结果与证据；不能只写“#3未知”后把全局①缺项带入 domestic_public。国内逻辑尚未论证时记“国内模型论证未完成”；若论证表明获利确实依赖地缘缓和，再按 geopolitical_fade 核①。已核产业反证、价格确认缺项和地缘压力预案分开，移除不适用门不等于 #5 已通过。
+每个necessary unknown写`gap.kind/owner/next_action/due_at`：definition/plan归research，calculation归data_pipeline，account归user，not_published归publisher并附正式发布时间证据。已知fail与unknown同时保留；only_blocker须完整核验。无账户必须null而不是0，不推断实际成交/减仓。
 
-复产/库存的 D14 用于实际依赖这些因子的供给收缩/成本假设；铁水项自 v2.26 起为参考，不扣分、不触发处置，需求证弱以公开周度库存转累/现货转贴水判定。已知反证与其计划相关时必须检视、调整评分或判失效，不能因“可选”而忽略矛盾。
+v3计划保存在candidate.plan，按opportunity_id前瞻冻结并逐次追加路径。`shadow_plans=[]`、`performance_status=not_automated`；旧price_evidence固定目标引擎只结算v2历史，不支持v3 T跟踪退出，不能用旧输出当新策略绩效。没有冻结计划/后续路径、或日线无法还原盘中/双腿成交时，收益/避免亏损/错失盈利保持null。
 
-## 5. 按顺序形成可审核的研究结果
+`seasonal_plan.py`、`futures_risk.py validate-a/size`、旧precheck_2atr与D8属于legacy_v2_only；只为历史复现保留。当前趋势不能用含当日H20、旧settle→close回退、旧B窗口或旧评分变相过门。重构前报告/快照不改写；方法、事件和账户不从旧文本续成当前事实。
 
-1. **来源检查**：核当期日期、数据口径、适用模型；说明哪些输入来自脚本，避免重复人工取数。
-2. **研究筛选**：按既有路由、分位/季节/事件条件；A同期样本保持3年各±20交易日，每年至少33/41个有效唯一同对样本，40/41仅警示，标准详见canonical 3.1；未触发可停在 no_signal，写覆盖范围。
-3. **规则适用性**：每条先写 applicable=true/false 与原因，再填 pass/fail/unknown/not_applicable。豁免项不进入缺项列表。
-4. **证据与计划**：研究方给方向、支持/反证、明确的 Entry/SL/TP、计划期限与退出日期。默认以 5–20 交易日研究可解释的计划；30–60 日只是 A 的旧参考，不是最低期限；不得倒推止损或缩短已定计划凑容量。
-5. **评分与数值预检**：采用 canonical 固定评分表、原始权重归一化和风险 helper。无账户可完成行情、方向、计划和评分；真实风险/容量输入缺失保留 null。
-6. **执行核验**：最新报价、实际账户及挂单、成本、保证金/限仓、事件窗口、压力场景、双腿执行预案全部完成后才可 ready。
+## 5. 检查与来源入口
 
-具体候选计划由执行诊断阶段（future-change-analysis）或独立报告A的研究方负责，元研究阶段只提供市场/来源输入。研究方最多向用户列三项真正需要用户提供/裁定的内容，如当期账户、风险偏好变更、现有工具权限；方向和止损方案应先具体化，不能把整份研究工作退回用户。没有证据支持某方向时直接写未形成方案及其所缺证据。
+```sh
+python3 scripts/futures_framework_governance.py --check
+python3 scripts/validate_futures_audit.py --input <审计报告.md>
+python3 -m unittest discover -s tests -v
+```
 
-换月“重建”指用新合约对重新核历史、日期、流动性、方向与计划；可使用已存在的同月对历史回溯，不把数值分位设为0，也不自动新增等待 N 天的冷却期。样本不达已有标准时才列具体缺口。
+检查结果须区分结构、离线合成样本、真实API与收益检验。治理脚本核30个当前锚和277个旧ID迁移覆盖，不证明全部语义；单元测试不证明策略可盈利或行情可获取。本轮v1.18未做真实API验证，遇数据缺项保留错误与可执行补件动作。
 
-### 5.1 价格确认与计划留痕
-
-权威规则见canonical 3.1、#5与Step5-A；本节说明如何取证和留痕，不能另加确认门槛。
-
-研究筛选与完整信号分列：分位≥70/≥85只写在 screening_evidence，不自动令 signal=triggered。先定义所选价差自身的确认规则，写指标/比较方向/窗口/阈值/价格口径及经济理由；再记录 rule_version、defined_at（带时区）和 effective_from。草案未冻结或必要观察值未取得，确认结果为 unknown；已有定义且可核未满足，与“尚未定义”分开。
-
-确认草案须随本轮研究给出可复评的定义，或明确为什么当前资料不足以选定；不得仅将“请定义确认规则”整包退回用户。新定义仅作前瞻研究，不回判定义前的信号；沿用同一机会的版本，不每周重置窗口追逐已发生走势。修改时保留原定义、理由和生效时间；任意“三日/40元/两周”示例都不是默认框架门槛。
-
-D1依据价格模式：有既定条件且未确认按评分卡为3，已核价格模式反向为1，定义/必要观测缺失则null。D2记录产业支持/反证，不以同一地缘叙事替代两项评分。D5按期限/流动性/适用事件事实取单一档或null，不填1–3区间。账户未核不阻止上述研究。
-
-Entry/SL/TP须由经济失效与有依据的目标决定，历史分位水平仅作参考；期限短只能否决不适配该期限的具体计划，不能无路径依据断言全部目标不可达。没有足够证据形成计划时写明原因，不能缩止损或倒推目标凑R。
-
-MA四点包及常规确认规则的草拟、冻结和未来观察归研究方；在已许可范围内不额外等用户批准。按同一opportunity_id保存原版本，不每周重置。确实无法形成失效点/独立国内逻辑，写具体失败原因或必要证据缺项；不以“你来决定方向/SL”代替研究交付。需要新交易权限或改变金额预算时才交用户。
-
-### 5.2 事件时间与提前风险窗
-
-日期计算与本月固定窗口的权威定义见canonical 0.0b；本节为取证步骤，出现重复说明时回到该处核对品种和终点。
-
-事件记录分别写 released_at（官方时间及带时区时间戳）、北京时间、domestic_trade_date、source、相关品种和首次可交易时刻/待核。先按夜盘归属和真实交易日历确定 T，再计算 T−n；会议起始日、决议日和国内交易日不得混算。截止任务在到期前为 pending，到期缺数据才执行预写处置，不提前宣称完成裁定。
-
-已有写死的提前冻结/处置日单列为 fixed_risk_window，注明规则来源、品种及动作，不再称作计算得到的 T−n，也不因纠正时区而自动解除。2026年9月的已核决议锚为北京时间9/17 02:00：国内T=9/17，T−3=9/14，T−1=9/16，T+1=9/18；原9/11起D12提前安排与9/15预案检查保留，D12事件提示到决议所属交易日；AU/AG的#29另到T+1复评，不外推为全池D12延长。提前窗与实际T−3重叠不重复折减。是否横跨实际发布与是否经过提前风险窗分开核验。后续月份必须重新核日期，不复用该静态安排。
-
-本次日期依据：[BLS 2026年9月日历](https://www.bls.gov/schedule/2026/09_sched.htm)、[美联储2026年9月日历](https://www.federalreserve.gov/newsevents/2026-september.htm)、[USDA WASDE日程](https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report)。仅更新事件时间口径，不将旧概率/地缘状态当作本期已核事实。
-
-## 6. 最小周报
-
-正文保持四块：
-
-1. 本期可研究范围、数据可得性及纠错（先说证据够不够）。
-2. 候选表：品种/模型、支持与反证、筛选结果、研究完成度、已知否决、执行缺项。
-3. 最接近完成的最多两份具体计划（同时按canonical 4.4登记`shadow_plans`），或各自无法形成计划的明确原因。
-4. 下一次重评条件及责任项；模型休眠单列，不重复展开池外历史议题。
-
-附 `EXECUTION_AUDIT_TEMPLATE.md` schema 3 JSON（schema 2仅兼容旧版历史报告）记录，发布前运行离线结构校验器；不能运行则明确未运行并按清单检查，不虚构通过。`all_blockers` 只放已核实 fail；未知账户风险不能填0；only_blocker 依据完整检查而定。不把 optional_context 的缺失列入 unknown_checks；但审计证据表保留其不可用事实。
-
-影子计划按canonical 4.4事前登记在`shadow_plans`，由行情脚本§5结算并写入快照；复评某条护栏时同时看它拦下的已了结影子的避免亏损与错过盈利，按独立机会去重。连续两轮都因同一无法取得的专业字段停滞，应复评模型可得性并给公开替代或 research_only 结案；不自动放宽风险，也不无期限增添必查字段。
-
-没有事前冻结的入场/退出/成本与可核后续路径时，只能记录风险假设，已避免损失和错过收益均为null。价格涨跌或“没交易”不能证明护栏有效，也不能在真实风险未计算前将空仓归因于5,000元组合上限。
-
-## 7. 公共入口与工具边界
-
-- [上期所日周数据](https://www.shfe.cn/reports/tradedata/dailyandweeklydata/)：日行情、结算参数、仓单、库存周报；具体字段可得性以当次读取为准。
-- [郑商所](https://www.czce.com.cn/) / [大商所](https://www.dce.com.cn/)：交易数据、合约与业务公告；经纪商实际保证金/费用另核。
-- [USDA WASDE 官方日程与报告](https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report) / [国家统计局](https://www.stats.gov.cn/)：日历、官方发布，不把海外当地时间直接写成北京时间。
-- [Tushare 期货日线接口](https://tushare.pro/document/2?doc_id=138)：已有权限时使用；settle 与 close 分开保存，不把一般价格回退规则用于指定结算价的护栏。周涨以最新已完成行情日减7自然日锚定，研究日不改变比较起点；脚本无完成标志时保守排除北京时间18:00前当日线，18:00并不保证最终结算已发布，执行前仍核原始数据。
-- 行情快照：每周在已配置 `TUSHARE_TOKEN` 的本机运行 `python3 scripts/future_data.py`，脚本自行把完整输出（含 stderr）写入 `research/futures/snapshots/<AS_OF>-data-snapshot.txt`（末行“快照完成”为完整标记；`--no-snapshot` 只打印），提交后生效（云端流水线不跑该脚本）。快照含合约期限、价差分位、单合约指标、§2d D8周涨分位与§5影子账本；阶段①②先读最新快照，已有实测值的项不得写推算或unknown。
-
-此处是来源入口和调研方法，不证明本期已取到数据。手工读取、用户导出和现有脚本均可提供研究输入；不把接口失败等同于市场条件失败。行情脚本不证明账户持仓，离线风险 helper 不授予交易许可。
-
-## 8. B策略复现与缺口分工（v2.24）
-
-B窗口、历史取样与价格公式唯一出处是canonical 1.6及Step5-B，CARD-SR/CF只引用，不保留另一份日期表。按window_id和交易所日历先筛选；明确不在研究窗口时no_signal，不补无关TP历史。窗口内由研究方生成具体拟入场/最晚退出日，再按剩余期限映射前三年同交割月合约，保留负收益年份。季节排期不是价格方向证据；前三年收益也不是回测胜率。新定义仅前瞻采用。
-
-`python3 scripts/seasonal_plan.py --input <本地JSON>`可验算日历映射及Entry/SL/TP1。只提供窗口与日历也可先筛选；价格/样本未提供时不会伪造计划。完整输入字段见`scripts/SEASONAL_PLAN_INPUT.md`；行情可用既有接口或终端导出，研究方负责组装，不能转为用户购买数据库待办。helper不联网、不核来源真实性，不替代net_R/风险helper或执行门；主行情脚本尚不自动组装这份输入，应将未组装记calculation/acquisition而非框架定义缺失。
-
-每个适用unknown记录gap.kind/owner/next_action/due_at：definition、plan归research；calculation归data_pipeline；raw_data/acquisition按实际取证责任；account归user；not_published归publisher，另附带时区expected_release_at和已核官方发布安排release_evidence_refs。没有官方发布安排就不能把“9/12治理截止”当作发布日。可选D9背景用既有中性规则，不进入unknown_checks。
-
-SC指定两端settle是MA原油周涨护栏的数据；MA #30须MA日settle/pre_settle/涨停状态，不能拿SC缺项代替。D8按canonical 3.4由脚本§2d计算（A豁免），快照缺该值才记calculation缺口；gap_ratio先有真实SL、成本与压力场景，再算数值，缺计划不报付费行情缺失。
+[大商所](https://www.dce.com.cn/)、[郑商所](https://www.czce.com.cn/)、[上期所](https://www.shfe.com.cn/)提供交易与合约规则入口；[USDA WASDE](https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report)、农业农村部CASDE、统计局等提供适用产业背景。入口存在不证明本期已取到数据；不得把宏观统计直接代替具体交割品级现货。

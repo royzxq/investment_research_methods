@@ -1,6 +1,6 @@
 ---
 name: futures-weekly-review
-description: 维护本仓库期货研究与执行框架：周度元研究、变化检测、每期执行审计、条件适配、数据脚本同步及保真精简；支持单阶段研究、比较、适配和 data-sync。用于期货框架演化，不执行交易。
+description: 维护本仓库期货研究与执行框架：周度元研究、变化检测、执行审计、适配、脚本同步及保真精简；支持单阶段与用户直接授权的设计审阅、精简或重构。不执行交易。
 ---
 
 # 期货研究与执行框架维护
@@ -20,9 +20,12 @@ description: 维护本仓库期货研究与执行框架：周度元研究、变�
 | `compare`／比较指定报告 | [变化检测与审计](references/future-change-analysis.md) | change-decision、execution-audit 与 `update_needed` |
 | `adapt`／从变化报告适配 | [框架适配](references/future-adaption.md)，仅 `update_needed=yes` | canonical 局部更新、adaption-report |
 | `data-sync`／仅同步脚本 | [数据同步](references/future-data-sync.md)，使用已有新版框架和适配报告 | 是否改脚本、同步记录、旧输出失效项 |
+| `direct`／定向审阅、精简或重构 | [框架适配的定向维护分支](references/future-adaption.md)，按用户明确范围执行 | maintenance 下的设计/实施报告及获授权的必要同步 |
 | `full`／完整周更 | 元研究 → 变化检测及审计 → 条件适配 → 数据同步 → 诊断重评 → 共用精简 | 研究日志与条件更新包 |
 
-`framework/futures_framework.md` 是方法、参数及歧义裁决权威；compact 仅作保真导航。先读 `framework/FUTURES_DATA_PROTOCOL.md`，执行审计只用 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`；评分与风险口径不在包装层另存。历史读取日期报告及必要 git 变更。
+`framework/futures_framework.md` 是方法、参数及歧义裁决权威；compact 仅作保真导航。先读 `framework/FUTURES_DATA_PROTOCOL.md`，执行审计只用 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`；T / V 模型、G1–G6 及风险口径不在包装层另存。历史读取日期报告及必要 git 变更；schema 3 审计和旧影子账按历史兼容规则读取，不把旧 A–H 评分或冻结带回当前模型。
+
+`direct` 不依赖伪造的周度变化报告或 `update_needed=yes`，也不自动启动当期市场研究。用户要求同步两版时完成必要协议、工具和 compact 联动；未进行当期取证则明确当前信号未评估、账户未知，不声称已生成新交易建议或验证策略收益。发布授权仍独立处理。
 
 ## 完整周更与证据发现
 

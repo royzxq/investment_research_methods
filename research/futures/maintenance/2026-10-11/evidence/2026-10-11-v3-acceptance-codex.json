@@ -1,0 +1,2897 @@
+{
+  "generator": "codex",
+  "as_of_date": "2026-10-11",
+  "scope": "synthetic_offline_acceptance_not_market_research",
+  "cases": {
+    "trend_long": {
+      "fixture": "tests.test_futures_strategy.plan_request",
+      "input": {
+        "rule_version": "v3.0",
+        "strategy": "trend",
+        "market": {
+          "contract": "M2701",
+          "records": [
+            {
+              "trade_date": "20260101",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260102",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260105",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260107",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260108",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260109",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260112",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260113",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260114",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260115",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260116",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260119",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260120",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260121",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260122",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260123",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260126",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260127",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260128",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260129",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260130",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260202",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260203",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260204",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260205",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260206",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260209",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260210",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260211",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260212",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260213",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260216",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260217",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260218",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260219",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260220",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260223",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260224",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260225",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260226",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260227",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260302",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260303",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260304",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260305",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260306",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260309",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260310",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260311",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260312",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260313",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260316",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260317",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260318",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260319",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260320",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260323",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260324",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260325",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260326",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260327",
+              "contract": "M2701",
+              "close": 3030,
+              "high": 3031,
+              "low": 3029,
+              "settle": 99999
+            }
+          ],
+          "trading_dates": [
+            "20260101",
+            "20260102",
+            "20260105",
+            "20260107",
+            "20260108",
+            "20260109",
+            "20260112",
+            "20260113",
+            "20260114",
+            "20260115",
+            "20260116",
+            "20260119",
+            "20260120",
+            "20260121",
+            "20260122",
+            "20260123",
+            "20260126",
+            "20260127",
+            "20260128",
+            "20260129",
+            "20260130",
+            "20260202",
+            "20260203",
+            "20260204",
+            "20260205",
+            "20260206",
+            "20260209",
+            "20260210",
+            "20260211",
+            "20260212",
+            "20260213",
+            "20260216",
+            "20260217",
+            "20260218",
+            "20260219",
+            "20260220",
+            "20260223",
+            "20260224",
+            "20260225",
+            "20260226",
+            "20260227",
+            "20260302",
+            "20260303",
+            "20260304",
+            "20260305",
+            "20260306",
+            "20260309",
+            "20260310",
+            "20260311",
+            "20260312",
+            "20260313",
+            "20260316",
+            "20260317",
+            "20260318",
+            "20260319",
+            "20260320",
+            "20260323",
+            "20260324",
+            "20260325",
+            "20260326",
+            "20260327",
+            "20260330",
+            "20260331",
+            "20260401",
+            "20260402",
+            "20260403",
+            "20260406",
+            "20260407",
+            "20260408",
+            "20260409",
+            "20260410",
+            "20260413",
+            "20260414",
+            "20260415",
+            "20260416",
+            "20260417",
+            "20260420",
+            "20260421",
+            "20260422",
+            "20260423",
+            "20260424",
+            "20260427",
+            "20260428",
+            "20260429",
+            "20260430",
+            "20260501",
+            "20260504",
+            "20260505",
+            "20260506",
+            "20260507",
+            "20260508",
+            "20260511",
+            "20260512",
+            "20260513",
+            "20260514",
+            "20260515",
+            "20260518",
+            "20260519",
+            "20260520",
+            "20260521",
+            "20260522",
+            "20260525",
+            "20260526",
+            "20260527",
+            "20260528",
+            "20260529"
+          ],
+          "as_of_date": "20260327"
+        },
+        "plan": {
+          "side": "long",
+          "entry": 3030,
+          "entry_date": "20260330",
+          "latest_exit_date": "20260424",
+          "price_unit": "CNY/tonne",
+          "multiplier": 10,
+          "tick_value": 10,
+          "round_trip_fees": 10,
+          "targets": null,
+          "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions"
+        }
+      },
+      "output": {
+        "rule_version": "v3.0",
+        "strategy": "trend",
+        "scope": "v3_plan_arithmetic_only",
+        "status": "valid",
+        "signal": "triggered",
+        "side": "long",
+        "missing_fields": [],
+        "issues": [],
+        "execution_permission": "not_evaluated",
+        "methodology_validation": "forward_research_not_performance_validated",
+        "risk_unit": 140.0,
+        "cost_unit": 30.0,
+        "net_reward": null,
+        "reward_risk": null,
+        "targets": null,
+        "stop": 3019.0,
+        "final_lots": null,
+        "pending_checks": [
+          "frozen_prospective_definition_and_evidence",
+          "economic_causality",
+          "contract_life_and_forced_exit_dates",
+          "latest_executable_quotes",
+          "stress_and_events",
+          "account_and_capacity"
+        ],
+        "signal_inputs": {
+          "rule_version": "v3.0",
+          "strategy": "trend",
+          "scope": "v3_market_inputs_only",
+          "status": "valid",
+          "signal": "triggered",
+          "side": "long",
+          "missing_fields": [],
+          "issues": [],
+          "execution_permission": "not_evaluated",
+          "methodology_validation": "forward_research_not_performance_validated",
+          "contract": "M2701",
+          "price_basis": "close",
+          "product": "M",
+          "market_trade_date": "20260327",
+          "as_of_date": "20260327",
+          "signal_close": 3030.0,
+          "prior20_high": 3013.0,
+          "prior20_low": 2999.0,
+          "prior10_low": 2999.0,
+          "prior10_high": 3013.0,
+          "atr20": 5.421960992862138,
+          "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+          "sample_start": "20260101",
+          "targets": null,
+          "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+          "volatility_ratio": 1.30420813611593,
+          "volatility_status": "available",
+          "high_volatility": true
+        },
+        "entry_expiry": "20260331",
+        "entry_date": "20260330",
+        "latest_exit_date": "20260424",
+        "entry": 3030.0,
+        "signal_date": "2026-03-27",
+        "valid_until": "2026-03-31",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "prior10_channel_stop": 2999.0,
+        "entry_range": [
+          3028,
+          3032
+        ]
+      }
+    },
+    "trend_short": {
+      "fixture": "tests.test_futures_strategy.plan_request",
+      "input": {
+        "rule_version": "v3.0",
+        "strategy": "trend",
+        "market": {
+          "contract": "M2701",
+          "records": [
+            {
+              "trade_date": "20260101",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260102",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260105",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260107",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260108",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260109",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260112",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260113",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260114",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260115",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260116",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260119",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260120",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260121",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260122",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260123",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260126",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260127",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260128",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260129",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260130",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260202",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260203",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260204",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260205",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260206",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260209",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260210",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260211",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260212",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260213",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260216",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260217",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260218",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260219",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260220",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260223",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260224",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260225",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260226",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260227",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260302",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260303",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260304",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260305",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260306",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260309",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260310",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260311",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260312",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260313",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260316",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260317",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260318",
+              "contract": "M2701",
+              "close": 3008,
+              "high": 3009,
+              "low": 3007,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260319",
+              "contract": "M2701",
+              "close": 3010,
+              "high": 3011,
+              "low": 3009,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260320",
+              "contract": "M2701",
+              "close": 3012,
+              "high": 3013,
+              "low": 3011,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260323",
+              "contract": "M2701",
+              "close": 3000,
+              "high": 3001,
+              "low": 2999,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260324",
+              "contract": "M2701",
+              "close": 3002,
+              "high": 3003,
+              "low": 3001,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260325",
+              "contract": "M2701",
+              "close": 3004,
+              "high": 3005,
+              "low": 3003,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260326",
+              "contract": "M2701",
+              "close": 3006,
+              "high": 3007,
+              "low": 3005,
+              "settle": 99999
+            },
+            {
+              "trade_date": "20260327",
+              "contract": "M2701",
+              "close": 2970,
+              "high": 2971,
+              "low": 2969,
+              "settle": 99999
+            }
+          ],
+          "trading_dates": [
+            "20260101",
+            "20260102",
+            "20260105",
+            "20260107",
+            "20260108",
+            "20260109",
+            "20260112",
+            "20260113",
+            "20260114",
+            "20260115",
+            "20260116",
+            "20260119",
+            "20260120",
+            "20260121",
+            "20260122",
+            "20260123",
+            "20260126",
+            "20260127",
+            "20260128",
+            "20260129",
+            "20260130",
+            "20260202",
+            "20260203",
+            "20260204",
+            "20260205",
+            "20260206",
+            "20260209",
+            "20260210",
+            "20260211",
+            "20260212",
+            "20260213",
+            "20260216",
+            "20260217",
+            "20260218",
+            "20260219",
+            "20260220",
+            "20260223",
+            "20260224",
+            "20260225",
+            "20260226",
+            "20260227",
+            "20260302",
+            "20260303",
+            "20260304",
+            "20260305",
+            "20260306",
+            "20260309",
+            "20260310",
+            "20260311",
+            "20260312",
+            "20260313",
+            "20260316",
+            "20260317",
+            "20260318",
+            "20260319",
+            "20260320",
+            "20260323",
+            "20260324",
+            "20260325",
+            "20260326",
+            "20260327",
+            "20260330",
+            "20260331",
+            "20260401",
+            "20260402",
+            "20260403",
+            "20260406",
+            "20260407",
+            "20260408",
+            "20260409",
+            "20260410",
+            "20260413",
+            "20260414",
+            "20260415",
+            "20260416",
+            "20260417",
+            "20260420",
+            "20260421",
+            "20260422",
+            "20260423",
+            "20260424",
+            "20260427",
+            "20260428",
+            "20260429",
+            "20260430",
+            "20260501",
+            "20260504",
+            "20260505",
+            "20260506",
+            "20260507",
+            "20260508",
+            "20260511",
+            "20260512",
+            "20260513",
+            "20260514",
+            "20260515",
+            "20260518",
+            "20260519",
+            "20260520",
+            "20260521",
+            "20260522",
+            "20260525",
+            "20260526",
+            "20260527",
+            "20260528",
+            "20260529"
+          ],
+          "as_of_date": "20260327"
+        },
+        "plan": {
+          "side": "short",
+          "entry": 2970,
+          "entry_date": "20260330",
+          "latest_exit_date": "20260424",
+          "price_unit": "CNY/tonne",
+          "multiplier": 10,
+          "tick_value": 10,
+          "round_trip_fees": 10,
+          "targets": null,
+          "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions"
+        }
+      },
+      "output": {
+        "rule_version": "v3.0",
+        "strategy": "trend",
+        "scope": "v3_plan_arithmetic_only",
+        "status": "valid",
+        "signal": "triggered",
+        "side": "short",
+        "missing_fields": [],
+        "issues": [],
+        "execution_permission": "not_evaluated",
+        "methodology_validation": "forward_research_not_performance_validated",
+        "risk_unit": 160.0,
+        "cost_unit": 30.0,
+        "net_reward": null,
+        "reward_risk": null,
+        "targets": null,
+        "stop": 2983.0,
+        "final_lots": null,
+        "pending_checks": [
+          "frozen_prospective_definition_and_evidence",
+          "economic_causality",
+          "contract_life_and_forced_exit_dates",
+          "latest_executable_quotes",
+          "stress_and_events",
+          "account_and_capacity"
+        ],
+        "signal_inputs": {
+          "rule_version": "v3.0",
+          "strategy": "trend",
+          "scope": "v3_market_inputs_only",
+          "status": "valid",
+          "signal": "triggered",
+          "side": "short",
+          "missing_fields": [],
+          "issues": [],
+          "execution_permission": "not_evaluated",
+          "methodology_validation": "forward_research_not_performance_validated",
+          "contract": "M2701",
+          "price_basis": "close",
+          "product": "M",
+          "market_trade_date": "20260327",
+          "as_of_date": "20260327",
+          "signal_close": 2970.0,
+          "prior20_high": 3013.0,
+          "prior20_low": 2999.0,
+          "prior10_low": 2999.0,
+          "prior10_high": 3013.0,
+          "atr20": 6.021960992862137,
+          "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+          "sample_start": "20260101",
+          "targets": null,
+          "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+          "volatility_ratio": 1.421829026920592,
+          "volatility_status": "available",
+          "high_volatility": true
+        },
+        "entry_expiry": "20260331",
+        "entry_date": "20260330",
+        "latest_exit_date": "20260424",
+        "entry": 2970.0,
+        "signal_date": "2026-03-27",
+        "valid_until": "2026-03-31",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "prior10_channel_stop": 3013.0,
+        "entry_range": [
+          2967,
+          2973
+        ]
+      }
+    },
+    "economic_reversion_long": {
+      "fixture": "tests.test_futures_strategy.plan_request",
+      "input": {
+        "rule_version": "v3.0",
+        "strategy": "economic_reversion",
+        "market": {
+          "near_contract": "RB2701",
+          "far_contract": "RB2705",
+          "anchor_low": -100,
+          "anchor_high": 100,
+          "records": [
+            {
+              "trade_date": "20260101",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260102",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260105",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260107",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260108",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260109",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260112",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260113",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260114",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260115",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260116",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260119",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260120",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260121",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260122",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260123",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260126",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260127",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260128",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260129",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260130",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260202",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260203",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260204",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260205",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260206",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260209",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260210",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260211",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260212",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260213",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260216",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260217",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260218",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260219",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260220",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260223",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260224",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260225",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260226",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260227",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260302",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260303",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260304",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260305",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260306",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260309",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260310",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260311",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260312",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260313",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260316",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2796,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260317",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2794,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260318",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2792,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260319",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2790,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260320",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2788,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260323",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2800,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260324",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2798,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260325",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2680,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260326",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2690,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260327",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 2700,
+              "far_settle": 3000
+            }
+          ],
+          "trading_dates": [
+            "20260101",
+            "20260102",
+            "20260105",
+            "20260107",
+            "20260108",
+            "20260109",
+            "20260112",
+            "20260113",
+            "20260114",
+            "20260115",
+            "20260116",
+            "20260119",
+            "20260120",
+            "20260121",
+            "20260122",
+            "20260123",
+            "20260126",
+            "20260127",
+            "20260128",
+            "20260129",
+            "20260130",
+            "20260202",
+            "20260203",
+            "20260204",
+            "20260205",
+            "20260206",
+            "20260209",
+            "20260210",
+            "20260211",
+            "20260212",
+            "20260213",
+            "20260216",
+            "20260217",
+            "20260218",
+            "20260219",
+            "20260220",
+            "20260223",
+            "20260224",
+            "20260225",
+            "20260226",
+            "20260227",
+            "20260302",
+            "20260303",
+            "20260304",
+            "20260305",
+            "20260306",
+            "20260309",
+            "20260310",
+            "20260311",
+            "20260312",
+            "20260313",
+            "20260316",
+            "20260317",
+            "20260318",
+            "20260319",
+            "20260320",
+            "20260323",
+            "20260324",
+            "20260325",
+            "20260326",
+            "20260327",
+            "20260330",
+            "20260331",
+            "20260401",
+            "20260402",
+            "20260403",
+            "20260406",
+            "20260407",
+            "20260408",
+            "20260409",
+            "20260410",
+            "20260413",
+            "20260414",
+            "20260415",
+            "20260416",
+            "20260417",
+            "20260420",
+            "20260421",
+            "20260422",
+            "20260423",
+            "20260424",
+            "20260427",
+            "20260428",
+            "20260429",
+            "20260430",
+            "20260501",
+            "20260504",
+            "20260505",
+            "20260506",
+            "20260507",
+            "20260508",
+            "20260511",
+            "20260512",
+            "20260513",
+            "20260514",
+            "20260515",
+            "20260518",
+            "20260519",
+            "20260520",
+            "20260521",
+            "20260522",
+            "20260525",
+            "20260526",
+            "20260527",
+            "20260528",
+            "20260529"
+          ],
+          "as_of_date": "20260327"
+        },
+        "plan": {
+          "side": "long",
+          "entry": -300,
+          "entry_date": "20260330",
+          "latest_exit_date": "20260424",
+          "price_unit": "CNY/tonne",
+          "multiplier": 10,
+          "tick_value": 10,
+          "round_trip_fees": 10,
+          "entry_range": [
+            -300,
+            -300
+          ],
+          "stop": -350,
+          "leg_ratio": [
+            1,
+            1
+          ],
+          "convergence_sessions": 10,
+          "economic_anchor_basis": "Synthetic storage/delivery band, not market evidence",
+          "convergence_mechanism": "Synthetic supply arrival within ten sessions",
+          "invalidation_basis": "Synthetic delivery restriction strengthens",
+          "economic_evidence_refs": [
+            "synthetic-evidence"
+          ]
+        }
+      },
+      "output": {
+        "rule_version": "v3.0",
+        "strategy": "economic_reversion",
+        "scope": "v3_plan_arithmetic_only",
+        "status": "valid",
+        "signal": "triggered",
+        "side": "long",
+        "missing_fields": [],
+        "issues": [],
+        "execution_permission": "not_evaluated",
+        "methodology_validation": "forward_research_not_performance_validated",
+        "risk_unit": 550.0,
+        "cost_unit": 50.0,
+        "net_reward": 1950.0,
+        "reward_risk": 3.5454545454545454,
+        "targets": [
+          -100.0
+        ],
+        "stop": -350.0,
+        "final_lots": null,
+        "pending_checks": [
+          "frozen_prospective_definition_and_evidence",
+          "economic_causality",
+          "contract_life_and_forced_exit_dates",
+          "latest_executable_quotes",
+          "stress_and_events",
+          "account_and_capacity"
+        ],
+        "signal_inputs": {
+          "rule_version": "v3.0",
+          "strategy": "economic_reversion",
+          "scope": "v3_market_inputs_only",
+          "status": "valid",
+          "signal": "triggered",
+          "side": "long",
+          "missing_fields": [],
+          "issues": [],
+          "execution_permission": "not_evaluated",
+          "methodology_validation": "forward_research_not_performance_validated",
+          "near_contract": "RB2701",
+          "far_contract": "RB2705",
+          "product": "RB",
+          "anchor_low": -100.0,
+          "anchor_high": 100.0,
+          "price_basis": "settle_near_minus_far",
+          "market_trade_date": "20260327",
+          "as_of_date": "20260327",
+          "signal_spread": -300.0,
+          "prior2_spreads": [
+            -320.0,
+            -310.0
+          ],
+          "target": -100.0,
+          "volatility_ratio": 1.6977705633324205,
+          "volatility_status": "available",
+          "high_volatility": true
+        },
+        "entry_expiry": "20260331",
+        "entry_date": "20260330",
+        "latest_exit_date": "20260424",
+        "entry": -300.0,
+        "signal_date": "2026-03-27",
+        "valid_until": "2026-03-31",
+        "entry_range": [
+          -300.0,
+          -300.0
+        ],
+        "entry_range_min_reward_risk": 3.5454545454545454
+      }
+    },
+    "economic_reversion_short": {
+      "fixture": "tests.test_futures_strategy.plan_request",
+      "input": {
+        "rule_version": "v3.0",
+        "strategy": "economic_reversion",
+        "market": {
+          "near_contract": "RB2701",
+          "far_contract": "RB2705",
+          "anchor_low": -100,
+          "anchor_high": 100,
+          "records": [
+            {
+              "trade_date": "20260101",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260102",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260105",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260107",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260108",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260109",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260112",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260113",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260114",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260115",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260116",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260119",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260120",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260121",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260122",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260123",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260126",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260127",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260128",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260129",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260130",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260202",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260203",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260204",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260205",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260206",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260209",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260210",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260211",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260212",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260213",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260216",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260217",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260218",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260219",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260220",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260223",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260224",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260225",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260226",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260227",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260302",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260303",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260304",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260305",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260306",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260309",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260310",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260311",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260312",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260313",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260316",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3204,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260317",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3206,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260318",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3208,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260319",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3210,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260320",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3212,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260323",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3200,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260324",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3202,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260325",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3320,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260326",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3310,
+              "far_settle": 3000
+            },
+            {
+              "trade_date": "20260327",
+              "near_contract": "RB2701",
+              "far_contract": "RB2705",
+              "near_settle": 3300,
+              "far_settle": 3000
+            }
+          ],
+          "trading_dates": [
+            "20260101",
+            "20260102",
+            "20260105",
+            "20260107",
+            "20260108",
+            "20260109",
+            "20260112",
+            "20260113",
+            "20260114",
+            "20260115",
+            "20260116",
+            "20260119",
+            "20260120",
+            "20260121",
+            "20260122",
+            "20260123",
+            "20260126",
+            "20260127",
+            "20260128",
+            "20260129",
+            "20260130",
+            "20260202",
+            "20260203",
+            "20260204",
+            "20260205",
+            "20260206",
+            "20260209",
+            "20260210",
+            "20260211",
+            "20260212",
+            "20260213",
+            "20260216",
+            "20260217",
+            "20260218",
+            "20260219",
+            "20260220",
+            "20260223",
+            "20260224",
+            "20260225",
+            "20260226",
+            "20260227",
+            "20260302",
+            "20260303",
+            "20260304",
+            "20260305",
+            "20260306",
+            "20260309",
+            "20260310",
+            "20260311",
+            "20260312",
+            "20260313",
+            "20260316",
+            "20260317",
+            "20260318",
+            "20260319",
+            "20260320",
+            "20260323",
+            "20260324",
+            "20260325",
+            "20260326",
+            "20260327",
+            "20260330",
+            "20260331",
+            "20260401",
+            "20260402",
+            "20260403",
+            "20260406",
+            "20260407",
+            "20260408",
+            "20260409",
+            "20260410",
+            "20260413",
+            "20260414",
+            "20260415",
+            "20260416",
+            "20260417",
+            "20260420",
+            "20260421",
+            "20260422",
+            "20260423",
+            "20260424",
+            "20260427",
+            "20260428",
+            "20260429",
+            "20260430",
+            "20260501",
+            "20260504",
+            "20260505",
+            "20260506",
+            "20260507",
+            "20260508",
+            "20260511",
+            "20260512",
+            "20260513",
+            "20260514",
+            "20260515",
+            "20260518",
+            "20260519",
+            "20260520",
+            "20260521",
+            "20260522",
+            "20260525",
+            "20260526",
+            "20260527",
+            "20260528",
+            "20260529"
+          ],
+          "as_of_date": "20260327"
+        },
+        "plan": {
+          "side": "short",
+          "entry": 300,
+          "entry_date": "20260330",
+          "latest_exit_date": "20260424",
+          "price_unit": "CNY/tonne",
+          "multiplier": 10,
+          "tick_value": 10,
+          "round_trip_fees": 10,
+          "entry_range": [
+            300,
+            300
+          ],
+          "stop": 350,
+          "leg_ratio": [
+            1,
+            1
+          ],
+          "convergence_sessions": 10,
+          "economic_anchor_basis": "Synthetic storage/delivery band, not market evidence",
+          "convergence_mechanism": "Synthetic supply arrival within ten sessions",
+          "invalidation_basis": "Synthetic delivery restriction strengthens",
+          "economic_evidence_refs": [
+            "synthetic-evidence"
+          ]
+        }
+      },
+      "output": {
+        "rule_version": "v3.0",
+        "strategy": "economic_reversion",
+        "scope": "v3_plan_arithmetic_only",
+        "status": "valid",
+        "signal": "triggered",
+        "side": "short",
+        "missing_fields": [],
+        "issues": [],
+        "execution_permission": "not_evaluated",
+        "methodology_validation": "forward_research_not_performance_validated",
+        "risk_unit": 550.0,
+        "cost_unit": 50.0,
+        "net_reward": 1950.0,
+        "reward_risk": 3.5454545454545454,
+        "targets": [
+          100.0
+        ],
+        "stop": 350.0,
+        "final_lots": null,
+        "pending_checks": [
+          "frozen_prospective_definition_and_evidence",
+          "economic_causality",
+          "contract_life_and_forced_exit_dates",
+          "latest_executable_quotes",
+          "stress_and_events",
+          "account_and_capacity"
+        ],
+        "signal_inputs": {
+          "rule_version": "v3.0",
+          "strategy": "economic_reversion",
+          "scope": "v3_market_inputs_only",
+          "status": "valid",
+          "signal": "triggered",
+          "side": "short",
+          "missing_fields": [],
+          "issues": [],
+          "execution_permission": "not_evaluated",
+          "methodology_validation": "forward_research_not_performance_validated",
+          "near_contract": "RB2701",
+          "far_contract": "RB2705",
+          "product": "RB",
+          "anchor_low": -100.0,
+          "anchor_high": 100.0,
+          "price_basis": "settle_near_minus_far",
+          "market_trade_date": "20260327",
+          "as_of_date": "20260327",
+          "signal_spread": 300.0,
+          "prior2_spreads": [
+            320.0,
+            310.0
+          ],
+          "target": 100.0,
+          "volatility_ratio": 1.6977705633324205,
+          "volatility_status": "available",
+          "high_volatility": true
+        },
+        "entry_expiry": "20260331",
+        "entry_date": "20260330",
+        "latest_exit_date": "20260424",
+        "entry": 300.0,
+        "signal_date": "2026-03-27",
+        "valid_until": "2026-03-31",
+        "entry_range": [
+          300.0,
+          300.0
+        ],
+        "entry_range_min_reward_risk": 3.5454545454545454
+      }
+    },
+    "size_normal": {
+      "input": {
+        "rule_version": "v3.0",
+        "equity": 150000,
+        "risk_unit": 1000,
+        "regime": "normal",
+        "open_position_risks": [],
+        "reserved_order_risks": [],
+        "existing_trade_risk": 0,
+        "position_snapshot_verified": true,
+        "position_snapshot_as_of": "2026-10-11T09:00:00+08:00",
+        "sizing_as_of": "2026-10-11T09:01:00+08:00",
+        "factors": {
+          "strategy": 0.7,
+          "market_risk": 1,
+          "exchange_buffer": 1
+        },
+        "factors_complete": true,
+        "margin_capacity_lots": 50,
+        "position_limit_capacity_lots": 50,
+        "execution_capacity_lots": 50,
+        "stress_capacity_applicable": false,
+        "stress_capacity_lots": null,
+        "weekend_capacity_applicable": false,
+        "weekend_capacity_lots": null,
+        "hard_vetoes": []
+      },
+      "output": {
+        "status": "valid",
+        "issues": [],
+        "missing_fields": [],
+        "risk_lots": 3,
+        "final_lots": 3,
+        "execution_permission": "not_evaluated",
+        "scope": "risk_sizing_only",
+        "rule_version": "v3.0",
+        "compatibility": "v3_only",
+        "trade_risk_cap": 5250.0,
+        "portfolio_risk_cap_normal": 5250.0,
+        "portfolio_risk_cap_current": 5250.0,
+        "portfolio_risk_cap": 5250.0,
+        "low_exposure_cash_cap": 5000.0,
+        "used_open_risk": 0.0,
+        "reserved_order_risk": 0.0,
+        "used_total_risk": 0.0,
+        "trade_effective_risk": 3675.0,
+        "existing_trade_risk": 0.0,
+        "remaining_trade_risk": 3675.0,
+        "remaining_portfolio_risk": 5250.0,
+        "available_risk": 3675.0,
+        "capacity_lots": 3,
+        "additional_capacity_limits": {
+          "execution": 50
+        },
+        "capacity_lots_before_additional": 3
+      }
+    },
+    "size_low_exposure": {
+      "input": {
+        "rule_version": "v3.0",
+        "equity": 150000,
+        "risk_unit": 1000,
+        "regime": "low_exposure",
+        "open_position_risks": [],
+        "reserved_order_risks": [],
+        "existing_trade_risk": 0,
+        "position_snapshot_verified": true,
+        "position_snapshot_as_of": "2026-10-11T09:00:00+08:00",
+        "sizing_as_of": "2026-10-11T09:01:00+08:00",
+        "factors": {
+          "strategy": 0.7,
+          "market_risk": 1,
+          "exchange_buffer": 1
+        },
+        "factors_complete": true,
+        "margin_capacity_lots": 50,
+        "position_limit_capacity_lots": 50,
+        "execution_capacity_lots": 50,
+        "stress_capacity_applicable": false,
+        "stress_capacity_lots": null,
+        "weekend_capacity_applicable": false,
+        "weekend_capacity_lots": null,
+        "hard_vetoes": []
+      },
+      "output": {
+        "status": "valid",
+        "issues": [],
+        "missing_fields": [],
+        "risk_lots": 3,
+        "final_lots": 3,
+        "execution_permission": "not_evaluated",
+        "scope": "risk_sizing_only",
+        "rule_version": "v3.0",
+        "compatibility": "v3_only",
+        "trade_risk_cap": 5250.0,
+        "portfolio_risk_cap_normal": 5250.0,
+        "portfolio_risk_cap_current": 5000.0,
+        "portfolio_risk_cap": 5000.0,
+        "low_exposure_cash_cap": 5000.0,
+        "used_open_risk": 0.0,
+        "reserved_order_risk": 0.0,
+        "used_total_risk": 0.0,
+        "trade_effective_risk": 3675.0,
+        "existing_trade_risk": 0.0,
+        "remaining_trade_risk": 3675.0,
+        "remaining_portfolio_risk": 5000.0,
+        "available_risk": 3675.0,
+        "capacity_lots": 3,
+        "additional_capacity_limits": {
+          "execution": 50
+        },
+        "capacity_lots_before_additional": 3
+      }
+    },
+    "size_execution_zero": {
+      "input": {
+        "rule_version": "v3.0",
+        "equity": 150000,
+        "risk_unit": 1000,
+        "regime": "normal",
+        "open_position_risks": [],
+        "reserved_order_risks": [],
+        "existing_trade_risk": 0,
+        "position_snapshot_verified": true,
+        "position_snapshot_as_of": "2026-10-11T09:00:00+08:00",
+        "sizing_as_of": "2026-10-11T09:01:00+08:00",
+        "factors": {
+          "strategy": 0.7,
+          "market_risk": 1,
+          "exchange_buffer": 1
+        },
+        "factors_complete": true,
+        "margin_capacity_lots": 50,
+        "position_limit_capacity_lots": 50,
+        "execution_capacity_lots": 0,
+        "stress_capacity_applicable": false,
+        "stress_capacity_lots": null,
+        "weekend_capacity_applicable": false,
+        "weekend_capacity_lots": null,
+        "hard_vetoes": []
+      },
+      "output": {
+        "status": "blocked",
+        "issues": [
+          "no_capacity_within_verified_additional_limits"
+        ],
+        "missing_fields": [],
+        "risk_lots": 3,
+        "final_lots": 0,
+        "execution_permission": "not_evaluated",
+        "scope": "risk_sizing_only",
+        "rule_version": "v3.0",
+        "compatibility": "v3_only",
+        "trade_risk_cap": 5250.0,
+        "portfolio_risk_cap_normal": 5250.0,
+        "portfolio_risk_cap_current": 5250.0,
+        "portfolio_risk_cap": 5250.0,
+        "low_exposure_cash_cap": 5000.0,
+        "used_open_risk": 0.0,
+        "reserved_order_risk": 0.0,
+        "used_total_risk": 0.0,
+        "trade_effective_risk": 3675.0,
+        "existing_trade_risk": 0.0,
+        "remaining_trade_risk": 3675.0,
+        "remaining_portfolio_risk": 5250.0,
+        "available_risk": 3675.0,
+        "capacity_lots": 0,
+        "additional_capacity_limits": {
+          "execution": 0
+        },
+        "capacity_lots_before_additional": 3
+      }
+    },
+    "size_account_unknown": {
+      "input": {
+        "rule_version": "v3.0",
+        "equity": 150000,
+        "risk_unit": 1000,
+        "regime": "normal",
+        "open_position_risks": [],
+        "reserved_order_risks": [],
+        "existing_trade_risk": 0,
+        "position_snapshot_verified": false,
+        "position_snapshot_as_of": null,
+        "sizing_as_of": "2026-10-11T09:01:00+08:00",
+        "factors": {
+          "strategy": 0.7,
+          "market_risk": 1,
+          "exchange_buffer": 1
+        },
+        "factors_complete": true,
+        "margin_capacity_lots": 50,
+        "position_limit_capacity_lots": 50,
+        "execution_capacity_lots": 50,
+        "stress_capacity_applicable": false,
+        "stress_capacity_lots": null,
+        "weekend_capacity_applicable": false,
+        "weekend_capacity_lots": null,
+        "hard_vetoes": []
+      },
+      "output": {
+        "status": "incomplete",
+        "issues": [],
+        "missing_fields": [
+          "verified_position_snapshot",
+          "position_snapshot_as_of"
+        ],
+        "risk_lots": null,
+        "final_lots": null,
+        "execution_permission": "not_evaluated",
+        "scope": "risk_sizing_only",
+        "rule_version": "v3.0",
+        "compatibility": "v3_only",
+        "additional_capacity_limits": {
+          "execution": 50
+        }
+      }
+    }
+  }
+}

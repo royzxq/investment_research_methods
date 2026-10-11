@@ -1,0 +1,144 @@
+{
+  "generator": "codex",
+  "as_of_date": "2026-10-11",
+  "baseline_commit": "685b968068ff5ccc11987d76f546292f5ab3c76d",
+  "record_unit": "weekly candidate records; repeated opportunities are NOT independent trades",
+  "audits": [
+    {
+      "as_of": "2026-09-12",
+      "path": "research/futures/weekly/2026-09-12/2026-09-12-execution-audit.md",
+      "sha256": "ce107ed0e39b369388fcab0b706a6c1f9a75ef1932df19ec0a01b6896aaeb81f",
+      "records": 10,
+      "status_counts": {
+        "incomplete": 10
+      },
+      "formal_entries_nonnull": 0,
+      "shadow_plans": 0
+    },
+    {
+      "as_of": "2026-09-19",
+      "path": "research/futures/weekly/2026-09-19/2026-09-19-execution-audit.md",
+      "sha256": "3ef0589561e2716861cd6a447039c948e27bb64286851088ff5436687591c6e8",
+      "records": 10,
+      "status_counts": {
+        "incomplete": 7,
+        "no_signal": 3
+      },
+      "formal_entries_nonnull": 0,
+      "shadow_plans": 2
+    },
+    {
+      "as_of": "2026-09-26",
+      "path": "research/futures/weekly/2026-09-26/2026-09-26-execution-audit.md",
+      "sha256": "2b647e6b81b7f94b85e60683e3a2b12af055db7f2fe2dd558ec71b9e9542b9a3",
+      "records": 10,
+      "status_counts": {
+        "incomplete": 9,
+        "no_signal": 1
+      },
+      "formal_entries_nonnull": 0,
+      "shadow_plans": 0
+    },
+    {
+      "as_of": "2026-10-03",
+      "path": "research/futures/weekly/2026-10-03/2026-10-03-execution-audit.md",
+      "sha256": "4e8997f9030c49184e1cbab7742eb2b79690dfb511979645281f3e8eb20b321f",
+      "records": 10,
+      "status_counts": {
+        "incomplete": 9,
+        "no_signal": 1
+      },
+      "formal_entries_nonnull": 0,
+      "shadow_plans": 0
+    },
+    {
+      "as_of": "2026-10-11",
+      "path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit.md",
+      "sha256": "3a2449efea177b006ed412f28117b8e34272ff46dd67d6a2e7f171dcb579eb65",
+      "records": 10,
+      "status_counts": {
+        "incomplete": 7,
+        "no_signal": 3
+      },
+      "formal_entries_nonnull": 0,
+      "shadow_plans": 0
+    }
+  ],
+  "score_examples": [
+    {
+      "case": "p70_85_one_industry_best",
+      "dimensions_D1_D2_D3_D4_D5_D9": [
+        5,
+        3,
+        5,
+        3,
+        5,
+        3
+      ],
+      "numerator": 350,
+      "denominator": 90,
+      "score": 3.888888888888889,
+      "scope": "A base score only; excludes any other applicable penalties/additions and unresolved overnight precedence"
+    },
+    {
+      "case": "p85_R2.5_no_event",
+      "dimensions_D1_D2_D3_D4_D5_D9": [
+        5,
+        3,
+        3,
+        5,
+        5,
+        3
+      ],
+      "numerator": 346,
+      "denominator": 90,
+      "score": 3.8444444444444446,
+      "scope": "A base score only; excludes any other applicable penalties/additions and unresolved overnight precedence"
+    },
+    {
+      "case": "p85_R3_no_event",
+      "dimensions_D1_D2_D3_D4_D5_D9": [
+        5,
+        3,
+        4,
+        5,
+        5,
+        3
+      ],
+      "numerator": 366,
+      "denominator": 90,
+      "score": 4.066666666666666,
+      "scope": "A base score only; excludes any other applicable penalties/additions and unresolved overnight precedence"
+    },
+    {
+      "case": "p85_R3_event",
+      "dimensions_D1_D2_D3_D4_D5_D9": [
+        5,
+        3,
+        4,
+        5,
+        3,
+        3
+      ],
+      "numerator": 350,
+      "denominator": 90,
+      "score": 3.888888888888889,
+      "scope": "A base score only; excludes any other applicable penalties/additions and unresolved overnight precedence"
+    },
+    {
+      "case": "p85_R4_event",
+      "dimensions_D1_D2_D3_D4_D5_D9": [
+        5,
+        3,
+        5,
+        5,
+        3,
+        3
+      ],
+      "numerator": 370,
+      "denominator": 90,
+      "score": 4.111111111111111,
+      "scope": "A base score only; excludes any other applicable penalties/additions and unresolved overnight precedence"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ Checks do not establish semantic equivalence, rule validity, or evidence truth.
 import argparse
 from collections import Counter
 from html import unescape
+import json
 from pathlib import Path
 import re
 import sys
@@ -19,10 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 CANONICAL = Path("framework/futures_framework.md")
 COMPACT = Path("framework/futures_framework_compact.md")
 FRAMEWORK_FILES = (CANONICAL, COMPACT, Path("framework/FUTURES_DATA_PROTOCOL.md"))
-# Stable compact rule IDs at the v2.27 baseline. Additional IDs are allowed;
-# deleting/renaming an existing ID requires an explicit migration here.
-# This manifest checks identities only, not the meaning behind each identity.
-EXPECTED_COMPACT_ANCHORS = frozenset("""
+# Historical identities are retained solely to check the explicit v3 migration.
+# They are not active v3 rules and need not be kept as empty document anchors.
+LEGACY_COMPACT_ANCHORS = frozenset("""
 r-pool-core r-pool-backup r-pool-signal r-pool-scan r-pool-sleep
 r-route-near r-route-far r-route-structure r-data-authority r-pool-independent
 r-cal-lookahead r-cal-cross r-cal-day r-reg-trigger r-reg-tail
@@ -80,11 +80,18 @@ r-dynamic-roll-table r-dynamic-regime r-dynamic-cpi r-dynamic-iron-sample r-dyna
 r-dynamic-gap r-dynamic-freezes r-dynamic-deadline r-dynamic-pv-date r-dynamic-pending
 r-dynamic-overreact r-dynamic-narratives
 """.split())
+EXPECTED_COMPACT_ANCHORS = frozenset("r-v3-" + name for name in """
+scope pool workflow data calendar signal-t plan-t signal-v plan-v economics
+quality expiry liquidity budget factors account margin gap pair event stop
+manage roll status audit shadow validation state retirement tools
+""".split())
+MIGRATION = Path("framework/futures_rule_migration_v3.json")
 HTML_ID = re.compile(r"\bid\s*=\s*[\"']([^\"']+)[\"']", re.IGNORECASE)
 INLINE_LINK = re.compile(
     r"!?\[[^\]\n]*\]\(\s*(<[^>\n]+>|[^\s)]+)(?:\s+[\"'][^\n]*?[\"'])?\s*\)"
 )
 UPDATE_NOTE = re.compile(r"【(?:本次更新|v\d+\.\d+)[^】\r\n]*】", re.IGNORECASE)
+FRAMEWORK_VERSION = re.compile(r"^#\s+.*?\bv(\d+)\.(\d+)\b", re.MULTILINE)
 
 
 def without_fenced_code(source):
@@ -161,12 +168,51 @@ def _link_errors(root, relative_path, source, cache):
     return errors
 
 
+def _migration_errors(root):
+    """Require an explicit disposition for every old ID, without reviving it."""
+    errors = []
+    try:
+        def unique(pairs):
+            result = {}
+            for key, value in pairs:
+                if key in result:
+                    raise ValueError(f"duplicate key {key}")
+                result[key] = value
+            return result
+        migration = json.loads((root / MIGRATION).read_text(encoding="utf-8"), object_pairs_hook=unique)
+    except (OSError, UnicodeError, ValueError) as exc:
+        return [f"{MIGRATION}: cannot read migration: {exc}"]
+    if not isinstance(migration, dict) or migration.get("from_version") != "v2.29" or migration.get("to_version") != "v3.0":
+        return [f"{MIGRATION}: expected v2.29 to v3.0 migration object"]
+    rules = migration.get("rules")
+    if not isinstance(rules, dict):
+        return [f"{MIGRATION}: rules must be an object keyed by historical rule ID"]
+    missing, extra = LEGACY_COMPACT_ANCHORS - rules.keys(), rules.keys() - LEGACY_COMPACT_ANCHORS
+    if missing:
+        errors.append(f"{MIGRATION}: missing historical rule dispositions: {', '.join(sorted(missing))}")
+    if extra:
+        errors.append(f"{MIGRATION}: unknown historical rule IDs: {', '.join(sorted(extra))}")
+    for rule, item in rules.items():
+        if not isinstance(item, dict):
+            errors.append(f"{MIGRATION}: {rule}: expected disposition object")
+            continue
+        if item.get("disposition") not in ("mapped", "retired"):
+            errors.append(f"{MIGRATION}: {rule}: disposition must be mapped or retired")
+        target = item.get("target")
+        if (item.get("disposition") == "mapped" or target is not None) and (not isinstance(target, str) or target not in EXPECTED_COMPACT_ANCHORS):
+            errors.append(f"{MIGRATION}: {rule}: target must be a current v3 rule ID")
+        if not isinstance(item.get("reason"), str) or not item["reason"].strip():
+            errors.append(f"{MIGRATION}: {rule}: migration reason is required")
+    return errors
+
+
 def inspect(root=ROOT):
     """Return (size reports, structural errors) without modifying any files."""
     root = Path(root)
     reports = []
     errors = []
     cache = {}
+    versions = {}
     for relative_path in FRAMEWORK_FILES:
         try:
             source = _read(root / relative_path, cache)
@@ -174,18 +220,27 @@ def inspect(root=ROOT):
             errors.append(f"{relative_path}: cannot read UTF-8 file: {exc}")
             continue
         explicit, _ = anchors_in(source)
+        match = FRAMEWORK_VERSION.search(source)
+        version = tuple(map(int, match.groups())) if match else None
+        if relative_path in (CANONICAL, COMPACT):
+            versions[relative_path] = version
         reports.append({"path": str(relative_path), "bytes": len(source.encode("utf-8")),
                         "lines": len(source.splitlines()), "explicit_anchors": len(explicit)})
         duplicates = sorted(anchor for anchor, count in Counter(explicit).items() if count > 1)
         if duplicates:
             errors.append(f"{relative_path}: duplicate anchor IDs: {', '.join(duplicates)}")
-        if relative_path == COMPACT:
-            missing = sorted(EXPECTED_COMPACT_ANCHORS - set(explicit))
+        if relative_path == COMPACT or (relative_path == CANONICAL and version and version >= (3, 0)):
+            expected = EXPECTED_COMPACT_ANCHORS if version and version >= (3, 0) else LEGACY_COMPACT_ANCHORS
+            missing = sorted(expected - set(explicit))
             if missing:
                 errors.append(f"{relative_path}: missing stable rule anchors: {', '.join(missing)}")
         if relative_path in (CANONICAL, COMPACT) and UPDATE_NOTE.search(source):
             errors.append(f"{relative_path}: remove inline historical update notes; preserve effective rules")
         errors.extend(_link_errors(root, relative_path, source, cache))
+    if any(version and version >= (3, 0) for version in versions.values()):
+        if versions.get(CANONICAL) != versions.get(COMPACT):
+            errors.append("framework: canonical and compact versions must match")
+        errors.extend(_migration_errors(root))
     return reports, errors
 
 

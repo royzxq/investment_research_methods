@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-v2.28 框架数据脚本 — Tushare Pro 版 (v1.17)
+v3.0 框架数据脚本 — Tushare Pro 版 (v1.18)
 ====================================================================
+v1.18（2026-10-11，v3.0 前瞻研究接口，未经线上实测）：
+  默认导出v3 T原始close/前20日突破、2ATR、前10日通道和波动率；原始完整交易日
+  同合约窗口由futures_strategy.py验证，不复用旧含信号日H20/L20或px回退值。
+  V只导出MA/RB/SR同对原始结算价格；经济锚由研究方冻结后交新helper计算。
+  --legacy-v2才打印旧分位/D8/D12/2ATR预检与固定目标影子账；这些输出明确
+  legacy_v2_only，不能当作v3信号、执行门或绩效。新工具只完成离线合成验证。
+
+以下为v2历史兼容代码说明；不覆盖上述v3默认路径：
 只负责取数、研究候选和情景预检，不输出完整交易许可。
   §0/§0b: 合约期限、事件日历核对；缺数据不能视为过门。
   §1: S=近腿-远腿，同品种1:1。同期分位≥70/≥85仅为研究候选强度，
@@ -111,12 +119,14 @@ import pandas as pd
 
 try:
     from .futures_risk import precheck_2atr
+    from .futures_strategy import trend_inputs
     from .price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
     from .price_evidence import sample_coverage, validate_unique_trade_dates, calendar_window
     from .price_evidence import weekly_anchor_days, d8_weekly_rank, settle_shadow_plan, parse_shadow_plan
     from .validate_futures_audit import load_audit
 except ImportError:  # direct script invocation
     from futures_risk import precheck_2atr
+    from futures_strategy import trend_inputs
     from price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
     from price_evidence import sample_coverage, validate_unique_trade_dates, calendar_window
     from price_evidence import weekly_anchor_days, d8_weekly_rank, settle_shadow_plan, parse_shadow_plan
@@ -157,7 +167,7 @@ EVENTS = [
      ("M",),
      "USDA官方排期美国周五10/09 12:00 ET=北京10/10 00:00；豆粕周五夜盘21:00-23:00据东鼎期货2026/02/25交易时间表"
      "(https://www.ddqh.com/bocupload/2026/02/26/1772101558264ywp7n.pdf)，交易所本轮原公告未读；发布时间晚于该夜盘结束，首个可能T=10/12。"
-     "报告正文和大豆数字未读，M无已许可具体执行策略；仅人工核发布事实与首个可交易时刻，不自动打D12/±1。",
+     "报告正文和大豆数字未读；v3已定义M双向顺势路线，但当前事件结果与适用性仍须人工核验。此条只提供日期线索，不自动授许可。",
      False),
     ("20261015", "20261015", "美国9月CPI（官方排期10/14 08:30 ET，国内T=10/15）",
      "ALL",
@@ -173,7 +183,7 @@ EVENTS = [
      "ALL",
      "Fed官方日历：https://www.federalreserve.gov/newsevents/2026-october.htm；北京时间10/29 02:00。"
      "T−3=10/26、T−1=10/28、T+1=10/30；10/27仅会期首日，不作决议T。"
-     "本条自动提示事件窗口，#29仅AU/AG按重入条件核；D13按兵或转鸽＋美元连涨中断双条件仍未发生。"),
+     "v3仅以此作为相关事件窗口核验线索；AU为信号席，旧#29/D13不迁为v3门。"),
 ]
 # 滚动/不可排期监测只在框架1.4及当期审计人工核，不为无法确定T的地缘或交易所恢复条件设虚构自动窗：
 # ①官方停火/全面重开或许可收费机制落地＋SC近端back同向回落才评估缓和；通航量/战争险参考。
@@ -243,7 +253,7 @@ def research_pairs():
 # 指标计算合约 (§2; ★v1.8 按框架 v2.20 执行池: 核心 2 + 备选 3 + 信号 2 = 8 腿; 2026-09-06 用户裁决后)
 INDICATOR_CONTRACTS = [
     "MA2701",   # 方向性执行候选兼#30护栏判定腿与A近腿(★v1.15 9/16下滚)；真实策略止损及账户预算另核
-    "RB2701",   # 黑色结构表达；不开方向性单边
+    "RB2701",   # v3双向顺势候选；旧v2单边禁令不再从本注释继承
     "M2701",    # 独立备选；12/18或主力换月→M2705
     "SR2701",   # 常驻备选；12/17或主力换月→SR2705
     "CF2701",   # 常驻备选；12/17或主力换月→CF2705并核#2
@@ -417,10 +427,13 @@ def _busdays(from_yyyymmdd, to_yyyymmdd):
 def daily(sym):
     """单合约全生命周期日线; 价格口径: 结算价, 缺失用收盘价(close 另保留供基差)。"""
     if sym not in _daily_cache:
+        # Timestamp the actual API response, not AS_OF or a later cache read.
+        from datetime import datetime as fetch_datetime, timezone as fetch_timezone, timedelta as fetch_timedelta
         code = resolve(sym)
         df = api().fut_daily(
             ts_code=code,
             fields="trade_date,settle,close,open,high,low,pre_settle,vol,oi")
+        fetched_at = fetch_datetime.now(fetch_timezone(fetch_timedelta(hours=8))).isoformat()
         time.sleep(0.4)
         if df is None or df.empty:
             raise RuntimeError(f"{sym}({code}) 日线为空")
@@ -436,6 +449,7 @@ def daily(sym):
                   for row in df.to_dict("records")]
         df["px"] = [price for price, _ in prices]
         df["price_basis"] = [basis for _, basis in prices]
+        df.attrs["provenance"] = dict(source="Tushare Pro fut_daily", ts_code=code, fetched_at=fetched_at)
         _daily_cache[sym] = df
     return _daily_cache[sym]
 
@@ -774,7 +788,7 @@ def spread_percentile(label, near, far, kind="A"):
         print(f"  ⚠ 明确否决: {issue}")
     for issue in missing:
         print(f"  ⚠ 数据缺失/不足: {issue}；不能视为已过门")
-    return {"scope": "research_inputs", "percentile": pct_same,
+    return {"scope": "research_inputs", "rule_version": "v2.28", "compatibility": "legacy_v2_only", "percentile": pct_same,
             "data_status": "incomplete" if missing else "blocked" if blocked else "complete",
             "missing_fields": missing, "hard_vetoes": blocked,
             "quality_warnings": quality_warnings, "sample_coverage": coverage,
@@ -829,6 +843,9 @@ def contract_price_evidence(sym):
     is_oil = sym.startswith("SC")
     day_pct, day_series, day_guard = daily_settlement_changes(records)
     return {"合约": sym, "数据截至": week["market_trade_date"],
+            "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated",
+            "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28",
+            "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"],
             "日结算涨跌%": day_pct, "近5日结算涨跌%": day_series, "#30近3日≥5%": day_guard,
             "px": week["end_price"], "price_basis": week["end_basis"],
             "周涨锚日": week["anchor_date"],
@@ -980,6 +997,7 @@ def indicators(sym):
         veto.append(f"250日窗口样本不足({len(tail)})·指标仅代理")
 
     return {"合约": sym, "数据截至": df["trade_date"].iloc[-1],
+            "rule_version": "v2.28", "compatibility": "legacy_v2_only",
             "px": round(px_now, 2),
             "price_basis": week["end_basis"],
             "settle": df["settle"].iloc[-1] if "settle" in df else None,
@@ -1044,6 +1062,74 @@ def collect_spread_research():
         json.dump(dict(as_of_date=AS_OF, scope="research_inputs", pairs=results),
                   output, ensure_ascii=False, indent=2, allow_nan=False)
     return results
+
+
+def collect_v3_research():
+    """v3 raw inputs; no anchors, account values or current trade permission inferred."""
+    calendar = _trade_cal()
+    cutoff = min(AS_OF, completed_day_cutoff())
+    trends, spreads = [], []
+    print("\n---- v3.0 前瞻研究输入：顺势 / 有经济依据的回归；规则尚未完成收益验证 ----")
+    for sym in INDICATOR_CONTRACTS:
+        if sym in SIGNAL_LEGS:
+            continue
+        try:
+            if not calendar or CAL_DEGRADED:
+                raise ValueError("真实交易日历不可用；不以工作日近似计算v3")
+            frame = daily(sym)
+            records = frame.reindex(columns=["trade_date", "close", "high", "low"]).to_dict("records")
+            # Convert numpy missing values for JSON without constructing prices.
+            records = [{key: (None if pd.isna(value) else value) for key, value in row.items()}
+                       for row in records]
+            market = dict(contract=sym, records=records, trading_dates=calendar, as_of_date=cutoff)
+            market.update(source=frame.attrs.get("provenance", {}).get("source"),
+                          exchange=EXCH[_prod(sym)],
+                          fetched_at=frame.attrs.get("provenance", {}).get("fetched_at"))
+            result = trend_inputs(market)
+            result["market_inputs"] = market
+        except Exception as exc:
+            result = dict(rule_version="v3.0", strategy="trend", contract=sym,
+                          scope="v3_market_inputs_only", status="incomplete", signal="unknown",
+                          missing_fields=[str(exc)], execution_permission="not_evaluated")
+        trends.append(result)
+        print(f"  T {sym}: {result['status']} / {result['signal']} / {result.get('side')} | "
+              f"close={result.get('signal_close')} prior20H/L={result.get('prior20_high')}/{result.get('prior20_low')} "
+              f"ATR20={result.get('atr20')} | 缺项={result.get('missing_fields', [])}")
+    for stage, label, near, far, kind in research_pairs():
+        if kind == "信号":
+            continue
+        item = dict(rule_version="v3.0", strategy="economic_reversion", scope="v3_raw_spread_inputs_only",
+                    research_stage=stage, near_contract=near, far_contract=far,
+                    signal="unknown", economic_anchor=None, execution_permission="not_evaluated")
+        try:
+            near_frame, far_frame = daily(near), daily(far)
+            n = near_frame.reindex(columns=["trade_date", "settle"])
+            f = far_frame.reindex(columns=["trade_date", "settle"])
+            merged = pd.merge(n, f, on="trade_date", how="outer", suffixes=("_n", "_f"))
+            records = []
+            for row in merged.sort_values("trade_date").to_dict("records"):
+                records.append(dict(trade_date=row["trade_date"], near_contract=near, far_contract=far,
+                                    near_settle=None if pd.isna(row["settle_n"]) else row["settle_n"],
+                                    far_settle=None if pd.isna(row["settle_f"]) else row["settle_f"]))
+            item.update(status="incomplete", missing_fields=["frozen_economic_anchor_and_mechanism"],
+                        market_inputs=dict(near_contract=near, far_contract=far, records=records,
+                                           trading_dates=calendar if not CAL_DEGRADED else [], as_of_date=cutoff,
+                                           exchange=EXCH[_prod(near)],
+                                           sources={near: dict(near_frame.attrs.get("provenance", {})),
+                                                    far: dict(far_frame.attrs.get("provenance", {}))}))
+        except Exception as exc:
+            item.update(status="incomplete", missing_fields=[str(exc), "frozen_economic_anchor_and_mechanism"])
+        spreads.append(item)
+        print(f"  V {near}-{far} ({stage}): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号")
+    output = dict(rule_version="v3.0", script_version="v1.18", scope="v3_research_inputs_only",
+                  as_of_date=AS_OF, trend=trends, economic_reversion=spreads,
+                  execution_permission="not_evaluated")
+    os.makedirs(OUTDIR, exist_ok=True)
+    with open(f"{OUTDIR}/v3_research_inputs_{AS_OF}.json", "w", encoding="utf-8") as handle:
+        json.dump(output, handle, ensure_ascii=False, indent=2, allow_nan=False)
+    print("  信号比较只说明行情条件；规则冻结/生效时间、产业证据、事件与账户执行门另核。")
+    print("  计划算术：python3 scripts/futures_strategy.py validate-plan --input <JSON>；容量：futures_risk.py size-v3。")
+    return output
 
 
 def print_atr_dispersion(tab):
@@ -1148,7 +1234,8 @@ def d8_weekly_research(prod):
         except Exception as e:   # 单合约取数失败只令其样本无效，不补值
             errors.append(f"{code}:{type(e).__name__}")
     result = d8_weekly_rank(cal, end_day, mapping, settles, YEARS)
-    result.update(product=prod, attribute=attribute, fetch_errors=errors)
+    result.update(product=prod, attribute=attribute, fetch_errors=errors,
+                  rule_version="v2.28", compatibility="legacy_v2_only")
     return result
 
 
@@ -1186,6 +1273,8 @@ def print_d8_ranks():
             "空头档": _d8_tier(r["down_rank"], tiers.get("short")),
             "状态": r["status"] + (f"·取数失败{len(r['fetch_errors'])}合约" if r["fetch_errors"] else "")})
     tab = pd.DataFrame(rows)
+    tab["rule_version"] = "v2.28"
+    tab["compatibility"] = "legacy_v2_only"
     os.makedirs(OUTDIR, exist_ok=True)
     tab.to_csv(f"{OUTDIR}/d8_weekly_{AS_OF}.csv", index=False, encoding="utf-8-sig")
     print(tab.to_string(index=False))
@@ -1208,7 +1297,7 @@ def shadow_bars(plan):
 
 
 def shadow_ledger():
-    print("\n---- 5) 影子账本 (canonical 4.4: 事前登记计划的保守日线结算; 只供规则复评, 不是成交或账户记录) ----")
+    print("\n---- 5) v2历史固定目标影子账本 (legacy_v2_only；不统计v3趋势绩效，不是成交或账户记录) ----")
     plans, rewritten, missing_id, skipped = {}, [], 0, []
     for path in discover("futures", "execution-audit", AS_OF):
         text = path.read_text(encoding="utf-8")
@@ -1226,6 +1315,13 @@ def shadow_ledger():
         for plan in document.get("shadow_plans") or []:
             if not isinstance(plan, dict) or not isinstance(plan.get("shadow_id"), str) or not plan["shadow_id"].strip():
                 missing_id += 1
+                continue
+            candidate = candidates.get(plan.get("candidate_id")) or {}
+            if (plan.get("strategy") in ("trend", "economic_reversion")
+                    or candidate.get("strategy") in ("trend", "economic_reversion")
+                    or str(plan.get("rule_version", "")).startswith("v3")
+                    or str(document.get("framework_version", "")).startswith("v3")):
+                skipped.append(f"{plan['shadow_id']}: v3计划不由v2固定目标结算器统计")
                 continue
             sid = plan["shadow_id"]
             if sid in plans:
@@ -1260,7 +1356,8 @@ def shadow_ledger():
                     outcome = dict(shadow_id=sid, status="data_gap", error=f"delist_date 无效: {last_days}")
         blockers = [b for b in (candidate.get("all_blockers") or []) if isinstance(b, str)] \
             if isinstance(candidate.get("all_blockers"), list) else []
-        rows.append(dict(outcome, source=source, candidate_status=candidate.get("status"),
+        rows.append(dict(outcome, source=source, rule_version="v2.28", compatibility="legacy_v2_only",
+                         candidate_status=candidate.get("status"),
                          blockers=",".join(blockers) or "—"))
         if outcome["status"] == "closed":
             for gate in blockers or ["(无已核阻断)"]:
@@ -1269,7 +1366,7 @@ def shadow_ledger():
                 stat["pnl"] += outcome["pnl_cny"]
                 stat["r"] += outcome["r_multiple"]
     tab = pd.DataFrame(rows).reindex(columns=[
-        "shadow_id", "source", "candidate_status", "blockers", "status", "fill_date", "fill_price",
+        "shadow_id", "source", "rule_version", "compatibility", "candidate_status", "blockers", "status", "fill_date", "fill_price",
         "exit_date", "exit_price", "exit_reason", "pnl_cny", "r_multiple", "unrealized_pnl_cny", "last_date", "error"])
     os.makedirs(OUTDIR, exist_ok=True)
     tab.to_csv(f"{OUTDIR}/shadow_ledger_{AS_OF}.csv", index=False, encoding="utf-8-sig")
@@ -1293,34 +1390,60 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v2.28 框架数据脚本 (Tushare Pro, v1.17)")
+        description="v3.0 框架数据脚本 (Tushare Pro, v1.18)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
     parser.add_argument("--no-snapshot", action="store_true",
                         help="只打印，不写 research/futures/snapshots/<AS_OF>-data-snapshot.txt(框架0D行情快照)")
     parser.add_argument("--overwrite", action="store_true", help="显式覆盖同日快照；失败保留旧正式文件")
+    parser.add_argument("--legacy-v2", action="store_true", help="额外输出v2历史兼容指标/影子账；不作v3信号或绩效")
     args = parser.parse_args()
     AS_OF = args.as_of
     snapshot = None if args.no_snapshot else artifact_path("futures", "data-snapshot", AS_OF)
     if snapshot is None:
-        return run(None)
+        return run(None, include_legacy_v2=args.legacy_v2)
     try:
         with snapshot_output(snapshot, AS_OF, overwrite=args.overwrite):
-            run(snapshot)
+            run(snapshot, include_legacy_v2=args.legacy_v2)
     except (FileExistsError, ValueError) as exc:
         parser.exit(2, str(exc) + "\n")
 
 
-def run(snapshot):
+def print_completion():
+    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.18 | 本行存在即输出完整 ==")
 
-    print(f"== v2.28 框架数据脚本 v1.17 | AS_OF={AS_OF} | 同期窗口±{WIN} | "
-          f"2ATR预检预算{RISK_BUDGET:,.0f}(非账户剩余额度) | 事件节点{len(EVENTS)}项(用户维护) ==")
+
+def run(snapshot, include_legacy_v2=False):
+
+    print(f"== v3.0 框架数据脚本 v1.18 | AS_OF={AS_OF} | scope=v3_research_inputs_only | "
+          f"legacy_v2={include_legacy_v2} | 事件日期线索{len(EVENTS)}项(用户维护) ==")
     print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
           "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")
 
     spec_check()                     # ★v1.8 合约参数校验, 不过直接退出
     contract_freshness_check()
+
+    collect_v3_research()
+    if not include_legacy_v2:
+        print("\n公开原始价格/流动性/期限与人工事件核验：")
+        print("  以下沿用列名中的#30/SC护栏仅为v2历史背景；v3不按这些旧百分比列冻结、减仓或授许可。")
+        for sym in INDICATOR_CONTRACTS:
+            try:
+                print(json.dumps(contract_price_evidence(sym), ensure_ascii=False, default=str))
+                print(f"  {sym} 20日均成交={_volume20(sym)}；距最后交易日={_busdays(AS_OF, delist_date(sym))}")
+            except Exception as exc:
+                print(f"  {sym} 必要资料缺项: {exc}")
+        print("  EVENTS仅人工维护的历史日历输入，执行前须核当期官方日期和合约适用性；旧备注不作本期事实。")
+        for event in EVENTS:
+            print(f"  日期核验线索={event[0]}~{event[1]} | {event[2]} | {event[4]}")
+        print("  已省略v2分位门、D系列、季节和固定目标影子结算；加--legacy-v2仅供历史复核。")
+        print("  当前账户、挂单、真实成本、保证金/限仓与压力测试尚未核；不得将本输出当成交易许可。")
+        print(f"\n完成。v3输入已写入 {OUTDIR}/；快照={snapshot or '未写(--no-snapshot)'}。")
+        print_completion()
+        return
+
+    print("\n以下全部为legacy_v2_only历史兼容模块，不参与v3信号、门槛、容量或绩效：")
 
     # §0b: 先算事件窗口 → §2 的 D12「事件T-3」判据依赖本结果
     _T3_PRODS.clear()
@@ -1378,7 +1501,7 @@ def run(snapshot):
     print("     港口库存全链、铁水/利润、战争险/通行量/出口等按模型可选；缺失只影响依赖该证据的路线。")
     print("     政策/地缘/供给强因果模型仍须自身专属证据；不可得则research_only，不以价格代理证真。")
     print("     池外休眠品种不追加例行采集，不把背景缺项扩大为全池冻结。")
-    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.17 | 本行存在即输出完整 ==")
+    print_completion()
 
 
 if __name__ == "__main__":

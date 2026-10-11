@@ -1,19 +1,20 @@
 # 项目状态与迁移边界
 
-核对日期：2026-10-05。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
+核对日期：2026-10-11（本次仅更新期货；其他轨道沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
 ## 当前权威
 
 | 轨道 | 方法与状态 | 当前配套 |
 |---|---|---|
-| 期货 | [canonical](../../framework/futures_framework.md) v2.27；整理 9/20，市场状态 9/19，文中最新行情日 9/18 | [compact](../../framework/futures_framework_compact.md)、[数据协议](../../framework/FUTURES_DATA_PROTOCOL.md) v2.26、[future_data.py](../../scripts/future_data.py) v1.16；版本不同并非当然不兼容 |
+| 期货 | [canonical](../../framework/futures_framework.md) v3.0，10/11用户授权T/V重构；无新行情或账户核验，旧快照行情锚10/09不能回填v3信号 | [compact](../../framework/futures_framework_compact.md) / [数据协议](../../framework/FUTURES_DATA_PROTOCOL.md) v3.0，[future_data.py](../../scripts/future_data.py) v1.18及新策略helper；离线边界测试不代表真实API或收益验证 |
 | 股票 | [canonical](../../framework/investment_framework.md) 与 [compact](../../framework/investment_framework_compact.md) 整理 9/21，市场状态沿用 9/19 | 原三阶段 `projects/*/INSTRUCTIONS.md`；`stock_data_pack.py` 尚未找到，不声称数据脚本已迁入 |
 | ETF | [canonical](../../framework/etf_framework.md) v2.1，八主题、双月评审 | v2.0 格式快照兼容；最近评审为 [10/01 review](../../research/etf/reviews/2026-10-01/etf-2026-10-01-review.md)，正文已于 10/02 修订；旧 monthly-review 不作为现行一期 |
 
 ## 待接续事项
 
 - 2026-10-05 个股入口：`stock-research` 与 `deep-research-auto` 现维护于 `.agents/skills/`，`.claude/skills/` 同名文件为兼容入口。个股最终 JSON 使用 `stock-research/v2`，仅 `meta/price_map/monitoring`；计算工具为 `scripts/stock_price_map.py`，旧 v1 只作复评历史输入，不能直接迁移单位混杂的 V50 或示例价格。10/05 的 600066、01952 报告与 JSON 保留原研究内容（目录迁移仅修正引用），尚未按修复版重新研究；原参数空值、P2/换汇及事实冲突须在后续复评中解决，不能视为已修正价格。
-- 股票 [9/26 change-decision](../../research/investment/weekly/2026-09-26/investment-2026-09-26-change-decision.md) 与期货 [9/26 change-decision](../../research/futures/weekly/2026-09-26/2026-09-26-change-decision.md) 均记录 `update_needed=yes`、`update_level=light`，尚未见同日期适配报告。它们是待处理决策；本次迁移没有实施适配，期货报告提议的 v2.28 尚未成为当前框架。
+- 期货10/11定向重构已替代此前期货框架适配待办，记录在[本次实施报告](../../research/futures/maintenance/2026-10-11/2026-10-11-v3-refactor-report.md)。两策略/G1–G6、30个当前锚与277旧ID迁移、数据/审计/技能同步；旧影子引擎仅历史，v3前瞻轨迹暂人工核验。尚未运行v3当期市场研究、真实行情API或部署逐日信号调度；所有当前信号/账户保持unknown。默认本地未发布，不据此改变已有自动化授权。
+- 股票 [9/26 change-decision](../../research/investment/weekly/2026-09-26/investment-2026-09-26-change-decision.md) 与期货 [9/26 change-decision](../../research/futures/weekly/2026-09-26/2026-09-26-change-decision.md) 均记录 `update_needed=yes`、`update_level=light`，尚未见同日期适配报告。股票决策仍待接续；期货条目属10/05迁移时历史，已由10/11本次重构承接，不再把v2.28提议作为当前待生效版本。
 - 期货 9/26 报告称最新快照为 9/19；本工作区另有在迁移前 HEAD 已提交的完整 `research/futures/snapshots/2026-09-21-data-snapshot.txt`（v2.27/v1.16）。本地接续按真实文件、完整标记和各行情日期选择，不继承该旧断言；发布/无人值守流程按入口只使用已提交快照。9/21 也不能代表 10/04 行情。
 - 工作区的完整 `research/etf/snapshots/etf-2026-10-02-data-snapshot.txt` 在目录迁移前 HEAD 已提交；当前新路径仍属本地待提交迁移。按 10/04 评审日距今两天，格式可通过前置；各指数实际行情锚与公开估值、成分、全收益缺口仍须按正文核对。迁移未运行新的行情脚本或研究。
 - [ETF 比较偏差与置换诊断](etf-timing-validation.md)、[恒指全收益代理](hsi-total-return-proxy.md) 保存独有历史发现，均待复现。旧收益、显著性、接口成功率不升级为已核实结论。

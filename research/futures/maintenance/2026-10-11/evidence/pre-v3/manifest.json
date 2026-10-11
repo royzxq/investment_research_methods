@@ -1,0 +1,29 @@
+{
+  "purpose": "Historical pre-v3 snapshot; not active rules",
+  "files": [
+    {
+      "path": "framework/futures_framework.md",
+      "archive": "research/futures/maintenance/2026-10-11/evidence/pre-v3/futures_framework.md",
+      "sha256": "d4cd09a92a65679e9cea81671241ab7fb5267501f42cb873f6aa1cc59ffa4d70",
+      "bytes": 180778,
+      "characters": 84177,
+      "lines": 1201
+    },
+    {
+      "path": "framework/futures_framework_compact.md",
+      "archive": "research/futures/maintenance/2026-10-11/evidence/pre-v3/futures_framework_compact.md",
+      "sha256": "8802beaa80e454567470865a909f2f53465384b953b9f119dcd60826895af9e2",
+      "bytes": 83798,
+      "characters": 45468,
+      "lines": 914
+    },
+    {
+      "path": "framework/FUTURES_DATA_PROTOCOL.md",
+      "archive": "research/futures/maintenance/2026-10-11/evidence/pre-v3/FUTURES_DATA_PROTOCOL.md",
+      "sha256": "72757e966cfe2eb6dce5e40f93c060d23e608a9c6668bc2df39e3829d13307ad",
+      "bytes": 21576,
+      "characters": 9572,
+      "lines": 150
+    }
+  ]
+}

@@ -21,8 +21,10 @@ import sys
 
 try:
     from .price_evidence import parse_shadow_plan
+    from .futures_strategy import EXIT_RULE, REVERSION_PRODUCTS, TREND_PRODUCTS
 except ImportError:  # direct script invocation
     from price_evidence import parse_shadow_plan
+    from futures_strategy import EXIT_RULE, REVERSION_PRODUCTS, TREND_PRODUCTS
 
 
 ACCOUNT_FACTS = (
@@ -35,6 +37,8 @@ EVIDENCE_FIELDS = (
     "role", "quality", "time_scope",
 )
 CHINA_TIME = timezone(timedelta(hours=8))
+V3_GATES = frozenset(f"G{number}" for number in range(1, 7))
+V3_TREND_EXIT = EXIT_RULE
 
 
 def _text(value):
@@ -206,7 +210,7 @@ def _evidence(rows, as_of, errors):
     return evidence_by_id
 
 
-def _candidate(row, index, evidence_by_id, account_verified, errors, schema=2):
+def _candidate(row, index, evidence_by_id, account_verified, errors, schema=2, framework_v3=False, as_of=None):
     evidence_ids = evidence_by_id.keys()
     path = f"candidates[{index}]"
     candidate = _object(row, path, errors)
@@ -345,12 +349,26 @@ def _candidate(row, index, evidence_by_id, account_verified, errors, schema=2):
         if (signal != "triggered" or feasibility != "available" or failed or unknown
                 or not account_verified or type(lots) is not int or lots < 1):
             errors.append(f"{path}.status: ready requires triggered/available, no fail or unknown, verified account, final_lots >= 1")
+    if framework_v3:
+        _v3_candidate(candidate, path, errors)
+        by_id = {row.get("rule_id"): row for row in checks or []
+                 if isinstance(row, dict) and _text(row.get("rule_id"))}
+        if not account_verified and any(by_id.get(gate, {}).get("result") == "pass" for gate in ("G5", "G6")):
+            errors.append(f"{path}.evaluated_checks: G5/G6 cannot pass without a verified account")
+        plan = candidate.get("plan")
+        if isinstance(plan, dict) and plan.get("signal_date") is not None:
+            _dated(plan["signal_date"], f"{path}.plan.signal_date", as_of, errors)
     # Research finished except the user's account inputs must not hide inside incomplete: at least one
     # applicable rule was evaluated, none failed, only account-kind gaps remain and the plan is numeric.
     applicable = sum(1 for row in checks or [] if isinstance(row, dict) and row.get("applicable") is True)
+    plan_complete = (_v3_plan_complete(candidate) if framework_v3 else _plan_complete(candidate.get("plan")))
+    research_checks_complete = (all(any(isinstance(c, dict) and c.get("rule_id") == gate
+                                       and c.get("applicable") is True and c.get("result") == "pass"
+                                       for c in checks or []) for gate in ("G1", "G2", "G3", "G4"))
+                                if framework_v3 else applicable > 0)
     research_complete = (schema == 3 and signal == "triggered" and feasibility == "available" and not failed
-                         and applicable > 0 and all(gap_kinds.get(rule) == "account" for rule in unknown)
-                         and _plan_complete(candidate.get("plan")))
+                         and research_checks_complete and all(gap_kinds.get(rule) == "account" for rule in unknown)
+                         and plan_complete)
     if status == "awaiting_account" and (not research_complete or account_verified or lots is not None):
         errors.append(f"{path}.status: awaiting_account requires schema 3, triggered/available, a complete plan, "
                       "no fail, no unknown check other than account-kind, no verified account and final_lots=null")
@@ -373,6 +391,137 @@ def _plan_complete(plan):
     except ValueError:
         return False
     return True
+
+
+def _finite(value):
+    return not isinstance(value, bool) and isinstance(value, (int, float)) and math.isfinite(value)
+
+
+def _v3_plan_errors(candidate, path):
+    """Structural plan checks only; no signal calculation, economic truth or permission."""
+    errors = []
+    plan = _object(candidate.get("plan"), f"{path}.plan", errors)
+    if plan is None:
+        return errors
+    _required_fields(plan, ("entry", "stop", "targets", "entry_range", "signal_date", "valid_until",
+                            "latest_exit_date"), f"{path}.plan", errors)
+    entry, stop = plan.get("entry"), plan.get("stop")
+    for name, value in (("entry", entry), ("stop", stop)):
+        if not _finite(value):
+            errors.append(f"{path}.plan.{name}: expected finite number")
+    bounds = plan.get("entry_range")
+    valid_bounds = (isinstance(bounds, list) and len(bounds) == 2 and all(_finite(v) for v in bounds)
+                    and bounds[0] <= bounds[1])
+    if not valid_bounds or (_finite(entry) and not bounds[0] <= entry <= bounds[1]):
+        errors.append(f"{path}.plan.entry_range: expected ordered [low, high] containing entry")
+    days = {name: _date(plan.get(name), f"{path}.plan.{name}", errors)
+            for name in ("signal_date", "valid_until", "latest_exit_date")}
+    if all(days.values()) and not days["signal_date"] <= days["valid_until"] <= days["latest_exit_date"]:
+        errors.append(f"{path}.plan: require signal_date <= valid_until <= latest_exit_date")
+    if "entry_date" in plan:
+        entry_day = _date(plan["entry_date"], f"{path}.plan.entry_date", errors)
+        if entry_day and all(days.values()) and not (days["signal_date"] < entry_day <= days["valid_until"]
+                                                    and entry_day < days["latest_exit_date"]):
+            errors.append(f"{path}.plan.entry_date: must follow signal_date, be within validity and precede latest_exit_date")
+    side = candidate.get("direction")
+    _enum(side, {"long", "short"}, f"{path}.direction", errors)
+    if _finite(entry) and _finite(stop):
+        if (side == "long" and stop >= entry) or (side == "short" and stop <= entry):
+            errors.append(f"{path}.plan.stop: must be on the adverse side of entry")
+    if candidate.get("strategy") == "trend":
+        if plan.get("targets") is not None:
+            errors.append(f"{path}.plan.targets: trend requires null; do not invent a fixed target")
+        if plan.get("exit_rule") != V3_TREND_EXIT:
+            errors.append(f"{path}.plan.exit_rule: expected frozen v3 trend trailing-exit rule")
+        if _finite(entry) and entry <= 0 or _finite(stop) and stop <= 0:
+            errors.append(f"{path}.plan: single-contract prices must be positive")
+    elif candidate.get("strategy") == "economic_reversion":
+        targets = plan.get("targets")
+        if not isinstance(targets, list) or len(targets) != 1 or not _finite(targets[0]):
+            errors.append(f"{path}.plan.targets: economic_reversion requires one finite economic-anchor target")
+        elif _finite(entry) and ((side == "long" and targets[0] <= entry) or (side == "short" and targets[0] >= entry)):
+            errors.append(f"{path}.plan.targets: target must be on the profitable side of entry")
+        if valid_bounds and _finite(stop) and isinstance(targets, list) and len(targets) == 1 and _finite(targets[0]):
+            if ((side == "long" and not stop < bounds[0] <= bounds[1] < targets[0]) or
+                    (side == "short" and not targets[0] < bounds[0] <= bounds[1] < stop)):
+                errors.append(f"{path}.plan.entry_range: whole range must remain strictly between stop and near anchor edge")
+        ratio = plan.get("net_R")
+        if not _finite(ratio) or ratio < 2.5:
+            errors.append(f"{path}.plan.net_R: economic_reversion requires finite net_R >= 2.5")
+        anchor = _object(plan.get("anchor_band"), f"{path}.plan.anchor_band", errors)
+        if anchor is not None:
+            if not all(_finite(anchor.get(k)) for k in ("low", "high")) or anchor["low"] > anchor["high"]:
+                errors.append(f"{path}.plan.anchor_band: require ordered finite low/high")
+            elif isinstance(targets, list) and len(targets) == 1 and _finite(targets[0]):
+                expected = anchor["low"] if side == "long" else anchor["high"]
+                if targets[0] != expected:
+                    errors.append(f"{path}.plan.targets: must use the near edge of the economic anchor band")
+            if not _text(anchor.get("source")):
+                errors.append(f"{path}.plan.anchor_band.source: expected source reference")
+            anchor_day = _date(anchor.get("as_of_date"), f"{path}.plan.anchor_band.as_of_date", errors)
+            if anchor_day and days["signal_date"] and anchor_day > days["signal_date"]:
+                errors.append(f"{path}.plan.anchor_band.as_of_date: later than signal_date")
+        for name in ("economic_anchor_basis", "convergence_mechanism", "invalidation_basis"):
+            if not _text(plan.get(name)):
+                errors.append(f"{path}.plan.{name}: expected nonempty economic explanation")
+        if plan.get("leg_ratio") != [1, 1] or any(type(n) is not int for n in plan.get("leg_ratio", [])):
+            errors.append(f"{path}.plan.leg_ratio: require [1, 1]")
+    return errors
+
+
+def _v3_plan_complete(candidate):
+    return not _v3_plan_errors(candidate, "candidate")
+
+
+def _v3_candidate(candidate, path, errors):
+    _enum(candidate.get("strategy"), {"trend", "economic_reversion"}, f"{path}.strategy", errors)
+    _enum(candidate.get("direction"), {"long", "short", "unknown"}, f"{path}.direction", errors)
+    _enum(candidate.get("evidence_quality"), {"strong", "adequate", "weak"}, f"{path}.evidence_quality", errors)
+    rows = candidate.get("evaluated_checks")
+    checks = {row.get("rule_id"): row for row in rows or []
+              if isinstance(row, dict) and _text(row.get("rule_id"))} if isinstance(rows, list) else {}
+    if checks.keys() - V3_GATES:
+        errors.append(f"{path}.evaluated_checks: v3 uses only G1 through G6, not legacy rule IDs")
+    if checks.get("G2", {}).get("result") == "pass" and candidate.get("signal") != "triggered":
+        errors.append(f"{path}.evaluated_checks: G2 pass requires signal=triggered")
+    if candidate.get("status") != "no_signal" and not V3_GATES <= checks.keys():
+        errors.append(f"{path}.evaluated_checks: v3 requires G1 through G6; only no_signal may stop early")
+    if any(row.get("applicable") is not True for row in checks.values()):
+        errors.append(f"{path}.evaluated_checks: G1 through G6 are required gates; subconditions explain applicability")
+    if candidate.get("status") == "ready" and any(checks.get(gate, {}).get("result") != "pass" for gate in V3_GATES):
+        errors.append(f"{path}.status: v3 ready requires G1 through G6 all pass")
+    contracts = candidate.get("contracts")
+    if checks.get("G1", {}).get("result") == "pass" or candidate.get("status") in ("ready", "awaiting_account", "no_signal"):
+        count = 1 if candidate.get("strategy") == "trend" else 2
+        if (not isinstance(contracts, list) or len(contracts) != count or
+                any(not isinstance(c, str) or not re.fullmatch(r"[A-Z]+\d{2}(0[1-9]|1[0-2])", c) for c in contracts)
+                or len(set(contracts)) != count):
+            errors.append(f"{path}.contracts: v3 strategy requires {count} distinct real contract IDs")
+        else:
+            legs = [re.fullmatch(r"([A-Z]+)(\d{4})", c).groups() for c in contracts]
+            permitted = TREND_PRODUCTS if count == 1 else REVERSION_PRODUCTS
+            if any(leg[0] not in permitted for leg in legs):
+                errors.append(f"{path}.contracts: product outside the v3 strategy research pool")
+            if count == 2 and (legs[0][0] != legs[1][0] or legs[0][1] >= legs[1][1]):
+                errors.append(f"{path}.contracts: economic_reversion requires same product, near before far")
+    if checks.get("G3", {}).get("result") == "pass" or candidate.get("status") in ("ready", "awaiting_account"):
+        errors.extend(_v3_plan_errors(candidate, path))
+    if checks.get("G6", {}).get("result") == "pass" or candidate.get("final_lots") is not None:
+        evaluation = _object(candidate.get("risk_evaluation"), f"{path}.risk_evaluation", errors)
+        if evaluation is not None:
+            if evaluation.get("calculator_ref") != "scripts/futures_risk.py size-v3":
+                errors.append(f"{path}.risk_evaluation.calculator_ref: v3 requires scripts/futures_risk.py size-v3")
+            result = _object(evaluation.get("result"), f"{path}.risk_evaluation.result", errors)
+            if result is not None:
+                if result.get("rule_version") != "v3.0" or result.get("scope") != "risk_sizing_only":
+                    errors.append(f"{path}.risk_evaluation.result: expected v3.0 risk_sizing_only helper result")
+                capacity = result.get("final_lots")
+                if type(capacity) is not int or capacity < 0:
+                    errors.append(f"{path}.risk_evaluation.result.final_lots: expected nonnegative integer capacity")
+                elif type(candidate.get("final_lots")) is int and candidate["final_lots"] > capacity:
+                    errors.append(f"{path}.final_lots: cannot exceed size-v3 final_lots, including execution/stress/weekend limits")
+                if checks.get("G6", {}).get("result") == "pass" and (result.get("status") != "valid" or type(capacity) is not int or capacity < 1):
+                    errors.append(f"{path}.evaluated_checks: G6 pass requires a valid size-v3 result with capacity >= 1")
 
 
 def _corrections(document, candidates, evidence_by_id, errors):
@@ -483,8 +632,10 @@ def validate_audit(doc):
     _enum(document.get("research_mode"), {"public_data"}, "research_mode", errors)
     as_of = _date(document.get("as_of_date"), "as_of_date", errors)
     framework = _object(document.get("framework"), "framework", errors)
+    framework_v3 = False
     if framework is not None and _text(framework.get("version")):
         version = re.fullmatch(r"v(\d+)\.(\d+)", framework["version"])
+        framework_v3 = bool(version and tuple(map(int, version.groups())) >= (3, 0))
         if version and tuple(map(int, version.groups())) >= (2, 24) and schema != 3:
             errors.append("audit_schema_version: v2.24+ reports require schema 3")
     _object(document.get("coverage"), "coverage", errors)
@@ -498,11 +649,14 @@ def validate_audit(doc):
     evidence_by_id = _evidence(evidence or [], as_of, errors)
     candidates = _list(document.get("candidates"), "candidates", errors)
     for index, candidate in enumerate(candidates or []):
-        _candidate(candidate, index, evidence_by_id, account_verified, errors, schema=schema)
+        _candidate(candidate, index, evidence_by_id, account_verified, errors, schema=schema,
+                   framework_v3=framework_v3, as_of=as_of)
     if schema == 3:
         _corrections(document, candidates or [], evidence_by_id, errors)
         if "shadow_plans" in document:
             _shadow_plans(document, candidates or [], as_of, errors)
+            if framework_v3 and document["shadow_plans"]:
+                errors.append("shadow_plans: v3 plans require prospective manual follow-up; legacy fixed-target settlement is not v3 performance")
     unresolved = _list(document.get("unresolved_items"), "unresolved_items", errors)
     for index, item in enumerate(unresolved or []):
         _object(item, f"unresolved_items[{index}]", errors)
