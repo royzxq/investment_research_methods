@@ -42,6 +42,6 @@
 ## 验证
 
 - 数据脚本优先用环境文档中的可用解释器，继承 `TUSHARE_TOKEN`；缺数据或账户字段保持缺口和 `null`，不推断真实成交或执行许可。
-- 框架保真结构检查：`python3 scripts/futures_framework_governance.py --check`；它不证明全部语义等价。
+- 框架保真结构检查：期货 `python3 scripts/futures_framework_governance.py --check`；股票 `python3 scripts/investment_framework_governance.py --check`。检查不证明全部语义等价或投资方法有效性。
 - 离线回归：`python3 -m unittest discover -s tests -v`。新增/更新 skill 运行 bundled `skill-creator/scripts/quick_validate.py`，另检查单阶段边界及领域契约。
 - 汇报实际运行结果，区分结构检查、离线测试、真实 API 验证与未验证内容；非平凡修改优先检验边界和失败路径。

@@ -19,8 +19,9 @@
 | `monitoring[]` | `variable, current, as_of, trigger, action, source, next_check` | 1–10 项，变量不重复；当前值不能与报告底稿矛盾 |
 
 - `mode`：`buy_candidate` 买入型候选、`tracking` 跟踪、`observation` 观察、`frozen` 冻结、`rejected` 否决、`unavailable` 因输入不足不可估。它是研究用途，不是下单许可；除买入型可为 null 外，`reason` 必须解释限制。
-- 前三种模式必须有数值 `v50/p1={low,base,high}`，价格为正且有序。后三种不产新的 P1/P2；允许在 `v50` 保留此前已核验参考值，但报告必须说明其来源与失效边界。没有则为 null。
-- `p2={status,price,reason}`：`active` 有效参考价；`cancelled` 按规则取消，价格 null；`suspended` 暂停触发，保留已计算参考价格和恢复条件；`unavailable` 不可计算，价格 null。除 active 外均必须理由；冻结/否决/不可估模式只能 cancelled/unavailable。tracking 下 active 仅指跟踪参考有效，不代表可以开仓。
+- 前三种模式必须有数值 `v50/p1={low,base,high}`，价格为正且有序。`frozen` 分两类：仅市场状态/相关事件临时限制且公司事实可靠时，完整核算新 V50/V5（V5 留报告）、折扣和观察 P1，mode 保持 frozen、reason 解释买入限制；公司真硬失败或核心事实不足时 P1 留 null，旧 frozen 空值继续有效。`rejected/unavailable` 不产新 P1/P2；允许在 v50 保留此前核验参考值，报告注明来源/失效边界，没有则 null。
+- `p2={status,price,reason}`：`active` 有效参考价；`cancelled` 按规则取消，价格 null；`suspended` 暂停触发，保留计算参考价格和恢复条件；`unavailable` 不可计算，价格 null。除 active 外均必须理由。**frozen 有观察 P1 时只能 suspended/cancelled，禁止 active**；旧 frozen 空 P1 与 rejected/unavailable 只能 cancelled/unavailable。观察 P1/P2 没有新开仓、加仓含义；tracking 下 active 仅指跟踪参考有效，不代表可以买入。
+- runner 在方法/证据接续未确认时，可将旧方法下已完成的有价结果保存为隔离修订：派生 JSON 用 `frozen`、P2 暂停/取消，reason 明示待复核，保留原估值；原始暂存报告、JSON 与回执不改，不自动提升 latest。此为输出版本隔离，不另创金融门槛，也不要求无依据重算或删除研究。
 - `t1/t2={price_condition,events}`：前者为可解释的价格条件文字，后者为非空事件条件列表。 `price_condition` 只写本轮价格条件，现价、行情日期及距阈值百分比放报告；引用 V50 边界优先写“接近 V50 上沿”，需要列数值时从最终 V50 回读，不手工保留旧数字。没有适用价格边界时明确写“当前不适用：原因”，不要捏造数值阈值。接近 V50 上沿/明显高于 V50 如需量化，必须在报告注明研究假设，不能称为框架固定比例。
 - `monitoring.current` 为数值、明确带单位的文字或 null；非空必须有 `as_of`，不能晚于估值日。来源写可追溯 URL/公告章节或数据包字段；`trigger` 包含窗口、单位和方向，`action` 指定重算/撤价位/取消 P2 等动作。`next_check` 为日期或明确事件文字。未取得当前值时 current/as_of 可 null，原因及补证路径写报告，不用 0 代替。
 - 字段不再重复保存 precheck/rules/valuation 全推导/terminal/qualitative_findings/key_inputs/gaps。折扣、cap、评级、解除条件和其它框架必答仍保留在报告；schema 精简不等于研究删项。
@@ -73,7 +74,7 @@ python3 scripts/stock_price_map.py check output/<本次目录>/investment-<代�
 
 以上同样只演示格式。每个折扣用 `[0,1)` 小数；工具不决定其合理性。`step_down` 为 `[0.05,0.10]`。priced 模式缺折扣是未完成研究参数论证，不能假借 cap 缺失直接留空；真正不可估时改 mode 并写具体原因。
 
-冻结/否决/不可估时 `discounts` 和 `step_down` 必须 null，不继续生成进入价位，valuation 可 null。取消的 P2 永远没有数值；暂停 P2 保留参考价格但不得表述为有效执行档。
+临时冻结且可估时必须有完整 `valuation/discounts/step_down`，按相同公式计算观察价格；缺折扣或步长不是可估例外，不能填默认值。frozen 不计算观察 P1、以及 rejected/unavailable 时 `discounts/step_down` 必须 null，valuation 可 null。取消的 P2 永远没有数值；暂停 P2 保留参考价格但不得表述为有效执行档。schema 仍为 v2，旧 frozen 空值无需改写。
 
 计算使用十进制、未舍入中间值；P1 每个情景乘五项折扣，P2 只用 P1 低档；最终 CNY 2 位、HKD 3 位。构建拒绝非有限数、布尔伪数值、重复键、错误币种和状态。build 验算算式与状态，check 校验导出结构/数值范围/状态及 T1/T2 的显式 V50 边界数值引用（最终没有折扣输入，不能完整重算）。报告中汇率桥、Terminal、现金桥与监控基线仍须独立复核。
 

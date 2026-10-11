@@ -185,7 +185,7 @@ class StockPriceMapTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     validate_document(bad)
 
-    def test_frozen_and_unavailable_modes_cannot_publish_entry_prices(self):
+    def test_legacy_frozen_and_unavailable_without_calculation_remain_unpriced(self):
         for mode in ("frozen", "unavailable"):
             with self.subTest(mode=mode):
                 data = yutong_example()
@@ -199,6 +199,69 @@ class StockPriceMapTests(unittest.TestCase):
                 result["price_map"]["p1"] = {"low": 10, "base": 15, "high": 20}
                 with self.assertRaises(ValueError):
                     validate_document(result)
+
+    def test_temporary_freeze_preserves_valuation_and_observation_prices(self):
+        data = yutong_example()
+        data.update(mode="frozen", reason="D5市场状态限制买入；仅用于研究观察")
+        data["p2"] = {"status": "suspended", "reason": "原重建条件满足且逐股复评后才可恢复"}
+        result = build_document(data)
+        self.assertEqual(result["meta"]["schema_version"], "stock-research/v2")
+        self.assertEqual(result["price_map"]["mode"], "frozen")
+        self.assertEqual(result["price_map"]["p1"], {"low": 17.29, "base": 22.42, "high": 28.18})
+        self.assertEqual(result["price_map"]["p2"], dict(data["p2"], price=16.00))
+        validate_document(result)
+        data["p2"] = {"status": "cancelled", "reason": "本轮取消P2，不转移仓位"}
+        cancelled = build_document(data)
+        self.assertIsNotNone(cancelled["price_map"]["p1"])
+        self.assertIsNone(cancelled["price_map"]["p2"]["price"])
+
+    def test_frozen_observation_prices_never_have_active_p2(self):
+        for status in ("active", "unavailable"):
+            with self.subTest(status=status):
+                data = yutong_example()
+                data.update(mode="frozen", reason="窗口冻结")
+                data["p2"] = {"status": status, "reason": "窗口未完成复核"}
+                with self.assertRaisesRegex(ValueError, "suspended or cancelled"):
+                    build_document(data)
+                result = build_document(yutong_example())
+                result["price_map"].update(mode="frozen", reason="窗口冻结")
+                result["price_map"]["p2"] = dict(data["p2"], price=16 if status == "active" else None)
+                with self.assertRaisesRegex(ValueError, "suspended or cancelled"):
+                    validate_document(result)
+
+    def test_frozen_prices_require_complete_calculation_inputs(self):
+        for updates in ({"valuation": None}, {"discounts": None}, {"step_down": None},
+                        {"discounts": {"d_base": .1}}, {"step_down": .11}):
+            with self.subTest(updates=updates):
+                data = yutong_example()
+                data.update(mode="frozen", reason="暂时市场限制，事实可靠")
+                data["p2"] = {"status": "suspended", "reason": "等待复核"}
+                data.update(updates)
+                with self.assertRaises(ValueError):
+                    build_document(data)
+
+    def test_frozen_p1_still_requires_valuation_discount_and_p2_arithmetic(self):
+        data = yutong_example()
+        data.update(mode="frozen", reason="公司可估，事件窗口暂停")
+        data["p2"] = {"status": "suspended", "reason": "等窗口实际结果复评"}
+        result = build_document(data)
+        for mutation in (lambda p: p.update(v50=None),
+                         lambda p: p.update(p1={"low": 30, "base": 40, "high": 50}),
+                         lambda p: p["p2"].update(price=20.7)):
+            with self.subTest(mutation=mutation):
+                invalid = deepcopy(result)
+                mutation(invalid["price_map"])
+                with self.assertRaises(ValueError):
+                    validate_document(invalid)
+
+    def test_rejection_or_unavailable_cannot_use_frozen_price_exception(self):
+        data = yutong_example()
+        for mode in ("rejected", "unavailable"):
+            with self.subTest(mode=mode):
+                data.update(mode=mode, reason="治理红线或核心证据不可得")
+                data["p2"] = {"status": "cancelled", "reason": "不具备估值基础"}
+                with self.assertRaisesRegex(ValueError, "unpriced mode"):
+                    build_document(data)
 
     def test_monitoring_preserves_baseline_and_rejects_forward_observations(self):
         data = yutong_example()

@@ -1,23 +1,26 @@
 # 项目状态与迁移边界
 
-核对日期：2026-10-05。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
+核对日期：2026-10-11（本次核对股票；其他轨道沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
 ## 当前权威
 
 | 轨道 | 方法与状态 | 当前配套 |
 |---|---|---|
 | 期货 | [canonical](../../framework/futures_framework.md) v2.27；整理 9/20，市场状态 9/19，文中最新行情日 9/18 | [compact](../../framework/futures_framework_compact.md)、[数据协议](../../framework/FUTURES_DATA_PROTOCOL.md) v2.26、[future_data.py](../../scripts/future_data.py) v1.16；版本不同并非当然不兼容 |
-| 股票 | [canonical](../../framework/investment_framework.md) 与 [compact](../../framework/investment_framework_compact.md) 整理 9/21，市场状态沿用 9/19 | 原三阶段 `projects/*/INSTRUCTIONS.md`；`stock_data_pack.py` 尚未找到，不声称数据脚本已迁入 |
+| 股票 | [canonical](../../framework/investment_framework.md) 与 [compact](../../framework/investment_framework_compact.md) 本地方法标识 `stock-maintenance-v1`；市场证据仍截至10/11原周更，本次未重做行情研究 | 周更三类分流、明确采纳交接与批次正文快照；临时冻结可估但买入受限；R21口径已补齐。本次修订通过股票发布分支提交审阅，合并前不将本地方法当作main已生效；`stock_data_pack.py` 尚未找到 |
 | ETF | [canonical](../../framework/etf_framework.md) v2.1，八主题、双月评审 | v2.0 格式快照兼容；最近评审为 [10/01 review](../../research/etf/reviews/2026-10-01/etf-2026-10-01-review.md)，正文已于 10/02 修订；旧 monthly-review 不作为现行一期 |
 
 ## 待接续事项
 
 - 2026-10-05 个股入口：`stock-research` 与 `deep-research-auto` 现维护于 `.agents/skills/`，`.claude/skills/` 同名文件为兼容入口。个股最终 JSON 使用 `stock-research/v2`，仅 `meta/price_map/monitoring`；计算工具为 `scripts/stock_price_map.py`，旧 v1 只作复评历史输入，不能直接迁移单位混杂的 V50 或示例价格。10/05 的 600066、01952 报告与 JSON 保留原研究内容（目录迁移仅修正引用），尚未按修复版重新研究；原参数空值、P2/换汇及事实冲突须在后续复评中解决，不能视为已修正价格。
-- 股票 [9/26 change-decision](../../research/investment/weekly/2026-09-26/investment-2026-09-26-change-decision.md) 与期货 [9/26 change-decision](../../research/futures/weekly/2026-09-26/2026-09-26-change-decision.md) 均记录 `update_needed=yes`、`update_level=light`，尚未见同日期适配报告。它们是待处理决策；本次迁移没有实施适配，期货报告提议的 v2.28 尚未成为当前框架。
+- 股票 [9/26 change-decision](../../research/investment/weekly/2026-09-26/investment-2026-09-26-change-decision.md) 是历史提案，不能整包视为待执行方法；10/11已合并的股票PR #43完成当期适配及R21保护。本地本次维护进一步修复接续、临时冻结估值及未定义出口，见[审阅报告](../../research/investment/maintenance/2026-10-11/investment-2026-10-11-weekly-update-mechanism-review.md)与[改造及验证](../../research/investment/maintenance/2026-10-11/investment-2026-10-11-weekly-update-mechanism-implementation.md)。
+- 期货 [9/26 change-decision](../../research/futures/weekly/2026-09-26/2026-09-26-change-decision.md) 为历史待处理提案；其 v2.28 提议不作为本分支当前框架，后续按期货轨的独立 PR 与采纳记录接续。
 - 期货 9/26 报告称最新快照为 9/19；本工作区另有在迁移前 HEAD 已提交的完整 `research/futures/snapshots/2026-09-21-data-snapshot.txt`（v2.27/v1.16）。本地接续按真实文件、完整标记和各行情日期选择，不继承该旧断言；发布/无人值守流程按入口只使用已提交快照。9/21 也不能代表 10/04 行情。
 - 工作区的完整 `research/etf/snapshots/etf-2026-10-02-data-snapshot.txt` 在目录迁移前 HEAD 已提交；当前新路径仍属本地待提交迁移。按 10/04 评审日距今两天，格式可通过前置；各指数实际行情锚与公开估值、成分、全收益缺口仍须按正文核对。迁移未运行新的行情脚本或研究。
 - [ETF 比较偏差与置换诊断](etf-timing-validation.md)、[恒指全收益代理](hsi-total-return-proxy.md) 保存独有历史发现，均待复现。旧收益、显著性、接口成功率不升级为已核实结论。
 - 2026-10-05 核对本机 Codex 自动化：期货与股票周更均 ACTIVE，分别调用本仓对应 skill，并在独立 worktree 按既有授权发布；PR #28 监控 PAUSED。未发现本机 ETF 定时定义，远端 Claude Routine 未核验。本次只改输出契约，未更改调度或发布授权。自动化提示词未硬编码旧报告路径，无需修改；远端运行基线需包含完整迁移后才使用新版契约，不夹带本地迁移发布。
+
+2026-10-11股票自动化后续核对：`automation-2` 已通过工具更新并回读，保留周日02:00、ACTIVE、GPT-6 Sol/High及原项目，继续自动推送研究日志、方法修改创建PR、不自动合并。周更区分三类变化，部署未齐时报告 deployment_pending；本次改造按用户授权提交、推送并创建PR；合并前不声称已在main部署，尚无新版定时实跑。此条替代此前“股票未改/无需修改”的当时结论，完整验证记录见股票改造报告。
 
 ## 历史资产的处理
 

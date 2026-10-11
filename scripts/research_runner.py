@@ -26,6 +26,7 @@ import time
 from zoneinfo import ZoneInfo
 
 try:
+    from .investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from .research_exchange import (
         RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
@@ -33,6 +34,7 @@ try:
     from .research_paths import company_path
     from .stock_price_map import validate_price_references
 except ImportError:
+    from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
         RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
@@ -43,6 +45,7 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
 FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
+SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'
 
 
 def sha(raw):
@@ -122,10 +125,37 @@ def framework_hashes(root):
     return {name: sha((Path(root) / 'framework' / name).read_bytes()) for name in FRAMEWORKS}
 
 
-def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1):
+def framework_bytes(root):
+    """Capture one stable pair, never hash a different read from the saved bytes."""
+    paths = {name: Path(root) / 'framework' / name for name in FRAMEWORKS}
+    contents = {name: path.read_bytes() for name, path in paths.items()}
+    if contents != {name: path.read_bytes() for name, path in paths.items()}:
+        raise ValueError('framework changed while preparing snapshot; retry preparation')
+    return contents
+
+
+def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
+                *, snapshot=True, maintenance=None):
     day, task_id = request['valuation_date'], task['task_id']
     staged = staging_root(root, request, task, generator, attempt)
     execution = f'execution/{task_id}/{generator}' + ('/retry-1' if attempt == 2 else '')
+    snapshot_root = (Path(root).resolve() / 'output/runs/investment' / day
+                     / request['batch_id'] / 'framework-snapshot')
+    maintenance_note = ('未发现估值截止前明确采纳且兼容的方法维护接续；可以继续按冻结框架取证，'
+                        '如实披露状态和证据缺口，不自行采纳待审方法。')
+    if maintenance is not None:
+        maintenance_note = ('已采纳维护接续（仅用下列冻结来源，路径相对本批方法快照目录）：'
+                            + json.dumps(maintenance, ensure_ascii=False)
+                            + '。读取handoff及关联source快照；原记录中的仓库路径通过sources清单的'
+                              'original_path映射到冻结path，不重读原路径。独立接续已采纳状态和纠错；'
+                              'proposed方法仍是提案，触发不等于逐股复评完成。')
+    snapshot_note = (f'''框架输入约束（优先于 skill 中工作区框架路径）：
+本批方法快照目录：{snapshot_root}
+主代理及所有子代理只使用该目录的 investment_framework_compact.md 与 investment_framework.md；不得重新读取工作区 framework/ 下的正文作方法输入。两份字节和指纹已冻结，主代理必须把此绝对路径与约束传给每个子代理。根 skill/references 可读取，但方法歧义以本批 canonical 快照为准。市场证据仍应更新，明确其时间及在快照方法下的状态判断；方法正文更新不冒充证据更新。
+报告第0节注明方法快照来源，不声称研究完成即自动符合运行中发布的新方法。runner 会在正式发布前校验快照并判断兼容性；待复核结果保存为隔离修订，不自动采纳为当前结果。
+{maintenance_note}
+
+''' if snapshot else '')
     prefix = f'''使用 stock-research 技能进行股票复研：{task['code']} {task['name']}。估值日{day}，Asia/Shanghai。
 用户授权的候选信号驱动研究，必须实际保存完整报告及价格JSON，不只返回计划。
 工作根：{Path(root).resolve()}；生成端固定为{generator}，不是数据源或业务席位标签。
@@ -146,6 +176,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
 5. 冻结/否决/确实不可估仍交付依据、补证尝试和解除条件，不为了出数编造；取消P2保持null和原因，不补旧价或派生价。不写 research/INDEX.md、共享索引/latest、框架、技能、代码、生产CSV/飞书，不读凭据，不发消息/交易，不提交或推送Git。
 6. 调用 scripts/stock_price_map.py build 和 check，回读实际暂存文件并核对报告与JSON。结构化回执必须绑定本批ID、任务、生成端、日期及输入包SHA256；status=completed时reason必须是JSON null，研究结论写summary，两个路径填上述确切最终相对路径；status=failed时reason写失败原因，两个路径都为null。不能把连接测试或准备文件当成研究完成。
 
+{snapshot_note}\
 上游触发与缺口（待核验，不作事实证明）：
 {json.dumps({'sources': task['sources'], 'data_pack_meta': task['data_pack_meta']}, ensure_ascii=False)}
 
@@ -212,8 +243,8 @@ def targets_for_revision(root, request, task, generator, revision=None):
             for key, kind in (('report_path', 'research'), ('price_map_path', 'price-map'))}
 
 
-def unoccupied_targets(root, request, task, generator):
-    revision = None
+def unoccupied_targets(root, request, task, generator, minimum_revision=None):
+    revision = minimum_revision
     while True:
         targets = targets_for_revision(root, request, task, generator, revision)
         if all(not (owned_path(root, path).exists() or owned_path(root, path).is_symlink()) for path in targets.values()):
@@ -235,26 +266,172 @@ def validate_targets(targets, root, request, task, generator):
         raise ValueError('prepared targets identity mismatch')
 
 
+def freeze_maintenance(run, root, as_of):
+    root = Path(root).resolve()
+    folder = run / 'framework-snapshot'
+    methods = {role: dict(path=(folder / name).relative_to(root).as_posix(),
+                          sha256=sha((folder / name).read_bytes()))
+               for role, name in zip(('canonical', 'compact'), FRAMEWORKS)}
+    selected = select_adopted(root, as_of, methods)
+    if selected is None:
+        return None
+    references = {selected['path']: selected['sha256']}
+
+    def collect(value):
+        if isinstance(value, dict):
+            if {'path', 'sha256'} <= set(value):
+                if value.get('as_of', as_of) > as_of:
+                    raise ValueError('maintenance reference is later than valuation cutoff')
+                previous = references.setdefault(value['path'], value['sha256'])
+                if previous != value['sha256']:
+                    raise ValueError('maintenance references disagree on source bytes')
+            for item in value.values():
+                collect(item)
+        elif isinstance(value, list):
+            for item in value:
+                collect(item)
+    collect(selected['record'])
+    sources = []
+    for relative, digest in sorted(references.items()):
+        _, raw = _artifact(dict(path=relative, sha256=digest), root, 'maintenance source')
+        target = 'maintenance/' + relative
+        write_new(folder / target, raw)
+        (folder / target).chmod(0o444)
+        sources.append(dict(original_path=relative, path=target, sha256=digest))
+    return dict(handoff=dict(path='maintenance/' + selected['path'], sha256=selected['sha256']),
+                sources=sources)
+
+
+def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None):
+    folder = run / 'framework-snapshot'
+    if folder.exists():
+        raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
+    folder.mkdir()
+    for name, raw in contents.items():
+        write_new(folder / name, raw)
+        (folder / name).chmod(0o444)
+    maintenance = freeze_maintenance(run, root, as_of)
+    document = dict(schema_version=SNAPSHOT_SCHEMA, captured_at=stamp(),
+                    origin='legacy_exact_hash_migration' if legacy_inputs is not None else 'prepared',
+                    frameworks={name: dict(path=name, sha256=sha(raw))
+                                for name, raw in contents.items()},
+                    legacy_inputs=legacy_inputs, maintenance=maintenance)
+    write_new(folder / 'manifest.json', encode(document))
+    (folder / 'manifest.json').chmod(0o444)
+    return document
+
+
+def migrate_legacy_prepared(run, request, raw, packs, root):
+    """Recover only bytes proven identical to every original saved input hash.
+
+    Original prompts and input records remain untouched, including completed
+    attempts. New runtime prompts are separately bound to those original files.
+    """
+    contents = framework_bytes(root)
+    frameworks = {name: sha(body) for name, body in contents.items()}
+    legacy, prepared = {}, []
+    for task in request['tasks']:
+        for generator in request['generators']:
+            folder = run / 'execution' / task['task_id'] / generator
+            record_raw = (folder / 'input.json').read_bytes()
+            record = _strict_json(record_raw, 'legacy input record')
+            if record.get('framework_sha256') != frameworks:
+                raise ValueError('legacy prepared framework bytes unavailable: current framework does not '
+                                 'match saved hashes; original batch preserved, rebuild a new batch '
+                                 'or recover the exact original framework bytes')
+            targets = _strict_json((folder / 'targets.json').read_bytes(), 'legacy targets')
+            validate_targets(targets, root, request, task, generator)
+            old_prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
+                                     frameworks, targets, snapshot=False)
+            if (folder / 'prompt.txt').read_bytes() != old_prompt:
+                raise ValueError('legacy prepared prompt mismatch; migration cannot replace damaged inputs')
+            if record != input_record(request, raw, task, generator, old_prompt, frameworks, targets):
+                raise ValueError('legacy prepared input record mismatch')
+            if _strict_json((folder / 'receipt-schema.json').read_bytes(), 'legacy receipt schema') != receipt_schema(request, task, generator, targets):
+                raise ValueError('legacy prepared receipt schema mismatch')
+            key = f"{task['task_id']}/{generator}"
+            legacy[key] = dict(prompt_sha256=sha(old_prompt), input_sha256=sha(record_raw))
+            prepared.append((task, generator, targets))
+    snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'], legacy_inputs=legacy)
+    for task, generator, targets in prepared:
+        prompt = make_prompt(request, task, generator, packs[task['task_id']], root, frameworks,
+                             targets, maintenance=snapshot['maintenance'])
+        folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
+        write_new(folder / 'prompt.txt', prompt)
+        write_new(folder / 'input.json', encode(input_record(request, raw, task, generator, prompt, frameworks, targets)))
+
+
+def snapshot_hashes(run):
+    folder = run / 'framework-snapshot'
+    document = _strict_json((folder / 'manifest.json').read_bytes(), 'framework snapshot')
+    if (not isinstance(document, dict) or document.get('schema_version') != SNAPSHOT_SCHEMA
+            or set(document.get('frameworks', {})) != set(FRAMEWORKS)
+            or document.get('origin') not in ('prepared', 'legacy_exact_hash_migration')):
+        raise ValueError('framework snapshot manifest mismatch')
+    frameworks = {}
+    for name in FRAMEWORKS:
+        descriptor = document['frameworks'][name]
+        if not isinstance(descriptor, dict) or descriptor.get('path') != name:
+            raise ValueError('framework snapshot path mismatch')
+        _, body = _artifact(descriptor, folder, 'framework snapshot ' + name)
+        frameworks[name] = sha(body)
+    maintenance = document.get('maintenance')
+    if maintenance is not None:
+        if not isinstance(maintenance, dict) or set(maintenance) != {'handoff', 'sources'}:
+            raise ValueError('framework snapshot maintenance mismatch')
+        _artifact(maintenance['handoff'], folder, 'snapshot maintenance handoff')
+        for source in maintenance['sources']:
+            if not isinstance(source, dict) or set(source) != {'original_path', 'path', 'sha256'}:
+                raise ValueError('snapshot maintenance source mismatch')
+            if source['path'] != 'maintenance/' + source['original_path']:
+                raise ValueError('snapshot maintenance path mapping mismatch')
+            _artifact(dict(path=source['path'], sha256=source['sha256']), folder, 'snapshot maintenance source')
+        # Recheck older prepared batches against the current evidence contract.
+        # All original reference paths resolve within the frozen mirror, never
+        # against live files which may have moved since preparation.
+        _, handoff_raw = _artifact(maintenance['handoff'], folder, 'snapshot maintenance handoff')
+        validate_handoff(_strict_json(handoff_raw, 'frozen maintenance handoff'), folder / 'maintenance')
+    return frameworks, document
+
+
 def verify_prepared(run, original_raw, root):
     request, raw, packs = read_request(run / 'request.json')
     if raw != original_raw:
         raise ValueError('prepared request differs from original immutable request')
-    frameworks = framework_hashes(root)
+    if not (run / 'framework-snapshot').exists():
+        migrate_legacy_prepared(run, request, raw, packs, root)
+    frameworks, snapshot = snapshot_hashes(run)
+    legacy = snapshot.get('legacy_inputs')
+    if snapshot['origin'] == 'prepared' and legacy is not None:
+        raise ValueError('framework snapshot unexpected legacy inputs')
+    if snapshot['origin'] == 'legacy_exact_hash_migration' and not isinstance(legacy, dict):
+        raise ValueError('framework snapshot missing legacy inputs')
     verified = {}
     for task in request['tasks']:
         for generator in request['generators']:
             folder = run / 'execution' / task['task_id'] / generator
             targets = _strict_json((folder / 'targets.json').read_bytes(), 'targets')
             validate_targets(targets, root, request, task, generator)
-            prompt = make_prompt(request, task, generator, packs[task['task_id']], root, frameworks, targets)
-            if (folder / 'prompt.txt').read_bytes() != prompt:
+            input_folder = folder
+            if legacy is not None:
+                key = f"{task['task_id']}/{generator}"
+                original = dict(prompt_sha256=sha((folder / 'prompt.txt').read_bytes()),
+                                input_sha256=sha((folder / 'input.json').read_bytes()))
+                if legacy.get(key) != original:
+                    raise ValueError('migrated legacy input history mismatch')
+                input_folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
+            prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
+                                 frameworks, targets, maintenance=snapshot.get('maintenance'))
+            if (input_folder / 'prompt.txt').read_bytes() != prompt:
                 raise ValueError(f"prepared prompt mismatch: {task['task_id']} {generator}")
-            record = _strict_json((folder / 'input.json').read_bytes(), 'input record')
+            record = _strict_json((input_folder / 'input.json').read_bytes(), 'input record')
             if record != input_record(request, raw, task, generator, prompt, frameworks, targets):
                 raise ValueError('prepared input record mismatch')
             if _strict_json((folder / 'receipt-schema.json').read_bytes(), 'receipt schema') != receipt_schema(request, task, generator, targets):
                 raise ValueError('prepared receipt schema mismatch')
-            verified[(task['task_id'], generator)] = dict(prompt=prompt, frameworks=frameworks, targets=targets)
+            verified[(task['task_id'], generator)] = dict(prompt=prompt, frameworks=frameworks,
+                                                         targets=targets, input_folder=input_folder,
+                                                         maintenance=snapshot.get('maintenance'))
     return request, raw, packs, verified
 
 
@@ -264,18 +441,21 @@ def prepare_request(request_path, root=ROOT):
     if run.exists():
         verify_prepared(run, raw, root)
         return run
-    frameworks = framework_hashes(root)
+    contents = framework_bytes(root)
+    frameworks = {name: sha(body) for name, body in contents.items()}
     prepared = []
     for task in request['tasks']:
         for generator in request['generators']:
             with stock_lock(root, task['task_id'], generator):
                 targets = unoccupied_targets(root, request, task, generator)
-            prompt = make_prompt(request, task, generator, packs[task['task_id']], root, frameworks, targets)
-            prepared.append((task, generator, prompt, targets))
+            prepared.append((task, generator, targets))
     run.mkdir(parents=True, exist_ok=False)
+    snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'])
     for task in request['tasks']:
         write_new(run / task['data_pack']['path'], packs[task['task_id']])
-    for task, generator, prompt, targets in prepared:
+    for task, generator, targets in prepared:
+        prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
+                             frameworks, targets, maintenance=snapshot.get('maintenance'))
         folder = run / 'execution' / task['task_id'] / generator
         write_new(folder / 'prompt.txt', prompt)
         write_new(folder / 'targets.json', encode(targets))
@@ -421,6 +601,110 @@ def publish_pair(entry, staged, root):
         raise
 
 
+def framework_compatibility(run, root, frozen_hashes, as_of, maintenance=None):
+    """Record compatibility before publication, never infer it from version labels."""
+    current = framework_bytes(root)
+    current_hashes = {name: sha(raw) for name, raw in current.items()}
+    document = dict(schema_version='stock-framework-compatibility/v1', checked_at=stamp(),
+                    snapshot_sha256=frozen_hashes, current_sha256=current_hashes,
+                    classification='exact', needs_review=False,
+                    scope='Input/method continuity only; not proof that market evidence is current '
+                          'or that any trade is authorized.',
+                    reason='Current framework bytes match the verified snapshot.')
+    if current_hashes != frozen_hashes:
+        document.update(classification='needs_review', needs_review=True,
+                        reason='Method compatibility is unproven; preserve research under its '
+                               'snapshot and review affected judgments before adoption.')
+        try:
+            old_methods = {name: method_fingerprint((run / 'framework-snapshot' / name).read_bytes())
+                           for name in FRAMEWORKS}
+            new_methods = {name: method_fingerprint(current[name]) for name in FRAMEWORKS}
+        except (ValueError, UnicodeError) as exc:
+            document['reason'] += ' Invalid state-only compatibility input: ' + str(exc)
+        else:
+            document.update(snapshot_method_sha256=old_methods, current_method_sha256=new_methods)
+            if old_methods == new_methods:
+                document.update(classification='state_only', needs_review=False,
+                                reason='Only strictly validated observation blocks changed; methods '
+                                       'remain identical. Research retains its stated evidence cutoff.')
+            else:
+                def method_pair(folder, hashes):
+                    return {role: dict(path=(folder / name).resolve().relative_to(Path(root).resolve()).as_posix(),
+                                       sha256=hashes[name])
+                            for role, name in zip(('canonical', 'compact'), FRAMEWORKS)}
+                try:
+                    old_adoption = select_adopted(root, as_of, method_pair(run / 'framework-snapshot', frozen_hashes))
+                    new_adoption = select_adopted(root, as_of, method_pair(Path(root) / 'framework', current_hashes))
+                    if (old_adoption and new_adoption
+                            and old_adoption['sha256'] == new_adoption['sha256']
+                            and old_adoption['path'] == new_adoption['path']
+                            and old_adoption['record'].get('compatibility')):
+                        document.update(classification='reviewed_compatible', needs_review=False,
+                                        reason='An explicitly adopted, hash-verified compatibility review '
+                                               'binds both frozen and current method pairs.',
+                                        compatibility_adoption=old_adoption)
+                except (ValueError, OSError) as exc:
+                    document['reason'] += ' Compatibility review unavailable: ' + str(exc)
+    if maintenance is not None:
+        _, handoff_raw = _artifact(maintenance['handoff'], run / 'framework-snapshot', 'snapshot maintenance handoff')
+        try:
+            lifecycle = check_adoption_lifecycle(root, as_of, _strict_json(handoff_raw, 'frozen handoff'))
+        except (ValueError, OSError) as exc:
+            lifecycle = dict(status='unknown', reason='Cannot verify current maintenance lifecycle: ' + str(exc), evidence=[])
+        document['maintenance_lifecycle'] = lifecycle
+        if lifecycle['status'] != 'active':
+            document.update(classification='needs_review', needs_review=True,
+                            reason='Frozen maintenance is no longer confirmed active: ' + lifecycle['reason'])
+    return document
+
+
+def isolate_pair(entry, staged, root, request, task, generator, compatibility):
+    """Preserve completed research as an unadopted revision, with explicit context.
+
+    The provider's receipt and original staged pair stay untouched for audit.
+    The result/v1 and stock-research/v2 envelopes remain unchanged.
+    """
+    targets = unoccupied_targets(root, request, task, generator, minimum_revision=2)
+    _, report_raw = _artifact(entry['report'], staged, 'report')
+    _, price_raw = _artifact(entry['price_map'], staged, 'price map')
+    price = _strict_json(price_raw, 'price map')
+    note = ('\n\n> 方法接续待复核（needs_review）：本报告使用批次冻结框架完成。'
+            '发布前框架或已采纳证据接续发生变化，适用性尚未确认；本隔离修订不代表当前可执行判断，'
+            '不得自动采纳为 latest 或买入许可。保留估值与证据，针对受影响判断复核，'
+            '无需因文档变化整批重跑。\n\n')
+    report_text = report_raw.decode('utf-8')
+    # Prepend outside any source HTML comment/fence; the warning must be visible
+    # even if the submitted report has hidden example headings before section 0.
+    report_raw = (note.lstrip() + report_text).encode('utf-8')
+    price['meta']['report_path'] = targets['report_path']
+    price['price_map']['reason'] = ((price['price_map']['reason'] or '研究判断基于冻结框架') + '；方法接续待复核 needs_review，'
+                                  '仅供按冻结框架复核，不代表当前买入资格。')
+    compatibility['original_price_state'] = dict(mode=price['price_map']['mode'],
+                                                p2=dict(price['price_map']['p2']))
+    if price['price_map']['mode'] in {'buy_candidate', 'tracking', 'observation'}:
+        price['price_map']['mode'] = 'frozen'
+        if price['price_map']['p2']['status'] == 'active':
+            price['price_map']['p2']['status'] = 'suspended'
+            price['price_map']['p2']['reason'] = ('方法接续待复核 needs_review；保留原观察价位，'
+                                                '不具备当前买入许可。')
+        elif price['price_map']['p2']['status'] == 'unavailable':
+            original_reason = price['price_map']['p2']['reason']
+            price['price_map']['p2'].update(status='cancelled', price=None,
+                reason='方法接续待复核 needs_review；原P2不可算，未生成观察价位：' + original_reason)
+    adjusted = dict(entry)
+    # A provider can already have been assigned r2. Use a separate staging root
+    # so even that case does not overwrite its original delivery.
+    isolated = staged.parent / (staged.name + '-needs-review')
+    isolated.mkdir(exist_ok=False)
+    for field, body in (('report', report_raw), ('price_map', encode(price))):
+        relative = targets[field + '_path']
+        write_new(isolated / relative, body)
+        adjusted[field] = dict(path=relative, sha256=sha(body))
+    compatibility['original_targets'] = {key: entry[key]['path'] for key in ('report', 'price_map')}
+    compatibility['published_targets'] = targets
+    return adjusted, isolated
+
+
 def group_alive(pid):
     try:
         os.killpg(pid, 0)
@@ -537,16 +821,19 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 raise ValueError('research runner cancelled before launch')
             _, _, packs, verified = verify_prepared(run, request_raw, root)
             frozen = verified[(task['task_id'], generator)]
+            process['framework_input_record'] = (frozen['input_folder'] / 'input.json').relative_to(run).as_posix()
             targets = frozen['targets']
             payload = frozen['prompt']
             if attempt == 2:
                 payload = make_prompt(request, task, generator, packs[task['task_id']],
-                                      root, frozen['frameworks'], targets, attempt)
+                                      root, frozen['frameworks'], targets, attempt,
+                                      maintenance=frozen['maintenance'])
                 for name, data in (('prompt.txt', payload), ('targets.json', encode(targets)),
                                    ('receipt-schema.json', encode(receipt_schema(request, task, generator, targets))),
                                    ('input.json', encode(input_record(request, request_raw, task, generator,
                                                                      payload, frozen['frameworks'], targets)))):
                     write_new(folder / name, data)
+                process['framework_input_record'] = (folder / 'input.json').relative_to(run).as_posix()
             for relative in targets.values():
                 target = owned_path(root, relative)
                 if target.exists() or target.is_symlink():
@@ -590,8 +877,28 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 _, price_raw = _artifact(entry['price_map'], staged, 'price map')
                 validate_price_references(_strict_json(price_raw, 'price map'))
                 retryable = False  # Publication must never be retried over possibly visible files.
+                # Recheck actual snapshot bytes and request/pack/prompt bindings
+                # after research, before anything can reach company discovery.
+                verify_prepared(run, request_raw, root)
+                runtime_folder = folder if attempt == 2 else frozen['input_folder']
+                if (runtime_folder / 'prompt.txt').read_bytes() != payload:
+                    raise ValueError('executed prompt changed during research')
+                runtime_record = _strict_json((runtime_folder / 'input.json').read_bytes(), 'executed input record')
+                if runtime_record != input_record(request, request_raw, task, generator, payload,
+                                                  frozen['frameworks'], targets):
+                    raise ValueError('executed input record changed during research')
+                compatibility = framework_compatibility(run, root, frozen['frameworks'],
+                                                        request['valuation_date'], frozen['maintenance'])
+                process['framework_changed_during_run'] = compatibility['current_sha256'] != frozen['frameworks']
+                process['framework_compatibility'] = compatibility['classification']
+                process['needs_review'] = compatibility['needs_review']
+                if compatibility['needs_review']:
+                    entry, staged = isolate_pair(entry, staged, root, request, task, generator, compatibility)
+                    save(check_path, manifest(request, request_raw, [entry]))
+                    load_results(check_path, run / 'request.json', staged)
+                write_new(folder / 'framework-compatibility.json', encode(compatibility))
+                save(folder / 'process.json', process)
                 publish_pair(entry, staged, root)
-                process['framework_changed_during_run'] = framework_hashes(root) != frozen['frameworks']
             completed = stamp()
             entry['completed_at'] = completed
             save(check_path, manifest(request, request_raw, [entry]))
@@ -654,6 +961,12 @@ def _run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeo
     cli = shutil.which(generator) if cli is None else cli
     if not cli or not Path(cli).is_file():
         raise ValueError(f'{generator} CLI executable unavailable')
+    existing = owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}")
+    for task in tasks:
+        if (existing / 'execution' / task['task_id'] / generator / 'launched.json').exists():
+            # Completed legacy archives need no reconstructed framework bytes.
+            # A repeat launch is rejected before any migration writes occur.
+            raise ValueError(f"task already launched: {task['task_id']} {generator}; retry requires a new batch")
     run = prepare_request(request_path, root)
     verify_prepared(run, request_raw, root)
     for task in tasks:

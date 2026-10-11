@@ -48,3 +48,6 @@ jobs:
       # framework-condense 要求的期货框架结构检查（稳定锚点、重复锚点、交叉链接）
       - name: Futures framework governance check
         run: python scripts/futures_framework_governance.py --check
+
+      - name: Stock framework governance check
+        run: python scripts/investment_framework_governance.py --check
