@@ -1,0 +1,277 @@
+{
+  "schema": "stock-weekly-mechanism-review/v1",
+  "review_date": "2026-10-11",
+  "timezone": "Asia/Shanghai",
+  "generator": "codex",
+  "scope": "repository and local automation review; not market-data verification or production changes",
+  "git": {
+    "head": "b6c823b919b729bd70e411d44028be66b173134f",
+    "local_origin_main": "44f3741cbae27b5394bb691e3ef52893913445d3",
+    "fetched_during_this_review": false
+  },
+  "sources": [
+    {
+      "path": "framework/investment_framework.md",
+      "sha256": "ba44c2942e4a8c18584c1f2ee91620dc4c8035736148a919b8374a22322fb6f5",
+      "bytes": 75318,
+      "lines": 442,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "framework/investment_framework_compact.md",
+      "sha256": "a989195a824cfc5799b2671a120e106b1fa6e38c556e15c1cf2981af08624c19",
+      "bytes": 46693,
+      "lines": 219,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": ".agents/skills/investment-weekly-review/SKILL.md",
+      "sha256": "cb5936f5f8ca520be6f90af5f4d4a65bf27cd7d1d1cda0218c9cc1610774631b",
+      "bytes": 6590,
+      "lines": 56,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": ".agents/skills/investment-weekly-review/references/investment-change-analysis.md",
+      "sha256": "639963aceb45b4717543e10f1bb61ae9b2c2d3bcbf6e0bc9846248da7a113d6a",
+      "bytes": 2763,
+      "lines": 34,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": ".agents/skills/investment-weekly-review/references/investment-adaption.md",
+      "sha256": "e5f66c431cdbb29e013f4eb904e5bffd867a3a28519703091a37dc266b99b5f5",
+      "bytes": 1976,
+      "lines": 17,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "projects/meta_investment_analysis/INSTRUCTIONS.md",
+      "sha256": "d7b9cbd034020d2a57660bdc806dab326a04cbef982af0c9b2c8d93969616c21",
+      "bytes": 5355,
+      "lines": 357,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "projects/investment_change_analysis/INSTRUCTIONS.md",
+      "sha256": "db79165b0d4ecd75fc8f22a91f70f25df89f782ae1a00072950f2abbc4cd1dba",
+      "bytes": 5438,
+      "lines": 375,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "projects/investment_adaption/INSTRUCTIONS.md",
+      "sha256": "ea7692cf7bd2e8b560e3b9318a7e2c56dc04b59514f8c4abb0c4be20d412b5a4",
+      "bytes": 5362,
+      "lines": 325,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": ".agents/skills/stock-research/SKILL.md",
+      "sha256": "45f171be23e0a476c251867356d57af10839d6ea788281024f7df021bc048ed9",
+      "bytes": 16569,
+      "lines": 88,
+      "same_as_local_origin_main": false
+    },
+    {
+      "path": ".agents/skills/stock-research/references/valuation-and-output.md",
+      "sha256": "71f887193e16eb9a2baf24ce56b1d6b2c3a5452b767810150530a8a2851158e9",
+      "bytes": 9027,
+      "lines": 85,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "scripts/research_runner.py",
+      "sha256": "fd588f37299293802cb449d82a3ee71edb3401755e141fe689940f4f97438843",
+      "bytes": 38425,
+      "lines": 739,
+      "same_as_local_origin_main": false
+    },
+    {
+      "path": "scripts/stock_price_map.py",
+      "sha256": "87a95a4df460f0a675667048f7ab219d93472567aaf382cf77b06ac02c3a999e",
+      "bytes": 15615,
+      "lines": 326,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "tests/test_research_runner.py",
+      "sha256": "529ac9c4771f912cd5e1b8fd70f63101c0eb0cc08780bf081e35474ddd976098",
+      "bytes": 32336,
+      "lines": 558,
+      "same_as_local_origin_main": false
+    },
+    {
+      "path": "research/investment/weekly/2026-09-05/investment-2026-09-05-change-decision.md",
+      "sha256": "09b4c8a6a708f5add415f044b67f17b070342130192c0919aa6f45671338e71e",
+      "bytes": 37678,
+      "lines": 161,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "research/investment/weekly/2026-10-03/investment-2026-10-03-change-decision.md",
+      "sha256": "2c2ae6204c86634ce532dd6287531556fda1305e4ddf9301f83647d83e3e69e3",
+      "bytes": 89046,
+      "lines": 239,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "research/investment/weekly/2026-10-11/investment-2026-10-11-change-decision.md",
+      "sha256": "06b59f529cf18cbfe55c08dffe10ca99ecb8c75ed5fbba6678e43fe681b2187a",
+      "bytes": 31605,
+      "lines": 177,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "research/investment/weekly/2026-10-11/investment-2026-10-11-adaption-report.md",
+      "sha256": "d90c0b453ec22807c906882e9f8951a782c370f6c8b77220a0508660c57dc786",
+      "bytes": 20899,
+      "lines": 94,
+      "same_as_local_origin_main": true
+    },
+    {
+      "path": "research/investment/companies/2026-10-09/HK-06886/investment-06886-2026-10-09-research-codex.md",
+      "sha256": "b42e6b3839dac9d90a68b9c086c5891f076a0693ab2fd4258369f61e75b28dc6",
+      "bytes": 49506,
+      "lines": 280,
+      "same_as_local_origin_main": null
+    },
+    {
+      "path": "research/investment/companies/2026-10-09/HK-06886/investment-06886-2026-10-09-price-map-codex.json",
+      "sha256": "d8dc7344cc55757f140682bf073d02e351306c94750abe1a1eea330733c9c160",
+      "bytes": 10197,
+      "lines": 130,
+      "same_as_local_origin_main": null
+    }
+  ],
+  "decision_history": [
+    {
+      "date": "2026-07-18",
+      "update_needed": "no",
+      "update_level": "none"
+    },
+    {
+      "date": "2026-07-25",
+      "update_needed": "no",
+      "update_level": "none"
+    },
+    {
+      "date": "2026-07-26",
+      "update_needed": "no",
+      "update_level": "none"
+    },
+    {
+      "date": "2026-08-01",
+      "update_needed": "yes",
+      "update_level": "light"
+    },
+    {
+      "date": "2026-08-08",
+      "update_needed": "yes",
+      "update_level": "light"
+    },
+    {
+      "date": "2026-08-15",
+      "update_needed": "yes",
+      "update_level": "light"
+    },
+    {
+      "date": "2026-08-22",
+      "update_needed": "yes",
+      "update_level": "significant"
+    },
+    {
+      "date": "2026-08-29",
+      "update_needed": "yes",
+      "update_level": "light"
+    },
+    {
+      "date": "2026-09-05",
+      "update_needed": "no",
+      "update_level": "none"
+    },
+    {
+      "date": "2026-09-12",
+      "update_needed": "yes",
+      "update_level": "significant"
+    },
+    {
+      "date": "2026-09-19",
+      "update_needed": "yes",
+      "update_level": "significant"
+    },
+    {
+      "date": "2026-09-26",
+      "update_needed": "yes",
+      "update_level": "light"
+    },
+    {
+      "date": "2026-10-03",
+      "update_needed": "yes",
+      "update_level": "light"
+    },
+    {
+      "date": "2026-10-11",
+      "update_needed": "yes",
+      "update_level": "light"
+    }
+  ],
+  "decision_statistics_since_2026_08_01": {
+    "count": 11,
+    "update_needed_yes": 10,
+    "does_not_measure_merges_or_overfitting": true
+  },
+  "automation": {
+    "id": "automation-2",
+    "name": "股票研究框架每周更新",
+    "status": "ACTIVE",
+    "prompt_sha256": "2da35084e23726ceddeada2bcf3e893961f4de3297822064c6725a9c6deb53e9",
+    "modified": false,
+    "uses_update_needed_pipeline": true
+  },
+  "company_case": {
+    "name": "华泰证券-H",
+    "selected_formal_pair": "research/investment/companies/2026-10-09/HK-06886/investment-06886-2026-10-09-price-map-codex.json",
+    "mode": "frozen",
+    "v50_is_null": true,
+    "financial_facts_revalidated": false
+  },
+  "actual_tests": [
+    {
+      "command": "python3 -m unittest discover -s tests -p test_stock_price_map.py -v",
+      "tests": 17,
+      "result": "passed",
+      "scope": "existing arithmetic and export-state behavior"
+    },
+    {
+      "command": "PYTHONPATH=tests python3 -m unittest test_research_runner.ResearchRunnerTests.test_framework_changes_do_not_replace_frozen_input_fingerprint -v",
+      "tests": 1,
+      "result": "passed",
+      "scope": "reproduces existing completed publication after in-run framework change; not a fix validation"
+    }
+  ],
+  "review_scenarios_not_executable_state_engine_tests": [
+    {
+      "id": "state-no-method-change",
+      "evidence": "2026-09-05 change-decision line 60",
+      "observation": "Expired notes deferred until future method update"
+    },
+    {
+      "id": "r21-no-definition",
+      "evidence": "2026-10-11 adaption-report lines 89-92",
+      "observation": "New exit unavailable pending definition; existing reconstruction path remains available"
+    },
+    {
+      "id": "trigger-is-not-completion",
+      "evidence": "2026-10-03 change-decision line 10 versus 2026-10-11 change-decision line 10",
+      "observation": "Earlier inferred review completion corrected to unknown"
+    }
+  ],
+  "limitations": [
+    "No full regression suite",
+    "No live market/account API validation",
+    "No automation execution",
+    "No production method/skill/automation edits",
+    "No commits or remote publication"
+  ]
+}

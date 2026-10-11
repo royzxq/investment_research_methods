@@ -38,7 +38,7 @@
 4. **自包含执行抽检**：选三条 canonical 定义明确完整的规则构造假想情形，仅凭 compact 走判断。精简遗漏导致回查时补全；canonical 原有缺定义不为自包含而编造。
 5. **副本矛盾**：不静默择一；有明确权威定义/覆盖关系时据此收敛并记录依据，否则保留边界并列待澄清项，不借精简改方法。
 6. **决策链**：“0. 决策链总览”每一步在正文有对应固定规则及适用动态配置，无断链或空节。
-7. **体积与范围**：记录行数、字符或 UTF-8 字节 before→after，并说明计量口径；确认 compact 没有在已完成的 canonical 之外增加方法、范围限制或必办门。期货运行 `python3 scripts/futures_framework_governance.py --check`；股票核 R/D 编号、来源及章节引用。结构检查不能证明语义等价或规则有效性，诚实记录未运行/失败与验证限制。
+7. **体积与范围**：记录行数、字符或 UTF-8 字节 before→after，并说明计量口径；确认 compact 没有在已完成的 canonical 之外增加方法、范围限制或必办门。期货运行 `python3 scripts/futures_framework_governance.py --check`；股票运行 `python3 scripts/investment_framework_governance.py --check` 并核 R/D 来源及章节引用。股票方法指纹仅可排除通过结构校验的原位观测块，不排除混排 D 段；同步两份框架的方法/状态关系。结构检查不能证明语义等价或规则有效性，诚实记录未运行/失败与验证限制。
 
 ## 结果承接
 

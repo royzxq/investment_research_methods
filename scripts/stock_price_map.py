@@ -164,7 +164,15 @@ def build_document(data):
     validate_meta(data["meta"])
     validate_mode(data["mode"], data["reason"])
     validate_p2(data["p2"])
-    priced = data["mode"] in PRICED_MODES
+    # Frozen describes buying eligibility, not whether the business is valuable
+    # enough to model. Explicit calculation inputs opt into observation prices;
+    # old frozen documents with no calculation inputs remain valid.
+    frozen_priced = data["mode"] == "frozen" and (
+        data["discounts"] is not None or data["step_down"] is not None)
+    priced = data["mode"] in PRICED_MODES or frozen_priced
+    if frozen_priced:
+        require(data["p2"]["status"] in {"suspended", "cancelled"},
+                "frozen observation prices: p2 must be suspended or cancelled")
     currency = data["meta"]["currency"]
     with localcontext() as ctx:
         ctx.prec = 40
@@ -220,7 +228,11 @@ def validate_document(document):
         prices.append(number(p["p2"]["price"], "p2.price", positive=True))
     for price in prices:
         require(price % tick == 0, "exported price exceeds currency precision")
-    if p["mode"] in PRICED_MODES:
+    frozen_priced = p["mode"] == "frozen" and p1 is not None
+    if frozen_priced:
+        require(p["p2"]["status"] in {"suspended", "cancelled"},
+                "frozen observation prices: p2 must be suspended or cancelled")
+    if p["mode"] in PRICED_MODES or frozen_priced:
         require(v50 is not None and p1 is not None, "priced mode requires v50 and p1")
         require(all(p1[k] <= v50[k] for k in RANGE_KEYS), "p1 exceeds v50")
         if p["p2"]["status"] in {"active", "suspended"}:

@@ -48,6 +48,8 @@ def artifact_path(track, kind, as_of, root=ROOT):
         return base / "refresh" / day / f"{day}-signal-refresh.json"
     if track == "futures" and kind == "anchors":
         return base / "anchors" / day / f"{day}-anchors.json"
+    if track == "investment" and kind == "handoff":
+        return base / "weekly" / day / f"{prefix}{day}-handoff.json"
     if kind in WEEKLY_KINDS and track in {"futures", "investment"}:
         if track == "investment" and kind == "execution-audit":
             raise ValueError("Stock weekly reviews do not produce futures execution audits")

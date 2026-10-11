@@ -66,9 +66,25 @@ class LayoutTests(unittest.TestCase):
                 self.write(official.parent/f'2026-10-12-{kind}.json', '{}')
                 self.assertEqual(paths.discover('futures', kind, '2026-10-11', self.root), [official])
                 self.assertEqual(paths.discover('futures', kind, '2026-10-11', self.root, before=True), [])
-                for track in ['investment', 'etf']:
+                for track in (['etf'] if kind == 'handoff' else ['investment', 'etf']):
                     with self.assertRaises(ValueError):
                         paths.artifact_path(track, kind, '2026-10-11', self.root)
+
+    def test_investment_handoff_discovery_does_not_adopt_revisions_or_other_tracks(self):
+        official = paths.artifact_path('investment', 'handoff', '2026-10-11', self.root)
+        self.assertEqual(official.relative_to(self.root).as_posix(),
+                         'research/investment/weekly/2026-10-11/investment-2026-10-11-handoff.json')
+        self.write(official, '{}')
+        self.write(official.with_name('investment-2026-10-11-handoff-r2.json'), '{}')
+        self.write(official.with_name('2026-10-11-handoff.json'), '{}')
+        self.write(official.parent/'investment-2026-10-12-handoff.json', '{}')
+        self.assertEqual(paths.discover('investment', 'handoff', '2026-10-11', self.root), [official])
+        self.assertEqual(paths.discover('investment', 'handoff', '2026-10-11', self.root, before=True), [])
+        earlier = paths.artifact_path('investment', 'handoff', '2026-10-10', self.root)
+        self.write(earlier, '{}')
+        self.write(official.parent/'investment-2026-10-09-handoff.json', '{}')
+        self.assertEqual(paths.discover('investment', 'handoff', '2026-10-11', self.root), [earlier, official])
+        self.assertEqual(paths.discover('investment', 'handoff', '2026-10-11', self.root, before=True), [earlier])
 
     def test_company_paths_are_date_first_and_invalid_layouts_are_not_discovered(self):
         current = self.company_v2('HK', '01952', '2026-10-03')

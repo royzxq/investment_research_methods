@@ -1,0 +1,48 @@
+{
+  "schema": "investment-maintenance-review-fix-checks/v1",
+  "checked_at": "2026-10-11T20:18:36.713292+08:00",
+  "generator": "codex",
+  "pr": "https://github.com/royzxq/investment_research_methods/pull/45",
+  "reviewed_head_before_fix": "b0f0186f299f32a73f19b2c248eefdb349e7bbbc",
+  "review_thread": "PRRT_kwDOTSgmmM6rNYu9",
+  "scope": "Require availability dates on decision evidence; validate frozen handoffs against current date contract. Preserve undated method identities, withdrawal targets, and targeted reassessment.",
+  "validation": {
+    "full_unittest": {
+      "command": "/Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v",
+      "status": "passed",
+      "tests": 494,
+      "seconds": 70.986,
+      "log_path": "output/audits/investment/2026-10-11/stock-maintenance-pr45-review-fix/unittest-full.log",
+      "log_sha256": "db939daccb1527170f8e296ee2a279a32f34b71ec805ae5a74a1d6d9fa2d6e0e"
+    },
+    "maintenance_targeted": {
+      "tests": 39,
+      "status": "passed"
+    },
+    "runner_targeted": {
+      "tests": 71,
+      "status": "passed"
+    },
+    "independent_review": "No remaining blocking findings; 39 helper tests, five runner snapshot tests, and old-report/reassessment frozen-mirror scenario passed.",
+    "stock_governance": "passed",
+    "futures_governance": "passed",
+    "weekly_skill_validation": "passed",
+    "diff_check": "passed"
+  },
+  "source_sha256": {
+    ".agents/skills/investment-weekly-review/references/maintenance-handoff.md": "abf0da6b68d0934ec56d2dcad8fbda8f4ac41f3d3676d3676b2463a0cdf2c9ea",
+    "research/investment/maintenance/2026-10-11/investment-2026-10-11-weekly-update-mechanism-implementation.md": "3278528f426b48498ce698901edf75cb4b945199a4bfab28569cbb4823422ae7",
+    "scripts/investment_maintenance.py": "8330e4e8aef9c0282d8ae51ce8a558602fe7c2f3a5f8a8715f2cc73bd4e25925",
+    "scripts/research_runner.py": "51383f9fa68a05b79808cac268b60497b9f79cdbc3b65a2ea377d6d1cadaabd8",
+    "tests/test_investment_maintenance.py": "cf579deaeab1b70693479c67e9b07a6cc210c5fc0f1379a03af8cdc3c9f6b2af",
+    "tests/test_research_runner.py": "3bdd02f652db0f876f54900b26aabf3dd0629db0e80abaebd9cf7bc0c96fef17"
+  },
+  "publication_policy": "User authorizes merging PR45 after current-head CI succeeds and all blocking review findings are resolved; future weekly method PRs remain manual-merge.",
+  "not_verified": [
+    "Hosted CI of the forthcoming fix commit at this evidence timestamp",
+    "Actual source disclosure dates",
+    "Live market/model API research",
+    "Actual scheduled automation run",
+    "Investment effectiveness"
+  ]
+}

@@ -18,7 +18,8 @@
 | 期货轻量行情刷新 | `futures/refresh/<日期>/<日期>-signal-refresh[-rN].{md,json}`，原料在同日 `evidence/` | 隔离取数工作目录 `output/futures-refresh-fetch/` |
 | 期货 V 观察锚 | `futures/anchors/<日期>/<日期>-anchors[-rN].json`；来源计算留同日 evidence/研究报告，冻结及撤回不可变 | 共享接续后仍需核本期适用性 |
 | 期货跨 worktree 本地接续 | 主 checkout 的 `futures/local-continuity/`：内容寻址来源副本、采纳索引 | Git 忽略的持续状态，非缓存；`scripts/futures_continuity.py location` 定位，不能仅留 memory |
-| 股票周更及单阶段 | `investment/weekly/<日期>/investment-<日期>-{market-research,change-decision,adaption-report}.md` | `output/runs/investment/<日期>/<run-id>/` |
+| 股票周更及单阶段 | `investment/weekly/<日期>/investment-<日期>-{market-research,change-decision,adaption-report}[-rN].md` | `output/runs/investment/<日期>/<run-id>/` |
+| 股票状态、纠错及方法接续 | `investment/weekly/<日期>/investment-<日期>-handoff[-rN].json`；方法正文快照及必要来源放同日 `evidence/` | 采纳、替代和待复评凭证是持续研究记录，不是可丢弃缓存 |
 | 保真审计、脚本同步 | 随本期报告；必要附件放本期 `evidence/`；data-sync 和 compact 摘要仍写适配报告原章节 | `output/audits/<轨道>/<日期>/<run-id>/` |
 | 独立修复、治理、核对 | `<轨道>/maintenance/<日期>/` | 本次运行目录 |
 | 期货完整快照 | `futures/snapshots/<日期>-data-snapshot.txt` | `output/cache/futures/` |
@@ -80,6 +81,10 @@ python3 scripts/research_paths.py index --as-of 2026-10-05 --local
 
 轻量刷新只使用现行T/V工具生成价格筛查和原计划有效期检查，不自动完成产业、执行或账户判断。输出MD/JSON与冻结原料一并保存；同日重跑写新修订，失败不覆盖旧成功产物、不将过期信号延期。`--fetch`须有本次用户或自动化已有取数授权，使用环境文档解释器；隔离取数结果经完整性验收即可用于本次本地研究，获授权发布时连同必要原料纳入本期日志，提交后才能成为无人值守的历史交接证据。状态刷新、证据纠错、方法变更的唯一编排定义见期货skill，轻量输出不冒充schema 3完整执行审计。
 
+股票周更用 `scripts/investment_maintenance.py` 区分状态刷新、证据纠错、方法变更。发现报告不代表采纳，`update_needed` 兼容字段只表达方法是否需要修改；无方法修改也可形成新的状态/纠错交接。同日新增证据写整个更新包的配套 `-rN`，明确采纳、替代及受影响结论，不覆盖旧日志。已采纳交接绑定确切方法正文与报告哈希；未合并提案只作研究线索。研究日志和状态交接按既有 publish 授权发布，框架正文及方法修改仍统一 PR，状态消费不等待该 PR。首次接续历史报告须明确证据截止与采用依据，不凭文件名或旧报告的“已执行”声明补造完成事实。
+
+股票方法指纹仅排除通过严格结构验证的原位观测块；阈值、动作及混排 D 段仍在方法比较范围。正文任何其他变化需要明确兼容核对，不以相同版本标签证明规则相同。个股以估值截止内、方法兼容的已采纳交接刷新判断；没有交接时仍可按现行已采纳方法定向补证，不新增等待周更的门槛。触发、待复评、完成分别记录，完成需对应报告凭证；研究完成不等于账户执行。
+
 期货与 ETF 取数默认拒绝覆盖同日快照。失败保留 `.partial`，旧正式文件不变；成功后才原子发布。`--no-snapshot` 不写正式快照及 latest。完整快照与必要日期 JSON 应提交；CSV 缓存、机械扫描、partial 和可重建索引不提交。
 
 `output/indexes/` 的个股 latest 与 ETF latest 是可重建缓存。`latest-company` 默认只选截止日内最近合格的正式 v2 配对；`--include-legacy` 用于另查旧 v1 历史研究，不能将其作为当前价格地图。个股缓存按生成端分别重建且仅使用 v2，无合格配对则清除该公司该生成端的旧缓存；选择按估值日而非修改时间或价格是否非空，较新的冻结/不可估 v2 不能被旧的有价结果替代。较晚日期 v1 与较早日期 v2 并存时命令提示日期差异，不把较早估值升级到请求日期；报告索引保留并标注 v1 历史研究。隔离版须明确授权提升；提升时更新正式配对并保留被替代版本。thesis、watchlist、组合维护文件等含独有状态的文件不适用“latest 可忽略”规则。
@@ -115,11 +120,15 @@ python3 scripts/research_runner.py run --request /absolute/path/to/request.json 
 
 Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，以及结构化输出、临时会话等执行参数；本机已核验 `codex-cli 0.160.1`。旧版（例如审查环境的 `0.144.0-alpha.4`）不满足此能力契约，不能直接使用。runner 在领取任务前读取两级 `--help` 检查能力；不兼容、检查失败或超时即拒绝启动，不生成任务失败回执、不消耗本批次启动机会，可通过 `--cli` 选择兼容版本后重试。保留自动审批及独立进程清理语义，不自动降级为跳过权限检查。能力检查及命令解析通过不等于模型登录、联网研究或交付验收通过。
 
-准备前校验请求及包，要求上游发布器标准 `packs/<task_id>.md` 路径和匹配证券的量价包标题；包内财务缺口可以进入研究补证。原始请求和包字节复制到 `output/runs/investment/<估值日>/<batch_id>/`，请求文件最后发布。每项 `execution/<task_id>/<generator>/prompt.txt` 直接包含完整包正文、触发元数据、框架指纹及确切配对目标；`input.json` 记录请求/包/提示词哈希、标准输入字节数和目标，`targets.json` 保存准备时在证券锁内选出的空闲版本。启动前重验全部准备材料；标准输入直接使用校验返回的冻结字节，验收使用同一份框架指纹，研究期间框架变化单独记录。不能在交付时再次构造输入或换用后来更新的指纹。
+准备前校验请求及包，要求上游发布器标准 `packs/<task_id>.md` 路径和匹配证券的量价包标题；包内财务缺口可以进入研究补证。原始请求、包和两份框架实际正文复制到 `output/runs/investment/<估值日>/<batch_id>/`，框架与可用的已采纳状态交接及其来源保存在 `framework-snapshot/`，请求文件最后发布。每项 prompt 明确主、子研究读取这些冻结材料，不能在执行途中换读工作区最新框架；`input.json` 记录请求/包/提示词及框架哈希，`targets.json` 保存准备时在证券锁内选出的空闲版本。启动和发布前校验冻结材料，不能只要求报告抄写哈希。
+
+发布前核对工作区与冻结方法：精确相同、仅受限观测块变化，或已有明确采纳且绑定双方方法的兼容审查时可正常交付，仍说明状态日期；同时核对冻结来源是否已被明确撤回。其余变化先记兼容性待复评，已完成研究保留为至少 `-r2` 的隔离配对，不冒充当前方法下的正式最新，也不因变化重跑整个批次。由于精确批次结果也可消费隔离版本，派生 JSON 的有价模式改为 frozen、可触发 P2 暂停，原始研究与模型回执保留；不能只加一句文字警告却保留机器可读买入资格。旧 prepared 请求只有在工作区正文仍与其原指纹精确一致时才可保留旧材料并迁移出快照；无法恢复旧正文时报告缺口，不伪造输入。已完成历史结果仍可按原协议读取，无需追溯重跑。
 
 `process.json` 的 PID/状态证明实际进程启动，`events.jsonl`/`stderr.log` 保存执行原文；`cli-receipt.json` 是模型回执，不能代替正式价格JSON。正式产物仍位于日期优先公司目录；同日同端已有文件写配对隔离版本。模型只写本批 staged/<task_id>/<generator>/ 内的同结构暂存文件，JSON meta.report_path和回执使用确切最终相对路径；runner先读全并验证两份暂存字节，再复制成独立inode、以只创建的原子链接发布，拒绝覆盖旧文件。完成回执reason必须null、结论写summary；失败则reason有说明、两个路径null。报告第0节正文须绑定本批ID、包与框架指纹；输入匹配且原九节/v2/配对验收通过才产生完成回执，不能把连接成功、文件准备或退出码0等同于完整研究交付。
 
 每端生成独立 `results-claude.json` / `results-codex.json`，使用原 `stock-research-result/v1` 协议，不相互覆盖；缺席生成端不记失败。任务失败会留原因和 null 产物，同一批次同任务同端拒绝再次启动；修复后显式发布新批次重试，保留旧尝试。跨批同证券同端使用进程锁，执行前再次检查准备时目标未被占用。超时与SIGTERM/SIGINT统一清理进程组（含忽略SIGTERM的同组后代），清理完成后才释放证券锁；SIGKILL、断电或刻意脱离组的守护进程不作恢复保证。部分准备目录没有 request.json 则不可执行，不自动修补或覆盖。
+
+价格地图继续采用 `stock-research/v2`：可靠公司事实下的临时市场/事件冻结允许新 V50 与观察 P1，mode 仍为 frozen、P2 只能暂停/取消；旧 frozen 空值仍可读。消费端必须同时检查 mode 和 P2 状态，不能以价格非空推定买入许可。公司真硬失败、否决及不可估的限制仍按 canonical；不改原估值公式或固定参数。已有自动个股研究七天冷却期不因维护交接、事件复核或方法版本变化而重置。
 
 ## 迁移与运行边界
 

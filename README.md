@@ -24,7 +24,7 @@
 ## 方法与证据
 
 - **期货**：[canonical](framework/futures_framework.md) 与 [compact](framework/futures_framework_compact.md) 当前 v3.0，仅顺势与有经济依据的回归两类，优先豆粕、螺纹；取消加权评分，以 G1–G6 核验信号、计划和核心风控。[数据协议](framework/FUTURES_DATA_PROTOCOL.md) v3.0 默认 `public_data`，研究先成案、账户后核；旧模型工具仅作历史复现，新参数尚未完成收益验证。
-- **股票**：[canonical](framework/investment_framework.md) 是逐股研究的参数化模板，保留公司、代码、估值日期占位符；[compact](framework/investment_framework_compact.md) 不另设判据。`projects/{meta_investment_analysis,investment_change_analysis,investment_adaption}/INSTRUCTIONS.md` 保留原方法与字段契约。空 day-0 基线按首次运行处理，本期元研究结果始终必传。框架提到的 `stock_data_pack.py` 尚未在本仓及关联 `ai_investment` 找到。
+- **股票**：[canonical](framework/investment_framework.md) 是逐股研究的参数化模板，[compact](framework/investment_framework_compact.md) 保真同步。周更分状态刷新、证据纠错和方法变更；[维护工具](scripts/investment_maintenance.py) 用明确采纳的报告/方法快照接续，不以待审 PR 代替有效方法。个股批次冻结实际输入；临时市场冻结可继续可靠估值与观察价位，买入资格仍受限。固定估值参数、公式与七天自动研究冷却期保留。空基线可建立本期状态，单阶段边界仍有效；本期元研究始终必传。框架提到的 `stock_data_pack.py` 尚未在本仓及关联 `ai_investment` 找到。
 - **ETF**：[canonical](framework/etf_framework.md) 当前 v2.1，在八个主题研究池中回答未来两个月定投哪 2–3 个主题，以及持有主题的目标权重和处理。未提供持仓时只给主题名单；宽基 50% 与红利低波 20% 是用户长期安排，本仓不研究。只交付研究结论，执行由用户处理。
 
 canonical 是方法、参数及歧义裁决的权威；compact 必须保真同步。框架只局部更新受影响条目，规则与动态状态分区维护，历史保留在 Git 与日期报告。适配报告链接完整文件，不粘贴框架全文。
@@ -52,6 +52,7 @@ ETF 研究池可由技能读取 `ETF_POOL_CSV` 并转为 `--pool-csv`；脚本�
 ```sh
 /Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v
 python3 scripts/futures_framework_governance.py --check
+python3 scripts/investment_framework_governance.py --check
 python3 scripts/validate_futures_audit.py --input research/futures/weekly/YYYY-MM-DD/YYYY-MM-DD-execution-audit.md
 ```
 
