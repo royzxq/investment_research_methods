@@ -64,7 +64,8 @@ class SchedulerTests(unittest.TestCase):
                 clock.now.return_value = NOW  # 08:00 Shanghai, after the daily 05:00 gate.
                 result=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
                 self.assertEqual(result['used'],0)
-                self.assertTrue((root/'output/research_queue/daily-check.json').exists())
+                marker = json.loads((root/'output/research_queue/daily-check.json').read_text())
+                self.assertEqual(marker, dict(checked_on=NOW.date().isoformat(), checked_at=NOW.isoformat()))
                 with patch('scripts.research_scheduler.scan_requests',side_effect=AssertionError('second scan')):
                     again=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
             self.assertEqual(again['status'],'already_checked')
