@@ -57,17 +57,17 @@ class SchedulerTests(unittest.TestCase):
             self.assertEqual(target.with_suffix('.plist.bak').read_bytes(),b'old-plist')
             self.assertEqual(plistlib.loads(target.read_bytes())['StartCalendarInterval'], [{'Minute': m} for m in (0, 15, 30, 45)])
 
-    @patch('scripts.research_scheduler.datetime', wraps=datetime)
-    def test_scheduled_empty_check_is_durable_and_not_repeated(self, clock):
-        clock.now.return_value = NOW
+    def test_scheduled_empty_check_is_durable_and_not_repeated(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)
-            result=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
-            self.assertEqual(result['used'],0)
-            marker = json.loads((root/'output/research_queue/daily-check.json').read_text())
-            self.assertEqual(marker, dict(checked_on=NOW.date().isoformat(), checked_at=NOW.isoformat()))
-            with patch('scripts.research_scheduler.scan_requests',side_effect=AssertionError('second scan')):
-                again=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
+            with patch('scripts.research_scheduler.datetime', wraps=datetime) as clock:
+                clock.now.return_value = NOW  # 08:00 Shanghai, after the daily 05:00 gate.
+                result=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
+                self.assertEqual(result['used'],0)
+                marker = json.loads((root/'output/research_queue/daily-check.json').read_text())
+                self.assertEqual(marker, dict(checked_on=NOW.date().isoformat(), checked_at=NOW.isoformat()))
+                with patch('scripts.research_scheduler.scan_requests',side_effect=AssertionError('second scan')):
+                    again=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
             self.assertEqual(again['status'],'already_checked')
             phases=[json.loads(line)['event'] for line in (root/'events.jsonl').read_text().splitlines()]
             self.assertIn('no_research',phases)
@@ -164,14 +164,14 @@ class SchedulerTests(unittest.TestCase):
         merge_candidates(state, [fresh], NOW+timedelta(minutes=2))
         self.assertEqual(state['entries'][old['task_id']]['batch_id'], old['batch_id'])
 
-    @patch('scripts.research_scheduler.datetime', wraps=datetime)
-    def test_corrupt_daily_marker_stops_before_reserving(self, clock):
-        clock.now.return_value = NOW
+    def test_corrupt_daily_marker_stops_before_reserving(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp); queue=root/'output/research_queue'; queue.mkdir(parents=True)
             (queue/'daily-check.json').write_text(json.dumps({'checked_on':123,'checked_at':NOW.isoformat()}))
-            with self.assertRaisesRegex(ValueError,'daily research check'):
-                tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
+            with patch('scripts.research_scheduler.datetime', wraps=datetime) as clock:
+                clock.now.return_value = NOW  # Reach marker validation regardless of the CI run hour.
+                with self.assertRaisesRegex(ValueError,'daily research check'):
+                    tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
             self.assertFalse((queue/'state.json').exists())
 
     def test_manual_handoff_blocks_same_event_but_allows_new_evidence(self):

@@ -60,6 +60,7 @@ FAKE_CLI = _fixture.FAKE_CLI.replace(
 class ResearchRetryTests(unittest.TestCase):
     setUp_fixture = _fixture.ParallelResearchTests.setUp
     run_tick = _fixture.ParallelResearchTests.run_tick
+    run_scheduled_tick = _fixture.ParallelResearchTests.run_scheduled_tick
     observation = _fixture.ParallelResearchTests.observation
     seals = _fixture.ParallelResearchTests.seals
     result_entries = _fixture.ParallelResearchTests.result_entries
@@ -277,9 +278,7 @@ class ResearchRetryTests(unittest.TestCase):
         self.assertEqual(len(self.starts()), 2)
         self.assertEqual(seal_path.read_bytes(), expected_seal)
 
-    @patch.object(scheduler, 'datetime', wraps=datetime)
-    def test_live_retry_group_blocks_admission_before_daily_check(self, clock):
-        clock.now.return_value = self.now.replace(hour=6, minute=0, second=0, microsecond=0)
+    def test_live_retry_group_blocks_admission_before_daily_check(self):
         context = self.retry_endpoint()
         with patch.dict(os.environ, {'MOCK_PARALLEL_BARRIER': '0', 'MOCK_RETRY_ALWAYS': 'SH-600066:claude'}):
             self.assertEqual(self.execute_endpoint(context, 1)['status'], 'failed')
@@ -306,7 +305,7 @@ class ResearchRetryTests(unittest.TestCase):
                 status='running',pid=child.pid,started_at=stamp,launched_at=stamp,attempt=2,retryable=False)))
             self.assertTrue(runner.group_alive(child.pid))
             with self.assertRaises(RuntimeError):
-                self.run_tick(once_daily=True)
+                self.run_scheduled_tick()
             self.assertEqual(state_path.read_bytes(), baseline)
             self.assertFalse((queue/'daily-check.json').exists())
             self.assertEqual(self.trace.read_bytes(), observed, 'New providers started beside an orphaned retry')
@@ -314,9 +313,7 @@ class ResearchRetryTests(unittest.TestCase):
             os.killpg(child.pid, signal.SIGTERM)
             child.wait(timeout=5)
 
-    @patch.object(scheduler, 'datetime', wraps=datetime)
-    def test_terminal_failed_entry_with_live_group_still_blocks_all_new_admission(self, clock):
-        clock.now.return_value = self.now.replace(hour=6, minute=0, second=0, microsecond=0)
+    def test_terminal_failed_entry_with_live_group_still_blocks_all_new_admission(self):
         context = self.retry_endpoint()
         with patch.dict(os.environ, {'MOCK_PARALLEL_BARRIER': '0', 'MOCK_RETRY_ALWAYS': 'SH-600066:claude'}):
             self.assertEqual(self.execute_endpoint(context, 1)['status'], 'failed')
@@ -337,7 +334,7 @@ class ResearchRetryTests(unittest.TestCase):
         with patch.object(scheduler, 'group_alive', side_effect=lambda pid: pid==process['pid']), \
              patch.object(runner, 'group_alive', side_effect=lambda pid: pid==process['pid']):
             with self.assertRaises(RuntimeError):
-                self.run_tick(once_daily=True)
+                self.run_scheduled_tick()
         self.assertEqual(state_path.read_bytes(), baseline)
         self.assertEqual(self.trace.read_bytes(), observed)
         self.assertFalse((queue/'daily-check.json').exists())

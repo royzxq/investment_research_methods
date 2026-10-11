@@ -1,18 +1,6 @@
-# 2026-10-11 期货执行诊断（拟议框架 v2.28 重评）
+# 2026-10-11 期货执行诊断（原框架 v2.27）
 
-**结论：覆盖部分，当前证据未形成可执行方案；总体可执行机会数、真实持仓风险及最终手数均为 `null`。** 最新有效已提交快照为 10/10 完整输出（实际行情终点 10/09，SHA256 `dd8699ec302663cf63b6c700b96bfb2443942a7d27a8ffd9598082115c82f26a`；快照未给出含时区采集时刻，故 `market_captured_at=null`）。本报告是在原版审计已按 main v2.27 发布后，对尚未合并的本期拟议 canonical v2.28／脚本 v1.17 作同证据重评；不是把拟议规则追认为10/09已生效。旧 PR #38 拟议规则仍不生效。10/03 对“最新9/19快照”的表述遗漏了已提交9/21快照；9/21对当时9/30行情仍旧过期，所以这是历史证据发现纠错，不能当本周市场冲击。
-
-## 0. 原版与拟议版的前后对照
-
-原版 v2.27 审计已随三份研究日志发布于 main commit `63b3df1d51c8cab620fec707f31ff29fc5b2ed79`；[完整不可变副本](evidence/2026-10-11-execution-audit-original-v2.27.md)的 SHA256 为 `1c031f20ffc145ea003fb112000380e7633a71f604da7c5bc880278a6c9814bb`。本次重评依据适配提交 `a116522ac245ad2133a336ea8fd2a6f2693eabd8` 和数据同步提交 `23d43f03eef1a9c8deb08fbce7fc778d55ff7270`，均属拟议分支；最终发布／合并前不称历史有效规则。所有 candidate_id、opportunity_id、10/09行情锚、账户未知状态和快照§5两条旧影子结算记录均沿用原版。
-
-| 复核项 | 原版 v2.27 输出 | 拟议 v2.28／v1.17 重评与影响 |
-|---|---|---|
-| 日历及脚本 | 10/10历史快照由 v1.16 生成，§0b“窗口内无已配置节点”；原审计把官方10月T列待核。 | 官方[CPI/PPI排期](https://www.bls.gov/schedule/2026/home.htm)与[Fed会议日历](https://www.federalreserve.gov/newsevents/2026-october.htm)已核：CPI国内T10/15、PPI T10/16、FOMC决议T10/29。拟议v1.17仅同步EVENTS/版本：三节点为单日自动提醒；10/09 WASDE仅排期、首个可能国内T10/12且`auto=False`。旧§0b配置空白不能再推“没有未来节点”；10/10快照原始行情仍有效，未重跑或改标。 |
-| 方向性门与账户 | 原版已按10/10快照判 MA D 多头 D8/#30 fail、SC周涨仅>5%层，MA D空头#26 fail；方向性#16 unknown、实际组合cap/手数null。 | 同一行情和固定护栏下已核结果不变。`RISK_REGIME=unknown`写明只有核定normal/low_exposure后才能计算实际cap；未来事件排期不单独证明本周#16 fail。真实账户、保证金和计划仍缺，不能用低敞口5,000元情景帽作实际上限。 |
-| A结构与产业 | MA国内做空路线未复活，RB分位77.2仅筛选；完整A结构豁免单边D8/#30/D12/#16。 | 判定不变。MA需三项既定国内复活事实之一**且**冻结v1价格确认；仓单-182与冲突港库均不能替代。RB A确认及产业因果未成案，D14仅在具体计划依赖相关假设时适用。 |
-| 地缘回归作用域 | 原审计`research_only_scope`笼统列“geopolitical_fade未恢复”，容易把①未通过与专业数据缺失混作整路线研究限制。 | 拟议1.7/策略E澄清：一般`geopolitical_fade`以官方／多源相应事实＋SC近端back及自身结构核①；精确船流、出口、战争险仅参考，缺失不记必要unknown。当前官方缓和／重开未证且back仍正，默认路线未过①、方向性空头仍受#26，绝无新执行许可。仅旧专门依赖专业序列的休眠子模型在公开替代触发条件定义和验证前为`research_only`。这是范围与证据适用性澄清，不是新行情或放宽许可。 |
-| 候选结果与无效旧输出 | 原版schema3共10候选、两旧影子`not_filled`，完整候选账与账户未知。 | 同一证据下10条候选的`status`、`data_feasibility`、已核门结果、关联ID及`final_lots=null`均不变；新shadow 0。旧v1.16 §0b空配置、旧10/09首响应/9月固定窗外推、笼统地缘`research_only_scope`只在拟议版中失效；原版发布记录保留。 |
+**结论：覆盖部分，当前证据未形成可执行方案；总体可执行机会数、真实持仓风险及最终手数均为 `null`。** 最新有效已提交快照为 10/10 完整输出（实际行情终点 10/09，SHA256 `dd8699ec302663cf63b6c700b96bfb2443942a7d27a8ffd9598082115c82f26a`；快照未给出含时区采集时刻，故 `market_captured_at=null`）。本报告仅按 main 上 v2.27 判定；旧 PR #38 拟议规则不生效。10/03 对“最新9/19快照”的表述遗漏了已提交9/21快照；9/21对当时9/30行情仍旧过期，所以这是历史证据发现纠错，不能当本周市场冲击。
 
 ## 1. 证据、适用性与执行状态
 
@@ -29,34 +17,34 @@
 | SR2701 B 多头 | available；夏季窗口9/30已结束 | no_signal。 |
 | M2701 独立策略 | research_only；canonical未许可具体路由 | 不计活跃执行候选，需定义并批准策略才恢复。 |
 
-一般`geopolitical_fade`当前因①官方缓和要件未获证而不可执行，但不因参考级专业数据缺失把整路线标`research_only`；仅旧专业因果子模型维持该分类。SC2611−SC2612仅信号席：S +22.9、分位100，5/10td -23.7/-30.3；近腿剩14交易日但信号腿免#1。①地缘轴不能由价格单要件改判。完整 A 配对豁免 D8、方向性 D12 与 #16；若执行中出现裸腿须另开事故预案。本期没有将方向性护栏移植到完整配对。 [Mysteel 10/07原站公开摘要](https://gc.mysteel.com/a/26100715/8D43767F25CBE5B3.html)与[MA仓单完整转录](https://www.99qh.com/article/%E9%86%87%E7%B1%BB-1101000)仅在各自统计对象内使用；[隆众港库原始入口](https://www.oilchem.net/26-1008-13-764c0881785292b9.html)未读原表且转引观测日冲突。历史v1.16快照§0b“无已配置节点”只说明当时配置为空；拟议v1.17已录入官方T，具体#16窗口和真实交易条件仍须逐项核。
+SC2611−SC2612仅信号席：S +22.9、分位100，5/10td -23.7/-30.3；近腿剩14交易日但信号腿免#1。①地缘轴不能由价格单要件改判。完整 A 配对豁免 D8、方向性 D12 与 #16；若执行中出现裸腿须另开事故预案。本期没有将方向性护栏移植到完整配对。 [Mysteel 10/07原站公开摘要](https://gc.mysteel.com/a/26100715/8D43767F25CBE5B3.html)与[MA仓单完整转录](https://www.99qh.com/article/%E9%86%87%E7%B1%BB-1101000)仅在各自统计对象内使用；[隆众港库原始入口](https://www.oilchem.net/26-1008-13-764c0881785292b9.html)未读原表且转引观测日冲突。快照§0b“无已配置节点”只说明配置为空，官方日历仍须人工核对。
 
 ## 2. 方案、评分与容量
 
 研究方优先核了 MA A 与 RB A。MA A 的筛选数据可用，但冻结v1的逐日确认输入缺失，故具体执行模型记 `temporary_gap`。上期国内做空路线结案维持：仅国内装置复产数值化、到港回升、太仓/江苏同口径基差走弱之一出现且v1确认成立，才可重评；本期未观测任何复活条件，不能因仓单减少或港库争议隐式重启。MA A的冻结价格定义 `A-MA-2701-2705-v1` 自9/28前瞻生效：S连续两日低于前10日S最高减0.65×MA2701 ATR20，且MA2701不创H20。快照没有逐日S和前10日最高；本期单点S+416及分位100不足以证明触发。RB A尚无前瞻固定确认。预注册草案为先检验固定对连续两日S收窄是否达到交易成本以上的经济幅度，并核同源库存/需求与假期效应；当前只有1/5/10td端点差、没有逐日S分布和双腿成本，不能有据冻结数值阈值。研究/数据侧补序列后才定义版本与生效日，不回判10/09。两者都缺能由实盘成本支持的Entry、结构SL、TP与净R≥2.5，因此本周不登记新的shadow_plan，也不以历史同期10/30/50分位倒推止损。MA A 的A卡 D4=5，RB A D4=3；其余必要维度缺口使总分为 `null`。D9若仅缺增强数据可按原规则 `default_neutral=3`，不能填满所有缺失维度。
 
-账户实际净值、持仓、挂单、已用风险、保证金、真实手续费未知（`actual_position_status=unknown`），预算配置150,000元不是账户事实。单笔配置上限5,250元、低敞口金额帽5,000元只是规则参数；本期`RISK_REGIME=unknown`，须经证据核定normal或low_exposure后方可代入Step5，实际可用组合预算、手数和机会总量均为 `null`。脚本2ATR情景金额不是实际SL风险，未运行 `futures_risk.py`，也未宣称空仓或零风险。
+账户实际净值、持仓、挂单、已用风险、保证金、真实手续费未知（`actual_position_status=unknown`），预算配置150,000元不是账户事实。单笔配置上限5,250元、低敞口金额帽5,000元只是规则参数；实际可用组合预算、手数和机会总量均为 `null`。脚本2ATR情景金额不是实际SL风险，未运行 `futures_risk.py`，也未宣称空仓或零风险。
 
 ## 3. 独立规则反馈与后续触发
 
 10/10快照解决上期缺行情问题：MA D8、#30、D12、SC结算周涨以及A当前对/准备对均能按原规则重新判定。高分位MA A仍非回归信号；RB库存若同一Mysteel序列由去库转累库，必须对具体RB表达核D14，不自动造单。MA2705−MA2709的缺口是逐年同期样本和远腿成交，不应被当作“数据永久不可得”。§5两条9/19影子都 `not_filled`，没有成交、P&L或已了结样本，不能估计护栏收益或机会成本。
 
-下一轮由研究/数据侧补 MA v1 的两日逐点确认、RB前瞻确认和同源产业证据、CF B完整历史与窗前低点，并按已核官方T逐项核#16实际适用窗口、交易所及经纪商保证金；只有形成真实价格计划与成本后，才用账户/挂单快照核剩余额度。若本期建议新增确认定义，只能从定义后生效，10/09数据只能作设计背景。
+下一轮由研究/数据侧补 MA v1 的两日逐点确认、RB前瞻确认和同源产业证据、CF B完整历史与窗前低点、当前官方事件日历；只有形成真实价格计划与成本后，才用账户/挂单快照核剩余额度。若本期建议新增确认定义，只能从定义后生效，10/09数据只能作设计背景。
 
-## 4. 结构化记录（schema 3；拟议框架重评）
+## 4. 结构化记录（schema 3）
 
 ```json
 {
   "audit_schema_version": 3,
   "as_of_date": "2026-10-11",
   "research_mode": "public_data",
-  "assessment_scope": "proposed_framework_reassessment",
+  "assessment_scope": "current_framework",
   "framework": {
     "path": "framework/futures_framework.md",
-    "version": "v2.28",
-    "revision": "原版审计已发布 main 63b3df1d51c8cab620fec707f31ff29fc5b2ed79；拟议适配 a116522ac245ad2133a336ea8fd2a6f2693eabd8；拟议data-sync 23d43f03eef1a9c8deb08fbce7fc778d55ff7270；原版完整副本SHA256 1c031f20ffc145ea003fb112000380e7633a71f604da7c5bc880278a6c9814bb；拟议v2.28尚未合并生效",
-    "data_script_version": "拟议v1.17仅EVENTS/版本；市场证据仍为2026-10-10已提交完整快照 v1.16/框架v2.27、行情终点2026-10-09；未运行新脚本/生成新快照",
-    "rule_changes_affecting_candidates": "同证据重评：10条候选ID/机会关系和已核门结果不变；官方10月T与脚本EVENTS修复但#16仍unknown，RISK_REGIME=unknown故实际cap/final_lots=null；一般geopolitical_fade专业数据降为参考，旧专门依赖子模型才research_only，当前①/#26未解。固定阈值、许可及预算公式不改。"
+    "version": "v2.27",
+    "revision": "origin/main 379d34ac6e802e7e328cb06775ed1c0a05d0e725；本期仅原框架判断，旧PR #38 v2.28草案OPEN/CONFLICTING且未合并",
+    "data_script_version": "v1.16；快照2026-10-10 AS_OF=20261010完整、行情终点2026-10-09；本审计未运行行情脚本",
+    "rule_changes_affecting_candidates": "框架本体零变动；本期新实测替换旧stale读数；新规则若提出须在未来定义后前瞻生效，10/09不能回判"
   },
   "snapshot": {
     "market_trade_date": "2026-10-09",
@@ -68,12 +56,7 @@
       "research/futures/weekly/2026-10-03/2026-10-03-execution-audit.md",
       "framework/futures_framework.md v2.27",
       "framework/FUTURES_DATA_PROTOCOL.md",
-      "projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md",
-      "research/futures/weekly/2026-10-11/evidence/2026-10-11-execution-audit-original-v2.27.md SHA256 1c031f20ffc145ea003fb112000380e7633a71f604da7c5bc880278a6c9814bb",
-      "main research logs commit 63b3df1d51c8cab620fec707f31ff29fc5b2ed79",
-      "framework/futures_framework.md proposed v2.28 commit a116522ac245ad2133a336ea8fd2a6f2693eabd8",
-      "scripts/future_data.py proposed v1.17 commit 23d43f03eef1a9c8deb08fbce7fc778d55ff7270",
-      "research/futures/weekly/2026-10-11/2026-10-11-adaption-report.md"
+      "projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md"
     ],
     "account": {
       "actual_position_status": "unknown",
@@ -92,14 +75,11 @@
       "portfolio_cap_normal": 5250,
       "portfolio_cap_current": null,
       "low_exposure_cash_cap": 5000,
-      "source": "拟议canonical v2.28 Step5；RISK_REGIME=unknown，normal/low_exposure均须本期证据核定后才得实际组合cap；150000为配置非实际净值"
+      "source": "canonical Step5; 实际净值及本期低敞口时段未完成核证，因此可用组合上限null"
     },
     "invalidated_legacy_outputs": [
       "10/03报告误称9/19为最新已提交快照；严格发现显示当时已有9/21，当前新增10/10完整快照。9/21在10/03仍不足以覆盖9/30，故只纠正证据发现不反转旧市场判定",
-      "旧PR #38同名拟议v2.28/v1.17未合并，不构成本轮独立适配的来源或历史有效规则",
-      "拟议版EVENTS v1.17替代旧v1.16 §0b窗口内无已配置节点；旧空配置不能推无未来官方催化。10/10已提交快照行情列仍有效且仍标v1.16，不重算",
-      "旧10/1–8休市/10/09首响应及9月固定提前窗延续至本期的动态日历输出在拟议版失效；官方10月T见同日研究/适配，实际#16仍待适用性核定",
-      "原版coverage将一般geopolitical_fade笼统放research_only_scope的分类在拟议版失效；仅旧专业依赖子模型research_only，默认路线①未过及方向性空头#26 fail仍保留"
+      "旧PR #38拟议v2.28/v1.17未合并，不能当现行"
     ]
   },
   "coverage": {
@@ -110,26 +90,23 @@
       "CF/SR季节B窗口筛选",
       "§5影子结算",
       "MA仓单经公开完整表转录、隆众港库观测日冲突限制",
-      "Mysteel原站公开AI摘要螺纹产量与五大材总库存，尚未取得原表",
-      "拟议v1.17事件配置与官方CPI/PPI/FOMC排期；仅确认T和提醒，不证明#16当前命中"
+      "Mysteel原站公开AI摘要螺纹产量与五大材总库存，尚未取得原表"
     ],
     "missing_scope": [
       "完整账户/持仓/挂单/保证金/真实费用和全候选账",
       "MA A冻结v1逐日S/前10日S高点当前观测",
       "RB A前瞻确认与方向一致的产业因果支持/原表核验、CF B历史及窗前低点、各候选Entry/SL/TP净R",
-      "已核官方T下逐候选#16低敞口适用性、真实夜盘可交易时刻与交易所/经纪商实际保证金复核",
+      "0.0b官方发布时间/国内交易日与交易所实际保证金复核",
       "隆众港库原表及统一观测日；Mysteel底层同系列库存/螺纹需求表"
     ],
     "research_only_scope": [
       "M2701无许可路由",
-      "旧专门依赖精确船流/海湾出口/战争险序列的休眠地缘fade子模型；公开替代触发定义与验证前仅研究。一般geopolitical_fade不在本项，仍因①未证缓和不可执行"
+      "geopolitical_fade未恢复官方缓和双要件；SC仅信号席不建仓"
     ],
     "signal_observations": [
       "SC2611-SC2612 +22.9、分位100、5td -23.7/10td -30.3：①价格侧观察，单独不重判官方地缘轴",
       "MA A +416、分位100，但1/5/10td仍+88/+172/+86，非做空确认",
-      "快照§5两条旧影子not_filled、无成交及了结收益",
-      "一般geopolitical_fade当前①官方缓和/重开未证且SC back仍正；专业船流/出口/战争险缺失仅参考，不构成另一个必要unknown",
-      "官方CPI国内T10/15、PPI T10/16、FOMC决议T10/29；拟议EVENTS提醒不自动证明#16/低敞口命中"
+      "快照§5两条旧影子not_filled、无成交及了结收益"
     ],
     "total_executable_opportunities": null,
     "historical_trade_performance": "unavailable: 无真实交易记录、完整候选账，§5影子均not_filled"
@@ -1307,11 +1284,11 @@
           "applicable": true,
           "result": "unknown",
           "evidence_refs": [],
-          "details": "官方CPI/PPI/FOMC国内T已核且拟议EVENTS有单日提醒；但本候选当前适用窗口、未落地离散催化及交易所恢复条件尚未逐项证明，#16与RISK_REGIME均不能由配置直接判fail/pass。",
+          "details": "低敞口方向性新开窗口需当前事件密度/实际交易日核定",
           "gap": {
             "kind": "calculation",
             "owner": "data_pipeline",
-            "next_action": "按官方T10/15、10/16、10/29及真实交易/夜盘日历逐项核本候选#16实际适用窗口、未落地催化与交易所/经纪商风险条件；RISK_REGIME明确核定前实际cap与手数null",
+            "next_action": "对10/12起未来10交易日官方节点按0.0b计算并判低敞口与#16",
             "due_at": "2026-10-12"
           }
         },
@@ -1485,11 +1462,11 @@
           "applicable": true,
           "result": "unknown",
           "evidence_refs": [],
-          "details": "官方CPI/PPI/FOMC国内T已核且拟议EVENTS有单日提醒；但本候选当前适用窗口、未落地离散催化及交易所恢复条件尚未逐项证明，#16与RISK_REGIME均不能由配置直接判fail/pass。",
+          "details": "",
           "gap": {
             "kind": "calculation",
             "owner": "data_pipeline",
-            "next_action": "按官方T10/15、10/16、10/29及真实交易/夜盘日历逐项核本候选#16实际适用窗口、未落地催化与交易所/经纪商风险条件；RISK_REGIME明确核定前实际cap与手数null",
+            "next_action": "核10/12起事件密度与低敞口新开窗",
             "due_at": "2026-10-12"
           }
         },
@@ -1892,7 +1869,7 @@
       "resolution": "pending"
     },
     {
-      "item": "官方CPI/PPI/FOMC国内T与拟议EVENTS已核；待逐候选判断#16适用窗口、交易所/经纪商实际保证金与真实夜盘可交易时刻",
+      "item": "实核官方10月事件时间、国内交易日及交易所实际保证金；本快照§0b只反映配置空白",
       "owner": "research",
       "due_at": "2026-10-12",
       "required_evidence": [
