@@ -60,6 +60,7 @@ FAKE_CLI = _fixture.FAKE_CLI.replace(
 class ResearchRetryTests(unittest.TestCase):
     setUp_fixture = _fixture.ParallelResearchTests.setUp
     run_tick = _fixture.ParallelResearchTests.run_tick
+    run_scheduled_tick = _fixture.ParallelResearchTests.run_scheduled_tick
     observation = _fixture.ParallelResearchTests.observation
     seals = _fixture.ParallelResearchTests.seals
     result_entries = _fixture.ParallelResearchTests.result_entries
@@ -304,7 +305,7 @@ class ResearchRetryTests(unittest.TestCase):
                 status='running',pid=child.pid,started_at=stamp,launched_at=stamp,attempt=2,retryable=False)))
             self.assertTrue(runner.group_alive(child.pid))
             with self.assertRaises(RuntimeError):
-                self.run_tick(once_daily=True)
+                self.run_scheduled_tick()
             self.assertEqual(state_path.read_bytes(), baseline)
             self.assertFalse((queue/'daily-check.json').exists())
             self.assertEqual(self.trace.read_bytes(), observed, 'New providers started beside an orphaned retry')
@@ -333,7 +334,7 @@ class ResearchRetryTests(unittest.TestCase):
         with patch.object(scheduler, 'group_alive', side_effect=lambda pid: pid==process['pid']), \
              patch.object(runner, 'group_alive', side_effect=lambda pid: pid==process['pid']):
             with self.assertRaises(RuntimeError):
-                self.run_tick(once_daily=True)
+                self.run_scheduled_tick()
         self.assertEqual(state_path.read_bytes(), baseline)
         self.assertEqual(self.trace.read_bytes(), observed)
         self.assertFalse((queue/'daily-check.json').exists())
