@@ -124,6 +124,83 @@ class MaintenanceTests(unittest.TestCase):
             with self.subTest(as_of=ref_date), self.assertRaises(ValueError):
                 maintenance.write_handoff(self.root, record)
 
+    def test_decision_references_require_dates_in_every_supported_field(self):
+        placements = ('evidence', 'withdrawn_sources', 'compatibility.review',
+                      'rule_evaluations.evidence', 'reviews.reassessment', 'reviews.compatibility_review')
+        for placement in placements:
+            for date_kind in ('missing', 'future', 'invalid'):
+                with self.subTest(placement=placement, date_kind=date_kind):
+                    record = self.complete_record()
+                    ref = dict(record['reports']['market_research'])
+                    if date_kind == 'missing':
+                        ref.pop('as_of')
+                    else:
+                        ref['as_of'] = '2026-10-12' if date_kind == 'future' else '20261011'
+                    if placement in ('evidence', 'withdrawn_sources'):
+                        record[placement] = [ref]
+                    elif placement == 'compatibility.review':
+                        record['compatibility'] = [{'status': 'adopted', 'reason': 'Reviewed clarification',
+                                                    'methods': record['methods'], 'review': ref}]
+                    elif placement == 'rule_evaluations.evidence':
+                        record['rule_evaluations'][0]['evidence'] = [ref]
+                    else:
+                        record['reviews'][0][placement.split('.')[1]] = ref
+                    if placement == 'withdrawn_sources' and date_kind == 'missing':
+                        maintenance.validate_handoff(record, self.root)
+                    else:
+                        with self.assertRaises(ValueError):
+                            maintenance.validate_handoff(record, self.root)
+
+    def test_undated_legacy_source_can_be_withdrawn_without_inventing_its_date(self):
+        first = self.package('2026-10-09')
+        maintenance.write_handoff(self.root, first)
+        correction = self.package(status='withdrawn')
+        original = first['reports']['market_research']
+        correction['withdrawn_sources'] = [{key: original[key] for key in ('path', 'sha256')}]
+        maintenance.write_handoff(self.root, correction)
+        self.assertEqual(maintenance.check_adoption_lifecycle(self.root, '2026-10-11', first)['status'], 'withdrawn')
+        self.assertIsNone(maintenance.select_adopted(self.root, '2026-10-11', self.live_methods()))
+
+    def test_rule_evidence_must_precede_its_own_evaluation_cutoff(self):
+        record = self.complete_record()
+        record['rule_evaluations'][0]['as_of'] = '2026-10-10'
+        with self.assertRaisesRegex(ValueError, 'rule_evaluations.evidence.*decision cutoff'):
+            maintenance.validate_handoff(record, self.root)
+
+    def test_method_content_refs_can_remain_undated(self):
+        record = self.complete_record()
+        self.assertTrue(all('as_of' not in ref for ref in record['methods'].values()))
+        maintenance.validate_handoff(record, self.root)
+
+    def test_completion_availability_is_distinct_from_valuation_date(self):
+        for artifact in ('report', 'price_map'):
+            for availability in ('missing', '2026-10-12'):
+                with self.subTest(artifact=artifact, availability=availability):
+                    record = self.complete_record()
+                    # A valid valuation date does not prove that the finished artifact existed then.
+                    ref = record['reviews'][0]['completion'][artifact]
+                    if availability == 'missing':
+                        ref.pop('as_of')
+                    else:
+                        ref['as_of'] = availability
+                    with self.assertRaises(ValueError):
+                        maintenance.validate_handoff(record, self.root)
+        record = self.complete_record()
+        maintenance.validate_handoff(record, self.root)
+
+    def test_old_company_report_accepts_dated_targeted_reassessment(self):
+        record = self.complete_record(valuation_date='2026-10-09')
+        review = record['reviews'][0]
+        with self.assertRaisesRegex(ValueError, 'dated targeted reassessment'):
+            maintenance.validate_handoff(record, self.root)
+        targeted = self.root / 'targeted-reassessment.md'
+        targeted.write_text('2026-10-11: reviewed the adopted trigger and current company evidence.')
+        review['reassessment'] = maintenance.file_ref(self.root, targeted, as_of='2026-10-11')
+        maintenance.validate_handoff(record, self.root)
+        review['reassessment']['as_of'] = '2026-10-10'
+        with self.assertRaisesRegex(ValueError, 'dated targeted reassessment'):
+            maintenance.validate_handoff(record, self.root)
+
     def test_immutable_handoff_and_frozen_sources(self):
         record = self.package()
         maintenance.write_handoff(self.root, record)
@@ -150,7 +227,7 @@ class MaintenanceTests(unittest.TestCase):
         review = self.root / 'review.md'
         review.write_text('Reviewed definitions, thresholds, actions, exceptions: unchanged')
         record['compatibility'] = [{'status': 'adopted', 'reason': 'Audited pure clarification',
-                                    'methods': new, 'review': maintenance.file_ref(self.root, review)}]
+                                    'methods': new, 'review': maintenance.file_ref(self.root, review, as_of='2026-10-11')}]
         maintenance.write_handoff(self.root, record)
         self.assertIsNotNone(maintenance.select_adopted(self.root, '2026-10-11', self.live_methods()))
         self.assertIsNotNone(maintenance.select_adopted(self.root, '2026-10-11', old))
@@ -211,25 +288,25 @@ class MaintenanceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'adopted triggered'):
             maintenance.validate_handoff(record, self.root)
 
-    def complete_record(self):
+    def complete_record(self, valuation_date='2026-10-11'):
         record = self.package()
-        folder = self.root / 'research/investment/companies/2026-10-11/HK-06886'
+        folder = self.root / f'research/investment/companies/{valuation_date}/HK-06886'
         folder.mkdir(parents=True, exist_ok=True)
-        report = folder / 'investment-06886-2026-10-11-research-codex.md'
-        price = folder / 'investment-06886-2026-10-11-price-map-codex.json'
+        report = folder / f'investment-06886-{valuation_date}-research-codex.md'
+        price = folder / f'investment-06886-{valuation_date}-price-map-codex.json'
         report.write_text('\n'.join(f'## {number}. 研究章节\n可见的研究内容。' + ('\n' + ' '.join(ref['sha256'] for ref in record['methods'].values()) if number == 0 else '') for number in range(9)))
         price.write_text(json.dumps({
             'meta': {'code': '06886.HK', 'name': '离线样例', 'currency': 'HKD', 'generator': 'codex',
                      'report_path': str(report.relative_to(self.root)), 'schema_version': 'stock-research/v2',
-                     'valuation_date': '2026-10-11'},
+                     'valuation_date': valuation_date},
             'price_map': {'mode': 'frozen', 'reason': '离线测试临时买入限制', 'v50': None, 'p1': None,
                           'p2': {'status': 'cancelled', 'reason': '证据缺口', 'price': None},
                           't1': {'price_condition': '待核', 'events': ['事件复核']},
                           't2': {'price_condition': '待核', 'events': ['逻辑复核']}},
-            'monitoring': [{'variable': '经营证据', 'current': '待核', 'as_of': '2026-10-11',
+            'monitoring': [{'variable': '经营证据', 'current': '待核', 'as_of': valuation_date,
                             'trigger': '新披露', 'action': '复评', 'source': '离线样例', 'next_check': '待披露'}]
         }))
-        completion = {'report': maintenance.file_ref(self.root, report), 'price_map': maintenance.file_ref(self.root, price)}
+        completion = {'report': maintenance.file_ref(self.root, report, as_of=valuation_date), 'price_map': maintenance.file_ref(self.root, price, as_of=valuation_date)}
         record['rule_evaluations'] = [{'rule_id': 'D5', 'rule_status': 'adopted', 'as_of': '2026-10-11', 'result': 'triggered', 'affected_objects': ['HK-06886'], 'evidence': [record['reports']['market_research']]}]
         record['reviews'] = [{'company': 'HK-06886', 'trigger_id': 'D5', 'status': 'completed', 'completion': completion, 'evidence_cutoff': '2026-10-11', 'methods': record['methods']}]
         return record
@@ -260,14 +337,13 @@ class MaintenanceTests(unittest.TestCase):
                 else:
                     report.write_text('\n'.join(f'## {i}. 空章' for i in range(9)))
                 price.write_text(json.dumps(document))
-                completion['price_map'] = maintenance.file_ref(self.root, price)
-                completion['report'] = maintenance.file_ref(self.root, report)
+                completion['price_map'] = maintenance.file_ref(self.root, price, as_of='2026-10-11')
+                completion['report'] = maintenance.file_ref(self.root, report, as_of='2026-10-11')
                 with self.assertRaises(ValueError):
                     maintenance.validate_handoff(record, self.root)
 
     def test_completed_report_must_cover_trigger_and_method(self):
         record = self.complete_record()
-        record['rule_evaluations'][0]['as_of'] = '2026-10-10'
         record['reviews'][0]['evidence_cutoff'] = '2026-10-09'
         with self.assertRaisesRegex(ValueError, 'trigger evidence'):
             maintenance.validate_handoff(record, self.root)
@@ -282,7 +358,7 @@ class MaintenanceTests(unittest.TestCase):
         review = record['reviews'][0]
         report = self.root / review['completion']['report']['path']
         report.write_text(report.read_text().replace(record['methods']['canonical']['sha256'], '0' * 64))
-        review['completion']['report'] = maintenance.file_ref(self.root, report)
+        review['completion']['report'] = maintenance.file_ref(self.root, report, as_of='2026-10-11')
         with self.assertRaisesRegex(ValueError, 'method provenance'):
             maintenance.validate_handoff(record, self.root)
 

@@ -393,11 +393,121 @@ class ResearchRunnerTests(unittest.TestCase):
         checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
         self.assertEqual(checked['maintenance_lifecycle']['status'],'active')
 
-    def compatibility_review(self, old_methods):
+    def compatibility_review(self, old_methods, day="2026-10-06"):
         path=self.methods/'research/compatibility-review.md'
         path.parent.mkdir(exist_ok=True);path.write_text('Explicit adopted semantic compatibility review')
         return [{'status':'adopted','reason':'review confirms identical decision meaning for the method pair',
-                 'methods':old_methods,'review':maintenance.file_ref(self.methods,path)}]
+                 'methods':old_methods,'review':maintenance.file_ref(self.methods,path,as_of=day)}]
+
+    def handoff_with_dated_decision_evidence(self):
+        handoff,_=self.make_handoff()
+        record=json.loads(handoff.read_text())
+        trigger=self.methods/'research/trigger-evidence.md'
+        trigger.write_text('Observed trigger evidence at 2026-10-04')
+        record['rule_evaluations']=[{
+            'rule_id':'R-test','as_of':'2026-10-04','rule_status':'adopted',
+            'result':'triggered','affected_objects':['SH-600066'],
+            'evidence':[maintenance.file_ref(self.methods,trigger,as_of='2026-10-04')]}]
+        record['compatibility']=self.compatibility_review(record['methods'],day='2026-10-05')
+        maintenance.validate_handoff(record,self.methods)
+        handoff.write_text(json.dumps(record,ensure_ascii=False))
+        return handoff,record
+
+    def test_prepare_rejects_missing_or_future_decision_evidence_dates(self):
+        for role in ('trigger','compatibility'):
+            for date_kind in ('missing','future'):
+                with self.subTest(role=role,date_kind=date_kind):
+                    fixture=ResearchRunnerTests('runTest');fixture.setUp()
+                    self.addCleanup(fixture.doCleanups)
+                    handoff,record=fixture.handoff_with_dated_decision_evidence()
+                    ref=(record['rule_evaluations'][0]['evidence'][0] if role=='trigger'
+                         else record['compatibility'][0]['review'])
+                    if date_kind=='missing':
+                        ref.pop('as_of')
+                    else:
+                        # Trigger evidence is within the handoff date but beyond
+                        # its own evaluation cutoff; compatibility exceeds both.
+                        ref['as_of']='2026-10-05' if role=='trigger' else '2026-10-06'
+                    handoff.write_text(json.dumps(record,ensure_ascii=False))
+                    with self.assertRaisesRegex(ValueError,'(?i)date|as_of|future|cutoff'):
+                        prepare_request(fixture.request_path,fixture.methods)
+                    run=fixture.methods/'output/runs/investment/2026-10-06'/fixture.request['batch_id']
+                    self.assertFalse((run/'request.json').exists())
+                    self.assertFalse(fixture.capture.exists())
+
+    def test_dated_trigger_and_compatibility_evidence_are_frozen(self):
+        _,record=self.handoff_with_dated_decision_evidence()
+        run=prepare_request(self.request_path,self.methods)
+        snapshot=json.loads((run/'framework-snapshot/manifest.json').read_text())
+        frozen=run/'framework-snapshot'/snapshot['maintenance']['handoff']['path']
+        frozen_record=json.loads(frozen.read_text())
+        self.assertEqual(frozen_record['rule_evaluations'][0]['evidence'][0]['as_of'],'2026-10-04')
+        self.assertEqual(frozen_record['compatibility'][0]['review']['as_of'],'2026-10-05')
+        for ref in (record['rule_evaluations'][0]['evidence'][0],record['compatibility'][0]['review']):
+            self.assertEqual((run/'framework-snapshot/maintenance'/ref['path']).read_bytes(),
+                             (self.methods/ref['path']).read_bytes())
+
+    def test_upgraded_verification_rejects_old_snapshot_with_undated_or_future_evidence(self):
+        for date_kind in ('missing','future'):
+            with self.subTest(date_kind=date_kind):
+                fixture=ResearchRunnerTests('runTest');fixture.setUp()
+                self.addCleanup(fixture.doCleanups)
+                handoff,record=fixture.handoff_with_dated_decision_evidence()
+                evidence=record['rule_evaluations'][0]['evidence'][0]
+                if date_kind=='missing':
+                    evidence.pop('as_of')
+                else:
+                    evidence['as_of']='2026-10-05'  # Later than the trigger's 10/04 cutoff.
+                handoff.write_text(json.dumps(record,ensure_ascii=False))
+                # Model an already-prepared batch from before the date fix;
+                # byte hashes alone were accepted by that validator.
+                with patch.object(maintenance,'validate_handoff',side_effect=lambda doc,root:doc), \
+                     patch.object(runner,'validate_handoff',side_effect=lambda doc,root:doc):
+                    run=prepare_request(fixture.request_path,fixture.methods)
+                snapshot=run/'framework-snapshot/manifest.json'
+                original=snapshot.read_bytes()
+                import shutil
+                shutil.rmtree(fixture.methods/'research')
+                with self.assertRaisesRegex(ValueError,'(?i)date|as_of|future|cutoff'):
+                    runner.verify_prepared(run,fixture.request_path.read_bytes(),fixture.methods)
+                self.assertEqual(snapshot.read_bytes(),original)
+                self.assertFalse(fixture.capture.exists())
+
+    def test_valid_snapshot_verification_does_not_require_live_maintenance_sources(self):
+        self.handoff_with_dated_decision_evidence()
+        run=prepare_request(self.request_path,self.methods)
+        import shutil
+        shutil.rmtree(self.methods/'research')
+        request,_,_,verified=runner.verify_prepared(run,self.request_path.read_bytes(),self.methods)
+        self.assertEqual(request['batch_id'],self.request['batch_id'])
+        self.assertIsNotNone(verified[('SH-600066','claude')]['maintenance'])
+
+    def test_frozen_completed_pair_validates_with_dated_availability_and_no_live_files(self):
+        completed=json.loads(self.execute().read_text())['results'][0]
+        handoff,_=self.make_handoff('2026-10-06')
+        record=json.loads(handoff.read_text())
+        trigger=self.methods/'research/completed-trigger.md'
+        trigger.write_text('Completed fixture trigger observed on 2026-10-06')
+        record['rule_evaluations']=[{
+            'rule_id':'R-completed','as_of':'2026-10-06','rule_status':'adopted',
+            'result':'triggered','affected_objects':['SH-600066'],
+            'evidence':[maintenance.file_ref(self.methods,trigger,as_of='2026-10-06')]}]
+        record['reviews']=[{
+            'company':'SH-600066','trigger_id':'R-completed','status':'completed',
+            'evidence_cutoff':'2026-10-06','methods':record['methods'],
+            'completion':{key:maintenance.file_ref(self.methods,completed[key]['path'],as_of='2026-10-06')
+                          for key in ('report','price_map')}}]
+        maintenance.validate_handoff(record,self.methods)
+        handoff.write_text(json.dumps(record,ensure_ascii=False))
+        self.request['batch_id']='b'*32;self.write_request()
+        run=prepare_request(self.request_path,self.methods)
+        import shutil
+        shutil.rmtree(self.methods/'research')
+        _,_,_,verified=runner.verify_prepared(run,self.request_path.read_bytes(),self.methods)
+        ref=verified[('SH-600066','claude')]['maintenance']['handoff']
+        frozen=json.loads((run/'framework-snapshot'/ref['path']).read_text())
+        self.assertEqual(frozen['reviews'][0]['completion']['report']['as_of'],'2026-10-06')
+        self.assertEqual(frozen['reviews'][0]['completion']['price_map']['as_of'],'2026-10-06')
 
     def test_adopted_review_of_both_method_pairs_can_confirm_compatibility(self):
         old_methods=maintenance.freeze_methods(self.methods,'2026-10-04')

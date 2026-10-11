@@ -26,7 +26,7 @@ import time
 from zoneinfo import ZoneInfo
 
 try:
-    from .investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted
+    from .investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from .research_exchange import (
         RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
@@ -34,7 +34,7 @@ try:
     from .research_paths import company_path
     from .stock_price_map import validate_price_references
 except ImportError:
-    from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted
+    from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
         RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
@@ -386,6 +386,11 @@ def snapshot_hashes(run):
             if source['path'] != 'maintenance/' + source['original_path']:
                 raise ValueError('snapshot maintenance path mapping mismatch')
             _artifact(dict(path=source['path'], sha256=source['sha256']), folder, 'snapshot maintenance source')
+        # Recheck older prepared batches against the current evidence contract.
+        # All original reference paths resolve within the frozen mirror, never
+        # against live files which may have moved since preparation.
+        _, handoff_raw = _artifact(maintenance['handoff'], folder, 'snapshot maintenance handoff')
+        validate_handoff(_strict_json(handoff_raw, 'frozen maintenance handoff'), folder / 'maintenance')
     return frameworks, document
 
 

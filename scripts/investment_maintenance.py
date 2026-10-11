@@ -166,6 +166,15 @@ def _check_ref(root, ref):
     return raw
 
 
+def _check_dated_ref(root, ref, cutoff, label):
+    """Evidence availability is required for decisions, unlike content identity."""
+    if not isinstance(ref, dict) or "as_of" not in ref:
+        raise ValueError(f"{label}: decision evidence requires as_of")
+    if _date(ref["as_of"]) > cutoff:
+        raise ValueError(f"{label}: evidence comes from the future relative to its decision cutoff")
+    return _check_ref(root, ref)
+
+
 def freeze_methods(root, as_of, revision=None):
     """Exclusive immutable copies; user approval/adoption is never inferred here."""
     stem = weekly_path(root, as_of, "handoff", revision).stem
@@ -247,9 +256,7 @@ def validate_handoff(record, root):
     if not {"market_research", "change_decision"}.issubset(reports):
         raise ValueError("Missing paired research/decision provenance")
     for ref in reports.values():
-        _check_ref(root, ref)
-        if _date(ref["as_of"]) > as_of:
-            raise ValueError("Report comes from the future")
+        _check_dated_ref(root, ref, as_of, "reports")
     flags = classify_changes(record.get("changes", []))
     if record.get("classification") != flags:
         raise ValueError("Classification conflicts with itemized changes")
@@ -260,13 +267,17 @@ def validate_handoff(record, root):
     supersedes = record.get("supersedes", [])
     if not isinstance(supersedes, list) or len(set(supersedes)) != len(supersedes) or expected in supersedes:
         raise ValueError("Invalid supersession identities")
-    for ref in record.get("evidence", []) + record.get("withdrawn_sources", []):
+    for ref in record.get("evidence", []):
+        _check_dated_ref(root, ref, as_of, "evidence")
+    # Withdrawal targets identify old content, not new evidence for a decision.
+    # The withdrawal is dated by this record; any supplied target date is still checked above.
+    for ref in record.get("withdrawn_sources", []):
         _check_ref(root, ref)
     for compatible in record.get("compatibility", []):
         if compatible.get("status") != "adopted" or not compatible.get("reason"):
             raise ValueError("Cross-method compatibility needs an adopted review")
         _method_pair(root, compatible["methods"])
-        _check_ref(root, compatible["review"])
+        _check_dated_ref(root, compatible["review"], as_of, "compatibility.review")
     for evaluation in record.get("rule_evaluations", []):
         if _date(evaluation.get("as_of")) > as_of:
             raise ValueError("Rule evaluation is from the future")
@@ -277,8 +288,11 @@ def validate_handoff(record, root):
         if evaluation["result"] == "triggered" and not evaluation.get("evidence"):
             raise ValueError("Triggered evaluation requires evidence")
         for ref in evaluation.get("evidence", []):
-            _check_ref(root, ref)
+            _check_dated_ref(root, ref, evaluation["as_of"], "rule_evaluations.evidence")
     for review in record.get("reviews", []):
+        for field in ("reassessment", "compatibility_review"):
+            if field in review:
+                _check_dated_ref(root, review[field], as_of, "reviews." + field)
         if review.get("status") not in {"pending", "completed", "cancelled"} or not review.get("company") or not review.get("trigger_id"):
             raise ValueError("Company review needs scope, trigger and research status")
         applicable = [item for item in record.get("rule_evaluations", [])
@@ -294,7 +308,7 @@ def validate_handoff(record, root):
             if not completion or not {"report", "price_map"}.issubset(completion):
                 raise ValueError("Triggered is not completed: paired company artifacts required")
             for ref in completion.values():
-                _check_ref(root, ref)
+                _check_dated_ref(root, ref, as_of, "reviews.completion")
             report = completion["report"]["path"]
             price = completion["price_map"]["path"]
             expected_price = report.replace("-research", "-price-map").removesuffix(".md") + ".json"
