@@ -274,7 +274,9 @@ class ParallelResearchTests(unittest.TestCase):
         self.assertEqual(process['launched_at'], yesterday.isoformat())
         self.assertEqual(len([item for item in self.observation()['events'] if item['event']=='start']), 2)
 
-    def test_live_prior_group_blocks_new_admission_without_state_changes(self):
+    @patch.object(scheduler, 'datetime', wraps=datetime)
+    def test_live_prior_group_blocks_new_admission_without_state_changes(self, clock):
+        clock.now.return_value = self.now.replace(hour=6, minute=0, second=0, microsecond=0)
         run = runner.prepare_request(self.request_path, self.methods)
         _, raw, _ = runner.read_request(self.request_path)
         records, rejected = scheduler.scan_requests(self.exchange, datetime.now(ZoneInfo('Asia/Shanghai')))
@@ -362,7 +364,9 @@ class ParallelResearchTests(unittest.TestCase):
             if process.get('pid'):
                 self.assertFalse(group_alive(process['pid']))
 
-    def test_uncertain_popen_record_blocks_admission_without_consuming_daily_check(self):
+    @patch.object(scheduler, 'datetime', wraps=datetime)
+    def test_uncertain_popen_record_blocks_admission_without_consuming_daily_check(self, clock):
+        clock.now.return_value = self.now.replace(hour=6, minute=0, second=0, microsecond=0)
         run = runner.prepare_request(self.request_path, self.methods)
         records, rejected = scheduler.scan_requests(self.exchange, self.now)
         self.assertEqual(rejected, [])

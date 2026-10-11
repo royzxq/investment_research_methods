@@ -277,7 +277,9 @@ class ResearchRetryTests(unittest.TestCase):
         self.assertEqual(len(self.starts()), 2)
         self.assertEqual(seal_path.read_bytes(), expected_seal)
 
-    def test_live_retry_group_blocks_admission_before_daily_check(self):
+    @patch.object(scheduler, 'datetime', wraps=datetime)
+    def test_live_retry_group_blocks_admission_before_daily_check(self, clock):
+        clock.now.return_value = self.now.replace(hour=6, minute=0, second=0, microsecond=0)
         context = self.retry_endpoint()
         with patch.dict(os.environ, {'MOCK_PARALLEL_BARRIER': '0', 'MOCK_RETRY_ALWAYS': 'SH-600066:claude'}):
             self.assertEqual(self.execute_endpoint(context, 1)['status'], 'failed')
@@ -312,7 +314,9 @@ class ResearchRetryTests(unittest.TestCase):
             os.killpg(child.pid, signal.SIGTERM)
             child.wait(timeout=5)
 
-    def test_terminal_failed_entry_with_live_group_still_blocks_all_new_admission(self):
+    @patch.object(scheduler, 'datetime', wraps=datetime)
+    def test_terminal_failed_entry_with_live_group_still_blocks_all_new_admission(self, clock):
+        clock.now.return_value = self.now.replace(hour=6, minute=0, second=0, microsecond=0)
         context = self.retry_endpoint()
         with patch.dict(os.environ, {'MOCK_PARALLEL_BARRIER': '0', 'MOCK_RETRY_ALWAYS': 'SH-600066:claude'}):
             self.assertEqual(self.execute_endpoint(context, 1)['status'], 'failed')

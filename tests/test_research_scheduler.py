@@ -57,12 +57,15 @@ class SchedulerTests(unittest.TestCase):
             self.assertEqual(target.with_suffix('.plist.bak').read_bytes(),b'old-plist')
             self.assertEqual(plistlib.loads(target.read_bytes())['StartCalendarInterval'], [{'Minute': m} for m in (0, 15, 30, 45)])
 
-    def test_scheduled_empty_check_is_durable_and_not_repeated(self):
+    @patch('scripts.research_scheduler.datetime', wraps=datetime)
+    def test_scheduled_empty_check_is_durable_and_not_repeated(self, clock):
+        clock.now.return_value = NOW
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)
             result=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
             self.assertEqual(result['used'],0)
-            self.assertTrue((root/'output/research_queue/daily-check.json').exists())
+            marker = json.loads((root/'output/research_queue/daily-check.json').read_text())
+            self.assertEqual(marker, dict(checked_on=NOW.date().isoformat(), checked_at=NOW.isoformat()))
             with patch('scripts.research_scheduler.scan_requests',side_effect=AssertionError('second scan')):
                 again=tick(root/'exchange',root,execute=True,clis={},once_daily=True,event_log=root/'events.jsonl')
             self.assertEqual(again['status'],'already_checked')
@@ -161,7 +164,9 @@ class SchedulerTests(unittest.TestCase):
         merge_candidates(state, [fresh], NOW+timedelta(minutes=2))
         self.assertEqual(state['entries'][old['task_id']]['batch_id'], old['batch_id'])
 
-    def test_corrupt_daily_marker_stops_before_reserving(self):
+    @patch('scripts.research_scheduler.datetime', wraps=datetime)
+    def test_corrupt_daily_marker_stops_before_reserving(self, clock):
+        clock.now.return_value = NOW
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp); queue=root/'output/research_queue'; queue.mkdir(parents=True)
             (queue/'daily-check.json').write_text(json.dumps({'checked_on':123,'checked_at':NOW.isoformat()}))
