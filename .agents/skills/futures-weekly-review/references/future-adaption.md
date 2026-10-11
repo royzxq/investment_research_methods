@@ -1,18 +1,20 @@
-# 期货框架适配（阶段③）
+# 期货方法适配（阶段③）
 
-只在 `update_needed=yes` 时执行；no 时不动 canonical。单阶段到此结束，不自动 data-sync、审计重评、精简或发布。
+周更仅 `method_change_needed=yes` 进入方法适配（兼容 update_needed=yes）。no 仍由研究/审计完成状态刷新与证据纠错，并更新原有状态引用；不生成无实质变更的适配包。单阶段不自动 data-sync、审计重评、精简或发布。
 
 ## 输入与执行
 
-- `AS_OF_DATE`、`CURRENT_FUTURES_EXECUTION_FRAMEWORK`（`framework/futures_framework.md` 现行全文，跳过顶部维护说明 HTML 注释）、完整 `FRAMEWORK_UPDATE_RESULT`（决策、变化、重点、不应过度反应、可得性及纠错）、`CURRENT_EXECUTION_AUDIT`（本期共享模板审计）。单独维护缺审计时明确不可用，不从管理规则推断持仓。
-- 先读 `framework/FUTURES_DATA_PROTOCOL.md`，再读 `projects/future_adaption/INSTRUCTIONS.md`，完整遵循角色、原则及六步；诊断口径只引用 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`。
-- 区分市场变化、证据纠错、数据可得性变化；`DO_NOT_OVERREACT_ITEMS` 不阻止纠错。优先保证活跃模型最小公开证据可重复取得，专业路线不可得单列 `research_only` 和恢复条件，不新增全局必填或用户长期裁量项。
-- 公共数据 A 评分、归一化、D9 中性值等只引用 canonical，不复制公式。列清新版使哪些旧信号／风险输出失效，供后续重评。
-- 仅局部更新受影响内容，原位更新当前状态，不附历代“本次更新”标记；评分、策略及审计要求不因精简改变。
+- 输入 AS_OF_DATE、当前 canonical 全文、完整变化报告及 CURRENT_EXECUTION_AUDIT；缺审计明确不可用。读取数据协议、`projects/future_adaption/INSTRUCTIONS.md`，审计契约只引用共享模板。
+- 方法变更至少说明：缺陷/有效证据、现有规则为何不足、旧新同输入的行为差异、存量计划与历史输出影响、固定版本验证方案和撤回判据。纠错可及时处理，不增加“全量回测完成才能研究/交易”的新门；验证不足如实记未知。
+- T/V、G1–G6 及核心风控以 canonical 为准，只改获授权且有依据的部分，不恢复旧评分/冻结，不为现有候选放松阈值。新增依赖须可重复取得，长期不可得专业模型列 research_only。
+- 用同一更新分支修改 canonical 与实际依赖，记录旧输出失效项；不追加历代“本次更新”标记。当前状态仍在原文件分区，精简成日期/摘要/报告引用，状态变化不升方法版本。
+- 文案、链接与状态引用变化保留溯源 hash，但不据此撤销既有计划；候选兼容性按规则与计算依赖核验，真实变化才要求受影响重评。日志采纳和状态引用 PR 分开，后者待合并不阻断接续。
+- 输出 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-adaption-report.md`，第 5 节链接实际框架并只列影响片段。返回报告、分支、版本、失效项供入口同步/重评；阶段不自行 push 或开 PR。
 
-## 输出与交接
+## direct：定向维护
 
-1. 在入口确定的更新分支／隔离 worktree 写 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-adaption-report.md`，保留可得性、纠错及影响范围。按 instruction 输出，第 5 节链接工作区完整框架，仅列受影响章节及必要片段，不粘全文。
-2. 按报告局部更新 `framework/futures_framework.md`，保留未受影响有效内容及维护说明；新版正文由工作区文件提供，不从报告抽取全文替换。
-3. 返回分支／worktree、报告全文与路径、旧输出失效项。完整流程由入口接 data-sync，并在同一分支完成审计重评和 compact。
-4. 默认本地保存；已获 `publish` 授权时仅提交本阶段 framework 与 report 的独立记录，摘要取「1. 更新结论」，不自己 push 或开 PR。
+- 用户已明确授权审阅、纠错或重构时，以其范围和现存设计证据为输入，不伪造周报或 update_needed。仅审阅不改方法；要求实施则完成必要联动。
+- 在更新分支/隔离工作区执行，记录保存 `research/futures/maintenance/<AS_OF_DATE>/`。三类变更分别说明；实现/数据纠错符合原定义时不制造方法版本升级，定义自身错误则记录方法变更。
+- 修改技能、协议、模板、工具时同步实际依赖；涉及 canonical/compact 时用 framework-condense，定向状态引用同步只处理受影响分区。data-sync 可用本次 maintenance 实施记录代替 weekly 适配报告。
+- 未新取证则明确当前信号未评估、账户未知，不追认历史成交、原登记或收益。运行适用结构/离线边界测试；修改 skill 运行 quick_validate，区分实现验证与策略收益。
+- 默认本地保存；已有明确 publish 授权按入口执行，用户请求维护本身不授权交易或对外消息。

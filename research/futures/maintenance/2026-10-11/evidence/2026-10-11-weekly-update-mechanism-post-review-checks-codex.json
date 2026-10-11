@@ -1,0 +1,273 @@
+{
+  "as_of_date": "2026-10-11",
+  "recorded_at": "2026-10-11T19:01:24.857342+08:00",
+  "generator": "codex",
+  "review_only": true,
+  "scope": "maintenance implementation and lifecycle; not new market research or returns validation",
+  "network_called": false,
+  "production_changed": false,
+  "automation_changed": false,
+  "tests": {
+    "run_this_review": 88,
+    "result": "passed",
+    "log_tail": [
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 88 tests in 5.605s",
+      "",
+      "OK"
+    ],
+    "log_sha256": "0f953c2384684ba1168f3431c2c618e0c529821cff8c9a76c19e446cd6fc7555",
+    "prior_full_suite": {
+      "tests": 632,
+      "source": "2026-10-11-weekly-update-mechanism-implementation-checks-codex.json",
+      "rerun_this_review": false
+    }
+  },
+  "probes": {
+    "lifecycle": {
+      "editorial_compatibility": {
+        "change": "Only heading \"输出与验证\" to \"输出与验证（维护）\"; T/V and risk body untouched",
+        "before_compatible": true,
+        "resolve_after_error": "Method is incompatible; --allow-historical permits facts/corrections only",
+        "historical_candidate_continuity": false
+      },
+      "market_baseline_hidden": {
+        "existing_market_report": "research/futures/weekly/2026-10-09/2026-10-09-market-research.md",
+        "resolved_manifest": "research/futures/weekly/2026-10-10/2026-10-10-handoff.json",
+        "resolved_market_slot": null,
+        "resolved_audit_slot": {
+          "path": "research/futures/weekly/2026-10-10/2026-10-10-execution-audit.md",
+          "sha256": "da8f9d2e8bb7f251f92476390dda4f7252caea85717ef1cdcff5d9f8df99624f"
+        }
+      }
+    },
+    "root_handoff_replay": {
+      "pre_change_continuity": true,
+      "edit": "heading only",
+      "post_change_error": "Method is incompatible; --allow-historical permits facts/corrections only",
+      "post_change_continuity_with_historical": false,
+      "strategy_risk_text_unchanged": true
+    },
+    "refresh_adverse_cases": {
+      "frozen_2026-10-08T23:59:00+08:00": {
+        "refresh_status": "fresh",
+        "V": {
+          "rule_version": "v3.0",
+          "strategy": "economic_reversion",
+          "scope": "v3_market_inputs_only",
+          "status": "valid",
+          "signal": "not_triggered",
+          "side": null,
+          "missing_fields": [],
+          "issues": [],
+          "execution_permission": "not_evaluated",
+          "methodology_validation": "forward_research_not_performance_validated",
+          "near_contract": "MA2701",
+          "far_contract": "MA2705",
+          "product": "MA",
+          "anchor_low": -100.0,
+          "anchor_high": 100.0,
+          "price_basis": "settle_near_minus_far",
+          "market_trade_date": "20261009",
+          "as_of_date": "20261009",
+          "signal_spread": 416.0,
+          "prior2_spreads": [
+            279.0,
+            328.0
+          ],
+          "target": null,
+          "volatility_ratio": 1.463530718210788,
+          "volatility_status": "available",
+          "high_volatility": true,
+          "freshness": "fresh",
+          "expected_market_trade_date": "20261009",
+          "anchor": {
+            "near_contract": "MA2701",
+            "far_contract": "MA2705",
+            "anchor_low": -100,
+            "anchor_high": 100,
+            "frozen_at": "2026-10-08T23:59:00+08:00",
+            "valid_until": "2026-10-30",
+            "source_refs": [
+              "synthetic-for-boundary-test-only"
+            ],
+            "economic_anchor_basis": "synthetic-only",
+            "convergence_mechanism": "synthetic-only",
+            "invalidation_basis": "synthetic-only"
+          },
+          "economic_validity": "requires_research_review"
+        }
+      },
+      "frozen_2026-10-09T09:00:00+08:00": {
+        "refresh_status": "partial",
+        "V": {
+          "near_contract": "MA2701",
+          "far_contract": "MA2705",
+          "research_stage": "current",
+          "status": "incomplete",
+          "signal": "unknown",
+          "reason": "economic_anchor_not_frozen_before_signal_day",
+          "execution_permission": "not_evaluated"
+        }
+      },
+      "v_plan_raw_inputs_present": {
+        "available_V_pairs": [
+          [
+            "MA2701",
+            "MA2705"
+          ],
+          [
+            "RB2701",
+            "RB2703"
+          ],
+          [
+            "SR2701",
+            "SR2705"
+          ],
+          [
+            "MA2705",
+            "MA2709"
+          ],
+          [
+            "RB2703",
+            "RB2705"
+          ]
+        ],
+        "refresh_status": "partial",
+        "plan_results": [
+          {
+            "opportunity_id": "synthetic-v-existing",
+            "signal_date": "2026-10-09",
+            "valid_until": "2026-10-13",
+            "registered_at": "2026-10-09T19:00:00+08:00",
+            "status": "incomplete",
+            "execution_permission": "not_evaluated",
+            "signal_clock_reset": false,
+            "issue": "'MA2705'"
+          }
+        ]
+      },
+      "mismatched_outer_pair_and_raw_pair": {
+        "refresh_status": "fresh",
+        "V": {
+          "rule_version": "v3.0",
+          "strategy": "economic_reversion",
+          "scope": "v3_market_inputs_only",
+          "status": "valid",
+          "signal": "not_triggered",
+          "side": null,
+          "missing_fields": [],
+          "issues": [],
+          "execution_permission": "not_evaluated",
+          "methodology_validation": "forward_research_not_performance_validated",
+          "near_contract": "RB2701",
+          "far_contract": "RB2703",
+          "product": "RB",
+          "anchor_low": -100.0,
+          "anchor_high": 100.0,
+          "price_basis": "settle_near_minus_far",
+          "market_trade_date": "20261009",
+          "as_of_date": "20261009",
+          "signal_spread": 2.0,
+          "prior2_spreads": [
+            2.0,
+            4.0
+          ],
+          "target": null,
+          "volatility_ratio": 0.80611232862957,
+          "volatility_status": "available",
+          "high_volatility": false,
+          "freshness": "fresh",
+          "expected_market_trade_date": "20261009",
+          "anchor": {
+            "near_contract": "MA2701",
+            "far_contract": "MA2705",
+            "anchor_low": -100,
+            "anchor_high": 100,
+            "frozen_at": "2026-10-08T23:59:00+08:00",
+            "valid_until": "2026-10-30",
+            "source_refs": [
+              "synthetic-for-boundary-test-only"
+            ],
+            "economic_anchor_basis": "synthetic-only",
+            "convergence_mechanism": "synthetic-only",
+            "invalidation_basis": "synthetic-only"
+          },
+          "economic_validity": "requires_research_review"
+        }
+      },
+      "future_signal_plan": {
+        "refresh_status": "fresh",
+        "plan_results": [
+          {
+            "opportunity_id": "synthetic-v-existing",
+            "signal_date": "2026-10-12",
+            "valid_until": "2026-10-14",
+            "registered_at": "2026-10-11T19:00:00+08:00",
+            "status": "remaining_window",
+            "execution_permission": "not_evaluated",
+            "signal_clock_reset": false,
+            "original_valid_entry_dates": [
+              "2026-10-13",
+              "2026-10-14"
+            ],
+            "remaining_entry_dates": [
+              "2026-10-13",
+              "2026-10-14"
+            ],
+            "allowed_execution_session": "not_evaluated_require_after_registration"
+          }
+        ]
+      }
+    },
+    "root_triggered_v_replay": {
+      "fixture": "synthetic unit-test market and economic anchor, not investment evidence",
+      "signal_day": "20260327",
+      "before": {
+        "frozen_at": "2026-03-24T19:30:00+08:00",
+        "status": "valid",
+        "signal": "triggered"
+      },
+      "same_day_before_close": {
+        "frozen_at": "2026-03-27T09:00:00+08:00",
+        "status": "incomplete",
+        "signal": "unknown",
+        "reason": "economic_anchor_not_frozen_before_signal_day"
+      }
+    }
+  },
+  "original_implementation_hashes_preserved": true,
+  "current_sources": {
+    "scripts/futures_handoff.py": "1c62844783472e5c7bc0ab72df54d58e1ff0525406042944c2fbbeb15d054bb4",
+    "scripts/futures_refresh.py": "d2b3aa9dc8f6c4c8600160f278208706ce8d5f6edd73d5d8fc24dde1d1c056cf",
+    "framework/futures_framework.md": "87ead048d86d09ef9559d8572a8bc7396d5396f37d4ddcc432d4ade404d67e63",
+    ".agents/skills/futures-weekly-review/SKILL.md": "556f595bc9fae8adc1316ccab4a51b760c807a1caf20bd846700593e973f3a51",
+    ".agents/skills/futures-weekly-review/references/refresh-and-handoff.md": "dabb2d898e8b7c5dfc677ac6949844c9fa691f2300293a74a905114c3bf2398e"
+  },
+  "automations": [
+    {
+      "id": "automation",
+      "name": "期货研究框架每周更新",
+      "status": "ACTIVE",
+      "rrule": "FREQ=WEEKLY;BYDAY=SU;BYHOUR=1;BYMINUTE=0;BYSECOND=0",
+      "prompt_sha256": "7561afe39890c9736295e95a06c4b6a0e7d810d9e525b9ea31a67d9ed39f67d4",
+      "config_sha256": "355f9d21c4b1ec03ed6dc42374dcf8dac2d137e83ce72de89f5b2522b4681f80"
+    },
+    {
+      "id": "automation-3",
+      "name": "期货收盘行情与信号刷新",
+      "status": "ACTIVE",
+      "rrule": "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=19;BYMINUTE=30;BYSECOND=0",
+      "prompt_sha256": "ef5693551547eb4f222d9df89bbb716d99f2d039fc5e9da58287b1f3d4ff153b",
+      "config_sha256": "b87bd7b2435304ea1eab3d65fb38649a4973e34d95e28495a1f06cca57299f2d"
+    }
+  ],
+  "limitations": [
+    "All adverse fixtures/anchors are synthetic; frozen original market evidence unchanged.",
+    "Cross-automation missing handoff is a documented orchestration gap, not an observed loss in a live scheduled run.",
+    "All refresh outputs keep execution_permission=not_evaluated; no trade was placed.",
+    "Future-plan probe is directly callable wrapper input; normal upstream validated adoption rejects that date.",
+    "No remote fetch or scheduled full publish cycle was executed."
+  ]
+}

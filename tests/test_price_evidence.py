@@ -266,10 +266,11 @@ class ScriptIntegrationTests(unittest.TestCase):
 
         def fake_daily(**kwargs):
             received.update(kwargs)
-            return pd.DataFrame([quote("20260904", None, 130) | {"open": 125}])
+            return pd.DataFrame([quote("20260904", None, 130) | {"open": 125, "ts_code": "SC2610.INE"}])
 
-        ns = isolated_functions({"daily"}, dict(
-            select_price=select_price, _daily_cache={}, resolve=lambda sym: sym,
+        ns = isolated_functions({"daily", "_response_identity", "_daily_provenance", "_prod"}, dict(
+            re=re, EXCH={"SC": "INE"}, TS_SUFFIX={"INE": "INE"},
+            select_price=select_price, _daily_cache={}, resolve=lambda sym: "SC2610.INE",
             AS_OF="20260907", completed_day_cutoff=lambda: "20260906",
             validate_unique_trade_dates=validate_unique_trade_dates,
             api=lambda: SimpleNamespace(fut_daily=fake_daily),
@@ -579,7 +580,7 @@ class ScriptVersionTests(unittest.TestCase):
     """PR#26 review P2: 快照必须自报产出它的版本, 否则下游审计分不清是否含 #30 新列。"""
 
     SOURCE = (ROOT / "scripts" / "future_data.py").read_text()
-    HEADER = r"v(\d+\.\d+) 框架数据脚本 — Tushare Pro 版 \(v(\d+\.\d+)\)"
+    HEADER = r"v(\d+\.\d+) 框架数据脚本 — Tushare Pro 版 \(v(\d+\.\d+(?:\.\d+)?)\)"
 
     def declared(self):
         header = ast.get_docstring(ast.parse(self.SOURCE)).splitlines()[0]
@@ -591,13 +592,13 @@ class ScriptVersionTests(unittest.TestCase):
         framework, script = self.declared()
         for label, pattern, expected in (
                 ("argparse description",
-                 r'description="v(\d+\.\d+) 框架数据脚本 \(Tushare Pro, v(\d+\.\d+)\)"',
+                 r'description="v(\d+\.\d+) 框架数据脚本 \(Tushare Pro, v(\d+\.\d+(?:\.\d+)?)\)"',
                  (framework, script)),
                 ("运行抬头",
-                 r"== v(\d+\.\d+) 框架数据脚本 v(\d+\.\d+) \|",
+                 r"== v(\d+\.\d+) 框架数据脚本 v(\d+\.\d+(?:\.\d+)?) \|",
                  (framework, script)),
                 ("快照完成标记",
-                 r"== 快照完成 \| AS_OF=\{AS_OF\} \| 脚本 v(\d+\.\d+) \|",
+                 r"== 快照完成 \| AS_OF=\{AS_OF\} \| 脚本 v(\d+\.\d+(?:\.\d+)?) \|",
                  (script,))):
             with self.subTest(emitted=label):
                 found = re.findall(pattern, self.SOURCE)

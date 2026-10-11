@@ -1,7 +1,8 @@
-"""Offline B-v2.24 calendar/price arithmetic; no fetching or trading permission.
+"""Historical-only B-v2.24 arithmetic; no v3 signal or trading permission.
 
 Input: --input JSON, see framework Step5-B and tests/test_seasonal_plan.py.
 Calendars must be complete exchange trading calendars, not weekday calendars.
+This old seasonal model does not establish v3 trend or economic reversion.
 The caller verifies source truth, contract life and all other execution gates.
 """
 import argparse
@@ -57,6 +58,7 @@ def calculate(data):
         raise ValueError("as_of_date: expected a completed exchange trading date")
     bounds = boundaries(window_id, as_of.year, days)
     result = {"rule_version": "B-v2.24", "scope": "calendar_and_price_arithmetic_only",
+              "compatibility": "legacy_v2_only",
               "execution_permission": "not_evaluated", "window_id": window_id,
               **{k: v.isoformat() for k, v in bounds.items()}}
     screening = bounds["research_start"] <= as_of <= bounds["window_end"]

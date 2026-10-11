@@ -1,0 +1,107 @@
+{
+  "as_of_date": "2026-10-11",
+  "candidates": [
+    {
+      "all_blockers": [],
+      "candidate_id": "20261009-MA2701-trend-long-v3",
+      "continuity_source": {
+        "as_of_date": "2026-10-11",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+        "execution_reuse": false,
+        "materialized_root": "sources/2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+        "method_compatible": true,
+        "producer": "manual",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/Workspace/investment_research_methods"
+      },
+      "contracts": [
+        "MA2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "价格和最低产业论证成立、数值计划已形成；合约日期口径与当前执行参数/报价尚待核",
+      "direction": "long",
+      "evaluated_at": "2026-10-11T18:14:54+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "LIQ-MA2701",
+        "MA-RULE-DETAIL",
+        "MA-EXPIRY-DIAG",
+        "PRICE-MA2701",
+        "FRAMEWORK-CURRENT",
+        "MA-PORT-CURRENT",
+        "MA-PRODUCTION",
+        "MA-WARRANT",
+        "MA-PLAN-CALC",
+        "GL-1012"
+      ],
+      "execution_permission": "not_evaluated",
+      "final_lots": null,
+      "first_blocker": null,
+      "historical_price_screen": "triggered_long_reassessed_now_for_future_execution",
+      "only_blocker": null,
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "plan": {
+        "alternate_entry": {
+          "entry_date": "2026-10-13",
+          "latest_exit_date": "2026-11-09",
+          "same_signal_valid_until": "2026-10-13"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-10-11/evidence/v3-r3/2026-10-11-ma-plan-arithmetic-codex.json",
+        "cost_basis": "研究预算，非用户实收；实际费用/滑点变化后必须重算",
+        "earliest_future_execution_at": "2026-10-12T09:00:00+08:00",
+        "entry": 3338,
+        "entry_date": "2026-10-12",
+        "entry_quote_status": "planned_not_observed_executable",
+        "entry_range": [
+          3289,
+          3387
+        ],
+        "evaluated_at": "2026-10-11T18:14:54+08:00",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-06",
+        "registered_at": "2026-10-11T18:14:54+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-09",
+        "stop": 3139,
+        "targets": null,
+        "valid_until": "2026-10-13"
+      },
+      "price_screening_date": "2026-10-09",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "risk_factors": {
+        "exchange_buffer": null,
+        "market_risk": 0.5,
+        "market_risk_reason": "非致命产业分歧，只乘一次",
+        "strategy": 0.7
+      },
+      "signal": "triggered",
+      "signal_evidence_refs": [
+        "PRICE-MA2701",
+        "FRAMEWORK-CURRENT"
+      ],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-10-09",
+      "unknown_checks": [
+        "G1",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    }
+  ],
+  "execution_permission": "not_evaluated",
+  "final_lots": null,
+  "schema": "futures-local-continuity/v1",
+  "scope": "candidate_continuity_only"
+}

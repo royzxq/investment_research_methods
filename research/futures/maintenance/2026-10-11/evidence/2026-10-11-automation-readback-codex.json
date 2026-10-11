@@ -1,0 +1,44 @@
+[
+  {
+    "version": 1,
+    "id": "automation",
+    "kind": "cron",
+    "name": "期货研究框架每周更新",
+    "prompt": "这是用户已授权的独立项目定时任务。以 Asia/Shanghai 运行日为 AS_OF_DATE，使用 .agents/skills/futures-weekly-review/SKILL.md 的 full + publish 模式。研究和方法维护分开：状态刷新、证据纠错、方法变更分别判定；FRAMEWORK_UPDATE_DECISION.update_needed 仅表示方法变更。没有方法变更也要完成本期研究、执行审计、状态刷新、必要纠错和明确采纳交接。不执行交易，不自动合并 PR。\n\n使用本次任务专属的独立 Git worktree；先发现并复用本任务自己的匹配 worktree，不复用其他活动任务工作区。原项目目录只读。安全 fetch origin，以最新 origin/main 为实际已采用基线，不推送或夹带原目录先前未发布改动。基线上必须存在 v3 canonical、技能 maintenance_contract=futures-maintenance/v1、scripts/futures_handoff.py 和 scripts/futures_refresh.py。任一缺失则报告 deployment_missing 并停止依赖步骤，不回退 v2，不从本地未发布文件拼装一次假部署。读取 AGENTS.md、docs/context/project-state.md、docs/context/environment.md、数据协议、共享审计模板及本技能必要 references。\n\n先 resolve 本期已采纳 handoff，以精确路径/hash和correction_scope接续修订；前期周环比另用 --before。没有 handoff 才严格发现正式历史文件；损坏、未提交或不兼容时不得静默回退旧结论。不继承 ready 或账户许可，不重置原 opportunity_id、signal_date、valid_until。按环境文档选可用 Python，授权运行 futures_refresh.py --as-of 当天 --fetch，在隔离目录按需取数；有已采纳审计时显式传 --plans，V 只传已事前冻结的合格经济锚。核完整快照、每品种行情日和真实日历来源，失败、滞后、未评估与无信号分开。\n\n先完成 MA/RB/M/SR/CF 价格及数据可得性短表，再研究各品种主因、支持和最强反证，重点豆粕和螺纹；最多深挖两条接近成案的机会。每期产出 market-research、change-decision、execution-audit。仅方法确有缺陷才做适配、必要 data-sync 和同输入重评；状态变化只更新原状态分区及 compact，不升级方法。证据修正另存可追溯修订，原报告保留。保持现行 T/V 定义与核心风控；方法提议必须说明现规则为何不足、同输入行为差异、存量影响、固定版本验证和撤回条件，不能因单周盈亏或没有建议而调参。\n\n发布保持既有授权边界：在实际已采用、canonical与HEAD一致的干净基线上，先提交并发布本期原框架三份日志和新原料；然后 register --scope published，提交并发布manifest和必要历史备份，核 published 消费与实际 origin/main 发布结果；最后才在一个 codex/ 更新分支写 canonical/compact 状态引用或拟议方法及相关脚本，创建或复用本期一个 PR，等待人工审核。拟议方法审计标 proposed_framework_reassessment，只在其更新分支作local交接，不覆盖main采纳。publication_verified只证明HEAD字节一致，不代替远端main已采用。推送前重查远端，非快进时安全同步复核后重试，绝不强推。不得因账户或发布障碍丢弃已经完成的公共研究。\n\n同日先复用输入匹配的既有产物、提交和PR；输入变化另存修订，不擅自覆盖历史。日频本地产物未必已在main，周更独立核本期新行情。默认使用内置网页搜索和原始页面，不调用Gemini；子代理同样遵循。凭据仅继承环境，不输出或写入仓库；缺数据及账户保持null。完成必要结构、离线和审计检查，明确真实API与离线验证的区别，不声称无法复现的收益。发布失败时保存本地产物并报告具体阻塞。\n\n汇报三类变更结论、实际基线、行情覆盖、采纳交接、研究/审计路径、实际验证和必要缺口；创建PR后用attach_artifact附加到本次聊天。",
+    "status": "ACTIVE",
+    "rrule": "FREQ=WEEKLY;BYDAY=SU;BYHOUR=1;BYMINUTE=0;BYSECOND=0",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "high",
+    "execution_environment": "local",
+    "target": {
+      "type": "project",
+      "project_id": "bd6bdd6a-f19d-405a-9a42-e4810b9f4d67"
+    },
+    "cwds": [
+      "/Users/xinquanzhou/Workspace/investment_research_methods"
+    ],
+    "created_at": 1791165524687,
+    "updated_at": 1791715857022
+  },
+  {
+    "version": 1,
+    "id": "automation-3",
+    "kind": "cron",
+    "name": "期货收盘行情与信号刷新",
+    "prompt": "这是用户已授权的独立项目收盘刷新任务。按 Asia/Shanghai 当天使用 .agents/skills/futures-weekly-review/SKILL.md 的 refresh 模式，仅本地保存研究和共享采纳，不授权 Git 提交/推送/PR、对外消息或交易。\n\n使用本任务专属隔离 worktree，复用自己的匹配工作区，不复用其他活动任务工作区。安全 fetch origin，以最新 origin/main 为实际采用方法；核 v3 canonical、maintenance_contract=futures-maintenance/v2、futures_handoff.py/futures_refresh.py/futures_continuity.py 已部署，缺项报告 deployment_missing 并停止依赖步骤，不从原项目未发布文件拼装部署。读取 AGENTS.md、环境说明、数据协议和 refresh-and-handoff reference。原项目源文件只读；仅允许 continuity 工具按 git-common-dir 定位后写共享 research/futures/local-continuity 数据目录，该目录是持续状态，不得当缓存删除。\n\n按类型 resolve main execution-audit 及所需市场报告，精确核路径/hash/纠错范围；将确切 main handoff 幂等收录到共享存储，再 collect 本地日频和周更材料。main 无相应记录仍读取共享材料；不只依赖 memory，memory 仅作导航。同类型最新损坏不静默回退；旧 v1 仅历史使用，迁移必须核登记时原件，不能把当前 helper 假作旧来源。历史不兼容可显式 --allow-historical 共享原事实/ID/期限/纠错以待重评，不沿用许可；纯标题/维护文案变化不重置计划。读 continuity.json 的 corrections、review_scope、冲突及待方法重评项，逐项核来源。\n\n无论工具是否产生新信号，先检查全部已知存量计划/持仓的相关公告、经济反证、止损/退出、事件窗和期限，发现变化后重评受影响项。入场窗口到期不等于持仓退出；无当前账户只输出有依据的条件管理，不推断空仓或已执行。最多两个的资源上限仅适用于新机会深研，不能省略存量风险扫描。\n\n用环境文档中的 Python，继承 TUSHARE_TOKEN，授权 futures_refresh.py --as-of 当天 --fetch，并显式传 collect 的 plans.json/anchors.json（历史不兼容项先按当前规则重评）。隔离取数并冻结正式原料，不覆盖旧快照。核实际已完成行情日和真实交易日历；调度工作日不代表交易日，节假日不造信号。保留原 opportunity_id/signal_date/registered_at/valid_until，重跑/版本变化不延长窗口；截止日场次未知核真实可交易时段，未核不称仍可入场。原计划的日历独立于本期 T 主合约，缺原合约行情单列。\n\n刷新五品种 T 与有有效事前锚的 V；V 外层配对、两腿原料/来源/日历及锚必须一致。锚只须早于信号，同日可用有来源的独立 signal_observations 证明时序，不加前一天限制。按相关新证据撤回失效锚，withdrawals[] 保留原因和来源；新锚/续期另存未来适用修订，不改旧计划。缺锚是未评估并转研究缺口，不是 no_signal；周更负责持续建锚研究，日频有证据也可维护。抓取失败、陈旧、行业/事件未核分别列缺口，机械工具不给 ready 或账户许可。\n\n新信号及受影响候选补产业证据、最强反证、事件和公开参数；按现行规则另存并验证审计，精确登记 local handoff。无变化保存简短刷新和存量检查记录，不重写全市场周报，不修改 T/V 参数与核心风控。实际账户/最终手数未知保留 null。内置搜索与原文核验，不调用 Gemini，不输出凭据。\n\n正式刷新保存在 research/futures/refresh/<日期>/，审计修订走 weekly 日期路径，锚走 anchors 日期路径；同日变化另存修订。完成后 continuity publish 新 handoff、锚/撤回和实际附件，冻结来源供周更读取；确认共享完成后仍按工作区规则保留需要的产物。该本地 publish 不是 Git 发布。memory 可记工具返回入口和hash，不能作唯一交接。最终简明报告变化、原期限、缺口和路径，区分离线/真实 API，不宣称未完成的产业、账户核验或收益验证。",
+    "status": "ACTIVE",
+    "rrule": "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=19;BYMINUTE=30;BYSECOND=0",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "high",
+    "execution_environment": "local",
+    "target": {
+      "type": "project",
+      "project_id": "bd6bdd6a-f19d-405a-9a42-e4810b9f4d67"
+    },
+    "cwds": [
+      "/Users/xinquanzhou/Workspace/investment_research_methods"
+    ],
+    "created_at": 1791715876759,
+    "updated_at": 1791717160116
+  }
+]

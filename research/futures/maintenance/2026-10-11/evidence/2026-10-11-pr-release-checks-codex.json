@@ -1,0 +1,36 @@
+{
+  "as_of_date": "2026-10-11",
+  "generated_at": "2026-10-11T19:32:07.123995+08:00",
+  "generator": "codex",
+  "base": "44f3741cbae27b5394bb691e3ef52893913445d3",
+  "branch": "codex/futures-maintenance-v2",
+  "validated_head": "4a3a3611248d7e33fd89302878d58e4b0b901455",
+  "commits_in_scope": [
+    "4a3a3611248d7e33fd89302878d58e4b0b901455 fix(futures): connect daily refresh and weekly maintenance",
+    "e41ee9f7f1da24295799ff7299730bb7eaa64f69 refactor(futures): unify trend and economic reversion framework"
+  ],
+  "offline_full_suite": {
+    "tests": 600,
+    "seconds": 69.593,
+    "result": "pass",
+    "log_sha256": "dd3efd7e395ad228065b88bbd1004e83f4c8281a4dd350f374a35968120d2aca"
+  },
+  "test_scope_note": "This release excludes 100 unrelated stock-reading optimization tests and their unpublished implementation; previous integrated local workspace passed 700 tests.",
+  "governance": "pass; 30 rule anchors",
+  "skill_validation": {
+    "futures-weekly-review": "pass",
+    "framework-condense": "pass"
+  },
+  "audit_schema_3": "pass; r3 artifact unchanged",
+  "committed_handoff": {
+    "status": "resolved",
+    "candidate_continuity_compatible": true,
+    "publication_verified": true,
+    "execution_reuse": false,
+    "scope_note": "HEAD byte identity only, not origin/main adoption"
+  },
+  "related_changed_files": 99,
+  "unrelated_stock_changes_included": false,
+  "auto_merge_authorized": false,
+  "live_api_rerun_this_release": false
+}

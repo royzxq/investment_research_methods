@@ -4,7 +4,7 @@
 
 ## 阅读入口
 
-- 期货：[周更](futures/weekly/)、[快照](futures/snapshots/)、[维护](futures/maintenance/)、[基线](futures/baselines/)、[旧输出](futures/archive/)
+- 期货：[周更](futures/weekly/)、轻量刷新（`futures/refresh/`）、[快照](futures/snapshots/)、[维护](futures/maintenance/)、[基线](futures/baselines/)、[旧输出](futures/archive/)
 - 股票：[周更](investment/weekly/)、[公司](investment/companies/)、[维护](investment/maintenance/)、[基线](investment/baselines/)
 - ETF：[评审](etf/reviews/)、[快照](etf/snapshots/)、[专项研究](etf/studies/)、[维护](etf/maintenance/)、[历史方案](etf/archive/)
 - [按日期生成的共享报告索引](INDEX.md)：不链接仅本地保存的公司产物；公司导航使用 `index --local` 生成到 `output/indexes/INDEX.md`。索引只用于导航，正文的证据完整性、市场日期和版本才决定可用性。新克隆不会包含公司产物，`latest-company` 无结果属于正常情况，不应以共享索引暗示这些报告已入库。
@@ -14,6 +14,10 @@
 | 任务 | 正式位置（research 下） | 本地产物 |
 |---|---|---|
 | 期货周更及单阶段 | `futures/weekly/<日期>/<日期>-{market-research,change-decision,execution-audit,adaption-report}.md` | `output/runs/futures/<日期>/<run-id>/` |
+| 期货已采纳版本接续 | `futures/weekly/<日期>/<日期>-handoff.json`；旧采纳记录保留在同日 `evidence/handoff-history/` | 接续含独有选择与纠错范围，非可丢弃缓存 |
+| 期货轻量行情刷新 | `futures/refresh/<日期>/<日期>-signal-refresh[-rN].{md,json}`，原料在同日 `evidence/` | 隔离取数工作目录 `output/futures-refresh-fetch/` |
+| 期货 V 观察锚 | `futures/anchors/<日期>/<日期>-anchors[-rN].json`；来源计算留同日 evidence/研究报告，冻结及撤回不可变 | 共享接续后仍需核本期适用性 |
+| 期货跨 worktree 本地接续 | 主 checkout 的 `futures/local-continuity/`：内容寻址来源副本、采纳索引 | Git 忽略的持续状态，非缓存；`scripts/futures_continuity.py location` 定位，不能仅留 memory |
 | 股票周更及单阶段 | `investment/weekly/<日期>/investment-<日期>-{market-research,change-decision,adaption-report}[-rN].md` | `output/runs/investment/<日期>/<run-id>/` |
 | 股票状态、纠错及方法接续 | `investment/weekly/<日期>/investment-<日期>-handoff[-rN].json`；方法正文快照及必要来源放同日 `evidence/` | 采纳、替代和待复评凭证是持续研究记录，不是可丢弃缓存 |
 | 保真审计、脚本同步 | 随本期报告；必要附件放本期 `evidence/`；data-sync 和 compact 摘要仍写适配报告原章节 | `output/audits/<轨道>/<日期>/<run-id>/` |
@@ -72,6 +76,10 @@ python3 scripts/research_paths.py index --as-of 2026-10-05 --local
 ```
 
 `list` 按日期升序，严格匹配轨道、类型和目录日期；默认不晚于截止日，`--before` 排除本期。`--committed` 要求路径与内容均和 HEAD 一致，暂存改动不算已提交。快照还核对头尾 AS_OF 与末行完整标记；ETF 的 v2.0 格式、10 天时效、指数覆盖和各市场锚仍由 etf-review 验收，路径检查不能替代业务验收。原框架审计与拟议重评按周更契约保留来源，不让归档和隔离副本进入影子账本扫描。
+
+期货跨期优先使用 `scripts/futures_handoff.py resolve` 的明确采纳记录：保存确切报告路径、哈希、方法身份和纠错替代范围，允许显式采纳 `-rN`，不改写原始报告。`research_paths.py list` 对handoff/refresh仍只枚举严格正式名，不代表版本已验收。handoff默认只创建；明确更改采纳时用 `register --replace` 保留旧manifest并核原件未被篡改。published消费要求最新采纳记录及引用在HEAD中一致，不因它尚未提交就静默使用更旧结论。方法不兼容仅可显式作为历史事实，不继承执行状态。尚无handoff的历史期才使用原严格发现与基线回退。
+
+轻量刷新只使用现行T/V工具生成价格筛查和原计划有效期检查，不自动完成产业、执行或账户判断。输出MD/JSON与冻结原料一并保存；同日重跑写新修订，失败不覆盖旧成功产物、不将过期信号延期。`--fetch`须有本次用户或自动化已有取数授权，使用环境文档解释器；隔离取数结果经完整性验收即可用于本次本地研究，获授权发布时连同必要原料纳入本期日志，提交后才能成为无人值守的历史交接证据。状态刷新、证据纠错、方法变更的唯一编排定义见期货skill，轻量输出不冒充schema 3完整执行审计。
 
 股票周更用 `scripts/investment_maintenance.py` 区分状态刷新、证据纠错、方法变更。发现报告不代表采纳，`update_needed` 兼容字段只表达方法是否需要修改；无方法修改也可形成新的状态/纠错交接。同日新增证据写整个更新包的配套 `-rN`，明确采纳、替代及受影响结论，不覆盖旧日志。已采纳交接绑定确切方法正文与报告哈希；未合并提案只作研究线索。研究日志和状态交接按既有 publish 授权发布，框架正文及方法修改仍统一 PR，状态消费不等待该 PR。首次接续历史报告须明确证据截止与采用依据，不凭文件名或旧报告的“已执行”声明补造完成事实。
 

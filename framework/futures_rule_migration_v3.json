@@ -1,0 +1,1391 @@
+{
+  "from_version": "v2.29",
+  "to_version": "v3.0",
+  "purpose": "Explicit rule identity migration; mapped means the principle is reconciled, not that every old parameter remains effective. Canonical v3.0 is authoritative; this is not a second rulebook.",
+  "rules": {
+    "r-a-continuation": {
+      "disposition": "retired",
+      "reason": "旧结构延续不属于本版V经济回归，亦不在T单合约突破范围；本版无该表达许可。"
+    },
+    "r-a-cost": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-definition": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-expiry": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-fields": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-fill": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-legs": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-median": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-overrides": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-r": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-reversion": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-screen": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-stop": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-a-stress": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "期限价差研究迁入经济回归；历史分位仅作背景，须经济锚、真实配对、失效止损、净R及期限闭合。旧高分位单向限制不续用。"
+    },
+    "r-audit-account": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-awaiting": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-block": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-coverage": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-fields": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-gap-owner": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-incomplete": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-no": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-only": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-pending": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-ready": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-retraction": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-rule-review": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-shadow": {
+      "disposition": "mapped",
+      "target": "r-v3-shadow",
+      "reason": "旧固定目标shadow_plans仅历史兼容；新版趋势无伪TP，以事前计划和后续人工审计跟踪，不冒充自动绩效。"
+    },
+    "r-audit-unit": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-weekly": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-audit-wording": {
+      "disposition": "mapped",
+      "target": "r-v3-audit",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-cal-cross": {
+      "disposition": "mapped",
+      "target": "r-v3-calendar",
+      "reason": "保留北京时间事件映射、首个可响应交易日及官方来源；按实际受影响品种核事件，不跨品种冻结。"
+    },
+    "r-cal-day": {
+      "disposition": "mapped",
+      "target": "r-v3-calendar",
+      "reason": "保留北京时间事件映射、首个可响应交易日及官方来源；按实际受影响品种核事件，不跨品种冻结。"
+    },
+    "r-cal-lookahead": {
+      "disposition": "mapped",
+      "target": "r-v3-calendar",
+      "reason": "保留北京时间事件映射、首个可响应交易日及官方来源；按实际受影响品种核事件，不跨品种冻结。"
+    },
+    "r-cal-timestamp": {
+      "disposition": "mapped",
+      "target": "r-v3-calendar",
+      "reason": "保留北京时间事件映射、首个可响应交易日及官方来源；按实际受影响品种核事件，不跨品种冻结。"
+    },
+    "r-card-au": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "AU不交易，只作背景观察；重构不授予交易许可。"
+    },
+    "r-card-cf": {
+      "disposition": "mapped",
+      "target": "r-v3-economics",
+      "reason": "CF保留供需/库存/进口等产业论证，迁为双向T；旧B硬季节窗、首期系数、轮储固定±3天和固定涨跌幅减半不续用。"
+    },
+    "r-card-m": {
+      "disposition": "retired",
+      "target": "r-v3-pool",
+      "reason": "旧“豆粕无已许可模型”退役；M作为趋势研究优先品种，供需证据与WASDE事件按当前路线执行。"
+    },
+    "r-card-ma": {
+      "disposition": "mapped",
+      "target": "r-v3-economics",
+      "reason": "MA迁为双向T/V；保留月份匹配与独立库存/到港/装置/交割证据。旧①未缓和时加分门槛、永久方向限制及专属追涨/原油百分比门退役。"
+    },
+    "r-card-ma-inventory": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧库存回升即冻结多头/一律减半退役；库存是有日期且按具体方向解释的产业事实，真正反证触发逻辑复核。"
+    },
+    "r-card-ma-month": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "旧原油月度创250日高点禁止MA多头并清仓退役；MA双向趋势按自身合约与独立经济证据研究。"
+    },
+    "r-card-ma-price": {
+      "disposition": "retired",
+      "target": "r-v3-data",
+      "reason": "旧SC百分比护栏和MA单日5%冷却的专属计算要求退役；保留真实合约、settle/pre_settle不混用及换月重算的数据原则。"
+    },
+    "r-card-ma-week": {
+      "disposition": "retired",
+      "target": "r-v3-event",
+      "reason": "旧SC结算周涨>5%令MA减半、>8%冻结清仓的百分比门退役；只作为实际相关事件和压力事实，不机械限制方向。"
+    },
+    "r-card-rb": {
+      "disposition": "retired",
+      "target": "r-v3-pool",
+      "reason": "旧RB仅月差/双向单边禁令退役；恢复基于库存、产销与价格确认的双向趋势，经济回归单独验证。"
+    },
+    "r-card-rb-manage": {
+      "disposition": "retired",
+      "target": "r-v3-manage",
+      "reason": "旧RB仅结构许可、固定减半和原料代理管理指令退役；RB双向T/V按实际经济失效、当前风险与退出计划管理。"
+    },
+    "r-card-sc": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "SC保持仅信号席，不能因新版策略名或旧价差模型存在而建仓。"
+    },
+    "r-card-sr": {
+      "disposition": "mapped",
+      "target": "r-v3-economics",
+      "reason": "SR保留产销/库存/交割供给的独立事实，迁为双向T/V；旧A/B身份、首期系数、季节窗口和固定连续两周减半不续用。"
+    },
+    "r-conf-definition": {
+      "disposition": "mapped",
+      "target": "r-v3-validation",
+      "reason": "当前评估先固定定义，按原价格日及原有效期向未来登记，不回填历史建议/成交；T可重评既有行情，V仍须信号前冻结经济锚，具体边界以canonical为准。"
+    },
+    "r-conf-owner": {
+      "disposition": "mapped",
+      "target": "r-v3-validation",
+      "reason": "当前评估先固定定义，按原价格日及原有效期向未来登记，不回填历史建议/成交；T可重评既有行情，V仍须信号前冻结经济锚，具体边界以canonical为准。"
+    },
+    "r-conf-prospective": {
+      "disposition": "mapped",
+      "target": "r-v3-validation",
+      "reason": "当前评估先固定定义，按原价格日及原有效期向未来登记，不回填历史建议/成交；T可重评既有行情，V仍须信号前冻结经济锚，具体边界以canonical为准。"
+    },
+    "r-d10-score": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-d11-bands": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "D8周涨分位及D11高位/新高禁入退役；趋势按真实合约突破与经济证据识别，波动风险只进统一风控。"
+    },
+    "r-d12-bands": {
+      "disposition": "retired",
+      "target": "r-v3-factors",
+      "reason": "旧波动扣分、提高评分门槛和重复乘数退役；同源风险只在market_risk中取一次最严格值。"
+    },
+    "r-d12-diverge": {
+      "disposition": "retired",
+      "target": "r-v3-factors",
+      "reason": "旧波动扣分、提高评分门槛和重复乘数退役；同源风险只在market_risk中取一次最严格值。"
+    },
+    "r-d12-trigger": {
+      "disposition": "retired",
+      "target": "r-v3-factors",
+      "reason": "旧波动扣分、提高评分门槛和重复乘数退役；同源风险只在market_risk中取一次最严格值。"
+    },
+    "r-d13-cost": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-d13-freeze": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-d14-pass": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-d14-restart": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-d14-stock": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-d14-water": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-d15": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-d8-commodity": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "D8周涨分位及D11高位/新高禁入退役；趋势按真实合约突破与经济证据识别，波动风险只进统一风控。"
+    },
+    "r-d8-definition": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "D8周涨分位及D11高位/新高禁入退役；趋势按真实合约突破与经济证据识别，波动风险只进统一风控。"
+    },
+    "r-d8-fin-long": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "D8周涨分位及D11高位/新高禁入退役；趋势按真实合约突破与经济证据识别，波动风险只进统一风控。"
+    },
+    "r-d8-fin-short": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "D8周涨分位及D11高位/新高禁入退役；趋势按真实合约突破与经济证据识别，波动风险只进统一风控。"
+    },
+    "r-d9-levels": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-data-authority": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-data-feasibility": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-data-fields": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-data-lineage": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-data-quality": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-data-reference": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-data-snapshot": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-dynamic-caps": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-cpi": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-deadline": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-events": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-freezes": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-frequency": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-gap": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-iron-sample": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-mult": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-narratives": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-overreact": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-pending": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-pool": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-pv-date": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-regime": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-roll-agri": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-roll-ma": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-roll-rb": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-roll-signal": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-roll-table": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-dynamic-version": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-factor-correlation": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-factor-groups": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-factor-nearhigh": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "D8周涨分位及D11高位/新高禁入退役；趋势按真实合约突破与经济证据识别，波动风险只进统一风控。"
+    },
+    "r-factor-policy": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-gap-action": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-gap-active": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-gap-definition": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-gap-latent": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留候选身份、证据日期来源、未知/失败区分、缺口责任、撤回重算及历史schema兼容；当前只检查G1–G6。"
+    },
+    "r-gate-1": {
+      "disposition": "mapped",
+      "target": "r-v3-expiry",
+      "reason": "合约期限与最晚退出日期保留，逐真实交易日验证。"
+    },
+    "r-gate-10": {
+      "disposition": "mapped",
+      "target": "r-v3-factors",
+      "reason": "交易所保证金/限仓变化缓冲纳入统一一次性风险系数。"
+    },
+    "r-gate-11": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "股指carry及④/D15独立门退役；股指不因重构进入研究池。"
+    },
+    "r-gate-12": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "国债曲线保持池外，不作为当前候选必检门。"
+    },
+    "r-gate-13": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "价差必要序列和锚缺失为unknown；同源/不可比样本不可充数。"
+    },
+    "r-gate-14": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "③产能性判决的全局冻结退役；候选只核其实际依赖的供需事实。"
+    },
+    "r-gate-15": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "真实经济驱动失效应退出或重评；旧D14固定系数与RB单边禁令退役。"
+    },
+    "r-gate-16": {
+      "disposition": "retired",
+      "target": "r-v3-budget",
+      "reason": "低敞口保留min(净值×3.5%,5000元)，退役限隔夜池一律禁止方向性新开。"
+    },
+    "r-gate-17": {
+      "disposition": "retired",
+      "target": "r-v3-pool",
+      "reason": "AU不交易及池外品种边界保留；不据旧贵金属/有色空头禁令新增当前品种限制。"
+    },
+    "r-gate-18": {
+      "disposition": "mapped",
+      "target": "r-v3-event",
+      "reason": "政策脉冲按实际时间与受影响品种执行事件风险，不续全局叙事禁令。"
+    },
+    "r-gate-19": {
+      "disposition": "mapped",
+      "target": "r-v3-event",
+      "reason": "实际事件风险按当期窗口执行，不沿用限隔夜池全体冻结。"
+    },
+    "r-gate-2": {
+      "disposition": "mapped",
+      "target": "r-v3-liquidity",
+      "reason": "20日均成交量至少1万手及真实执行流动性保留。"
+    },
+    "r-gate-20": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "新高且周涨极端一票否决退役；新高可为趋势信号。"
+    },
+    "r-gate-21": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "金融属性多头周涨前5%追加否决退役；池外许可仍关闭。"
+    },
+    "r-gate-22": {
+      "disposition": "mapped",
+      "target": "r-v3-gap",
+      "reason": "MA无有效对冲跨周末单仓计划止损风险≤基础预算30%或减仓/退出保留；其他品种按各自事件/压力约束，不把旧敏感品种表当新永久门。"
+    },
+    "r-gate-23": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "旧政策deadline日期、F池判决和评分惩罚退役，不将过期事件续为当前冻结。"
+    },
+    "r-gate-24": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "品种范围与真实相关专属风险统一到新版池、经济证据和事件条件。"
+    },
+    "r-gate-25": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "隔夜须按当日有效止损/ATR、风险占用重校准；不沿用旧策略评分。"
+    },
+    "r-gate-26": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "MA/能源链永久方向禁令退役；只有实际依赖地缘缓和的回归须验证缓和，独立国内逻辑可单独成立。"
+    },
+    "r-gate-27": {
+      "disposition": "mapped",
+      "target": "r-v3-economics",
+      "reason": "国内供需/现货验证保留为经济证据；旧F/G专属三重验证和③全局锁退役。"
+    },
+    "r-gate-28": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "IM/IC权益资金面冻结/复活条款退役，池外范围保留。"
+    },
+    "r-gate-29": {
+      "disposition": "retired",
+      "target": "r-v3-pool",
+      "reason": "AU不交易、AG池外保留；旧专属利率事件日期不作当前执行门。"
+    },
+    "r-gate-3": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "按实际模型判必要证据与适用性，不把可选背景缺失升级否决。"
+    },
+    "r-gate-30": {
+      "disposition": "retired",
+      "target": "r-v3-event",
+      "reason": "旧能源链单日±5%后3交易日顺方向追涨冷却退役；改按具体相关事件、跳空压力和统一市场风险，不保留百分比隐含禁令。"
+    },
+    "r-gate-31": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实一手/组止损风险、成本、账户/挂单、保证金与整数容量；未知为null，不倒推止损凑手数。"
+    },
+    "r-gate-4": {
+      "disposition": "retired",
+      "target": "r-v3-pair",
+      "reason": "重复方向敞口纳入组合与配对风险，不保留近远路由独立禁令。"
+    },
+    "r-gate-5": {
+      "disposition": "mapped",
+      "target": "r-v3-economics",
+      "reason": "必须有事前价格信号和独立经济事实；缺资料与已核反证分开。"
+    },
+    "r-gate-6": {
+      "disposition": "mapped",
+      "target": "r-v3-plan-v",
+      "reason": "经济回归仍净R≥2.5；趋势使用跟踪退出、不虚构固定目标或统一净R门。"
+    },
+    "r-gate-7": {
+      "disposition": "mapped",
+      "target": "r-v3-gap",
+      "reason": "保留跳空压力与执行可行性检查。"
+    },
+    "r-gate-8": {
+      "disposition": "retired",
+      "target": "r-v3-signal-v",
+      "reason": "不再用结构支持打分；用经济锚、收敛机制和反证。"
+    },
+    "r-gate-9": {
+      "disposition": "mapped",
+      "target": "r-v3-margin",
+      "reason": "交易所限仓80%以内与至少1手容量保留。"
+    },
+    "r-gate-calm": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-gate-capacity": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-gate-carry": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-gate-cu": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-gate-equity": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-gate-long": {
+      "disposition": "retired",
+      "target": "r-v3-signal-t",
+      "reason": "旧新高/高涨幅全局多头禁令退役；以趋势信号、入场区间和统一市场风险控制追价。"
+    },
+    "r-gate-policy": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-gate-resume": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-input-manual": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-input-preparation": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-input-price": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-input-scope": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-input-spread": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-input-state": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-input-status": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-latent-curve": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-latent-h": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-latent-jmrb": {
+      "disposition": "retired",
+      "target": "r-v3-pool",
+      "reason": "JM移除保持；JM-RB休眠价差不进入当前两策略执行池。"
+    },
+    "r-latent-lh": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-latent-ps": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-latent-spread-screen": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-manage-agri": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-au": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-cu": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-d9": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-dormant": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-driver": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-event": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-exchange": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-f": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-geop": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-ma": {
+      "disposition": "retired",
+      "target": "r-v3-manage",
+      "reason": "旧CARD-MA同义管理门退役，不延续原油百分比、永久方向禁令或库存升一律减半；使用T/V退出、经济失效与核心风控。"
+    },
+    "r-manage-no-account": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-policy": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-profit": {
+      "disposition": "retired",
+      "target": "r-v3-manage",
+      "reason": "旧1R/2R/3R阶梯保本锁盈退役；T采用只收紧的10日通道，V按经济锚、失效或期限退出。"
+    },
+    "r-manage-rb": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-stop": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-manage-tail": {
+      "disposition": "mapped",
+      "target": "r-v3-gap",
+      "reason": "保留候选跳空压力与可用资金约束；明确MA无有效对冲跨周末计划损失≤基础预算30%，不沿用旧全敏感品种常驻30%规则。"
+    },
+    "r-manage-top": {
+      "disposition": "retired",
+      "target": "r-v3-manage",
+      "reason": "旧距250日高点触发锁盈/强制减半退役；不以高位截断已成立趋势，按T/V退出与风险预算管理。"
+    },
+    "r-param-a": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-b": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-c": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-caps": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-d": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-e": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-f": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-g": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-param-overnight": {
+      "disposition": "retired",
+      "target": "r-v3-budget",
+      "reason": "旧评分与限隔夜池冲突退役；保留当日风险重校准、事件纪律和真实账户容量。"
+    },
+    "r-pen-fixed": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-pen-narrative": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-plan-au-break": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-b": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-b-economics": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-b-history": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-b-time": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-b-trail": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-b-version": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-c": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-d-exit": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-d-time": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-e": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-f": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-f-validation": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-g": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-h-params": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-plan-style": {
+      "disposition": "mapped",
+      "target": "r-v3-workflow",
+      "reason": "先形成有数值与失效条件的至多两条具体方案，再核账户；不以未完成研究冒充没有机会。"
+    },
+    "r-pool-backup": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "保留限定研究范围、信号席及池外休眠边界；M/RB路线以新版许可为准，AU不交易、JM移除及SC仅信号不因重构复活。"
+    },
+    "r-pool-core": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "保留限定研究范围、信号席及池外休眠边界；M/RB路线以新版许可为准，AU不交易、JM移除及SC仅信号不因重构复活。"
+    },
+    "r-pool-independent": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "保留限定研究范围、信号席及池外休眠边界；M/RB路线以新版许可为准，AU不交易、JM移除及SC仅信号不因重构复活。"
+    },
+    "r-pool-scan": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "保留限定研究范围、信号席及池外休眠边界；M/RB路线以新版许可为准，AU不交易、JM移除及SC仅信号不因重构复活。"
+    },
+    "r-pool-signal": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "保留限定研究范围、信号席及池外休眠边界；M/RB路线以新版许可为准，AU不交易、JM移除及SC仅信号不因重构复活。"
+    },
+    "r-pool-sleep": {
+      "disposition": "mapped",
+      "target": "r-v3-pool",
+      "reason": "保留限定研究范围、信号席及池外休眠边界；M/RB路线以新版许可为准，AU不交易、JM移除及SC仅信号不因重构复活。"
+    },
+    "r-pre-preview": {
+      "disposition": "mapped",
+      "target": "r-v3-data",
+      "reason": "保留真实合约、可追溯数据与必要/增强字段区分；旧预检标签不继承为新版许可。"
+    },
+    "r-reg-correlation": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-reg-exchange": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-reg-geop": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-reg-set": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-reg-tail": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-reg-trigger": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-revive-commod": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-revive-finance": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-revive-lc": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-revive-si": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-revive-structures": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-risk-add": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-caps": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-dedup": {
+      "disposition": "mapped",
+      "target": "r-v3-factors",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-factor": {
+      "disposition": "mapped",
+      "target": "r-v3-factors",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-final": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-limit": {
+      "disposition": "mapped",
+      "target": "r-v3-margin",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-margin": {
+      "disposition": "mapped",
+      "target": "r-v3-margin",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-net": {
+      "disposition": "mapped",
+      "target": "r-v3-account",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-null": {
+      "disposition": "mapped",
+      "target": "r-v3-account",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-profit": {
+      "disposition": "mapped",
+      "target": "r-v3-account",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-recal": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-regime": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-reserve": {
+      "disposition": "mapped",
+      "target": "r-v3-account",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-round": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-snapshot": {
+      "disposition": "mapped",
+      "target": "r-v3-account",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-stock-regime": {
+      "disposition": "mapped",
+      "target": "r-v3-factors",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-structure-recal": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-tool": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-unit": {
+      "disposition": "mapped",
+      "target": "r-v3-budget",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-risk-used": {
+      "disposition": "mapped",
+      "target": "r-v3-account",
+      "reason": "保留真实止损风险、当期账户与挂单占用、整数容量和更严约束；旧策略系数仅通过新版统一分组迁移，不叠加。"
+    },
+    "r-roll-days": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-roll-direction": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-roll-plan": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-roll-reset": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-roll-sc": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-roll-structure": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-roll-target": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-roll-timing": {
+      "disposition": "mapped",
+      "target": "r-v3-roll",
+      "reason": "保留真实交易日、换月逐腿流动性和价格计划重建；不继承旧合约分位或历史强制日期。"
+    },
+    "r-route-far": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-route-near": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-route-structure": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧路由/专属门按实际候选经济依赖重审；不将全局叙事、池外信号或已过期动态冻结继承为当前否决。"
+    },
+    "r-score-d1": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-score-d2": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-score-d3": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-score-d4": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-score-d5": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-score-normalize": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-soft-beta": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-soft-chain": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧D13–D15宏观/复产/权益固定惩罚及跨行业冻结退役；仅核候选实际依赖的经济事实、反证及统一风险。"
+    },
+    "r-soft-d12": {
+      "disposition": "retired",
+      "target": "r-v3-factors",
+      "reason": "旧波动扣分、提高评分门槛和重复乘数退役；同源风险只在market_risk中取一次最严格值。"
+    },
+    "r-soft-lowadx": {
+      "disposition": "retired",
+      "target": "r-v3-factors",
+      "reason": "旧波动扣分、提高评分门槛和重复乘数退役；同源风险只在market_risk中取一次最严格值。"
+    },
+    "r-soft-ma": {
+      "disposition": "retired",
+      "target": "r-v3-economics",
+      "reason": "旧CARD-MA同义软门退役；不保留①未知加分/永久方向禁令、SC百分比门或3日追涨冷却。"
+    },
+    "r-state-density": {
+      "disposition": "mapped",
+      "target": "r-v3-state",
+      "reason": "历史动态值只保留日期与来源，不当作方法常量；新方法需用新报告重新计算，不把旧缺口/冻结自动续期。"
+    },
+    "r-swap-cross": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-swap-d8": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-swap-same": {
+      "disposition": "mapped",
+      "target": "r-v3-manage",
+      "reason": "保留止损、驱动失效、事件/换月复核和未知账户不冒充持仓的原则；旧A–H专属持仓指令退役，以新版T/V退出规则为准。"
+    },
+    "r-trigger-b": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-trigger-b-window": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-trigger-c": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-trigger-d": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-trigger-e": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-trigger-fg": {
+      "disposition": "retired",
+      "target": "r-v3-retirement",
+      "reason": "A–H不再作为平行独立模型；旧季节硬窗口、休眠模型及其专属评分参数不自动迁入。可取证事实按趋势或经济回归重新论证。"
+    },
+    "r-weight-a": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-weight-b": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-weight-c": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-weight-d": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-weight-evidence": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-weight-f": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    },
+    "r-weight-g": {
+      "disposition": "retired",
+      "target": "r-v3-quality",
+      "reason": "旧加权评分、分数加减及总分门槛退役；只按证据质量排序，不以分数重复否决。"
+    }
+  }
+}

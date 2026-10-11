@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "refresh_version": "1.1",
+  "rule_version": "v3.0",
+  "as_of_date": "2026-10-11",
+  "evaluated_at": "2026-10-11T19:11:44.653567+08:00",
+  "generator": "codex",
+  "scope": "mechanical_refresh_only",
+  "refresh_status": "fresh",
+  "issues": [],
+  "trend": [
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "CF2701",
+      "price_basis": "close",
+      "product": "CF",
+      "market_trade_date": "20261009",
+      "as_of_date": "20261009",
+      "signal_close": 15790.0,
+      "prior20_high": 16955.0,
+      "prior20_low": 15490.0,
+      "prior10_low": 15490.0,
+      "prior10_high": 16130.0,
+      "atr20": 215.75232860511124,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260709",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.0593901273988675,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261009"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "M2701",
+      "price_basis": "close",
+      "product": "M",
+      "market_trade_date": "20261009",
+      "as_of_date": "20261009",
+      "signal_close": 3402.0,
+      "prior20_high": 3502.0,
+      "prior20_low": 3327.0,
+      "prior10_low": 3327.0,
+      "prior10_high": 3502.0,
+      "atr20": 49.17175218276189,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260709",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.200550708987243,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261009"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "triggered",
+      "side": "long",
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "MA2701",
+      "price_basis": "close",
+      "product": "MA",
+      "market_trade_date": "20261009",
+      "as_of_date": "20261009",
+      "signal_close": 3338.0,
+      "prior20_high": 3200.0,
+      "prior20_low": 2817.0,
+      "prior10_low": 2821.0,
+      "prior10_high": 3200.0,
+      "atr20": 99.16455680366184,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260709",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.0845672171896683,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261009",
+      "signal_date": "2026-10-09",
+      "valid_entry_dates": [
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "valid_until": "2026-10-13",
+      "registered_at": null
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "RB2701",
+      "price_basis": "close",
+      "product": "RB",
+      "market_trade_date": "20261009",
+      "as_of_date": "20261009",
+      "signal_close": 3080.0,
+      "prior20_high": 3183.0,
+      "prior20_low": 3060.0,
+      "prior10_low": 3060.0,
+      "prior10_high": 3140.0,
+      "atr20": 30.243745503269064,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260709",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.0727455184709542,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261009"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "SR2701",
+      "price_basis": "close",
+      "product": "SR",
+      "market_trade_date": "20261009",
+      "as_of_date": "20261009",
+      "signal_close": 5491.0,
+      "prior20_high": 5510.0,
+      "prior20_low": 5305.0,
+      "prior10_low": 5305.0,
+      "prior10_high": 5504.0,
+      "atr20": 53.88747990017016,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260709",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.1990705069685412,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261009"
+    }
+  ],
+  "economic_reversion": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "research_stage": "roll_preparation",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "research_stage": "roll_preparation",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    }
+  ],
+  "registered_plan_windows": [
+    {
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "signal_date": "2026-10-09",
+      "valid_until": "2026-10-13",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "status": "remaining_window",
+      "execution_permission": "not_evaluated",
+      "signal_clock_reset": false,
+      "calendar_checks": [
+        {
+          "contract": "MA2701",
+          "basis": "exact_contract_inputs",
+          "exchange": "CZCE",
+          "source_contracts": [
+            "MA2701"
+          ],
+          "calendar_source": "future_data v1.18: Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+          "price_refresh_status": "mixed_raw_input_status",
+          "price_input_checks": [
+            {
+              "source_contract": "MA2701",
+              "input_kind": "trend_raw_inputs",
+              "status": "fresh"
+            },
+            {
+              "source_contract": "MA2701",
+              "input_kind": "spread_leg_raw_inputs",
+              "status": "raw_inputs_present_not_reassessed"
+            }
+          ]
+        }
+      ],
+      "registration_order_status": "verified_date_order",
+      "original_valid_entry_dates": [
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "remaining_entry_dates": [
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "entry_session_checks_required_dates": [],
+      "allowed_execution_session": "not_evaluated_require_after_registration"
+    }
+  ],
+  "calendar_source": "future_data v1.18: Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+  "publication_note": "18:00 cutoff is a guard, not verified final-settlement publication",
+  "execution_permission": "not_evaluated",
+  "readiness": "not_evaluated",
+  "final_lots": null,
+  "performance_status": "not_automated",
+  "source_inputs": [
+    {
+      "role": "market-inputs",
+      "original_path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/market-inputs.json",
+      "path": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh-r2/market-inputs.json",
+      "sha256": "4bd868f34fb6ce83e1e1ec164ec912b4a559599763adeba932682f9f4293ecd7",
+      "bytes": 575127
+    },
+    {
+      "role": "data-snapshot",
+      "original_path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/data-snapshot.txt",
+      "path": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh-r2/data-snapshot.txt",
+      "sha256": "d98b800461798128264543960b8c4242b87d20d0b4c61856aca7a9ca50f11b46",
+      "bytes": 11736
+    },
+    {
+      "role": "frozen-anchors",
+      "original_path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/futures/2026-10-11/review-fixes/continuity/anchors.json",
+      "path": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh-r2/frozen-anchors.json",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "bytes": 70
+    },
+    {
+      "role": "registered-plans",
+      "original_path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/futures/2026-10-11/review-fixes/continuity/plans.json",
+      "path": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh-r2/registered-plans.json",
+      "sha256": "cb699d34a1d9ea75d83be42545160b827248fb81331dfe6cf5944b903df0010d",
+      "bytes": 3536
+    }
+  ],
+  "method": {
+    "canonical": "framework/futures_framework.md",
+    "canonical_sha256": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+    "helper": "scripts/futures_strategy.py",
+    "helper_sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "refresh_sha256": "6acede16168cbed97a9f015b25c5e15747bef90dc0331f15dfa43c6b1c72436a"
+  },
+  "evaluated_snapshot_sha256": "d98b800461798128264543960b8c4242b87d20d0b4c61856aca7a9ca50f11b46",
+  "input_selection": {
+    "selected": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/market-inputs.json",
+    "selected_sha256": "4bd868f34fb6ce83e1e1ec164ec912b4a559599763adeba932682f9f4293ecd7",
+    "attempted": [
+      {
+        "path": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/market-inputs.json",
+        "snapshot": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/data-snapshot.txt",
+        "refresh_status": "fresh",
+        "issues": [],
+        "raw_sha256": "4bd868f34fb6ce83e1e1ec164ec912b4a559599763adeba932682f9f4293ecd7",
+        "price_gaps": []
+      }
+    ],
+    "selected_snapshot": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/data-snapshot.txt"
+  },
+  "complete": true
+}

@@ -1,0 +1,93 @@
+{
+  "generator": "codex",
+  "as_of_date": "2026-10-11",
+  "baseline_commit": "685b968068ff5ccc11987d76f546292f5ab3c76d",
+  "framework_before": "v2.28",
+  "framework_after": "v2.29 local design revision; not market reassessment",
+  "files": [
+    {
+      "path": "framework/futures_framework.md",
+      "before": {
+        "unicode_characters": 87052,
+        "utf8_bytes": 185151,
+        "lines": 1185,
+        "sha256": "c54326d12cf81461a45d8833ef6759b11b83f674adc6262c25222e3aa5b2d0b7"
+      },
+      "after": {
+        "unicode_characters": 84177,
+        "utf8_bytes": 180778,
+        "lines": 1201,
+        "sha256": "d4cd09a92a65679e9cea81671241ab7fb5267501f42cb873f6aa1cc59ffa4d70"
+      },
+      "character_reduction_pct": 3.3026,
+      "byte_reduction_pct": 2.3619
+    },
+    {
+      "path": "framework/futures_framework_compact.md",
+      "before": {
+        "unicode_characters": 47310,
+        "utf8_bytes": 90455,
+        "lines": 886,
+        "sha256": "639b1389f7bd3419480eacb33e055183271f694d81b7472d225ca8b4210ae369"
+      },
+      "after": {
+        "unicode_characters": 45468,
+        "utf8_bytes": 83798,
+        "lines": 914,
+        "sha256": "8802beaa80e454567470865a909f2f53465384b953b9f119dcd60826895af9e2"
+      },
+      "character_reduction_pct": 3.8935,
+      "byte_reduction_pct": 7.3595
+    }
+  ],
+  "stable_ids": {
+    "count": 277,
+    "expected_count": 277,
+    "missing": [],
+    "duplicate_count": 0
+  },
+  "governance_errors": [],
+  "checks": {
+    "full_unittest": {
+      "command": "python3 -m unittest discover -s tests -v",
+      "ran": 517,
+      "initial_passed": 515,
+      "initial_errors": 2,
+      "reason": "sandbox denied ps in two process cleanup tests",
+      "exit_code": 1
+    },
+    "targeted_recheck": {
+      "command": "PYTHONPATH=tests python3 -m unittest -v test_research_runner.ResearchRunnerTests.test_sigterm_to_runner_cleans_children_and_records_failure test_research_runner.ResearchRunnerTests.test_timeout_kills_descendant_that_ignores_sigterm",
+      "ran": 2,
+      "passed": 2,
+      "exit_code": 0,
+      "execution": "approved local process inspection outside sandbox"
+    },
+    "semantic_scope": "changed clauses, moved blocks, numeric differences and scenario spot checks; no proof of exhaustive equivalence or investment validity",
+    "final_governance_unittest": {
+      "command": "python3 -m unittest discover -s tests -p 'test_futures_framework_governance.py' -v",
+      "ran": 12,
+      "passed": 12,
+      "exit_code": 0
+    },
+    "diff_check": {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  },
+  "unresolved_design_issues": [
+    "A strategy vs overnight score threshold precedence",
+    "E fixed scoring weights missing",
+    "D next-day entry vs geopolitical day±1 freeze",
+    "MA inventory management direction scope",
+    "A confirmation and B historical input production gaps"
+  ],
+  "not_performed": [
+    "new market data fetch",
+    "current account verification",
+    "market reassessment under v2.29",
+    "backtest",
+    "trade execution",
+    "git commit or push"
+  ]
+}

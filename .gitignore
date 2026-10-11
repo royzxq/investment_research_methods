@@ -13,3 +13,5 @@ __pycache__/
 .migration-backups/
 # 公司研究按既有策略仅本地保存；本机导航使用 index --local
 research/investment/companies/
+# 跨 worktree 本地采纳存储：含独有计划/纠错，不是可丢弃缓存；由 continuity 工具冻结备份
+/research/futures/local-continuity/

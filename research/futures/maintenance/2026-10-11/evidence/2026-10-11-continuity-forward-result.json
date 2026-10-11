@@ -1,0 +1,54 @@
+{
+  "fixture_root": "/var/folders/0y/3r3y_sg55hbgz1p4w5qyp_200000gn/T/futures-forward-review-lbnrl4k9",
+  "baseline_date": "2026-09-23",
+  "daily_source_deleted": true,
+  "collect": {
+    "status": "collected",
+    "output": "/private/var/folders/0y/3r3y_sg55hbgz1p4w5qyp_200000gn/T/futures-forward-review-lbnrl4k9/weekly/output/monday-continuity",
+    "candidates": 2,
+    "corrections": 2,
+    "execution_reuse": false,
+    "scope": "local"
+  },
+  "candidate_ids": [
+    "T-original",
+    "V-original"
+  ],
+  "clocks": {
+    "T-original": {
+      "registered_at": "2026-09-24T19:00:00+08:00",
+      "signal_date": "2026-09-24",
+      "valid_until": "2026-09-28"
+    },
+    "V-original": {
+      "registered_at": "2026-09-24T19:00:00+08:00",
+      "signal_date": "2026-09-24",
+      "valid_until": "2026-09-28"
+    }
+  },
+  "statuses": {
+    "T-original": "incomplete",
+    "V-original": "incomplete"
+  },
+  "lot_values": [
+    null,
+    null
+  ],
+  "correction_count": 2,
+  "anchors": {
+    "anchors": [],
+    "signal_observations": [],
+    "withdrawals": [
+      {
+        "far_contract": "MA2709",
+        "invalidated_at": "2026-09-25T18:00:00+08:00",
+        "near_contract": "MA2705",
+        "reason": "Friday evidence corrects delivery basis",
+        "source_refs": [
+          "https://example.invalid/friday-correction"
+        ]
+      }
+    ]
+  },
+  "local_only": true
+}

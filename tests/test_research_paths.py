@@ -54,6 +54,22 @@ class LayoutTests(unittest.TestCase):
         with self.assertRaises(ValueError): paths.artifact_path('investment', 'execution-audit', '20261001', self.root)
         with self.assertRaises(ValueError): paths.company_dir('../HK', '01952', '20261001', self.root)
 
+    def test_futures_handoff_and_refresh_are_dated_isolated_families(self):
+        for kind, folder in [('handoff', 'weekly'), ('signal-refresh', 'refresh'), ('anchors', 'anchors')]:
+            with self.subTest(kind=kind):
+                official = paths.artifact_path('futures', kind, '2026-10-11', self.root)
+                self.assertEqual(official.relative_to(self.root).as_posix(),
+                                 f'research/futures/{folder}/2026-10-11/2026-10-11-{kind}.json')
+                self.write(official, '{}')
+                self.write(official.with_name(f'2026-10-11-{kind}-r2.json'), '{}')
+                self.write(official.with_suffix('.md'), 'report')
+                self.write(official.parent/f'2026-10-12-{kind}.json', '{}')
+                self.assertEqual(paths.discover('futures', kind, '2026-10-11', self.root), [official])
+                self.assertEqual(paths.discover('futures', kind, '2026-10-11', self.root, before=True), [])
+                for track in (['etf'] if kind == 'handoff' else ['investment', 'etf']):
+                    with self.assertRaises(ValueError):
+                        paths.artifact_path(track, kind, '2026-10-11', self.root)
+
     def test_investment_handoff_discovery_does_not_adopt_revisions_or_other_tracks(self):
         official = paths.artifact_path('investment', 'handoff', '2026-10-11', self.root)
         self.assertEqual(official.relative_to(self.root).as_posix(),
@@ -408,13 +424,14 @@ class LayoutTests(unittest.TestCase):
     def test_both_script_clis_publish_and_refuse_overwrite_before_fetching(self):
         for track in ['futures','etf']:
             calls=[]
-            def run(*args):
-                calls.append(args); self.produce()
+            def run(*args, **kwargs):
+                calls.append((args, kwargs)); self.produce()
             ns=self.script_main(track,run)
             with patch.object(sys,'argv',['data.py','--as-of','20261001']), redirect_stdout(io.StringIO()):
                 ns['main']()
                 with self.assertRaises(SystemExit): ns['main']()
             self.assertEqual(len(calls),1)
+            self.assertEqual(calls[0][1], {'include_legacy_v2': False} if track == 'futures' else {})
             self.assertTrue(paths.snapshot_complete(paths.artifact_path(track,'data-snapshot','20261001',self.root),'20261001'))
             if track=='etf':
                 self.assertTrue(paths.artifact_path('etf','drawdown','20261001',self.root).is_file())
@@ -422,11 +439,35 @@ class LayoutTests(unittest.TestCase):
     def test_both_script_clis_no_snapshot_do_not_publish(self):
         for track in ['futures','etf']:
             calls=[]
-            ns=self.script_main(track,lambda *args: calls.append(args))
+            ns=self.script_main(track,lambda *args, **kwargs: calls.append((args, kwargs)))
             with patch.object(sys,'argv',['data.py','--no-snapshot']): ns['main']()
-            self.assertIsNone(calls[0][0])
+            self.assertIsNone(calls[0][0][0])
+            self.assertEqual(calls[0][1], {'include_legacy_v2': False} if track == 'futures' else {})
             self.assertFalse((self.root/'research').exists())
             self.assertFalse(ns['LADDER_SIDECAR'].exists())
+
+    def test_futures_legacy_flag_routes_explicitly_without_bypassing_snapshot_protection(self):
+        calls=[]
+        def run(*args, **kwargs):
+            calls.append((args, kwargs)); self.produce()
+        ns=self.script_main('futures', run)
+        destination=paths.artifact_path('futures', 'data-snapshot', '20261001', self.root)
+        with patch.object(sys, 'argv', ['data.py', '--as-of', '20261001', '--legacy-v2']), \
+                redirect_stdout(io.StringIO()):
+            ns['main']()
+            original=destination.read_bytes()
+            with self.assertRaises(SystemExit) as error:
+                ns['main']()
+        self.assertEqual(error.exception.code, 2)
+        self.assertEqual(len(calls), 1)  # Refusal happens before producer/fetch.
+        self.assertEqual(calls[0], ((destination,), {'include_legacy_v2': True}))
+        self.assertTrue(paths.snapshot_complete(destination, '20261001'))
+        self.assertEqual(destination.read_bytes(), original)
+        with patch.object(sys, 'argv', ['data.py', '--no-snapshot', '--legacy-v2']), \
+                redirect_stdout(io.StringIO()):
+            ns['main']()
+        self.assertEqual(calls[1], ((None,), {'include_legacy_v2': True}))
+        self.assertEqual(destination.read_bytes(), original)
 
     def test_etf_failure_does_not_update_sidecar_and_historical_run_does_not_roll_index_back(self):
         def failed(*args):

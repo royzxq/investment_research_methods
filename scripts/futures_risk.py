@@ -1,10 +1,12 @@
-"""Offline plan validation and risk sizing for futures framework v2.21.
+"""Offline plan validation and risk sizing, with explicit v2/v3 boundaries.
 
 No market data or credentials are accessed. ``valid`` means this calculation is
 complete; it never grants permission to trade. Fees are the actual round-trip
 fees for both legs of one 1:1 spread unit, in account currency.
 
-CLI: python scripts/futures_risk.py validate-a|size --input request.json
+CLI: python scripts/futures_risk.py validate-a|size|size-v3 --input request.json
+validate-a and size preserve historical v2 arithmetic only. Current v3 plans
+use futures_strategy.py and size-v3; old A/B or D-series rules are not aliases.
 Use --input - to read JSON from stdin. Missing facts are not inferred.
 JSON duplicate keys are rejected at every nesting level. Sizing factors must
 use the canonical group names in FACTOR_GROUPS; aliases are not accepted.
@@ -42,6 +44,12 @@ FACTOR_GROUPS = {
     "policy_adverse": "Policy adverse-price adjustment (2.2 / strategy E)",
     "equity_confirmation": "IM/IC policy-flow confirmation adjustment (2.3)",
     "correlation_recalibration": "Unhedged equity-beta correlation recalibration (2.3)",
+}
+
+V3_FACTOR_GROUPS = {
+    "strategy": "v3 fixed 0.7 research sizing coefficient",
+    "market_risk": "One 0.5 reduction for volatility, persistent event risk or economic disagreement",
+    "exchange_buffer": "One 0.8 reduction for raised margin or approaching position limits",
 }
 
 
@@ -131,6 +139,7 @@ def validate_a_plan(plan):
     """
     result = _result()
     result["scope"] = "a_plan_validation_only"
+    result.update(rule_version="v2.21", compatibility="legacy_v2_only")
     result.update(risk_unit=None, cost_unit=None, net_reward_tp1=None, reward_risk=None,
                   candidate_strength=None)
     if not isinstance(plan, dict):
@@ -213,7 +222,7 @@ def validate_a_plan(plan):
     return _finish(result)
 
 
-def size_position(request):
+def size_position(request, *, _factor_groups=None):
     """Size once after all monetary risk reductions, then apply capacities.
 
     Explicit inputs: equity, risk_unit, regime=normal|low_exposure,
@@ -246,6 +255,8 @@ def size_position(request):
     construction; the CLI enforces this for all JSON objects.
     """
     result = _result()
+    result.update(rule_version="v2.21", compatibility="legacy_v2_only")
+    factor_groups = FACTOR_GROUPS if _factor_groups is None else _factor_groups
     if not isinstance(request, dict):
         result["issues"].append("request_must_be_object")
         return _finish(result)
@@ -309,7 +320,7 @@ def size_position(request):
                     result["issues"].append("factor_name_must_be_nonempty")
                 elif any(s in name.lower() for s in ("low_exposure", "regime", "低敞口")):
                     result["issues"].append("portfolio_regime_factor_must_not_be_repeated_per_trade")
-                elif name not in FACTOR_GROUPS:
+                elif name not in factor_groups:
                     result["issues"].append(f"unknown_factor_group:{name}")
                 number = _number(value, f"factors.{name}", result, minimum=0)
                 if number is not None:
@@ -364,6 +375,79 @@ def size_position(request):
     return _finish(result)
 
 
+def size_position_v3(request):
+    """v3 factors only; reuse the unchanged account/capacity/floor core.
+
+    Requires rule_version='v3.0' and exactly strategy=0.7,
+    market_risk=1|0.5, exchange_buffer=1|0.8. The caller verifies the economic,
+    event and volatility evidence; factors_complete=False preserves unknowns.
+    execution_capacity_lots is required. stress_capacity_applicable and
+    weekend_capacity_applicable are explicit booleans; each corresponding
+    *_capacity_lots is a nonnegative integer when applicable, otherwise null.
+    The 3.5% account/trade caps, fixed 5000 low-exposure cap, same-day timestamped
+    positions/orders and actual margin/limit capacities retain their meaning.
+    """
+    result = _result()
+    result.update(rule_version="v3.0", compatibility="v3_only")
+    if not isinstance(request, dict):
+        result["issues"].append("request_must_be_object")
+        return _finish(result)
+    if request.get("rule_version") != "v3.0":
+        result["issues"].append("explicit_v3_rule_version_required")
+    factors = request.get("factors")
+    if not isinstance(factors, dict):
+        result["missing_fields"].append("factors")
+    else:
+        for key in V3_FACTOR_GROUPS:
+            if key not in factors:
+                result["missing_fields"].append(f"factors.{key}")
+        for key, value in factors.items():
+            if key not in V3_FACTOR_GROUPS:
+                result["issues"].append(f"unknown_v3_factor_group:{key}")
+                continue
+            number = _number(value, f"factors.{key}", result)
+            allowed = {"strategy": {Decimal("0.7")},
+                       "market_risk": {Decimal("1"), Decimal("0.5")},
+                       "exchange_buffer": {Decimal("1"), Decimal("0.8")}}[key]
+            if number is not None and number not in allowed:
+                result["issues"].append(f"invalid_v3_factor_value:{key}")
+    if result["issues"] or result["missing_fields"]:
+        return _finish(result)
+    result = size_position(request, _factor_groups=V3_FACTOR_GROUPS)
+    result.update(rule_version="v3.0", compatibility="v3_only")
+    base_issue_count = len(result["issues"])
+    extra_capacities = {}
+    execution = _numeric_field(request, "execution_capacity_lots", result, minimum=0, integer=True)
+    if execution is not None:
+        extra_capacities["execution"] = int(execution)
+    for kind in ("stress", "weekend"):
+        applies_key, capacity_key = f"{kind}_capacity_applicable", f"{kind}_capacity_lots"
+        applies = _required(request, applies_key, result)
+        if applies is not None and type(applies) is not bool:
+            result["issues"].append(f"{applies_key}_must_be_boolean")
+        if applies is True:
+            capacity = _numeric_field(request, capacity_key, result, minimum=0, integer=True)
+            if capacity is not None:
+                extra_capacities[kind] = int(capacity)
+        elif applies is False:
+            if capacity_key not in request:
+                result["missing_fields"].append(capacity_key)
+            elif request[capacity_key] is not None:
+                result["issues"].append(f"non_applicable_{capacity_key}_must_be_null")
+    result["additional_capacity_limits"] = extra_capacities
+    # The base amount calculation can remain available while an additional
+    # execution constraint is unknown, but it must not escape as final size.
+    if result["missing_fields"] or len(result["issues"]) > base_issue_count:
+        result["final_lots"] = None
+    elif result.get("final_lots") is not None:
+        result["capacity_lots_before_additional"] = result["capacity_lots"]
+        result["capacity_lots"] = min(result["capacity_lots"], *extra_capacities.values())
+        result["final_lots"] = min(result["final_lots"], result["capacity_lots"])
+        if result["final_lots"] == 0 and not result["issues"]:
+            result["issues"].append("no_capacity_within_verified_additional_limits")
+    return _finish(result)
+
+
 def precheck_2atr(atr20, multiplier, tick_value, *, equity, high_volatility):
     """2ATR scenario upper-bound quantity only; excludes actual fees and caps.
 
@@ -372,6 +456,7 @@ def precheck_2atr(atr20, multiplier, tick_value, *, equity, high_volatility):
     """
     result = _result()
     result["scope"] = "2atr_scenario_precheck"
+    result.update(rule_version="v2.21", compatibility="legacy_v2_only")
     nums = [_number(value, name, result, positive=True)
             for value, name in ((atr20, "atr20"), (multiplier, "multiplier"),
                                 (tick_value, "tick_value"), (equity, "equity"))]
@@ -388,7 +473,7 @@ def precheck_2atr(atr20, multiplier, tick_value, *, equity, high_volatility):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("operation", choices=("validate-a", "size"))
+    parser.add_argument("operation", choices=("validate-a", "size", "size-v3"))
     parser.add_argument("--input", required=True, help="JSON file, or - for stdin")
     args = parser.parse_args()
     try:
@@ -397,7 +482,8 @@ def main():
         else:
             with open(args.input, encoding="utf-8") as handle:
                 request = json.load(handle, object_pairs_hook=_unique_json_object)
-        output = validate_a_plan(request) if args.operation == "validate-a" else size_position(request)
+        output = {"validate-a": validate_a_plan, "size": size_position,
+                  "size-v3": size_position_v3}[args.operation](request)
     except DuplicateJSONKey:
         output = _result()
         output["issues"].append("duplicate_json_key")

@@ -1,0 +1,109 @@
+{
+  "as_of_date": "2026-10-11",
+  "generated_at": "2026-10-11T19:19:27.143518+08:00",
+  "generator": "codex",
+  "baseline": "output/runs/futures/2026-10-11/review-fixes/before.json; legacy sources frozen in handoff-history/method-baseline-*",
+  "validation": {
+    "offline_full_suite": {
+      "tests": 700,
+      "seconds": 73.115,
+      "result": "pass",
+      "log_sha256": "d8ce2d436c99a0174b7371ef130290da094dd139bc37c49254f3966d79abb8ec",
+      "execution": "outside sandbox because existing process-cleanup tests use ps",
+      "initial_sandbox_result": "690 tests; 2 ps permission errors, both separately passed after escalation; final integrated full run passed"
+    },
+    "framework_governance": "pass; 30 matching stable anchors; structure only",
+    "audit_schema_3": "pass; adopted r3 unchanged",
+    "skill_quick_validate": "pass",
+    "local_link_check": {
+      "checked": 15,
+      "missing": []
+    },
+    "git_diff_check": "pass",
+    "real_api_this_repair": false,
+    "market_input": "Previously captured real v1.18 input from 2026-10-11, market 2026-10-09; offline roundtrip fresh",
+    "multi_day_scheduler_observed": false,
+    "profitability_verified": false
+  },
+  "invariants": {
+    "scripts/futures_strategy.py": {
+      "unchanged": true,
+      "sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444"
+    },
+    "scripts/futures_risk.py": {
+      "unchanged": true,
+      "sha256": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8"
+    },
+    "scripts/future_data.py": {
+      "unchanged": true,
+      "sha256": "b5c110f9e20d8666c54d35f85b989310932a82904933ec4faa693f992ed9b8d7"
+    },
+    "framework/futures_framework.md": {
+      "core_strategy_risk_sections_unchanged": true,
+      "section_sha256": "666eee0bd6184033c3e3c521a2233f1f4cb8de33b63ebcf25b0ff3717e612b62"
+    },
+    "framework/futures_framework_compact.md": {
+      "core_strategy_risk_sections_unchanged": true,
+      "section_sha256": "8b2ae1bd7375bdab7a567537e3006690d26f6df31f4bc9f019cfea21d40d858a"
+    },
+    "method": {
+      "legacy_effective_sha256": "c3b3f87f039c46fda68f8d584f28d9496529a166100526c44c04cb564c879a55",
+      "current_effective_sha256": "c3b3f87f039c46fda68f8d584f28d9496529a166100526c44c04cb564c879a55",
+      "compatible": true
+    }
+  },
+  "automatic_configuration": {
+    "automation": {
+      "name": "期货研究框架每周更新",
+      "status": "ACTIVE",
+      "v2_active": false,
+      "schedule_unchanged": true,
+      "model_unchanged": true,
+      "reasoning_effort_unchanged": true,
+      "prompt_sha256": "7561afe39890c9736295e95a06c4b6a0e7d810d9e525b9ea31a67d9ed39f67d4",
+      "outcome": "rejected_by_auto_review_pending_explicit_git_publication_authorization"
+    },
+    "automation-3": {
+      "name": "期货收盘行情与信号刷新",
+      "status": "ACTIVE",
+      "v2_active": true,
+      "schedule_unchanged": true,
+      "model_unchanged": true,
+      "reasoning_effort_unchanged": true,
+      "prompt_sha256": "6bb0eeaa6d49cb2962a8d114941f1edf22110b61525d56d0550c68f286381456",
+      "outcome": "updated"
+    }
+  },
+  "deployment": {
+    "git_commit": false,
+    "git_push": false,
+    "pr_created": false,
+    "fetch_this_repair": false,
+    "current_branch": "codex/futures-current-signal-reassessment",
+    "head": "6cc3b0361e3bf2cfd5f77756bb9060d448c651d9"
+  },
+  "file_hashes": {
+    "scripts/futures_continuity.py": "c9bc44e1640b8683d93b4d7c61d65116cdebcad4fe8e3985b281c574a627f5ca",
+    "scripts/futures_handoff.py": "fadea67898a5b73bebca2089774a52ce479579d74c817d6ada69be34de7cd1e3",
+    "scripts/futures_refresh.py": "5e42746d9b16353aeafecd26c41a77d6edbc81e067a0a176279695f8387a2b29",
+    "tests/test_futures_continuity.py": "d5d81a5869b145af22e6b1627b9d6b55f113b4fb761eac24037860fa4973c50a",
+    "tests/test_futures_handoff.py": "740f291b25c17f550aca19d7f799500874d0827781cfc2202ce4890dfa455d78",
+    "tests/test_futures_refresh.py": "15208163138146d7e7e3707339a8e466062f59372244ab444392cf5c2cf19def",
+    "scripts/research_paths.py": "6cfa65f84bcf4e92929af5559ab1e56b29cb8fedd3ad9234230b6a180bac43da",
+    "tests/test_research_paths.py": "9d6619681ca39b4790ede236047b79a2846df5d401e19c22c869b5b608d2918a",
+    "framework/futures_framework.md": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+    "framework/futures_framework_compact.md": "fb0739b29b0f7c441b178bf4ee64cffe6bf55be780ab6f8b908cb791ddb2f103",
+    "framework/FUTURES_DATA_PROTOCOL.md": "cc9f4776aa86672b2c90860945fda7a0168af080cfb93e023253770b0d24ae01",
+    "projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md": "bb2d730b5b3a3cc4e766f3eb4e2cdf68b47f31c4e716cd405eb4de6dd67d8db7",
+    "research/README.md": "f6a97597a0957195a0c2d91258fef3c5cb04e45df2ed1107c2246af86b7a1190",
+    ".agents/skills/futures-weekly-review/SKILL.md": "5c83aa4b729807458d2f670ab0e9ffa3cc8c4b96dcf2e58215e7a61322993132",
+    ".agents/skills/futures-weekly-review/references/future-adaption.md": "07267ad2856feb98754d0fc32964d3d2e2da5fd0d48ca36207462b6a1197cbca",
+    ".agents/skills/futures-weekly-review/references/meta-future-analysis.md": "b48eb6133e24f6da04a50c58c753cb782d2cdff3a0bf1b213f058f2afce32a2a",
+    ".agents/skills/futures-weekly-review/references/future-change-analysis.md": "c3b7f7bb57a03dc19b4bd0fc290be484d988dbf045ec5bcfb9fa69a3bd658e0a",
+    ".agents/skills/futures-weekly-review/references/future-data-sync.md": "49a0a251fd338674f3461c1606e72111169a3ce6a4da7eeefda359069d207d48",
+    ".agents/skills/futures-weekly-review/references/refresh-and-handoff.md": "efee8ae56574ee81b4c969027896a5b4a1aa7e63434d6eb698c46df31a96bb6a",
+    "projects/meta_future_analysis/INSTRUCTIONS.md": "ca69b88d0d12cee30d66fb996a4310b902adc9cede97bb2a7a8e6bb694447458",
+    "projects/future_change_analysis/INSTRUCTIONS.md": "6e3704b0d7649296f0b79ed42f8175ae4effe788758e48adf7abda14cfd62d75",
+    "projects/future_adaption/INSTRUCTIONS.md": "42512eb012b976692e4d5bf81eba54773280be8e71cea33bf360cd6d7f777ff9"
+  }
+}

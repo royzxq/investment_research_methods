@@ -1,0 +1,101 @@
+{
+  "generator": "codex",
+  "as_of_date": "2026-10-11",
+  "scope": "local_v3_method_refactor_validation_not_market_or_performance_validation",
+  "framework_version": "v3.0",
+  "metrics": [
+    {
+      "path": "framework/futures_framework.md",
+      "before_bytes": 180778,
+      "after_bytes": 28946,
+      "before_characters": 84177,
+      "after_characters": 12904,
+      "before_lines": 1201,
+      "after_lines": 241,
+      "character_reduction_pct": 84.67,
+      "sha256": "f1cb10419ec03dd1b7c5b7f24f3b1a57a11e973a0e555eac6c93e09547880a04"
+    },
+    {
+      "path": "framework/futures_framework_compact.md",
+      "before_bytes": 83798,
+      "after_bytes": 18881,
+      "before_characters": 45468,
+      "after_characters": 9127,
+      "before_lines": 914,
+      "after_lines": 178,
+      "character_reduction_pct": 79.93,
+      "sha256": "93a62a1fae3ee4851a17fa064fed8054dbf508254b68243e645c8d0d41efbdee"
+    },
+    {
+      "path": "framework/FUTURES_DATA_PROTOCOL.md",
+      "before_bytes": 21576,
+      "after_bytes": 11114,
+      "before_characters": 9572,
+      "after_characters": 6342,
+      "before_lines": 150,
+      "after_lines": 99,
+      "character_reduction_pct": 33.74,
+      "sha256": "9c8d3f17aeb648c0442871d894157d7ec7371c59eab2f491633bcd02c95a9607"
+    }
+  ],
+  "rule_migration": {
+    "current_anchors_per_document": 30,
+    "legacy_rule_ids": 277
+  },
+  "validation": {
+    "all_discovered_tests": 573,
+    "final_sandbox_tests_passed": 571,
+    "ps_dependent_tests_passed_separately": 2,
+    "initial_full_run": {
+      "tests": 572,
+      "passed": 568,
+      "errors": 4,
+      "diagnosis": [
+        "2 new keyword arguments unsupported by old test fixtures; corrected with routing assertions",
+        "2 ps-dependent subprocess tests blocked by sandbox; separately rerun successfully"
+      ]
+    },
+    "governance": "passed",
+    "audit_template": "valid",
+    "skill_quick_validate": {
+      "futures-weekly-review": "passed",
+      "framework-condense": "passed"
+    },
+    "git_diff_check": "passed",
+    "real_api": "not_run",
+    "performance_backtest": "not_run",
+    "actual_account": "not_verified",
+    "publishing": "not_requested_not_done"
+  },
+  "test_logs": {
+    "unittest.log": {
+      "path": "output/audits/futures/2026-10-11/v3-refactor/unittest.log",
+      "sha256": "fc462efb5cb91cff1f95bd008bdd13e8be6bc47702754892c26a488ef6f1a957",
+      "summary": "----------------------------------------------------------------------\nRan 572 tests in 67.083s\n\nFAILED (errors=4)"
+    },
+    "unittest-final-sandbox.log": {
+      "path": "output/audits/futures/2026-10-11/v3-refactor/unittest-final-sandbox.log",
+      "sha256": "b2b8a830d14635fabddac8089d4fbdf4cf9446b032936b18a234d095b44d2985",
+      "summary": "----------------------------------------------------------------------\nRan 571 tests in 53.062s\n\nOK"
+    },
+    "process-tests-escalated.log": {
+      "path": "output/audits/futures/2026-10-11/v3-refactor/process-tests-escalated.log",
+      "sha256": "77e37ce4bf39a23b6699f4d7e6571f3eab0eaf288550b05a177ea33ff5d32043",
+      "summary": "----------------------------------------------------------------------\nRan 2 tests in 12.221s\n\nOK"
+    }
+  },
+  "implementation_sha256": {
+    "scripts/futures_strategy.py": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "scripts/futures_risk.py": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+    "scripts/future_data.py": "b5c110f9e20d8666c54d35f85b989310932a82904933ec4faa693f992ed9b8d7",
+    "scripts/seasonal_plan.py": "093c53428a84a216b6387723c8395a1e28e5669aaffcd89223256ce50643fbb3",
+    "scripts/futures_framework_governance.py": "58494efdffb7d323e2bc151b1e9209d2a5ac15e49c9f0bb8960039044e5e4929",
+    "scripts/validate_futures_audit.py": "d3aa49b766089a0359a2cff467521713534f914a4a2d6c47b3abf817ec81e355",
+    "tests/test_futures_strategy.py": "ad26fd5a068bc6f59ebad41db06e7401a74227a56e12ddfd67f9c70c4a8024a5",
+    "tests/test_futures_audit_framework_v3.py": "6b2f03cd27743fadfcd2589acd0cccdb51af258c573652e3053eea765cb4b8ab",
+    "tests/test_futures_framework_governance.py": "44450216b94495b7ab04bde4107f93d6b49127b3da7e991b591085bfa707991c",
+    "tests/test_research_paths.py": "47332c461c0ae0c61dbaf8eb635d06e09515d01f1eeb36d8aa352103cfc22096",
+    "framework/futures_rule_migration_v3.json": "f486eb8dde837371aea972b6093869cbdf75a3f585895707df62f2f6d0b71e94",
+    "projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md": "aa0c2e62203a3d731d9f0e467f7477925342f52cfbffd73001053af49974a780"
+  }
+}
