@@ -122,6 +122,13 @@ class ParallelResearchTests(unittest.TestCase):
         return tick(self.exchange, self.methods, execute=True,
                     clis={'codex': str(self.fake), 'claude': str(self.fake)}, timeout=10, **options)
 
+    def run_scheduled_tick(self):
+        # Exercise the once-daily admission path even when CI runs before 05:00 Shanghai.
+        after_five = max(self.now, self.now.replace(hour=5, minute=0, second=0, microsecond=0))
+        with patch.object(scheduler, 'datetime', wraps=datetime) as clock:
+            clock.now.return_value = after_five
+            return self.run_tick(once_daily=True)
+
     def observation(self):
         return json.loads(self.trace.read_text())
 
@@ -300,7 +307,7 @@ class ParallelResearchTests(unittest.TestCase):
                                                              started_at=stamp, launched_at=stamp)))
             self.assertTrue(group_alive(process.pid))
             with self.assertRaises(RuntimeError):
-                self.run_tick(once_daily=True)
+                self.run_scheduled_tick()
             self.assertEqual(state_path.read_bytes(), baseline)
             self.assertFalse((queue/'daily-check.json').exists(), 'Blocked admission must not consume the daily check')
             self.assertFalse(self.trace.exists(), 'New candidates started while an old research group survived')
@@ -384,14 +391,14 @@ class ParallelResearchTests(unittest.TestCase):
             (folder/'process.json').write_text(json.dumps(dict(task_id=entry['task_id'], generator='claude',
                 status='starting', pid=None, started_at=stamp, completed_at=None, exit_code=None)))
             with self.assertRaisesRegex(RuntimeError, 'uncertain'):
-                self.run_tick(once_daily=True)
+                self.run_scheduled_tick()
             self.assertEqual(state_path.read_bytes(), original_state)
             self.assertFalse((queue/'daily-check.json').exists())
             self.assertFalse(self.trace.exists())
             self.assertFalse((folder/'entry.json').exists())
             (folder/'process.json').unlink()
             with self.assertRaisesRegex(RuntimeError, 'uncertain'):
-                self.run_tick(once_daily=True)
+                self.run_scheduled_tick()
             self.assertEqual(state_path.read_bytes(), original_state)
             self.assertFalse((queue/'daily-check.json').exists())
         finally:
