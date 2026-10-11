@@ -4,7 +4,11 @@
 
 ## 1. 取数与频率
 
-周度更新产业假设、模型与最多两份计划；机械信号应在交易日收盘后和拟入场前刷新。未部署逐日运行时说明监测空窗，不能声称周更覆盖了2交易日内所有信号，也不能延长过期信号。未触发可先列条件观察方案，状态仍no_signal。本次维护不创建调度或执行交易。
+周度更新产业假设与最多两份计划；模型定义和参数不随行情自动修改。机械信号在交易日收盘后和拟入场前刷新。实际未运行、失败或数据陈旧时说明监测空窗，不能声称周更覆盖了2交易日内所有信号，也不能延长过期信号。未触发可先列条件观察方案，状态仍no_signal。工具不执行交易。
+
+运行合同为`futures-maintenance/v2`：状态刷新、证据纠错、方法变更分别记录；`update_needed`只指方法变更。完整周更及轻量刷新按用户/定时任务已有授权取数，没有授权时只验已有输入并披露缺口。先读真实行情日、交易日历和脚本版本，后研究；数据不可用不是no_signal。`futures_refresh.py --fetch`在隔离目录调用既有取数脚本，不覆盖同日正式快照，冻结所用原料及哈希。默认复算五品种T；V没有事前冻结的有效经济锚只记未评估，不从历史分位造锚。具体CLI、输出和发布前检查只维护在[刷新与接续](../.agents/skills/futures-weekly-review/references/refresh-and-handoff.md)。
+
+日频先检查全部已知存量计划/持仓的事件、反证、止损与期限，再处理至多两个新机会；没有机械新信号也要完成相关存量检查。研究方在周更维护有公开经济依据的 V 观察锚及未来适用修订，日频核失效证据；没有依据记录研究缺口，不强制造锚。锚只须早于信号形成，同日用独立时序证据核验；有序合约对、底层原料和锚必须一致。旧计划独立核日历及行情覆盖，不因本轮主合约换月丢失，也不以入场到期推断持仓已退出。
 
 按[环境文档](../docs/context/environment.md)使用可用Python，继承`TUSHARE_TOKEN`，不输出密钥：
 
@@ -16,7 +20,7 @@
 
 v1.18默认输出v3 T行情输入、V两腿结算原料，机器包位于`output/cache/futures/v3_research_inputs_<AS_OF>.json`（实际OUTDIR以脚本为准）；是可重建中间文件，正式报告须保存所用原料、来源引用或可追溯产物，不能只留将来会失效的缓存指针。研究阶段按文件完成标记、行情日及每字段状态读取，发布流程仍遵守入口的已提交快照要求。v1.16快照只作历史原料，不因格式可读就当成v3完整输入。
 
-`as_of_date`研究日、`market_trade_date`完整行情日、实际`fetched_at`分列；交易所和来源随原料保留。18:00等取数截止只是避免未完成日线的保护，不证明最终结算已正式发布。所有交易日/事件窗口以真实交易所日历与夜盘归属为准，降级的普通工作日日历不能给v3信号或计划有效期。
+`as_of_date`研究日、`market_trade_date`完整行情日、实际`fetched_at`分列；交易所和来源随原料保留。18:00等取数截止只是避免未完成日线的保护，不证明最终结算已正式发布。所有交易日/事件窗口以真实交易所日历与夜盘归属为准，降级的普通工作日日历不能给v3信号或计划有效期。数据商日历保留其实际交易所来源；如采用SSE日历作日线机械筛查，必须明示，不能据此声称已核期交所夜盘、临时休市或真实入场时刻；执行前仍须核具体期交所日历。
 
 ## 2. 必要证据与可选背景
 
@@ -60,7 +64,7 @@ T：显式`targets:null`，`exit_rule:"initial_2atr_and_prior10_channel_tighten_
 
 V：`leg_ratio:[1,1],stop,entry_range,convergence_sessions`，及`economic_anchor_basis,convergence_mechanism,invalidation_basis,economic_evidence_refs`。范围可单点，整个范围均应满足价位顺序与最差点净R；`convergence_sessions`与可持有窗匹配。helper输出targets、选定Entry的`reward_risk`及全区间最差`entry_range_min_reward_risk`；审计`targets`对应targets，`net_R`必须取全区间最差值（选定Entry另可记selected_entry_net_R），经济锚另记`anchor_band={low,high,source,as_of_date}`、有效截止与假设。非空说明仅证明有文字，不能证明经济锚成立。
 
-工具重算价格信号和计划日期；已提交signal_date/valid_until若与重算矛盾则拒绝。`signal=triggered`只是行情条件，不代表独立产业证据或前瞻生效已核。T/V手续费、tick、真实Entry、SL与计划版本都须留痕；实际成交变化后重算，不能拿原计划风险继续报手数。
+工具重算价格信号和计划日期；已提交signal_date/valid_until若与重算矛盾则拒绝。`signal=triggered`只是行情条件，不代表独立产业证据、当前登记时点及剩余有效期已核。当前T重评可使用生效前已完成行情，保留原价格信号日，不能延长窗口；具体时间边界取canonical。T/V手续费、tick、真实Entry、SL与计划版本都须留痕；实际成交变化后重算，不能拿原计划风险继续报手数。
 
 ### 3.2 账户容量：futures_risk.py size-v3
 
@@ -80,9 +84,13 @@ python3 scripts/futures_risk.py size-v3 --input risk-request.json
 
 输出使用[共享schema 3模板](../projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md)。当前v3仍是schema 3，历史schema 2/3按其当时框架解释；不因schema相同沿用旧A–H许可。候选使用trend/economic_reversion、G1–G6和五种状态，数据可行性分列。
 
+跨期先用`futures_handoff.py`按市场报告/执行审计类型读取明确采纳的路径、哈希、纠错范围与方法版本；审计单独更新不遮蔽前期市场基线，不按最大`-rN`或修改时间选稿。v2 兼容性核有效规则与 strategy/risk 计算依赖，完整文件哈希另留溯源；纯标题/维护说明不自动重置计划。v1 缺依赖身份，须核登记时原件并显式留档迁移，否则仅供历史事实重评。published 消费核当前 HEAD 已提交内容，编排器另核实际 origin/main；损坏不静默回退。
+
+日频与周更都通过`futures_continuity.py`读写同一本地持续采纳存储，冻结引用材料并接续原 ID、原登记/期限、累积纠错及 V 锚/撤回。源 worktree 删除不应丢失这些独有材料；共享存储不作为可丢弃缓存，也不算 Git 发布。候选兼容仍须当前行情、事件与账户重评；历史不兼容记录只作为待重评事实。周更将实际使用的共享材料冻结到正式证据后按已有授权发布，状态引用 PR 未合并不阻断已采纳日志接续。没有对应采纳记录才按严格正式名发现并披露缺口。
+
 每个necessary unknown写`gap.kind/owner/next_action/due_at`：definition/plan归research，calculation归data_pipeline，account归user，not_published归publisher并附正式发布时间证据。已知fail与unknown同时保留；only_blocker须完整核验。无账户必须null而不是0，不推断实际成交/减仓。
 
-v3计划保存在candidate.plan，按opportunity_id前瞻冻结并逐次追加路径。`shadow_plans=[]`、`performance_status=not_automated`；旧price_evidence固定目标引擎只结算v2历史，不支持v3 T跟踪退出，不能用旧输出当新策略绩效。没有冻结计划/后续路径、或日线无法还原盘中/双腿成交时，收益/避免亏损/错失盈利保持null。
+v3计划保存在candidate.plan，按opportunity_id前瞻冻结并逐次追加路径。`signal_date`是原价格日，`evaluated_at/registered_at`为当前真实带时区时间，允许执行时段须晚于登记且仍在原有效期；三者不混用，V锚仍须信号前冻结。`shadow_plans=[]`、`performance_status=not_automated`；旧price_evidence固定目标引擎只结算v2历史，不支持v3 T跟踪退出，不能用旧输出当新策略绩效。没有冻结计划/后续路径、或日线无法还原盘中/双腿成交时，收益/避免亏损/错失盈利保持null。
 
 `seasonal_plan.py`、`futures_risk.py validate-a/size`、旧precheck_2atr与D8属于legacy_v2_only；只为历史复现保留。当前趋势不能用含当日H20、旧settle→close回退、旧B窗口或旧评分变相过门。重构前报告/快照不改写；方法、事件和账户不从旧文本续成当前事实。
 
@@ -94,6 +102,6 @@ python3 scripts/validate_futures_audit.py --input <审计报告.md>
 python3 -m unittest discover -s tests -v
 ```
 
-检查结果须区分结构、离线合成样本、真实API与收益检验。治理脚本核30个当前锚和277个旧ID迁移覆盖，不证明全部语义；单元测试不证明策略可盈利或行情可获取。本轮v1.18未做真实API验证，遇数据缺项保留错误与可执行补件动作。
+检查结果须区分结构、离线合成样本、真实API与收益检验。治理脚本核30个当前锚和277个旧ID迁移覆盖，不证明全部语义；单元测试不证明策略可盈利或行情可获取。10/11 v1.18 已有真实 API 取数记录，具体覆盖见[实施报告](../research/futures/maintenance/2026-10-11/2026-10-11-weekly-update-mechanism-implementation.md)；本次修复另用冻结原料复跑，不把它写成新的联网验证。遇数据缺项保留错误与可执行补件动作。
 
 [大商所](https://www.dce.com.cn/)、[郑商所](https://www.czce.com.cn/)、[上期所](https://www.shfe.com.cn/)提供交易与合约规则入口；[USDA WASDE](https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report)、农业农村部CASDE、统计局等提供适用产业背景。入口存在不证明本期已取到数据；不得把宏观统计直接代替具体交割品级现货。

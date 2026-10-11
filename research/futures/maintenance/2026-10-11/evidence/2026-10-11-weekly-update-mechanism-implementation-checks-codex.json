@@ -1,0 +1,227 @@
+{
+  "as_of_date": "2026-10-11",
+  "generator": "codex",
+  "maintenance_contract": "futures-maintenance/v1",
+  "method_version": "v3.0",
+  "git": {
+    "branch": "codex/futures-current-signal-reassessment",
+    "HEAD": "6cc3b0361e3bf2cfd5f77756bb9060d448c651d9",
+    "origin_main_local_tracking": "44f3741cbae27b5394bb691e3ef52893913445d3",
+    "fetch_performed": false,
+    "committed": false,
+    "pushed": false,
+    "pr_created": false
+  },
+  "unchanged_vs_pre_turn_worktree": {
+    "scripts/futures_strategy.py": {
+      "sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+      "unchanged": true
+    },
+    "scripts/futures_risk.py": {
+      "sha256": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+      "unchanged": true
+    },
+    "scripts/future_data.py": {
+      "sha256": "b5c110f9e20d8666c54d35f85b989310932a82904933ec4faa693f992ed9b8d7",
+      "unchanged": true
+    },
+    "canonical_strategy_risk_sections_2_to_4": {
+      "sha256": "d0d8f639f46b4e1f634ebe14fe2b0ef50df09b091b0fad3958a61833be33df75",
+      "unchanged": true
+    },
+    "compact_strategy_risk_management": {
+      "sha256": "8b2ae1bd7375bdab7a567537e3006690d26f6df31f4bc9f019cfea21d40d858a",
+      "unchanged": true
+    }
+  },
+  "regression": {
+    "tests": 632,
+    "status": "passed",
+    "first_sandbox_run": {
+      "tests": 632,
+      "errors": 2,
+      "reason": "ps prohibited by sandbox in process cleanup tests"
+    },
+    "verified_run_log_sha256": "49dbb0c8e7873a0937d9ad8fd54e6fecc523445b2dcb610e8b4ce67350ebda4e",
+    "log_tail": [
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 632 tests in 63.920s",
+      "",
+      "OK"
+    ]
+  },
+  "governance": {
+    "command": [
+      "/Users/xinquanzhou/miniconda3/bin/python3",
+      "scripts/futures_framework_governance.py",
+      "--check"
+    ],
+    "returncode": 0,
+    "stdout": "framework/futures_framework.md: 30,959 UTF-8 bytes, 245 lines, 30 explicit anchors\nframework/futures_framework_compact.md: 20,576 UTF-8 bytes, 182 lines, 30 explicit anchors\nframework/FUTURES_DATA_PROTOCOL.md: 13,000 UTF-8 bytes, 103 lines, 0 explicit anchors\nStructural checks passed; semantic equivalence and investment validity are not verified.",
+    "stderr": ""
+  },
+  "skill_validate": {
+    "command": [
+      "python3",
+      "/Users/xinquanzhou/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+      ".agents/skills/futures-weekly-review"
+    ],
+    "returncode": 0,
+    "stdout": "Skill is valid!",
+    "stderr": ""
+  },
+  "audit_structure": {
+    "command": [
+      "/Users/xinquanzhou/miniconda3/bin/python3",
+      "scripts/validate_futures_audit.py",
+      "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"status\": \"valid\",\n  \"scope\": \"structure_validation_only\",\n  \"execution_permission\": \"not_evaluated\",\n  \"errors\": []\n}",
+    "stderr": ""
+  },
+  "handoff_local": {
+    "command": [
+      "/Users/xinquanzhou/miniconda3/bin/python3",
+      "scripts/futures_handoff.py",
+      "resolve",
+      "--as-of",
+      "2026-10-11",
+      "--scope",
+      "local"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"status\": \"resolved\",\n  \"manifest\": \"research/futures/weekly/2026-10-11/2026-10-11-handoff.json\",\n  \"manifest_sha256\": \"276e325aa2bda4dd844ab6bc4ea216adb848f47cd457fd1c63cdf769a581f2c3\",\n  \"method_compatible\": true,\n  \"execution_reuse\": false,\n  \"candidate_continuity_compatible\": true,\n  \"requires_fresh_evaluation\": true,\n  \"stored_scope\": \"local\",\n  \"consumption_scope\": \"local\",\n  \"publication_verified\": false,\n  \"legacy_fallback_allowed\": false,\n  \"handoff\": {\n    \"schema\": \"futures-handoff/v1\",\n    \"status\": \"adopted\",\n    \"scope\": \"local\",\n    \"as_of_date\": \"2026-10-11\",\n    \"registered_at\": \"2026-10-11T18:52:43.788469+08:00\",\n    \"market_as_of_date\": \"2026-10-09\",\n    \"method\": {\n      \"path\": \"framework/futures_framework.md\",\n      \"version\": \"v3.0\",\n      \"sha256\": \"d0855b894ed07f357023ea0427f34940b5ce1cc9826cd0794425c4c7c8c26256\",\n      \"canonical_full_sha256\": \"87ead048d86d09ef9559d8572a8bc7396d5396f37d4ddcc432d4ade404d67e63\",\n      \"revision\": \"working-tree after 6cc3b0361e3bf2cfd5f77756bb9060d448c651d9; maintenance-contract futures-maintenance/v1; T/V and core risk unchanged\"\n    },\n    \"artifacts\": {\n      \"market_research\": {\n        \"path\": \"research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md\",\n        \"sha256\": \"ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa\"\n      },\n      \"execution_audit\": {\n        \"path\": \"research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md\",\n        \"sha256\": \"e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c\"\n      },\n      \"change_decision\": null\n    },\n    \"corrections\": {\n      \"scope\": [\n        \"采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。\"\n      ],\n      \"supersedes\": [\n        {\n          \"path\": \"research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md\",\n          \"sha256\": \"ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa\"\n        },\n        {\n          \"path\": \"research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r2.md\",\n          \"sha256\": \"95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b\"\n        }\n      ]\n    },\n    \"previous_handoff\": null\n  }\n}",
+    "stderr": ""
+  },
+  "handoff_published_expected_rejection": {
+    "returncode": 1,
+    "result": {
+      "status": "error",
+      "legacy_fallback_allowed": false,
+      "error": "Published source is not identical to HEAD: framework/futures_framework.md"
+    },
+    "stderr": ""
+  },
+  "live_api": {
+    "initial_sandbox_result": "failed",
+    "network_enabled_result": "fresh",
+    "report": "research/futures/refresh/2026-10-11/2026-10-11-signal-refresh.json",
+    "sha256": "3d53767c7a89af5fdf05738abed574a53798591c0f45e5437f8adc22e3e2aeba",
+    "calendar_source": "future_data v1.18: Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+    "market_trade_dates": [
+      "20261009"
+    ],
+    "execution_permission": "not_evaluated",
+    "original_plan_windows": [
+      {
+        "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+        "signal_date": "2026-10-09",
+        "valid_until": "2026-10-13",
+        "registered_at": "2026-10-11T18:14:54+08:00",
+        "status": "remaining_window",
+        "execution_permission": "not_evaluated",
+        "signal_clock_reset": false,
+        "original_valid_entry_dates": [
+          "2026-10-12",
+          "2026-10-13"
+        ],
+        "remaining_entry_dates": [
+          "2026-10-12",
+          "2026-10-13"
+        ],
+        "allowed_execution_session": "not_evaluated_require_after_registration"
+      }
+    ],
+    "source_hashes_verified": true
+  },
+  "automation": {
+    "config_record": "research/futures/maintenance/2026-10-11/evidence/2026-10-11-weekly-update-mechanism-automations-codex.json",
+    "ids": [
+      "automation",
+      "automation-3"
+    ],
+    "status": "updated_and_read_back",
+    "scheduled_run_observed": false,
+    "repository_deployment": "local_changes_uncommitted_remote_freshness_unverified"
+  },
+  "dual_version_fidelity": {
+    "coverage": "30 matching anchors; touched workflow/tools/state reviewed",
+    "numbers": "canonical strategy/risk sections 2-4 and compact signal-to-status range byte-identical to saved worktree baseline",
+    "logic": "three independent update categories; update_needed means method only in both versions",
+    "exceptions": "no change to strategy/risk exceptions or release conditions",
+    "ids": "30 current anchors unchanged; migration map untouched by this turn",
+    "cross_references": "checked below",
+    "spot_checks": [
+      "T signal and original two-session window",
+      "V frozen economic anchor",
+      "risk budgets and G1-G6",
+      "state current report and handoff references"
+    ],
+    "limit": "structural and targeted semantic review, not proof of total semantic equivalence or returns"
+  },
+  "forward_review": {
+    "mode": "independent read-only scenario",
+    "scenario": "full+publish with adopted r3, state change only, original signal still valid",
+    "issues_fixed": [
+      "explicit --plans for reusable audit",
+      "original logs and handoff pushed and verified before state/method PR",
+      "reuse existing same-day handoff for state-only updates",
+      "refresh mode does not require unnecessary new audit/handoff",
+      "incompatible historical audits not reused as current plans"
+    ]
+  },
+  "local_markdown_links": {
+    "count": 83,
+    "missing": []
+  },
+  "diff_check": {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "independent_refresh_review": {
+    "result": "no reproducible material issue",
+    "offline_replay": "frozen 2026-10-11 actual v1.18 inputs",
+    "checks": [
+      "current data fresh",
+      "later completed session without new data failed",
+      "missing last daily bar unknown",
+      "expired original plan stays expired",
+      "exclusive per-revision output and failure preservation",
+      "execution_permission not_evaluated and final_lots null"
+    ],
+    "tests": 24
+  },
+  "changed_scope_hashes": {
+    ".agents/skills/futures-weekly-review/SKILL.md": "556f595bc9fae8adc1316ccab4a51b760c807a1caf20bd846700593e973f3a51",
+    ".agents/skills/futures-weekly-review/references/future-adaption.md": "7ae438b014f968ec1e96c869e2c77b808a2f9af5680e9761219b479238c80524",
+    ".agents/skills/futures-weekly-review/references/future-change-analysis.md": "22dcaf1310e637e6a074fdaf8d1bece1bd420f6c8442a8b2b7facc0925742931",
+    ".agents/skills/futures-weekly-review/references/future-data-sync.md": "ca7de8b10f68b4671adf6e1802a0fce7ec397afb0bf1fe5799a715cdea0f05d3",
+    ".agents/skills/futures-weekly-review/references/meta-future-analysis.md": "5d4b591536ee6b7522eb49afd1ccc6097ecbc6315c98db360ec2640ea66d0ea8",
+    ".agents/skills/futures-weekly-review/references/refresh-and-handoff.md": "dabb2d898e8b7c5dfc677ac6949844c9fa691f2300293a74a905114c3bf2398e",
+    "docs/context/project-state.md": "48ae8e0bfdfc7d38a1fc6b919f5daff3e96fc975c409ca0341be97048433b247",
+    "framework/FUTURES_DATA_PROTOCOL.md": "324e5f7d03a19bb1ec462362b2fe68396c64678b1d70cf941835a4dc638ce7a4",
+    "framework/futures_framework.md": "87ead048d86d09ef9559d8572a8bc7396d5396f37d4ddcc432d4ade404d67e63",
+    "framework/futures_framework_compact.md": "ee3a3ec71f9b772f6c4f83cda748d13d117c331cdd451377fc75685cb89dc7de",
+    "projects/future_adaption/INSTRUCTIONS.md": "6b6101e065e6823d61b89e39de3a566f51b958fa00bf3dcdbdfec97bde8ebb80",
+    "projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md": "eaff85d7b005f3081489963702ff1f3ebfe21584be5def3c1c4f645fd0bd0cbd",
+    "projects/future_change_analysis/INSTRUCTIONS.md": "261747efd36dfddb2c77997cc92746e6cf2f95b36c6c9cb37af775bde238df40",
+    "projects/meta_future_analysis/INSTRUCTIONS.md": "da9bf7f02e158b008594ef79bd9968a0f996020c7902caa434be72fa4721ee16",
+    "research/README.md": "2fb98817d4087ae4a6d01e4652192d5f45e0de27b20f2f7dbeaf64c67966832a",
+    "research/futures/maintenance/2026-10-11/2026-10-11-weekly-update-mechanism-implementation.md": "bd69ce90ed9969ff79822eedbf420299ca8dc13cd870a5cc0fb0706b00f98180",
+    "research/futures/refresh/2026-10-11/2026-10-11-signal-refresh.md": "2dfdc21fbeee006fedd47f5118934a60dfd3d32c0e0324374b32fb741d90947f",
+    "scripts/futures_refresh.py": "d2b3aa9dc8f6c4c8600160f278208706ce8d5f6edd73d5d8fc24dde1d1c056cf",
+    "scripts/futures_handoff.py": "1c62844783472e5c7bc0ab72df54d58e1ff0525406042944c2fbbeb15d054bb4",
+    "scripts/research_paths.py": "ccfc495eed8af75b0fd73464d3dcfb5d2b01c4931a234991842b0c8c5ec4414b",
+    "tests/test_futures_refresh.py": "05d8c0dc42d585fb84bf79b7541af148ca69cd9b5129d5a92ab7e6cc2a70b729",
+    "tests/test_futures_handoff.py": "bb5a0f7f0146d37cf802853e91a6db1877c3f42755e790f849add89e685e3532",
+    "tests/test_research_paths.py": "706c533ec4ec061a6dc060b06e904da0767ec3cac48c94696e4afef6a20dc20f"
+  }
+}

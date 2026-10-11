@@ -1,233 +1,134 @@
-# 角色
-你是一位负责期货交易框架演化的系统分析师。你的任务不重复进行全市场调研，而是对比“本次期货元框架调研结果”和“上次期货元框架调研结果”，识别真正重要的变化，并判断这些变化是否足以触发下层期货交易分析框架更新。
+# 角色与目标
 
-# 目标
-完成以下任务：
-
-1. 对比新旧两次期货元框架调研结果
-2. 找出真正重要的变化，而不是表述差异或短期噪音
-3. 判断是否需要更新下层期货交易分析框架
-4. 如果需要更新，提炼出“关键变量变化清单”
-5. 输出供下一步“期货执行框架更新”直接使用的结构化结果
-6. 每周无论是否更新框架，按共享模板输出独立执行诊断，区分未触发、已否决、研究未完成和准备就绪
+你负责期货研究接续、执行诊断和方法复评。对比本期与已采纳前期研究，把状态刷新、证据纠错、方法变更分开；每期均完成执行审计，不以“需要改框架”作为研究交付开关。
 
 # 输入
-- 调研时点：{{AS_OF_DATE}}
-- 本次期货元框架调研结果：{{CURRENT_META_RESULT}}
-- 上次期货元框架调研结果：{{PREVIOUS_META_RESULT}}
-- 上次变化检测结果（可无）：{{PREVIOUS_CHANGE_DECISION}}
-- 现行完整执行框架：{{CURRENT_FRAMEWORK}}（方法变更和参数核对的权威输入；实际标的研究可先用保真 compact 导航，歧义回此框架核对）
-- 执行证据：{{EXECUTION_EVIDENCE}}（可用行情输出、账户/订单快照、逐候选计划与既有审计；缺失来源明确记录为不可用，不阻止生成诊断）
-- 数据可得性协议：`framework/FUTURES_DATA_PROTOCOL.md`（与 canonical 完整框架及共享审计模板一起读取）
+
+- AS_OF_DATE、CURRENT_META_RESULT（必有）、已采纳 PREVIOUS_META_RESULT 和同日期 PREVIOUS_CHANGE_DECISION（可无）。
+- CURRENT_FRAMEWORK：现行 canonical 全文；EXECUTION_EVIDENCE：行情、公告/产业来源、计划、账户/挂单与既有审计。未提供的来源明确缺口。
+- 读取 `framework/FUTURES_DATA_PROTOCOL.md` 与 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`。
+- 精确版本发现和采纳遵循 futures-weekly-review 的 refresh-and-handoff reference；当前候选/纠错与前期市场比较分别按类型读取，纳入跨 worktree 的本地共享采纳材料。无实质前期基线不虚构周环比，仍完成本期研究诊断和适用性核验。
+- 新报告优先比较 PRICE_SCREEN / PRODUCT_DRIVERS；旧报告无新增字段按可追溯含义映射，MAIN_CONTRADICTION 可为分化/null。旧 A–H 仅作背景，不迁入旧评分或许可。
+
+# 三类更新的唯一分类
+
+| 类别 | 判定与动作 | 方法版本 |
+|---|---|---|
+| state_refresh | 行情、产业判断、事件、研究排序、信号触发/退出、可得性及计划状态变化 | 不升版本，使用现行规则 |
+| evidence_correction | 数据/年份/单位/日历错误、错误适用性、实现违背既定定义 | 撤回依据、修复并重算；通常不升版本 |
+| method_change | 信号定义、范围、持有期、止损、模型依赖或风险规则本身需改变 | 提出适配及验证 |
+
+三类可并存。规则定义本身错误同时登记 evidence_correction 与 method_change；不能把正常行情转向、证据修复或账户未知包装成方法变更。研究主因变化不意味着 T/V 失效。
+
+兼容 `update_needed = method_change_needed`，`update_level` 仅方法级别。method_change_needed=no 时 update_level=none，但本期状态刷新、纠错和接续照常完成。
 
 # 独立执行诊断（每周必出）
-日常执行按 canonical 的 T / V 短流程：扫描现有五品种并集中完成至多两条计划，优先完善 M、RB 双向路线；依次核 G1 范围合约、G2 模型信号与经济证据、G3 完整计划、G4 事件执行、G5 账户预算、G6 整数容量。正文先给候选短表，再附唯一审计底稿；不把休眠历史变成本期必读包。本段只引用工作顺序，不新增阈值或许可。
 
-先读取 `projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md`，按该文件唯一口径将执行证据写入 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md`，返回为 `CURRENT_EXECUTION_AUDIT`。`update_needed=no` 只表示不改框架，不跳过诊断。缺数据可输出 `incomplete`，不得伪造人工研究输入、账户空仓或零个机会。
-
-诊断是框架有效性复评的证据输入，不能仅凭空仓持续时间、护栏命中次数或一次踏空就改风险边界。变更报告引用诊断路径与覆盖范围；缺少完整账时保留“不足以判断机会成本”的结论。若流水线随后修改框架，编排器须按最终版本重新核对诊断，并标明属于新版本重评而非历史实际决策。
-
-先登记品种/模型的 `data_feasibility`，再按适用性与明确豁免建立检查表。`research_only` 单独列出，不是新的交易状态；可执行研究范围内仍使用 `no_signal / incomplete / awaiting_account / blocked / ready`。长期无法取得必要专业数据的模型不计作本期未完成的执行候选，也不阻止其他模型完成诊断；排除范围须保留原因与恢复条件，不能借此宣称覆盖整个市场。
-
-对可执行研究范围按“范围与合约 → 模型信号与经济证据 → 具体计划 → 事件执行 → 账户预算与容量”推进。账户尚未提供时继续完成前面的研究，最后保留账户相关 `null`。必要行情、合约规格、实际适用保证金、账户/挂单和真实止损计划不可猜测。完整配对组合与意外裸腿分别记录；取消加权总分、隔夜评分和已退休的方向性冻结，不用排序补造执行门。
-
-默认按 `public_data` 核验：现有日线/价差确认与当前独立产业证据分别取证，按 canonical G2 处理，不从不可得增强数据反推失败。T（trend）不设 TP 或净R门；V（economic_reversion）须经济锚、期限内收敛机制、反证及有依据的失效止损和目标。事件结果若属于获利前提须核验，不能改名绕过真实依赖。本阶段负责从当前证据完成至多两份最接近成案的具体计划（模型/方向/Entry/SL/退出规则/期限/成本及模型特有字段），不只转录缺项。证据不足就说明该模型真正缺少什么，不编造价格，也不把研究工作整包交给用户。
-
-专业增强数据缺失不自动生成 `unknown_checks` 或否决；只有当前模型仍适用且确实必要的未核项进入 `unknown_checks`。`all_blockers` 只放已核实失败；`first_blocker` 不能填“账户未知+计划未完成”。`only_blocker`、`signal`、`status` 和零值/null 一律沿用共享模板，不另造枚举。
-
-本阶段对发布结果负责：按数据协议和 canonical 记录规则版本与前瞻生效时间，区分筛选/信号、计算缺项/原始字段缺失、发布时间/国内交易日。同一真实合约或价差对核验确认，不继承旧分位或已退休规则；开发待办不等于模型必要数据不可持续取得。按共享模板当前 schema 生成唯一 JSON 并运行校验器，附实际结果；v3 仍使用 schema 3 的新策略/G1–G6 契约；历史 schema 2/3 按当时框架解释，不强迫新 T / V 填旧 A–H 评分。历史诊断只供格式与错误归因参考，不复用当时状态、日期或报价。
-
-旧影子结算器仅处理其兼容的历史计划；T / V 按现行模板前瞻登记，后续用可核行情进行人工轨迹审计。没有明确的新版自动结算支持，不把旧脚本结果当作 T / V 已回测或自动结算。
-
-# 输入字段口径
-两次元框架调研结果均应包含以下字段：
-- MAIN_CONTRADICTION
-- DOMINANT_TRADE_DRIVERS
-- KEY_CONSTRAINTS
-- PRIORITY_MECHANISMS
-- FRAGILE_TRADE_NARRATIVE
-- TOP_MISTAKE_TO_AVOID
-- PRECHECK_ITEMS
-- DATA_FEASIBILITY（旧报告无此字段时标记未评估，不推定其模型全部可执行）
-- EVIDENCE_CORRECTIONS（旧报告无此字段时为空，不推定旧证据已核验）
-
-# 分析原则
-- 只关注会改变研究重点、判断顺序、模型条件、风险约束的变化
-- 不把措辞变化误判为交易环境变化
-- 不把单周噪音误判为框架级变化
-- 只有当变化会影响下层执行框架时，才视为“重要变化”
-- 将市场变化、证据修复和数据可得性变化分别归因。跨年数据、时区/单位错误、规则适用性误读的修复，应撤回错误判定并重评，不能当作新的市场冲击或新增护栏的依据；已经由其他有效证据触发的持续限制仍按原解除条件核验。
-- 每项待核数据按协议最多尝试两个公开来源；同源转载不算独立证据。达到限额后登记缺项性质及作用范围，不升级成要求用户购买数据的长期待办。
-- 可得性持续不足应优先缩小该模型的执行范围、移入研究观察，或提出有明确验证方法的公开数据模型变更；不得直接用新闻/价格代理宣称原专业指标已通过，也不得放宽账户、止损或组合预算来补偿。
+1. 先检查全部已知存量计划/持仓的事件、反证、止损、期限；再按共享模板列五品种短表，集中完成至多两条新计划，重点 M/RB 双向路线。新机会数量上限不截断存量复核。依次核 G1 范围合约、G2 模型信号/经济证据、G3 完整计划、G4 事件执行、G5 账户、G6 容量；不复制数值阈值。
+2. 先 data_feasibility、适用性/豁免，再列必要 unknown。专业增强缺失不否决全池；长期不可得必要依赖对应 research_only。账户未知仍尽量完成公共研究与数值计划，不能假设空仓或最终手数。
+3. `no_signal / incomplete / awaiting_account / blocked / ready`、all_blockers、only_blocker、null 使用共享定义。仅研究已成案、没有 fail、只剩账户类 unknown 才用 awaiting_account；已核 fail 与必要 unknown 并存保留两类信息，不混成 first_blocker。
+4. T 无 TP/净R；V 经济锚、收敛机制、反证、确认、止损/目标分别有依据。核锚与实际有序合约对一致、适用期及信号前冻结证据；同日冻结按可核时间先后判断，不能额外要求前一天冻结，时序不明记未知。快照筛选不是 G2 完整结论，不把缺产业证据写成信号确定失败。
+5. 已有信号可按当前框架评估未来执行，保留原 signal_date、valid_until、真实 evaluated_at/registered_at 和原 opportunity_id，不因新研究、重评或框架版本重启有效期。V 不事后拟合经济锚。
+6. 合约/日历、适用事件、实际保证金、报价与账户不猜测；国内交易日和时间分别记录，事件适用对象及首个允许时点分别核验。现有压力/保证金/组合预算保留，旧冻结和重复系数不回流。
+7. 生成唯一 schema 3 JSON，运行校验器；框架/helper输入与实际结果可复核。历史 schema 按当时规则读取，不回写历史成交或收益。旧影子引擎未支持 T/V 时只做有来源的人工轨迹审计。
+8. 诊断作为方法复评证据，不能凭持续空仓、一次踏空或护栏命中改风险。没有可靠完整轨迹，收益、机会成本未知。
 
 # 分析步骤
 
-## 第一步：逐项对比新旧变量
-历史报告若使用 A–H 或旧机制优先级，先标明其框架版本并按可追溯含义映射为 T / V 的背景材料；分类迁移本身不是市场变化，不迁入旧评分、许可冻结或已失效事件窗。
+## 0. 复核接续和纠错
+核明确采纳路径/hash、规则与计算依赖兼容性、行情日及纠错替代范围，文案/状态 hash 变化单独保留溯源。先撤回错误证据并重算受影响状态/系数/容量，再比较市场。旧观察逐条记已触发、未触发、已失效或转研究观察，不无限顺延。原合约即使退出本期 T 主合约列表也独立核日历和存量风险；入场到期不能代替持仓退出，缺账户不假设空仓或平仓。
 
-先处理 `EVIDENCE_CORRECTIONS`：确认新旧观测是否同年、同单位、同口径、同比较窗口，记录对原判定的影响；错误修复不列入市场变化计数。再核对 `DATA_FEASIBILITY`，将活跃/研究观察范围变化单列。随后比较以下市场变量：
-对以下字段逐项比较：
-- MAIN_CONTRADICTION
-- DOMINANT_TRADE_DRIVERS
-- KEY_CONSTRAINTS
-- PRIORITY_MECHANISMS
-- FRAGILE_TRADE_NARRATIVE
-- TOP_MISTAKE_TO_AVOID
-- PRECHECK_ITEMS
+## 1. 比较状态
+以品种主因、价格筛选、约束、研究排序及计划状态为主；可选宏观背景只在相关时比较。前后观察须同年、同单位、同口径，缺项与真实变化分开。变化级别用于描述市场影响，不自动映射方法级别。
 
-对每一项判断变化级别：
-- 无变化
-- 轻微变化
-- 重要变化
-- 结构性变化
+## 2. 检查现行规则是否已能处理
+对每项变化先说明哪条 T/V 或风险规则适用、如何改变候选。按既定规则触发、退出或形成相反方向候选直接研究，无需改方向许可。仅文本表达变化不计方法缺陷。
 
-## 第二步：识别变化的交易含义
-对所有“重要变化”和“结构性变化”逐项回答：
-1. 这个变化意味着什么？
-2. 它会影响哪些品种/交易类型？
-3. 它会改变哪些模型假设、必要条件、执行逻辑或风险约束？
+## 3. 仅为真实方法变更建立论证
+至少回答：
+- 明确缺陷或新的有效证据是什么。
+- 为何通过状态刷新、正确适用现有规则或原风险档位仍不能处理。
+- 在相同输入下，旧新信号、计划、容量或退出行为有什么可复核差异；包含反例/失败路径。
+- 对存量计划、原登记和历史输出有什么影响，哪些需要撤回/重评。
+- 固定哪个版本继续验证、观察什么结果、什么条件撤回变更。
 
-## 第三步：判断是否需要更新执行框架
-请给出明确判断：
-- 无需更新
-- 仅需轻微更新
-- 需要显著更新
-- 需要部分重构
+不把全量回测完成设为新的研究/交易门；纠错及时处理，无法可靠验证收益则明确未知。不因单周输赢调参，不通过降低止损或预算门补偿缺数据。
 
-并说明：
-- 为什么
-- 是哪些变量变化触发了这个判断
-- 如果不更新，会有什么风险
+## 4. 分类交付
+state_refresh / evidence_correction 总是按需完成；method_change 才进入适配。原文件状态分区只更新日期、摘要、报告/handoff引用，版本不因状态升档；原报告保留、修订另存。把当前采纳材料交回入口登记共享接续，状态引用 PR 未合并不阻断已采纳日志。单阶段返回完整结果给入口，不自动发布。
 
-## 第四步：若需要更新，提炼关键变量变化清单
-每个变量必须写清：
-- 变量名
-- 旧值
-- 新值
-- 变化方向
-- 变化级别
-- 交易含义
-- 对下层框架的潜在影响
+# 输出：期货变化检测结果
 
-## 第五步：提炼“执行框架更新重点”
-请进一步总结：
-- 下层框架本次最该改什么
-- 哪些部分只需微调
-- 哪些部分不应因为噪音被改动
+## 1. 输入与覆盖
+日期、实际方法版本/修订、行情日、前期采纳路径、数据可得性变化、原证据撤回范围及审计路径。
 
-## 第六步：严格按以下格式输出
+## 2. 三类结论
+逐类说明是否需要、实际处置、受影响对象。方法级别单列；无方法变更不省略状态/纠错结果。
 
-# 期货元框架变化检测结果
-
-## 1. 基本信息
-- 调研时点：
-- 对比对象：本次元框架结果 vs 上次元框架结果
-- 框架版本/修订号：
-- 活跃研究范围与 research_only 变化：
-- 本期证据修复及需撤回/重评的旧判定：
-
-## 2. 总结论
-- 是否需要更新期货执行框架：
-- 更新级别：
-- 结论理由：
-
-## 3. 新旧对比总览
-| 变量 | 上次结果 | 本次结果 | 变化级别 | 是否重要 |
+## 3. 品种与计划变化
+| 品种/机会 ID | 前期可比观察 | 本期观察 | 支持/反证变化 | 现行规则处置 |
 |---|---|---|---|---|
-| MAIN_CONTRADICTION |  |  |  |  |
-| DOMINANT_TRADE_DRIVERS |  |  |  |  |
-| KEY_CONSTRAINTS |  |  |  |  |
-| PRIORITY_MECHANISMS |  |  |  |  |
-| FRAGILE_TRADE_NARRATIVE |  |  |  |  |
-| TOP_MISTAKE_TO_AVOID |  |  |  |  |
-| PRECHECK_ITEMS |  |  |  |  |
 
-## 4. 重要变化项
-### 变化项1
-- 变量：
-- 旧值：
-- 新值：
-- 变化方向：
-- 变化级别：
-- 交易含义：
-- 影响对象：
-- 对下层框架的潜在影响：
+## 4. 证据纠错
+原说法、修正来源/日期/口径、撤回用途、受影响检查及已完成重评；无则空。
 
-### 变化项2
-- 变量：
-- 旧值：
-- 新值：
-- 变化方向：
-- 变化级别：
-- 交易含义：
-- 影响对象：
-- 对下层框架的潜在影响：
+## 5. 方法变更（仅有时展开）
+缺陷、现有规则不足、同输入行为差异、存量影响、验证及撤回判据；无时写 none，不制造更新重点。
 
-## 5. 是否触发执行框架更新
-- 判断：
-- 依据：
-- 若不更新，为什么：
-- 若更新，重点更新什么：
+## 6. 接续与待核
+本期应采纳的报告/审计、纠错覆盖范围、原计划有效期、具体缺口与恢复条件。
 
-## 6. 本次执行框架更新重点
-- 重点1：
-- 重点2：
-- 重点3：
+## 7. 结构化结果
 
-## 7. 输出给下一步使用的结构化结果
-请严格提炼为以下字段：
+```yaml
+CHANGE_CLASSIFICATION:
+  state_refresh_needed: yes / no
+  evidence_correction_needed: yes / no
+  method_change_needed: yes / no
 
 FRAMEWORK_UPDATE_DECISION:
-  update_needed: yes / no
+  update_needed: yes / no  # 仅等于 method_change_needed
   update_level: none / light / significant / partial_rebuild
   decision_reason: ""
+
+STATE_REFRESH:
+  affected_scope: []
+  completed_actions: []
+  current_report_refs: []
 
 KEY_VARIABLE_CHANGES:
   - variable_name: ""
     old_value: ""
     new_value: ""
-    change_direction: ""
-    change_type: ""
-    importance_level: ""
+    change_type: state_refresh / evidence_correction / method_change
     trading_meaning: ""
     downstream_impact: ""
 
 EVIDENCE_CORRECTIONS:
   - original_claim: ""
-    correction_basis: "观测日期、原始来源、口径或适用规则"
+    correction_basis: "观测日、原始来源、口径或实际适用规则"
     affected_decisions: []
-    reassessment_result: "仅记录已完成的重评；修复本身不代表市场变动"
+    reassessment_result: "只记录已完成重评"
 
 DATA_FEASIBILITY:
   - scope: "品种/模型"
-    data_feasibility: null  # available / temporary_gap / research_only；含义遵循 framework/FUTURES_DATA_PROTOCOL.md
+    data_feasibility: available / temporary_gap / research_only
     missing_required_inputs: []
     unavailable_enhancements: []
     scope_change: ""
     recovery_condition: null
 
-UPDATE_FOCUS:
-  - ""
-  - ""
-  - ""
-
-DO_NOT_OVERREACT_ITEMS:
-  - ""
-  - ""
+METHOD_CHANGE_EVIDENCE: []  # 有方法变更时填缺陷、现规则不足、同输入差异、存量影响、固定版本验证、撤回条件
+UPDATE_FOCUS: []           # 仅方法变更
+DO_NOT_OVERREACT_ITEMS: []
 
 EXECUTION_AUDIT:
-  path: "research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md"
+  path: ""
   framework_version: ""
   coverage: complete / partial / unknown
   active_scope: []
   research_only_scope: []
-  summary: "按诊断证据概括；不以 incomplete 代称市场不值得交易"
+  summary: "不以 incomplete 代称市场不值得交易"
+```
 
-## v3 发布前检查
-
-- 新候选只用 trend / economic_reversion 及 G1–G6；不继承旧 A–H 评分、M 无模型、RB 单边禁令、MA 永久方向禁令或宏观全面冻结。历史报告不回写为新规则结果。
-- T 确认使用信号日前完整日线通道，信号只能用于之后可交易时点；V 的经济锚、收敛机制、反证、确认和真实止损分别留依据。T 没有 TP/净R，不因这两个字段不适用而判未完成。
-- 研究已成案、无已核 fail 且仅剩账户类 unknown 才用 awaiting_account；其他状态按共享模板。已知 fail 与必要 unknown 并存保留两类信息；直接未触发可提前结束下游核验。
-- 当前 schema 的 unknown、证据纠错及相关检查引用须完整；无效证据撤回后重算受影响的门、系数、状态与容量，不能只声称结论不变。TOP_MISTAKE 标明实际错误来源。
-- 事件适用对象、国内 T、冻结起止和首个允许入场日分别核对；治理 deadline 不是官方发布日。压力与保证金检验保留，旧分数和重复系数不回流。
-- 至多两份前瞻计划保留原登记版本；无法登记说明具体缺件。旧快照影子结算仅说明历史模型结果，新 T / V 人工轨迹明确来源与限制，不声称已经收益验证。
+历史字段缺失应标未评估而非默认可通过；输出字段是交接契约，不增加交易门槛。

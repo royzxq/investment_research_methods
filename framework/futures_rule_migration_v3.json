@@ -240,17 +240,17 @@
     "r-conf-definition": {
       "disposition": "mapped",
       "target": "r-v3-validation",
-      "reason": "信号定义必须事前冻结，缺定义由研究方补齐，不回填历史触发；新版T/V定义以当前框架为准。"
+      "reason": "当前评估先固定定义，按原价格日及原有效期向未来登记，不回填历史建议/成交；T可重评既有行情，V仍须信号前冻结经济锚，具体边界以canonical为准。"
     },
     "r-conf-owner": {
       "disposition": "mapped",
       "target": "r-v3-validation",
-      "reason": "信号定义必须事前冻结，缺定义由研究方补齐，不回填历史触发；新版T/V定义以当前框架为准。"
+      "reason": "当前评估先固定定义，按原价格日及原有效期向未来登记，不回填历史建议/成交；T可重评既有行情，V仍须信号前冻结经济锚，具体边界以canonical为准。"
     },
     "r-conf-prospective": {
       "disposition": "mapped",
       "target": "r-v3-validation",
-      "reason": "信号定义必须事前冻结，缺定义由研究方补齐，不回填历史触发；新版T/V定义以当前框架为准。"
+      "reason": "当前评估先固定定义，按原价格日及原有效期向未来登记，不回填历史建议/成交；T可重评既有行情，V仍须信号前冻结经济锚，具体边界以canonical为准。"
     },
     "r-d10-score": {
       "disposition": "retired",

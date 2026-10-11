@@ -1,6 +1,8 @@
 # 期货执行诊断：v3.0 两类策略与六个条件
 
-本模板对应 [canonical](../../framework/futures_framework.md#r-v3-audit) 与 [数据协议](../../framework/FUTURES_DATA_PROTOCOL.md)，不另存一套投资规则。每周报告存入 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md`；定向维护按 `research/README.md` 保存隔离产物。框架变更后的重评须标注 `proposed_framework_reassessment` 和最终版本，不能把新规则写成历史已生效。每轮集中完成至多两条方案，优先 M、RB；证据不足就写具体缺口，不将尚未完成的研究解释为没有机会。
+本模板对应 [canonical](../../framework/futures_framework.md#r-v3-audit) 与 [数据协议](../../framework/FUTURES_DATA_PROTOCOL.md)，不另存一套投资规则。每周报告存入 `research/futures/weekly/<AS_OF_DATE>/<AS_OF_DATE>-execution-audit.md`；定向维护按 `research/README.md` 保存隔离产物。方法变更后的重评须标注 `proposed_framework_reassessment` 和最终版本，不能把新规则写成历史已生效；纯状态刷新/证据纠错沿用实际方法并注明修订来源，不假称方法升级。已有T信号可按原有效期为未来执行登记。先复核全部已知存量计划/持仓的事件、反证、止损及期限；至多两条只限制新机会深研，优先 M、RB；证据不足就写具体缺口，不将尚未完成的研究解释为没有机会。
+
+从按类型采纳的 handoff 及跨 worktree 共享记录读取前期事实、原计划和累积纠错，逐条处理适用范围；保留实际canonical修订/哈希、输入行情日与评估时间。新鲜度、真实日历、信号有效期和登记后的可执行时段须在运行中复核，结构校验通过不能代替这些检查。机械refresh结果只有价格筛查含义，不能直接变为ready或替代G1–G6；本期审计采纳后登记精确路径，不按修订文件名自动提升。
 
 ## 最小诊断
 
@@ -22,11 +24,12 @@ G4 完成公开风险与执行方案，不等待账户实收保证金、可用�
 ## 计划与状态
 
 - 候选单位=`行情日+真实合约/价差对+策略+方向+框架版本`。同一机会跨周保留 `opportunity_id`，不能重复计为新交易。`direction=long/short`；未定方向只可登记 `unknown` 的未完成候选。
+- 当前重评记录带时区`evaluated_at/registered_at`，保留原`plan.signal_date`和`valid_until`。只使用登记后的未来可交易时段，不重启两日计时、不回填已发生夜盘；当前产业证据不冒充当时已知。V经济锚的信号前冻结要求不变。
 - 两类计划共用 `entry`、`stop`、`entry_range=[low,high]`、`signal_date`、`valid_until`、`latest_exit_date`。日期须为 `YYYY-MM-DD`，有效期和最晚退出须按真实交易日验证；研究方填写，不由用户补写策略。工具的 `entry_expiry` 转为 ISO 日期记入 `valid_until`，选择某日入场时另外保留 `entry_date`。回归的有效报价区间由研究方事前冻结，允许单点 `[Entry,Entry]`，不额外设任意宽度阈值。
 - `trend`：一张真实合约，`targets=null`，`exit_rule=initial_2atr_and_prior10_channel_tighten_only_max20_sessions`；止损由真实入场与 ATR 确定，前 10 日通道只收紧，最多 20 个交易日。无固定 TP、无净 R 门，不为评分虚构目标。信号/范围/价格和期限用 `scripts/futures_strategy.py` 的当前入口验证。
 - `economic_reversion`：contracts 按近、远顺序列两张同品种真实合约，`leg_ratio=[1,1]`，`anchor_band={low,high,source,as_of_date}`，以及 `economic_anchor_basis`、`convergence_mechanism`、`invalidation_basis`。`targets` 仅含靠近入场一侧的锚边界，整个 entry_range 严格位于 SL 和目标之间，采用经济失效止损；报告 `net_R` 取计算器 `entry_range_min_reward_risk`（整个区间最差净 R），必须≥2.5，选定报价的 `reward_risk` 可另列 `selected_entry_net_R`。计划有效期为信号后 2 个交易日，失效须重新计算，不能沿用旧锚、分位或旧信号。
 - `signal=not_triggered` 且有完整直接证据 → `no_signal`。仅说明本路线未触发，不外推全品种无机会。
-- 周度研究可预写最多两份尚未触发的条件观察计划，仍标 `no_signal`；在 `observation_plan` 说明触发条件、经济依据及需要刷新什么，不虚构未来 signal_date，不标 ready。T/V 信号只有两个交易日有效，必须每个交易日机械刷新价格/信号/有效期，触发后补齐六门及实际账户再判断；本轮不创建或部署自动刷新任务。
+- 周度研究可预写最多两份尚未触发的条件观察计划，仍标 `no_signal`；在 `observation_plan` 说明触发条件、经济依据及需要刷新什么，不虚构未来 signal_date，不标 ready。T/V 信号只有两个交易日有效，每个交易日机械刷新价格/信号/有效期，触发后补齐六门及实际账户再判断；同一机会保留原登记时间及窗口，刷新失败/缺项单独报告，不借刷新生成历史成交。
 - 必要证据、方向、计划、执行或账户存在未完成项 → `incomplete`，已知失败仍列 `all_blockers`。G1–G4 均 pass 且完整计划成立、只余账户相关 G5/G6 unknown → `awaiting_account`、`final_lots=null`，不能藏在 incomplete。
 - 没有未知项、账户已核且有已知硬失败或核算容量为零 → `blocked`。G1–G6 全 pass、信号触发、数据可得、完整计划与当日账户均核验且 `final_lots>=1` → `ready`。ready 是研究结论，不代表交易已执行。
 

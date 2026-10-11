@@ -1,0 +1,95 @@
+[
+  {
+    "opportunity_id": "T-original",
+    "signal_date": "2026-09-24",
+    "valid_until": "2026-09-28",
+    "registered_at": "2026-09-24T19:00:00+08:00",
+    "status": "session_check_required",
+    "execution_permission": "not_evaluated",
+    "signal_clock_reset": false,
+    "calendar_checks": [
+      {
+        "contract": "MA2701",
+        "basis": "exact_contract_inputs",
+        "exchange": "CZCE",
+        "source_contracts": [
+          "MA2701"
+        ],
+        "calendar_source": "future_data v1.18: Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+        "price_refresh_status": "not_evaluated",
+        "price_input_checks": [
+          {
+            "source_contract": "MA2701",
+            "input_kind": "external_market_input",
+            "status": "not_evaluated"
+          }
+        ]
+      }
+    ],
+    "registration_order_status": "unknown_same_day_signal_completion_time",
+    "original_valid_entry_dates": [
+      "2026-09-25",
+      "2026-09-28"
+    ],
+    "remaining_entry_dates": [],
+    "entry_session_checks_required_dates": [
+      "2026-09-28"
+    ],
+    "allowed_execution_session": "not_evaluated_require_after_registration"
+  },
+  {
+    "opportunity_id": "V-original",
+    "signal_date": "2026-09-24",
+    "valid_until": "2026-09-28",
+    "registered_at": "2026-09-24T19:00:00+08:00",
+    "status": "session_check_required",
+    "execution_permission": "not_evaluated",
+    "signal_clock_reset": false,
+    "calendar_checks": [
+      {
+        "contract": "MA2705",
+        "basis": "exact_contract_inputs",
+        "exchange": "CZCE",
+        "source_contracts": [
+          "MA2705"
+        ],
+        "calendar_source": "future_data v1.18: Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+        "price_refresh_status": "not_evaluated",
+        "price_input_checks": [
+          {
+            "source_contract": "MA2705",
+            "input_kind": "external_market_input",
+            "status": "not_evaluated"
+          }
+        ]
+      },
+      {
+        "contract": "MA2709",
+        "basis": "exact_contract_inputs",
+        "exchange": "CZCE",
+        "source_contracts": [
+          "MA2709"
+        ],
+        "calendar_source": "future_data v1.18: Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+        "price_refresh_status": "not_evaluated",
+        "price_input_checks": [
+          {
+            "source_contract": "MA2709",
+            "input_kind": "external_market_input",
+            "status": "not_evaluated"
+          }
+        ]
+      }
+    ],
+    "registration_order_status": "unknown_same_day_signal_completion_time",
+    "original_valid_entry_dates": [
+      "2026-09-25",
+      "2026-09-28"
+    ],
+    "remaining_entry_dates": [],
+    "entry_session_checks_required_dates": [
+      "2026-09-28"
+    ],
+    "allowed_execution_session": "not_evaluated_require_after_registration"
+  }
+]

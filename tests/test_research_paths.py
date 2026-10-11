@@ -54,6 +54,22 @@ class LayoutTests(unittest.TestCase):
         with self.assertRaises(ValueError): paths.artifact_path('investment', 'execution-audit', '20261001', self.root)
         with self.assertRaises(ValueError): paths.company_dir('../HK', '01952', '20261001', self.root)
 
+    def test_futures_handoff_and_refresh_are_dated_isolated_families(self):
+        for kind, folder in [('handoff', 'weekly'), ('signal-refresh', 'refresh'), ('anchors', 'anchors')]:
+            with self.subTest(kind=kind):
+                official = paths.artifact_path('futures', kind, '2026-10-11', self.root)
+                self.assertEqual(official.relative_to(self.root).as_posix(),
+                                 f'research/futures/{folder}/2026-10-11/2026-10-11-{kind}.json')
+                self.write(official, '{}')
+                self.write(official.with_name(f'2026-10-11-{kind}-r2.json'), '{}')
+                self.write(official.with_suffix('.md'), 'report')
+                self.write(official.parent/f'2026-10-12-{kind}.json', '{}')
+                self.assertEqual(paths.discover('futures', kind, '2026-10-11', self.root), [official])
+                self.assertEqual(paths.discover('futures', kind, '2026-10-11', self.root, before=True), [])
+                for track in ['investment', 'etf']:
+                    with self.assertRaises(ValueError):
+                        paths.artifact_path(track, kind, '2026-10-11', self.root)
+
     def test_company_paths_are_date_first_and_invalid_layouts_are_not_discovered(self):
         current = self.company_v2('HK', '01952', '2026-10-03')
         self.assertEqual(current.relative_to(self.root).as_posix(),

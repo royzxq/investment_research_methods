@@ -1,0 +1,259 @@
+{
+  "as_of_date": "2026-10-11",
+  "generated_at": "2026-10-11T18:21:27.377320+08:00",
+  "generator": "codex",
+  "scope": "review_only; current_worktree_reports; no_remote_fetch_or_market_research",
+  "git_refs_local_only": {
+    "HEAD": "6cc3b0361e3bf2cfd5f77756bb9060d448c651d9",
+    "main": "6cc3b0361e3bf2cfd5f77756bb9060d448c651d9",
+    "origin/main": "44f3741cbae27b5394bb691e3ef52893913445d3"
+  },
+  "formal_report_counts": {
+    "market-research": 15,
+    "change-decision": 15,
+    "adaption-report": 16,
+    "execution-audit": 6
+  },
+  "decisions": [
+    {
+      "path": "research/futures/weekly/2026-07-12/2026-07-12-change-decision.md",
+      "sha256": "439e2e198eb151b3610f4be9f7c069d831bc0446cc7e1b11528154f65be6039c",
+      "date": "2026-07-12",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": false
+    },
+    {
+      "path": "research/futures/weekly/2026-07-15/2026-07-15-change-decision.md",
+      "sha256": "594f49ac77df652533f740d689e0edc1b551cb2c71c6679eb98d117f4a065718",
+      "date": "2026-07-15",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-07-18/2026-07-18-change-decision.md",
+      "sha256": "6e08abb83d831d9c16582b92182bf5bf0f1448bc9f919348ede1a93d5e00d99a",
+      "date": "2026-07-18",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-07-25/2026-07-25-change-decision.md",
+      "sha256": "40e53598cc203e404025371038757df74bd634990d3893d15d4a4676971e893b",
+      "date": "2026-07-25",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-08-01/2026-08-01-change-decision.md",
+      "sha256": "482683c6abb250630d67f1402e06dcf18df4917b0fa74cb9c96668fbdedd8d19",
+      "date": "2026-08-01",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-08-08/2026-08-08-change-decision.md",
+      "sha256": "18c1608b36f2cd9451afe639f651c484ea744d2a91b262290bd7df06b3870f40",
+      "date": "2026-08-08",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-08-15/2026-08-15-change-decision.md",
+      "sha256": "f565626ecd9ac969f79bf7d63316b0807925e21f2d46c81313b7e893f06fe545",
+      "date": "2026-08-15",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-08-22/2026-08-22-change-decision.md",
+      "sha256": "b06eb316bdc1c5c5ea695f9e98c7a0475a5de013f69f83f51161cf03fbfcfd90",
+      "date": "2026-08-22",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-08-29/2026-08-29-change-decision.md",
+      "sha256": "a189d4bee0659892d996255aeebe4093e9941f2bca4fa292f6ed714dd2929d5c",
+      "date": "2026-08-29",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-09-05/2026-09-05-change-decision.md",
+      "sha256": "5e14ed29dc2c17890d3a9dbe104031766c80557f3851af69f3c090ff58b7b0e8",
+      "date": "2026-09-05",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-09-12/2026-09-12-change-decision.md",
+      "sha256": "7c7c317e87991c85ad35c46b4455639bc450d538327fda6baabd1275df72788a",
+      "date": "2026-09-12",
+      "update_needed": "yes",
+      "update_level": "light",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-09-19/2026-09-19-change-decision.md",
+      "sha256": "22a8746ea0c431c0567f598e22b22404d58939e39fff8dc85750819a1b48ca7c",
+      "date": "2026-09-19",
+      "update_needed": "yes",
+      "update_level": "significant",
+      "same_date_adaption_exists": true
+    },
+    {
+      "path": "research/futures/weekly/2026-09-26/2026-09-26-change-decision.md",
+      "sha256": "4bff008d9c10bd55ce4b34d2eb887457f38f50bd2c406f289aa84faaa1f97e32",
+      "date": "2026-09-26",
+      "update_needed": "yes",
+      "update_level": "light",
+      "same_date_adaption_exists": false
+    },
+    {
+      "path": "research/futures/weekly/2026-10-03/2026-10-03-change-decision.md",
+      "sha256": "8d3ca3f8be8285bbced9bf4e9863b708562a948a4ae2206b33eb8def79bc988d",
+      "date": "2026-10-03",
+      "update_needed": "yes",
+      "update_level": "light",
+      "same_date_adaption_exists": false
+    },
+    {
+      "path": "research/futures/weekly/2026-10-11/2026-10-11-change-decision.md",
+      "sha256": "49402f252d8b1cd7772242beb7b5324785936590bb41e8076a28a126e6b4192d",
+      "date": "2026-10-11",
+      "update_needed": "yes",
+      "update_level": "light",
+      "same_date_adaption_exists": true
+    }
+  ],
+  "decision_levels": {
+    "significant": 11,
+    "light": 4
+  },
+  "same_date_adaption_count": 12,
+  "isolated_revisions_excluded_from_formal_counts": [
+    "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r2.md",
+    "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+    "research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md"
+  ],
+  "read_sources": [
+    {
+      "path": ".agents/skills/futures-weekly-review/SKILL.md",
+      "sha256": "744ee6a7b2a530abd2bbb1d9eb08204967283dc482a0815a75857f7016bc5266"
+    },
+    {
+      "path": "projects/meta_future_analysis/INSTRUCTIONS.md",
+      "sha256": "63f4c9c1437d6180afacfbcd19fc84c7f0ad279edc1da2bc9453bebebb73d91b"
+    },
+    {
+      "path": "projects/future_change_analysis/INSTRUCTIONS.md",
+      "sha256": "1da587be9e9bf3f236932bde716e266e7304c8e03a496c24c69eb9738893b975"
+    },
+    {
+      "path": "projects/future_adaption/INSTRUCTIONS.md",
+      "sha256": "b87dc0821308648de83635ca0c66b6d235fbd24bf61bea5e02610e5b09a9ccc8"
+    },
+    {
+      "path": "framework/futures_framework.md",
+      "sha256": "1b5a7c54df401b5fb5a0f10f28fe7059a1b9138a8d7e59dfce6d5093e0b3c65a"
+    },
+    {
+      "path": "framework/futures_framework_compact.md",
+      "sha256": "a747ceda026ae097a43c5085c3d521fad6d388dfe82907c2253569febab8031f"
+    },
+    {
+      "path": "framework/FUTURES_DATA_PROTOCOL.md",
+      "sha256": "6100ec1dfa395afb4176f47d913c0da75dadea32f3743ff3c5f0e41495aed2cd"
+    },
+    {
+      "path": "scripts/research_paths.py",
+      "sha256": "58268b8e83aecb374d2576a46dc0918454acaa5e5a3106d9943f3db4b4c0f704"
+    },
+    {
+      "path": "scripts/futures_framework_governance.py",
+      "sha256": "58494efdffb7d323e2bc151b1e9209d2a5ac15e49c9f0bb8960039044e5e4929"
+    },
+    {
+      "path": "scripts/validate_futures_audit.py",
+      "sha256": "d3aa49b766089a0359a2cff467521713534f914a4a2d6c47b3abf817ec81e355"
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "sha256": "68bde1bff28d5bf58d7d4cd4e1342f63743ad408c555c2636c2a3260e54ebe92"
+    },
+    {
+      "path": "docs/context/project-state.md",
+      "sha256": "0d9a12824efb0929c3c5b8632c187f94f2962f05e5b826f75c74482ab513fa71"
+    }
+  ],
+  "automation_config": {
+    "path": "/Users/xinquanzhou/.codex/automations/automation/automation.toml",
+    "sha256": "68eee45c3d14e603b709738dd6b9a0f6a2c1d9e274b969e2fcef7aba39f2b936",
+    "observed_status": "ACTIVE",
+    "local_schedule_description": "每周日01:00；提示词按Asia/Shanghai运行日",
+    "changed": false
+  },
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "scripts/research_paths.py",
+        "list",
+        "--track",
+        "futures",
+        "--kind",
+        "market-research",
+        "--as-of",
+        "2026-10-12",
+        "--before"
+      ],
+      "exit_code": 0,
+      "stdout": "research/futures/weekly/2026-07-12/2026-07-12-market-research.md\nresearch/futures/weekly/2026-07-15/2026-07-15-market-research.md\nresearch/futures/weekly/2026-07-18/2026-07-18-market-research.md\nresearch/futures/weekly/2026-07-25/2026-07-25-market-research.md\nresearch/futures/weekly/2026-08-01/2026-08-01-market-research.md\nresearch/futures/weekly/2026-08-08/2026-08-08-market-research.md\nresearch/futures/weekly/2026-08-15/2026-08-15-market-research.md\nresearch/futures/weekly/2026-08-22/2026-08-22-market-research.md\nresearch/futures/weekly/2026-08-29/2026-08-29-market-research.md\nresearch/futures/weekly/2026-09-05/2026-09-05-market-research.md\nresearch/futures/weekly/2026-09-12/2026-09-12-market-research.md\nresearch/futures/weekly/2026-09-19/2026-09-19-market-research.md\nresearch/futures/weekly/2026-09-26/2026-09-26-market-research.md\nresearch/futures/weekly/2026-10-03/2026-10-03-market-research.md\nresearch/futures/weekly/2026-10-11/2026-10-11-market-research.md\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/research_paths.py",
+        "list",
+        "--track",
+        "futures",
+        "--kind",
+        "data-snapshot",
+        "--as-of",
+        "2026-10-11",
+        "--committed"
+      ],
+      "exit_code": 0,
+      "stdout": "research/futures/snapshots/2026-09-16-data-snapshot.txt\nresearch/futures/snapshots/2026-09-18-data-snapshot.txt\nresearch/futures/snapshots/2026-09-19-data-snapshot.txt\nresearch/futures/snapshots/2026-09-21-data-snapshot.txt\nresearch/futures/snapshots/2026-10-10-data-snapshot.txt\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/futures_framework_governance.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "framework/futures_framework.md: 29,760 UTF-8 bytes, 243 lines, 30 explicit anchors\nframework/futures_framework_compact.md: 19,610 UTF-8 bytes, 180 lines, 30 explicit anchors\nframework/FUTURES_DATA_PROTOCOL.md: 11,463 UTF-8 bytes, 99 lines, 0 explicit anchors\nStructural checks passed; semantic equivalence and investment validity are not verified.\n",
+      "stderr": ""
+    }
+  ],
+  "limits": [
+    "Not a count of successful automated runs or independent trading opportunities",
+    "Historical market claims not reverified",
+    "origin/main is a local remote-tracking ref; server state not fetched",
+    "Structural validation is not source, freshness or strategy-return verification",
+    "No production edit; no full test rerun, API call, schedule change or publication"
+  ]
+}

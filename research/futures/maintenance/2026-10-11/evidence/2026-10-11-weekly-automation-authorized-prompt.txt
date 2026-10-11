@@ -1,0 +1,15 @@
+用户已明确授权本周更自动化自动推送研究日志到 origin/main，为框架修改创建 PR，但不得自动合并。以 Asia/Shanghai 运行日为 AS_OF_DATE，使用 .agents/skills/futures-weekly-review/SKILL.md 的 full + publish 模式。状态刷新、证据纠错、方法变更分别判定；FRAMEWORK_UPDATE_DECISION.update_needed 仅表示方法变更。无方法变更也完成本期研究、执行审计、状态和接续。不执行交易，不自动合并 PR。
+
+使用本任务独立 Git worktree，先发现并复用自己匹配的工作区，不复用其他活动任务工作区。安全 fetch origin，以最新 origin/main 为实际采用基线，不夹带原项目未发布改动。核 v3 canonical、maintenance_contract=futures-maintenance/v2 及 futures_handoff.py、futures_refresh.py、futures_continuity.py 均已部署；缺部署则明确 deployment_missing 并停止依赖步骤，不回退旧方法。读取 AGENTS.md、项目状态、环境、数据协议、审计模板和 skill 必要 references。原项目源文件只读；仅允许 continuity 工具按 git-common-dir 定位后写共享 research/futures/local-continuity 数据目录，这是持续采纳材料，不是缓存。
+
+启动按报告类型 resolve main 采纳：execution-audit 接当前候选，market-research --before 取严格早于本期的比较基线；同日修订只接当期材料。将确切 main handoff 幂等 publish 到本地共享存储，再 collect 本期材料；两种任务都消费同一存储，不只读 main 或 memory。没有某类 main handoff 仍读取已有共享材料；损坏不静默回退。v1 无计算依赖身份则只读历史，找到登记时原件并核来源后才显式 migrate；不拿当前 helper 冒充历史。方法不兼容可显式 --allow-historical 接事实、原 ID/登记/期限和纠错，先重评，不继承状态。完整文件 hash 用于追溯，兼容性按有效规则和计算依赖，标题或维护文案不重置计划。读取 continuity.json 的 corrections、review_scope、requires_plan_reassessment、requires_method_reassessment 及冲突；冲突逐项裁决并保留依据。
+
+按环境文档用可用 Python，授权 futures_refresh.py --as-of 当天 --fetch，显式传 collect 的 plans.json/anchors.json（有待方法重评项先按现规则处理）。冻结所用原料，核完整快照、实际行情日及真实日历，失败、陈旧、未评估与 no_signal 分列。保留原 opportunity_id、signal_date、registered_at、valid_until；截止日场次未知须核实际可交易时段，不延长两日。V 按同一有序合约对核两腿原料、来源及日历；事前锚可同日冻结，但须独立时序证据证明早于信号；不可事后造锚。旧计划日历不依赖本轮 T 主合约名单，价格缺口另报。
+
+先逐一复核所有已知存量计划/持仓的公告、经济反证、止损/退出、事件窗及期限；入场到期不等于持仓退出，账户未知只给条件管理。再做五品种价格/数据可得性短表及各自主因研究，重点 M/RB，最多深入两个新机会，不能据此截断存量风险复核。研究方维护 MA/RB/SR 有经济证据的 V 观察锚，正式冻结来源、计算、适用月份/截止与失效条件；缺证据记录待补研究，不强制造锚。失效锚以 withdrawals[] 明确撤回，续期另存未来适用修订，不改旧计划和原时钟。
+
+每期 market-research、change-decision、execution-audit；纠错保留原稿另存修订。状态仅更新原状态分区及 compact；只有规则确有缺陷才适配、同步必要工具并做同输入重评。保持现行 T/V 参数和核心风控，方法提议须有缺陷、行为差异、存量影响、固定版本验证及撤回条件，不能因单周盈亏或没给建议调参。
+
+按既有发布授权：先在实际采用且 canonical/helper 与 HEAD 一致的干净基线上冻结并提交原框架研究、决策、审计和实际使用的共享来源/新原料；登记、提交 published handoff 及历史/迁移证据，校验后安全推送仅含授权日志和交接的提交到 origin/main，核远端包含。再用一个 codex/ 更新分支提交 canonical/compact 状态引用或拟议方法并创建/复用单一 PR，等待人工审核。状态 PR 未合并不阻断已发布研究接续；拟议规则重评标 proposed_framework_reassessment，不覆盖 main 采纳。publication_verified 只证 HEAD 字节一致，不代替实际 origin/main 采用。非快进安全同步复核，绝不强推。发布失败仍保存并共享本地研究，明确失败。
+
+完成审计和锚维护后，用 continuity publish 交付同一本地存储，冻结所有实际引用；该 publish 不等于 Git 发布。同日先复用输入匹配的产物、提交、PR，变化另存修订。内置网页搜索并读原文，不调用 Gemini；子代理同样遵守。凭据只继承环境，缺数据/账户保持 null。运行必要治理、审计、离线检查，分别报告真实 API 与离线验证，不宣称未复现收益。汇报三类结论、基线/行情、接续、研究路径和缺口；创建 PR 后 attach_artifact 到本聊天。

@@ -1,0 +1,259 @@
+{
+  "as_of_date": "2026-10-11",
+  "framework_version": "v3.0",
+  "scope": "market_arithmetic_not_execution_permission",
+  "input_path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/futures/weekly/2026-10-11/evidence/v3-r2/2026-10-11-market-inputs-codex.json",
+  "input_sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+  "snapshot_path": "research/futures/snapshots/2026-10-11-data-snapshot.txt",
+  "snapshot_sha256": "a6efcee8b55ec77f2833473b499e48e83ca9ec5cf3632997fb51603fc4d1ccef",
+  "trend": [
+    {
+      "contract": "MA2701",
+      "market_trade_date": "20261009",
+      "close": 3338.0,
+      "signal_1009": "triggered",
+      "direction_1009": "long",
+      "channel_high_1009": 3200.0,
+      "channel_low_1009": 2817.0,
+      "atr20_1009": 99.16455680366184,
+      "volatility_ratio": 1.0845672171896683,
+      "high_volatility": false,
+      "channel_high_for_1012": 3402.0,
+      "channel_low_for_1012": 2821.0,
+      "fetched_at": "2026-10-11T12:03:09.552791+08:00",
+      "recomputed_match": true
+    },
+    {
+      "contract": "RB2701",
+      "market_trade_date": "20261009",
+      "close": 3080.0,
+      "signal_1009": "not_triggered",
+      "direction_1009": null,
+      "channel_high_1009": 3183.0,
+      "channel_low_1009": 3060.0,
+      "atr20_1009": 30.243745503269064,
+      "volatility_ratio": 1.0727455184709542,
+      "high_volatility": false,
+      "channel_high_for_1012": 3183.0,
+      "channel_low_for_1012": 3060.0,
+      "fetched_at": "2026-10-11T12:03:10.073328+08:00",
+      "recomputed_match": true
+    },
+    {
+      "contract": "M2701",
+      "market_trade_date": "20261009",
+      "close": 3402.0,
+      "signal_1009": "not_triggered",
+      "direction_1009": null,
+      "channel_high_1009": 3502.0,
+      "channel_low_1009": 3327.0,
+      "atr20_1009": 49.17175218276189,
+      "volatility_ratio": 1.2005507089872431,
+      "high_volatility": false,
+      "channel_high_for_1012": 3502.0,
+      "channel_low_for_1012": 3327.0,
+      "fetched_at": "2026-10-11T12:03:10.577333+08:00",
+      "recomputed_match": true
+    },
+    {
+      "contract": "SR2701",
+      "market_trade_date": "20261009",
+      "close": 5491.0,
+      "signal_1009": "not_triggered",
+      "direction_1009": null,
+      "channel_high_1009": 5510.0,
+      "channel_low_1009": 5305.0,
+      "atr20_1009": 53.88747990017016,
+      "volatility_ratio": 1.1990705069685412,
+      "high_volatility": false,
+      "channel_high_for_1012": 5510.0,
+      "channel_low_for_1012": 5305.0,
+      "fetched_at": "2026-10-11T12:03:11.080891+08:00",
+      "recomputed_match": true
+    },
+    {
+      "contract": "CF2701",
+      "market_trade_date": "20261009",
+      "close": 15790.0,
+      "signal_1009": "not_triggered",
+      "direction_1009": null,
+      "channel_high_1009": 16955.0,
+      "channel_low_1009": 15490.0,
+      "atr20_1009": 215.75232860511124,
+      "volatility_ratio": 1.0593901273988675,
+      "high_volatility": false,
+      "channel_high_for_1012": 16900.0,
+      "channel_low_for_1012": 15490.0,
+      "fetched_at": "2026-10-11T12:03:11.615481+08:00",
+      "recomputed_match": true
+    }
+  ],
+  "reversion": [
+    {
+      "near": "MA2701",
+      "far": "MA2705",
+      "stage": "current",
+      "last5": [
+        [
+          "20260928",
+          277.0
+        ],
+        [
+          "20260929",
+          284.0
+        ],
+        [
+          "20260930",
+          279.0
+        ],
+        [
+          "20261008",
+          328.0
+        ],
+        [
+          "20261009",
+          416.0
+        ]
+      ],
+      "latest": [
+        "20261009",
+        416.0
+      ],
+      "economic_anchor": null,
+      "signal": "unknown"
+    },
+    {
+      "near": "RB2701",
+      "far": "RB2703",
+      "stage": "current",
+      "last5": [
+        [
+          "20260928",
+          -4.0
+        ],
+        [
+          "20260929",
+          -2.0
+        ],
+        [
+          "20260930",
+          2.0
+        ],
+        [
+          "20261008",
+          4.0
+        ],
+        [
+          "20261009",
+          2.0
+        ]
+      ],
+      "latest": [
+        "20261009",
+        2.0
+      ],
+      "economic_anchor": null,
+      "signal": "unknown"
+    },
+    {
+      "near": "SR2701",
+      "far": "SR2705",
+      "stage": "current",
+      "last5": [
+        [
+          "20260928",
+          -72.0
+        ],
+        [
+          "20260929",
+          -76.0
+        ],
+        [
+          "20260930",
+          -78.0
+        ],
+        [
+          "20261008",
+          -75.0
+        ],
+        [
+          "20261009",
+          -77.0
+        ]
+      ],
+      "latest": [
+        "20261009",
+        -77.0
+      ],
+      "economic_anchor": null,
+      "signal": "unknown"
+    },
+    {
+      "near": "MA2705",
+      "far": "MA2709",
+      "stage": "roll_preparation",
+      "last5": [
+        [
+          "20260928",
+          76.0
+        ],
+        [
+          "20260929",
+          81.0
+        ],
+        [
+          "20260930",
+          73.0
+        ],
+        [
+          "20261008",
+          130.0
+        ],
+        [
+          "20261009",
+          169.0
+        ]
+      ],
+      "latest": [
+        "20261009",
+        169.0
+      ],
+      "economic_anchor": null,
+      "signal": "unknown"
+    },
+    {
+      "near": "RB2703",
+      "far": "RB2705",
+      "stage": "roll_preparation",
+      "last5": [
+        [
+          "20260928",
+          -11.0
+        ],
+        [
+          "20260929",
+          -10.0
+        ],
+        [
+          "20260930",
+          -14.0
+        ],
+        [
+          "20261008",
+          -21.0
+        ],
+        [
+          "20261009",
+          -19.0
+        ]
+      ],
+      "latest": [
+        "20261009",
+        -19.0
+      ],
+      "economic_anchor": null,
+      "signal": "unknown"
+    }
+  ],
+  "current_strategy_signals": "10/09 arithmetic is pre-effective; use observations only"
+}

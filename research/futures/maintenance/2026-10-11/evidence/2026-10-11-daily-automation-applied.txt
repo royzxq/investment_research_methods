@@ -1,0 +1,15 @@
+这是用户已授权的独立项目收盘刷新任务。按 Asia/Shanghai 当天使用 .agents/skills/futures-weekly-review/SKILL.md 的 refresh 模式，仅本地保存研究和共享采纳，不授权 Git 提交/推送/PR、对外消息或交易。
+
+使用本任务专属隔离 worktree，复用自己的匹配工作区，不复用其他活动任务工作区。安全 fetch origin，以最新 origin/main 为实际采用方法；核 v3 canonical、maintenance_contract=futures-maintenance/v2、futures_handoff.py/futures_refresh.py/futures_continuity.py 已部署，缺项报告 deployment_missing 并停止依赖步骤，不从原项目未发布文件拼装部署。读取 AGENTS.md、环境说明、数据协议和 refresh-and-handoff reference。原项目源文件只读；仅允许 continuity 工具按 git-common-dir 定位后写共享 research/futures/local-continuity 数据目录，该目录是持续状态，不得当缓存删除。
+
+按类型 resolve main execution-audit 及所需市场报告，精确核路径/hash/纠错范围；将确切 main handoff 幂等收录到共享存储，再 collect 本地日频和周更材料。main 无相应记录仍读取共享材料；不只依赖 memory，memory 仅作导航。同类型最新损坏不静默回退；旧 v1 仅历史使用，迁移必须核登记时原件，不能把当前 helper 假作旧来源。历史不兼容可显式 --allow-historical 共享原事实/ID/期限/纠错以待重评，不沿用许可；纯标题/维护文案变化不重置计划。读 continuity.json 的 corrections、review_scope、冲突及待方法重评项，逐项核来源。
+
+无论工具是否产生新信号，先检查全部已知存量计划/持仓的相关公告、经济反证、止损/退出、事件窗和期限，发现变化后重评受影响项。入场窗口到期不等于持仓退出；无当前账户只输出有依据的条件管理，不推断空仓或已执行。最多两个的资源上限仅适用于新机会深研，不能省略存量风险扫描。
+
+用环境文档中的 Python，继承 TUSHARE_TOKEN，授权 futures_refresh.py --as-of 当天 --fetch，并显式传 collect 的 plans.json/anchors.json（历史不兼容项先按当前规则重评）。隔离取数并冻结正式原料，不覆盖旧快照。核实际已完成行情日和真实交易日历；调度工作日不代表交易日，节假日不造信号。保留原 opportunity_id/signal_date/registered_at/valid_until，重跑/版本变化不延长窗口；截止日场次未知核真实可交易时段，未核不称仍可入场。原计划的日历独立于本期 T 主合约，缺原合约行情单列。
+
+刷新五品种 T 与有有效事前锚的 V；V 外层配对、两腿原料/来源/日历及锚必须一致。锚只须早于信号，同日可用有来源的独立 signal_observations 证明时序，不加前一天限制。按相关新证据撤回失效锚，withdrawals[] 保留原因和来源；新锚/续期另存未来适用修订，不改旧计划。缺锚是未评估并转研究缺口，不是 no_signal；周更负责持续建锚研究，日频有证据也可维护。抓取失败、陈旧、行业/事件未核分别列缺口，机械工具不给 ready 或账户许可。
+
+新信号及受影响候选补产业证据、最强反证、事件和公开参数；按现行规则另存并验证审计，精确登记 local handoff。无变化保存简短刷新和存量检查记录，不重写全市场周报，不修改 T/V 参数与核心风控。实际账户/最终手数未知保留 null。内置搜索与原文核验，不调用 Gemini，不输出凭据。
+
+正式刷新保存在 research/futures/refresh/<日期>/，审计修订走 weekly 日期路径，锚走 anchors 日期路径；同日变化另存修订。完成后 continuity publish 新 handoff、锚/撤回和实际附件，冻结来源供周更读取；确认共享完成后仍按工作区规则保留需要的产物。该本地 publish 不是 Git 发布。memory 可记工具返回入口和hash，不能作唯一交接。最终简明报告变化、原期限、缺口和路径，区分离线/真实 API，不宣称未完成的产业、账户核验或收益验证。

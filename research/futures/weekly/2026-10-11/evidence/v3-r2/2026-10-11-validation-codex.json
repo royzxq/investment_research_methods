@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "scope": "research_arithmetic_and_audit_structure_only",
+  "generator": "codex",
+  "as_of_date": "2026-10-11",
+  "input_sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+  "snapshot_sha256": "a6efcee8b55ec77f2833473b499e48e83ca9ec5cf3632997fb51603fc4d1ccef",
+  "snapshot_frozen_file": "research/futures/weekly/2026-10-11/evidence/v3-r2/2026-10-11-supplied-snapshot-codex.txt",
+  "trend_checks": [
+    {
+      "contract": "MA2701",
+      "helper_matches": true,
+      "next_session_channel_verified": true
+    },
+    {
+      "contract": "RB2701",
+      "helper_matches": true,
+      "next_session_channel_verified": true
+    },
+    {
+      "contract": "M2701",
+      "helper_matches": true,
+      "next_session_channel_verified": true
+    },
+    {
+      "contract": "SR2701",
+      "helper_matches": true,
+      "next_session_channel_verified": true
+    },
+    {
+      "contract": "CF2701",
+      "helper_matches": true,
+      "next_session_channel_verified": true
+    }
+  ],
+  "reversion_checks": [
+    {
+      "contracts": [
+        "MA2701",
+        "MA2705"
+      ],
+      "last3": [
+        279.0,
+        328.0,
+        416.0
+      ],
+      "reversal_subconditions": {
+        "short": false,
+        "long": true
+      },
+      "economic_anchor_verified": false
+    },
+    {
+      "contracts": [
+        "RB2701",
+        "RB2703"
+      ],
+      "last3": [
+        2.0,
+        4.0,
+        2.0
+      ],
+      "reversal_subconditions": {
+        "short": false,
+        "long": false
+      },
+      "economic_anchor_verified": false
+    },
+    {
+      "contracts": [
+        "SR2701",
+        "SR2705"
+      ],
+      "last3": [
+        -78.0,
+        -75.0,
+        -77.0
+      ],
+      "reversal_subconditions": {
+        "short": false,
+        "long": false
+      },
+      "economic_anchor_verified": false
+    }
+  ],
+  "wasde_beijing": "2026-10-10T00:00:00+08:00",
+  "signal_1012_next_two_sessions": [
+    "20261013",
+    "20261014"
+  ],
+  "audit_structure_errors": [],
+  "candidate_status_counts": {
+    "no_signal": 6,
+    "incomplete": 2,
+    "awaiting_account": 0,
+    "blocked": 0,
+    "ready": 0
+  },
+  "rb_balance_arithmetic": "170.27-(18.56+12.13)=139.58",
+  "real_api_validation_this_run": false,
+  "account_validation": false,
+  "performance_validation": false,
+  "execution_permission": "not_evaluated",
+  "audit_sha256": "95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b",
+  "report_sha256": "ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa",
+  "independent_review": {
+    "M_facts_dates": "passed",
+    "audit_G1_scope": "corrected_to_early_stop_or_unknown",
+    "risk_summary": "completed_portfolio_cap_and_single_factor_rounding"
+  },
+  "final_structure_recheck": "passed"
+}

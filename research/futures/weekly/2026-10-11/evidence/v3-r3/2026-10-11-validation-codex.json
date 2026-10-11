@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "scope": "targeted_semantics_arithmetic_and_structure",
+  "as_of_date": "2026-10-11",
+  "generator": "codex",
+  "canonical_sha256": "1b5a7c54df401b5fb5a0f10f28fe7059a1b9138a8d7e59dfce6d5093e0b3c65a",
+  "audit_sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+  "offline_tests": 96,
+  "independent_review": "passed; coverage wording corrected",
+  "ma_signal": "triggered",
+  "ma_status": "incomplete",
+  "final_lots": null,
+  "entry_range": [
+    3289,
+    3387
+  ],
+  "signal_date": "2026-10-09",
+  "registered_at": "2026-10-11T18:14:54+08:00",
+  "valid_until": "2026-10-13",
+  "oct14_rejected": true,
+  "production_algorithms_changed": false,
+  "live_api_run": false,
+  "account_verified": false,
+  "performance_validated": false,
+  "execution_permission": "not_evaluated"
+}
