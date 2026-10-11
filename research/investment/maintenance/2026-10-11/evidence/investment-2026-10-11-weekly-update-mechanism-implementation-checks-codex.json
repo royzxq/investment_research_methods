@@ -1,0 +1,200 @@
+{
+  "schema": "investment-maintenance-implementation-checks/v1",
+  "checked_at": "2026-10-11T19:55:15.378352+08:00",
+  "generator": "codex",
+  "branch": "codex/stock-weekly-maintenance",
+  "base_head": "b6c823b919b729bd70e411d44028be66b173134f",
+  "publication": {
+    "committed": false,
+    "pushed": false,
+    "pr_created": false,
+    "main_deployed": false
+  },
+  "validation": {
+    "full_unittest": {
+      "status": "passed",
+      "tests": 764,
+      "seconds": 90.113,
+      "log_path": "output/audits/investment/2026-10-11/stock-weekly-maintenance/unittest-full.log",
+      "log_sha256": "72a6cdc7cb9ff6e32034ea8c856b5cf653415c1eb209b9bbffb59202811ba587",
+      "command": "/Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v",
+      "note": "All production changes included; two extra helper test cases added afterwards, with no subsequent production code changes."
+    },
+    "final_helper_unittest": {
+      "status": "passed",
+      "tests": 33,
+      "seconds": 0.261,
+      "log_path": "output/audits/investment/2026-10-11/stock-weekly-maintenance/unittest-maintenance-final.log",
+      "log_sha256": "f80ca31b0f80b613405a268c9965d9b45d79081d89b5de4118be4d5c5d4da10f",
+      "command": "python3 -m unittest discover -s tests -p test_investment_maintenance.py -v"
+    },
+    "stock_governance": {
+      "status": "passed",
+      "method_version": "stock-maintenance-v1",
+      "state_as_of": "2026-10-11",
+      "method_fingerprints": {
+        "investment_framework.md": "96dd548640117d9de7377a7193c9f3179f8b65cdadb4d2bd68e062f50832b4ca",
+        "investment_framework_compact.md": "1cf307a6af8168fc0375625a6cc30e96398cd75916402f665cd593d7a260631f"
+      },
+      "sizes": {
+        "investment_framework.md": {
+          "bytes": 79996,
+          "lines": 463
+        },
+        "investment_framework_compact.md": {
+          "bytes": 49234,
+          "lines": 238
+        }
+      },
+      "limits": "Structure only; not complete semantic equivalence, evidence truth or investment effectiveness"
+    },
+    "futures_governance": {
+      "status": "passed",
+      "command": "python3 scripts/futures_framework_governance.py --check",
+      "scope": "structure only"
+    },
+    "skill_validation": {
+      "investment-weekly-review": "passed",
+      "stock-research": "passed",
+      "framework-condense": "passed",
+      "validator": "/Users/xinquanzhou/.codex/skills/.system/skill-creator/scripts/quick_validate.py"
+    },
+    "diff_check": {
+      "status": "passed",
+      "command": "git diff --check"
+    }
+  },
+  "automation": {
+    "id": "automation-2",
+    "name": "股票研究框架每周更新",
+    "status": "ACTIVE",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "high",
+    "execution_environment": "local",
+    "target": {
+      "type": "project",
+      "project_id": "bd6bdd6a-f19d-405a-9a42-e4810b9f4d67"
+    },
+    "schedule": "Sunday 02:00 Asia/Shanghai, unchanged",
+    "prompt_sha256": "1e793e0c5e2de249fe8a100e83dd438c2fb10a73f965d8c004c78ba9af689ea8",
+    "updated_at": 1791719475824,
+    "updated_via_app_tool": true,
+    "read_back_verified": true,
+    "scheduled_run_verified": false,
+    "publish_scope": "research logs and adopted state provenance; method changes use one PR, no auto merge"
+  },
+  "fidelity": {
+    "framework/investment_framework.md": {
+      "before": {
+        "lines": 442,
+        "chars": 32908,
+        "bytes": 75318
+      },
+      "after": {
+        "lines": 463,
+        "chars": 34896,
+        "bytes": 79996
+      },
+      "method_sha256": "96dd548640117d9de7377a7193c9f3179f8b65cdadb4d2bd68e062f50832b4ca",
+      "observations": 0,
+      "core_parameters_exact_preserved": [
+        "- A 股：r=8%，g=2%，N=7，K≈0.10",
+        "- 港股：r=10%，g=2%，N=7，K≈0.16",
+        "- `P1 = V50 × (1-d_base) × ∏(1-r_k)`",
+        "- `P2 = P1_low × (1-step_down)`，`step = 5%–10%`",
+        "- `cap_final = min(单票硬上限, 温度仓位上限) × cap系数`",
+        "- P1 = 60%，P2 = 40%"
+      ]
+    },
+    "framework/investment_framework_compact.md": {
+      "before": {
+        "lines": 219,
+        "chars": 20557,
+        "bytes": 46693
+      },
+      "after": {
+        "lines": 238,
+        "chars": 21762,
+        "bytes": 49234
+      },
+      "method_sha256": "1cf307a6af8168fc0375625a6cc30e96398cd75916402f665cd593d7a260631f",
+      "observations": 0,
+      "stable_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21"
+      ]
+    }
+  },
+  "changed_source_sha256": {
+    ".agents/skills/framework-condense/references/fidelity.md": "67e008337d35e636e2784eb61f049d1d40f7a70c12ddc5720d77fe6d70f27923",
+    ".agents/skills/investment-weekly-review/SKILL.md": "6754a990d3a219c879bd2bfb27ac468048aef559841d47a025c79872826cb0f5",
+    ".agents/skills/investment-weekly-review/references/investment-adaption.md": "8c31097bb5d319c3b2491793a0bf7936bc1aacbeb798cb16961d7df9830d7afe",
+    ".agents/skills/investment-weekly-review/references/investment-change-analysis.md": "793435c4098fc35e45c1bb9a744400d0643ea61d46646e66fd6ef810fb35d1f6",
+    ".agents/skills/investment-weekly-review/references/maintenance-handoff.md": "44892e3ca45f6e545d69482cdec8329769426a93c46424df743c3891f2fcee22",
+    ".agents/skills/investment-weekly-review/references/meta-investment-analysis.md": "8c6573546a4003693e45292b74bbf0c72bffd42ef01fdb4c630d1f43b7b20774",
+    ".agents/skills/stock-research/SKILL.md": "5c2180af7cbcb2b57586555492e6c052a20e821b03352db23ba87a08b36eecbf",
+    ".agents/skills/stock-research/references/valuation-and-output.md": "4e16e08fdfb6275788fe9775d6440a1eb45bb7a1b8670d28f5479076cb90a100",
+    ".github/workflows/tests.yml": "718f19b5346d03e1583793a3de7d225b8df86538c73bd71491c88f1a7037ed31",
+    "AGENTS.md": "cf154a0f29e1696d55c3603be7fa1148c36bf8623003e9c46a67d0ae6602d285",
+    "README.md": "dad8fc55957ea4bc65d981d96f12d5f05d0d55fd6e9016743c4a3dc756ad2d65",
+    "docs/context/project-state.md": "1147e7cdfa08b7a39239f2736a29bbedfe95de2cf9c3efcb38f2e22c8417b242",
+    "framework/investment_framework.md": "b26daf1d3cc601e34682effbe46bb88b064190410de94886546fce7a79378a3a",
+    "framework/investment_framework_compact.md": "7c588fba94eb81f9629fe22f6266243c31121e44384ec7a1785c330c7231ada8",
+    "projects/investment_adaption/INSTRUCTIONS.md": "7b420cf300d5394abf7f6232ed1ead7833e895a2f1466c1d01177c126cde6ef7",
+    "projects/investment_change_analysis/INSTRUCTIONS.md": "1377c1128aa7bba1225340f7c4ea850182cc102692b811e97acf50a555eb9766",
+    "projects/meta_investment_analysis/INSTRUCTIONS.md": "012f9e3780078e6a5adb3eb6ed7f90440123e5bd2a8f536964e45a8cd17289ba",
+    "research/README.md": "57ff6b3bffc1ecefe241411dd0125f432a1612f387e9406b072544bf3c85cced",
+    "scripts/investment_framework_governance.py": "c295f5fa1677c0055974e9ae69f9f1cf10af973f3f9eca209a82bd8c7ed93ed4",
+    "scripts/investment_maintenance.py": "3b75332613f98954e5e657e7bfc28c19d988c942b2832e7a7f09ad467f3b2f0f",
+    "scripts/research_paths.py": "3ca481245794d259b5a21b9d3afde510b1702e6b778986adee91433ebcbfc0db",
+    "scripts/research_runner.py": "5715a651a744aa8321422302335e4101801c514f7b8e55d3806b7353d2eed87a",
+    "scripts/stock_price_map.py": "f581d27b624de812008119bb6c2fbc435fd9da74db3ff8ae0d11159fa7b49add",
+    "tests/test_investment_framework_governance.py": "9c9d00e288db077c0731aa22f4ded808feb0a3550a5581a08a8d0b07232eb3f6",
+    "tests/test_investment_maintenance.py": "6a1802dcad607c8f5bd03f7dd753949239baf701dae60364c154c5d95e0bdd72",
+    "tests/test_research_paths.py": "8526a5976426e488802bc99c104042bbf886133e1395d5855ec2a089c9b52be5",
+    "tests/test_research_runner.py": "52abb6b5fb5cfcf7f57b69134e9a2000a61d90314bf1371fa8bcac7c35a3637f",
+    "tests/test_stock_price_map.py": "3198397edf5dd655d9f92ff75d27a161ea1d268c374e80c7d2abb2b3081dcd1e"
+  },
+  "preserved": {
+    "core_valuation_parameters": true,
+    "company_hard_failure_constraints": true,
+    "seven_day_company_research_cooldown": true,
+    "historical_reports": true,
+    "unrelated_research_directory": "research/investment/studies/china-macro-sector-opportunities/"
+  },
+  "not_performed": [
+    "Live market API calls",
+    "New company or market research",
+    "Actual model CLI research",
+    "Trading",
+    "Scheduled automation run",
+    "Investment performance validation"
+  ]
+}

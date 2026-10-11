@@ -42,6 +42,8 @@ def artifact_path(track, kind, as_of, root=ROOT):
         return base / "snapshots" / f"etf-{day}-drawdown.json"
     if kind == "review" and track == "etf":
         return base / "reviews" / day / f"etf-{day}-review.md"
+    if track == "investment" and kind == "handoff":
+        return base / "weekly" / day / f"{prefix}{day}-handoff.json"
     if kind in WEEKLY_KINDS and track in {"futures", "investment"}:
         if track == "investment" and kind == "execution-audit":
             raise ValueError("Stock weekly reviews do not produce futures execution audits")
@@ -77,7 +79,7 @@ def discover(track, kind, as_of, root=ROOT, before=False, committed=False):
     root = Path(root)
     cutoff = iso_date(as_of)
     prototype = artifact_path(track, kind, cutoff, root)
-    dated_parent = kind in WEEKLY_KINDS or kind == "review"
+    dated_parent = kind in WEEKLY_KINDS or kind in {"review", "handoff"}
     base = prototype.parent.parent if dated_parent else prototype.parent
     prefix = {"futures": "", "investment": "investment-", "etf": "etf-"}[track]
     pattern = re.compile(rf"{prefix}(\d{{4}}-\d{{2}}-\d{{2}})-{kind}{re.escape(prototype.suffix)}")

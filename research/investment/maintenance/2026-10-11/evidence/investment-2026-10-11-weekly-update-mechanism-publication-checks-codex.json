@@ -1,0 +1,82 @@
+{
+  "schema": "investment-maintenance-publication-checks/v1",
+  "checked_at": "2026-10-11T20:06:47.561962+08:00",
+  "generator": "codex",
+  "branch": "codex/stock-weekly-maintenance-release",
+  "base_main": "44f3741cbae27b5394bb691e3ef52893913445d3",
+  "local_source_commit": "24b272b8aac4636a72452446e6059a857372fff9",
+  "scope": "Only stock framework and weekly maintenance changes; excludes unmerged futures PR #44, reading/usage optimization commits and unrelated market studies.",
+  "validation": {
+    "full_unittest": {
+      "command": "/Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v",
+      "status": "passed",
+      "tests": 483,
+      "seconds": 73.46,
+      "log_path": "output/audits/investment/2026-10-11/stock-maintenance-release/unittest-full-final.log",
+      "log_sha256": "edbecd49dd8799c37568a7dfb7254d598fc3204bbdb574713e3110e45c3d8a99"
+    },
+    "initial_full_run": {
+      "status": "failed",
+      "errors": 1,
+      "reason": "New retry tampering test lacked threading import on main baseline; fixed by explicit standard-library import. No production change required."
+    },
+    "runner_targeted": {
+      "status": "passed",
+      "tests": 66
+    },
+    "path_targeted": {
+      "status": "passed",
+      "tests": 29
+    },
+    "stock_governance": "passed",
+    "futures_governance": "passed",
+    "skill_validation": {
+      "investment-weekly-review": "passed",
+      "stock-research": "passed",
+      "framework-condense": "passed"
+    },
+    "diff_check": "passed"
+  },
+  "source_sha256": {
+    ".agents/skills/framework-condense/references/fidelity.md": "18c1a6c4841bcd904f899765d06d59f8dc058ac9d463dabeab400cdad0b43bd2",
+    ".agents/skills/investment-weekly-review/SKILL.md": "6754a990d3a219c879bd2bfb27ac468048aef559841d47a025c79872826cb0f5",
+    ".agents/skills/investment-weekly-review/references/investment-adaption.md": "8c31097bb5d319c3b2491793a0bf7936bc1aacbeb798cb16961d7df9830d7afe",
+    ".agents/skills/investment-weekly-review/references/investment-change-analysis.md": "793435c4098fc35e45c1bb9a744400d0643ea61d46646e66fd6ef810fb35d1f6",
+    ".agents/skills/investment-weekly-review/references/maintenance-handoff.md": "44892e3ca45f6e545d69482cdec8329769426a93c46424df743c3891f2fcee22",
+    ".agents/skills/investment-weekly-review/references/meta-investment-analysis.md": "8c6573546a4003693e45292b74bbf0c72bffd42ef01fdb4c630d1f43b7b20774",
+    ".agents/skills/stock-research/SKILL.md": "7895539bd1a962225c08b833b346b2253f9a778e89eb37306a0ed08b190a978c",
+    ".agents/skills/stock-research/references/valuation-and-output.md": "4e16e08fdfb6275788fe9775d6440a1eb45bb7a1b8670d28f5479076cb90a100",
+    ".github/workflows/tests.yml": "718f19b5346d03e1583793a3de7d225b8df86538c73bd71491c88f1a7037ed31",
+    "AGENTS.md": "cf154a0f29e1696d55c3603be7fa1148c36bf8623003e9c46a67d0ae6602d285",
+    "README.md": "3b22abda3c320198b2c6bf21eb98183d3a360cfed2c007dedbc37f0a4e23a372",
+    "docs/context/project-state.md": "f1d9a121558c891ad0e0c326d60c801b8c57ac8bb32d44df976270b741e1175a",
+    "framework/investment_framework.md": "b26daf1d3cc601e34682effbe46bb88b064190410de94886546fce7a79378a3a",
+    "framework/investment_framework_compact.md": "7c588fba94eb81f9629fe22f6266243c31121e44384ec7a1785c330c7231ada8",
+    "projects/investment_adaption/INSTRUCTIONS.md": "7b420cf300d5394abf7f6232ed1ead7833e895a2f1466c1d01177c126cde6ef7",
+    "projects/investment_change_analysis/INSTRUCTIONS.md": "1377c1128aa7bba1225340f7c4ea850182cc102692b811e97acf50a555eb9766",
+    "projects/meta_investment_analysis/INSTRUCTIONS.md": "012f9e3780078e6a5adb3eb6ed7f90440123e5bd2a8f536964e45a8cd17289ba",
+    "research/README.md": "370fb01abf6f39de103dbf22ad94e98256ae44a46b2a7c02716c61a199f24121",
+    "research/investment/maintenance/2026-10-11/evidence/investment-2026-10-11-weekly-update-mechanism-implementation-checks-codex.json": "ab983021abf15f10a4913229b7d8273c6bda97bfb986f03f46e4b98f55181f49",
+    "research/investment/maintenance/2026-10-11/evidence/investment-2026-10-11-weekly-update-mechanism-review-checks-codex.json": "d9e107754750bc8d5e9a2f561f1ac14f6a478abaf1a5855abea4e3601159ec23",
+    "research/investment/maintenance/2026-10-11/investment-2026-10-11-weekly-update-mechanism-implementation.md": "1208ee291c0d70751bf3cf44ca2348cd462a954abad0bc014332212951ee3324",
+    "research/investment/maintenance/2026-10-11/investment-2026-10-11-weekly-update-mechanism-review.md": "91f2d87a135d0130e65e500df7702bea9113f7d73af81b79c87c9c3daf611b8b",
+    "scripts/investment_framework_governance.py": "c295f5fa1677c0055974e9ae69f9f1cf10af973f3f9eca209a82bd8c7ed93ed4",
+    "scripts/investment_maintenance.py": "3b75332613f98954e5e657e7bfc28c19d988c942b2832e7a7f09ad467f3b2f0f",
+    "scripts/research_paths.py": "6dca276c8f44e37ccef39e59ab952f4568c66a27acc07d35ac3ae083b0f59e48",
+    "scripts/research_runner.py": "4e63ab76d000d328786bebb61ebb2c67ca475a78c2918e698a24db46e469e599",
+    "scripts/stock_price_map.py": "f581d27b624de812008119bb6c2fbc435fd9da74db3ff8ae0d11159fa7b49add",
+    "tests/test_investment_framework_governance.py": "9c9d00e288db077c0731aa22f4ded808feb0a3550a5581a08a8d0b07232eb3f6",
+    "tests/test_investment_maintenance.py": "6a1802dcad607c8f5bd03f7dd753949239baf701dae60364c154c5d95e0bdd72",
+    "tests/test_research_paths.py": "86a3292dd426742dc5acf779fa46ffa04fb630a1ace3ff3ddbca2bc6e9bd3686",
+    "tests/test_research_runner.py": "dfcab77e7f5c306ead5b825f4a6d19447739c5f662d665b0a36c01791f44871c",
+    "tests/test_stock_price_map.py": "3198397edf5dd655d9f92ff75d27a161ea1d268c374e80c7d2abb2b3081dcd1e"
+  },
+  "publication_policy": "Push stock release branch and create one PR against main; do not merge or enable auto merge.",
+  "not_verified": [
+    "Hosted CI not started at this validation time",
+    "Actual scheduled automation run",
+    "Live market/model API research",
+    "Investment effectiveness"
+  ],
+  "historical_evidence": "Earlier review/implementation JSON are historical snapshots at their checked_at, not this release file manifest."
+}
