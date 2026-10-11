@@ -2,7 +2,8 @@
 
 Default is offline reuse. --fetch explicitly permits the existing data collector
 to run in an isolated directory. --check-only is always offline and writes nothing.
-The real-date calendar is inherited from future_data v1.18 (Tushare SSE calendar),
+The real-date calendar is inherited from the future_data v1.18 family (current
+collector v1.18.1, Tushare SSE calendar),
 not reconstructed from weekdays; night-session/execution calendars remain unverified.
 """
 from __future__ import annotations
@@ -31,8 +32,8 @@ except ImportError:
     from research_paths import ROOT, iso_date, snapshot_complete, artifact_path
 
 CHINA = ZoneInfo("Asia/Shanghai")
-VERSION = "1.1"
-CALENDAR_SOURCE = "future_data v1.18: Tushare Pro trade_cal(exchange=SSE); actual dated sessions"
+VERSION = "1.2"
+CALENDAR_SOURCE = "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions"
 
 
 def stamp(value):
@@ -130,6 +131,13 @@ def checked_market(market, as_of, now, *, spread=False):
         raise ValueError("raw_records_missing")
     if any(not isinstance(row, dict) for row in rows):
         raise ValueError("raw_rows_must_be_objects")
+    if not spread:
+        # Current T packages retain provider IDs per bar. Earlier identified
+        # packages may omit that repeated field, but any supplied ID must agree.
+        for row in rows:
+            source_raw_identity(row, market.get("ts_code"))
+            if "ts_code" in row:
+                source_identity(row, market.get("contract"), market.get("exchange"), require_response_basis=False)
     eligible = [stamp(row["trade_date"]) for row in rows
                 if stamp(row["trade_date"]) <= expected and row.get("is_complete") is not False]
     if not eligible or max(eligible) != expected:
@@ -154,14 +162,48 @@ def contract_exchange(contract):
     return {"RB": "SHFE", "M": "DCE"}.get(match[1], "CZCE")
 
 
-def source_identity(source, contract, exchange):
+def source_raw_identity(source, code):
+    """Supplied raw provider/request IDs must agree after transport normalization."""
+    values = []
+    for key in ("response_ts_code", "requested_ts_code_raw"):
+        if key in source:
+            values.append(source[key])
+    if "response_ts_code_values" in source:
+        supplied = source["response_ts_code_values"]
+        if not isinstance(supplied, list) or not supplied:
+            raise ValueError("price_source_contract_identity_raw_values_invalid")
+        values.extend(supplied)
+    for value in values:
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("price_source_contract_identity_raw_value_invalid")
+        if value.strip().upper() != code:
+            raise ValueError("price_source_contract_identity_raw_mismatch")
+
+
+def source_identity(source, contract, exchange, *, require_response_basis=True):
+    """Require response-verified provenance; row labels only need consistency.
+
+    The collector emits identity_basis only after checking provider-returned IDs.
+    A historical request code alone cannot establish response identity. Individual
+    bar labels repeat the ID, not the package-level verification declaration.
+    """
     if not isinstance(source, dict):
-        raise ValueError("price_provenance_must_be_object")
-    if source.get("contract", contract) != contract:
-        raise ValueError("price_source_contract_identity_mismatch")
+        raise ValueError("price_source_contract_identity_requires_object")
+    code = source.get("ts_code")
+    if not isinstance(code, str) or not code.strip():
+        raise ValueError("price_source_contract_identity_missing")
+    if require_response_basis and source.get("identity_basis") != "fut_daily_response_ts_code":
+        raise ValueError("price_source_contract_identity_response_unverified")
+    if exchange != contract_exchange(contract):
+        raise ValueError("price_source_contract_identity_exchange_mismatch")
     expected_code = contract + "." + {"CZCE": "ZCE", "SHFE": "SHF", "DCE": "DCE"}[exchange]
-    if source.get("ts_code", expected_code) != expected_code:
+    if code != expected_code or ("contract" in source and source["contract"] != contract):
         raise ValueError("price_source_contract_identity_mismatch")
+    if "exchange" in source and source["exchange"] != exchange:
+        raise ValueError("price_source_contract_identity_exchange_mismatch")
+    if "requested_ts_code" in source and source["requested_ts_code"] != code:
+        raise ValueError("price_source_contract_identity_requested_mismatch")
+    source_raw_identity(source, code)
 
 
 def spread_identity(item):
@@ -190,6 +232,12 @@ def spread_identity(item):
     if not isinstance(rows, list) or any(not isinstance(row, dict) or
             (row.get("near_contract"), row.get("far_contract")) != pair for row in rows):
         raise ValueError("raw_pair_record_identity_mismatch")
+    for row in rows:
+        if any(key in row for key in ("ts_code", "response_ts_code", "response_ts_code_values", "requested_ts_code_raw")):
+            raise ValueError("raw_pair_record_ts_code_requires_leg_identity")
+        for key, contract in zip(("near_ts_code", "far_ts_code"), pair):
+            if key in row:
+                source_identity({"ts_code": row[key]}, contract, exchange, require_response_basis=False)
     return pair, market
 
 
@@ -381,9 +429,13 @@ def evaluate(payload, snapshot, as_of, now, *, anchors=None, plans=None):
     try:
         if as_of > stamp(now.date()):
             raise ValueError("future_as_of_not_allowed")
-        if not isinstance(payload, dict) or (payload.get("rule_version"), payload.get("script_version"),
-                payload.get("scope")) != (RULE_VERSION, "v1.18", "v3_research_inputs_only"):
-            raise ValueError("require_v1.18_v3_raw_input_package")
+        if not isinstance(payload, dict) or (payload.get("rule_version"), payload.get("scope")) != (
+                RULE_VERSION, "v3_research_inputs_only"):
+            raise ValueError("require_v1.18_family_v3_raw_input_package")
+        script_version = payload.get("script_version")
+        if not isinstance(script_version, str) or not re.fullmatch(r"v1\.18(?:\.\d+)?", script_version):
+            raise ValueError("require_v1.18_family_v3_raw_input_package")
+        report["input_script_version"] = script_version
         source_day = stamp(payload["as_of_date"])
         if source_day > as_of:
             raise ValueError("source_as_of_after_requested_date")
@@ -397,8 +449,10 @@ def evaluate(payload, snapshot, as_of, now, *, anchors=None, plans=None):
                 or not re.search(pattern, lines[-1]) or not re.search(pattern, lines[0])):
             raise ValueError("paired_snapshot_missing_or_incomplete")
         report["evaluated_snapshot_sha256"] = digest(snapshot_raw)
-        if "脚本 v1.18" not in lines[-1] or "v1.18" not in lines[0]:
-            raise ValueError("snapshot_version_mismatch")
+        for line in (lines[0], lines[-1]):
+            version_match = re.search(r"脚本\s+(v\d+(?:\.\d+)+)(?![\d.])", line)
+            if version_match is None or version_match[1] != script_version:
+                raise ValueError("snapshot_version_mismatch")
         if "busday近似·口径已降级" in snapshot_text:
             raise ValueError("calendar_degraded_to_weekdays")
         items = payload.get("trend")
@@ -703,8 +757,8 @@ def render_markdown(report, target):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--as-of", default=datetime.now(CHINA).date().isoformat())
-    parser.add_argument("--input", type=Path, help="Exact v1.18 raw JSON package")
-    parser.add_argument("--snapshot", type=Path, help="Paired complete v1.18 text snapshot")
+    parser.add_argument("--input", type=Path, help="Exact v1.18-family raw JSON package with explicit source identity")
+    parser.add_argument("--snapshot", type=Path, help="Paired complete text snapshot with the same collector version")
     parser.add_argument("--anchors", type=Path, help="JSON anchors[]; optional signal_observations[] timing evidence and withdrawals[] invalidation evidence")
     parser.add_argument("--plans", type=Path, help="JSON or one-JSON-block audit Markdown with candidates[].plan")
     parser.add_argument("--fetch", action="store_true", help="Allow missing/stale data fetch into an isolated run")

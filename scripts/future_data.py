@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-v3.0 框架数据脚本 — Tushare Pro 版 (v1.18)
+v3.0 框架数据脚本 — Tushare Pro 版 (v1.18.1)
 ====================================================================
+v1.18.1（2026-10-11，合约来源身份修复）：
+  fut_daily 显式请求并逐行核验响应 ts_code，来源身份由响应导出，请求标签单独记录；
+  缓存命中复核响应列与 provenance，不用缓存键或外层合约替补缺失/错配身份。
+  T/V 原料透传已核响应身份；旧缺少响应身份的输出不能追认已核，需重新取数。
+  T/V 参数和风控未改，本补丁仅作离线合成验收，不声称新版本已通过真实API验证。
+
 v1.18（2026-10-11，v3.0 前瞻研究接口，未经线上实测）：
   默认导出v3 T原始close/前20日突破、2ATR、前10日通道和波动率；原始完整交易日
   同合约窗口由futures_strategy.py验证，不复用旧含信号日H20/L20或px回退值。
@@ -424,19 +430,72 @@ def _busdays(from_yyyymmdd, to_yyyymmdd):
     return int(np.busday_count(x, y))
 
 
+def _response_identity(sym, frame):
+    """Bind every returned row to its real API ts_code, never to a cache key."""
+    if "ts_code" not in frame.columns:
+        raise ValueError(f"{sym}: response_ts_code_missing")
+    values = frame["ts_code"].tolist()
+    if not values or any(not isinstance(value, str) or not value.strip() for value in values):
+        raise ValueError(f"{sym}: response_ts_code_missing")
+    actual_codes = {value.strip().upper() for value in values}
+    if len(actual_codes) != 1:
+        raise ValueError(f"{sym}: response_ts_code_mixed")
+    actual = next(iter(actual_codes))
+    match = re.fullmatch(r"([A-Z]+)([0-9]{2})(0[1-9]|1[0-2])\.([A-Z]+)", actual)
+    if not match:
+        raise ValueError(f"{sym}: response_ts_code_invalid:{actual}")
+    # Expected identity is only a comparison target, never source provenance.
+    expected = f"{sym.upper()}.{TS_SUFFIX[EXCH[_prod(sym)]]}"
+    if actual != expected:
+        raise ValueError(f"{sym}: response_ts_code_mismatch:{actual}")
+    suffix_exchange = {suffix: exchange for exchange, suffix in TS_SUFFIX.items()}
+    return dict(contract=actual.split(".")[0], ts_code=actual, exchange=suffix_exchange[match[4]])
+
+
+def _daily_provenance(sym, frame):
+    """Recheck cached/forwarded frames against their own response evidence."""
+    actual = _response_identity(sym, frame)
+    provenance = frame.attrs.get("provenance")
+    if not isinstance(provenance, dict):
+        raise ValueError(f"{sym}: response_provenance_missing")
+    for field, expected in actual.items():
+        value = provenance.get(field)
+        if not isinstance(value, str) or value.strip().upper() != expected:
+            raise ValueError(f"{sym}: response_provenance_{field}_mismatch")
+    requested = provenance.get("requested_ts_code")
+    if not isinstance(requested, str) or requested.strip().upper() != actual["ts_code"]:
+        raise ValueError(f"{sym}: requested_response_ts_code_mismatch")
+    if provenance.get("identity_basis") != "fut_daily_response_ts_code":
+        raise ValueError(f"{sym}: response_identity_basis_missing")
+    if not provenance.get("source") or not provenance.get("fetched_at"):
+        raise ValueError(f"{sym}: response_fetch_provenance_missing")
+    # Normalize only after verifying the actual response. Preserve provider
+    # spellings independently so normalization cannot masquerade as new data.
+    checked = dict(provenance)
+    checked.update(actual, requested_ts_code=requested.strip().upper(),
+                   requested_ts_code_raw=provenance.get("requested_ts_code_raw", requested),
+                   response_ts_code_values=sorted(set(frame["ts_code"].tolist())))
+    return checked
+
+
 def daily(sym):
-    """单合约全生命周期日线; 价格口径: 结算价, 缺失用收盘价(close 另保留供基差)。"""
+    """Single real contract; preserve response identity and original fetch time."""
     if sym not in _daily_cache:
-        # Timestamp the actual API response, not AS_OF or a later cache read.
         from datetime import datetime as fetch_datetime, timezone as fetch_timezone, timedelta as fetch_timedelta
         code = resolve(sym)
         df = api().fut_daily(
             ts_code=code,
-            fields="trade_date,settle,close,open,high,low,pre_settle,vol,oi")
+            fields="ts_code,trade_date,settle,close,open,high,low,pre_settle,vol,oi")
         fetched_at = fetch_datetime.now(fetch_timezone(fetch_timedelta(hours=8))).isoformat()
         time.sleep(0.4)
         if df is None or df.empty:
             raise RuntimeError(f"{sym}({code}) 日线为空")
+        identity = _response_identity(sym, df)
+        if not isinstance(code, str) or code.strip().upper() != identity["ts_code"]:
+            raise ValueError(f"{sym}: requested_response_ts_code_mismatch")
+        provenance = dict(source="Tushare Pro fut_daily", **identity, requested_ts_code=identity["ts_code"],
+                          requested_ts_code_raw=code, response_ts_code_values=sorted(set(df["ts_code"].tolist())),
+                          identity_basis="fut_daily_response_ts_code", fetched_at=fetched_at)
         cutoff = min(AS_OF, completed_day_cutoff())
         df = df[df["trade_date"].astype(str) <= cutoff].copy()
         if "is_complete" in df:
@@ -449,9 +508,11 @@ def daily(sym):
                   for row in df.to_dict("records")]
         df["px"] = [price for price, _ in prices]
         df["price_basis"] = [basis for _, basis in prices]
-        df.attrs["provenance"] = dict(source="Tushare Pro fut_daily", ts_code=code, fetched_at=fetched_at)
+        df.attrs["provenance"] = provenance
         _daily_cache[sym] = df
-    return _daily_cache[sym]
+    frame = _daily_cache[sym]
+    _daily_provenance(sym, frame)
+    return frame
 
 
 def shift_year_sym(sym, k):
@@ -1077,14 +1138,15 @@ def collect_v3_research():
             if not calendar or CAL_DEGRADED:
                 raise ValueError("真实交易日历不可用；不以工作日近似计算v3")
             frame = daily(sym)
-            records = frame.reindex(columns=["trade_date", "close", "high", "low"]).to_dict("records")
+            provenance = _daily_provenance(sym, frame)
+            records = frame.reindex(columns=["ts_code", "trade_date", "close", "high", "low"]).to_dict("records")
             # Convert numpy missing values for JSON without constructing prices.
             records = [{key: (None if pd.isna(value) else value) for key, value in row.items()}
                        for row in records]
-            market = dict(contract=sym, records=records, trading_dates=calendar, as_of_date=cutoff)
-            market.update(source=frame.attrs.get("provenance", {}).get("source"),
-                          exchange=EXCH[_prod(sym)],
-                          fetched_at=frame.attrs.get("provenance", {}).get("fetched_at"))
+            for row in records:
+                row["response_ts_code"] = row["ts_code"]
+                row["ts_code"] = row["ts_code"].strip().upper()
+            market = dict(provenance, records=records, trading_dates=calendar, as_of_date=cutoff)
             result = trend_inputs(market)
             result["market_inputs"] = market
         except Exception as exc:
@@ -1103,6 +1165,8 @@ def collect_v3_research():
                     signal="unknown", economic_anchor=None, execution_permission="not_evaluated")
         try:
             near_frame, far_frame = daily(near), daily(far)
+            near_provenance = _daily_provenance(near, near_frame)
+            far_provenance = _daily_provenance(far, far_frame)
             n = near_frame.reindex(columns=["trade_date", "settle"])
             f = far_frame.reindex(columns=["trade_date", "settle"])
             merged = pd.merge(n, f, on="trade_date", how="outer", suffixes=("_n", "_f"))
@@ -1115,13 +1179,12 @@ def collect_v3_research():
                         market_inputs=dict(near_contract=near, far_contract=far, records=records,
                                            trading_dates=calendar if not CAL_DEGRADED else [], as_of_date=cutoff,
                                            exchange=EXCH[_prod(near)],
-                                           sources={near: dict(near_frame.attrs.get("provenance", {})),
-                                                    far: dict(far_frame.attrs.get("provenance", {}))}))
+                                           sources={near: near_provenance, far: far_provenance}))
         except Exception as exc:
             item.update(status="incomplete", missing_fields=[str(exc), "frozen_economic_anchor_and_mechanism"])
         spreads.append(item)
         print(f"  V {near}-{far} ({stage}): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号")
-    output = dict(rule_version="v3.0", script_version="v1.18", scope="v3_research_inputs_only",
+    output = dict(rule_version="v3.0", script_version="v1.18.1", scope="v3_research_inputs_only",
                   as_of_date=AS_OF, trend=trends, economic_reversion=spreads,
                   execution_permission="not_evaluated")
     os.makedirs(OUTDIR, exist_ok=True)
@@ -1390,7 +1453,7 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v3.0 框架数据脚本 (Tushare Pro, v1.18)")
+        description="v3.0 框架数据脚本 (Tushare Pro, v1.18.1)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
@@ -1411,12 +1474,12 @@ def main():
 
 
 def print_completion():
-    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.18 | 本行存在即输出完整 ==")
+    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.18.1 | 本行存在即输出完整 ==")
 
 
 def run(snapshot, include_legacy_v2=False):
 
-    print(f"== v3.0 框架数据脚本 v1.18 | AS_OF={AS_OF} | scope=v3_research_inputs_only | "
+    print(f"== v3.0 框架数据脚本 v1.18.1 | AS_OF={AS_OF} | scope=v3_research_inputs_only | "
           f"legacy_v2={include_legacy_v2} | 事件日期线索{len(EVENTS)}项(用户维护) ==")
     print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
           "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")

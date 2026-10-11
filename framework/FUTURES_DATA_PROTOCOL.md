@@ -18,7 +18,9 @@
 
 正式快照在`research/futures/snapshots/<AS_OF>-data-snapshot.txt`，末行“快照完成”才算写入完整；`.partial`不是完成。默认拒绝覆盖，同日复跑按现有产物和用户授权选择隔离输出，不以文件名证明行情有效。`--no-snapshot`只打印，`--legacy-v2`额外输出历史方法模块，不进入v3准入。
 
-v1.18默认输出v3 T行情输入、V两腿结算原料，机器包位于`output/cache/futures/v3_research_inputs_<AS_OF>.json`（实际OUTDIR以脚本为准）；是可重建中间文件，正式报告须保存所用原料、来源引用或可追溯产物，不能只留将来会失效的缓存指针。研究阶段按文件完成标记、行情日及每字段状态读取，发布流程仍遵守入口的已提交快照要求。v1.16快照只作历史原料，不因格式可读就当成v3完整输入。
+v1.18.1默认输出v3 T行情输入、V两腿结算原料，机器包位于`output/cache/futures/v3_research_inputs_<AS_OF>.json`（实际OUTDIR以脚本为准）；是可重建中间文件，正式报告须保存所用原料、来源引用或可追溯产物，不能只留将来会失效的缓存指针。研究阶段按文件完成标记、行情日及每字段状态读取，发布流程仍遵守入口的已提交快照要求。v1.16快照只作历史原料，不因格式可读就当成v3完整输入。
+
+Tushare 行情来源必须保存从 API 返回行核验的确切 `ts_code`，同时核对请求合约及交易所后缀；不得从外层计划标签补造来源身份。采集器逐行验证响应，在缓存复用时复核响应列与来源字段，核验完成后标注 `identity_basis=fut_daily_response_ts_code`；T 包和 V 两腿分别透传真实代码及该来源标记。刷新器要求来源有此核验声明，拒绝缺失或冲突的身份；行内代码用于一致性核对，不要求每行重复来源标记。旧 T 包缺此字段，须用可核验身份的原始响应重建或重新取数，不能只补一个期望合约名。旧 v1.18 的 V 来源曾以请求码填入 ts_code，其存在不证明返回行身份已核验；历史输出保留，按实际来源重新核对后再作当前价格依据。
 
 `as_of_date`研究日、`market_trade_date`完整行情日、实际`fetched_at`分列；交易所和来源随原料保留。18:00等取数截止只是避免未完成日线的保护，不证明最终结算已正式发布。所有交易日/事件窗口以真实交易所日历与夜盘归属为准，降级的普通工作日日历不能给v3信号或计划有效期。数据商日历保留其实际交易所来源；如采用SSE日历作日线机械筛查，必须明示，不能据此声称已核期交所夜盘、临时休市或真实入场时刻；执行前仍须核具体期交所日历。
 
@@ -102,6 +104,6 @@ python3 scripts/validate_futures_audit.py --input <审计报告.md>
 python3 -m unittest discover -s tests -v
 ```
 
-检查结果须区分结构、离线合成样本、真实API与收益检验。治理脚本核30个当前锚和277个旧ID迁移覆盖，不证明全部语义；单元测试不证明策略可盈利或行情可获取。10/11 v1.18 已有真实 API 取数记录，具体覆盖见[实施报告](../research/futures/maintenance/2026-10-11/2026-10-11-weekly-update-mechanism-implementation.md)；本次修复另用冻结原料复跑，不把它写成新的联网验证。遇数据缺项保留错误与可执行补件动作。
+检查结果须区分结构、离线合成样本、真实API与收益检验。治理脚本核30个当前锚和277个旧ID迁移覆盖，不证明全部语义；单元测试不证明策略可盈利或行情可获取。10/11 v1.18 已有真实 API 取数记录，具体覆盖见[实施报告](../research/futures/maintenance/2026-10-11/2026-10-11-weekly-update-mechanism-implementation.md)；此前维护修复另用冻结原料复跑；v1.18.1 的来源身份修复单独验证，不将旧 API 记录或离线样本写成新版本联网验证。遇数据缺项保留错误与可执行补件动作。
 
 [大商所](https://www.dce.com.cn/)、[郑商所](https://www.czce.com.cn/)、[上期所](https://www.shfe.com.cn/)提供交易与合约规则入口；[USDA WASDE](https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report)、农业农村部CASDE、统计局等提供适用产业背景。入口存在不证明本期已取到数据；不得把宏观统计直接代替具体交割品级现货。

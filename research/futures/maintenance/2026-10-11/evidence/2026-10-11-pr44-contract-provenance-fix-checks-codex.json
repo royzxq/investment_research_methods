@@ -1,0 +1,161 @@
+{
+  "schema": "futures-pr-review-fix-checks/v1",
+  "checked_at": "2026-10-11T20:36:29.934536+08:00",
+  "generator": "codex",
+  "pr": "https://github.com/royzxq/investment_research_methods/pull/44",
+  "review_thread": "PRRT_kwDOTSgmmM6rNJre",
+  "original_pr_head": "1526259a499fd005289041bda7948dedc92fb71a",
+  "merge_main_commit": "0fd4147200c85871a0806c28110a0c3327d30522",
+  "main_integrated": "f1458994fbf9c7413e7fa8d785cc50a38f6bce45",
+  "classification": "evidence_correction",
+  "collector_version": "v1.18.1",
+  "refresh_version": "1.2",
+  "validation": {
+    "full_unittest": {
+      "command": "/Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v",
+      "status": "passed",
+      "tests": 705,
+      "seconds": 86.418,
+      "log_path": "output/audits/futures/2026-10-11/pr44-contract-provenance-fix/unittest-full.log",
+      "log_sha256": "0f7691e695d1924f038f2cdd9f510814394422ede96994f30b01cdd462933d5c"
+    },
+    "refresh_targeted": {
+      "status": "passed",
+      "tests": 58
+    },
+    "collector_related_targeted": {
+      "status": "passed",
+      "tests": 116,
+      "new_provenance_tests": 16
+    },
+    "shared_research_paths": {
+      "status": "passed",
+      "tests": 31
+    },
+    "independent_review": "No remaining blocking findings; 15 collector and nine refresh boundary tests passed.",
+    "futures_governance": "passed",
+    "stock_governance": "passed",
+    "skills": {
+      "futures-weekly-review": "passed",
+      "framework-condense": "passed"
+    },
+    "diff_check": "passed"
+  },
+  "old_frozen_input_negative_replay": {
+    "purpose": "Offline negative replay of unchanged historical v1.18 real-API input; no new API call or current market research",
+    "refresh_version": "1.2",
+    "input_script_version": "v1.18",
+    "original_evaluated_at": "2026-10-11T18:51:28.519893+08:00",
+    "source_inputs": [
+      {
+        "role": "market-inputs",
+        "path": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/market-inputs.json",
+        "sha256": "4bd868f34fb6ce83e1e1ec164ec912b4a559599763adeba932682f9f4293ecd7"
+      },
+      {
+        "role": "data-snapshot",
+        "path": "research/futures/refresh/2026-10-11/evidence/2026-10-11-signal-refresh/data-snapshot.txt",
+        "sha256": "d98b800461798128264543960b8c4242b87d20d0b4c61856aca7a9ca50f11b46"
+      }
+    ],
+    "refresh_status": "failed",
+    "trend": [
+      {
+        "contract": "CF2701",
+        "status": "incomplete",
+        "signal": "unknown",
+        "missing_fields": [
+          "price_source_contract_identity_missing"
+        ]
+      },
+      {
+        "contract": "M2701",
+        "status": "incomplete",
+        "signal": "unknown",
+        "missing_fields": [
+          "price_source_contract_identity_missing"
+        ]
+      },
+      {
+        "contract": "MA2701",
+        "status": "incomplete",
+        "signal": "unknown",
+        "missing_fields": [
+          "price_source_contract_identity_missing"
+        ]
+      },
+      {
+        "contract": "RB2701",
+        "status": "incomplete",
+        "signal": "unknown",
+        "missing_fields": [
+          "price_source_contract_identity_missing"
+        ]
+      },
+      {
+        "contract": "SR2701",
+        "status": "incomplete",
+        "signal": "unknown",
+        "missing_fields": [
+          "price_source_contract_identity_missing"
+        ]
+      }
+    ],
+    "legacy_v_source_checks": [
+      {
+        "near_contract": "MA2701",
+        "far_contract": "MA2705",
+        "identity_status": "unverified",
+        "issue": "price_source_contract_identity_response_unverified"
+      },
+      {
+        "near_contract": "RB2701",
+        "far_contract": "RB2703",
+        "identity_status": "unverified",
+        "issue": "price_source_contract_identity_response_unverified"
+      },
+      {
+        "near_contract": "SR2701",
+        "far_contract": "SR2705",
+        "identity_status": "unverified",
+        "issue": "price_source_contract_identity_response_unverified"
+      },
+      {
+        "near_contract": "MA2705",
+        "far_contract": "MA2709",
+        "identity_status": "unverified",
+        "issue": "price_source_contract_identity_response_unverified"
+      },
+      {
+        "near_contract": "RB2703",
+        "far_contract": "RB2705",
+        "identity_status": "unverified",
+        "issue": "price_source_contract_identity_response_unverified"
+      }
+    ]
+  },
+  "unchanged_method_sha256": {
+    "framework/futures_framework.md": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+    "framework/futures_framework_compact.md": "fb0739b29b0f7c441b178bf4ee64cffe6bf55be780ab6f8b908cb791ddb2f103",
+    "scripts/futures_strategy.py": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "scripts/futures_risk.py": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8"
+  },
+  "source_sha256": {
+    ".agents/skills/futures-weekly-review/references/refresh-and-handoff.md": "cb930a12b289e385c805a9645fc239cae35e0ca92c9d33ad655b4c8ad1a6856a",
+    "docs/context/project-state.md": "497300a1e743062bdf3b53a9e4d77cfc32b4eefd2046bb79c22fdb249ead0ba2",
+    "framework/FUTURES_DATA_PROTOCOL.md": "e10ed5a93ea2233511ce9cabb355f95a65792c9b2fda0537e8a2042135af10ac",
+    "research/futures/maintenance/2026-10-11/2026-10-11-pr44-contract-provenance-fix.md": "39bc7a26da0b39246a42c5cdf591b344687a2d14d6673f6c35d09e46641ba6e5",
+    "scripts/future_data.py": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7",
+    "scripts/futures_refresh.py": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6",
+    "tests/test_future_data_provenance.py": "899fc8dfbaa451d89b057b38c4e1c5589428a969c72d65ba6bb69421c76eaed0",
+    "tests/test_futures_refresh.py": "edd997027e8fa0bf149f0531fb26af56f027fee361f17f2d12f2c6340ab9639d",
+    "tests/test_futures_strategy.py": "6d20f009b09c39c8fb8a2d1c7335052ec93a93fdd8b34a1b81e56cd2c8663840",
+    "tests/test_price_evidence.py": "4ca119288fbfff70abafd3d2b24749c916d77d2f8e5095d95e6a73da77942718"
+  },
+  "not_verified": [
+    "Hosted CI of forthcoming fix commit at this timestamp",
+    "Real API response for collector v1.18.1",
+    "Actual scheduled automation run",
+    "Investment effectiveness"
+  ]
+}

@@ -58,6 +58,7 @@ python3 scripts/futures_refresh.py --as-of YYYY-MM-DD --input <input.json> --sna
 
 - 输出 `research/futures/refresh/<date>/<date>-signal-refresh[-rN].md/.json` 及冻结 evidence，保留真实 generated/evaluated 时间、方法/hash、最新已完成交易日与覆盖；同日不同输入另存修订，不覆盖原结果。
 - 默认刷新五品种 T 的价格侧；V 未提供合格事前锚时记未评估，不当作 no_signal。复用现有 helper，不改参数；筛选通过不等于产业证据、事件、账户或 G1–G6 已齐。
+- 行情来源须显式给出已核对 API 返回行的真实 ts_code、核验声明 `identity_basis=fut_daily_response_ts_code`，并匹配具体合约及交易所后缀；缓存也复核返回列与来源身份。T 与 V 各腿均不得用外层合约标签替代来源。旧包缺身份或来源矛盾记 incomplete/unknown，使用可核原始响应重建或重新取数，不猜补字段、不当作 no_signal；历史 V 的请求码记录不等于已验证返回身份。
 - V 计算前核外层组合、来源键、原料两腿与锚的有序合约对一致。冻结只要求在信号形成前；同日锚由 anchors 文件的 `signal_observations` 提供 near_contract、far_contract、signal_date、带时区 signal_completed_at 和 source_refs，核 frozen_at 早于信号完成且完成时刻不晚于两腿取数/评估。时序未知明确缺口，不猜收盘钟点、不加“前一天”门；跨日冻结不额外要求日内时刻。原计划日历独立于本期 T 主合约名单，V 两腿分别核覆盖及一致性；`calendar_checks` 与 `price_refresh_status` 分开读，缺旧行情不能声称价格已刷新。
 - 每个实际交易日收盘后检查，拟入场前再核实际报价、公开适用参数及账户。调度日不保证是交易日；以真实交易日历判断最近完成时点，周末/节假日不造新信号。收盘未完成、日历不足、快照陈旧、抓取失败分别标明，不把数据失败写成 no_signal。
 - 沿用原 opportunity_id、原 signal_date 和原 valid_until；重跑、周报或版本更新均不延长两日窗口。到期如实 expired，不重命名同一机会。

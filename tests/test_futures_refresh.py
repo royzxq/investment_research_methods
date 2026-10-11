@@ -36,7 +36,9 @@ class RefreshTests(unittest.TestCase):
             rows[-1].update(close=3030, high=3032, low=3028)
             market = dict(contract=contract, records=rows, trading_dates=self.days, as_of_date=self.day,
                           exchange="SHFE" if product == "RB" else "DCE" if product == "M" else "CZCE",
-                          source="Tushare Pro fut_daily", fetched_at=self.now.isoformat())
+                          source="Tushare Pro fut_daily", fetched_at=self.now.isoformat(),
+                          identity_basis="fut_daily_response_ts_code",
+                          ts_code=contract + (".SHF" if product == "RB" else ".DCE" if product == "M" else ".ZCE"))
             item = trend_inputs(market)
             item["market_inputs"] = market
             self.payload["trend"].append(item)
@@ -44,10 +46,10 @@ class RefreshTests(unittest.TestCase):
         self.write_snapshot()
 
     def write_snapshot(self):
-        lines = [f"== v3.0 框架数据脚本 v1.18 | AS_OF={self.day} |"]
+        lines = [f"== v3.0 框架数据脚本 {self.payload['script_version']} | AS_OF={self.day} |"]
         lines += [f"T {row['contract']}: {row['status']} / {row['signal']} / {row['side']}"
                   for row in self.payload["trend"]]
-        lines += [f"== 快照完成 | AS_OF={self.day} | 脚本 v1.18 | 本行存在即输出完整 =="]
+        lines += [f"== 快照完成 | AS_OF={self.day} | 脚本 {self.payload['script_version']} | 本行存在即输出完整 =="]
         self.snapshot.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     def evaluate(self, **kwargs):
@@ -174,11 +176,13 @@ class RefreshTests(unittest.TestCase):
         records = [dict(trade_date=day, near_contract="MA2701", far_contract="MA2705",
                         near_settle=3000 + value, far_settle=3000)
                    for day, value in zip(self.days, [200 + i % 7 for i in range(58)] + [320, 310, 300])]
-        provenance = dict(source="Tushare Pro fut_daily", fetched_at=self.now.isoformat())
+        provenance = dict(source="Tushare Pro fut_daily", fetched_at=self.now.isoformat(),
+                          identity_basis="fut_daily_response_ts_code")
         self.payload["economic_reversion"] = [dict(near_contract="MA2701", far_contract="MA2705",
             research_stage="current", market_inputs=dict(near_contract="MA2701", far_contract="MA2705",
             records=records, trading_dates=self.days, as_of_date=self.day, exchange="CZCE",
-            sources={"MA2701": provenance, "MA2705": provenance}))]
+            sources={"MA2701": dict(provenance, ts_code="MA2701.ZCE"),
+                     "MA2705": dict(provenance, ts_code="MA2705.ZCE")}))]
         return dict(anchors=[dict(near_contract="MA2701", far_contract="MA2705", anchor_low=-100,
             anchor_high=100, frozen_at=(self.now - timedelta(days=3)).isoformat(), valid_until=self.days[70],
             source_refs=["synthetic-source"], economic_anchor_basis="synthetic-storage-band",
@@ -311,6 +315,8 @@ class RefreshTests(unittest.TestCase):
         market.update(near_contract="MA2705", far_contract="MA2709")
         market["sources"] = {"MA2705": copy.deepcopy(market["sources"]["MA2701"]),
                              "MA2709": copy.deepcopy(market["sources"]["MA2705"])}
+        for contract, source in market["sources"].items():
+            source["ts_code"] = contract + ".ZCE"
         for record in market["records"]:
             record.update(near_contract="MA2705", far_contract="MA2709")
         return plans
@@ -487,6 +493,185 @@ class RefreshTests(unittest.TestCase):
                 row = self.evaluate(anchors=anchors)["economic_reversion"][0]
                 self.assertEqual((row["status"], row["signal"]), ("incomplete", "unknown"))
                 self.assertNotEqual(row["reason"], "frozen_economic_anchor_not_supplied")
+
+    def test_source_identity_requires_explicit_provider_code_not_outer_or_request_label(self):
+        for contract, exchange, code in (("MA2701", "CZCE", "MA2701.ZCE"),
+                                          ("RB2701", "SHFE", "RB2701.SHF"),
+                                          ("M2701", "DCE", "M2701.DCE")):
+            with self.subTest(contract=contract):
+                refresh.source_identity(dict(ts_code=code, identity_basis="fut_daily_response_ts_code"), contract, exchange)
+                refresh.source_identity(dict(ts_code=code, contract=contract, exchange=exchange,
+                                             requested_ts_code=code, identity_basis="fut_daily_response_ts_code"), contract, exchange)
+                for missing in ({}, {"contract": contract, "exchange": exchange},
+                                {"requested_ts_code": code}, {"ts_code": None},
+                                {"ts_code": ""}, {"ts_code": " "}, {"ts_code": 2701}):
+                    with self.assertRaisesRegex(ValueError, "price_source_contract_identity_missing"):
+                        refresh.source_identity(missing, contract, exchange)
+
+    def test_source_identity_rejects_conflicting_contract_exchange_and_request(self):
+        for fields in ({"ts_code": "MA2705.ZCE"}, {"ts_code": "MA2701.SHF"},
+                       {"ts_code": "MA2701.ZCE "}, {"ts_code": "MA2701.ZCE", "contract": "MA2705"},
+                       {"ts_code": "MA2701.ZCE", "contract": None},
+                       {"ts_code": "MA2701.ZCE", "exchange": "SHFE"},
+                       {"ts_code": "MA2701.ZCE", "exchange": None},
+                       {"ts_code": "MA2701.ZCE", "requested_ts_code": "MA2705.ZCE"}):
+            with self.subTest(fields=fields), self.assertRaisesRegex(ValueError, "price_source_contract_identity"):
+                refresh.source_identity(dict(fields, identity_basis="fut_daily_response_ts_code"), "MA2701", "CZCE")
+
+    def test_trend_missing_provider_identity_is_unknown_even_with_matching_labels(self):
+        market = self.payload["trend"][0]["market_inputs"]
+        market.pop("ts_code")
+        market["requested_ts_code"] = "MA2701.ZCE"
+        result = self.evaluate(plans=self.plans())
+        row = next(row for row in result["trend"] if row["contract"] == "MA2701")
+        self.assertEqual((row["status"], row["signal"]), ("incomplete", "unknown"))
+        self.assertIn("price_source_contract_identity_missing", row["missing_fields"])
+        self.assertEqual(result["registered_plan_windows"][0]["status"], "incomplete")
+
+    def test_optional_trend_row_provider_identity_must_match_provenance(self):
+        market = self.payload["trend"][0]["market_inputs"]
+        for row in market["records"]:
+            row["ts_code"] = "MA2701.ZCE"
+        self.assertEqual(self.evaluate()["refresh_status"], "fresh")
+        for value in ("MA2705.ZCE", "MA2701.SHF", None, ""):
+            with self.subTest(ts_code=value):
+                market["records"][0]["ts_code"] = value
+                row = next(row for row in self.evaluate()["trend"] if row["contract"] == "MA2701")
+                self.assertEqual((row["status"], row["signal"]), ("incomplete", "unknown"))
+                self.assertTrue(any(issue.startswith("price_source_contract_identity") for issue in row["missing_fields"]))
+
+    def test_v_missing_provider_identity_cannot_hide_behind_current_t_calendar(self):
+        plans = self.old_pair_plans()
+        market = self.payload["economic_reversion"][0]["market_inputs"]
+        for leg in ("MA2705", "MA2709"):
+            original = market["sources"][leg].pop("ts_code")
+            with self.subTest(leg=leg):
+                result = self.evaluate(plans=plans)
+                self.assertEqual(result["economic_reversion"][0]["reason"], "price_source_contract_identity_missing")
+                clock = result["registered_plan_windows"][0]
+                self.assertEqual(clock["status"], "incomplete")
+                self.assertIn("calendar_input_invalid", clock["issue"])
+            market["sources"][leg]["ts_code"] = original
+
+    def test_v_nonobject_provenance_cannot_fall_back_to_same_exchange_calendar(self):
+        plans = self.old_pair_plans()
+        market = self.payload["economic_reversion"][0]["market_inputs"]
+        for invalid in (None, "MA2709.ZCE", ["MA2709.ZCE"]):
+            with self.subTest(source=invalid):
+                market["sources"]["MA2709"] = invalid
+                result = self.evaluate(plans=plans)
+                self.assertEqual(result["economic_reversion"][0]["reason"],
+                                 "price_source_contract_identity_requires_object")
+                self.assertEqual(result["registered_plan_windows"][0]["status"], "incomplete")
+                self.assertIn("calendar_input_invalid", result["registered_plan_windows"][0]["issue"])
+
+    def test_old_v_request_code_without_response_verification_is_not_accepted(self):
+        anchors = self.add_reversion()
+        self.assertEqual(self.evaluate(anchors=anchors)["economic_reversion"][0]["status"], "valid")
+        source = self.payload["economic_reversion"][0]["market_inputs"]["sources"]["MA2705"]
+        source.pop("identity_basis")
+        result = self.evaluate(anchors=anchors)
+        self.assertEqual(result["economic_reversion"][0]["reason"],
+                         "price_source_contract_identity_response_unverified")
+        self.assertEqual((result["economic_reversion"][0]["status"], result["economic_reversion"][0]["signal"]),
+                         ("incomplete", "unknown"))
+        plans = self.old_pair_plans()
+        self.payload["economic_reversion"][0]["market_inputs"]["sources"]["MA2709"].pop("identity_basis")
+        clock = self.evaluate(plans=plans)["registered_plan_windows"][0]
+        self.assertEqual(clock["status"], "incomplete")
+        self.assertIn("calendar_input_invalid", clock["issue"])
+
+    def test_trend_response_verification_is_required_but_not_repeated_on_each_bar(self):
+        market = self.payload["trend"][0]["market_inputs"]
+        for row in market["records"]:
+            row["ts_code"] = "MA2701.ZCE"
+        self.assertEqual(self.evaluate()["refresh_status"], "fresh")
+        for marker in (None, "", "requested_ts_code", True):
+            with self.subTest(identity_basis=marker):
+                market["identity_basis"] = marker
+                row = next(row for row in self.evaluate()["trend"] if row["contract"] == "MA2701")
+                self.assertEqual((row["status"], row["signal"]), ("incomplete", "unknown"))
+                self.assertIn("price_source_contract_identity_response_unverified", row["missing_fields"])
+        market.pop("identity_basis")
+        row = next(row for row in self.evaluate()["trend"] if row["contract"] == "MA2701")
+        self.assertIn("price_source_contract_identity_response_unverified", row["missing_fields"])
+
+    def test_optional_spread_row_provider_identities_are_bound_to_their_legs(self):
+        anchors = self.add_reversion()
+        row = self.payload["economic_reversion"][0]["market_inputs"]["records"][0]
+        row.update(near_ts_code="MA2701.ZCE", far_ts_code="MA2705.ZCE")
+        self.assertEqual(self.evaluate(anchors=anchors)["economic_reversion"][0]["status"], "valid")
+        for field, value in (("near_ts_code", "MA2705.ZCE"), ("far_ts_code", "MA2705.SHF"),
+                             ("far_ts_code", None), ("ts_code", "MA2701.ZCE")):
+            original = copy.deepcopy(row)
+            row[field] = value
+            result = self.evaluate(anchors=anchors)["economic_reversion"][0]
+            self.assertEqual((result["status"], result["signal"]), ("incomplete", "unknown"))
+            row.clear()
+            row.update(original)
+
+    def test_optional_raw_response_and_request_ids_are_normalized_and_bound(self):
+        market = self.payload["trend"][0]["market_inputs"]
+        original = copy.deepcopy(market)
+        market.update(response_ts_code_values=[" ma2701.zce ", "MA2701.ZCE"], requested_ts_code_raw=" ma2701.zce ")
+        self.assertEqual(self.evaluate()["refresh_status"], "fresh")
+        for key, value in (("response_ts_code_values", []), ("response_ts_code_values", "MA2701.ZCE"),
+                           ("response_ts_code_values", ["MA2701.ZCE", "RB2701.SHF"]),
+                           ("response_ts_code_values", [None]), ("response_ts_code_values", [""]),
+                           ("requested_ts_code_raw", "RB2701.SHF"), ("requested_ts_code_raw", None)):
+            with self.subTest(key=key, value=value):
+                market.clear()
+                market.update(copy.deepcopy(original))
+                market[key] = value
+                row = next(row for row in self.evaluate()["trend"] if row["contract"] == "MA2701")
+                self.assertEqual((row["status"], row["signal"]), ("incomplete", "unknown"))
+                self.assertTrue(any(issue.startswith("price_source_contract_identity_raw") for issue in row["missing_fields"]))
+
+    def test_raw_bar_identity_is_checked_with_or_without_repeated_canonical_id(self):
+        market = self.payload["trend"][0]["market_inputs"]
+        record = market["records"][-1]
+        for repeat_canonical_id in (False, True):
+            if repeat_canonical_id:
+                record["ts_code"] = "MA2701.ZCE"
+            record["response_ts_code"] = " ma2701.zce "
+            self.assertEqual(self.evaluate()["refresh_status"], "fresh")
+            for value in ("RB2701.SHF", "MA2705.ZCE", None, ""):
+                with self.subTest(repeated=repeat_canonical_id, raw=value):
+                    record["response_ts_code"] = value
+                    row = next(row for row in self.evaluate()["trend"] if row["contract"] == "MA2701")
+                    self.assertEqual((row["status"], row["signal"]), ("incomplete", "unknown"))
+                    self.assertTrue(any(issue.startswith("price_source_contract_identity_raw") for issue in row["missing_fields"]))
+
+    def test_v_conflicting_raw_source_identity_cannot_use_calendar_fallback(self):
+        plans = self.old_pair_plans()
+        source = self.payload["economic_reversion"][0]["market_inputs"]["sources"]["MA2709"]
+        source["response_ts_code_values"] = [" ma2709.zce "]
+        self.assertEqual(self.evaluate(plans=plans)["registered_plan_windows"][0]["status"], "remaining_window")
+        source["response_ts_code_values"] = ["RB2709.SHF"]
+        result = self.evaluate(plans=plans)
+        self.assertEqual(result["economic_reversion"][0]["reason"], "price_source_contract_identity_raw_mismatch")
+        self.assertEqual(result["registered_plan_windows"][0]["status"], "incomplete")
+        self.assertIn("calendar_input_invalid", result["registered_plan_windows"][0]["issue"])
+
+    def test_patch_collector_versions_require_matching_snapshot_and_identity(self):
+        for version in ("v1.18", "v1.18.1", "v1.18.2"):
+            with self.subTest(version=version):
+                self.payload["script_version"] = version
+                self.write_snapshot()
+                result = self.evaluate()
+                self.assertEqual(result["refresh_status"], "fresh")
+                self.assertEqual(result["input_script_version"], version)
+        self.snapshot.write_text(self.snapshot.read_text().replace("脚本 v1.18.2", "脚本 v1.18.1", 1))
+        result = self.evaluate()
+        self.assertEqual(result["refresh_status"], "failed")
+        self.assertIn("snapshot_version_mismatch", result["issues"])
+        self.payload["script_version"] = "v1.18.1"
+        self.write_snapshot()
+        self.payload["trend"][0]["market_inputs"].pop("ts_code")
+        result = self.evaluate()
+        self.assertEqual(result["refresh_status"], "partial")
+        self.assertIn("price_source_contract_identity_missing", next(
+            row for row in result["trend"] if row["contract"] == "MA2701")["missing_fields"])
 
     def test_invalid_json_duplicate_keys_or_nan_rejected(self):
         for content in ('{"x":1,"x":2}', '{"x":NaN}'):

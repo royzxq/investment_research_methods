@@ -367,6 +367,7 @@ class V3DataIntegrationTests(unittest.TestCase):
         from types import SimpleNamespace
         market = trend_market()
         frame = pd.DataFrame(market["records"])
+        frame["ts_code"] = "M2701.DCE"
         with patch.object(module, "_daily_cache", {}), patch.object(module, "AS_OF", market["as_of_date"]), \
                 patch.object(module, "completed_day_cutoff", return_value=market["as_of_date"]), \
                 patch.object(module, "resolve", return_value="M2701.DCE"), \
@@ -400,6 +401,10 @@ class V3DataIntegrationTests(unittest.TestCase):
         from scripts import future_data as module
         market = trend_market()
         frame = pd.DataFrame(market["records"])
+        frame["ts_code"] = "M2701.DCE"
+        frame.attrs["provenance"] = dict(source="synthetic fixture", contract="M2701", ts_code="M2701.DCE",
+            exchange="DCE", requested_ts_code="M2701.DCE", identity_basis="fut_daily_response_ts_code",
+            fetched_at="2026-10-11T19:00:00+08:00")
         with tempfile.TemporaryDirectory() as directory, patch.object(module, "OUTDIR", directory), \
                 patch.object(module, "AS_OF", market["as_of_date"]), \
                 patch.object(module, "completed_day_cutoff", return_value=market["as_of_date"]), \
@@ -411,7 +416,9 @@ class V3DataIntegrationTests(unittest.TestCase):
             saved = json.loads((Path(directory) / f"v3_research_inputs_{market['as_of_date']}.json").read_text())
         self.assertEqual(result["trend"][0]["signal_close"], 3030)
         self.assertEqual(saved["trend"][0]["market_inputs"]["exchange"], "DCE")
-        self.assertIsNone(saved["trend"][0]["market_inputs"]["fetched_at"])  # Synthetic frame was not fetched.
+        self.assertEqual(saved["trend"][0]["market_inputs"]["fetched_at"], "2026-10-11T19:00:00+08:00")
+        self.assertEqual(saved["trend"][0]["market_inputs"]["ts_code"], "M2701.DCE")
+        self.assertEqual(saved["trend"][0]["market_inputs"]["source"], "synthetic fixture")
         self.assertEqual(saved["rule_version"], "v3.0")
         self.assertEqual(saved["execution_permission"], "not_evaluated")
 
