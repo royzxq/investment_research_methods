@@ -513,7 +513,21 @@ def check_codex_cli(cli, root):
 
 def command(cli, generator, folder, root):
     if generator == 'claude':
+        targets = _strict_json((folder / 'targets.json').read_bytes(), 'targets')
+        first = folder.parent if folder.name == 'retry-1' else folder
+        staged = first.parents[2] / 'staged' / first.parent.name / generator
+        if folder.name == 'retry-1':
+            staged /= 'retry-1'
+        report = owned_path(staged, targets['report_path'])
+        price = owned_path(staged, targets['price_map_path'])
+        delivery = (f'本次暂存报告绝对路径：{report}\n'
+                    f'本次暂存价格JSON绝对路径：{price}\n'
+                    f'先建立公司目录 {price.parent}；报告写上述报告路径；'
+                    f'stock_price_map.py build --output {price} --generator {generator}。'
+                    '--output 是完整文件路径，不是暂存根目录，不得平铺文件。'
+                    'meta.report_path及回执继续填写冻结输入中的最终相对路径。')
         return [cli, '-p', '--permission-mode', 'auto', '--permission-prompts', 'none',
+                '--append-system-prompt', delivery,
                 '--output-format', 'stream-json', '--verbose', '--no-session-persistence',
                 '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}',
                 '--json-schema', (folder / 'receipt-schema.json').read_text()]
@@ -846,6 +860,10 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     env.pop(key)
             env['PYTHONDONTWRITEBYTECODE'] = '1'
             args = command(cli, generator, folder, root)
+            if generator == 'claude':
+                delivery = args[args.index('--append-system-prompt') + 1].encode('utf-8')
+                write_new(folder / 'delivery-prompt.txt', delivery)
+                process['delivery_prompt_sha256'] = sha(delivery)
             with (folder / 'events.jsonl').open('wb') as stdout, (folder / 'stderr.log').open('wb') as stderr:
                 check_launch_day(run, request, task, launch_date)
                 proc = subprocess.Popen(args, cwd=root, env=env, stdin=subprocess.PIPE,
@@ -887,6 +905,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 if runtime_record != input_record(request, request_raw, task, generator, payload,
                                                   frozen['frameworks'], targets):
                     raise ValueError('executed input record changed during research')
+                if generator == 'claude' and (folder / 'delivery-prompt.txt').read_bytes() != delivery:
+                    raise ValueError('executed delivery instruction changed during research')
                 compatibility = framework_compatibility(run, root, frozen['frameworks'],
                                                         request['valuation_date'], frozen['maintenance'])
                 process['framework_changed_during_run'] = compatibility['current_sha256'] != frozen['frameworks']

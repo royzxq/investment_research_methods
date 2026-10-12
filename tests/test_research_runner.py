@@ -54,20 +54,31 @@ code=get('code'); generator=get('generator'); day=get('valuation_date'); batch=g
 ticker,market=code.split('.')
 report=get('report_path');price=get('price_map_path')
 staged=Path(re.search(r'^本次交付暂存根：(.*)$',payload.decode(),re.M)[1])
-report_file=staged/report; report_file.parent.mkdir(parents=True,exist_ok=True)
+report_file=staged/report
+if mode=='exact_delivery_paths':
+ delivery=args[args.index('--append-system-prompt')+1] if '--append-system-prompt' in args else payload.decode()
+ report_match=re.search(r'^本次暂存报告绝对路径：(.*)$',delivery,re.M)
+ price_match=re.search(r'^本次暂存价格JSON绝对路径：(.*)$',delivery,re.M)
+ report_file=Path(report_match[1]) if report_match else staged/Path(report).name
+ price_file=Path(price_match[1]) if price_match else staged/Path(price).name
+report_file.parent.mkdir(parents=True,exist_ok=True)
 frames=';'.join(json.loads(re.search(r'^框架指纹：(.*)。$',payload.decode(),re.M)[1]).values())
 if mode=='framework_changes': Path('framework/investment_framework.md').write_text('changed during CLI run')
 if mode=='snapshot_changes':
  snapshot=Path(re.search(r'^本批方法快照目录：(.*)$',payload.decode(),re.M)[1])/'investment_framework.md'
  snapshot.chmod(0o644);snapshot.write_text('changed snapshot during CLI run')
 if mode=='runtime_input_changes': Path(os.environ['MOCK_TAMPER_PROMPT']).write_text('mutated executed prompt')
+if mode=='delivery_changes': Path(os.environ['MOCK_TAMPER_DELIVERY']).write_text('mutated delivery instruction')
 body='\n\n'.join(f'## {n}. section\n\n'+(f'batch={batch}; input={sha}; frames={frames}; price=25.30' if n==0 and mode!='unbound_report' else 'offline evidence') for n in range(9))
 if mode=='hidden_binding': body=body.replace(f'batch={batch}; input={sha}; frames={frames}; price=25.30',f'<!-- batch={batch}; input={sha}; frames={frames} -->\noffline evidence')
 report_file.write_text(body)
 doc={'meta':{'schema_version':'stock-research/v2','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
 'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':25,'high':30},'p1':{'low':10,'base':12,'high':15},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'V50','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
 'monitoring':[{'variable':'income','current':None,'as_of':None,'trigger':'falls','action':'review','source':'offline','next_check':'next report'}]}
+receipt_price=price
+if mode=='exact_delivery_paths': price=price_file
 (staged/price).write_text(json.dumps(doc))
+price=receipt_price
 receipt={'batch_id':batch,'task_id':get('task_id'),'code':code,'generator':generator,'valuation_date':day,'input_pack_sha256':sha,'status':'completed','reason':None,'summary':'offline research completed','report_path':report,'price_map_path':price}
 if mode=='completed_reason':receipt['reason']='wrong place for summary'
 if mode=='wrong_input': receipt['input_pack_sha256']='0'*64
@@ -229,6 +240,51 @@ class ResearchRunnerTests(unittest.TestCase):
         self.assertEqual(list((self.methods/'research').rglob('*.json')),[])
         state=json.loads((result.parent/'execution/SH-600066/claude/process.json').read_text())
         self.assertFalse(state['retryable'])
+
+    def test_explicit_delivery_paths_publish_claude_pair(self):
+        os.environ['MOCK_MODE'] = 'exact_delivery_paths'
+        result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        self.assertTrue((self.methods / entry['report']['path']).is_file())
+        self.assertTrue((self.methods / entry['price_map']['path']).is_file())
+
+    def test_retry_delivery_paths_use_retry_staging_and_preserve_first_attempt(self):
+        os.environ['MOCK_MODE'] = 'nonzero'
+        result = self.execute()
+        first = result.parent / 'execution/SH-600066/claude/entry.json'
+        original = first.read_bytes()
+        os.environ['MOCK_MODE'] = 'exact_delivery_paths'
+        request, raw, _ = runner.read_request(self.request_path)
+        retry = runner.run_provider(result.parent, request, raw, request['tasks'][0], 'claude',
+                                    str(self.fake), self.methods, 10, threading.Event(), attempt=2)
+        self.assertEqual(retry['status'], 'completed', retry['reason'])
+        self.assertEqual(first.read_bytes(), original)
+        staged = result.parent / 'staged/SH-600066/claude/retry-1'
+        self.assertEqual((staged / retry['report']['path']).read_bytes(),
+                         (self.methods / retry['report']['path']).read_bytes())
+
+    def test_delivery_appendix_is_recorded_without_rewriting_frozen_input(self):
+        run = prepare_request(self.request_path, self.methods)
+        folder = run / 'execution/SH-600066/claude'
+        originals = {name: (folder / name).read_bytes() for name in ('prompt.txt', 'input.json')}
+        os.environ['MOCK_MODE'] = 'exact_delivery_paths'
+        entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        appendix = (folder / 'delivery-prompt.txt').read_bytes()
+        process = json.loads((folder / 'process.json').read_text())
+        self.assertEqual(process['delivery_prompt_sha256'], hashlib.sha256(appendix).hexdigest())
+        for name, original in originals.items():
+            self.assertEqual((folder / name).read_bytes(), original)
+
+    def test_changed_delivery_appendix_is_rejected_before_publication(self):
+        run = prepare_request(self.request_path, self.methods)
+        os.environ.update(MOCK_MODE='delivery_changes',
+                          MOCK_TAMPER_DELIVERY=str(run / 'execution/SH-600066/claude/delivery-prompt.txt'))
+        entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('delivery instruction changed', entry['reason'])
+        self.assertFalse(list((self.methods / 'research').rglob('*.json')))
 
     def make_legacy_prepared(self):
         run=prepare_request(self.request_path,self.methods)
