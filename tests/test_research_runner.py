@@ -75,10 +75,10 @@ report_file.write_text(body)
 doc={'meta':{'schema_version':'stock-research/v2','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
 'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':25,'high':30},'p1':{'low':10,'base':12,'high':15},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'V50','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
 'monitoring':[{'variable':'income','current':None,'as_of':None,'trigger':'falls','action':'review','source':'offline','next_check':'next report'}]}
-if mode=='exact_delivery_paths':
- price_file.write_text(json.dumps(doc))
-else:
- (staged/price).write_text(json.dumps(doc))
+receipt_price=price
+if mode=='exact_delivery_paths': price=price_file
+(staged/price).write_text(json.dumps(doc))
+price=receipt_price
 receipt={'batch_id':batch,'task_id':get('task_id'),'code':code,'generator':generator,'valuation_date':day,'input_pack_sha256':sha,'status':'completed','reason':None,'summary':'offline research completed','report_path':report,'price_map_path':price}
 if mode=='completed_reason':receipt['reason']='wrong place for summary'
 if mode=='wrong_input': receipt['input_pack_sha256']='0'*64
