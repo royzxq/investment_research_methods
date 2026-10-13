@@ -222,7 +222,7 @@ class LayoutTests(unittest.TestCase):
                               currency=currency, unit='per_share', fx_to_quote=1),
             'discounts': dict(d_base=0.1, r_chip=0, r_v5=0, r_gov=0, r_terminal=0),
             'step_down': 0.05, 'p2': dict(status='active', reason=None),
-            't1': dict(price_condition='Review valuation', events=['Earnings release']),
+            't1': dict(price_condition='接近V50基准时复核', events=['Earnings release']),
             't2': dict(price_condition='Review valuation', events=['Thesis invalidation']),
             'monitoring': [dict(variable='Margin', current=None, as_of=None,
                                 trigger='Margin deterioration', action='Revalue',

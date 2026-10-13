@@ -32,7 +32,7 @@ def yutong_example():
                       "r_gov": 0, "r_terminal": 0.05},
         "step_down": 0.075,
         "p2": {"status": "active", "reason": None},
-        "t1": {"price_condition": "价格达到观察区间时复核", "events": ["出口毛利率下降"]},
+        "t1": {"price_condition": "股价≥30元/股", "events": ["出口毛利率下降"]},
         "t2": {"price_condition": "不设机械卖出价", "events": ["盈利假设被证伪"]},
         "monitoring": [{
             "variable": "PB三年分位", "current": 45.9, "as_of": "2026-09-30",
@@ -43,14 +43,82 @@ def yutong_example():
 
 
 class StockPriceMapTests(unittest.TestCase):
+    def test_new_t1_delivery_rejects_prose_but_historical_structure_still_loads(self):
+        complex_text = ('接近V50上沿：≥30.85元/股（＝V50上沿34.28元×90%）。'
+                        '注：现价22.80元（2026-10-12收盘）低于V50基准27.90元。')
+        for condition in (complex_text, '接近V50上沿时复核；当前25元',
+                          '股价≥30元/股；另一卖出价35', '盈利恶化时复核'):
+            with self.subTest(condition=condition):
+                data = yutong_example()
+                data['valuation'] = dict(kind='per_share', values=dict(low=22.59, base=27.9, high=34.28),
+                                         currency='CNY', unit='per_share', fx_to_quote=1)
+                data['t1']['price_condition'] = condition
+                with self.assertRaisesRegex(ValueError, 't1 delivery'):
+                    build_document(data)
+        document = build_document(yutong_example())
+        document['price_map']['t1']['price_condition'] = complex_text
+        validate_document(document)  # Loading old sealed bytes stays structural.
+
+    def test_canonical_t1_delivery_values_and_currency(self):
+        for currency, condition, expected in (
+            ('CNY', '股价≥30.85元/股', Decimal('30.85')),
+            ('CNY', ' 股价 ≥ 30.8500 CNY /股 ', Decimal('30.85')),
+            ('HKD', '股价≥37.337港元/股', Decimal('37.337')),
+            ('HKD', '股价≥37.337HKD/股', Decimal('37.337')),
+            ('CNY', '接近V50上沿时复核', Decimal('40')),
+            ('CNY', '接近V50下沿时复核', Decimal('20')),
+            ('CNY', '接近V50基准时复核', Decimal('30')),
+            ('CNY', '当前不适用', None),
+            ('CNY', '本轮不提供T1报价', None),
+        ):
+            with self.subTest(condition=condition):
+                data = yutong_example()
+                data['meta']['currency'] = currency
+                data['meta']['code'] = '01952.HK' if currency == 'HKD' else '600066.SH'
+                data['valuation'] = dict(kind='per_share', values=dict(low=20, base=30, high=40),
+                                         currency=currency, unit='per_share', fx_to_quote=1)
+                data['t1']['price_condition'] = condition
+                document = build_document(data)
+                self.assertEqual(price_map_module.validate_t1_delivery(document), expected)
+
+    def test_canonical_t1_delivery_rejects_invalid_or_ambiguous_values(self):
+        bad = ['股价≥0元/股', '股价≥-30元/股', '股价≥30.851元/股',
+               '股价≥30.85港元/股', '股价≥30.85HKD/股', '股价≥30元',
+               '股价≥30至35元/股', '股价≥30元/股或35元/股',
+               '股价≥30元/股；现价25元', '接近V50上沿40元时复核',
+               '接近V50上沿×90%时复核', '当前不适用：现价25元',
+               '本轮不提供T1报价；T1为30元', '股价≥NaN元/股',
+               '股价≥Inf元/股', '股价≥1e2元/股',
+               '股价≥' + '9'*400 + '元/股']
+        for condition in bad:
+            with self.subTest(condition=condition):
+                data = yutong_example()
+                data['valuation'] = dict(kind='per_share', values=dict(low=20, base=30, high=40),
+                                         currency='CNY', unit='per_share', fx_to_quote=1)
+                data['t1']['price_condition'] = condition
+                with self.assertRaisesRegex(ValueError, 't1 delivery'):
+                    build_document(data)
+
+    def test_new_t1_delivery_requires_an_existing_symbolic_anchor(self):
+        data = yutong_example()
+        data.update(mode='unavailable', reason='missing financials', valuation=None,
+                    discounts=None, step_down=None, p2=dict(status='unavailable', reason='missing'))
+        data['t1']['price_condition'] = '接近V50上沿时复核'
+        with self.assertRaisesRegex(ValueError, 't1 delivery'):
+            build_document(data)
+        data['t1']['price_condition'] = '股价≥30元/股'
+        build_document(data)  # An independent T1 does not require V50.
+
     def test_t1_t2_v50_reference_checks_only_the_referenced_amount(self):
         for field in ('t1', 't2'):
             with self.subTest(field=field):
                 data = yutong_example()
                 data['valuation'] = dict(kind='per_share', values=dict(low=20, base=30, high=40),
                                          currency='CNY', unit='per_share', fx_to_quote=1)
-                data[field]['price_condition'] = '接近 V50 上沿 40 元；当前价格 25 元'
                 document = build_document(data)
+                document['price_map'][field]['price_condition'] = '接近 V50 上沿 40 元；当前价格 25 元'
+                validate_document(document)
+                price_map_module.validate_price_references(document)
                 document['price_map'][field]['price_condition'] = '接近V50上沿41元；现价25元'
                 # Historical sealed results retain structure-only loading;
                 # an independent buy refusal must survive a T1 semantic error.
@@ -63,7 +131,7 @@ class StockPriceMapTests(unittest.TestCase):
 
     def test_symbolic_v50_and_independent_threshold_remain_valid(self):
         data = yutong_example()
-        data['t1']['price_condition'] = '接近V50上沿时复核；当前25元'
+        data['t1']['price_condition'] = '接近V50上沿时复核'
         data['t2']['price_condition'] = '股价达到50元时复核'
         build_document(data)
         data['t2']['price_condition'] = '高于V50上沿20%即42.93元/股，研究假设'
@@ -85,6 +153,7 @@ class StockPriceMapTests(unittest.TestCase):
     def test_hk_profit_valuation_and_reverse_currency_direction(self):
         data = yutong_example()
         data["meta"].update(code="01952.HK", name="云顶新耀", currency="HKD")
+        data["t1"]["price_condition"] = "股价≥30港元/股"
         data["valuation"] = {
             "kind": "equity_value",
             # RMB earnings 3.2/4.34/5.5 hundred million at 18/22/28 times.

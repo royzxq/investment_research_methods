@@ -209,6 +209,7 @@ def build_document(data):
         }
     validate_document(result)
     validate_price_references(result)
+    validate_t1_delivery(result)
     return result
 
 
@@ -248,6 +249,36 @@ def validate_document(document):
     validate_triggers(p["t1"], "t1")
     validate_triggers(p["t2"], "t2")
     validate_monitoring(document["monitoring"], document["meta"]["valuation_date"])
+
+
+def validate_t1_delivery(document):
+    """New-delivery grammar only; never applied to historical sealed loading."""
+    p = document['price_map']
+    condition = re.sub(r'\s+', '', string(p['t1']['price_condition'], 't1 delivery'))
+    if condition in {'当前不适用', '本轮不提供T1报价'}:
+        return None
+    reference = re.fullmatch(r'接近V50(上沿|下沿|基准)时复核', condition)
+    if reference:
+        require(p['v50'] is not None, 't1 delivery: referenced V50 is absent')
+        edge = {'上沿': 'high', '下沿': 'low', '基准': 'base'}[reference[1]]
+        value = number(p['v50'][edge], 't1 delivery: V50 quote', positive=True)
+    else:
+        explicit = re.fullmatch(r'股价≥([0-9]+(?:\.[0-9]+)?)(港元|元|HKD|CNY)/股',
+                                condition, re.I)
+        require(explicit is not None,
+                't1 delivery: use 股价≥金额元/股, 接近V50上沿/下沿/基准时复核, '
+                '当前不适用 or 本轮不提供T1报价; put explanations in report')
+        currency = document['meta']['currency']
+        allowed = {'CNY': {'元', 'CNY'}, 'HKD': {'港元', 'HKD'}}[currency]
+        require(explicit[2].upper() in allowed, 't1 delivery: quote currency mismatch')
+        value = number(Decimal(explicit[1]), 't1 delivery: explicit quote', positive=True)
+        digits = len(explicit[1].partition('.')[2].rstrip('0'))
+        require(digits <= (3 if currency == 'HKD' else 2),
+                't1 delivery: quote exceeds currency precision; do not silently round')
+    # AI business quotes are floats. Overflow/underflow must not become an
+    # accepted Infinity/zero even when the literal Decimal is a positive number.
+    number(float(value), 't1 delivery: business quote', positive=True)
+    return value
 
 
 def validate_price_references(document):
@@ -327,7 +358,8 @@ def main(argv=None):
             document = load_json(args.file)
             validate_document(document)
             validate_price_references(document)
-            print(f"Valid {SCHEMA}; structure/state/V50 references checked; evidence and discount assumptions not checked")
+            validate_t1_delivery(document)
+            print(f"Valid {SCHEMA}; structure/state/V50 references/T1 delivery checked; evidence and discount assumptions not checked")
     except (ValueError, TypeError, OSError, DecimalException) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

@@ -73,7 +73,7 @@ body='\n\n'.join(f'## {n}. section\n\n'+(f'batch={batch}; input={sha}; frames={f
 if mode=='hidden_binding': body=body.replace(f'batch={batch}; input={sha}; frames={frames}; price=25.30',f'<!-- batch={batch}; input={sha}; frames={frames} -->\noffline evidence')
 report_file.write_text(body)
 doc={'meta':{'schema_version':'stock-research/v2','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
-'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':25,'high':30},'p1':{'low':10,'base':12,'high':15},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'V50','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
+'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':25,'high':30},'p1':{'low':10,'base':12,'high':15},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
 'monitoring':[{'variable':'income','current':None,'as_of':None,'trigger':'falls','action':'review','source':'offline','next_check':'next report'}]}
 receipt_price=price
 if mode=='exact_delivery_paths': price=price_file
@@ -134,12 +134,108 @@ class ResearchRunnerTests(unittest.TestCase):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
 
     def test_new_delivery_rejects_stale_v50_reference_before_publication(self):
-        self.fake.write_text(FAKE_CLI.replace("'price_condition':'V50'",
+        self.fake.write_text(FAKE_CLI.replace("'price_condition':'接近V50基准时复核'",
                                              "'price_condition':'V50上沿31元'"))
         entry = json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'], 'failed')
         self.assertIn('V50.high', entry['reason'])
         self.assertEqual(list((self.methods/'research').rglob('*.json')), [])
+
+    def test_noncanonical_t1_is_retryable_and_never_published(self):
+        bad = "股价≥30元/股；现价25元（2026-10-06收盘）"
+        self.fake.write_text(FAKE_CLI.replace("'price_condition':'接近V50基准时复核'",
+                                             f"'price_condition':{bad!r}"))
+        result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('t1 delivery', entry['reason'])
+        folder = result.parent/'execution/SH-600066/claude'
+        self.assertTrue(json.loads((folder/'process.json').read_text())['retryable'])
+        self.assertEqual(list((self.methods/'research').rglob('*-research-*.md')), [])
+        self.assertEqual(list((self.methods/'research').rglob('*-price-map-*.json')), [])
+        # Existing one-retry path succeeds after the model corrects its output.
+        self.fake.write_text(FAKE_CLI)
+        request, raw, _ = runner.read_request(self.request_path)
+        retry = runner.run_provider(result.parent, request, raw, request['tasks'][0], 'claude',
+                                    str(self.fake), self.methods, 10, threading.Event(), attempt=2)
+        self.assertEqual(retry['status'], 'completed', retry['reason'])
+        retried = json.loads((folder/'retry-1/process.json').read_text())
+        self.assertFalse(retried['retryable'])
+
+    def test_retry_model_receives_original_error_and_own_draft_without_rewriting_first_attempt(self):
+        bad = '股价≥30元/股；现价25元（2026-10-06收盘）'
+        self.fake.write_text(FAKE_CLI.replace("'price_condition':'接近V50基准时复核'",
+                                             f"'price_condition':{bad!r}"))
+        result = self.execute()
+        first = result.parent/'execution/SH-600066/claude'
+        entry = json.loads((first/'entry.json').read_text())
+        originals = {name: (first/name).read_bytes() for name in ('prompt.txt', 'input.json', 'entry.json')}
+        repair = r"""feedback_match=re.search(r'<previous_delivery_failure>\n(.*?)\n</previous_delivery_failure>',payload.decode(),re.S)
+if feedback_match:
+ feedback=json.loads(feedback_match[1])
+ assert feedback['task_id']==get('task_id') and feedback['generator']==generator and feedback['batch_id']==batch
+ assert 't1 delivery' in feedback['error']
+ assert Path(feedback['first_staged_report']).is_file()
+ draft=json.loads(Path(feedback['first_staged_price_map']).read_text())
+ assert draft['price_map']['t1']['price_condition']==BAD
+ doc['price_map']['t1']['price_condition']='股价≥30元/股'
+else:
+ doc['price_map']['t1']['price_condition']=BAD
+""".replace('BAD', repr(bad))
+        self.fake.write_text(FAKE_CLI.replace('receipt_price=price', repair + '\nreceipt_price=price'))
+        request, raw, _ = runner.read_request(self.request_path)
+        retry = runner.run_provider(result.parent, request, raw, request['tasks'][0], 'claude',
+                                    str(self.fake), self.methods, 10, threading.Event(), attempt=2)
+        self.assertEqual(retry['status'], 'completed', retry['reason'])
+        prompt = (first/'retry-1/prompt.txt').read_text()
+        import re
+        feedback = json.loads(re.search(r'<previous_delivery_failure>\n(.*?)\n</previous_delivery_failure>', prompt, re.S)[1])
+        self.assertEqual(feedback['error'], entry['reason'])
+        for name, before in originals.items():
+            self.assertEqual((first/name).read_bytes(), before)
+        record = json.loads((first/'retry-1/input.json').read_text())
+        self.assertEqual(record['prompt_sha256'], self.sha(first/'retry-1/prompt.txt'))
+        fixed = json.loads((self.methods/retry['price_map']['path']).read_text())
+        self.assertEqual(fixed['price_map']['t1']['price_condition'], '股价≥30元/股')
+
+    def test_retry_feedback_cannot_be_taken_from_a_different_stock_or_provider(self):
+        for field, wrong in (('task_id', 'SH-600900'), ('generator', 'codex'),
+                             ('reason', 'copied same-stock failure from another batch'),
+                             ('completed_at', '2026-01-01T00:00:00+08:00'),
+                             ('symlink', None), ('request_sha256', '0'*64)):
+            with self.subTest(field=field):
+                fx = ResearchRunnerTests('runTest')
+                fx.setUp()
+                try:
+                    os.environ['MOCK_MODE'] = 'nonzero'
+                    result = fx.execute()
+                    first = result.parent/'execution/SH-600066/claude'
+                    entry_path = first/'entry.json'
+                    entry = json.loads(entry_path.read_text())
+                    if field == 'symlink':
+                        foreign = fx.methods/'output/other-batch-entry.json'
+                        foreign.write_text(json.dumps(entry))
+                        entry_path.unlink()
+                        entry_path.symlink_to(foreign)
+                    elif field == 'request_sha256':
+                        launch_path = first/'launched.json'
+                        launch = json.loads(launch_path.read_text())
+                        launch[field] = wrong
+                        launch_path.write_text(json.dumps(launch))
+                    else:
+                        entry[field] = wrong
+                        entry_path.write_text(json.dumps(entry))
+                    capture = fx.capture.read_bytes()
+                    os.environ['MOCK_MODE'] = 'success'
+                    request, raw, _ = runner.read_request(fx.request_path)
+                    retry = runner.run_provider(result.parent, request, raw, request['tasks'][0], 'claude',
+                                                str(fx.fake), fx.methods, 10, threading.Event(), attempt=2)
+                    self.assertEqual(retry['status'], 'failed')
+                    self.assertIn('retry feedback', retry['reason'])
+                    self.assertEqual(fx.capture.read_bytes(), capture)
+                    self.assertFalse(list((fx.methods/'research').rglob('*-price-map-*.json')))
+                finally:
+                    fx.doCleanups()
 
     def test_midnight_reservation_is_checked_before_durable_launch(self):
         with patch('scripts.research_runner.stamp', return_value='2026-10-08T00:00:01+08:00'):
