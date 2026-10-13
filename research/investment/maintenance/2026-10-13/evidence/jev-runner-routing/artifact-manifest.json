@@ -1,0 +1,119 @@
+{
+  "schema_version": "jev-runner-validation/v1",
+  "date": "2026-10-13",
+  "generator": "codex",
+  "source_dir": "/Users/xinquanzhou/Workspace/investment_research_methods/output/jev-validation/2026-10-13-registration-final-live",
+  "artifacts": [
+    {
+      "path": "models.json",
+      "sha256": "d2e6dc48ea6ec732badc1a61324a21b952f600848eba378da649785b13ca7fa9",
+      "bytes": 51
+    },
+    {
+      "path": "candidates.json",
+      "sha256": "14adfc57bae78f7a6671e7c3602aeefd12b32bbd85e6372e86436e439b189890",
+      "bytes": 890
+    },
+    {
+      "path": "tool-return.json",
+      "sha256": "b9f7c0619c5f689e7a9aba74f3921bf4cf5ca1ac56ea193919b3f4f9a1ead3cf",
+      "bytes": 1076
+    },
+    {
+      "path": "verification.json",
+      "sha256": "db19fd11951360a586cdbcc1faff4300f45af108805d159ff6909ec603b96a57",
+      "bytes": 979
+    },
+    {
+      "path": "cli-config-validation.json",
+      "sha256": "4defad4eeb562804dfd761fe9ebfab77aceaf5d7924f1ec7be13693424d4caec",
+      "bytes": 234
+    },
+    {
+      "path": "jev/config.json",
+      "sha256": "03acf2755d2737365610b0da5a4f1d73e76d4c443b86f942520aeb2446c67fb8",
+      "bytes": 873
+    },
+    {
+      "path": "jev/calls.jsonl",
+      "sha256": "0d5558b0ac6529000d4561b4b957353b6cd6d4c738fc437b4c4489359882cee2",
+      "bytes": 2396
+    },
+    {
+      "path": "jev/summary.json",
+      "sha256": "633d4aae9fe4487144351d6099b5e329eee1b022916b4bd068d13e9d7d47ba99",
+      "bytes": 742
+    },
+    {
+      "path": "jev/result-254600b1e5a8ca0f2b82b50b4ef5b1108efe1ddae0b66100e39b4aa3c49a83c5.json",
+      "sha256": "f4ffba9fb9c63e37664ba189812c8e85d3ab6e45cafdbfe641b691c2a7d10c73",
+      "bytes": 1096
+    },
+    {
+      "path": "jev/materials/synthetic-0.txt",
+      "sha256": "15395db753bd95a65ece1bcfc21db8b9eccca90965c6c934d5a74aebc332f5a8",
+      "bytes": 114
+    },
+    {
+      "path": "jev/materials/synthetic-1.txt",
+      "sha256": "e78971160f81913c0e95a62c3a43cf8102e080cbbd0061f5e911735d261842a3",
+      "bytes": 90
+    },
+    {
+      "path": "full-unittest.log",
+      "sha256": "15b32622feb0929d190d2d88f5b017945f0a482f7c83ea74900a9f7042e7967f",
+      "bytes": 189953
+    }
+  ],
+  "implementation": [
+    {
+      "path": "scripts/research_jev.py",
+      "sha256": "69df2a22047b298d3dd4ec1a440f541445a7e72b7fa8a5c17ece8f9132c41233"
+    },
+    {
+      "path": "scripts/research_runner.py",
+      "sha256": "9dae7c69a65b474f89380b60cb553d239ada95aadfbf451fec39e79db609c57e"
+    },
+    {
+      "path": "tests/test_research_jev.py",
+      "sha256": "156483799675cfde7407e2a33807febc42ecc2b9c23d67ce60186aa74fa385de",
+      "full_regression_validated_sha256": "f61bd5b03b66b02b459f967bfcaa34bdf1bb53f27e636f1149e5d7215fc388d7"
+    },
+    {
+      "path": "tests/test_research_jev_runner.py",
+      "sha256": "62355e2aa325137bfa4a5c20eaf708960ef138fed946463e24cabb7efe5f3665",
+      "full_regression_validated_sha256": "721956e253b771b0c08db44c7b8e06487aeb603c956881b24a523ee934305eba"
+    },
+    {
+      "path": "tests/test_research_runner.py",
+      "sha256": "09cfde59b4670e13e0b7a98e72744164286a9c6bea3732f47f695dbfb1bd0e97"
+    },
+    {
+      "path": ".agents/skills/stock-research/SKILL.md",
+      "sha256": "728f96f3b2996703e914385c05d3c485f54c4f8a85ae7d68bff0834b0524618e"
+    },
+    {
+      "path": ".agents/skills/stock-research/references/jev-routing.md",
+      "sha256": "b8c64cde6f2947e21618e5d8884351ce1f149e4b3c2d2e832e66c113eaace28e"
+    },
+    {
+      "path": ".agents/skills/deep-research-auto/SKILL.md",
+      "sha256": "cbcfa90a762a74b265621814d0e2a2e01c2f105fb85a9c1091c06af7f766c382"
+    },
+    {
+      "path": "research/README.md",
+      "sha256": "ba1a26672addea8f3f51e4e32b4f6963176b0daafd26a2abbd6e1a28307d6e9c"
+    }
+  ],
+  "offline_tests": {
+    "passed": 746,
+    "seconds": 73.714
+  },
+  "targeted_tests": {
+    "passed": 37
+  },
+  "real_host_research_run": false,
+  "host_model_token_measurement": false,
+  "monetary_cost": null,
+  "post_validation_cleanup": "Removed only trailing blank lines from two test files; implementation semantics unchanged."
+}

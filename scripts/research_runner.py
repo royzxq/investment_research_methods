@@ -33,6 +33,7 @@ try:
     )
     from .research_paths import company_path
     from .stock_price_map import validate_price_references
+    from . import research_jev
 except ImportError:
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
@@ -41,6 +42,7 @@ except ImportError:
     )
     from research_paths import company_path
     from stock_price_map import validate_price_references
+    import research_jev
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
@@ -512,6 +514,7 @@ def check_codex_cli(cli, root):
 
 
 def command(cli, generator, folder, root):
+    servers = research_jev.registration(folder)
     if generator == 'claude':
         targets = _strict_json((folder / 'targets.json').read_bytes(), 'targets')
         first = folder.parent if folder.name == 'retry-1' else folder
@@ -529,12 +532,17 @@ def command(cli, generator, folder, root):
         return [cli, '-p', '--permission-mode', 'auto', '--permission-prompts', 'none',
                 '--append-system-prompt', delivery,
                 '--output-format', 'stream-json', '--verbose', '--no-session-persistence',
-                '--strict-mcp-config', '--mcp-config', '{"mcpServers":{}}',
+                '--strict-mcp-config', '--mcp-config', json.dumps({'mcpServers':servers}),
                 '--json-schema', (folder / 'receipt-schema.json').read_text()]
-    return [cli, '--no-daemon', 'exec', '--approve-for-me', '-c', 'web_search="live"',
+    args = [cli, '--no-daemon', 'exec', '--approve-for-me', '-c', 'web_search="live"',
+            '-c', 'mcp_servers.jev.enabled=false',
             '--ephemeral', '--json', '--color', 'never', '--output-schema',
             str(folder / 'receipt-schema.json'), '-o', str(folder / 'cli-receipt.json'),
             '-C', str(Path(root).resolve()), '-']
+    for name, server in servers.items():
+        args[1:1] = ['-c', f'mcp_servers.{name}.command=' + json.dumps(server['command']),
+                     '-c', f'mcp_servers.{name}.args=' + json.dumps(server['args'])]
+    return args
 
 
 def provider_receipt(folder, generator):
@@ -794,7 +802,7 @@ def check_launch_day(run, request, task, launch_date):
 
 
 def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
-                 cancelled, launch_date=None, attempt=1):
+                 cancelled, launch_date=None, attempt=1, jev_mode=None):
     """Claim an endpoint attempt once; no shared batch manifest is written here."""
     if cancelled.is_set():
         raise ValueError('research runner cancelled before launch')
@@ -805,6 +813,8 @@ def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
         if not retryable_failure(first):
             raise ValueError('retry requires a retryable failed first attempt')
         process = _strict_json((first / 'process.json').read_bytes(), 'process')
+        if jev_mode is None:
+            jev_mode = process.get('jev_mode')
         if group_alive(process['pid']):
             raise RuntimeError('first attempt process group still exists; retry remains pending')
     claim = folder / 'launched.json'
@@ -812,7 +822,7 @@ def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
         raise ValueError(f"task attempt already launched: {task['task_id']} {generator} attempt={attempt}")
     write_new(claim, encode(dict(claimed_at=stamp(), request_sha256=sha(request_raw))))
     return execute_task(run, request, request_raw, task, generator, cli, root, timeout,
-                        cancelled, launch_date=launch_date, attempt=attempt)
+                        cancelled, launch_date=launch_date, attempt=attempt, jev_mode=jev_mode)
 
 
 def manifest(request, request_raw, entries):
@@ -821,7 +831,7 @@ def manifest(request, request_raw, entries):
 
 
 def execute_task(run, request, request_raw, task, generator, cli, root, timeout, cancelled,
-                 launch_date=None, attempt=1):
+                 launch_date=None, attempt=1, jev_mode=None):
     folder = execution_folder(run, task, generator, attempt)
     started = stamp()
     process = dict(task_id=task['task_id'], generator=generator, status='starting',
@@ -854,6 +864,14 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     raise ValueError('prepared formal target is already occupied; new batch required')
             staged = staging_root(root, request, task, generator, attempt)
             staged.mkdir(parents=True, exist_ok=False)
+            original_payload = payload
+            process.update(research_jev.prepare(folder, root, task_id=task['task_id'],
+                           day=request['valuation_date'], generator=generator, mode=jev_mode))
+            payload += research_jev.instructions(folder).encode('utf-8')
+            if len(payload) > MAX_INPUT_BYTES:
+                raise ValueError('complete research input plus Jev routing exceeds CLI stdin limit')
+            write_new(folder / 'jev-runtime-prompt.txt', payload)
+            process['jev_runtime_prompt_sha256'] = sha(payload)
             env = os.environ.copy()
             for key in list(env):
                 if key.startswith(('FEISHU_', 'CANDIDATE_REVIEW_', 'STOCK_SCREEN_', 'COZE_', 'LARK_')):
@@ -899,14 +917,17 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 # after research, before anything can reach company discovery.
                 verify_prepared(run, request_raw, root)
                 runtime_folder = folder if attempt == 2 else frozen['input_folder']
-                if (runtime_folder / 'prompt.txt').read_bytes() != payload:
+                if (runtime_folder / 'prompt.txt').read_bytes() != original_payload:
                     raise ValueError('executed prompt changed during research')
                 runtime_record = _strict_json((runtime_folder / 'input.json').read_bytes(), 'executed input record')
-                if runtime_record != input_record(request, request_raw, task, generator, payload,
+                if runtime_record != input_record(request, request_raw, task, generator, original_payload,
                                                   frozen['frameworks'], targets):
                     raise ValueError('executed input record changed during research')
                 if generator == 'claude' and (folder / 'delivery-prompt.txt').read_bytes() != delivery:
                     raise ValueError('executed delivery instruction changed during research')
+                if ((folder/'jev-runtime-prompt.txt').read_bytes() != payload
+                        or sha((folder/'jev/config.json').read_bytes()) != process['jev_config_sha256']):
+                    raise ValueError('executed Jev routing input changed during research')
                 compatibility = framework_compatibility(run, root, frozen['frameworks'],
                                                         request['valuation_date'], frozen['maintenance'])
                 process['framework_changed_during_run'] = compatibility['current_sha256'] != frozen['frameworks']
@@ -931,6 +952,10 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
     process.update(status=entry['status'], completed_at=completed, reason=entry['reason'],
                    retryable=attempt == 1 and entry['status'] == 'failed' and retryable and not cancelled.is_set())
     process['actual_model'] = observed_model(folder, generator)
+    try:
+        process['jev'] = research_jev.summarize(folder)
+    except Exception as exc:
+        process['jev_audit_error'] = type(exc).__name__
     save(folder / 'process.json', process)
     save(folder / 'entry.json', entry)
     emit(dict(event='research_finished', task_id=task['task_id'], generator=generator,
@@ -958,18 +983,21 @@ def observed_model(folder, generator):
 
 
 def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
-              task_ids=None, cancelled=None, launch_date=None):
+              task_ids=None, cancelled=None, launch_date=None, jev_mode=None):
     request, _, _ = read_request(request_path)
     with stock_lock(root, 'batch-' + request['batch_id'], generator):
         return _run_batch(request_path, root, generator=generator, cli=cli,
                           workers=workers, timeout=timeout, task_ids=task_ids, cancelled=cancelled,
-                          launch_date=launch_date)
+                          launch_date=launch_date, jev_mode=jev_mode)
 
 
 def _run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
-               task_ids=None, cancelled=None, launch_date=None):
+               task_ids=None, cancelled=None, launch_date=None, jev_mode=None):
     if workers < 1 or timeout <= 0:
         raise ValueError('workers and timeout must be positive')
+    chosen_jev_mode = os.environ.get('RESEARCH_JEV_MODE', 'auto') if jev_mode is None else jev_mode
+    if chosen_jev_mode not in research_jev.MODES:
+        raise ValueError('Jev mode must be auto/off/force')
     request, request_raw, _ = read_request(request_path)
     tasks = request['tasks']
     if task_ids is not None:
@@ -1000,7 +1028,7 @@ def _run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeo
     with (nullcontext(cancelled) if cancelled is not None else cancellation_scope()) as cancelled:
         with ThreadPoolExecutor(max_workers=workers) as pool:
             futures = [pool.submit(run_provider, run, request, request_raw, task, generator, cli,
-                                   root, timeout, cancelled, launch_date)
+                                   root, timeout, cancelled, launch_date, jev_mode=chosen_jev_mode)
                        for task in tasks]
             entries = []
             for task, future in zip(tasks, futures):
@@ -1035,6 +1063,7 @@ def main(argv=None):
             action.add_argument('--cli')
             action.add_argument('--workers', type=int, default=1)
             action.add_argument('--timeout-seconds', type=float, default=3600)
+            action.add_argument('--jev-mode', choices=research_jev.MODES)
     args = parser.parse_args(argv)
     try:
         if args.command == 'prepare':
@@ -1042,7 +1071,7 @@ def main(argv=None):
             emit(dict(status='prepared', run_path=str(run)))
             return 0
         result_path = run_batch(args.request, generator=args.generator, cli=args.cli,
-                                workers=args.workers, timeout=args.timeout_seconds)
+                                workers=args.workers, timeout=args.timeout_seconds, jev_mode=args.jev_mode)
         result = _strict_json(result_path.read_bytes(), 'results')
         failed = sum(entry['status'] == 'failed' for entry in result['results'])
         emit(dict(result_path=str(result_path), completed=len(result['results']) - failed,

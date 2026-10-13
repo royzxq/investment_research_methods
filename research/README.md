@@ -118,6 +118,8 @@ python3 scripts/research_runner.py run --request /absolute/path/to/request.json 
 
 默认使用 PATH 中对应 CLI 和它已有的模型配置；可用 `--cli /absolute/path/to/cli` 指定安装位置。运行需要实际登录/网络，使用正常自动审批；拒绝权限或模型失败会留失败回执，不跳过权限检查。`--timeout-seconds` 默认3600，超时终止本次进程组。该入口不安装定时任务、不写飞书/CSV、不提交Git，也不更新 INDEX/latest；自动扫描、预算和失败自动恢复仍未接入。
 
+Jev 默认 `auto`，Codex/Claude 均注册可审计的 `jev_research` 路由。可用 `run --jev-mode auto|off|force` 指定，或设置 `RESEARCH_JEV_MODE`（定时调度入口也继承该环境变量）；命令行优先，重试保留首次模式。批量公告/年报候选提交后由程序判断是否达到阈值，已精确定位及小批次记录跳过原因；全部候选保留，失败回退原文核验。触发参数和候选格式见 [Jev 条件路由](../.agents/skills/stock-research/references/jev-routing.md)。每端每次尝试在 `execution/<task_id>/<generator>/jev/` 留 `calls.jsonl`、排序结果和最终 `summary.json`，摘要同时进入 `process.json.jev`；retry-1 使用自己的目录。`not_requested` 表示没有提交候选，不能当作程序已评估后跳过。
+
 Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，以及结构化输出、临时会话等执行参数；本机已核验 `codex-cli 0.160.1`。旧版（例如审查环境的 `0.144.0-alpha.4`）不满足此能力契约，不能直接使用。runner 在领取任务前读取两级 `--help` 检查能力；不兼容、检查失败或超时即拒绝启动，不生成任务失败回执、不消耗本批次启动机会，可通过 `--cli` 选择兼容版本后重试。保留自动审批及独立进程清理语义，不自动降级为跳过权限检查。能力检查及命令解析通过不等于模型登录、联网研究或交付验收通过。
 
 准备前校验请求及包，要求上游发布器标准 `packs/<task_id>.md` 路径和匹配证券的量价包标题；包内财务缺口可以进入研究补证。原始请求、包和两份框架实际正文复制到 `output/runs/investment/<估值日>/<batch_id>/`，框架与可用的已采纳状态交接及其来源保存在 `framework-snapshot/`，请求文件最后发布。每项 prompt 明确主、子研究读取这些冻结材料，不能在执行途中换读工作区最新框架；`input.json` 记录请求/包/提示词及框架哈希，`targets.json` 保存准备时在证券锁内选出的空闲版本。启动和发布前校验冻结材料，不能只要求报告抄写哈希。

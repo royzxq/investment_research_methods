@@ -616,7 +616,7 @@ class ResearchRunnerTests(unittest.TestCase):
         received=self.capture.read_text()
         self.assertIn(self.raw_pack,received)
         folder=manifest.parent/'execution/SH-600066/claude'
-        self.assertEqual(self.capture.read_bytes(),(folder/'prompt.txt').read_bytes())
+        self.assertEqual(self.capture.read_bytes(),(folder/'jev-runtime-prompt.txt').read_bytes())
         record=json.loads((folder/'process.json').read_text())
         self.assertGreater(record['pid'],0)
         self.assertEqual(record['exit_code'],0)
@@ -833,7 +833,7 @@ class ResearchRunnerTests(unittest.TestCase):
         record=json.loads((result.parent/'execution/SH-600066/claude/input.json').read_text())
         report=(self.methods/entry['report']['path']).read_text()
         for digest in record['framework_sha256'].values():self.assertIn(digest,report)
-        self.assertEqual(self.capture.read_bytes(),(result.parent/'execution/SH-600066/claude/prompt.txt').read_bytes())
+        self.assertEqual(self.capture.read_bytes(),(result.parent/'execution/SH-600066/claude/jev-runtime-prompt.txt').read_bytes())
 
     def test_compatibility_is_recorded_before_any_publication(self):
         original=runner.publish_pair
