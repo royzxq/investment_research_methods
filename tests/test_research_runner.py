@@ -72,9 +72,13 @@ if mode=='delivery_changes': Path(os.environ['MOCK_TAMPER_DELIVERY']).write_text
 body='\n\n'.join(f'## {n}. section\n\n'+(f'batch={batch}; input={sha}; frames={frames}; price=25.30' if n==0 and mode!='unbound_report' else 'offline evidence') for n in range(9))
 if mode=='hidden_binding': body=body.replace(f'batch={batch}; input={sha}; frames={frames}; price=25.30',f'<!-- batch={batch}; input={sha}; frames={frames} -->\noffline evidence')
 report_file.write_text(body)
-doc={'meta':{'schema_version':'stock-research/v2','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
-'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':25,'high':30},'p1':{'low':10,'base':12,'high':15},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
+doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
+'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':25,'high':30},'p1':{'base':12},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
 'monitoring':[{'variable':'income','current':None,'as_of':None,'trigger':'falls','action':'review','source':'offline','next_check':'next report'}]}
+if mode=='legacy_delivery':
+ doc['meta']['schema_version']='stock-research/v2'
+ doc['price_map']['p1']={'low':10,'base':12,'high':15}
+if mode=='interval_delivery': doc['price_map']['p1']={'base':None,'low':10,'high':15}
 receipt_price=price
 if mode=='exact_delivery_paths': price=price_file
 (staged/price).write_text(json.dumps(doc))
@@ -132,6 +136,29 @@ class ResearchRunnerTests(unittest.TestCase):
 
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
+
+    def test_new_delivery_preserves_only_reported_p1_fields(self):
+        for mode, expected in [('success', {'base': 12}),
+                               ('interval_delivery', {'base': None, 'low': 10, 'high': 15})]:
+            with self.subTest(mode=mode):
+                os.environ['MOCK_MODE'] = mode
+                result = self.execute()
+                entry = json.loads(result.read_text())['results'][0]
+                self.assertEqual(entry['status'], 'completed', entry['reason'])
+                document = json.loads((self.methods/entry['price_map']['path']).read_text())
+                self.assertEqual(document['meta']['schema_version'], 'stock-research/v3')
+                self.assertEqual(document['price_map']['p1'], expected)
+                # The next case is a separately authorized batch, no overwrite.
+                self.request['batch_id'] = ('b' if mode == 'success' else 'c') * 32
+                self.write_request()
+
+    def test_new_delivery_rejects_old_formula_schema_but_sealed_loader_remains_compatible(self):
+        os.environ['MOCK_MODE'] = 'legacy_delivery'
+        result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('stock-research/v3', entry['reason'])
+        self.assertEqual(list((self.methods/'research').rglob('*-price-map-*.json')), [])
 
     def test_new_delivery_rejects_stale_v50_reference_before_publication(self):
         self.fake.write_text(FAKE_CLI.replace("'price_condition':'接近V50基准时复核'",

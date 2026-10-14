@@ -43,7 +43,7 @@ canonical 是方法、参数及歧义裁决的权威；compact 必须保真同�
 ETF 研究池可由技能读取 `ETF_POOL_CSV` 并转为 `--pool-csv`；脚本自身不读取这个环境变量。不默认覆盖同日快照。联网、账户权限和字段可用性以实际调用验收，不能将离线测试或 Token 存在当作线上验证。
 
 - [future_data.py](scripts/future_data.py) 当前 v1.16，负责取数、研究候选和情景预检。`POSITIONS` 为空不证明账户空仓；2ATR 数量与月差分位不等于最终手数或交易许可。
-- [stock_price_map.py](scripts/stock_price_map.py) 负责个股价格地图的离线计算与 `stock-research/v2` 导出：`build --generator codex --input <临时模型> --output <新JSON>` / `check <JSON>`。固定币种/股本口径，P2 从 P1 下沿计算；校验不代表证据或估值合理性已获确认，完整论证留在报告。
+- [stock_price_map.py](scripts/stock_price_map.py) 负责个股价格地图 `stock-research/v3` 报价导出并兼容读取 v2：`build --generator codex --input <报价提取输入> --output <新JSON>` / `check <JSON>`。P1/P2 忠实提取报告，不从 V50 重算、不补 P1 上下沿；V50 仍支持币种/股本换算。校验不证明报价提取语义或估值合理性，完整论证留在报告。
 - [price_evidence.py](scripts/price_evidence.py) 区分 settle/close、SC 结算周涨和固定合约对的同期样本。周涨以最新完成行情日减七个自然日；不使用收盘替代结算护栏。快照还准备合约对研究 CSV 与 `output/cache/futures/spread_research_<AS_OF>.json`，不自动替换当前合约或授予许可。
 - [futures_risk.py](scripts/futures_risk.py) 提供离线 A 计划校验与风险容量计算：`validate-a --input plan.json` / `size --input sizing.json`。A 校验仅支持 MA/RB/SR 同品种 1:1 月差，必填 `price_unit="CNY/tonne"`，Entry/SL/TP 为绝对价差。单位不兼容不换算，缺实际账户、止损或容量保留 `null`。低敞口上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险，常规和当前上限分列。
 - [执行审计模板](projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md) 是每期诊断唯一口径。无论框架是否更新都生成执行审计；[validate_futures_audit.py](scripts/validate_futures_audit.py) 校验 schema 3（schema 2 仅兼容历史），不验证来源真伪、收益或交易许可。

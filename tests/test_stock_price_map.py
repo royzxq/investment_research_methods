@@ -16,7 +16,7 @@ from scripts.stock_price_map import build_document, load_json, quote_value, vali
 
 
 def yutong_example():
-    """The old report's arithmetic example, not adopted investment parameters."""
+    """Explicit offline report quotes, not adopted investment parameters."""
     return {
         "meta": {
             "code": "600066.SH", "name": "宇通客车", "valuation_date": "2026-10-05",
@@ -28,10 +28,8 @@ def yutong_example():
             "currency": "CNY", "unit": "100_million", "fx_to_quote": 1,
             "shares": 2_214_000_000,
         },
-        "discounts": {"d_base": 0.10, "r_chip": 0.03, "r_v5": 0.05,
-                      "r_gov": 0, "r_terminal": 0.05},
-        "step_down": 0.075,
-        "p2": {"status": "active", "reason": None},
+        "p1": {"base": 22.42},
+        "p2": {"status": "active", "price": 16, "reason": None},
         "t1": {"price_condition": "股价≥30元/股", "events": ["出口毛利率下降"]},
         "t2": {"price_condition": "不设机械卖出价", "events": ["盈利假设被证伪"]},
         "monitoring": [{
@@ -102,7 +100,7 @@ class StockPriceMapTests(unittest.TestCase):
     def test_new_t1_delivery_requires_an_existing_symbolic_anchor(self):
         data = yutong_example()
         data.update(mode='unavailable', reason='missing financials', valuation=None,
-                    discounts=None, step_down=None, p2=dict(status='unavailable', reason='missing'))
+                    p1=None, p2=dict(status='unavailable', price=None, reason='missing'))
         data['t1']['price_condition'] = '接近V50上沿时复核'
         with self.assertRaisesRegex(ValueError, 't1 delivery'):
             build_document(data)
@@ -137,18 +135,66 @@ class StockPriceMapTests(unittest.TestCase):
         data['t2']['price_condition'] = '高于V50上沿20%即42.93元/股，研究假设'
         build_document(data)
 
-    def test_yutong_p2_uses_lower_bound_and_tracking_needs_no_account_cap(self):
+    def test_report_point_is_preserved_without_inventing_bounds_or_account_cap(self):
         result = build_document(yutong_example())
         prices = result["price_map"]
         self.assertEqual(prices["mode"], "tracking")
-        self.assertEqual(prices["p1"], {"low": 17.29, "base": 22.42, "high": 28.18})
-        # Independently checked: 15.997858... rounds to 16.00. The old 20.7 used base.
+        self.assertEqual(prices["p1"], {"base": 22.42})
         self.assertEqual(prices["p2"]["price"], 16.00)
         self.assertEqual(set(result), {"meta", "price_map", "monitoring"})
         self.assertNotIn("cap", prices)
-        prices["p2"]["price"] = 20.7
-        with self.assertRaisesRegex(ValueError, "P1_low"):
-            validate_document(result)
+
+    def test_v50_changes_never_recalculate_explicit_p1_or_p2(self):
+        data = yutong_example()
+        for values in ({"low": 100, "base": 200, "high": 300},
+                       {"low": 10, "base": 15, "high": 20}):
+            data['valuation'] = dict(kind='per_share', values=values, currency='CNY',
+                                     unit='per_share', fx_to_quote=1)
+            result = build_document(data)
+            self.assertEqual(result['price_map']['p1'], data['p1'])
+            self.assertEqual(result['price_map']['p2'], data['p2'])
+
+    def test_explicit_interval_keeps_only_reported_quotes_and_checks_p2_if_low_exists(self):
+        data = yutong_example()
+        for base in (22.42, None):
+            data['p1'] = dict(base=base, low=17.29, high=28.18)
+            result = build_document(data)
+            self.assertEqual(result['price_map']['p1'], data['p1'])
+            result['price_map']['p2']['price'] = 20.7
+            with self.assertRaisesRegex(ValueError, 'P1_low'):
+                validate_document(result)
+
+    def test_interval_must_be_explicit_complete_positive_and_ordered(self):
+        for quote in ({}, {'base': None}, {'base': 20, 'low': 18},
+                      {'base': 20, 'low': None, 'high': None},
+                      {'base': 20, 'low': 21, 'high': 25},
+                      {'base': None, 'low': 25, 'high': 21},
+                      {'base': True}, {'base': '22.42'}, {'base': 0},
+                      {'base': float('nan')}, {'base': float('inf')}):
+            with self.subTest(quote=quote):
+                data = yutong_example()
+                data['p1'] = quote
+                with self.assertRaises(ValueError):
+                    build_document(data)
+
+    def test_legacy_v2_reader_preserves_old_ranges_and_arithmetic_validation(self):
+        document = build_document(yutong_example())
+        document['meta']['schema_version'] = 'stock-research/v2'
+        document['price_map']['p1'] = dict(low=17.29, base=22.42, high=28.18)
+        before = deepcopy(document)
+        validate_document(document)
+        self.assertEqual(document, before)
+        document['price_map']['p2']['price'] = 20.7
+        with self.assertRaisesRegex(ValueError, 'P1_low'):
+            validate_document(document)
+        document = deepcopy(before)
+        document['price_map']['p1'] = {'base': 22.42}
+        with self.assertRaises(ValueError):
+            validate_document(document)
+        data = yutong_example()
+        data['meta']['schema_version'] = 'stock-research/v2'
+        with self.assertRaisesRegex(ValueError, 'unsupported version'):
+            build_document(data)
 
     def test_hk_profit_valuation_and_reverse_currency_direction(self):
         data = yutong_example()
@@ -190,47 +236,72 @@ class StockPriceMapTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     build_document(data)
 
-    def test_missing_discounts_are_not_silently_assumed(self):
-        for discounts in (None, {"d_base": 0.1}):
-            with self.subTest(discounts=discounts):
+    def test_old_formula_inputs_are_rejected_instead_of_recalculating(self):
+        for extra in ({'discounts': {'d_base': 0.1}}, {'step_down': 0.075}):
+            with self.subTest(extra=extra):
                 data = yutong_example()
-                data["discounts"] = discounts
+                data.update(extra)
                 with self.assertRaises(ValueError):
                     build_document(data)
 
-    def test_round_once_after_p2_calculation_and_reject_excess_precision(self):
+    def test_missing_quotes_are_not_backfilled_from_valuation(self):
+        for field in ('p1', 'p2'):
+            data = yutong_example()
+            del data[field]
+            with self.assertRaises(ValueError):
+                build_document(data)
         data = yutong_example()
-        data["valuation"] = {
-            "kind": "per_share", "values": {"low": Decimal("10.005"), "base": 20, "high": 30},
-            "currency": "CNY", "unit": "per_share", "fx_to_quote": 1,
-        }
-        data["discounts"] = dict.fromkeys(data["discounts"], 0)
-        data["step_down"] = 0.05
-        result = build_document(data)
-        self.assertEqual(result["price_map"]["p1"]["low"], 10.01)
-        self.assertEqual(result["price_map"]["p2"]["price"], 9.50)
-        result["price_map"]["p1"]["low"] = Decimal("10.001")
-        with self.assertRaisesRegex(ValueError, "precision"):
-            validate_document(result)
+        del data['p2']['price']
+        with self.assertRaises(ValueError):
+            build_document(data)
 
-    def test_step_boundaries_and_suspended_p2(self):
-        for step in (0.049, 0.101):
-            with self.subTest(step=step):
-                data = yutong_example()
-                data["step_down"] = step
-                with self.assertRaises(ValueError):
-                    build_document(data)
+    def test_quotes_are_not_silently_rounded(self):
         data = yutong_example()
-        data["p2"] = {"status": "suspended", "reason": "在册事件窗口，完成复评后才恢复"}
+        for field in ('p1', 'p2'):
+            bad = deepcopy(data)
+            bad[field]['base' if field == 'p1' else 'price'] = Decimal('10.005')
+            with self.assertRaisesRegex(ValueError, 'precision'):
+                build_document(bad)
+        data['p1'] = {'base': Decimal('22.4200')}
+        self.assertEqual(build_document(data)['price_map']['p1'], data['p1'])
+
+    def test_quote_serialization_refuses_loss_and_preserves_hkd_precision(self):
+        data = yutong_example()
+        data['p1'] = {'base': Decimal('999999999999999.99')}
+        with self.assertRaisesRegex(ValueError, 'without changing quote'):
+            build_document(data)
+        data = yutong_example()
+        data['meta'].update(code='01952.HK', currency='HKD')
+        data['valuation'] = dict(kind='per_share', values=dict(low=20, base=30, high=40),
+                                 currency='HKD', unit='per_share', fx_to_quote=1)
+        data['p1'] = {'base': Decimal('22.421')}
+        data['p2']['price'] = Decimal('16.001')
+        data['t1']['price_condition'] = '股价≥30港元/股'
+        original = deepcopy(data)
+        document = build_document(data)
+        self.assertEqual(document['price_map']['p1'], data['p1'])
+        self.assertEqual(document['price_map']['p2'], data['p2'])
+        self.assertEqual(data, original)
+        document['price_map']['p1']['base'] = 25
+        self.assertEqual(data, original)
+
+    def test_single_quote_does_not_become_p2_lower_anchor(self):
+        data = yutong_example()
+        # This report's explicit P2 is outside 5%-10% of its single P1. No
+        # lower-bound assumption is made during export.
+        data["p2"] = {"status": "suspended", "price": 16, "reason": "在册事件窗口，完成复评后才恢复"}
         result = build_document(data)
         self.assertEqual(result["price_map"]["p2"]["status"], "suspended")
         self.assertEqual(result["price_map"]["p2"]["price"], 16)
+        data['p2']['price'] = data['p1']['base']
+        with self.assertRaisesRegex(ValueError, 'below P1'):
+            build_document(data)
 
     def test_invalid_numeric_values_and_listing_currency_are_rejected(self):
-        for value in (True, float("nan"), float("inf"), -0.01, 1, "0.1"):
-            with self.subTest(discount=value):
+        for value in (True, float("nan"), float("inf"), -0.01, 0, "0.1"):
+            with self.subTest(price=value):
                 data = yutong_example()
-                data["discounts"]["r_chip"] = value
+                data["p2"]["price"] = value
                 with self.assertRaises(ValueError):
                     build_document(data)
         for code, currency in (("600066.SH", "HKD"), ("01952.HK", "CNY")):
@@ -242,7 +313,7 @@ class StockPriceMapTests(unittest.TestCase):
 
     def test_cancelled_p2_has_reason_but_no_price_or_allocation(self):
         data = yutong_example()
-        data["p2"] = {"status": "cancelled", "reason": "现金流修复证据弱"}
+        data["p2"] = {"status": "cancelled", "price": None, "reason": "现金流修复证据弱"}
         result = build_document(data)
         self.assertEqual(result["price_map"]["p2"],
                          {"status": "cancelled", "reason": "现金流修复证据弱", "price": None})
@@ -258,28 +329,28 @@ class StockPriceMapTests(unittest.TestCase):
         for mode in ("frozen", "unavailable"):
             with self.subTest(mode=mode):
                 data = yutong_example()
-                data.update(mode=mode, reason="关键条件未满足", discounts=None, step_down=None)
-                data["p2"] = {"status": "unavailable", "reason": "等待复核"}
+                data.update(mode=mode, reason="关键条件未满足", p1=None)
+                data["p2"] = {"status": "unavailable", "price": None, "reason": "等待复核"}
                 if mode == "unavailable":
                     data["valuation"] = None
                 result = build_document(data)
                 self.assertIsNone(result["price_map"]["p1"])
                 self.assertIsNone(result["price_map"]["p2"]["price"])
-                result["price_map"]["p1"] = {"low": 10, "base": 15, "high": 20}
+                result["price_map"]["p2"]["price"] = 10
                 with self.assertRaises(ValueError):
                     validate_document(result)
 
     def test_temporary_freeze_preserves_valuation_and_observation_prices(self):
         data = yutong_example()
         data.update(mode="frozen", reason="D5市场状态限制买入；仅用于研究观察")
-        data["p2"] = {"status": "suspended", "reason": "原重建条件满足且逐股复评后才可恢复"}
+        data["p2"] = {"status": "suspended", "price": 16, "reason": "原重建条件满足且逐股复评后才可恢复"}
         result = build_document(data)
-        self.assertEqual(result["meta"]["schema_version"], "stock-research/v2")
+        self.assertEqual(result["meta"]["schema_version"], "stock-research/v3")
         self.assertEqual(result["price_map"]["mode"], "frozen")
-        self.assertEqual(result["price_map"]["p1"], {"low": 17.29, "base": 22.42, "high": 28.18})
+        self.assertEqual(result["price_map"]["p1"], {"base": 22.42})
         self.assertEqual(result["price_map"]["p2"], dict(data["p2"], price=16.00))
         validate_document(result)
-        data["p2"] = {"status": "cancelled", "reason": "本轮取消P2，不转移仓位"}
+        data["p2"] = {"status": "cancelled", "price": None, "reason": "本轮取消P2，不转移仓位"}
         cancelled = build_document(data)
         self.assertIsNotNone(cancelled["price_map"]["p1"])
         self.assertIsNone(cancelled["price_map"]["p2"]["price"])
@@ -289,7 +360,7 @@ class StockPriceMapTests(unittest.TestCase):
             with self.subTest(status=status):
                 data = yutong_example()
                 data.update(mode="frozen", reason="窗口冻结")
-                data["p2"] = {"status": status, "reason": "窗口未完成复核"}
+                data["p2"] = {"status": status, "price": 16 if status == 'active' else None, "reason": "窗口未完成复核"}
                 with self.assertRaisesRegex(ValueError, "suspended or cancelled"):
                     build_document(data)
                 result = build_document(yutong_example())
@@ -298,25 +369,24 @@ class StockPriceMapTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "suspended or cancelled"):
                     validate_document(result)
 
-    def test_frozen_prices_require_complete_calculation_inputs(self):
-        for updates in ({"valuation": None}, {"discounts": None}, {"step_down": None},
-                        {"discounts": {"d_base": .1}}, {"step_down": .11}):
+    def test_frozen_quotes_require_valuation_and_valid_explicit_prices(self):
+        for updates in ({"valuation": None}, {"p1": {}}, {'p1': {'base': True}}):
             with self.subTest(updates=updates):
                 data = yutong_example()
                 data.update(mode="frozen", reason="暂时市场限制，事实可靠")
-                data["p2"] = {"status": "suspended", "reason": "等待复核"}
+                data["p2"] = {"status": "suspended", "price": 16, "reason": "等待复核"}
                 data.update(updates)
                 with self.assertRaises(ValueError):
                     build_document(data)
 
-    def test_frozen_p1_still_requires_valuation_discount_and_p2_arithmetic(self):
+    def test_frozen_p1_still_requires_valuation_and_valid_price_order(self):
         data = yutong_example()
         data.update(mode="frozen", reason="公司可估，事件窗口暂停")
-        data["p2"] = {"status": "suspended", "reason": "等窗口实际结果复评"}
+        data["p2"] = {"status": "suspended", "price": 16, "reason": "等窗口实际结果复评"}
         result = build_document(data)
         for mutation in (lambda p: p.update(v50=None),
-                         lambda p: p.update(p1={"low": 30, "base": 40, "high": 50}),
-                         lambda p: p["p2"].update(price=20.7)):
+                         lambda p: p.update(p1={"low": 30, "base": 40, "high": 35}),
+                         lambda p: p["p2"].update(price=23)):
             with self.subTest(mutation=mutation):
                 invalid = deepcopy(result)
                 mutation(invalid["price_map"])
@@ -328,7 +398,7 @@ class StockPriceMapTests(unittest.TestCase):
         for mode in ("rejected", "unavailable"):
             with self.subTest(mode=mode):
                 data.update(mode=mode, reason="治理红线或核心证据不可得")
-                data["p2"] = {"status": "cancelled", "reason": "不具备估值基础"}
+                data["p2"] = {"status": "cancelled", "price": None, "reason": "不具备估值基础"}
                 with self.assertRaisesRegex(ValueError, "unpriced mode"):
                     build_document(data)
 

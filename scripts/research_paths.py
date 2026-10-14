@@ -12,6 +12,11 @@ import subprocess
 import sys
 import tempfile
 
+try:
+    from .stock_price_map import SUPPORTED_SCHEMAS, validate_document
+except ImportError:
+    from stock_price_map import SUPPORTED_SCHEMAS, validate_document
+
 ROOT = Path(__file__).resolve().parents[1]
 WEEKLY_KINDS = {"market-research", "change-decision", "adaption-report", "execution-audit"}
 GENERATORS = ("codex", "claude")
@@ -197,11 +202,7 @@ def company_runs(market, code, as_of, root=ROOT, *, include_legacy=False, genera
                 continue
             if not report.is_file() or not report.read_text(encoding="utf-8").strip():
                 continue
-            if data.get("meta", {}).get("schema_version") == "stock-research/v2":
-                try:
-                    from .stock_price_map import validate_document
-                except ImportError:
-                    from stock_price_map import validate_document
+            if data.get("meta", {}).get("schema_version") in SUPPORTED_SCHEMAS:
                 validate_document(data)
                 if data["meta"].get("generator") != generator:
                     continue
@@ -306,7 +307,7 @@ def render_index(as_of, root=ROOT, *, local=False):
             legacy = data.get("schema_version") == "stock-research/v1"
             name = data.get("meta", {}).get("name") or f"{market}-{code}"
             name = re.sub(r"[\[\]\r\n]", " ", str(name))
-            label = ("v1 历史研究" if legacy else "v2") + f" · {generator or '来源未标注'}"
+            label = ("v1 历史研究" if legacy else data['meta']['schema_version'].split('/')[-1]) + f" · {generator or '来源未标注'}"
             identities_by_day.setdefault(day, set()).add((market, code))
             dates.setdefault(day, []).append(
                 f"- [{name}（{market}-{code}）]({link(report)})"
@@ -334,7 +335,7 @@ def main():
     p.add_argument("--generator", choices=[*GENERATORS, "unattributed"], default="unattributed",
                    help="Select only this producer; default is old unattributed files, never mixed")
     p.add_argument("--include-legacy", action="store_true",
-                   help="Include v1 reports for historical research only; default selects v2")
+                   help="Include v1 reports for historical research only; default selects v3/v2")
     p = sub.add_parser("company-path")
     p.add_argument("--market", required=True)
     p.add_argument("--code", required=True)
@@ -370,13 +371,13 @@ def main():
             print(paths[-1].relative_to(ROOT))
             history = company_runs(args.market, args.code, args.as_of, include_legacy=True, generator=generator)
             if json.loads(paths[-1].read_text()).get("schema_version") == "stock-research/v1":
-                print("历史输入：v1 不代表当前 v2 价格地图，不可直接转换旧参数或价位。", file=sys.stderr)
+                print("历史输入：v1 不代表当前 v3/v2 价格地图，不可直接转换旧参数或价位。", file=sys.stderr)
             elif history and history[-1].parent.parent.name > paths[-1].parent.parent.name:
                 print(f"存在更晚的 v1 历史研究（{history[-1].parent.parent.name}）；"
-                      f"返回的 v2 估值日仍为 {paths[-1].parent.parent.name}，不代表已复评至 {args.as_of}。",
+                      f"返回的 v3/v2 估值日仍为 {paths[-1].parent.parent.name}，不代表已复评至 {args.as_of}。",
                       file=sys.stderr)
         else:
-            print("未找到截止日内合格的 v2 报告/JSON 配对；旧 v1 仅可用 --include-legacy 查找历史输入。"
+            print("未找到截止日内合格的 v3/v2 报告/JSON 配对；旧 v1 仅可用 --include-legacy 查找历史输入。"
                   if not args.include_legacy else "未找到截止日内完整的研究配对。", file=sys.stderr)
             return 1
     return 0

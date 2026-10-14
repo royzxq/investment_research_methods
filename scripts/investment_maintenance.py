@@ -316,14 +316,14 @@ def validate_handoff(record, root):
                 raise ValueError("Company completion must identify the matching report/JSON pair")
             document = _load_json(_check_ref(root, completion["price_map"]))
             meta = document.get("meta", {})
-            if meta.get("schema_version") != "stock-research/v2":
-                raise ValueError("Company completion requires a stock-research/v2 pair")
             try:
                 from .research_exchange import _report_sections, _validate_pair
-                from .stock_price_map import validate_price_references
+                from .stock_price_map import SUPPORTED_SCHEMAS, validate_price_references
             except ImportError:
                 from research_exchange import _report_sections, _validate_pair
-                from stock_price_map import validate_price_references
+                from stock_price_map import SUPPORTED_SCHEMAS, validate_price_references
+            if meta.get("schema_version") not in SUPPORTED_SCHEMAS:
+                raise ValueError("Company completion requires a stock-research/v3 or v2 pair")
             market, code = review["company"].split("-")
             pair = {key: {field: value[field] for field in ("path", "sha256")} for key, value in completion.items()}
             pair["generator"] = meta.get("generator")

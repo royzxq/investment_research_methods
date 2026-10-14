@@ -32,7 +32,7 @@ try:
         _strict_json, _validate_request, load_results,
     )
     from .research_paths import company_path
-    from .stock_price_map import validate_price_references, validate_t1_delivery
+    from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
     from . import research_jev
 except ImportError:
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
@@ -41,7 +41,7 @@ except ImportError:
         _strict_json, _validate_request, load_results,
     )
     from research_paths import company_path
-    from stock_price_map import validate_price_references, validate_t1_delivery
+    from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
     import research_jev
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -174,9 +174,9 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
 1. 读根 AGENTS.md、docs/context/project-state.md、.agents/skills/stock-research/SKILL.md 及引用的必要 references、完整 compact 和必要 canonical。Claude 侧兼容入口为 .claude/skills/stock-research/SKILL.md。按 deep-research-auto 补证，实际工具允许时按缺口组织子代理，否则主代理完成并披露。默认宿主内置 WebSearch/网页读取，不使用 Gemini 搜索。
 2. 查找同生成端历史有效配对，明确沿用/更新/补证范围；另一生成端报告只能作标明来源的参考，不能照抄成独立结论。未披露/窗口未到不是基本面恶化，候选复核只是待核验触发线索。
 3. 报告第0节必须写明本批次ID、任务、输入包路径及SHA256、两份框架SHA256、行情/抓取日期、包内收盘价/成交量/换手率（缺失如实记录），复用及更新范围。后续框架判断、估值、现金/股本/币种算术、敏感性、监控均按 skill。
-4. 交付九节(0–8)完整 Markdown 和 stock-research/v2 JSON，按上面两条确切相对路径写入「本次交付暂存根」内，不直接写最终公司目录。JSON meta.report_path 保持上述最终报告相对路径，不添加暂存前缀；build/check 使用 --generator {generator}，meta.generator={generator}。完成后runner会验收并以只创建方式发布到正式公司目录。回执的report_path/price_map_path也填写上述最终相对路径。不要自行换名或覆盖。取证临时材料只写 output/stock-research-{task_id}-{day}-{generator}*/ 和本批 {execution}/。
+4. 交付九节(0–8)完整 Markdown 和 stock-research/v3 JSON，按上面两条确切相对路径写入「本次交付暂存根」内，不直接写最终公司目录。JSON meta.report_path 保持上述最终报告相对路径，不添加暂存前缀；build/check 使用 --generator {generator}，meta.generator={generator}。完成后runner会验收并以只创建方式发布到正式公司目录。回执的report_path/price_map_path也填写上述最终相对路径。不要自行换名或覆盖。取证临时材料只写 output/stock-research-{task_id}-{day}-{generator}*/ 和本批 {execution}/。
 5. 冻结/否决/确实不可估仍交付依据、补证尝试和解除条件，不为了出数编造；取消P2保持null和原因，不补旧价或派生价。不写 research/INDEX.md、共享索引/latest、框架、技能、代码、生产CSV/飞书，不读凭据，不发消息/交易，不提交或推送Git。
-6. 调用 scripts/stock_price_map.py build 和 check，回读实际暂存文件并核对报告与JSON。T1的price_condition只交付单一表达式（如股价≥30.85元/股、接近V50上沿时复核、当前不适用或本轮不提供T1报价）；现价、日期、比例公式及解释写报告，按输出契约校验，格式错误在正式发布前拒绝并沿用现有输出失败重试。结构化回执必须绑定本批ID、任务、生成端、日期及输入包SHA256；status=completed时reason必须是JSON null，研究结论写summary，两个路径填上述确切最终相对路径；status=failed时reason写失败原因，两个路径都为null。不能把连接测试或准备文件当成研究完成。
+6. 先完成报告并提取本轮最终P1/P2，再调用 scripts/stock_price_map.py build 和 check，回读实际暂存文件核对报告与JSON。P1只有明确报价时用 p1={{"base":报价}}，原文另有区间才带low/high；仅区间无基准用base=null，不补中值。P1/P2均显式输入，禁止从V50重算P1、补上下沿或代算缺失P2；多报价先裁决。T1的price_condition只交付单一表达式（如股价≥30.85元/股、接近V50上沿时复核、当前不适用或本轮不提供T1报价）；现价、日期、比例公式及解释写报告，按输出契约校验，格式错误在正式发布前拒绝并沿用现有输出失败重试。结构化回执必须绑定本批ID、任务、生成端、日期及输入包SHA256；status=completed时reason必须是JSON null，研究结论写summary，两个路径填上述确切最终相对路径；status=failed时reason写失败原因，两个路径都为null。不能把连接测试或准备文件当成研究完成。
 
 {snapshot_note}\
 上游触发与缺口（待核验，不作事实证明）：
@@ -684,7 +684,7 @@ def isolate_pair(entry, staged, root, request, task, generator, compatibility):
     """Preserve completed research as an unadopted revision, with explicit context.
 
     The provider's receipt and original staged pair stay untouched for audit.
-    The result/v1 and stock-research/v2 envelopes remain unchanged.
+    The result/v1 envelope and the price document's schema remain unchanged.
     """
     targets = unoccupied_targets(root, request, task, generator, minimum_revision=2)
     _, report_raw = _artifact(entry['report'], staged, 'report')
@@ -944,6 +944,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             if entry['status'] == 'completed':
                 _, price_raw = _artifact(entry['price_map'], staged, 'price map')
                 document = _strict_json(price_raw, 'price map')
+                if document['meta']['schema_version'] != SCHEMA:
+                    raise ValueError(f'new delivery requires {SCHEMA}; extract report P1/P2 quotes')
                 validate_price_references(document)
                 validate_t1_delivery(document)
                 retryable = False  # Publication must never be retried over possibly visible files.

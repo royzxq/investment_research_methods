@@ -1,10 +1,11 @@
-"""Offline arithmetic and compact export for stock-research/v2.
+"""Export report quotes as stock-research/v3; read historical v2 documents.
 
-This checks units, arithmetic and output states, not evidence or Gate decisions.
-Research assumptions belong in the report; build inputs stay in scratch output/.
+P1/P2 are explicit report quotes, never derived from V50 during export.
+This checks units, precision and states, not report semantics or Gate decisions.
 """
 
 import argparse
+from copy import deepcopy
 from datetime import date
 from decimal import Decimal, DecimalException, ROUND_HALF_UP, localcontext
 import json
@@ -13,9 +14,9 @@ import re
 import sys
 
 
-SCHEMA = "stock-research/v2"
+SCHEMA = "stock-research/v3"
+SUPPORTED_SCHEMAS = {"stock-research/v2", SCHEMA}
 RANGE_KEYS = {"low", "base", "high"}
-DISCOUNT_KEYS = {"d_base", "r_chip", "r_v5", "r_gov", "r_terminal"}
 PRICED_MODES = {"buy_candidate", "tracking", "observation"}
 MODES = PRICED_MODES | {"frozen", "rejected", "unavailable"}
 P2_STATES = {"active", "cancelled", "suspended", "unavailable"}
@@ -63,6 +64,23 @@ def numeric_range(value, label):
     return result
 
 
+def p1_quotes(value):
+    """A report's explicit point and/or interval; never invent missing quotes."""
+    fields(value, {"base"}, "p1", optional={"low", "high"})
+    has_range = "low" in value or "high" in value
+    require(not has_range or {"low", "high"} <= value.keys(), "p1: interval requires both low and high")
+    result = {}
+    if value["base"] is not None:
+        result["base"] = number(value["base"], "p1.base", positive=True)
+    require(result or has_range, "p1: explicit base quote or interval required")
+    if has_range:
+        result.update({k: number(value[k], f"p1.{k}", positive=True) for k in ("low", "high")})
+        require(result["low"] <= result["high"], "p1: unordered interval")
+        if "base" in result:
+            require(result["low"] <= result["base"] <= result["high"], "p1: base outside interval")
+    return result
+
+
 def validate_meta(meta, exported=False):
     fields(meta, META_KEYS | ({"schema_version"} if exported else set()), "meta",
            optional={"generator"} if exported else {"schema_version", "generator"})
@@ -75,7 +93,9 @@ def validate_meta(meta, exported=False):
     require(meta["currency"] == expected, "meta.currency: inconsistent with listing market")
     iso_date(meta["valuation_date"], "meta.valuation_date")
     if "schema_version" in meta:
-        require(meta["schema_version"] == SCHEMA, "meta.schema_version: unsupported version")
+        require(isinstance(meta["schema_version"], str)
+                and meta["schema_version"] in (SUPPORTED_SCHEMAS if exported else {SCHEMA}),
+                "meta.schema_version: unsupported version")
 
 
 def validate_monitoring(items, valuation_date):
@@ -160,52 +180,23 @@ def round_price(value, currency):
 
 
 def build_document(data):
-    fields(data, {"meta", "mode", "reason", "valuation", "discounts", "step_down", "p2", "t1", "t2", "monitoring"}, "input")
+    fields(data, {"meta", "mode", "reason", "valuation", "p1", "p2", "t1", "t2", "monitoring"}, "input")
     validate_meta(data["meta"])
     validate_mode(data["mode"], data["reason"])
-    validate_p2(data["p2"])
-    # Frozen describes buying eligibility, not whether the business is valuable
-    # enough to model. Explicit calculation inputs opt into observation prices;
-    # old frozen documents with no calculation inputs remain valid.
-    frozen_priced = data["mode"] == "frozen" and (
-        data["discounts"] is not None or data["step_down"] is not None)
-    priced = data["mode"] in PRICED_MODES or frozen_priced
-    if frozen_priced:
-        require(data["p2"]["status"] in {"suspended", "cancelled"},
-                "frozen observation prices: p2 must be suspended or cancelled")
+    validate_p2(data["p2"], exported=True)
     currency = data["meta"]["currency"]
     with localcontext() as ctx:
         ctx.prec = 40
         v50 = per_share_values(data["valuation"], currency) if data["valuation"] is not None else None
-        p1 = p2_price = None
-        if priced:
-            require(v50 is not None, "priced mode requires valuation; use unavailable with a reason")
-            fields(data["discounts"], DISCOUNT_KEYS, "discounts")
-            factor = Decimal(1)
-            for k in sorted(DISCOUNT_KEYS):
-                discount = number(data["discounts"][k], f"discounts.{k}")
-                require(0 <= discount < 1, f"discounts.{k}: expected [0,1)")
-                factor *= 1 - discount
-            step = number(data["step_down"], "step_down")
-            require(Decimal("0.05") <= step <= Decimal("0.10"), "step_down: expected 0.05-0.10")
-            raw_p1 = {k: v * factor for k, v in v50.items()}
-            p1 = {k: round_price(v, currency) for k, v in raw_p1.items()}
-            if data["p2"]["status"] in {"active", "suspended"}:
-                p2_price = round_price(raw_p1["low"] * (1 - step), currency)
-        else:
-            require(data["discounts"] is None and data["step_down"] is None,
-                    "unpriced mode: discounts and step_down must be null")
-            require(data["p2"]["status"] in {"cancelled", "unavailable"},
-                    "unpriced mode: p2 must be cancelled or unavailable")
         result = {
             "meta": dict(data["meta"], schema_version=SCHEMA),
             "price_map": {
                 "mode": data["mode"], "reason": data["reason"],
                 "v50": None if v50 is None else {k: round_price(v, currency) for k, v in v50.items()},
-                "p1": p1, "p2": dict(data["p2"], price=p2_price),
-                "t1": data["t1"], "t2": data["t2"],
+                "p1": deepcopy(data["p1"]), "p2": deepcopy(data["p2"]),
+                "t1": deepcopy(data["t1"]), "t2": deepcopy(data["t2"]),
             },
-            "monitoring": data["monitoring"],
+            "monitoring": deepcopy(data["monitoring"]),
         }
     validate_document(result)
     validate_price_references(result)
@@ -214,7 +205,7 @@ def build_document(data):
 
 
 def validate_document(document):
-    """Validate exported state/types; discounts and evidence require build/report."""
+    """Validate quotes/states; research assumptions and extraction need review."""
     fields(document, {"meta", "price_map", "monitoring"}, "document")
     validate_meta(document["meta"], exported=True)
     p = document["price_map"]
@@ -222,25 +213,35 @@ def validate_document(document):
     validate_mode(p["mode"], p["reason"])
     validate_p2(p["p2"], exported=True)
     v50 = numeric_range(p["v50"], "v50") if p["v50"] is not None else None
-    p1 = numeric_range(p["p1"], "p1") if p["p1"] is not None else None
+    legacy = document["meta"]["schema_version"] == "stock-research/v2"
+    p1 = None
+    if p["p1"] is not None:
+        p1 = numeric_range(p["p1"], "p1") if legacy else p1_quotes(p["p1"])
     tick = quantum(document["meta"]["currency"])
     prices = [v for values in (v50, p1) if values is not None for v in values.values()]
     if p["p2"]["price"] is not None:
         prices.append(number(p["p2"]["price"], "p2.price", positive=True))
     for price in prices:
         require(price % tick == 0, "exported price exceeds currency precision")
+        if not legacy:
+            require(number(float(price), "exported price", positive=True) == price,
+                    "exported price cannot be serialized without changing quote")
     frozen_priced = p["mode"] == "frozen" and p1 is not None
     if frozen_priced:
         require(p["p2"]["status"] in {"suspended", "cancelled"},
                 "frozen observation prices: p2 must be suspended or cancelled")
     if p["mode"] in PRICED_MODES or frozen_priced:
         require(v50 is not None and p1 is not None, "priced mode requires v50 and p1")
-        require(all(p1[k] <= v50[k] for k in RANGE_KEYS), "p1 exceeds v50")
+        if legacy:
+            require(all(p1[k] <= v50[k] for k in RANGE_KEYS), "p1 exceeds v50")
         if p["p2"]["status"] in {"active", "suspended"}:
             price = number(p["p2"]["price"], "p2.price", positive=True)
             tolerance = quantum(document["meta"]["currency"])
-            require(p1["low"] * Decimal("0.90") - tolerance <= price <= p1["low"] * Decimal("0.95") + tolerance,
-                    "p2.price inconsistent with P1_low and 5%-10% step")
+            if "low" in p1:
+                require(p1["low"] * Decimal("0.90") - tolerance <= price <= p1["low"] * Decimal("0.95") + tolerance,
+                        "p2.price inconsistent with explicit P1_low and 5%-10% step")
+            else:
+                require(price < p1["base"], "p2.price must be below P1 quote; missing low is not base")
         else:
             require(p["p2"]["price"] is None, "cancelled/unavailable p2 must have null price")
     else:
@@ -326,12 +327,12 @@ def json_number(value):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    build = sub.add_parser("build", help="calculate from researched scratch assumptions; never overwrite")
+    build = sub.add_parser("build", help="export explicit report P1/P2 quotes; never derive or overwrite")
     build.add_argument("--input", required=True)
     build.add_argument("--output", required=True)
     build.add_argument("--generator", required=True, choices=["codex", "claude"],
                        help="Actual host producing the research, not the source of cited material")
-    check = sub.add_parser("check", help="validate v2 structure/state, not facts or full arithmetic")
+    check = sub.add_parser("check", help="validate v3/v2 quotes and states, not report semantics")
     check.add_argument("file")
     args = parser.parse_args(argv)
     try:
@@ -353,13 +354,13 @@ def main(argv=None):
             payload = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False, default=json_number) + "\n"
             with Path(args.output).open("x", encoding="utf-8") as stream:
                 stream.write(payload)
-            print(f"Built {args.output}; arithmetic/state checked, research evidence not checked")
+            print(f"Built {args.output}; report P1/P2 quotes preserved; structure/state checked, report semantics not checked")
         else:
             document = load_json(args.file)
             validate_document(document)
             validate_price_references(document)
             validate_t1_delivery(document)
-            print(f"Valid {SCHEMA}; structure/state/V50 references/T1 delivery checked; evidence and discount assumptions not checked")
+            print(f"Valid {document['meta']['schema_version']}; structure/state/V50 references/T1 delivery checked; report extraction and research assumptions not checked")
     except (ValueError, TypeError, OSError, DecimalException) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
