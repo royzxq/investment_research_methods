@@ -73,7 +73,7 @@ body='\n\n'.join(f'## {n}. section\n\n'+(f'batch={batch}; input={sha}; frames={f
 if mode=='hidden_binding': body=body.replace(f'batch={batch}; input={sha}; frames={frames}; price=25.30',f'<!-- batch={batch}; input={sha}; frames={frames} -->\noffline evidence')
 report_file.write_text(body)
 doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
-'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':25,'high':30},'p1':{'base':12},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
+'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':24,'high':30},'p1':{'base':12},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
 'monitoring':[{'variable':'income','current':None,'as_of':None,'trigger':'falls','action':'review','source':'offline','next_check':'next report'}]}
 if mode=='legacy_delivery':
  doc['meta']['schema_version']='stock-research/v2'
@@ -83,6 +83,25 @@ receipt_price=price
 if mode=='exact_delivery_paths': price=price_file
 (staged/price).write_text(json.dumps(doc))
 price=receipt_price
+sys.path.insert(0,'__RESEARCH_TEST_ROOT__')
+sys.path.insert(0,'__RESEARCH_TEST_ROOT__/tests')
+from scripts.research_consistency import render_report_block, extract_audit
+from research_audit_fixture import audit_for
+audit=audit_for(doc)
+baseline_match=re.search(r'^研究折扣基线：(.*)$',payload.decode(),re.M)
+baseline=json.loads(baseline_match[1]) if baseline_match else None
+if baseline:
+ prior=extract_audit(Path(baseline['report_path']).read_text())
+ audit['baseline']=dict(baseline,discounts={key:dict(value=float(entry['value']),quote='explicit offline assumption') for key,entry in prior['discounts'].items()})
+ for entry in audit['discounts'].values(): entry['change']['kind']='unchanged'
+block=render_report_block(audit,doc,root=Path.cwd())
+if mode=='bad_profit_chain': block=block.replace('"profit": 24,','"profit": 50,')
+if mode=='hidden_freeze':
+ audit['constraints']=[dict(id='D5',effect='freeze',status='blocking',reason='offline applicable freeze',release_conditions=['rebuild and review'])]
+ audit['release_all_of']=['D5']
+ block=block[:block.index('<!-- research-audit:start -->')]+'<!-- research-audit:start -->\n```json\n'+json.dumps(audit)+'\n```\n<!-- research-audit:end -->'
+if mode=='missing_audit': block=''
+report_file.write_text(body+'\n\n'+block)
 receipt={'batch_id':batch,'task_id':get('task_id'),'code':code,'generator':generator,'valuation_date':day,'input_pack_sha256':sha,'status':'completed','reason':None,'summary':'offline research completed','report_path':report,'price_map_path':price}
 if mode=='completed_reason':receipt['reason']='wrong place for summary'
 if mode=='wrong_input': receipt['input_pack_sha256']='0'*64
@@ -92,7 +111,7 @@ if '-o' in args:
  print(json.dumps({'type':'turn.completed'}))
 else:
  print(json.dumps({'type':'result','subtype':'success','is_error':False,'structured_output':receipt}))
-'''
+'''.replace('__RESEARCH_TEST_ROOT__', str(ROOT))
 
 
 class ResearchRunnerTests(unittest.TestCase):
@@ -151,6 +170,21 @@ class ResearchRunnerTests(unittest.TestCase):
                 # The next case is a separately authorized batch, no overwrite.
                 self.request['batch_id'] = ('b' if mode == 'success' else 'c') * 32
                 self.write_request()
+
+    def test_new_research_consistency_gate_rejects_bad_math_hidden_freeze_and_missing_audit(self):
+        for index, (mode, error) in enumerate((('bad_profit_chain', 'base.profit'),
+                                                ('hidden_freeze', 'hidden as tracking'),
+                                                ('missing_audit', 'audit block'))):
+            with self.subTest(mode=mode):
+                self.request['batch_id'] = str(index + 1) * 32
+                self.write_request()
+                os.environ['MOCK_MODE'] = mode
+                entry = json.loads(self.execute().read_text())['results'][0]
+                self.assertEqual(entry['status'], 'failed')
+                self.assertIn(error, entry['reason'])
+                self.assertFalse(list((self.methods/'research').rglob('*.json')))
+                process = self.methods/'output/runs/investment/2026-10-06'/self.request['batch_id']/'execution/SH-600066/claude/process.json'
+                self.assertTrue(json.loads(process.read_text())['retryable'])
 
     def test_new_delivery_rejects_old_formula_schema_but_sealed_loader_remains_compatible(self):
         os.environ['MOCK_MODE'] = 'legacy_delivery'

@@ -31,18 +31,20 @@ try:
         RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
     )
-    from .research_paths import company_path
+    from .research_paths import company_path, company_runs
     from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
     from . import research_jev
+    from . import research_consistency
 except ImportError:
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
         RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
     )
-    from research_paths import company_path
+    from research_paths import company_path, company_runs
     from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
     import research_jev
+    import research_consistency
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
@@ -137,7 +139,7 @@ def framework_bytes(root):
 
 
 def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
-                *, snapshot=True, maintenance=None):
+                *, snapshot=True, maintenance=None, research_validation=None, research_baseline=None):
     day, task_id = request['valuation_date'], task['task_id']
     staged = staging_root(root, request, task, generator, attempt)
     execution = f'execution/{task_id}/{generator}' + ('/retry-1' if attempt == 2 else '')
@@ -158,6 +160,14 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
 {maintenance_note}
 
 ''' if snapshot else '')
+    validation_note = ('''研究一致性门禁：stock-research-audit/v1（新交付必需）。
+读取 .agents/skills/stock-research/references/research-consistency.md。报告内保留唯一审计输入和由 scripts/research_consistency.py render 生成的可见核算表；发布前会校验收入×经常净利率＋有来源调整＝利润、利润×PE＝权益价值及股本换算。不要用另一组未桥接利润覆盖计算链。
+每项风险只归一个盈利/倍数/资格/残余折扣桶，已计入估值或只属资格缺口的风险不再同ID扣价；同一风险的不同部分须明确范围并独立举证。先找同端基线并绑定原文哈希/原句；事实和模型未变时沿用折扣及论证区间，改值须分类说明新证据/纠错/模型变化/已采纳方法及敏感性，不自行重定义“上沿”以改变价格。不新增通用折扣常数。
+冻结约束仍有效时mode必须frozen；R9等资格限制与价值可估性分判，D5先证明本轮用途适用性。恢复须同时解除全部仍有效阻断，R21退出只回等待复核。检查失败定向修正报告及审计，不清空报价或绕过门禁。最终轻量JSON仍用v3，仅忠实提取明确报价，审计不自动改价。
+
+''' + '研究折扣基线：' + json.dumps(research_baseline, ensure_ascii=False) + '\n'
+        + '非null时必须读取该冻结副本并绑定为audit.baseline；旧版无审计块时逐项摘录原文参数，不能假定无历史。\n\n'
+        if research_validation else '')
     prefix = f'''使用 stock-research 技能进行股票复研：{task['code']} {task['name']}。估值日{day}，Asia/Shanghai。
 用户授权的候选信号驱动研究，必须实际保存完整报告及价格JSON，不只返回计划。
 工作根：{Path(root).resolve()}；生成端固定为{generator}，不是数据源或业务席位标签。
@@ -178,7 +188,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
 5. 冻结/否决/确实不可估仍交付依据、补证尝试和解除条件，不为了出数编造；取消P2保持null和原因，不补旧价或派生价。不写 research/INDEX.md、共享索引/latest、框架、技能、代码、生产CSV/飞书，不读凭据，不发消息/交易，不提交或推送Git。
 6. 先完成报告并提取本轮最终P1/P2，再调用 scripts/stock_price_map.py build 和 check，回读实际暂存文件核对报告与JSON。P1只有明确报价时用 p1={{"base":报价}}，原文另有区间才带low/high；仅区间无基准用base=null，不补中值。P1/P2均显式输入，禁止从V50重算P1、补上下沿或代算缺失P2；多报价先裁决。T1的price_condition只交付单一表达式（如股价≥30.85元/股、接近V50上沿时复核、当前不适用或本轮不提供T1报价）；现价、日期、比例公式及解释写报告，按输出契约校验，格式错误在正式发布前拒绝并沿用现有输出失败重试。结构化回执必须绑定本批ID、任务、生成端、日期及输入包SHA256；status=completed时reason必须是JSON null，研究结论写summary，两个路径填上述确切最终相对路径；status=failed时reason写失败原因，两个路径都为null。不能把连接测试或准备文件当成研究完成。
 
-{snapshot_note}\
+{snapshot_note}{validation_note}\
 上游触发与缺口（待核验，不作事实证明）：
 {json.dumps({'sources': task['sources'], 'data_pack_meta': task['data_pack_meta']}, ensure_ascii=False)}
 
@@ -304,7 +314,8 @@ def freeze_maintenance(run, root, as_of):
                 sources=sources)
 
 
-def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None):
+def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, research_validation=None,
+                             research_request=None):
     folder = run / 'framework-snapshot'
     if folder.exists():
         raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
@@ -318,6 +329,24 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None):
                     frameworks={name: dict(path=name, sha256=sha(raw))
                                 for name, raw in contents.items()},
                     legacy_inputs=legacy_inputs, maintenance=maintenance)
+    if research_validation is not None:
+        document['research_validation'] = research_validation
+        baselines = {}
+        for task in research_request['tasks']:
+            code, market = task['code'].split('.')
+            for generator in research_request['generators']:
+                key = task['task_id'] + '/' + generator
+                history = company_runs(market, code, as_of, root, generator=generator)
+                baselines[key] = None
+                if history:
+                    price = _strict_json(history[-1].read_bytes(), 'baseline price map')
+                    original = price['meta']['report_path']
+                    raw = owned_path(root, original).read_bytes()
+                    target = 'research-baselines/' + task['task_id'] + '-' + generator + '.md'
+                    write_new(folder / target, raw)
+                    (folder / target).chmod(0o444)
+                    baselines[key] = dict(path=target, sha256=sha(raw), original_path=original)
+        document['research_baselines'] = baselines
     write_new(folder / 'manifest.json', encode(document))
     (folder / 'manifest.json').chmod(0o444)
     return document
@@ -371,6 +400,14 @@ def snapshot_hashes(run):
             or document.get('origin') not in ('prepared', 'legacy_exact_hash_migration')):
         raise ValueError('framework snapshot manifest mismatch')
     frameworks = {}
+    if document.get('research_validation') not in (None, research_consistency.SCHEMA):
+        raise ValueError('unsupported prepared research validation contract')
+    if document.get('research_validation'):
+        if not isinstance(document.get('research_baselines'), dict):
+            raise ValueError('prepared research baselines missing')
+        for baseline in document['research_baselines'].values():
+            if baseline is not None:
+                _artifact(dict(path=baseline['path'], sha256=baseline['sha256']), folder, 'research baseline')
     for name in FRAMEWORKS:
         descriptor = document['frameworks'][name]
         if not isinstance(descriptor, dict) or descriptor.get('path') != name:
@@ -415,6 +452,10 @@ def verify_prepared(run, original_raw, root):
             targets = _strict_json((folder / 'targets.json').read_bytes(), 'targets')
             validate_targets(targets, root, request, task, generator)
             input_folder = folder
+            baseline = (snapshot.get('research_baselines') or {}).get(task['task_id'] + '/' + generator)
+            if baseline is not None:
+                baseline = dict(report_path=(run / 'framework-snapshot' / baseline['path']).relative_to(Path(root).resolve()).as_posix(),
+                                sha256=baseline['sha256'])
             if legacy is not None:
                 key = f"{task['task_id']}/{generator}"
                 original = dict(prompt_sha256=sha((folder / 'prompt.txt').read_bytes()),
@@ -423,7 +464,8 @@ def verify_prepared(run, original_raw, root):
                     raise ValueError('migrated legacy input history mismatch')
                 input_folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
             prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
-                                 frameworks, targets, maintenance=snapshot.get('maintenance'))
+                                 frameworks, targets, maintenance=snapshot.get('maintenance'),
+                                 research_validation=snapshot.get('research_validation'), research_baseline=baseline)
             if (input_folder / 'prompt.txt').read_bytes() != prompt:
                 raise ValueError(f"prepared prompt mismatch: {task['task_id']} {generator}")
             record = _strict_json((input_folder / 'input.json').read_bytes(), 'input record')
@@ -433,7 +475,9 @@ def verify_prepared(run, original_raw, root):
                 raise ValueError('prepared receipt schema mismatch')
             verified[(task['task_id'], generator)] = dict(prompt=prompt, frameworks=frameworks,
                                                          targets=targets, input_folder=input_folder,
-                                                         maintenance=snapshot.get('maintenance'))
+                                                         maintenance=snapshot.get('maintenance'),
+                                                         research_validation=snapshot.get('research_validation'),
+                                                         research_baseline=baseline)
     return request, raw, packs, verified
 
 
@@ -452,12 +496,18 @@ def prepare_request(request_path, root=ROOT):
                 targets = unoccupied_targets(root, request, task, generator)
             prepared.append((task, generator, targets))
     run.mkdir(parents=True, exist_ok=False)
-    snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'])
+    snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'],
+                                        research_validation=research_consistency.SCHEMA, research_request=request)
     for task in request['tasks']:
         write_new(run / task['data_pack']['path'], packs[task['task_id']])
     for task, generator, targets in prepared:
+        baseline = snapshot['research_baselines'][task['task_id'] + '/' + generator]
+        if baseline is not None:
+            baseline = dict(report_path=(run / 'framework-snapshot' / baseline['path']).relative_to(Path(root).resolve()).as_posix(),
+                            sha256=baseline['sha256'])
         prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
-                             frameworks, targets, maintenance=snapshot.get('maintenance'))
+                             frameworks, targets, maintenance=snapshot.get('maintenance'),
+                             research_validation=snapshot.get('research_validation'), research_baseline=baseline)
         folder = run / 'execution' / task['task_id'] / generator
         write_new(folder / 'prompt.txt', prompt)
         write_new(folder / 'targets.json', encode(targets))
@@ -697,7 +747,6 @@ def isolate_pair(entry, staged, root, request, task, generator, compatibility):
     report_text = report_raw.decode('utf-8')
     # Prepend outside any source HTML comment/fence; the warning must be visible
     # even if the submitted report has hidden example headings before section 0.
-    report_raw = (note.lstrip() + report_text).encode('utf-8')
     price['meta']['report_path'] = targets['report_path']
     price['price_map']['reason'] = ((price['price_map']['reason'] or '研究判断基于冻结框架') + '；方法接续待复核 needs_review，'
                                   '仅供按冻结框架复核，不代表当前买入资格。')
@@ -713,6 +762,9 @@ def isolate_pair(entry, staged, root, request, task, generator, compatibility):
             original_reason = price['price_map']['p2']['reason']
             price['price_map']['p2'].update(status='cancelled', price=None,
                 reason='方法接续待复核 needs_review；原P2不可算，未生成观察价位：' + original_reason)
+    if research_consistency.START in report_text:
+        report_text = research_consistency.isolate_report(report_text, price, root=root)
+    report_raw = (note.lstrip() + report_text).encode('utf-8')
     adjusted = dict(entry)
     # A provider can already have been assigned r2. Use a separate staging root
     # so even that case does not overwrite its original delivery.
@@ -851,7 +903,9 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             if attempt == 2:
                 payload = make_prompt(request, task, generator, packs[task['task_id']],
                                       root, frozen['frameworks'], targets, attempt,
-                                      maintenance=frozen['maintenance'])
+                                      maintenance=frozen['maintenance'],
+                                      research_validation=frozen['research_validation'],
+                                      research_baseline=frozen['research_baseline'])
                 first = execution_folder(run, task, generator)
                 prior_path = owned_path(root, first/'entry.json')
                 if prior_path.is_symlink():
@@ -948,6 +1002,11 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     raise ValueError(f'new delivery requires {SCHEMA}; extract report P1/P2 quotes')
                 validate_price_references(document)
                 validate_t1_delivery(document)
+                if frozen['research_validation']:
+                    _, report_raw = _artifact(entry['report'], staged, 'report')
+                    audit_result = research_consistency.validate_report(
+                        report_raw.decode('utf-8'), document, root=root,
+                        expected_baseline=frozen['research_baseline'])
                 retryable = False  # Publication must never be retried over possibly visible files.
                 # Recheck actual snapshot bytes and request/pack/prompt bindings
                 # after research, before anything can reach company discovery.
@@ -973,6 +1032,13 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     entry, staged = isolate_pair(entry, staged, root, request, task, generator, compatibility)
                     save(check_path, manifest(request, request_raw, [entry]))
                     load_results(check_path, run / 'request.json', staged)
+                if frozen['research_validation']:
+                    _, report_raw = _artifact(entry['report'], staged, 'report')
+                    _, price_raw = _artifact(entry['price_map'], staged, 'price map')
+                    audit_result = research_consistency.validate_report(report_raw.decode('utf-8'),
+                        _strict_json(price_raw, 'price map'), root=root, expected_baseline=frozen['research_baseline'])
+                    audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
+                    write_new(folder / 'research-validation.json', encode(audit_result))
                 write_new(folder / 'framework-compatibility.json', encode(compatibility))
                 save(folder / 'process.json', process)
                 publish_pair(entry, staged, root)
