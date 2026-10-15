@@ -139,3 +139,7 @@ Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，
 2026-10-06 公司目录改为日期优先：旧 `investment/companies/<公司标识>/<日期>/` 对应现行 `investment/companies/<日期>/<公司标识>/`。旧迁移清单与报告中的历史运行叙述保留当时路径；当前 JSON 的 `meta.report_path` 与导航使用新路径。本次本地迁移备份及逐文件校验记录位于 `output/layout-migration/2026-10-06-company-date-first/`。
 
 本地备份位于被忽略的 `output/layout-migration/2026-10-05/`。迁移本身不授权 commit/push/PR。两个周更自动化通过根 AGENTS 和 skill 读取本契约；远端基线需包含完整迁移才能使用新规则，未提交新路径不能冒充已提交证据。
+
+## Coze 条件补充（2026-10-14）
+
+仅沪深A股同批Claude/Codex P1.base相对较低值的差异严格超过10%时启用。Coze以 `coze` 单独归档原文和 `stock-research-coze/v1` JSON，最低要求明确P1/T1；不同报告章节不套本仓九节，缺其他字段不补造。发送后15分钟无可确认归属的回复即终止失败，不重试，不接受迟到结果发布。原两模型封口及回写继续，成功Coze补充封口由原共识与写回入口消费。完整规则、证据、持续heartbeat见 [Coze接入契约](../docs/context/coze-research-automation.md)。

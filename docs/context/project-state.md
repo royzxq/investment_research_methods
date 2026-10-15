@@ -12,6 +12,8 @@
 
 ## 待接续事项
 
+- 2026-10-14 Coze 条件第三模型已本机接入：仅沪深A股本轮 Claude/Codex P1.base 按 max/min−1 严格超过10%触发；Coze必须明确P1/T1，原两模型先完成回写。成功补充保留原seal/回执，按原共识及写回消费；报告/JSON以coze独立保存，邮件证据冻结。2026-10-15按用户追加要求，发送15分钟无可归属回复即failed终止，不重试、不发布迟到结果；同批intent/失败历史防重入。招商银行、中国海油、中国神华、宇通客车、金力永磁五个请求已关闭失败，原未匹配报告证据保留，无Coze成功交付。持续heartbeat `coze` ACTIVE，每15分钟仅扫描未来合格新批次。投资调度器已重载。规则见 [Coze契约](coze-research-automation.md)，部署/验证及真实回执见 [接入报告](../../research/investment/maintenance/2026-10-14/investment-2026-10-14-coze-integration-report.md)。
+
 - 2026-10-14 个股报价导出定向修订：新交付采用 `stock-research/v3`，P1/P2 显式提取报告最终报价，不再由导出器从 V50/折扣重新计算；P1 单价仅 base，原报告有区间才保留 low/high，仅区间无基准时 base=null。研究公式与固定参数不变，V50 仍支持原单位换算；latest 与接续兼容 v3/v2 并按估值日期选择。随后按用户明确授权，将本地既有 65 份价格地图逐份对照原报告原位重提取为 v3，不保留旧版 JSON；原报告字节、P1/P2 报价与生成端归属不变。同步重建 latest、重绑 19 份自动研究封口及回执，并通过相邻 ai_investment 仓库既有属主接口校正本地报价和 CSV（中远海控、正泰电器价格行更新，恒瑞医药补入 10/09 行）。65 份结构/价格引用、原文哈希、19 份回执及重复执行校验通过；这次历史重提取不代表重新研究或行情刷新。审计位于 `output/price-map-v3-reextract-2026-10-14/`。
 
 - 2026-10-05 个股入口：`stock-research` 与 `deep-research-auto` 现维护于 `.agents/skills/`，`.claude/skills/` 同名文件为兼容入口。个股最终 JSON 使用 `stock-research/v2`，仅 `meta/price_map/monitoring`；计算工具为 `scripts/stock_price_map.py`，旧 v1 只作复评历史输入，不能直接迁移单位混杂的 V50 或示例价格。10/05 的 600066、01952 报告与 JSON 保留原研究内容（目录迁移仅修正引用），尚未按修复版重新研究；原参数空值、P2/换汇及事实冲突须在后续复评中解决，不能视为已修正价格。

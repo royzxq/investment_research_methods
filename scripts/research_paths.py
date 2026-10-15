@@ -19,12 +19,12 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parents[1]
 WEEKLY_KINDS = {"market-research", "change-decision", "adaption-report", "execution-audit"}
-GENERATORS = ("codex", "claude")
+GENERATORS = ("codex", "claude", "coze")
 
 
 def generator_suffix(generator):
     if generator is not None and generator not in GENERATORS:
-        raise ValueError("Generator must be codex or claude; None is unattributed history")
+        raise ValueError("Generator must be codex, claude or coze; None is unattributed history")
     return f"-{generator}" if generator else ""
 
 
@@ -202,7 +202,17 @@ def company_runs(market, code, as_of, root=ROOT, *, include_legacy=False, genera
                 continue
             if not report.is_file() or not report.read_text(encoding="utf-8").strip():
                 continue
-            if data.get("meta", {}).get("schema_version") in SUPPORTED_SCHEMAS:
+            if generator == 'coze' and data.get('meta', {}).get('schema_version') == 'stock-research-coze/v1':
+                try:
+                    from .research_coze import validate_document as validate_coze, validate_extraction
+                except ImportError:
+                    from research_coze import validate_document as validate_coze, validate_extraction
+                validate_coze(data)
+                validate_extraction(data['extraction'], report.read_text(encoding='utf-8'))
+                if (data['meta']['valuation_date'] != day or data['meta']['code'] != f'{code}.{market}'
+                        or (Path(root)/data['meta']['report_path']).resolve() != report.resolve()):
+                    continue
+            elif data.get("meta", {}).get("schema_version") in SUPPORTED_SCHEMAS:
                 validate_document(data)
                 if data["meta"].get("generator") != generator:
                     continue
