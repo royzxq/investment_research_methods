@@ -443,6 +443,32 @@ class StockPriceMapTests(unittest.TestCase):
             self.assertNotEqual(refused.returncode, 0)
             self.assertEqual(destination.read_bytes(), original)
 
+    def test_cli_check_legacy_t1_prose_without_relaxing_v3_or_structural_checks(self):
+        document = build_document(yutong_example())
+        document['meta']['schema_version'] = 'stock-research/v2'
+        document['price_map']['p1'] = dict(low=17.29, base=22.42, high=28.18)
+        document['price_map']['t1']['price_condition'] = '价格达到观察区间时复核'
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'historical.json'
+            command = [sys.executable, str(ROOT / 'scripts/stock_price_map.py'), 'check', str(path)]
+            path.write_text(json.dumps(document, ensure_ascii=False), encoding='utf-8')
+            original = path.read_bytes()
+            checked = subprocess.run(command, capture_output=True, text=True)
+            self.assertEqual(checked.returncode, 0, checked.stderr)
+            self.assertNotIn('T1 delivery checked', checked.stdout)
+            self.assertEqual(path.read_bytes(), original)
+            document['meta']['schema_version'] = 'stock-research/v3'
+            path.write_text(json.dumps(document), encoding='utf-8')
+            checked = subprocess.run(command, capture_output=True, text=True)
+            self.assertNotEqual(checked.returncode, 0)
+            self.assertIn('t1 delivery', checked.stderr)
+            document['meta']['schema_version'] = 'stock-research/v2'
+            document['price_map']['p2']['price'] = 20.7
+            path.write_text(json.dumps(document), encoding='utf-8')
+            checked = subprocess.run(command, capture_output=True, text=True)
+            self.assertNotEqual(checked.returncode, 0)
+            self.assertIn('P1_low', checked.stderr)
+
     def test_generator_metadata_is_optional_only_for_historical_compatibility(self):
         data = yutong_example()
         self.assertNotIn('generator', build_document(data)['meta'])

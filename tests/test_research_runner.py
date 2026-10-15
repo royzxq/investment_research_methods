@@ -451,8 +451,12 @@ else:
         for generator in request['generators']:
             folder=run/'execution/SH-600066'/generator
             targets=json.loads((folder/'targets.json').read_text())
-            prompt=runner.make_prompt(request,request['tasks'][0],generator,packs['SH-600066'],
-                                      self.methods,frameworks,targets,snapshot=False)
+            # Captured from b0f0186^, independent of both current prompt renderers.
+            prompt=(ROOT/f'tests/fixtures/research-prompt-pre-snapshot-v2-{generator}.txt').read_bytes()
+            prompt=prompt.replace(b'/legacy-research-root',str(self.methods.resolve()).encode())
+            for field in ('report_path','price_map_path'):
+                original=runner.targets_for_revision(self.methods,request,request['tasks'][0],generator)[field]
+                prompt=prompt.replace(original.encode(),targets[field].encode())
             (folder/'prompt.txt').write_bytes(prompt)
             (folder/'input.json').write_bytes(runner.encode(runner.input_record(
                 request,raw,request['tasks'][0],generator,prompt,frameworks,targets)))
@@ -463,9 +467,12 @@ else:
 
     def test_legacy_prepared_migrates_only_exact_bytes_and_preserves_history(self):
         run,originals=self.make_legacy_prepared()
+        self.assertIn(b'stock-research/v2',originals['claude']['prompt.txt'])
+        self.assertNotIn(b'T1',originals['claude']['prompt.txt'])
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertIn('framework-snapshot',self.capture.read_text())
+        self.assertIn('stock-research/v3',self.capture.read_text())
         manifest=json.loads((run/'framework-snapshot/manifest.json').read_text())
         self.assertEqual(manifest['origin'],'legacy_exact_hash_migration')
         for generator,files in originals.items():
@@ -473,6 +480,21 @@ else:
                 self.assertEqual((run/'execution/SH-600066'/generator/name).read_bytes(),body)
         state=json.loads((run/'execution/SH-600066/claude/process.json').read_text())
         self.assertIn('legacy-inputs',state['framework_input_record'])
+
+    def test_legacy_migration_rejects_changed_prompt_even_with_matching_input_hash(self):
+        run,originals=self.make_legacy_prepared()
+        folder=run/'execution/SH-600066/codex'
+        prompt=originals['codex']['prompt.txt'].replace(b'stock-research/v2',b'stock-research/v3')
+        (folder/'prompt.txt').write_bytes(prompt)
+        record=json.loads((folder/'input.json').read_text())
+        record.update(prompt_sha256=runner.sha(prompt),stdin_bytes=len(prompt))
+        (folder/'input.json').write_bytes(runner.encode(record))
+        with self.assertRaisesRegex(ValueError,'legacy prepared prompt mismatch'):
+            self.execute()
+        self.assertFalse((run/'framework-snapshot').exists())
+        self.assertFalse(self.capture.exists())
+        self.assertEqual((folder/'prompt.txt').read_bytes(),prompt)
+        self.assertEqual((run/'execution/SH-600066/claude/prompt.txt').read_bytes(),originals['claude']['prompt.txt'])
 
     def test_legacy_prepared_unknown_bytes_require_new_batch_without_fabrication(self):
         run,originals=self.make_legacy_prepared()

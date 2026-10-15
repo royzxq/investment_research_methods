@@ -359,8 +359,11 @@ def main(argv=None):
             document = load_json(args.file)
             validate_document(document)
             validate_price_references(document)
-            validate_t1_delivery(document)
-            print(f"Valid {document['meta']['schema_version']}; structure/state/V50 references/T1 delivery checked; report extraction and research assumptions not checked")
+            checks = 'structure/state/V50 references'
+            if document['meta']['schema_version'] == SCHEMA:
+                validate_t1_delivery(document)
+                checks += '/T1 delivery'
+            print(f"Valid {document['meta']['schema_version']}; {checks} checked; report extraction and research assumptions not checked")
     except (ValueError, TypeError, OSError, DecimalException) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

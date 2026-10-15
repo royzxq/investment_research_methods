@@ -352,6 +352,26 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
     return document
 
 
+def legacy_pre_snapshot_v2_prompt(request, task, generator, pack, root, frameworks, targets):
+    """Verification only: freeze the pre-snapshot template from b0f0186^.
+
+    Never derive these historical bytes from the evolving delivery prompt.
+    Migrated runtime instructions still come from make_prompt().
+    """
+    template = (Path(__file__).parent / 'templates/research-prompt-pre-snapshot-v2.txt').read_text(encoding='utf-8')
+    prefix = template.format(
+        code=task['code'], name=task['name'], day=request['valuation_date'],
+        root=Path(root).resolve(), generator=generator, batch_id=request['batch_id'],
+        task_id=task['task_id'], pack_path=task['data_pack']['path'],
+        pack_sha256=task['data_pack']['sha256'], frameworks_json=json.dumps(frameworks, ensure_ascii=False),
+        staged=staging_root(root, request, task, generator),
+        report_path=targets['report_path'], price_map_path=targets['price_map_path'],
+        execution=f"execution/{task['task_id']}/{generator}",
+        trigger_json=json.dumps({'sources': task['sources'], 'data_pack_meta': task['data_pack_meta']}, ensure_ascii=False),
+    ).encode('utf-8')
+    return prefix + pack + b'\n</research_data_pack>\n'
+
+
 def migrate_legacy_prepared(run, request, raw, packs, root):
     """Recover only bytes proven identical to every original saved input hash.
 
@@ -372,8 +392,8 @@ def migrate_legacy_prepared(run, request, raw, packs, root):
                                  'or recover the exact original framework bytes')
             targets = _strict_json((folder / 'targets.json').read_bytes(), 'legacy targets')
             validate_targets(targets, root, request, task, generator)
-            old_prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
-                                     frameworks, targets, snapshot=False)
+            old_prompt = legacy_pre_snapshot_v2_prompt(request, task, generator, packs[task['task_id']],
+                                                       root, frameworks, targets)
             if (folder / 'prompt.txt').read_bytes() != old_prompt:
                 raise ValueError('legacy prepared prompt mismatch; migration cannot replace damaged inputs')
             if record != input_record(request, raw, task, generator, old_prompt, frameworks, targets):
