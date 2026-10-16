@@ -99,6 +99,16 @@ class ResearchExchangeTests(unittest.TestCase):
         self.assertEqual(self.check_result(), self.result)
         self.assertEqual({p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}, before)
 
+    def test_accepts_v3_explicit_point_and_interval_without_v50_reconstruction(self):
+        self.document['meta']['schema_version'] = 'stock-research/v3'
+        for quote in ({'base': 12}, {'base': None, 'low': 10, 'high': 15}):
+            with self.subTest(quote=quote):
+                self.document['price_map']['p1'] = quote
+                self.rewrite_document()
+                original = self.price_path.read_bytes()
+                self.assertEqual(self.check_result(), self.result)
+                self.assertEqual(self.price_path.read_bytes(), original)
+
     def test_accepts_empty_result_manifest_and_failed_provider(self):
         self.result["results"] = []
         self.write_result()

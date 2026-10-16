@@ -1,4 +1,4 @@
-"""Read-only acceptance of batch requests and stock-research/v2 artifact pairs.
+"""Read-only acceptance of batch requests and stock-research/v3 or v2 pairs.
 
 Acceptance checks identity, paths, hashes, structure and chronology. It does not
 run research, validate investment evidence, change latest caches or write files.

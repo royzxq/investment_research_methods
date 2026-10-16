@@ -220,19 +220,41 @@ class LayoutTests(unittest.TestCase):
             'mode': 'tracking', 'reason': 'Offline fixture',
             'valuation': dict(kind='per_share', values=dict(low=10, base=20, high=30),
                               currency=currency, unit='per_share', fx_to_quote=1),
-            'discounts': dict(d_base=0.1, r_chip=0, r_v5=0, r_gov=0, r_terminal=0),
-            'step_down': 0.05, 'p2': dict(status='active', reason=None),
-            't1': dict(price_condition='Review valuation', events=['Earnings release']),
+            'p1': dict(low=9, base=18, high=27),
+            'p2': dict(status='active', price=8.55, reason=None),
+            't1': dict(price_condition='接近V50基准时复核', events=['Earnings release']),
             't2': dict(price_condition='Review valuation', events=['Thesis invalidation']),
             'monitoring': [dict(variable='Margin', current=None, as_of=None,
                                 trigger='Margin deterioration', action='Revalue',
                                 source='Offline fixture', next_check='Next report')],
         })
+        document['meta']['schema_version'] = 'stock-research/v2'  # Historical reader fixture.
         if generator is not None:
             document['meta']['generator'] = generator
         self.write(report, 'Offline report')
         self.write(price_map, json.dumps(document))
         return price_map
+
+    def test_v3_point_and_interval_are_discovered_without_filling_quotes(self):
+        older = self.company_v2('SH', '600066', '2026-10-01', generator='codex')
+        newer = self.company_v2('SH', '600066', '2026-10-03', generator='codex')
+        for quote in ({'base': 18}, {'base': None, 'low': 9, 'high': 27}):
+            with self.subTest(quote=quote):
+                doc = json.loads(newer.read_text())
+                doc['meta']['schema_version'] = 'stock-research/v3'
+                doc['price_map']['p1'] = quote
+                newer.write_text(json.dumps(doc))
+                original = newer.read_bytes()
+                self.assertEqual(paths.company_runs('SH', '600066', '2026-10-05', self.root,
+                                                   generator='codex'), [older, newer])
+                paths.rebuild_indexes('2026-10-05', self.root)
+                latest = self.root/'output/indexes/investment/SH-600066/investment-600066-latest-codex.json'
+                self.assertEqual(latest.read_bytes(), original)
+                self.assertIn('v3 · codex', paths.render_index('2026-10-05', self.root, local=True))
+        # A later historical v2 valuation still wins over an earlier v3.
+        latest_v2 = self.company_v2('SH', '600066', '2026-10-04', generator='codex')
+        self.assertEqual(paths.company_runs('SH', '600066', '2026-10-05', self.root,
+                                           generator='codex')[-1], latest_v2)
 
     def test_generators_coexist_with_independent_latest_and_history(self):
         old = self.company_v2('HK', '01952', '2026-10-05')

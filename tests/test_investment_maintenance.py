@@ -318,6 +318,22 @@ class MaintenanceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'matching scope'):
             maintenance.validate_handoff(record, self.root)
 
+    def test_company_completion_accepts_v3_point_and_interval_without_reconstruction(self):
+        record = self.complete_record()
+        completion = record['reviews'][0]['completion']
+        price = self.root / completion['price_map']['path']
+        document = json.loads(price.read_text())
+        document['meta']['schema_version'] = 'stock-research/v3'
+        document['price_map']['v50'] = dict(low=10, base=20, high=30)
+        for quote in ({'base': 15}, {'base': None, 'low': 10, 'high': 16}):
+            with self.subTest(quote=quote):
+                document['price_map']['p1'] = quote
+                price.write_text(json.dumps(document))
+                completion['price_map'] = maintenance.file_ref(self.root, price, as_of='2026-10-11')
+                original = price.read_bytes()
+                maintenance.validate_handoff(record, self.root)
+                self.assertEqual(price.read_bytes(), original)
+
     def test_completion_rejects_meta_only_wrong_identity_and_invisible_sections(self):
         for mistake in ('meta_only', 'wrong_code', 'wrong_generator', 'commented', 'empty_sections'):
             with self.subTest(mistake=mistake):
