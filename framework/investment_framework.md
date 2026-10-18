@@ -14,10 +14,99 @@
 ```json
 {
   "schema": "investment-state/v1",
-  "as_of": "2026-10-11",
-  "evidence_cutoff": "2026-10-11",
-  "source_report": "research/investment/weekly/2026-10-11/investment-2026-10-11-market-research.md",
-  "observations": []
+  "as_of": "2026-10-18",
+  "evidence_cutoff": "2026-10-18",
+  "source_report": "research/investment/weekly/2026-10-18/investment-2026-10-18-market-research-r2.md",
+  "observations": [
+    {
+      "id": "us_cpi_yoy",
+      "value": 3.7,
+      "unit": "percent",
+      "observed_at": "2026-09-30",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "us_core_cpi_mom",
+      "value": 0.3,
+      "unit": "percent",
+      "observed_at": "2026-09-30",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "cn_ppi_output_yoy",
+      "value": 5.0,
+      "unit": "percent",
+      "observed_at": "2026-09-30",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "cn_ppi_input_yoy",
+      "value": 6.9,
+      "unit": "percent",
+      "observed_at": "2026-09-30",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "ust_cmt_10y",
+      "value": 5.09,
+      "unit": "percent",
+      "observed_at": "2026-10-16",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "ust_cmt_30y",
+      "value": 5.43,
+      "unit": "percent",
+      "observed_at": "2026-10-16",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "star50_provider_close",
+      "value": 1358.647,
+      "unit": "index_points",
+      "observed_at": "2026-10-16",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "shsz_turnover",
+      "value": 15554.14,
+      "unit": "CNY_100m",
+      "observed_at": "2026-10-16",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "a_margin_complete_balance",
+      "value": 25031.91716374,
+      "unit": "CNY_100m",
+      "observed_at": "2026-10-15",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "a_margin_complete_daily_change",
+      "value": -318.99805742,
+      "unit": "CNY_100m",
+      "observed_at": "2026-10-15",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "a_margin_complete_balance_latest",
+      "value": null,
+      "unit": "CNY_100m",
+      "observed_at": "2026-10-16",
+      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "status": "unknown"
+    }
+  ]
 }
 ```
 <!-- investment-state:end -->
