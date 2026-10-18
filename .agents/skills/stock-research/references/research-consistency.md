@@ -1,6 +1,6 @@
 # 研究计算与状态一致性
 
-这是发布验收契约，不新增投资方法、折扣常数或买入门槛。最终价格JSON继续使用v3；历史封口不追溯改写。
+这是已于2026-10-18明确本地采纳的两价发布验收契约；新交付使用 v4 + audit-v2。只编码 canonical 已定义的按scope控制，不另加折扣常数或投资阈值。旧冻结批次和历史渲染使用 [legacy-audit-v1](legacy-audit-v1.md)，不追溯改写。
 
 ## 一份可核算底稿
 
@@ -13,13 +13,13 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 
 把生成内容完整放入报告§5或§7，保留唯一的可见核算表与可展开JSON审计块。经营假设的数字表以此为准，正文解释依据，不另写一套未经桥接的收入/利润表。九节、原始证据、现金桥、Terminal、敏感性和监控仍按原契约完成。
 
-程序只检查并拒绝矛盾，不重写P1/P2。计算模型先正确，再从报告提取报价；不得通过换成`other`、删除基线、清空报价或改折扣绕过错误。非PE方法如实选`other`并保留其完整适用计算；真正不可估选`unavailable`，说明阻断输入。语义与来源仍须人工核验。
+程序只检查并拒绝矛盾，不重写P1/T1。计算模型先正确，再从报告提取报价；不得通过换成`other`、删除基线、清空报价或改折扣绕过错误。非PE方法如实选`other`并保留其完整适用计算；真正不可估选`unavailable`，说明阻断输入。语义与来源仍须人工核验。
 
 ## 审计输入
 
 顶层字段固定为 `schema_version, identity, valuation, baseline, discounts, risks, constraints, release_all_of, p1_basis`。
 
-- `schema_version`：`stock-research-audit/v1`。
+- `schema_version`：`stock-research-audit/v2`。
 - `identity`：`code, generator, valuation_date, currency`，与本轮价格JSON一致。
 - PE模型 `valuation`：`kind="profit_pe", currency, amount_unit="100_million", shares, fx_to_quote, horizon, profit_basis, scenarios`。shares为实际股数；同币种fx=1，跨币种方向与依据留正文。
 - `scenarios`必须有low/base/high，每项为`revenue, net_margin, adjustments, profit, pe, equity_value`。利润率用小数，例如11%写0.11。每项强制核验`收入×利润率＋调整=经常归母利润`、`利润×PE=股权价值`，再核股本/币种换算后的V50。
@@ -39,7 +39,7 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 }
 ```
 
-有基线时，数值和已有论证区间未变用`unchanged`；有变动必须用`new_evidence/correction/model_change/method_change`，写原因和非空`evidence`引用，并在正文给参数隔离敏感性。方法变动引用已采纳方法，未合并提案不生效。不能只重新定义更高的“上沿”而不说明变化。相同事实及模型先沿用同端适用基线，跨端只作有归属参考，不强行统一不同模型。
+有基线时，数值和已有论证区间未变用`unchanged`；有变动必须用`new_evidence/correction/model_change/method_change`，写原因和非空`evidence`引用，并在正文给参数隔离敏感性。生产方法变动须引用已采纳方法；两价方法已按2026-10-18用户授权本地采纳。其他未采纳候选只可按明确授权隔离研究，不冒充生产生效。不能只重新定义更高的“上沿”而不说明变化。相同事实及模型先沿用同端适用基线，跨端只作有归属参考，不强行统一不同模型。
 
 新准备批次将最近本端正式报告冻结到方法快照的 `research-baselines/`，提示词给`研究折扣基线`。非null时必须绑定该副本，不能自行改为无历史。`baseline`为：
 
@@ -66,14 +66,16 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 
 程序能拦截相同ID的跨桶扣减，不能判断两个不同ID是否实为同一经济风险；主代理仍须审查scope、原文和现金桥。
 
-## 冻结与恢复
+## 按作用范围的控制与恢复
 
-`constraints`每项为`id, effect, status, reason, release_conditions`：
+`constraints`每项固定为`id, scope, status, action, reason, release_conditions`，可带`clearance`；`scope`是非空且不重复的`entry/add/holding`集合，`status=blocking/unknown/clear/not_applicable`。仍有效/未知的适用约束必须保留，禁止遗漏上轮阻断来制造解除。
 
-- effect：`freeze/eligibility/reject/unavailable`；status：`blocking/unknown/clear/not_applicable`。仍有效或未知的适用约束均保留。
-- 有效freeze不能输出tracking/observation；确认否决用rejected；核心事实不可估不产新P1。仅R9等资格限制可以继续观察估值，不能据报价非空推定可买。
-- D5先解释本轮是低位轮动新承接还是独立财报复评；不可把财报触发自动改写为轮动用途。判定其适用冻结后必须frozen。R21退出仅回等待复核，原重建路径独立可用；完整买入/P2恢复仍须全部适用条件和逐股复评，不把“退出深化”写成完整解冻。
-- D5适用时另带`clearance={"stage":"deepening|unknown|waiting_review|rebuild_pending_company_review|rebuild_review_complete","evidence":[]}`。R21退出只填waiting_review，不能把status标clear；只有原重建及公司复评都完成、给非空证据引用时才可用rebuild_review_complete/clear。程序核阶段一致性，不替研究者核验引用中的真实市场数据。
-- `release_all_of`必须列齐全部blocking/unknown约束ID；每个约束的release_conditions写其必要解除证据。不同合法路径的择一仅可发生在该规则内部，不能用一个约束的解除覆盖其他约束。
+- `action=freeze/eligibility/reject/unavailable/review_holding/invalidated/exit_required`。全局freeze/reject/unavailable包含entry+add；仅加仓限制用`scope=["add"],action="eligibility"`，不能通过全局mode或解除清单再次冻结entry。holding动作包含holding；已确认invalidated/exit_required同时覆盖entry+add+holding。
+- 有效freeze输出frozen，不用tracking/observation隐藏；确认否决用rejected，核心不可估用unavailable且无新P1。资格限制可继续观察估值；价格非空不推定eligible。entry/add任一eligible必须buy_candidate；tracking/observation/frozen/rejected/unavailable均不得eligible。only-add阻断仍允许已经满足条件的entry为eligible。
+- `release_all_of={"entry":[],"add":[],"holding":[]}`：各集合精确列齐其scope全部blocking/unknown ID。规则内部合法择一路径保留，不能用一个约束解除覆盖其它约束。每条`release_conditions`写必要解除证据；clear必须有非空`clearance.evidence`；首次not_applicable可无clearance，但解除历史阻断或对应monitoring cleared时即使用not_applicable也须有解除证据。不以日期过去、来源缺席或unknown清除。
+- D5先说明本轮是低位轮动新承接还是独立财报复评，不自动互换用途。D5 `clearance.stage`继续为`deepening/unknown/waiting_review/rebuild_pending_company_review/rebuild_review_complete`。R21只退出深化时填waiting_review，不能clear；原重建和逐股复评均完成、证据非空才可rebuild_review_complete/clear。原重建路径独立可用，不把R21出口写成全面解冻。首次D5不适用可无clearance；若基线仍有D5阻断或未知，本轮即使用not_applicable解除，也须rebuild_review_complete及非空证据，不能用不适用绕过重建与逐股复评。
+- `research_controls`每个scope的`refs`精确等于该scope全部blocking/unknown ID的集合，不遗漏、不混入其它scope或普通经营观察。eligible/normal的refs=[]；holding=normal时无已触发持仓要求，review_required/invalidated/exit_required/unknown均须可解析refs。已确认失效/退出不能与entry/add eligible并存，持仓未知不自动清仓。
+- 控制相关monitoring与同ID审计一致：triggered对应blocking，unknown对应unknown，cleared对应有解除证据的clear或not_applicable，watching不进入未解集合。普通general经营观察不要求伪造constraint；未触发的完整条件仍在报告，不能被监控10项上限截掉。
+- 本端适用基线中的未解约束按稳定ID和scope接续；取消/暂停/从严的具体条件不合并成无原因布尔值。新证据明确解除才清除，并核每个scope；缺席、遗漏与代码回滚都不是解除理由。
 
-新准备的runner批次在发布前强制执行此门禁，失败进入原有最多一次输出重试，保留旧生产结果。旧prepared批次保留其已冻结输入契约；旧封口继续读取，不伪称已经通过新检查。方法兼容性隔离只在派生版本增加状态约束并重验，原暂存报告和回执不改。
+程序核结构、算术、scope与声明的一致性，不替研究者核原始证据。新批次发布前强制此门禁，失败进入原有最多一次输出重试，原暂存报告和回执不改。旧prepared按已验证旧合同/附录运行，不让活跃默认writer改变旧产物。方法不兼容时派生隔离版本的entry/add都阻断，holding风险继续，不建立adopted handoff。已确认风险收紧而报价无法确认时，交付mode=unavailable、p1=null、T1无报价的合法completed v4；audit保留entry/add unavailable及全部适用holding/add约束，完整门禁通过后正常seal，再由发布属主处理control-only。failed/未验收receipt不能直接发布controls；不得用报价失败保留旧eligible。

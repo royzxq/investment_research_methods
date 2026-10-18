@@ -210,7 +210,7 @@ class LayoutTests(unittest.TestCase):
         self.assertEqual(paths.company_runs('HK','01952','2026-10-05',self.root,include_legacy=True),[first])
 
     def company_v2(self, market, code, day, revision=None, generator=None):
-        from scripts.stock_price_map import build_document
+        from scripts.stock_price_map import build_legacy_document as build_document
         report = paths.company_path(market, code, day, 'research', self.root, revision=revision, generator=generator)
         price_map = paths.company_path(market, code, day, 'price-map', self.root, revision=revision, generator=generator)
         currency = 'HKD' if market == 'HK' else 'CNY'
@@ -255,6 +255,22 @@ class LayoutTests(unittest.TestCase):
         latest_v2 = self.company_v2('SH', '600066', '2026-10-04', generator='codex')
         self.assertEqual(paths.company_runs('SH', '600066', '2026-10-05', self.root,
                                            generator='codex')[-1], latest_v2)
+
+    def test_v4_mixed_history_uses_date_and_exact_bytes_without_retired_fields(self):
+        older = self.company_v2('SH', '600066', '2026-10-01', generator='codex')
+        v4 = self.company_v2('SH', '600066', '2026-10-03', generator='codex')
+        doc = json.loads(v4.read_text()); doc['meta']['schema_version'] = 'stock-research/v4'
+        doc['price_map'].pop('p2'); doc['price_map'].pop('t2'); doc['price_map']['t1'].pop('events')
+        doc['research_controls'] = dict(entry=dict(status='unknown',refs=['R9']),add=dict(status='unknown',refs=['R9']),holding=dict(status='normal',refs=[]))
+        doc['monitoring'][0].update(id='margin',kind='general',state='watching')
+        v4.write_text(json.dumps(doc))
+        self.assertEqual(paths.company_runs('SH','600066','2026-10-05',self.root,generator='codex'), [older,v4])
+        paths.rebuild_indexes('2026-10-05',self.root)
+        latest=self.root/'output/indexes/investment/SH-600066/investment-600066-latest-codex.json'
+        self.assertEqual(latest.read_bytes(),v4.read_bytes())
+        newer=self.company_v2('SH','600066','2026-10-04',generator='codex')
+        paths.rebuild_indexes('2026-10-05',self.root)
+        self.assertEqual(latest.read_bytes(),newer.read_bytes())
 
     def test_generators_coexist_with_independent_latest_and_history(self):
         old = self.company_v2('HK', '01952', '2026-10-05')

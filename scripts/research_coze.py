@@ -32,7 +32,9 @@ except ImportError:
                                  validate_monitoring, validate_p2, string, iso_date)
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA = 'stock-research-coze/v1'
+SCHEMA = 'stock-research-coze/v2'
+LEGACY_SCHEMA = 'stock-research-coze/v1'
+SUPPORTED_SCHEMAS = {LEGACY_SCHEMA, SCHEMA}
 SEAL_SCHEMA = 'research-sealed-coze/v1'
 BASE_KEYS = {'schema_version', 'task_id', 'batch_id', 'event_key', 'request',
              'request_sha256', 'budget_date', 'results'}
@@ -207,12 +209,14 @@ def validate_coze_p2(value):
         require(value['price'] is None, 'cancelled/unavailable Coze P2 must have null price')
 
 
-def validate_extraction(value, text):
-    fields(value, {'p1', 'p2', 't1', 'monitoring', 'evidence'}, 'Coze extraction')
+def validate_extraction(value, text, *, schema=SCHEMA):
+    require(schema in SUPPORTED_SCHEMAS, 'unsupported Coze extraction schema')
+    legacy = schema == LEGACY_SCHEMA
+    fields(value, {'p1', 't1', 'monitoring', 'evidence'} | ({'p2'} if legacy else set()), 'Coze extraction')
     p1 = p1_quotes(value['p1'])
     require('base' in p1, 'Coze requires explicit P1.base')
     t1 = number(value['t1'], 'Coze requires explicit T1', positive=True)
-    fields(value['evidence'], {'p1', 't1'}, 'price evidence', optional={'p2'})
+    fields(value['evidence'], {'p1', 't1'}, 'price evidence', optional={'p2'} if legacy else set())
     for key, price in (('p1', p1['base']), ('t1', t1)):
         quote = string(value['evidence'][key], key+' quote')
         require(quote in text, 'price quote not in complete Coze result')
@@ -228,7 +232,7 @@ def validate_extraction(value, text):
         require(price in [Decimal(n.replace(',', '')) for n in re.findall(r'(?<![A-Za-z0-9])\d[\d,]*(?:\.\d+)?', value['evidence']['p1'])], 'P1 interval absent from quote')
         require(price % Decimal('.01') == 0, 'P1 exceeds CNY precision')
     require(t1 % Decimal('.01') == 0, 'T1 exceeds CNY precision')
-    if value['p2'] is not None:
+    if legacy and value['p2'] is not None:
         validate_coze_p2(value['p2'])
         if value['p2']['price'] is not None:
             price = number(value['p2']['price'], 'p2', positive=True)
@@ -243,30 +247,34 @@ def validate_document(doc):
     fields(doc, {'meta', 'price_map', 'monitoring', 'extraction'}, 'Coze document')
     meta = doc['meta']
     fields(meta, {'schema_version', 'generator', 'code', 'name', 'valuation_date', 'currency', 'report_path'}, 'meta')
-    require(meta['schema_version'] == SCHEMA and meta['generator'] == 'coze', 'Coze schema/generator mismatch')
+    require(meta['schema_version'] in SUPPORTED_SCHEMAS and meta['generator'] == 'coze', 'Coze schema/generator mismatch')
     require(re.fullmatch(r'\d{6}\.(SH|SZ)', meta['code']) and meta['currency'] == 'CNY', 'Coze only supports SH/SZ CNY')
     iso_date(meta['valuation_date'], 'Coze valuation_date')
     for key in ('name', 'report_path'):
         string(meta[key], key)
     # Coze promises prices, not the local nine-section valuation methodology.
     pm = doc['price_map']
-    fields(pm, {'p1', 'p2', 't1', 'v50', 'mode', 'reason'}, 'price_map')
+    legacy = meta['schema_version'] == LEGACY_SCHEMA
+    fields(pm, {'p1', 't1', 'v50', 'mode', 'reason'} | ({'p2'} if legacy else set()), 'price_map')
     require(pm['mode'] == 'observation', 'Coze supplemental opinion must remain observation')
     require(pm['v50'] is None, 'do not manufacture local V50')
     p1 = p1_quotes(pm['p1'])
     require('base' in p1, 'Coze missing P1.base')
-    validate_coze_p2(pm['p2'])
-    fields(pm['t1'], {'price_condition', 'events'}, 't1')
+    if legacy:
+        validate_coze_p2(pm['p2'])
+    fields(pm['t1'], {'price_condition'} | ({'events'} if legacy else set()), 't1')
     match = re.fullmatch(r'股价≥(\d+(?:\.\d+)?)元/股', pm['t1']['price_condition'])
     require(match is not None and number(float(match[1]), 'T1', positive=True) > 0, 'Coze missing explicit T1')
-    require(pm['t1']['events'] == [], 'Coze adapter does not invent events')
+    if legacy:
+        require(pm['t1']['events'] == [], 'Coze adapter does not invent events')
     if doc['monitoring']:
         validate_monitoring(doc['monitoring'], meta['valuation_date'])
-    fields(doc['extraction'], {'p1', 'p2', 't1', 'monitoring', 'evidence'}, 'extraction')
+    fields(doc['extraction'], {'p1', 't1', 'monitoring', 'evidence'} | ({'p2'} if legacy else set()), 'extraction')
     require(pm['p1'] == doc['extraction']['p1'] and float(match[1]) == doc['extraction']['t1']
             and doc['monitoring'] == doc['extraction']['monitoring'], 'Coze extraction/document mismatch')
-    expected_p2 = doc['extraction']['p2'] or dict(status='unavailable', price=None, reason='Coze未提供P2')
-    require(pm['p2'] == expected_p2, 'Coze P2 extraction mismatch')
+    if legacy:
+        expected_p2 = doc['extraction']['p2'] or dict(status='unavailable', price=None, reason='Coze未提供P2')
+        require(pm['p2'] == expected_p2, 'Coze P2 extraction mismatch')
 
 
 def email_result(intent):
@@ -485,6 +493,7 @@ def publish(intent_path, extraction_path, methods, exchange):
             selected = read(selected_path) if selected_path.exists() else None
             if selected is None:
                 selected = capture_email(intent, extraction_path)
+                selected['delivery_schema'] = SCHEMA
                 raw_path, text, request = Path(selected['raw_path']), selected['text'], selected['request']
                 extracted = selected['extraction']
             else:
@@ -494,7 +503,8 @@ def publish(intent_path, extraction_path, methods, exchange):
                 extracted = selected['extraction']
             require(not failed_request(request) and reply_in_time(request, selected['message']['received_at']),
                     'selected Coze reply is failed or outside the 15-minute deadline')
-            validate_extraction(extracted, text)
+            selected_schema = selected.get('delivery_schema', LEGACY_SCHEMA)
+            validate_extraction(extracted, text, schema=selected_schema)
             code, market = context['task']['code'].split('.')
             # Persist chosen targets before publishing either half; retry reuses them.
             if 'targets' not in intent:
@@ -507,12 +517,14 @@ def publish(intent_path, extraction_path, methods, exchange):
                                      for kind in ('research', 'price-map')}
                 atomic(intent_path, intent)
             targets = intent['targets']
-            doc = dict(meta=dict(schema_version=SCHEMA, generator='coze', code=intent['code'], name=intent['name'],
+            doc = dict(meta=dict(schema_version=selected_schema, generator='coze', code=intent['code'], name=intent['name'],
                 valuation_date=intent['valuation_date'], currency='CNY', report_path=targets['research']),
                 price_map=dict(mode='observation', reason='Coze独立补充报价；不代表新增执行许可', v50=None,
-                    p1=extracted['p1'], p2=extracted['p2'] or dict(status='unavailable', price=None, reason='Coze未提供P2'),
-                    t1=dict(price_condition=f"股价≥{extracted['t1']}元/股", events=[])),
+                    p1=extracted['p1'], t1=dict(price_condition=f"股价≥{extracted['t1']}元/股")),
                 monitoring=extracted['monitoring'], extraction=extracted)
+            if selected_schema == LEGACY_SCHEMA:
+                doc['price_map']['p2'] = extracted['p2'] or dict(status='unavailable', price=None, reason='Coze未提供P2')
+                doc['price_map']['t1']['events'] = []
             validate_document(doc)
             # Select only fully validated content, before any formal artifact.
             # Crash recovery reuses it even if later replies change the inbox ledger.
@@ -562,7 +574,7 @@ def load_supplement(path, methods, exchange):
     report_path, report = _artifact(third['report'], methods, 'Coze report')
     price_path, price = _artifact(third['price_map'], methods, 'Coze price map')
     doc = _strict_json(price, 'Coze price map')
-    validate_document(doc); validate_extraction(doc['extraction'], text)
+    validate_document(doc); validate_extraction(doc['extraction'], text, schema=doc['meta']['schema_version'])
     for key, expected in (('code', context['task']['code']), ('name', context['task']['name']),
                           ('valuation_date', context['request']['valuation_date']), ('report_path', third['report']['path'])):
         require(doc['meta'][key] == expected, 'Coze '+key+' mismatch')

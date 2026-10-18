@@ -12,7 +12,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import scripts.stock_price_map as price_map_module
-from scripts.stock_price_map import build_document, load_json, quote_value, validate_document
+from scripts.stock_price_map import build_legacy_document as build_document, load_json, quote_value, validate_document
 
 
 def yutong_example():
@@ -38,6 +38,14 @@ def yutong_example():
             "next_check": "下次复评",
         }],
     }
+
+
+def v4_example():
+    data = yutong_example()
+    data.pop('p2'); data.pop('t2'); data['t1'].pop('events')
+    data['research_controls'] = dict(entry=dict(status='unknown', refs=['R9']), add=dict(status='unknown', refs=['R9']), holding=dict(status='normal', refs=[]))
+    data['monitoring'][0].update(id='PB', kind='general', state='watching')
+    return data
 
 
 class StockPriceMapTests(unittest.TestCase):
@@ -427,7 +435,7 @@ class StockPriceMapTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "input.json"
             destination = Path(directory) / "investment-600066-2026-10-05-price-map-codex.json"
-            data = yutong_example()
+            data = v4_example()
             data['meta']['report_path'] = "research/investment-600066-2026-10-05-research-codex.md"
             source.write_text(json.dumps(data), encoding="utf-8")
             command = [sys.executable, str(ROOT / "scripts/stock_price_map.py")]
@@ -435,7 +443,7 @@ class StockPriceMapTests(unittest.TestCase):
             built = subprocess.run(command + args, capture_output=True, text=True)
             self.assertEqual(built.returncode, 0, built.stderr)
             original = destination.read_bytes()
-            self.assertEqual(set(json.loads(original)), {"meta", "price_map", "monitoring"})
+            self.assertEqual(set(json.loads(original)), {"meta", "price_map", "monitoring", "research_controls"})
             self.assertEqual(json.loads(original)['meta']['generator'], 'codex')
             checked = subprocess.run(command + ["check", str(destination)], capture_output=True, text=True)
             self.assertEqual(checked.returncode, 0, checked.stderr)
@@ -493,7 +501,7 @@ class StockPriceMapTests(unittest.TestCase):
             ]:
                 with self.subTest(generator=generator, output=output_name, report=report_name):
                     stem = 'investment-600066-2026-10-05-'
-                    data = yutong_example()
+                    data = v4_example()
                     data['meta'].update(generator=generator, report_path='research/' + stem + report_name)
                     source.write_text(json.dumps(data))
                     destination = Path(directory) / (stem + output_name)
@@ -505,7 +513,7 @@ class StockPriceMapTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / 'input.json'
             destination = Path(directory) / 'investment-600066-2026-10-05-price-map-claude-r12.json'
-            data = yutong_example()
+            data = v4_example()
             data['meta']['report_path'] = 'research/investment-600066-2026-10-05-research-claude-r12.md'
             source.write_text(json.dumps(data))
             command = [sys.executable, str(ROOT / 'scripts/stock_price_map.py'), 'build',

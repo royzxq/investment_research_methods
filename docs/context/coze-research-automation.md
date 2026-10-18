@@ -1,4 +1,6 @@
-# Coze 条件第三模型（2026-10-14）
+# Coze 条件第三模型
+
+**2026-10-18两价已本地采纳**：报价适配器已部署到本机实际运行目录；以下邮件触发、15分钟期限及原授权保持不变。本次未外发邮件、修改外部模型提示词或更新自动化，外部真实调用未验证。历史部署记录按当时版本解释。
 
 本裁决来自用户明确授权：仅沪深A股，同批同包Claude/Codex最终P1.base的 `max/min - 1 > 0.10` 才请求Coze；恰好10%不触发。一端失败、拒绝或仅区间无base不触发，不补中值。不消费前一批模型价，不另计每日证券额度，不重置七天冷却。自动处理2026-10-14及以后创建的每证券最新原始封口；较新批次在途时不为旧批次发邮件。
 
@@ -6,7 +8,7 @@
 
 原两模型seal与完成回执不可变。Coze pending/held不改变原生产流程。成功后生成 `research-sealed-coze/v1` 补充seal绑定原seal及独立原文/JSON，原写回入口先完成原配对，再尝试第三模型事务；失败单独挂起。有效第三模型加入coze业务席位，Codex仍对应gemini、Claude对应claude；沿用等权/配置权重、过滤、离群及原CSV列属主。晚到且已有更新批次或人工目标改价时保持原保护，不历史补写。仅按原07:30/22:00排期消费，不在heartbeat直接写生产CSV。
 
-Coze报告不要求本仓九节。归档采用 `investment-<代码>-<估值日>-research-coze.md` 和 `-price-map-coze.json`，同日冲突隔离-rN。JSON采用 `stock-research-coze/v1`，与原meta/price_map/monitoring外观对应，另保留extraction与原文价格证据；不是本仓完整v3框架认证。最低要求明确P1.base和单一T1报价、代码/CNY及本批日期对应，价格原句可定位。缺P1或T1记录错误并held，不把拒绝建仓作为本次成功例外，不从V50/区间端点/另一模型补价。V50缺失保留null，未提供P2保留unavailable/null；P2取消/不可用必须null，活动/暂停必须有价。监控未提供用空数组，原两模型完整监控仍按原选择规则消费，不补造信息。价格JSON保留Coze观点，observation不代表新增执行许可。
+Coze报告不要求本仓九节。归档仍用`investment-<代码>-<估值日>-research-coze.md`及`-price-map-coze.json`，同日冲突隔离-rN。新交付为`stock-research-coze/v2`：四顶层meta/price_map/monitoring/extraction；price_map删p2，t1仅price_condition；无research_controls，不冒充本仓完整v4/audit-v2认证。最低要求明确P1.base、单一T1、代码/CNY/日期及可定位原句。缺价或歧义held，不从V50/区间端点/另一模型补价；V50缺失为null。monitoring未提供用空数组，非空仍原7字段，不伪造本仓控制状态。Coze补充两价不构成拒绝票，也不能解除主研究限制；明确新风险进入复核。历史v1保留原p2及t1.events读取，冻结selected-reply按其原交付schema恢复，哈希不改。
 
 原文、冻结包、envelope、此次邮件台账快照与所有附件全文冻结在本期 `evidence/coze/<request_id>/`，supplement绑定哈希。后续回复修改邮件helper台账不改变旧交付。完整附件读取与对应核验仍必需；Gmail账号不符、附件不可读与价格缺失通知一次，无状态变化保持安静。
 
@@ -22,7 +24,7 @@ python3 scripts/research_coze.py hold --intent /absolute/intent.json --reason 'C
 python3 scripts/research_coze.py publish --intent /absolute/intent.json --extraction /absolute/extraction.json
 ```
 
-extraction仅忠实提取，格式：`{"p1":{"base":报价},"p2":null,"t1":报价,"monitoring":[],"evidence":{"p1":"含P1与币种的精确原句","t1":"含T1与币种的精确原句"}}`。原文明确P1区间且明确base才带low/high；可选P2须有原文证据并附p2状态/原因。原文quote不完整、T1区间歧义或缺必需报价应hold，不猜数值。程序结构/证据片段检查不证明估值有效性，需由自动任务读取全文核验提取语义。
+v2 extraction仅忠实提取：`{"p1":{"base":报价},"t1":报价,"monitoring":[],"evidence":{"p1":"含P1与币种的精确原句","t1":"含T1与币种的精确原句"}}`。不带p2；原文明确P1区间且明确base才带low/high。原文quote不完整、T1歧义或缺必需报价应hold，不猜金额。旧冻结v1仍按旧extraction恢复，不用新协议改写证据。程序结构/引句校验不证明估值有效，仍须读完整报告核提取语义。
 
 运行状态在 `output/research_queue/coze/`，邮件helper状态在 `ai_investment/investment_rawdata/coze_email/`；完整正式证据位于已纳入现有运行备份的公司目录。部署和验证记录见当期maintenance报告；本文件不声称已收取真实Coze报告。
 

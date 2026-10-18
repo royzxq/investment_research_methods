@@ -323,7 +323,7 @@ def validate_handoff(record, root):
                 from research_exchange import _report_sections, _validate_pair
                 from stock_price_map import SUPPORTED_SCHEMAS, validate_price_references
             if meta.get("schema_version") not in SUPPORTED_SCHEMAS:
-                raise ValueError("Company completion requires a stock-research/v3 or v2 pair")
+                raise ValueError("Company completion requires a stock-research/v4, v3 or v2 pair")
             market, code = review["company"].split("-")
             pair = {key: {field: value[field] for field in ("path", "sha256")} for key, value in completion.items()}
             pair["generator"] = meta.get("generator")

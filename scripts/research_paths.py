@@ -202,13 +202,13 @@ def company_runs(market, code, as_of, root=ROOT, *, include_legacy=False, genera
                 continue
             if not report.is_file() or not report.read_text(encoding="utf-8").strip():
                 continue
-            if generator == 'coze' and data.get('meta', {}).get('schema_version') == 'stock-research-coze/v1':
+            if generator == 'coze' and data.get('meta', {}).get('schema_version') in {'stock-research-coze/v1', 'stock-research-coze/v2'}:
                 try:
                     from .research_coze import validate_document as validate_coze, validate_extraction
                 except ImportError:
                     from research_coze import validate_document as validate_coze, validate_extraction
                 validate_coze(data)
-                validate_extraction(data['extraction'], report.read_text(encoding='utf-8'))
+                validate_extraction(data['extraction'], report.read_text(encoding='utf-8'), schema=data['meta']['schema_version'])
                 if (data['meta']['valuation_date'] != day or data['meta']['code'] != f'{code}.{market}'
                         or (Path(root)/data['meta']['report_path']).resolve() != report.resolve()):
                     continue

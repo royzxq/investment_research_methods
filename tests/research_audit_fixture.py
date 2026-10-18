@@ -34,4 +34,15 @@ def audit_for(document):
         audit['constraints'] = [dict(id='offline_gate', effect={'frozen':'freeze', 'rejected':'reject', 'unavailable':'unavailable'}[mode],
                                     status='blocking', reason='explicit offline gate', release_conditions=['offline review'])]
         audit['release_all_of'] = ['offline_gate']
+    if document['meta']['schema_version'] == 'stock-research/v4':
+        audit['schema_version'] = 'stock-research-audit/v2'
+        old_ids = audit['release_all_of']
+        audit['release_all_of'] = dict(entry=old_ids[:], add=old_ids[:], holding=[])
+        if mode in ('tracking', 'observation'):
+            audit['constraints'] = [dict(id='RESEARCH_ELIGIBILITY', effect='eligibility', status='unknown',
+                reason='offline missing qualification', release_conditions=['offline qualification review'])]
+            audit['release_all_of'] = dict(entry=['RESEARCH_ELIGIBILITY'], add=['RESEARCH_ELIGIBILITY'], holding=[])
+        for rule in audit['constraints']:
+            rule['scope'] = ['entry', 'add']
+            rule['action'] = rule.pop('effect')
     return audit
