@@ -169,4 +169,100 @@ class D5ContinuityTests(unittest.TestCase):
             current['constraints'][0]['clearance']=dict(stage='rebuild_review_complete',evidence=['completed rebuilding and company review'])
             audit.validate_audit(current,doc,root=root)
 
+class RestrictionActionContinuityTests(unittest.TestCase):
+    def restricted_pair(self, action, status='blocking', *, legacy=False):
+        value = sample()
+        value['research_controls']['entry'] = dict(status='blocked' if status == 'blocking' else 'unknown', refs=['RISK'])
+        value['research_controls']['add'] = deepcopy(value['research_controls']['entry'])
+        if action in {'freeze', 'reject', 'unavailable'}:
+            value.update(mode={'freeze': 'frozen', 'reject': 'rejected' if status == 'blocking' else 'frozen',
+                               'unavailable': 'unavailable'}[action], reason='unresolved risk')
+        if value['mode'] in {'rejected', 'unavailable'}:
+            value['p1'] = None
+        doc = prices.build_document(value)
+        check = audit_for(doc)
+        check['constraints'] = [dict(id='RISK', scope=['entry', 'add'], status=status, action=action,
+                                    reason='unresolved risk', release_conditions=['new original evidence'])]
+        check['release_all_of'] = dict(entry=['RISK'], add=['RISK'], holding=[])
+        if legacy:
+            doc.pop('research_controls')
+            doc['meta']['schema_version'] = 'stock-research/v3'
+            doc['price_map']['p2'] = dict(status='cancelled', reason='offline', price=None)
+            doc['price_map']['t1']['events'] = ['review']
+            doc['price_map']['t2'] = dict(price_condition='待核', events=['review'])
+            doc['monitoring'] = [{k: v for k, v in row.items() if k not in {'id', 'kind', 'state'}}
+                                 for row in doc['monitoring']]
+            check['schema_version'] = 'stock-research-audit/v1'
+            check['constraints'][0]['effect'] = check['constraints'][0].pop('action')
+            check['constraints'][0].pop('scope')
+            check['release_all_of'] = ['RISK']
+        audit.validate_audit(check, doc)
+        return check, doc
+
+    def with_baseline(self, prior, old_doc, current, callback):
+        import hashlib, tempfile
+        raw = audit.render_report_block(prior, old_doc).encode()
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'prior.md').write_bytes(raw)
+            current['baseline'] = dict(report_path='prior.md', sha256=hashlib.sha256(raw).hexdigest(),
+                discounts={k: dict(value=v['value'], quote='explicit offline assumption')
+                           for k, v in prior['discounts'].items()})
+            for row in current['discounts'].values():
+                row['change']['kind'] = 'unchanged'
+            callback(root)
+
+    def test_unresolved_global_actions_cannot_become_eligibility_under_same_id(self):
+        for legacy in (False, True):
+            for action in ('freeze', 'reject', 'unavailable'):
+                for status in ('blocking', 'unknown'):
+                    with self.subTest(legacy=legacy, action=action, status=status):
+                        prior, old_doc = self.restricted_pair(action, status, legacy=legacy)
+                        current, doc = self.restricted_pair('eligibility', status)
+                        def check(root):
+                            with self.assertRaisesRegex(ValueError, 'explicitly cleared before'):
+                                audit.validate_audit(current, doc, root=root)
+                        self.with_baseline(prior, old_doc, current, check)
+
+    def test_confirmed_reject_cannot_become_unknown(self):
+        prior, old_doc = self.restricted_pair('reject')
+        current, doc = self.restricted_pair('reject', 'unknown')
+        def check(root):
+            with self.assertRaisesRegex(ValueError, 'explicitly cleared before'):
+                audit.validate_audit(current, doc, root=root)
+        self.with_baseline(prior, old_doc, current, check)
+
+    def test_incomparable_restrictions_require_clearance_before_replacement(self):
+        for old_action, new_action in (('unavailable', 'freeze'), ('freeze', 'unavailable'), ('reject', 'unavailable')):
+            with self.subTest(old_action=old_action, new_action=new_action):
+                prior, old_doc = self.restricted_pair(old_action)
+                current, doc = self.restricted_pair(new_action)
+                def check(root):
+                    with self.assertRaisesRegex(ValueError, 'explicitly cleared before'):
+                        audit.validate_audit(current, doc, root=root)
+                self.with_baseline(prior, old_doc, current, check)
+
+    def test_retention_tightening_and_explicit_release_remain_valid(self):
+        for old_action, new_action in (('freeze', 'freeze'), ('freeze', 'reject'), ('eligibility', 'freeze'),
+                                       ('unavailable', 'unavailable'), ('reject', 'reject')):
+            with self.subTest(old_action=old_action, new_action=new_action):
+                prior, old_doc = self.restricted_pair(old_action)
+                current, doc = self.restricted_pair(new_action)
+                self.with_baseline(prior, old_doc, current,
+                                   lambda root: audit.validate_audit(current, doc, root=root))
+        for action in ('freeze', 'reject', 'unavailable'):
+            with self.subTest(legacy=True, action=action):
+                prior, old_doc = self.restricted_pair(action, legacy=True)
+                current, doc = self.restricted_pair(action)
+                self.with_baseline(prior, old_doc, current,
+                                   lambda root: audit.validate_audit(current, doc, root=root))
+        prior, old_doc = self.restricted_pair('unavailable', 'unknown')
+        doc = prices.build_document(sample())
+        current = audit_for(doc)
+        current['constraints'] = [dict(prior['constraints'][0], status='clear', release_conditions=[],
+                                       clearance=dict(evidence=['new original evidence, section 2']))]
+        self.with_baseline(prior, old_doc, current,
+                           lambda root: audit.validate_audit(current, doc, root=root))
+
+
 if __name__ == '__main__': unittest.main()

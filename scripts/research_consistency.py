@@ -312,6 +312,30 @@ def validate_audit(audit, document, *, root=None):
             'scope': 'declared calculations, risk ownership and state consistency; not source truth or economic validity'}
 
 
+def preserves_active_action(previous, current):
+    """Compare only declared conservative transitions, not an action total order.
+
+    Missing core inputs and confirmed rejection have distinct release evidence;
+    a different restriction cannot silently replace either under the same ID.
+    Legacy audit/v1 stores the same exposure action as ``effect``.
+    """
+    old_action = previous.get('action', previous.get('effect'))
+    conservative_actions = {
+        'eligibility': {'eligibility', 'freeze', 'reject', 'unavailable', 'invalidated', 'exit_required'},
+        'freeze': {'freeze', 'reject'},
+        'reject': {'reject'},
+        'unavailable': {'unavailable'},
+        'review_holding': {'review_holding', 'invalidated', 'exit_required'},
+        'invalidated': {'invalidated', 'exit_required'},
+        'exit_required': {'exit_required'},
+    }
+    if current['action'] not in conservative_actions.get(old_action, set()):
+        return False
+    if previous['status'] == 'blocking' and old_action in {'reject', 'invalidated', 'exit_required'}:
+        return current['status'] == 'blocking'
+    return True
+
+
 def validate_scoped_controls(audit, document, *, root=None):
     """Audit is authoritative; lightweight controls are a checked projection."""
     scopes = {'entry', 'add', 'holding'}
@@ -374,11 +398,8 @@ def validate_scoped_controls(audit, document, *, root=None):
                 old_scopes = set(old.get('scope', ['entry', 'add']))
                 if row['status'] in {'blocking', 'unknown'}:
                     require(old_scopes <= set(row['scope']), 'unresolved baseline scope narrowed: ' + ident)
-                    holding_rank = {'review_holding': 1, 'invalidated': 2, 'exit_required': 3}
-                    old_action = old.get('action', old.get('effect'))
-                    if old.get('status') == 'blocking' and old_action in {'invalidated', 'exit_required'}:
-                        require(row['status'] == 'blocking' and holding_rank.get(row['action'], 0) >= holding_rank[old_action],
-                                'confirmed holding restriction must be explicitly cleared before downgrade: ' + ident)
+                    require(preserves_active_action(old, row),
+                            'unresolved baseline restriction must be explicitly cleared before downgrade or replacement: ' + ident)
                 else:
                     clearance = row.get('clearance')
                     require(isinstance(clearance, dict) and bool(clearance.get('evidence')), 'baseline release requires evidence: ' + ident)
