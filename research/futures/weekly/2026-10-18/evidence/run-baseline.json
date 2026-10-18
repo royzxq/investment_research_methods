@@ -1,0 +1,25 @@
+{
+  "as_of_date": "2026-10-18",
+  "started_at": "2026-10-18T08:47:01+08:00",
+  "prepared_at": "2026-10-18T08:58:00.453554+08:00",
+  "origin_main": "22b1cf1ac21df07b3434aca1fbd41dde67635f47",
+  "method_version": "v3.0",
+  "maintenance_contract": "futures-maintenance/v2",
+  "canonical_sha256": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+  "strategy_sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+  "risk_sha256": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+  "collector_sha256": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7",
+  "recovered_main_cache": [
+    {
+      "path": "output/cache/futures/v3_research_inputs_20261011.json",
+      "sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162"
+    }
+  ],
+  "real_market_api": "success; v1.18.1 returned identity checked",
+  "market_trade_date": "2026-10-16",
+  "unittest": "787 passed; 94.981 seconds",
+  "governance": "passed; structural only",
+  "known_auto_review_rejection": "copy-then-delete raw evidence cleanup rejected; preserved originals and added new notes instead",
+  "no_trade_execution": true
+}

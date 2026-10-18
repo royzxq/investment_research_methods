@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ma-plasway",
+    "url": "https://www.plasway.com/news/detail/1876F34A70768783DC1FBB1F0EA6ED3F",
+    "http_status": 200,
+    "raw_sha256": "0c8324c59818814e96a2d494f1d2aadbb94971ee9f71036936bd504c711464d6",
+    "fetched_at": "2026-10-18T08:54:25.949718+08:00"
+  },
+  {
+    "id": "cotton-bco",
+    "url": "https://cottonchina.org.cn/",
+    "http_status": 200,
+    "raw_sha256": "f20c743a529e44cc60285f9a0a5af2349da91ae78ccbd53ce6a22493f849e110",
+    "fetched_at": "2026-10-18T08:54:23.644574+08:00"
+  },
+  {
+    "id": "rules-sinolink",
+    "url": "https://www.gjqh.com.cn/ws-2003417-c0002_3-cn/news_95194.shtml",
+    "http_status": 200,
+    "raw_sha256": "f40b9ada80a2558c697fa95da9e74192c64e868f6a0ea7ab5918880741057b1b",
+    "fetched_at": "2026-10-18T08:54:23.914606+08:00"
+  },
+  {
+    "id": "rules-maike",
+    "url": "https://www.mkqh.com/front/serviceinfo/38259",
+    "http_status": 200,
+    "raw_sha256": "768200660257e590ec6cc2b22d7122120728f294ec557ce71a3f5705a16722d5",
+    "fetched_at": "2026-10-18T08:54:23.870589+08:00"
+  },
+  {
+    "id": "rules-guolian",
+    "url": "https://www.glqh.com/jyts/50776.jhtml",
+    "http_status": 200,
+    "raw_sha256": "80ad687ede17e8b3212ce8518fb6f54363c450e30979188fee73bda571124e80",
+    "fetched_at": "2026-10-18T08:54:24.472556+08:00"
+  },
+  {
+    "id": "sessions-ddqh",
+    "url": "https://www.ddqh.com/bocupload/2026/02/26/1772101558264ywp7n.pdf",
+    "http_status": 200,
+    "raw_sha256": "937e697999d57218865054475c2bdaa0110ed7ba3fb5c491a92b4e5d076b1dd2",
+    "fetched_at": "2026-10-18T08:54:23.625217+08:00"
+  }
+]

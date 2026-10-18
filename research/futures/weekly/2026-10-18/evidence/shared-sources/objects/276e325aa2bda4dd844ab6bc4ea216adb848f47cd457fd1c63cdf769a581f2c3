@@ -1,0 +1,42 @@
+{
+  "schema": "futures-handoff/v1",
+  "status": "adopted",
+  "scope": "local",
+  "as_of_date": "2026-10-11",
+  "registered_at": "2026-10-11T18:52:43.788469+08:00",
+  "market_as_of_date": "2026-10-09",
+  "method": {
+    "path": "framework/futures_framework.md",
+    "version": "v3.0",
+    "sha256": "d0855b894ed07f357023ea0427f34940b5ce1cc9826cd0794425c4c7c8c26256",
+    "canonical_full_sha256": "87ead048d86d09ef9559d8572a8bc7396d5396f37d4ddcc432d4ade404d67e63",
+    "revision": "working-tree after 6cc3b0361e3bf2cfd5f77756bb9060d448c651d9; maintenance-contract futures-maintenance/v1; T/V and core risk unchanged"
+  },
+  "artifacts": {
+    "market_research": {
+      "path": "research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md",
+      "sha256": "ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa"
+    },
+    "execution_audit": {
+      "path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+      "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c"
+    },
+    "change_decision": null
+  },
+  "corrections": {
+    "scope": [
+      "采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。"
+    ],
+    "supersedes": [
+      {
+        "path": "research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md",
+        "sha256": "ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa"
+      },
+      {
+        "path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r2.md",
+        "sha256": "95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b"
+      }
+    ]
+  },
+  "previous_handoff": null
+}

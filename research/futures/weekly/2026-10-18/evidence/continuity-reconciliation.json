@@ -1,0 +1,308 @@
+{
+  "schema": "futures-continuity-reconciliation/v1",
+  "evaluated_at": "2026-10-18T08:58:00.453554+08:00",
+  "status": "resolved_for_current_review",
+  "source_status": "needs_reconciliation",
+  "conflicts": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "reason": "original_clock_or_identity_changed",
+      "sources": [
+        {
+          "as_of_date": "2026-10-15",
+          "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+          "execution_reuse": false,
+          "materialized_root": "sources/23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+          "method_compatible": true,
+          "producer": "daily",
+          "scope": "local",
+          "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+        },
+        {
+          "as_of_date": "2026-10-15",
+          "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+          "execution_reuse": false,
+          "materialized_root": "sources/7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+          "method_compatible": true,
+          "producer": "daily",
+          "scope": "local",
+          "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+        }
+      ]
+    }
+  ],
+  "requires_plan_reassessment": [],
+  "requires_method_reassessment": [],
+  "decision": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "conflict": "initial registration null versus explicitly adopted r2 registration",
+      "basis": "The 10/15 r2 handoff explicitly supersedes the first audit only to add the actual 19:30:56 registration. Its frozen evaluated_at equals that time. No new signal day or later deadline was introduced.",
+      "registered_at": "2026-10-15T19:30:56+08:00",
+      "signal_date": "2026-10-15",
+      "valid_until": "2026-10-19",
+      "execution_state_inherited": false,
+      "current_disposition": "cancel original entry use: 10/16 close 3281 is outside the original signal band [3292,3326]. Do not revive by waiting for a return or extend to 10/20 using the consecutive 10/16 price screen."
+    }
+  ],
+  "corrections": [
+    {
+      "corrections": {
+        "scope": [
+          "采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。"
+        ],
+        "supersedes": [
+          {
+            "path": "research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md",
+            "sha256": "ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa"
+          },
+          {
+            "path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r2.md",
+            "sha256": "95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b"
+          }
+        ]
+      },
+      "source": {
+        "as_of_date": "2026-10-11",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+        "execution_reuse": false,
+        "materialized_root": "sources/2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+        "method_compatible": true,
+        "producer": "manual",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/Workspace/investment_research_methods"
+      }
+    },
+    {
+      "evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "撤回信号必须晚于版本生效的额外门；当前重评与历史回填不同，价格原始证据未变",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "FRAMEWORK"
+        }
+      ],
+      "source": {
+        "as_of_date": "2026-10-11",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+        "execution_reuse": false,
+        "materialized_root": "sources/2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+        "method_compatible": true,
+        "producer": "manual",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/Workspace/investment_research_methods"
+      }
+    },
+    {
+      "corrections": {
+        "scope": [
+          "采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。"
+        ],
+        "supersedes": [
+          {
+            "path": "research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md",
+            "sha256": "ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa"
+          },
+          {
+            "path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r2.md",
+            "sha256": "95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b"
+          }
+        ]
+      },
+      "source": {
+        "as_of_date": "2026-10-11",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+        "execution_reuse": false,
+        "materialized_root": "sources/ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+        "method_compatible": true,
+        "producer": "manual",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/Workspace/investment_research_methods"
+      }
+    },
+    {
+      "evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "撤回信号必须晚于版本生效的额外门；当前重评与历史回填不同，价格原始证据未变",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "FRAMEWORK"
+        }
+      ],
+      "source": {
+        "as_of_date": "2026-10-11",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+        "execution_reuse": false,
+        "materialized_root": "sources/ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+        "method_compatible": true,
+        "producer": "manual",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/Workspace/investment_research_methods"
+      }
+    },
+    {
+      "corrections": {
+        "scope": [
+          "采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。"
+        ],
+        "supersedes": [
+          {
+            "path": "research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md",
+            "sha256": "ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa"
+          },
+          {
+            "path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r2.md",
+            "sha256": "95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b"
+          }
+        ]
+      },
+      "source": {
+        "as_of_date": "2026-10-11",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+        "execution_reuse": false,
+        "materialized_root": "sources/d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-daily-automation-3-2026-10-12"
+      }
+    },
+    {
+      "evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "撤回信号必须晚于版本生效的额外门；当前重评与历史回填不同，价格原始证据未变",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "FRAMEWORK"
+        }
+      ],
+      "source": {
+        "as_of_date": "2026-10-11",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+        "execution_reuse": false,
+        "materialized_root": "sources/d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-daily-automation-3-2026-10-12"
+      }
+    },
+    {
+      "corrections": {
+        "scope": [
+          "仅撤回10/11 r3 的 MA2701 当前 G2 产业适用性 pass，待核需求负反馈与专属行情；原 ID、信号日、登记、10/13 截止不变；其他路线仍属10/09历史。"
+        ],
+        "supersedes": [
+          {
+            "path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+            "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c"
+          }
+        ]
+      },
+      "source": {
+        "as_of_date": "2026-10-12",
+        "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+        "execution_reuse": false,
+        "materialized_root": "sources/d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+        "method_compatible": true,
+        "producer": "daily",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-daily-automation-3-2026-10-12"
+      }
+    },
+    {
+      "corrections": {
+        "scope": [
+          "仅更新 MA2701 10/13 收盘现况、产业反证和原入场窗口；原 10/09 信号、10/11 登记、10/13 截止、其他路线历史与 10/11 市场研究范围不变"
+        ],
+        "supersedes": [
+          {
+            "path": "research/futures/weekly/2026-10-12/2026-10-12-execution-audit.md",
+            "sha256": "29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587"
+          }
+        ]
+      },
+      "source": {
+        "as_of_date": "2026-10-13",
+        "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+        "execution_reuse": false,
+        "materialized_root": "sources/adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+        "method_compatible": true,
+        "producer": "daily",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+      }
+    },
+    {
+      "corrections": {
+        "scope": [
+          "仅更新 MA2701 10/15 存量价格/期限/产业风险，并新增 M2701 10/15 价格触发与待核审计；原 MA 信号日、登记及 10/13 截止和 10/11 市场研究其他范围不变"
+        ],
+        "supersedes": [
+          {
+            "path": "research/futures/weekly/2026-10-13/2026-10-13-execution-audit.md",
+            "sha256": "dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127"
+          }
+        ]
+      },
+      "source": {
+        "as_of_date": "2026-10-15",
+        "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+        "execution_reuse": false,
+        "materialized_root": "sources/23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+        "method_compatible": true,
+        "producer": "daily",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+      }
+    },
+    {
+      "corrections": {
+        "scope": [
+          "r2 仅补 M2701 研究候选实际登记时间以便后续连续性读取；没有数值计划或许可。MA2701 10/15 存量状态和新 M 价格信号其余事实不变；原 MA 10/13 截止及 10/11 市场研究其他范围不变"
+        ],
+        "supersedes": [
+          {
+            "path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit.md",
+            "sha256": "a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f"
+          },
+          {
+            "path": "research/futures/weekly/2026-10-13/2026-10-13-execution-audit.md",
+            "sha256": "dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127"
+          }
+        ]
+      },
+      "source": {
+        "as_of_date": "2026-10-15",
+        "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+        "execution_reuse": false,
+        "materialized_root": "sources/7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+        "method_compatible": true,
+        "producer": "daily",
+        "scope": "local",
+        "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+      }
+    }
+  ],
+  "reviewed_opportunities": [
+    "20261011-observe-MA2701-trend-long-v3",
+    "20261015-observe-M2701-trend-short-v3"
+  ],
+  "historical_no_signal_observations": "10/11 M/RB/SR/CF and V observations had no registered numeric entry plans; current five-product screen and all three V research gaps reviewed separately.",
+  "account": "unknown; no confirmed holding or exit evidence; entry cancellation is not holding exit"
+}

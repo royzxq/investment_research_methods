@@ -1,0 +1,59 @@
+[
+  {
+    "near_contract": "MA2701",
+    "far_contract": "MA2705",
+    "source_identity": "verified_API_response_codes",
+    "calendar": "dated SSE session proxy; execution calendars not verified",
+    "last_three_dates": [
+      "20261014",
+      "20261015",
+      "20261016"
+    ],
+    "settlement_spreads": [
+      276.0,
+      244.0,
+      226.0
+    ],
+    "signal": "not_evaluated",
+    "anchor": "absent",
+    "no_signal_claim": false
+  },
+  {
+    "near_contract": "RB2701",
+    "far_contract": "RB2703",
+    "source_identity": "verified_API_response_codes",
+    "calendar": "dated SSE session proxy; execution calendars not verified",
+    "last_three_dates": [
+      "20261014",
+      "20261015",
+      "20261016"
+    ],
+    "settlement_spreads": [
+      -4.0,
+      -3.0,
+      -2.0
+    ],
+    "signal": "not_evaluated",
+    "anchor": "absent",
+    "no_signal_claim": false
+  },
+  {
+    "near_contract": "SR2701",
+    "far_contract": "SR2705",
+    "source_identity": "verified_API_response_codes",
+    "calendar": "dated SSE session proxy; execution calendars not verified",
+    "last_three_dates": [
+      "20261014",
+      "20261015",
+      "20261016"
+    ],
+    "settlement_spreads": [
+      -76.0,
+      -79.0,
+      -85.0
+    ],
+    "signal": "not_evaluated",
+    "anchor": "absent",
+    "no_signal_claim": false
+  }
+]
