@@ -174,7 +174,11 @@ future_data取候选行情；futures_strategy算T/V与计划；futures_risk size
 ## 5. 当前状态与迁移
 
 <a id="r-v3-state"></a>
-2026-10-11已用v1.18完整快照（行情10/09）完成当期研究/重算；机制改造另经真实API取数并保存[轻量刷新](../research/futures/refresh/2026-10-11/2026-10-11-signal-refresh.md)，行情仍为10/09。MA2701的10/09多头信号可用于当前登记后10/12–13剩余未来时段，价格范围3289–3387；当前报价/事件/执行风险另核，不追认10/09建议，见[当前重评](../research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md)及[采纳/纠错handoff](../research/futures/weekly/2026-10-11/2026-10-11-handoff.json)。M/RB/SR/CF价格未触发；V锚未成案。真实账户、实际适用保证金/限仓和完整压力容量未核，risk_regime/仓位/final_lots为unknown/null；接续/刷新/自动化进展见[维护记录](../research/futures/maintenance/2026-10-11/2026-10-11-weekly-update-mechanism-fixes.md)，配置不等于未来行情已取到，无收益验证，旧①/③不继承。先研究成案再请求账户，研究日/行情日分列，历史留日期报告。
+2026-10-18已完成[研究](../research/futures/weekly/2026-10-18/2026-10-18-market-research.md)、[三类判定](../research/futures/weekly/2026-10-18/2026-10-18-change-decision.md)及[审计](../research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md)。v1.18.1真实API完整输入、行情10/16；[刷新r2](../research/futures/refresh/2026-10-18/2026-10-18-signal-refresh-r2.json)补核原计划时钟。状态刷新yes/纠错yes/方法变更no，v3.0参数不变；日志、原料与[handoff](../research/futures/weekly/2026-10-18/2026-10-18-handoff.json)已发布main，状态引用待审不阻断接续。
+
+M2701的10/16价格触发short，RB/MA/SR/CF T未触发。M原10/15机会保留原ID、19:30:56登记、10/19截止；原价带3292–3326，10/16收3281已越界，取消原入场，不因连续信号延至10/20。MA原10/09信号/10/11登记/10/13截止不改，入场已到期；不据此推定持仓退出。真实持仓按实际Entry、只收紧SL、逻辑/事件及原时间边界取严，账户未知不报退出或收益。
+
+M供应恢复/现货弱与去库/基差强并存；RB去库非终端全面复苏；MA需求负反馈、港库口径及精确合约日期待核。[V逐对缺口](../research/futures/anchors/2026-10-18/2026-10-18-anchors.json)未形成数值锚，10/23复核；未评估非no_signal。真实持仓挂单、实收参数与压力/执行容量未知，risk_regime/final_lots=unknown/null；SSE日历只作日期代理，拟执行前核期交所场次与临时安排。787离线测试及治理/审计结构通过，真实行情API成功，无成交/收益验证；历史留日期报告。
 
 <a id="r-v3-retirement"></a>
 本次用户授权方法重构：退役A–H、加权分/隔夜门、D8高位禁入、D11/D12重复处罚、固定季节窗、③全局方向冻结、M无模型/RB单边冻结/MA永久方向禁令、旧追涨冷却/原油百分比门；经济事实可作当期反证/风险，旧编号无隐含否决权。旧休眠模型不再是有效备用规则，扩池另修订。

@@ -237,9 +237,11 @@ fail与necessary unknown并存，主状态incomplete但不得丢掉fail。signal
 ## 6. 当期状态与旧规则退役
 
 <a id="r-v3-state"></a>
-截至2026-10-11，已用v1.18完整快照（行情10/09）完成当期研究和信号重算；机制改造另经真实API取数并保存[轻量刷新](../research/futures/refresh/2026-10-11/2026-10-11-signal-refresh.md)，行情仍为10/09。MA2701的10/09多头信号可在当前登记后用于10/12–13剩余未来时段；价格允许范围3289–3387元/吨，须继续核当前报价、事件与执行风险。不得将它改写为10/09已发出的建议。具体计划及剩余缺项见[当前重评](../research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md)，精确采纳与纠错范围见[handoff](../research/futures/weekly/2026-10-11/2026-10-11-handoff.json)。M/RB/SR/CF的10/09价格未触发；V经济锚尚未成案。
+截至2026-10-18，按实际已部署v3.0及maintenance-contract v2完成[本期研究](../research/futures/weekly/2026-10-18/2026-10-18-market-research.md)、[变化判定](../research/futures/weekly/2026-10-18/2026-10-18-change-decision.md)和[执行审计](../research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md)。v1.18.1真实API输入完整，行情截至10/16；[原始刷新](../research/futures/refresh/2026-10-18/2026-10-18-signal-refresh.json)与[原时钟补核r2](../research/futures/refresh/2026-10-18/2026-10-18-signal-refresh-r2.json)保留。状态刷新=yes、证据纠错=yes、方法变更=no，方法版本及参数不变。精确采纳和替代范围见[本期handoff](../research/futures/weekly/2026-10-18/2026-10-18-handoff.json)；研究/原料/交接已发布main，状态引用待人工审阅不阻断接续。
 
-真实账户、当前实际适用保证金/限仓及完整压力容量未核，risk_regime、仓位和final_lots保持unknown/null。更新分类、版本接续与轻量刷新实施情况见[维护记录](../research/futures/maintenance/2026-10-11/2026-10-11-weekly-update-mechanism-fixes.md)，自动化配置不等于已成功取得未来行情；无收益验证，不继承旧①/③状态。先完成研究与执行方案，账户在成案后请求；研究日与行情日分开更新，历史留在日期报告。
+M2701的10/16价格侧再次触发short，其余RB/MA/SR/CF当日T未触发。M原10/15机会仍沿用原ID、真实10/15 19:30:56登记和10/19截止；原允许入场3292–3326，10/16收3281已越界，取消原入场用途，不自动用连续信号延至10/20。MA原10/09信号、10/11登记、10/13截止保留，入场已到期；入场到期不等于真实持仓退出。若有持仓，按真实Entry、只收紧的有效SL、逻辑/事件及原时间边界核验；无账户不推定已平仓或收益。
+
+M国内供应恢复与现货疲弱有当前支持，去库/基差走强为反证；RB节后去库不等于终端全面复苏，MA需求负反馈与港库口径/精确合约日期仍待核。三类V均未取得可辩护的月份匹配经济锚，见[逐对研究缺口与恢复触发](../research/futures/anchors/2026-10-18/2026-10-18-anchors.json)，10/23复核；未评估与no_signal分列。真实持仓、挂单、实收参数和最终压力/执行容量未知，risk_regime与final_lots保持unknown/null。日历为数据商SSE日期代理，具体期交所场次/临时安排仍须执行前核验。787项离线测试、治理及审计结构通过，真实行情API成功；未验证成交或收益，历史留在日期报告。
 
 <a id="r-v3-retirement"></a>
 用户本次明确授权把方法收敛为T/V，故这是v3重构而非原规则的措辞压缩。退役A–H独立策略、加权总分/隔夜分数门、D8创新高禁入、D11/D12重复扣分与抬门槛、季节固定窗口、以③产能裁决冻结全部相关方向、M无模型、RB单边冻结、MA永久方向禁令及旧专属追涨冷却/原油百分比门。相应经济事实仍可成为本期产业反证或事件/压力依据，但没有旧编号隐含否决权。
