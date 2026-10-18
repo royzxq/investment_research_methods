@@ -1,0 +1,47 @@
+{
+  "as_of": "2026-10-18",
+  "latest_a_session": "2026-10-16",
+  "r21_window": [
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-16"
+  ],
+  "calendar_via": "tushare trade_cal SSE; no direct exchange full-calendar download",
+  "star50_provider_close": {
+    "20261016": 1358.647,
+    "20261015": 1359.5214,
+    "20261014": 1380.2577,
+    "20261013": 1427.1775,
+    "20261012": 1426.7216,
+    "20261009": 1457.2665,
+    "20261008": 1456.3239
+  },
+  "complete_a_margin_balance_yi": {
+    "20261015": 25031.91716374,
+    "20261014": 25350.91522116,
+    "20261013": 25458.45058362
+  },
+  "complete_a_margin_change_yi": {
+    "20261014": -107.5353624599993,
+    "20261015": -318.9980574200017
+  },
+  "missing_margin_exchanges_20261016": [
+    "BSE",
+    "SZSE"
+  ],
+  "r21_helper": "not_met",
+  "r21_helper_basis": "Only latest turnover supplied; official index and full margin unknown. A known false AND member is sufficient for not_met.",
+  "ppi_spread_pp": 1.9000000000000004,
+  "previous_ppi_spread_pp": 2.0,
+  "us_cpi_hawk_branch": true,
+  "us_cpi_gt4": false,
+  "ust_10y_last_5": [
+    5.24,
+    5.21,
+    5.19,
+    5.1,
+    5.09
+  ],
+  "ust_30y_20261016": 5.43,
+  "index_provider_week_change_pct": -6.7674306655646
+}

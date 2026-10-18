@@ -1,0 +1,22 @@
+{
+  "investment_framework.md": {
+    "old_sha256": "b26daf1d3cc601e34682effbe46bb88b064190410de94886546fce7a79378a3a",
+    "new_sha256": "496d51dd9fb42f3b56eb064baf1d2fb2a40fffe0e8ef75182636cd40cd24e170",
+    "method_sha256": "96dd548640117d9de7377a7193c9f3179f8b65cdadb4d2bd68e062f50832b4ca",
+    "outside_block_identical": true,
+    "before_bytes": 79996,
+    "after_bytes": 82653,
+    "before_lines": 463,
+    "after_lines": 552
+  },
+  "investment_framework_compact.md": {
+    "old_sha256": "7c588fba94eb81f9629fe22f6266243c31121e44384ec7a1785c330c7231ada8",
+    "new_sha256": "cef42ee91e39c8181438d3eb506e1965f380b54e495830c26aa2aaec1791921b",
+    "method_sha256": "1cf307a6af8168fc0375625a6cc30e96398cd75916402f665cd593d7a260631f",
+    "outside_block_identical": true,
+    "before_bytes": 49234,
+    "after_bytes": 51891,
+    "before_lines": 238,
+    "after_lines": 327
+  }
+}

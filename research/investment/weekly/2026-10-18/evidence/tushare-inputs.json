@@ -1,0 +1,349 @@
+{
+  "as_of": "2026-10-18",
+  "retrieved_at": "2026-10-18T08:50:46.569170+08:00",
+  "provider": "tushare",
+  "token_present": true,
+  "calls": [
+    {
+      "api": "trade_cal",
+      "params": {
+        "exchange": "SSE",
+        "start_date": "20261001",
+        "end_date": "20261018"
+      },
+      "status": "ok",
+      "rows": [
+        {
+          "exchange": "SSE",
+          "cal_date": "20261018",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261017",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261016",
+          "is_open": 1,
+          "pretrade_date": "20261015"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261015",
+          "is_open": 1,
+          "pretrade_date": "20261014"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261014",
+          "is_open": 1,
+          "pretrade_date": "20261013"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261013",
+          "is_open": 1,
+          "pretrade_date": "20261012"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261012",
+          "is_open": 1,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261011",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261010",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261009",
+          "is_open": 1,
+          "pretrade_date": "20261008"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261008",
+          "is_open": 1,
+          "pretrade_date": "20260930"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261007",
+          "is_open": 0,
+          "pretrade_date": "20260930"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261006",
+          "is_open": 0,
+          "pretrade_date": "20260930"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261005",
+          "is_open": 0,
+          "pretrade_date": "20260930"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261004",
+          "is_open": 0,
+          "pretrade_date": "20260930"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261003",
+          "is_open": 0,
+          "pretrade_date": "20260930"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261002",
+          "is_open": 0,
+          "pretrade_date": "20260930"
+        },
+        {
+          "exchange": "SSE",
+          "cal_date": "20261001",
+          "is_open": 0,
+          "pretrade_date": "20260930"
+        }
+      ]
+    },
+    {
+      "api": "index_daily",
+      "params": {
+        "ts_code": "000688.SH",
+        "start_date": "20261008",
+        "end_date": "20261016"
+      },
+      "status": "ok",
+      "rows": [
+        {
+          "ts_code": "000688.SH",
+          "trade_date": "20261016",
+          "close": 1358.647,
+          "open": 1381.9312,
+          "high": 1389.4308,
+          "low": 1341.2074,
+          "pre_close": 1359.5214,
+          "change": -0.8744,
+          "pct_chg": -0.0643,
+          "vol": 7634690.0,
+          "amount": 71607599.6385
+        },
+        {
+          "ts_code": "000688.SH",
+          "trade_date": "20261015",
+          "close": 1359.5214,
+          "open": 1326.2353,
+          "high": 1367.3437,
+          "low": 1326.2353,
+          "pre_close": 1380.2577,
+          "change": -20.7363,
+          "pct_chg": -1.5023,
+          "vol": 8823946.0,
+          "amount": 82549797.3901
+        },
+        {
+          "ts_code": "000688.SH",
+          "trade_date": "20261014",
+          "close": 1380.2577,
+          "open": 1419.4638,
+          "high": 1429.3782,
+          "low": 1378.0112,
+          "pre_close": 1427.1775,
+          "change": -46.9198,
+          "pct_chg": -3.2876,
+          "vol": 5798750.0,
+          "amount": 57623116.9019
+        },
+        {
+          "ts_code": "000688.SH",
+          "trade_date": "20261013",
+          "close": 1427.1775,
+          "open": 1389.5335,
+          "high": 1447.1851,
+          "low": 1375.3311,
+          "pre_close": 1426.7216,
+          "change": 0.4559,
+          "pct_chg": 0.032,
+          "vol": 7696867.0,
+          "amount": 76980320.6328
+        },
+        {
+          "ts_code": "000688.SH",
+          "trade_date": "20261012",
+          "close": 1426.7216,
+          "open": 1443.8068,
+          "high": 1473.4425,
+          "low": 1425.3102,
+          "pre_close": 1457.2665,
+          "change": -30.5449,
+          "pct_chg": -2.096,
+          "vol": 6652779.0,
+          "amount": 64617424.5887
+        },
+        {
+          "ts_code": "000688.SH",
+          "trade_date": "20261009",
+          "close": 1457.2665,
+          "open": 1441.7169,
+          "high": 1466.8774,
+          "low": 1389.995,
+          "pre_close": 1456.3239,
+          "change": 0.9426,
+          "pct_chg": 0.0647,
+          "vol": 9540742.0,
+          "amount": 91972939.4754
+        },
+        {
+          "ts_code": "000688.SH",
+          "trade_date": "20261008",
+          "close": 1456.3239,
+          "open": 1512.7926,
+          "high": 1521.4599,
+          "low": 1446.4309,
+          "pre_close": 1530.0057,
+          "change": -73.6818,
+          "pct_chg": -4.8158,
+          "vol": 8787483.0,
+          "amount": 82397685.33
+        }
+      ]
+    },
+    {
+      "api": "margin",
+      "params": {
+        "start_date": "20261013",
+        "end_date": "20261016"
+      },
+      "status": "ok",
+      "rows": [
+        {
+          "trade_date": "20261016",
+          "exchange_id": "SSE",
+          "rzye": 1258249948850.0,
+          "rzmre": 66923010429.0,
+          "rzche": 74114298086.0,
+          "rqye": 18670701680.0,
+          "rqmcl": 54723421.0,
+          "rzrqye": 1276920650530.0,
+          "rqyl": 3227483213.0
+        },
+        {
+          "trade_date": "20261015",
+          "exchange_id": "SZSE",
+          "rzye": 1200674351880.0,
+          "rzmre": 55478821703.0,
+          "rzche": 72576803652.0,
+          "rqye": 10421061796.0,
+          "rqmcl": 25803482.0,
+          "rzrqye": 1211095413676.0,
+          "rqyl": 1221407190.0
+        },
+        {
+          "trade_date": "20261015",
+          "exchange_id": "SSE",
+          "rzye": 1265486521459.0,
+          "rzmre": 68350771372.0,
+          "rzche": 82889017102.0,
+          "rqye": 18574842169.0,
+          "rqmcl": 71617715.0,
+          "rzrqye": 1284061363628.0,
+          "rqyl": 3234727344.0
+        },
+        {
+          "trade_date": "20261015",
+          "exchange_id": "BSE",
+          "rzye": 8034714430.0,
+          "rzmre": 452731216.0,
+          "rzche": 509283867.0,
+          "rqye": 224640.0,
+          "rqmcl": 0.0,
+          "rzrqye": 8034939070.0,
+          "rqyl": 10400.0
+        },
+        {
+          "trade_date": "20261014",
+          "exchange_id": "SZSE",
+          "rzye": 1217408086822.0,
+          "rzmre": 51795760831.0,
+          "rzche": 56424814886.0,
+          "rqye": 10608032556.0,
+          "rqmcl": 24320748.0,
+          "rzrqye": 1228016119378.0,
+          "rqyl": 1223788963.0
+        },
+        {
+          "trade_date": "20261014",
+          "exchange_id": "SSE",
+          "rzye": 1280077130900.0,
+          "rzmre": 60489609549.0,
+          "rzche": 66454012305.0,
+          "rqye": 18927895252.0,
+          "rqmcl": 76832471.0,
+          "rzrqye": 1299005026152.0,
+          "rqyl": 3239058515.0
+        },
+        {
+          "trade_date": "20261014",
+          "exchange_id": "BSE",
+          "rzye": 8070058089.0,
+          "rzmre": 451396504.0,
+          "rzche": 536109812.0,
+          "rqye": 318497.0,
+          "rqmcl": 8950.0,
+          "rzrqye": 8070376586.0,
+          "rqyl": 19350.0
+        },
+        {
+          "trade_date": "20261013",
+          "exchange_id": "SZSE",
+          "rzye": 1222058903565.0,
+          "rzmre": 60900673980.0,
+          "rzche": 66964754244.0,
+          "rqye": 10653526610.0,
+          "rqmcl": 37891158.0,
+          "rzrqye": 1232712430175.0,
+          "rqyl": 1217348967.0
+        },
+        {
+          "trade_date": "20261013",
+          "exchange_id": "SSE",
+          "rzye": 1286064659838.0,
+          "rzmre": 74451811577.0,
+          "rzche": 77525995839.0,
+          "rqye": 18912826153.0,
+          "rqmcl": 52463699.0,
+          "rzrqye": 1304977485991.0,
+          "rqyl": 3213285205.0
+        },
+        {
+          "trade_date": "20261013",
+          "exchange_id": "BSE",
+          "rzye": 8154836150.0,
+          "rzmre": 514377043.0,
+          "rzche": 465936257.0,
+          "rqye": 306046.0,
+          "rqmcl": 4500.0,
+          "rzrqye": 8155142196.0,
+          "rqyl": 17400.0
+        }
+      ]
+    }
+  ]
+}

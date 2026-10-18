@@ -1,0 +1,86 @@
+{
+  "as_of": "2026-10-18",
+  "handoff_validation": "passed",
+  "selected_handoff": "research/investment/weekly/2026-10-18/investment-2026-10-18-handoff-r2.json",
+  "r1_lifecycle": "withdrawn",
+  "r2_lifecycle": "active",
+  "withdrawal_preserved": true,
+  "classification": {
+    "evidence_correction": true,
+    "method_change": false,
+    "state_refresh": true,
+    "update_needed": false
+  },
+  "governance": {
+    "status": "passed",
+    "method_version": "stock-maintenance-v1",
+    "state_as_of": "2026-10-18",
+    "method_fingerprints": {
+      "investment_framework.md": "96dd548640117d9de7377a7193c9f3179f8b65cdadb4d2bd68e062f50832b4ca",
+      "investment_framework_compact.md": "1cf307a6af8168fc0375625a6cc30e96398cd75916402f665cd593d7a260631f"
+    },
+    "sizes": {
+      "investment_framework.md": {
+        "bytes": 82653,
+        "lines": 552
+      },
+      "investment_framework_compact.md": {
+        "bytes": 51891,
+        "lines": 327
+      }
+    },
+    "limits": "Structure only; not complete semantic equivalence, evidence truth or investment effectiveness"
+  },
+  "observation_sync": {
+    "investment_framework.md": {
+      "old_sha256": "b26daf1d3cc601e34682effbe46bb88b064190410de94886546fce7a79378a3a",
+      "new_sha256": "496d51dd9fb42f3b56eb064baf1d2fb2a40fffe0e8ef75182636cd40cd24e170",
+      "method_sha256": "96dd548640117d9de7377a7193c9f3179f8b65cdadb4d2bd68e062f50832b4ca",
+      "outside_block_identical": true,
+      "before_bytes": 79996,
+      "after_bytes": 82653,
+      "before_lines": 463,
+      "after_lines": 552
+    },
+    "investment_framework_compact.md": {
+      "old_sha256": "7c588fba94eb81f9629fe22f6266243c31121e44384ec7a1785c330c7231ada8",
+      "new_sha256": "cef42ee91e39c8181438d3eb506e1965f380b54e495830c26aa2aaec1791921b",
+      "method_sha256": "1cf307a6af8168fc0375625a6cc30e96398cd75916402f665cd593d7a260631f",
+      "outside_block_identical": true,
+      "before_bytes": 49234,
+      "after_bytes": 51891,
+      "before_lines": 238,
+      "after_lines": 327
+    }
+  },
+  "boundary_cases": {
+    "index_equal_pass": true,
+    "turnover_equal_fail": true,
+    "margin_equal_fail": true,
+    "missing_only_unknown": true,
+    "known_false_with_gaps_fail": true,
+    "future_reference_rejected": true
+  },
+  "offline_regression": {
+    "full_run": {
+      "tests": 787,
+      "seconds": 111.784,
+      "failures": 0,
+      "errors": 2,
+      "error_cause": "sandbox denies ps in two process cleanup tests"
+    },
+    "targeted_unsandboxed_recheck": {
+      "tests": 2,
+      "seconds": 12.191,
+      "result": "OK"
+    },
+    "interpretation": "All 787 tests covered; full run had two environment errors and these exact two passed on recheck. Not a single clean full-suite run."
+  },
+  "real_api": {
+    "trade_cal": "success",
+    "index_daily": "success",
+    "margin": "success but 20261016 SZSE/BSE missing"
+  },
+  "account_api": "not_run",
+  "semantic_limits": "Structural/source hash and deterministic boundary validation only; not investment effectiveness or complete financial truth."
+}
