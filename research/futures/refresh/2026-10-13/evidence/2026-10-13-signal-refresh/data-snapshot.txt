@@ -1,0 +1,47 @@
+== v3.0 框架数据脚本 v1.18.1 | AS_OF=20261013 | scope=v3_research_inputs_only | legacy_v2=False | 事件日期线索4项(用户维护) ==
+日线上界=20261013（北京时间18:00前保守排除当天；实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）
+  v1.13 参数校验: CONTRACT_SPEC 覆盖 7 个池内品种, multiplier 与 fut_basic.per_unit 一致
+
+---- 0) 合约新鲜度自检 (否决#1 前置预警, trade_cal真实交易日) ----
+  ℹ SC2611 信号腿(不建仓, 不受否决#1): 距最后交易日 13 交易日 —— 随主力换月整对下滚(⚠INE 按'近12个月逐月+更远按季'挂牌, 下一月未挂牌时 resolve 会抛错, 按阶梯表退到下一个实际挂牌月)
+
+---- v3.0 前瞻研究输入：顺势 / 有经济依据的回归；规则尚未完成收益验证 ----
+  T MA2701: valid / not_triggered / None | close=3235.0 prior20H/L=3402.0/2821.0 ATR20=103.79596984236215 | 缺项=[]
+  T RB2701: valid / not_triggered / None | close=3089.0 prior20H/L=3183.0/3060.0 ATR20=29.833387194719688 | 缺项=[]
+  T M2701: valid / not_triggered / None | close=3361.0 prior20H/L=3502.0/3327.0 ATR20=49.47000954795248 | 缺项=[]
+  T SR2701: valid / not_triggered / None | close=5521.0 prior20H/L=5554.0/5305.0 ATR20=54.15425730952652 | 缺项=[]
+  T CF2701: valid / not_triggered / None | close=15865.0 prior20H/L=16860.0/15490.0 ATR20=208.86200500289186 | 缺项=[]
+  V MA2701-MA2705 (current): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号
+  V RB2701-RB2703 (current): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号
+  V SR2701-SR2705 (current): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号
+  V MA2705-MA2709 (roll_preparation): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号
+  V RB2703-RB2705 (roll_preparation): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号
+  信号比较只说明行情条件；规则冻结/生效时间、产业证据、事件与账户执行门另核。
+  计划算术：python3 scripts/futures_strategy.py validate-plan --input <JSON>；容量：futures_risk.py size-v3。
+
+公开原始价格/流动性/期限与人工事件核验：
+  以下沿用列名中的#30/SC护栏仅为v2历史背景；v3不按这些旧百分比列冻结、减仓或授许可。
+{"合约": "MA2701", "数据截至": "20261013", "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated", "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28", "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"], "日结算涨跌%": -0.74, "近5日结算涨跌%": "20260930:-0.41|20261008:7.26|20261009:5.5|20261012:-1.93|20261013:-0.74", "#30近3日≥5%": "≥5%命中:20261009(+5.5%)", "px": 3233.0, "price_basis": "settle", "周涨锚日": "20261006", "周涨起日": "20260930", "周涨止日": "20261013", "周涨起价": 2935.0, "周涨止价": 3233.0, "周涨起口径": "settle", "周涨止口径": "settle", "周涨%": 10.153321976149915, "周涨起结算": 2935.0, "周涨止结算": 3233.0, "SC护栏结算周涨%": null, "SC护栏数据状态": "not_applicable", "结算证据缺项": "", "价格证据错误": null}
+  MA2701 20日均成交=831607.0；距最后交易日=66
+{"合约": "RB2701", "数据截至": "20261013", "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated", "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28", "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"], "日结算涨跌%": -0.32, "近5日结算涨跌%": "20260930:0.23|20261008:-1.16|20261009:0.0|20261012:0.49|20261013:-0.32", "#30近3日≥5%": "近3日无≥5%", "px": 3085.0, "price_basis": "settle", "周涨锚日": "20261006", "周涨起日": "20260930", "周涨止日": "20261013", "周涨起价": 3116.0, "周涨止价": 3085.0, "周涨起口径": "settle", "周涨止口径": "settle", "周涨%": -0.9948652118100129, "周涨起结算": 3116.0, "周涨止结算": 3085.0, "SC护栏结算周涨%": null, "SC护栏数据状态": "not_applicable", "结算证据缺项": "", "价格证据错误": null}
+  RB2701 20日均成交=683867.6；距最后交易日=67
+{"合约": "M2701", "数据截至": "20261013", "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated", "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28", "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"], "日结算涨跌%": -0.3, "近5日结算涨跌%": "20260930:0.66|20261008:0.56|20261009:0.03|20261012:-0.18|20261013:-0.3", "#30近3日≥5%": "近3日无≥5%", "px": 3373.0, "price_basis": "settle", "周涨锚日": "20261006", "周涨起日": "20260930", "周涨止日": "20261013", "周涨起价": 3369.0, "周涨止价": 3373.0, "周涨起口径": "settle", "周涨止口径": "settle", "周涨%": 0.11872959335114278, "周涨起结算": 3369.0, "周涨止结算": 3373.0, "SC护栏结算周涨%": null, "SC护栏数据状态": "not_applicable", "结算证据缺项": "", "价格证据错误": null}
+  M2701 20日均成交=1335193.75；距最后交易日=67
+{"合约": "SR2701", "数据截至": "20261013", "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated", "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28", "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"], "日结算涨跌%": 0.16, "近5日结算涨跌%": "20260930:-0.15|20261008:2.81|20261009:-0.11|20261012:0.89|20261013:0.16", "#30近3日≥5%": "近3日无≥5%", "px": 5538.0, "price_basis": "settle", "周涨锚日": "20261006", "周涨起日": "20260930", "周涨止日": "20261013", "周涨起价": 5336.0, "周涨止价": 5538.0, "周涨起口径": "settle", "周涨止口径": "settle", "周涨%": 3.785607196401799, "周涨起结算": 5336.0, "周涨止结算": 5538.0, "SC护栏结算周涨%": null, "SC护栏数据状态": "not_applicable", "结算证据缺项": "", "价格证据错误": null}
+  SR2701 20日均成交=424028.95；距最后交易日=66
+{"合约": "CF2701", "数据截至": "20261013", "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated", "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28", "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"], "日结算涨跌%": 0.06, "近5日结算涨跌%": "20260930:-1.39|20261008:0.96|20261009:-0.03|20261012:0.79|20261013:0.06", "#30近3日≥5%": "近3日无≥5%", "px": 15900.0, "price_basis": "settle", "周涨锚日": "20261006", "周涨起日": "20260930", "周涨止日": "20261013", "周涨起价": 15620.0, "周涨止价": 15900.0, "周涨起口径": "settle", "周涨止口径": "settle", "周涨%": 1.792573623559539, "周涨起结算": 15620.0, "周涨止结算": 15900.0, "SC护栏结算周涨%": null, "SC护栏数据状态": "not_applicable", "结算证据缺项": "", "价格证据错误": null}
+  CF2701 20日均成交=338653.0；距最后交易日=66
+{"合约": "AU2612", "数据截至": "20261013", "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated", "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28", "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"], "日结算涨跌%": -0.55, "近5日结算涨跌%": "20260930:0.8|20261008:-1.14|20261009:0.49|20261012:0.97|20261013:-0.55", "#30近3日≥5%": "近3日无≥5%", "px": 902.82, "price_basis": "settle", "周涨锚日": "20261006", "周涨起日": "20260930", "周涨止日": "20261013", "周涨起价": 905.04, "周涨止价": 902.82, "周涨起口径": "settle", "周涨止口径": "settle", "周涨%": -0.24529302572262, "周涨起结算": 905.04, "周涨止结算": 902.82, "SC护栏结算周涨%": null, "SC护栏数据状态": "not_applicable", "结算证据缺项": "", "价格证据错误": null}
+  AU2612 20日均成交=126409.25；距最后交易日=45
+{"合约": "SC2611", "数据截至": "20261013", "scope": "raw_price_evidence_only", "execution_permission": "not_evaluated", "compatibility": "legacy_guard_fields_are_v2_context_only", "legacy_rule_version": "v2.28", "legacy_guard_fields": ["#30近3日≥5%", "SC护栏结算周涨%", "SC护栏数据状态"], "日结算涨跌%": 3.14, "近5日结算涨跌%": "20260930:-2.9|20261008:5.93|20261009:0.53|20261012:-1.47|20261013:3.14", "#30近3日≥5%": "近3日无≥5%", "px": 753.3, "price_basis": "settle", "周涨锚日": "20261006", "周涨起日": "20260930", "周涨止日": "20261013", "周涨起价": 696.1, "周涨止价": 753.3, "周涨起口径": "settle", "周涨止口径": "settle", "周涨%": 8.21721017095245, "周涨起结算": 696.1, "周涨止结算": 753.3, "SC护栏结算周涨%": 8.21721017095245, "SC护栏数据状态": "available", "结算证据缺项": "", "价格证据错误": null}
+  SC2611 20日均成交=166813.5；距最后交易日=13
+  EVENTS仅人工维护的历史日历输入，执行前须核当期官方日期和合约适用性；旧备注不作本期事实。
+  日期核验线索=20261012~20261012 | USDA WASDE 10/09 12:00 ET排期后的首个可能国内响应日（报告正文未核） | USDA官方排期美国周五10/09 12:00 ET=北京10/10 00:00；豆粕周五夜盘21:00-23:00据东鼎期货2026/02/25交易时间表(https://www.ddqh.com/bocupload/2026/02/26/1772101558264ywp7n.pdf)，交易所本轮原公告未读；发布时间晚于该夜盘结束，首个可能T=10/12。报告正文和大豆数字未读；v3已定义M双向顺势路线，但当前事件结果与适用性仍须人工核验。此条只提供日期线索，不自动授许可。
+  日期核验线索=20261015~20261015 | 美国9月CPI（官方排期10/14 08:30 ET，国内T=10/15） | BLS 2026日历：https://www.bls.gov/schedule/2026/home.htm；北京10/14 20:30，有该时段夜盘的合约从10/14夜盘（属T10/15）响应，无夜盘从下一可交易时刻响应。自动提示仅按真实交易日T−3/±1；T−1对冲、适用合约及实际数据仍人工核。
+  日期核验线索=20261016~20261016 | 美国9月PPI（官方排期10/15 08:30 ET，国内T=10/16） | BLS 2026日历：https://www.bls.gov/schedule/2026/home.htm；北京10/15 20:30，有该时段夜盘的合约从10/15夜盘（属T10/16）响应。归因比例尚无发布数据；自动提示不代表输入性通胀扣分已核。
+  日期核验线索=20261029~20261029 | 美联储10月FOMC决议（官方排期10/28 14:00 ET，国内T=10/29） | Fed官方日历：https://www.federalreserve.gov/newsevents/2026-october.htm；北京时间10/29 02:00。T−3=10/26、T−1=10/28、T+1=10/30；10/27仅会期首日，不作决议T。v3仅以此作为相关事件窗口核验线索；AU为信号席，旧#29/D13不迁为v3门。
+  已省略v2分位门、D系列、季节和固定目标影子结算；加--legacy-v2仅供历史复核。
+  当前账户、挂单、真实成本、保证金/限仓与压力测试尚未核；不得将本输出当成交易许可。
+
+完成。v3输入已写入 /Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-13/run-jg20umy0/；快照=/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-13/run-jg20umy0/data-snapshot.txt。
+== 快照完成 | AS_OF=20261013 | 脚本 v1.18.1 | 本行存在即输出完整 ==

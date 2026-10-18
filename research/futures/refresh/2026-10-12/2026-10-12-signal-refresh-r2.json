@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "refresh_version": "1.2",
+  "rule_version": "v3.0",
+  "as_of_date": "2026-10-12",
+  "evaluated_at": "2026-10-12T19:33:57.288482+08:00",
+  "generator": "codex",
+  "scope": "mechanical_refresh_only",
+  "refresh_status": "failed",
+  "issues": [
+    "calendar_degraded_to_weekdays"
+  ],
+  "trend": [],
+  "economic_reversion": [],
+  "registered_plan_windows": [],
+  "calendar_source": "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+  "publication_note": "18:00 cutoff is a guard, not verified final-settlement publication",
+  "execution_permission": "not_evaluated",
+  "readiness": "not_evaluated",
+  "final_lots": null,
+  "performance_status": "not_automated",
+  "source_inputs": [
+    {
+      "role": "market-inputs",
+      "original_path": "/private/tmp/futures-daily-automation-3-2026-10-12/output/futures-refresh-fetch/2026-10-12/run-754aj3wu/v3_research_inputs_20261012.json",
+      "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/market-inputs.json",
+      "sha256": "f69caa80fdb33bca3f68d314b6244f9a186e926601d193f699e553bc45e68090",
+      "bytes": 5617
+    },
+    {
+      "role": "data-snapshot",
+      "original_path": "/private/tmp/futures-daily-automation-3-2026-10-12/output/futures-refresh-fetch/2026-10-12/run-754aj3wu/data-snapshot.txt",
+      "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/data-snapshot.txt",
+      "sha256": "0920fa3b031f4e0949df6a904bcd06a51e12f35478c6345e7d67babf255a35fc",
+      "bytes": 13196
+    },
+    {
+      "role": "frozen-anchors",
+      "original_path": "/private/tmp/futures-daily-automation-3-2026-10-12/output/automation-3-2026-10-12/continuity/anchors.json",
+      "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/frozen-anchors.json",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "bytes": 70
+    },
+    {
+      "role": "registered-plans",
+      "original_path": "/private/tmp/futures-daily-automation-3-2026-10-12/output/automation-3-2026-10-12/continuity/plans.json",
+      "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/registered-plans.json",
+      "sha256": "608d8598898036ebc7aaf24b7bd1f361a1e267a7500d422841e008b526189e5d",
+      "bytes": 3536
+    }
+  ],
+  "method": {
+    "canonical": "framework/futures_framework.md",
+    "canonical_sha256": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+    "helper": "scripts/futures_strategy.py",
+    "helper_sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "refresh_sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6"
+  },
+  "input_script_version": "v1.18.1",
+  "evaluated_snapshot_sha256": "0920fa3b031f4e0949df6a904bcd06a51e12f35478c6345e7d67babf255a35fc",
+  "input_selection": {
+    "selected": "/private/tmp/futures-daily-automation-3-2026-10-12/output/futures-refresh-fetch/2026-10-12/run-754aj3wu/v3_research_inputs_20261012.json",
+    "selected_sha256": "f69caa80fdb33bca3f68d314b6244f9a186e926601d193f699e553bc45e68090",
+    "attempted": [
+      {
+        "path": "/private/tmp/futures-daily-automation-3-2026-10-12/output/futures-refresh-fetch/2026-10-12/run-foee2ori/v3_research_inputs_20261012.json",
+        "snapshot": "/private/tmp/futures-daily-automation-3-2026-10-12/output/futures-refresh-fetch/2026-10-12/run-foee2ori/data-snapshot.txt",
+        "refresh_status": "failed",
+        "issues": [
+          "calendar_degraded_to_weekdays"
+        ],
+        "raw_sha256": "832d6df1b14506dcb88a558154c80bcb573a935e21d1c425aba2c48065c0b20d",
+        "price_gaps": []
+      }
+    ],
+    "selected_snapshot": "/private/tmp/futures-daily-automation-3-2026-10-12/output/futures-refresh-fetch/2026-10-12/run-754aj3wu/data-snapshot.txt"
+  },
+  "complete": true
+}

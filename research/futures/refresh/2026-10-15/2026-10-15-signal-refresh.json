@@ -1,0 +1,401 @@
+{
+  "schema_version": 1,
+  "refresh_version": "1.2",
+  "rule_version": "v3.0",
+  "as_of_date": "2026-10-15",
+  "evaluated_at": "2026-10-15T19:27:24.598032+08:00",
+  "generator": "codex",
+  "scope": "mechanical_refresh_only",
+  "refresh_status": "fresh",
+  "issues": [],
+  "trend": [
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "CF2701",
+      "price_basis": "close",
+      "product": "CF",
+      "market_trade_date": "20261015",
+      "as_of_date": "20261015",
+      "signal_close": 15835.0,
+      "prior20_high": 16820.0,
+      "prior20_low": 15490.0,
+      "prior10_low": 15490.0,
+      "prior10_high": 16130.0,
+      "atr20": 208.97837237510385,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260715",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.1246715626749793,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261015"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "triggered",
+      "side": "short",
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "M2701",
+      "price_basis": "close",
+      "product": "M",
+      "market_trade_date": "20261015",
+      "as_of_date": "20261015",
+      "signal_close": 3316.0,
+      "prior20_high": 3502.0,
+      "prior20_low": 3327.0,
+      "prior10_low": 3327.0,
+      "prior10_high": 3431.0,
+      "atr20": 49.50233009542106,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260715",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.1900326654701945,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261015",
+      "signal_date": "2026-10-15",
+      "valid_entry_dates": [
+        "2026-10-16",
+        "2026-10-19"
+      ],
+      "valid_until": "2026-10-19",
+      "registered_at": null
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "MA2701",
+      "price_basis": "close",
+      "product": "MA",
+      "market_trade_date": "20261015",
+      "as_of_date": "20261015",
+      "signal_close": 3170.0,
+      "prior20_high": 3402.0,
+      "prior20_low": 2821.0,
+      "prior10_low": 2821.0,
+      "prior10_high": 3402.0,
+      "atr20": 104.41544896147221,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260715",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.1532803990337681,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261015"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "RB2701",
+      "price_basis": "close",
+      "product": "RB",
+      "market_trade_date": "20261015",
+      "as_of_date": "20261015",
+      "signal_close": 3071.0,
+      "prior20_high": 3175.0,
+      "prior20_low": 3060.0,
+      "prior10_low": 3060.0,
+      "prior10_high": 3131.0,
+      "atr20": 29.358238044478696,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260715",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.0477031811780715,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261015"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "SR2701",
+      "price_basis": "close",
+      "product": "SR",
+      "market_trade_date": "20261015",
+      "as_of_date": "20261015",
+      "signal_close": 5382.0,
+      "prior20_high": 5563.0,
+      "prior20_low": 5305.0,
+      "prior10_low": 5318.0,
+      "prior10_high": 5563.0,
+      "atr20": 57.56411657551432,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260715",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.2399638107027815,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261015"
+    }
+  ],
+  "economic_reversion": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "research_stage": "roll_preparation",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "research_stage": "roll_preparation",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    }
+  ],
+  "registered_plan_windows": [
+    {
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "signal_date": "2026-10-09",
+      "valid_until": "2026-10-13",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "status": "expired",
+      "execution_permission": "not_evaluated",
+      "signal_clock_reset": false,
+      "calendar_checks": [
+        {
+          "contract": "MA2701",
+          "basis": "exact_contract_inputs",
+          "exchange": "CZCE",
+          "source_contracts": [
+            "MA2701"
+          ],
+          "calendar_source": "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+          "price_refresh_status": "mixed_raw_input_status",
+          "price_input_checks": [
+            {
+              "source_contract": "MA2701",
+              "input_kind": "trend_raw_inputs",
+              "status": "fresh"
+            },
+            {
+              "source_contract": "MA2701",
+              "input_kind": "spread_leg_raw_inputs",
+              "status": "raw_inputs_present_not_reassessed"
+            }
+          ]
+        }
+      ],
+      "registration_order_status": "verified_date_order",
+      "original_valid_entry_dates": [
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "remaining_entry_dates": [],
+      "entry_session_checks_required_dates": [],
+      "allowed_execution_session": "not_evaluated_require_after_registration"
+    }
+  ],
+  "calendar_source": "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+  "publication_note": "18:00 cutoff is a guard, not verified final-settlement publication",
+  "execution_permission": "not_evaluated",
+  "readiness": "not_evaluated",
+  "final_lots": null,
+  "performance_status": "not_automated",
+  "source_inputs": [
+    {
+      "role": "market-inputs",
+      "original_path": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-15/run-59f1ugex/v3_research_inputs_20261015.json",
+      "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/market-inputs.json",
+      "sha256": "42807385a7e96736ba42ca014febf1689ba2159bb0b2a38e1f1328e58c217859",
+      "bytes": 658844
+    },
+    {
+      "role": "data-snapshot",
+      "original_path": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-15/run-59f1ugex/data-snapshot.txt",
+      "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/data-snapshot.txt",
+      "sha256": "2559edc3419eb5967c890f2d3a62065a45a1b4bcb6d9bad2f16421d138b85cfc",
+      "bytes": 11785
+    },
+    {
+      "role": "frozen-anchors",
+      "original_path": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-daily-automation-3/continuity-2026-10-15/anchors.json",
+      "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/frozen-anchors.json",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "bytes": 70
+    },
+    {
+      "role": "registered-plans",
+      "original_path": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-daily-automation-3/continuity-2026-10-15/plans.json",
+      "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/registered-plans.json",
+      "sha256": "c820f4ff419302775907a7a3a83500683fbfed98b8ae88803e92be89c7fdb4ef",
+      "bytes": 3686
+    }
+  ],
+  "method": {
+    "canonical": "framework/futures_framework.md",
+    "canonical_sha256": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+    "helper": "scripts/futures_strategy.py",
+    "helper_sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "refresh_sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6"
+  },
+  "input_script_version": "v1.18.1",
+  "evaluated_snapshot_sha256": "2559edc3419eb5967c890f2d3a62065a45a1b4bcb6d9bad2f16421d138b85cfc",
+  "input_selection": {
+    "selected": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-15/run-59f1ugex/v3_research_inputs_20261015.json",
+    "selected_sha256": "42807385a7e96736ba42ca014febf1689ba2159bb0b2a38e1f1328e58c217859",
+    "attempted": [
+      {
+        "path": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-13/run-jg20umy0/v3_research_inputs_20261013.json",
+        "snapshot": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-13/run-jg20umy0/data-snapshot.txt",
+        "refresh_status": "failed",
+        "issues": [],
+        "raw_sha256": "dfb0cf5b2ff68b1f49cf9de98e9858621b46e633a1e21139f26e3a8b1f242e8e",
+        "price_gaps": [
+          {
+            "contract": "CF2701",
+            "missing_fields": [
+              "source_fetched_before_completed_session_cutoff"
+            ]
+          },
+          {
+            "contract": "M2701",
+            "missing_fields": [
+              "source_fetched_before_completed_session_cutoff"
+            ]
+          },
+          {
+            "contract": "MA2701",
+            "missing_fields": [
+              "source_fetched_before_completed_session_cutoff"
+            ]
+          },
+          {
+            "contract": "RB2701",
+            "missing_fields": [
+              "source_fetched_before_completed_session_cutoff"
+            ]
+          },
+          {
+            "contract": "SR2701",
+            "missing_fields": [
+              "source_fetched_before_completed_session_cutoff"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/cache/futures/v3_research_inputs_20261011.json",
+        "snapshot": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/research/futures/snapshots/2026-10-11-data-snapshot.txt",
+        "refresh_status": "failed",
+        "issues": [],
+        "raw_sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+        "price_gaps": [
+          {
+            "contract": "CF2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "M2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "MA2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "RB2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "SR2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          }
+        ]
+      }
+    ],
+    "selected_snapshot": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods/output/futures-refresh-fetch/2026-10-15/run-59f1ugex/data-snapshot.txt"
+  },
+  "complete": true
+}
