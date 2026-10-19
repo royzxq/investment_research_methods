@@ -1,0 +1,197 @@
+{
+  "as_of": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "generator": "codex",
+  "status": "proposal_only_not_implemented",
+  "report": {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/maintenance/2026-10-18/investment-2026-10-18-two-price-migration-plan-codex.md",
+    "sha256": "d2771d37a48201d164f44d16863a270ccf67d7da2eff08a8de62e8ca32caf26f"
+  },
+  "sources": {
+    "methods": [
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/framework/investment_framework.md",
+        "sha256": "496d51dd9fb42f3b56eb064baf1d2fb2a40fffe0e8ef75182636cd40cd24e170"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/framework/investment_framework_compact.md",
+        "sha256": "cef42ee91e39c8181438d3eb506e1965f380b54e495830c26aa2aaec1791921b"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/.agents/skills/stock-research/SKILL.md",
+        "sha256": "404917c0ec60e4da9621ae89f8e3f7b8fd6d0a43dec3c6371e182810838b7589"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/.agents/skills/stock-research/references/valuation-and-output.md",
+        "sha256": "2269ca3dd76e72bdf260a2d66597c6223ccae5ea883dc591f8f44975b154ee41"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/.agents/skills/stock-research/references/research-consistency.md",
+        "sha256": "4bed5ee2666fd0fc598833ac9f5de8f941f4d044c53653899269791b12ab0ea1"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/stock_price_map.py",
+        "sha256": "96f30c98277c986c47de738be8cf88014337c31db78baee227afc702fdadd941"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/research_consistency.py",
+        "sha256": "9348daacdf8e00586e5bc826d84a71ea8a76569f48fb1dab2d3bbd953bcf2aa6"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/research_runner.py",
+        "sha256": "f2ffcebeab691a376c01fb2aae2f01bcdfccc104377fc50c7585c73e730b2df9"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/research_exchange.py",
+        "sha256": "e12775f5915cf23a2f58a5dec05086149f4424487f45cd34dd6780e1711cb5bd"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/research_paths.py",
+        "sha256": "c331d088e122d51a4dc1d8cf1a5f1573d8cf2bcef863dea2674373af9f16eedd"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/investment_maintenance.py",
+        "sha256": "3123b7bcca83e72f13b3230d48fd30aa950c28f62a156c7da5c5d2ef967e2de1"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/research_scheduler.py",
+        "sha256": "b7e0859fbbab2248a8d3e42978764a9d6851d8a3dee89743e1270f18f0704a30"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/scripts/research_coze.py",
+        "sha256": "4d2ffc5c0c791393abd271c7d78782c20fe79c2e25de734d5bab76eb41da1130"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/README.md",
+        "sha256": "0847fb3fc919c8963132bffe8c3654c3e1ef878d5f68eb42b5f2c0d373f6f882"
+      }
+    ],
+    "downstream": [
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/analysis/research_consumer.py",
+        "sha256": "7d8c56cf6ccbcf952a3e9e0644df292cdd82ce8d40251db7efc9152a5a959156"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/analysis/research_exchange.py",
+        "sha256": "c3ffef1ca374d7e6ae988ea4ee903108994f1306b386315eec57f4fc2cfb3e6e"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/analysis/model_quote_store.py",
+        "sha256": "779dc494a2e021b901b8b43a584e27566796d6348103bd5cea83790a4aba96c4"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/analysis/price_consensus.py",
+        "sha256": "aa84449bb16d2c81300b6d1f212717391c1a85eacd6510b77c98f98b6da73a71"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/scripts/research_writeback.py",
+        "sha256": "63cebd78cf83f59f768254126cafabd5f3558b955ac6384fed08081ceabb2abd"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/scripts/calc_weighted_prices.py",
+        "sha256": "9017b56b22f00a915729930cdf82869a92f7bc68c56663021bde6959d0883e8e"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/research_eligibility.py",
+        "sha256": "aa9558f121cd440f3159a4d5f575aaa5752bbeb057b70470ab195255c2eae11e"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/prediction_freshness.py",
+        "sha256": "1061ad8a3fd1a24072646932d085a5d88da239c2854fa5e5d450fd6d5109fd7d"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/anchor_rebase.py",
+        "sha256": "529436326515379cadf40163fb831a2a79f4b2f2cb65912c192851614cb857f9"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/data/adjusted_prices.py",
+        "sha256": "1317055c59d0f1424a99063ef4093462868291a1e9d2849182611aef320e4e1c"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/technical/price_metrics.py",
+        "sha256": "e6caec7832d10e597584f6c57b0eecca45dd4cd479fceb2ea401dfe7263e84d0"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/decision_core.py",
+        "sha256": "33b5370a29806b5d27e8fd4ecd301e88e927abe0775a19869eb0ba2b3d3af610"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/decision_config.py",
+        "sha256": "0b7d2023ea0332a906a94b22b4084f9625c9afe59b4d9bf9edcfd4a2580f08e8"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/backtest/anchor_revision/events.py",
+        "sha256": "a3fa0f7346014b8ebfd27e37dcf872a72b9e6c279f416c5696f501bbc46656f3"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/backtest/anchor_revision/overlay_engine.py",
+        "sha256": "ae8120395717787bc1d7074f2c1743487688c717df5536095817ad015416d8ac"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/backtest/execution/position_sizer.py",
+        "sha256": "fc3559594d97aeffacf4aab9a4a297d39e3728c083d97fe3ecb2e14608eaa2c9"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/backtest/execution/trading_executor.py",
+        "sha256": "bc62e5a63d0f39328f51c8b8c6d56c0e56380aaf090caeb606f9aa1ea5c67c65"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/sell_agent/config.py",
+        "sha256": "04793617be2a49b8c754e0e3bfe2ab723bab87cf43b0360e476fe2540d8c2a3e"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/sell_agent/discipline_checker.py",
+        "sha256": "0d344fb814220e2c17605699f70204dc1dfc20f551d17204ce4b5de22b55b447"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/decision/sell_agent/price_map_locator.py",
+        "sha256": "8496d33ca69420b3e08e1817d70da4cfd2dfced47e445ae558aa4ae0533cd1c0"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/src/analysis/model_evaluator.py",
+        "sha256": "63ab64952209252b0c9feb700b3e3402dbd2ea6f7f2e2ccb4d31bbd570e7a0ab"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/.agents/skills/ai-investment-write-trading-decision/SKILL.md",
+        "sha256": "c4d68ed69f3b830dc943d1a794f29a074e4be55b412b5b7ec3bbf3e0b042c1ae"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/docs/contracts/decision_pipeline_invariants.md",
+        "sha256": "8119334c7ef8407d10d5f40fa5967a9b238683f996f8a457e076dd3274ae590a"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/docs/contracts/system_boundaries.md",
+        "sha256": "468bbd7fd95dc41d5f9cf8a5b8a2f4a43dacc5ecf1707235cf22f578cc300b83"
+      },
+      {
+        "path": "/Users/xinquanzhou/Workspace/ai_investment/docs/playbooks/review_changes.md",
+        "sha256": "490c67a0aadbe887dd7f10463ff1c7796e8d09baeeee4765807247edf76dff9c"
+      }
+    ]
+  },
+  "validation": {
+    "kind": "read_only_dependency_and_design_review",
+    "planned_file_paths_checked": 53,
+    "code_tests_run": false,
+    "backtests_run": false,
+    "external_api_verification": false,
+    "production_writes": false
+  },
+  "review_corrections": [
+    "P2 stricter evidence affects add scope only unless independent entry blocker",
+    "mode consistency applies to both entry and add",
+    "complete condition table is not limited to 10 monitoring items",
+    "60/40 refers to capped plan budget, not repeatable batches",
+    "global freezes cover entry and add; only-add does not freeze mode",
+    "monitoring linking applies only to control-related entries",
+    "old prepared runs must route both frozen prompt and legacy delivery/writer",
+    "verified restrictive control may publish without a valid new quote",
+    "cross-run restrictions require explicit evidence to release",
+    "three-zone strategy candidate and retained sell-side CLEAR possibility made explicit",
+    "rollback preserves newly confirmed risk restrictions"
+  ],
+  "remaining_external_dependencies": [
+    "Coze sell/candidate remote prompt compatibility",
+    "actual deployed strategy and stop-loss configuration"
+  ]
+}

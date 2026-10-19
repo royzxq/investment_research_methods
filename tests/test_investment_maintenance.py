@@ -334,6 +334,56 @@ class MaintenanceTests(unittest.TestCase):
                 maintenance.validate_handoff(record, self.root)
                 self.assertEqual(price.read_bytes(), original)
 
+    def complete_v4_record(self):
+        from scripts import research_consistency as checks
+        from research_audit_fixture import audit_for
+        record = self.complete_record()
+        completion = record['reviews'][0]['completion']
+        price = self.root / completion['price_map']['path']
+        report = self.root / completion['report']['path']
+        document = json.loads(price.read_text())
+        document['meta']['schema_version'] = 'stock-research/v4'
+        document['price_map'].pop('p2')
+        document['price_map'].pop('t2')
+        document['price_map']['t1'] = dict(price_condition='本轮不提供T1报价')
+        document['research_controls'] = dict(entry=dict(status='blocked', refs=['offline_gate']),
+                                             add=dict(status='blocked', refs=['offline_gate']),
+                                             holding=dict(status='normal', refs=[]))
+        document['monitoring'][0].update(id='evidence', kind='general', state='watching')
+        audit = audit_for(document)
+        audit['valuation'] = dict(kind='unavailable', reason='offline evidence unavailable')
+        report.write_text(report.read_text() + '\n' + checks.render_report_block(audit, document))
+        price.write_text(json.dumps(document))
+        for key, path in (('report', report), ('price_map', price)):
+            completion[key] = maintenance.file_ref(self.root, path, as_of='2026-10-11')
+        return record
+
+    def test_company_completion_v4_requires_complete_valid_audit_and_visible_view(self):
+        from scripts import research_consistency as checks
+        for mistake in ('missing', 'legacy_audit', 'wrong_controls', 'visible_view'):
+            with self.subTest(mistake=mistake):
+                record = self.complete_v4_record()
+                completion = record['reviews'][0]['completion']
+                report = self.root / completion['report']['path']
+                text = report.read_text()
+                if mistake == 'missing':
+                    text = text[:text.index(checks.START)]
+                elif mistake == 'legacy_audit':
+                    text = text.replace('stock-research-audit/v2', 'stock-research-audit/v1')
+                elif mistake == 'wrong_controls':
+                    text = text.replace('"status": "blocking"', '"status": "unknown"')
+                else:
+                    text = text.replace('| entry | blocked |', '| entry | eligible |')
+                report.write_text(text)
+                completion['report'] = maintenance.file_ref(self.root, report, as_of='2026-10-11')
+                with self.assertRaisesRegex(ValueError, 'audit|contract mismatch|control summary|calculation view'):
+                    maintenance.validate_handoff(record, self.root)
+        record = self.complete_v4_record()
+        report = self.root / record['reviews'][0]['completion']['report']['path']
+        original = report.read_bytes()
+        maintenance.validate_handoff(record, self.root)
+        self.assertEqual(report.read_bytes(), original)
+
     def test_completion_rejects_meta_only_wrong_identity_and_invisible_sections(self):
         for mistake in ('meta_only', 'wrong_code', 'wrong_generator', 'commented', 'empty_sections'):
             with self.subTest(mistake=mistake):

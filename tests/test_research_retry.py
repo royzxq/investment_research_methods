@@ -53,6 +53,8 @@ FAKE_CLI = _fixture.FAKE_CLI.replace(
 ).replace(
     "(staged/price).write_text(json.dumps(doc))",
     "if mode in ('frozen','rejected'):\n doc['price_map'].update(mode=mode,p1=None)\n"
+    " if doc['meta']['schema_version']=='stock-research/v4':\n"
+    "  for scope in ('entry','add'): doc['research_controls'][scope]=dict(status='blocked',refs=['offline_gate'])\n"
     "(staged/price).write_text(json.dumps(doc))"
 )
 

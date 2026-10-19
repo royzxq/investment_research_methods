@@ -1,4 +1,4 @@
-"""Export report quotes as stock-research/v3; read historical v2 documents.
+"""Export stock-research/v4 P1/T1 quotes; read immutable historical v2/v3 documents.
 
 P1/P2 are explicit report quotes, never derived from V50 during export.
 This checks units, precision and states, not report semantics or Gate decisions.
@@ -14,8 +14,9 @@ import re
 import sys
 
 
-SCHEMA = "stock-research/v3"
-SUPPORTED_SCHEMAS = {"stock-research/v2", SCHEMA}
+SCHEMA = "stock-research/v4"
+LEGACY_SCHEMA = "stock-research/v3"
+SUPPORTED_SCHEMAS = {"stock-research/v2", LEGACY_SCHEMA, SCHEMA}
 RANGE_KEYS = {"low", "base", "high"}
 PRICED_MODES = {"buy_candidate", "tracking", "observation"}
 MODES = PRICED_MODES | {"frozen", "rejected", "unavailable"}
@@ -81,7 +82,7 @@ def p1_quotes(value):
     return result
 
 
-def validate_meta(meta, exported=False):
+def validate_meta(meta, exported=False, schema=SCHEMA):
     fields(meta, META_KEYS | ({"schema_version"} if exported else set()), "meta",
            optional={"generator"} if exported else {"schema_version", "generator"})
     if "generator" in meta:
@@ -94,16 +95,22 @@ def validate_meta(meta, exported=False):
     iso_date(meta["valuation_date"], "meta.valuation_date")
     if "schema_version" in meta:
         require(isinstance(meta["schema_version"], str)
-                and meta["schema_version"] in (SUPPORTED_SCHEMAS if exported else {SCHEMA}),
+                and meta["schema_version"] in (SUPPORTED_SCHEMAS if exported else {schema}),
                 "meta.schema_version: unsupported version")
 
 
-def validate_monitoring(items, valuation_date):
+def validate_monitoring(items, valuation_date, *, versioned=False):
     require(isinstance(items, list) and 1 <= len(items) <= 10, "monitoring: expected 1-10 items")
-    seen = set()
+    seen, ids = set(), set()
     for i, item in enumerate(items):
         label = f"monitoring[{i}]"
-        fields(item, MONITOR_KEYS, label)
+        fields(item, MONITOR_KEYS | ({'id', 'kind', 'state'} if versioned else set()), label)
+        if versioned:
+            string(item['id'], label + '.id')
+            require(isinstance(item['kind'], str) and item['kind'] in {'general', 'entry_constraint', 'add_constraint', 'thesis_invalidation', 'exit_condition'}, label + ': invalid kind')
+            require(isinstance(item['state'], str) and item['state'] in {'watching', 'triggered', 'cleared', 'unknown'}, label + ': invalid state')
+            require(item['id'] not in ids, label + ': duplicate id')
+            ids.add(item['id'])
         for k in MONITOR_KEYS - {"current", "as_of"}:
             string(item[k], f"{label}.{k}")
         name = item["variable"].strip()
@@ -179,9 +186,9 @@ def round_price(value, currency):
     return float(value.quantize(quantum(currency), rounding=ROUND_HALF_UP))
 
 
-def build_document(data):
+def build_legacy_document(data):
     fields(data, {"meta", "mode", "reason", "valuation", "p1", "p2", "t1", "t2", "monitoring"}, "input")
-    validate_meta(data["meta"])
+    validate_meta(data["meta"], schema=LEGACY_SCHEMA)
     validate_mode(data["mode"], data["reason"])
     validate_p2(data["p2"], exported=True)
     currency = data["meta"]["currency"]
@@ -189,7 +196,7 @@ def build_document(data):
         ctx.prec = 40
         v50 = per_share_values(data["valuation"], currency) if data["valuation"] is not None else None
         result = {
-            "meta": dict(data["meta"], schema_version=SCHEMA),
+            "meta": dict(data["meta"], schema_version=LEGACY_SCHEMA),
             "price_map": {
                 "mode": data["mode"], "reason": data["reason"],
                 "v50": None if v50 is None else {k: round_price(v, currency) for k, v in v50.items()},
@@ -204,7 +211,7 @@ def build_document(data):
     return result
 
 
-def validate_document(document):
+def validate_legacy_document(document):
     """Validate quotes/states; research assumptions and extraction need review."""
     fields(document, {"meta", "price_map", "monitoring"}, "document")
     validate_meta(document["meta"], exported=True)
@@ -252,6 +259,74 @@ def validate_document(document):
     validate_monitoring(document["monitoring"], document["meta"]["valuation_date"])
 
 
+def validate_controls(controls, mode):
+    fields(controls, {'entry', 'add', 'holding'}, 'research_controls')
+    for scope, row in controls.items():
+        fields(row, {'status', 'refs'}, 'research_controls.' + scope)
+        states = ({'normal', 'review_required', 'invalidated', 'exit_required', 'unknown'}
+                  if scope == 'holding' else {'eligible', 'blocked', 'unknown'})
+        require(isinstance(row['status'], str) and row['status'] in states, 'research_controls: invalid status')
+        require(isinstance(row['refs'], list), 'research_controls.refs: expected list')
+        for ref in row['refs']:
+            string(ref, 'research_controls.ref')
+        require(len(set(row['refs'])) == len(row['refs']), 'research_controls: duplicate refs')
+        if row['status'] not in {'normal', 'eligible'}:
+            require(bool(row['refs']), 'research_controls: restricted/unknown status requires refs')
+    if mode != 'buy_candidate':
+        require(all(controls[k]['status'] != 'eligible' for k in ('entry', 'add')), 'only buy_candidate can have entry/add eligible')
+    if mode in {'frozen', 'rejected', 'unavailable'}:
+        require(controls['add']['status'] != 'eligible', 'restricted mode cannot have add eligible')
+    if controls['holding']['status'] in {'invalidated', 'exit_required'}:
+        require(all(controls[k]['status'] == 'blocked' for k in ('entry', 'add')),
+                'confirmed holding invalidation/exit requires blocked entry and add')
+
+
+def build_document(data):
+    fields(data, {'meta', 'mode', 'reason', 'valuation', 'p1', 't1', 'research_controls', 'monitoring'}, 'input')
+    validate_meta(data['meta'])
+    with localcontext() as ctx:
+        ctx.prec = 40
+        values = per_share_values(data['valuation'], data['meta']['currency']) if data['valuation'] is not None else None
+        result = dict(meta=dict(data['meta'], schema_version=SCHEMA),
+                      price_map=dict(mode=data['mode'], reason=data['reason'],
+                        v50=None if values is None else {k: round_price(v, data['meta']['currency']) for k, v in values.items()},
+                        p1=deepcopy(data['p1']), t1=deepcopy(data['t1'])),
+                      research_controls=deepcopy(data['research_controls']), monitoring=deepcopy(data['monitoring']))
+    validate_document(result)
+    validate_price_references(result)
+    validate_t1_delivery(result)
+    return result
+
+
+def validate_document(document):
+    require(isinstance(document, dict) and isinstance(document.get('meta'), dict), 'document.meta: expected object')
+    if document['meta'].get('schema_version') != SCHEMA:
+        validate_legacy_document(document)
+        return
+    fields(document, {'meta', 'price_map', 'research_controls', 'monitoring'}, 'document')
+    validate_meta(document['meta'], exported=True)
+    require(document['meta'].get('generator') in ('codex', 'claude'), 'v4 requires declared generator')
+    p = document['price_map']
+    fields(p, {'mode', 'reason', 'v50', 'p1', 't1'}, 'price_map')
+    validate_mode(p['mode'], p['reason'])
+    v50 = numeric_range(p['v50'], 'v50') if p['v50'] is not None else None
+    p1 = p1_quotes(p['p1']) if p['p1'] is not None else None
+    tick = quantum(document['meta']['currency'])
+    for values in (v50, p1):
+        for value in (values or {}).values():
+            require(value % tick == 0, 'exported price exceeds currency precision')
+            require(number(float(value), 'exported price', positive=True) == value,
+                    'exported price cannot be serialized without changing quote')
+    if p['mode'] in PRICED_MODES or (p['mode'] == 'frozen' and p1 is not None):
+        require(v50 is not None and p1 is not None, 'priced mode requires v50 and p1')
+    else:
+        require(p1 is None, 'unpriced mode must not publish entry prices')
+    fields(p['t1'], {'price_condition'}, 't1')
+    string(p['t1']['price_condition'], 't1.price_condition')
+    validate_controls(document['research_controls'], p['mode'])
+    validate_monitoring(document['monitoring'], document['meta']['valuation_date'], versioned=True)
+
+
 def validate_t1_delivery(document):
     """New-delivery grammar only; never applied to historical sealed loading."""
     p = document['price_map']
@@ -289,7 +364,7 @@ def validate_price_references(document):
     # Only check literal references to a named V50 boundary. Other amounts
     # (current quotes, independent thresholds) need not equal that boundary.
     if v50 is not None:
-        for label in ("t1", "t2"):
+        for label in (("t1",) if document["meta"]["schema_version"] == SCHEMA else ("t1", "t2")):
             condition = re.sub(r"[\s*`]+", "", p[label]["price_condition"])
             for match in re.finditer(
                     r"V50(?:估值|区间|合理价值|价值)?(?:的)?(上沿|上限|高位|upper|下沿|下限|lower|中枢|基准|base)"
@@ -327,12 +402,13 @@ def json_number(value):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    build = sub.add_parser("build", help="export explicit report P1/P2 quotes; never derive or overwrite")
+    build = sub.add_parser("build", help="export explicit report P1/T1 quotes; never derive or overwrite")
     build.add_argument("--input", required=True)
     build.add_argument("--output", required=True)
+    build.add_argument("--legacy-snapshot", help="Verified frozen batch manifest requiring the v3 writer")
     build.add_argument("--generator", required=True, choices=["codex", "claude"],
                        help="Actual host producing the research, not the source of cited material")
-    check = sub.add_parser("check", help="validate v3/v2 quotes and states, not report semantics")
+    check = sub.add_parser("check", help="validate v4/v3/v2 quotes and states, not report semantics")
     check.add_argument("file")
     args = parser.parse_args(argv)
     try:
@@ -342,7 +418,15 @@ def main(argv=None):
             require(data["meta"].get("generator", args.generator) == args.generator,
                     "meta.generator conflicts with --generator")
             data["meta"]["generator"] = args.generator
-            result = build_document(data)
+            if args.legacy_snapshot:
+                try:
+                    from .research_runner import verified_legacy_writer
+                except ImportError:
+                    from research_runner import verified_legacy_writer
+                verified_legacy_writer(args.legacy_snapshot, meta=data["meta"], output=args.output)
+                result = build_legacy_document(data)
+            else:
+                result = build_document(data)
             meta = result["meta"]
             stem = f"investment-{meta['code'].split('.')[0]}-{meta['valuation_date']}"
             pattern = rf"{re.escape(stem)}-price-map-{args.generator}(-r[2-9]\d*|-r1\d+)?\.json"
@@ -354,13 +438,13 @@ def main(argv=None):
             payload = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False, default=json_number) + "\n"
             with Path(args.output).open("x", encoding="utf-8") as stream:
                 stream.write(payload)
-            print(f"Built {args.output}; report P1/P2 quotes preserved; structure/state checked, report semantics not checked")
+            print(f"Built {args.output}; report quotes preserved; structure/state checked, report semantics not checked")
         else:
             document = load_json(args.file)
             validate_document(document)
             validate_price_references(document)
             checks = 'structure/state/V50 references'
-            if document['meta']['schema_version'] == SCHEMA:
+            if document['meta']['schema_version'] in {SCHEMA, LEGACY_SCHEMA}:
                 validate_t1_delivery(document)
                 checks += '/T1 delivery'
             print(f"Valid {document['meta']['schema_version']}; {checks} checked; report extraction and research assumptions not checked")

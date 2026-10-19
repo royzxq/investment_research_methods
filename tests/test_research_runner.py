@@ -79,6 +79,16 @@ if mode=='legacy_delivery':
  doc['meta']['schema_version']='stock-research/v2'
  doc['price_map']['p1']={'low':10,'base':12,'high':15}
 if mode=='interval_delivery': doc['price_map']['p1']={'base':None,'low':10,'high':15}
+if '本批交付契约：stock-research/v4' in payload.decode() and mode!='legacy_delivery':
+ doc['meta']['schema_version']='stock-research/v4'
+ doc['price_map'].pop('p2');doc['price_map'].pop('t2');doc['price_map']['t1'].pop('events')
+ unknown=doc['price_map']['mode']!='buy_candidate'
+ doc['research_controls']={k:dict(status='unknown' if unknown else 'eligible',refs=['RESEARCH_ELIGIBILITY'] if unknown else []) for k in ('entry','add')}
+ doc['research_controls']['holding']=dict(status='normal',refs=[])
+ doc['monitoring'][0].update(id='income',kind='general',state='watching')
+if mode=='control_only' and doc['meta']['schema_version']=='stock-research/v4':
+ doc['price_map'].update(mode='unavailable',reason='quotes cannot be verified; holding exit independently confirmed',p1=None,t1=dict(price_condition='本轮不提供T1报价'))
+ doc['research_controls']=dict(entry=dict(status='blocked',refs=['offline_gate','EXIT']),add=dict(status='blocked',refs=['offline_gate','EXIT']),holding=dict(status='exit_required',refs=['EXIT']))
 receipt_price=price
 if mode=='exact_delivery_paths': price=price_file
 (staged/price).write_text(json.dumps(doc))
@@ -88,6 +98,9 @@ sys.path.insert(0,'__RESEARCH_TEST_ROOT__/tests')
 from scripts.research_consistency import render_report_block, extract_audit
 from research_audit_fixture import audit_for
 audit=audit_for(doc)
+if mode=='control_only':
+ audit['constraints'].append(dict(id='EXIT',scope=['entry','add','holding'],status='blocking',action='exit_required',reason='independent verified thesis failure',release_conditions=['new thesis review']))
+ for scope in ('entry','add','holding'): audit['release_all_of'][scope].append('EXIT')
 baseline_match=re.search(r'^研究折扣基线：(.*)$',payload.decode(),re.M)
 baseline=json.loads(baseline_match[1]) if baseline_match else None
 if baseline:
@@ -99,6 +112,9 @@ if mode=='bad_profit_chain': block=block.replace('"profit": 24,','"profit": 50,'
 if mode=='hidden_freeze':
  audit['constraints']=[dict(id='D5',effect='freeze',status='blocking',reason='offline applicable freeze',release_conditions=['rebuild and review'])]
  audit['release_all_of']=['D5']
+ if doc['meta']['schema_version']=='stock-research/v4':
+  audit['constraints'][0].update(scope=['entry','add'],action=audit['constraints'][0].pop('effect'),clearance=dict(stage='deepening',evidence=[]))
+  audit['release_all_of']=dict(entry=['D5'],add=['D5'],holding=[])
  block=block[:block.index('<!-- research-audit:start -->')]+'<!-- research-audit:start -->\n```json\n'+json.dumps(audit)+'\n```\n<!-- research-audit:end -->'
 if mode=='missing_audit': block=''
 report_file.write_text(body+'\n\n'+block)
@@ -156,6 +172,86 @@ class ResearchRunnerTests(unittest.TestCase):
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
 
+    def test_v3_frozen_snapshot_and_legacy_writer_remain_bound(self):
+        run = prepare_request(self.request_path, self.methods)
+        request, raw, packs = runner.read_request(self.request_path)
+        path = run / 'framework-snapshot/manifest.json'
+        snapshot = json.loads(path.read_text())
+        snapshot.pop('delivery_contract')
+        snapshot['research_validation'] = 'stock-research-audit/v1'
+        path.chmod(0o644); path.write_bytes(runner.encode(snapshot))
+        frameworks, _ = runner.snapshot_hashes(run)
+        originals = {}
+        for task in request['tasks']:
+            for generator in request['generators']:
+                folder = run / 'execution' / task['task_id'] / generator
+                targets = json.loads((folder / 'targets.json').read_text())
+                payload = runner.make_legacy_prompt(request, task, generator, packs[task['task_id']], self.methods,
+                    frameworks, targets, maintenance=snapshot['maintenance'], research_validation='stock-research-audit/v1')
+                (folder / 'prompt.txt').write_bytes(payload)
+                (folder / 'input.json').write_bytes(runner.encode(runner.input_record(request, raw, task, generator, payload, frameworks, targets)))
+                originals[str(folder)] = payload
+        task=request['tasks'][0]; generator=request['generators'][0]
+        targets=json.loads((run/'execution'/task['task_id']/generator/'targets.json').read_text())
+        meta=dict(code=task['code'],name=task['name'],valuation_date=request['valuation_date'],generator=generator,report_path=targets['report_path'])
+        output=runner.staging_root(self.methods,request,task,generator)/targets['price_map_path']
+        self.assertEqual(runner.verified_legacy_writer(path,meta=meta,output=output), 'stock-research/v3')
+        for bad in (dict(meta,code='600900.SH'),dict(meta,valuation_date='2026-10-07'),dict(meta,generator='coze'),dict(meta,report_path='other.md')):
+            with self.assertRaises(ValueError): runner.verified_legacy_writer(path,meta=bad,output=output)
+        with self.assertRaises(ValueError): runner.verified_legacy_writer(path,meta=meta,output=output.parent/'other.json')
+        result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        doc = json.loads((self.methods / entry['price_map']['path']).read_text())
+        self.assertEqual(doc['meta']['schema_version'], 'stock-research/v3')
+        for folder, payload in originals.items():
+            self.assertEqual((Path(folder) / 'prompt.txt').read_bytes(), payload)
+
+    def test_new_batch_refuses_legacy_writer_and_contract_removal(self):
+        run = prepare_request(self.request_path, self.methods)
+        path = run / 'framework-snapshot/manifest.json'
+        with self.assertRaisesRegex(ValueError, 'v4 batch'):
+            runner.verified_legacy_writer(path,meta={},output=self.root/'other.json')
+        snapshot = json.loads(path.read_text()); snapshot.pop('delivery_contract')
+        path.chmod(0o644); path.write_bytes(runner.encode(snapshot))
+        with self.assertRaises(ValueError):
+            runner.verify_prepared(run, (run / 'request.json').read_bytes(), self.methods)
+
+    def test_v4_isolation_preserves_prices_and_blocks_both_exposure_scopes(self):
+        os.environ['MOCK_MODE'] = 'framework_changes'
+        entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        doc = json.loads((self.methods / entry['price_map']['path']).read_text())
+        self.assertNotIn('p2', doc['price_map'])
+        self.assertEqual(doc['price_map']['p1'], {'base': 12})
+        for scope in ('entry', 'add'):
+            self.assertEqual(doc['research_controls'][scope]['status'], 'blocked')
+            self.assertIn('METHOD_COMPATIBILITY', doc['research_controls'][scope]['refs'])
+        self.assertEqual(doc['research_controls']['holding']['status'], 'normal')
+
+    def test_valid_control_only_delivery_is_audited_completed_and_sealed(self):
+        from scripts import research_scheduler, research_coze
+        self.request['generators'] = ['claude']
+        self.request['tasks'][0]['data_pack_meta']['research_trigger'] = dict(event_key='control-only-fixture')
+        self.write_request(); os.environ['MOCK_MODE'] = 'control_only'
+        result_path = self.execute()
+        entry = json.loads(result_path.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        doc = json.loads((self.methods/entry['price_map']['path']).read_text())
+        self.assertIsNone(doc['price_map']['p1'])
+        self.assertEqual(doc['price_map']['t1'], {'price_condition':'本轮不提供T1报价'})
+        self.assertEqual(doc['research_controls']['holding']['status'], 'exit_required')
+        queue = dict(task_id='SH-600066', batch_id=self.request['batch_id'], event_key='control-only-fixture',
+                     request=str(self.request_path), request_sha256=self.sha(self.request_path), budget_date='2026-10-06')
+        outcomes = dict(claude=('completed', dict(generator='claude', manifest=str(result_path.resolve().relative_to(self.methods.resolve())),
+            manifest_sha256=self.sha(result_path), actual_model='offline')))
+        research_scheduler.seal_entry(queue, self.methods/'output/research_queue', self.request, outcomes)
+        before=Path(queue['sealed']).read_bytes()
+        context=research_coze.load_base(queue['sealed'],self.methods,self.exchange)
+        self.assertEqual(context['documents']['claude']['research_controls'],doc['research_controls'])
+        research_scheduler.seal_entry(queue, self.methods/'output/research_queue', self.request, outcomes)
+        self.assertEqual(Path(queue['sealed']).read_bytes(),before)
+
     def test_new_delivery_preserves_only_reported_p1_fields(self):
         for mode, expected in [('success', {'base': 12}),
                                ('interval_delivery', {'base': None, 'low': 10, 'high': 15})]:
@@ -165,7 +261,7 @@ class ResearchRunnerTests(unittest.TestCase):
                 entry = json.loads(result.read_text())['results'][0]
                 self.assertEqual(entry['status'], 'completed', entry['reason'])
                 document = json.loads((self.methods/entry['price_map']['path']).read_text())
-                self.assertEqual(document['meta']['schema_version'], 'stock-research/v3')
+                self.assertEqual(document['meta']['schema_version'], 'stock-research/v4')
                 self.assertEqual(document['price_map']['p1'], expected)
                 # The next case is a separately authorized batch, no overwrite.
                 self.request['batch_id'] = ('b' if mode == 'success' else 'c') * 32
@@ -173,7 +269,7 @@ class ResearchRunnerTests(unittest.TestCase):
 
     def test_new_research_consistency_gate_rejects_bad_math_hidden_freeze_and_missing_audit(self):
         for index, (mode, error) in enumerate((('bad_profit_chain', 'base.profit'),
-                                                ('hidden_freeze', 'hidden as tracking'),
+                                                ('hidden_freeze', 'freeze cannot hide'),
                                                 ('missing_audit', 'audit block'))):
             with self.subTest(mode=mode):
                 self.request['batch_id'] = str(index + 1) * 32
@@ -191,7 +287,7 @@ class ResearchRunnerTests(unittest.TestCase):
         result = self.execute()
         entry = json.loads(result.read_text())['results'][0]
         self.assertEqual(entry['status'], 'failed')
-        self.assertIn('stock-research/v3', entry['reason'])
+        self.assertIn('stock-research/v4', entry['reason'])
         self.assertEqual(list((self.methods/'research').rglob('*-price-map-*.json')), [])
 
     def test_new_delivery_rejects_stale_v50_reference_before_publication(self):
@@ -1028,6 +1124,7 @@ else:
             self.assertEqual(json.loads(self.execute().read_text())['results'][0]['status'],'completed')
 
     def test_buy_candidate_with_null_reason_is_preserved_as_unadopted_revision(self):
+        self.make_legacy_prepared()  # Exercise preserved historical P2 isolation.
         self.fake.write_text(FAKE_CLI.replace("'mode':'tracking','reason':'offline fixture'",
                                             "'mode':'buy_candidate','reason':None").replace(
             "'status':'cancelled','price':None,'reason':'cancelled'",
@@ -1054,6 +1151,7 @@ else:
         self.assertEqual(original_price['p2']['status'],'active')
 
     def test_observation_active_p2_is_suspended_in_needs_review_revision(self):
+        self.make_legacy_prepared()  # Exercise preserved historical P2 isolation.
         self.fake.write_text(FAKE_CLI.replace("'mode':'tracking'","'mode':'observation'").replace(
             "'status':'cancelled','price':None,'reason':'cancelled'",
             "'status':'active','price':9,'reason':None"))
@@ -1066,6 +1164,7 @@ else:
         self.assertEqual(price['p2']['price'],9)
 
     def test_unavailable_p2_stays_without_price_in_needs_review_revision(self):
+        self.make_legacy_prepared()  # Exercise preserved historical P2 isolation.
         self.fake.write_text(FAKE_CLI.replace("'status':'cancelled','price':None,'reason':'cancelled'",
                                             "'status':'unavailable','price':None,'reason':'missing input'"))
         os.environ['MOCK_MODE']='framework_changes'

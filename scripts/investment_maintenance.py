@@ -319,18 +319,23 @@ def validate_handoff(record, root):
             try:
                 from .research_exchange import _report_sections, _validate_pair
                 from .stock_price_map import SUPPORTED_SCHEMAS, validate_price_references
+                from .research_consistency import validate_report
             except ImportError:
                 from research_exchange import _report_sections, _validate_pair
                 from stock_price_map import SUPPORTED_SCHEMAS, validate_price_references
+                from research_consistency import validate_report
             if meta.get("schema_version") not in SUPPORTED_SCHEMAS:
-                raise ValueError("Company completion requires a stock-research/v3 or v2 pair")
+                raise ValueError("Company completion requires a stock-research/v4, v3 or v2 pair")
             market, code = review["company"].split("-")
             pair = {key: {field: value[field] for field in ("path", "sha256")} for key, value in completion.items()}
             pair["generator"] = meta.get("generator")
             _validate_pair(pair, {"code": f"{code}.{market}", "name": meta.get("name")},
                            {"valuation_date": meta.get("valuation_date")}, Path(root))
             validate_price_references(document)
-            report_input = _report_sections(_check_ref(root, completion["report"]))[0]
+            report_raw = _check_ref(root, completion["report"])
+            if meta["schema_version"] == "stock-research/v4":
+                validate_report(report_raw.decode("utf-8"), document, root=Path(root))
+            report_input = _report_sections(report_raw)[0]
             if any(ref["sha256"] not in report_input for ref in review.get("methods", {}).values()):
                 raise ValueError("Company report method provenance differs from review methods")
             valuation_date = _date(meta["valuation_date"])

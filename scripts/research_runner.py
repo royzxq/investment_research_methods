@@ -50,6 +50,48 @@ ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
 FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
 SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'
+NEW_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
+
+
+def delivery_contract(snapshot):
+    contract = snapshot.get('delivery_contract')
+    if contract is None:
+        if snapshot.get('research_validation') not in (None, research_consistency.LEGACY_SCHEMA):
+            raise ValueError('new audit requires a frozen delivery contract')
+        return dict(price_schema='stock-research/v3', audit_schema=snapshot.get('research_validation'), prompt_template='report-quotes/v3')
+    if contract != NEW_CONTRACT or snapshot.get('research_validation') != NEW_CONTRACT['audit_schema']:
+        raise ValueError('unsupported frozen delivery contract')
+    return dict(contract)
+
+
+def verified_legacy_writer(manifest, *, meta, output):
+    path = Path(manifest).resolve(strict=True)
+    if path.name != 'manifest.json' or path.parent.name != 'framework-snapshot':
+        raise ValueError('legacy writer requires a frozen batch manifest')
+    run = path.parent.parent
+    if len(run.parents) < 5:
+        raise ValueError('legacy writer requires the complete frozen batch location')
+    root = run.parents[4]
+    request_raw = (run / 'request.json').read_bytes()
+    _, snapshot = snapshot_hashes(run)
+    if delivery_contract(snapshot)['price_schema'] != 'stock-research/v3':
+        raise ValueError('v4 batch cannot request the legacy writer')
+    request, _, _, verified = verify_prepared(run, request_raw, root)
+    if not isinstance(meta, dict) or meta.get('valuation_date') != request['valuation_date']:
+        raise ValueError('legacy writer metadata does not match frozen valuation date')
+    task = next((item for item in request['tasks'] if item['code'] == meta.get('code')), None)
+    generator = meta.get('generator')
+    if task is None or generator not in request['generators'] or meta.get('name') != task['name']:
+        raise ValueError('legacy writer metadata does not match frozen task/provider')
+    targets = verified[(task['task_id'], generator)]['targets']
+    if meta.get('report_path') != targets['report_path']:
+        raise ValueError('legacy writer report path does not match frozen target')
+    permitted = {owned_path(root, staging_root(root, request, task, generator, attempt) / targets['price_map_path']).resolve()
+                 for attempt in (1, 2)}
+    if Path(output).resolve() not in permitted:
+        raise ValueError('legacy writer output must match frozen staging/retry target')
+    return 'stock-research/v3'
+
 
 
 def sha(raw):
@@ -138,7 +180,7 @@ def framework_bytes(root):
     return contents
 
 
-def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
+def make_legacy_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
                 *, snapshot=True, maintenance=None, research_validation=None, research_baseline=None):
     day, task_id = request['valuation_date'], task['task_id']
     staged = staging_root(root, request, task, generator, attempt)
@@ -198,6 +240,32 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
     if len(payload) > MAX_INPUT_BYTES:
         raise ValueError('complete research input exceeds CLI stdin limit; no truncation allowed')
     return payload
+
+
+def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
+                *, snapshot=True, maintenance=None, research_validation=None, research_baseline=None,
+                delivery=None):
+    contract = NEW_CONTRACT if delivery is None else delivery
+    payload = make_legacy_prompt(request, task, generator, pack, root, frameworks, targets, attempt,
+        snapshot=snapshot, maintenance=maintenance, research_validation=research_validation,
+        research_baseline=research_baseline)
+    if contract['price_schema'] == 'stock-research/v3':
+        return payload  # Exact historical bytes, including original wording.
+    text = payload.decode('utf-8')
+    prefix, pack_text = text.split('<research_data_pack>\n', 1)
+    prefix = prefix.replace('stock-research/v3', 'stock-research/v4').replace('stock-research-audit/v1', 'stock-research-audit/v2')
+    prefix = prefix.replace('最终轻量JSON仍用v3，仅忠实提取明确报价，审计不自动改价。', '最终JSON用v4；审计v2按entry/add/holding分别核验约束，不能用加仓限制冻结首笔。')
+    prefix = prefix.replace('取消P2保持null和原因，不补旧价或派生价。', '不交付P2/T2；新增、加仓及持仓条件独立保留，不派生替代价。')
+    prefix = prefix.replace('本轮最终P1/P2', '本轮最终P1/T1').replace('P1/P2均显式输入', 'P1/T1均显式输入').replace('或代算缺失P2', '')
+    prefix += ('本批交付契约：stock-research/v4 + stock-research-audit/v2。price_map仅mode/reason/v50/p1/t1，'
+               't1只有price_condition；全部适用事件保留报告完整条件表，重点项进入monitoring。research_controls含entry/add/holding各自status及refs；'
+               'entry/add=eligible|blocked|unknown，holding=normal|review_required|invalidated|exit_required|unknown。'
+               'monitoring增加id/kind/state；控制refs绑定报告audit，scope分entry/add/holding，全部解除按scope合取；'
+               '未知不允许新增，复评不等于失效或成交。新build默认v4，不可借旧writer绕过。\n\n')
+    result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
+    if len(result) > MAX_INPUT_BYTES:
+        raise ValueError('complete research input exceeds CLI stdin limit; no truncation allowed')
+    return result
 
 
 def receipt_schema(request, task, generator, targets):
@@ -315,7 +383,7 @@ def freeze_maintenance(run, root, as_of):
 
 
 def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, research_validation=None,
-                             research_request=None):
+                             research_request=None, delivery=None):
     folder = run / 'framework-snapshot'
     if folder.exists():
         raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
@@ -329,6 +397,8 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
                     frameworks={name: dict(path=name, sha256=sha(raw))
                                 for name, raw in contents.items()},
                     legacy_inputs=legacy_inputs, maintenance=maintenance)
+    if delivery is not None:
+        document['delivery_contract'] = dict(delivery)
     if research_validation is not None:
         document['research_validation'] = research_validation
         baselines = {}
@@ -406,7 +476,7 @@ def migrate_legacy_prepared(run, request, raw, packs, root):
     snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'], legacy_inputs=legacy)
     for task, generator, targets in prepared:
         prompt = make_prompt(request, task, generator, packs[task['task_id']], root, frameworks,
-                             targets, maintenance=snapshot['maintenance'])
+                             targets, maintenance=snapshot['maintenance'], delivery=delivery_contract(snapshot))
         folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
         write_new(folder / 'prompt.txt', prompt)
         write_new(folder / 'input.json', encode(input_record(request, raw, task, generator, prompt, frameworks, targets)))
@@ -420,7 +490,8 @@ def snapshot_hashes(run):
             or document.get('origin') not in ('prepared', 'legacy_exact_hash_migration')):
         raise ValueError('framework snapshot manifest mismatch')
     frameworks = {}
-    if document.get('research_validation') not in (None, research_consistency.SCHEMA):
+    delivery_contract(document)
+    if document.get('research_validation') not in (None, *research_consistency.SUPPORTED_SCHEMAS):
         raise ValueError('unsupported prepared research validation contract')
     if document.get('research_validation'):
         if not isinstance(document.get('research_baselines'), dict):
@@ -485,7 +556,7 @@ def verify_prepared(run, original_raw, root):
                 input_folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
             prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                                  frameworks, targets, maintenance=snapshot.get('maintenance'),
-                                 research_validation=snapshot.get('research_validation'), research_baseline=baseline)
+                                 research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot))
             if (input_folder / 'prompt.txt').read_bytes() != prompt:
                 raise ValueError(f"prepared prompt mismatch: {task['task_id']} {generator}")
             record = _strict_json((input_folder / 'input.json').read_bytes(), 'input record')
@@ -497,7 +568,7 @@ def verify_prepared(run, original_raw, root):
                                                          targets=targets, input_folder=input_folder,
                                                          maintenance=snapshot.get('maintenance'),
                                                          research_validation=snapshot.get('research_validation'),
-                                                         research_baseline=baseline)
+                                                         research_baseline=baseline, delivery=delivery_contract(snapshot))
     return request, raw, packs, verified
 
 
@@ -517,7 +588,7 @@ def prepare_request(request_path, root=ROOT):
             prepared.append((task, generator, targets))
     run.mkdir(parents=True, exist_ok=False)
     snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'],
-                                        research_validation=research_consistency.SCHEMA, research_request=request)
+                                        research_validation=research_consistency.SCHEMA, research_request=request, delivery=NEW_CONTRACT)
     for task in request['tasks']:
         write_new(run / task['data_pack']['path'], packs[task['task_id']])
     for task, generator, targets in prepared:
@@ -527,7 +598,7 @@ def prepare_request(request_path, root=ROOT):
                             sha256=baseline['sha256'])
         prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                              frameworks, targets, maintenance=snapshot.get('maintenance'),
-                             research_validation=snapshot.get('research_validation'), research_baseline=baseline)
+                             research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot))
         folder = run / 'execution' / task['task_id'] / generator
         write_new(folder / 'prompt.txt', prompt)
         write_new(folder / 'targets.json', encode(targets))
@@ -593,10 +664,13 @@ def command(cli, generator, folder, root):
             staged /= 'retry-1'
         report = owned_path(staged, targets['report_path'])
         price = owned_path(staged, targets['price_map_path'])
+        manifest_path = first.parents[2] / 'framework-snapshot/manifest.json'
+        snapshot = _strict_json(manifest_path.read_bytes(), 'delivery snapshot')
+        legacy_option = f' --legacy-snapshot {manifest_path}' if delivery_contract(snapshot)['price_schema'] == 'stock-research/v3' else ''
         delivery = (f'本次暂存报告绝对路径：{report}\n'
                     f'本次暂存价格JSON绝对路径：{price}\n'
                     f'先建立公司目录 {price.parent}；报告写上述报告路径；'
-                    f'stock_price_map.py build --output {price} --generator {generator}。'
+                    f'stock_price_map.py build --output {price} --generator {generator}{legacy_option}。'
                     '--output 是完整文件路径，不是暂存根目录，不得平铺文件。'
                     'meta.report_path及回执继续填写冻结输入中的最终相对路径。')
         return [cli, '-p', '--permission-mode', 'auto', '--permission-prompts', 'none',
@@ -770,18 +844,27 @@ def isolate_pair(entry, staged, root, request, task, generator, compatibility):
     price['meta']['report_path'] = targets['report_path']
     price['price_map']['reason'] = ((price['price_map']['reason'] or '研究判断基于冻结框架') + '；方法接续待复核 needs_review，'
                                   '仅供按冻结框架复核，不代表当前买入资格。')
-    compatibility['original_price_state'] = dict(mode=price['price_map']['mode'],
-                                                p2=dict(price['price_map']['p2']))
-    if price['price_map']['mode'] in {'buy_candidate', 'tracking', 'observation'}:
-        price['price_map']['mode'] = 'frozen'
-        if price['price_map']['p2']['status'] == 'active':
-            price['price_map']['p2']['status'] = 'suspended'
-            price['price_map']['p2']['reason'] = ('方法接续待复核 needs_review；保留原观察价位，'
-                                                '不具备当前买入许可。')
-        elif price['price_map']['p2']['status'] == 'unavailable':
-            original_reason = price['price_map']['p2']['reason']
-            price['price_map']['p2'].update(status='cancelled', price=None,
-                reason='方法接续待复核 needs_review；原P2不可算，未生成观察价位：' + original_reason)
+    if price['meta']['schema_version'] == SCHEMA:
+        compatibility['original_price_state'] = dict(mode=price['price_map']['mode'], research_controls=price['research_controls'])
+        price['research_controls'] = json.loads(json.dumps(price['research_controls']))
+        for scope in ('entry', 'add'):
+            price['research_controls'][scope]['status'] = 'blocked'
+            price['research_controls'][scope]['refs'].append('METHOD_COMPATIBILITY')
+        if price['price_map']['mode'] in {'buy_candidate', 'tracking', 'observation'}:
+            price['price_map']['mode'] = 'frozen'
+    else:
+        compatibility['original_price_state'] = dict(mode=price['price_map']['mode'],
+                                                    p2=dict(price['price_map']['p2']))
+        if price['price_map']['mode'] in {'buy_candidate', 'tracking', 'observation'}:
+            price['price_map']['mode'] = 'frozen'
+            if price['price_map']['p2']['status'] == 'active':
+                price['price_map']['p2']['status'] = 'suspended'
+                price['price_map']['p2']['reason'] = ('方法接续待复核 needs_review；保留原观察价位，'
+                                                    '不具备当前买入许可。')
+            elif price['price_map']['p2']['status'] == 'unavailable':
+                original_reason = price['price_map']['p2']['reason']
+                price['price_map']['p2'].update(status='cancelled', price=None,
+                    reason='方法接续待复核 needs_review；原P2不可算，未生成观察价位：' + original_reason)
     if research_consistency.START in report_text:
         report_text = research_consistency.isolate_report(report_text, price, root=root)
     report_raw = (note.lstrip() + report_text).encode('utf-8')
@@ -925,7 +1008,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                                       root, frozen['frameworks'], targets, attempt,
                                       maintenance=frozen['maintenance'],
                                       research_validation=frozen['research_validation'],
-                                      research_baseline=frozen['research_baseline'])
+                                      research_baseline=frozen['research_baseline'], delivery=frozen['delivery'])
                 first = execution_folder(run, task, generator)
                 prior_path = owned_path(root, first/'entry.json')
                 if prior_path.is_symlink():
@@ -973,6 +1056,12 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             original_payload = payload
             process.update(research_jev.prepare(folder, root, task_id=task['task_id'],
                            day=request['valuation_date'], generator=generator, mode=jev_mode))
+            if frozen['delivery']['price_schema'] == 'stock-research/v3':
+                payload += (f'\n冻结旧批次交付例外（优先于当前skill的v4要求）：本批保持v3及冻结audit协议；'
+                    '读取 .agents/skills/stock-research/references/legacy-v3-output.md 与legacy-audit-v1.md。'
+                    f"本批audit门禁：{frozen['delivery']['audit_schema'] or '原合同无强制审计，不追溯添加'}。"
+                    f'build必须加 --legacy-snapshot {run / "framework-snapshot/manifest.json"}；'
+                    '不改原始prompt/input/hash，不将本批升级为v4。\n').encode('utf-8')
             payload += research_jev.instructions(folder).encode('utf-8')
             if len(payload) > MAX_INPUT_BYTES:
                 raise ValueError('complete research input plus Jev routing exceeds CLI stdin limit')
@@ -1018,8 +1107,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             if entry['status'] == 'completed':
                 _, price_raw = _artifact(entry['price_map'], staged, 'price map')
                 document = _strict_json(price_raw, 'price map')
-                if document['meta']['schema_version'] != SCHEMA:
-                    raise ValueError(f'new delivery requires {SCHEMA}; extract report P1/P2 quotes')
+                if document['meta']['schema_version'] != frozen['delivery']['price_schema']:
+                    raise ValueError(f"new delivery requires {frozen['delivery']['price_schema']}; preserve report quotes")
                 validate_price_references(document)
                 validate_t1_delivery(document)
                 if frozen['research_validation']:

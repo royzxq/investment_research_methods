@@ -1,5 +1,7 @@
 # investment_research_methods
 
+**两价本地采纳（2026-10-18）**：依用户授权将核心报价收敛为 P1/T1，新研究使用 v4/audit-v2，独立保留加仓、逻辑失效及退出条件；旧历史/冻结批次按原协议读取。已完成回测和本地部署验证，不要求前瞻影子期，未推送远端。
+
 研究输出按领域与日期整理，入口见 [研究导航与输出契约](research/README.md)及[报告索引](research/INDEX.md)。正式成果留在 `research/`，缓存、中间文件和可重建索引留在被忽略的 `output/`。
 
 股票、期货、主题 ETF 三条研究轨道的共享仓库。后续工作使用 Codex；原有方法、脚本和日期报告继续原位维护。项目约定见 [AGENTS.md](AGENTS.md)，当前版本、待办与历史边界见 [项目状态](docs/context/project-state.md)。
@@ -10,7 +12,7 @@
 
 | 入口 | 示例 | 流程与交付 |
 |---|---|---|
-| [stock-research](.agents/skills/stock-research/SKILL.md) | “使用进行股票投研：600066.SH 宇通客车”；“给 01952.HK 做价格地图” | 自动取证 → 框架判断 → 参数论证与数值校验；完整报告 + 仅含价格地图和监控变量的 v2 JSON |
+| [stock-research](.agents/skills/stock-research/SKILL.md) | “使用进行股票投研：600066.SH 宇通客车”；“给 01952.HK 做价格地图” | 自动取证 → 框架判断 → 参数论证与数值校验；完整报告 + P1/T1、研究控制与重点监控的 v4 JSON（已本地采纳） |
 | [deep-research-auto](.agents/skills/deep-research-auto/SKILL.md) | “深度调研这个问题”，或由个股技能调用 | 多代理取证 → 关键冲突裁决 → 定向补研 → 可追溯报告与笔记 |
 | [investment-weekly-review](.agents/skills/investment-weekly-review/SKILL.md) | “执行股票完整周更”；“仅比较指定的新旧股票研究报告” | 元研究 → 变化检测 → 条件适配 → 保真精简；报告带 `investment-` 前缀 |
 | [futures-weekly-review](.agents/skills/futures-weekly-review/SKILL.md) | “执行期货完整周更”；“仅同步本次适配的数据脚本” | 元研究 → 变化检测与每期审计 → 条件适配 → 脚本同步 → 诊断重评 → 保真精简；日期报告无前缀 |
@@ -24,7 +26,7 @@
 ## 方法与证据
 
 - **期货**：[canonical](framework/futures_framework.md) 与 [compact](framework/futures_framework_compact.md) 当前 v3.0，仅顺势与有经济依据的回归两类，优先豆粕、螺纹；取消加权评分，以 G1–G6 核验信号、计划和核心风控。[数据协议](framework/FUTURES_DATA_PROTOCOL.md) v3.0 默认 `public_data`，研究先成案、账户后核；旧模型工具仅作历史复现，新参数尚未完成收益验证。
-- **股票**：[canonical](framework/investment_framework.md) 是逐股研究的参数化模板，[compact](framework/investment_framework_compact.md) 保真同步。周更分状态刷新、证据纠错和方法变更；[维护工具](scripts/investment_maintenance.py) 用明确采纳的报告/方法快照接续，不以待审 PR 代替有效方法。个股批次冻结实际输入；临时市场冻结可继续可靠估值与观察价位，买入资格仍受限。固定估值参数、公式与七天自动研究冷却期保留。空基线可建立本期状态，单阶段边界仍有效；本期元研究始终必传。框架提到的 `stock_data_pack.py` 尚未在本仓及关联 `ai_investment` 找到。
+- **股票**：[canonical](framework/investment_framework.md) 是逐股研究的参数化模板，[compact](framework/investment_framework_compact.md) 保真同步。周更分状态刷新、证据纠错和方法变更；[维护工具](scripts/investment_maintenance.py) 用明确采纳的报告/方法快照接续，不以待审 PR 代替有效方法。个股批次冻结实际输入；临时市场冻结可继续可靠估值与观察价位，买入资格仍受限。本地已采纳方法只保留P1/T1，独立加仓/逻辑失效/退出，原P1估值式、首笔/预留60/40及七天自动研究冷却期保留；历史采纳记录不回写。空基线可建立本期状态，单阶段边界仍有效；本期元研究始终必传。框架提到的 `stock_data_pack.py` 尚未在本仓及关联 `ai_investment` 找到。
 - **ETF**：[canonical](framework/etf_framework.md) 当前 v2.1，在八个主题研究池中回答未来两个月定投哪 2–3 个主题，以及持有主题的目标权重和处理。未提供持仓时只给主题名单；宽基 50% 与红利低波 20% 是用户长期安排，本仓不研究。只交付研究结论，执行由用户处理。
 
 canonical 是方法、参数及歧义裁决的权威；compact 必须保真同步。框架只局部更新受影响条目，规则与动态状态分区维护，历史保留在 Git 与日期报告。适配报告链接完整文件，不粘贴框架全文。
@@ -43,7 +45,7 @@ canonical 是方法、参数及歧义裁决的权威；compact 必须保真同�
 ETF 研究池可由技能读取 `ETF_POOL_CSV` 并转为 `--pool-csv`；脚本自身不读取这个环境变量。不默认覆盖同日快照。联网、账户权限和字段可用性以实际调用验收，不能将离线测试或 Token 存在当作线上验证。
 
 - [future_data.py](scripts/future_data.py) 当前 v1.16，负责取数、研究候选和情景预检。`POSITIONS` 为空不证明账户空仓；2ATR 数量与月差分位不等于最终手数或交易许可。
-- [stock_price_map.py](scripts/stock_price_map.py) 负责个股价格地图 `stock-research/v3` 报价导出并兼容读取 v2：`build --generator codex --input <报价提取输入> --output <新JSON>` / `check <JSON>`。P1/P2 忠实提取报告，不从 V50 重算、不补 P1 上下沿；V50 仍支持币种/股本换算。校验不证明报价提取语义或估值合理性，完整论证留在报告。
+- [stock_price_map.py](scripts/stock_price_map.py) 默认导出 `stock-research/v4`，兼容读取v3/v2：`build --generator codex --input <报价提取输入> --output <新JSON>` / `check <JSON>`。P1/T1忠实提取，不从V50重算P1、不补上下沿；独立entry/add/holding控制与报告audit-v2核对。旧冻结批次只经已验证的`--legacy-snapshot <manifest>`使用v3 writer。V50单位/股本换算保留；校验不证明来源或估值合理性。
 - [price_evidence.py](scripts/price_evidence.py) 区分 settle/close、SC 结算周涨和固定合约对的同期样本。周涨以最新完成行情日减七个自然日；不使用收盘替代结算护栏。快照还准备合约对研究 CSV 与 `output/cache/futures/spread_research_<AS_OF>.json`，不自动替换当前合约或授予许可。
 - [futures_risk.py](scripts/futures_risk.py) 提供离线 A 计划校验与风险容量计算：`validate-a --input plan.json` / `size --input sizing.json`。A 校验仅支持 MA/RB/SR 同品种 1:1 月差，必填 `price_unit="CNY/tonne"`，Entry/SL/TP 为绝对价差。单位不兼容不换算，缺实际账户、止损或容量保留 `null`。低敞口上限按用户配置取 `min(净值×3.5%, 5000元)`，含持仓与挂单风险，常规和当前上限分列。
 - [执行审计模板](projects/future_change_analysis/EXECUTION_AUDIT_TEMPLATE.md) 是每期诊断唯一口径。无论框架是否更新都生成执行审计；[validate_futures_audit.py](scripts/validate_futures_audit.py) 校验 schema 3（schema 2 仅兼容历史），不验证来源真伪、收益或交易许可。

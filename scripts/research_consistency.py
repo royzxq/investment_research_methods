@@ -18,7 +18,9 @@ try:
 except ImportError:
     from stock_price_map import fields, json_number, load_json, number, require, string, validate_document
 
-SCHEMA = 'stock-research-audit/v1'
+SCHEMA = 'stock-research-audit/v2'
+LEGACY_SCHEMA = 'stock-research-audit/v1'
+SUPPORTED_SCHEMAS = {LEGACY_SCHEMA, SCHEMA}
 DISCOUNTS = ('d_base', 'r_chip', 'r_v5', 'r_gov', 'r_terminal')
 SCENARIOS = ('low', 'base', 'high')
 START, END = '<!-- research-audit:start -->', '<!-- research-audit:end -->'
@@ -135,7 +137,8 @@ def validate_audit(audit, document, *, root=None):
     require(document['meta'].get('generator') in ('codex', 'claude'), 'research audit requires declared generator')
     fields(audit, {'schema_version', 'identity', 'valuation', 'discounts', 'risks',
                    'constraints', 'release_all_of', 'baseline', 'p1_basis'}, 'research audit')
-    require(audit['schema_version'] == SCHEMA, 'research audit schema mismatch')
+    require(audit['schema_version'] in SUPPORTED_SCHEMAS, 'research audit schema mismatch')
+    require((document['meta']['schema_version'] == 'stock-research/v4') == (audit['schema_version'] == SCHEMA), 'price/audit contract mismatch')
     fields(audit['identity'], {'code', 'generator', 'valuation_date', 'currency'}, 'audit identity')
     for key, value in audit['identity'].items():
         require(value == document['meta'][key], 'research audit identity mismatch: ' + key)
@@ -249,6 +252,11 @@ def validate_audit(audit, document, *, root=None):
         require(quote_round(values[scenario] * factor, document['meta']['currency']) == number(pm['p1'][quote], 'P1'),
                 'research audit P1 formula disagrees with explicit report quote: ' + quote)
 
+    if audit['schema_version'] == SCHEMA:
+        unresolved = validate_scoped_controls(audit, document, root=root)
+        return {'schema_version': SCHEMA, 'status': 'passed', 'discount_factor': float(factor),
+                'unresolved_constraints': unresolved,
+                'scope': 'declared calculations, typed controls and state consistency; not economic truth or execution'}
     require(isinstance(audit['constraints'], list), 'constraints: expected list')
     unresolved, ids, effects = set(), set(), set()
     for constraint in audit['constraints']:
@@ -299,9 +307,143 @@ def validate_audit(audit, document, *, root=None):
         require('reject' in effects, 'rejected mode requires a confirmed rejection constraint')
     if pm['mode'] == 'unavailable':
         require('unavailable' in effects, 'unavailable mode requires an explicit core-input constraint')
-    return {'schema_version': SCHEMA, 'status': 'passed', 'discount_factor': float(factor),
+    return {'schema_version': LEGACY_SCHEMA, 'status': 'passed', 'discount_factor': float(factor),
             'unresolved_constraints': sorted(unresolved),
             'scope': 'declared calculations, risk ownership and state consistency; not source truth or economic validity'}
+
+
+def preserves_active_action(previous, current):
+    """Compare only declared conservative transitions, not an action total order.
+
+    Missing core inputs and confirmed rejection have distinct release evidence;
+    a different restriction cannot silently replace either under the same ID.
+    Legacy audit/v1 stores the same exposure action as ``effect``.
+    """
+    old_action = previous.get('action', previous.get('effect'))
+    conservative_actions = {
+        'eligibility': {'eligibility', 'freeze', 'reject', 'unavailable', 'invalidated', 'exit_required'},
+        'freeze': {'freeze', 'reject'},
+        'reject': {'reject'},
+        'unavailable': {'unavailable'},
+        'review_holding': {'review_holding', 'invalidated', 'exit_required'},
+        'invalidated': {'invalidated', 'exit_required'},
+        'exit_required': {'exit_required'},
+    }
+    if current['action'] not in conservative_actions.get(old_action, set()):
+        return False
+    if previous['status'] == 'blocking' and old_action in {'reject', 'invalidated', 'exit_required'}:
+        return current['status'] == 'blocking'
+    return True
+
+
+def validate_scoped_controls(audit, document, *, root=None):
+    """Audit is authoritative; lightweight controls are a checked projection."""
+    scopes = {'entry', 'add', 'holding'}
+    actions = {'freeze', 'eligibility', 'reject', 'unavailable', 'review_holding', 'invalidated', 'exit_required'}
+    require(isinstance(audit['constraints'], list), 'constraints: expected list')
+    rules = {}
+    unresolved = {scope: [] for scope in scopes}
+    for rule in audit['constraints']:
+        fields(rule, {'id', 'scope', 'status', 'action', 'reason', 'release_conditions'}, 'constraint', optional={'clearance'})
+        ident = string(rule['id'], 'constraint.id')
+        require(ident not in rules, 'duplicate constraint ID')
+        rules[ident] = rule
+        targets = text_list(rule['scope'], 'constraint.scope')
+        require(set(targets) <= scopes, 'invalid constraint scope')
+        status, action = rule['status'], rule['action']
+        require(isinstance(status, str) and status in {'blocking', 'unknown', 'clear', 'not_applicable'}, 'invalid constraint status')
+        require(isinstance(action, str) and action in actions, 'invalid constraint action')
+        string(rule['reason'], 'constraint.reason')
+        active = status in {'blocking', 'unknown'}
+        text_list(rule['release_conditions'], 'release_conditions', empty=not active)
+        if action in {'freeze', 'reject', 'unavailable'}:
+            require({'entry', 'add'} <= set(targets), 'global restriction must cover entry and add')
+        if action in {'review_holding', 'invalidated', 'exit_required'}:
+            require('holding' in targets, 'holding action must include holding scope')
+        if action in {'invalidated', 'exit_required'} and status == 'blocking':
+            require(scopes <= set(targets), 'confirmed invalidation/exit must block entry and add')
+        if action == 'review_holding':
+            require(set(targets) == {'holding'}, 'holding review does not silently restrict exposure')
+        if action == 'eligibility':
+            require(set(targets) <= {'entry', 'add'}, 'eligibility restriction has exposure scope')
+        if active:
+            for scope in targets:
+                unresolved[scope].append(ident)
+        clearance = rule.get('clearance')
+        if status == 'clear' or clearance is not None:
+            fields(clearance, {'evidence'}, 'clearance', optional={'stage'})
+            text_list(clearance['evidence'], 'clearance.evidence', empty=status != 'clear')
+        if ident == 'D5' and status != 'not_applicable':
+            fields(clearance, {'stage', 'evidence'}, 'D5.clearance')
+            require(clearance['stage'] in {'deepening', 'unknown', 'waiting_review', 'rebuild_pending_company_review', 'rebuild_review_complete'}, 'invalid D5 stage')
+            if status == 'clear':
+                require(clearance['stage'] == 'rebuild_review_complete' and clearance['evidence'], 'D5 waiting is not full clearance')
+            else:
+                require(clearance['stage'] != 'rebuild_review_complete', 'D5 clearance contradicts unresolved status')
+    fields(audit['release_all_of'], scopes, 'release_all_of')
+    for scope in scopes:
+        text_list(audit['release_all_of'][scope], 'release_all_of.' + scope, empty=True)
+        require(set(audit['release_all_of'][scope]) == set(unresolved[scope]), 'release must include ALL scope blockers: ' + scope)
+    # A fresh eligible summary cannot erase a previously unresolved restriction.
+    if audit['baseline'] is not None:
+        prior_text = (Path(root) / audit['baseline']['report_path']).read_text(encoding='utf-8')
+        if START in prior_text:
+            prior = extract_audit(prior_text)
+            for old in prior.get('constraints', []):
+                if old.get('status') not in {'blocking', 'unknown'}:
+                    continue
+                ident = old['id']
+                require(ident in rules, 'unresolved baseline constraint omitted: ' + ident)
+                row = rules[ident]
+                old_scopes = set(old.get('scope', ['entry', 'add']))
+                if row['status'] in {'blocking', 'unknown'}:
+                    require(old_scopes <= set(row['scope']), 'unresolved baseline scope narrowed: ' + ident)
+                    require(preserves_active_action(old, row),
+                            'unresolved baseline restriction must be explicitly cleared before downgrade or replacement: ' + ident)
+                else:
+                    clearance = row.get('clearance')
+                    require(isinstance(clearance, dict) and bool(clearance.get('evidence')), 'baseline release requires evidence: ' + ident)
+                    if ident == 'D5':
+                        require(clearance.get('stage') == 'rebuild_review_complete',
+                                'D5 baseline release requires completed rebuilding and company review')
+    pm = document['price_map']
+    active_entry = [rules[k] for k in unresolved['entry']]
+    if any(r['action'] == 'reject' and r['status'] == 'blocking' for r in active_entry):
+        require(pm['mode'] == 'rejected', 'confirmed rejection requires rejected mode')
+    if any(r['action'] == 'freeze' or (r['action'] == 'reject' and r['status'] == 'unknown') for r in active_entry):
+        require(pm['mode'] in {'frozen', 'rejected', 'unavailable'}, 'freeze cannot hide in observation')
+    if any(r['action'] == 'unavailable' for r in active_entry):
+        require(pm['p1'] is None, 'core input unavailable cannot retain new P1')
+    required = {'frozen': {'freeze', 'unavailable', 'reject'}, 'rejected': {'reject'}, 'unavailable': {'unavailable'}}
+    if pm['mode'] in required:
+        require(any(r['action'] in required[pm['mode']] for r in active_entry), 'restricted mode needs actual entry constraint')
+    controls = document['research_controls']
+    for scope in ('entry', 'add'):
+        rows = [rules[k] for k in unresolved[scope]]
+        expected = 'blocked' if any(r['status'] == 'blocking' for r in rows) else ('unknown' if rows else 'eligible')
+        require(controls[scope]['status'] == expected, 'control summary differs from audit: ' + scope)
+        require(set(controls[scope]['refs']) == set(unresolved[scope]), 'control refs must cover exact scope blockers: ' + scope)
+    hold = [rules[k] for k in unresolved['holding']]
+    confirmed = {r['action'] for r in hold if r['status'] == 'blocking'}
+    expected = ('exit_required' if 'exit_required' in confirmed else 'invalidated' if 'invalidated' in confirmed
+                else 'review_required' if hold else 'normal')
+    allowed = {expected, 'unknown'} if hold and all(r['status'] == 'unknown' for r in hold) else {expected}
+    require(controls['holding']['status'] in allowed, 'holding summary differs from audit')
+    require(set(controls['holding']['refs']) == set(unresolved['holding']), 'holding refs differ from audit')
+    for item in document['monitoring']:
+        if item['kind'] == 'general':
+            continue
+        if item['state'] == 'watching' and item['id'] not in rules:
+            continue
+        require(item['id'] in rules, 'control monitoring requires audit ID: ' + item['id'])
+        rule = rules[item['id']]
+        allowed_states = {'triggered': {'blocking'}, 'unknown': {'unknown'}, 'cleared': {'clear', 'not_applicable'}, 'watching': {'clear', 'not_applicable'}}
+        require(rule['status'] in allowed_states[item['state']], 'monitoring state differs from audit')
+        if item['state'] == 'cleared':
+            require(bool((rule.get('clearance') or {}).get('evidence')), 'cleared monitoring requires evidence')
+        target = {'entry_constraint': 'entry', 'add_constraint': 'add', 'thesis_invalidation': 'holding', 'exit_condition': 'holding'}[item['kind']]
+        require(target in rule['scope'], 'monitoring kind differs from audit scope')
+    return {scope: sorted(ids) for scope, ids in unresolved.items()}
 
 
 def render_checks(audit, document):
@@ -329,11 +471,19 @@ def render_checks(audit, document):
         lines.append(f"| {key} | {decimal_text(value * 100)}% | {bounds} | {cell(', '.join(entry['risk_ids']) or '无额外扣减')} | {cell(entry['change']['kind'])} |")
     lines += ['', '总折扣乘数：' + decimal_text(factor) + '；用途：' + pm['mode'] + '。',
               '明确报价：P1=' + json.dumps(pm['p1'], ensure_ascii=False, sort_keys=True, default=json_number) +
-              '；P2=' + json.dumps(pm['p2'], ensure_ascii=False, sort_keys=True, default=json_number) + '。',
+              ('；T1=' + json.dumps(pm['t1'], ensure_ascii=False, sort_keys=True, default=json_number) if audit['schema_version'] == SCHEMA else '；P2=' + json.dumps(pm['p2'], ensure_ascii=False, sort_keys=True, default=json_number)) + '。',
               '', '| 约束 | 作用 | 状态 | 依据 |', '|---|---|---|---|']
     for row in audit['constraints']:
-        lines.append('| ' + ' | '.join(cell(row[k]) for k in ('id', 'effect', 'status', 'reason')) + ' |')
-    lines += ['', '恢复前须同时解除全部仍有效约束：' + cell('、'.join(audit['release_all_of']) or '无未解约束') + '。', VIEW_END]
+        values = [row[k] for k in ('id', 'action' if audit['schema_version'] == SCHEMA else 'effect', 'status', 'reason')]
+        if audit['schema_version'] == SCHEMA:
+            values[1] = ','.join(row['scope']) + ': ' + values[1]
+        lines.append('| ' + ' | '.join(cell(v) for v in values) + ' |')
+    if audit['schema_version'] == SCHEMA:
+        lines += ['', '| 范围 | 当前研究状态 | 未解约束ID |', '|---|---|---|']
+        for scope in ('entry', 'add', 'holding'):
+            control = document['research_controls'][scope]
+            lines.append('| ' + ' | '.join(cell(v) for v in (scope, control['status'], ', '.join(control['refs']) or '无')) + ' |')
+    lines += ['', '恢复前须同时解除全部仍有效约束：' + cell(json.dumps(audit['release_all_of'], ensure_ascii=False, sort_keys=True) if audit['schema_version'] == SCHEMA else ('、'.join(audit['release_all_of']) or '无未解约束')) + '。', VIEW_END]
     return '\n'.join(lines)
 
 
@@ -356,10 +506,17 @@ def isolate_report(report, document, *, root=None):
     audit = extract_audit(report)
     require('METHOD_COMPATIBILITY' not in {row['id'] for row in audit['constraints']},
             'method compatibility isolation already recorded')
-    audit['constraints'].append(dict(id='METHOD_COMPATIBILITY', effect='freeze', status='blocking',
+    rule = dict(id='METHOD_COMPATIBILITY', status='blocking',
         reason='发布前方法或采纳证据接续变化，适用性待复核；保留原价格',
-        release_conditions=['取得兼容性核验及本公司受影响判断复评凭证']))
-    audit['release_all_of'].append('METHOD_COMPATIBILITY')
+        release_conditions=['取得兼容性核验及本公司受影响判断复评凭证'])
+    if audit['schema_version'] == SCHEMA:
+        rule.update(action='freeze', scope=['entry', 'add'])
+        for scope in ('entry', 'add'):
+            audit['release_all_of'][scope].append('METHOD_COMPATIBILITY')
+    else:
+        rule['effect'] = 'freeze'
+        audit['release_all_of'].append('METHOD_COMPATIBILITY')
+    audit['constraints'].append(rule)
     pattern = re.escape(START) + r'.*?' + re.escape(END)
     replacement = START + '\n```json\n' + json.dumps(audit, ensure_ascii=False, indent=2,
         allow_nan=False, default=json_number) + '\n```\n' + END

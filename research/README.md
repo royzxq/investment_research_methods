@@ -87,7 +87,7 @@ python3 scripts/research_paths.py index --as-of 2026-10-05 --local
 
 期货与 ETF 取数默认拒绝覆盖同日快照。失败保留 `.partial`，旧正式文件不变；成功后才原子发布。`--no-snapshot` 不写正式快照及 latest。完整快照与必要日期 JSON 应提交；CSV 缓存、机械扫描、partial 和可重建索引不提交。
 
-`output/indexes/` 的个股 latest 与 ETF latest 是可重建缓存。`latest-company` 默认只选截止日内最近合格的正式 v3/v2 配对；`--include-legacy` 用于另查旧 v1 历史研究，不能将其作为当前价格地图。个股缓存按生成端分别重建且仅使用 v3/v2，无合格配对则清除该公司该生成端的旧缓存；选择按估值日而非修改时间或价格是否非空，较新的冻结/不可估 v3/v2 不能被旧的有价结果替代。较晚日期 v1 与较早日期 v3/v2 并存时命令提示日期差异，不把较早估值升级到请求日期；报告索引保留并标注 v1 历史研究。隔离版须明确授权提升；提升时更新正式配对并保留被替代版本。thesis、watchlist、组合维护文件等含独有状态的文件不适用“latest 可忽略”规则。
+`output/indexes/` 的个股 latest 与 ETF latest 是可重建缓存。`latest-company` 默认只选截止日内最近合格的正式 v4/v3/v2 配对；`--include-legacy` 用于另查旧 v1 历史研究，不能将其作为当前价格地图。个股缓存按生成端分别重建且仅使用 v4/v3/v2，无合格配对则清除该公司该生成端的旧缓存；选择按估值日而非修改时间或价格是否非空，较新的冻结/不可估 v4/v3/v2 不能被旧的有价结果替代。较晚日期 v1 与较早日期 v4/v3/v2 并存时命令提示日期差异，不把较早估值升级到请求日期；报告索引保留并标注 v1 历史研究。隔离版须明确授权提升；提升时更新正式配对并保留被替代版本。thesis、watchlist、组合维护文件等含独有状态的文件不适用“latest 可忽略”规则。
 
 新审计可将机械明细放 `output/audits/`，正式记录须保留人工核对、豁免理由、缺项、输入版本/哈希、生成命令和限制。未建立可复现生成器前不能删除旧证据。
 
@@ -104,7 +104,7 @@ python3 scripts/research_exchange.py check-results /path/to/result.json --reques
 
 请求数据包路径相对请求所在目录，结果报告/JSON 路径相对 `--artifact-root`；均须根内、非空且 SHA-256 匹配。拒绝绝对路径、父目录穿越、逃出根的符号链接、重复 JSON 键和非有限数。请求估值日不得晚于请求创建时刻的北京时间日期；不依赖验收当天，可重放历史。
 
-成功回执只接受日期优先目录内同生成端、同修订后缀的正式 v3/v2 报告/JSON 配对，验证证券身份、名称、估值日、真实 `meta.generator`、`meta.report_path`、九节可见且非空的报告及时间顺序；HTML 注释和代码块内的标题不计章节。冻结/否决/不可估仍可以是成功研究交付，结构验收不增加执行许可。`-rN` 可作为本轮精确交付读取，不因此提升 latest。失败回执必须有理由且产物为 null；任务/端重复、错批次、错请求哈希或跨端配对均拒绝。
+成功回执只接受日期优先目录内同生成端、同修订后缀的正式 v4/v3/v2 报告/JSON 配对，验证证券身份、名称、估值日、真实 `meta.generator`、`meta.report_path`、九节可见且非空的报告及时间顺序；HTML 注释和代码块内的标题不计章节。冻结/否决/不可估仍可以是成功研究交付，结构验收不增加执行许可。`-rN` 可作为本轮精确交付读取，不因此提升 latest。失败回执必须有理由且产物为 null；任务/端重复、错批次、错请求哈希或跨端配对均拒绝。
 
 ## 个股研究 CLI 执行（2026-10-07）
 
@@ -124,15 +124,21 @@ Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，
 
 准备前校验请求及包，要求上游发布器标准 `packs/<task_id>.md` 路径和匹配证券的量价包标题；包内财务缺口可以进入研究补证。原始请求、包和两份框架实际正文复制到 `output/runs/investment/<估值日>/<batch_id>/`，框架与可用的已采纳状态交接及其来源保存在 `framework-snapshot/`，请求文件最后发布。每项 prompt 明确主、子研究读取这些冻结材料，不能在执行途中换读工作区最新框架；`input.json` 记录请求/包/提示词及框架哈希，`targets.json` 保存准备时在证券锁内选出的空闲版本。启动和发布前校验冻结材料，不能只要求报告抄写哈希。
 
-发布前核对工作区与冻结方法：精确相同、仅受限观测块变化，或已有明确采纳且绑定双方方法的兼容审查时可正常交付，仍说明状态日期；同时核对冻结来源是否已被明确撤回。其余变化先记兼容性待复评，已完成研究保留为至少 `-r2` 的隔离配对，不冒充当前方法下的正式最新，也不因变化重跑整个批次。由于精确批次结果也可消费隔离版本，派生 JSON 的有价模式改为 frozen、可触发 P2 暂停，原始研究与模型回执保留；不能只加一句文字警告却保留机器可读买入资格。旧 prepared 请求只有在工作区正文仍与其原指纹精确一致时才可保留旧材料并迁移出快照；原提示词按冻结的 pre-snapshot v2 模板逐字节核验，不随新版交付模板变化，原记录保持不变，运行提示词另存。无法恢复旧正文或提示词不匹配时报告缺口，要求新建批次，不伪造输入。已完成历史结果仍可按原协议读取，无需追溯重跑。
+发布前核对工作区与冻结方法：精确相同、仅受限观测块变化，或已有明确采纳且绑定双方方法的兼容审查时可正常交付，仍说明状态日期；同时核对冻结来源是否已被明确撤回。其余变化先记兼容性待复评，已完成研究保留为至少 `-r2` 的隔离配对，不冒充当前方法下的正式最新，也不因变化重跑整个批次。由于精确批次结果也可消费隔离版本，派生 JSON 的有价模式改为 frozen；v4阻断entry/add并保留holding风险，旧v3按其冻结协议暂停P2，原始研究与模型回执保留；不能只加一句文字警告却保留机器可读买入资格。旧 prepared 请求只有在工作区正文仍与其原指纹精确一致时才可保留旧材料并迁移出快照；原提示词按冻结的 pre-snapshot v2 模板逐字节核验，不随新版交付模板变化，原记录保持不变，运行提示词另存。无法恢复旧正文或提示词不匹配时报告缺口，要求新建批次，不伪造输入。已完成历史结果仍可按原协议读取，无需追溯重跑。
 
-`process.json` 的 PID/状态证明实际进程启动，`events.jsonl`/`stderr.log` 保存执行原文；`cli-receipt.json` 是模型回执，不能代替正式价格JSON。正式产物仍位于日期优先公司目录；同日同端已有文件写配对隔离版本。模型只写本批 staged/<task_id>/<generator>/ 内的同结构暂存文件，JSON meta.report_path和回执使用确切最终相对路径；runner先读全并验证两份暂存字节，再复制成独立inode、以只创建的原子链接发布，拒绝覆盖旧文件。完成回执reason必须null、结论写summary；失败则reason有说明、两个路径null。报告第0节正文须绑定本批ID、包与框架指纹；输入匹配且九节/v3/配对验收通过才产生完成回执，不能把连接成功、文件准备或退出码0等同于完整研究交付。
+`process.json` 的 PID/状态证明实际进程启动，`events.jsonl`/`stderr.log` 保存执行原文；`cli-receipt.json` 是模型回执，不能代替正式价格JSON。正式产物仍位于日期优先公司目录；同日同端已有文件写配对隔离版本。模型只写本批 staged/<task_id>/<generator>/ 内的同结构暂存文件，JSON meta.report_path和回执使用确切最终相对路径；runner先读全并验证两份暂存字节，再复制成独立inode、以只创建的原子链接发布，拒绝覆盖旧文件。完成回执reason必须null、结论写summary；失败则reason有说明、两个路径null。报告第0节正文须绑定本批ID、包与框架指纹；输入匹配且九节/该批次冻结交付版本/配对验收通过才产生完成回执，不能把连接成功、文件准备或退出码0等同于完整研究交付。
 
 每端生成独立 `results-claude.json` / `results-codex.json`，使用原 `stock-research-result/v1` 协议，不相互覆盖；缺席生成端不记失败。任务失败会留原因和 null 产物，同一批次同任务同端拒绝再次启动；修复后显式发布新批次重试，保留旧尝试。跨批同证券同端使用进程锁，执行前再次检查准备时目标未被占用。超时与SIGTERM/SIGINT统一清理进程组（含忽略SIGTERM的同组后代），清理完成后才释放证券锁；SIGKILL、断电或刻意脱离组的守护进程不作恢复保证。部分准备目录没有 request.json 则不可执行，不自动修补或覆盖。
 
-新价格地图采用 `stock-research/v3`，历史 v2 原样读取：P1 忠实提取报告明确单价（`{"base":报价}`）或实际区间（另带 low/high，仅区间时 base=null），不从 V50/折扣重算或补上下沿；P2 也显式提取，无明确 P1 下沿时不代算。V50 的既有单位换算继续保留。可靠公司事实下的临时市场/事件冻结允许新 V50 与观察 P1，mode 仍为 frozen、P2 只能暂停/取消；旧 frozen 空值仍可读。消费端必须同时检查 mode 和 P2 状态，不能以价格非空推定买入许可。公司真硬失败、否决及不可估的限制仍按 canonical；不改原估值公式或固定参数。已有自动个股研究七天冷却期不因维护交接、事件复核或方法版本变化而重置。
+### 两价正式交付（2026-10-18，已本地采纳）
 
-2026-10-15起新准备的批次在快照记录`research_validation=stock-research-audit/v1`，同时冻结最近本端正式报告作为折扣基线。新交付发布前运行`research_consistency.py`，核对报告内收入/利润率/调整/利润/PE/股本链、明确P1算式、风险ID唯一归属、参数或区间变动依据、冻结模式及全部阻断合取解除；可见核算表必须与审计输入及价格JSON一致。失败沿用原有一次输出重试，未通过不发布。详细契约见[研究一致性](../.agents/skills/stock-research/references/research-consistency.md)。这不证明假设/来源正确或不同ID经济风险无重叠；最终JSON不增加字段，旧prepared输入及旧封口不追溯改写。方法兼容性隔离的派生报告会同步状态审计并重验，原暂存材料保持原样。
+本工作区普通新交付使用`stock-research/v4`：`meta/price_map/research_controls/monitoring`四顶层，price_map仅`mode/reason/v50/p1/t1`；P1显式单价或原报告实际区间，T1仅价格表达式，无P2/T2占位。报告保留全部加仓、逻辑失效、复评/减仓与退出条件，重点monitoring仍1–10项，不截断完整条件；entry/add/holding摘要与audit-v2按稳定ID/scope一致。V50换算、P1原估值式、首笔/预留60/40及已有自动个股研究七天冷却期保留。新批次正式使用本协议，完成验收后更新本端latest并交原定时下游消费；不批量重写旧历史，调度节奏不变。
+
+新批次冻结delivery_contract、prompt_template及`research_validation=stock-research-audit/v2`，继续冻结本端折扣基线。审计保留收入/利润/PE/股本桥、风险唯一归属、参数变化依据和P1算式，升级constraints的scope/action与按scope精确覆盖的release_all_of。only-add阻断不冻结entry；全局freeze/reject/unavailable同时限制entry+add；holding失效/退出阻断新增但不屏蔽卖出。clear必须有解除证据，来源缺席/遗漏/unknown不解除。具体见[输出契约](../.agents/skills/stock-research/references/valuation-and-output.md)与[研究一致性](../.agents/skills/stock-research/references/research-consistency.md)。
+
+旧v3/v2原文、封口及audit-v1保持可读；格式版本不越过更晚估值日期。旧prepared仅按其原冻结合同恢复，运行器附加[旧v3输出](../.agents/skills/stock-research/references/legacy-v3-output.md)/[旧audit-v1](../.agents/skills/stock-research/references/legacy-audit-v1.md)指引；显式`build --legacy-snapshot <本批framework-snapshot/manifest.json>`通过绑定验证才可用旧writer。原prompt/input/hash不改，合同不可恢复则新建批次，不让活跃默认技能重解释旧研究。失败沿用原最多一次重试，不发布未验收报价。
+
+正常报价与控制交同一属主原子发布；已验收的阻断/退出而报价缺失或歧义，必须先交付合法completed unavailable v4（p1=null、T1无报价、全部适用控制与audit完整验收）并正常seal，再交下游属主按control-only路径收紧，旧价格及日期不变；failed/未验收receipt不能发布controls，不能以报价失败保留旧eligible。研究侧不直接写业务CSV。available_at由真实封口/发布属主记录，不按估值日倒填。回滚代码/报价不撤销新风险事实。完整源码测试和影子对照不等于投资效果、真实API或生产切换验证。
 
 ## 迁移与运行边界
 
@@ -144,4 +150,4 @@ Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，
 
 ## Coze 条件补充（2026-10-14）
 
-仅沪深A股同批Claude/Codex P1.base相对较低值的差异严格超过10%时启用。Coze以 `coze` 单独归档原文和 `stock-research-coze/v1` JSON，最低要求明确P1/T1；不同报告章节不套本仓九节，缺其他字段不补造。发送后15分钟无可确认归属的回复即终止失败，不重试，不接受迟到结果发布。原两模型封口及回写继续，成功Coze补充封口由原共识与写回入口消费。完整规则、证据、持续heartbeat见 [Coze接入契约](../docs/context/coze-research-automation.md)。
+仅沪深A股同批Claude/Codex P1.base相对较低值的差异严格超过10%时启用。Coze以 `coze` 单独归档原文和`stock-research-coze/v2` JSON（历史v1仍可读），最低要求明确P1/T1；不同报告章节不套本仓九节，缺其他字段不补造。发送后15分钟无可确认归属的回复即终止失败，不重试，不接受迟到结果发布。原两模型封口及回写继续，成功Coze补充封口由原共识与写回入口消费。完整规则、证据、持续heartbeat见 [Coze接入契约](../docs/context/coze-research-automation.md)。

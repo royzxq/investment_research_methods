@@ -2,12 +2,16 @@
 
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
-## 当前权威
+## 两价本地采纳（2026-10-18）
+
+用户明确不要求前瞻影子测试，授权根据既有回测判断并完整本地落地。方法标识 `stock-two-price-v1`，新交付 v4/audit-v2，核心 P1/T1 与独立 entry/add/holding 条件；既有60/40预算、阈值及观测块保留。回测中取消区间减仓的效果两市不一致，不宣称收益优势。新正式批次走两价，旧历史与冻结批次保留版本，缺历史条件不补造 eligible；一只股票已发布 v4 后不能由旧共识降级。生产数据不批量重写，下一次研究按新协议自然接续。方法已由用户明确本地采纳；市场证据仍截止原记录，没有伪造新的周度市场研究或状态 handoff。部署与验证见本日 maintenance 的 two-price-production-rollout-codex 报告；后续 review-and-commit 报告记录提交前审查与修复，仍不推送。
+
+## 当前方法与原状态背景
 
 | 轨道 | 方法与状态 | 当前配套 |
 |---|---|---|
 | 期货 | [canonical](../../framework/futures_framework.md) v3.0；已有T信号可当前重评、在原有效期内向未来登记，不追认旧建议/成交。10/09行情已用v1.18输入重算，MA当前计划见[10/11重评](../../research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md)，实际执行条件与账户未齐 | [compact](../../framework/futures_framework_compact.md) / [数据协议](../../framework/FUTURES_DATA_PROTOCOL.md) v3.0，[future_data.py](../../scripts/future_data.py) v1.18.1及策略helper；新增handoff/refresh/continuity工具，10/11原v1.18真实API刷新通过、行情仍10/09；v1.18.1另修来源身份、未作新API验证；无收益验证 |
-| 股票 | [canonical](../../framework/investment_framework.md) 与 [compact](../../framework/investment_framework_compact.md) 本地方法标识 `stock-maintenance-v1`；市场证据仍截至10/11原周更，本次未重做行情研究 | 周更三类分流、明确采纳交接与批次正文快照；临时冻结可估但买入受限；R21口径已补齐。股票 PR #45 已合并至 main，当前期货分支接续该方法；`stock_data_pack.py` 尚未找到 |
+| 股票 | [canonical](../../framework/investment_framework.md) 与 [compact](../../framework/investment_framework_compact.md) 本地方法标识 `stock-two-price-v1`；市场证据沿用原记录（正文背景10/11、已有受限观测块10/18），本次未重做行情研究 | 周更三类分流、明确采纳交接与批次正文快照；临时冻结可估但买入受限；R21口径已补齐。股票 PR #45 已合并至 main，当前期货分支接续该方法；`stock_data_pack.py` 尚未找到 |
 | ETF | [canonical](../../framework/etf_framework.md) v2.1，八主题、双月评审 | v2.0 格式快照兼容；最近评审为 [10/01 review](../../research/etf/reviews/2026-10-01/etf-2026-10-01-review.md)，正文已于 10/02 修订；旧 monthly-review 不作为现行一期 |
 
 ## 待接续事项

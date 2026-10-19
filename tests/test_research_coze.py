@@ -82,7 +82,7 @@ class CozeTests(unittest.TestCase):
 
     def test_prices_must_be_exact_explicit_quotes_from_returned_research(self):
         text = 'P1建仓价：10.20元/股；T1卖出价：18.30元/股。'
-        extracted = dict(p1={'base': 10.2}, p2=None, t1=18.3, monitoring=[],
+        extracted = dict(p1={'base': 10.2}, t1=18.3, monitoring=[],
                          evidence={'p1': 'P1建仓价：10.20元/股', 't1': 'T1卖出价：18.30元/股'})
         coze.validate_extraction(extracted, text)
         for key in ('p1', 't1'):
@@ -95,6 +95,21 @@ class CozeTests(unittest.TestCase):
                 coze.validate_extraction(dict(extracted, evidence=quotes), text)
         with self.assertRaises(ValueError):
             coze.validate_extraction(dict(extracted, t1=18.4), text)
+
+    def test_v2_has_no_retired_fields_and_v1_stays_readable(self):
+        text = 'P1：10.20元/股；T1：18.30元/股。'
+        extracted = dict(p1={'base':10.2}, t1=18.3, monitoring=[], evidence={'p1':'P1：10.20元/股', 't1':'T1：18.30元/股'})
+        doc = dict(meta=dict(schema_version=coze.SCHEMA, generator='coze', code='600066.SH', name='offline',
+            valuation_date='2026-10-18', currency='CNY', report_path='report.md'),
+            price_map=dict(mode='observation', reason='supplement', v50=None, p1=extracted['p1'],
+                t1=dict(price_condition='股价≥18.3元/股')), monitoring=[], extraction=extracted)
+        coze.validate_document(doc); coze.validate_extraction(extracted, text)
+        extracted['p2'] = None
+        with self.assertRaises(ValueError): coze.validate_extraction(extracted, text)
+        doc['meta']['schema_version'] = coze.LEGACY_SCHEMA
+        doc['price_map']['p2'] = dict(status='unavailable', price=None, reason='Coze未提供P2')
+        doc['price_map']['t1']['events'] = []
+        coze.validate_document(doc); coze.validate_extraction(extracted, text, schema=coze.LEGACY_SCHEMA)
 
     def test_p2_state_cannot_publish_cancelled_price_or_active_null(self):
         for value in (dict(status='cancelled', price=9, reason='取消'),

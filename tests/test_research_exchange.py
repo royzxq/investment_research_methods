@@ -109,6 +109,17 @@ class ResearchExchangeTests(unittest.TestCase):
                 self.assertEqual(self.check_result(), self.result)
                 self.assertEqual(self.price_path.read_bytes(), original)
 
+    def test_v4_envelope_preserves_controls_and_rejects_retired_keys(self):
+        self.document['meta']['schema_version']='stock-research/v4'
+        pm=self.document['price_map'];pm.pop('p2');pm.pop('t2');pm['t1'].pop('events')
+        self.document['research_controls']=dict(entry=dict(status='unknown',refs=['R9']),add=dict(status='unknown',refs=['R9']),holding=dict(status='normal',refs=[]))
+        self.document['monitoring'][0].update(id='income',kind='general',state='watching')
+        self.rewrite_document();before=self.price_path.read_bytes()
+        self.assertEqual(self.check_result(),self.result)
+        self.assertEqual(self.price_path.read_bytes(),before)
+        pm['p2']=None;self.rewrite_document()
+        with self.assertRaises(ValueError):self.check_result()
+
     def test_accepts_empty_result_manifest_and_failed_provider(self):
         self.result["results"] = []
         self.write_result()
