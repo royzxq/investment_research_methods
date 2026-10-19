@@ -32,6 +32,8 @@
 
 ### 研究控制与监控
 
+新交付 audit 显式填写 lifecycle，具体判据及旧冻结批次兼容见[研究一致性](research-consistency.md)。持续研究限制/必要资格缺证才进入未解集合；纯现价与收益条件交运行时，未触发信号仅观察。buy_candidate 不表示现价已满足 P1；holding-only 复评未知不扩大建仓/加仓。有效旧限制、TEMP、R6 事后复评和 D5 重建不能因精简自动清除；多来源独立主张逐项覆盖后才解除。
+
 - entry/add的status为`eligible/blocked/unknown`；holding为`normal/review_required/invalidated/exit_required/unknown`。refs只引用本报告稳定约束/监控ID，条件的具体暂停/取消/从严含义、解除证据仍在完整表和审计中。
 - eligible仍需价格、账户、组合与执行核验；entry/add任一eligible必须mode=buy_candidate，tracking/observation/frozen/rejected/unavailable均不得eligible。只加仓受限可entry eligible、add blocked；全局freeze/reject/unavailable必须覆盖entry+add，不使用entry-only freeze。
 - entry/add unknown不能增加对应暴露；holding unknown要求补证/复评，不写成已失效/已清仓。确认invalidated/exit_required阻断entry+add，持仓复评不自动等于全局冻结。eligible/normal的refs=[]；blocked/unknown/review_required/invalidated/exit_required必须有可解析依据，refs精确等于audit该scope全部blocking/unknown ID的集合，不遗漏、不混入其它scope或普通经营观察。观察依据仍可留在monitoring。

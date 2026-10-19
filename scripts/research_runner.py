@@ -50,7 +50,8 @@ ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
 FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
 SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'
-NEW_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
+OLD_TWO_PRICE_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
+NEW_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v2')
 
 
 def delivery_contract(snapshot):
@@ -59,7 +60,7 @@ def delivery_contract(snapshot):
         if snapshot.get('research_validation') not in (None, research_consistency.LEGACY_SCHEMA):
             raise ValueError('new audit requires a frozen delivery contract')
         return dict(price_schema='stock-research/v3', audit_schema=snapshot.get('research_validation'), prompt_template='report-quotes/v3')
-    if contract != NEW_CONTRACT or snapshot.get('research_validation') != NEW_CONTRACT['audit_schema']:
+    if contract not in (NEW_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
         raise ValueError('unsupported frozen delivery contract')
     return dict(contract)
 
@@ -262,6 +263,16 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                'entry/add=eligible|blocked|unknown，holding=normal|review_required|invalidated|exit_required|unknown。'
                'monitoring增加id/kind/state；控制refs绑定报告audit，scope分entry/add/holding，全部解除按scope合取；'
                '未知不允许新增，复评不等于失效或成交。新build默认v4，不可借旧writer绕过。\n\n')
+    if contract == NEW_CONTRACT:
+        prefix += ('本批控制语义two-price-controls/v2：每条audit约束显式lifecycle=persistent/runtime/observation；'
+                   '只有已触发持续研究限制或必要资格缺证可进入blocking/unknown。'
+                   '纯现价相对P1/T1、最低收益由运行时判断，不制造永久价格阻断；'
+                   'buy_candidate表示研究资格，未到P1仍可由运行时给HOLD。'
+                   'holding-only复评未知不扩大entry/add；合同缺失、确认失效/退出及entry/add缺证仍限制新增。'
+                   'TEMP无等价运行时接替、R6事后复评、D5重建、来源冲突不得自动解除。'
+                   '规则ID与具体事件/计划实例稳定；同义ID必须有证据映射，不自动去重；'
+                   '每项解除注明必要合取/合法替代路径/仅触发复评。多来源不同主张的解除用clearance.covers列出其内容SHA256；'
+                   '不能只因日期过去、跌价或另一个来源缺席解除。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if len(result) > MAX_INPUT_BYTES:
         raise ValueError('complete research input exceeds CLI stdin limit; no truncation allowed')
@@ -1115,7 +1126,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     _, report_raw = _artifact(entry['report'], staged, 'report')
                     audit_result = research_consistency.validate_report(
                         report_raw.decode('utf-8'), document, root=root,
-                        expected_baseline=frozen['research_baseline'])
+                        expected_baseline=frozen['research_baseline'],
+                        require_lifecycle=frozen['delivery'] == NEW_CONTRACT)
                 retryable = False  # Publication must never be retried over possibly visible files.
                 # Recheck actual snapshot bytes and request/pack/prompt bindings
                 # after research, before anything can reach company discovery.
@@ -1145,7 +1157,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     _, report_raw = _artifact(entry['report'], staged, 'report')
                     _, price_raw = _artifact(entry['price_map'], staged, 'price map')
                     audit_result = research_consistency.validate_report(report_raw.decode('utf-8'),
-                        _strict_json(price_raw, 'price map'), root=root, expected_baseline=frozen['research_baseline'])
+                        _strict_json(price_raw, 'price map'), root=root, expected_baseline=frozen['research_baseline'],
+                        require_lifecycle=frozen['delivery'] == NEW_CONTRACT)
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
                     write_new(folder / 'research-validation.json', encode(audit_result))
                 write_new(folder / 'framework-compatibility.json', encode(compatibility))

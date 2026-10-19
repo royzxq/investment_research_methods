@@ -99,7 +99,7 @@ from scripts.research_consistency import render_report_block, extract_audit
 from research_audit_fixture import audit_for
 audit=audit_for(doc)
 if mode=='control_only':
- audit['constraints'].append(dict(id='EXIT',scope=['entry','add','holding'],status='blocking',action='exit_required',reason='independent verified thesis failure',release_conditions=['new thesis review']))
+ audit['constraints'].append(dict(id='EXIT',scope=['entry','add','holding'],status='blocking',action='exit_required',reason='independent verified thesis failure',release_conditions=['new thesis review'],lifecycle='persistent'))
  for scope in ('entry','add','holding'): audit['release_all_of'][scope].append('EXIT')
 baseline_match=re.search(r'^研究折扣基线：(.*)$',payload.decode(),re.M)
 baseline=json.loads(baseline_match[1]) if baseline_match else None
@@ -216,6 +216,32 @@ class ResearchRunnerTests(unittest.TestCase):
         path.chmod(0o644); path.write_bytes(runner.encode(snapshot))
         with self.assertRaises(ValueError):
             runner.verify_prepared(run, (run / 'request.json').read_bytes(), self.methods)
+
+    def test_old_v4_prepared_contract_keeps_its_frozen_prompts_and_inputs(self):
+        run=prepare_request(self.request_path,self.methods)
+        manifest=run/'framework-snapshot/manifest.json'
+        snapshot=json.loads(manifest.read_text())
+        snapshot['delivery_contract']=dict(runner.OLD_TWO_PRICE_CONTRACT)
+        manifest.chmod(0o644); manifest.write_bytes(runner.encode(snapshot))
+        request,raw,packs=runner.read_request(self.request_path)
+        frameworks,_=runner.snapshot_hashes(run)
+        originals={}
+        for task in request['tasks']:
+            for generator in request['generators']:
+                folder=run/'execution'/task['task_id']/generator
+                targets=json.loads((folder/'targets.json').read_text())
+                prompt=runner.make_prompt(request,task,generator,packs[task['task_id']],self.methods,
+                    frameworks,targets,maintenance=snapshot['maintenance'],research_validation=snapshot['research_validation'],
+                    delivery=runner.OLD_TWO_PRICE_CONTRACT)
+                self.assertNotIn(b'two-price-controls/v2',prompt)
+                (folder/'prompt.txt').write_bytes(prompt)
+                (folder/'input.json').write_bytes(runner.encode(runner.input_record(request,raw,task,generator,prompt,frameworks,targets)))
+                originals[folder]=(prompt,(folder/'input.json').read_bytes())
+        entries=json.loads(self.execute().read_text())['results']
+        self.assertTrue(all(e['status']=='completed' for e in entries),entries)
+        for folder,(prompt,inputs) in originals.items():
+            self.assertEqual((folder/'prompt.txt').read_bytes(),prompt)
+            self.assertEqual((folder/'input.json').read_bytes(),inputs)
 
     def test_v4_isolation_preserves_prices_and_blocks_both_exposure_scopes(self):
         os.environ['MOCK_MODE'] = 'framework_changes'

@@ -344,7 +344,7 @@ def validate_scoped_controls(audit, document, *, root=None):
     rules = {}
     unresolved = {scope: [] for scope in scopes}
     for rule in audit['constraints']:
-        fields(rule, {'id', 'scope', 'status', 'action', 'reason', 'release_conditions'}, 'constraint', optional={'clearance'})
+        fields(rule, {'id', 'scope', 'status', 'action', 'reason', 'release_conditions'}, 'constraint', optional={'clearance', 'lifecycle'})
         ident = string(rule['id'], 'constraint.id')
         require(ident not in rules, 'duplicate constraint ID')
         rules[ident] = rule
@@ -355,6 +355,9 @@ def validate_scoped_controls(audit, document, *, root=None):
         require(isinstance(action, str) and action in actions, 'invalid constraint action')
         string(rule['reason'], 'constraint.reason')
         active = status in {'blocking', 'unknown'}
+        require(rule.get('lifecycle', 'persistent') in {'persistent', 'runtime', 'observation'}, 'invalid constraint lifecycle')
+        require(not active or rule.get('lifecycle', 'persistent') == 'persistent',
+                'only persistent research restrictions enter unresolved controls')
         text_list(rule['release_conditions'], 'release_conditions', empty=not active)
         if action in {'freeze', 'reject', 'unavailable'}:
             require({'entry', 'add'} <= set(targets), 'global restriction must cover entry and add')
@@ -371,10 +374,13 @@ def validate_scoped_controls(audit, document, *, root=None):
                 unresolved[scope].append(ident)
         clearance = rule.get('clearance')
         if status == 'clear' or clearance is not None:
-            fields(clearance, {'evidence'}, 'clearance', optional={'stage'})
+            fields(clearance, {'evidence'}, 'clearance', optional={'stage', 'covers'})
             text_list(clearance['evidence'], 'clearance.evidence', empty=status != 'clear')
+            if 'covers' in clearance:
+                coverage = text_list(clearance['covers'], 'clearance.covers', empty=True)
+                require(all(re.fullmatch(r'[0-9a-f]{64}', item) for item in coverage), 'invalid clearance claim coverage')
         if ident == 'D5' and status != 'not_applicable':
-            fields(clearance, {'stage', 'evidence'}, 'D5.clearance')
+            fields(clearance, {'stage', 'evidence'}, 'D5.clearance', optional={'covers'})
             require(clearance['stage'] in {'deepening', 'unknown', 'waiting_review', 'rebuild_pending_company_review', 'rebuild_review_complete'}, 'invalid D5 stage')
             if status == 'clear':
                 require(clearance['stage'] == 'rebuild_review_complete' and clearance['evidence'], 'D5 waiting is not full clearance')
@@ -403,6 +409,9 @@ def validate_scoped_controls(audit, document, *, root=None):
                 else:
                     clearance = row.get('clearance')
                     require(isinstance(clearance, dict) and bool(clearance.get('evidence')), 'baseline release requires evidence: ' + ident)
+                    if 'covers' in clearance:
+                        require(constraint_claim_sha256(old) in clearance['covers'],
+                                'baseline release coverage misses unresolved claim: ' + ident)
                     if ident == 'D5':
                         require(clearance.get('stage') == 'rebuild_review_complete',
                                 'D5 baseline release requires completed rebuilding and company review')
@@ -487,9 +496,24 @@ def render_checks(audit, document):
     return '\n'.join(lines)
 
 
-def validate_report(report, document, *, root=None, expected_baseline=None):
+def constraint_claim_sha256(rule):
+    """Shared cross-repository content identity; not proof of evidence truth."""
+    content = {k:v for k,v in rule.items() if k not in {
+        'scope', 'status', 'clearance', 'variants', 'claims', 'latest_review', 'conflicting_evidence'}}
+    if content.get('lifecycle') == 'persistent':
+        content.pop('lifecycle')
+    raw = json.dumps(content, sort_keys=True, ensure_ascii=False, separators=(',', ':'),
+                     allow_nan=False, default=json_number).encode()
+    return hashlib.sha256(raw).hexdigest()
+
+
+def validate_report(report, document, *, root=None, expected_baseline=None, require_lifecycle=False):
     audit = extract_audit(report)
     result = validate_audit(audit, document, root=root)
+    if require_lifecycle:
+        require(audit['schema_version'] == SCHEMA, 'new controls semantics require audit-v2')
+        for rule in audit['constraints']:
+            require('lifecycle' in rule, 'new controls require explicit lifecycle')
     if expected_baseline is not None:
         require(audit['baseline'] is not None, 'prepared research baseline must not be dropped')
         for key in ('report_path', 'sha256'):
@@ -510,7 +534,7 @@ def isolate_report(report, document, *, root=None):
         reason='发布前方法或采纳证据接续变化，适用性待复核；保留原价格',
         release_conditions=['取得兼容性核验及本公司受影响判断复评凭证'])
     if audit['schema_version'] == SCHEMA:
-        rule.update(action='freeze', scope=['entry', 'add'])
+        rule.update(action='freeze', scope=['entry', 'add'], lifecycle='persistent')
         for scope in ('entry', 'add'):
             audit['release_all_of'][scope].append('METHOD_COMPATIBILITY')
     else:
@@ -536,17 +560,25 @@ def render_report_block(audit, document, *, root=None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('check', 'render'))
-    parser.add_argument('--price-map', type=Path, required=True)
+    parser.add_argument('command', choices=('check', 'render', 'claims'))
+    parser.add_argument('--price-map', type=Path)
     parser.add_argument('--report', type=Path)
     parser.add_argument('--audit', type=Path)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument('--require-lifecycle', action='store_true', help='new controls semantics; legacy check remains readable')
     args = parser.parse_args(argv)
     try:
+        if args.command == 'claims':
+            require(args.audit is not None, 'claims requires --audit')
+            rules = load_json(args.audit)['constraints']
+            print(json.dumps({r['id']:constraint_claim_sha256(r) for r in rules}, ensure_ascii=False))
+            return
+        require(args.price_map is not None, 'check/render requires --price-map')
         document = load_json(args.price_map)
         if args.command == 'check':
             require(args.report is not None, 'check requires --report')
-            print(json.dumps(validate_report(args.report.read_text(), document, root=args.root), ensure_ascii=False))
+            print(json.dumps(validate_report(args.report.read_text(), document, root=args.root,
+                                            require_lifecycle=args.require_lifecycle), ensure_ascii=False))
         else:
             require(args.audit is not None, 'render requires --audit')
             print(render_report_block(load_json(args.audit), document, root=args.root))
