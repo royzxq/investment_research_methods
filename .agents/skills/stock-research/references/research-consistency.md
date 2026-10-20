@@ -73,7 +73,7 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 - lifecycle=persistent：已触发持续限制或对应研究资格必要缺证，才可 blocking/unknown；runtime：纯现价/P1/T1、最低收益交现有价格/收益规则；observation：未触发经营观察或复评路标。后两类保留完整条件/monitoring，不制造当前未解研究债务。buy_candidate 表示研究资格，未到 P1 仍可由运行时给 HOLD。holding-only 未知按持仓复评 scope 补证，不自行扩大 entry/add；整个合同缺失和确认失效/退出仍限制新增。
 - 混合条款先区分当前触发、待证资格、观察和运行时价格；保留原且/或/例外及合法替代路径。TEMP 无等价运行时接替仍保留；R6 不按过窗自动解冻；D5/R21 不跳过原重建和逐股复评。旧纯价格阻断只能核原证据后显式纠正，不能仅凭 ID/格式变化删除。
 - ID 绑定规则和事件/计划实例。同 ID 不同来源主张均保留；不同 ID 的同义关系须原证据明确映射，不能自动去重。解除同 ID 多项独立主张时，clearance.covers 列齐被解除主张的内容 SHA256（非来源 hash），同时给必要证据；不完整则继续阻断。用 `python3 scripts/research_consistency.py claims --audit <原research-audit.json>` 获取内容标识；它不证明证据真实。clearance.stage、所有必要合取与合法替代路径仍须保留。
-- 即使只有一项主张，显式填写 covers 也必须覆盖它，不能用空集合或其它主张的标识解除本端未解基线；旧格式未填 covers 的单主张明确解除保持兼容。D5 阶段取当前验收研究，不能因旧阶段字符串排序而保留过时状态；当前来源阶段冲突则记 unknown 并保留限制，阶段变化本身不解除主张。
+- 基线约束已显式填写 lifecycle 时，即使只有一项主张，解除也必须填写 clearance.covers 并覆盖原主张；本轮删除 lifecycle、改为 runtime/observation 或用 not_applicable 解除都不能绕过。只有原基线未带 lifecycle 的旧格式单主张明确解除，才保留省略 covers 的兼容；一旦显式填写，空集合或其它主张的标识仍拒绝。D5 阶段取当前验收研究，不能因旧阶段字符串排序而保留过时状态；当前来源阶段冲突则记 unknown 并保留限制，阶段变化本身不解除主张。
 
 完整理由和来源继续保存在报告审计及发布属主的不可变证据文件中；研究端 JSON 仍为 v4 摘要。下游 CSV 的 research-controls/v2 只保存执行状态/引用/主张标识/解除阶段和证据绑定，由发布属主先保存完整证据、校验后原子提交；研究者不自行改 CSV 或生成第二份执行权威。旧价格表不批量补造控制。
 

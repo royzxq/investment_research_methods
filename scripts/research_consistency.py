@@ -409,8 +409,10 @@ def validate_scoped_controls(audit, document, *, root=None):
                 else:
                     clearance = row.get('clearance')
                     require(isinstance(clearance, dict) and bool(clearance.get('evidence')), 'baseline release requires evidence: ' + ident)
-                    if 'covers' in clearance:
-                        require(constraint_claim_sha256(old) in clearance['covers'],
+                    # Only untagged historical baselines retain the old omission
+                    # allowance; dropping lifecycle from this report cannot opt in.
+                    if 'lifecycle' in old or 'covers' in clearance:
+                        require(constraint_claim_sha256(old) in clearance.get('covers', []),
                                 'baseline release coverage misses unresolved claim: ' + ident)
                     if ident == 'D5':
                         require(clearance.get('stage') == 'rebuild_review_complete',
