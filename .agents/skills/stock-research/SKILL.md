@@ -7,6 +7,8 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 **两价已本地采纳（2026-10-18）**：用户授权依据既有回测正式落地；新交付使用 v4/audit-v2 并按正式流程更新本端 latest。旧冻结批次按下文 legacy 路由恢复，不重写历史、不补造旧控制。默认仍本地保存，未经授权不推送或外发。
 
+本隔离修订使用 `two-price-controls/v2` 语义：新 audit 显式区分持续限制、运行时条件和观察，按 [研究一致性](references/research-consistency.md) 验收；不据格式升级自动解除旧限制。当前任务未授权生产数据迁移或推送。已冻结 v4 `two-price/v1` 批次仍按原 prompt/input/hash 和非强制 lifecycle 合同恢复。
+
 输出目录、通用技能映射与发现命令统一见仓库 `research/README.md`；正式产物不写 `research/` 根目录。
 
 ## 入口与边界

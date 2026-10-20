@@ -8,7 +8,7 @@
 
 ```sh
 python3 scripts/research_consistency.py render --audit output/<本轮>/research-audit.json --price-map output/<本轮>/price-map.json > output/<本轮>/research-checks.md
-python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json>
+python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json> --require-lifecycle
 ```
 
 把生成内容完整放入报告§5或§7，保留唯一的可见核算表与可展开JSON审计块。经营假设的数字表以此为准，正文解释依据，不另写一套未经桥接的收入/利润表。九节、原始证据、现金桥、Terminal、敏感性和监控仍按原契约完成。
@@ -68,7 +68,14 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 
 ## 按作用范围的控制与恢复
 
-`constraints`每项固定为`id, scope, status, action, reason, release_conditions`，可带`clearance`；`scope`是非空且不重复的`entry/add/holding`集合，`status=blocking/unknown/clear/not_applicable`。仍有效/未知的适用约束必须保留，禁止遗漏上轮阻断来制造解除。
+`constraints`每项为`id, scope, status, action, reason, release_conditions, lifecycle`，可带`clearance`；`scope`是非空且不重复的`entry/add/holding`集合，`status=blocking/unknown/clear/not_applicable`。旧 v4 批次/报告允许缺 lifecycle，按既有持续限制兼容；新批次显式填写并强制检查。仍有效/未知的适用约束必须保留，禁止遗漏上轮阻断来制造解除。
+
+- lifecycle=persistent：已触发持续限制或对应研究资格必要缺证，才可 blocking/unknown；runtime：纯现价/P1/T1、最低收益交现有价格/收益规则；observation：未触发经营观察或复评路标。后两类保留完整条件/monitoring，不制造当前未解研究债务。buy_candidate 表示研究资格，未到 P1 仍可由运行时给 HOLD。holding-only 未知按持仓复评 scope 补证，不自行扩大 entry/add；整个合同缺失和确认失效/退出仍限制新增。
+- 混合条款先区分当前触发、待证资格、观察和运行时价格；保留原且/或/例外及合法替代路径。TEMP 无等价运行时接替仍保留；R6 不按过窗自动解冻；D5/R21 不跳过原重建和逐股复评。旧纯价格阻断只能核原证据后显式纠正，不能仅凭 ID/格式变化删除。
+- ID 绑定规则和事件/计划实例。同 ID 不同来源主张均保留；不同 ID 的同义关系须原证据明确映射，不能自动去重。解除同 ID 多项独立主张时，clearance.covers 列齐被解除主张的内容 SHA256（非来源 hash），同时给必要证据；不完整则继续阻断。用 `python3 scripts/research_consistency.py claims --audit <原research-audit.json>` 获取内容标识；它不证明证据真实。clearance.stage、所有必要合取与合法替代路径仍须保留。
+- 基线约束已显式填写 lifecycle 时，即使只有一项主张，解除也必须填写 clearance.covers 并覆盖原主张；本轮删除 lifecycle、改为 runtime/observation 或用 not_applicable 解除都不能绕过。只有原基线未带 lifecycle 的旧格式单主张明确解除，才保留省略 covers 的兼容；一旦显式填写，空集合或其它主张的标识仍拒绝。D5 阶段取当前验收研究，不能因旧阶段字符串排序而保留过时状态；当前来源阶段冲突则记 unknown 并保留限制，阶段变化本身不解除主张。
+
+完整理由和来源继续保存在报告审计及发布属主的不可变证据文件中；研究端 JSON 仍为 v4 摘要。下游 CSV 的 research-controls/v2 只保存执行状态/引用/主张标识/解除阶段和证据绑定，由发布属主先保存完整证据、校验后原子提交；研究者不自行改 CSV 或生成第二份执行权威。旧价格表不批量补造控制。
 
 - `action=freeze/eligibility/reject/unavailable/review_holding/invalidated/exit_required`。全局freeze/reject/unavailable包含entry+add；仅加仓限制用`scope=["add"],action="eligibility"`，不能通过全局mode或解除清单再次冻结entry。holding动作包含holding；已确认invalidated/exit_required同时覆盖entry+add+holding。
 - 有效freeze输出frozen，不用tracking/observation隐藏；确认否决用rejected，核心不可估用unavailable且无新P1。资格限制可继续观察估值；价格非空不推定eligible。entry/add任一eligible必须buy_candidate；tracking/observation/frozen/rejected/unavailable均不得eligible。only-add阻断仍允许已经满足条件的entry为eligible。

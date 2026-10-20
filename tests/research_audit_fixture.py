@@ -45,4 +45,5 @@ def audit_for(document):
         for rule in audit['constraints']:
             rule['scope'] = ['entry', 'add']
             rule['action'] = rule.pop('effect')
+            rule['lifecycle'] = 'persistent'
     return audit
