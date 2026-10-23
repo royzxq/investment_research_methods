@@ -98,6 +98,8 @@ sys.path.insert(0,'__RESEARCH_TEST_ROOT__/tests')
 from scripts.research_consistency import render_report_block, extract_audit
 from research_audit_fixture import audit_for
 audit=audit_for(doc)
+if mode=='missing_lifecycle':
+ for row in audit['constraints']: row.pop('lifecycle',None)
 if mode=='control_only':
  audit['constraints'].append(dict(id='EXIT',scope=['entry','add','holding'],status='blocking',action='exit_required',reason='independent verified thesis failure',release_conditions=['new thesis review'],lifecycle='persistent'))
  for scope in ('entry','add','holding'): audit['release_all_of'][scope].append('EXIT')
@@ -117,6 +119,25 @@ if mode=='hidden_freeze':
   audit['release_all_of']=dict(entry=['D5'],add=['D5'],holding=[])
  block=block[:block.index('<!-- research-audit:start -->')]+'<!-- research-audit:start -->\n```json\n'+json.dumps(audit)+'\n```\n<!-- research-audit:end -->'
 if mode=='missing_audit': block=''
+if '本批验收语义two-price-controls/v3' in payload.decode() and doc['meta']['schema_version']=='stock-research/v4' and mode!='missing_acceptance':
+ from copy import deepcopy
+ from scripts import research_acceptance as acceptance_checks
+ acceptance=dict(schema_version=acceptance_checks.SCHEMA,
+  r14=dict(applicability='not_applicable',stress_test='not_applicable',constraint_ids=[],
+   reason='offline fixture not company assessment',
+   inputs={key:dict(status='unknown',sources=[],derivation=None) for key in ('exposure','cost_exposure','pass_through','ocf_bridge')},
+   calculation=None),
+  recovery=dict(operator='all_of',scopes=deepcopy(audit['release_all_of'])))
+ acceptance_block=acceptance_checks.render_block(acceptance,audit)
+ if mode=='r14_missing_evidence':
+  acceptance['r14'].update(applicability='applicable',stress_test='passed')
+ elif mode=='recovery_any_of': acceptance['recovery']['operator']='any_of'
+ elif mode=='recovery_omitted_scope': acceptance['recovery']['scopes']['add']=[]
+ if mode in ('r14_missing_evidence','recovery_any_of','recovery_omitted_scope'):
+  acceptance_block=re.sub(r'<!-- research-acceptance:start -->.*?<!-- research-acceptance:end -->',
+   lambda _: '<!-- research-acceptance:start -->\n```json\n'+json.dumps(acceptance)+'\n```\n<!-- research-acceptance:end -->',acceptance_block,flags=re.S)
+ block+='\n\n'+acceptance_block
+ if mode=='recovery_prose_majority': body+='\n恢复新增和追加时，现价≤P1且以上约束大部分解除即可恢复。\n'
 report_file.write_text(body+'\n\n'+block)
 receipt={'batch_id':batch,'task_id':get('task_id'),'code':code,'generator':generator,'valuation_date':day,'input_pack_sha256':sha,'status':'completed','reason':None,'summary':'offline research completed','report_path':report,'price_map_path':price}
 if mode=='completed_reason':receipt['reason']='wrong place for summary'
@@ -171,6 +192,48 @@ class ResearchRunnerTests(unittest.TestCase):
 
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
+
+    def freeze_delivery_contract(self, contract):
+        """Model a previously prepared contract without upgrading its bytes."""
+        run = prepare_request(self.request_path, self.methods)
+        manifest = run/'framework-snapshot/manifest.json'
+        snapshot = json.loads(manifest.read_text())
+        snapshot['delivery_contract'] = dict(contract)
+        manifest.chmod(0o644)
+        manifest.write_bytes(runner.encode(snapshot))
+        request, raw, packs = runner.read_request(self.request_path)
+        frameworks, _ = runner.snapshot_hashes(run)
+        originals = {}
+        for task in request['tasks']:
+            for generator in request['generators']:
+                folder = run/'execution'/task['task_id']/generator
+                targets = json.loads((folder/'targets.json').read_text())
+                payload = runner.make_prompt(request, task, generator, packs[task['task_id']],
+                    self.methods, frameworks, targets, maintenance=snapshot['maintenance'],
+                    research_validation=snapshot['research_validation'], delivery=contract)
+                (folder/'prompt.txt').write_bytes(payload)
+                (folder/'input.json').write_bytes(runner.encode(runner.input_record(
+                    request, raw, task, generator, payload, frameworks, targets)))
+                originals[folder] = (payload, (folder/'input.json').read_bytes())
+        return run, originals
+
+    def test_pre_acceptance_v4_prompt_bytes_are_unchanged(self):
+        request = dict(batch_id='a'*32, valuation_date='2026-10-06')
+        task = dict(task_id='SH-600066', code='600066.SH', name='宇通客车',
+            sources=['candidate_review'], data_pack=dict(path='packs/SH-600066.md', sha256='1'*64),
+            data_pack_meta=dict(missing_required=['financial.unit']))
+        frameworks = {'investment_framework.md': '2'*64, 'investment_framework_compact.md': '3'*64}
+        targets = dict(report_path='research/offline-report.md', price_map_path='research/offline-price.json')
+        expected = ((runner.OLD_TWO_PRICE_CONTRACT, '21c3f8f8b13acd6af71843da01dbb73c4c9dabbe2914cab06708ec522aaf607a'),
+                    (runner.SCOPED_CONTROLS_CONTRACT, '9756d639bd3a398532b0943e4f852af7a04d0f8794d215273562ee6e2bcec395'))
+        with patch.object(runner, 'owned_path', side_effect=lambda root, relative: Path(root)/relative):
+            for contract, digest in expected:
+                with self.subTest(contract=contract['prompt_template']):
+                    payload = runner.make_prompt(request, task, 'claude', '冻结输入正文不可截断\n'.encode(),
+                        Path('/offline/research'), frameworks, targets,
+                        research_validation=runner.research_consistency.SCHEMA, delivery=contract)
+                    self.assertEqual(hashlib.sha256(payload).hexdigest(), digest)
+                    self.assertNotIn(b'two-price-controls/v3', payload)
 
     def test_v3_frozen_snapshot_and_legacy_writer_remain_bound(self):
         run = prepare_request(self.request_path, self.methods)
@@ -244,16 +307,62 @@ class ResearchRunnerTests(unittest.TestCase):
             self.assertEqual((folder/'input.json').read_bytes(),inputs)
 
     def test_v4_isolation_preserves_prices_and_blocks_both_exposure_scopes(self):
+        from scripts import research_acceptance
         os.environ['MOCK_MODE'] = 'framework_changes'
         entry = json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'], 'completed', entry['reason'])
         doc = json.loads((self.methods / entry['price_map']['path']).read_text())
+        acceptance = research_acceptance.extract((self.methods/entry['report']['path']).read_text())
         self.assertNotIn('p2', doc['price_map'])
         self.assertEqual(doc['price_map']['p1'], {'base': 12})
         for scope in ('entry', 'add'):
             self.assertEqual(doc['research_controls'][scope]['status'], 'blocked')
             self.assertIn('METHOD_COMPATIBILITY', doc['research_controls'][scope]['refs'])
+            self.assertIn('METHOD_COMPATIBILITY', acceptance['recovery']['scopes'][scope])
         self.assertEqual(doc['research_controls']['holding']['status'], 'normal')
+
+    def test_old_scoped_controls_prepared_contract_keeps_prompts_without_new_acceptance(self):
+        _, originals = self.freeze_delivery_contract(runner.SCOPED_CONTROLS_CONTRACT)
+        os.environ['MOCK_MODE'] = 'missing_acceptance'
+        entries = json.loads(self.execute().read_text())['results']
+        self.assertTrue(all(entry['status'] == 'completed' for entry in entries), entries)
+        for folder, (payload, inputs) in originals.items():
+            self.assertIn(b'two-price-controls/v2', payload)
+            self.assertNotIn(b'two-price-controls/v3', payload)
+            self.assertEqual((folder/'prompt.txt').read_bytes(), payload)
+            self.assertEqual((folder/'input.json').read_bytes(), inputs)
+        report = (self.methods/entries[0]['report']['path']).read_text()
+        self.assertNotIn('<!-- research-acceptance:start -->', report)
+
+    def test_old_scoped_controls_still_requires_explicit_lifecycle(self):
+        self.freeze_delivery_contract(runner.SCOPED_CONTROLS_CONTRACT)
+        os.environ['MOCK_MODE'] = 'missing_lifecycle'
+        entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('explicit lifecycle', entry['reason'])
+        self.assertFalse(list((self.methods/'research').rglob('*-research-*.md')))
+
+    def test_new_acceptance_failures_are_retryable_and_never_published(self):
+        cases = (('missing_acceptance', r'acceptance'),
+                 ('r14_missing_evidence', r'R14|r14'),
+                 ('recovery_any_of', r'all_of|recovery'),
+                 ('recovery_omitted_scope', r'ALL|scope|recovery'),
+                 ('recovery_prose_majority', r'recovery|恢复|解除'))
+        for index, (mode, error) in enumerate(cases, 1):
+            with self.subTest(mode=mode):
+                self.request['batch_id'] = str(index)*32
+                self.write_request()
+                os.environ['MOCK_MODE'] = mode
+                with patch.object(runner, 'publish_pair', wraps=runner.publish_pair) as publish:
+                    result = self.execute()
+                entry = json.loads(result.read_text())['results'][0]
+                self.assertEqual(entry['status'], 'failed', entry)
+                self.assertRegex(entry['reason'], error)
+                publish.assert_not_called()
+                self.assertFalse(list((self.methods/'research').rglob('*-research-*.md')))
+                self.assertFalse(list((self.methods/'research').rglob('*-price-map-*.json')))
+                folder = result.parent/'execution/SH-600066/claude'
+                self.assertTrue(json.loads((folder/'process.json').read_text())['retryable'])
 
     def test_valid_control_only_delivery_is_audited_completed_and_sealed(self):
         from scripts import research_scheduler, research_coze

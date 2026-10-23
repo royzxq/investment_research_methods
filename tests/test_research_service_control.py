@@ -76,6 +76,21 @@ class ResearchServiceControlTests(unittest.TestCase):
         self.assertTrue(self.plist.exists())
         self.assertTrue(self.state.exists())
 
+    def test_start_accepts_installer_quarter_hour_wakeups_without_resetting_daily_state(self):
+        self.write_plist(StartCalendarInterval=[{'Minute': m} for m in (0, 15, 30, 45)])
+        self.assertIn('05:00', control.manage('start'))
+        self.assertEqual(self.state.read_bytes(), b'{"existing": "preserve"}\n')
+        self.assertNotIn('kickstart', [c[1] for c in self.calls])
+
+    def test_arbitrary_wakeups_and_boolean_calendar_values_are_rejected(self):
+        for calendar in ([{'Minute': m} for m in (0, 10, 20, 30)],
+                         [{'Minute': m} for m in (False, 15, 30, 45)],
+                         {'Hour': 6, 'Minute': 0}):
+            self.write_plist(StartCalendarInterval=calendar)
+            with self.assertRaises(ValueError):
+                control.manage('start')
+        self.assertEqual(self.calls, [])
+
     def test_stop_unloads_idle_service_without_removing_plist_or_state(self):
         control.manage('stop')
         self.assertEqual([call[1] for call in self.calls], ['print', 'bootout'])

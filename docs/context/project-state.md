@@ -2,6 +2,14 @@
 
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
+## DSH 接替 CC（2026-10-23）
+
+用户在完成隔离配对后授权正式替换。新批次 Codex + DSH，DSH 真实身份接替既有 Claude 业务席位，同批两者互斥；旧 frozen CC 计划不改。方法、共识、Coze、额度、168小时冷却及历史不变。执行/交接 v2 与旧 v1 并读；本机已于22:34空闲重载生效，原05:00排期与台账保留。结果见[迁移 ADR](../adr/ADR-20261023-dsh-research-seat-migration.md)及[实施记录](../../research/investment/maintenance/2026-10-23/investment-2026-10-23-dsh-production-rollout-codex.md)，不将隔离报告提升为生产研究。
+
+## 执行架构解耦（2026-10-21）
+
+按用户授权完成模型 profile 与本地 CLI harness adapter 的等价抽取，现有Codex/Claude默认、投研方法、参与/共识与Coze规则及历史合同保留；新增显式配置和新批次执行快照，恢复/重试不换读当前配置。定时入口可透传配置但本次未重装服务、未启用新profile、未切换dsh。接口、兼容与后续新增生产身份边界见[ADR](../adr/ADR-20261021-research-runtime-profiles.md)，实际测试/审查见[实施记录](../../research/investment/maintenance/2026-10-21/investment-2026-10-21-research-runtime-decoupling-codex.md)。
+
 ## 两价本地采纳（2026-10-18）
 
 用户明确不要求前瞻影子测试，授权根据既有回测判断并完整本地落地。方法标识 `stock-two-price-v1`，新交付 v4/audit-v2，核心 P1/T1 与独立 entry/add/holding 条件；既有60/40预算、阈值及观测块保留。回测中取消区间减仓的效果两市不一致，不宣称收益优势。新正式批次走两价，旧历史与冻结批次保留版本，缺历史条件不补造 eligible；一只股票已发布 v4 后不能由旧共识降级。生产数据不批量重写，下一次研究按新协议自然接续。方法已由用户明确本地采纳；市场证据仍截止原记录，没有伪造新的周度市场研究或状态 handoff。部署与验证见本日 maintenance 的 two-price-production-rollout-codex 报告；后续 review-and-commit 报告记录提交前审查与修复，仍不推送。

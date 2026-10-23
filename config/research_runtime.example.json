@@ -1,0 +1,39 @@
+{
+  "schema_version": "research-runtime-config/v1",
+  "profiles": [
+    {
+      "profile_id": "claude-inherited",
+      "revision": 1,
+      "producer": "claude",
+      "harness": "claude-code-cli",
+      "models": {
+        "main": {
+          "model": null,
+          "effort": null
+        },
+        "subagent": {
+          "model": null
+        }
+      }
+    },
+    {
+      "profile_id": "codex-inherited",
+      "revision": 1,
+      "producer": "codex",
+      "harness": "codex-cli",
+      "models": {
+        "main": {
+          "model": null,
+          "effort": null
+        },
+        "subagent": {
+          "model": null
+        }
+      }
+    }
+  ],
+  "active": {
+    "claude": "claude-inherited",
+    "codex": "codex-inherited"
+  }
+}

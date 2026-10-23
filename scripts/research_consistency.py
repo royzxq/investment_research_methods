@@ -134,7 +134,7 @@ def baseline_values(audit, root):
 
 def validate_audit(audit, document, *, root=None):
     validate_document(document)
-    require(document['meta'].get('generator') in ('codex', 'claude'), 'research audit requires declared generator')
+    require(document['meta'].get('generator') in ('codex', 'claude', 'dsh'), 'research audit requires declared generator')
     fields(audit, {'schema_version', 'identity', 'valuation', 'discounts', 'risks',
                    'constraints', 'release_all_of', 'baseline', 'p1_basis'}, 'research audit')
     require(audit['schema_version'] in SUPPORTED_SCHEMAS, 'research audit schema mismatch')
@@ -509,7 +509,8 @@ def constraint_claim_sha256(rule):
     return hashlib.sha256(raw).hexdigest()
 
 
-def validate_report(report, document, *, root=None, expected_baseline=None, require_lifecycle=False):
+def validate_report(report, document, *, root=None, expected_baseline=None, require_lifecycle=False,
+                    require_acceptance=False):
     audit = extract_audit(report)
     result = validate_audit(audit, document, root=root)
     if require_lifecycle:
@@ -524,6 +525,13 @@ def validate_report(report, document, *, root=None, expected_baseline=None, requ
             'research audit: require exactly one rendered calculation view')
     require(render_checks(audit, document) in report,
             'research audit: visible calculation view differs from audited inputs/quotes')
+    try:
+        from . import research_acceptance
+    except ImportError:
+        import research_acceptance
+    # Explicit new blocks are never ignored by a legacy/default check.
+    if require_acceptance or research_acceptance.START in report or research_acceptance.END in report:
+        result['acceptance'] = research_acceptance.validate(report, audit, root=root)
     return result
 
 
@@ -549,6 +557,12 @@ def isolate_report(report, document, *, root=None):
     report = re.sub(pattern, lambda _: replacement, report, count=1, flags=re.S)
     report = re.sub(re.escape(VIEW_START) + r'.*?' + re.escape(VIEW_END),
                     lambda _: render_checks(audit, document), report, count=1, flags=re.S)
+    try:
+        from . import research_acceptance
+    except ImportError:
+        import research_acceptance
+    if research_acceptance.START in report:
+        report = research_acceptance.refresh_recovery(report, audit)
     validate_report(report, document, root=root)
     return report
 
@@ -566,8 +580,10 @@ def main(argv=None):
     parser.add_argument('--price-map', type=Path)
     parser.add_argument('--report', type=Path)
     parser.add_argument('--audit', type=Path)
+    parser.add_argument('--acceptance', type=Path, help='new evidence/recovery JSON, render only')
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--require-lifecycle', action='store_true', help='new controls semantics; legacy check remains readable')
+    parser.add_argument('--require-acceptance', action='store_true', help='new evidence/all-of gate; preserve legacy checks')
     args = parser.parse_args(argv)
     try:
         if args.command == 'claims':
@@ -580,10 +596,19 @@ def main(argv=None):
         if args.command == 'check':
             require(args.report is not None, 'check requires --report')
             print(json.dumps(validate_report(args.report.read_text(), document, root=args.root,
-                                            require_lifecycle=args.require_lifecycle), ensure_ascii=False))
+                                            require_lifecycle=args.require_lifecycle,
+                                            require_acceptance=args.require_acceptance), ensure_ascii=False))
         else:
             require(args.audit is not None, 'render requires --audit')
-            print(render_report_block(load_json(args.audit), document, root=args.root))
+            audit = load_json(args.audit)
+            rendered = render_report_block(audit, document, root=args.root)
+            if args.acceptance is not None:
+                try:
+                    from . import research_acceptance
+                except ImportError:
+                    import research_acceptance
+                rendered += '\n\n' + research_acceptance.render_block(load_json(args.acceptance), audit, root=args.root)
+            print(rendered)
     except (ValueError, OSError, KeyError) as exc:
         parser.exit(2, 'Research consistency failed: ' + str(exc) + '\n')
 

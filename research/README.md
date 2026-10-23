@@ -34,9 +34,9 @@
 
 公司研究示例：`investment/companies/2026-10-06/SH-601919/`。同一天不同公司并列，同一公司不同日期分别归档；附件跟随当期公司目录。报告索引按日期倒序列出公司名称、代码及报告/价格地图链接；跨日期复评继续由 `latest-company` 查找。
 
-个股新产物按实际生成端区分：Codex 为 `codex`，Claude Code 为 `claude`。例如同一公司同日分别生成 `investment-601919-2026-10-06-price-map-codex.json` 与 `investment-601919-2026-10-06-price-map-claude.json`，报告对应 `-research-codex.md` / `-research-claude.md`；JSON 的 `meta.generator` 同步标注。同端重复运行追加 `-r2/-r3`（如 `-price-map-codex-r2.json`），不同端互不占用版本号；附件使用本期公司目录内的 `evidence/<生成端>/`。
+个股新产物按实际生成端区分：Codex 为 `codex`，Claude Code 为 `claude`，DeepSeek Harness 为 `dsh`。例如同一公司同日分别生成 `investment-601919-2026-10-06-price-map-codex.json` 与 `investment-601919-2026-10-06-price-map-claude.json`，报告对应 `-research-codex.md` / `-research-claude.md`；JSON 的 `meta.generator` 同步标注。同端重复运行追加 `-r2/-r3`（如 `-price-map-codex-r2.json`），不同端互不占用版本号；附件使用本期公司目录内的 `evidence/<生成端>/`。
 
-历史无生成端后缀、无 generator 字段的产物继续原样保留，视为“来源未标注”，不自动归类为 Claude。`latest-company --generator codex|claude` 只查本端，缺少结果不会回退到另一端；省略参数或使用 `--generator unattributed` 只查无来源历史。跨端报告可明确作为研究材料引用，不能冒充本端结果。latest 分别为 `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest-codex.json` 和 `-latest-claude.json`；旧无后缀缓存只对应未标注来源的历史。
+历史无生成端后缀、无 generator 字段的产物继续原样保留，视为“来源未标注”，不自动归类为 Claude。`latest-company --generator codex|claude|dsh` 只查本端，缺少结果不会回退到另一端；省略参数或使用 `--generator unattributed` 只查无来源历史。跨端报告可明确作为研究材料引用，不能冒充本端结果。latest 分别为 `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest-codex.json` 、`-latest-claude.json` 和 `-latest-dsh.json`；旧无后缀缓存只对应未标注来源的历史。
 
 基线只放各轨 `baselines/`。普通旧报告留在原日期目录；`archive/` 仅存退出现行流程的类型，如 ETF 旧卡片、monthly-review、task-spec。旧 v1 卡片层级保留，不能据旧状态推定当前账户。历史审计 JSON 包含人工核对、豁免和原哈希，不能作为可重建日志批量删除。
 
@@ -93,7 +93,7 @@ python3 scripts/research_paths.py index --as-of 2026-10-05 --local
 
 ## 个股复研批次交接验收
 
-`ai_investment` 发布本轮 `stock-research-request/v1` 请求与量价数据包，本仓使用真实生成端 `codex/claude` 研究；独立 `stock-research-result/v1` 清单绑定请求原始字节哈希及确切报告/JSON 路径。Codex 接替原 Gemini 业务席位，历史 Gemini 不改身份。只消费本轮结果，不使用七天窗口补历史来源；部分端尚无回执即缺席，不能记成拒绝或失败。单端成功可进入后续单席计算并披露。
+`ai_investment` 新发布默认使用 `stock-research-request/v2` 与真实 `codex/dsh`；结果为 `stock-research-result/v2`，封口为 `research-sealed/v2`。v1 继续严格支持历史 `codex/claude`，结果/封口跟随绑定请求版本，字段与哈希/路径校验不变。Codex 接替原 Gemini 业务席位，DSH 接替原 Claude 业务席位；同批 Claude/DSH 互斥，仍为两个基础席位。历史不改身份，DSH 首份同端基线为 null，旧未解除控制由下游原稳定ID/scope接续。独立结果清单绑定请求原始字节哈希及确切报告/JSON 路径。只消费本轮结果，不使用七天窗口补历史来源；部分端尚无回执即缺席，不能记成拒绝或失败。单端成功可进入后续单席计算并披露。
 
 以下 research_exchange 入口只做验收，不启动模型或调度、不更新 CSV/latest，不判断事实真实性或估值合理性：
 
@@ -111,14 +111,16 @@ python3 scripts/research_exchange.py check-results /path/to/result.json --reques
 `scripts/research_runner.py` 在本仓准备并执行已验收请求，复用 stock-research 技能。必须使用请求中已计划的真实生成端；不要只给股票代码就启动研究。
 
 ```sh
-python3 scripts/research_runner.py prepare --request /absolute/path/to/request.json
-python3 scripts/research_runner.py run --request /absolute/path/to/request.json --generator claude --workers 3
+python3 scripts/research_runner.py prepare --request /absolute/path/to/request.json --runtime-config /absolute/path/to/research_runtime.production.json
+python3 scripts/research_runner.py run --request /absolute/path/to/request.json --generator dsh --runtime-config /absolute/path/to/research_runtime.production.json --workers 3
 python3 scripts/research_runner.py run --request /absolute/path/to/request.json --generator codex --workers 1
 ```
 
-默认使用 PATH 中对应 CLI 和它已有的模型配置；可用 `--cli /absolute/path/to/cli` 指定安装位置。运行需要实际登录/网络，使用正常自动审批；拒绝权限或模型失败会留失败回执，不跳过权限检查。`--timeout-seconds` 默认3600，超时终止本次进程组。该入口不安装定时任务、不写飞书/CSV、不提交Git，也不更新 INDEX/latest；自动扫描、预算和失败自动恢复仍未接入。
+默认使用 PATH 中对应 CLI；可用 `--cli /absolute/path/to/cli` 指定安装位置。Codex/CC未显式选模型时继承既有配置，DSH使用显式模型配置与workspace-write/approval never，无需人工确认，不宣称与CC自动审批审查等价。运行需要实际凭据/网络；拒绝权限或模型失败会留失败回执，不跳过适配器的沙箱检查。`--timeout-seconds` 默认3600，超时终止本次进程组。该入口不安装定时任务、不写飞书/CSV、不提交Git，也不更新 INDEX/latest；自动扫描、预算和失败恢复由 `research_scheduler.py` 管理。
 
-Jev 默认 `auto`，Codex/Claude 均注册可审计的 `jev_research` 路由。可用 `run --jev-mode auto|off|force` 指定，或设置 `RESEARCH_JEV_MODE`（定时调度入口也继承该环境变量）；命令行优先，重试保留首次模式。批量公告/年报候选提交后由程序判断是否达到阈值，已精确定位及小批次记录跳过原因；全部候选保留，失败回退原文核验。触发参数和候选格式见 [Jev 条件路由](../.agents/skills/stock-research/references/jev-routing.md)。每端每次尝试在 `execution/<task_id>/<generator>/jev/` 留 `calls.jsonl`、排序结果和最终 `summary.json`，摘要同时进入 `process.json.jev`；retry-1 使用自己的目录。`not_requested` 表示没有提交候选，不能当作程序已评估后跳过。
+2026-10-21 执行层已抽取 profile 与 harness adapter；不提供配置仍使用legacy Codex/CC默认。可给 prepare/run 或 scheduler 显式 `--runtime-config /absolute/runtime.json`，按[示例](../config/research_runtime.example.json)选择已有适配器支持的主模型/effort及子模型。新批次在 `framework-snapshot/execution-plan.json` 冻结完整选中配置并绑定原请求；已有批次按自己的计划或旧合同恢复，不受当前配置变化影响。2026-10-23起DSH已正式接入，新v2请求须选择含DSH的显式配置，例如[生产配置](../config/research_runtime.production.json)；旧v1/CC计划及原业务席位、共识与Coze规则保留。能力与继承语义见[执行配置ADR](../docs/adr/ADR-20261021-research-runtime-profiles.md)与[DSH迁移ADR](../docs/adr/ADR-20261023-dsh-research-seat-migration.md)。
+
+Jev 默认 `auto`，Codex/Claude/DSH 均注册可审计的 `jev_research` 路由。可用 `run --jev-mode auto|off|force` 指定，或设置 `RESEARCH_JEV_MODE`（定时调度入口也继承该环境变量）；命令行优先，重试保留首次模式。批量公告/年报候选提交后由程序判断是否达到阈值，已精确定位及小批次记录跳过原因；全部候选保留，失败回退原文核验。触发参数和候选格式见 [Jev 条件路由](../.agents/skills/stock-research/references/jev-routing.md)。每端每次尝试在 `execution/<task_id>/<generator>/jev/` 留 `calls.jsonl`、排序结果和最终 `summary.json`，摘要同时进入 `process.json.jev`；retry-1 使用自己的目录。`not_requested` 表示没有提交候选，不能当作程序已评估后跳过。
 
 Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，以及结构化输出、临时会话等执行参数；本机已核验 `codex-cli 0.160.1`。旧版（例如审查环境的 `0.144.0-alpha.4`）不满足此能力契约，不能直接使用。runner 在领取任务前读取两级 `--help` 检查能力；不兼容、检查失败或超时即拒绝启动，不生成任务失败回执、不消耗本批次启动机会，可通过 `--cli` 选择兼容版本后重试。保留自动审批及独立进程清理语义，不自动降级为跳过权限检查。能力检查及命令解析通过不等于模型登录、联网研究或交付验收通过。
 
@@ -128,7 +130,7 @@ Codex 运行要求 CLI 支持顶层 `--no-daemon` 和 `exec --approve-for-me`，
 
 `process.json` 的 PID/状态证明实际进程启动，`events.jsonl`/`stderr.log` 保存执行原文；`cli-receipt.json` 是模型回执，不能代替正式价格JSON。正式产物仍位于日期优先公司目录；同日同端已有文件写配对隔离版本。模型只写本批 staged/<task_id>/<generator>/ 内的同结构暂存文件，JSON meta.report_path和回执使用确切最终相对路径；runner先读全并验证两份暂存字节，再复制成独立inode、以只创建的原子链接发布，拒绝覆盖旧文件。完成回执reason必须null、结论写summary；失败则reason有说明、两个路径null。报告第0节正文须绑定本批ID、包与框架指纹；输入匹配且九节/该批次冻结交付版本/配对验收通过才产生完成回执，不能把连接成功、文件准备或退出码0等同于完整研究交付。
 
-每端生成独立 `results-claude.json` / `results-codex.json`，使用原 `stock-research-result/v1` 协议，不相互覆盖；缺席生成端不记失败。任务失败会留原因和 null 产物，同一批次同任务同端拒绝再次启动；修复后显式发布新批次重试，保留旧尝试。跨批同证券同端使用进程锁，执行前再次检查准备时目标未被占用。超时与SIGTERM/SIGINT统一清理进程组（含忽略SIGTERM的同组后代），清理完成后才释放证券锁；SIGKILL、断电或刻意脱离组的守护进程不作恢复保证。部分准备目录没有 request.json 则不可执行，不自动修补或覆盖。
+每端生成独立 `results-<generator>.json`，使用与本轮请求绑定的 `stock-research-result/v1|v2` 协议，不相互覆盖；缺席生成端不记失败。任务失败会留原因和 null 产物，同一批次同任务同端拒绝再次启动；修复后显式发布新批次重试，保留旧尝试。跨批同证券同端使用进程锁，执行前再次检查准备时目标未被占用。超时与SIGTERM/SIGINT统一清理进程组（含忽略SIGTERM的同组后代），清理完成后才释放证券锁；SIGKILL、断电或刻意脱离组的守护进程不作恢复保证。部分准备目录没有 request.json 则不可执行，不自动修补或覆盖。
 
 ### 两价正式交付（2026-10-18，已本地采纳）
 

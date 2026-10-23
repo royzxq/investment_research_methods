@@ -12,12 +12,29 @@ ROOT = Path(__file__).resolve().parents[1]
 LABEL = 'com.investment-research-methods.research'
 
 
-def service(python, codex, claude, root=ROOT):
+def service(python, codex, claude, root=ROOT, *, runtime_config=None, dsh=None):
     for value in (python, codex, claude):
         if not Path(value).is_absolute() or not os.access(value, os.X_OK):
             raise ValueError('Python and both CLI paths must be absolute executables')
+    if dsh is not None and (not Path(dsh).is_absolute() or not os.access(dsh, os.X_OK)):
+        raise ValueError('DSH path must be an absolute executable')
+    arguments = ['/bin/zsh', str(root/'deploy/launchd/run_research.sh'), python, codex, claude]
+    if runtime_config is not None:
+        path = Path(runtime_config)
+        if not path.is_absolute():
+            raise ValueError('runtime config path must be absolute')
+        try:
+            from .research_runtime import load_config
+        except ImportError:
+            from research_runtime import load_config
+        load_config(path)  # Shared exact schema rejects secret/arbitrary options.
+        arguments.append(str(path))
+    elif dsh is not None:
+        arguments.append('')  # Keep the optional config and DSH argument slots stable.
+    if dsh is not None:
+        arguments.append(str(dsh))
     return dict(Label=LABEL,
-                ProgramArguments=['/bin/zsh', str(root/'deploy/launchd/run_research.sh'), python, codex, claude],
+                ProgramArguments=arguments,
                 WorkingDirectory=str(root),
                 # launchd's calendar follows the host timezone. Quarter-hour
                 # wakeups reach 05:00 Shanghai even in half/quarter-hour zones;
@@ -34,10 +51,14 @@ def main():
     parser.add_argument('--python', required=True)
     parser.add_argument('--codex-cli', required=True)
     parser.add_argument('--claude-cli', required=True)
+    parser.add_argument('--dsh-cli', help='Absolute DSH CLI path for new DSH requests')
+    parser.add_argument('--runtime-config', type=Path,
+                        help='Absolute path to an explicit nonsecret research runtime config')
     parser.add_argument('--install', action='store_true', help='Without this flag, only print the plist')
     parser.add_argument('--replace-when-idle',action='store_true',help='Wait for an existing run to finish before replacing its schedule')
     args = parser.parse_args()
-    raw = plistlib.dumps(service(args.python, args.codex_cli, args.claude_cli))
+    raw = plistlib.dumps(service(args.python, args.codex_cli, args.claude_cli,
+                                runtime_config=args.runtime_config, dsh=args.dsh_cli))
     if not args.install:
         sys.stdout.buffer.write(raw)
         return

@@ -7,14 +7,14 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 **两价已本地采纳（2026-10-18）**：用户授权依据既有回测正式落地；新交付使用 v4/audit-v2 并按正式流程更新本端 latest。旧冻结批次按下文 legacy 路由恢复，不重写历史、不补造旧控制。默认仍本地保存，未经授权不推送或外发。
 
-本隔离修订使用 `two-price-controls/v2` 语义：新 audit 显式区分持续限制、运行时条件和观察，按 [研究一致性](references/research-consistency.md) 验收；不据格式升级自动解除旧限制。当前任务未授权生产数据迁移或推送。已冻结 v4 `two-price/v1` 批次仍按原 prompt/input/hash 和非强制 lifecycle 合同恢复。
+新准备批次使用 `two-price-controls/v3` 交付合同：audit 显式区分持续限制、运行时条件和观察，按 [研究一致性](references/research-consistency.md) 及 [共享证据与恢复验收](references/acceptance-gates.md) 检查 R14 缺证不能判通过、全部有效独立约束解除后才能恢复；不据格式升级自动解除旧限制。DSH 接入仅影响未来新批次，不批量改写生产历史或授权推送。已冻结 v4 `two-price-controls/v2`、`two-price/v1` 批次仍按原 prompt/input/hash 和各自 lifecycle/验收合同恢复。
 
 输出目录、通用技能映射与发现命令统一见仓库 `research/README.md`；正式产物不写 `research/` 根目录。
 
 ## 入口与边界
 
 - 自然语言“使用进行股票投研：<股票信息>”“使用 stock-research 进行股票投研：<股票信息>”或显式 `$stock-research` 都进入本流程；解析股票信息后直接执行研究并本地保存，不只给操作说明。
-- 生成端按实际宿主固定：Codex 使用 `generator=codex`，Claude Code 使用 `generator=claude`。它表示本次研究的生成端，不是行情来源或引用报告作者；不从旧文件或所读技能目录推断。新报告、JSON、scratch 和 latest 均按生成端隔离，具体命名见输出契约。
+- 生成端按实际宿主固定：Codex 使用 `generator=codex`，Claude Code 使用 `generator=claude`，DeepSeek Harness 使用 `generator=dsh`。它表示本次研究的生成端，不是行情来源或引用报告作者；不从旧文件或所读技能目录推断。新报告、JSON、scratch 和 latest 均按生成端隔离，具体命名见输出契约。
 - 从技能目录向上定位包含 `framework/`、`research/` 的仓库根，主代理先读根 `AGENTS.md`、`docs/context/project-state.md` 和完整 `framework/investment_framework_compact.md`；同一版本已读内容不重复整篇加载，子代理上下文按研究后端契约裁剪。方法和歧义以 `framework/investment_framework.md` 对应原文裁决。下列仓库路径相对根目录。
 - 按 compact §10 输出 0–8 九节报告；最终 JSON 仅含必要标识、P1/T1 价格地图、研究控制摘要和重点监控变量。完整证据、参数论证、Gate 判定及缺口留在 Markdown。
 - 日期采用 `Asia/Shanghai`。估值日默认当天；历史研究按**公开披露日**限制证据，不只比较财报期末日。D1–D8 按已采纳方法结合截止日内最新兼容观测重新判断，旧段落中的“当前”只代表原观测日；按原规则刷新受影响状态不等于修改宏观方法、阈值或权重。缺证保持 unknown，未采纳方法不作生产有效规则；本工作区的已授权影子任务明确绑定候选版本，不冒充已采纳。
@@ -80,7 +80,7 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 计算前必读 [估值与轻量输出契约](references/valuation-and-output.md)。关键约定：
 
-- 新自动交付及本次复评按 [研究一致性](references/research-consistency.md) 生成报告内唯一核算表与审计块，闭合收入→经常利润→股权价值→V50/P1链；独占风险归属、同端基线折扣变化和全部阻断的合取解除均在发布前校验。检查不替代原文/语义核验；新交付为 v4 + audit-v2，既有利润桥/风险归属/折扣检查保留，旧历史不追溯改写。
+- 新自动交付及本次复评按 [研究一致性](references/research-consistency.md) 生成报告内唯一核算表与审计块，闭合收入→经常利润→股权价值→V50/P1链；独占风险归属、同端基线折扣变化和全部阻断的合取解除均在发布前校验。按 [共享证据与恢复验收](references/acceptance-gates.md) 另生成唯一验收块及可见表，不能仅自报 R14 passed，正文恢复逻辑须与各 scope 的全部有效约束一致。检查不替代原文/语义核验；新交付为 v4 + audit-v2，既有利润桥/风险归属/折扣检查保留，旧历史不追溯改写。
 
 - canonical 已有数值必须沿用；未规定绝对档位的 `d_base/r_k` 是本次分析假设。研究者给证据、取值理由、区间/敏感性与风险去重说明，再选基准值。不得称其为框架默认值，也不创建通用折扣表替代 canonical。
 - 最终价格统一为交易币种/股。总市值与每股价值分开输入；EV 先明确扣净债务及其它权益调整。汇率写清方向，股份数用实际股数。
@@ -98,7 +98,7 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 - 人工语义验收：关键证据冲突已裁决或明确影响；报告九节与 DCS 完整；币种/股本/现金桥/Terminal 算术正确；风险没有重复扣减；报告与 JSON 的 V50/P1/T1/研究控制/监控基线一致，P1 的每个已填值均能定位报告原句/表格、未填上下沿未被补造；非买入价位不含执行许可。
 - 数据验收：新披露查询的市场/主体/日期范围及分页缺口已交代；关键估值事实能定位原始文件、版本与页码/章节，抽取表格的单位、列头和附注已核对。取得公告目录、下载 PDF、文本提取和读原文核验是不同状态；未完成项写入报告对应缺口，不增加最终 JSON 的证据字段。
 - 估值修订后，从最终 JSON 的 V50/P1/T1 回读核对引用和距现价百分比；build 不重写 T1 文本。控制另核报告/audit/摘要一致性，不能报价更新而沿用已经失效的旧 eligible。
-- 运行 `python3 scripts/stock_price_map.py check <JSON>` 与 `python3 scripts/research_consistency.py check --report <报告> --price-map <JSON>`；分别验证报价/精度/T1 引用/控制结构与按scope的一致性。它们不证明原文提取语义、来源真实性、经济风险不重叠或估值合理性。
+- 运行 `python3 scripts/stock_price_map.py check <JSON>` 与 `python3 scripts/research_consistency.py check --report <报告> --price-map <JSON> --require-lifecycle --require-acceptance`；分别验证报价/精度/T1 引用/控制结构、证据绑定与按 scope 的全部恢复条件。已验证的旧冻结合同不追加新参数，按其原验收分支运行。它们不证明原文提取语义、来源真实性、经济风险不重叠或估值合理性。
 - 最终文件：`research/investment/companies/<日期>/<市场>-<代码>/investment-<代码>-<日期>-research-<生成端>.md`、`research/investment/companies/<日期>/<市场>-<代码>/investment-<代码>-<日期>-price-map-<生成端>.json`。生产正式流程验证完成后按输出契约选择同一生成端截止日内最近正式 v4/v3/v2，刷新 `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest-<生成端>.json` 为所选日期 JSON 的完全相同副本；`meta.report_path` 始终指向对应报告，不因格式新旧越过较新估值日。新完成的正式研究按此规则刷新本端 latest；隔离复评仍不自动覆盖正式产物。
 - 同日同一生成端已有产物先核对报告 §0 的输入/框架指纹与证据截止。完全匹配且未要求复评可复用；其它情况自动选择未使用的 `-r2/-r3…` 同后缀报告和 JSON，隔离运行不刷新 latest。只有用户明确授权才覆写原文件或提升隔离版；不能因旧指纹缺失假定输入相同。
 - 报告 §0 记录生成端、运行模式、`research_mode` 及理由、数据/证据日期、框架版本及 SHA-256、已提供数据包指纹、隔离/复评来源及基线实际证据截止，摘要列出沿用／更新／纠错／待补证范围和依据（无项明确无）；完整推导、本期结论所依赖的关键事实及其原始来源和页码/章节仍直接保留在报告，不能只引用旧报告或被忽略的 scratch 目录。

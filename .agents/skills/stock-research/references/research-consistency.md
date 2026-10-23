@@ -86,3 +86,5 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 - 本端适用基线中的未解约束按稳定ID、scope和限制动作接续；旧audit/v1的effect按同义action兼容。仍blocking/unknown时不能仅保留ID和scope却把freeze/reject/unavailable改为eligibility；已有unavailable须保留自身动作，freeze/reject也不能仅改为unavailable来替代原限制。资格限制可收紧为全局限制，freeze可收紧为reject，持仓复核可收紧为失效/退出；已确认reject/invalidated/exit_required不能改unknown。其它降级或不可比动作替换，先用clear/not_applicable及非空clearance.evidence明确解除原ID，再用独立ID记录新限制，不以unknown或附带空解除说明绕过。取消/暂停/从严的具体条件不合并成无原因布尔值。新证据明确解除才清除，并核每个scope；缺席、遗漏与代码回滚都不是解除理由。
 
 程序核结构、算术、scope与声明的一致性，不替研究者核原始证据。新批次发布前强制此门禁，失败进入原有最多一次输出重试，原暂存报告和回执不改。旧prepared按已验证旧合同/附录运行，不让活跃默认writer改变旧产物。方法不兼容时派生隔离版本的entry/add都阻断，holding风险继续，不建立adopted handoff。已确认风险收紧而报价无法确认时，交付mode=unavailable、p1=null、T1无报价的合法completed v4；audit保留entry/add unavailable及全部适用holding/add约束，完整门禁通过后正常seal，再由发布属主处理control-only。failed/未验收receipt不能直接发布controls；不得用报价失败保留旧eligible。
+
+新冻结 `two-price-controls/v3` 合同另按 [共享证据与恢复验收](acceptance-gates.md) 强制 `stock-research-acceptance/v1`：R14 必要输入仍为任意假设或未知时不能标 passed；有来源约束的保守估算允许，unknown 保留实际 R14 的 add 持续限制。各 scope 的恢复清单须精确覆盖全部有效约束，正文不得以“大部分解除”放宽。单条规则内部原且/或和合法替代路径不变。旧 v2/v1 冻结批次不追补新块；原始实验结果不变，严格复验另存回执。新块存在时即使默认历史 check 也不得忽略。

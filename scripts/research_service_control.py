@@ -16,6 +16,19 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _known_calendar(value):
+    # Both deployed legacy schedules and the current renderer remain valid.
+    # Exact integer checks exclude bool, which compares equal to 0/1 in Python.
+    if isinstance(value, dict):
+        return (set(value) == {'Hour', 'Minute'}
+                and type(value.get('Hour')) is int and value['Hour'] == 5
+                and type(value.get('Minute')) is int and value['Minute'] == 0)
+    return (isinstance(value, list) and len(value) == 4
+            and all(isinstance(item, dict) and set(item) == {'Minute'}
+                    and type(item['Minute']) is int and item['Minute'] == minute
+                    for item, minute in zip(value, (0, 15, 30, 45))))
+
+
 def manage(action):
     if action not in {'start', 'stop'}:
         raise ValueError('unknown service action')
@@ -35,7 +48,7 @@ def manage(action):
     if action == 'start':
         if (settings.get('RunAtLoad')
                 or settings.get('KeepAlive') not in (None, False)
-                or settings.get('StartCalendarInterval') != {'Hour': 5, 'Minute': 0}
+                or not _known_calendar(settings.get('StartCalendarInterval'))
                 or 'StartInterval' in settings):
             raise ValueError('已安装 plist 不符合每日05:00排期，请按 deploy/README.md 重新安装。')
     try:
