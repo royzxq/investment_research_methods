@@ -15,16 +15,16 @@
 ```json
 {
   "schema": "investment-state/v1",
-  "as_of": "2026-10-18",
-  "evidence_cutoff": "2026-10-18",
-  "source_report": "research/investment/weekly/2026-10-18/investment-2026-10-18-market-research-r2.md",
+  "as_of": "2026-10-25",
+  "evidence_cutoff": "2026-10-25",
+  "source_report": "research/investment/weekly/2026-10-25/investment-2026-10-25-market-research-r2.md",
   "observations": [
     {
       "id": "us_cpi_yoy",
       "value": 3.7,
       "unit": "percent",
       "observed_at": "2026-09-30",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "source": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
       "status": "verified"
     },
     {
@@ -32,7 +32,7 @@
       "value": 0.3,
       "unit": "percent",
       "observed_at": "2026-09-30",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "source": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
       "status": "verified"
     },
     {
@@ -40,7 +40,7 @@
       "value": 5.0,
       "unit": "percent",
       "observed_at": "2026-09-30",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "source": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
       "status": "verified"
     },
     {
@@ -48,63 +48,135 @@
       "value": 6.9,
       "unit": "percent",
       "observed_at": "2026-09-30",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "source": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
+      "status": "verified"
+    },
+    {
+      "id": "cn_retail_yoy",
+      "value": 1.1,
+      "unit": "percent",
+      "observed_at": "2026-09-30",
+      "source": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
       "status": "verified"
     },
     {
       "id": "ust_cmt_10y",
-      "value": 5.09,
+      "value": 5.0,
       "unit": "percent",
-      "observed_at": "2026-10-16",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "observed_at": "2026-10-23",
+      "source": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
       "status": "verified"
     },
     {
       "id": "ust_cmt_30y",
-      "value": 5.43,
+      "value": 5.33,
       "unit": "percent",
-      "observed_at": "2026-10-16",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "observed_at": "2026-10-23",
+      "source": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
       "status": "verified"
     },
     {
       "id": "star50_provider_close",
-      "value": 1358.647,
+      "value": 1345.5146,
       "unit": "index_points",
-      "observed_at": "2026-10-16",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "observed_at": "2026-10-23",
+      "source": "research/investment/weekly/2026-10-25/evidence/calculations.json",
       "status": "verified"
     },
     {
       "id": "shsz_turnover",
-      "value": 15554.14,
+      "value": 19562.578436216,
       "unit": "CNY_100m",
-      "observed_at": "2026-10-16",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "observed_at": "2026-10-23",
+      "source": "research/investment/weekly/2026-10-25/evidence/calculations.json",
       "status": "verified"
     },
     {
       "id": "a_margin_complete_balance",
-      "value": 25031.91716374,
+      "value": 24556.91846989,
       "unit": "CNY_100m",
-      "observed_at": "2026-10-15",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "observed_at": "2026-10-22",
+      "source": "research/investment/weekly/2026-10-25/evidence/calculations.json",
       "status": "verified"
     },
     {
       "id": "a_margin_complete_daily_change",
-      "value": -318.99805742,
+      "value": -234.3943016000012,
       "unit": "CNY_100m",
-      "observed_at": "2026-10-15",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "observed_at": "2026-10-22",
+      "source": "research/investment/weekly/2026-10-25/evidence/calculations.json",
+      "status": "verified"
+    },
+    {
+      "id": "hsi_close",
+      "value": 23093.37,
+      "unit": "index_points",
+      "observed_at": "2026-10-23",
+      "source": "research/investment/weekly/2026-10-25/evidence/market-sources.md",
+      "status": "verified"
+    },
+    {
+      "id": "hk_mainboard_turnover",
+      "value": 2497.84,
+      "unit": "HKD_100m",
+      "observed_at": "2026-10-23",
+      "source": "research/investment/weekly/2026-10-25/evidence/market-sources.md",
       "status": "verified"
     },
     {
       "id": "a_margin_complete_balance_latest",
       "value": null,
       "unit": "CNY_100m",
-      "observed_at": "2026-10-16",
-      "source": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "observed_at": null,
+      "source": "research/investment/weekly/2026-10-25/evidence/source-ledger.md",
+      "status": "unknown"
+    },
+    {
+      "id": "star50_official_close",
+      "value": null,
+      "unit": "index_points",
+      "observed_at": null,
+      "source": "research/investment/weekly/2026-10-25/evidence/source-ledger.md",
+      "status": "unknown"
+    },
+    {
+      "id": "cn_loan_yoy_non_less",
+      "value": null,
+      "unit": "condition",
+      "observed_at": null,
+      "source": "research/investment/weekly/2026-10-25/evidence/source-ledger.md",
+      "status": "unknown"
+    },
+    {
+      "id": "brent_same_contract_settlement",
+      "value": null,
+      "unit": "USD_per_barrel",
+      "observed_at": null,
+      "source": "research/investment/weekly/2026-10-25/evidence/source-ledger.md",
+      "status": "unknown"
+    },
+    {
+      "id": "gold_same_basis_close",
+      "value": null,
+      "unit": "USD_per_oz",
+      "observed_at": null,
+      "source": "research/investment/weekly/2026-10-25/evidence/source-ledger.md",
+      "status": "unknown"
+    },
+    {
+      "id": "dollar_same_basis_close",
+      "value": null,
+      "unit": "index_points",
+      "observed_at": null,
+      "source": "research/investment/weekly/2026-10-25/evidence/source-ledger.md",
+      "status": "unknown"
+    },
+    {
+      "id": "account_execution",
+      "value": null,
+      "unit": "not_available",
+      "observed_at": null,
+      "source": "research/investment/weekly/2026-10-25/evidence/source-ledger.md",
       "status": "unknown"
     }
   ]
