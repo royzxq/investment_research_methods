@@ -130,6 +130,16 @@ def sync_started(state, methods):
                          *request_path.parent.glob('execution/*/*/retry-1/launched.json')])
         if not claims:
             continue
+        if (request_path.parent/'recovery-link.json').exists():
+            # Explicit failed-seat recovery is part of its original round.
+            # Validate the full immutable authorization/input binding before
+            # excluding it; a marker alone cannot bypass cooldown accounting.
+            try:
+                from .research_recovery import validate_recovery_run
+            except ImportError:
+                from research_recovery import validate_recovery_run
+            validate_recovery_run(request_path.parent, methods)
+            continue
         request, raw, _ = read_request(request_path)
         if (request['batch_id'] != request_path.parent.name
                 or request['valuation_date'] != request_path.parent.parent.name):

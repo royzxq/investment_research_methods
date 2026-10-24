@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager, nullcontext
+from copy import deepcopy
 from datetime import datetime
 import fcntl
 import hashlib
@@ -654,6 +655,143 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
         write_new(folder / 'receipt-schema.json', encode(receipt_schema(request, task, generator, targets)))
     write_new(run / 'request.json', raw)  # Last: a partial prepare is never runnable.
     verify_prepared(run, raw, root)
+    return run
+
+
+def _recovery_inputs(request, raw, packs, parent_run, root):
+    """Derive a DSH-only continuation from verified frozen parent inputs.
+
+    Eligibility, authorization and finite attempt claims belong to the recovery
+    controller. This helper deliberately never selects current methods, models,
+    maintenance or history, and never imports another seat's research answers.
+    """
+    root = Path(root).resolve(strict=True)
+    parent_run = Path(parent_run)
+    if parent_run.is_symlink() or not (parent_run / 'framework-snapshot/manifest.json').is_file():
+        raise ValueError('recovery requires an existing frozen parent batch')
+    parent_run = parent_run.resolve(strict=True)
+    parent, parent_raw, parent_packs = read_request(parent_run / 'request.json')
+    expected_parent = owned_path(root, f"output/runs/investment/{parent['valuation_date']}/{parent['batch_id']}")
+    if parent_run != expected_parent or parent.get('schema_version') != 'stock-research-request/v2':
+        raise ValueError('recovery parent batch identity mismatch')
+    # A missing snapshot must not trigger historical migration on this path.
+    verify_prepared(parent_run, parent_raw, root)
+    frameworks, snapshot = snapshot_hashes(parent_run)
+    if (snapshot['origin'] != 'prepared' or snapshot.get('legacy_inputs') is not None
+            or request.get('schema_version') != 'stock-research-request/v2'
+            or request['generators'] != ['dsh'] or 'dsh' not in parent['generators']
+            or request['batch_id'] == parent['batch_id']
+            or request['valuation_date'] != parent['valuation_date']):
+        raise ValueError('recovery request must be a new frozen DSH-only parent continuation')
+    original_tasks = {task['task_id']: task for task in parent['tasks']}
+    for task in request['tasks']:
+        task_id = task['task_id']
+        if task != original_tasks.get(task_id) or packs[task_id] != parent_packs.get(task_id):
+            raise ValueError('recovery task differs from exact frozen parent input')
+    parent_plan = research_runtime.load_plan(parent_run, parent, parent_raw, snapshot)
+    if parent_plan is None:
+        raise ValueError('recovery requires a frozen parent execution plan')
+    plan = research_runtime.validate_plan(dict(schema_version=research_runtime.PLAN_SCHEMA,
+        batch_id=request['batch_id'], request_sha256=sha(raw),
+        profiles={'dsh': research_runtime.profile_for_plan(parent_plan, 'dsh')}), request, raw)
+    plan_raw = research_runtime.canonical_bytes(plan)
+    inherited = deepcopy(snapshot)
+    inherited['execution_plan'] = dict(path=research_runtime.PLAN_FILENAME, sha256=sha(plan_raw))
+    if snapshot.get('research_validation'):
+        original_baselines = snapshot['research_baselines']
+        selected = [task['task_id'] + '/dsh' for task in request['tasks']]
+        if any(key not in original_baselines for key in selected):
+            raise ValueError('recovery parent DSH baseline binding missing')
+        inherited['research_baselines'] = {key: deepcopy(original_baselines[key]) for key in selected}
+    files = {research_runtime.PLAN_FILENAME: plan_raw}
+
+    def copy_artifact(descriptor, label):
+        _, body = _artifact(descriptor, parent_run / 'framework-snapshot', label)
+        relative = descriptor['path']
+        if relative in files and files[relative] != body:
+            raise ValueError('recovery snapshot dependency path collision')
+        files[relative] = body
+
+    for name in FRAMEWORKS:
+        copy_artifact(snapshot['frameworks'][name], 'recovery parent framework')
+    maintenance = snapshot.get('maintenance')
+    if maintenance is not None:
+        copy_artifact(maintenance['handoff'], 'recovery parent maintenance')
+        for source in maintenance['sources']:
+            copy_artifact(dict(path=source['path'], sha256=source['sha256']), 'recovery parent maintenance source')
+    for baseline in (inherited.get('research_baselines') or {}).values():
+        if baseline is not None:
+            copy_artifact(dict(path=baseline['path'], sha256=baseline['sha256']), 'recovery parent DSH baseline')
+    files['manifest.json'] = encode(inherited)
+    return frameworks, inherited, files
+
+
+def verify_recovery_prepared(run, parent_run, root=ROOT):
+    """Read-only verification of both ordinary inputs and exact parent freeze."""
+    run = Path(run)
+    request, raw, packs = read_request(run / 'request.json')
+    _, _, files = _recovery_inputs(request, raw, packs, parent_run, root)
+    expected_run = owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}")
+    if run.is_symlink() or run.resolve(strict=True) != expected_run:
+        raise ValueError('recovery prepared batch path mismatch')
+    folder = run / 'framework-snapshot'
+    if folder.is_symlink() or not folder.is_dir():
+        raise ValueError('recovery snapshot directory mismatch')
+    actual = {}
+    for path in folder.rglob('*'):
+        if path.is_symlink() or not (path.is_file() or path.is_dir()):
+            raise ValueError('recovery snapshot requires owned regular files')
+        if path.is_file():
+            actual[path.relative_to(folder).as_posix()] = path.read_bytes()
+    if actual != files:
+        raise ValueError('recovery snapshot differs from frozen parent inputs')
+    return verify_prepared(run, raw, root)
+
+
+def prepare_recovery_request(request_path, parent_run, root=ROOT):
+    """Prepare only selected DSH tasks using the parent's immutable method set.
+
+    Newly occupied company output paths receive normal revision filenames;
+    existing parent results, prompts and snapshots are never changed. A partial
+    preparation is retained for diagnosis and cannot be silently reconstructed.
+    """
+    root = Path(root).resolve(strict=True)
+    request, raw, packs = read_request(request_path)
+    frameworks, snapshot, files = _recovery_inputs(request, raw, packs, parent_run, root)
+    run = owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}")
+    if run.exists() or run.is_symlink():
+        if not (run / 'request.json').is_file():
+            raise ValueError('recovery preparation incomplete; preserve this batch and rebuild')
+        if (run / 'request.json').read_bytes() != raw:
+            raise ValueError('recovery prepared request differs from immutable request')
+        verify_recovery_prepared(run, parent_run, root)
+        return run
+    prepared = []
+    for task in request['tasks']:
+        with stock_lock(root, task['task_id'], 'dsh'):
+            targets = unoccupied_targets(root, request, task, 'dsh')
+        prepared.append((task, targets))
+    run.mkdir(parents=True, exist_ok=False)
+    for relative, body in files.items():
+        target = run / 'framework-snapshot' / relative
+        write_new(target, body)
+        target.chmod(0o444)
+    for task, targets in prepared:
+        write_new(run / task['data_pack']['path'], packs[task['task_id']])
+        baseline = (snapshot.get('research_baselines') or {}).get(task['task_id'] + '/dsh')
+        if baseline is not None:
+            baseline = dict(report_path=(run / 'framework-snapshot' / baseline['path']).relative_to(root).as_posix(),
+                            sha256=baseline['sha256'])
+        prompt = make_prompt(request, task, 'dsh', packs[task['task_id']], root, frameworks, targets,
+                             maintenance=snapshot.get('maintenance'), research_validation=snapshot.get('research_validation'),
+                             research_baseline=baseline, delivery=delivery_contract(snapshot))
+        folder = run / 'execution' / task['task_id'] / 'dsh'
+        write_new(folder / 'prompt.txt', prompt)
+        write_new(folder / 'targets.json', encode(targets))
+        write_new(folder / 'input.json', encode(input_record(request, raw, task, 'dsh', prompt, frameworks, targets)))
+        write_new(folder / 'receipt-schema.json', encode(receipt_schema(request, task, 'dsh', targets)))
+    write_new(run / 'request.json', raw)
+    verify_recovery_prepared(run, parent_run, root)
     return run
 
 
