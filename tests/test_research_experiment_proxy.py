@@ -10,6 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
@@ -207,11 +208,26 @@ class ProxyTests(unittest.TestCase):
         # Closing a response can precede the handler's final log flush.
         deadline = time.monotonic() + 2
         while time.monotonic() < deadline:
-            rows = self.log.read_text().splitlines() if self.log.exists() else []
+            raw = self.log.read_text() if self.log.exists() else ""
+            # A concurrent append may expose an unfinished final JSON line.
+            rows = raw.split("\n")[:-1]
             if len(rows) >= expected:
                 return [json.loads(line) for line in rows]
             time.sleep(0.005)
         self.fail("proxy did not flush expected records")
+
+    def test_records_waits_for_complete_newline_terminated_json(self):
+        record = {"request_id": "complete"}
+        complete = json.dumps(record) + "\n"
+        self.log.write_text("")
+        for partial in ('{"request_id": "comp', complete.rstrip("\n")):
+            with self.subTest(partial=partial):
+                with patch.object(Path, "read_text", side_effect=[partial, complete]) as read:
+                    self.assertEqual(self.records(), [record])
+                    self.assertEqual(read.call_count, 2)
+        with patch.object(Path, "read_text", return_value='{"request_id":\n'):
+            with self.assertRaises(json.JSONDecodeError):
+                self.records()
 
     def test_nonstream_forwarding_exact_body_and_safe_metadata(self):
         payload = {"model": "deepseek-flash", "max_tokens": 500,
