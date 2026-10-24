@@ -19,7 +19,7 @@
 | `meta` | `schema_version, code, name, valuation_date, currency, report_path, generator` | 新交付固定`stock-research/v4`；报告路径相对仓库根；报价币种；实际宿主codex、claude或dsh |
 | `price_map` | `mode, reason, v50, p1, t1` | P1/T1为仅有的核心价格；无p2/t2占位字段；无仓位或证据副本 |
 | `research_controls` | `entry, add, holding` | 每项为`{status,refs}`，只表达当前研究判断 |
-| `monitoring[]` | `id, kind, state, variable, current, as_of, trigger, action, source, next_check` | 1–10个重点项目，ID和变量唯一；不替代报告完整条件表 |
+| `monitoring[]` | `id, kind, state, variable, current, as_of, trigger, action, source, next_check` | 新交付0–7个公开可查核心项目，不凑数；另有public_search检索词，ID和变量唯一；完整条件表不受限，历史1–10项可读 |
 
 ### 价格与用途
 
@@ -28,7 +28,7 @@
 - 临时市场/相关事件冻结且事实可靠时完整核算V50/V5、折扣和观察P1，mode仍frozen，能论证的T1也保留；真实硬失败/核心事实不足时不产新P1，旧frozen空值可读。rejected/unavailable不产新P1；V50可保留注明来源和失效边界的已核参考，没有则null。缺价不停止持仓逻辑检查。
 - `t1={price_condition}`仅一个完整价格表达式：明确金额`股价≥30.85元/股`（CNY可用元/CNY，HKD可用港元/HKD），或`接近V50上沿时复核`、`接近V50下沿时复核`、`接近V50基准时复核`；相应V50值必须存在。金额为有限正数，CNY最多2位、HKD最多3位有效小数；不由程序暗改精度。
 - 无独立T1、按既有V50基准回退时用基准引用，报告说明兜底依据。确实无适用价格条件时只用`当前不适用`或`本轮不提供T1报价`，报告说明原因；冻结/tracking/当前持有不卖不是撤回观察报价。公式、百分比、现价及行情日只写报告，不夹入表达式。多报价未裁决不能任选或改成无报价。
-- T1的非价格事件和全部适用旧T2事件按新canonical进入报告完整条件表：加仓约束、逻辑失效、复评/减仓、退出分别保留，逐条有去向，不限10条。重点项进入monitoring，当前生效/未知的控制进入audit-v2；不重新报价P2/T2。
+- T1的非价格事件和全部适用旧T2事件按新canonical进入报告完整条件表：加仓约束、逻辑失效、复评/减仓、退出分别保留，逐条有去向，不受7项摘要上限限制。重点项进入monitoring，当前生效/未知的控制进入audit-v2；不重新报价P2/T2。
 
 ### 研究控制与监控
 
@@ -38,6 +38,8 @@
 - eligible仍需价格、账户、组合与执行核验；entry/add任一eligible必须mode=buy_candidate，tracking/observation/frozen/rejected/unavailable均不得eligible。只加仓受限可entry eligible、add blocked；全局freeze/reject/unavailable必须覆盖entry+add，不使用entry-only freeze。
 - entry/add unknown不能增加对应暴露；holding unknown要求补证/复评，不写成已失效/已清仓。确认invalidated/exit_required阻断entry+add，持仓复评不自动等于全局冻结。eligible/normal的refs=[]；blocked/unknown/review_required/invalidated/exit_required必须有可解析依据，refs精确等于audit该scope全部blocking/unknown ID的集合，不遗漏、不混入其它scope或普通经营观察。观察依据仍可留在monitoring。
 - monitoring.kind为`general/entry_constraint/add_constraint/thesis_invalidation/exit_condition`；state为`watching/triggered/cleared/unknown`。控制相关项目与同ID审计相符：triggered→blocking，unknown→unknown，cleared→有非空clearance.evidence的clear或not_applicable；watching不进入未解集合。首次不适用可不填clearance，但解除历史阻断即使用not_applicable也须有解除证据。一般经营跟踪无需伪造constraint。
+- 新批次 two-price-controls/v4 的每项必须有 public_search（非空字符串）：本轮实际使用的普通搜索检索词，能够定位 source 指定的公开原文；需实际读到无需内部权限或付费订阅的正文，不能只看摘要或声明“公开”。source 记录机构、文档/指标、披露期和章节或 URL。内部订单/渠道数据、私有访谈、付费终端指标不入摘要；有报告证据时用公开替代指标，否则保留研究局限。最多7项，按估值/逻辑失效影响排序、合并重复，不跨假设凑数；全无合格项用[]并披露。完整条件、audit全部限制及解除证据不因筛除/难查询而清除或截断。
+- 历史 v2/v3/v4 的 public_search 可缺，原1–10项照常读取；新v4 build最多7项，runner新合同另校验公开检索声明；旧冻结合同/提示词按原分支验收。结构声明检查不证明公开来源真实性，事实核验由研究者负责。
 - current为数值、带单位文字或null；非空必须有不晚于估值日的as_of。source定位URL/公告章节/包字段；trigger含窗口、单位、方向，action明确复评、重算、暂停追加或持仓处置。next_check为日期/明确事件；未取得时current/as_of可null，报告写补证路径，不以0冒充。
 - 历史有效阻断按稳定ID/scope接续，来源缺席、未再提及、unknown不表示解除；新证据明确解除才清除。方法兼容性待复评时派生版本frozen并阻断entry/add，原报告、JSON、回执与holding风险保留，不自动提升latest。
 

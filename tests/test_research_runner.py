@@ -86,6 +86,8 @@ if '本批交付契约：stock-research/v4' in payload.decode() and mode!='legac
  doc['research_controls']={k:dict(status='unknown' if unknown else 'eligible',refs=['RESEARCH_ELIGIBILITY'] if unknown else []) for k in ('entry','add')}
  doc['research_controls']['holding']=dict(status='normal',refs=[])
  doc['monitoring'][0].update(id='income',kind='general',state='watching')
+ if 'two-price-controls/v4' in payload.decode():
+  doc['monitoring'][0].update(public_search='Offline Company 2026 interim report income',source='Offline Company 2026 interim report')
 if mode=='control_only' and doc['meta']['schema_version']=='stock-research/v4':
  doc['price_map'].update(mode='unavailable',reason='quotes cannot be verified; holding exit independently confirmed',p1=None,t1=dict(price_condition='本轮不提供T1报价'))
  doc['research_controls']=dict(entry=dict(status='blocked',refs=['offline_gate','EXIT']),add=dict(status='blocked',refs=['offline_gate','EXIT']),holding=dict(status='exit_required',refs=['EXIT']))
