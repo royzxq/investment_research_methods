@@ -16,7 +16,6 @@ import json
 import os
 from pathlib import Path
 import re
-import shutil
 import sys
 import tempfile
 from zoneinfo import ZoneInfo
@@ -24,14 +23,18 @@ from uuid import uuid4
 
 try:
     from .research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
-                                  check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure)
-    from .research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
+                                  check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure,
+                                  execution_profile, preflight_profile, default_cli)
+    from .research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS, DEFAULT_GENERATORS, seal_schema
     from .research_loop_log import record
+    from . import research_runtime
 except ImportError:
     from research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
-                                 check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure)
-    from research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS
+                                 check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure,
+                                 execution_profile, preflight_profile, default_cli)
+    from research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS, DEFAULT_GENERATORS, seal_schema
     from research_loop_log import record
+    import research_runtime
 
 DAILY_LIMIT = 4
 MAX_CONCURRENCY = 3
@@ -322,31 +325,91 @@ def merge_candidates(state, records, now):
         state['entries'][key] = dict(record, first_seen=first, status='pending')
 
 
-def reserve(state, now, *, held=frozenset()):
+def pending_admissions(state, now, *, held=frozenset()):
+    """Preview the existing priority/budget rules without claiming quota."""
     today = now.astimezone(ZONE).date().isoformat()
-    used = state['days'].setdefault(today, {})
+    used = state['days'].get(today, {})
     remaining = max(0, DAILY_LIMIT - len(used))
     candidates = [e for e in state['entries'].values() if e['status']=='pending'
                   and e['valuation_date']==today and e['task_id'] not in used
                   and (e['task_id'], e['event_key']) not in held
                   and cooldown_until(state, e, now) is None]
     candidates.sort(key=lambda e: (e['priority'], e['first_seen'], e['task_id']))
-    chosen = candidates[:remaining]
+    return candidates[:remaining]
+
+
+def reserve(state, now, *, held=frozenset()):
+    today = now.astimezone(ZONE).date().isoformat()
+    chosen = pending_admissions(state, now, held=held)
+    used = state['days'].setdefault(today, {})
     for entry in chosen:
         entry.update(status='reserved', budget_date=today)
         used[entry['task_id']] = entry['event_key']
     return chosen
 
 
-def prepare_entry(entry, methods):
+def prepare_entry(entry, methods, *, runtime_config=None):
     request_path = Path(entry['request'])
     request, raw, _ = read_request(request_path)
     if hashlib.sha256(raw).hexdigest() != entry['request_sha256']:
         raise ValueError('admitted request changed')
     # Prepare once before recording any provider failures; an incomplete run
     # directory must never prevent the second provider from receiving its pack.
-    run = prepare_request(request_path, methods)
+    run = (prepare_request(request_path, methods) if runtime_config is None else
+           prepare_request(request_path, methods, runtime_config=runtime_config))
     return request, raw, run
+
+
+def admission_profiles(entries, methods, runtime_config=None):
+    """Resolve preflight profiles before reservation; load live config only once.
+
+    Prepared batches select their frozen plan or legacy inherited defaults.
+    The returned configs apply only to batches that still need preparation.
+    A missing request remains a preparation failure, preserving its existing
+    error/release handling without an unnecessary early read.
+    """
+    profiles, preparation_configs, seen = [], {}, set()
+    current = None
+    for entry in entries:
+        identity = (entry['valuation_date'], entry['batch_id'])
+        if identity in seen:
+            continue
+        seen.add(identity)
+        run = methods/'output/runs/investment'/entry['valuation_date']/entry['batch_id']
+        request_path = Path(entry['request'])
+        request = raw = None
+        if request_path.is_file():
+            request, raw, _ = read_request(request_path)
+            if hashlib.sha256(raw).hexdigest() != entry['request_sha256']:
+                raise ValueError('admitted request changed')
+        generators = request['generators'] if request is not None else sorted(DEFAULT_GENERATORS)
+        if run.exists():
+            snapshot_folder = run/'framework-snapshot'
+            if snapshot_folder.exists() or snapshot_folder.is_symlink():
+                if request is None:
+                    raise ValueError('frozen batch requires its admitted request for preflight')
+                profiles.extend(execution_profile(run, request, raw, generator) for generator in generators)
+            else:
+                # Historical pre-snapshot batches are checked/migrated by the
+                # runner before dispatch; they never inherit today's config.
+                profiles.extend(research_runtime.default_profile(generator) for generator in generators)
+            continue
+        if current is None:
+            current = (research_runtime.validate_config(runtime_config) if isinstance(runtime_config, dict)
+                       else research_runtime.load_config(runtime_config))
+        if runtime_config is not None:
+            preparation_configs[identity] = current
+        if request is not None:
+            plan = research_runtime.build_plan(request, raw, current)
+            profiles.extend(plan['profiles'].values())
+        else:
+            by_id = {profile['profile_id']: profile for profile in current['profiles']}
+            # A vanished request cannot introduce a new provider. Preserve the
+            # old missing-input failure path without preflighting every newly
+            # supported lookup binding in a production configuration.
+            profiles.extend(by_id[current['active'][producer]] for producer in generators
+                            if producer in current['active'])
+    return profiles, preparation_configs
 
 
 def require_stopped_process(folder):
@@ -370,6 +433,8 @@ def require_stopped_process(folder):
 def run_provider_entry(entry, generator, request, raw, run, methods, clis, timeout,
                        cancelled, event_log=None, run_id=None):
     task = next(task for task in request['tasks'] if task['task_id']==entry['task_id'])
+    profile = execution_profile(run, request, raw, generator)
+    cli = (clis or {}).get(generator) or default_cli(generator, profile)
     # Retrying stays in the same worker slot. The coordinator receives only the
     # terminal outcome, so a first failure cannot prematurely seal a stock.
     for attempt in (1, 2):
@@ -389,7 +454,7 @@ def run_provider_entry(entry, generator, request, raw, run, methods, clis, timeo
                 journal(event_log,'provider_dispatch',run_id=run_id,batch_id=entry['batch_id'],
                         task_id=entry['task_id'],generator=generator,
                         details={'execution':str(folder),'attempt':attempt})
-                run_provider(run, request, raw, task, generator, clis[generator], methods,
+                run_provider(run, request, raw, task, generator, cli, methods,
                              timeout, cancelled, launch_date=entry['budget_date'], attempt=attempt)
             except (ValueError, OSError) as exc:
                 if not saved.exists():
@@ -405,7 +470,7 @@ def run_provider_entry(entry, generator, request, raw, run, methods, clis, timeo
                                             completed_at=stamp, report=None, price_map=None))
         result = _strict_json(saved.read_bytes(), 'entry')
         require_stopped_process(folder)
-        model = observed_model(folder, generator)
+        model = observed_model(folder, generator, profile=profile)
         retry = attempt == 1 and result['status'] == 'failed' and retryable_failure(folder)
         journal(event_log,'provider_finished',run_id=run_id,batch_id=entry['batch_id'],
                 task_id=entry['task_id'],generator=generator,status=result['status'],
@@ -430,7 +495,7 @@ def run_provider_entry(entry, generator, request, raw, run, methods, clis, timeo
 
 def seal_entry(entry, state_root, request, results, event_log=None, run_id=None):
     succeeded = any(results[g][0]=='completed' for g in request['generators'])
-    seal = dict(schema_version='research-sealed/v1', task_id=entry['task_id'],
+    seal = dict(schema_version=seal_schema(request), task_id=entry['task_id'],
                 batch_id=entry['batch_id'], event_key=entry['event_key'],
                 request=entry['request'], request_sha256=entry['request_sha256'],
                 budget_date=entry['budget_date'], results=[results[g][1] for g in request['generators']])
@@ -456,7 +521,7 @@ def reject_live_previous_attempts(state, methods):
 
 
 def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, timeout=3600,
-         once_daily=False,event_log=None,max_concurrency=MAX_CONCURRENCY):
+         once_daily=False,event_log=None,max_concurrency=MAX_CONCURRENCY,runtime_config=None):
     if type(max_concurrency) is not int or not 1 <= max_concurrency <= MAX_CONCURRENCY:
         raise ValueError(f'max_concurrency must be an integer from 1 to {MAX_CONCURRENCY}')
     methods = Path(methods).resolve()
@@ -522,12 +587,22 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             journal(event_log,'no_research',run_id=run_id,details=dict(deferred=len(pending)))
             return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
                         deferred=len(pending), rejected=rejected, failures=[], manual_held=manual_held, cooldown_skipped=cooldown_skipped)
-        clis = clis or {g: shutil.which(g) for g in ('codex', 'claude')}
-        # Fail before reserving any daily slots on invalid executables.
-        for generator in ('codex', 'claude'):
-            if not clis.get(generator) or not os.access(clis[generator], os.X_OK):
+        admissions = [e for e in eligible if e['status'] in {'reserved', 'running', 'interrupted'}]
+        admissions.extend(pending_admissions(state, now, held=held))
+        profiles, preparation_configs = admission_profiles(admissions, methods, runtime_config)
+        # Every selected profile must pass before claiming daily slots. The
+        # callback remains the scheduler's public compatibility/patch point.
+        checked_profiles = set()
+        for profile in profiles:
+            identity = research_runtime.canonical_bytes(profile)
+            if identity in checked_profiles:
+                continue
+            checked_profiles.add(identity)
+            generator = profile['producer']
+            cli = (clis or {}).get(generator) or default_cli(generator, profile)
+            if not cli or not os.access(cli, os.X_OK):
                 raise ValueError(f'{generator} executable unavailable; no quota reserved')
-        check_codex_cli(clis['codex'], methods)
+            preflight_profile(cli, profile, methods, codex_check=check_codex_cli)
         reserve(state, now, held=held)
         atomic_json(state_path, state)
         journal(event_log,'quota_reserved',run_id=run_id,details=dict(
@@ -563,7 +638,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             actual_today = datetime.now(ZONE).date().isoformat()
             run = methods/'output/runs/investment'/entry['valuation_date']/entry['batch_id']
             if entry['budget_date'] != actual_today and not any(
-                    (run/'execution'/entry['task_id']/g/'launched.json').exists() for g in ('codex','claude')):
+                    run.glob(f"execution/{entry['task_id']}/*/launched.json")):
                 state['days'][entry['budget_date']].pop(entry['task_id'], None)
                 entry['status'] = 'pending'
                 atomic_json(state_path, state)
@@ -571,7 +646,9 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             entry['status'] = 'running'
             atomic_json(state_path, state)
             try:
-                request, raw, run = prepare_entry(entry, methods)
+                selected_config = preparation_configs.get((entry['valuation_date'], entry['batch_id']))
+                request, raw, run = (prepare_entry(entry, methods) if selected_config is None else
+                                     prepare_entry(entry, methods, runtime_config=selected_config))
                 contexts[entry['task_id']] = (entry, request)
                 outcomes[entry['task_id']] = {}
                 jobs.extend((entry, generator, request, raw, run) for generator in request['generators'])
@@ -631,8 +708,11 @@ def main(argv=None):
     parser.add_argument('mode', choices=('plan', 'run'))
     parser.add_argument('--exchange', type=Path, default=ROOT.parent / 'ai_investment/investment_rawdata/data_packs/research_exchange')
     parser.add_argument('--state-root', type=Path)
-    parser.add_argument('--codex-cli', default=shutil.which('codex'))
-    parser.add_argument('--claude-cli', default=shutil.which('claude'))
+    parser.add_argument('--codex-cli', default=None)
+    parser.add_argument('--claude-cli', default=None)
+    parser.add_argument('--dsh-cli', default=None)
+    parser.add_argument('--runtime-config', type=Path,
+                        help='Explicit nonsecret runtime profile configuration for newly prepared batches')
     parser.add_argument('--timeout-seconds', type=float, default=3600)
     parser.add_argument('--max-concurrency',type=int,choices=range(1,MAX_CONCURRENCY+1),default=MAX_CONCURRENCY,
                         help='Maximum live Codex/Claude research CLI processes combined (default: 3)')
@@ -640,11 +720,14 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.timeout_seconds <= 0:
         parser.error('timeout must be positive')
+    clis = {producer: cli for producer, cli in (('codex', args.codex_cli), ('claude', args.claude_cli), ('dsh', args.dsh_cli))
+            if cli is not None}
     try:
         result = tick(args.exchange, state_root=args.state_root, execute=args.mode=='run',
-                      clis={'codex': args.codex_cli, 'claude': args.claude_cli}, timeout=args.timeout_seconds,
+                      clis=clis, timeout=args.timeout_seconds,
                       once_daily=args.scheduled,
                       max_concurrency=args.max_concurrency,
+                      runtime_config=args.runtime_config,
                       event_log=ROOT.parent/'ai_investment/logs/research_loop/events.jsonl' if args.mode=='run' else None)
     except BlockingIOError:
         result = dict(mode=args.mode, status='already_running')

@@ -1,0 +1,55 @@
+{
+  "schema_version": "research-runtime-config/v1",
+  "profiles": [
+    {
+      "profile_id": "codex-inherited",
+      "revision": 1,
+      "producer": "codex",
+      "harness": "codex-cli",
+      "models": {
+        "main": {
+          "model": null,
+          "effort": null
+        },
+        "subagent": {
+          "model": null
+        }
+      }
+    },
+    {
+      "profile_id": "claude-inherited",
+      "revision": 1,
+      "producer": "claude",
+      "harness": "claude-code-cli",
+      "models": {
+        "main": {
+          "model": null,
+          "effort": null
+        },
+        "subagent": {
+          "model": null
+        }
+      }
+    },
+    {
+      "profile_id": "dsh-deepseek-flash-high",
+      "revision": 1,
+      "producer": "dsh",
+      "harness": "dsh-cli",
+      "models": {
+        "main": {
+          "model": "deepseek-flash",
+          "effort": "high"
+        },
+        "subagent": {
+          "model": "deepseek-flash"
+        }
+      }
+    }
+  ],
+  "active": {
+    "codex": "codex-inherited",
+    "claude": "claude-inherited",
+    "dsh": "dsh-deepseek-flash-high"
+  }
+}

@@ -20,13 +20,13 @@ import tempfile
 
 try:
     from .research_exchange import (_artifact, _contained_path, _strict_json, _timestamp,
-                                    _report_sections, load_request, load_results)
+                                    _report_sections, load_request, load_results, business_seat, seal_schema)
     from .research_paths import company_path
     from .stock_price_map import (fields, require, number, p1_quotes,
                                   validate_monitoring, validate_p2, string, iso_date)
 except ImportError:
     from research_exchange import (_artifact, _contained_path, _strict_json, _timestamp,
-                                   _report_sections, load_request, load_results)
+                                   _report_sections, load_request, load_results, business_seat, seal_schema)
     from research_paths import company_path
     from stock_price_map import (fields, require, number, p1_quotes,
                                  validate_monitoring, validate_p2, string, iso_date)
@@ -101,11 +101,12 @@ def load_base(path, methods, exchange):
     require(path.is_relative_to(methods/'output/research_queue/sealed'), 'base seal outside research queue')
     seal = read(path)
     fields(seal, BASE_KEYS, 'base seal')
-    require(seal['schema_version'] == 'research-sealed/v1', 'expected original two-model seal')
+    require(seal['schema_version'] in {'research-sealed/v1', 'research-sealed/v2'}, 'expected original two-model seal')
     request_path = Path(seal['request']).resolve(strict=True)
     require(request_path.is_relative_to(exchange), 'request outside exchange')
     require(sha(request_path.read_bytes()) == seal['request_sha256'], 'request hash mismatch')
     request = load_request(request_path)
+    require(seal['schema_version'] == seal_schema(request), 'base seal/request version mismatch')
     require(request['batch_id'] == seal['batch_id'], 'batch mismatch')
     task = next((t for t in request['tasks'] if t['task_id'] == seal['task_id']), None)
     require(task is not None, 'task not in request')
@@ -133,11 +134,25 @@ def load_base(path, methods, exchange):
                 base_sha256=sha(path.read_bytes()), request_path=request_path)
 
 
+def pair_generators(documents):
+    """Original two business seats, retaining each actual generating harness."""
+    if len(documents) != 2:
+        return None
+    try:
+        seats = {business_seat(generator): generator for generator in documents}
+    except ValueError:
+        return None
+    if set(seats) != {'gemini', 'claude'}:
+        return None
+    return [seats['gemini'], seats['claude']]
+
+
 def eligible(context):
     task, docs = context['task'], context['documents']
-    if not re.fullmatch(r'(?:SH|SZ)-\d{6}', task['task_id']) or set(docs) != {'codex', 'claude'}:
+    generators = pair_generators(docs)
+    if not re.fullmatch(r'(?:SH|SZ)-\d{6}', task['task_id']) or generators is None:
         return False
-    prices = [(docs[g]['price_map'].get('p1') or {}).get('base') for g in ('codex', 'claude')]
+    prices = [(docs[g]['price_map'].get('p1') or {}).get('base') for g in generators]
     return divergent(*prices)
 
 
@@ -163,7 +178,7 @@ def scan(methods, exchange, mail_root, not_before):
         for path in sorted((methods/'output/research_queue/sealed').glob('*.json')):
             try:
                 # Supplements have their own contract and are never send inputs.
-                if read(path).get('schema_version') != 'research-sealed/v1':
+                if read(path).get('schema_version') not in {'research-sealed/v1', 'research-sealed/v2'}:
                     continue
                 context = load_base(path, methods, exchange)
                 stamp = _timestamp(context['request']['created_at'], 'created_at')
@@ -190,7 +205,8 @@ def scan(methods, exchange, mail_root, not_before):
                 task_id=task_id, code=task['code'], name=task['name'],
                 valuation_date=context['request']['valuation_date'], pack=str(pack),
                 pack_sha256=task['data_pack']['sha256'], mail_root=str(mail_root),
-                p1={g: context['documents'][g]['price_map']['p1']['base'] for g in ('codex', 'claude')})
+                p1={g: context['documents'][g]['price_map']['p1']['base']
+                    for g in pair_generators(context['documents'])})
             if path.exists():
                 intent = read(path)
                 require(all(intent.get(k) == v for k, v in identity.items()), 'Coze intent input changed')

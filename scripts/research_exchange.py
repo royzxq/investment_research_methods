@@ -26,12 +26,51 @@ except ImportError:
 
 REQUEST_SCHEMA = "stock-research-request/v1"
 RESULT_SCHEMA = "stock-research-result/v1"
-GENERATORS = {"codex", "claude"}
+REQUEST_SCHEMA_V2 = "stock-research-request/v2"
+RESULT_SCHEMA_V2 = "stock-research-result/v2"
+REQUEST_SCHEMAS = frozenset((REQUEST_SCHEMA, REQUEST_SCHEMA_V2))
+LEGACY_GENERATORS = frozenset(("codex", "claude"))
+GENERATORS = frozenset((*LEGACY_GENERATORS, "dsh"))
+# Supported identities and an implicit execution plan are different contracts.
+# Legacy callers without an explicit runtime configuration keep the old pair.
+DEFAULT_GENERATORS = LEGACY_GENERATORS
 SHA256 = re.compile(r"[0-9a-f]{64}")
 REQUEST_KEYS = {"schema_version", "batch_id", "created_at", "valuation_date", "generators", "tasks"}
 TASK_KEYS = {"task_id", "code", "name", "sources", "data_pack", "data_pack_meta"}
 RESULT_KEYS = {"schema_version", "batch_id", "request_sha256", "created_at", "results"}
 ENTRY_KEYS = {"task_id", "generator", "status", "reason", "started_at", "completed_at", "report", "price_map"}
+
+
+def business_seat(generator):
+    """Fixed existing business seat; never a model-supplied voting identity."""
+    require(isinstance(generator, str) and generator in GENERATORS,
+            "unsupported research generator")
+    return {"codex": "gemini", "claude": "claude", "dsh": "claude"}[generator]
+
+
+def validate_generators(generators, schema_version=REQUEST_SCHEMA):
+    require(isinstance(schema_version, str) and schema_version in REQUEST_SCHEMAS,
+            "request.schema_version: unsupported version")
+    allowed = LEGACY_GENERATORS if schema_version == REQUEST_SCHEMA else GENERATORS
+    require(isinstance(generators, list) and generators,
+            "request.generators: expected nonempty list")
+    require(all(isinstance(g, str) and g in allowed for g in generators),
+            "request.generators: unsupported generator")
+    require(len(set(generators)) == len(generators), "request.generators: duplicates")
+    seats = [business_seat(g) for g in generators]
+    require(len(set(seats)) == len(seats), "request.generators: duplicate business seat")
+    return generators
+
+
+def result_schema(request):
+    version = request.get("schema_version")
+    require(isinstance(version, str) and version in REQUEST_SCHEMAS,
+            "request.schema_version: unsupported version")
+    return RESULT_SCHEMA if version == REQUEST_SCHEMA else RESULT_SCHEMA_V2
+
+
+def seal_schema(request):
+    return "research-sealed/v1" if result_schema(request) == RESULT_SCHEMA else "research-sealed/v2"
 
 
 def _strict_json(raw, label):
@@ -91,16 +130,15 @@ def _artifact(descriptor, root, label):
 
 def _validate_request(request, request_root):
     fields(request, REQUEST_KEYS, "request")
-    require(request["schema_version"] == REQUEST_SCHEMA, "request.schema_version: unsupported version")
+    require(isinstance(request["schema_version"], str) and request["schema_version"] in REQUEST_SCHEMAS,
+            "request.schema_version: unsupported version")
     _batch_id(request["batch_id"])
     created = _timestamp(request["created_at"], "request.created_at")
     valuation = iso_date(request["valuation_date"], "request.valuation_date")
     require(valuation <= created.astimezone(ZoneInfo("Asia/Shanghai")).date(),
             "request.valuation_date: later than request creation date")
     generators = request["generators"]
-    require(isinstance(generators, list) and generators, "request.generators: expected nonempty list")
-    require(all(isinstance(g, str) and g in GENERATORS for g in generators), "request.generators: unsupported generator")
-    require(len(set(generators)) == len(generators), "request.generators: duplicates")
+    validate_generators(generators, request["schema_version"])
     require(isinstance(request["tasks"], list) and request["tasks"], "request.tasks: expected nonempty list")
     seen = set()
     for i, task in enumerate(request["tasks"]):
@@ -211,7 +249,8 @@ def load_results(result_path, request_path, artifact_root):
     request = _validate_request(_strict_json(request_raw, "request"), request_path.parent)
     result = _strict_json(Path(result_path).read_bytes(), "results")
     fields(result, RESULT_KEYS, "results")
-    require(result["schema_version"] == RESULT_SCHEMA, "results.schema_version: unsupported version")
+    require(result["schema_version"] == result_schema(request),
+            "results.schema_version: inconsistent with request version")
     _batch_id(result["batch_id"])
     require(result["batch_id"] == request["batch_id"], "results.batch_id: inconsistent with request")
     _sha(result["request_sha256"], "results.request_sha256")

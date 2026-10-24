@@ -19,12 +19,12 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parents[1]
 WEEKLY_KINDS = {"market-research", "change-decision", "adaption-report", "execution-audit"}
-GENERATORS = ("codex", "claude", "coze")
+GENERATORS = ("codex", "claude", "dsh", "coze")
 
 
 def generator_suffix(generator):
     if generator is not None and generator not in GENERATORS:
-        raise ValueError("Generator must be codex, claude or coze; None is unattributed history")
+        raise ValueError("Generator must be codex, claude, dsh or coze; None is unattributed history")
     return f"-{generator}" if generator else ""
 
 

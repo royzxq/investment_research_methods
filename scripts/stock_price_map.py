@@ -86,7 +86,7 @@ def validate_meta(meta, exported=False, schema=SCHEMA):
     fields(meta, META_KEYS | ({"schema_version"} if exported else set()), "meta",
            optional={"generator"} if exported else {"schema_version", "generator"})
     if "generator" in meta:
-        require(meta["generator"] in ("codex", "claude"), "meta.generator: expected codex or claude")
+        require(meta["generator"] in ("codex", "claude", "dsh"), "meta.generator: expected codex, claude or dsh")
     for k in META_KEYS:
         string(meta[k], f"meta.{k}")
     require(re.fullmatch(r"(?:\d{6}\.(?:SH|SZ|BJ)|\d{5}\.HK)", meta["code"]), "meta.code: unsupported code")
@@ -305,7 +305,7 @@ def validate_document(document):
         return
     fields(document, {'meta', 'price_map', 'research_controls', 'monitoring'}, 'document')
     validate_meta(document['meta'], exported=True)
-    require(document['meta'].get('generator') in ('codex', 'claude'), 'v4 requires declared generator')
+    require(document['meta'].get('generator') in ('codex', 'claude', 'dsh'), 'v4 requires declared generator')
     p = document['price_map']
     fields(p, {'mode', 'reason', 'v50', 'p1', 't1'}, 'price_map')
     validate_mode(p['mode'], p['reason'])
@@ -406,7 +406,7 @@ def main(argv=None):
     build.add_argument("--input", required=True)
     build.add_argument("--output", required=True)
     build.add_argument("--legacy-snapshot", help="Verified frozen batch manifest requiring the v3 writer")
-    build.add_argument("--generator", required=True, choices=["codex", "claude"],
+    build.add_argument("--generator", required=True, choices=["codex", "claude", "dsh"],
                        help="Actual host producing the research, not the source of cited material")
     check = sub.add_parser("check", help="validate v4/v3/v2 quotes and states, not report semantics")
     check.add_argument("file")

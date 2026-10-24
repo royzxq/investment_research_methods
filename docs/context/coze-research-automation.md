@@ -1,12 +1,14 @@
 # Coze 条件第三模型
 
+2026-10-23 接续：基础端支持 Codex+DSH/v2 与旧 Codex+Claude/v1；固定原两席、阈值和期限保持不变。本机 Coze heartbeat 当前为 PAUSED，本次仅同步接口提示，不恢复发送。
+
 **2026-10-18两价已本地采纳**：报价适配器已部署到本机实际运行目录；以下邮件触发、15分钟期限及原授权保持不变。本次未外发邮件、修改外部模型提示词或更新自动化，外部真实调用未验证。历史部署记录按当时版本解释。
 
-本裁决来自用户明确授权：仅沪深A股，同批同包Claude/Codex最终P1.base的 `max/min - 1 > 0.10` 才请求Coze；恰好10%不触发。一端失败、拒绝或仅区间无base不触发，不补中值。不消费前一批模型价，不另计每日证券额度，不重置七天冷却。自动处理2026-10-14及以后创建的每证券最新原始封口；较新批次在途时不为旧批次发邮件。
+本裁决来自用户明确授权：仅沪深A股，同批同包两个基础业务席（Codex + DSH；旧批为 Codex + Claude）最终P1.base的 `max/min - 1 > 0.10` 才请求Coze；恰好10%不触发。一端失败、拒绝或仅区间无base不触发，不补中值。不消费前一批模型价，不另计每日证券额度，不重置七天冷却。自动处理2026-10-14及以后创建的每证券最新原始封口；较新批次在途时不为旧批次发邮件。
 
 当前Gmail发送账户由profile核验为 `royzxq@gmail.com`。邮件传输和对应使用 `/Users/xinquanzhou/.codex/skills/coze-stock-research-email/SKILL.md` 与其helper；完整冻结data pack作为query，固定主题，claim后仅发送一次，未知发送先恢复回执，禁止自动重发。持续heartbeat每15分钟扫描合格封口并收取已绑定请求；空闲保持安静。它是持续条件调研入口，因此不因当前请求全部完成而删除；只在用户停止时停用。授权仅发送命中条件的Coze query，不延伸为其他对外消息、Git发布或交易。
 
-原两模型seal与完成回执不可变。Coze pending/held不改变原生产流程。成功后生成 `research-sealed-coze/v1` 补充seal绑定原seal及独立原文/JSON，原写回入口先完成原配对，再尝试第三模型事务；失败单独挂起。有效第三模型加入coze业务席位，Codex仍对应gemini、Claude对应claude；沿用等权/配置权重、过滤、离群及原CSV列属主。晚到且已有更新批次或人工目标改价时保持原保护，不历史补写。仅按原07:30/22:00排期消费，不在heartbeat直接写生产CSV。
+原两模型seal与完成回执不可变。Coze pending/held不改变原生产流程。成功后生成 `research-sealed-coze/v1` 补充seal绑定原seal及独立原文/JSON，原写回入口先完成原配对，再尝试第三模型事务；失败单独挂起。有效第三模型加入coze业务席位，Codex仍对应gemini、Claude/DSH对应claude（同批互斥）；沿用等权/配置权重、过滤、离群及原CSV列属主。晚到且已有更新批次或人工目标改价时保持原保护，不历史补写。仅按原07:30/22:00排期消费，不在heartbeat直接写生产CSV。
 
 Coze报告不要求本仓九节。归档仍用`investment-<代码>-<估值日>-research-coze.md`及`-price-map-coze.json`，同日冲突隔离-rN。新交付为`stock-research-coze/v2`：四顶层meta/price_map/monitoring/extraction；price_map删p2，t1仅price_condition；无research_controls，不冒充本仓完整v4/audit-v2认证。最低要求明确P1.base、单一T1、代码/CNY/日期及可定位原句。缺价或歧义held，不从V50/区间端点/另一模型补价；V50缺失为null。monitoring未提供用空数组，非空仍原7字段，不伪造本仓控制状态。Coze补充两价不构成拒绝票，也不能解除主研究限制；明确新风险进入复核。历史v1保留原p2及t1.events读取，冻结selected-reply按其原交付schema恢复，哈希不改。
 

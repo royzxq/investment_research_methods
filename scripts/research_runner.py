@@ -28,30 +28,33 @@ from zoneinfo import ZoneInfo
 try:
     from .investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from .research_exchange import (
-        RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
+        RESULT_SCHEMA, GENERATORS, result_schema, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
     )
     from .research_paths import company_path, company_runs
     from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
     from . import research_jev
     from . import research_consistency
+    from . import research_harness, research_runtime
 except ImportError:
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
-        RESULT_SCHEMA, _artifact, _contained_path, _report_sections,
+        RESULT_SCHEMA, GENERATORS, result_schema, _artifact, _contained_path, _report_sections,
         _strict_json, _validate_request, load_results,
     )
     from research_paths import company_path, company_runs
     from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
     import research_jev
     import research_consistency
+    import research_harness, research_runtime
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
 FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
 SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'
 OLD_TWO_PRICE_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
-NEW_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v2')
+SCOPED_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v2')
+NEW_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v3')
 
 
 def delivery_contract(snapshot):
@@ -60,7 +63,7 @@ def delivery_contract(snapshot):
         if snapshot.get('research_validation') not in (None, research_consistency.LEGACY_SCHEMA):
             raise ValueError('new audit requires a frozen delivery contract')
         return dict(price_schema='stock-research/v3', audit_schema=snapshot.get('research_validation'), prompt_template='report-quotes/v3')
-    if contract not in (NEW_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
+    if contract not in (NEW_CONTRACT, SCOPED_CONTROLS_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
         raise ValueError('unsupported frozen delivery contract')
     return dict(contract)
 
@@ -263,7 +266,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                'entry/add=eligible|blocked|unknown，holding=normal|review_required|invalidated|exit_required|unknown。'
                'monitoring增加id/kind/state；控制refs绑定报告audit，scope分entry/add/holding，全部解除按scope合取；'
                '未知不允许新增，复评不等于失效或成交。新build默认v4，不可借旧writer绕过。\n\n')
-    if contract == NEW_CONTRACT:
+    if contract in (SCOPED_CONTROLS_CONTRACT, NEW_CONTRACT):
         prefix += ('本批控制语义two-price-controls/v2：每条audit约束显式lifecycle=persistent/runtime/observation；'
                    '只有已触发持续研究限制或必要资格缺证可进入blocking/unknown。'
                    '纯现价相对P1/T1、最低收益由运行时判断，不制造永久价格阻断；'
@@ -273,6 +276,17 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '规则ID与具体事件/计划实例稳定；同义ID必须有证据映射，不自动去重；'
                    '每项解除注明必要合取/合法替代路径/仅触发复评。多来源不同主张的解除用clearance.covers列出其内容SHA256；'
                    '不能只因日期过去、跌价或另一个来源缺席解除。\n\n')
+    if contract == NEW_CONTRACT:
+        prefix += ('本批验收语义two-price-controls/v3：读取 '
+                   '.agents/skills/stock-research/references/acceptance-gates.md，'
+                   '在报告保留唯一 stock-research-acceptance/v1 验收输入及由 '
+                   'scripts/research_acceptance.py 生成的可见验收展示。'
+                   'R14适用性、公司成本暴露、传导及现金流桥等必要证据缺口不得以研究假设或正数结果宣告通过；'
+                   '无法判定时保留适用add持续约束，不因其它冻结已存在而省略。'
+                   '恢复条件按entry/add/holding分别列齐全部有效约束，跨独立约束只允许all_of；'
+                   '规则内部合法替代路径和复评阶段保留，不得以大部分解除或价格到位代替全部必要解除证据。'
+                   '正文与结构化验收及审计一致；检查失败回原稿定向修正，不改投资方法或历史报告。'
+                   '本批发布前强制 research_consistency.py check --require-lifecycle --require-acceptance。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if len(result) > MAX_INPUT_BYTES:
         raise ValueError('complete research input exceeds CLI stdin limit; no truncation allowed')
@@ -394,7 +408,7 @@ def freeze_maintenance(run, root, as_of):
 
 
 def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, research_validation=None,
-                             research_request=None, delivery=None):
+                             research_request=None, delivery=None, runtime_plan=None):
     folder = run / 'framework-snapshot'
     if folder.exists():
         raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
@@ -410,6 +424,11 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
                     legacy_inputs=legacy_inputs, maintenance=maintenance)
     if delivery is not None:
         document['delivery_contract'] = dict(delivery)
+    if runtime_plan is not None:
+        plan_raw = research_runtime.canonical_bytes(runtime_plan)
+        write_new(folder / research_runtime.PLAN_FILENAME, plan_raw)
+        (folder / research_runtime.PLAN_FILENAME).chmod(0o444)
+        document['execution_plan'] = dict(path=research_runtime.PLAN_FILENAME, sha256=sha(plan_raw))
     if research_validation is not None:
         document['research_validation'] = research_validation
         baselines = {}
@@ -542,6 +561,7 @@ def verify_prepared(run, original_raw, root):
     if not (run / 'framework-snapshot').exists():
         migrate_legacy_prepared(run, request, raw, packs, root)
     frameworks, snapshot = snapshot_hashes(run)
+    runtime_plan = research_runtime.load_plan(run, request, raw, snapshot)
     legacy = snapshot.get('legacy_inputs')
     if snapshot['origin'] == 'prepared' and legacy is not None:
         raise ValueError('framework snapshot unexpected legacy inputs')
@@ -579,16 +599,21 @@ def verify_prepared(run, original_raw, root):
                                                          targets=targets, input_folder=input_folder,
                                                          maintenance=snapshot.get('maintenance'),
                                                          research_validation=snapshot.get('research_validation'),
-                                                         research_baseline=baseline, delivery=delivery_contract(snapshot))
+                                                         research_baseline=baseline, delivery=delivery_contract(snapshot),
+                                                         execution_profile=research_runtime.profile_for_plan(runtime_plan, generator),
+                                                         execution_plan_sha256=(snapshot.get('execution_plan') or {}).get('sha256'))
     return request, raw, packs, verified
 
 
-def prepare_request(request_path, root=ROOT):
+def prepare_request(request_path, root=ROOT, *, runtime_config=None):
     request, raw, packs = read_request(request_path)
     run = owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}")
     if run.exists():
         verify_prepared(run, raw, root)
         return run
+    config = (research_runtime.validate_config(runtime_config) if isinstance(runtime_config, dict)
+              else research_runtime.load_config(runtime_config))
+    runtime_plan = research_runtime.build_plan(request, raw, config)
     contents = framework_bytes(root)
     frameworks = {name: sha(body) for name, body in contents.items()}
     prepared = []
@@ -599,7 +624,8 @@ def prepare_request(request_path, root=ROOT):
             prepared.append((task, generator, targets))
     run.mkdir(parents=True, exist_ok=False)
     snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'],
-                                        research_validation=research_consistency.SCHEMA, research_request=request, delivery=NEW_CONTRACT)
+                                        research_validation=research_consistency.SCHEMA, research_request=request,
+                                        delivery=NEW_CONTRACT, runtime_plan=runtime_plan)
     for task in request['tasks']:
         write_new(run / task['data_pack']['path'], packs[task['task_id']])
     for task, generator, targets in prepared:
@@ -636,38 +662,34 @@ def stock_lock(root, task_id, generator):
 
 
 def check_codex_cli(cli, root):
-    """Reject incompatible CLIs before claiming any single-use batch tasks.
-
-    Automatic approval review and standalone process cleanup are required by
-    this runner. Older CLIs must not silently fall back to bypassing approvals
-    or to a shared daemon whose children outlive our process group.
-    """
-    for args, required in (
-        (['--help'], ('--no-daemon',)),
-        (['exec', '--help'], ('--approve-for-me', '--ephemeral', '--json',
-                            '--color', '--output-schema', '--output-last-message',
-                            '--cd', '--config')),
-    ):
-        try:
-            result = subprocess.run([cli, *args], cwd=root, stdin=subprocess.DEVNULL,
-                                    capture_output=True, text=True, timeout=10)
-        except (OSError, subprocess.TimeoutExpired) as exc:
-            raise ValueError(f'Codex CLI capability check failed: {cli}: {exc}') from exc
-        if result.returncode:
-            raise ValueError(f'Codex CLI capability check failed: {cli} {" ".join(args)} '
-                             f'exited {result.returncode}')
-        # Match option declarations, not incidental mentions in prose.
-        options = set(re.findall(r'^\s+(?:-\w, )?(--[\w-]+)\b', result.stdout, re.M))
-        missing = [flag for flag in required if flag not in options]
-        if missing:
-            raise ValueError(f'Incompatible Codex CLI {cli}: {" ".join(args)} lacks '
-                             f'{", ".join(missing)}; select a compatible CLI with --cli '
-                             '(verified: Codex CLI 0.160.1). No research tasks launched.')
+    """Compatibility entry point; CLI capability policy belongs to its adapter."""
+    return research_harness.check_codex_cli(cli, root)
 
 
-def command(cli, generator, folder, root):
-    servers = research_jev.registration(folder)
-    if generator == 'claude':
+def execution_profile(run, request, raw, generator):
+    """Resolve the frozen profile, never a live config while resuming a batch."""
+    _, snapshot = snapshot_hashes(run)
+    plan = research_runtime.load_plan(run, request, raw, snapshot)
+    return research_runtime.profile_for_plan(plan, generator)
+
+
+def preflight_profile(cli, profile, root, *, codex_check=None):
+    adapter = research_harness.get_adapter(profile['harness'])
+    adapter.preflight(cli, root, profile,
+                      codex_check=check_codex_cli if codex_check is None else codex_check)
+
+
+def default_cli(generator, profile=None):
+    profile = research_runtime.default_profile(generator) if profile is None else profile
+    return shutil.which(research_harness.get_adapter(profile['harness']).executable)
+
+
+def command(cli, generator, folder, root, profile=None):
+    profile = research_runtime.default_profile(generator) if profile is None else profile
+    adapter = research_harness.get_adapter(profile['harness'])
+    adapter.validate_profile(profile)
+    delivery = None
+    if adapter.requires_delivery_instruction:
         targets = _strict_json((folder / 'targets.json').read_bytes(), 'targets')
         first = folder.parent if folder.name == 'retry-1' else folder
         staged = first.parents[2] / 'staged' / first.parent.name / generator
@@ -684,40 +706,15 @@ def command(cli, generator, folder, root):
                     f'stock_price_map.py build --output {price} --generator {generator}{legacy_option}。'
                     '--output 是完整文件路径，不是暂存根目录，不得平铺文件。'
                     'meta.report_path及回执继续填写冻结输入中的最终相对路径。')
-        return [cli, '-p', '--permission-mode', 'auto', '--permission-prompts', 'none',
-                '--append-system-prompt', delivery,
-                '--output-format', 'stream-json', '--verbose', '--no-session-persistence',
-                '--strict-mcp-config', '--mcp-config', json.dumps({'mcpServers':servers}),
-                '--json-schema', (folder / 'receipt-schema.json').read_text()]
-    args = [cli, '--no-daemon', 'exec', '--approve-for-me', '-c', 'web_search="live"',
-            '-c', 'mcp_servers.jev.enabled=false',
-            '--ephemeral', '--json', '--color', 'never', '--output-schema',
-            str(folder / 'receipt-schema.json'), '-o', str(folder / 'cli-receipt.json'),
-            '-C', str(Path(root).resolve()), '-']
-    for name, server in servers.items():
-        args[1:1] = ['-c', f'mcp_servers.{name}.command=' + json.dumps(server['command']),
-                     '-c', f'mcp_servers.{name}.args=' + json.dumps(server['args'])]
-    return args
+    context = research_harness.LaunchContext(folder, root, generator,
+                                            research_jev.registration(folder), delivery)
+    return adapter.command(cli, context, profile)
 
 
-def provider_receipt(folder, generator):
-    if generator == 'codex':
-        return _strict_json((folder / 'cli-receipt.json').read_bytes(), 'CLI receipt')
-    final = None
-    for line in (folder / 'events.jsonl').read_bytes().splitlines():
-        try:
-            event = _strict_json(line, 'CLI event')
-        except ValueError:
-            continue
-        if isinstance(event, dict) and event.get('type') == 'result':
-            final = event
-    if not final or final.get('is_error') is not False or final.get('subtype') != 'success':
-        raise ValueError('Claude returned no successful result; inspect local events/stderr')
-    receipt = final.get('structured_output')
-    if not isinstance(receipt, dict):
-        raise ValueError('Claude returned no structured research receipt')
-    write_new(folder / 'cli-receipt.json', encode(receipt))
-    return receipt
+def provider_receipt(folder, generator, profile=None):
+    profile = research_runtime.default_profile(generator) if profile is None else profile
+    adapter = research_harness.get_adapter(profile['harness'])
+    return adapter.receipt(folder, _strict_json, write_new, encode)
 
 
 def accepted_entry(receipt, request, task, generator, started, completed, root, frameworks, targets):
@@ -973,12 +970,22 @@ def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
     if cancelled.is_set():
         raise ValueError('research runner cancelled before launch')
     check_launch_day(run, request, task, launch_date)
+    if not (run / 'framework-snapshot').exists():
+        verify_prepared(run, request_raw, root)  # Exact-byte legacy migration only.
+    _, snapshot = snapshot_hashes(run)
+    plan = research_runtime.load_plan(run, request, request_raw, snapshot)
+    profile = research_runtime.profile_for_plan(plan, generator)
+    plan_hash = (snapshot.get('execution_plan') or {}).get('sha256')
+    preflight_profile(cli, profile, root)
     folder = execution_folder(run, task, generator, attempt)
     if attempt == 2:
         first = execution_folder(run, task, generator)
         if not retryable_failure(first):
             raise ValueError('retry requires a retryable failed first attempt')
         process = _strict_json((first / 'process.json').read_bytes(), 'process')
+        if (process.get('execution_profile', research_runtime.default_profile(generator)) != profile
+                or process.get('execution_plan_sha256') != plan_hash):
+            raise ValueError('retry execution profile differs from the first attempt')
         if jev_mode is None:
             jev_mode = process.get('jev_mode')
         if group_alive(process['pid']):
@@ -988,16 +995,17 @@ def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
         raise ValueError(f"task attempt already launched: {task['task_id']} {generator} attempt={attempt}")
     write_new(claim, encode(dict(claimed_at=stamp(), request_sha256=sha(request_raw))))
     return execute_task(run, request, request_raw, task, generator, cli, root, timeout,
-                        cancelled, launch_date=launch_date, attempt=attempt, jev_mode=jev_mode)
+                        cancelled, launch_date=launch_date, attempt=attempt, jev_mode=jev_mode,
+                        expected_runtime=(profile, plan_hash))
 
 
 def manifest(request, request_raw, entries):
-    return dict(schema_version=RESULT_SCHEMA, batch_id=request['batch_id'],
+    return dict(schema_version=result_schema(request), batch_id=request['batch_id'],
                 request_sha256=sha(request_raw), created_at=stamp(), results=entries)
 
 
 def execute_task(run, request, request_raw, task, generator, cli, root, timeout, cancelled,
-                 launch_date=None, attempt=1, jev_mode=None):
+                 launch_date=None, attempt=1, jev_mode=None, expected_runtime=None):
     folder = execution_folder(run, task, generator, attempt)
     started = stamp()
     process = dict(task_id=task['task_id'], generator=generator, status='starting',
@@ -1005,12 +1013,19 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                    attempt=attempt, retryable=False)
     save(folder / 'process.json', process)
     retryable = False
+    profile = None
     try:
         with stock_lock(root, task['task_id'], generator):
             if cancelled.is_set():
                 raise ValueError('research runner cancelled before launch')
             _, _, packs, verified = verify_prepared(run, request_raw, root)
             frozen = verified[(task['task_id'], generator)]
+            profile = frozen['execution_profile']
+            if expected_runtime is not None and expected_runtime != (profile, frozen['execution_plan_sha256']):
+                raise ValueError('preflight execution profile changed before launch')
+            adapter = research_harness.get_adapter(profile['harness'])
+            process['execution_profile'] = profile
+            process['execution_plan_sha256'] = frozen['execution_plan_sha256']
             process['framework_input_record'] = (frozen['input_folder'] / 'input.json').relative_to(run).as_posix()
             targets = frozen['targets']
             payload = frozen['prompt']
@@ -1083,9 +1098,12 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 if key.startswith(('FEISHU_', 'CANDIDATE_REVIEW_', 'STOCK_SCREEN_', 'COZE_', 'LARK_')):
                     env.pop(key)
             env['PYTHONDONTWRITEBYTECODE'] = '1'
-            args = command(cli, generator, folder, root)
-            if generator == 'claude':
-                delivery = args[args.index('--append-system-prompt') + 1].encode('utf-8')
+            env = adapter.launch_environment(env, profile, research_harness.LaunchContext(
+                folder, root, generator, research_jev.registration(folder), None))
+            args = command(cli, generator, folder, root, profile)
+            instruction = adapter.instruction_from_command(args)
+            delivery = None if instruction is None else instruction.encode('utf-8')
+            if delivery is not None:
                 write_new(folder / 'delivery-prompt.txt', delivery)
                 process['delivery_prompt_sha256'] = sha(delivery)
             with (folder / 'events.jsonl').open('wb') as stdout, (folder / 'stderr.log').open('wb') as stderr:
@@ -1109,7 +1127,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     process['exit_code'] = proc.returncode
             if proc.returncode != 0:
                 raise ValueError(f'research CLI exit {proc.returncode}; inspect local events/stderr')
-            receipt = provider_receipt(folder, generator)
+            receipt = provider_receipt(folder, generator, profile)
             completed = stamp()
             entry = accepted_entry(receipt, request, task, generator, started, completed, staged, frozen['frameworks'], targets)
             check_path = folder / 'candidate-result.json'
@@ -1127,11 +1145,16 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     audit_result = research_consistency.validate_report(
                         report_raw.decode('utf-8'), document, root=root,
                         expected_baseline=frozen['research_baseline'],
-                        require_lifecycle=frozen['delivery'] == NEW_CONTRACT)
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, NEW_CONTRACT),
+                        require_acceptance=frozen['delivery'] == NEW_CONTRACT)
                 retryable = False  # Publication must never be retried over possibly visible files.
                 # Recheck actual snapshot bytes and request/pack/prompt bindings
                 # after research, before anything can reach company discovery.
-                verify_prepared(run, request_raw, root)
+                _, _, _, rechecked = verify_prepared(run, request_raw, root)
+                final_profile = rechecked[(task['task_id'], generator)]
+                if (final_profile['execution_profile'] != profile
+                        or final_profile['execution_plan_sha256'] != process['execution_plan_sha256']):
+                    raise ValueError('executed profile changed during research')
                 runtime_folder = folder if attempt == 2 else frozen['input_folder']
                 if (runtime_folder / 'prompt.txt').read_bytes() != original_payload:
                     raise ValueError('executed prompt changed during research')
@@ -1139,7 +1162,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 if runtime_record != input_record(request, request_raw, task, generator, original_payload,
                                                   frozen['frameworks'], targets):
                     raise ValueError('executed input record changed during research')
-                if generator == 'claude' and (folder / 'delivery-prompt.txt').read_bytes() != delivery:
+                if delivery is not None and (folder / 'delivery-prompt.txt').read_bytes() != delivery:
                     raise ValueError('executed delivery instruction changed during research')
                 if ((folder/'jev-runtime-prompt.txt').read_bytes() != payload
                         or sha((folder/'jev/config.json').read_bytes()) != process['jev_config_sha256']):
@@ -1158,7 +1181,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     _, price_raw = _artifact(entry['price_map'], staged, 'price map')
                     audit_result = research_consistency.validate_report(report_raw.decode('utf-8'),
                         _strict_json(price_raw, 'price map'), root=root, expected_baseline=frozen['research_baseline'],
-                        require_lifecycle=frozen['delivery'] == NEW_CONTRACT)
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, NEW_CONTRACT),
+                        require_acceptance=frozen['delivery'] == NEW_CONTRACT)
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
                     write_new(folder / 'research-validation.json', encode(audit_result))
                 write_new(folder / 'framework-compatibility.json', encode(compatibility))
@@ -1175,7 +1199,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                      started_at=started, completed_at=completed, report=None, price_map=None)
     process.update(status=entry['status'], completed_at=completed, reason=entry['reason'],
                    retryable=attempt == 1 and entry['status'] == 'failed' and retryable and not cancelled.is_set())
-    process['actual_model'] = observed_model(folder, generator)
+    process['actual_model'] = observed_model(folder, generator, profile)
     try:
         process['jev'] = research_jev.summarize(folder)
     except Exception as exc:
@@ -1187,36 +1211,23 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
     return entry
 
 
-def observed_model(folder, generator):
-    """Record only model identifiers emitted by the runtime, never infer a brand."""
-    path = folder / 'events.jsonl'
-    if not path.exists():
-        return None
-    for line in path.read_bytes().splitlines():
-        try:
-            event = _strict_json(line, 'event')
-        except (ValueError, UnicodeError):
-            continue
-        if not isinstance(event, dict):
-            continue
-        expected = (event.get('type') == 'system' and event.get('subtype') == 'init'
-                    if generator == 'claude' else event.get('type') == 'turn.started')
-        if expected and isinstance(event.get('model'), str) and event['model'].strip():
-            return event['model']
-    return None
+def observed_model(folder, generator, profile=None):
+    """Keep requested configuration separate from runtime-emitted model identity."""
+    profile = research_runtime.default_profile(generator) if profile is None else profile
+    return research_harness.get_adapter(profile['harness']).observed_model(folder, _strict_json)
 
 
 def run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
-              task_ids=None, cancelled=None, launch_date=None, jev_mode=None):
+              task_ids=None, cancelled=None, launch_date=None, jev_mode=None, runtime_config=None):
     request, _, _ = read_request(request_path)
     with stock_lock(root, 'batch-' + request['batch_id'], generator):
         return _run_batch(request_path, root, generator=generator, cli=cli,
                           workers=workers, timeout=timeout, task_ids=task_ids, cancelled=cancelled,
-                          launch_date=launch_date, jev_mode=jev_mode)
+                          launch_date=launch_date, jev_mode=jev_mode, runtime_config=runtime_config)
 
 
 def _run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeout=3600,
-               task_ids=None, cancelled=None, launch_date=None, jev_mode=None):
+               task_ids=None, cancelled=None, launch_date=None, jev_mode=None, runtime_config=None):
     if workers < 1 or timeout <= 0:
         raise ValueError('workers and timeout must be positive')
     chosen_jev_mode = os.environ.get('RESEARCH_JEV_MODE', 'auto') if jev_mode is None else jev_mode
@@ -1230,23 +1241,21 @@ def _run_batch(request_path, root=ROOT, *, generator, cli=None, workers=1, timeo
         tasks = [t for t in tasks if t['task_id'] in task_ids]
     if generator not in request['generators']:
         raise ValueError('generator not planned in request')
-    cli = shutil.which(generator) if cli is None else cli
-    if not cli or not Path(cli).is_file():
-        raise ValueError(f'{generator} CLI executable unavailable')
     existing = owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}")
     for task in tasks:
         if (existing / 'execution' / task['task_id'] / generator / 'launched.json').exists():
             # Completed legacy archives need no reconstructed framework bytes.
             # A repeat launch is rejected before any migration writes occur.
             raise ValueError(f"task already launched: {task['task_id']} {generator}; retry requires a new batch")
-    run = prepare_request(request_path, root)
-    verify_prepared(run, request_raw, root)
+    run = prepare_request(request_path, root, runtime_config=runtime_config)
+    _, _, _, prepared = verify_prepared(run, request_raw, root)
+    profile = prepared[(tasks[0]['task_id'], generator)]['execution_profile']
+    cli = default_cli(generator, profile) if cli is None else cli
     for task in tasks:
         claim = run / 'execution' / task['task_id'] / generator / 'launched.json'
         if claim.exists():
             raise ValueError(f"task already launched: {task['task_id']} {generator}; retry requires a new batch")
-    if generator == 'codex':
-        check_codex_cli(cli, root)
+    preflight_profile(cli, profile, root)
     for task in tasks:
         check_launch_day(run, request, task, launch_date)
     with (nullcontext(cancelled) if cancelled is not None else cancellation_scope()) as cancelled:
@@ -1282,8 +1291,10 @@ def main(argv=None):
     for name in ('prepare', 'run'):
         action = sub.add_parser(name)
         action.add_argument('--request', required=True)
+        action.add_argument('--runtime-config', type=Path,
+                            help='Explicit nonsecret profiles; existing batches keep their frozen plan')
         if name == 'run':
-            action.add_argument('--generator', required=True, choices=('codex', 'claude'))
+            action.add_argument('--generator', required=True, choices=sorted(GENERATORS))
             action.add_argument('--cli')
             action.add_argument('--workers', type=int, default=1)
             action.add_argument('--timeout-seconds', type=float, default=3600)
@@ -1291,11 +1302,12 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == 'prepare':
-            run = prepare_request(args.request)
+            run = prepare_request(args.request, runtime_config=args.runtime_config)
             emit(dict(status='prepared', run_path=str(run)))
             return 0
         result_path = run_batch(args.request, generator=args.generator, cli=args.cli,
-                                workers=args.workers, timeout=args.timeout_seconds, jev_mode=args.jev_mode)
+                                workers=args.workers, timeout=args.timeout_seconds, jev_mode=args.jev_mode,
+                                runtime_config=args.runtime_config)
         result = _strict_json(result_path.read_bytes(), 'results')
         failed = sum(entry['status'] == 'failed' for entry in result['results'])
         emit(dict(result_path=str(result_path), completed=len(result['results']) - failed,

@@ -16,7 +16,7 @@
 
 | 对象 | 固定字段 | 语义 |
 |---|---|---|
-| `meta` | `schema_version, code, name, valuation_date, currency, report_path, generator` | 新交付固定`stock-research/v4`；报告路径相对仓库根；报价币种；实际宿主codex或claude |
+| `meta` | `schema_version, code, name, valuation_date, currency, report_path, generator` | 新交付固定`stock-research/v4`；报告路径相对仓库根；报价币种；实际宿主codex、claude或dsh |
 | `price_map` | `mode, reason, v50, p1, t1` | P1/T1为仅有的核心价格；无p2/t2占位字段；无仓位或证据副本 |
 | `research_controls` | `entry, add, holding` | 每项为`{status,refs}`，只表达当前研究判断 |
 | `monitoring[]` | `id, kind, state, variable, current, as_of, trigger, action, source, next_check` | 1–10个重点项目，ID和变量唯一；不替代报告完整条件表 |
@@ -70,7 +70,7 @@ python3 scripts/stock_price_map.py build --generator codex --input output/<本�
 python3 scripts/stock_price_map.py check output/<本次目录>/investment-<代码>-<日期>-price-map-codex.json
 ```
 
-临时输入只有`meta, mode, reason, valuation, p1, t1, research_controls, monitoring`。除valuation单位换算外与最终字段同义。P1/T1均由报告明确提供；旧discounts/step_down/p2/t2输入拒绝，不保留重推价分支。meta可省略schema_version，默认补v4；旧冻结合同只有显式legacy writer可写v3。CLI必须`--generator codex|claude`并与已有meta一致；输出JSON与报告名称按代码、估值日、生成端和rN后缀配对。
+临时输入只有`meta, mode, reason, valuation, p1, t1, research_controls, monitoring`。除valuation单位换算外与最终字段同义。P1/T1均由报告明确提供；旧discounts/step_down/p2/t2输入拒绝，不保留重推价分支。meta可省略schema_version，默认补v4；旧冻结合同只有显式legacy writer可写v3。CLI必须`--generator codex|claude|dsh`并与已有meta一致；输出JSON与报告名称按代码、估值日、生成端和rN后缀配对。
 
 `valuation` 二选一：
 

@@ -4,7 +4,7 @@
 
 ## runner 入口与模式
 
-`scripts/research_runner.py run --request <请求> --generator codex|claude` 默认注册 `jev_research`，暴露 `research_jev_route`。底层使用已安装的 Jev MCP，认证由它从环境或标准密钥文件加载；不把密钥写进配置、参数或日志。Codex 原始 `jev` server 在这个子进程内关闭，调用统一走可审计路由；CC strict MCP 配置包含该路由。
+`scripts/research_runner.py run --request <请求> --generator codex|claude|dsh` 默认注册 `jev_research`，暴露 `research_jev_route`。底层使用已安装的 Jev MCP，认证由它从环境或标准密钥文件加载；不把密钥写进配置、参数或日志。Codex 原始 `jev` server 在这个子进程内关闭，调用统一走可审计路由；CC strict MCP 配置包含该路由；DSH 使用原生 stdio MCP client 注册同一路由，并通过 JEV_KEY_FILE 引用原有受限密钥文件，内容不进入 patch。
 
 用 `--jev-mode auto|off|force` 或 `RESEARCH_JEV_MODE` 选择；命令行优先，重试默认保留首次模式。`off` 不注册工具；`force` 用于明确要求及接通验证，也受大小限制。
 
