@@ -174,11 +174,13 @@ future_data取候选行情；futures_strategy算T/V与计划；futures_risk size
 ## 5. 当前状态与迁移
 
 <a id="r-v3-state"></a>
-2026-10-18已完成[研究](../research/futures/weekly/2026-10-18/2026-10-18-market-research.md)、[三类判定](../research/futures/weekly/2026-10-18/2026-10-18-change-decision.md)及[审计](../research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md)。v1.18.1真实API完整输入、行情10/16；[刷新r2](../research/futures/refresh/2026-10-18/2026-10-18-signal-refresh-r2.json)补核原计划时钟。状态刷新yes/纠错yes/方法变更no，v3.0参数不变；日志、原料与[handoff](../research/futures/weekly/2026-10-18/2026-10-18-handoff.json)已发布main，状态引用待审不阻断接续。
+2026-10-25已完成[研究r3](../research/futures/weekly/2026-10-25/2026-10-25-market-research-r3.md)、[三类判定r3](../research/futures/weekly/2026-10-25/2026-10-25-change-decision-r3.md)及[审计r2](../research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md)，基线main76abde5、v1.18.1真实API、行情10/23；失败原稿与[成功刷新r2](../research/futures/refresh/2026-10-25/2026-10-25-signal-refresh-r2.json)保留。状态刷新yes/纠错yes/方法变更no，v3.0参数不变；日志/原料/[handoff](../research/futures/weekly/2026-10-25/2026-10-25-handoff.json)已推main c9ce8d8并核远端，状态引用PR不阻断接续。
 
-M2701的10/16价格触发short，RB/MA/SR/CF T未触发。M原10/15机会保留原ID、19:30:56登记、10/19截止；原价带3292–3326，10/16收3281已越界，取消原入场，不因连续信号延至10/20。MA原10/09信号/10/11登记/10/13截止不改，入场已到期；不据此推定持仓退出。真实持仓按实际Entry、只收紧SL、逻辑/事件及原时间边界取严，账户未知不报退出或收益。
+RB2701本期short价格触发，其余四T未触发。新RB ID20261025-observe-RB2701-trend-short-v3：10/23信号、10/25 01:06:50登记、10/27截止；参考3047/允许3034–3050/SL3103/无TP，研究风险600元/手；G1–G3pass，G4报价/动态参数/压力与G5/G6账户unknown，incomplete/final_lots=null。不回填已发生夜盘，10/26入场最迟11/20、10/27则11/23，更早退出取严；表需下而仍去库只乘一次market_risk0.5。
 
-M供应恢复/现货弱与去库/基差强并存；RB去库非终端全面复苏；MA需求负反馈、港库口径及精确合约日期待核。[V逐对缺口](../research/futures/anchors/2026-10-18/2026-10-18-anchors.json)未形成数值锚，10/23复核；未评估非no_signal。真实持仓挂单、实收参数与压力/执行容量未知，risk_regime/final_lots=unknown/null；SSE日历只作日期代理，拟执行前核期交所场次与临时安排。787离线测试及治理/审计结构通过，真实行情API成功，无成交/收益验证；历史留日期报告。
+原M10/15信号/19:30:56登记/10/19截止保留，10/16越界取消且已过期；不重启。原MA10/09信号/10/11登记/10/13截止保留；示例SL3139在10/19穿越，10/20 low3089低于原价带初始SL3090–3188。若真实原案持仓未先退出，退出边界已触发；实际Entry/已收紧SL/成交退出/盈亏未知，反弹不复活。MA10/26结算9%/板8%公告重评存量压力/事件，旧G2pass不恢复，2027精确到期冲突待核。
+
+M压榨恢复与现货修复并存；109.60转引样本未知，仅其自身+0.48%，不硬拼109.08。[V维护](../research/futures/anchors/2026-10-25/2026-10-25-anchors.json)补到单侧成本/交割依据，仍无数值经济锚，10/30补件；MA准备对另缺38日远腿历史，不作no_signal。共享本期交付完成，M原冲突按[明确裁决](../research/futures/weekly/2026-10-25/evidence/continuity-reconciliation.json)接续。1125离线项及治理/审计通过，真实API成功；SSE代理/另核RB场次分报，其他临时参数与全部账户未知，无成交/收益验证。
 
 <a id="r-v3-retirement"></a>
 本次用户授权方法重构：退役A–H、加权分/隔夜门、D8高位禁入、D11/D12重复处罚、固定季节窗、③全局方向冻结、M无模型/RB单边冻结/MA永久方向禁令、旧追涨冷却/原油百分比门；经济事实可作当期反证/风险，旧编号无隐含否决权。旧休眠模型不再是有效备用规则，扩池另修订。
