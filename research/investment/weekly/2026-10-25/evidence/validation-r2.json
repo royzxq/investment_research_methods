@@ -1,0 +1,39 @@
+{
+  "as_of": "2026-10-25",
+  "generator": "codex",
+  "checks": {
+    "handoff_source_validation": "passed",
+    "select_current_method": "passed",
+    "old_method_no_resurrection": "passed",
+    "lifecycle_new_active_old_superseded": "passed",
+    "withdrawal_pending_original_clock": "passed",
+    "outside_observation_block_bytes_and_method_fingerprints": "passed",
+    "canonical_compact_observation_equality": "passed",
+    "future_evidence": "rejected_as_expected",
+    "source_hash_mismatch": "rejected_as_expected",
+    "completion_without_pair": "rejected_as_expected",
+    "r21_threshold_equality_missing_provider_boundaries": "passed",
+    "actual_window_r21_not_met": "passed",
+    "publishable_refs_no_output_or_absolute_dependencies": "passed"
+  },
+  "offline_full": {
+    "tests": 1125,
+    "passed": 1080,
+    "errors": 45,
+    "seconds": 158.189,
+    "reason": "Sandbox denied loopback socket binding or ps; no assertion failures"
+  },
+  "offline_targeted_environment_rerun": {
+    "tests": 45,
+    "result": "OK",
+    "seconds": 54.659
+  },
+  "real_api": {
+    "provider": "tushare",
+    "successful_calls": 9,
+    "account_or_trade_calls": 0,
+    "limits": "API status does not prove field completeness; 10/23 SZSE/BSE margin missing"
+  },
+  "governance": "passed before and after observation edit; structure only",
+  "limits": "No complete financial semantic equivalence, returns validation, legal conclusion, account or trading execution established."
+}

@@ -1,0 +1,94 @@
+{
+  "as_of": "2026-10-25",
+  "latest_a_session": "2026-10-23",
+  "r21_window": [
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23"
+  ],
+  "calendar_via": "tushare trade_cal SSE; provider-delivered exchange calendar",
+  "shsz_turnover_trillion": {
+    "20261023": 1.9562578436216,
+    "20261022": 1.52870817939634,
+    "20261021": 1.4293440805111401,
+    "20261020": 1.4561068015917502,
+    "20261019": 1.4375051991347498,
+    "20261016": 1.55541428431734,
+    "20261015": 1.63299626221777
+  },
+  "turnover_basis": "000001.SH + 399106.SZ index_daily amount 千元 / 1e9; 399001.SZ成份成交不用作全深圳市场; daily_info broader trading-method totals are not substituted",
+  "star50_provider_close": {
+    "20261023": 1345.5146,
+    "20261022": 1305.8731,
+    "20261021": 1343.2818,
+    "20261020": 1342.4243,
+    "20261019": 1329.19,
+    "20261016": 1358.647,
+    "20261015": 1359.5214
+  },
+  "star50_official_close": null,
+  "complete_a_margin_balance_yi": {
+    "20261022": 24556.91846989,
+    "20261021": 24791.31277149,
+    "20261020": 24803.46629171,
+    "20261019": 24825.4186724,
+    "20261016": 24888.57015317,
+    "20261015": 25031.91716374
+  },
+  "complete_a_margin_change_yi": {
+    "20261022": -234.3943016000012,
+    "20261021": -12.153520219999336,
+    "20261020": -21.9523806899997,
+    "20261019": -63.15148077000049,
+    "20261016": -143.34701056999984
+  },
+  "missing_margin_exchanges_20261023": [
+    "BSE",
+    "SZSE"
+  ],
+  "r21_inputs": [
+    {
+      "date": "2026-10-21",
+      "turnover_trillion": 1.4293440805111401,
+      "margin_change_yi": -12.153520219999336,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-10-22",
+      "turnover_trillion": 1.52870817939634,
+      "margin_change_yi": -234.3943016000012,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-10-23",
+      "turnover_trillion": 1.9562578436216,
+      "margin_change_yi": null,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    }
+  ],
+  "r21_helper": "not_met",
+  "r21_reason": "Known turnover failures on 10/21 and 10/22 are sufficient to fail the AND; official index close remains null rather than relabelled provider data.",
+  "star50_week_change_pct": -0.9665792512698279,
+  "cpi_hawk_observation": true,
+  "cpi_gt4": false,
+  "retail_release_gt2": false,
+  "loan_release_condition": null,
+  "domestic_release_all_of": false,
+  "ust_10y_last5": [
+    5.15,
+    5.12,
+    5.13,
+    4.96,
+    5.0
+  ],
+  "ust_10y_last5_strictly_gt5": false,
+  "ust_10y_historical_trigger_remains_open": true,
+  "ppi_spread_pp": 1.9,
+  "account_execution": null
+}

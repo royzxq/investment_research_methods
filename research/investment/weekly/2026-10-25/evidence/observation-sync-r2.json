@@ -1,0 +1,29 @@
+{
+  "as_of": "2026-10-25",
+  "classification": "state_refresh",
+  "method_change": false,
+  "files": {
+    "canonical": {
+      "path": "framework/investment_framework.md",
+      "old_sha256": "773677164aee09f006d80afda8e7484f00b05a489061903754b7f76ffec78ed7",
+      "new_sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+      "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f",
+      "outside_block_unchanged": true,
+      "old_bytes": 89996,
+      "new_bytes": 92147,
+      "old_lines": 581,
+      "new_lines": 653
+    },
+    "compact": {
+      "path": "framework/investment_framework_compact.md",
+      "old_sha256": "57d9a8e4530e32e53a5d06ab80dc7244d3dc67fd28d95951890dc68c25453ea2",
+      "new_sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+      "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f",
+      "outside_block_unchanged": true,
+      "old_bytes": 57051,
+      "new_bytes": 59202,
+      "old_lines": 340,
+      "new_lines": 412
+    }
+  }
+}
