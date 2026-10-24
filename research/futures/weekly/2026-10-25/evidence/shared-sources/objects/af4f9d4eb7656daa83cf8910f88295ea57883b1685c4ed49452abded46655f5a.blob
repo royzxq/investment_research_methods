@@ -1,0 +1,218 @@
+[
+  {
+    "path": "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh-r2.json",
+    "sha256": "854783dc6e04272d97e61532fa9f85b4c491e59a3a121b7586b96ac052c8f0ef",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh-r2.md",
+    "sha256": "ac442f00f549c1aa85663e23fd8e4252ebaf0a7e91b898e515374231860311c0",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh.json",
+    "sha256": "b3e938fe86b04cfc2e442682f216794950858f351b991f6f2438ada8ddb33b45",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh.md",
+    "sha256": "3453afd6fb829b872a8e8b9ec3a506402a9b107350b7e45d6420785f2379e070",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/2026-10-12-stock-plan-check.md",
+    "sha256": "84992b77fa5c85d15ba41b526f96449f1a2151a6cf70d2312b362bdc72625e83",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/data-snapshot.txt",
+    "sha256": "0920fa3b031f4e0949df6a904bcd06a51e12f35478c6345e7d67babf255a35fc",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/frozen-anchors.json",
+    "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/market-inputs.json",
+    "sha256": "f69caa80fdb33bca3f68d314b6244f9a186e926601d193f699e553bc45e68090",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/registered-plans.json",
+    "sha256": "608d8598898036ebc7aaf24b7bd1f361a1e267a7500d422841e008b526189e5d",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/data-snapshot.txt",
+    "sha256": "651eeeee25f1aa3a3ad5cbd841d432545ecf46f97e7ea9bf5679a41cfa8a0e86",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/frozen-anchors.json",
+    "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/market-inputs.json",
+    "sha256": "832d6df1b14506dcb88a558154c80bcb573a935e21d1c425aba2c48065c0b20d",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/registered-plans.json",
+    "sha256": "608d8598898036ebc7aaf24b7bd1f361a1e267a7500d422841e008b526189e5d",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-12/2026-10-12-execution-audit.md",
+    "sha256": "29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-12/2026-10-12-handoff.json",
+    "sha256": "a30b24e8886f003497e0799aa33c38902d6bedefb2b7ed1ccd54dd036d8d175e",
+    "source_entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-13/2026-10-13-signal-refresh.json",
+    "sha256": "229822ddc770f88460eae2bc2e337e285aac384820610bab8d216d04b9c7788e",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-13/2026-10-13-signal-refresh.md",
+    "sha256": "a4759a047e6175ab6fdbb8b7e0a581914117f84b4f8d56c04c41703f6a350185",
+    "source_entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-13/2026-10-13-stock-plan-check.md",
+    "sha256": "bb160091873ca5dccc9158ad4877bd6f99e79ab335c5c4d9b3c89f2b8d0ce95f",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-13/evidence/2026-10-13-signal-refresh/data-snapshot.txt",
+    "sha256": "6a097602666b26bf4748c1fd0719daad25a5b4d019faba6983e7f0831275f087",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-13/evidence/2026-10-13-signal-refresh/frozen-anchors.json",
+    "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-13/evidence/2026-10-13-signal-refresh/market-inputs.json",
+    "sha256": "dfb0cf5b2ff68b1f49cf9de98e9858621b46e633a1e21139f26e3a8b1f242e8e",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-13/evidence/2026-10-13-signal-refresh/registered-plans.json",
+    "sha256": "e308be86323d03a604efadaf16e91ad56308c3a0aaa8d3390177e694dd55ad58",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-13/2026-10-13-execution-audit.md",
+    "sha256": "dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-13/2026-10-13-handoff.json",
+    "sha256": "cd584efebb73cf39fa2600b9112bcc4e0c5d3accac11e43a17500ebea21f8563",
+    "source_entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-15/2026-10-15-signal-refresh.json",
+    "sha256": "3188a272e4e76bea541f39c8f22bb27ee041bead5c0df614cd7bf228fc7fd4de",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-15/2026-10-15-signal-refresh.md",
+    "sha256": "59f462df06d9b6d11b5e7d583beb4548dccd3aab6f084a4c581c3494aef995d3",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-15/2026-10-15-stock-plan-check.md",
+    "sha256": "cb58b4d060fc1f12aa8ec020875703aad980eafeface8d3530ef8a53028ebe89",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/data-snapshot.txt",
+    "sha256": "2559edc3419eb5967c890f2d3a62065a45a1b4bcb6d9bad2f16421d138b85cfc",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/frozen-anchors.json",
+    "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/market-inputs.json",
+    "sha256": "42807385a7e96736ba42ca014febf1689ba2159bb0b2a38e1f1328e58c217859",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/refresh/2026-10-15/evidence/2026-10-15-signal-refresh/registered-plans.json",
+    "sha256": "c820f4ff419302775907a7a3a83500683fbfed98b8ae88803e92be89c7fdb4ef",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit.md",
+    "sha256": "a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-15/2026-10-15-handoff.json",
+    "sha256": "c14b5c28c4affbce02483577bafef5fdc2c716a527391843b36cca7a9ee1be32",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-15/2026-10-15-m-signal-research.md",
+    "sha256": "825b580ae50471c105854ff0248db9de9f66a5885735228c27d30a0e68cec290",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit-r2.md",
+    "sha256": "6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  },
+  {
+    "path": "research/futures/weekly/2026-10-15/evidence/handoff-history/b512e640fddcdedae37a34787b70aac52384199a5825a5cfba37870c90070d8f.json",
+    "sha256": "b512e640fddcdedae37a34787b70aac52384199a5825a5cfba37870c90070d8f",
+    "source_entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "reason": "materialize exact shared original for recursive continuity capture; not a new adoption"
+  }
+]

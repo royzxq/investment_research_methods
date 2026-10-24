@@ -1,0 +1,10 @@
+{
+  "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+  "signal_date": "2026-10-23",
+  "registered_at": "2026-10-25T01:06:50.045735+08:00",
+  "valid_until": "2026-10-27",
+  "entry_date": "2026-10-26",
+  "earliest_future_execution_at": "2026-10-26T09:00:00+08:00",
+  "execution_permission": "not_evaluated",
+  "basis": "Register current numerical research plan after signal close; previous Friday night sessions are not retrospectively filled."
+}

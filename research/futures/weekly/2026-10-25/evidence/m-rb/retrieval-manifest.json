@@ -1,0 +1,76 @@
+[
+  {
+    "id": "mysteel-inventory-index",
+    "url": "https://www.mysteel.com/hot/475852.html",
+    "fetched_at": "2026-10-25T01:03:29.392365+08:00",
+    "status": "ok",
+    "sha256": "e4c77f3602455212a7cc9758022e0d6bb46865618ff54f7ea62006841cb1a9bf",
+    "raw": "mysteel-inventory-index.html",
+    "text": "mysteel-inventory-index.txt",
+    "text_length": 7015
+  },
+  {
+    "id": "mysteel-m-list",
+    "url": "https://youzhi.mysteel.com/dadou/article/p-4118----07010401%2C070301---------1.html",
+    "fetched_at": "2026-10-25T01:03:34.162617+08:00",
+    "status": "failed",
+    "error": "<urlopen error timed out>"
+  },
+  {
+    "id": "nanhua-1023",
+    "url": "https://www.sohu.com/a/1091941529_121123882",
+    "fetched_at": "2026-10-25T01:08:14.526589+08:00",
+    "status": "ok",
+    "sha256": "063d8ccfdff2ee15dc9d1193f8d9e5f7d4cf14b906f18f33d1362823fe33a8bf",
+    "raw": "nanhua-1023.html",
+    "text": "nanhua-1023.txt",
+    "text_length": 37882
+  },
+  {
+    "id": "mysteel-m-weekly-index",
+    "url": "https://list1.m.mysteel.com/zhishi/zjdpxsssxq.html",
+    "fetched_at": "2026-10-25T01:08:18.339451+08:00",
+    "status": "failed",
+    "error": "<urlopen error _ssl.c:980: The handshake operation timed out>"
+  },
+  {
+    "id": "rb-xinhua-1022",
+    "url": "https://finance.sina.com.cn/money/bond/2026-10-22/doc-iniwarrm5185175.shtml",
+    "fetched_at": "2026-10-25T01:08:53.701550+08:00",
+    "status": "ok",
+    "sha256": "2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60",
+    "raw": "rb-xinhua-1022.html",
+    "text": "rb-xinhua-1022.txt",
+    "text_length": 3024
+  },
+  {
+    "id": "rb-xiben-weekly",
+    "url": "https://m.steelx2.com/news-content.aspx?id=648437",
+    "fetched_at": "2026-10-25T01:08:55.819547+08:00",
+    "status": "ok",
+    "sha256": "2597d20e1235fb97c44108febaa154c2bd4e07fa91c5178c0fbb4048f06fd898",
+    "raw": "rb-xiben-weekly.html",
+    "text": "rb-xiben-weekly.txt",
+    "text_length": 5518
+  },
+  {
+    "id": "rb-xiben-1023",
+    "url": "https://m.steelx2.com/news-content.aspx?id=648431",
+    "fetched_at": "2026-10-25T01:08:56.219116+08:00",
+    "status": "ok",
+    "sha256": "bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6",
+    "raw": "rb-xiben-1023.html",
+    "text": "rb-xiben-1023.txt",
+    "text_length": 868
+  },
+  {
+    "id": "m-cj-1019",
+    "url": "https://www.cjfco.com.cn/main/a/20261019/83329.shtml",
+    "fetched_at": "2026-10-25T01:08:56.451155+08:00",
+    "status": "ok",
+    "sha256": "1de7d0464df0eadde91745e1a540212c1eb3f25e194bafa3b46089dcb05cc9c7",
+    "raw": "m-cj-1019.html",
+    "text": "m-cj-1019.txt",
+    "text_length": 2857
+  }
+]

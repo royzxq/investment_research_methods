@@ -1,0 +1,168 @@
+{
+  "schema": "futures-source-ledger/v1",
+  "as_of_date": "2026-10-25",
+  "generator": "codex",
+  "read_at": "2026-10-25T01:06:58.555927+08:00",
+  "sources": [
+    {
+      "id": "MA-01",
+      "url": "https://finance.sina.com.cn/money/future/roll/2026-10-20/doc-inivwitp6495217.shtml",
+      "title": "甲醇 | 沿海烯烃装置罕见全线停车 11月市场供需矛盾或难逆转",
+      "published_date": "2026-10-20",
+      "observation_date": "2026-10-20",
+      "access": "full_body_read",
+      "origin": "隆众资讯订阅号作者原文；新浪刊载",
+      "notes": "沿海MTO全线停车；跟踪到国产船货补港；11月非伊船货约35万吨为预测，总进口仍依中东发船；不能将预测当实际到港。",
+      "units": "万吨；装置状态",
+      "scope": "中国沿海MTO及进口/港口，不等同MA2701月份供需表"
+    },
+    {
+      "id": "MA-02",
+      "url": "https://www.citicsf.com/e-futures/content/000501/826312",
+      "title": "不干脆的甲醇：涨也心虚，跌也犹豫",
+      "published_date": "2026-10-22",
+      "observation_date": "2026-10-21",
+      "access": "full_body_read",
+      "origin": "中信期货转财联社，不是MTO/港库原始样本表",
+      "notes": "10/21港库36.38，环比-0.34；华东+1.75、华南-2.09。需求负反馈与低库存并存。不得称本期全国港库已累库。",
+      "units": "万吨",
+      "scope": "转引中国港口库存；样本边界原表未核"
+    },
+    {
+      "id": "MA-03",
+      "url": "https://www.citicsf.com/e-futures/content/000204/826335",
+      "title": "转郑商所关于调整部分期货合约交易保证金标准和涨跌停板幅度的通知",
+      "published_date": "2026-10-22",
+      "repost_date": "2026-10-23",
+      "effective_date": "2026-10-26 settlement",
+      "access": "full_body_read",
+      "origin": "官方会员中信官网完整转发郑商所通知；CZCE原站本次读取失败",
+      "notes": "MA2612/MA2701交易所保证金9%、涨跌停8%；已有较高标准优先。非用户经纪商实收。",
+      "units": "percent",
+      "scope": "MA2612/2701及同公告TA/PX两月份"
+    },
+    {
+      "id": "MA-04",
+      "url": "https://www.citicsf.com/e-futures/content/000204/826346",
+      "title": "关于调整郑商所部分期货合约公司保证金标准和涨跌停板幅度的通知",
+      "published_date": "2026-10-23",
+      "effective_date": "2026-10-26 settlement",
+      "access": "full_body_read",
+      "origin": "中信期货公司原始公告",
+      "notes": "MA2612/2701公司保证金17%、涨跌停8%，已有更高标准优先。不能推定用户实收。",
+      "units": "percent",
+      "scope": "仅中信公告公司标准"
+    },
+    {
+      "id": "MA-05",
+      "url": "https://yjs.dwfutures.com/article/10091035/index.html",
+      "title": "东吴期货关于调整部分期货合约公司保证金标准的通知",
+      "published_date": "2026-10-23",
+      "effective_date": "2026-10-26 settlement",
+      "access": "full_body_read",
+      "origin": "东吴期货公司原始公告",
+      "notes": "引用郑商函〔2026〕945号；MA2612/2701公司保证金16%，较高者执行。",
+      "units": "percent",
+      "scope": "仅东吴公司标准"
+    },
+    {
+      "id": "AG-01",
+      "url": "https://scs.moa.gov.cn/jcyj/202610/t20261009_6488446.htm",
+      "title": "2026年10月中国农产品供需形势分析（CASDE-No.124）",
+      "published_date": "2026-10-09",
+      "observation_date": "2026/27年度10月预测",
+      "access": "full_body_and_html_tables_read",
+      "origin": "农业农村部原始报告",
+      "notes": "SR产量1293、进口480、消费1573、结余变化182；CF新棉上市、订单有限；下次发布11/10。年度预测不等于本周现货或可交割库存。",
+      "units": "万吨；市场年度",
+      "scope": "食糖10月至次9月；棉花9月至次8月；未使用同页其他品种数值"
+    },
+    {
+      "id": "CF-01",
+      "url": "https://www.sinotex.cn/news/subject/xjmian/newsDetails.asp?id=267399",
+      "title": "籽棉价格保持高位 加工企业严控质量——全国棉花收购加工周报",
+      "published_date": "2026-10-20",
+      "observation_date": "2026-10-12/18",
+      "access": "full_body_read",
+      "origin": "中国棉花协会周报转文；原地址打开失败",
+      "notes": "全国籽棉7.56元/公斤，周+0.08；新疆机采7.42、周+0.03；10/18累计公检92.7万吨。加工并非销量。",
+      "units": "元/公斤；万吨",
+      "scope": "全国收购加工周报；不是皮棉成交价"
+    },
+    {
+      "id": "COST-01",
+      "url": "https://www.czce.com.cn/cn/rootfiles/2022/02/15/1644398618920021-1644398618945195.pdf",
+      "title": "甲醇期货投教材料",
+      "published_date": "2022-02-15 URL date; current applicability not established",
+      "access": "pdf_text_read",
+      "origin": "CZCE官方历史原件",
+      "notes": "仓储含损耗2元/吨/天；该旧原件不能独立证明2026/2027所有交割费用仍有效。",
+      "units": "元/吨/天",
+      "scope": "历史甲醇交割费用解释"
+    },
+    {
+      "id": "COST-02",
+      "url": "https://www.founderfu.com/jiaogejicangdanguizejianbiao/427.html",
+      "title": "交割及仓单规则简表",
+      "published_date": null,
+      "access": "full_body_table_read",
+      "origin": "方正中期官网摘要；所链最新官方费用表不可读",
+      "notes": "MA仓储2、SR0.5元/吨/天；MA每年5/11月15交易日注销；SR榨季末当年11月末工作日边界。精确适用仍待官方原件。",
+      "units": "元/吨/天",
+      "scope": "经纪商摘要，非实际仓容/融资/出入库报价"
+    },
+    {
+      "id": "MA-RULE-HIST",
+      "url": "https://www.czce.com.cn/cn/uploadfile/2022/08/31/20220831175459720.pdf",
+      "title": "郑州商品交易所甲醇期货业务细则（历史）",
+      "published_date": "2022-08-31 URL date",
+      "access": "pdf_text_read",
+      "origin": "CZCE官方历史细则",
+      "notes": "非通用仓单，5/11月注销，资质要求；不能用于覆盖2024以后当前细则或2027精确交易日冲突。",
+      "units": "rule",
+      "scope": "历史原件，仅作交割可行性补件线索"
+    }
+  ],
+  "access_limits": [
+    {
+      "url": "https://www.czce.com.cn/cn/rootfiles/2024/03/26/1708572241789969-1708572241836105.pdf",
+      "access": "search_result_only; open_timeout",
+      "not_verified": "完整当前合约正文；第10交易日与具体2027日期仍待核"
+    },
+    {
+      "url": "https://www.cottonchina.org.cn/news/news_showa.php?articleid=321152&newstime=2026-10-23",
+      "access": "login_redirect",
+      "not_verified": "10/19-23国内棉花周报正文"
+    },
+    {
+      "url": "https://chem.315i.com/cmlc/3-7-1-sjjd-kc",
+      "access": "index_body_read; article_not_read",
+      "not_verified": "10/22微幅去库标题没有可读同口径数量正文"
+    },
+    {
+      "url": "https://nenghua.mysteel.com/a/26101414/42917F27FC58AFB4.html",
+      "access": "search_result_only; open_error",
+      "not_verified": "10/14港口样本原表正文"
+    },
+    {
+      "url": "https://ncp.mysteel.com/a/26101608/C8208FCE50A8952D.html",
+      "access": "search_result_only; open_error",
+      "not_verified": "9月糖协结转库存129.26万吨正文；报告未将其当实读事实"
+    },
+    {
+      "url": "https://www.cnfin.com/dz-lb/detail/20261020/4483409_1.html",
+      "access": "full_body_read",
+      "not_used": "方正作者稿为外围反证阅读；未把USDA/ISO/商务部转引当已读原始数据；8月底糖库不能当当前最新"
+    },
+    {
+      "url": "https://www.rdqh.com/content/show/31/206446",
+      "access": "search_result_only; open_error",
+      "not_used": "未用其公司19%作为实读参数"
+    }
+  ],
+  "anchor_status": {
+    "anchors": [],
+    "withdrawals": [],
+    "reason": "No defensible two-sided month-matched economic band with feasible delivery and 5–20-session convergence; carry formulas remain one-sided research only."
+  }
+}

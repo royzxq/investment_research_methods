@@ -1,0 +1,55 @@
+{
+  "as_of_date": "2026-10-25",
+  "started_at": "2026-10-25T01:00:00+08:00",
+  "evaluated_at": "2026-10-25T01:10:57.364586+08:00",
+  "actual_origin_main": "76abde55d73f21310cb263fe448dc5a505e89ade",
+  "deployment_status": "deployed",
+  "method_version": "v3.0",
+  "maintenance_contract": "futures-maintenance/v2",
+  "main_pr49": "merged ancestor 1a43242; verify git ancestry",
+  "source_files": [
+    {
+      "path": "framework/futures_framework.md",
+      "sha256": "41fd0ab17d6efebd9dc258069fb969228c85ae94138cd3b3a65545b30d38732b"
+    },
+    {
+      "path": "framework/futures_framework_compact.md",
+      "sha256": "9518f182f220f7f321087d6c8cc078eb2ef3f88f182aac903d39b365efabc8be"
+    },
+    {
+      "path": "framework/FUTURES_DATA_PROTOCOL.md",
+      "sha256": "e10ed5a93ea2233511ce9cabb355f95a65792c9b2fda0537e8a2042135af10ac"
+    },
+    {
+      "path": ".agents/skills/futures-weekly-review/SKILL.md",
+      "sha256": "5c83aa4b729807458d2f670ab0e9ffa3cc8c4b96dcf2e58215e7a61322993132"
+    },
+    {
+      "path": "scripts/future_data.py",
+      "sha256": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7"
+    },
+    {
+      "path": "scripts/futures_strategy.py",
+      "sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444"
+    },
+    {
+      "path": "scripts/futures_risk.py",
+      "sha256": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8"
+    },
+    {
+      "path": "scripts/futures_handoff.py",
+      "sha256": "fadea67898a5b73bebca2089774a52ce479579d74c817d6ada69be34de7cd1e3"
+    },
+    {
+      "path": "scripts/futures_refresh.py",
+      "sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6"
+    },
+    {
+      "path": "scripts/futures_continuity.py",
+      "sha256": "c9bc44e1640b8683d93b4d7c61d65116cdebcad4fe8e3985b281c574a627f5ca"
+    }
+  ],
+  "unpublished_primary_checkout_files_used": false,
+  "shared_store_only_primary_write": "continuity tool via git-common-dir",
+  "execution_permission": "not_evaluated"
+}

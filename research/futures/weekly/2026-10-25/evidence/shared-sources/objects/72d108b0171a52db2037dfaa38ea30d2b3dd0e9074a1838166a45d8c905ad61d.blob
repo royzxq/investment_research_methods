@@ -1,0 +1,38 @@
+{
+  "schema": "futures-economic-anchor-research/v1",
+  "as_of_date": "2026-10-18",
+  "evaluated_at": "2026-10-18T08:58:00.453554+08:00",
+  "anchors": [],
+  "withdrawals": [],
+  "signal_observations": [],
+  "existing_anchor_review": "collect returned no active anchors or withdrawals; nothing silently removed",
+  "research_gaps": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "data_feasibility": "research_only",
+      "economic_basis": "nearby port scarcity versus MTO demand destruction and supply recovery",
+      "missing": "consistent observation date/sample, deliverable-month supply, storage/funding/logistics and numerical mapping to 1-5 spread; 5-20 session catalyst",
+      "recovery": "read next same-sample port/MTO release and valid storage/delivery costs; freeze future-only anchor if defensible",
+      "next_review": "2026-10-23"
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "data_feasibility": "research_only",
+      "economic_basis": "low output and post-holiday destocking versus weak spot demand",
+      "missing": "matched deliverable grade/location basis and feasible carrying costs, 1-3 relative supply changes and quantified 5-20 session convergence",
+      "recovery": "verify delivery/storage feasibility and month-specific supply before setting a band",
+      "next_review": "2026-10-23"
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "data_feasibility": "research_only",
+      "economic_basis": "large old-crop carryout versus new-season opening and global supply risk",
+      "missing": "month-specific deliverable supply/quality, holding costs and quantified 5-20 session mechanism; annual inventory is not a spread band",
+      "recovery": "read new-season opening/sales and storage/funding terms; freeze before any future signal",
+      "next_review": "2026-10-23"
+    }
+  ]
+}

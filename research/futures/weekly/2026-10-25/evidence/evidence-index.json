@@ -1,0 +1,320 @@
+{
+  "schema": "futures-evidence-index/v1",
+  "as_of_date": "2026-10-25",
+  "source_inputs": [
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/continuity-independent-review.md",
+      "sha256": "e8c5cde4d27a5a4fb9fef587d2c8a7c1abc9539a144a37a0f44300193c34571e",
+      "bytes": 8118
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/continuity-reconciliation.json",
+      "sha256": "a8647a591000e096c6a277215b61dc3dd5d511313d9f3636ab0b3f83ffb8c0cf",
+      "bytes": 20414
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/contract-and-volume-api.json",
+      "sha256": "e5dcd20e7be0daf7e5d785ed713962c38d688cf1c39cf94954d74894b0e40c48",
+      "bytes": 46576
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/execution-source-notes.md",
+      "sha256": "c85ca8b1935ffca7e2ab72bcd9be6cd0ea23332c96126f9f1ab844d377ab33bc",
+      "bytes": 2698
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/industry-m-rb.md",
+      "sha256": "2285229a215f1eefb284ab6c1aaff9f606ab5c5b27c7334c1d6399d667dc0169",
+      "bytes": 10660
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/industry-ma-sr-cf.md",
+      "sha256": "395ac01f15bb88402311e18d43cea6bfa61ce8cf19e59f6bc4e09e799b7f736e",
+      "bytes": 9208
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-cj-1019.html",
+      "sha256": "1de7d0464df0eadde91745e1a540212c1eb3f25e194bafa3b46089dcb05cc9c7",
+      "bytes": 14230
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-cj-1019.txt",
+      "sha256": "d0a24f3264d35801be643cd74e7e49189ae796b82e4a9fca20c06b7e2c7fd88b",
+      "bytes": 7439
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-premarket-1023.html",
+      "sha256": "8a83df33230aee6d56e937ebfb93c863764b3e190584e262a34a6c5d04571c14",
+      "bytes": 24293
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-premarket-1023.txt",
+      "sha256": "2ba45a1c65ece081644577fe95e83bfcd9559ff730ce7fd6ddd84b6fb4f30d41",
+      "bytes": 4122
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-shcif-1023.html",
+      "sha256": "ac98a819b461e07600d525f7e4379653c8d0fd17b375f3988cc931e17215afb5",
+      "bytes": 51155
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-shcif-1023.txt",
+      "sha256": "bb4dbb451966b65f7a2bef1e54563d047ba16d4d37d1c1f2477abcdffbc87e0e",
+      "bytes": 11714
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-1019.html",
+      "sha256": "8d6ab7c1de6fcf25d8ae61f880ac5d67ec19a71b00632f79f9ffdd57992acce2",
+      "bytes": 127755
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-1019.txt",
+      "sha256": "0e87ec4cd8764499b036d16ce80fd44a2f9c6b8082926203916366b4632721ee",
+      "bytes": 14785
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-index.html",
+      "sha256": "e4c77f3602455212a7cc9758022e0d6bb46865618ff54f7ea62006841cb1a9bf",
+      "bytes": 110891
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-index.txt",
+      "sha256": "685270fdd94bee3540a46ffda9de4709de793a634f65de48c1a1e79d0eb2d893",
+      "bytes": 15493
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-crush-mobile.html",
+      "sha256": "dd298ebc89a902ec16ea63a2690271b3988cef480a8b52da01dad11445609735",
+      "bytes": 35563
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-crush-mobile.txt",
+      "sha256": "28fca63925d91cf6ef0db765e59c168b8d226ecd2dd25410f08ac116140a642e",
+      "bytes": 2396
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-daily-mobile.html",
+      "sha256": "bf82787ac2e69ba440a935e40e0f72b22cbffa60bcb46184836b4b8ad94f7817",
+      "bytes": 36988
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-daily-mobile.txt",
+      "sha256": "ae13c141230a33f2e2401a76d4f6978afd561dde53f17be9a23c6aa2d39cc8c6",
+      "bytes": 2991
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-offtake-mobile.html",
+      "sha256": "8cd46f131f6f30e72239ebc1d80f226e257e7375fc3aa0c117b6b9efd351076f",
+      "bytes": 36239
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-offtake-mobile.txt",
+      "sha256": "677c54bb3090b3abb514e7c1874b310b8a770652bc17afe0e4cf238eccefeb61",
+      "bytes": 2476
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-oil-list.html",
+      "sha256": "6cd83ada16825d49038936d3378550ee236bcb29b16f46cceb71a3a125a08013",
+      "bytes": 81146
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-oil-list.txt",
+      "sha256": "cd38cf7f1772c9cf298169ea1adc4735f98dc267af912fa318dd44eb2ff54c4c",
+      "bytes": 6019
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-turnover-mobile.html",
+      "sha256": "0f0cd37f072c3723e441f053f4ea10bc952100ba5b444c05f735a2632b76e3c5",
+      "bytes": 36124
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-turnover-mobile.txt",
+      "sha256": "ba40dfd6705b688c8a84c69b37ed79d166eb3db08e7fb80b7a0908278bd6c385",
+      "bytes": 2671
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-offtake-1023.html",
+      "sha256": "cc16f6ff10c741b9ee1bce3e8e7a0d0f01c303826f6cdf9005f19b310484a007",
+      "bytes": 127217
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-offtake-1023.txt",
+      "sha256": "31391cedf18645dfb264fdfea25f0ac09b23eaf1f00ce118372ffd309aa12bfa",
+      "bytes": 14252
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nanhua-1023.html",
+      "sha256": "063d8ccfdff2ee15dc9d1193f8d9e5f7d4cf14b906f18f33d1362823fe33a8bf",
+      "bytes": 192945
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nanhua-1023.txt",
+      "sha256": "40434433070fd3e30c17087d4de90f925ffa7ea9aac9e630cd13c629eddd9cd5",
+      "bytes": 90643
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nass-october-calendar.html",
+      "sha256": "f683092feb7fbe3e8bdbf335107465c811a916c797807a98fae3a33cbff60711",
+      "bytes": 63155
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nass-october-calendar.txt",
+      "sha256": "31ab7ef1db295fa5fe340f910f884f611868b998f40c0bee7e2a13c3a2a02035",
+      "bytes": 9871
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023-direct.html",
+      "sha256": "bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6",
+      "bytes": 16144
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023-direct.txt",
+      "sha256": "56f2ee4644db9aedb8e4c577ec7d2cc627c6e3c51305c338a112b8eca35fc266",
+      "bytes": 2096
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023.html",
+      "sha256": "bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6",
+      "bytes": 16144
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023.txt",
+      "sha256": "56f2ee4644db9aedb8e4c577ec7d2cc627c6e3c51305c338a112b8eca35fc266",
+      "bytes": 2096
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-weekly.html",
+      "sha256": "2597d20e1235fb97c44108febaa154c2bd4e07fa91c5178c0fbb4048f06fd898",
+      "bytes": 78767
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-weekly.txt",
+      "sha256": "7cd9367d4ef12a8beb27388b6db60faaa464c2bdf208f46e3c157daeb53ca192",
+      "bytes": 13531
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022-direct.html",
+      "sha256": "2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60",
+      "bytes": 95302
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022-direct.txt",
+      "sha256": "85eb3f9009fa017174a8fe539b9aa155cf78e52428294526a7aa9775117374b5",
+      "bytes": 7007
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022.html",
+      "sha256": "2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60",
+      "bytes": 95302
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022.txt",
+      "sha256": "85eb3f9009fa017174a8fe539b9aa155cf78e52428294526a7aa9775117374b5",
+      "bytes": 7007
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-calendar-manifest.json",
+      "sha256": "776e257c677792d3ffdd88d84e06bd678893bf556b70f7f55623163dfee757c0",
+      "bytes": 716
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-extra-manifest.json",
+      "sha256": "cf1f10a01a67aa829de629ff229262f6efecc7e20299ea89038ab36296eee045",
+      "bytes": 2773
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-fallback-manifest.json",
+      "sha256": "a3d355dc91fedcd14ad7dffbbd6e270f3a0cd923ad388cd87f2c04d0765f3cf9",
+      "bytes": 1534
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-manifest.json",
+      "sha256": "77b4a5d2074658ef0726c434dd99aa59369a1325a55394a85e04691fee7da19c",
+      "bytes": 2632
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-mobile-manifest.json",
+      "sha256": "b1c627ca09bbcb0f5ce4b40dadea87a82c155740b877769fbec4d206ad86817d",
+      "bytes": 1562
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-arbitrage-1023.html",
+      "sha256": "aa02227a35e678983b1f257e504256da7afb5057d0ed75bafc5f4b44a87538d9",
+      "bytes": 120044
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-arbitrage-1023.txt",
+      "sha256": "9dcf2a2aa47ff7648f4941fd8ae73cea2825831a473ee14a853ac9ab3a25ad79",
+      "bytes": 7322
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-delivery-1019.html",
+      "sha256": "de05d0901ffb932602558b613760ea2ec962055d76e0b0996fe9dfad966246cc",
+      "bytes": 120008
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-delivery-1019.txt",
+      "sha256": "314a40dbbdb8e3be47dcea768985f47c5a495abc4bd00a5a49151550e59cf167",
+      "bytes": 7421
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/source-file-hashes.json",
+      "sha256": "0a6ae137d586419933689e70edd2c10f1c627f40ef8900653284caf3bf6a83fe",
+      "bytes": 9998
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/usda-wasde-calendar.html",
+      "sha256": "fd9a9923044f64e187c71b3701498d47cfef2d13cecab0d70ecc6844e9d27bb6",
+      "bytes": 160774
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/usda-wasde-calendar.txt",
+      "sha256": "3fc67c9f0902e619e899b54f72d83e7f1f06b79a82d4e220cb1e7148846088d8",
+      "bytes": 13552
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/ma-conditional-holding-review.json",
+      "sha256": "7f9af3f75fb9f209b4fd6bf8062149b4badbbe3e59f9971780fde9394437704e",
+      "bytes": 2415
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/ma-sr-cf/source-ledger.json",
+      "sha256": "07937f3ab4bf37780ad03e6f25db9b4f953ad3999c62be8d727aae457aea63d0",
+      "bytes": 8119
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/rb-plan-request.json",
+      "sha256": "9fc71d0c744042515110b14e966faf56fe7fa0c3045dd5b7860714df68943c7c",
+      "bytes": 59843
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/rb-plan-result.json",
+      "sha256": "5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297",
+      "bytes": 1993
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/rb-registration.json",
+      "sha256": "94f1ecbddb0ac1cd8df452d47407896964da110d899addc31ebb2294dc8f1c16",
+      "bytes": 455
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/run-baseline.json",
+      "sha256": "fe2648b971a365bdecb6482d84688e01de8d801625993a405463578e218e521e",
+      "bytes": 2012
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/v-ordered-pair-checks.json",
+      "sha256": "964146a58be677a3b24b7c8c8e5329ce92fcd5c474c602e54023ad12773ee88f",
+      "bytes": 6346
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/validation.json",
+      "sha256": "53748e29eb16dfc26da545925341acf827ab20e83434f214d227a53a29f32a49",
+      "bytes": 1396
+    }
+  ],
+  "shared_sources_catalog": {
+    "path": "research/futures/weekly/2026-10-25/evidence/shared-sources/catalog.json",
+    "sha256": "db627b3da130a9dcf8e3c5ef33e7d4f3b147f24e31057eb546284052bea8d6d2"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "as_of_date": "2026-10-18",
+  "audit_structure": "valid; observation date repaired with original draft preserved locally",
+  "governance": "passed; structure only",
+  "offline_regression": {
+    "tests": 787,
+    "result": "OK",
+    "seconds": 94.981
+  },
+  "real_api": {
+    "collector": "v1.18.1",
+    "market_trade_date": "2026-10-16",
+    "source_identities": "five T contracts and three ordered V pairs verified",
+    "supplementary_contract_volume": "M/MA API success"
+  },
+  "calendar": "dated SSE proxy plus published regular session table; exact futures temporary-session and MA expiry conflict remain unresolved",
+  "returns": "not verified",
+  "execution_permission": "not_evaluated",
+  "continuity_calendar_reassessment": "research/futures/refresh/2026-10-18/2026-10-18-signal-refresh-r2.json"
+}

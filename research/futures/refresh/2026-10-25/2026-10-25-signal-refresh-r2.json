@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "refresh_version": "1.2",
+  "rule_version": "v3.0",
+  "as_of_date": "2026-10-25",
+  "evaluated_at": "2026-10-25T01:03:13.867920+08:00",
+  "generator": "codex",
+  "scope": "mechanical_refresh_only",
+  "refresh_status": "fresh",
+  "issues": [],
+  "trend": [
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "CF2701",
+      "price_basis": "close",
+      "product": "CF",
+      "market_trade_date": "20261023",
+      "as_of_date": "20261023",
+      "signal_close": 15855.0,
+      "prior20_high": 16130.0,
+      "prior20_low": 15490.0,
+      "prior10_low": 15580.0,
+      "prior10_high": 16045.0,
+      "atr20": 202.1982001645694,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260723",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.0235383654402215,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261023"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "M2701",
+      "price_basis": "close",
+      "product": "M",
+      "market_trade_date": "20261023",
+      "as_of_date": "20261023",
+      "signal_close": 3276.0,
+      "prior20_high": 3502.0,
+      "prior20_low": 3217.0,
+      "prior10_low": 3217.0,
+      "prior10_high": 3420.0,
+      "atr20": 47.81304281789677,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260723",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 0.9783910298939896,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261023"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "MA2701",
+      "price_basis": "close",
+      "product": "MA",
+      "market_trade_date": "20261023",
+      "as_of_date": "20261023",
+      "signal_close": 3219.0,
+      "prior20_high": 3402.0,
+      "prior20_low": 2821.0,
+      "prior10_low": 3016.0,
+      "prior10_high": 3402.0,
+      "atr20": 107.80845506008174,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260723",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.2054379372457986,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261023"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "triggered",
+      "side": "short",
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "RB2701",
+      "price_basis": "close",
+      "product": "RB",
+      "market_trade_date": "20261023",
+      "as_of_date": "20261023",
+      "signal_close": 3047.0,
+      "prior20_high": 3140.0,
+      "prior20_low": 3051.0,
+      "prior10_low": 3051.0,
+      "prior10_high": 3105.0,
+      "atr20": 27.884349934393008,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260723",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 0.9102285306987645,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261023",
+      "signal_date": "2026-10-23",
+      "valid_entry_dates": [
+        "2026-10-26",
+        "2026-10-27"
+      ],
+      "valid_until": "2026-10-27",
+      "registered_at": null
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "not_triggered",
+      "side": null,
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "SR2701",
+      "price_basis": "close",
+      "product": "SR",
+      "market_trade_date": "20261023",
+      "as_of_date": "20261023",
+      "signal_close": 5357.0,
+      "prior20_high": 5563.0,
+      "prior20_low": 5305.0,
+      "prior10_low": 5356.0,
+      "prior10_high": 5563.0,
+      "atr20": 53.95278561392978,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260723",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.2182005828177391,
+      "volatility_status": "available",
+      "high_volatility": false,
+      "freshness": "fresh",
+      "expected_market_trade_date": "20261023"
+    }
+  ],
+  "economic_reversion": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "research_stage": "current",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "research_stage": "roll_preparation",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "research_stage": "roll_preparation",
+      "status": "not_evaluated",
+      "signal": "unknown",
+      "reason": "frozen_economic_anchor_not_supplied",
+      "execution_permission": "not_evaluated"
+    }
+  ],
+  "registered_plan_windows": [
+    {
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "signal_date": "2026-10-09",
+      "valid_until": "2026-10-13",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "status": "expired",
+      "execution_permission": "not_evaluated",
+      "signal_clock_reset": false,
+      "calendar_checks": [
+        {
+          "contract": "MA2701",
+          "basis": "exact_contract_inputs",
+          "exchange": "CZCE",
+          "source_contracts": [
+            "MA2701"
+          ],
+          "calendar_source": "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+          "price_refresh_status": "mixed_raw_input_status",
+          "price_input_checks": [
+            {
+              "source_contract": "MA2701",
+              "input_kind": "trend_raw_inputs",
+              "status": "fresh"
+            },
+            {
+              "source_contract": "MA2701",
+              "input_kind": "spread_leg_raw_inputs",
+              "status": "raw_inputs_present_not_reassessed"
+            }
+          ]
+        }
+      ],
+      "registration_order_status": "verified_date_order",
+      "original_valid_entry_dates": [
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "remaining_entry_dates": [],
+      "entry_session_checks_required_dates": [],
+      "allowed_execution_session": "not_evaluated_require_after_registration"
+    }
+  ],
+  "calendar_source": "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+  "publication_note": "18:00 cutoff is a guard, not verified final-settlement publication",
+  "execution_permission": "not_evaluated",
+  "readiness": "not_evaluated",
+  "final_lots": null,
+  "performance_status": "not_automated",
+  "source_inputs": [
+    {
+      "role": "market-inputs",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-10-25/output/futures-refresh-fetch/2026-10-25/run-lodc7frr/v3_research_inputs_20261025.json",
+      "path": "research/futures/refresh/2026-10-25/evidence/2026-10-25-signal-refresh-r2/market-inputs.json",
+      "sha256": "4dfe9acbe8728ce651b5d68222271dcf4c72c711501fa86056d481b20ff95799",
+      "bytes": 670639
+    },
+    {
+      "role": "data-snapshot",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-10-25/output/futures-refresh-fetch/2026-10-25/run-lodc7frr/data-snapshot.txt",
+      "path": "research/futures/refresh/2026-10-25/evidence/2026-10-25-signal-refresh-r2/data-snapshot.txt",
+      "sha256": "72a66cceb423f65ad46ae3fc13d70a2135ac7671456887b75640e200e7b99f96",
+      "bytes": 11698
+    },
+    {
+      "role": "frozen-anchors",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-10-25/output/runs/futures/2026-10-25/automation/continuity/anchors.json",
+      "path": "research/futures/refresh/2026-10-25/evidence/2026-10-25-signal-refresh-r2/frozen-anchors.json",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "bytes": 70
+    },
+    {
+      "role": "registered-plans",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-10-25/output/runs/futures/2026-10-25/automation/continuity/plans.json",
+      "path": "research/futures/refresh/2026-10-25/evidence/2026-10-25-signal-refresh-r2/registered-plans.json",
+      "sha256": "bfb883f123a40909bb52e57cc7bb984dd96989245fac6ccdf80b78d4cea79c6d",
+      "bytes": 3587
+    }
+  ],
+  "method": {
+    "canonical": "framework/futures_framework.md",
+    "canonical_sha256": "41fd0ab17d6efebd9dc258069fb969228c85ae94138cd3b3a65545b30d38732b",
+    "helper": "scripts/futures_strategy.py",
+    "helper_sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "refresh_sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6"
+  },
+  "input_script_version": "v1.18.1",
+  "evaluated_snapshot_sha256": "72a66cceb423f65ad46ae3fc13d70a2135ac7671456887b75640e200e7b99f96",
+  "input_selection": {
+    "selected": "/private/tmp/futures-weekly-automation-2026-10-25/output/futures-refresh-fetch/2026-10-25/run-lodc7frr/v3_research_inputs_20261025.json",
+    "selected_sha256": "4dfe9acbe8728ce651b5d68222271dcf4c72c711501fa86056d481b20ff95799",
+    "attempted": [
+      {
+        "path": "/private/tmp/futures-weekly-automation-2026-10-25/output/futures-refresh-fetch/2026-10-25/run-4jupfhwe/v3_research_inputs_20261025.json",
+        "snapshot": "/private/tmp/futures-weekly-automation-2026-10-25/output/futures-refresh-fetch/2026-10-25/run-4jupfhwe/data-snapshot.txt",
+        "refresh_status": "failed",
+        "issues": [
+          "calendar_degraded_to_weekdays"
+        ],
+        "raw_sha256": "84aa2b77b4b808b2fdf61998b0cbdabaf571669b8292ce2ba810e321839e9ee0",
+        "price_gaps": []
+      },
+      {
+        "path": "/private/tmp/futures-weekly-automation-2026-10-25/output/cache/futures/v3_research_inputs_20261011.json",
+        "snapshot": "/private/tmp/futures-weekly-automation-2026-10-25/research/futures/snapshots/2026-10-11-data-snapshot.txt",
+        "refresh_status": "failed",
+        "issues": [],
+        "raw_sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+        "price_gaps": [
+          {
+            "contract": "CF2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "M2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "MA2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "RB2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "SR2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          }
+        ]
+      }
+    ],
+    "selected_snapshot": "/private/tmp/futures-weekly-automation-2026-10-25/output/futures-refresh-fetch/2026-10-25/run-lodc7frr/data-snapshot.txt"
+  },
+  "complete": true
+}

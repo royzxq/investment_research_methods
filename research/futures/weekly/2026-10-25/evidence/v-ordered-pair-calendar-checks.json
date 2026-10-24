@@ -1,0 +1,261 @@
+[
+  {
+    "pair": [
+      "MA2701",
+      "MA2705"
+    ],
+    "research_stage": "current",
+    "calendar_source": "actual Tushare SSE dated proxy shared by both legs; no assertion of venue temporary sessions",
+    "latest61_start": "20260723",
+    "latest61_end": "20261023",
+    "latest61_count": 61,
+    "latest61_ordered_pair_rows_complete": true,
+    "missing_paired_settle_dates": [],
+    "latest61_dates_sha256": "c4ec805f4541a4062312e4e6c16203d3431c54386b0eb3547e2f8445a8611349",
+    "source_refs": {
+      "MA2701": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2701",
+        "ts_code": "MA2701.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2701.ZCE",
+        "requested_ts_code_raw": "MA2701.ZCE",
+        "response_ts_code_values": [
+          "MA2701.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:07.243977+08:00"
+      },
+      "MA2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2705",
+        "ts_code": "MA2705.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2705.ZCE",
+        "requested_ts_code_raw": "MA2705.ZCE",
+        "response_ts_code_values": [
+          "MA2705.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.245782+08:00"
+      }
+    },
+    "price_status": "raw_complete_not_economic_signal",
+    "signal": "not_evaluated_no_economic_anchor"
+  },
+  {
+    "pair": [
+      "RB2701",
+      "RB2703"
+    ],
+    "research_stage": "current",
+    "calendar_source": "actual Tushare SSE dated proxy shared by both legs; no assertion of venue temporary sessions",
+    "latest61_start": "20260723",
+    "latest61_end": "20261023",
+    "latest61_count": 61,
+    "latest61_ordered_pair_rows_complete": true,
+    "missing_paired_settle_dates": [],
+    "latest61_dates_sha256": "c4ec805f4541a4062312e4e6c16203d3431c54386b0eb3547e2f8445a8611349",
+    "source_refs": {
+      "RB2701": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2701",
+        "ts_code": "RB2701.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2701.SHF",
+        "requested_ts_code_raw": "RB2701.SHF",
+        "response_ts_code_values": [
+          "RB2701.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:07.756808+08:00"
+      },
+      "RB2703": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2703",
+        "ts_code": "RB2703.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2703.SHF",
+        "requested_ts_code_raw": "RB2703.SHF",
+        "response_ts_code_values": [
+          "RB2703.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.775373+08:00"
+      }
+    },
+    "price_status": "raw_complete_not_economic_signal",
+    "signal": "not_evaluated_no_economic_anchor"
+  },
+  {
+    "pair": [
+      "SR2701",
+      "SR2705"
+    ],
+    "research_stage": "current",
+    "calendar_source": "actual Tushare SSE dated proxy shared by both legs; no assertion of venue temporary sessions",
+    "latest61_start": "20260723",
+    "latest61_end": "20261023",
+    "latest61_count": 61,
+    "latest61_ordered_pair_rows_complete": true,
+    "missing_paired_settle_dates": [],
+    "latest61_dates_sha256": "c4ec805f4541a4062312e4e6c16203d3431c54386b0eb3547e2f8445a8611349",
+    "source_refs": {
+      "SR2701": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "SR2701",
+        "ts_code": "SR2701.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "SR2701.ZCE",
+        "requested_ts_code_raw": "SR2701.ZCE",
+        "response_ts_code_values": [
+          "SR2701.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:08.806222+08:00"
+      },
+      "SR2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "SR2705",
+        "ts_code": "SR2705.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "SR2705.ZCE",
+        "requested_ts_code_raw": "SR2705.ZCE",
+        "response_ts_code_values": [
+          "SR2705.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:11.302897+08:00"
+      }
+    },
+    "price_status": "raw_complete_not_economic_signal",
+    "signal": "not_evaluated_no_economic_anchor"
+  },
+  {
+    "pair": [
+      "MA2705",
+      "MA2709"
+    ],
+    "research_stage": "roll_preparation",
+    "calendar_source": "actual Tushare SSE dated proxy shared by both legs; no assertion of venue temporary sessions",
+    "latest61_start": "20260723",
+    "latest61_end": "20261023",
+    "latest61_count": 61,
+    "latest61_ordered_pair_rows_complete": false,
+    "missing_paired_settle_dates": [
+      "20260723",
+      "20260724",
+      "20260727",
+      "20260728",
+      "20260729",
+      "20260730",
+      "20260731",
+      "20260803",
+      "20260804",
+      "20260805",
+      "20260806",
+      "20260807",
+      "20260810",
+      "20260811",
+      "20260812",
+      "20260813",
+      "20260814",
+      "20260817",
+      "20260818",
+      "20260819",
+      "20260820",
+      "20260821",
+      "20260824",
+      "20260825",
+      "20260826",
+      "20260827",
+      "20260828",
+      "20260831",
+      "20260901",
+      "20260902",
+      "20260903",
+      "20260904",
+      "20260907",
+      "20260908",
+      "20260909",
+      "20260910",
+      "20260911",
+      "20260914"
+    ],
+    "latest61_dates_sha256": "c4ec805f4541a4062312e4e6c16203d3431c54386b0eb3547e2f8445a8611349",
+    "source_refs": {
+      "MA2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2705",
+        "ts_code": "MA2705.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2705.ZCE",
+        "requested_ts_code_raw": "MA2705.ZCE",
+        "response_ts_code_values": [
+          "MA2705.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.245782+08:00"
+      },
+      "MA2709": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2709",
+        "ts_code": "MA2709.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2709.ZCE",
+        "requested_ts_code_raw": "MA2709.ZCE",
+        "response_ts_code_values": [
+          "MA2709.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:11.803815+08:00"
+      }
+    },
+    "price_status": "incomplete_preparation_pair_history",
+    "signal": "not_evaluated_no_economic_anchor"
+  },
+  {
+    "pair": [
+      "RB2703",
+      "RB2705"
+    ],
+    "research_stage": "roll_preparation",
+    "calendar_source": "actual Tushare SSE dated proxy shared by both legs; no assertion of venue temporary sessions",
+    "latest61_start": "20260723",
+    "latest61_end": "20261023",
+    "latest61_count": 61,
+    "latest61_ordered_pair_rows_complete": true,
+    "missing_paired_settle_dates": [],
+    "latest61_dates_sha256": "c4ec805f4541a4062312e4e6c16203d3431c54386b0eb3547e2f8445a8611349",
+    "source_refs": {
+      "RB2703": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2703",
+        "ts_code": "RB2703.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2703.SHF",
+        "requested_ts_code_raw": "RB2703.SHF",
+        "response_ts_code_values": [
+          "RB2703.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.775373+08:00"
+      },
+      "RB2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2705",
+        "ts_code": "RB2705.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2705.SHF",
+        "requested_ts_code_raw": "RB2705.SHF",
+        "response_ts_code_values": [
+          "RB2705.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:12.329458+08:00"
+      }
+    },
+    "price_status": "raw_complete_not_economic_signal",
+    "signal": "not_evaluated_no_economic_anchor"
+  }
+]
