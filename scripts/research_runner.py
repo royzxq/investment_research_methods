@@ -18,6 +18,7 @@ from pathlib import Path
 import re
 import shutil
 import signal
+import stat
 import subprocess
 import sys
 import tempfile
@@ -945,9 +946,8 @@ def cancellation_scope():
             signal.signal(sig, handler)
 
 
-def communicate(proc, payload, timeout, cancelled):
+def wait_for_process(proc, timeout, cancelled):
     deadline = time.monotonic() + timeout
-    first = True
     while True:
         if cancelled.is_set():
             raise ValueError('research runner cancelled; process group cleanup required')
@@ -955,10 +955,10 @@ def communicate(proc, payload, timeout, cancelled):
         if remaining <= 0:
             raise ValueError('research CLI timeout; original logs preserved')
         try:
-            proc.communicate(input=payload if first else None, timeout=min(remaining, 0.25))
+            proc.wait(timeout=min(remaining, 0.25))
             return
         except subprocess.TimeoutExpired:
-            first = False
+            pass
 
 
 def check_launch_day(run, request, task, launch_date):
@@ -1116,9 +1116,18 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             if delivery is not None:
                 write_new(folder / 'delivery-prompt.txt', delivery)
                 process['delivery_prompt_sha256'] = sha(delivery)
-            with (folder / 'events.jsonl').open('wb') as stdout, (folder / 'stderr.log').open('wb') as stderr:
+            # stdout/stderr already go to files. A frozen file on stdin avoids
+            # a partially written PIPE after communicate()'s first short poll;
+            # the harness can read the entire prompt and EOF after cold startup.
+            stdin_fd = os.open(folder / 'jev-runtime-prompt.txt',
+                               os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+            with os.fdopen(stdin_fd, 'rb') as stdin, (folder / 'events.jsonl').open('wb') as stdout, (folder / 'stderr.log').open('wb') as stderr:
+                if (not stat.S_ISREG(os.fstat(stdin.fileno()).st_mode)
+                        or stdin.read(len(payload) + 1) != payload):
+                    raise ValueError('frozen runtime stdin does not match the complete payload')
+                stdin.seek(0)
                 check_launch_day(run, request, task, launch_date)
-                proc = subprocess.Popen(args, cwd=root, env=env, stdin=subprocess.PIPE,
+                proc = subprocess.Popen(args, cwd=root, env=env, stdin=stdin,
                                         stdout=stdout, stderr=stderr, start_new_session=True)
                 try:
                     # Popen returned successfully: preflight/lock waits must not
@@ -1126,12 +1135,12 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     # conservatively follows the actual process start.
                     started = stamp()
                     process.update(status='running', pid=proc.pid,
-                                   started_at=started, launched_at=started)
+                                   started_at=started, launched_at=started, stdin_transport='frozen_file')
                     save(folder / 'process.json', process)
                     emit(dict(event='research_started', task_id=task['task_id'],
                               generator=generator, attempt=attempt, pid=proc.pid, stdin_bytes=len(payload)))
                     retryable = True  # Only model execution/output failures may retry.
-                    communicate(proc, payload, timeout, cancelled)
+                    wait_for_process(proc, timeout, cancelled)
                 finally:
                     stop_group(proc)
                     process['exit_code'] = proc.returncode

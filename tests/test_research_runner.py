@@ -195,6 +195,70 @@ class ResearchRunnerTests(unittest.TestCase):
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
 
+    def test_slow_cli_receives_large_complete_runtime_stdin(self):
+        # Cold harness startup can exceed the cancellation polling interval.
+        # The complete multi-byte pack must still arrive, followed by EOF.
+        self.raw_pack += ('原始资料\r\n' + 'x' * 1016) * 2048 + '\nEND-OF-RAW-PACK\n'
+        self.pack.write_text(self.raw_pack)
+        self.request['tasks'][0]['data_pack']['sha256'] = self.sha(self.pack)
+        self.write_request()
+        self.fake.write_text(FAKE_CLI.replace(
+            'payload=sys.stdin.buffer.read()',
+            'time.sleep(.6)\npayload=sys.stdin.buffer.read()'))
+        for generator in ('claude', 'codex'):
+            with self.subTest(generator=generator):
+                result = run_batch(self.request_path, self.methods, generator=generator,
+                                   cli=str(self.fake), timeout=4)
+                entry = json.loads(result.read_text())['results'][0]
+                self.assertEqual(entry['status'], 'completed', entry['reason'])
+                folder = (self.methods / 'output/runs/investment/2026-10-06'
+                          / self.request['batch_id'] / 'execution/SH-600066' / generator)
+                expected = (folder / 'jev-runtime-prompt.txt').read_bytes()
+                self.assertIn(self.raw_pack.encode('utf-8'), expected)
+                self.assertEqual(self.capture.read_bytes(), expected)
+
+    def test_changed_runtime_stdin_is_refused_before_cli_launch(self):
+        original = runner.command
+        def command(cli, generator, folder, root, profile):
+            args = original(cli, generator, folder, root, profile)
+            (folder / 'jev-runtime-prompt.txt').write_bytes(b'changed input')
+            return args
+        with patch.object(runner, 'command', side_effect=command):
+            entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('frozen runtime stdin', entry['reason'])
+        self.assertFalse(self.capture.exists())
+
+    def test_runtime_stdin_symlink_is_refused_before_cli_launch(self):
+        original = runner.command
+        outside = self.root / 'outside-stdin'
+        outside.write_bytes(b'keep original')
+        def command(cli, generator, folder, root, profile):
+            args = original(cli, generator, folder, root, profile)
+            path = folder / 'jev-runtime-prompt.txt'
+            path.unlink()
+            path.symlink_to(outside)
+            return args
+        with patch.object(runner, 'command', side_effect=command):
+            entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertFalse(self.capture.exists())
+        self.assertEqual(outside.read_bytes(), b'keep original')
+
+    def test_runtime_stdin_fifo_is_refused_without_waiting_for_a_writer(self):
+        original = runner.command
+        def command(cli, generator, folder, root, profile):
+            args = original(cli, generator, folder, root, profile)
+            path = folder / 'jev-runtime-prompt.txt'
+            path.unlink()
+            os.mkfifo(path)
+            return args
+        with patch.object(runner, 'command', side_effect=command):
+            entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('frozen runtime stdin', entry['reason'])
+        self.assertFalse(self.capture.exists())
+
     def freeze_delivery_contract(self, contract):
         """Model a previously prepared contract without upgrading its bytes."""
         run = prepare_request(self.request_path, self.methods)

@@ -1,4 +1,5 @@
 """Trial isolation contracts; fake CLIs only, no provider requests."""
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -55,9 +56,10 @@ class HarnessTrialTests(unittest.TestCase):
         self.cli.chmod(0o700)
 
     def run_fake(self, harness='cc', **kwargs):
+        prompt = kwargs.pop('prompt', b'\xe4\xb8\xad\n\n')
         with patch.object(trial, 'SANDBOX_EXEC', str(self.sandbox)), \
                 patch.object(trial, 'verify_isolation', return_value={'success': True}):
-            return trial.run_trial(harness, self.workspace, self.arm, b'\xe4\xb8\xad\n\n',
+            return trial.run_trial(harness, self.workspace, self.arm, prompt,
                                    'http://127.0.0.1:54321/' + harness,
                                    claude_cli=self.cli, dsh_cli=self.cli, **kwargs)
 
@@ -79,6 +81,10 @@ class HarnessTrialTests(unittest.TestCase):
         self.assertNotIn('--dangerously-skip-permissions', args)
         self.assertEqual((self.arm / 'stderr.log').read_text(), 'fake diagnostics\n')
         self.assertEqual((self.arm / 'events.jsonl').stat().st_mode & 0o777, 0o600)
+        self.assertEqual((self.arm / 'stdin-prompt.bin').read_bytes(), b'\xe4\xb8\xad\n\n')
+        self.assertEqual((self.arm / 'stdin-prompt.bin').stat().st_mode & 0o777, 0o600)
+        self.assertEqual(result['stdin_prompt'], {'path': str(self.arm / 'stdin-prompt.bin'),
+                                                 'bytes': 5, 'sha256': result['prompt_sha256']})
 
     def test_dsh_argv_and_all_frozen_settings(self):
         self.write_cli([{'type': 'status', 'phase': 'turn_end', 'reason': 'completed'},
@@ -511,23 +517,88 @@ class HarnessTrialTests(unittest.TestCase):
         launch.assert_not_called()
         self.assertTrue(result['cancelled'])
         self.assertFalse(result['success'])
+        self.assertFalse((self.arm / 'stdin-prompt.bin').exists())
 
-    def test_communicate_poll_sends_prompt_only_once(self):
-        self.write_cli([{'type': 'result', 'subtype': 'success', 'is_error': False}],
-                       prefix='time.sleep(.4)\n')
-        observed = []
-        original = subprocess.Popen.communicate
-        def communicate(process, *args, **kwargs):
-            observed.append((kwargs.get('input'), kwargs.get('timeout')))
-            return original(process, *args, **kwargs)
-        with patch.object(trial.subprocess.Popen, 'communicate', communicate):
-            result = self.run_fake(timeout=10)
+    def test_slow_reader_receives_large_prompt_exactly_once_and_eof(self):
+        # Exceed the OS pipe capacity and the first 250 ms supervisor poll.
+        # The child writes stdin.bin only after its read reaches EOF.
+        prompt = (b'\xe4\xb8\xad\r\n\x00' * 350000) + b'final\n\n'
+        for harness, events in [
+                ('cc', [{'type': 'result', 'subtype': 'success', 'is_error': False}]),
+                ('dsh', [{'type': 'status', 'phase': 'turn_end', 'reason': 'completed'},
+                         {'type': 'final'}])]:
+            with self.subTest(harness=harness):
+                self.arm = self.root / ('slow-' + harness)
+                self.workspace = self.arm / 'workspace'
+                self.workspace.mkdir(parents=True)
+                self.write_cli(events, prefix='time.sleep(.6)\n')
+                result = self.run_fake(harness, prompt=prompt, timeout=5)
+                self.assertTrue(result['success'])
+                received = (self.workspace / 'stdin.bin').read_bytes()
+                self.assertEqual(len(received), len(prompt))
+                self.assertEqual(hashlib.sha256(received).hexdigest(), hashlib.sha256(prompt).hexdigest())
+
+    def test_prompt_stdin_is_read_only_for_child(self):
+        self.write_cli([{'type': 'result', 'subtype': 'success', 'is_error': False}], prefix=(
+            'try:\n'
+            ' os.write(0,b"overwrite")\n'
+            'except OSError:\n'
+            ' pass\n'
+            'else:\n'
+            ' sys.exit(37)\n'))
+        result = self.run_fake()
         self.assertTrue(result['success'])
-        self.assertGreater(len(observed), 1)
-        self.assertEqual(observed[0][0], b'\xe4\xb8\xad\n\n')
-        self.assertTrue(all(value is None for value, timeout in observed[1:]))
-        self.assertTrue(all(timeout <= .25 for value, timeout in observed))
-        self.assertEqual((self.workspace / 'stdin.bin').read_bytes(), b'\xe4\xb8\xad\n\n')
+        self.assertEqual((self.arm / 'stdin-prompt.bin').read_bytes(), b'\xe4\xb8\xad\n\n')
+
+    def test_early_exit_without_reading_prompt_keeps_original_exit_code(self):
+        self.write_cli([], prefix='sys.exit(17)\n')
+        result = self.run_fake(prompt=b'large prompt\n' * 200000)
+        self.assertEqual(result['exit_code'], 17)
+        self.assertFalse(result['success'])
+        self.assertFalse(result['timed_out'])
+        self.assertNotIn('error', result)
+
+    def test_existing_prompt_file_or_symlink_refuses_launch_and_preserves_bytes(self):
+        outside = self.root / 'outside-prompt'
+        outside.write_bytes(b'original evidence\r\n')
+        for kind in ('regular', 'symlink', 'dangling-symlink'):
+            with self.subTest(kind=kind):
+                prompt_path = self.arm / 'stdin-prompt.bin'
+                if kind == 'regular':
+                    prompt_path.write_bytes(b'old raw experiment\x00\n')
+                else:
+                    prompt_path.symlink_to(outside if kind == 'symlink' else self.root / 'missing')
+                with patch.object(trial.subprocess, 'Popen') as launch, \
+                        self.assertRaisesRegex(ValueError, 'already exists'):
+                    self.run_fake()
+                launch.assert_not_called()
+                self.assertEqual(outside.read_bytes(), b'original evidence\r\n')
+                if kind == 'regular':
+                    self.assertEqual(prompt_path.read_bytes(), b'old raw experiment\x00\n')
+                else:
+                    self.assertTrue(prompt_path.is_symlink())
+                prompt_path.unlink()
+
+    def test_prompt_replaced_before_read_open_fails_closed_without_following_symlink(self):
+        outside = self.root / 'outside-prompt'
+        outside.write_bytes(b'preserved original\n')
+        original_open = os.open
+        prompt_path = self.arm / 'stdin-prompt.bin'
+
+        def raced_open(path, flags, *args, **kwargs):
+            if Path(path) == prompt_path and not flags & os.O_CREAT:
+                prompt_path.unlink()
+                prompt_path.symlink_to(outside)
+            return original_open(path, flags, *args, **kwargs)
+
+        with patch.object(trial.os, 'open', side_effect=raced_open), \
+                patch.object(trial.subprocess, 'Popen') as launch:
+            result = self.run_fake()
+        launch.assert_not_called()
+        self.assertFalse(result['success'])
+        self.assertEqual(result['error'], 'OSError')
+        self.assertEqual(outside.read_bytes(), b'preserved original\n')
+        self.assertFalse(json.loads((self.arm / 'process.json').read_text())['success'])
 
     def test_cleanup_signals_group_and_reaps(self):
         class Process:

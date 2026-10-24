@@ -183,6 +183,30 @@ def _write_json(path: Path, value: dict) -> None:
         temporary.unlink(missing_ok=True)
 
 
+def _frozen_prompt_stdin(run: Path, raw_prompt: bytes):
+    """Create one arm-local prompt and return its verified read-only handle."""
+    path = run / 'stdin-prompt.bin'
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, 'wb') as snapshot:
+        snapshot.write(raw_prompt)
+        snapshot.flush()
+        os.fsync(snapshot.fileno())
+        created = os.fstat(snapshot.fileno())
+    fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    stream = os.fdopen(fd, 'rb')
+    try:
+        observed = os.fstat(stream.fileno())
+        if (not stat.S_ISREG(observed.st_mode)
+                or (created.st_dev, created.st_ino) != (observed.st_dev, observed.st_ino)
+                or stream.read(len(raw_prompt) + 1) != raw_prompt):
+            raise ValueError('trial stdin prompt snapshot changed before launch')
+        stream.seek(0)
+        return stream
+    except BaseException:
+        stream.close()
+        raise
+
+
 def _path(value, *, directory=False) -> Path:
     original = Path(value).expanduser().absolute()
     for part in (original, *original.parents):
@@ -674,9 +698,9 @@ def run_trial(harness, workspace, run_dir, prompt, proxy_url, *, timeout=1800,
     if any((workspace / name).exists() or (workspace / name).is_symlink()
            for name in forbidden_project_config):
         raise ValueError('trial workspace must exclude project settings, hooks, and plugins')
-    for name in ('process.json', 'events.jsonl', 'stderr.log', 'sandbox.sb',
+    for name in ('process.json', 'events.jsonl', 'stderr.log', 'sandbox.sb', 'stdin-prompt.bin',
                  'dsh-isolation.patch.yml', 'runtime-deps.json', 'python-libs', 'runtime-bin'):
-        if (run / name).exists():
+        if (run / name).exists() or (run / name).is_symlink():
             raise ValueError('trial output already exists; use a fresh arm directory')
     run.chmod(0o700)
     cli_input = Path((claude_cli or DEFAULT_CC) if harness == 'cc' else (dsh_cli or DEFAULT_DSH)).expanduser()
@@ -737,15 +761,21 @@ def run_trial(harness, workspace, run_dir, prompt, proxy_url, *, timeout=1800,
     started = time.monotonic()
     child = None
     try:
-        with (run / 'events.jsonl').open('ab') as events, (run / 'stderr.log').open('ab') as errors:
-            child = subprocess.Popen(command, cwd=str(workspace), env=env, stdin=subprocess.PIPE,
+        with _frozen_prompt_stdin(run, raw_prompt) as prompt_stdin, \
+                (run / 'events.jsonl').open('ab') as events, (run / 'stderr.log').open('ab') as errors:
+            process_data['stdin_prompt'] = {'path': str(run / 'stdin-prompt.bin'),
+                                           'bytes': len(raw_prompt),
+                                           'sha256': process_data['prompt_sha256']}
+            # Timed communicate(input=...) retries can stop writing a full pipe
+            # after their first timeout. A file supplies all bytes and EOF even
+            # when the CLI initializes for longer than the supervisor poll.
+            child = subprocess.Popen(command, cwd=str(workspace), env=env, stdin=prompt_stdin,
                                      stdout=events, stderr=errors, start_new_session=True, umask=0o077)
             process_data['pid'] = child.pid
             # Supervisors can inspect/stop the live process before it finishes.
             _write_json(run / 'process.json', process_data)
             try:
                 deadline = started + timeout
-                pending_input = raw_prompt
                 while True:
                     if cancelled is not None and cancelled.is_set():
                         process_data['cancelled'] = True
@@ -755,12 +785,10 @@ def run_trial(harness, workspace, run_dir, prompt, proxy_url, *, timeout=1800,
                         process_data['timed_out'] = True
                         break
                     try:
-                        child.communicate(input=pending_input, timeout=min(0.25, remaining))
+                        child.wait(timeout=min(0.25, remaining))
                         break
                     except subprocess.TimeoutExpired:
-                        # communicate retains its unwritten input after timeout;
-                        # providing it again would duplicate/reject the prompt.
-                        pending_input = None
+                        continue
             finally:
                 _kill_group(child)
             process_data['exit_code'] = child.returncode
