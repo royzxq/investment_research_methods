@@ -206,6 +206,23 @@ class ResearchAcceptanceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'passed requires explicit stress calculation'):
             self.validate(document, audit, gate, untrusted=True)
 
+    def test_generated_acceptance_and_audit_views_are_not_calculation_evidence(self):
+        for quote in ('R14：applicable / passed。', '| exposure | supported |',
+                      '| entry | eligible | 无 |'):
+            with self.subTest(quote=quote):
+                document, audit, gate = self.supported()
+                gate['r14']['calculation']['report_quote'] = quote
+                with self.assertRaisesRegex(ValueError, 'quote absent from report prose'):
+                    self.validate(document, audit, gate, prose='', untrusted=True)
+
+    def test_calculation_copied_into_audit_still_requires_independent_report_prose(self):
+        document, audit, gate = self.supported()
+        audit['valuation'] = dict(kind='other', reason=self.calculation_quote,
+                                 unrounded_v50=deepcopy(document['price_map']['v50']))
+        with self.assertRaisesRegex(ValueError, 'quote absent from report prose'):
+            self.validate(document, audit, gate, prose='', untrusted=True)
+        self.assertEqual(self.validate(document, audit, gate)['acceptance']['status'], 'passed')
+
     def test_an_unexplained_ocf_base_does_not_become_a_source_tied_bridge(self):
         document, audit, gate = self.supported()
         gate['r14']['inputs']['ocf_bridge']['derivation'] = None

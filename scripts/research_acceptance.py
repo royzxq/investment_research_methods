@@ -254,8 +254,16 @@ def validate(report, audit, *, root=None):
     require(render_view(acceptance, audit) in report, 'acceptance visible recovery view mismatch')
     calculation = acceptance['r14']['calculation']
     if calculation is not None:
-        # The quote must be in the actual prose, not its own JSON declaration.
-        prose = re.sub(r'```.*?```', '', report, flags=re.S)
+        try:
+            from .research_consistency import VIEW_START as AUDIT_VIEW_START, VIEW_END as AUDIT_VIEW_END
+        except ImportError:
+            from research_consistency import VIEW_START as AUDIT_VIEW_START, VIEW_END as AUDIT_VIEW_END
+        # Generated views echo declarations; neither they nor JSON establish
+        # an independent stress calculation in the report's own prose.
+        prose = report
+        for start, end in ((VIEW_START, VIEW_END), (AUDIT_VIEW_START, AUDIT_VIEW_END)):
+            prose = re.sub(re.escape(start) + r'.*?' + re.escape(end), '', prose, flags=re.S)
+        prose = re.sub(r'```.*?```', '', prose, flags=re.S)
         prose = re.sub(r'<!--.*?-->', '', prose, flags=re.S)
         require(calculation['report_quote'] in prose, 'R14 calculation quote absent from report prose')
     validate_recovery_prose(report)
