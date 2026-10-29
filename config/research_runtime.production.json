@@ -2,14 +2,14 @@
   "schema_version": "research-runtime-config/v1",
   "profiles": [
     {
-      "profile_id": "codex-inherited",
+      "profile_id": "codex-astra-xhigh",
       "revision": 1,
       "producer": "codex",
       "harness": "codex-cli",
       "models": {
         "main": {
-          "model": null,
-          "effort": null
+          "model": "gpt-6-astra",
+          "effort": "xhigh"
         },
         "subagent": {
           "model": null
@@ -48,7 +48,7 @@
     }
   ],
   "active": {
-    "codex": "codex-inherited",
+    "codex": "codex-astra-xhigh",
     "claude": "claude-inherited",
     "dsh": "dsh-deepseek-flash-high"
   }

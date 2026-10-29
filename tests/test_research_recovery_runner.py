@@ -86,7 +86,8 @@ class RecoveryRunnerTests(unittest.TestCase):
                 prompt = runner.make_prompt(self.request, task, generator,
                     (self.exchange / task['data_pack']['path']).read_bytes(), self.root, frameworks, targets,
                     maintenance=snapshot['maintenance'], research_validation=snapshot['research_validation'],
-                    research_baseline=baseline, delivery=runner.delivery_contract(snapshot))
+                    research_baseline=baseline, delivery=runner.delivery_contract(snapshot),
+                    evidence_workflow=snapshot.get('evidence_workflow'))
                 (folder / 'prompt.txt').write_bytes(prompt)
                 (folder / 'input.json').write_bytes(runner.encode(runner.input_record(
                     self.request, self.parent_request.read_bytes(), task, generator, prompt, frameworks, targets)))

@@ -37,7 +37,7 @@ try:
     from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
     from . import research_jev
     from . import research_consistency
-    from . import research_harness, research_runtime
+    from . import research_harness, research_runtime, research_shared_evidence
 except ImportError:
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
@@ -48,7 +48,7 @@ except ImportError:
     from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
     import research_jev
     import research_consistency
-    import research_harness, research_runtime
+    import research_harness, research_runtime, research_shared_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
@@ -251,7 +251,7 @@ def make_legacy_prompt(request, task, generator, pack, root, frameworks, targets
 
 def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
                 *, snapshot=True, maintenance=None, research_validation=None, research_baseline=None,
-                delivery=None):
+                delivery=None, evidence_workflow=None):
     contract = NEW_CONTRACT if delivery is None else delivery
     payload = make_legacy_prompt(request, task, generator, pack, root, frameworks, targets, attempt,
         snapshot=snapshot, maintenance=maintenance, research_validation=research_validation,
@@ -300,6 +300,8 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '无合格项monitoring=[]，报告说明缺口；完整研究条件、全部有效/未知风险及解除证据继续留报告/audit，'
                    '不得因不可公开核验或七项上限解除、合并、截断任何research_controls或refs。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
+    if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
+        result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)
     if len(result) > MAX_INPUT_BYTES:
         raise ValueError('complete research input exceeds CLI stdin limit; no truncation allowed')
     return result
@@ -420,7 +422,7 @@ def freeze_maintenance(run, root, as_of):
 
 
 def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, research_validation=None,
-                             research_request=None, delivery=None, runtime_plan=None):
+                             research_request=None, delivery=None, runtime_plan=None, evidence_workflow=None):
     folder = run / 'framework-snapshot'
     if folder.exists():
         raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
@@ -434,6 +436,9 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
                     frameworks={name: dict(path=name, sha256=sha(raw))
                                 for name, raw in contents.items()},
                     legacy_inputs=legacy_inputs, maintenance=maintenance)
+    if evidence_workflow is not None:
+        research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow))
+        document['evidence_workflow'] = evidence_workflow
     if delivery is not None:
         document['delivery_contract'] = dict(delivery)
     if runtime_plan is not None:
@@ -533,6 +538,7 @@ def snapshot_hashes(run):
         raise ValueError('framework snapshot manifest mismatch')
     frameworks = {}
     delivery_contract(document)
+    research_shared_evidence.enabled(document)
     if document.get('research_validation') not in (None, *research_consistency.SUPPORTED_SCHEMAS):
         raise ValueError('unsupported prepared research validation contract')
     if document.get('research_validation'):
@@ -599,7 +605,8 @@ def verify_prepared(run, original_raw, root):
                 input_folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
             prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                                  frameworks, targets, maintenance=snapshot.get('maintenance'),
-                                 research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot))
+                                 research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             evidence_workflow=snapshot.get('evidence_workflow'))
             if (input_folder / 'prompt.txt').read_bytes() != prompt:
                 raise ValueError(f"prepared prompt mismatch: {task['task_id']} {generator}")
             record = _strict_json((input_folder / 'input.json').read_bytes(), 'input record')
@@ -612,6 +619,7 @@ def verify_prepared(run, original_raw, root):
                                                          maintenance=snapshot.get('maintenance'),
                                                          research_validation=snapshot.get('research_validation'),
                                                          research_baseline=baseline, delivery=delivery_contract(snapshot),
+                                                         evidence_workflow=snapshot.get('evidence_workflow'),
                                                          execution_profile=research_runtime.profile_for_plan(runtime_plan, generator),
                                                          execution_plan_sha256=(snapshot.get('execution_plan') or {}).get('sha256'))
     return request, raw, packs, verified
@@ -637,7 +645,9 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
     run.mkdir(parents=True, exist_ok=False)
     snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'],
                                         research_validation=research_consistency.SCHEMA, research_request=request,
-                                        delivery=NEW_CONTRACT, runtime_plan=runtime_plan)
+                                        delivery=NEW_CONTRACT, runtime_plan=runtime_plan,
+                                        evidence_workflow=(research_shared_evidence.WORKFLOW
+                                            if set(request['generators']) == {'codex', 'dsh'} else None))
     for task in request['tasks']:
         write_new(run / task['data_pack']['path'], packs[task['task_id']])
     for task, generator, targets in prepared:
@@ -647,7 +657,8 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
                             sha256=baseline['sha256'])
         prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                              frameworks, targets, maintenance=snapshot.get('maintenance'),
-                             research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot))
+                             research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             evidence_workflow=snapshot.get('evidence_workflow'))
         folder = run / 'execution' / task['task_id'] / generator
         write_new(folder / 'prompt.txt', prompt)
         write_new(folder / 'targets.json', encode(targets))
@@ -696,6 +707,8 @@ def _recovery_inputs(request, raw, packs, parent_run, root):
         profiles={'dsh': research_runtime.profile_for_plan(parent_plan, 'dsh')}), request, raw)
     plan_raw = research_runtime.canonical_bytes(plan)
     inherited = deepcopy(snapshot)
+    if research_shared_evidence.enabled(snapshot):
+        inherited['evidence_parent_request'] = dict(path=(parent_run / 'request.json').relative_to(root).as_posix(), sha256=sha(parent_raw))
     inherited['execution_plan'] = dict(path=research_runtime.PLAN_FILENAME, sha256=sha(plan_raw))
     if snapshot.get('research_validation'):
         original_baselines = snapshot['research_baselines']
@@ -784,7 +797,8 @@ def prepare_recovery_request(request_path, parent_run, root=ROOT):
                             sha256=baseline['sha256'])
         prompt = make_prompt(request, task, 'dsh', packs[task['task_id']], root, frameworks, targets,
                              maintenance=snapshot.get('maintenance'), research_validation=snapshot.get('research_validation'),
-                             research_baseline=baseline, delivery=delivery_contract(snapshot))
+                             research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             evidence_workflow=snapshot.get('evidence_workflow'))
         folder = run / 'execution' / task['task_id'] / 'dsh'
         write_new(folder / 'prompt.txt', prompt)
         write_new(folder / 'targets.json', encode(targets))
@@ -1112,6 +1126,78 @@ def check_launch_day(run, request, task, launch_date):
     raise ValueError('daily reservation expired before first launch; fresh input required')
 
 
+def sequential_research(run):
+    """Only the frozen new-batch marker enables ordering; old batches stay old."""
+    _, snapshot = snapshot_hashes(run)
+    return research_shared_evidence.enabled(snapshot)
+
+
+def upstream_evidence(run, request, raw, task, root):
+    """Require a naturally completed, validated Codex attempt for this stock."""
+    root, run = Path(root).resolve(), Path(run).resolve()
+    consumer_hash = sha(raw)
+    _, snapshot = snapshot_hashes(run)
+    parent = snapshot.get('evidence_parent_request')
+    if parent is not None:
+        parent_path, parent_raw = _artifact(parent, root, 'shared evidence parent request')
+        parent_request, checked_raw, _ = read_request(parent_path)
+        if (checked_raw != parent_raw or parent_request['valuation_date'] != request['valuation_date']
+                or set(parent_request['generators']) != {'codex', 'dsh'}):
+            raise ValueError('shared evidence recovery parent mismatch')
+        parent_task = next((t for t in parent_request['tasks'] if t['task_id'] == task['task_id']), None)
+        if parent_task != task:
+            raise ValueError('shared evidence recovery task/input mismatch')
+        run, request, raw = parent_path.parent, parent_request, parent_raw
+        verify_prepared(run, raw, root)
+        _, parent_snapshot = snapshot_hashes(run)
+        if not research_shared_evidence.enabled(parent_snapshot) or parent_snapshot.get('evidence_parent_request'):
+            raise ValueError('shared evidence recovery requires a direct original parent')
+    if 'codex' not in request['generators']:
+        raise ValueError('shared evidence dependency has no Codex producer')
+    first = execution_folder(run, task, 'codex')
+    folder = first / 'retry-1' if (first / 'retry-1/launched.json').exists() else first
+    try:
+        process = _strict_json(research_shared_evidence.regular_bytes(folder, 'process.json'), 'upstream process')
+        entry = _strict_json(research_shared_evidence.regular_bytes(folder, 'entry.json'), 'upstream entry')
+        accepted_raw = research_shared_evidence.regular_bytes(folder, 'accepted.json')
+    except (OSError, ValueError) as exc:
+        raise ValueError('Codex dependency not successfully completed; DSH remains unlaunched') from exc
+    if (process.get('status') != 'completed' or entry.get('status') != 'completed'
+            or process.get('task_id') != task['task_id'] or process.get('generator') != 'codex'
+            or process.get('evidence_workflow') != research_shared_evidence.WORKFLOW
+            or process.get('exit_code') != 0
+            or type(process.get('pid')) is not int or process['pid'] <= 0
+            or group_alive(process['pid'])):
+        raise ValueError('Codex dependency not successfully completed/stopped; DSH remains unlaunched')
+    accepted = _strict_json(accepted_raw, 'upstream accepted')
+    load_results(folder / 'accepted.json', run / 'request.json', root)
+    if accepted.get('results') != [entry]:
+        raise ValueError('Codex accepted result and terminal entry disagree')
+    descriptor = process.get('shared_evidence')
+    if not isinstance(descriptor, dict):
+        raise ValueError('Codex shared evidence missing')
+    research_shared_evidence.read_frozen(folder, descriptor, request, task)
+    bundle_path = folder / descriptor['path']
+    binding = dict(schema_version='stock-evidence-dependency/v1', consumer_request_sha256=consumer_hash,
+                   producer_request_sha256=sha(raw), task_id=task['task_id'],
+                   accepted=dict(path=(folder / 'accepted.json').relative_to(root).as_posix(), sha256=sha(accepted_raw)),
+                   bundle=dict(path=bundle_path.relative_to(root).as_posix(), sha256=descriptor['sha256']))
+    return binding, bundle_path
+
+
+def bind_upstream_evidence(run, request, raw, task, root):
+    binding, path = upstream_evidence(run, request, raw, task, root)
+    # Both attempts use one immutable dependency; retry never picks up new facts.
+    record = execution_folder(run, task, 'dsh') / 'runner/evidence-dependency.json'
+    if record.exists() or record.is_symlink():
+        original = research_shared_evidence.regular_bytes(record.parent, record.name)
+        if original != encode(binding):
+            raise ValueError('frozen shared evidence dependency differs; preserve original input')
+    else:
+        write_new(record, encode(binding))
+    return binding, path
+
+
 def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
                  cancelled, launch_date=None, attempt=1, jev_mode=None):
     """Claim an endpoint attempt once; no shared batch manifest is written here."""
@@ -1123,6 +1209,8 @@ def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
     _, snapshot = snapshot_hashes(run)
     plan = research_runtime.load_plan(run, request, request_raw, snapshot)
     profile = research_runtime.profile_for_plan(plan, generator)
+    if generator == 'dsh' and research_shared_evidence.enabled(snapshot):
+        upstream_evidence(run, request, request_raw, task, root)  # Before durable claim/CLI launch.
     plan_hash = (snapshot.get('execution_plan') or {}).get('sha256')
     preflight_profile(cli, profile, root)
     folder = execution_folder(run, task, generator, attempt)
@@ -1182,7 +1270,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                                       root, frozen['frameworks'], targets, attempt,
                                       maintenance=frozen['maintenance'],
                                       research_validation=frozen['research_validation'],
-                                      research_baseline=frozen['research_baseline'], delivery=frozen['delivery'])
+                                      research_baseline=frozen['research_baseline'], delivery=frozen['delivery'],
+                                      evidence_workflow=frozen['evidence_workflow'])
                 first = execution_folder(run, task, generator)
                 prior_path = owned_path(root, first/'entry.json')
                 if prior_path.is_symlink():
@@ -1237,6 +1326,16 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     f'build必须加 --legacy-snapshot {run / "framework-snapshot/manifest.json"}；'
                     '不改原始prompt/input/hash，不将本批升级为v4。\n').encode('utf-8')
             payload += research_jev.instructions(folder).encode('utf-8')
+            dependency = None
+            if frozen['evidence_workflow'] is not None:
+                process['evidence_workflow'] = frozen['evidence_workflow']
+                if generator == 'codex':
+                    payload += research_shared_evidence.codex_instructions(folder, request, task).encode()
+                elif generator == 'dsh':
+                    dependency, bundle_path = bind_upstream_evidence(run, request, request_raw, task, root)
+                    process['shared_evidence_dependency_sha256'] = sha(encode(dependency))
+                    payload += research_shared_evidence.dsh_instructions(bundle_path, dependency['bundle']).encode()
+
             if len(payload) > MAX_INPUT_BYTES:
                 raise ValueError('complete research input plus Jev routing exceeds CLI stdin limit')
             write_new(folder / 'jev-runtime-prompt.txt', payload)
@@ -1306,6 +1405,16 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                         expected_baseline=frozen['research_baseline'],
                         require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT),
                         require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT))
+                if frozen['evidence_workflow'] is not None:
+                    if generator == 'codex':
+                        process['shared_evidence'] = research_shared_evidence.freeze(folder, request, task)
+                    elif generator == 'dsh':
+                        confirmed, _ = bind_upstream_evidence(run, request, request_raw, task, root)
+                        if confirmed != dependency:
+                            raise ValueError('shared evidence dependency changed during research')
+                        _, report_raw = _artifact(entry['report'], staged, 'report')
+                        if dependency['bundle']['sha256'] not in _report_sections(report_raw)[0]:
+                            raise ValueError('DSH report section 0 must visibly bind the shared evidence SHA256')
                 retryable = False  # Publication must never be retried over possibly visible files.
                 # Recheck actual snapshot bytes and request/pack/prompt bindings
                 # after research, before anything can reach company discovery.

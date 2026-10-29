@@ -186,6 +186,9 @@ class RecoveryIntegrationTests(unittest.TestCase):
         path = self.f.exchange/'completed/request.json'
         runner.write_new(path.parent/new_batch['tasks'][0]['data_pack']['path'], self.f.pack.read_bytes())
         runner.write_new(path, runner.encode(new_batch))
+        codex = runner.run_batch(path, self.f.methods, generator='codex', cli=str(self.f.fake),
+                                 timeout=5, runtime_config=self.config)
+        self.assertEqual(recovery.read(codex)['results'][0]['status'], 'completed')
         result = runner.run_batch(path, self.f.methods, generator='dsh', cli=str(self.dsh_cli),
                                   timeout=5, runtime_config=self.config)
         entry = recovery.read(result)['results'][0]

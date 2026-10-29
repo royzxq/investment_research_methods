@@ -9,7 +9,7 @@
 ../ai_investment/myenv/bin/python scripts/research_scheduler.py run
 ```
 
-plan 不写台账、不启动研究。run 会真实使用 CLI 账户；默认每端超时3600秒，按“上市证券＋生成端”并行，各生成端合计最多3个根研究CLI进程，同股双端允许重叠。CLI内部工具/子代理不计为额外研究任务；`--max-concurrency 1|2|3` 可降低并发。主线程预先准备不可变输入、维护队列与预算，所有计划端结束才逐股封口，失败端单独披露；取消时清理全部在途进程组，等待端不领取启动claim。详见 ai_investment 的 `docs/adr/ADR-20261009-research-provider-concurrency.md`。自动调度每个生成端失败后最多重试一次（总共两次），顺序占用原并发槽，成功端不重跑；超时、非零退出及模型交付失败可重试，取消/启动前校验失败/正式发布异常不重试，正常 frozen/rejected 不重试。首轮原目录与第二次 `execution/<task>/<generator>/retry-1/`、对应暂存目录分开，完整量价包和身份不变；统一日志记录 attempt、原因和实际模型。历史无重试标志及已封口批次不追溯补跑，重试不新增名额或推迟首启动冷却；手工批次 runner 仍单次。详见 ai_investment 的 `docs/adr/ADR-20261009-research-provider-retry.md`。launchd每15分钟仅唤醒时钟门控，定时入口以Asia/Shanghai判断时间，每日05:00前直接返回且不扫描、不写台账，05:00及以后首次唤醒只检查一次（`run --scheduled`），即使没有输入也保存daily-check.json，当天不再自动检查；重启服务不启动研究。每天最多4只上市证券，两端合用1个名额；超过4只按超30天、独立AI建仓/清仓、监控/财报/其它、纯止损四档排序，未入选顺延。实际启动后失败仍占名额，纯预检未启动可释放，A/H分别计数。同一上市证券所有自动触发来源至少间隔7×24小时，从同轮首次实际启动算起；新事件、新批次和服务重启均不能绕过。先剔除冷却中的证券，再排序取最多4只，pending保留等待次日当日新包，晨检先释放前日未启动预留再合并新包，使当日唯一检查即可领取有效新输入。不含新触发契约的旧批次不自动领取；手动 research_runner 不能作为绕过额度的自动入口。
+plan 不写台账、不启动研究。run 会真实使用 CLI 账户；默认每端超时3600秒，新准备的 Codex + DSH 批次按同股 Codex 完成后 DSH 增量研究执行，不同股票仍可并发，各生成端合计默认及上限均为4个根研究CLI进程。旧冻结批次保持原并行合同。CLI内部工具/子代理不计为额外研究任务；`--max-concurrency 1|2|3|4` 可降低并发。主线程预先准备不可变输入、维护队列与预算，所有计划端结束才逐股封口，失败端单独披露；取消时清理全部在途进程组，等待端不领取启动claim。详见 ai_investment 的 `docs/adr/ADR-20261009-research-provider-concurrency.md`。自动调度每个生成端失败后最多重试一次（总共两次），顺序占用原并发槽，成功端不重跑；超时、非零退出及模型交付失败可重试，取消/启动前校验失败/正式发布异常不重试，正常 frozen/rejected 不重试。首轮原目录与第二次 `execution/<task>/<generator>/retry-1/`、对应暂存目录分开，完整量价包和身份不变；统一日志记录 attempt、原因和实际模型。历史无重试标志及已封口批次不追溯补跑，重试不新增名额或推迟首启动冷却；手工批次 runner 仍单次。详见 ai_investment 的 `docs/adr/ADR-20261009-research-provider-retry.md`。launchd每15分钟仅唤醒时钟门控，定时入口以Asia/Shanghai判断时间，每日05:00前直接返回且不扫描、不写台账，05:00及以后首次唤醒只检查一次（`run --scheduled`），即使没有输入也保存daily-check.json，当天不再自动检查；重启服务不启动研究。每天最多4只上市证券，两端合用1个名额；超过4只按超30天、独立AI建仓/清仓、监控/财报/其它、纯止损四档排序，未入选顺延。实际启动后失败仍占名额，纯预检未启动可释放，A/H分别计数。同一上市证券所有自动触发来源至少间隔7×24小时，从同轮首次实际启动算起；新事件、新批次和服务重启均不能绕过。先剔除冷却中的证券，再排序取最多4只，pending保留等待次日当日新包，晨检先释放前日未启动预留再合并新包，使当日唯一检查即可领取有效新输入。不含新触发契约的旧批次不自动领取；手动 research_runner 不能作为绕过额度的自动入口。
 
 台账在 `output/research_queue/state.json`；新增 `last_started` 记录上市证券最近一轮首次启动，兼容原v1台账，不重置已有额度。历史从原runner的已校验请求/claim/process（进程记录缺失时使用entry）迁移，新runner在Popen返回后保存相同的started_at/launched_at，两端同轮取最早可信启动时刻。旧process只有预检started_at时，改以completed_at保守计算，原历史缓存同步向后校正；旧在途或缺进程证据的claim以当前检查时间保持冷却，直到证据补齐。PID证明实际启动，明确pid为空且失败不计冷却；旧一批可延长等待，不能提前准入。plan只在内存迁移，输出 `cooldown_skipped` 与 `next_eligible_at`，run原子保存并写统一日志。`sealed/` 是 ai 消费依据，`refresh-needed.json` 提供延期财报重抓线索。已开始的同批次、同请求任务恢复及双端补完不算新轮、不推进首次启动时刻，恢复时先查原 entry/process/claim；不能确认原进程终止时不重复启动。已有claim但process/PID缺失或仍是starting/pid为空时，会在每日检查与新准入前停止，要求核对尝试目录及实际进程；明确failed/pid为空的预检记录可恢复。一次性队列写盘错误也停止新派发，启动检查间隙取消不把未启动端记成最终失败。坏账或初始化后台账消失拒绝运行，不能删除台账重置额度。需要备份整个 queue、相应 `output/runs/investment` 和正式 `research/investment/companies` 文件。
 
@@ -45,9 +45,19 @@ AI 每天07:30/22:00消费已封口结果；用户2026-10-08已明确授权真�
 
 七天间隔裁决及迁移边界见 [ADR-20261008-research-weekly-cooldown](../docs/adr/ADR-20261008-research-weekly-cooldown.md)。
 
+## Codex 先行、DSH 增量研究（2026-10-29）
+
+新准备的 Codex + DSH 请求在方法快照写入 `evidence_workflow=codex-then-dsh-evidence/v1`。Codex 继续交付完整报告，另外在执行目录 `agent/shared-evidence/bundle.json` 提交公开事实、原始来源及精确摘录；运行器校验身份、估值截止日、路径、哈希和引句后复制至 `runner/shared-evidence/`。完成验收、发布且原进程组已结束后，才派发该股 DSH。就绪 DSH 优先衔接；多个并发槽下保持至少一路待启动 Codex 的推进机会，避免后续股票被持续推迟。并发设为1时逐股完成 Codex → DSH。DSH 使用冻结事实及来源独立补证、反向搜索、判断和估值，第0节显式记录事实包哈希及复用/新增/纠错。研究模式仍要求完整九节报告与现有验收。
+
+共享包不承载 Codex 的完整报告、P1/T1、预测假设、折扣或规则适用结论。两端原始输出和生成端归属继续分别保存；共享证据的两份判断不能解释为两套独立取证。事实包检验不证明事实或摘录语义真实，现有工作区也没有阻断 DSH 读取其他报告的操作系统级隔离；内容边界通过明确提示和结构化交接执行。
+
+Codex 失败或事实包缺失时，DSH 记录依赖失败且不启动，不自动退回全量研究。自动重试保持每端最多两次；DSH 重试绑定同一事实包。显式恢复失败 DSH 时继续绑定父轮 Codex 的已验收证据；历史无此标记的批次仍按原合同处理。恢复、预算、冷却、共识和写回接口不变。详见[顺序研究 ADR](../docs/adr/ADR-20261029-sequential-stock-evidence.md)。
+
+2026-10-29 本机实际安装排期核对为每日05:00一次（不是安装器模板的每15分钟唤醒），下游仍于07:30/22:00消费封口。顺序研究不能保证赶上07:30；未封口结果不会提前消费。每日已检查标记阻止同日再次自动运行，整个服务中断需要显式恢复。本次未改动排期。
+
 ## DSH 生产接入（2026-10-23）
 
-显式生产配置为 `config/research_runtime.production.json`：Codex 继承既有 CLI，DSH 主/子使用 DeepSeek Flash、high；保留 CC 绑定供旧请求准备/恢复。配置可有三项绑定，但每个批次只选择其请求中的两个基础业务席位。仅改变 active 不会把旧 CC 请求改为 DSH，回退同样只影响新请求。手工 runner 的默认无配置行为保留 legacy；DSH 必须带含 DSH 的显式配置。
+显式生产配置为 `config/research_runtime.production.json`：Codex 使用 GPT-6 Astra、Extra High（`gpt-6-astra` / `xhigh`），DSH 主/子使用 DeepSeek Flash、high；保留 CC 绑定供旧请求准备/恢复。配置可有三项绑定，但每个批次只选择其请求中的两个基础业务席位。仅改变 active 不会把旧 CC 请求改为 DSH，回退同样只影响新请求。手工 runner 的默认无配置行为保留 legacy；DSH 必须带含 DSH 的显式配置。
 
 DSH 使用官方 headless、每次独立 HOME/状态目录、workspace-write + approval never，后台不弹确认。此策略不宣称与 CC auto-review 等价。完成必须有有序 completed 终态、正式严格 JSON 回执与共享验收，退出码0不能代替交付。DeepSeek 凭据仅内存转交；Jev 使用已存在的受限 key 文件，可信工具桥仅转交 TUSHARE_TOKEN，不恢复其它应用秘密。不得将密钥写入 profile、patch、日志。
 

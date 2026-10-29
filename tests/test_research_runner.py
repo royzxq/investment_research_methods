@@ -71,6 +71,9 @@ if mode=='runtime_input_changes': Path(os.environ['MOCK_TAMPER_PROMPT']).write_t
 if mode=='delivery_changes': Path(os.environ['MOCK_TAMPER_DELIVERY']).write_text('mutated delivery instruction')
 body='\n\n'.join(f'## {n}. section\n\n'+(f'batch={batch}; input={sha}; frames={frames}; price=25.30' if n==0 and mode!='unbound_report' else 'offline evidence') for n in range(9))
 if mode=='hidden_binding': body=body.replace(f'batch={batch}; input={sha}; frames={frames}; price=25.30',f'<!-- batch={batch}; input={sha}; frames={frames} -->\noffline evidence')
+if generator=='dsh' and b'codex-then-dsh-evidence/v1' in payload and mode!='missing_evidence_binding':
+ evidence_hash=re.search(r'^事实包SHA256：(.*)$',payload.decode(),re.M)[1]
+ body=body.replace('## 1. section',f'共享事实包SHA256：{evidence_hash}\n\n## 1. section')
 report_file.write_text(body)
 doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
 'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':24,'high':30},'p1':{'base':12},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
@@ -99,6 +102,17 @@ sys.path.insert(0,'__RESEARCH_TEST_ROOT__')
 sys.path.insert(0,'__RESEARCH_TEST_ROOT__/tests')
 from scripts.research_consistency import render_report_block, extract_audit
 from research_audit_fixture import audit_for
+if generator=='codex' and b'codex-then-dsh-evidence/v1' in payload:
+ from scripts import research_shared_evidence as shared
+ fact_root=Path(re.search(r'本轮必须交付事实证据包：(.*?)。',payload.decode())[1]).parent
+ (fact_root/'sources').mkdir(parents=True)
+ source=b'Offline issuer reported revenue 100 CNY for H1.'
+ (fact_root/'sources/original.txt').write_bytes(source)
+ source_desc=dict(path='sources/original.txt',sha256=hashlib.sha256(source).hexdigest())
+ evidence=dict(schema_version=shared.SCHEMA,batch_id=batch,task_id=f'{market}-{ticker}',valuation_date=day,input_pack_sha256=sha,
+  sources=[dict(id='S1',url='https://issuer.example/report',title='Offline issuer disclosure',published_at=day,original=source_desc,text=source_desc)],
+  facts=[dict(id='F1',kind='disclosed',statement='Reported revenue',value=100,unit='CNY',period='H1',source_id='S1',quote=source.decode(),locator='p1')],gaps=[],coverage=[])
+ (fact_root/'bundle.json').write_bytes(shared.encode(evidence))
 audit=audit_for(doc)
 if mode=='missing_lifecycle':
  for row in audit['constraints']: row.pop('lifecycle',None)

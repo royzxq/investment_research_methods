@@ -2,6 +2,10 @@
 
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
+## Codex 先行与共享事实（2026-10-29）
+
+用户采纳“先 Codex 完成，再 DSH 基于事实增量研究”。新准备的 Codex + DSH 批次顺序衔接，同股禁止同时启动，其他股票仍可并发；默认与上限均为4个根研究进程。Codex 额外交付带原始来源、摘录与哈希的事实包，DSH 在可追溯复用的基础上独立补证和估值，不接收 Codex 报告及估值结论。旧冻结批次不迁移；失败、重试及 DSH 恢复保持原轮证据绑定。详见[实施与边界](../adr/ADR-20261029-sequential-stock-evidence.md)。本机日频 Codex 及股票周更均已按用户要求配置 Astra / Extra High；DSH 继续原配置。此项改造不更新投资方法或共识计算。
+
 ## DSH 接替 CC（2026-10-23）
 
 用户在完成隔离配对后授权正式替换。新批次 Codex + DSH，DSH 真实身份接替既有 Claude 业务席位，同批两者互斥；旧 frozen CC 计划不改。方法、共识、Coze、额度、168小时冷却及历史不变。执行/交接 v2 与旧 v1 并读；本机已于22:34空闲重载生效，原05:00排期与台账保留。结果见[迁移 ADR](../adr/ADR-20261023-dsh-research-seat-migration.md)及[实施记录](../../research/investment/maintenance/2026-10-23/investment-2026-10-23-dsh-production-rollout-codex.md)，不将隔离报告提升为生产研究。
