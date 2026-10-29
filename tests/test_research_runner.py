@@ -155,6 +155,10 @@ if '本批验收语义two-price-controls/v3' in payload.decode() and doc['meta']
  block+='\n\n'+acceptance_block
  if mode=='recovery_prose_majority': body+='\n恢复新增和追加时，现价≤P1且以上约束大部分解除即可恢复。\n'
 report_file.write_text(body+'\n\n'+block)
+if mode=='agent_validation_collision':
+ execution=staged.parents[2]/'execution'/get('task_id')/generator
+ for name in ('research-validation.json','framework-compatibility.json','jev/summary.json'):
+  (execution/name).write_text(json.dumps({'agent_self_check':True}))
 receipt={'batch_id':batch,'task_id':get('task_id'),'code':code,'generator':generator,'valuation_date':day,'input_pack_sha256':sha,'status':'completed','reason':None,'summary':'offline research completed','report_path':report,'price_map_path':price}
 if mode=='completed_reason':receipt['reason']='wrong place for summary'
 if mode=='wrong_input': receipt['input_pack_sha256']='0'*64
@@ -208,6 +212,21 @@ class ResearchRunnerTests(unittest.TestCase):
 
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
+
+    def test_agent_self_checks_cannot_collide_with_runner_records(self):
+        os.environ['MOCK_MODE']='agent_validation_collision'
+        result=self.execute()
+        entry=json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'],'completed',entry['reason'])
+        folder=result.parent/'execution/SH-600066/claude'
+        self.assertEqual(json.loads((folder/'research-validation.json').read_text()),
+                         {'agent_self_check':True})
+        self.assertEqual(json.loads((folder/'runner/research-validation.json').read_text())['status'],'passed')
+        self.assertEqual(json.loads((folder/'runner/framework-compatibility.json').read_text())['classification'],'exact')
+        self.assertEqual(json.loads((folder/'runner/jev-summary.json').read_text())['status'],'not_requested')
+        self.assertEqual(json.loads((folder/'jev/summary.json').read_text()),{'agent_self_check':True})
+        self.assertIn('自检材料目录',self.capture.read_text())
+        self.assertIn('agent/',self.capture.read_text())
 
     def test_slow_cli_receives_large_complete_runtime_stdin(self):
         # Cold harness startup can exceed the cancellation polling interval.
@@ -839,7 +858,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertNotIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['classification'],'state_only')
         self.assertFalse(checked['needs_review'])
         self.assertNotEqual(checked['snapshot_sha256'],checked['current_sha256'])
@@ -861,7 +880,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertIn('Invalid state-only compatibility input',checked['reason'])
 
     def make_handoff(self, day='2026-10-05', status='adopted', revision=None,
@@ -924,7 +943,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['snapshot_sha256'],checked['current_sha256'])
         self.assertEqual(checked['maintenance_lifecycle']['status'],'withdrawn')
         self.assertTrue(checked['needs_review'])
@@ -936,7 +955,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertNotIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['maintenance_lifecycle']['status'],'active')
 
     def compatibility_review(self, old_methods, day="2026-10-06"):
@@ -1063,7 +1082,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertNotIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['classification'],'reviewed_compatible')
         self.assertFalse(checked['needs_review'])
 
@@ -1091,7 +1110,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['classification'],'needs_review')
         self.assertEqual(checked['maintenance_lifecycle']['status'],'withdrawn')
 
@@ -1329,7 +1348,7 @@ else:
         original=runner.publish_pair
         def publish_after_review(entry,staged,root):
             run=next((self.methods/'output/runs/investment/2026-10-06').iterdir())
-            path=run/'execution/SH-600066/claude/framework-compatibility.json'
+            path=run/'execution/SH-600066/claude/runner/framework-compatibility.json'
             self.assertTrue(path.is_file())
             self.assertEqual(json.loads(path.read_text())['classification'],'needs_review')
             self.assertIn('-r2.md',entry['report']['path'])
@@ -1357,7 +1376,7 @@ else:
         self.assertEqual(document['price_map']['p2']['price'],9)
         self.assertEqual(document['price_map']['p1']['base'],12)
         run=self.methods/'output/runs/investment/2026-10-06'/self.request['batch_id']
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['original_price_state']['mode'],'buy_candidate')
         self.assertEqual(checked['original_price_state']['p2']['status'],'active')
         original=run/'staged/SH-600066/claude'/checked['original_targets']['price_map']

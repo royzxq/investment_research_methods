@@ -1,0 +1,1 @@
+{"type": "object", "additionalProperties": false, "required": ["review_file", "changed_claim_ids", "remaining_gaps"], "properties": {"review_file": {"type": "string"}, "changed_claim_ids": {"type": "array", "items": {"type": "string"}}, "remaining_gaps": {"type": "array", "items": {"type": "string"}}}}

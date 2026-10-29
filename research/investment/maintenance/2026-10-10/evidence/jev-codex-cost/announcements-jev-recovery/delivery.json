@@ -1,0 +1,13 @@
+{
+  "method": "full exact source payload in model input; no tool output truncation",
+  "prior_attempt": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev",
+  "prior_attempt_cost_must_be_included": true,
+  "prompt_sha256": "60eecc691a9cc93ebc4885c98defb4b821f8dc6bc47d6be6afc84e06c69fa7a7",
+  "part_sha256": [
+    "415261d149e32ca45a1267ca88318f4a297d874bb0e67677bdeaf44cec0761e4",
+    "019fc3527da683f08c9204fe04d8b1ca7aab378b62e288b3a5948678eceac6eb",
+    "f20c87f265a935308ebfccebfd1158558c66b4689fa7b807c527b15719cb4374"
+  ],
+  "characters": 78982,
+  "gold_in_prompt": false
+}

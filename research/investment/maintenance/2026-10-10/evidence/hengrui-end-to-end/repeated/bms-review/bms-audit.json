@@ -1,0 +1,13 @@
+{
+  "status": "bms_terms_reviewed",
+  "received": "413c2cbee60fb8376955c44f0a0f8265e6405feb6740a5ddc18b02633d6eda29",
+  "source_sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+  "previous_draft_sha256": "00b3053db89868ad0ee1b6c5909c4d4230995c1f08ae8cfa9fee52062113d284",
+  "changed_claim_ids": [
+    "C5"
+  ],
+  "quotes_checked": 18,
+  "other_claims_unchanged": true,
+  "scope": "model semantic review of BMS financial terms; exact quote check by program",
+  "revised_review_sha256": "4c8c7d8e907f7112212305f4c4a611c9fabc1898a6a7500ee84db88f224d0de8"
+}

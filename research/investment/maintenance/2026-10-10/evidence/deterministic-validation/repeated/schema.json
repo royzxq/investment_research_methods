@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "input_complete",
+    "claims",
+    "topic_evidence",
+    "limitations"
+  ],
+  "properties": {
+    "input_complete": {
+      "type": "boolean"
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "statement",
+          "evidence_ids",
+          "quotes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "statement": {
+            "type": "string"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "quotes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "unit_id",
+                "text"
+              ],
+              "properties": {
+                "unit_id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "topic_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "topic",
+          "ids"
+        ],
+        "properties": {
+          "topic": {
+            "type": "string"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

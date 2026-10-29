@@ -1,0 +1,2362 @@
+{
+  "schema": "codex-consumer-cost-audit/v1",
+  "date": "2026-10-10",
+  "timezone": "Asia/Shanghai",
+  "gold_sha256": "cd21c0f4d4e5e9d713bd0d7d64c9f9b7c01afa387ea372ed15b2cd133feb4ef4",
+  "pricing": {
+    "codex_auth": "ChatGPT",
+    "actual_task_charge_usd": null,
+    "actual_credit_debit": null,
+    "actual_billing_unavailable_reason": "CLI reports tokens, not per-task subscription allowance, credit debit, or invoice",
+    "configured_model": "gpt-6.1-sol",
+    "provider_reported_model": null,
+    "configured_service_tier": "priority",
+    "conditional_codex_rates_per_million": {
+      "standard_credits": {
+        "uncached_input": 50,
+        "cached_input": 2.5,
+        "output": 250
+      },
+      "fast_credits": {
+        "uncached_input": 100,
+        "cached_input": 5,
+        "output": 500
+      },
+      "standard_api_usd_short_context": {
+        "uncached_input": 2,
+        "cached_input": 0.1,
+        "cache_write_input": 2.5,
+        "output": 10
+      },
+      "fast_api_usd_short_context": {
+        "uncached_input": 4,
+        "cached_input": 0.2,
+        "cache_write_input": 5,
+        "output": 20
+      }
+    },
+    "jev_usd_per_million_input": 0.042,
+    "jev_output_price": 0,
+    "jev_failed_request_billing": null,
+    "jev_invoice_charge_usd": null,
+    "sources": [
+      "https://learn.chatgpt.com/docs/pricing",
+      "https://developers.openai.com/api/docs/pricing",
+      "https://docs.typesafe.ai/models"
+    ],
+    "verified_at": "2026-10-10",
+    "cash_costs_are_conditional_estimates_not_invoices": true
+  },
+  "runs": {
+    "announcements-direct": {
+      "status": "completed",
+      "seconds": 140.47167979110964,
+      "usage": {
+        "input_tokens": 194508,
+        "cached_input_tokens": 139392,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5270,
+        "reasoning_output_tokens": 0
+      },
+      "input_plus_output_tokens": 199778,
+      "uncached_input_tokens": 55116,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 4.42178,
+        "fast_credits": 8.84356,
+        "standard_api_usd_short_context": 0.1768712,
+        "fast_api_usd_short_context": 0.3537424
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 3,
+        "complete_exact_delivery": false,
+        "raw_command_log_complete": true,
+        "delivery_method": "tool_output_truncated_for_model",
+        "read_items": 16,
+        "other_tool_types": [],
+        "part_sha256": [
+          "415261d149e32ca45a1267ca88318f4a297d874bb0e67677bdeaf44cec0761e4",
+          "019fc3527da683f08c9204fe04d8b1ca7aab378b62e288b3a5948678eceac6eb",
+          "f20c87f265a935308ebfccebfd1158558c66b4689fa7b807c527b15719cb4374"
+        ]
+      },
+      "handoff_characters": 3474,
+      "prompt_characters": 16926,
+      "service_errors": [],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_capital": {
+          "expected": 30,
+          "found": 30,
+          "missing": []
+        },
+        "business_earnings": {
+          "expected": 19,
+          "found": 19,
+          "missing": []
+        },
+        "governance_risk": {
+          "expected": 29,
+          "found": 29,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "A39-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "A3-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A39-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A39-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A39-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A50-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A50-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A50-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A5-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A5-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A126-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A126-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A90-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A100-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A2-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A160-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A160-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A45-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A45-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": null,
+      "files_sha256": {
+        "prompt.txt": "b6ec04de9e5afa8b200705e58255030bd5bee1a56c9b4afb96d8e45c20f3eb6c",
+        "handoff.json": "5d505aa0105d9c99b76edd8117232d9452f81a02223a3468822371733a09a9fa",
+        "answer.json": "c1b351d37b1083ad3b629fe848c2bc3b60c71bc0df5d69b103e61915349bbd79",
+        "events.jsonl": "4ece30c93c3060b0e4cafd1183b7ffb5aa24fb5e16296228acb6862860806eab",
+        "process.json": "6b6054ef5d9d45eb03daf008b421c0f34f6c1aad22eefc01c0fcbd099c54326c",
+        "usage.json": "555ef5642bf12493309518bb031bb46f081a739f51e8ed795f03aa7a872a4334"
+      },
+      "audit_warning": "Inspect delivery, tools, IDs or failure handling before interpreting savings."
+    },
+    "announcements-jev": {
+      "status": "completed",
+      "seconds": 121.64127754094079,
+      "usage": {
+        "input_tokens": 197099,
+        "cached_input_tokens": 141312,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5437,
+        "reasoning_output_tokens": 0
+      },
+      "input_plus_output_tokens": 202536,
+      "uncached_input_tokens": 55787,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 4.50188,
+        "fast_credits": 9.00376,
+        "standard_api_usd_short_context": 0.18007520000000002,
+        "fast_api_usd_short_context": 0.36015040000000004
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 3,
+        "complete_exact_delivery": false,
+        "raw_command_log_complete": true,
+        "delivery_method": "tool_output_truncated_for_model",
+        "read_items": 16,
+        "other_tool_types": [],
+        "part_sha256": [
+          "415261d149e32ca45a1267ca88318f4a297d874bb0e67677bdeaf44cec0761e4",
+          "019fc3527da683f08c9204fe04d8b1ca7aab378b62e288b3a5948678eceac6eb",
+          "f20c87f265a935308ebfccebfd1158558c66b4689fa7b807c527b15719cb4374"
+        ]
+      },
+      "handoff_characters": 4952,
+      "prompt_characters": 18404,
+      "service_errors": [
+        "A122",
+        "A13",
+        "A140"
+      ],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_capital": {
+          "expected": 30,
+          "found": 30,
+          "missing": []
+        },
+        "business_earnings": {
+          "expected": 19,
+          "found": 19,
+          "missing": []
+        },
+        "governance_risk": {
+          "expected": 29,
+          "found": 29,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "A39-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "A3-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A39-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A160-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A160-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A45-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A45-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A38-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A38-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": null,
+      "files_sha256": {
+        "prompt.txt": "48a1de657843de0356b4e2e078ab0d2f8a70b8fc8ded1f48a972889435619686",
+        "handoff.json": "4e5b9d189b931259f6c9e333899dc689982fac7eaeb5b43131386121019eb2b3",
+        "answer.json": "115d5db5eed659f4c8e15b0d1b22070323e6b686443febe5c7a0031dcbaa9612",
+        "events.jsonl": "418fb7fdc231a74dc1389a6fdfe14cd0d6d6d56bb7c30c63466f3d352636dd07",
+        "process.json": "cdb6b9afc01a0f18357e1e4531bfcad3839b16ccfde533aa73a6c55bd7e52867",
+        "usage.json": "ae5ee40e4071bff99085a2d1c7ae0e233f03f3bc5b91b395bc0ea887a6017acb"
+      },
+      "audit_warning": "Inspect delivery, tools, IDs or failure handling before interpreting savings."
+    },
+    "announcements-direct-recovery": {
+      "status": "completed",
+      "seconds": 123.06091916700825,
+      "usage": {
+        "input_tokens": 74353,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 6558,
+        "reasoning_output_tokens": 84
+      },
+      "input_plus_output_tokens": 80911,
+      "uncached_input_tokens": 74353,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 5.35715,
+        "fast_credits": 10.7143,
+        "standard_api_usd_short_context": 0.214286,
+        "fast_api_usd_short_context": 0.428572
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 0,
+        "complete_exact_delivery": true,
+        "raw_command_log_complete": false,
+        "delivery_method": "exact_full_text_in_input",
+        "read_items": 16,
+        "other_tool_types": [],
+        "part_sha256": [
+          "415261d149e32ca45a1267ca88318f4a297d874bb0e67677bdeaf44cec0761e4",
+          "019fc3527da683f08c9204fe04d8b1ca7aab378b62e288b3a5948678eceac6eb",
+          "f20c87f265a935308ebfccebfd1158558c66b4689fa7b807c527b15719cb4374"
+        ]
+      },
+      "handoff_characters": 3474,
+      "prompt_characters": 77504,
+      "service_errors": [],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_capital": {
+          "expected": 30,
+          "found": 30,
+          "missing": []
+        },
+        "business_earnings": {
+          "expected": 19,
+          "found": 19,
+          "missing": []
+        },
+        "governance_risk": {
+          "expected": 29,
+          "found": 29,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "A3-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "A39-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "A39-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A39-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A38-body",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A160-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A160-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A160-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A45-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A45-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A45-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": null,
+      "files_sha256": {
+        "prompt.txt": "391a62ddb3683d00ed0b27afca9d1da91f65c15bb3ee400bb4a234555a409105",
+        "handoff.json": "5d505aa0105d9c99b76edd8117232d9452f81a02223a3468822371733a09a9fa",
+        "answer.json": "5e22bf65a4aaf4cccd1c63ed625e17fc035422785f46f7021a8d067c1e1ef3ef",
+        "events.jsonl": "52b0cfa13ee735e85f0a1f5717c0e7e97253060606505b8008bd4182aafe3cd8",
+        "process.json": "7a9f89516cf7f67ad3d24ef0a08982d24f866fc8d66dc63a4120e6ae4aba56a8",
+        "usage.json": "3d93bd1d39cc672468321ce49f05b5b3e8cd5f12f9a42b8a18ba626af54329ea"
+      }
+    },
+    "announcements-jev-recovery": {
+      "status": "completed",
+      "seconds": 108.68339679203928,
+      "usage": {
+        "input_tokens": 75007,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5661,
+        "reasoning_output_tokens": 91
+      },
+      "input_plus_output_tokens": 80668,
+      "uncached_input_tokens": 75007,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 5.1656,
+        "fast_credits": 10.3312,
+        "standard_api_usd_short_context": 0.206624,
+        "fast_api_usd_short_context": 0.413248
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 0,
+        "complete_exact_delivery": true,
+        "raw_command_log_complete": false,
+        "delivery_method": "exact_full_text_in_input",
+        "read_items": 16,
+        "other_tool_types": [],
+        "part_sha256": [
+          "415261d149e32ca45a1267ca88318f4a297d874bb0e67677bdeaf44cec0761e4",
+          "019fc3527da683f08c9204fe04d8b1ca7aab378b62e288b3a5948678eceac6eb",
+          "f20c87f265a935308ebfccebfd1158558c66b4689fa7b807c527b15719cb4374"
+        ]
+      },
+      "handoff_characters": 4952,
+      "prompt_characters": 78982,
+      "service_errors": [
+        "A122",
+        "A13",
+        "A140"
+      ],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_capital": {
+          "expected": 30,
+          "found": 29,
+          "missing": [
+            "A126"
+          ]
+        },
+        "business_earnings": {
+          "expected": 19,
+          "found": 19,
+          "missing": []
+        },
+        "governance_risk": {
+          "expected": 29,
+          "found": 29,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "A3-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "A39-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A46-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "A39-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "A50-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "A5-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "A126-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "A90-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "A100-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "A2-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A160-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "A45-body",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": null,
+      "files_sha256": {
+        "prompt.txt": "60eecc691a9cc93ebc4885c98defb4b821f8dc6bc47d6be6afc84e06c69fa7a7",
+        "handoff.json": "4e5b9d189b931259f6c9e333899dc689982fac7eaeb5b43131386121019eb2b3",
+        "answer.json": "2d264b6d0e9d533726ca8e0cdd308d28862c44a059aaf16902f1d8758eb44a4b",
+        "events.jsonl": "e7abdc8104034caec376d8d9be811739341e8255f3e5861aac12d050685f68f1",
+        "process.json": "ed59de867724a6375bb50bc65ec19769f23626ce6ce85842acf29140ebd184e4",
+        "usage.json": "64c479f5ed9558737ded52b9070af31db15ba5e2d3e3b9a7a4b7fe99acc16089"
+      }
+    },
+    "passages-direct": {
+      "status": "completed",
+      "seconds": 135.49553550011478,
+      "usage": {
+        "input_tokens": 164362,
+        "cached_input_tokens": 117760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5107,
+        "reasoning_output_tokens": 25
+      },
+      "input_plus_output_tokens": 169469,
+      "uncached_input_tokens": 46602,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 3.90125,
+        "fast_credits": 7.8025,
+        "standard_api_usd_short_context": 0.15605,
+        "fast_api_usd_short_context": 0.3121
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 3,
+        "complete_exact_delivery": false,
+        "raw_command_log_complete": true,
+        "delivery_method": "tool_output_truncated_for_model",
+        "read_items": 53,
+        "other_tool_types": [],
+        "part_sha256": [
+          "cf3598c256a4e38a27d7e93519704db5252a09e8914332a8322211d0aefc1478",
+          "5f3384a79ca69da10f6cf7f6c1978b8950158e35901a2d5eddf6fef463025a49",
+          "e5079a86fb86f11cfa362955e23b014d01d9f316e436ebb7db8ff0cdc1d35144"
+        ]
+      },
+      "handoff_characters": 2111,
+      "prompt_characters": 4101,
+      "service_errors": [],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_restrictions": {
+          "expected": 9,
+          "found": 9,
+          "missing": []
+        },
+        "licensing_payments": {
+          "expected": 14,
+          "found": 11,
+          "missing": [
+            "HRH1-P165",
+            "HRH1-P64",
+            "HRH1-P66"
+          ]
+        },
+        "related_parties": {
+          "expected": 23,
+          "found": 23,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "CMH1-P75",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "CMH1-P75",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "CMH1-P98",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P114",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRFY-P213",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRFY-P213",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRFY-P198",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P138",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P22",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRFY-P48",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRH1-P22",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRFY-P48",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRH1-P146",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRFY-P96",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P28",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P27",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P71",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P144",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P145",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P65",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P166",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P165",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRFY-P225",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P167",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P167",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": false,
+      "files_sha256": {
+        "prompt.txt": "7b002fb1468c369e209a3689b83e2c70930445ee06993eef11addf949cdfef51",
+        "handoff.json": "01f1b19e7fe0a65b22aa65aa103b2881db59e2cc7b47f9b38bbeecec937f6185",
+        "answer.json": "d391d762def36d42e6a9f158ac25fc338e8f1caf84b9b09df9a0cd905f53a417",
+        "events.jsonl": "9233cd68cbcf8c19bee97d8e2a9585764a58457a0509016f6e431306910003bc",
+        "process.json": "63d17ce75d72132fc382096f3bfaafa9056532d117923afa1a159415143509c5",
+        "usage.json": "8b1e18abd75b219fefca86bfed800c0f25d3c592ca8b555f1f44fc755f60bec8"
+      },
+      "audit_warning": "Inspect delivery, tools, IDs or failure handling before interpreting savings."
+    },
+    "passages-jev": {
+      "status": "completed",
+      "seconds": 111.35274304216728,
+      "usage": {
+        "input_tokens": 165313,
+        "cached_input_tokens": 103552,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5133,
+        "reasoning_output_tokens": 76
+      },
+      "input_plus_output_tokens": 170446,
+      "uncached_input_tokens": 61761,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 4.63018,
+        "fast_credits": 9.26036,
+        "standard_api_usd_short_context": 0.18520720000000002,
+        "fast_api_usd_short_context": 0.37041440000000003
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 3,
+        "complete_exact_delivery": false,
+        "raw_command_log_complete": true,
+        "delivery_method": "tool_output_truncated_for_model",
+        "read_items": 53,
+        "other_tool_types": [],
+        "part_sha256": [
+          "cf3598c256a4e38a27d7e93519704db5252a09e8914332a8322211d0aefc1478",
+          "5f3384a79ca69da10f6cf7f6c1978b8950158e35901a2d5eddf6fef463025a49",
+          "e5079a86fb86f11cfa362955e23b014d01d9f316e436ebb7db8ff0cdc1d35144"
+        ]
+      },
+      "handoff_characters": 2250,
+      "prompt_characters": 4240,
+      "service_errors": [],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_restrictions": {
+          "expected": 9,
+          "found": 9,
+          "missing": []
+        },
+        "licensing_payments": {
+          "expected": 14,
+          "found": 12,
+          "missing": [
+            "HRH1-P64",
+            "HRH1-P66"
+          ]
+        },
+        "related_parties": {
+          "expected": 23,
+          "found": 23,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "CMH1-P75",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "CMH1-P75",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "CMH1-P98",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P114",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P137",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRFY-P196",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRFY-P213",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRFY-P198",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P138",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRFY-P206",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRH1-P22",
+          "exact": false,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRFY-P96",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P28",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P142",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P144",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P143",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P65",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P166",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P166",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P167",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P167",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRFY-P225",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": false,
+      "files_sha256": {
+        "prompt.txt": "f3a100e925ea3edbc93f67e9191532efc5038f2432540f4b07f6d3c942f34402",
+        "handoff.json": "3ba70f94034728359024cbf6acc3d28409762b27843c991ad100d33d2178b720",
+        "answer.json": "a85a46fab91a55a6dd15b91a2db742817e4c54a41dfcb06c9ed8b150206daae6",
+        "events.jsonl": "420a33d45d36902be35dbfd0ade34e4e278814c131fc6fe8376163e9252c35aa",
+        "process.json": "83c4b0e4c6ffe74b217330052547b5d55d8bc051387da816e97eb9383ae022e6",
+        "usage.json": "b0506838fe97ab00947afc428f2cf78e578cd906bfa24fedc8f2a1ee37ca92ed"
+      },
+      "audit_warning": "Inspect delivery, tools, IDs or failure handling before interpreting savings."
+    },
+    "passages-direct-recovery": {
+      "status": "completed",
+      "seconds": 105.96599787496962,
+      "usage": {
+        "input_tokens": 59740,
+        "cached_input_tokens": 13312,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5156,
+        "reasoning_output_tokens": 97
+      },
+      "input_plus_output_tokens": 64896,
+      "uncached_input_tokens": 46428,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 3.64368,
+        "fast_credits": 7.28736,
+        "standard_api_usd_short_context": 0.14574720000000002,
+        "fast_api_usd_short_context": 0.29149440000000004
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 0,
+        "complete_exact_delivery": true,
+        "raw_command_log_complete": false,
+        "delivery_method": "exact_full_text_in_input",
+        "read_items": 53,
+        "other_tool_types": [],
+        "part_sha256": [
+          "cf3598c256a4e38a27d7e93519704db5252a09e8914332a8322211d0aefc1478",
+          "5f3384a79ca69da10f6cf7f6c1978b8950158e35901a2d5eddf6fef463025a49",
+          "e5079a86fb86f11cfa362955e23b014d01d9f316e436ebb7db8ff0cdc1d35144"
+        ]
+      },
+      "handoff_characters": 2111,
+      "prompt_characters": 59235,
+      "service_errors": [],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_restrictions": {
+          "expected": 9,
+          "found": 9,
+          "missing": []
+        },
+        "licensing_payments": {
+          "expected": 14,
+          "found": 12,
+          "missing": [
+            "HRH1-P64",
+            "HRH1-P66"
+          ]
+        },
+        "related_parties": {
+          "expected": 23,
+          "found": 23,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "CMH1-P75",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "CMH1-P98",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P137",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRFY-P196",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRFY-P213",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRFY-P213",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRFY-P198",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P138",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRFY-P96",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P27",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P28",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P71",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P144",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P145",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P65",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P166",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P66",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P165",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P167",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRFY-P225",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": true,
+      "files_sha256": {
+        "prompt.txt": "bc31c65dd9f11b022aefcb76fb2a808b8b1d01e47a42aad9a08fefc4f9370aec",
+        "handoff.json": "01f1b19e7fe0a65b22aa65aa103b2881db59e2cc7b47f9b38bbeecec937f6185",
+        "answer.json": "11a4c809cbfe6bbccd9d1b4e71042b308620751afdd2aeee367c11fae7ebfe8c",
+        "events.jsonl": "f486735bd6a61de1b3f00a9166cbf3a4e66ad43e129bdd9fe4d15beeb60983fe",
+        "process.json": "9febc4df72bc851637f2b8d95f46fc3f322a96c145ed78828df7f63476ccc886",
+        "usage.json": "5abf05e2c37a2642d73ba22c5e68ff2e47eca262527b5dc5faee0f1d8f4acbc1"
+      }
+    },
+    "passages-jev-recovery": {
+      "status": "completed",
+      "seconds": 110.09217970794998,
+      "usage": {
+        "input_tokens": 59797,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5106,
+        "reasoning_output_tokens": 76
+      },
+      "input_plus_output_tokens": 64903,
+      "uncached_input_tokens": 59797,
+      "models_reported": [],
+      "prices_conditional": {
+        "standard_credits": 4.26635,
+        "fast_credits": 8.5327,
+        "standard_api_usd_short_context": 0.170654,
+        "fast_api_usd_short_context": 0.341308
+      },
+      "actual_task_cash_usd": null,
+      "actual_task_credits": null,
+      "source_delivery": {
+        "commands": 0,
+        "complete_exact_delivery": true,
+        "raw_command_log_complete": false,
+        "delivery_method": "exact_full_text_in_input",
+        "read_items": 53,
+        "other_tool_types": [],
+        "part_sha256": [
+          "cf3598c256a4e38a27d7e93519704db5252a09e8914332a8322211d0aefc1478",
+          "5f3384a79ca69da10f6cf7f6c1978b8950158e35901a2d5eddf6fef463025a49",
+          "e5079a86fb86f11cfa362955e23b014d01d9f316e436ebb7db8ff0cdc1d35144"
+        ]
+      },
+      "handoff_characters": 2250,
+      "prompt_characters": 59374,
+      "service_errors": [],
+      "unhandled_service_errors": [],
+      "topic_coverage": {
+        "cash_restrictions": {
+          "expected": 9,
+          "found": 9,
+          "missing": []
+        },
+        "licensing_payments": {
+          "expected": 14,
+          "found": 11,
+          "missing": [
+            "HRH1-P165",
+            "HRH1-P64",
+            "HRH1-P66"
+          ]
+        },
+        "related_parties": {
+          "expected": 23,
+          "found": 23,
+          "missing": []
+        }
+      },
+      "unexpected_topic_ids": [],
+      "quotes": [
+        {
+          "finding": 0,
+          "id": "CMH1-P75",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "CMH1-P75",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 0,
+          "id": "CMH1-P98",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P136",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRH1-P137",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 1,
+          "id": "HRFY-P196",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRFY-P213",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 2,
+          "id": "HRH1-P154",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRFY-P198",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P138",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 3,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P146",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 4,
+          "id": "HRH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRFY-P48",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 5,
+          "id": "HRFY-P96",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 6,
+          "id": "HRH1-P22",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRH1-P65",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRH1-P166",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 7,
+          "id": "HRH1-P166",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P26",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P27",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 8,
+          "id": "CMH1-P142",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P71",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P144",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 9,
+          "id": "CMH1-P145",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P165",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P167",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 10,
+          "id": "HRH1-P66",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRFY-P225",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P167",
+          "exact": true,
+          "whitespace_normalized_match": true
+        },
+        {
+          "finding": 11,
+          "id": "HRH1-P64",
+          "exact": true,
+          "whitespace_normalized_match": true
+        }
+      ],
+      "evidence_packages_all_delivered": true,
+      "files_sha256": {
+        "prompt.txt": "b2f4176daa95f046157e692fd4e8d23210a496213660440922f78bbb4ac8b433",
+        "handoff.json": "3ba70f94034728359024cbf6acc3d28409762b27843c991ad100d33d2178b720",
+        "answer.json": "a5456d68241ed8cad9cfc3f1cd98079ba6a3ae276f1422d354dc128e41254def",
+        "events.jsonl": "99e91e586eb943f852a1d3c5ee245eebb3ba3224b369b41e2ccca30742afa330",
+        "process.json": "61a0ab8f6a36ef449453540936fa193dd2a350d90fb2b8e29a5b2b487cbf88ed",
+        "usage.json": "e1d88a08397886ef5931652bb7362f6443c05222cff873bec95e018514532eab"
+      }
+    }
+  },
+  "comparison": {
+    "announcements": {
+      "direct": 80911,
+      "jev_consumer": 80668,
+      "consumer_net_saved_tokens": 243,
+      "consumer_net_saved_fraction": 0.0030032999221366596,
+      "recovered_path_including_failed_attempt": {
+        "direct_usage": {
+          "input_tokens": 268861,
+          "cached_input_tokens": 139392,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 11828,
+          "reasoning_output_tokens": 84
+        },
+        "jev_consumer_usage": {
+          "input_tokens": 272106,
+          "cached_input_tokens": 141312,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 11098,
+          "reasoning_output_tokens": 91
+        },
+        "direct_seconds": 263.5325989581179,
+        "jev_consumer_seconds": 230.32467433298007,
+        "direct_conditional_prices": {
+          "standard_credits": 9.77893,
+          "fast_credits": 19.55786,
+          "standard_api_usd_short_context": 0.39115720000000004,
+          "fast_api_usd_short_context": 0.7823144000000001
+        },
+        "jev_consumer_conditional_prices": {
+          "standard_credits": 9.66748,
+          "fast_credits": 19.33496,
+          "standard_api_usd_short_context": 0.3866992,
+          "fast_api_usd_short_context": 0.7733984
+        }
+      },
+      "jev_cold_call_extra_usd_estimate": 0.005903982,
+      "jev_cold_call_extra_seconds": 90.465,
+      "prior_semantic_probe": {
+        "items": 168,
+        "answer_ids_valid": true,
+        "codex_usage": {
+          "input_tokens": 26934,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5777,
+          "reasoning_output_tokens": 93
+        },
+        "codex_models": [],
+        "codex_wall_seconds": 84.87180487508886,
+        "jev_usage": {
+          "input_tokens": 140571,
+          "output_tokens": 10065
+        },
+        "jev_wall_seconds": 90.465,
+        "jev_failed_items": 3,
+        "semantic_gold": {
+          "cash_capital": {
+            "gold_pairs": 30,
+            "codex_yes": 27,
+            "jev_yes": 20,
+            "codex_not_yes": [
+              "A169",
+              "A55",
+              "A60"
+            ],
+            "jev_not_yes": [
+              "A110",
+              "A112",
+              "A142",
+              "A143",
+              "A169",
+              "A54",
+              "A55",
+              "A60",
+              "A61",
+              "A83"
+            ]
+          },
+          "business_earnings": {
+            "gold_pairs": 19,
+            "codex_yes": 19,
+            "jev_yes": 18,
+            "codex_not_yes": [],
+            "jev_not_yes": [
+              "A122"
+            ]
+          },
+          "governance_risk": {
+            "gold_pairs": 29,
+            "codex_yes": 22,
+            "jev_yes": 13,
+            "codex_not_yes": [
+              "A142",
+              "A143",
+              "A146",
+              "A169",
+              "A54",
+              "A55",
+              "A60"
+            ],
+            "jev_not_yes": [
+              "A104",
+              "A105",
+              "A122",
+              "A124",
+              "A142",
+              "A143",
+              "A146",
+              "A169",
+              "A17",
+              "A38",
+              "A54",
+              "A55",
+              "A60",
+              "A63",
+              "A78",
+              "A84"
+            ]
+          }
+        },
+        "scope": "isolated semantic labels only; includes CLI startup; excludes subsequent reading/verification and full research; scores are uncalibrated",
+        "time_change_percent": 6.590168705782795
+      },
+      "interpretation": "The complete recovery consumers are real matched full-input measurements. Recovered totals include failed tool-display attempts. Adding earlier semantic-stage usage/latency is component accounting, not a same-session end-to-end measurement."
+    },
+    "passages": {
+      "direct": 64896,
+      "jev_consumer": 64903,
+      "consumer_net_saved_tokens": -7,
+      "consumer_net_saved_fraction": -0.00010786489151870526,
+      "recovered_path_including_failed_attempt": {
+        "direct_usage": {
+          "input_tokens": 224102,
+          "cached_input_tokens": 131072,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 10263,
+          "reasoning_output_tokens": 122
+        },
+        "jev_consumer_usage": {
+          "input_tokens": 225110,
+          "cached_input_tokens": 103552,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 10239,
+          "reasoning_output_tokens": 152
+        },
+        "direct_seconds": 241.4615333750844,
+        "jev_consumer_seconds": 221.44492275011726,
+        "direct_conditional_prices": {
+          "standard_credits": 7.54493,
+          "fast_credits": 15.08986,
+          "standard_api_usd_short_context": 0.3017972,
+          "fast_api_usd_short_context": 0.6035944
+        },
+        "jev_consumer_conditional_prices": {
+          "standard_credits": 8.89653,
+          "fast_credits": 17.79306,
+          "standard_api_usd_short_context": 0.3558612,
+          "fast_api_usd_short_context": 0.7117224
+        }
+      },
+      "jev_cold_call_extra_usd_estimate": 0.0039239340000000004,
+      "jev_cold_call_extra_seconds": 35.141,
+      "prior_semantic_probe": {
+        "items": 53,
+        "answer_ids_valid": true,
+        "codex_usage": {
+          "input_tokens": 58564,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1820,
+          "reasoning_output_tokens": 110
+        },
+        "codex_models": [],
+        "codex_wall_seconds": 46.269315959187225,
+        "jev_usage": {
+          "input_tokens": 93427,
+          "output_tokens": 3286
+        },
+        "jev_wall_seconds": 35.141,
+        "jev_failed_items": 0,
+        "semantic_gold": {
+          "cash_restrictions": {
+            "gold_pairs": 9,
+            "codex_yes": 9,
+            "jev_yes": 8,
+            "codex_not_yes": [],
+            "jev_not_yes": [
+              "HRH1-P136"
+            ]
+          },
+          "licensing_payments": {
+            "gold_pairs": 14,
+            "codex_yes": 10,
+            "jev_yes": 8,
+            "codex_not_yes": [
+              "HRFY-P95",
+              "HRH1-P165",
+              "HRH1-P64",
+              "HRH1-P66"
+            ],
+            "jev_not_yes": [
+              "HRFY-P95",
+              "HRH1-P165",
+              "HRH1-P166",
+              "HRH1-P64",
+              "HRH1-P65",
+              "HRH1-P66"
+            ]
+          },
+          "related_parties": {
+            "gold_pairs": 23,
+            "codex_yes": 23,
+            "jev_yes": 23,
+            "codex_not_yes": [],
+            "jev_not_yes": []
+          }
+        },
+        "scope": "isolated semantic labels only; includes CLI startup; excludes subsequent reading/verification and full research; scores are uncalibrated",
+        "time_change_percent": -24.05117890440217
+      },
+      "interpretation": "The complete recovery consumers are real matched full-input measurements. Recovered totals include failed tool-display attempts. Adding earlier semantic-stage usage/latency is component accounting, not a same-session end-to-end measurement."
+    }
+  },
+  "experiment_total_codex_reported_usage": {
+    "input_tokens": 990179,
+    "cached_input_tokens": 515328,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 43428,
+    "reasoning_output_tokens": 449
+  },
+  "experiment_new_jev_calls": 0
+}

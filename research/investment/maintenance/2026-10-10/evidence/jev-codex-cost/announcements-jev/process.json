@@ -1,0 +1,16 @@
+{
+  "generator": "codex",
+  "task_id": "announcements-jev",
+  "status": "completed",
+  "scope": "ranking handoff + complete source reading + real-error fallback + evidence mapping",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning": "low",
+  "configured_service_tier": "priority",
+  "billing_auth": "ChatGPT (codex login status)",
+  "model_reported_by_event": null,
+  "launched_at": "2026-10-10T14:10:00.717657+00:00",
+  "pid": 38796,
+  "exit_code": 0,
+  "completed_at": "2026-10-10T14:12:02.359304+00:00",
+  "execution_duration_seconds": 121.64127754094079
+}

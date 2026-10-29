@@ -1,0 +1,5 @@
+这是已有恒瑞材料端到端对照的失败恢复阶段，上次独立复核已保存修订稿并通过引文审计，但CLI在最终用量事件前超时。本次工作区的draft.json为该已保存修订稿；本次新上下文仍须实际读取原文，不继承旧receipt。不联网、不调用Jev或子代理、不读工作区以外资料。
+使用Bash运行 /Users/xinquanzhou/miniconda3/bin/python3 bms_audit.py read ，完整收到source_text、additional_sources和当前陈述后，核对KIOMED拟签状态与附注连接、发生额与已支付的区别，以及BMS全部付款组成、销售提成、地域、条件、交割与项目阶段。原文乱码保持缺口，不补未披露参数。
+直接用Write写bms-patch.json，格式为{"replacements":[]}；若已保存的陈述正确就保持空数组，不重新写长文。确有错误时仅替换相关现有条目、保留schema及各条evidence_ids。不要预读工具源码或为格式另写生成脚本；现有流程已给出完整原文和条目。
+再用Bash运行 /Users/xinquanzhou/miniconda3/bin/python3 bms_audit.py apply --received <你刚刚完整收到的receipt> --patch bms-patch.json 。失败时按实际错误恢复并保留缺口。
+最后只输出一个JSON对象，不用Markdown、不再写总结：{"review_file":"draft-bms-reviewed.json","changed_claim_ids":[],"remaining_gaps":["实际仍未解决的缺口"]}。这是恢复交接的文本JSON路径，程序会严格校验回执，全部模型调用计量。

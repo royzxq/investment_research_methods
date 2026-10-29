@@ -21,6 +21,7 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 SEAL_SCHEMA = 'research-sealed-recovery/v1'
 INTENT_SCHEMA = 'research-seat-recovery/v1'
+PUBLICATION_SCHEMA = 'research-publication-restore/v1'
 BASE_KEYS = {'schema_version', 'task_id', 'batch_id', 'event_key', 'request',
              'request_sha256', 'budget_date', 'results'}
 EXTRA_KEYS = {'base_seal', 'recovery_seal', 'recovery_intent', 'recovered_generators'}
@@ -268,6 +269,9 @@ def load_supplement(path, methods, exchange):
     require(path.is_relative_to(methods / 'output/research_queue/sealed'), 'recovery supplement outside queue')
     value = read(path)
     require(isinstance(value, dict) and set(value) == BASE_KEYS | EXTRA_KEYS, 'invalid recovery supplement fields')
+    intent_path = bound(value['recovery_intent'], methods)
+    if read(intent_path).get('schema_version') == PUBLICATION_SCHEMA:
+        return load_publication_restore(path, methods, exchange)
     base_path = bound(value['base_seal'], methods)
     base = load_base(base_path, methods, exchange)
     validate_wrapper(value, base['seal'])
@@ -285,6 +289,200 @@ def load_supplement(path, methods, exchange):
     folder = bound(dict(path=result['manifest'], sha256=result['manifest_sha256']), methods).parent
     validate_completed(recovered, methods, folder)
     return base_path, recovery_path, value
+
+
+def staged_publication(context, methods, *, check_stopped=True):
+    """Reaccept the exact native completion lost to a publication-file collision.
+
+    This deliberately has no CLI launch, retry, new request or research path.
+    The failed process, native receipt and pre-error candidate remain immutable.
+    """
+    generator = 'codex'
+    require(context['request']['generators'] == ['codex', 'dsh']
+            and context['entries']['dsh']['status'] == 'completed',
+            'publication restore requires the original accepted DSH seat')
+    require_failed(context['entries'][generator])
+    source = next(x for x in context['seal']['results'] if x['generator'] == generator)
+    folder = bound(dict(path=source['manifest'], sha256=source['manifest_sha256']), methods).parent
+    run = parent_run(context, methods)
+    task, request = context['task'], context['request']
+    require(folder in [runner.execution_folder(run, task, generator, n) for n in (1, 2)],
+            'publication restore manifest outside original attempt')
+    process = read(folder / 'process.json')
+    failed = context['entries'][generator]
+    require(all(process.get(k) == failed.get(k) for k in
+                ('task_id', 'generator', 'status', 'reason', 'started_at', 'completed_at'))
+            and read(folder / 'entry.json') == failed, 'publication failure evidence mismatch')
+    require(process.get('exit_code') == 0 and type(process.get('pid')) is int
+            and process['pid'] > 0 and (not check_stopped or not runner.group_alive(process['pid'])),
+            'publication restore requires a stopped, exit-zero native process')
+    reason = process.get('reason', '')
+    require('[Errno 17] File exists' in reason and any(
+        str(folder / name) in reason and (folder / name).is_file()
+        for name in ('research-validation.json', 'framework-compatibility.json',
+                     'runner/research-validation.json', 'runner/framework-compatibility.json')),
+        'publication restore requires the recorded validation-file collision')
+    raw = context['request_path'].read_bytes()
+    _, _, _, verified = runner.verify_prepared(run, raw, methods)
+    frozen = verified[(task['task_id'], generator)]
+    require(read(folder / 'launched.json')['request_sha256'] == runner.sha(raw),
+            'publication launch request changed')
+    require(process.get('execution_profile') == frozen['execution_profile']
+            and process.get('execution_plan_sha256') == frozen['execution_plan_sha256']
+            and process.get('jev_runtime_prompt_sha256') == sha(folder / 'jev-runtime-prompt.txt')
+            and process.get('jev_config_sha256') == sha(folder / 'jev/config.json'),
+            'publication execution inputs changed')
+    adapter = runner.research_harness.get_adapter(frozen['execution_profile']['harness'])
+    require(adapter.harness_id == 'codex-cli', 'publication restore requires Codex native completion')
+    receipt = adapter.receipt(folder, _strict_json, runner.write_new, runner.encode)
+    candidate_path = folder / 'candidate-result.json'
+    staged = runner.staging_root(methods, request, task, generator, process['attempt'])
+    candidates = load_results(candidate_path, context['request_path'], staged)['results']
+    require(len(candidates) == 1 and candidates[0]['status'] == 'completed',
+            'publication restore requires the original completed candidate')
+    candidate = candidates[0]
+    actual = runner.accepted_entry(receipt, request, task, generator, candidate['started_at'],
+        candidate['completed_at'], staged, frozen['frameworks'], frozen['targets'])
+    require(actual == candidate and candidate['started_at'] == process['started_at']
+            and _timestamp(candidate['completed_at'], 'native completion')
+                <= _timestamp(process['completed_at'], 'publication failure'),
+            'publication candidate differs from native completion')
+    _, report_raw = runner._artifact(candidate['report'], staged, 'report')
+    _, price_raw = runner._artifact(candidate['price_map'], staged, 'price map')
+    document = _strict_json(price_raw, 'price map')
+    require(document['meta']['schema_version'] == frozen['delivery']['price_schema'],
+            'publication delivery version differs from original contract')
+    runner.validate_price_references(document)
+    runner.validate_t1_delivery(document)
+    if frozen['delivery'] == runner.NEW_CONTRACT:
+        runner.validate_monitoring_delivery(document)
+    audit = runner.research_consistency.validate_report(report_raw.decode(), document, root=methods,
+        expected_baseline=frozen['research_baseline'],
+        require_lifecycle=frozen['delivery'] in (runner.SCOPED_CONTROLS_CONTRACT,
+            runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.NEW_CONTRACT),
+        require_acceptance=frozen['delivery'] in (runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.NEW_CONTRACT))
+    audit.update(report_sha256=runner.sha(report_raw), price_map_sha256=runner.sha(price_raw))
+    return folder, staged, candidate, frozen, audit
+
+
+def load_publication_restore(path, methods, exchange):
+    """Validate the immutable supplement without rewriting its failed parent."""
+    methods = Path(methods).resolve()
+    wrapper = read(path)
+    base_path = bound(wrapper['base_seal'], methods)
+    base = load_base(base_path, methods, exchange)
+    require(wrapper.get('recovered_generators') == ['codex']
+            and wrapper['schema_version'] == SEAL_SCHEMA
+            and all(wrapper[k] == base['seal'][k] for k in BASE_KEYS - {'schema_version'}),
+            'publication supplement changed original seal')
+    intent_path = bound(wrapper['recovery_intent'], methods)
+    intent = read(intent_path)
+    require(set(intent) == {'schema_version', 'created_at', 'authorization', 'base_seal', 'inputs'}
+            and intent['schema_version'] == PUBLICATION_SCHEMA
+            and isinstance(intent['authorization'], str) and intent['authorization'].strip()
+            and intent['base_seal'] == wrapper['base_seal'], 'invalid publication restore intent')
+    _timestamp(intent['created_at'], 'publication restore authorization')
+    require(intent_path.parent == methods / 'output/research_recovery' /
+            ('publication-' + wrapper['base_seal']['sha256'] + '-codex'), 'publication intent location mismatch')
+    folder, staged, candidate, frozen, audit = staged_publication(base, methods, check_stopped=False)
+    require(intent['inputs'] == publication_inputs(folder, parent_run(base, methods), methods),
+            'publication restore original evidence changed')
+    recovery_path = bound(wrapper['recovery_seal'], methods)
+    require(recovery_path == intent_path.parent / 'seals' / (base['task']['task_id'] + '.json'),
+            'publication private seal location mismatch')
+    restored = load_base(recovery_path, methods, exchange, private=True)
+    result = intent_path.parent / 'result.json'
+    expected = [dict(row, manifest=result.relative_to(methods).as_posix(), manifest_sha256=sha(result))
+                if row['generator'] == 'codex' else row for row in base['seal']['results']]
+    require(restored['seal'] == dict(base['seal'], results=expected)
+            and restored['entries']['codex'] == candidate,
+            'publication supplement changed candidate or another generator')
+    require(read(intent_path.parent / 'research-validation.json') == audit,
+            'publication independent acceptance changed')
+    compatibility = read(intent_path.parent / 'framework-compatibility.json')
+    require(compatibility.get('snapshot_sha256') == frozen['frameworks']
+            and compatibility.get('needs_review') is False, 'publication compatibility unverified')
+    require(Path(path).resolve() == methods / 'output/research_queue/sealed' /
+            (base_path.stem + '-publication-restore.json'), 'publication supplement location mismatch')
+    return base_path, recovery_path, wrapper
+
+
+def publication_inputs(folder, run, methods):
+    names = ('process.json', 'entry.json', 'launched.json', 'cli-receipt.json',
+             'candidate-result.json', 'prompt.txt', 'input.json', 'targets.json',
+             'jev-runtime-prompt.txt', 'events.jsonl', 'jev/config.json', 'jev/calls.jsonl')
+    return [descriptor(folder / name, methods) for name in names] + [
+        descriptor(run / 'framework-snapshot/manifest.json', methods)]
+
+
+def restore_publication(seal_path, exchange, methods=ROOT, *, authorization):
+    """Publish existing bytes and an additive correction; never rerun research."""
+    try:
+        from .research_scheduler import queue_lock
+    except ImportError:
+        from research_scheduler import queue_lock
+    methods = Path(methods).resolve()
+    require(isinstance(authorization, str) and authorization.strip(), 'explicit restore authorization required')
+    with locked(methods), queue_lock(methods / 'output/research_queue'):
+        base = load_base(seal_path, methods, exchange)
+        with runner.stock_lock(methods, base['task']['task_id'], 'codex'):
+            parent = descriptor(base['path'], methods)
+            output = methods / 'output/research_recovery' / ('publication-' + parent['sha256'] + '-codex')
+            intent_path = output / 'intent.json'
+            wrapper_path = methods / 'output/research_queue/sealed' / (base['path'].stem + '-publication-restore.json')
+            if wrapper_path.exists():
+                load_supplement(wrapper_path, methods, exchange)
+                return wrapper_path
+            folder, staged, candidate, frozen, audit = staged_publication(base, methods)
+            intent = dict(schema_version=PUBLICATION_SCHEMA, created_at=runner.stamp(),
+                authorization=authorization, base_seal=parent,
+                inputs=publication_inputs(folder, parent_run(base, methods), methods))
+            if not intent_path.exists():
+                runner.write_new(intent_path, runner.encode(intent))
+            else:
+                saved = read(intent_path)
+                require({k:v for k,v in saved.items() if k not in ('created_at', 'authorization')}
+                        == {k:v for k,v in intent.items() if k not in ('created_at', 'authorization')},
+                        'publication restore intent changed')
+            compatibility = runner.framework_compatibility(parent_run(base, methods), methods,
+                frozen['frameworks'], base['request']['valuation_date'], frozen['maintenance'])
+            require(not compatibility['needs_review'], 'publication restore requires method compatibility review')
+            for name, value in (('research-validation.json', audit),
+                                ('framework-compatibility.json', compatibility),
+                                ('jev-summary.json', runner.research_jev.summarize(folder, persist=False))):
+                target = output / name
+                if not target.exists():
+                    runner.write_new(target, runner.encode(value))
+                elif name != 'framework-compatibility.json':
+                    require(read(target) == value, 'publication acceptance changed')
+            saved_compatibility = read(output / 'framework-compatibility.json')
+            require(saved_compatibility.get('snapshot_sha256') == frozen['frameworks']
+                    and saved_compatibility.get('needs_review') is False,
+                    'publication compatibility record changed')
+            destinations = [methods / candidate[k]['path'] for k in ('report', 'price_map')]
+            if not any(p.exists() or p.is_symlink() for p in destinations):
+                runner.publish_pair(candidate, staged, methods)
+            else:
+                for key in ('report', 'price_map'):
+                    runner._artifact(candidate[key], methods, key)
+            result = output / 'result.json'
+            if not result.exists():
+                runner.write_new(result, runner.encode(runner.manifest(base['request'],
+                    base['request_path'].read_bytes(), [candidate])))
+            require(load_results(result, base['request_path'], methods)['results'] == [candidate],
+                    'publication result changed')
+            private = output / 'seals' / (base['task']['task_id'] + '.json')
+            rows = [dict(row, manifest=result.relative_to(methods).as_posix(), manifest_sha256=sha(result))
+                    if row['generator'] == 'codex' else row for row in base['seal']['results']]
+            if not private.exists():
+                runner.write_new(private, runner.encode(dict(base['seal'], results=rows)))
+            require(read(private) == dict(base['seal'], results=rows), 'publication private seal changed')
+            wrapper = dict(base['seal'], schema_version=SEAL_SCHEMA, base_seal=parent,
+                recovery_seal=descriptor(private, methods), recovery_intent=descriptor(intent_path, methods),
+                recovered_generators=['codex'])
+            runner.write_new(wrapper_path, runner.encode(wrapper))
+            load_supplement(wrapper_path, methods, exchange)
+            return wrapper_path
 
 
 @contextmanager
@@ -413,7 +611,7 @@ def execute(intent_path, exchange, methods=ROOT, *, cli=None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare', 'execute', 'check'])
+    parser.add_argument('action', choices=['prepare', 'execute', 'check', 'restore-publication'])
     parser.add_argument('--exchange', required=True)
     parser.add_argument('--methods', default=str(ROOT))
     parser.add_argument('--seal', action='append', default=[])
@@ -421,7 +619,11 @@ def main(argv=None):
     parser.add_argument('--authorization')
     parser.add_argument('--authorized-at')
     args = parser.parse_args(argv)
-    if args.action == 'prepare':
+    if args.action == 'restore-publication':
+        require(len(args.seal) == 1, 'publication restore requires exactly one original seal')
+        wrapper = restore_publication(args.seal[0], args.exchange, args.methods, authorization=args.authorization)
+        result = dict(status='restored', supplement=str(wrapper), research_rerun=False)
+    elif args.action == 'prepare':
         require(args.authorization and args.authorized_at, 'explicit authorization and time required')
         result = str(prepare(args.seal, args.exchange, args.methods, authorization=args.authorization,
                              authorized_at=args.authorized_at))

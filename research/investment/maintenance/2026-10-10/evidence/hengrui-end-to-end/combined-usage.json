@@ -1,0 +1,82 @@
+{
+  "repeated": {
+    "initial_usage": {
+      "input_tokens": 740454,
+      "cached_input_tokens": 687872,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 6812,
+      "reasoning_output_tokens": 26
+    },
+    "followup_usage": {
+      "input_tokens": 70489,
+      "cached_input_tokens": 58368,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 917,
+      "reasoning_output_tokens": 25
+    },
+    "total_usage": {
+      "input_tokens": 810943,
+      "cached_input_tokens": 746240,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 7729,
+      "reasoning_output_tokens": 51
+    },
+    "input_plus_output": 818672,
+    "uncached_input_plus_output": 72432,
+    "cumulative_process_seconds": 221.28736974997446,
+    "wall_seconds_including_interstage_gap": 402.246533,
+    "interstage_gap_seconds": 180.95916325002554,
+    "followup_process": {
+      "generator": "codex",
+      "task_id": "repeated-bms-review",
+      "status": "completed",
+      "scope": "symmetric fresh-context semantic audit/repair of BMS terms after initial consumer turns",
+      "model_reported_by_event": null,
+      "launched_at": "2026-10-10T15:11:53.412265+00:00",
+      "pid": 52640,
+      "exit_code": 0,
+      "completed_at": "2026-10-10T15:12:49.948473+00:00",
+      "execution_duration_seconds": 56.53602970880456
+    }
+  },
+  "union": {
+    "initial_usage": {
+      "input_tokens": 312880,
+      "cached_input_tokens": 275456,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 3495,
+      "reasoning_output_tokens": 9
+    },
+    "followup_usage": {
+      "input_tokens": 70573,
+      "cached_input_tokens": 45184,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 923,
+      "reasoning_output_tokens": 49
+    },
+    "total_usage": {
+      "input_tokens": 383453,
+      "cached_input_tokens": 320640,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 4418,
+      "reasoning_output_tokens": 58
+    },
+    "input_plus_output": 387871,
+    "uncached_input_plus_output": 67231,
+    "cumulative_process_seconds": 187.84382329205982,
+    "wall_seconds_including_interstage_gap": 410.583618,
+    "interstage_gap_seconds": 222.73979470794018,
+    "followup_process": {
+      "generator": "codex",
+      "task_id": "union-bms-review",
+      "status": "completed",
+      "scope": "symmetric fresh-context semantic audit/repair of BMS terms after initial consumer turns",
+      "model_reported_by_event": null,
+      "launched_at": "2026-10-10T15:11:53.412412+00:00",
+      "pid": 52641,
+      "exit_code": 0,
+      "completed_at": "2026-10-10T15:12:58.285777+00:00",
+      "execution_duration_seconds": 64.8732846248895
+    }
+  }
+}

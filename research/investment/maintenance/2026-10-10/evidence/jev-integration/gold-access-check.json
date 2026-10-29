@@ -1,0 +1,294 @@
+{
+  "checks": 41,
+  "wall_seconds": 3.8670649169944227,
+  "records": [
+    {
+      "id": "CMH1-P139",
+      "characters": 886,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P140",
+      "characters": 789,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P141",
+      "characters": 746,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P142",
+      "characters": 822,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P143",
+      "characters": 576,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P144",
+      "characters": 627,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P145",
+      "characters": 587,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P2",
+      "characters": 1333,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P26",
+      "characters": 1062,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P27",
+      "characters": 1149,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P28",
+      "characters": 1086,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P29",
+      "characters": 1277,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P71",
+      "characters": 715,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P75",
+      "characters": 524,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "CMH1-P98",
+      "characters": 435,
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P196",
+      "characters": 1144,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P198",
+      "characters": 1291,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P206",
+      "characters": 1078,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P213",
+      "characters": 1229,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P223",
+      "characters": 855,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P224",
+      "characters": 930,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P225",
+      "characters": 836,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P226",
+      "characters": 1118,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P48",
+      "characters": 2166,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P95",
+      "characters": 1166,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRFY-P96",
+      "characters": 794,
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P114",
+      "characters": 903,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P136",
+      "characters": 1187,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P137",
+      "characters": 671,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P138",
+      "characters": 923,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P146",
+      "characters": 1306,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P154",
+      "characters": 1120,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P165",
+      "characters": 720,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P166",
+      "characters": 1175,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P167",
+      "characters": 660,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P168",
+      "characters": 1039,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P22",
+      "characters": 1260,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P26",
+      "characters": 1379,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P64",
+      "characters": 501,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P65",
+      "characters": 980,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    },
+    {
+      "id": "HRH1-P66",
+      "characters": 807,
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "matched_original": true,
+      "evidence_status": "unverified"
+    }
+  ],
+  "interpretation": "programmatic access integrity only; not financial verification or model reading"
+}

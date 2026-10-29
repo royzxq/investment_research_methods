@@ -1,0 +1,59 @@
+{
+  "plan_sha256": "b95f98fd0adca199877f16b7d51f8b688707dec6683fb87e45be67c9fae60af4",
+  "topics": {
+    "licensing": {
+      "required_units": [
+        "HRH1-P64",
+        "HRH1-P65",
+        "HRH1-P66",
+        "HRH1-P165",
+        "HRH1-P166",
+        "HRH1-P167",
+        "A126"
+      ],
+      "missing_from_review": [],
+      "pending_delivery": [],
+      "extra_claimed_units": []
+    },
+    "related": {
+      "required_units": [
+        "HRH1-P64",
+        "HRH1-P65",
+        "HRH1-P66",
+        "HRH1-P165",
+        "HRH1-P166",
+        "HRH1-P167"
+      ],
+      "missing_from_review": [],
+      "pending_delivery": [],
+      "extra_claimed_units": []
+    },
+    "cash": {
+      "required_units": [
+        "HRH1-P66",
+        "HRH1-P165",
+        "A126"
+      ],
+      "missing_from_review": [],
+      "pending_delivery": [],
+      "extra_claimed_units": [
+        "HRH1-P166",
+        "HRH1-P64"
+      ]
+    }
+  },
+  "gaps": [
+    "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+    "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+  ],
+  "unassigned_units": [],
+  "quote_audit": {
+    "checked": 36,
+    "issues": [],
+    "interpretation": "Exact source text only; not claim entailment."
+  },
+  "coverage_complete": false,
+  "evidence_status": "unverified",
+  "research_complete": false,
+  "interpretation": "Coverage of declared spans and review IDs only; neither truth nor exhaustive discovery."
+}

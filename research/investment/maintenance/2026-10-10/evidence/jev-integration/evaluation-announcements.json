@@ -1,0 +1,1729 @@
+{
+  "schema": "research-jev-evaluation/v1",
+  "kind": "announcements",
+  "total_candidates": 168,
+  "candidate_preservation": true,
+  "per_topic": {
+    "cash_capital": {
+      "expected": 30,
+      "candidates_present": 30,
+      "jev_yes": 20,
+      "lexical_or_required": 15,
+      "union_yes_or_lexical_or_required": 22,
+      "union_with_fallback": 30,
+      "model_not_yes": [
+        "A110",
+        "A112",
+        "A142",
+        "A143",
+        "A169",
+        "A54",
+        "A55",
+        "A60",
+        "A61",
+        "A83"
+      ],
+      "untagged_but_retained": [],
+      "missing_candidates": []
+    },
+    "business_earnings": {
+      "expected": 19,
+      "candidates_present": 19,
+      "jev_yes": 19,
+      "lexical_or_required": 18,
+      "union_yes_or_lexical_or_required": 19,
+      "union_with_fallback": 19,
+      "model_not_yes": [],
+      "untagged_but_retained": [],
+      "missing_candidates": []
+    },
+    "governance_risk": {
+      "expected": 29,
+      "candidates_present": 29,
+      "jev_yes": 13,
+      "lexical_or_required": 22,
+      "union_yes_or_lexical_or_required": 26,
+      "union_with_fallback": 29,
+      "model_not_yes": [
+        "A104",
+        "A105",
+        "A122",
+        "A124",
+        "A142",
+        "A143",
+        "A146",
+        "A169",
+        "A17",
+        "A38",
+        "A54",
+        "A55",
+        "A60",
+        "A63",
+        "A78",
+        "A84"
+      ],
+      "untagged_but_retained": [],
+      "missing_candidates": []
+    }
+  },
+  "package_topic_pairs": [
+    {
+      "package_id": "A3",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A3"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 1,
+        "characters_through_complete": 26,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 1,
+        "characters_through_complete": 26,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A4",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A4"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 14,
+        "characters_through_complete": 409,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 18,
+        "characters_through_complete": 503,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A5",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A5"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 25,
+        "characters_through_complete": 745,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 25,
+        "characters_through_complete": 745,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A16",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A16"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 2,
+        "characters_through_complete": 52,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 2,
+        "characters_through_complete": 52,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A38",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A38"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 4,
+        "characters_through_complete": 124,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 13,
+        "characters_through_complete": 380,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A39",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A39"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 5,
+        "characters_through_complete": 160,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 4,
+        "characters_through_complete": 114,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A46",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A46"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 6,
+        "characters_through_complete": 189,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 5,
+        "characters_through_complete": 143,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A47",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A47"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 7,
+        "characters_through_complete": 224,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 6,
+        "characters_through_complete": 178,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A50",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A50"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 71,
+        "characters_through_complete": 2064,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 152,
+        "characters_through_complete": 3897,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A54",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A54"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 74,
+        "characters_through_complete": 2163,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 67,
+        "characters_through_complete": 1491,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A55",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A55"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 75,
+        "characters_through_complete": 2186,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 69,
+        "characters_through_complete": 1541,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A58",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A58"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 29,
+        "characters_through_complete": 876,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 146,
+        "characters_through_complete": 3709,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A59",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A59"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 78,
+        "characters_through_complete": 2241,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 150,
+        "characters_through_complete": 3838,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A60",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A60"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 30,
+        "characters_through_complete": 901,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 27,
+        "characters_through_complete": 795,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A61",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A61"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 79,
+        "characters_through_complete": 2249,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 51,
+        "characters_through_complete": 1350,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A83",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A83"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 98,
+        "characters_through_complete": 2638,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 59,
+        "characters_through_complete": 1414,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A110",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A110"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 123,
+        "characters_through_complete": 3257,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 64,
+        "characters_through_complete": 1454,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A112",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A112"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 125,
+        "characters_through_complete": 3273,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 61,
+        "characters_through_complete": 1430,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A121",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A121"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 130,
+        "characters_through_complete": 3410,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 149,
+        "characters_through_complete": 3819,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A126",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A126"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 135,
+        "characters_through_complete": 3564,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 30,
+        "characters_through_complete": 900,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A131",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A131"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 138,
+        "characters_through_complete": 3638,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 31,
+        "characters_through_complete": 916,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A142",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A142"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 149,
+        "characters_through_complete": 3865,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 72,
+        "characters_through_complete": 1600,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A143",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A143"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 150,
+        "characters_through_complete": 3878,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 71,
+        "characters_through_complete": 1578,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A146",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A146"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 20,
+        "characters_through_complete": 585,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 14,
+        "characters_through_complete": 408,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A147",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A147"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 21,
+        "characters_through_complete": 598,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 15,
+        "characters_through_complete": 421,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A149",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A149"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 33,
+        "characters_through_complete": 1051,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 145,
+        "characters_through_complete": 3692,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A160",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A160"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 164,
+        "characters_through_complete": 4202,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 151,
+        "characters_through_complete": 3869,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A165",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A165"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 166,
+        "characters_through_complete": 4266,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 153,
+        "characters_through_complete": 3932,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A168",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A168"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 23,
+        "characters_through_complete": 651,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 16,
+        "characters_through_complete": 444,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A169",
+      "topic": "cash_capital",
+      "required_item_ids": [
+        "A169"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 34,
+        "characters_through_complete": 1076,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 26,
+        "characters_through_complete": 770,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A2",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A2"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 7,
+        "characters_through_complete": 209,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 144,
+        "characters_through_complete": 3625,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A5",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A5"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 17,
+        "characters_through_complete": 550,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 15,
+        "characters_through_complete": 484,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A17",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A17"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 22,
+        "characters_through_complete": 693,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 22,
+        "characters_through_complete": 699,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A54",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A54"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 68,
+        "characters_through_complete": 2054,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 76,
+        "characters_through_complete": 2182,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A55",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A55"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 69,
+        "characters_through_complete": 2077,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 77,
+        "characters_through_complete": 2205,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A60",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A60"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 2,
+        "characters_through_complete": 56,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 1,
+        "characters_through_complete": 25,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A63",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A63"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 30,
+        "characters_through_complete": 923,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 30,
+        "characters_through_complete": 929,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A78",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A78"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 34,
+        "characters_through_complete": 1039,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 33,
+        "characters_through_complete": 1016,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A84",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A84"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 36,
+        "characters_through_complete": 1097,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 35,
+        "characters_through_complete": 1074,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A90",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A90"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 128,
+        "characters_through_complete": 3465,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 149,
+        "characters_through_complete": 3801,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A100",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A100"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 79,
+        "characters_through_complete": 2336,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 146,
+        "characters_through_complete": 3682,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A104",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A104"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 44,
+        "characters_through_complete": 1329,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 43,
+        "characters_through_complete": 1306,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A105",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A105"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 45,
+        "characters_through_complete": 1358,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 44,
+        "characters_through_complete": 1335,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A122",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A122"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 82,
+        "characters_through_complete": 2408,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 68,
+        "characters_through_complete": 1976,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A124",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A124"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 51,
+        "characters_through_complete": 1532,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 50,
+        "characters_through_complete": 1509,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A126",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A126"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 53,
+        "characters_through_complete": 1604,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 17,
+        "characters_through_complete": 556,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A142",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A142"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 83,
+        "characters_through_complete": 2430,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 79,
+        "characters_through_complete": 2257,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A143",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A143"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 84,
+        "characters_through_complete": 2443,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 75,
+        "characters_through_complete": 2161,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A169",
+      "topic": "business_earnings",
+      "required_item_ids": [
+        "A169"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 5,
+        "characters_through_complete": 148,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 2,
+        "characters_through_complete": 50,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A2",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A2"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 30,
+        "characters_through_complete": 830,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 158,
+        "characters_through_complete": 4107,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A17",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A17"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 38,
+        "characters_through_complete": 1084,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 45,
+        "characters_through_complete": 1272,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A38",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A38"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 27,
+        "characters_through_complete": 750,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 29,
+        "characters_through_complete": 797,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A45",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A45"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 5,
+        "characters_through_complete": 149,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 2,
+        "characters_through_complete": 47,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A50",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A50"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 63,
+        "characters_through_complete": 1808,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 152,
+        "characters_through_complete": 3937,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A54",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A54"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 66,
+        "characters_through_complete": 1912,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 112,
+        "characters_through_complete": 3166,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A55",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A55"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 67,
+        "characters_through_complete": 1935,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 113,
+        "characters_through_complete": 3189,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A57",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A57"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 139,
+        "characters_through_complete": 3899,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 167,
+        "characters_through_complete": 4313,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A58",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A58"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 140,
+        "characters_through_complete": 3916,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 166,
+        "characters_through_complete": 4303,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A59",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A59"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 141,
+        "characters_through_complete": 3935,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 165,
+        "characters_through_complete": 4286,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A60",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A60"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 142,
+        "characters_through_complete": 3960,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 146,
+        "characters_through_complete": 3737,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A63",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A63"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 68,
+        "characters_through_complete": 1964,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 72,
+        "characters_through_complete": 2045,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A78",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A78"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 77,
+        "characters_through_complete": 2208,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 49,
+        "characters_through_complete": 1387,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A84",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A84"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 82,
+        "characters_through_complete": 2348,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 50,
+        "characters_through_complete": 1416,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A90",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A90"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 88,
+        "characters_through_complete": 2527,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 157,
+        "characters_through_complete": 4074,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A100",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A100"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 97,
+        "characters_through_complete": 2780,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 155,
+        "characters_through_complete": 4018,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A104",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A104"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 100,
+        "characters_through_complete": 2866,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 43,
+        "characters_through_complete": 1216,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A105",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A105"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 101,
+        "characters_through_complete": 2895,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 67,
+        "characters_through_complete": 1900,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A122",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A122"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 111,
+        "characters_through_complete": 3166,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 74,
+        "characters_through_complete": 2098,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A124",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A124"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 113,
+        "characters_through_complete": 3224,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 54,
+        "characters_through_complete": 1532,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A131",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A131"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 161,
+        "characters_through_complete": 4206,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 118,
+        "characters_through_complete": 3323,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A137",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A137"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 8,
+        "characters_through_complete": 245,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 1,
+        "characters_through_complete": 22,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A142",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A142"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 122,
+        "characters_through_complete": 3467,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 114,
+        "characters_through_complete": 3211,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A143",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A143"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 162,
+        "characters_through_complete": 4219,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 140,
+        "characters_through_complete": 3564,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A146",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A146"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 25,
+        "characters_through_complete": 695,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 26,
+        "characters_through_complete": 704,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A149",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A149"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 10,
+        "characters_through_complete": 366,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 4,
+        "characters_through_complete": 190,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A160",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A160"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 129,
+        "characters_through_complete": 3656,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 151,
+        "characters_through_complete": 3909,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A165",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A165"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 133,
+        "characters_through_complete": 3781,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 148,
+        "characters_through_complete": 3795,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    },
+    {
+      "package_id": "A169",
+      "topic": "governance_risk",
+      "required_item_ids": [
+        "A169"
+      ],
+      "deterministic": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 168,
+        "characters_through_complete": 4326,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      },
+      "jev": {
+        "required_count": 1,
+        "missing": [],
+        "complete_at_rank": 139,
+        "characters_through_complete": 3551,
+        "interpretation": "arrival metric only; remaining queue still requires coverage review"
+      }
+    }
+  ],
+  "rank_comparison": {
+    "count": 78,
+    "earlier": 45,
+    "later": 28,
+    "unchanged": 5,
+    "median_deterministic_rank": 68.5,
+    "median_jev_rank": 62.5
+  },
+  "jev_reported_usage": {
+    "input_tokens": 142267,
+    "output_tokens": 10187
+  },
+  "fallback_candidates": 142,
+  "limitations": [
+    "Gold is a finite challenge set, not exhaustive ground truth.",
+    "Arrival ranks and characters are not token savings or research completion.",
+    "Every queue retains all candidates; labels alone cannot exclude evidence.",
+    "API usage covers successful items only unless provider reports otherwise."
+  ],
+  "gold_sha256": "cd21c0f4d4e5e9d713bd0d7d64c9f9b7c01afa387ea372ed15b2cd133feb4ef4"
+}

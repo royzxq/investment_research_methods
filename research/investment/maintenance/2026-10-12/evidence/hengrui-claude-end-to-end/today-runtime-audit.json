@@ -1,0 +1,171 @@
+{
+  "scope": "Main CLI event logs only; child tool transcripts may be absent. A missing script call does not prove no manual deduplication.",
+  "source_root": "output/runs/investment/2026-10-12",
+  "attempts": [
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/HK-01109/claude/events.jsonl",
+      "events_sha256": "3ab4ee5d7f7372bd446f37213a6eac186a67c2c2e5a42de8acd24d416fc547ad",
+      "reader_command_calls": 0,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "ambiguous",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/HK-01109/codex/events.jsonl",
+      "events_sha256": "82055df97733d87e87c6e90cafea3cc20765407588fe8e34ea62f468d15f210a",
+      "reader_command_calls": 1,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "partial",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SH-600011/claude/events.jsonl",
+      "events_sha256": "eafa4151fb3801ee969a2b692bb1d520dc6e3ef2243ef049041b54eee03f20e3",
+      "reader_command_calls": 1,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "partial",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SH-600011/claude/retry-1/events.jsonl",
+      "events_sha256": "5e7b164549d8d8a6f19c183264832dab5e4cc83726cca0e1577eea6e2a819cde",
+      "reader_command_calls": 0,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "ambiguous",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SH-600011/codex/events.jsonl",
+      "events_sha256": "eb1a4c4cfb3d11122679a9f620955a10ddf56aee90cbe534cdf5ac37f4301028",
+      "reader_command_calls": 0,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "partial",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SH-688099/claude/events.jsonl",
+      "events_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reader_command_calls": 0,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "unavailable",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SH-688099/claude/retry-1/events.jsonl",
+      "events_sha256": "de10b62f107a696c8c4833fe15e4cb73a98e22c2ccbcb520eeed41dd3f7efe0d",
+      "reader_command_calls": 0,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "reported",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SH-688099/codex/events.jsonl",
+      "events_sha256": "686933daf50e53ecf18eb0616dbe41cdc045df1c48247c83b51af1781b5aebd6",
+      "reader_command_calls": 1,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "partial",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SZ-300760/claude/events.jsonl",
+      "events_sha256": "459ed9f9cb0f2bc6849366121120c17c2ab35701a345719181a96eacd4ef3935",
+      "reader_command_calls": 0,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "partial",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SZ-300760/claude/retry-1/events.jsonl",
+      "events_sha256": "e7044041065eeac2d69e5e0534fc7193c38d44384b9032a14f8f7205437b4d28",
+      "reader_command_calls": 0,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "reported",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    },
+    {
+      "events_path": "output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c/execution/SZ-300760/codex/events.jsonl",
+      "events_sha256": "a9cedefef17f28809a43b1b54594937b85f7680e55a80ada8b25b7210bfa0971",
+      "reader_command_calls": 13,
+      "reader_with_ledger": 0,
+      "evidence_command_calls": 0,
+      "jev_tool_calls": 0,
+      "usage_summary_status": "partial",
+      "usage_gap": {
+        "attempt": "this_directory_only",
+        "subagent_coverage": "unknown",
+        "all_attempt_tokens": "unknown",
+        "cross_provider_total": null
+      }
+    }
+  ]
+}

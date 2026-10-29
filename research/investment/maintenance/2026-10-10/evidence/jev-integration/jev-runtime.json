@@ -1,0 +1,347 @@
+{
+  "started_epoch_ms": 1791639675852,
+  "wall_ms": 288402,
+  "parallel_batches": 2,
+  "records": [
+    {
+      "kind": "announcements",
+      "number": 2,
+      "items": 30,
+      "wall_ms": 18418,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 10601,
+      "usage": {
+        "input_tokens": 25630,
+        "output_tokens": 1830
+      },
+      "failed": 0
+    },
+    {
+      "kind": "announcements",
+      "number": 1,
+      "items": 30,
+      "wall_ms": 30337,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 5187,
+      "usage": {
+        "input_tokens": 25606,
+        "output_tokens": 1830
+      },
+      "failed": 0
+    },
+    {
+      "kind": "announcements",
+      "number": 4,
+      "items": 30,
+      "wall_ms": 16822,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 12353,
+      "usage": {
+        "input_tokens": 25494,
+        "output_tokens": 1830
+      },
+      "failed": 0
+    },
+    {
+      "kind": "announcements",
+      "number": 3,
+      "items": 30,
+      "wall_ms": 13582,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 8200,
+      "usage": {
+        "input_tokens": 25508,
+        "output_tokens": 1830
+      },
+      "failed": 0
+    },
+    {
+      "kind": "announcements",
+      "number": 6,
+      "items": 18,
+      "wall_ms": 10681,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 7008,
+      "usage": {
+        "input_tokens": 14468,
+        "output_tokens": 1037
+      },
+      "failed": 1
+    },
+    {
+      "kind": "announcements",
+      "number": 5,
+      "items": 30,
+      "wall_ms": 19220,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 5936,
+      "usage": {
+        "input_tokens": 25561,
+        "output_tokens": 1830
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 2,
+      "items": 30,
+      "wall_ms": 14795,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 8737,
+      "usage": {
+        "input_tokens": 46731,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 1,
+      "items": 30,
+      "wall_ms": 31366,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 4958,
+      "usage": {
+        "input_tokens": 50526,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 3,
+      "items": 30,
+      "wall_ms": 24301,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 4976,
+      "usage": {
+        "input_tokens": 46686,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 4,
+      "items": 30,
+      "wall_ms": 13001,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 7100,
+      "usage": {
+        "input_tokens": 41950,
+        "output_tokens": 1798
+      },
+      "failed": 1
+    },
+    {
+      "kind": "passages",
+      "number": 5,
+      "items": 30,
+      "wall_ms": 22640,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 5052,
+      "usage": {
+        "input_tokens": 49086,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 6,
+      "items": 30,
+      "wall_ms": 12646,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 5961,
+      "usage": {
+        "input_tokens": 51641,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 7,
+      "items": 30,
+      "wall_ms": 13047,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6523,
+      "usage": {
+        "input_tokens": 55957,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 9,
+      "items": 30,
+      "wall_ms": 13989,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 9006,
+      "usage": {
+        "input_tokens": 57830,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 8,
+      "items": 30,
+      "wall_ms": 27312,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 8038,
+      "usage": {
+        "input_tokens": 57942,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 10,
+      "items": 30,
+      "wall_ms": 17827,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 7644,
+      "usage": {
+        "input_tokens": 52120,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 11,
+      "items": 30,
+      "wall_ms": 13611,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6115,
+      "usage": {
+        "input_tokens": 52784,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 13,
+      "items": 30,
+      "wall_ms": 13341,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 5310,
+      "usage": {
+        "input_tokens": 54601,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 12,
+      "items": 30,
+      "wall_ms": 37658,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 19253,
+      "usage": {
+        "input_tokens": 52455,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 14,
+      "items": 30,
+      "wall_ms": 15194,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 7311,
+      "usage": {
+        "input_tokens": 58774,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 15,
+      "items": 30,
+      "wall_ms": 19838,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 10116,
+      "usage": {
+        "input_tokens": 52698,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 16,
+      "items": 30,
+      "wall_ms": 31634,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6761,
+      "usage": {
+        "input_tokens": 51757,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 17,
+      "items": 30,
+      "wall_ms": 12643,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6039,
+      "usage": {
+        "input_tokens": 57468,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 18,
+      "items": 30,
+      "wall_ms": 14867,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6645,
+      "usage": {
+        "input_tokens": 52226,
+        "output_tokens": 1798
+      },
+      "failed": 1
+    },
+    {
+      "kind": "passages",
+      "number": 19,
+      "items": 30,
+      "wall_ms": 13596,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 8086,
+      "usage": {
+        "input_tokens": 53879,
+        "output_tokens": 1860
+      },
+      "failed": 0
+    },
+    {
+      "kind": "passages",
+      "number": 20,
+      "items": 10,
+      "wall_ms": 24711,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 4347,
+      "usage": {
+        "input_tokens": 18309,
+        "output_tokens": 620
+      },
+      "failed": 0
+    }
+  ],
+  "worker_errors": [],
+  "stopped": false
+}

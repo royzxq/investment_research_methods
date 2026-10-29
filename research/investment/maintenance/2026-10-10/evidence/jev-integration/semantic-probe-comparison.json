@@ -1,0 +1,146 @@
+{
+  "announcements": {
+    "items": 168,
+    "answer_ids_valid": true,
+    "codex_usage": {
+      "input_tokens": 26934,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 5777,
+      "reasoning_output_tokens": 93
+    },
+    "codex_models": [],
+    "codex_wall_seconds": 84.87180487508886,
+    "jev_usage": {
+      "input_tokens": 140571,
+      "output_tokens": 10065
+    },
+    "jev_wall_seconds": 90.465,
+    "jev_failed_items": 3,
+    "semantic_gold": {
+      "cash_capital": {
+        "gold_pairs": 30,
+        "codex_yes": 27,
+        "jev_yes": 20,
+        "codex_not_yes": [
+          "A169",
+          "A55",
+          "A60"
+        ],
+        "jev_not_yes": [
+          "A110",
+          "A112",
+          "A142",
+          "A143",
+          "A169",
+          "A54",
+          "A55",
+          "A60",
+          "A61",
+          "A83"
+        ]
+      },
+      "business_earnings": {
+        "gold_pairs": 19,
+        "codex_yes": 19,
+        "jev_yes": 18,
+        "codex_not_yes": [],
+        "jev_not_yes": [
+          "A122"
+        ]
+      },
+      "governance_risk": {
+        "gold_pairs": 29,
+        "codex_yes": 22,
+        "jev_yes": 13,
+        "codex_not_yes": [
+          "A142",
+          "A143",
+          "A146",
+          "A169",
+          "A54",
+          "A55",
+          "A60"
+        ],
+        "jev_not_yes": [
+          "A104",
+          "A105",
+          "A122",
+          "A124",
+          "A142",
+          "A143",
+          "A146",
+          "A169",
+          "A17",
+          "A38",
+          "A54",
+          "A55",
+          "A60",
+          "A63",
+          "A78",
+          "A84"
+        ]
+      }
+    },
+    "scope": "isolated semantic labels only; includes CLI startup; excludes subsequent reading/verification and full research; scores are uncalibrated",
+    "time_change_percent": 6.590168705782795
+  },
+  "passages": {
+    "items": 53,
+    "answer_ids_valid": true,
+    "codex_usage": {
+      "input_tokens": 58564,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1820,
+      "reasoning_output_tokens": 110
+    },
+    "codex_models": [],
+    "codex_wall_seconds": 46.269315959187225,
+    "jev_usage": {
+      "input_tokens": 93427,
+      "output_tokens": 3286
+    },
+    "jev_wall_seconds": 35.141,
+    "jev_failed_items": 0,
+    "semantic_gold": {
+      "cash_restrictions": {
+        "gold_pairs": 9,
+        "codex_yes": 9,
+        "jev_yes": 8,
+        "codex_not_yes": [],
+        "jev_not_yes": [
+          "HRH1-P136"
+        ]
+      },
+      "licensing_payments": {
+        "gold_pairs": 14,
+        "codex_yes": 10,
+        "jev_yes": 8,
+        "codex_not_yes": [
+          "HRFY-P95",
+          "HRH1-P165",
+          "HRH1-P64",
+          "HRH1-P66"
+        ],
+        "jev_not_yes": [
+          "HRFY-P95",
+          "HRH1-P165",
+          "HRH1-P166",
+          "HRH1-P64",
+          "HRH1-P65",
+          "HRH1-P66"
+        ]
+      },
+      "related_parties": {
+        "gold_pairs": 23,
+        "codex_yes": 23,
+        "jev_yes": 23,
+        "codex_not_yes": [],
+        "jev_not_yes": []
+      }
+    },
+    "scope": "isolated semantic labels only; includes CLI startup; excludes subsequent reading/verification and full research; scores are uncalibrated",
+    "time_change_percent": -24.05117890440217
+  }
+}

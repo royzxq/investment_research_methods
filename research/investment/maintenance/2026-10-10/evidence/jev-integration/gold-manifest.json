@@ -1,0 +1,2191 @@
+{
+  "schema_version": "independent-local-gold-v1",
+  "status": "frozen_before_real_material_model_calls",
+  "frozen_at_shanghai": "2026-10-10T21:39:20.926672+08:00",
+  "cutoff_date_shanghai": "2026-10-09",
+  "generator": "codex",
+  "independence": {
+    "jev_called": false,
+    "jev_output_seen": false,
+    "baseline_model_output_seen": false,
+    "old_research_conclusions_used_as_truth": false,
+    "metadata_indexes_used_only_for_source_urls_dates": true,
+    "prior_review_read_for_test_objectives_only": true,
+    "factual_evidence_directly_read": true
+  },
+  "scope": {
+    "companies": 2,
+    "financial_documents": 3,
+    "financial_pages_in_source_pool": 580,
+    "financial_evidence_packages": 18,
+    "announcement_pool_rows": 168,
+    "announcement_adjudicated_titles": 44,
+    "announcement_purposive_positive_count": 32,
+    "announcement_random_other_title_count": 12,
+    "not_exhaustive": true,
+    "not_independent_observations": "包可能共享同一页/同一交易；不得把18包当18家公司或独立样本。"
+  },
+  "documents": {
+    "HRH1": {
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "research_security": "SH-600276",
+      "period_end": "2026-06-30",
+      "text": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "bytes": 406766
+      },
+      "pdf": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.pdf",
+        "sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+        "bytes": 4594202
+      },
+      "pdf_pages": 182,
+      "printed_page_rule": "PDF页与印刷页相同",
+      "original_url": "https://static.cninfo.com.cn/finalpage/2026-08-20/1225483600.PDF",
+      "disclosure_date": "2026-08-20",
+      "disclosure_date_basis": "本地sources.md S1记录及URL路径；H目录A54日期2026-08-19属另一来源目录，不覆盖该PDF来源日期",
+      "remote_date_reverified": false,
+      "metadata_source": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/sources.md",
+        "sha256": "70e5f27d0d44b7f65ee176690be68f86008e7e2793bb2d2eff2a506113179e9a",
+        "bytes": 5580
+      }
+    },
+    "HRFY": {
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "research_security": "SH-600276",
+      "period_end": "2025-12-31",
+      "text": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "bytes": 529838
+      },
+      "pdf": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.pdf",
+        "sha256": "6ca26ac99ed3d04d5f1697f68ce758dd1c605209adac94366b020f52bc829b57",
+        "bytes": 3943481
+      },
+      "pdf_pages": 239,
+      "printed_page_rule": "PDF第1页为前置港交所公告，后续印刷页=PDF页-1",
+      "original_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0325/2026032502087_c.pdf",
+      "disclosure_date": "2026-03-25",
+      "disclosure_date_basis": "本地sources.md S2记录及URL路径；A股日期2026-03-26不是此H披露来源的日期",
+      "remote_date_reverified": false,
+      "metadata_source": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/sources.md",
+        "sha256": "70e5f27d0d44b7f65ee176690be68f86008e7e2793bb2d2eff2a506113179e9a",
+        "bytes": 5580
+      }
+    },
+    "CMH1": {
+      "issuer": "中国移动有限公司",
+      "research_security": "HK-00941",
+      "alternate_security_on_cover": "SH-600941",
+      "period_end": "2026-06-30",
+      "text": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "bytes": 262067
+      },
+      "pdf": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.pdf",
+        "sha256": "f1f174314b3aa504dcbf726ac218fa62bb072a4bc89e90c350ec3f4841d70eb7",
+        "bytes": 1996871
+      },
+      "pdf_pages": 159,
+      "printed_page_rule": "封面PDF第1页，后续印刷页=PDF页-1；不是英文版或港交所添加前置页的版本",
+      "original_url": "https://www.chinamobileltd.com/sc/ir/reports/ir2026_ashare.pdf",
+      "disclosure_date": null,
+      "board_approval_date": "2026-08-13",
+      "disclosure_date_basis": "PDF2仅证明董事会批准日；本地sources.md S-F8明确未核定A格式单独上线时刻。其他H报告8/27不充当此文件披露日",
+      "remote_date_reverified": false,
+      "metadata_source": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/financial-downloads.json",
+        "sha256": "3cffbbb71b071eb11b013b5bc5330fcf7808b44aa153e0d0af3ad63a2295b54f",
+        "bytes": 2785
+      },
+      "metadata_secondary_source": {
+        "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/sources.md",
+        "sha256": "6e3730f06bbe842f1c5f6ea4ebb1976402c7b770c3c33dd3c4b9d8f01cb9097e",
+        "bytes": 9676
+      },
+      "availability_at_cutoff": "2026-10-09历史工作目录已保存此文件，但精确披露日有缺口；本轮未用文件mtime冒充披露时间"
+    }
+  },
+  "announcement_directory": {
+    "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+    "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+    "bytes": 57310,
+    "directory_type": "issuer H-share list including overseas regulatory A-share announcements",
+    "visible_record_count": 168,
+    "query_time_shanghai": "2026-10-09 05:02–05:20",
+    "requested_window": [
+      "2026-03-26",
+      "2026-10-09"
+    ],
+    "pagination_gap_exact": "web-readable static list, no next-page control surfaced; overlapping line windows read through lower bound. Platform-wide total/pagination and A-share full listing unverified",
+    "sampling_seed": 20261010,
+    "sampling_method": "按原rows顺序剔除32个人工关键正例，random.Random(20261010).sample(remaining,12)，再人工读取标题。全目录标题曾线性浏览用于挑选正例，但未对其余124条逐项裁决。",
+    "random_ids": [
+      "A110",
+      "A78",
+      "A17",
+      "A84",
+      "A105",
+      "A124",
+      "A104",
+      "A112",
+      "A83",
+      "A63",
+      "A61",
+      "A122"
+    ],
+    "explicit_correction_title_found": false,
+    "update_record_ids": [
+      "A146"
+    ],
+    "version_related_candidate_ids": [
+      "A168",
+      "A146",
+      "A147"
+    ],
+    "date_relation_warning": "请求窗下界2026-03-26而FY H披露3/25，年报不在这份目录可見窗；不能把未出现视为不存在。"
+  },
+  "announcement_labels": [
+    {
+      "item_id": "A2",
+      "directory_link_id": 2,
+      "row_index_zero_based": 0,
+      "directory_date": "2026-10-08",
+      "title_exact": "海外監管公告 - 關於藥品上市許可申請獲EMA受理的提示性公告",
+      "title_utf8_sha256": "b160290d7f40018af75f18d7d11b1dd73738fbefb300ac18789d68d8509a46c6",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/0/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A3",
+      "directory_link_id": 3,
+      "row_index_zero_based": 1,
+      "directory_date": "2026-10-08",
+      "title_exact": "海外監管公告 - 關於回購公司A股股份的進展公告",
+      "title_utf8_sha256": "b41f1ea738077ec375aec1a14e13bf3e4eab753390bfe31986571b108a055ef8",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/1/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A4",
+      "directory_link_id": 4,
+      "row_index_zero_based": 2,
+      "directory_date": "2026-10-07",
+      "title_exact": "截至二零二六年九月三十日止之股份發行人的證券變動月報表",
+      "title_utf8_sha256": "b0908b847e1486dc865d30bd60ad2b2b7250a6ef3fc915f2741f5e8e817f73d2",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/2/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A5",
+      "directory_link_id": 5,
+      "row_index_zero_based": 3,
+      "directory_date": "2026-09-29",
+      "title_exact": "內幕消息公告及海外監管公告 - 關於與Novo Nordisk A/S簽署 HRS-1596項目授權許可協議的公告",
+      "title_utf8_sha256": "eca4187182cefb9527b0093290d8fb432833b2a3161e222a0ab22c91f23e8690",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/3/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A16",
+      "directory_link_id": 16,
+      "row_index_zero_based": 14,
+      "directory_date": "2026-09-17",
+      "title_exact": "海外監管公告 - 關於首次回購公司A股股份的公告",
+      "title_utf8_sha256": "65180f269204d5b650ae1e440790fdf35fece9c3fc5a0d484325d7e25c629254",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/14/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A17",
+      "directory_link_id": 17,
+      "row_index_zero_based": 15,
+      "directory_date": "2026-09-16",
+      "title_exact": "海外監管公告 - 關於獲得藥物臨床試驗批准通知書的公告",
+      "title_utf8_sha256": "976cd4684b9cf0f6663e3c5bd1d207ca6b39fde0f4a3f6698cf0de045190434d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/15/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A38",
+      "directory_link_id": 38,
+      "row_index_zero_based": 36,
+      "directory_date": "2026-08-26",
+      "title_exact": "海外監管公告 - 關於回購公司A股股份事項前十大股東及前十大無限售條件股東持股情況的公告",
+      "title_utf8_sha256": "587c8a6bc9c8e812275dd89a7ef9601f572da096f832437def658b94b5f40d69",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/36/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A39",
+      "directory_link_id": 39,
+      "row_index_zero_based": 37,
+      "directory_date": "2026-08-26",
+      "title_exact": "海外監管公告 - 關於以集中競價交易方式回購公司A股股份的回購報告書",
+      "title_utf8_sha256": "0d9626390f49b7ab5adecd7473c0b9b571fc72e54d114ee7c43bad0acac32086",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/37/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A45",
+      "directory_link_id": 45,
+      "row_index_zero_based": 43,
+      "directory_date": "2026-08-19",
+      "title_exact": "海外監管公告 - 關於變更公司董事會秘書的公告",
+      "title_utf8_sha256": "6b8d751c37be62e8be90b0afccd08671c386729772227791bf0721fbb3e4d42b",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/43/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A46",
+      "directory_link_id": 46,
+      "row_index_zero_based": 44,
+      "directory_date": "2026-08-19",
+      "title_exact": "海外監管公告 - 關於股份回購實施結果暨股份變動的公告",
+      "title_utf8_sha256": "39a052beaa0f3977f884e0eea93516c8f55d6f8d56e91bcc92a9ff2abaf2fe77",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/44/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A47",
+      "directory_link_id": 47,
+      "row_index_zero_based": 45,
+      "directory_date": "2026-08-19",
+      "title_exact": "海外監管公告 - 關於以集中競價交易方式回購公司A股股份方案的公告",
+      "title_utf8_sha256": "1bb0a08d331d3b982029e7900e05a3ea10088a5b15540d0d2bee9cb949767c20",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/45/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A50",
+      "directory_link_id": 50,
+      "row_index_zero_based": 48,
+      "directory_date": "2026-08-19",
+      "title_exact": "海外監管公告 - 2026年A股員工持股計劃（草案）",
+      "title_utf8_sha256": "a6c6ea3f84ff00593cc8c842d706606d2b97df48096a619f3c7bd83c8aaf8137",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/48/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A54",
+      "directory_link_id": 54,
+      "row_index_zero_based": 52,
+      "directory_date": "2026-08-19",
+      "title_exact": "海外監管公告 - 2026年半年度報告",
+      "title_utf8_sha256": "db85aab31f8ece4ff380804d640e6aca4a955bc547bd62190527d02bdc29b017",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/52/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A55",
+      "directory_link_id": 55,
+      "row_index_zero_based": 53,
+      "directory_date": "2026-08-19",
+      "title_exact": "海外監管公告 - 2026年半年度報告摘要",
+      "title_utf8_sha256": "7b5e2399a1727aa399eaa7aac6e8964ec2490de9048da29da986945fb50ab3be",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/53/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A57",
+      "directory_link_id": 57,
+      "row_index_zero_based": 55,
+      "directory_date": "2026-08-19",
+      "title_exact": "聯席公司秘書辭任",
+      "title_utf8_sha256": "23ca2715d5f9165caa857f073bde434b5dd44189e6efd33cf9dad60cd7eeb21e",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/55/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A58",
+      "directory_link_id": 58,
+      "row_index_zero_based": 56,
+      "directory_date": "2026-08-19",
+      "title_exact": "建議採納2026年H股股份計劃",
+      "title_utf8_sha256": "a4b7bed8515c132011373730dc68afad1313887b71a6de80041eb7bf1f1b4965",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/56/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A59",
+      "directory_link_id": 59,
+      "row_index_zero_based": 57,
+      "directory_date": "2026-08-19",
+      "title_exact": "建議採納2026年A股員工持股計劃",
+      "title_utf8_sha256": "fb44e85d3b22d9a1d92cbacffb2e5f07ebf4d68ac90bc2cb8de0e3936a71baf0",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/57/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A60",
+      "directory_link_id": 60,
+      "row_index_zero_based": 58,
+      "directory_date": "2026-08-19",
+      "title_exact": "截至2026年6月30日止六個月之中期業績公告",
+      "title_utf8_sha256": "f27e3238e62137a52b56865d3c303484b9b55e05e8c645ab5730762c53dba060",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/58/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A61",
+      "directory_link_id": 61,
+      "row_index_zero_based": 59,
+      "directory_date": "2026-08-14",
+      "title_exact": "翌日披露報表",
+      "title_utf8_sha256": "42396eca263fe7b4e3dfa7383d35f27847cc40f9a97448438e57bb80945a811d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/59/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "香港发行人翌日披露表应进入股本/回购资本候选；具体事项需正文确认，不能仅按标题定增减方向。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A63",
+      "directory_link_id": 63,
+      "row_index_zero_based": 61,
+      "directory_date": "2026-08-12",
+      "title_exact": "海外監管公告 - 關於獲得藥物臨床試驗批准通知書的公告",
+      "title_utf8_sha256": "976cd4684b9cf0f6663e3c5bd1d207ca6b39fde0f4a3f6698cf0de045190434d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/61/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A78",
+      "directory_link_id": 78,
+      "row_index_zero_based": 76,
+      "directory_date": "2026-07-27",
+      "title_exact": "海外監管公告 - 關於獲得藥物臨床試驗批准通知書的公告",
+      "title_utf8_sha256": "976cd4684b9cf0f6663e3c5bd1d207ca6b39fde0f4a3f6698cf0de045190434d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/76/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A83",
+      "directory_link_id": 83,
+      "row_index_zero_based": 81,
+      "directory_date": "2026-07-17",
+      "title_exact": "翌日披露報表",
+      "title_utf8_sha256": "42396eca263fe7b4e3dfa7383d35f27847cc40f9a97448438e57bb80945a811d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/81/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "香港发行人翌日披露表应进入股本/回购资本候选；具体事项需正文确认，不能仅按标题定增减方向。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A84",
+      "directory_link_id": 84,
+      "row_index_zero_based": 82,
+      "directory_date": "2026-07-16",
+      "title_exact": "海外監管公告 - 關於獲得藥物臨床試驗批准通知書的公告",
+      "title_utf8_sha256": "976cd4684b9cf0f6663e3c5bd1d207ca6b39fde0f4a3f6698cf0de045190434d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/82/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A90",
+      "directory_link_id": 90,
+      "row_index_zero_based": 88,
+      "directory_date": "2026-07-10",
+      "title_exact": "海外監管公告 - 收到關於注射用卡瑞利珠單抗的完整回覆信的公告",
+      "title_utf8_sha256": "2f8f7f40e8c3ee3c887bc39bf6b544fb105418696cc629a8b884b4139af4241c",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/88/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A100",
+      "directory_link_id": 100,
+      "row_index_zero_based": 98,
+      "directory_date": "2026-06-23",
+      "title_exact": "海外監管公告 - 關於撤回藥品註冊申請的公告",
+      "title_utf8_sha256": "71c661cabd3d34648bbabfc4ccfc9644e41f17fe2d99952950a8f3f6db2d9b50",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/98/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A104",
+      "directory_link_id": 104,
+      "row_index_zero_based": 102,
+      "directory_date": "2026-06-16",
+      "title_exact": "海外監管公告 - 關於獲得藥物臨床試驗批准通知書的公告",
+      "title_utf8_sha256": "976cd4684b9cf0f6663e3c5bd1d207ca6b39fde0f4a3f6698cf0de045190434d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/102/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A105",
+      "directory_link_id": 105,
+      "row_index_zero_based": 103,
+      "directory_date": "2026-06-16",
+      "title_exact": "海外監管公告 - 關於獲得藥物臨床試驗批准通知書的公告",
+      "title_utf8_sha256": "976cd4684b9cf0f6663e3c5bd1d207ca6b39fde0f4a3f6698cf0de045190434d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/103/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A110",
+      "directory_link_id": 110,
+      "row_index_zero_based": 108,
+      "directory_date": "2026-06-08",
+      "title_exact": "翌日披露報表",
+      "title_utf8_sha256": "42396eca263fe7b4e3dfa7383d35f27847cc40f9a97448438e57bb80945a811d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/108/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "香港发行人翌日披露表应进入股本/回购资本候选；具体事项需正文确认，不能仅按标题定增减方向。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A112",
+      "directory_link_id": 112,
+      "row_index_zero_based": 110,
+      "directory_date": "2026-06-04",
+      "title_exact": "翌日披露報表",
+      "title_utf8_sha256": "42396eca263fe7b4e3dfa7383d35f27847cc40f9a97448438e57bb80945a811d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/110/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "香港发行人翌日披露表应进入股本/回购资本候选；具体事项需正文确认，不能仅按标题定增减方向。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A121",
+      "directory_link_id": 121,
+      "row_index_zero_based": 119,
+      "directory_date": "2026-05-20",
+      "title_exact": "海外監管公告 - 2025年年度權益分派實施公告",
+      "title_utf8_sha256": "20d85f9f2c4e6e38280bbf953903384491d61f181ee02add3cdcaa0d50408d20",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/119/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A122",
+      "directory_link_id": 122,
+      "row_index_zero_based": 120,
+      "directory_date": "2026-05-19",
+      "title_exact": "海外監管公告 - 關於獲得藥品註冊批准的公告",
+      "title_utf8_sha256": "c71d256b3a2e2ef18e6c45955c9586649b5b771b8b07c3ca7ddb3171dd0379be",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/120/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A124",
+      "directory_link_id": 124,
+      "row_index_zero_based": 122,
+      "directory_date": "2026-05-14",
+      "title_exact": "海外監管公告 - 關於獲得藥物臨床試驗批准通知書的公告",
+      "title_utf8_sha256": "976cd4684b9cf0f6663e3c5bd1d207ca6b39fde0f4a3f6698cf0de045190434d",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/122/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "random_other_title_seed_20261010",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "临床/上市监管事件：既关乎经营管线又可能改变审批风险，保留双主题。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A126",
+      "directory_link_id": 126,
+      "row_index_zero_based": 124,
+      "directory_date": "2026-05-12",
+      "title_exact": "內幕消息公告及海外監管公告 - 關於與百時美施貴寶公司簽署戰略合作及許可協議的公告",
+      "title_utf8_sha256": "36581b26ae85ff4917fe355a691a4bdf94150f319b5145d8d937f5b8a0f3c2fb",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/124/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A131",
+      "directory_link_id": 131,
+      "row_index_zero_based": 129,
+      "directory_date": "2026-04-29",
+      "title_exact": "關連交易 - 更替及轉讓協議",
+      "title_utf8_sha256": "0449491ae47b8b56945f44b6b34312ca6601f38994c827ec77a6c5a3ce20f187",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/129/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A137",
+      "directory_link_id": 137,
+      "row_index_zero_based": 135,
+      "directory_date": "2026-04-29",
+      "title_exact": "海外監管公告 - 關聯（連）交易管理辦法",
+      "title_utf8_sha256": "a47369ae365f0201dd5f4ae543f73d821824a3ab9115c4cb630e92e1f98ebcbc",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/135/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "unknown_not_adjudicated",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A142",
+      "directory_link_id": 142,
+      "row_index_zero_based": 140,
+      "directory_date": "2026-04-22",
+      "title_exact": "海外監管公告 - 2026年第一季度報告",
+      "title_utf8_sha256": "c5b96291adb544ec76b4800335b66a7f45ab0d292558ac547cc0a86a3812a3e4",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/140/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A143",
+      "directory_link_id": 143,
+      "row_index_zero_based": 141,
+      "directory_date": "2026-04-22",
+      "title_exact": "2026年第一季度報告",
+      "title_utf8_sha256": "e3a37d7d46ba04710177cdd97b49e0ac0536ac97332c86a7c939903c4a27a63a",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/141/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A146",
+      "directory_link_id": 146,
+      "row_index_zero_based": 144,
+      "directory_date": "2026-04-17",
+      "title_exact": "截至二零二五年十二月三十一日止年度之末期股息(更新）",
+      "title_utf8_sha256": "e82d819296faa3faf06fd2d3de2e64b0bc47ee1530356165aa944bf1b6f663aa",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/144/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题为末期股息(更新），须与A168/147关联版本并重读相应资本输入；不是明确的财报更正公告。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A147",
+      "directory_link_id": 147,
+      "row_index_zero_based": 145,
+      "directory_date": "2026-04-17",
+      "title_exact": "派發2025年末期股息",
+      "title_utf8_sha256": "d2752fac11bdf5c64aed4d22c58464e79a1b8685cf6b9a40d45be589c6937df5",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/145/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A149",
+      "directory_link_id": 149,
+      "row_index_zero_based": 147,
+      "directory_date": "2026-04-16",
+      "title_exact": "(1)2025年股東週年大會的投票表決結果(2)派發現金分紅(3)委任第十屆董事會董事(4)獨立非執行董事退任 (5)選舉董事長及副董事長以及委任高級管理人員及(6)董事會委員會組成變動",
+      "title_utf8_sha256": "a37acdafcbe670a2bbf26b919cb09200b77eef56d52ea7caddb727c1f413b20b",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/147/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A160",
+      "directory_link_id": 160,
+      "row_index_zero_based": 158,
+      "directory_date": "2026-04-08",
+      "title_exact": "海外監管公告 - 關於員工持股計劃鎖定期解鎖執行完畢的公告",
+      "title_utf8_sha256": "561eef97c2062563683abe1b7bf2d84e63efad586919b6eb611cee7861ca55c5",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/158/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A165",
+      "directory_link_id": 165,
+      "row_index_zero_based": 163,
+      "directory_date": "2026-03-26",
+      "title_exact": "海外監管公告 - 關於員工持股計劃部分份額解鎖條件成就的提示性公告",
+      "title_utf8_sha256": "220066c8f54b2e13ee53e15dfb92780d439948bce87544250c177f000cefe9d0",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/163/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A168",
+      "directory_link_id": 168,
+      "row_index_zero_based": 166,
+      "directory_date": "2026-03-26",
+      "title_exact": "截至2025年12月31日止年度之末期股息",
+      "title_utf8_sha256": "c7a2916290eb1121de3475c6ba5d24a7e9e6af8c2d15a758fda1a0320ff53110",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/166/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital"
+      ],
+      "must_route_topics": [
+        "cash_capital"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "unknown_not_adjudicated",
+        "governance_risk": "unknown_not_adjudicated"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    },
+    {
+      "item_id": "A169",
+      "directory_link_id": 169,
+      "row_index_zero_based": 167,
+      "directory_date": "2026-03-26",
+      "title_exact": "截至2025年12月31日止年度之年度業績公告",
+      "title_utf8_sha256": "db625f2c9a9d0bebf2c54f774679d7b734427125099f6536d7dc02d6e4eace69",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+      "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab",
+      "json_pointer": "/rows/167/title",
+      "pdf_pages": null,
+      "required_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "must_route_topics": [
+        "cash_capital",
+        "business_earnings",
+        "governance_risk"
+      ],
+      "topic_labels": {
+        "cash_capital": "must_route",
+        "business_earnings": "must_route",
+        "governance_risk": "must_route"
+      },
+      "sampling": "key_positive_purposive",
+      "basis": "directory_title_only",
+      "original_body_reverified_for_this_gold": false,
+      "reason": "标题明确指向所列主题；这里只判必须进入候选，不判正文已核验或其他主题无关。",
+      "exclude_authorized": false
+    }
+  ],
+  "required_page_item_ids_by_topic": {
+    "cash_restrictions": [
+      "CMH1-P29",
+      "CMH1-P75",
+      "CMH1-P98",
+      "HRFY-P196",
+      "HRFY-P213",
+      "HRH1-P114",
+      "HRH1-P136",
+      "HRH1-P137",
+      "HRH1-P154"
+    ],
+    "licensing_payments": [
+      "HRFY-P198",
+      "HRFY-P206",
+      "HRFY-P48",
+      "HRFY-P95",
+      "HRFY-P96",
+      "HRH1-P138",
+      "HRH1-P146",
+      "HRH1-P165",
+      "HRH1-P166",
+      "HRH1-P22",
+      "HRH1-P26",
+      "HRH1-P64",
+      "HRH1-P65",
+      "HRH1-P66"
+    ],
+    "related_parties": [
+      "CMH1-P139",
+      "CMH1-P140",
+      "CMH1-P141",
+      "CMH1-P142",
+      "CMH1-P143",
+      "CMH1-P144",
+      "CMH1-P145",
+      "CMH1-P2",
+      "CMH1-P26",
+      "CMH1-P27",
+      "CMH1-P28",
+      "CMH1-P71",
+      "HRFY-P223",
+      "HRFY-P224",
+      "HRFY-P225",
+      "HRFY-P226",
+      "HRH1-P165",
+      "HRH1-P166",
+      "HRH1-P167",
+      "HRH1-P168",
+      "HRH1-P64",
+      "HRH1-P65",
+      "HRH1-P66"
+    ]
+  },
+  "evaluation_contract": {
+    "announcement_recall_denominator": "仅must_route(topic,item)正例对；unknown不当负例、不用于证明precision或无风险。",
+    "financial_recall_denominator": "逐主题唯一required_item_ids，并另报18个all-pages证据包完整率；可额外逐包统计但披露重叠。",
+    "queue_coverage": "每包last_required_position=max(所有required_item_ids在该主题实际完整队列的位置)；排后不能算丢失。",
+    "label_vs_fallback": "分别报告标签命中、补充/规则/回退挽回、最终是否读全。若high-confidence未命中但全队列保留，记标签漏命中而非流程最终漏读。",
+    "no_exclusion_permission": true,
+    "no_investment_quality_claim": "本任务只提供真实材料相关性及证据完整集合。没有Gate、Terminal、估值、价格地图全链对照真值。"
+  },
+  "limitations": [
+    "仅核验公开披露本地副本，未重访远端确认版本、真实性或披露日期。",
+    "公告目录168条有上游覆盖缺口；44条标题金标是有限样本，不是168条完整事实裁决。",
+    "财报580页为全候选池；只对18个关键输入的所列页集合建金标，不是全公司投研。",
+    "未发现明确更正标题；A146仅为股息更新，真实财报更正覆盖仍缺。",
+    "中国移动A格式报告单独公开日期为null，董事会批准日不等于公开日。",
+    "财报中局部抽取存在空框/空单元格歧义，保留原文，不用缺字推断财务数字。",
+    "PDF166/167、FY48及CM98已渲染目视复核；其余证据依据完整本地分页文本与PDF页数/页序，不声称全页视觉验真。"
+  ],
+  "revision_policy": "冻结后不得按Jev/基线结果改本文件；如发现客观源映射或事实错误，另存gold-v2.json与revision-reason.md，保留v1字节与本次哈希。",
+  "evidence_packages": [
+    {
+      "package_id": "G01",
+      "document_id": "HRH1",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "cash_restrictions"
+      ],
+      "title": "恒瑞H1现金口径、跨页受限资产及局部否认",
+      "critical_input": "货币资金38,734,324,278.37元；所有权/使用权受限保证金12,690,878.19元；不属于现金等价物的货币资金合计702,799,344.56元含利息690,108,466.37元。不得将“不适用”当作没有受限资金。",
+      "evidence_types": [
+        "support",
+        "scoped_denial",
+        "cross_page_table",
+        "nonadjacent_notes"
+      ],
+      "required_pages": [
+        114,
+        136,
+        137,
+        154
+      ],
+      "required_item_ids": [
+        "HRH1-P114",
+        "HRH1-P136",
+        "HRH1-P137",
+        "HRH1-P154"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.pdf",
+      "pdf_sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+      "risks": [
+        "PDF136表头单位与PDF137数据必须合并",
+        "PDF154(5)否认仅限仍列为现金等价物的受限项；(6)另有正例",
+        "不可把利息流动性受限与保证金使用受限混成同一法律限制；不可重复加计同一保证金"
+      ]
+    },
+    {
+      "package_id": "G02",
+      "document_id": "HRH1",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "licensing_payments"
+      ],
+      "title": "恒瑞H1 GSK已收款与收入确认时差",
+      "critical_input": "2025年已收GSK5亿美元首付款；2026H1按履约进度确认1,176,097,094.11元。剩余履约义务1,732,201,255.90元含一年内/一年以上；可变里程碑不在其中。",
+      "evidence_types": [
+        "support",
+        "counterevidence",
+        "nonadjacent_notes",
+        "complete_table"
+      ],
+      "required_pages": [
+        22,
+        138,
+        146
+      ],
+      "required_item_ids": [
+        "HRH1-P22",
+        "HRH1-P138",
+        "HRH1-P146"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.pdf",
+      "pdf_sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+      "risks": [
+        "现金收到期间不等于收入期间",
+        "合同负债减非流动负债不能把总额与流动净额相加",
+        "可变对价受约束且不包含在剩余履约义务表内"
+      ]
+    },
+    {
+      "package_id": "G03",
+      "document_id": "HRH1",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "licensing_payments"
+      ],
+      "title": "恒瑞BMS付款条件、生效时点与H1排除",
+      "critical_input": "BMS近期付款可达9.5亿美元=6亿首付款+1.75亿周年付款+有条件2028年1.75亿；潜在152亿需选择权和里程碑。H1尚未确认收入，预计Q3收首款，协议7月生效且未计H1剩余履约义务。",
+      "evidence_types": [
+        "support",
+        "counterevidence",
+        "payment_condition",
+        "nonadjacent_notes"
+      ],
+      "required_pages": [
+        22,
+        26,
+        146
+      ],
+      "required_item_ids": [
+        "HRH1-P22",
+        "HRH1-P26",
+        "HRH1-P146"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.pdf",
+      "pdf_sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+      "risks": [
+        "潜在上限不是保证可收现金",
+        "管理层预期不是已收事实",
+        "同报告已签约、期后生效与期末会计确认分开"
+      ]
+    },
+    {
+      "package_id": "G04",
+      "document_id": "HRH1",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "related_parties",
+        "licensing_payments"
+      ],
+      "title": "恒瑞关联交易否认与许可受让/共同增资并存",
+      "critical_input": "非经营性占用“不适用”不能否认日常关联交易；KIOMED更替许可由恒瑞承继翰森各方权利义务，附注特许权3,000万元；另有瑞宏迪同比例增资总额75,000万元，不能全当恒瑞出资。",
+      "evidence_types": [
+        "support",
+        "scoped_denial",
+        "nonadjacent_notes"
+      ],
+      "required_pages": [
+        64,
+        65,
+        66,
+        165,
+        166
+      ],
+      "required_item_ids": [
+        "HRH1-P64",
+        "HRH1-P65",
+        "HRH1-P66",
+        "HRH1-P165",
+        "HRH1-P166"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.pdf",
+      "pdf_sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+      "risks": [
+        "重大关联交易表、主体关系、发生额非相邻",
+        "75,000万元为现股东合计增资描述",
+        "“后续无进展”与“没有交易”不同"
+      ]
+    },
+    {
+      "package_id": "G05",
+      "document_id": "HRH1",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "恒瑞关联托管收益跨页表",
+      "critical_input": "上海盛迪基金属联营公司，上海盛迪私募基金管理公司受托管理其他资产；2022-08-26至2032-08-25；投资期按实缴出资乘管理费率，本期托管收益3,481,132.08元。",
+      "evidence_types": [
+        "support",
+        "cross_page_table",
+        "scoped_denial"
+      ],
+      "required_pages": [
+        165,
+        166,
+        167
+      ],
+      "required_item_ids": [
+        "HRH1-P165",
+        "HRH1-P166",
+        "HRH1-P167"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.pdf",
+      "pdf_sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+      "risks": [
+        "PDF166表头/币种/单位与PDF167数据合并",
+        "PDF167“关联托管/承包情况说明不适用”不否认已列托管收益",
+        "同页关键管理报酬单位万元不同于托管元"
+      ]
+    },
+    {
+      "package_id": "G06",
+      "document_id": "HRH1",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "恒瑞关联购销发生额与应收应付余额",
+      "critical_input": "完整关联购销表及余额表需分别保留本期/上期、期末/期初和坏账准备；豪森许可收入56,603,773.58元不等同应收账款30,770,746.55元；不可据“其他关联交易不适用”否认普通关联交易。",
+      "evidence_types": [
+        "support",
+        "complete_table",
+        "nonadjacent_notes"
+      ],
+      "required_pages": [
+        165,
+        166,
+        168
+      ],
+      "required_item_ids": [
+        "HRH1-P165",
+        "HRH1-P166",
+        "HRH1-P168"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.pdf",
+      "pdf_sha256": "ff6910663a9726acb889aa061a8bab1433f58890d81ebea013b8c637a097a7aa",
+      "risks": [
+        "发生额不是现金或期末余额",
+        "应收账面余额/坏账准备须保留全列",
+        "其他应付款一格原文空白，不能推断为0"
+      ]
+    },
+    {
+      "package_id": "G07",
+      "document_id": "HRFY",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "licensing_payments"
+      ],
+      "title": "恒瑞Braveheart现金/股权和技术转移条件",
+      "critical_input": "6500万美元首付款含3250万美元现金和等值3250万美元股权；完成技术转移后另1000万美元近期里程碑，总计7500万美元；未来里程碑最高10.13亿美元。",
+      "evidence_types": [
+        "support",
+        "counterevidence",
+        "payment_condition",
+        "complete_table"
+      ],
+      "required_pages": [
+        48
+      ],
+      "required_item_ids": [
+        "HRFY-P48"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.pdf",
+      "pdf_sha256": "6ca26ac99ed3d04d5f1697f68ce758dd1c605209adac94366b020f52bc829b57",
+      "risks": [
+        "同一表行必须连同许可范围与财务条款完整读取",
+        "6500万美元不是全额现金；7500万美元不是无条件已收",
+        "未来里程碑与销售提成不能当现款"
+      ]
+    },
+    {
+      "package_id": "G08",
+      "document_id": "HRFY",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "licensing_payments"
+      ],
+      "title": "恒瑞FY GSK合同义务与潜在上限",
+      "critical_input": "GSK已收首付款5亿美元；未完成履约部分2,806,090,577.11元计合同负债年末余额；剩余义务总额3,077,113,027.33元，未来潜在约120亿美元需要全部项目选择权行使及里程碑达成。",
+      "evidence_types": [
+        "support",
+        "payment_condition",
+        "nonadjacent_notes",
+        "complete_table"
+      ],
+      "required_pages": [
+        48,
+        198,
+        206
+      ],
+      "required_item_ids": [
+        "HRFY-P48",
+        "HRFY-P198",
+        "HRFY-P206"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.pdf",
+      "pdf_sha256": "6ca26ac99ed3d04d5f1697f68ce758dd1c605209adac94366b020f52bc829b57",
+      "risks": [
+        "支付、交易价格、履约进度、收入和剩余义务不可混用",
+        "合同负债总体不全等于单一GSK项目",
+        "可变对价限制必须保留"
+      ]
+    },
+    {
+      "package_id": "G09",
+      "document_id": "HRFY",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "licensing_payments"
+      ],
+      "title": "恒瑞Merck终止研发是许可持续性反证",
+      "critical_input": "Merck KGaA决定不再继续开发HRS-1167，但2024已收1.6亿欧元不可退还首款并确认收入；国际化风险明确伙伴临床失败可影响里程碑等款项。",
+      "evidence_types": [
+        "counterevidence",
+        "support",
+        "cross_page_prose",
+        "payment_condition"
+      ],
+      "required_pages": [
+        48,
+        95,
+        96
+      ],
+      "required_item_ids": [
+        "HRFY-P48",
+        "HRFY-P95",
+        "HRFY-P96"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.pdf",
+      "pdf_sha256": "6ca26ac99ed3d04d5f1697f68ce758dd1c605209adac94366b020f52bc829b57",
+      "risks": [
+        "历史首款不可退不等于未来开发继续或里程碑有保障",
+        "PDF95国际化风险起始段续到PDF96",
+        "MSD与Merck KGaA不得混为同一交易"
+      ]
+    },
+    {
+      "package_id": "G10",
+      "document_id": "HRFY",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "cash_restrictions"
+      ],
+      "title": "恒瑞FY受限保证金与现金等价物排除",
+      "critical_input": "受限保证金100,750,423.86元；未列为现金等价物的利息699,179,346.52元及保证金合计799,929,770.38元；不能被使用范围受限但仍列现金等价物“不适用”覆盖。",
+      "evidence_types": [
+        "support",
+        "scoped_denial",
+        "extraction_ambiguity",
+        "nonadjacent_notes"
+      ],
+      "required_pages": [
+        196,
+        213
+      ],
+      "required_item_ids": [
+        "HRFY-P196",
+        "HRFY-P213"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.pdf",
+      "pdf_sha256": "6ca26ac99ed3d04d5f1697f68ce758dd1c605209adac94366b020f52bc829b57",
+      "risks": [
+        "PDF196适用勾选提取为两个空框，不能以勾选缺失忽略实质表格",
+        "银行利息与保证金限制性质不同",
+        "重复附注金额不能重复扣减"
+      ]
+    },
+    {
+      "package_id": "G11",
+      "document_id": "HRFY",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "恒瑞FY关联方身份、购销与余额完整表",
+      "critical_input": "以母公司/联营/其他关联方关系匹配购销与未结算项目；例如瑞宏迪65,671,854.86元提供服务/出售商品与73,547,897.48元应收账款是不同口径。",
+      "evidence_types": [
+        "support",
+        "complete_table",
+        "cross_page_section"
+      ],
+      "required_pages": [
+        223,
+        224,
+        225,
+        226
+      ],
+      "required_item_ids": [
+        "HRFY-P223",
+        "HRFY-P224",
+        "HRFY-P225",
+        "HRFY-P226"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.pdf",
+      "pdf_sha256": "6ca26ac99ed3d04d5f1697f68ce758dd1c605209adac94366b020f52bc829b57",
+      "risks": [
+        "公司名称换行、主子公司合并口径不能丢失",
+        "发生额与余额/坏账准备不互换",
+        "关键管理报酬单位万元与其他表元不同"
+      ]
+    },
+    {
+      "package_id": "G12",
+      "document_id": "HRFY",
+      "issuer": "江苏恒瑞医药股份有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "恒瑞FY关联托管否认不能推广到关联服务",
+      "critical_input": "FY受托管理、租赁、担保和资金拆借栏分别不适用，但销售/提供劳务表有上海盛迪基金6,962,264.15元；不得借否认区块判无关联交易，也不能用H1的新列报反改FY。",
+      "evidence_types": [
+        "support",
+        "scoped_denial",
+        "counterevidence"
+      ],
+      "required_pages": [
+        224,
+        225,
+        226
+      ],
+      "required_item_ids": [
+        "HRFY-P224",
+        "HRFY-P225",
+        "HRFY-P226"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+      "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.pdf",
+      "pdf_sha256": "6ca26ac99ed3d04d5f1697f68ce758dd1c605209adac94366b020f52bc829b57",
+      "risks": [
+        "否认仅适用该期间该子项",
+        "不能把FY服务收入擅自改分类为H1托管收入",
+        "既有正例与否认需同时送达"
+      ]
+    },
+    {
+      "package_id": "G13",
+      "document_id": "CMH1",
+      "issuer": "中国移动有限公司",
+      "target_topics": [
+        "cash_restrictions"
+      ],
+      "title": "中国移动两类非相邻受限存款",
+      "critical_input": "PDF75货币资金受限银行存款2,781百万元，主要客户备付金/履约保证金；PDF98其他非流动资产受限存款8,310百万元，为财务公司法定准备金且不可用于日常业务。PDF29摘要仅列前者。",
+      "evidence_types": [
+        "support",
+        "counterevidence",
+        "nonadjacent_notes",
+        "complete_table"
+      ],
+      "required_pages": [
+        29,
+        75,
+        98
+      ],
+      "required_item_ids": [
+        "CMH1-P29",
+        "CMH1-P75",
+        "CMH1-P98"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.pdf",
+      "pdf_sha256": "f1f174314b3aa504dcbf726ac218fa62bb072a4bc89e90c350ec3f4841d70eb7",
+      "risks": [
+        "仅搜货币资金会漏PDF98",
+        "两处限制性质不同；不能把8,310加进货币资金合计187,857",
+        "3个月以上定存不自动等于法律受限；不能以摘要视为完整"
+      ]
+    },
+    {
+      "package_id": "G14",
+      "document_id": "CMH1",
+      "issuer": "中国移动有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "中国移动关联方定义与主体范围",
+      "critical_input": "会计政策明确仅同受国家控制而无其他关系不构成关联方；附注列明最终母公司、非上市/上市子公司、母公司联营及本集团联营，按实际列示识别。",
+      "evidence_types": [
+        "support",
+        "scoped_denial",
+        "nonadjacent_notes"
+      ],
+      "required_pages": [
+        71,
+        139
+      ],
+      "required_item_ids": [
+        "CMH1-P71",
+        "CMH1-P139"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.pdf",
+      "pdf_sha256": "f1f174314b3aa504dcbf726ac218fa62bb072a4bc89e90c350ec3f4841d70eb7",
+      "risks": [
+        "不能把所有国企自动归关联方",
+        "母公司持股68.67%与本集团联营身份分开",
+        "A股封面代码不影响同一集团H股研究适用性"
+      ]
+    },
+    {
+      "package_id": "G15",
+      "document_id": "CMH1",
+      "issuer": "中国移动有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "中国移动非经营占用/重大交易否认与日常交易并存",
+      "critical_input": "不存在非经营性占用、特定重大收购/共同投资/债权债务交易，不等于无关联交易。PDF26-27列日常关联交易年度上限及半年实际金额，不能拿上限当实际。",
+      "evidence_types": [
+        "support",
+        "scoped_denial",
+        "cross_page_table",
+        "complete_table"
+      ],
+      "required_pages": [
+        2,
+        26,
+        27,
+        28
+      ],
+      "required_item_ids": [
+        "CMH1-P2",
+        "CMH1-P26",
+        "CMH1-P27",
+        "CMH1-P28"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.pdf",
+      "pdf_sha256": "f1f174314b3aa504dcbf726ac218fa62bb072a4bc89e90c350ec3f4841d70eb7",
+      "risks": [
+        "PDF26标题/引言与PDF27表必须合读",
+        "PDF27上半表亿元，下半表百万元",
+        "违规担保否认不同于无子公司保函担保"
+      ]
+    },
+    {
+      "package_id": "G16",
+      "document_id": "CMH1",
+      "issuer": "中国移动有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "中国移动重大关联交易金额完整续表与16条附注",
+      "critical_input": "完整金额表跨PDF140-141，附注1-16横跨141-143；例如铁塔使用相关成本18,685百万元涵盖折旧/使用费/租赁利息/服务，不应当作单一现金租金。",
+      "evidence_types": [
+        "support",
+        "cross_page_table",
+        "nonadjacent_notes",
+        "complete_table"
+      ],
+      "required_pages": [
+        139,
+        140,
+        141,
+        142,
+        143
+      ],
+      "required_item_ids": [
+        "CMH1-P139",
+        "CMH1-P140",
+        "CMH1-P141",
+        "CMH1-P142",
+        "CMH1-P143"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.pdf",
+      "pdf_sha256": "f1f174314b3aa504dcbf726ac218fa62bb072a4bc89e90c350ec3f4841d70eb7",
+      "risks": [
+        "不可固定Top-K停止于表头或首张表",
+        "费用定义需要非同页脚注8；不同关联主体不得合并",
+        "主表单位人民币百万元、半年发生额，不是期末余额"
+      ]
+    },
+    {
+      "package_id": "G17",
+      "document_id": "CMH1",
+      "issuer": "中国移动有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "中国移动关联交易余额与经营背景",
+      "critical_input": "PDF144列与移动集团、集团联营和母公司联营三类交易余额；PDF145解释主要来自所述经营交易。PDF140/142/143帮助辨别存款、银行产品与相关主体，不能见关联余额即称资金占用。",
+      "evidence_types": [
+        "support",
+        "counterevidence",
+        "nonadjacent_notes",
+        "complete_table"
+      ],
+      "required_pages": [
+        139,
+        140,
+        142,
+        143,
+        144,
+        145
+      ],
+      "required_item_ids": [
+        "CMH1-P139",
+        "CMH1-P140",
+        "CMH1-P142",
+        "CMH1-P143",
+        "CMH1-P144",
+        "CMH1-P145"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.pdf",
+      "pdf_sha256": "f1f174314b3aa504dcbf726ac218fa62bb072a4bc89e90c350ec3f4841d70eb7",
+      "risks": [
+        "余额不等于期间交易额；银行存款作为资产与吸收存款负债方向不同",
+        "PDF144后解释在145不可截断",
+        "“主要”不是“全部”，不能排除未逐一识别性质的余额"
+      ]
+    },
+    {
+      "package_id": "G18",
+      "document_id": "CMH1",
+      "issuer": "中国移动有限公司",
+      "target_topics": [
+        "related_parties"
+      ],
+      "title": "中国移动关联存款业务方向、利息与限额",
+      "critical_input": "财务公司吸收关联方存款，PDF27合计期末55,797百万元；PDF140与移动集团净收到短期银行存款15,757百万元及利息支出247百万元，PDF142说明吸收存款并付息。与PDF144其他应付款不能不核范围直接相等。",
+      "evidence_types": [
+        "support",
+        "counterevidence",
+        "complete_table",
+        "nonadjacent_notes",
+        "rounding"
+      ],
+      "required_pages": [
+        27,
+        140,
+        142,
+        144
+      ],
+      "required_item_ids": [
+        "CMH1-P27",
+        "CMH1-P140",
+        "CMH1-P142",
+        "CMH1-P144"
+      ],
+      "complete_evidence_rule": "本包所有required_item_ids均须送达并读取；全文页摘录内的表头、期间、币种、限定语及指定风险不得省略。页被排在后面不等于遗漏；报告整包最后一页的队列位置。",
+      "sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+      "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+      "pdf_sourcepath": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.pdf",
+      "pdf_sha256": "f1f174314b3aa504dcbf726ac218fa62bb072a4bc89e90c350ec3f4841d70eb7",
+      "risks": [
+        "公司吸收关联方存款不是公司把钱存给关联方",
+        "90,000每日限额不是期末余额或交易额",
+        "PDF27按百万元显示手续费0仍有脚注0.33万元；舍入零不代表无交易",
+        "披露主体与范围不同，不能强求55,797=56,103"
+      ]
+    }
+  ],
+  "full_gold_sha256": "cd21c0f4d4e5e9d713bd0d7d64c9f9b7c01afa387ea372ed15b2cd133feb4ef4"
+}

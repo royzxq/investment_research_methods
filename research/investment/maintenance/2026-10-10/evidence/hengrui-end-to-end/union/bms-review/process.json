@@ -1,0 +1,12 @@
+{
+  "generator": "codex",
+  "task_id": "union-bms-review",
+  "status": "completed",
+  "scope": "symmetric fresh-context semantic audit/repair of BMS terms after initial consumer turns",
+  "model_reported_by_event": null,
+  "launched_at": "2026-10-10T15:11:53.412412+00:00",
+  "pid": 52641,
+  "exit_code": 0,
+  "completed_at": "2026-10-10T15:12:58.285777+00:00",
+  "execution_duration_seconds": 64.8732846248895
+}

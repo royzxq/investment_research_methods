@@ -1,0 +1,20 @@
+{
+  "date_shanghai": "2026-10-10",
+  "scope": "Frozen-source locator-to-verified-evidence small workflow; excludes new downloading, PDF extraction, valuation and complete stock report",
+  "arms": ["repeated", "union"],
+  "source_scope": "Full copies of existing Hengrui 2026H1 extracted text and BMS announcement. Runtime searches KIOMED PHARMA SA and 十四、关联方及关联交易, then expands the fixed structural neighborhood used in both arms.",
+  "receipt_rule": "Each source packet requires a separate model tool response. No program auto-acknowledgement. The model acknowledges only a received packet in its next call.",
+  "failure": "Symmetric controlled first-read rejection, no source or receipt delivered; exit 75. Both consumers must lower the complete JSON return budget from 9000 to at most 6000 bytes and continue. Not a natural error-rate estimate.",
+  "comparison": "Same literal question prompt, same source and tool code, same dependency obligations, same return limit after failure, same CLI defaults. Only per-topic queues versus shared union reading differ.",
+  "actual_usage": "Whole turn.completed provider counts across all calls in each CLI turn: input, cached subset, output, reasoning subset; do not infer stage token counts or actual billing.",
+  "time": "Monotonic process elapsed seconds, includes startup and teardown. Paired runs dispatched concurrently.",
+  "retries": "Retain every observed command, draft fix and tool/API error. Do not drop failed attempts from the comparison.",
+  "quality": "Input-range delivery check, all declared topic dependencies, exact quotation audit, and parent semantic review of both answers against all seven source units. Source contents are not sent in the initial prompts; held-out expected facts/previous answers are not in the workspaces.",
+  "limitations": [
+    "One matched pair does not establish a distribution or typical speed.",
+    "Repeated per-topic reading is the selected baseline, not an optimally deduplicated manual reader.",
+    "The fixed neighborhood is a bounded test fixture, not an exhaustive discovery algorithm.",
+    "Local source versions are frozen; not a new verification of all public disclosures or PDF layout.",
+    "This parent maintenance chat and one-time fixture development are outside paired runtime counts. Runtime locator construction, tool output, continuation, model drafting and audit/recovery are inside."
+  ]
+}

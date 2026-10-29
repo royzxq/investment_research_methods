@@ -1,0 +1,85 @@
+{
+  "wall_ms": 90465,
+  "parallel_batches": 1,
+  "records": [
+    {
+      "batch": 1,
+      "started_ms": 1791640300479,
+      "completed_ms": 1791640313350,
+      "wall_ms": 12871,
+      "usage": {
+        "input_tokens": 24749,
+        "output_tokens": 1769
+      },
+      "failed": 1,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6846
+    },
+    {
+      "batch": 2,
+      "started_ms": 1791640313476,
+      "completed_ms": 1791640326788,
+      "wall_ms": 13312,
+      "usage": {
+        "input_tokens": 25630,
+        "output_tokens": 1830
+      },
+      "failed": 0,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6116
+    },
+    {
+      "batch": 3,
+      "started_ms": 1791640326908,
+      "completed_ms": 1791640352255,
+      "wall_ms": 25347,
+      "usage": {
+        "input_tokens": 25508,
+        "output_tokens": 1830
+      },
+      "failed": 0,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 8683
+    },
+    {
+      "batch": 4,
+      "started_ms": 1791640352360,
+      "completed_ms": 1791640364904,
+      "wall_ms": 12544,
+      "usage": {
+        "input_tokens": 25494,
+        "output_tokens": 1830
+      },
+      "failed": 0,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 6424
+    },
+    {
+      "batch": 5,
+      "started_ms": 1791640365011,
+      "completed_ms": 1791640379395,
+      "wall_ms": 14384,
+      "usage": {
+        "input_tokens": 23865,
+        "output_tokens": 1708
+      },
+      "failed": 2,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 9681
+    },
+    {
+      "batch": 6,
+      "started_ms": 1791640379491,
+      "completed_ms": 1791640390851,
+      "wall_ms": 11360,
+      "usage": {
+        "input_tokens": 15325,
+        "output_tokens": 1098
+      },
+      "failed": 0,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 3897
+    }
+  ],
+  "purpose": "isolated elapsed-time probe, same frozen announcement corpus and questions"
+}

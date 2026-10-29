@@ -1,0 +1,24 @@
+{
+  "method": "sum latest reported input fields by unique assistant message ID; validated against all three completed peer stages",
+  "events_sha256": "add502972377bd5b1fefc33fdb765ad092ad9b89e3636ab58cb426d9ea80e128",
+  "source_event_lines": [
+    57,
+    81,
+    94,
+    4991,
+    5220,
+    9584,
+    9618,
+    24157,
+    24219
+  ],
+  "known_input_fields": {
+    "input_tokens": 30219,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 146304
+  },
+  "output_tokens": null,
+  "pending_request_usage": null,
+  "status": "lower_bound_known_response_inputs_only",
+  "warning": "Assistant message output_tokens stay zero even in peer runs whose final output is nonzero. These zeros are not actual total output. Estimated thinking progress is not provider usage."
+}

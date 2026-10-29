@@ -1,0 +1,60 @@
+{
+  "schema_version": "research-usage/v1",
+  "generator": "claude",
+  "execution_dir": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-12-hengrui-claude-e2e/union/bms-review",
+  "process": {
+    "task_id": "union-bms-review",
+    "generator": "claude",
+    "status": "timeout",
+    "pid": 80790,
+    "exit_code": 143,
+    "launched_at": "2026-10-12T00:44:18.442667+00:00",
+    "completed_at": "2026-10-12T00:50:59.031793+00:00",
+    "execution_duration_seconds": 400.61992774996907
+  },
+  "duration": {
+    "seconds": 400.61992774996907,
+    "basis": "process.execution_duration_seconds"
+  },
+  "models": [
+    {
+      "model": "deepseek-flash[1m]",
+      "source": {
+        "path": "events.jsonl",
+        "line": 5,
+        "byte_offset": 1154,
+        "sha256": "1f1de50927ec6864be1a8ffd98e76a7b0c3a6ad8fab23053d7aa29df1e0f55f1",
+        "field": "model"
+      }
+    }
+  ],
+  "source": {
+    "path": "events.jsonl",
+    "status": "complete_read",
+    "sha256": "add502972377bd5b1fefc33fdb765ad092ad9b89e3636ab58cb426d9ea80e128",
+    "bytes": 4972668,
+    "lines": 24222,
+    "invalid_lines": []
+  },
+  "scope": {
+    "attempt": "this_directory_only",
+    "subagent_coverage": "unknown",
+    "all_attempt_tokens": "unknown",
+    "cross_provider_total": null
+  },
+  "summary": {
+    "method": "single_result_verbatim_no_aggregation",
+    "status": "unavailable",
+    "usage": null,
+    "modelUsage": null,
+    "event_lines": [],
+    "total_tokens": null
+  },
+  "records": [],
+  "issues": [],
+  "interpretation": {
+    "reasoning_tokens": "reported_component_never_added_to_output",
+    "cost": "provider_reported_fields_only_not_verified_billing",
+    "subscription_quota": "unknown"
+  }
+}

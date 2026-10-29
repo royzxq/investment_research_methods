@@ -111,11 +111,12 @@ def load_base(path, methods, exchange):
         base = _load_original_base(base_path, methods, exchange)
         recovered = _load_original_base(recovery_path, methods, exchange)
         generators = verified['recovered_generators']
-        require(set(recovered['documents']) == set(generators), 'recovery opinions incomplete')
+        require(set(generators) <= set(recovered['documents']), 'recovery opinions incomplete')
         require(not set(base['documents']) & set(generators), 'recovery replaced a completed opinion')
         return dict(base, seal=verified, path=path, base_sha256=sha(path.read_bytes()),
-                    round_path=base_path, documents=dict(base['documents'], **recovered['documents']),
-                    entries=dict(base['entries'], **recovered['entries']))
+                    round_path=base_path, documents=dict(base['documents'], **{
+                        g:recovered['documents'][g] for g in generators}),
+                    entries=dict(base['entries'], **{g:recovered['entries'][g] for g in generators}))
     return _load_original_base(path, methods, exchange)
 
 

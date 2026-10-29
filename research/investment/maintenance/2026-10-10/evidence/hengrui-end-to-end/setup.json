@@ -1,0 +1,30 @@
+{
+  "scope": "matched bounded source-to-evidence workflow with one symmetric controlled output-limit failure",
+  "workspace_method": "disposable isolated cwd; no production ledger",
+  "arms": {
+    "repeated": {
+      "cwd": "/private/tmp/hengrui-e2e-repeated-b1oqna39",
+      "prompt_sha256": "1374653e013bd0846cfa585f599bcecced924f009294d5a351a3123381db942a",
+      "files": {
+        "config.json": "d9317ce554285c524432fd6909ba66eba096aebbb2fac8fe063237e32dcbfc15",
+        "bench_tool.py": "569d30a7feee722c512269d44feedff735db010e5b0386f8e7f9029a3ff3ed84",
+        "scripts/research_reader.py": "890467917500a11a8cd3c388b7e9e87d94568c4cb812d5f0279f4d65031f5f41",
+        "scripts/research_evidence.py": "ce597fbfb59682af47d49ddc4650811146314c3086926a5b61e9a2d557912529",
+        "sources/bms.txt": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+        "sources/finance.txt": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e"
+      }
+    },
+    "union": {
+      "cwd": "/private/tmp/hengrui-e2e-union-lm6xfz2g",
+      "prompt_sha256": "58fc812cd7bdd71aebe22b88ced85d3802aeada5b2539b6d32f406f9f0758ecc",
+      "files": {
+        "config.json": "ef04251b0c6a45a2120449061a004314e0653da3ab09dff5939e2b53ad2f54fa",
+        "bench_tool.py": "569d30a7feee722c512269d44feedff735db010e5b0386f8e7f9029a3ff3ed84",
+        "scripts/research_reader.py": "890467917500a11a8cd3c388b7e9e87d94568c4cb812d5f0279f4d65031f5f41",
+        "scripts/research_evidence.py": "ce597fbfb59682af47d49ddc4650811146314c3086926a5b61e9a2d557912529",
+        "sources/bms.txt": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+        "sources/finance.txt": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e"
+      }
+    }
+  }
+}

@@ -132,6 +132,20 @@ def save(path, value):
     temporary.replace(path)
 
 
+def workspace_instructions(folder):
+    """Runtime filesystem roles; keep every frozen prompt/input byte unchanged."""
+    return (f'\n执行文件写入边界（覆盖冻结提示词中允许在整个execution目录写临时材料的范围）：\n'
+            f'本批执行目录：{folder}\n'
+            f'自检材料目录：{folder / "agent"}/\n'
+            '报告及价格JSON仍写冻结暂存路径。其它取证、自检输出写上述agent/或'
+            '原output/stock-research-*目录；Jev候选与原文只写jev/materials/，'
+            '其调用日志由route工具维护。不要自行写jev/summary.json；查看摘要用'
+            'research_jev.summarize(folder, persist=False)。'
+            'execution根目录和runner/由运行器维护，禁止写research-validation.json、'
+            'framework-compatibility.json、process/entry/accepted/candidate-result/queue-result等运行记录。'
+            'CLI结构化回执仍按原协议返回。代理自检不代替运行器独立验收。\n')
+
+
 def emit(value):
     try:
         print(json.dumps(value, ensure_ascii=False), flush=True)
@@ -1326,6 +1340,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     f'build必须加 --legacy-snapshot {run / "framework-snapshot/manifest.json"}；'
                     '不改原始prompt/input/hash，不将本批升级为v4。\n').encode('utf-8')
             payload += research_jev.instructions(folder).encode('utf-8')
+            payload += workspace_instructions(folder).encode('utf-8')
             dependency = None
             if frozen['evidence_workflow'] is not None:
                 process['evidence_workflow'] = frozen['evidence_workflow']
@@ -1452,8 +1467,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                         require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT),
                         require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT))
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
-                    write_new(folder / 'research-validation.json', encode(audit_result))
-                write_new(folder / 'framework-compatibility.json', encode(compatibility))
+                    write_new(folder / 'runner/research-validation.json', encode(audit_result))
+                write_new(folder / 'runner/framework-compatibility.json', encode(compatibility))
                 save(folder / 'process.json', process)
                 publish_pair(entry, staged, root)
             completed = stamp()
@@ -1469,7 +1484,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                    retryable=attempt == 1 and entry['status'] == 'failed' and retryable and not cancelled.is_set())
     process['actual_model'] = observed_model(folder, generator, profile)
     try:
-        process['jev'] = research_jev.summarize(folder)
+        process['jev'] = research_jev.summarize(folder, persist=False)
+        write_new(folder / 'runner/jev-summary.json', encode(process['jev']))
     except Exception as exc:
         process['jev_audit_error'] = type(exc).__name__
     save(folder / 'process.json', process)

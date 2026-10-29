@@ -1,0 +1,3 @@
+{"type": "thread.started", "thread_id": "01a12628-5aa1-7060-8336-dcbc150b577b"}
+{"type": "turn.started"}
+{"type": "turn.completed", "usage": {"input_tokens": 164362, "cached_input_tokens": 117760, "cache_write_input_tokens": 0, "output_tokens": 5107, "reasoning_output_tokens": 25}}

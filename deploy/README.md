@@ -1,5 +1,7 @@
 # 自动个股研究调度
 
+执行目录的 `runner/` 保存运行器独立验收与遥测，代理自检写 `agent/` 或原 scratch；冻结输入不改。原生完成但因验收文件冲突未发布的 Codex 产物，可在明确授权后用 `scripts/research_recovery.py restore-publication --seal <原封口> --exchange <原exchange> --authorization <授权原文>` 重新验收并追加恢复封口；不启动研究、不覆盖原失败历史，消费者保留原 DSH 记录，只补 Codex。见 [文件边界与发布恢复 ADR](../docs/adr/ADR-20261026-research-publication-restore.md)。
+
 本仓负责研究执行，`ai_investment` 负责信号/量价包及价格写回。新请求默认双端为 Codex 和 DSH，遵循现有 stock-research 技能。真实 generator 分别为 codex、dsh；固定业务席位分别是 gemini、claude。历史 Claude 批次保留 generator=claude 并继续用 CC，和 DSH 不能在同一批次重复占票。请求/结果/封口 v2 与 v1 并读，详见 [迁移 ADR](../docs/adr/ADR-20261023-dsh-research-seat-migration.md)。实际模型只从运行日志观察，无可核验值则为 null。
 
 在本仓运行（Python 3.10+，只用标准库；示例复用相邻仓虚拟环境）：

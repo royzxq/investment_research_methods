@@ -1,0 +1,381 @@
+{
+  "results": {
+    "repeated": {
+      "initial_usage": {
+        "input_tokens": 740454,
+        "cached_input_tokens": 687872,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 6812,
+        "reasoning_output_tokens": 26
+      },
+      "followup_usage": {
+        "input_tokens": 70489,
+        "cached_input_tokens": 58368,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 917,
+        "reasoning_output_tokens": 25
+      },
+      "total_usage": {
+        "input_tokens": 810943,
+        "cached_input_tokens": 746240,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 7729,
+        "reasoning_output_tokens": 51
+      },
+      "input_plus_output": 818672,
+      "uncached_input_plus_output": 72432,
+      "cumulative_process_seconds": 221.28736974997446,
+      "wall_seconds_including_interstage_gap": 402.246533,
+      "interstage_gap_seconds": 180.95916325002554,
+      "followup_process": {
+        "generator": "codex",
+        "task_id": "repeated-bms-review",
+        "status": "completed",
+        "scope": "symmetric fresh-context semantic audit/repair of BMS terms after initial consumer turns",
+        "model_reported_by_event": null,
+        "launched_at": "2026-10-10T15:11:53.412265+00:00",
+        "pid": 52640,
+        "exit_code": 0,
+        "completed_at": "2026-10-10T15:12:49.948473+00:00",
+        "execution_duration_seconds": 56.53602970880456
+      },
+      "initial_details": {
+        "process": {
+          "generator": "codex",
+          "task_id": "repeated",
+          "status": "completed",
+          "scope": "actual model tool loop: locate, source returns, continuation, verification, reference audit and controlled failure recovery",
+          "model_reported_by_event": null,
+          "launched_at": "2026-10-10T15:06:07.701940+00:00",
+          "pid": 51056,
+          "exit_code": 0,
+          "completed_at": "2026-10-10T15:08:52.453671+00:00",
+          "execution_duration_seconds": 164.7513400411699
+        },
+        "usage": {
+          "input_tokens": 740454,
+          "cached_input_tokens": 687872,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 6812,
+          "reasoning_output_tokens": 26
+        },
+        "input_plus_output": 747266,
+        "uncached_input": 52582,
+        "completed_turns": 1,
+        "command_calls": 18,
+        "program_calls": {
+          "locate": 1,
+          "read": 16,
+          "check": 1
+        },
+        "command_failures": 1,
+        "controlled_failures": 1,
+        "other_program_failures": [],
+        "source_packets": 14,
+        "source_characters": 15503,
+        "source_packet_stdout_bytes": 49863,
+        "all_tool_stdout_bytes": 54883,
+        "source_packets_with_partial_requested_range": 6,
+        "complete_program_payloads_in_cli_events": 18,
+        "unmatched_program_payload_indices": [],
+        "source_delivery": {
+          "licensing": {
+            "all_units_received": true,
+            "received_units": {
+              "HRH1-P64": true,
+              "HRH1-P65": true,
+              "HRH1-P66": true,
+              "HRH1-P165": true,
+              "HRH1-P166": true,
+              "HRH1-P167": true,
+              "A126": true
+            },
+            "original_characters": 6988
+          },
+          "related": {
+            "all_units_received": true,
+            "received_units": {
+              "HRH1-P64": true,
+              "HRH1-P65": true,
+              "HRH1-P66": true,
+              "HRH1-P165": true,
+              "HRH1-P166": true,
+              "HRH1-P167": true
+            },
+            "original_characters": 4843
+          },
+          "cash": {
+            "all_units_received": true,
+            "received_units": {
+              "HRH1-P66": true,
+              "HRH1-P165": true,
+              "A126": true
+            },
+            "original_characters": 3672
+          }
+        },
+        "model_reports_input_complete": true,
+        "required_pairs": 16,
+        "covered_pairs": 16,
+        "missing_pairs": [],
+        "extra_pairs": [
+          [
+            "cash",
+            "HRH1-P166"
+          ],
+          [
+            "cash",
+            "HRH1-P167"
+          ],
+          [
+            "cash",
+            "HRH1-P64"
+          ],
+          [
+            "cash",
+            "HRH1-P65"
+          ]
+        ],
+        "final_quote_audit": {
+          "checked": 20,
+          "issues": [],
+          "interpretation": "Exact source text only; not claim entailment."
+        },
+        "audit_attempts": 1,
+        "quote_issues_by_audit": [
+          0
+        ],
+        "final_check_gaps": [
+          "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+          "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+        ],
+        "facts_checked_by": "Parent semantic comparison with actual source texts; not inferred from IDs or quotes alone"
+      },
+      "followup_command_calls": 3,
+      "total_recorded_command_calls": 21,
+      "followup_source_return_bytes": 7598,
+      "followup_full_source_return_in_cli_events": true,
+      "followup_audit": {
+        "status": "bms_terms_reviewed",
+        "received": "413c2cbee60fb8376955c44f0a0f8265e6405feb6740a5ddc18b02633d6eda29",
+        "source_sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+        "previous_draft_sha256": "00b3053db89868ad0ee1b6c5909c4d4230995c1f08ae8cfa9fee52062113d284",
+        "changed_claim_ids": [
+          "C5"
+        ],
+        "quotes_checked": 18,
+        "other_claims_unchanged": true,
+        "scope": "model semantic review of BMS financial terms; exact quote check by program",
+        "revised_review_sha256": "4c8c7d8e907f7112212305f4c4a611c9fabc1898a6a7500ee84db88f224d0de8"
+      },
+      "final_exact_quotes": 18,
+      "final_quote_issues": [],
+      "topic_pairs_unchanged": true,
+      "non_bms_claims_unchanged": true,
+      "semantic_checkpoints_passed": 9,
+      "semantic_checkpoints_total": 9,
+      "initial_royalty_finding": "Present, but region only described as related territory."
+    },
+    "union": {
+      "initial_usage": {
+        "input_tokens": 312880,
+        "cached_input_tokens": 275456,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3495,
+        "reasoning_output_tokens": 9
+      },
+      "followup_usage": {
+        "input_tokens": 70573,
+        "cached_input_tokens": 45184,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 923,
+        "reasoning_output_tokens": 49
+      },
+      "total_usage": {
+        "input_tokens": 383453,
+        "cached_input_tokens": 320640,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 4418,
+        "reasoning_output_tokens": 58
+      },
+      "input_plus_output": 387871,
+      "uncached_input_plus_output": 67231,
+      "cumulative_process_seconds": 187.84382329205982,
+      "wall_seconds_including_interstage_gap": 410.583618,
+      "interstage_gap_seconds": 222.73979470794018,
+      "followup_process": {
+        "generator": "codex",
+        "task_id": "union-bms-review",
+        "status": "completed",
+        "scope": "symmetric fresh-context semantic audit/repair of BMS terms after initial consumer turns",
+        "model_reported_by_event": null,
+        "launched_at": "2026-10-10T15:11:53.412412+00:00",
+        "pid": 52641,
+        "exit_code": 0,
+        "completed_at": "2026-10-10T15:12:58.285777+00:00",
+        "execution_duration_seconds": 64.8732846248895
+      },
+      "initial_details": {
+        "process": {
+          "generator": "codex",
+          "task_id": "union",
+          "status": "completed",
+          "scope": "actual model tool loop: locate, source returns, continuation, verification, reference audit and controlled failure recovery",
+          "model_reported_by_event": null,
+          "launched_at": "2026-10-10T15:06:07.702159+00:00",
+          "pid": 51057,
+          "exit_code": 0,
+          "completed_at": "2026-10-10T15:08:10.672729+00:00",
+          "execution_duration_seconds": 122.97053866717033
+        },
+        "usage": {
+          "input_tokens": 312880,
+          "cached_input_tokens": 275456,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 3495,
+          "reasoning_output_tokens": 9
+        },
+        "input_plus_output": 316375,
+        "uncached_input": 37424,
+        "completed_turns": 1,
+        "command_calls": 10,
+        "program_calls": {
+          "locate": 1,
+          "read": 8,
+          "check": 1
+        },
+        "command_failures": 1,
+        "controlled_failures": 1,
+        "other_program_failures": [],
+        "source_packets": 6,
+        "source_characters": 6988,
+        "source_packet_stdout_bytes": 22438,
+        "all_tool_stdout_bytes": 27425,
+        "source_packets_with_partial_requested_range": 3,
+        "complete_program_payloads_in_cli_events": 10,
+        "unmatched_program_payload_indices": [],
+        "source_delivery": {
+          "shared": {
+            "all_units_received": true,
+            "received_units": {
+              "HRH1-P64": true,
+              "HRH1-P65": true,
+              "HRH1-P66": true,
+              "HRH1-P165": true,
+              "HRH1-P166": true,
+              "HRH1-P167": true,
+              "A126": true
+            },
+            "original_characters": 6988
+          }
+        },
+        "model_reports_input_complete": true,
+        "required_pairs": 16,
+        "covered_pairs": 16,
+        "missing_pairs": [],
+        "extra_pairs": [
+          [
+            "cash",
+            "HRH1-P166"
+          ],
+          [
+            "cash",
+            "HRH1-P167"
+          ]
+        ],
+        "final_quote_audit": {
+          "checked": 17,
+          "issues": [],
+          "interpretation": "Exact source text only; not claim entailment."
+        },
+        "audit_attempts": 1,
+        "quote_issues_by_audit": [
+          0
+        ],
+        "final_check_gaps": [
+          "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+          "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+        ],
+        "facts_checked_by": "Parent semantic comparison with actual source texts; not inferred from IDs or quotes alone"
+      },
+      "followup_command_calls": 2,
+      "total_recorded_command_calls": 12,
+      "followup_source_return_bytes": 7803,
+      "followup_full_source_return_in_cli_events": true,
+      "followup_audit": {
+        "status": "bms_terms_reviewed",
+        "received": "76d38eb99e0177389eec8bebfa76cc3c277a898cad0eab09104efc9048322a23",
+        "source_sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+        "previous_draft_sha256": "6dc8230c0df55ab7ef06ad3249f3d48a4e39fffbfe9fbfd1cf52916280646d03",
+        "changed_claim_ids": [
+          "C5"
+        ],
+        "quotes_checked": 18,
+        "other_claims_unchanged": true,
+        "scope": "model semantic review of BMS financial terms; exact quote check by program",
+        "revised_review_sha256": "6a8b6bd56e771994df8e9a2a606eac4d234c524fd7d529dc2a6c6cf807e5fdd6"
+      },
+      "final_exact_quotes": 18,
+      "final_quote_issues": [],
+      "topic_pairs_unchanged": true,
+      "non_bms_claims_unchanged": true,
+      "semantic_checkpoints_passed": 9,
+      "semantic_checkpoints_total": 9,
+      "initial_royalty_finding": "Omitted tiered net-sales royalty despite A126 being delivered and included in the topic map."
+    }
+  },
+  "delta": {
+    "input_plus_output": {
+      "baseline": 818672,
+      "optimized": 387871,
+      "difference": -430801,
+      "reduction_percent": 52.62192917309984
+    },
+    "uncached_input_plus_output": {
+      "baseline": 72432,
+      "optimized": 67231,
+      "difference": -5201,
+      "reduction_percent": 7.18052794345041
+    },
+    "cumulative_process_seconds": {
+      "baseline": 221.28736974997446,
+      "optimized": 187.84382329205982,
+      "difference": -33.443546457914636,
+      "reduction_percent": 15.113174554743647
+    },
+    "wall_seconds_including_interstage_gap": {
+      "baseline": 402.246533,
+      "optimized": 410.583618,
+      "difference": 8.337085000000002,
+      "reduction_percent": -2.0726306670243
+    },
+    "total_recorded_command_calls": {
+      "baseline": 21,
+      "optimized": 12,
+      "difference": -9,
+      "reduction_percent": 42.85714285714286
+    }
+  },
+  "experiment_input_plus_output": 1206543,
+  "quality_conclusion": "Initial source/ID delivery passed but optimized royalty statement was missing; after symmetric metered BMS audit, both pass nine bounded semantic checkpoints.",
+  "semantic_checkpoints": [
+    "KIOMED parties/rights and note linkage",
+    "RMB amounts 30m and 56.60377358m are transaction occurrence not cash",
+    "Ruihongdi 75,000 wan is all-shareholder planned capital increase",
+    "negative disclosures have limited scope",
+    "BMS upfront/annual composition and conditional 2028 installment",
+    "potential 15.2bn/closing conditions are not realized cash",
+    "13 projects preclinical",
+    "P166-P167 trustee table/header/unit linkage",
+    "tiered net-sales royalty excludes mainland/HK/Macau"
+  ],
+  "limitations": [
+    "One matched pair with one controlled output-limit failure in each arm.",
+    "Raw input includes repeated contexts and cached subsets; uncached+output is only another count, not a money/quota estimate.",
+    "Baseline had an additional drafting-call syntax error reported by the model; no separate command failure event, entire turn counts retained.",
+    "Total elapsed span includes shared parent review/fixture preparation delay between stages; consumer process sums shown separately.",
+    "Full original source selection rules are bounded fixture rules, not exhaustive document discovery.",
+    "Parent maintenance chat and one-time harness development tokens cannot be extracted here and are outside paired runtime counts.",
+    "Account bill/quota changes and actual model name absent from completion events; remain unknown."
+  ]
+}

@@ -1,0 +1,1 @@
+{"review_file":"draft.json","input_complete":true,"audit_file":"/private/tmp/hengrui-e2e-repeated-b1oqna39/output/audit-1.json","limitations":["BMS附件前两页乱码，无法核验其中事实。","未核对原PDF、缺失公告全文、实际收付款及后续交割状态；部分主体关系未独立核对。","检查确认已声明范围收件及引用匹配，不验证事实真伪；coverage_complete=false，evidence_status=unverified。"]}

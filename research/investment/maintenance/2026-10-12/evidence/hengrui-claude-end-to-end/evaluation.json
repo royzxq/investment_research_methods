@@ -1,0 +1,976 @@
+{
+  "generator": "claude",
+  "results": {
+    "repeated": {
+      "stages": [
+        {
+          "process": {
+            "generator": "claude",
+            "task_id": "repeated",
+            "status": "completed",
+            "scope": "complete actual Claude tool loop with controlled failure and explicit receipts",
+            "launched_at": "2026-10-12T00:34:31.908250+00:00",
+            "cli": "Claude Code 2.1.296",
+            "cli_arguments": [
+              "claude",
+              "-p",
+              "--permission-mode",
+              "auto",
+              "--permission-prompts",
+              "none",
+              "--output-format",
+              "stream-json",
+              "--verbose",
+              "--no-session-persistence",
+              "--strict-mcp-config",
+              "--mcp-config",
+              "{\"mcpServers\":{}}",
+              "--tools",
+              "Bash,Write,Edit",
+              "--allowedTools",
+              "Bash,Write,Edit",
+              "--json-schema",
+              "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"review_file\", \"input_complete\", \"audit_file\", \"limitations\"], \"properties\": {\"review_file\": {\"type\": \"string\"}, \"input_complete\": {\"type\": \"boolean\"}, \"audit_file\": {\"type\": \"string\"}, \"limitations\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}}"
+            ],
+            "configured_model": "CLI default",
+            "jev_calls": 0,
+            "pid": 77252,
+            "exit_code": 0,
+            "completed_at": "2026-10-12T00:42:32.985455+00:00",
+            "execution_duration_seconds": 481.0740635837428,
+            "result_subtype": "success",
+            "result_is_error": false,
+            "model_usage_keys": [
+              "deepseek-flash[1m]"
+            ]
+          },
+          "usage": {
+            "raw_fields": {
+              "input_tokens": 25997,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 519168,
+              "output_tokens": 16546
+            },
+            "uncached_input": 25997,
+            "cache_read": 519168,
+            "output": 16546,
+            "total_input": 545165,
+            "input_plus_output": 561711,
+            "uncached_input_plus_output": 42543,
+            "modelUsage": {
+              "deepseek-flash[1m]": {
+                "inputTokens": 25997,
+                "outputTokens": 16546,
+                "cacheReadInputTokens": 519168,
+                "cacheCreationInputTokens": 0,
+                "webSearchRequests": 0,
+                "costUSD": 0.8032190000000001,
+                "contextWindow": 1000000,
+                "maxOutputTokens": 32000,
+                "thinkingTokens": 0,
+                "canonicalModel": "deepseek-flash[1m]",
+                "provider": "firstParty",
+                "costBasis": "unknown"
+              }
+            },
+            "source_event_lines": [
+              7395
+            ],
+            "status": "reported",
+            "provider_reported_cost": 0.8032190000000001,
+            "cost_basis": "CLI report only; gateway invoice and subscription effect unknown"
+          },
+          "program_calls": {
+            "locate": 1,
+            "read": 16,
+            "check": 2
+          },
+          "tool_calls": 26,
+          "tool_returns": 26,
+          "model_visible_program_returns": 19,
+          "unmatched_program_returns": [],
+          "controlled_failures": 1,
+          "other_program_errors": [
+            {
+              "command": "check",
+              "result": {
+                "status": "scoped_delivery_and_reference_check",
+                "delivery_complete": true,
+                "declared_pairs_complete": false,
+                "quote_issues": [
+                  {
+                    "claim_index": 1,
+                    "quote_index": 0,
+                    "unit_id": "HRH1-P166",
+                    "issue": "not_verbatim",
+                    "suggestion": {
+                      "kind": "unique_whitespace_only",
+                      "start": 177334,
+                      "end": 177370,
+                      "original_text": "单位：元 币种：人民币 \n关联方 关联交易内容 本期发生额 获批的交易额"
+                    }
+                  },
+                  {
+                    "claim_index": 3,
+                    "quote_index": 2,
+                    "unit_id": "HRH1-P167",
+                    "issue": "not_verbatim",
+                    "suggestion": {
+                      "kind": "unique_whitespace_only",
+                      "start": 178904,
+                      "end": 178925,
+                      "original_text": "(5) 关联方资金拆借 \n□适用 √不适用"
+                    }
+                  }
+                ],
+                "quotes_checked": 31,
+                "topics": {
+                  "licensing": {
+                    "required_units": [
+                      "HRH1-P64",
+                      "HRH1-P65",
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "HRH1-P166",
+                      "HRH1-P167",
+                      "A126"
+                    ],
+                    "missing_from_review": [
+                      "HRH1-P167"
+                    ],
+                    "pending_delivery": [],
+                    "extra_claimed_units": []
+                  },
+                  "related": {
+                    "required_units": [
+                      "HRH1-P64",
+                      "HRH1-P65",
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "HRH1-P166",
+                      "HRH1-P167"
+                    ],
+                    "missing_from_review": [
+                      "HRH1-P65"
+                    ],
+                    "pending_delivery": [],
+                    "extra_claimed_units": []
+                  },
+                  "cash": {
+                    "required_units": [
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "A126"
+                    ],
+                    "missing_from_review": [],
+                    "pending_delivery": [],
+                    "extra_claimed_units": [
+                      "HRH1-P166"
+                    ]
+                  }
+                },
+                "gaps": [
+                  "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+                  "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+                ],
+                "coverage_complete": false,
+                "evidence_status": "unverified",
+                "research_complete": false,
+                "interpretation": "事实语义仍由你核验；已知样本范围缺口不通过重复读取关闭。",
+                "audit_path": "/private/tmp/hengrui-claude-repeated-50liakp8/output/audit-1.json"
+              }
+            }
+          ],
+          "tool_result_errors": 3,
+          "api_retries": 1,
+          "source_packets": 14,
+          "source_characters": 15503,
+          "distinct_source_tool_responses": 14,
+          "source_return_bytes": 49905,
+          "all_tool_return_bytes": 58134,
+          "source_delivery": {
+            "licensing": {
+              "all_units_received": true,
+              "received_units": {
+                "HRH1-P64": true,
+                "HRH1-P65": true,
+                "HRH1-P66": true,
+                "HRH1-P165": true,
+                "HRH1-P166": true,
+                "HRH1-P167": true,
+                "A126": true
+              }
+            },
+            "related": {
+              "all_units_received": true,
+              "received_units": {
+                "HRH1-P64": true,
+                "HRH1-P65": true,
+                "HRH1-P66": true,
+                "HRH1-P165": true,
+                "HRH1-P166": true,
+                "HRH1-P167": true
+              }
+            },
+            "cash": {
+              "all_units_received": true,
+              "received_units": {
+                "HRH1-P66": true,
+                "HRH1-P165": true,
+                "A126": true
+              }
+            }
+          },
+          "required_pairs": 16,
+          "covered_pairs": 16,
+          "missing_pairs": [],
+          "exact_quotes": {
+            "checked": 31,
+            "issues": [],
+            "interpretation": "Exact source text only; not claim entailment."
+          },
+          "audit_attempts": 2,
+          "quote_issues_by_audit": [
+            2,
+            0
+          ],
+          "final_gaps": [
+            "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+            "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+          ]
+        },
+        {
+          "process": {
+            "generator": "claude",
+            "task_id": "repeated-bms-review",
+            "status": "completed",
+            "scope": "complete actual Claude tool loop with controlled failure and explicit receipts",
+            "launched_at": "2026-10-12T00:44:18.442489+00:00",
+            "cli": "Claude Code 2.1.296",
+            "cli_arguments": [
+              "claude",
+              "-p",
+              "--permission-mode",
+              "auto",
+              "--permission-prompts",
+              "none",
+              "--output-format",
+              "stream-json",
+              "--verbose",
+              "--no-session-persistence",
+              "--strict-mcp-config",
+              "--mcp-config",
+              "{\"mcpServers\":{}}",
+              "--tools",
+              "Bash,Write,Edit",
+              "--allowedTools",
+              "Bash,Write,Edit",
+              "--json-schema",
+              "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"review_file\", \"changed_claim_ids\", \"remaining_gaps\"], \"properties\": {\"review_file\": {\"type\": \"string\"}, \"changed_claim_ids\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"remaining_gaps\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}}"
+            ],
+            "configured_model": "CLI default",
+            "jev_calls": 0,
+            "pid": 80789,
+            "exit_code": 0,
+            "completed_at": "2026-10-12T00:47:15.382640+00:00",
+            "execution_duration_seconds": 176.93917879089713,
+            "result_subtype": "success",
+            "result_is_error": false,
+            "model_usage_keys": [
+              "deepseek-flash[1m]"
+            ]
+          },
+          "usage": {
+            "raw_fields": {
+              "input_tokens": 26079,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 478464,
+              "output_tokens": 13707
+            },
+            "uncached_input": 26079,
+            "cache_read": 478464,
+            "output": 13707,
+            "total_input": 504543,
+            "input_plus_output": 518250,
+            "uncached_input_plus_output": 39786,
+            "modelUsage": {
+              "deepseek-flash[1m]": {
+                "inputTokens": 26079,
+                "outputTokens": 13707,
+                "cacheReadInputTokens": 478464,
+                "cacheCreationInputTokens": 0,
+                "webSearchRequests": 0,
+                "costUSD": 0.712302,
+                "contextWindow": 1000000,
+                "maxOutputTokens": 32000,
+                "thinkingTokens": 0,
+                "canonicalModel": "deepseek-flash[1m]",
+                "provider": "firstParty",
+                "costBasis": "unknown"
+              }
+            },
+            "source_event_lines": [
+              13076
+            ],
+            "status": "reported",
+            "provider_reported_cost": 0.712302,
+            "cost_basis": "CLI report only; gateway invoice and subscription effect unknown"
+          },
+          "tool_calls": 17,
+          "tool_returns": 17,
+          "tool_result_errors": 1,
+          "api_retries": 0,
+          "full_source_delivered_in_cli_events": true,
+          "audit": {
+            "status": "bms_terms_reviewed",
+            "received": "b0b259ac080151e468efc5bcff36cba4c2f2428983d7cc41238327ae9d0f223b",
+            "source_sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+            "previous_draft_sha256": "9d44db512d03296023ccda403695e7959f4c8b289ec51d14b08dbc09a702c75c",
+            "changed_claim_ids": [
+              "C6",
+              "C1",
+              "C5"
+            ],
+            "quotes_checked": 37,
+            "other_claims_unchanged": true,
+            "scope": "model semantic review of license status and BMS terms; exact quote check by program",
+            "revised_review_sha256": "c536d2efd90a5b8e2c3b86eec783b3c38f9e3b707ff11eefb539511087b8e816"
+          },
+          "exact_quotes": {
+            "checked": 37,
+            "issues": [],
+            "interpretation": "Exact source text only; not claim entailment."
+          }
+        }
+      ],
+      "total": {
+        "total_input": 1049708,
+        "cache_read": 997632,
+        "uncached_input": 52076,
+        "output": 30253,
+        "input_plus_output": 1079961,
+        "uncached_input_plus_output": 82329,
+        "cumulative_process_seconds": 658.01324237464,
+        "elapsed_span_seconds": 763.47439,
+        "tool_calls": 43
+      },
+      "token_lower_bounds": {
+        "total_input": 1049708,
+        "cache_read": 997632,
+        "uncached_input": 52076,
+        "output": 30253,
+        "input_plus_output": 1079961,
+        "uncached_input_plus_output": 82329
+      },
+      "jev_calls": 0
+    },
+    "union": {
+      "stages": [
+        {
+          "process": {
+            "generator": "claude",
+            "task_id": "union",
+            "status": "completed",
+            "scope": "complete actual Claude tool loop with controlled failure and explicit receipts",
+            "launched_at": "2026-10-12T00:34:31.913945+00:00",
+            "cli": "Claude Code 2.1.296",
+            "cli_arguments": [
+              "claude",
+              "-p",
+              "--permission-mode",
+              "auto",
+              "--permission-prompts",
+              "none",
+              "--output-format",
+              "stream-json",
+              "--verbose",
+              "--no-session-persistence",
+              "--strict-mcp-config",
+              "--mcp-config",
+              "{\"mcpServers\":{}}",
+              "--tools",
+              "Bash,Write,Edit",
+              "--allowedTools",
+              "Bash,Write,Edit",
+              "--json-schema",
+              "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"review_file\", \"input_complete\", \"audit_file\", \"limitations\"], \"properties\": {\"review_file\": {\"type\": \"string\"}, \"input_complete\": {\"type\": \"boolean\"}, \"audit_file\": {\"type\": \"string\"}, \"limitations\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}}"
+            ],
+            "configured_model": "CLI default",
+            "jev_calls": 0,
+            "pid": 77253,
+            "exit_code": 0,
+            "completed_at": "2026-10-12T00:43:51.765443+00:00",
+            "execution_duration_seconds": 559.8481518332846,
+            "result_subtype": "success",
+            "result_is_error": false,
+            "model_usage_keys": [
+              "deepseek-flash[1m]"
+            ]
+          },
+          "usage": {
+            "raw_fields": {
+              "input_tokens": 18927,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 365952,
+              "output_tokens": 23268
+            },
+            "uncached_input": 18927,
+            "cache_read": 365952,
+            "output": 23268,
+            "total_input": 384879,
+            "input_plus_output": 408147,
+            "uncached_input_plus_output": 42195,
+            "modelUsage": {
+              "deepseek-flash[1m]": {
+                "inputTokens": 18927,
+                "outputTokens": 23268,
+                "cacheReadInputTokens": 365952,
+                "cacheCreationInputTokens": 0,
+                "webSearchRequests": 0,
+                "costUSD": 0.8593109999999999,
+                "contextWindow": 1000000,
+                "maxOutputTokens": 32000,
+                "thinkingTokens": 0,
+                "canonicalModel": "deepseek-flash[1m]",
+                "provider": "firstParty",
+                "costBasis": "unknown"
+              }
+            },
+            "source_event_lines": [
+              15925
+            ],
+            "status": "reported",
+            "provider_reported_cost": 0.8593109999999999,
+            "cost_basis": "CLI report only; gateway invoice and subscription effect unknown"
+          },
+          "program_calls": {
+            "locate": 1,
+            "read": 8,
+            "check": 3
+          },
+          "tool_calls": 21,
+          "tool_returns": 21,
+          "model_visible_program_returns": 12,
+          "unmatched_program_returns": [],
+          "controlled_failures": 1,
+          "other_program_errors": [
+            {
+              "command": "check",
+              "result": {
+                "status": "scoped_delivery_and_reference_check",
+                "delivery_complete": true,
+                "declared_pairs_complete": false,
+                "quote_issues": [
+                  {
+                    "claim_index": 1,
+                    "quote_index": 0,
+                    "unit_id": "HRH1-P166",
+                    "issue": "not_verbatim",
+                    "suggestion": {
+                      "kind": "unique_whitespace_only",
+                      "start": 177462,
+                      "end": 177484,
+                      "original_text": "江苏豪森药业集团有\n限公司及其子公司 特许权"
+                    }
+                  },
+                  {
+                    "claim_index": 2,
+                    "quote_index": 0,
+                    "unit_id": "HRH1-P66",
+                    "issue": "not_verbatim",
+                    "suggestion": {
+                      "kind": "unique_whitespace_only",
+                      "start": 73187,
+                      "end": 73223,
+                      "original_text": "限公司现股东拟对其以货币出资方式同比例\n增资人民币 75,000 万元。"
+                    }
+                  },
+                  {
+                    "claim_index": 2,
+                    "quote_index": 1,
+                    "unit_id": "HRH1-P66",
+                    "issue": "not_verbatim",
+                    "suggestion": null
+                  },
+                  {
+                    "claim_index": 5,
+                    "quote_index": 0,
+                    "unit_id": "A126",
+                    "issue": "not_verbatim",
+                    "suggestion": null
+                  }
+                ],
+                "quotes_checked": 34,
+                "topics": {
+                  "licensing": {
+                    "required_units": [
+                      "HRH1-P64",
+                      "HRH1-P65",
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "HRH1-P166",
+                      "HRH1-P167",
+                      "A126"
+                    ],
+                    "missing_from_review": [
+                      "HRH1-P64",
+                      "HRH1-P66",
+                      "HRH1-P167"
+                    ],
+                    "pending_delivery": [],
+                    "extra_claimed_units": []
+                  },
+                  "related": {
+                    "required_units": [
+                      "HRH1-P64",
+                      "HRH1-P65",
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "HRH1-P166",
+                      "HRH1-P167"
+                    ],
+                    "missing_from_review": [],
+                    "pending_delivery": [],
+                    "extra_claimed_units": []
+                  },
+                  "cash": {
+                    "required_units": [
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "A126"
+                    ],
+                    "missing_from_review": [],
+                    "pending_delivery": [],
+                    "extra_claimed_units": [
+                      "HRH1-P166",
+                      "HRH1-P64"
+                    ]
+                  }
+                },
+                "gaps": [
+                  "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+                  "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+                ],
+                "coverage_complete": false,
+                "evidence_status": "unverified",
+                "research_complete": false,
+                "interpretation": "事实语义仍由你核验；已知样本范围缺口不通过重复读取关闭。",
+                "audit_path": "/private/tmp/hengrui-claude-union-tyh00ca1/output/audit-1.json"
+              }
+            },
+            {
+              "command": "check",
+              "result": {
+                "status": "scoped_delivery_and_reference_check",
+                "delivery_complete": true,
+                "declared_pairs_complete": false,
+                "quote_issues": [
+                  {
+                    "claim_index": 2,
+                    "quote_index": 2,
+                    "unit_id": "HRH1-P66",
+                    "issue": "not_verbatim",
+                    "suggestion": {
+                      "kind": "unique_whitespace_only",
+                      "start": 73046,
+                      "end": 73063,
+                      "original_text": "(三) 共同对外投资的重大关联交易"
+                    }
+                  }
+                ],
+                "quotes_checked": 37,
+                "topics": {
+                  "licensing": {
+                    "required_units": [
+                      "HRH1-P64",
+                      "HRH1-P65",
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "HRH1-P166",
+                      "HRH1-P167",
+                      "A126"
+                    ],
+                    "missing_from_review": [
+                      "HRH1-P64",
+                      "HRH1-P66",
+                      "HRH1-P167"
+                    ],
+                    "pending_delivery": [],
+                    "extra_claimed_units": []
+                  },
+                  "related": {
+                    "required_units": [
+                      "HRH1-P64",
+                      "HRH1-P65",
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "HRH1-P166",
+                      "HRH1-P167"
+                    ],
+                    "missing_from_review": [],
+                    "pending_delivery": [],
+                    "extra_claimed_units": []
+                  },
+                  "cash": {
+                    "required_units": [
+                      "HRH1-P66",
+                      "HRH1-P165",
+                      "A126"
+                    ],
+                    "missing_from_review": [],
+                    "pending_delivery": [],
+                    "extra_claimed_units": [
+                      "HRH1-P166",
+                      "HRH1-P64"
+                    ]
+                  }
+                },
+                "gaps": [
+                  "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+                  "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+                ],
+                "coverage_complete": false,
+                "evidence_status": "unverified",
+                "research_complete": false,
+                "interpretation": "事实语义仍由你核验；已知样本范围缺口不通过重复读取关闭。",
+                "audit_path": "/private/tmp/hengrui-claude-union-tyh00ca1/output/audit-2.json"
+              }
+            }
+          ],
+          "tool_result_errors": 4,
+          "api_retries": 2,
+          "source_packets": 6,
+          "source_characters": 6988,
+          "distinct_source_tool_responses": 6,
+          "source_return_bytes": 22456,
+          "all_tool_return_bytes": 32683,
+          "source_delivery": {
+            "shared": {
+              "all_units_received": true,
+              "received_units": {
+                "HRH1-P64": true,
+                "HRH1-P65": true,
+                "HRH1-P66": true,
+                "HRH1-P165": true,
+                "HRH1-P166": true,
+                "HRH1-P167": true,
+                "A126": true
+              }
+            }
+          },
+          "required_pairs": 16,
+          "covered_pairs": 16,
+          "missing_pairs": [],
+          "exact_quotes": {
+            "checked": 36,
+            "issues": [],
+            "interpretation": "Exact source text only; not claim entailment."
+          },
+          "audit_attempts": 3,
+          "quote_issues_by_audit": [
+            4,
+            1,
+            0
+          ],
+          "final_gaps": [
+            "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+            "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+          ]
+        },
+        {
+          "process": {
+            "generator": "claude",
+            "task_id": "union-bms-review",
+            "status": "timeout",
+            "scope": "complete actual Claude tool loop with controlled failure and explicit receipts",
+            "launched_at": "2026-10-12T00:44:18.442667+00:00",
+            "cli": "Claude Code 2.1.296",
+            "cli_arguments": [
+              "claude",
+              "-p",
+              "--permission-mode",
+              "auto",
+              "--permission-prompts",
+              "none",
+              "--output-format",
+              "stream-json",
+              "--verbose",
+              "--no-session-persistence",
+              "--strict-mcp-config",
+              "--mcp-config",
+              "{\"mcpServers\":{}}",
+              "--tools",
+              "Bash,Write,Edit",
+              "--allowedTools",
+              "Bash,Write,Edit",
+              "--json-schema",
+              "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"review_file\", \"changed_claim_ids\", \"remaining_gaps\"], \"properties\": {\"review_file\": {\"type\": \"string\"}, \"changed_claim_ids\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"remaining_gaps\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}}"
+            ],
+            "configured_model": "CLI default",
+            "jev_calls": 0,
+            "pid": 80790,
+            "exit_code": 143,
+            "completed_at": "2026-10-12T00:50:59.031793+00:00",
+            "execution_duration_seconds": 400.61992774996907
+          },
+          "usage": {
+            "raw_fields": {
+              "input_tokens": 30219,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 146304,
+              "output_tokens": null
+            },
+            "total_input": null,
+            "uncached_input": null,
+            "cache_read": null,
+            "output": null,
+            "input_plus_output": null,
+            "uncached_input_plus_output": null,
+            "status": "lower_bound_known_response_inputs_only",
+            "lower_bounds": {
+              "total_input": 176523,
+              "uncached_input": 30219,
+              "cache_read": 146304,
+              "output": 0,
+              "input_plus_output": 176523,
+              "uncached_input_plus_output": 30219
+            },
+            "unknown_fields": "Final output and any unreported pending request usage remain unknown, not zero.",
+            "scope": "Known response inputs only; cross-validated with completed peers",
+            "source_event_lines": [
+              57,
+              81,
+              94,
+              4991,
+              5220,
+              9584,
+              9618,
+              24157,
+              24219
+            ]
+          },
+          "tool_calls": 13,
+          "tool_returns": 13,
+          "tool_result_errors": 0,
+          "api_retries": 0,
+          "full_source_delivered_in_cli_events": true,
+          "audit": {
+            "status": "bms_terms_reviewed",
+            "received": "6cd7dbcd359d6833c2f046a22e47b0902a94baf4116a5aedee035804c5f4d0da",
+            "source_sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+            "previous_draft_sha256": "c20a76e391bce9513cdd524aa07a921cf314a9acd0d48b2eeb913609945fb2e9",
+            "changed_claim_ids": [
+              "C2",
+              "C1"
+            ],
+            "quotes_checked": 36,
+            "other_claims_unchanged": true,
+            "scope": "model semantic review of license status and BMS terms; exact quote check by program",
+            "revised_review_sha256": "ca4dd9d05992ec666e970378bda203e9bcac33f8486f06bd69b07d461e5740fa"
+          },
+          "exact_quotes": {
+            "checked": 36,
+            "issues": [],
+            "interpretation": "Exact source text only; not claim entailment."
+          }
+        },
+        {
+          "process": {
+            "generator": "claude",
+            "task_id": "union-review-recovery",
+            "attempt": 2,
+            "status": "completed",
+            "launched_at": "2026-10-12T00:54:53.337971+00:00",
+            "cwd": "/private/tmp/hengrui-claude-review-recovery-xkpvwfli",
+            "cli_arguments": [
+              "claude",
+              "-p",
+              "--permission-mode",
+              "auto",
+              "--permission-prompts",
+              "none",
+              "--output-format",
+              "stream-json",
+              "--verbose",
+              "--include-partial-messages",
+              "--no-session-persistence",
+              "--strict-mcp-config",
+              "--mcp-config",
+              "{\"mcpServers\":{}}",
+              "--tools",
+              "Bash,Write,Edit",
+              "--allowedTools",
+              "Bash,Write,Edit"
+            ],
+            "scope": "whole failed-stage recovery, including fresh source read and verification",
+            "pid": 85111,
+            "exit_code": 0,
+            "completed_at": "2026-10-12T00:55:18.734919+00:00",
+            "execution_duration_seconds": 25.396767207887024,
+            "result_subtype": "success",
+            "receipt_valid": true
+          },
+          "usage": {
+            "raw_fields": {
+              "input_tokens": 10327,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 26112,
+              "output_tokens": 1601
+            },
+            "uncached_input": 10327,
+            "cache_read": 26112,
+            "output": 1601,
+            "total_input": 36439,
+            "input_plus_output": 38040,
+            "uncached_input_plus_output": 11928,
+            "modelUsage": {
+              "deepseek-flash[1m]": {
+                "inputTokens": 10327,
+                "outputTokens": 1601,
+                "cacheReadInputTokens": 26112,
+                "cacheCreationInputTokens": 0,
+                "webSearchRequests": 0,
+                "costUSD": 0.10471599999999999,
+                "contextWindow": 1000000,
+                "maxOutputTokens": 32000,
+                "thinkingTokens": 0,
+                "canonicalModel": "deepseek-flash[1m]",
+                "provider": "firstParty",
+                "costBasis": "unknown"
+              }
+            },
+            "source_event_lines": [
+              2645
+            ],
+            "status": "reported",
+            "provider_reported_cost": 0.10471599999999999,
+            "cost_basis": "CLI report only; gateway invoice and subscription effect unknown"
+          },
+          "tool_calls": 3,
+          "tool_returns": 3,
+          "tool_result_errors": 0,
+          "full_source_delivered_in_cli_events": true,
+          "audit": {
+            "status": "bms_terms_reviewed",
+            "received": "a5d9bb1456a7bce488a2cee347b6c70ce39557d1894ccb7b3de9e52b420f31b6",
+            "source_sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+            "previous_draft_sha256": "ca4dd9d05992ec666e970378bda203e9bcac33f8486f06bd69b07d461e5740fa",
+            "changed_claim_ids": [],
+            "quotes_checked": 36,
+            "other_claims_unchanged": true,
+            "scope": "model semantic review of license status and BMS terms; exact quote check by program",
+            "revised_review_sha256": "ca4dd9d05992ec666e970378bda203e9bcac33f8486f06bd69b07d461e5740fa"
+          },
+          "exact_quotes": {
+            "checked": 36,
+            "issues": [],
+            "interpretation": "Exact source text only; not claim entailment."
+          },
+          "receipt": {
+            "review_file": "draft-bms-reviewed.json",
+            "changed_claim_ids": [],
+            "remaining_gaps": [
+              "BMS材料（A126）PDF PAGE 1-2为乱码，其内容未核验、未采信",
+              "未联网核对原PDF版式与更正公告，亦未取得银行流水，任何条目均无“实际收付现金”证据",
+              "附注十四关联方清单未列出KIOMED PHARMA SA、翰森（上海）健康科技有限公司、江苏恒特医药销售有限公司，主体对应依赖“江苏豪森药业集团有限公司及其子公司”概括列示",
+              "更替交易与BMS交易均无协议金额在半年报附注中的对应科目披露，无法据此还原现金流",
+              "瑞宏迪增资未披露恒瑞自身出资金额、比例、实缴与支付进度"
+            ]
+          }
+        }
+      ],
+      "total": {
+        "total_input": null,
+        "cache_read": null,
+        "uncached_input": null,
+        "output": null,
+        "input_plus_output": null,
+        "uncached_input_plus_output": null,
+        "cumulative_process_seconds": 985.8648467911407,
+        "elapsed_span_seconds": 1246.820974,
+        "tool_calls": 37
+      },
+      "token_lower_bounds": {
+        "total_input": 597841,
+        "cache_read": 538368,
+        "uncached_input": 59473,
+        "output": 24869,
+        "input_plus_output": 622710,
+        "uncached_input_plus_output": 84342
+      },
+      "jev_calls": 0
+    }
+  },
+  "delta": {
+    "total_input": {
+      "baseline": 1049708,
+      "optimized": null,
+      "optimized_lower_bound": 597841,
+      "minimum_difference": -451867,
+      "reduction_percent": null,
+      "minimum_increase_percent": 0
+    },
+    "cache_read": {
+      "baseline": 997632,
+      "optimized": null,
+      "optimized_lower_bound": 538368,
+      "minimum_difference": -459264,
+      "reduction_percent": null,
+      "minimum_increase_percent": 0
+    },
+    "uncached_input": {
+      "baseline": 52076,
+      "optimized": null,
+      "optimized_lower_bound": 59473,
+      "minimum_difference": 7397,
+      "reduction_percent": null,
+      "minimum_increase_percent": 14.204239956985942
+    },
+    "output": {
+      "baseline": 30253,
+      "optimized": null,
+      "optimized_lower_bound": 24869,
+      "minimum_difference": -5384,
+      "reduction_percent": null,
+      "minimum_increase_percent": 0
+    },
+    "input_plus_output": {
+      "baseline": 1079961,
+      "optimized": null,
+      "optimized_lower_bound": 622710,
+      "minimum_difference": -457251,
+      "reduction_percent": null,
+      "minimum_increase_percent": 0
+    },
+    "uncached_input_plus_output": {
+      "baseline": 82329,
+      "optimized": null,
+      "optimized_lower_bound": 84342,
+      "minimum_difference": 2013,
+      "reduction_percent": null,
+      "minimum_increase_percent": 2.4450679590423796
+    },
+    "cumulative_process_seconds": {
+      "baseline": 658.01324237464,
+      "optimized": 985.8648467911407,
+      "difference": 327.8516044165008,
+      "reduction_percent": -49.82446906894291
+    },
+    "elapsed_span_seconds": {
+      "baseline": 763.47439,
+      "optimized": 1246.820974,
+      "difference": 483.346584,
+      "reduction_percent": -63.308814327092236
+    },
+    "tool_calls": {
+      "baseline": 43,
+      "optimized": 37,
+      "difference": -6,
+      "reduction_percent": 13.953488372093027
+    }
+  },
+  "measurement": "single final CLI result per stage; usage and modelUsage never added together; all attempts retained",
+  "quality_note": "Delivery, quote matching and evidence IDs are not semantic verification; parent checks separately.",
+  "experiment_input_plus_output": null,
+  "experiment_input_plus_output_lower_bound": 1702671
+}
