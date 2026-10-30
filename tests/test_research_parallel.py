@@ -119,6 +119,7 @@ class ParallelResearchTests(unittest.TestCase):
         self.addCleanup(self.env.stop)
 
     def run_tick(self, **options):
+        options.setdefault('max_concurrency', 3)  # Keep the existing reduced-cap scenarios.
         return tick(self.exchange, self.methods, execute=True,
                     clis={'codex': str(self.fake), 'claude': str(self.fake)}, timeout=10, **options)
 
@@ -142,10 +143,19 @@ class ParallelResearchTests(unittest.TestCase):
         code = (f'import sys;sys.path.insert(0,{str(ROOT)!r});'
                 'from scripts.research_scheduler import tick;'
                 f'r=tick({str(self.exchange)!r},{str(self.methods)!r},execute=True,'
-                f'clis={{"codex":{str(self.fake)!r},"claude":{str(self.fake)!r}}},timeout=60);'
+                f'clis={{"codex":{str(self.fake)!r},"claude":{str(self.fake)!r}}},timeout=60,max_concurrency=3);'
                 'sys.exit(2 if r.get("failures") else 0)')
         return subprocess.Popen([sys.executable, '-c', code], stdout=log, stderr=log,
                                 env=dict(os.environ, **environment), start_new_session=True)
+
+    def test_default_four_worker_limit_with_legacy_pair(self):
+        with patch.dict(os.environ, {'MOCK_PARALLEL_BARRIER':'4'}):
+            result = tick(self.exchange,self.methods,execute=True,
+                clis={'codex':str(self.fake),'claude':str(self.fake)},timeout=10)
+        self.assertEqual(result['failures'],[])
+        self.assertEqual(self.observation()['maximum'],4)
+        self.assertEqual(self.observation()['active'],[])
+        self.assertEqual(len(self.seals()),4)
 
     def test_real_children_reach_three_and_pair_runs_overlap(self):
         result = self.run_tick()
@@ -190,7 +200,7 @@ class ParallelResearchTests(unittest.TestCase):
         self.assertEqual(len(self.seals()), 4)
 
     def test_invalid_concurrency_does_not_create_budget_or_launch(self):
-        for invalid in (0, 4, 1.5):
+        for invalid in (0, 5, True, 1.5):
             with self.subTest(value=invalid), self.assertRaises(ValueError):
                 self.run_tick(max_concurrency=invalid)
         self.assertFalse(self.trace.exists())
@@ -330,7 +340,7 @@ class ParallelResearchTests(unittest.TestCase):
              patch.object(scheduler, 'atomic_json', side_effect=fail_after_seal):
             with self.assertRaisesRegex(OSError, 'durable state write failure'):
                 tick(self.exchange, self.methods, execute=True,
-                     clis={'codex': str(self.fake), 'claude': str(self.fake)}, timeout=60)
+                     clis={'codex': str(self.fake), 'claude': str(self.fake)}, timeout=60, max_concurrency=3)
         self.assertLess(time.monotonic()-started, 8, 'Coordinator failure waited for the slow CLI instead of cancelling it')
         self.assertGreaterEqual(len(failures), 2, 'Fault injection must remain active through error persistence')
         execution = self.methods/'output/runs/investment'/self.day/('a'*32)/'execution'
@@ -357,7 +367,7 @@ class ParallelResearchTests(unittest.TestCase):
         with patch.dict(os.environ, {'MOCK_PARALLEL_SLOW': 'SH-600900:codex'}), \
              patch.object(scheduler, 'atomic_json', side_effect=fail_once_after_seal):
             result = tick(self.exchange, self.methods, execute=True,
-                          clis={'codex': str(self.fake), 'claude': str(self.fake)}, timeout=1)
+                          clis={'codex': str(self.fake), 'claude': str(self.fake)}, timeout=1, max_concurrency=3)
         self.assertEqual(len(faults), 1)
         self.assertTrue(any('transient durable state write failure' in row['reason'] for row in result['failures']))
         execution = self.methods/'output/runs/investment'/self.day/('a'*32)/'execution'

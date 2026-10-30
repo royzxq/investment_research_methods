@@ -1,0 +1,114 @@
+{
+  "schema": "research-evidence-plan/v1",
+  "gaps": [
+    "BMS本地附件第1-2页乱码；仅第3-5页中文公告可读，不能声称已核验乱码页。",
+    "这是已有本地提取文本小样本；未重新联网确认更正或逐页原PDF版式，不能当新一期完整投研。"
+  ],
+  "units": [
+    {
+      "id": "HRH1-P64",
+      "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 71392,
+      "end": 71893,
+      "requires": []
+    },
+    {
+      "id": "HRH1-P65",
+      "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 71893,
+      "end": 72873,
+      "requires": [
+        {
+          "id": "HRH1-P64",
+          "reason": "重要事项前页的否定范围"
+        },
+        {
+          "id": "HRH1-P66",
+          "reason": "重大关联交易章节续页，不把局部不适用外推为全部没有"
+        },
+        {
+          "id": "HRH1-P166",
+          "reason": "临2026-067在关联交易附注有明确交叉引用"
+        }
+      ]
+    },
+    {
+      "id": "HRH1-P66",
+      "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 72873,
+      "end": 73680,
+      "requires": [
+        {
+          "id": "HRH1-P165",
+          "reason": "瑞宏迪的关联主体定义"
+        }
+      ]
+    },
+    {
+      "id": "HRH1-P165",
+      "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 176493,
+      "end": 177213,
+      "requires": []
+    },
+    {
+      "id": "HRH1-P166",
+      "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 177213,
+      "end": 178388,
+      "requires": [
+        {
+          "id": "HRH1-P165",
+          "reason": "本表交易对手的关联方定义"
+        },
+        {
+          "id": "HRH1-P167",
+          "reason": "页末关联托管表头的下一页数据"
+        }
+      ]
+    },
+    {
+      "id": "HRH1-P167",
+      "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 178388,
+      "end": 179048,
+      "requires": []
+    },
+    {
+      "id": "A126",
+      "path": "output/stock-research-SH-600276-2026-10-09-codex/gov-bms-license.txt",
+      "sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+      "start": 0,
+      "end": 2145,
+      "requires": []
+    }
+  ],
+  "topics": [
+    {
+      "id": "licensing",
+      "units": [
+        "HRH1-P65",
+        "A126"
+      ]
+    },
+    {
+      "id": "related",
+      "units": [
+        "HRH1-P65"
+      ]
+    },
+    {
+      "id": "cash",
+      "units": [
+        "HRH1-P66",
+        "A126"
+      ]
+    }
+  ]
+}

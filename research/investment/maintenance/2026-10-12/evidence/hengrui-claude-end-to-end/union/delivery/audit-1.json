@@ -1,0 +1,102 @@
+{
+  "plan_sha256": "b95f98fd0adca199877f16b7d51f8b688707dec6683fb87e45be67c9fae60af4",
+  "topics": {
+    "licensing": {
+      "required_units": [
+        "HRH1-P64",
+        "HRH1-P65",
+        "HRH1-P66",
+        "HRH1-P165",
+        "HRH1-P166",
+        "HRH1-P167",
+        "A126"
+      ],
+      "missing_from_review": [
+        "HRH1-P64",
+        "HRH1-P66",
+        "HRH1-P167"
+      ],
+      "pending_delivery": [],
+      "extra_claimed_units": []
+    },
+    "related": {
+      "required_units": [
+        "HRH1-P64",
+        "HRH1-P65",
+        "HRH1-P66",
+        "HRH1-P165",
+        "HRH1-P166",
+        "HRH1-P167"
+      ],
+      "missing_from_review": [],
+      "pending_delivery": [],
+      "extra_claimed_units": []
+    },
+    "cash": {
+      "required_units": [
+        "HRH1-P66",
+        "HRH1-P165",
+        "A126"
+      ],
+      "missing_from_review": [],
+      "pending_delivery": [],
+      "extra_claimed_units": [
+        "HRH1-P166",
+        "HRH1-P64"
+      ]
+    }
+  },
+  "gaps": [
+    "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+    "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+  ],
+  "unassigned_units": [],
+  "quote_audit": {
+    "checked": 34,
+    "issues": [
+      {
+        "claim_index": 1,
+        "quote_index": 0,
+        "unit_id": "HRH1-P166",
+        "issue": "not_verbatim",
+        "suggestion": {
+          "kind": "unique_whitespace_only",
+          "start": 177462,
+          "end": 177484,
+          "original_text": "江苏豪森药业集团有\n限公司及其子公司 特许权"
+        }
+      },
+      {
+        "claim_index": 2,
+        "quote_index": 0,
+        "unit_id": "HRH1-P66",
+        "issue": "not_verbatim",
+        "suggestion": {
+          "kind": "unique_whitespace_only",
+          "start": 73187,
+          "end": 73223,
+          "original_text": "限公司现股东拟对其以货币出资方式同比例\n增资人民币 75,000 万元。"
+        }
+      },
+      {
+        "claim_index": 2,
+        "quote_index": 1,
+        "unit_id": "HRH1-P66",
+        "issue": "not_verbatim",
+        "suggestion": null
+      },
+      {
+        "claim_index": 5,
+        "quote_index": 0,
+        "unit_id": "A126",
+        "issue": "not_verbatim",
+        "suggestion": null
+      }
+    ],
+    "interpretation": "Exact source text only; not claim entailment."
+  },
+  "coverage_complete": false,
+  "evidence_status": "unverified",
+  "research_complete": false,
+  "interpretation": "Coverage of declared spans and review IDs only; neither truth nor exhaustive discovery."
+}

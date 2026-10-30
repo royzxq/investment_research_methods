@@ -56,7 +56,7 @@ class JevRunnerTests(unittest.TestCase):
         os.environ['MOCK_MODE']='nonzero';result=self.fx.execute()
         folder=result.parent/'execution/SH-600066/claude'
         self.assertEqual(json.loads(result.read_text())['results'][0]['status'],'failed')
-        self.assertTrue((folder/'jev/summary.json').exists())
+        self.assertTrue((folder/'runner/jev-summary.json').exists())
 
     def test_journal_failure_is_nonfatal_telemetry(self):
         with patch.object(jev,'summarize',side_effect=RuntimeError('audit unavailable')):

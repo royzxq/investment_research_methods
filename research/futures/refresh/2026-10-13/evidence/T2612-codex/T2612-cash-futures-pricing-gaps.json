@@ -1,0 +1,45 @@
+{
+  "as_of": "2026-10-13",
+  "scope": "cash_futures_pricing_gap",
+  "ctd": null,
+  "ctd_conversion_factor": null,
+  "cash_bond_clean_price": null,
+  "cash_bond_dirty_price": null,
+  "accrued_interest": null,
+  "delivery_date": null,
+  "net_basis": null,
+  "actual_financing_rate": null,
+  "futures_dv01": null,
+  "relative_value_conclusion": "unknown",
+  "sources": [
+    {
+      "url": "https://www.cffex.com.cn/u/cms/www/202603/13160044lxcp.csv",
+      "status": "unavailable",
+      "error_type": "ConnectionError"
+    },
+    {
+      "source": "Tushare repo_daily",
+      "status": "fetched",
+      "rows": 46,
+      "limitation": "市场回购行情，不是账户实际融资利率，不用于填补actual_financing_rate"
+    }
+  ],
+  "missing_inputs": [
+    "截至行情日的完整交割篮子与各券CF",
+    "同一时点各交割券可成交价格及应计利息",
+    "交割日、期间票息和计息规则",
+    "实际融资期限/利率、续作风险、费用及券源条件",
+    "逐券净基差或IRR比较及CTD选择",
+    "CTD现金流和收益率冲击重估"
+  ],
+  "documentation_findings": [
+    {
+      "url": "https://tushare.pro/document/2?doc_id=322",
+      "finding": "bc_otcqt提供柜台买卖全价与到期收益率，未取得匹配当前CTD的报价，不作为银行间可成交净价"
+    },
+    {
+      "url": "https://tushare.pro/document/2?doc_id=256",
+      "finding": "repo_daily提供市场回购利率，只能用作市场参考"
+    }
+  ]
+}

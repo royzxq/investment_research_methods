@@ -1,0 +1,40 @@
+{
+  "generator": "claude",
+  "task_id": "union",
+  "status": "completed",
+  "scope": "complete actual Claude tool loop with controlled failure and explicit receipts",
+  "launched_at": "2026-10-12T00:34:31.913945+00:00",
+  "cli": "Claude Code 2.1.296",
+  "cli_arguments": [
+    "claude",
+    "-p",
+    "--permission-mode",
+    "auto",
+    "--permission-prompts",
+    "none",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--no-session-persistence",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--tools",
+    "Bash,Write,Edit",
+    "--allowedTools",
+    "Bash,Write,Edit",
+    "--json-schema",
+    "{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"review_file\", \"input_complete\", \"audit_file\", \"limitations\"], \"properties\": {\"review_file\": {\"type\": \"string\"}, \"input_complete\": {\"type\": \"boolean\"}, \"audit_file\": {\"type\": \"string\"}, \"limitations\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}}"
+  ],
+  "configured_model": "CLI default",
+  "jev_calls": 0,
+  "pid": 77253,
+  "exit_code": 0,
+  "completed_at": "2026-10-12T00:43:51.765443+00:00",
+  "execution_duration_seconds": 559.8481518332846,
+  "result_subtype": "success",
+  "result_is_error": false,
+  "model_usage_keys": [
+    "deepseek-flash[1m]"
+  ]
+}

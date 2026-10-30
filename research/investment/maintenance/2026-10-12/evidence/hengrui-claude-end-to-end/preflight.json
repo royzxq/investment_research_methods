@@ -1,0 +1,20 @@
+[
+  {
+    "mode": "repeated",
+    "source_characters": 15503,
+    "packets": 14,
+    "calls": 17,
+    "faults": 1,
+    "passed": true,
+    "scope": "offline mechanics only; not model receipt"
+  },
+  {
+    "mode": "union",
+    "source_characters": 6988,
+    "packets": 6,
+    "calls": 9,
+    "faults": 1,
+    "passed": true,
+    "scope": "offline mechanics only; not model receipt"
+  }
+]

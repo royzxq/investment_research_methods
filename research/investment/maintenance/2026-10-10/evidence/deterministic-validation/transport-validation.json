@@ -1,0 +1,162 @@
+[
+  {
+    "max_bytes": 9000,
+    "packets": 3,
+    "largest_packet_bytes": 7004,
+    "total_serialized_bytes": 19887,
+    "unique_characters": 6988,
+    "repeated_first_packet_without_ack": true,
+    "all_spans_lossless": true,
+    "no_duplicate_source_characters": true,
+    "mutation_checks": [
+      {
+        "topic": "licensing",
+        "removed": "HRH1-P64",
+        "detected": true
+      },
+      {
+        "topic": "licensing",
+        "removed": "HRH1-P165",
+        "detected": true
+      },
+      {
+        "topic": "cash",
+        "removed": "A126",
+        "detected": true
+      }
+    ],
+    "new_context_requires_originals": true,
+    "audit": {
+      "plan_sha256": "685d094d5d9715c3fcbb1242344ebbb35e449e929593d6d07c3c2720389852d3",
+      "topics": {
+        "licensing": {
+          "required_units": [
+            "HRH1-P64",
+            "HRH1-P65",
+            "HRH1-P66",
+            "HRH1-P165",
+            "HRH1-P166",
+            "HRH1-P167",
+            "A126"
+          ],
+          "missing_from_review": [],
+          "pending_delivery": [],
+          "extra_claimed_units": []
+        },
+        "related": {
+          "required_units": [
+            "HRH1-P64",
+            "HRH1-P65",
+            "HRH1-P66",
+            "HRH1-P165",
+            "HRH1-P166",
+            "HRH1-P167"
+          ],
+          "missing_from_review": [],
+          "pending_delivery": [],
+          "extra_claimed_units": []
+        },
+        "cash": {
+          "required_units": [
+            "HRH1-P66",
+            "HRH1-P165",
+            "A126"
+          ],
+          "missing_from_review": [],
+          "pending_delivery": [],
+          "extra_claimed_units": []
+        }
+      },
+      "gaps": [
+        "BMS本地附件第1-2页乱码；仅第3-5页中文公告可读，不能声称已核验乱码页。",
+        "这是已有本地提取文本小样本；未重新联网确认更正或逐页原PDF版式，不能当新一期完整投研。"
+      ],
+      "unassigned_units": [],
+      "coverage_complete": false,
+      "evidence_status": "unverified",
+      "research_complete": false,
+      "interpretation": "Coverage of declared spans and review IDs only; neither truth nor exhaustive discovery."
+    },
+    "scope": "offline exact-text simulated delivery; does not prove model receipt or factual correctness"
+  },
+  {
+    "max_bytes": 3000,
+    "packets": 10,
+    "largest_packet_bytes": 2997,
+    "total_serialized_bytes": 26874,
+    "unique_characters": 6988,
+    "repeated_first_packet_without_ack": true,
+    "all_spans_lossless": true,
+    "no_duplicate_source_characters": true,
+    "mutation_checks": [
+      {
+        "topic": "licensing",
+        "removed": "HRH1-P64",
+        "detected": true
+      },
+      {
+        "topic": "licensing",
+        "removed": "HRH1-P165",
+        "detected": true
+      },
+      {
+        "topic": "cash",
+        "removed": "A126",
+        "detected": true
+      }
+    ],
+    "new_context_requires_originals": true,
+    "audit": {
+      "plan_sha256": "685d094d5d9715c3fcbb1242344ebbb35e449e929593d6d07c3c2720389852d3",
+      "topics": {
+        "licensing": {
+          "required_units": [
+            "HRH1-P64",
+            "HRH1-P65",
+            "HRH1-P66",
+            "HRH1-P165",
+            "HRH1-P166",
+            "HRH1-P167",
+            "A126"
+          ],
+          "missing_from_review": [],
+          "pending_delivery": [],
+          "extra_claimed_units": []
+        },
+        "related": {
+          "required_units": [
+            "HRH1-P64",
+            "HRH1-P65",
+            "HRH1-P66",
+            "HRH1-P165",
+            "HRH1-P166",
+            "HRH1-P167"
+          ],
+          "missing_from_review": [],
+          "pending_delivery": [],
+          "extra_claimed_units": []
+        },
+        "cash": {
+          "required_units": [
+            "HRH1-P66",
+            "HRH1-P165",
+            "A126"
+          ],
+          "missing_from_review": [],
+          "pending_delivery": [],
+          "extra_claimed_units": []
+        }
+      },
+      "gaps": [
+        "BMS本地附件第1-2页乱码；仅第3-5页中文公告可读，不能声称已核验乱码页。",
+        "这是已有本地提取文本小样本；未重新联网确认更正或逐页原PDF版式，不能当新一期完整投研。"
+      ],
+      "unassigned_units": [],
+      "coverage_complete": false,
+      "evidence_status": "unverified",
+      "research_complete": false,
+      "interpretation": "Coverage of declared spans and review IDs only; neither truth nor exhaustive discovery."
+    },
+    "scope": "offline exact-text simulated delivery; does not prove model receipt or factual correctness"
+  }
+]

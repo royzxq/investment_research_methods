@@ -1,0 +1,16 @@
+{
+  "generator": "codex",
+  "task_id": "passages-direct",
+  "status": "completed",
+  "scope": "ranking handoff + complete source reading + real-error fallback + evidence mapping",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning": "low",
+  "configured_service_tier": "priority",
+  "billing_auth": "ChatGPT (codex login status)",
+  "model_reported_by_event": null,
+  "launched_at": "2026-10-10T14:12:21.197408+00:00",
+  "pid": 39981,
+  "exit_code": 0,
+  "completed_at": "2026-10-10T14:14:36.687332+00:00",
+  "execution_duration_seconds": 135.49553550011478
+}

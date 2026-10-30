@@ -100,11 +100,15 @@ def validate_meta(meta, exported=False, schema=SCHEMA):
 
 
 def validate_monitoring(items, valuation_date, *, versioned=False):
-    require(isinstance(items, list) and 1 <= len(items) <= 10, "monitoring: expected 1-10 items")
+    require(isinstance(items, list) and (0 if versioned else 1) <= len(items) <= 10,
+            "monitoring: expected 0-10 v4 items or 1-10 legacy items")
     seen, ids = set(), set()
     for i, item in enumerate(items):
         label = f"monitoring[{i}]"
-        fields(item, MONITOR_KEYS | ({'id', 'kind', 'state'} if versioned else set()), label)
+        fields(item, MONITOR_KEYS | ({'id', 'kind', 'state'} if versioned else set()), label,
+               optional={'public_search'})
+        if 'public_search' in item:
+            string(item['public_search'], label + '.public_search')
         if versioned:
             string(item['id'], label + '.id')
             require(isinstance(item['kind'], str) and item['kind'] in {'general', 'entry_constraint', 'add_constraint', 'thesis_invalidation', 'exit_condition'}, label + ': invalid kind')
@@ -126,6 +130,19 @@ def validate_monitoring(items, valuation_date, *, versioned=False):
         if item["as_of"] is not None:
             require(iso_date(item["as_of"], f"{label}.as_of") <= date.fromisoformat(valuation_date),
                     f"{label}: future observation")
+
+
+def validate_monitoring_delivery(document):
+    """New batch policy; historical validation remains deliberately permissive.
+
+    public_search records the researcher's completed public-source search.
+    Structural checks do not independently certify source truth/accessibility.
+    """
+    items = document['monitoring']
+    require(isinstance(items, list) and len(items) <= 7, 'monitoring delivery: expected 0-7 items')
+    for i, item in enumerate(items):
+        string(item.get('public_search'), f'monitoring[{i}].public_search')
+        string(item.get('source'), f'monitoring[{i}].source')
 
 
 def validate_triggers(value, label):
@@ -283,6 +300,8 @@ def validate_controls(controls, mode):
 
 def build_document(data):
     fields(data, {'meta', 'mode', 'reason', 'valuation', 'p1', 't1', 'research_controls', 'monitoring'}, 'input')
+    require(isinstance(data['monitoring'], list) and len(data['monitoring']) <= 7,
+            'monitoring new build: expected 0-7 items')
     validate_meta(data['meta'])
     with localcontext() as ctx:
         ctx.prec = 40

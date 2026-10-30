@@ -1,0 +1,1 @@
+{"type": "object", "additionalProperties": false, "required": ["review_file", "input_complete", "audit_file", "limitations"], "properties": {"review_file": {"type": "string"}, "input_complete": {"type": "boolean"}, "audit_file": {"type": "string"}, "limitations": {"type": "array", "items": {"type": "string"}}}}

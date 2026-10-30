@@ -106,6 +106,12 @@ python3 scripts/research_exchange.py check-results /path/to/result.json --reques
 
 成功回执只接受日期优先目录内同生成端、同修订后缀的正式 v4/v3/v2 报告/JSON 配对，验证证券身份、名称、估值日、真实 `meta.generator`、`meta.report_path`、九节可见且非空的报告及时间顺序；HTML 注释和代码块内的标题不计章节。冻结/否决/不可估仍可以是成功研究交付，结构验收不增加执行许可。`-rN` 可作为本轮精确交付读取，不因此提升 latest。失败回执必须有理由且产物为 null；任务/端重复、错批次、错请求哈希或跨端配对均拒绝。
 
+### 明确授权的失败席位补充
+
+`scripts/research_recovery.py` 只恢复原 `codex/dsh` 配对中明确失败且无交付的 DSH 席位。先 `prepare` 绑定授权、原封口及方法快照的 SHA，创建 exchange/recoveries 下的独立 DSH-only 请求；`execute` 复用原模型、方法、数据包和同端基线及标准共享门禁，每席最多两次。成功研究中的拒绝、冻结或无报价不能据此重跑。原 Codex、全部失败及原封口保持不变，不重置普通调度额度或冷却。
+
+只有验收成功的私有恢复封口才能发布 `research-sealed-recovery/v1`，分别绑定原封口、新 DSH 封口和唯一 intent。正常消费者先消费原封口再合并补充；报价库精确复用旧 Codex 来源，只登记新 DSH；同日目标行或报价来源冲突在 CSV 前 held，不覆盖人工改价。原共识与控制规则、条件 Coze 规则均不变；恢复入口不手工调用写回或激活邮件。协议及失败边界见 [恢复 ADR](../docs/adr/ADR-20261024-research-seat-recovery.md)。
+
 ## 个股研究 CLI 执行（2026-10-07）
 
 `scripts/research_runner.py` 在本仓准备并执行已验收请求，复用 stock-research 技能。必须使用请求中已计划的真实生成端；不要只给股票代码就启动研究。

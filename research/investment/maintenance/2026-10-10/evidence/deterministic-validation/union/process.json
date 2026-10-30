@@ -1,0 +1,12 @@
+{
+  "generator": "codex",
+  "task_id": "union",
+  "status": "completed",
+  "scope": "small fixed-input single-verification consumer; not whole stock research or live tool delivery",
+  "model_reported_by_event": null,
+  "launched_at": "2026-10-10T14:41:24.208827+00:00",
+  "pid": 46881,
+  "exit_code": 0,
+  "completed_at": "2026-10-10T14:43:12.969591+00:00",
+  "execution_duration_seconds": 108.76042145816609
+}

@@ -1,0 +1,58 @@
+{
+  "archived_files": {
+    "plan.json": "685d094d5d9715c3fcbb1242344ebbb35e449e929593d6d07c3c2720389852d3",
+    "offline-tests.log": "9d070cb6eec54d6ec328949ac410699e25a1cfcabca823b30d395f19ca953948",
+    "targeted-tests.log": "c4ee59242526bc5e5baa4cb2f58bc3861ae83cc741e6b99847ed47b2677745c5",
+    "outline.json": "7fd007b565a6068e225e894fe077661caf43eee976e89def828a42d5a2fa8d35",
+    "transport-validation.json": "a184ef93f4d469f44274f2cef25c4213d626ef161448cbfc0d8a0b0d1a4f14f2",
+    "inputs.json": "288bce588cdda89314e554b3603d663d237bf8d2ad12f6693625b3841f392ae6",
+    "evaluation.json": "4ef7eeb4030c46b451b857cb984e999e35e656cfa78834b00e87a0d80a299265",
+    "process-tests.log": "7b3b8c659c5c9222f101209c66b9ad7831a295a48b43e278cedfb6a8ac290978",
+    "repeated/review-corrected.json": "b7c55cf4708fb882acd6a404bdc724b3c70b522e27715ac95d8de7daedf488aa",
+    "repeated/usage.json": "ee3887dead8aad10ab1b60c5b6264a77bd08e4c470de0f6187ee3b1df1e89106",
+    "repeated/prompt.txt": "e4e96981e1340d3168e621e37a3b7a9dda0031060df14ed0acd0eae1f6947ed8",
+    "repeated/completion-events.jsonl": "e047028a94a2a97f9499e628b4cc83caa2a11ef2bd66ecff4174840c744ae1b9",
+    "repeated/schema.json": "6afbc9203cec361b07313b508c249c8b9579d46bd41d2859645fe7c09b75b9bd",
+    "repeated/process.json": "fba6952c03455f0f1cc1bbb02a7038988a0fd22e08040e575681bac220ff77cd",
+    "repeated/answer.json": "b815121b79caca7b328a87d0747421666cef3f888ee18350c2128e45a7ce2580",
+    "harness-source/evaluate_probe.py": "3ff48befc49b7dcb766567ed73e9cf821b19b48fcce3e01d0ba186712a7f2393",
+    "harness-source/run_probe.py": "461c9a5dc070680b5ac11f2d72a4987b4cd1d90cc460fc7921194e7bbdc0e2e7",
+    "harness-source/validate_transport.py": "430275febf96154c191495baec23c7b2618e511c1f4369f6e9b7142ddc4415a8",
+    "harness-source/build_probe.py": "3069c0ca583ab0aa35eb6ab45bf267ab8e576352308fb65886c7e6a70fe3230a",
+    "union/review-corrected.json": "0f43f00efe551b085a2ef414a3da0954a6544438b4e05b0548b41144d986b997",
+    "union/usage.json": "6e8177d47175fab21a6d53d132fbf6f7f020bb418f6e855544a117d2ac0d1063",
+    "union/prompt.txt": "4b150bf4db63e4250f230bfa24db85c22a2b34ad7a55a5ca7bb249ca7b516ebd",
+    "union/completion-events.jsonl": "ed44a9b3af3a8ae7c3fb3249ef75151c613d133e3d5b87d4faaf9d7a70a8ca43",
+    "union/schema.json": "6afbc9203cec361b07313b508c249c8b9579d46bd41d2859645fe7c09b75b9bd",
+    "union/process.json": "9929d2e739e2450b672b3840d6977030d7c4fa235d34a58d5016c31a98cf366e",
+    "union/answer.json": "a47a960ad1ea31936c930774109dbf2b4d1257c7f9ea13823a423bae8d0af384"
+  },
+  "implementation_sha256": {
+    "scripts/research_reader.py": "890467917500a11a8cd3c388b7e9e87d94568c4cb812d5f0279f4d65031f5f41",
+    "scripts/research_evidence.py": "ce597fbfb59682af47d49ddc4650811146314c3086926a5b61e9a2d557912529",
+    "tests/test_research_reader.py": "ff165c70b3a5664374c33441334b762e8c402767d97b6980246803f78ce592b1",
+    "tests/test_research_evidence.py": "9e4265b2cb81dcde4e519c61d2cd919ea0ec31ce4cfd0287e09d5ed35c0ea382",
+    ".agents/skills/stock-research/SKILL.md": "9974dc0227ea1236501375aa3e35921760524b134bfee9d135781f254dc04569",
+    ".agents/skills/deep-research-auto/SKILL.md": "4f01c7cb9c9fc1c2241a9cae8b9ca2769550dd534756c5542ca34f7bdd4f4038",
+    ".agents/skills/deep-research-auto/references/local-reading.md": "53ad2a66ae05a3304645ac67e6313865d259d7f79fa2a94a92df8b83e27182d2",
+    ".agents/skills/deep-research-auto/references/jev-ranking.md": "fa38b0c229dfd6ea190b9f86d3cf857eb45130756f70c973c7936b2da17cb3ff",
+    ".agents/skills/stock-research/references/data-acquisition.md": "f4c77c76e1e953e3ee82f24e2c8b50b0a1df9c4d51ef62ed1e1d0f82c5d41b18"
+  },
+  "raw_cli_events": {
+    "repeated": {
+      "path": "output/deep-research/2026-10-10-deterministic-validation/repeated/events.jsonl",
+      "sha256": "b7fcb6a2f2f2bb2a864189ead81d0593a9505bc351a77ae1166ad36dcfa04102"
+    },
+    "union": {
+      "path": "output/deep-research/2026-10-10-deterministic-validation/union/events.jsonl",
+      "sha256": "645bb72b47903b4408ea093a74646b9d160a45abc87a71221f18630c9b27560d"
+    }
+  },
+  "original_gold_sha256": "cd21c0f4d4e5e9d713bd0d7d64c9f9b7c01afa387ea372ed15b2cd133feb4ef4",
+  "notes": [
+    "Source plan was built from source headings and explicit cross-references; required IDs are not factual answers.",
+    "Harness files preserve original scratch paths; copy back into an isolated output/deep-research/<run> folder before replay.",
+    "Raw CLI answers are unchanged. Corrected reviews modify only unique whitespace-only quotations.",
+    "Offline simulated delivery is not a production ledger or proof of factual verification."
+  ]
+}

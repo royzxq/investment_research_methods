@@ -24,20 +24,20 @@ from uuid import uuid4
 try:
     from .research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
                                   check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure,
-                                  execution_profile, preflight_profile, default_cli)
+                                  execution_profile, preflight_profile, default_cli, sequential_research)
     from .research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS, DEFAULT_GENERATORS, seal_schema
     from .research_loop_log import record
     from . import research_runtime
 except ImportError:
     from research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
                                  check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure,
-                                 execution_profile, preflight_profile, default_cli)
+                                 execution_profile, preflight_profile, default_cli, sequential_research)
     from research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS, DEFAULT_GENERATORS, seal_schema
     from research_loop_log import record
     import research_runtime
 
 DAILY_LIMIT = 4
-MAX_CONCURRENCY = 3
+MAX_CONCURRENCY = 4
 RESEARCH_INTERVAL = timedelta(days=7)
 LISTING = r'(?:SH|SZ)-\d{6}|HK-\d{5}'
 ZONE = ZoneInfo('Asia/Shanghai')
@@ -129,6 +129,16 @@ def sync_started(state, methods):
         claims = sorted([*request_path.parent.glob('execution/*/*/launched.json'),
                          *request_path.parent.glob('execution/*/*/retry-1/launched.json')])
         if not claims:
+            continue
+        if (request_path.parent/'recovery-link.json').exists():
+            # Explicit failed-seat recovery is part of its original round.
+            # Validate the full immutable authorization/input binding before
+            # excluding it; a marker alone cannot bypass cooldown accounting.
+            try:
+                from .research_recovery import validate_recovery_run
+            except ImportError:
+                from research_recovery import validate_recovery_run
+            validate_recovery_run(request_path.parent, methods)
             continue
         request, raw, _ = read_request(request_path)
         if (request['batch_id'] != request_path.parent.name
@@ -649,19 +659,29 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
                 selected_config = preparation_configs.get((entry['valuation_date'], entry['batch_id']))
                 request, raw, run = (prepare_entry(entry, methods) if selected_config is None else
                                      prepare_entry(entry, methods, runtime_config=selected_config))
-                contexts[entry['task_id']] = (entry, request)
+                contexts[entry['task_id']] = (entry, request, raw, run)
                 outcomes[entry['task_id']] = {}
-                jobs.extend((entry, generator, request, raw, run) for generator in request['generators'])
+                sequential = set(request['generators']) == {'codex', 'dsh'} and sequential_research(run)
+                generators = ['codex'] if sequential else request['generators']
+                jobs.extend((entry, generator, request, raw, run) for generator in generators)
             except (ValueError, OSError, RuntimeError) as exc:
                 persist_entry(entry, exc)
         journal(event_log,'parallel_dispatch_started',run_id=run_id,
-                details=dict(max_concurrency=max_concurrency, max_attempts=2, providers=len(jobs)))
-        active = {}
+                details=dict(max_concurrency=max_concurrency, max_attempts=2,
+                             providers=sum(len(c[1]['generators']) for c in contexts.values())))
+        active, continuations = {}, deque()
         with ThreadPoolExecutor(max_workers=max_concurrency) as pool:
             try:
-                while active or jobs and not cancelled.is_set():
-                    while jobs and len(active)<max_concurrency and not cancelled.is_set():
-                        entry, generator, request, raw, run = jobs.popleft()
+                while active or (jobs or continuations) and not cancelled.is_set():
+                    while (jobs or continuations) and len(active)<max_concurrency and not cancelled.is_set():
+                        # Complete ready pairs promptly. With multiple slots,
+                        # keep an upstream producer moving as well: draining
+                        # every DSH before the last Codex would lengthen the tail.
+                        keep_producer_moving = (max_concurrency > 1 and jobs
+                            and jobs[0][1] == 'codex'
+                            and not any(g == 'codex' for _, g in active.values()))
+                        queue = jobs if keep_producer_moving or not continuations else continuations
+                        entry, generator, request, raw, run = queue.popleft()
                         future = pool.submit(run_provider_entry, entry, generator, request, raw, run,
                                              methods, clis, timeout, cancelled, event_log, run_id)
                         active[future] = (entry, generator)
@@ -680,7 +700,14 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
                                 cancelled.set()
                             errors[task_id] = str(exc)
                             outcomes[task_id][generator] = None
-                        request = contexts[task_id][1]
+                        _, request, raw, run = contexts[task_id]
+                        # A worker returns only after all retries and process cleanup.
+                        # Downstream's own gate records a non-launched failure when
+                        # Codex failed; cancellation never creates a fake completion.
+                        if (generator == 'codex' and set(request['generators']) == {'codex', 'dsh'}
+                                and sequential_research(run)
+                                and task_id not in errors and not cancelled.is_set()):
+                            continuations.append((entry, 'dsh', request, raw, run))
                         if len(outcomes[task_id]) == len(request['generators']):
                             try:
                                 if task_id in errors:
@@ -693,7 +720,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             except BaseException:
                 cancelled.set()
                 raise
-        for task_id, (entry, request) in contexts.items():
+        for task_id, (entry, request, raw, run) in contexts.items():
             if len(outcomes[task_id]) < len(request['generators']):
                 persist_entry(entry, errors.get(task_id, 'scheduler cancelled; unlaunched provider remains pending'))
         pending = [e for e in eligible if e['status'] in {'pending','failed'}]
@@ -715,7 +742,7 @@ def main(argv=None):
                         help='Explicit nonsecret runtime profile configuration for newly prepared batches')
     parser.add_argument('--timeout-seconds', type=float, default=3600)
     parser.add_argument('--max-concurrency',type=int,choices=range(1,MAX_CONCURRENCY+1),default=MAX_CONCURRENCY,
-                        help='Maximum live Codex/Claude research CLI processes combined (default: 3)')
+                        help='Maximum live research CLI processes across all generators (default: 4)')
     parser.add_argument('--scheduled',action='store_true',help='Consume the daily check even when no input exists; no later admission today')
     args = parser.parse_args(argv)
     if args.timeout_seconds <= 0:

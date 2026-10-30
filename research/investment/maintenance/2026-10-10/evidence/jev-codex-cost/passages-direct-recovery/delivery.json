@@ -1,0 +1,13 @@
+{
+  "method": "full exact source payload in model input; no tool output truncation",
+  "prior_attempt": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-direct",
+  "prior_attempt_cost_must_be_included": true,
+  "prompt_sha256": "bc31c65dd9f11b022aefcb76fb2a808b8b1d01e47a42aad9a08fefc4f9370aec",
+  "part_sha256": [
+    "cf3598c256a4e38a27d7e93519704db5252a09e8914332a8322211d0aefc1478",
+    "5f3384a79ca69da10f6cf7f6c1978b8950158e35901a2d5eddf6fef463025a49",
+    "e5079a86fb86f11cfa362955e23b014d01d9f316e436ebb7db8ff0cdc1d35144"
+  ],
+  "characters": 59235,
+  "gold_in_prompt": false
+}

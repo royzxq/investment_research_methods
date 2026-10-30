@@ -1,0 +1,78 @@
+{
+  "schema_version": "research-usage/v1",
+  "generator": "codex",
+  "execution_dir": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-jev-recovery",
+  "process": {
+    "task_id": "passages-jev-recovery",
+    "generator": "codex",
+    "status": "completed",
+    "pid": 42553,
+    "exit_code": 0,
+    "launched_at": "2026-10-10T14:17:46.652492+00:00",
+    "completed_at": "2026-10-10T14:19:36.744993+00:00",
+    "execution_duration_seconds": 110.09217970794998
+  },
+  "duration": {
+    "seconds": 110.09217970794998,
+    "basis": "process.execution_duration_seconds"
+  },
+  "models": [],
+  "source": {
+    "path": "events.jsonl",
+    "status": "complete_read",
+    "sha256": "99e91e586eb943f852a1d3c5ee245eebb3ba3224b369b41e2ccca30742afa330",
+    "bytes": 17381,
+    "lines": 4,
+    "invalid_lines": []
+  },
+  "scope": {
+    "attempt": "this_directory_only",
+    "subagent_coverage": "unknown",
+    "all_attempt_tokens": "unknown",
+    "cross_provider_total": null
+  },
+  "summary": {
+    "method": "sum_unique_turn_completed",
+    "status": "reported",
+    "usage": {
+      "input_tokens": 59797,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 5106,
+      "reasoning_output_tokens": 76
+    },
+    "event_lines": [
+      4
+    ],
+    "scope": "observed_completed_turns_only",
+    "total_tokens": null
+  },
+  "records": [
+    {
+      "source": {
+        "path": "events.jsonl",
+        "line": 4,
+        "byte_offset": 17221,
+        "sha256": "f21464be457e7cd330aa836bef88d3ba6a326434954c4b0afddd17aca7d598ce"
+      },
+      "provider_fields": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 59797,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5106,
+          "reasoning_output_tokens": 76
+        }
+      },
+      "duplicate_of": null,
+      "ambiguity": null
+    }
+  ],
+  "issues": [],
+  "interpretation": {
+    "reasoning_tokens": "reported_component_never_added_to_output",
+    "cost": "provider_reported_fields_only_not_verified_billing",
+    "subscription_quota": "unknown"
+  }
+}

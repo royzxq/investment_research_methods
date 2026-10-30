@@ -1,0 +1,125 @@
+{
+  "raw_working_directory": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost",
+  "runs": {
+    "announcements-direct": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-direct/prompt.txt",
+        "sha256": "b6ec04de9e5afa8b200705e58255030bd5bee1a56c9b4afb96d8e45c20f3eb6c"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-direct/events.jsonl",
+        "sha256": "4ece30c93c3060b0e4cafd1183b7ffb5aa24fb5e16296228acb6862860806eab"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-direct/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    },
+    "announcements-direct-recovery": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-direct-recovery/prompt.txt",
+        "sha256": "391a62ddb3683d00ed0b27afca9d1da91f65c15bb3ee400bb4a234555a409105"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-direct-recovery/events.jsonl",
+        "sha256": "52b0cfa13ee735e85f0a1f5717c0e7e97253060606505b8008bd4182aafe3cd8"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-direct-recovery/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    },
+    "announcements-jev": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev/prompt.txt",
+        "sha256": "48a1de657843de0356b4e2e078ab0d2f8a70b8fc8ded1f48a972889435619686"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev/events.jsonl",
+        "sha256": "418fb7fdc231a74dc1389a6fdfe14cd0d6d6d56bb7c30c63466f3d352636dd07"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    },
+    "announcements-jev-recovery": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev-recovery/prompt.txt",
+        "sha256": "60eecc691a9cc93ebc4885c98defb4b821f8dc6bc47d6be6afc84e06c69fa7a7"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev-recovery/events.jsonl",
+        "sha256": "e7abdc8104034caec376d8d9be811739341e8255f3e5861aac12d050685f68f1"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev-recovery/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    },
+    "passages-direct": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-direct/prompt.txt",
+        "sha256": "7b002fb1468c369e209a3689b83e2c70930445ee06993eef11addf949cdfef51"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-direct/events.jsonl",
+        "sha256": "9233cd68cbcf8c19bee97d8e2a9585764a58457a0509016f6e431306910003bc"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-direct/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    },
+    "passages-direct-recovery": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-direct-recovery/prompt.txt",
+        "sha256": "bc31c65dd9f11b022aefcb76fb2a808b8b1d01e47a42aad9a08fefc4f9370aec"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-direct-recovery/events.jsonl",
+        "sha256": "f486735bd6a61de1b3f00a9166cbf3a4e66ad43e129bdd9fe4d15beeb60983fe"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-direct-recovery/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    },
+    "passages-jev": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-jev/prompt.txt",
+        "sha256": "f3a100e925ea3edbc93f67e9191532efc5038f2432540f4b07f6d3c942f34402"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-jev/events.jsonl",
+        "sha256": "420a33d45d36902be35dbfd0ade34e4e278814c131fc6fe8376163e9252c35aa"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-jev/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    },
+    "passages-jev-recovery": {
+      "prompt.txt": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-jev-recovery/prompt.txt",
+        "sha256": "b2f4176daa95f046157e692fd4e8d23210a496213660440922f78bbb4ac8b433"
+      },
+      "events.jsonl": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-jev-recovery/events.jsonl",
+        "sha256": "99e91e586eb943f852a1d3c5ee245eebb3ba3224b369b41e2ccca30742afa330"
+      },
+      "schema.json": {
+        "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/passages-jev-recovery/schema.json",
+        "sha256": "20aa75641dac16ac04c35db6a43f642388540f83a8789b5359baf219cc32dd54"
+      }
+    }
+  },
+  "script_snapshot_note": "Harness sources are archived snapshots; run paths are in the original output working directory, not this archive.",
+  "validation": {
+    "skill_quick_validate": "passed",
+    "git_diff_check": "passed",
+    "all_eight_cli_exit_codes": 0,
+    "fresh_jev_calls": 0,
+    "gold_unchanged": true
+  }
+}

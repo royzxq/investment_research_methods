@@ -1,0 +1,14 @@
+{
+  "status": "bms_terms_reviewed",
+  "received": "6cd7dbcd359d6833c2f046a22e47b0902a94baf4116a5aedee035804c5f4d0da",
+  "source_sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+  "previous_draft_sha256": "c20a76e391bce9513cdd524aa07a921cf314a9acd0d48b2eeb913609945fb2e9",
+  "changed_claim_ids": [
+    "C2",
+    "C1"
+  ],
+  "quotes_checked": 36,
+  "other_claims_unchanged": true,
+  "scope": "model semantic review of license status and BMS terms; exact quote check by program",
+  "revised_review_sha256": "ca4dd9d05992ec666e970378bda203e9bcac33f8486f06bd69b07d461e5740fa"
+}

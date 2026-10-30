@@ -1,0 +1,19 @@
+{
+  "files": {
+    "scripts/research_jev.py": "6853d6afb9b86df3437311e120fc6cc1e47e92ac8fc5f836456e6d6c890e73bf",
+    "scripts/research_jev_benchmark.py": "cb9de273cfc93e3d6964f653bd563e1604bf566f0735479fdf68d982b07a3914",
+    ".agents/skills/deep-research-auto/references/jev-ranking.md": "779c66edcb9333aabebfb022ad5caecd9575b84cf1d72f50f75fe33e462f032c",
+    "tests/test_research_jev.py": "a542d0325fdc87fe2c015d4595e40e82131f1d1ff26208fc54e9c1787b18260d",
+    "tests/test_research_jev_benchmark.py": "587912938f85b1c8f183b847fe9f7ccebc2534f567ecf9b9b4ff48d0fe8bfa43"
+  },
+  "offline_tests": {
+    "total": 504,
+    "initial_pass": 502,
+    "sandbox_blocked": 2,
+    "isolated_recheck_pass": 2
+  },
+  "independent_cli_scenarios": 57,
+  "critical_page_access_checks": 41,
+  "gold_sha256": "cd21c0f4d4e5e9d713bd0d7d64c9f9b7c01afa387ea372ed15b2cd133feb4ef4",
+  "git_committed": false
+}

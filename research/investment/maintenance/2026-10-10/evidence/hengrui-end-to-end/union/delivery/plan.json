@@ -1,0 +1,114 @@
+{
+  "schema": "research-evidence-plan/v1",
+  "units": [
+    {
+      "id": "HRH1-P64",
+      "path": "sources/finance.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 71392,
+      "end": 71893,
+      "requires": []
+    },
+    {
+      "id": "HRH1-P65",
+      "path": "sources/finance.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 71893,
+      "end": 72873,
+      "requires": [
+        {
+          "id": "HRH1-P64",
+          "reason": "重要事项前页的否定范围"
+        },
+        {
+          "id": "HRH1-P66",
+          "reason": "重大关联交易的续页"
+        },
+        {
+          "id": "HRH1-P166",
+          "reason": "同一议案的财务附注交叉引用"
+        }
+      ]
+    },
+    {
+      "id": "HRH1-P66",
+      "path": "sources/finance.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 72873,
+      "end": 73680,
+      "requires": [
+        {
+          "id": "HRH1-P165",
+          "reason": "关联主体定义"
+        }
+      ]
+    },
+    {
+      "id": "HRH1-P165",
+      "path": "sources/finance.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 176493,
+      "end": 177213,
+      "requires": []
+    },
+    {
+      "id": "HRH1-P166",
+      "path": "sources/finance.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 177213,
+      "end": 178388,
+      "requires": [
+        {
+          "id": "HRH1-P165",
+          "reason": "交易主体定义"
+        },
+        {
+          "id": "HRH1-P167",
+          "reason": "本页末表头续表"
+        }
+      ]
+    },
+    {
+      "id": "HRH1-P167",
+      "path": "sources/finance.txt",
+      "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+      "start": 178388,
+      "end": 179048,
+      "requires": []
+    },
+    {
+      "id": "A126",
+      "path": "sources/bms.txt",
+      "sha256": "19a049a8a63128d27987c44b750726eb5ef8c28d73203d676bf46bce3deed34a",
+      "start": 0,
+      "end": 2145,
+      "requires": []
+    }
+  ],
+  "gaps": [
+    "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+    "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+  ],
+  "topics": [
+    {
+      "id": "licensing",
+      "units": [
+        "HRH1-P65",
+        "A126"
+      ]
+    },
+    {
+      "id": "related",
+      "units": [
+        "HRH1-P65"
+      ]
+    },
+    {
+      "id": "cash",
+      "units": [
+        "HRH1-P66",
+        "A126"
+      ]
+    }
+  ]
+}

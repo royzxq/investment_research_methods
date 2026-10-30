@@ -1,0 +1,18 @@
+[
+  {
+    "mode": "repeated",
+    "original_characters": 15503,
+    "packets": 14,
+    "tool_calls": 18,
+    "controlled_failures": 1,
+    "passed": true
+  },
+  {
+    "mode": "union",
+    "original_characters": 6988,
+    "packets": 6,
+    "tool_calls": 10,
+    "controlled_failures": 1,
+    "passed": true
+  }
+]

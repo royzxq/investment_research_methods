@@ -100,6 +100,29 @@ def load_base(path, methods, exchange):
     path = Path(path).resolve(strict=True)
     require(path.is_relative_to(methods/'output/research_queue/sealed'), 'base seal outside research queue')
     seal = read(path)
+    if seal.get('schema_version') == 'research-sealed-recovery/v1':
+        # Only the recovery validator may authorize the private single-seat
+        # seal. Each report remains bound to its own request and batch.
+        try:
+            from .research_recovery import load_supplement as load_recovery
+        except ImportError:
+            from research_recovery import load_supplement as load_recovery
+        base_path, recovery_path, verified = load_recovery(path, methods, exchange)
+        base = _load_original_base(base_path, methods, exchange)
+        recovered = _load_original_base(recovery_path, methods, exchange)
+        generators = verified['recovered_generators']
+        require(set(generators) <= set(recovered['documents']), 'recovery opinions incomplete')
+        require(not set(base['documents']) & set(generators), 'recovery replaced a completed opinion')
+        return dict(base, seal=verified, path=path, base_sha256=sha(path.read_bytes()),
+                    round_path=base_path, documents=dict(base['documents'], **{
+                        g:recovered['documents'][g] for g in generators}),
+                    entries=dict(base['entries'], **{g:recovered['entries'][g] for g in generators}))
+    return _load_original_base(path, methods, exchange)
+
+
+def _load_original_base(path, methods, exchange):
+    """Read an original-format seal after the caller verifies its location."""
+    seal = read(path)
     fields(seal, BASE_KEYS, 'base seal')
     require(seal['schema_version'] in {'research-sealed/v1', 'research-sealed/v2'}, 'expected original two-model seal')
     request_path = Path(seal['request']).resolve(strict=True)
@@ -114,7 +137,7 @@ def load_base(path, methods, exchange):
             'trigger mismatch')
     require(sorted(item['generator'] for item in seal['results']) == sorted(request['generators']),
             'provider set mismatch')
-    documents = {}
+    documents, provider_entries = {}, {}
     for item in seal['results']:
         fields(item, {'generator', 'manifest', 'manifest_sha256', 'actual_model'}, 'provider')
         manifest = _contained_path(methods, item['manifest'], 'manifest')
@@ -123,6 +146,7 @@ def load_base(path, methods, exchange):
                    if e['task_id'] == task['task_id'] and e['generator'] == item['generator']]
         require(len(entries) == 1, 'provider entry missing or duplicated')
         entry = entries[0]
+        provider_entries[item['generator']] = entry
         if entry['status'] == 'completed':
             _, report = _artifact(entry['report'], methods, 'report')
             zero = _report_sections(report)[0]
@@ -131,7 +155,8 @@ def load_base(path, methods, exchange):
             _, price = _artifact(entry['price_map'], methods, 'price map')
             documents[item['generator']] = _strict_json(price, 'price map')
     return dict(seal=seal, request=request, task=task, documents=documents, path=path,
-                base_sha256=sha(path.read_bytes()), request_path=request_path)
+                entries=provider_entries, base_sha256=sha(path.read_bytes()), request_path=request_path,
+                round_path=path)
 
 
 def pair_generators(documents):
@@ -169,7 +194,7 @@ def reply_in_time(request, received_at):
 
 
 def scan(methods, exchange, mail_root, not_before):
-    """Only newest original round per security; never consume an extra daily slot."""
+    """Use the newest round's verified effective pair; no extra daily slot."""
     methods, mail_root = Path(methods).resolve(), Path(mail_root).resolve()
     cutoff = _timestamp(not_before, 'activation cutoff')
     root = methods/'output/research_queue/coze'
@@ -177,20 +202,25 @@ def scan(methods, exchange, mail_root, not_before):
         candidates, errors = {}, []
         for path in sorted((methods/'output/research_queue/sealed').glob('*.json')):
             try:
-                # Supplements have their own contract and are never send inputs.
-                if read(path).get('schema_version') not in {'research-sealed/v1', 'research-sealed/v2'}:
+                # Coze supplements never trigger another Coze request. A
+                # validated seat recovery supplies the original missing seat.
+                if read(path).get('schema_version') not in {
+                        'research-sealed/v1', 'research-sealed/v2', 'research-sealed-recovery/v1'}:
                     continue
                 context = load_base(path, methods, exchange)
                 stamp = _timestamp(context['request']['created_at'], 'created_at')
                 task_id = context['task']['task_id']
+                order = (stamp, context['round_path'].name,
+                         context['seal']['schema_version'] == 'research-sealed-recovery/v1')
                 previous = candidates.get(task_id)
-                if previous is None or (stamp, path.name) > previous[:2]:
-                    candidates[task_id] = (stamp, path.name, context)
+                if previous is None or order > previous[0]:
+                    candidates[task_id] = (order, context)
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 errors.append(dict(seal=str(path), reason=str(exc)))
         queue = read(methods/'output/research_queue/state.json')['entries'] if (methods/'output/research_queue/state.json').exists() else {}
         result = []
-        for task_id, (stamp, _, context) in sorted(candidates.items()):
+        for task_id, (order, context) in sorted(candidates.items()):
+            stamp = order[0]
             if stamp < cutoff or not eligible(context):
                 continue
             if task_id in queue and _timestamp(queue[task_id]['created_at'], 'queued created_at') > stamp:
@@ -209,7 +239,10 @@ def scan(methods, exchange, mail_root, not_before):
                     for g in pair_generators(context['documents'])})
             if path.exists():
                 intent = read(path)
-                require(all(intent.get(k) == v for k, v in identity.items()), 'Coze intent input changed')
+                if not all(intent.get(k) == v for k, v in identity.items()):
+                    errors.append(dict(seal=str(context['path']), intent=str(path),
+                                       reason='Coze intent input changed; existing intent preserved'))
+                    continue
             else:
                 intent = dict(identity, status='ready', request_id=None, reason=None)
                 atomic(path, intent)
@@ -553,7 +586,7 @@ def publish(intent_path, extraction_path, methods, exchange):
             price = encoded(doc)
             immutable(methods/targets['research'], report)
             immutable(methods/targets['price-map'], price)
-            seal = dict(context['seal'], schema_version=SEAL_SCHEMA,
+            seal = dict({key: context['seal'][key] for key in BASE_KEYS}, schema_version=SEAL_SCHEMA,
                 base_seal=dict(path=str(context['path'].relative_to(methods)), sha256=context['base_sha256']),
                 coze=dict(intent=str(intent_path.relative_to(methods)), request_id=intent['request_id'],
                     email_result=email_descriptor, mail_receipt=mail_receipt,

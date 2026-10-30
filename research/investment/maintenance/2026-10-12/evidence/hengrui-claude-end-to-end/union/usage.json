@@ -1,0 +1,183 @@
+{
+  "schema_version": "research-usage/v1",
+  "generator": "claude",
+  "execution_dir": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-12-hengrui-claude-e2e/union",
+  "process": {
+    "task_id": "union",
+    "generator": "claude",
+    "status": "completed",
+    "pid": 77253,
+    "exit_code": 0,
+    "launched_at": "2026-10-12T00:34:31.913945+00:00",
+    "completed_at": "2026-10-12T00:43:51.765443+00:00",
+    "execution_duration_seconds": 559.8481518332846
+  },
+  "duration": {
+    "seconds": 559.8481518332846,
+    "basis": "process.execution_duration_seconds"
+  },
+  "models": [
+    {
+      "model": "deepseek-flash[1m]",
+      "source": {
+        "path": "events.jsonl",
+        "line": 5,
+        "byte_offset": 1154,
+        "sha256": "973cd596a6f8ecb211a1a11b530ecd0d9764d3a95018154e950051aa3cd70cdd",
+        "field": "model"
+      }
+    }
+  ],
+  "source": {
+    "path": "events.jsonl",
+    "status": "complete_read",
+    "sha256": "a32ff94a8e104766cea10bfa64f817efcca2247010e72f5f6f3d7e239cdd4485",
+    "bytes": 3410408,
+    "lines": 15925,
+    "invalid_lines": []
+  },
+  "scope": {
+    "attempt": "this_directory_only",
+    "subagent_coverage": "unknown",
+    "all_attempt_tokens": "unknown",
+    "cross_provider_total": null
+  },
+  "summary": {
+    "method": "single_result_verbatim_no_aggregation",
+    "status": "reported",
+    "usage": {
+      "input_tokens": 18927,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 365952,
+      "output_tokens": 23268,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "deepseek-flash[1m]": {
+        "inputTokens": 18927,
+        "outputTokens": 23268,
+        "cacheReadInputTokens": 365952,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.8593109999999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 32000,
+        "thinkingTokens": 0,
+        "canonicalModel": "deepseek-flash[1m]",
+        "provider": "firstParty",
+        "costBasis": "unknown"
+      }
+    },
+    "event_lines": [
+      15925
+    ],
+    "total_tokens": null
+  },
+  "records": [
+    {
+      "source": {
+        "path": "events.jsonl",
+        "line": 15925,
+        "byte_offset": 3405883,
+        "sha256": "69e848b80bdacf83d4d32347d6bd3c9d7375e072ad2aa8757bb3f8f19eef78a6"
+      },
+      "provider_fields": {
+        "type": "result",
+        "subtype": "success",
+        "uuid": "aea32ae6-4e5d-4a56-b30d-009c769a0ec1",
+        "session_id": "08592d8f-49ba-479a-8f0c-418d43d06fbd",
+        "result_index": 0,
+        "usage": {
+          "input_tokens": 18927,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 365952,
+          "output_tokens": 23268,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "modelUsage": {
+          "deepseek-flash[1m]": {
+            "inputTokens": 18927,
+            "outputTokens": 23268,
+            "cacheReadInputTokens": 365952,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.8593109999999999,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 32000,
+            "thinkingTokens": 0,
+            "canonicalModel": "deepseek-flash[1m]",
+            "provider": "firstParty",
+            "costBasis": "unknown"
+          }
+        },
+        "is_error": false,
+        "num_turns": 22,
+        "duration_ms": 558485,
+        "duration_api_ms": 353919,
+        "total_cost_usd": 0.8593109999999999,
+        "subagent_stats": {
+          "spawned": 0,
+          "requested": {
+            "background": 0,
+            "foreground": 0,
+            "unset": 0
+          },
+          "started_in_background": 0,
+          "max_depth": 0,
+          "spawned_by_subagents": 0,
+          "completed": 0,
+          "failed": 0,
+          "killed": {
+            "parent": 0,
+            "user": 0,
+            "system": 0
+          },
+          "refused": {
+            "depth_limit": 0,
+            "concurrency_limit": 0,
+            "budget": 0
+          },
+          "by_type": {}
+        }
+      },
+      "duplicate_of": null,
+      "ambiguity": null
+    }
+  ],
+  "issues": [],
+  "interpretation": {
+    "reasoning_tokens": "reported_component_never_added_to_output",
+    "cost": "provider_reported_fields_only_not_verified_billing",
+    "subscription_quota": "unknown"
+  }
+}

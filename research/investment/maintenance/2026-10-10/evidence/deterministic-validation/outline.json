@@ -1,0 +1,70 @@
+{
+  "plan_sha256": "685d094d5d9715c3fcbb1242344ebbb35e449e929593d6d07c3c2720389852d3",
+  "topics": {
+    "licensing": [
+      "HRH1-P64",
+      "HRH1-P65",
+      "HRH1-P66",
+      "HRH1-P165",
+      "HRH1-P166",
+      "HRH1-P167",
+      "A126"
+    ],
+    "related": [
+      "HRH1-P64",
+      "HRH1-P65",
+      "HRH1-P66",
+      "HRH1-P165",
+      "HRH1-P166",
+      "HRH1-P167"
+    ],
+    "cash": [
+      "HRH1-P66",
+      "HRH1-P165",
+      "A126"
+    ]
+  },
+  "contextual_links": [
+    {
+      "from_id": "HRH1-P65",
+      "id": "HRH1-P64",
+      "reason": "重要事项前页的否定范围"
+    },
+    {
+      "from_id": "HRH1-P65",
+      "id": "HRH1-P66",
+      "reason": "重大关联交易章节续页，不把局部不适用外推为全部没有"
+    },
+    {
+      "from_id": "HRH1-P65",
+      "id": "HRH1-P166",
+      "reason": "临2026-067在关联交易附注有明确交叉引用"
+    },
+    {
+      "from_id": "HRH1-P66",
+      "id": "HRH1-P165",
+      "reason": "瑞宏迪的关联主体定义"
+    },
+    {
+      "from_id": "HRH1-P166",
+      "id": "HRH1-P165",
+      "reason": "本表交易对手的关联方定义"
+    },
+    {
+      "from_id": "HRH1-P166",
+      "id": "HRH1-P167",
+      "reason": "页末关联托管表头的下一页数据"
+    }
+  ],
+  "units": 7,
+  "unique_characters": 6988,
+  "topic_read_characters": 15503,
+  "duplicate_characters": 8515,
+  "unassigned_units": [],
+  "gaps": [
+    "BMS本地附件第1-2页乱码；仅第3-5页中文公告可读，不能声称已核验乱码页。",
+    "这是已有本地提取文本小样本；未重新联网确认更正或逐页原PDF版式，不能当新一期完整投研。"
+  ],
+  "evidence_status": "unverified",
+  "research_complete": false
+}

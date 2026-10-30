@@ -1,0 +1,1 @@
+{"review_file":"draft.json","input_complete":true,"audit_file":"/private/tmp/hengrui-e2e-union-lm6xfz2g/output/audit-1.json","limitations":["BMS附件前两页乱码无法核验；完整收件不代表全部内容可解读。","未核验原PDF、缺失公告、实际交割及收付款，增资份额和部分付款条件仍有缺口。","检查确认声明范围的收件及引用，未验证事实真伪；coverage_complete=false，evidence_status=unverified。"]}

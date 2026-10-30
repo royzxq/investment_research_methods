@@ -1,0 +1,28 @@
+{
+  "wall_ms": 35141,
+  "parallel_batches": 1,
+  "records": [
+    {
+      "batch": 1,
+      "wall_ms": 15674,
+      "usage": {
+        "input_tokens": 49098,
+        "output_tokens": 1860
+      },
+      "failed": 0,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 8094
+    },
+    {
+      "batch": 2,
+      "wall_ms": 14467,
+      "usage": {
+        "input_tokens": 44329,
+        "output_tokens": 1426
+      },
+      "failed": 0,
+      "model": "jev-1.13.0",
+      "reported_latency_ms": 5131
+    }
+  ]
+}

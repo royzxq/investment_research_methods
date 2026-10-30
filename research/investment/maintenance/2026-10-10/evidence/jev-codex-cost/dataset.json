@@ -1,0 +1,34 @@
+{
+  "scope": "matched full-original consumer assay, not full stock research",
+  "source_order_identical_across_arms": true,
+  "gold_sent_to_model": false,
+  "no_candidate_elimination": true,
+  "tasks": {
+    "announcements": {
+      "manifest_sha256": "f357eef2a8b16d1abe011a88311b7240c8eef2b370478dbca21db61dd79b2408",
+      "ranked_sha256": "b0082e28e19cb969d3e26ef6f29ff65b394e3a2756e9a54a3208888cb62b5a6c",
+      "items": 168,
+      "original_read_items": 16,
+      "original_characters": 55623,
+      "titles_in_prompt": 168,
+      "part_items": [
+        4,
+        7,
+        5
+      ]
+    },
+    "passages": {
+      "manifest_sha256": "b6b0055dced4cfb8eb9eb46a83bef2f2583ac337377ed45436e042e494fdcffc",
+      "ranked_sha256": "493b961873727b7f6b4b663982562b97eb16836ec2a199615e74285f4abc1446",
+      "items": 53,
+      "original_read_items": 53,
+      "original_characters": 51505,
+      "titles_in_prompt": 0,
+      "part_items": [
+        18,
+        18,
+        17
+      ]
+    }
+  }
+}

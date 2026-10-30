@@ -1,0 +1,6 @@
+{
+  "cwd": "/private/tmp/hengrui-claude-review-recovery-xkpvwfli",
+  "previous_review_sha256": "ca4dd9d05992ec666e970378bda203e9bcac33f8486f06bd69b07d461e5740fa",
+  "recovery_mode": "fresh context source verification of saved corrections; plain JSON receipt avoids structured-output round",
+  "prior_attempt": "../process.json"
+}

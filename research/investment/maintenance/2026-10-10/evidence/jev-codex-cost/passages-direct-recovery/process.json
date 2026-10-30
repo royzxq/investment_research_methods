@@ -1,0 +1,16 @@
+{
+  "generator": "codex",
+  "task_id": "passages-direct-recovery",
+  "status": "completed",
+  "scope": "ranking handoff + complete source reading + real-error fallback + evidence mapping",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning": "low",
+  "configured_service_tier": "priority",
+  "billing_auth": "ChatGPT (codex login status)",
+  "model_reported_by_event": null,
+  "launched_at": "2026-10-10T14:17:46.652401+00:00",
+  "pid": 42552,
+  "exit_code": 0,
+  "completed_at": "2026-10-10T14:19:32.618681+00:00",
+  "execution_duration_seconds": 105.96599787496962
+}

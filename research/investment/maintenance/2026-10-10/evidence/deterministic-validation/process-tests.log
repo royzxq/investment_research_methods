@@ -1,0 +1,9 @@
+test_sigterm_to_runner_cleans_children_and_records_failure (tests.test_research_runner.ResearchRunnerTests.test_sigterm_to_runner_cleans_children_and_records_failure) ... ok
+test_timeout_kills_descendant_that_ignores_sigterm (tests.test_research_runner.ResearchRunnerTests.test_timeout_kills_descendant_that_ignores_sigterm) ... {"event": "research_started", "task_id": "SH-600066", "generator": "claude", "attempt": 1, "pid": 48439, "stdin_bytes": 4592}
+{"event": "research_finished", "task_id": "SH-600066", "generator": "claude", "status": "failed", "attempt": 1, "process_path": "/private/var/folders/0y/3r3y_sg55hbgz1p4w5qyp_200000gn/T/tmpcs0iuw7b/methods/output/runs/investment/2026-10-06/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/execution/SH-600066/claude/process.json"}
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 12.484s
+
+OK

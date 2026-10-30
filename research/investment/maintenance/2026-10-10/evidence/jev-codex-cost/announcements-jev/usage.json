@@ -1,0 +1,78 @@
+{
+  "schema_version": "research-usage/v1",
+  "generator": "codex",
+  "execution_dir": "/Users/xinquanzhou/Workspace/investment_research_methods/output/deep-research/2026-10-10-jev-integration/codex-cost/announcements-jev",
+  "process": {
+    "task_id": "announcements-jev",
+    "generator": "codex",
+    "status": "completed",
+    "pid": 38796,
+    "exit_code": 0,
+    "launched_at": "2026-10-10T14:10:00.717657+00:00",
+    "completed_at": "2026-10-10T14:12:02.359304+00:00",
+    "execution_duration_seconds": 121.64127754094079
+  },
+  "duration": {
+    "seconds": 121.64127754094079,
+    "basis": "process.execution_duration_seconds"
+  },
+  "models": [],
+  "source": {
+    "path": "events.jsonl",
+    "status": "complete_read",
+    "sha256": "418fb7fdc231a74dc1389a6fdfe14cd0d6d6d56bb7c30c63466f3d352636dd07",
+    "bytes": 159528,
+    "lines": 11,
+    "invalid_lines": []
+  },
+  "scope": {
+    "attempt": "this_directory_only",
+    "subagent_coverage": "unknown",
+    "all_attempt_tokens": "unknown",
+    "cross_provider_total": null
+  },
+  "summary": {
+    "method": "sum_unique_turn_completed",
+    "status": "reported",
+    "usage": {
+      "input_tokens": 197099,
+      "cached_input_tokens": 141312,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 5437,
+      "reasoning_output_tokens": 0
+    },
+    "event_lines": [
+      11
+    ],
+    "scope": "observed_completed_turns_only",
+    "total_tokens": null
+  },
+  "records": [
+    {
+      "source": {
+        "path": "events.jsonl",
+        "line": 11,
+        "byte_offset": 159363,
+        "sha256": "3b1cdd473cff9b3b5fd01b3bee639f23385c8d7f766c762618c2bd3a4a13215c"
+      },
+      "provider_fields": {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 197099,
+          "cached_input_tokens": 141312,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5437,
+          "reasoning_output_tokens": 0
+        }
+      },
+      "duplicate_of": null,
+      "ambiguity": null
+    }
+  ],
+  "issues": [],
+  "interpretation": {
+    "reasoning_tokens": "reported_component_never_added_to_output",
+    "cost": "provider_reported_fields_only_not_verified_billing",
+    "subscription_quota": "unknown"
+  }
+}

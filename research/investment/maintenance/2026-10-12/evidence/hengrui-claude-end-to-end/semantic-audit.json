@@ -1,0 +1,127 @@
+{
+  "reviewer_generator": "codex",
+  "method": "Parent semantic reading of all seven source units and both original/revised claims, plus actual independent Claude review and metered recovery. Program IDs/quote matching alone are not semantic proof.",
+  "initial_issues": {
+    "repeated": [
+      "C1 omitted 拟 in planned signing and overclaimed the association-identification route."
+    ],
+    "union": [
+      "C2 called the royalty occurrence a paid consideration while later saying payment could not be determined."
+    ]
+  },
+  "checks": [
+    {
+      "id": "license_state_and_linkage",
+      "source_units": [
+        "HRH1-P65",
+        "HRH1-P165",
+        "HRH1-P166"
+      ],
+      "criterion": "更替主体、拟签/将继受、附注联系；不把关联认定推断当事实。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "occurrence_not_cash",
+      "source_units": [
+        "HRH1-P166"
+      ],
+      "criterion": "人民币元30,000,000.00与56,603,773.58是发生额；不当已付对价或现金收付。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "ruihongdi_capital",
+      "source_units": [
+        "HRH1-P66",
+        "HRH1-P165"
+      ],
+      "criterion": "75,000万元是现股东同比例增资计划；非恒瑞全额已支出。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "bounded_negative_disclosures",
+      "source_units": [
+        "HRH1-P64",
+        "HRH1-P65",
+        "HRH1-P166"
+      ],
+      "criterion": "非经营性占款/违规担保否定不能推出没有关联交易。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "bms_payment_composition",
+      "source_units": [
+        "A126"
+      ],
+      "criterion": "可达9.5亿美元：6亿美元首付、1.75亿美元周年、2028年有条件1.75亿美元。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "bms_potential_and_closing",
+      "source_units": [
+        "A126"
+      ],
+      "criterion": "潜在约152亿美元、里程碑/选择权及交割条件不是已到账现金。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "project_stage",
+      "source_units": [
+        "A126"
+      ],
+      "criterion": "13个项目均尚未进入临床研究。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "cross_page_trustee_table",
+      "source_units": [
+        "HRH1-P166",
+        "HRH1-P167"
+      ],
+      "criterion": "委托方/受托方、元人民币、3,481,132.08和表头续页；不推作恒瑞已收现金。",
+      "repeated": "pass",
+      "union": "pass"
+    },
+    {
+      "id": "bms_royalty",
+      "source_units": [
+        "A126"
+      ],
+      "criterion": "净销售额的分梯度提成，排除中国大陆/香港/澳门；不补未披露比率。",
+      "repeated": "pass",
+      "union": "pass"
+    }
+  ],
+  "final_reviews": {
+    "repeated": {
+      "source_review_file": "repeated/bms-review/draft-bms-reviewed.json",
+      "source_review_sha256": "c536d2efd90a5b8e2c3b86eec783b3c38f9e3b707ff11eefb539511087b8e816",
+      "final_review_file": "repeated/final-reviewed.json",
+      "final_review_sha256": "a111f34815c262798f1331cc9b0a8da9604790cb9d72509b3c110746bbab73ed",
+      "editorial_program_changes": [
+        {
+          "path": "limitations[6]",
+          "before": "笔误/不一致：P65称议案经2026年4月30日披露的第十届董事会第三次会议决议公告披露，P166脚注称该次会议于2026年4月29日召开，两处日期口径不同（可解释为会议日与披露日，但材料未明示）。",
+          "after": "会议日与披露日：P166脚注记载董事会会议于2026年4月29日召开，P65记载决议公告于2026年4月30日披露。两处分别指会议日与披露日，不构成已证实的笔误；采用独立复核C1的限定。",
+          "basis": "Claude review receipt explicitly identified the stale label; C1 already corrected the distinction."
+        }
+      ],
+      "claims_unchanged_by_finalizer": true
+    },
+    "union": {
+      "source_review_file": "union/bms-review/retry-1/draft-bms-reviewed.json",
+      "source_review_sha256": "ca4dd9d05992ec666e970378bda203e9bcac33f8486f06bd69b07d461e5740fa",
+      "final_review_file": "union/final-reviewed.json",
+      "final_review_sha256": "ca4dd9d05992ec666e970378bda203e9bcac33f8486f06bd69b07d461e5740fa",
+      "editorial_program_changes": [],
+      "claims_unchanged_by_finalizer": true
+    }
+  },
+  "quality_scope": "Nine bounded checkpoints, not exhaustive original-PDF or whole-company verification. BMS garbled first two pages and actual cash/closing status remain gaps."
+}

@@ -1,0 +1,7 @@
+{
+  "scripts/research_reader.py": "890467917500a11a8cd3c388b7e9e87d94568c4cb812d5f0279f4d65031f5f41",
+  "scripts/research_evidence.py": "ce597fbfb59682af47d49ddc4650811146314c3086926a5b61e9a2d557912529",
+  "scripts/research_usage.py": "033c38169d92e33d05051aea4964663991e38b1f1104de67b98a2b4b5ec2bf90",
+  ".agents/skills/deep-research-auto/references/local-reading.md": "d17e792330f07396120c021089f768f0263151670edf4ad47c2b544b6c9cdbc7",
+  ".agents/skills/stock-research/references/data-acquisition.md": "b0ac0415bb60857a97d55c7242d54a7d74daede624a184a45cf4ac780f7dd48f"
+}

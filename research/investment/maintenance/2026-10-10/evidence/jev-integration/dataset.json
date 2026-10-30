@@ -1,0 +1,211 @@
+{
+  "schema": "research-jev-benchmark-dataset/v1",
+  "as_of": "2026-10-09",
+  "model": "jev-1.13.0",
+  "tasks": {
+    "announcements": {
+      "sources": [
+        {
+          "path": "output/stock-research-SH-600276-2026-10-09-codex/gov-directory-index.json",
+          "prefix": "A",
+          "url": "https://www.hengrui.com/investor/provisionalNotice.html",
+          "disclosed_at": "2026-10-09",
+          "sha256": "92dbf519ce6887560ff020c3de39fa6e8e8689c9ee3ea30e309dc443eaac91ab"
+        }
+      ],
+      "topics": [
+        {
+          "id": "cash_capital",
+          "question": "这条公告标题是否涉及可能改变现金、支付义务、股本或资本分配的事项，例如回购、分红、融资、许可对价、收购、担保或股份变动？否认、条件、未完成及修订也算相关；仅判断主题相关性，不判断交易成立或风险不存在。",
+          "patterns": [
+            "回購",
+            "回购",
+            "股息",
+            "分紅",
+            "分红",
+            "股份",
+            "股本",
+            "融資",
+            "融资",
+            "授權",
+            "授权",
+            "收購",
+            "收购",
+            "担保",
+            "擔保",
+            "資金",
+            "资金",
+            "財務",
+            "财务",
+            "業績",
+            "业绩"
+          ]
+        },
+        {
+          "id": "business_earnings",
+          "question": "这条公告标题是否涉及财报业绩、经营业务、研发产品审批、许可合作、商业化或重大业务进展/挫折？否认、终止、未完成和修订同样相关。",
+          "patterns": [
+            "報告",
+            "报告",
+            "業績",
+            "业绩",
+            "授權",
+            "授权",
+            "藥",
+            "药",
+            "臨床",
+            "临床",
+            "许可",
+            "許可",
+            "上市",
+            "合作",
+            "研發",
+            "研发",
+            "經營",
+            "经营"
+          ]
+        },
+        {
+          "id": "governance_risk",
+          "question": "这条公告标题是否涉及关联交易、担保、股权激励、管理层任免、会议决议、监管法律事项、重大风险或其否认/更正？通用标题无法确认时保留不确定，不由标题宣称无风险。",
+          "patterns": [
+            "關聯",
+            "关联",
+            "擔保",
+            "担保",
+            "激勵",
+            "激励",
+            "董事",
+            "股東",
+            "股东",
+            "監事",
+            "监事",
+            "訴訟",
+            "诉讼",
+            "監管",
+            "监管",
+            "更正",
+            "更新",
+            "修訂",
+            "修订",
+            "離任",
+            "辞职",
+            "辭職"
+          ]
+        }
+      ],
+      "coverage": {
+        "status": "partial",
+        "gaps": [
+          "仅可见168条H股公司目录含海外监管公告；平台分页总量及A股完整目录未验证",
+          "输入只含公告标题，正文未取得/未读状态不会被分类改变"
+        ]
+      },
+      "required_title_patterns": {
+        "cash_capital": [
+          "回購|回购|股息|股份發行人|股份发行人|年報|年报|中期報告|中期报告|更正|更新"
+        ],
+        "business_earnings": [
+          "年報|年报|中期報告|中期报告|業績|业绩|更正|更新"
+        ],
+        "governance_risk": [
+          "關聯|关联|擔保|担保|董事會|董事会|股東會|股东会|更正|更新|修訂|修订"
+        ]
+      }
+    },
+    "passages": {
+      "sources": [
+        {
+          "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+          "prefix": "CMH1-P",
+          "url": "https://www.chinamobileltd.com/sc/ir/reports/ir2026_ashare.pdf",
+          "disclosed_at": null,
+          "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+          "available_by": "2026-10-09",
+          "availability_note": "2026-10-09已完成研究所留公开下载记录financial-downloads.json及原始文件；精确首次披露日未核定，不以其他格式披露日代填。"
+        },
+        {
+          "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+          "prefix": "HRH1-P",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-08-20/1225483600.PDF",
+          "disclosed_at": "2026-08-20",
+          "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e"
+        },
+        {
+          "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+          "prefix": "HRFY-P",
+          "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0325/2026032502087_c.pdf",
+          "disclosed_at": "2026-03-25",
+          "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c"
+        }
+      ],
+      "topics": [
+        {
+          "id": "cash_restrictions",
+          "question": "本页是否包含货币资金、受限存款/保证金/质押/准备金、现金及现金等价物定义或余额、使用限制及对应表格/附注的信息？明确否认、例外、不适用及附注交叉引用也相关；不要把局部否认当成公司全局无受限资金。",
+          "patterns": [
+            "受限",
+            "限制",
+            "保证金",
+            "保證金",
+            "质押",
+            "質押",
+            "準備金",
+            "准备金",
+            "货币资金",
+            "貨幣資金",
+            "现金等价物",
+            "現金等價物",
+            "restricted",
+            "pledged"
+          ]
+        },
+        {
+          "id": "licensing_payments",
+          "question": "本页是否涉及药品/技术/知识产权许可或授权交易的首付款、现金或股权对价、里程碑、提成、付款条件、已收/应收或收入确认时点？包含否认、未完成、合同负债和履约义务等相关附注。一般技术介绍而无交易条款不算。",
+          "patterns": [
+            "许可",
+            "許可",
+            "授权",
+            "授權",
+            "首付",
+            "里程碑",
+            "milestone",
+            "upfront",
+            "合同负债",
+            "合同負債",
+            "履约义务",
+            "履約義務",
+            "GSK",
+            "BMS",
+            "Braveheart"
+          ]
+        },
+        {
+          "id": "related_parties",
+          "question": "本页是否包含关联方、关联交易/余额、关联资金往来、关联托管或关联担保及其表头/附注？明确否认、无重大、不适用、例外与范围限定也算相关，不能据此认定全部关联风险不存在。",
+          "patterns": [
+            "关联",
+            "關聯",
+            "托管",
+            "託管",
+            "关联方",
+            "關連",
+            "担保",
+            "擔保",
+            "非经营",
+            "非經營",
+            "related part"
+          ]
+        }
+      ],
+      "coverage": {
+        "status": "partial",
+        "gaps": [
+          "三份完整本地财报提取文本；未重新联网验证版本，提取与财务事实仍需原PDF核验",
+          "中国移动A格式精确披露日未知，仅记录2026-10-09已可得上界"
+        ]
+      }
+    }
+  }
+}

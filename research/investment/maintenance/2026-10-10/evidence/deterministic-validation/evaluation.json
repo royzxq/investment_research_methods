@@ -1,0 +1,155 @@
+{
+  "scope": "Two fixed-input CLI consumer turns, including shared instructions, source metadata and complete originals. Excludes this maintenance chat, locating/authoring plans and real multi-turn tool orchestration. No Jev or model retry. Offline transport is reported separately. Actual monetary bill and account quota impact unknown.",
+  "results": {
+    "repeated": {
+      "usage": {
+        "input_tokens": 35261,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3022,
+        "reasoning_output_tokens": 57
+      },
+      "observed_input_plus_output": 38283,
+      "duration_seconds": 71.94891466689296,
+      "process_status": "completed",
+      "completed_turns": 1,
+      "tool_commands": 0,
+      "input_complete_reported": true,
+      "covered_pairs": 16,
+      "required_pairs": 16,
+      "missing_pairs": [],
+      "extra_pairs": [
+        [
+          "cash",
+          "HRH1-P166"
+        ],
+        [
+          "cash",
+          "HRH1-P167"
+        ]
+      ],
+      "quote_audit_raw": {
+        "checked": 30,
+        "issues": [],
+        "interpretation": "Exact source text only; not claim entailment."
+      },
+      "quote_audit_corrected": {
+        "checked": 30,
+        "issues": [],
+        "interpretation": "Exact source text only; not claim entailment."
+      },
+      "local_whitespace_repairs": [],
+      "raw_answer_sha256": "b815121b79caca7b328a87d0747421666cef3f888ee18350c2128e45a7ce2580",
+      "semantic_review": "Performed separately by the parent against all seven original units; not inferred from IDs or quotes."
+    },
+    "union": {
+      "usage": {
+        "input_tokens": 27721,
+        "cached_input_tokens": 27520,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2815,
+        "reasoning_output_tokens": 0
+      },
+      "observed_input_plus_output": 30536,
+      "duration_seconds": 108.76042145816609,
+      "process_status": "completed",
+      "completed_turns": 1,
+      "tool_commands": 0,
+      "input_complete_reported": true,
+      "covered_pairs": 16,
+      "required_pairs": 16,
+      "missing_pairs": [],
+      "extra_pairs": [
+        [
+          "cash",
+          "HRH1-P166"
+        ],
+        [
+          "cash",
+          "HRH1-P167"
+        ],
+        [
+          "cash",
+          "HRH1-P64"
+        ],
+        [
+          "cash",
+          "HRH1-P65"
+        ]
+      ],
+      "quote_audit_raw": {
+        "checked": 27,
+        "issues": [
+          {
+            "claim_index": 0,
+            "quote_index": 0,
+            "unit_id": "HRH1-P65",
+            "issue": "not_verbatim",
+            "suggestion": {
+              "kind": "unique_whitespace_only",
+              "start": 72449,
+              "end": 72480,
+              "original_text": "公司（新被许可方）将取代翰森各方成\n为原许可协议项下的被许可方"
+            }
+          },
+          {
+            "claim_index": 0,
+            "quote_index": 1,
+            "unit_id": "HRH1-P65",
+            "issue": "not_verbatim",
+            "suggestion": {
+              "kind": "unique_whitespace_only",
+              "start": 72482,
+              "end": 72508,
+              "original_text": "并继受原许可协议项下的翰森\n各方所有权利、责任和义务"
+            }
+          }
+        ],
+        "interpretation": "Exact source text only; not claim entailment."
+      },
+      "quote_audit_corrected": {
+        "checked": 27,
+        "issues": [],
+        "interpretation": "Exact source text only; not claim entailment."
+      },
+      "local_whitespace_repairs": [
+        {
+          "claim_index": 0,
+          "quote_index": 0,
+          "unit_id": "HRH1-P65",
+          "issue": "not_verbatim",
+          "suggestion": {
+            "kind": "unique_whitespace_only",
+            "start": 72449,
+            "end": 72480,
+            "original_text": "公司（新被许可方）将取代翰森各方成\n为原许可协议项下的被许可方"
+          },
+          "previous_text": "公司（新被许可方）将取代翰森各方成为原许可协议项下的被许可方"
+        },
+        {
+          "claim_index": 0,
+          "quote_index": 1,
+          "unit_id": "HRH1-P65",
+          "issue": "not_verbatim",
+          "suggestion": {
+            "kind": "unique_whitespace_only",
+            "start": 72482,
+            "end": 72508,
+            "original_text": "并继受原许可协议项下的翰森\n各方所有权利、责任和义务"
+          },
+          "previous_text": "并继受原许可协议项下的翰森各方所有权利、责任和义务"
+        }
+      ],
+      "raw_answer_sha256": "a47a960ad1ea31936c930774109dbf2b4d1257c7f9ea13823a423bae8d0af384",
+      "semantic_review": "Performed separately by the parent against all seven original units; not inferred from IDs or quotes."
+    }
+  },
+  "delta": {
+    "input_tokens": -7540,
+    "input_reduction_percent": 21.38339808853975,
+    "input_plus_output": -7747,
+    "input_plus_output_reduction_percent": 20.236136143980353,
+    "duration_change_percent": 51.163394141109706
+  },
+  "total_probe_input_plus_output": 68819
+}

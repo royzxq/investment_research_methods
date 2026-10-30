@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager, nullcontext
+from copy import deepcopy
 from datetime import datetime
 import fcntl
 import hashlib
@@ -18,6 +19,7 @@ from pathlib import Path
 import re
 import shutil
 import signal
+import stat
 import subprocess
 import sys
 import tempfile
@@ -32,10 +34,10 @@ try:
         _strict_json, _validate_request, load_results,
     )
     from .research_paths import company_path, company_runs
-    from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
+    from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
     from . import research_jev
     from . import research_consistency
-    from . import research_harness, research_runtime
+    from . import research_harness, research_runtime, research_shared_evidence
 except ImportError:
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
@@ -43,10 +45,10 @@ except ImportError:
         _strict_json, _validate_request, load_results,
     )
     from research_paths import company_path, company_runs
-    from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery
+    from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
     import research_jev
     import research_consistency
-    import research_harness, research_runtime
+    import research_harness, research_runtime, research_shared_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
@@ -54,7 +56,8 @@ FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
 SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'
 OLD_TWO_PRICE_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
 SCOPED_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v2')
-NEW_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v3')
+ACCEPTANCE_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v3')
+NEW_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v4')
 
 
 def delivery_contract(snapshot):
@@ -63,7 +66,7 @@ def delivery_contract(snapshot):
         if snapshot.get('research_validation') not in (None, research_consistency.LEGACY_SCHEMA):
             raise ValueError('new audit requires a frozen delivery contract')
         return dict(price_schema='stock-research/v3', audit_schema=snapshot.get('research_validation'), prompt_template='report-quotes/v3')
-    if contract not in (NEW_CONTRACT, SCOPED_CONTROLS_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
+    if contract not in (NEW_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, SCOPED_CONTROLS_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
         raise ValueError('unsupported frozen delivery contract')
     return dict(contract)
 
@@ -127,6 +130,20 @@ def save(path, value):
     temporary = path.with_suffix(path.suffix + '.partial')
     temporary.write_bytes(encode(value))
     temporary.replace(path)
+
+
+def workspace_instructions(folder):
+    """Runtime filesystem roles; keep every frozen prompt/input byte unchanged."""
+    return (f'\n执行文件写入边界（覆盖冻结提示词中允许在整个execution目录写临时材料的范围）：\n'
+            f'本批执行目录：{folder}\n'
+            f'自检材料目录：{folder / "agent"}/\n'
+            '报告及价格JSON仍写冻结暂存路径。其它取证、自检输出写上述agent/或'
+            '原output/stock-research-*目录；Jev候选与原文只写jev/materials/，'
+            '其调用日志由route工具维护。不要自行写jev/summary.json；查看摘要用'
+            'research_jev.summarize(folder, persist=False)。'
+            'execution根目录和runner/由运行器维护，禁止写research-validation.json、'
+            'framework-compatibility.json、process/entry/accepted/candidate-result/queue-result等运行记录。'
+            'CLI结构化回执仍按原协议返回。代理自检不代替运行器独立验收。\n')
 
 
 def emit(value):
@@ -248,7 +265,7 @@ def make_legacy_prompt(request, task, generator, pack, root, frameworks, targets
 
 def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
                 *, snapshot=True, maintenance=None, research_validation=None, research_baseline=None,
-                delivery=None):
+                delivery=None, evidence_workflow=None):
     contract = NEW_CONTRACT if delivery is None else delivery
     payload = make_legacy_prompt(request, task, generator, pack, root, frameworks, targets, attempt,
         snapshot=snapshot, maintenance=maintenance, research_validation=research_validation,
@@ -266,7 +283,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                'entry/add=eligible|blocked|unknown，holding=normal|review_required|invalidated|exit_required|unknown。'
                'monitoring增加id/kind/state；控制refs绑定报告audit，scope分entry/add/holding，全部解除按scope合取；'
                '未知不允许新增，复评不等于失效或成交。新build默认v4，不可借旧writer绕过。\n\n')
-    if contract in (SCOPED_CONTROLS_CONTRACT, NEW_CONTRACT):
+    if contract in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT):
         prefix += ('本批控制语义two-price-controls/v2：每条audit约束显式lifecycle=persistent/runtime/observation；'
                    '只有已触发持续研究限制或必要资格缺证可进入blocking/unknown。'
                    '纯现价相对P1/T1、最低收益由运行时判断，不制造永久价格阻断；'
@@ -276,7 +293,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '规则ID与具体事件/计划实例稳定；同义ID必须有证据映射，不自动去重；'
                    '每项解除注明必要合取/合法替代路径/仅触发复评。多来源不同主张的解除用clearance.covers列出其内容SHA256；'
                    '不能只因日期过去、跌价或另一个来源缺席解除。\n\n')
-    if contract == NEW_CONTRACT:
+    if contract in (ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT):
         prefix += ('本批验收语义two-price-controls/v3：读取 '
                    '.agents/skills/stock-research/references/acceptance-gates.md，'
                    '在报告保留唯一 stock-research-acceptance/v1 验收输入及由 '
@@ -287,7 +304,18 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '规则内部合法替代路径和复评阶段保留，不得以大部分解除或价格到位代替全部必要解除证据。'
                    '正文与结构化验收及审计一致；检查失败回原稿定向修正，不改投资方法或历史报告。'
                    '本批发布前强制 research_consistency.py check --require-lifecycle --require-acceptance。\n\n')
+    if contract == NEW_CONTRACT:
+        prefix += ('本批监控摘要two-price-controls/v4：monitoring只留0–7个公开可查核心变量，不凑数，按估值/逻辑失效影响排序、同义去重。'
+                   '每项public_search填写本轮实际使用的通用搜索检索词，source定位机构、文档/指标、披露期及章节或URL；'
+                   '必须已通过普通搜索找到并读到无需内部权限或付费订阅的公开原文，搜索摘要、URL及模型声明不等于已核验。'
+                   '内部订单、私有渠道数据、访谈或付费终端指标不入摘要；有报告依据才采用公开替代指标，不造阈值。'
+                   '财报窗口未到可current/as_of=null并写明补证事件，但公开披露路径必须已经确认。'
+                   '每项一两句保留当前值/期间、触发、动作和公开查询路径，不重复估值推导。'
+                   '无合格项monitoring=[]，报告说明缺口；完整研究条件、全部有效/未知风险及解除证据继续留报告/audit，'
+                   '不得因不可公开核验或七项上限解除、合并、截断任何research_controls或refs。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
+    if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
+        result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)
     if len(result) > MAX_INPUT_BYTES:
         raise ValueError('complete research input exceeds CLI stdin limit; no truncation allowed')
     return result
@@ -408,7 +436,7 @@ def freeze_maintenance(run, root, as_of):
 
 
 def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, research_validation=None,
-                             research_request=None, delivery=None, runtime_plan=None):
+                             research_request=None, delivery=None, runtime_plan=None, evidence_workflow=None):
     folder = run / 'framework-snapshot'
     if folder.exists():
         raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
@@ -422,6 +450,9 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
                     frameworks={name: dict(path=name, sha256=sha(raw))
                                 for name, raw in contents.items()},
                     legacy_inputs=legacy_inputs, maintenance=maintenance)
+    if evidence_workflow is not None:
+        research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow))
+        document['evidence_workflow'] = evidence_workflow
     if delivery is not None:
         document['delivery_contract'] = dict(delivery)
     if runtime_plan is not None:
@@ -521,6 +552,7 @@ def snapshot_hashes(run):
         raise ValueError('framework snapshot manifest mismatch')
     frameworks = {}
     delivery_contract(document)
+    research_shared_evidence.enabled(document)
     if document.get('research_validation') not in (None, *research_consistency.SUPPORTED_SCHEMAS):
         raise ValueError('unsupported prepared research validation contract')
     if document.get('research_validation'):
@@ -587,7 +619,8 @@ def verify_prepared(run, original_raw, root):
                 input_folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
             prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                                  frameworks, targets, maintenance=snapshot.get('maintenance'),
-                                 research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot))
+                                 research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             evidence_workflow=snapshot.get('evidence_workflow'))
             if (input_folder / 'prompt.txt').read_bytes() != prompt:
                 raise ValueError(f"prepared prompt mismatch: {task['task_id']} {generator}")
             record = _strict_json((input_folder / 'input.json').read_bytes(), 'input record')
@@ -600,6 +633,7 @@ def verify_prepared(run, original_raw, root):
                                                          maintenance=snapshot.get('maintenance'),
                                                          research_validation=snapshot.get('research_validation'),
                                                          research_baseline=baseline, delivery=delivery_contract(snapshot),
+                                                         evidence_workflow=snapshot.get('evidence_workflow'),
                                                          execution_profile=research_runtime.profile_for_plan(runtime_plan, generator),
                                                          execution_plan_sha256=(snapshot.get('execution_plan') or {}).get('sha256'))
     return request, raw, packs, verified
@@ -625,7 +659,9 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
     run.mkdir(parents=True, exist_ok=False)
     snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'],
                                         research_validation=research_consistency.SCHEMA, research_request=request,
-                                        delivery=NEW_CONTRACT, runtime_plan=runtime_plan)
+                                        delivery=NEW_CONTRACT, runtime_plan=runtime_plan,
+                                        evidence_workflow=(research_shared_evidence.WORKFLOW
+                                            if set(request['generators']) == {'codex', 'dsh'} else None))
     for task in request['tasks']:
         write_new(run / task['data_pack']['path'], packs[task['task_id']])
     for task, generator, targets in prepared:
@@ -635,7 +671,8 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
                             sha256=baseline['sha256'])
         prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                              frameworks, targets, maintenance=snapshot.get('maintenance'),
-                             research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot))
+                             research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             evidence_workflow=snapshot.get('evidence_workflow'))
         folder = run / 'execution' / task['task_id'] / generator
         write_new(folder / 'prompt.txt', prompt)
         write_new(folder / 'targets.json', encode(targets))
@@ -643,6 +680,146 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
         write_new(folder / 'receipt-schema.json', encode(receipt_schema(request, task, generator, targets)))
     write_new(run / 'request.json', raw)  # Last: a partial prepare is never runnable.
     verify_prepared(run, raw, root)
+    return run
+
+
+def _recovery_inputs(request, raw, packs, parent_run, root):
+    """Derive a DSH-only continuation from verified frozen parent inputs.
+
+    Eligibility, authorization and finite attempt claims belong to the recovery
+    controller. This helper deliberately never selects current methods, models,
+    maintenance or history, and never imports another seat's research answers.
+    """
+    root = Path(root).resolve(strict=True)
+    parent_run = Path(parent_run)
+    if parent_run.is_symlink() or not (parent_run / 'framework-snapshot/manifest.json').is_file():
+        raise ValueError('recovery requires an existing frozen parent batch')
+    parent_run = parent_run.resolve(strict=True)
+    parent, parent_raw, parent_packs = read_request(parent_run / 'request.json')
+    expected_parent = owned_path(root, f"output/runs/investment/{parent['valuation_date']}/{parent['batch_id']}")
+    if parent_run != expected_parent or parent.get('schema_version') != 'stock-research-request/v2':
+        raise ValueError('recovery parent batch identity mismatch')
+    # A missing snapshot must not trigger historical migration on this path.
+    verify_prepared(parent_run, parent_raw, root)
+    frameworks, snapshot = snapshot_hashes(parent_run)
+    if (snapshot['origin'] != 'prepared' or snapshot.get('legacy_inputs') is not None
+            or request.get('schema_version') != 'stock-research-request/v2'
+            or request['generators'] != ['dsh'] or 'dsh' not in parent['generators']
+            or request['batch_id'] == parent['batch_id']
+            or request['valuation_date'] != parent['valuation_date']):
+        raise ValueError('recovery request must be a new frozen DSH-only parent continuation')
+    original_tasks = {task['task_id']: task for task in parent['tasks']}
+    for task in request['tasks']:
+        task_id = task['task_id']
+        if task != original_tasks.get(task_id) or packs[task_id] != parent_packs.get(task_id):
+            raise ValueError('recovery task differs from exact frozen parent input')
+    parent_plan = research_runtime.load_plan(parent_run, parent, parent_raw, snapshot)
+    if parent_plan is None:
+        raise ValueError('recovery requires a frozen parent execution plan')
+    plan = research_runtime.validate_plan(dict(schema_version=research_runtime.PLAN_SCHEMA,
+        batch_id=request['batch_id'], request_sha256=sha(raw),
+        profiles={'dsh': research_runtime.profile_for_plan(parent_plan, 'dsh')}), request, raw)
+    plan_raw = research_runtime.canonical_bytes(plan)
+    inherited = deepcopy(snapshot)
+    if research_shared_evidence.enabled(snapshot):
+        inherited['evidence_parent_request'] = dict(path=(parent_run / 'request.json').relative_to(root).as_posix(), sha256=sha(parent_raw))
+    inherited['execution_plan'] = dict(path=research_runtime.PLAN_FILENAME, sha256=sha(plan_raw))
+    if snapshot.get('research_validation'):
+        original_baselines = snapshot['research_baselines']
+        selected = [task['task_id'] + '/dsh' for task in request['tasks']]
+        if any(key not in original_baselines for key in selected):
+            raise ValueError('recovery parent DSH baseline binding missing')
+        inherited['research_baselines'] = {key: deepcopy(original_baselines[key]) for key in selected}
+    files = {research_runtime.PLAN_FILENAME: plan_raw}
+
+    def copy_artifact(descriptor, label):
+        _, body = _artifact(descriptor, parent_run / 'framework-snapshot', label)
+        relative = descriptor['path']
+        if relative in files and files[relative] != body:
+            raise ValueError('recovery snapshot dependency path collision')
+        files[relative] = body
+
+    for name in FRAMEWORKS:
+        copy_artifact(snapshot['frameworks'][name], 'recovery parent framework')
+    maintenance = snapshot.get('maintenance')
+    if maintenance is not None:
+        copy_artifact(maintenance['handoff'], 'recovery parent maintenance')
+        for source in maintenance['sources']:
+            copy_artifact(dict(path=source['path'], sha256=source['sha256']), 'recovery parent maintenance source')
+    for baseline in (inherited.get('research_baselines') or {}).values():
+        if baseline is not None:
+            copy_artifact(dict(path=baseline['path'], sha256=baseline['sha256']), 'recovery parent DSH baseline')
+    files['manifest.json'] = encode(inherited)
+    return frameworks, inherited, files
+
+
+def verify_recovery_prepared(run, parent_run, root=ROOT):
+    """Read-only verification of both ordinary inputs and exact parent freeze."""
+    run = Path(run)
+    request, raw, packs = read_request(run / 'request.json')
+    _, _, files = _recovery_inputs(request, raw, packs, parent_run, root)
+    expected_run = owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}")
+    if run.is_symlink() or run.resolve(strict=True) != expected_run:
+        raise ValueError('recovery prepared batch path mismatch')
+    folder = run / 'framework-snapshot'
+    if folder.is_symlink() or not folder.is_dir():
+        raise ValueError('recovery snapshot directory mismatch')
+    actual = {}
+    for path in folder.rglob('*'):
+        if path.is_symlink() or not (path.is_file() or path.is_dir()):
+            raise ValueError('recovery snapshot requires owned regular files')
+        if path.is_file():
+            actual[path.relative_to(folder).as_posix()] = path.read_bytes()
+    if actual != files:
+        raise ValueError('recovery snapshot differs from frozen parent inputs')
+    return verify_prepared(run, raw, root)
+
+
+def prepare_recovery_request(request_path, parent_run, root=ROOT):
+    """Prepare only selected DSH tasks using the parent's immutable method set.
+
+    Newly occupied company output paths receive normal revision filenames;
+    existing parent results, prompts and snapshots are never changed. A partial
+    preparation is retained for diagnosis and cannot be silently reconstructed.
+    """
+    root = Path(root).resolve(strict=True)
+    request, raw, packs = read_request(request_path)
+    frameworks, snapshot, files = _recovery_inputs(request, raw, packs, parent_run, root)
+    run = owned_path(root, f"output/runs/investment/{request['valuation_date']}/{request['batch_id']}")
+    if run.exists() or run.is_symlink():
+        if not (run / 'request.json').is_file():
+            raise ValueError('recovery preparation incomplete; preserve this batch and rebuild')
+        if (run / 'request.json').read_bytes() != raw:
+            raise ValueError('recovery prepared request differs from immutable request')
+        verify_recovery_prepared(run, parent_run, root)
+        return run
+    prepared = []
+    for task in request['tasks']:
+        with stock_lock(root, task['task_id'], 'dsh'):
+            targets = unoccupied_targets(root, request, task, 'dsh')
+        prepared.append((task, targets))
+    run.mkdir(parents=True, exist_ok=False)
+    for relative, body in files.items():
+        target = run / 'framework-snapshot' / relative
+        write_new(target, body)
+        target.chmod(0o444)
+    for task, targets in prepared:
+        write_new(run / task['data_pack']['path'], packs[task['task_id']])
+        baseline = (snapshot.get('research_baselines') or {}).get(task['task_id'] + '/dsh')
+        if baseline is not None:
+            baseline = dict(report_path=(run / 'framework-snapshot' / baseline['path']).relative_to(root).as_posix(),
+                            sha256=baseline['sha256'])
+        prompt = make_prompt(request, task, 'dsh', packs[task['task_id']], root, frameworks, targets,
+                             maintenance=snapshot.get('maintenance'), research_validation=snapshot.get('research_validation'),
+                             research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             evidence_workflow=snapshot.get('evidence_workflow'))
+        folder = run / 'execution' / task['task_id'] / 'dsh'
+        write_new(folder / 'prompt.txt', prompt)
+        write_new(folder / 'targets.json', encode(targets))
+        write_new(folder / 'input.json', encode(input_record(request, raw, task, 'dsh', prompt, frameworks, targets)))
+        write_new(folder / 'receipt-schema.json', encode(receipt_schema(request, task, 'dsh', targets)))
+    write_new(run / 'request.json', raw)
+    verify_recovery_prepared(run, parent_run, root)
     return run
 
 
@@ -935,9 +1112,8 @@ def cancellation_scope():
             signal.signal(sig, handler)
 
 
-def communicate(proc, payload, timeout, cancelled):
+def wait_for_process(proc, timeout, cancelled):
     deadline = time.monotonic() + timeout
-    first = True
     while True:
         if cancelled.is_set():
             raise ValueError('research runner cancelled; process group cleanup required')
@@ -945,10 +1121,10 @@ def communicate(proc, payload, timeout, cancelled):
         if remaining <= 0:
             raise ValueError('research CLI timeout; original logs preserved')
         try:
-            proc.communicate(input=payload if first else None, timeout=min(remaining, 0.25))
+            proc.wait(timeout=min(remaining, 0.25))
             return
         except subprocess.TimeoutExpired:
-            first = False
+            pass
 
 
 def check_launch_day(run, request, task, launch_date):
@@ -964,6 +1140,78 @@ def check_launch_day(run, request, task, launch_date):
     raise ValueError('daily reservation expired before first launch; fresh input required')
 
 
+def sequential_research(run):
+    """Only the frozen new-batch marker enables ordering; old batches stay old."""
+    _, snapshot = snapshot_hashes(run)
+    return research_shared_evidence.enabled(snapshot)
+
+
+def upstream_evidence(run, request, raw, task, root):
+    """Require a naturally completed, validated Codex attempt for this stock."""
+    root, run = Path(root).resolve(), Path(run).resolve()
+    consumer_hash = sha(raw)
+    _, snapshot = snapshot_hashes(run)
+    parent = snapshot.get('evidence_parent_request')
+    if parent is not None:
+        parent_path, parent_raw = _artifact(parent, root, 'shared evidence parent request')
+        parent_request, checked_raw, _ = read_request(parent_path)
+        if (checked_raw != parent_raw or parent_request['valuation_date'] != request['valuation_date']
+                or set(parent_request['generators']) != {'codex', 'dsh'}):
+            raise ValueError('shared evidence recovery parent mismatch')
+        parent_task = next((t for t in parent_request['tasks'] if t['task_id'] == task['task_id']), None)
+        if parent_task != task:
+            raise ValueError('shared evidence recovery task/input mismatch')
+        run, request, raw = parent_path.parent, parent_request, parent_raw
+        verify_prepared(run, raw, root)
+        _, parent_snapshot = snapshot_hashes(run)
+        if not research_shared_evidence.enabled(parent_snapshot) or parent_snapshot.get('evidence_parent_request'):
+            raise ValueError('shared evidence recovery requires a direct original parent')
+    if 'codex' not in request['generators']:
+        raise ValueError('shared evidence dependency has no Codex producer')
+    first = execution_folder(run, task, 'codex')
+    folder = first / 'retry-1' if (first / 'retry-1/launched.json').exists() else first
+    try:
+        process = _strict_json(research_shared_evidence.regular_bytes(folder, 'process.json'), 'upstream process')
+        entry = _strict_json(research_shared_evidence.regular_bytes(folder, 'entry.json'), 'upstream entry')
+        accepted_raw = research_shared_evidence.regular_bytes(folder, 'accepted.json')
+    except (OSError, ValueError) as exc:
+        raise ValueError('Codex dependency not successfully completed; DSH remains unlaunched') from exc
+    if (process.get('status') != 'completed' or entry.get('status') != 'completed'
+            or process.get('task_id') != task['task_id'] or process.get('generator') != 'codex'
+            or process.get('evidence_workflow') != research_shared_evidence.WORKFLOW
+            or process.get('exit_code') != 0
+            or type(process.get('pid')) is not int or process['pid'] <= 0
+            or group_alive(process['pid'])):
+        raise ValueError('Codex dependency not successfully completed/stopped; DSH remains unlaunched')
+    accepted = _strict_json(accepted_raw, 'upstream accepted')
+    load_results(folder / 'accepted.json', run / 'request.json', root)
+    if accepted.get('results') != [entry]:
+        raise ValueError('Codex accepted result and terminal entry disagree')
+    descriptor = process.get('shared_evidence')
+    if not isinstance(descriptor, dict):
+        raise ValueError('Codex shared evidence missing')
+    research_shared_evidence.read_frozen(folder, descriptor, request, task)
+    bundle_path = folder / descriptor['path']
+    binding = dict(schema_version='stock-evidence-dependency/v1', consumer_request_sha256=consumer_hash,
+                   producer_request_sha256=sha(raw), task_id=task['task_id'],
+                   accepted=dict(path=(folder / 'accepted.json').relative_to(root).as_posix(), sha256=sha(accepted_raw)),
+                   bundle=dict(path=bundle_path.relative_to(root).as_posix(), sha256=descriptor['sha256']))
+    return binding, bundle_path
+
+
+def bind_upstream_evidence(run, request, raw, task, root):
+    binding, path = upstream_evidence(run, request, raw, task, root)
+    # Both attempts use one immutable dependency; retry never picks up new facts.
+    record = execution_folder(run, task, 'dsh') / 'runner/evidence-dependency.json'
+    if record.exists() or record.is_symlink():
+        original = research_shared_evidence.regular_bytes(record.parent, record.name)
+        if original != encode(binding):
+            raise ValueError('frozen shared evidence dependency differs; preserve original input')
+    else:
+        write_new(record, encode(binding))
+    return binding, path
+
+
 def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
                  cancelled, launch_date=None, attempt=1, jev_mode=None):
     """Claim an endpoint attempt once; no shared batch manifest is written here."""
@@ -975,6 +1223,8 @@ def run_provider(run, request, request_raw, task, generator, cli, root, timeout,
     _, snapshot = snapshot_hashes(run)
     plan = research_runtime.load_plan(run, request, request_raw, snapshot)
     profile = research_runtime.profile_for_plan(plan, generator)
+    if generator == 'dsh' and research_shared_evidence.enabled(snapshot):
+        upstream_evidence(run, request, request_raw, task, root)  # Before durable claim/CLI launch.
     plan_hash = (snapshot.get('execution_plan') or {}).get('sha256')
     preflight_profile(cli, profile, root)
     folder = execution_folder(run, task, generator, attempt)
@@ -1034,7 +1284,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                                       root, frozen['frameworks'], targets, attempt,
                                       maintenance=frozen['maintenance'],
                                       research_validation=frozen['research_validation'],
-                                      research_baseline=frozen['research_baseline'], delivery=frozen['delivery'])
+                                      research_baseline=frozen['research_baseline'], delivery=frozen['delivery'],
+                                      evidence_workflow=frozen['evidence_workflow'])
                 first = execution_folder(run, task, generator)
                 prior_path = owned_path(root, first/'entry.json')
                 if prior_path.is_symlink():
@@ -1089,6 +1340,17 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     f'build必须加 --legacy-snapshot {run / "framework-snapshot/manifest.json"}；'
                     '不改原始prompt/input/hash，不将本批升级为v4。\n').encode('utf-8')
             payload += research_jev.instructions(folder).encode('utf-8')
+            payload += workspace_instructions(folder).encode('utf-8')
+            dependency = None
+            if frozen['evidence_workflow'] is not None:
+                process['evidence_workflow'] = frozen['evidence_workflow']
+                if generator == 'codex':
+                    payload += research_shared_evidence.codex_instructions(folder, request, task).encode()
+                elif generator == 'dsh':
+                    dependency, bundle_path = bind_upstream_evidence(run, request, request_raw, task, root)
+                    process['shared_evidence_dependency_sha256'] = sha(encode(dependency))
+                    payload += research_shared_evidence.dsh_instructions(bundle_path, dependency['bundle']).encode()
+
             if len(payload) > MAX_INPUT_BYTES:
                 raise ValueError('complete research input plus Jev routing exceeds CLI stdin limit')
             write_new(folder / 'jev-runtime-prompt.txt', payload)
@@ -1106,9 +1368,18 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             if delivery is not None:
                 write_new(folder / 'delivery-prompt.txt', delivery)
                 process['delivery_prompt_sha256'] = sha(delivery)
-            with (folder / 'events.jsonl').open('wb') as stdout, (folder / 'stderr.log').open('wb') as stderr:
+            # stdout/stderr already go to files. A frozen file on stdin avoids
+            # a partially written PIPE after communicate()'s first short poll;
+            # the harness can read the entire prompt and EOF after cold startup.
+            stdin_fd = os.open(folder / 'jev-runtime-prompt.txt',
+                               os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+            with os.fdopen(stdin_fd, 'rb') as stdin, (folder / 'events.jsonl').open('wb') as stdout, (folder / 'stderr.log').open('wb') as stderr:
+                if (not stat.S_ISREG(os.fstat(stdin.fileno()).st_mode)
+                        or stdin.read(len(payload) + 1) != payload):
+                    raise ValueError('frozen runtime stdin does not match the complete payload')
+                stdin.seek(0)
                 check_launch_day(run, request, task, launch_date)
-                proc = subprocess.Popen(args, cwd=root, env=env, stdin=subprocess.PIPE,
+                proc = subprocess.Popen(args, cwd=root, env=env, stdin=stdin,
                                         stdout=stdout, stderr=stderr, start_new_session=True)
                 try:
                     # Popen returned successfully: preflight/lock waits must not
@@ -1116,12 +1387,12 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     # conservatively follows the actual process start.
                     started = stamp()
                     process.update(status='running', pid=proc.pid,
-                                   started_at=started, launched_at=started)
+                                   started_at=started, launched_at=started, stdin_transport='frozen_file')
                     save(folder / 'process.json', process)
                     emit(dict(event='research_started', task_id=task['task_id'],
                               generator=generator, attempt=attempt, pid=proc.pid, stdin_bytes=len(payload)))
                     retryable = True  # Only model execution/output failures may retry.
-                    communicate(proc, payload, timeout, cancelled)
+                    wait_for_process(proc, timeout, cancelled)
                 finally:
                     stop_group(proc)
                     process['exit_code'] = proc.returncode
@@ -1140,13 +1411,25 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     raise ValueError(f"new delivery requires {frozen['delivery']['price_schema']}; preserve report quotes")
                 validate_price_references(document)
                 validate_t1_delivery(document)
+                if frozen['delivery'] == NEW_CONTRACT:
+                    validate_monitoring_delivery(document)
                 if frozen['research_validation']:
                     _, report_raw = _artifact(entry['report'], staged, 'report')
                     audit_result = research_consistency.validate_report(
                         report_raw.decode('utf-8'), document, root=root,
                         expected_baseline=frozen['research_baseline'],
-                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, NEW_CONTRACT),
-                        require_acceptance=frozen['delivery'] == NEW_CONTRACT)
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT),
+                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT))
+                if frozen['evidence_workflow'] is not None:
+                    if generator == 'codex':
+                        process['shared_evidence'] = research_shared_evidence.freeze(folder, request, task)
+                    elif generator == 'dsh':
+                        confirmed, _ = bind_upstream_evidence(run, request, request_raw, task, root)
+                        if confirmed != dependency:
+                            raise ValueError('shared evidence dependency changed during research')
+                        _, report_raw = _artifact(entry['report'], staged, 'report')
+                        if dependency['bundle']['sha256'] not in _report_sections(report_raw)[0]:
+                            raise ValueError('DSH report section 0 must visibly bind the shared evidence SHA256')
                 retryable = False  # Publication must never be retried over possibly visible files.
                 # Recheck actual snapshot bytes and request/pack/prompt bindings
                 # after research, before anything can reach company discovery.
@@ -1181,11 +1464,11 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     _, price_raw = _artifact(entry['price_map'], staged, 'price map')
                     audit_result = research_consistency.validate_report(report_raw.decode('utf-8'),
                         _strict_json(price_raw, 'price map'), root=root, expected_baseline=frozen['research_baseline'],
-                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, NEW_CONTRACT),
-                        require_acceptance=frozen['delivery'] == NEW_CONTRACT)
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT),
+                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, NEW_CONTRACT))
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
-                    write_new(folder / 'research-validation.json', encode(audit_result))
-                write_new(folder / 'framework-compatibility.json', encode(compatibility))
+                    write_new(folder / 'runner/research-validation.json', encode(audit_result))
+                write_new(folder / 'runner/framework-compatibility.json', encode(compatibility))
                 save(folder / 'process.json', process)
                 publish_pair(entry, staged, root)
             completed = stamp()
@@ -1201,7 +1484,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                    retryable=attempt == 1 and entry['status'] == 'failed' and retryable and not cancelled.is_set())
     process['actual_model'] = observed_model(folder, generator, profile)
     try:
-        process['jev'] = research_jev.summarize(folder)
+        process['jev'] = research_jev.summarize(folder, persist=False)
+        write_new(folder / 'runner/jev-summary.json', encode(process['jev']))
     except Exception as exc:
         process['jev_audit_error'] = type(exc).__name__
     save(folder / 'process.json', process)

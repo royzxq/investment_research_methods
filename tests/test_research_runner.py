@@ -71,6 +71,9 @@ if mode=='runtime_input_changes': Path(os.environ['MOCK_TAMPER_PROMPT']).write_t
 if mode=='delivery_changes': Path(os.environ['MOCK_TAMPER_DELIVERY']).write_text('mutated delivery instruction')
 body='\n\n'.join(f'## {n}. section\n\n'+(f'batch={batch}; input={sha}; frames={frames}; price=25.30' if n==0 and mode!='unbound_report' else 'offline evidence') for n in range(9))
 if mode=='hidden_binding': body=body.replace(f'batch={batch}; input={sha}; frames={frames}; price=25.30',f'<!-- batch={batch}; input={sha}; frames={frames} -->\noffline evidence')
+if generator=='dsh' and b'codex-then-dsh-evidence/v1' in payload and mode!='missing_evidence_binding':
+ evidence_hash=re.search(r'^事实包SHA256：(.*)$',payload.decode(),re.M)[1]
+ body=body.replace('## 1. section',f'共享事实包SHA256：{evidence_hash}\n\n## 1. section')
 report_file.write_text(body)
 doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
 'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':24,'high':30},'p1':{'base':12},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
@@ -86,6 +89,8 @@ if '本批交付契约：stock-research/v4' in payload.decode() and mode!='legac
  doc['research_controls']={k:dict(status='unknown' if unknown else 'eligible',refs=['RESEARCH_ELIGIBILITY'] if unknown else []) for k in ('entry','add')}
  doc['research_controls']['holding']=dict(status='normal',refs=[])
  doc['monitoring'][0].update(id='income',kind='general',state='watching')
+ if 'two-price-controls/v4' in payload.decode():
+  doc['monitoring'][0].update(public_search='Offline Company 2026 interim report income',source='Offline Company 2026 interim report')
 if mode=='control_only' and doc['meta']['schema_version']=='stock-research/v4':
  doc['price_map'].update(mode='unavailable',reason='quotes cannot be verified; holding exit independently confirmed',p1=None,t1=dict(price_condition='本轮不提供T1报价'))
  doc['research_controls']=dict(entry=dict(status='blocked',refs=['offline_gate','EXIT']),add=dict(status='blocked',refs=['offline_gate','EXIT']),holding=dict(status='exit_required',refs=['EXIT']))
@@ -97,6 +102,17 @@ sys.path.insert(0,'__RESEARCH_TEST_ROOT__')
 sys.path.insert(0,'__RESEARCH_TEST_ROOT__/tests')
 from scripts.research_consistency import render_report_block, extract_audit
 from research_audit_fixture import audit_for
+if generator=='codex' and b'codex-then-dsh-evidence/v1' in payload:
+ from scripts import research_shared_evidence as shared
+ fact_root=Path(re.search(r'本轮必须交付事实证据包：(.*?)。',payload.decode())[1]).parent
+ (fact_root/'sources').mkdir(parents=True)
+ source=b'Offline issuer reported revenue 100 CNY for H1.'
+ (fact_root/'sources/original.txt').write_bytes(source)
+ source_desc=dict(path='sources/original.txt',sha256=hashlib.sha256(source).hexdigest())
+ evidence=dict(schema_version=shared.SCHEMA,batch_id=batch,task_id=f'{market}-{ticker}',valuation_date=day,input_pack_sha256=sha,
+  sources=[dict(id='S1',url='https://issuer.example/report',title='Offline issuer disclosure',published_at=day,original=source_desc,text=source_desc)],
+  facts=[dict(id='F1',kind='disclosed',statement='Reported revenue',value=100,unit='CNY',period='H1',source_id='S1',quote=source.decode(),locator='p1')],gaps=[],coverage=[])
+ (fact_root/'bundle.json').write_bytes(shared.encode(evidence))
 audit=audit_for(doc)
 if mode=='missing_lifecycle':
  for row in audit['constraints']: row.pop('lifecycle',None)
@@ -139,6 +155,10 @@ if '本批验收语义two-price-controls/v3' in payload.decode() and doc['meta']
  block+='\n\n'+acceptance_block
  if mode=='recovery_prose_majority': body+='\n恢复新增和追加时，现价≤P1且以上约束大部分解除即可恢复。\n'
 report_file.write_text(body+'\n\n'+block)
+if mode=='agent_validation_collision':
+ execution=staged.parents[2]/'execution'/get('task_id')/generator
+ for name in ('research-validation.json','framework-compatibility.json','jev/summary.json'):
+  (execution/name).write_text(json.dumps({'agent_self_check':True}))
 receipt={'batch_id':batch,'task_id':get('task_id'),'code':code,'generator':generator,'valuation_date':day,'input_pack_sha256':sha,'status':'completed','reason':None,'summary':'offline research completed','report_path':report,'price_map_path':price}
 if mode=='completed_reason':receipt['reason']='wrong place for summary'
 if mode=='wrong_input': receipt['input_pack_sha256']='0'*64
@@ -192,6 +212,85 @@ class ResearchRunnerTests(unittest.TestCase):
 
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
+
+    def test_agent_self_checks_cannot_collide_with_runner_records(self):
+        os.environ['MOCK_MODE']='agent_validation_collision'
+        result=self.execute()
+        entry=json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'],'completed',entry['reason'])
+        folder=result.parent/'execution/SH-600066/claude'
+        self.assertEqual(json.loads((folder/'research-validation.json').read_text()),
+                         {'agent_self_check':True})
+        self.assertEqual(json.loads((folder/'runner/research-validation.json').read_text())['status'],'passed')
+        self.assertEqual(json.loads((folder/'runner/framework-compatibility.json').read_text())['classification'],'exact')
+        self.assertEqual(json.loads((folder/'runner/jev-summary.json').read_text())['status'],'not_requested')
+        self.assertEqual(json.loads((folder/'jev/summary.json').read_text()),{'agent_self_check':True})
+        self.assertIn('自检材料目录',self.capture.read_text())
+        self.assertIn('agent/',self.capture.read_text())
+
+    def test_slow_cli_receives_large_complete_runtime_stdin(self):
+        # Cold harness startup can exceed the cancellation polling interval.
+        # The complete multi-byte pack must still arrive, followed by EOF.
+        self.raw_pack += ('原始资料\r\n' + 'x' * 1016) * 2048 + '\nEND-OF-RAW-PACK\n'
+        self.pack.write_text(self.raw_pack)
+        self.request['tasks'][0]['data_pack']['sha256'] = self.sha(self.pack)
+        self.write_request()
+        self.fake.write_text(FAKE_CLI.replace(
+            'payload=sys.stdin.buffer.read()',
+            'time.sleep(.6)\npayload=sys.stdin.buffer.read()'))
+        for generator in ('claude', 'codex'):
+            with self.subTest(generator=generator):
+                result = run_batch(self.request_path, self.methods, generator=generator,
+                                   cli=str(self.fake), timeout=4)
+                entry = json.loads(result.read_text())['results'][0]
+                self.assertEqual(entry['status'], 'completed', entry['reason'])
+                folder = (self.methods / 'output/runs/investment/2026-10-06'
+                          / self.request['batch_id'] / 'execution/SH-600066' / generator)
+                expected = (folder / 'jev-runtime-prompt.txt').read_bytes()
+                self.assertIn(self.raw_pack.encode('utf-8'), expected)
+                self.assertEqual(self.capture.read_bytes(), expected)
+
+    def test_changed_runtime_stdin_is_refused_before_cli_launch(self):
+        original = runner.command
+        def command(cli, generator, folder, root, profile):
+            args = original(cli, generator, folder, root, profile)
+            (folder / 'jev-runtime-prompt.txt').write_bytes(b'changed input')
+            return args
+        with patch.object(runner, 'command', side_effect=command):
+            entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('frozen runtime stdin', entry['reason'])
+        self.assertFalse(self.capture.exists())
+
+    def test_runtime_stdin_symlink_is_refused_before_cli_launch(self):
+        original = runner.command
+        outside = self.root / 'outside-stdin'
+        outside.write_bytes(b'keep original')
+        def command(cli, generator, folder, root, profile):
+            args = original(cli, generator, folder, root, profile)
+            path = folder / 'jev-runtime-prompt.txt'
+            path.unlink()
+            path.symlink_to(outside)
+            return args
+        with patch.object(runner, 'command', side_effect=command):
+            entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertFalse(self.capture.exists())
+        self.assertEqual(outside.read_bytes(), b'keep original')
+
+    def test_runtime_stdin_fifo_is_refused_without_waiting_for_a_writer(self):
+        original = runner.command
+        def command(cli, generator, folder, root, profile):
+            args = original(cli, generator, folder, root, profile)
+            path = folder / 'jev-runtime-prompt.txt'
+            path.unlink()
+            os.mkfifo(path)
+            return args
+        with patch.object(runner, 'command', side_effect=command):
+            entry = json.loads(self.execute().read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('frozen runtime stdin', entry['reason'])
+        self.assertFalse(self.capture.exists())
 
     def freeze_delivery_contract(self, contract):
         """Model a previously prepared contract without upgrading its bytes."""
@@ -759,7 +858,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertNotIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['classification'],'state_only')
         self.assertFalse(checked['needs_review'])
         self.assertNotEqual(checked['snapshot_sha256'],checked['current_sha256'])
@@ -781,7 +880,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertIn('Invalid state-only compatibility input',checked['reason'])
 
     def make_handoff(self, day='2026-10-05', status='adopted', revision=None,
@@ -844,7 +943,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['snapshot_sha256'],checked['current_sha256'])
         self.assertEqual(checked['maintenance_lifecycle']['status'],'withdrawn')
         self.assertTrue(checked['needs_review'])
@@ -856,7 +955,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertNotIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['maintenance_lifecycle']['status'],'active')
 
     def compatibility_review(self, old_methods, day="2026-10-06"):
@@ -983,7 +1082,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertNotIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['classification'],'reviewed_compatible')
         self.assertFalse(checked['needs_review'])
 
@@ -1011,7 +1110,7 @@ else:
         entry=json.loads(self.execute().read_text())['results'][0]
         self.assertEqual(entry['status'],'completed')
         self.assertIn('-r2',entry['report']['path'])
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['classification'],'needs_review')
         self.assertEqual(checked['maintenance_lifecycle']['status'],'withdrawn')
 
@@ -1249,7 +1348,7 @@ else:
         original=runner.publish_pair
         def publish_after_review(entry,staged,root):
             run=next((self.methods/'output/runs/investment/2026-10-06').iterdir())
-            path=run/'execution/SH-600066/claude/framework-compatibility.json'
+            path=run/'execution/SH-600066/claude/runner/framework-compatibility.json'
             self.assertTrue(path.is_file())
             self.assertEqual(json.loads(path.read_text())['classification'],'needs_review')
             self.assertIn('-r2.md',entry['report']['path'])
@@ -1277,7 +1376,7 @@ else:
         self.assertEqual(document['price_map']['p2']['price'],9)
         self.assertEqual(document['price_map']['p1']['base'],12)
         run=self.methods/'output/runs/investment/2026-10-06'/self.request['batch_id']
-        checked=json.loads((run/'execution/SH-600066/claude/framework-compatibility.json').read_text())
+        checked=json.loads((run/'execution/SH-600066/claude/runner/framework-compatibility.json').read_text())
         self.assertEqual(checked['original_price_state']['mode'],'buy_candidate')
         self.assertEqual(checked['original_price_state']['p2']['status'],'active')
         original=run/'staged/SH-600066/claude'/checked['original_targets']['price_map']

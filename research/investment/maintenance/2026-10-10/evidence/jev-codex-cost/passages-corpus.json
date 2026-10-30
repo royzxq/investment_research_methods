@@ -1,0 +1,436 @@
+{
+  "kind": "passages",
+  "parts": [
+    [
+      {
+        "id": "CMH1-P2",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 229,
+        "end": 1562,
+        "text_sha256": "bb3020079c89ef7e0618b81105e5fe63717ae084f86d0847ef4944ebd80f579a"
+      },
+      {
+        "id": "CMH1-P26",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 23999,
+        "end": 25061,
+        "text_sha256": "6574662db2c556cf1351ebefeb9aa199e68144878264d8cf7a1a0062377e5027"
+      },
+      {
+        "id": "CMH1-P27",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 25061,
+        "end": 26210,
+        "text_sha256": "0fa1ce4a9095526ce087b4fce50d1dbcc23b5357ca11a6709e730adf779f632e"
+      },
+      {
+        "id": "CMH1-P28",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 26210,
+        "end": 27296,
+        "text_sha256": "04decf1a62076ccdb02368751a09c36052d047b877eea8156f3df69ed9d8fe49"
+      },
+      {
+        "id": "CMH1-P29",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 27296,
+        "end": 28573,
+        "text_sha256": "87345b63217df235627e12994e410833fd121171ad54253994243eb2160114ba"
+      },
+      {
+        "id": "CMH1-P49",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 41935,
+        "end": 42553,
+        "text_sha256": "a40ac742e57d31328419b690b46edad93e4d37f670a4f7a881f4e8813525afbd"
+      },
+      {
+        "id": "CMH1-P71",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 58111,
+        "end": 58826,
+        "text_sha256": "4c652609f16d9ee7ea62b03c8c68b3dfb991c6fc4294698425de777763213d35"
+      },
+      {
+        "id": "CMH1-P75",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 62271,
+        "end": 62795,
+        "text_sha256": "7115f30ae12bec42c9d862b62262e96d884fc496c204fdee6374ef971eeab829"
+      },
+      {
+        "id": "CMH1-P98",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 76768,
+        "end": 77203,
+        "text_sha256": "ca9a6370ebd3bffae4242ded6466c1ffbab0688085da05e9438113c2d7babb28"
+      },
+      {
+        "id": "CMH1-P139",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 104456,
+        "end": 105342,
+        "text_sha256": "c52ad65f74acf531dfe596e1e208dd889aceaffd89440c9dcb7d7ea10e9cf509"
+      },
+      {
+        "id": "CMH1-P140",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 105342,
+        "end": 106131,
+        "text_sha256": "b1328e3adcfb8dea456ea334fc53b2f6f7fe9ac2b798fe802d233ddb60bbdd39"
+      },
+      {
+        "id": "CMH1-P141",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 106131,
+        "end": 106877,
+        "text_sha256": "bfa03d0ba9f207252f5154599189f8d1fe86d49d1415ca15740d64013409fe3b"
+      },
+      {
+        "id": "CMH1-P142",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 106877,
+        "end": 107699,
+        "text_sha256": "e44dd5aa8dc95a0ce256143ed63adcdb6e46c51d603fbf7ba88dc26cccc32150"
+      },
+      {
+        "id": "CMH1-P143",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 107699,
+        "end": 108275,
+        "text_sha256": "06f150e3dbe892706f62fd67461dcd15e3224dad80c94815d656ce1a777ff8a8"
+      },
+      {
+        "id": "CMH1-P144",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 108275,
+        "end": 108902,
+        "text_sha256": "1018b80d6757799cf677923f505c7d568f72117c4f0cef1b2a71778db9fe48f3"
+      },
+      {
+        "id": "CMH1-P145",
+        "path": "output/stock-research-HK-00941-2026-10-09-codex/ir2026-ashare.txt",
+        "sha256": "86d9f53008ab36c010d1093ba80596f8532f6c2d1b32fb2f74b524defe380504",
+        "start": 108902,
+        "end": 109489,
+        "text_sha256": "5927a16af2b83814ba3d8467fc5980a7be585c9574647a1c0811646c9493ec8f"
+      },
+      {
+        "id": "HRH1-P22",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 23142,
+        "end": 24402,
+        "text_sha256": "efa851fa9468332c8471335d18ab65eb605e4bdae7220ebd6b30421279ecf839"
+      },
+      {
+        "id": "HRH1-P26",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 28336,
+        "end": 29715,
+        "text_sha256": "07068f4e01b2f3a3b2fefb95db928ddc2662d2d9a1b4525860910a908945d883"
+      }
+    ],
+    [
+      {
+        "id": "HRH1-P29",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 32444,
+        "end": 32783,
+        "text_sha256": "b5747d1e10329c556479c4a192b91f1666cfcb304149a4ee831621a7abf6d27c"
+      },
+      {
+        "id": "HRH1-P36",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 37877,
+        "end": 38613,
+        "text_sha256": "8fd7323aedfff4ce37e6d01144ad5100cbfc820c96d4761e8e574fd94fa1a618"
+      },
+      {
+        "id": "HRH1-P64",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 71392,
+        "end": 71893,
+        "text_sha256": "ac87935cc8ea44b8a9c13d04d1333ed0bb93e104f0704c54f65e1985295634e2"
+      },
+      {
+        "id": "HRH1-P65",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 71893,
+        "end": 72873,
+        "text_sha256": "b5b43daba3baf0fced39b1fd0670ca24a2aab7f3b9842cdf278f4c66b3d301f3"
+      },
+      {
+        "id": "HRH1-P66",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 72873,
+        "end": 73680,
+        "text_sha256": "1307c877632922997d69ba5b53be8317f4b8c2d767d4723b9e1b8cc0cf40470b"
+      },
+      {
+        "id": "HRH1-P100",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 110960,
+        "end": 112063,
+        "text_sha256": "5a9845e5333d056c07cb1ffdd25fa94aa5aba2deacc7a224176ce0f4df3ba39f"
+      },
+      {
+        "id": "HRH1-P114",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 125523,
+        "end": 126426,
+        "text_sha256": "2d83e1a4f6d7aa0638cb3cdec9f2468206ee293b0e0f47378e6f10d34d684401"
+      },
+      {
+        "id": "HRH1-P122",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 132253,
+        "end": 132731,
+        "text_sha256": "2e25f185d7a7cf946a59979041ecc9a69acd7dc8edcd0b9d8f02aa526db017a2"
+      },
+      {
+        "id": "HRH1-P126",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 136033,
+        "end": 136646,
+        "text_sha256": "e4a6c1d6147f4bfd98b62a2039e396df3961c31a790efe2ecee1744f5fb744f0"
+      },
+      {
+        "id": "HRH1-P136",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 146859,
+        "end": 148046,
+        "text_sha256": "b592a1bf05c73df89c67ea7511b31ee424ce2325e83d7ca810d25bf77e87968d"
+      },
+      {
+        "id": "HRH1-P137",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 148046,
+        "end": 148717,
+        "text_sha256": "d86846c9fd4bf112f679057af652d15d314e5cc60496c0d3de3964c82ef0c6a0"
+      },
+      {
+        "id": "HRH1-P138",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 148717,
+        "end": 149640,
+        "text_sha256": "0f807fff5e7a054883d6fc07bc0fc4b2b4ad7715defbb61f17c81efe1e7e43bb"
+      },
+      {
+        "id": "HRH1-P146",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 156787,
+        "end": 158093,
+        "text_sha256": "ecbe99926f21d2b34743ccb037a4e1d6d45fd971ff6748e3be70f709c3d798d3"
+      },
+      {
+        "id": "HRH1-P154",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 165906,
+        "end": 167026,
+        "text_sha256": "6e6810644f9b217bdd7de28fe3890946701412375e6b09a23720c7e468d2071c"
+      },
+      {
+        "id": "HRH1-P165",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 176493,
+        "end": 177213,
+        "text_sha256": "aa2e569b16e55d66ac217de8b9b6c563a6aaa07459d0ddae09922d92bfe54566"
+      },
+      {
+        "id": "HRH1-P166",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 177213,
+        "end": 178388,
+        "text_sha256": "1e7681b37be1d936c0e29aa1e5da7906a1dbb1314cc2ad328e5d57f6fcaa7299"
+      },
+      {
+        "id": "HRH1-P167",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 178388,
+        "end": 179048,
+        "text_sha256": "f651c74676c57d5ba192a7a82723be74782505b7cbbccfefba7d1d3ea3884770"
+      },
+      {
+        "id": "HRH1-P168",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2026H1.txt",
+        "sha256": "e5a8f4558bcdf89db743b10f69a2f351d6561e872fa8fa7f25a40d6d57438b2e",
+        "start": 179048,
+        "end": 180087,
+        "text_sha256": "428e4d772a99aa2c1285f685bc76ecd85ac7737a539645646014ea1faf1c1d3f"
+      }
+    ],
+    [
+      {
+        "id": "HRFY-P24",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 24724,
+        "end": 26298,
+        "text_sha256": "ee87850ec047aa967be05ed0f11e79755a9410d6c260051a004c2e9b3f3759f1"
+      },
+      {
+        "id": "HRFY-P27",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 29211,
+        "end": 30631,
+        "text_sha256": "125d8f4d14ee2a3e56583c2d31b1dfd1623c3d3ae8daf0b79de46a123244537e"
+      },
+      {
+        "id": "HRFY-P48",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 46110,
+        "end": 48276,
+        "text_sha256": "18b378944143024b79d86c00143f331a2f9163d1bde6474690e6f12e39c3b8af"
+      },
+      {
+        "id": "HRFY-P49",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 48276,
+        "end": 49616,
+        "text_sha256": "334b45474ba321231b6c8a2d8aee3a9d3bfa038d4ddddc297fa32f5d5c23221e"
+      },
+      {
+        "id": "HRFY-P56",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 58633,
+        "end": 60154,
+        "text_sha256": "7a321a92ccd7ee0fbe93c84b2cb1b4d62f24c37d4c1deef14a696fa778df90c4"
+      },
+      {
+        "id": "HRFY-P93",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 94362,
+        "end": 95707,
+        "text_sha256": "3100813bf6fedc2ad021b79fa8b1f799cb432b4e336780dc45466f6544263efa"
+      },
+      {
+        "id": "HRFY-P95",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 96941,
+        "end": 98107,
+        "text_sha256": "1f9a7aee168b944fad3aaec9ce90fca85059c355b57102cfb7ecc900e29436b8"
+      },
+      {
+        "id": "HRFY-P96",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 98107,
+        "end": 98901,
+        "text_sha256": "3ea14fe48af3ef3a50ac0ae5f482004296ece7dc8cd25de7fa1ec2ad485c88f9"
+      },
+      {
+        "id": "HRFY-P104",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 106258,
+        "end": 106824,
+        "text_sha256": "fad1c4c46da312766e0f556dae0252076525f7617ae30395fdb900a772e38251"
+      },
+      {
+        "id": "HRFY-P196",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 201017,
+        "end": 202161,
+        "text_sha256": "2112f0b54daa0c664ea62135f313a8b817cdc405c044fe480a546ade82e346df"
+      },
+      {
+        "id": "HRFY-P198",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 202796,
+        "end": 204087,
+        "text_sha256": "944f844263c1121ac9ce37f81d9676f6f2e4f2d54f72ae37822c7d59b3095ef7"
+      },
+      {
+        "id": "HRFY-P206",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 211360,
+        "end": 212438,
+        "text_sha256": "91b78f8f9c01aa44c3556dff343345322cde979020d2c6db535bc2df703be7df"
+      },
+      {
+        "id": "HRFY-P213",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 219164,
+        "end": 220393,
+        "text_sha256": "0594980e9d02378938ff938235dea42762976f6c64308f6f19bd8c3a346c2266"
+      },
+      {
+        "id": "HRFY-P223",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 229772,
+        "end": 230627,
+        "text_sha256": "080aa4b7c5721b8ee242b3f3fdcc2721a528f4ae52b479a459b8deae70d14b57"
+      },
+      {
+        "id": "HRFY-P224",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 230627,
+        "end": 231557,
+        "text_sha256": "737f72ce83923e06649e8121eebb46f5716ef7577b3a408b6257f3040e64e7e8"
+      },
+      {
+        "id": "HRFY-P225",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 231557,
+        "end": 232393,
+        "text_sha256": "573f76ac7fa322f89c19918ac1f9b38ff334ce0b3177c96a907f7d920e410f0e"
+      },
+      {
+        "id": "HRFY-P226",
+        "path": "output/stock-research-SH-600276-2026-10-09-codex/finance-2025FY.txt",
+        "sha256": "706bd4c6aac89a506c358b800859af2f568f9122d4ba5b8bc28263eb2207b27c",
+        "start": 232393,
+        "end": 233511,
+        "text_sha256": "1c0ca2b1c53619a4e27298ed461125ef0d1ccf61e7c2acc869f5baf99575c028"
+      }
+    ]
+  ],
+  "title_ids": []
+}

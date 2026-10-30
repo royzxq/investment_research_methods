@@ -1,0 +1,258 @@
+{
+  "scope": {
+    "date_shanghai": "2026-10-10",
+    "scope": "Frozen-source locator-to-verified-evidence small workflow; excludes new downloading, PDF extraction, valuation and complete stock report",
+    "arms": [
+      "repeated",
+      "union"
+    ],
+    "source_scope": "Full copies of existing Hengrui 2026H1 extracted text and BMS announcement. Runtime searches KIOMED PHARMA SA and 十四、关联方及关联交易, then expands the fixed structural neighborhood used in both arms.",
+    "receipt_rule": "Each source packet requires a separate model tool response. No program auto-acknowledgement. The model acknowledges only a received packet in its next call.",
+    "failure": "Symmetric controlled first-read rejection, no source or receipt delivered; exit 75. Both consumers must lower the complete JSON return budget from 9000 to at most 6000 bytes and continue. Not a natural error-rate estimate.",
+    "comparison": "Same literal question prompt, same source and tool code, same dependency obligations, same return limit after failure, same CLI defaults. Only per-topic queues versus shared union reading differ.",
+    "actual_usage": "Whole turn.completed provider counts across all calls in each CLI turn: input, cached subset, output, reasoning subset; do not infer stage token counts or actual billing.",
+    "time": "Monotonic process elapsed seconds, includes startup and teardown. Paired runs dispatched concurrently.",
+    "retries": "Retain every observed command, draft fix and tool/API error. Do not drop failed attempts from the comparison.",
+    "quality": "Input-range delivery check, all declared topic dependencies, exact quotation audit, and parent semantic review of both answers against all seven source units. Source contents are not sent in the initial prompts; held-out expected facts/previous answers are not in the workspaces.",
+    "limitations": [
+      "One matched pair does not establish a distribution or typical speed.",
+      "Repeated per-topic reading is the selected baseline, not an optimally deduplicated manual reader.",
+      "The fixed neighborhood is a bounded test fixture, not an exhaustive discovery algorithm.",
+      "Local source versions are frozen; not a new verification of all public disclosures or PDF layout.",
+      "This parent maintenance chat and one-time fixture development are outside paired runtime counts. Runtime locator construction, tool output, continuation, model drafting and audit/recovery are inside."
+    ]
+  },
+  "results": {
+    "repeated": {
+      "process": {
+        "generator": "codex",
+        "task_id": "repeated",
+        "status": "completed",
+        "scope": "actual model tool loop: locate, source returns, continuation, verification, reference audit and controlled failure recovery",
+        "model_reported_by_event": null,
+        "launched_at": "2026-10-10T15:06:07.701940+00:00",
+        "pid": 51056,
+        "exit_code": 0,
+        "completed_at": "2026-10-10T15:08:52.453671+00:00",
+        "execution_duration_seconds": 164.7513400411699
+      },
+      "usage": {
+        "input_tokens": 740454,
+        "cached_input_tokens": 687872,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 6812,
+        "reasoning_output_tokens": 26
+      },
+      "input_plus_output": 747266,
+      "uncached_input": 52582,
+      "completed_turns": 1,
+      "command_calls": 18,
+      "program_calls": {
+        "locate": 1,
+        "read": 16,
+        "check": 1
+      },
+      "command_failures": 1,
+      "controlled_failures": 1,
+      "other_program_failures": [],
+      "source_packets": 14,
+      "source_characters": 15503,
+      "source_packet_stdout_bytes": 49863,
+      "all_tool_stdout_bytes": 54883,
+      "source_packets_with_partial_requested_range": 6,
+      "complete_program_payloads_in_cli_events": 18,
+      "unmatched_program_payload_indices": [],
+      "source_delivery": {
+        "licensing": {
+          "all_units_received": true,
+          "received_units": {
+            "HRH1-P64": true,
+            "HRH1-P65": true,
+            "HRH1-P66": true,
+            "HRH1-P165": true,
+            "HRH1-P166": true,
+            "HRH1-P167": true,
+            "A126": true
+          },
+          "original_characters": 6988
+        },
+        "related": {
+          "all_units_received": true,
+          "received_units": {
+            "HRH1-P64": true,
+            "HRH1-P65": true,
+            "HRH1-P66": true,
+            "HRH1-P165": true,
+            "HRH1-P166": true,
+            "HRH1-P167": true
+          },
+          "original_characters": 4843
+        },
+        "cash": {
+          "all_units_received": true,
+          "received_units": {
+            "HRH1-P66": true,
+            "HRH1-P165": true,
+            "A126": true
+          },
+          "original_characters": 3672
+        }
+      },
+      "model_reports_input_complete": true,
+      "required_pairs": 16,
+      "covered_pairs": 16,
+      "missing_pairs": [],
+      "extra_pairs": [
+        [
+          "cash",
+          "HRH1-P166"
+        ],
+        [
+          "cash",
+          "HRH1-P167"
+        ],
+        [
+          "cash",
+          "HRH1-P64"
+        ],
+        [
+          "cash",
+          "HRH1-P65"
+        ]
+      ],
+      "final_quote_audit": {
+        "checked": 20,
+        "issues": [],
+        "interpretation": "Exact source text only; not claim entailment."
+      },
+      "audit_attempts": 1,
+      "quote_issues_by_audit": [
+        0
+      ],
+      "final_check_gaps": [
+        "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+        "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+      ],
+      "facts_checked_by": "Parent semantic comparison with actual source texts; not inferred from IDs or quotes alone"
+    },
+    "union": {
+      "process": {
+        "generator": "codex",
+        "task_id": "union",
+        "status": "completed",
+        "scope": "actual model tool loop: locate, source returns, continuation, verification, reference audit and controlled failure recovery",
+        "model_reported_by_event": null,
+        "launched_at": "2026-10-10T15:06:07.702159+00:00",
+        "pid": 51057,
+        "exit_code": 0,
+        "completed_at": "2026-10-10T15:08:10.672729+00:00",
+        "execution_duration_seconds": 122.97053866717033
+      },
+      "usage": {
+        "input_tokens": 312880,
+        "cached_input_tokens": 275456,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3495,
+        "reasoning_output_tokens": 9
+      },
+      "input_plus_output": 316375,
+      "uncached_input": 37424,
+      "completed_turns": 1,
+      "command_calls": 10,
+      "program_calls": {
+        "locate": 1,
+        "read": 8,
+        "check": 1
+      },
+      "command_failures": 1,
+      "controlled_failures": 1,
+      "other_program_failures": [],
+      "source_packets": 6,
+      "source_characters": 6988,
+      "source_packet_stdout_bytes": 22438,
+      "all_tool_stdout_bytes": 27425,
+      "source_packets_with_partial_requested_range": 3,
+      "complete_program_payloads_in_cli_events": 10,
+      "unmatched_program_payload_indices": [],
+      "source_delivery": {
+        "shared": {
+          "all_units_received": true,
+          "received_units": {
+            "HRH1-P64": true,
+            "HRH1-P65": true,
+            "HRH1-P66": true,
+            "HRH1-P165": true,
+            "HRH1-P166": true,
+            "HRH1-P167": true,
+            "A126": true
+          },
+          "original_characters": 6988
+        }
+      },
+      "model_reports_input_complete": true,
+      "required_pairs": 16,
+      "covered_pairs": 16,
+      "missing_pairs": [],
+      "extra_pairs": [
+        [
+          "cash",
+          "HRH1-P166"
+        ],
+        [
+          "cash",
+          "HRH1-P167"
+        ]
+      ],
+      "final_quote_audit": {
+        "checked": 17,
+        "issues": [],
+        "interpretation": "Exact source text only; not claim entailment."
+      },
+      "audit_attempts": 1,
+      "quote_issues_by_audit": [
+        0
+      ],
+      "final_check_gaps": [
+        "BMS附件前两页提取乱码；不能声称核验了乱码内容。",
+        "仅核对已有提取文本；未重新联网检验更正、原PDF版式或实际收付款。"
+      ],
+      "facts_checked_by": "Parent semantic comparison with actual source texts; not inferred from IDs or quotes alone"
+    }
+  },
+  "delta": {
+    "input_tokens": {
+      "baseline": 740454,
+      "optimized": 312880,
+      "difference": -427574,
+      "reduction_percent": 57.744843028736426
+    },
+    "output_tokens": {
+      "baseline": 6812,
+      "optimized": 3495,
+      "difference": -3317,
+      "reduction_percent": 48.69348209042865
+    },
+    "input_plus_output": {
+      "baseline": 747266,
+      "optimized": 316375,
+      "difference": -430891,
+      "reduction_percent": 57.66233175335156
+    },
+    "duration_seconds": {
+      "baseline": 164.7513400411699,
+      "optimized": 122.97053866717033,
+      "difference": -41.780801373999566,
+      "reduction_percent": 25.359915957927214
+    },
+    "command_calls": {
+      "baseline": 18,
+      "optimized": 10,
+      "difference": -8,
+      "reduction_percent": 44.44444444444444
+    }
+  },
+  "experiment_input_plus_output": 1063641,
+  "cost_usd": null,
+  "quota_change": null,
+  "billing_note": "Provider token counts are observed; cached subsets are not extra tokens. Actual bill and account quota impact unavailable."
+}

@@ -1,0 +1,107 @@
+{
+  "status": "complete",
+  "generator": "codex",
+  "scope": "single_contract_price_volume_data",
+  "as_of": "2026-10-13",
+  "market_trade_date": "2026-10-13",
+  "sample_count": 141,
+  "sample_start": "20260316",
+  "source": {
+    "source": "Tushare Pro fut_daily",
+    "contract": "T2612",
+    "ts_code": "T2612.CFX",
+    "exchange": "CFFEX",
+    "requested_ts_code": "T2612.CFX",
+    "requested_ts_code_raw": "T2612.CFX",
+    "response_ts_code_values": [
+      "T2612.CFX"
+    ],
+    "identity_basis": "fut_daily_response_ts_code",
+    "fetched_at": "2026-10-13T22:41:00.560599+08:00"
+  },
+  "contract_basic": {
+    "ts_code": "T2612.CFX",
+    "symbol": "T2612",
+    "name": "T2612",
+    "list_date": "20260316",
+    "delist_date": "20261211",
+    "per_unit": 1.0
+  },
+  "latest": {
+    "ts_code": "T2612.CFX",
+    "trade_date": "20261013",
+    "settle": 109.655,
+    "close": 109.66,
+    "open": 109.625,
+    "high": 109.7,
+    "low": 109.58,
+    "pre_settle": 109.59,
+    "vol": 114715.0,
+    "oi": 405943.0,
+    "px": 109.655,
+    "price_basis": "settle"
+  },
+  "metrics": {
+    "ATR20": 0.12,
+    "ADX14": 18.6,
+    "HV20%": 1.1,
+    "HV60%": 1.0,
+    "HV20/HV60": 1.15,
+    "ATR20分位": 17.7,
+    "分位样本N": 141,
+    "H250": 109.7,
+    "dist_H250%": 0.04,
+    "H20": 109.7,
+    "L20": 109.26,
+    "H60": 109.7,
+    "L60": 108.86,
+    "MA20": 109.49,
+    "MA60": 109.35,
+    "20日均成交": 88046,
+    "距到期": 43
+  },
+  "additional_metrics": {
+    "volume_mean20": 88046.95,
+    "volume_vs_mean20_ratio": 1.3028844270017303,
+    "volume_change": -5641.0,
+    "volume_change_pct": -4.686928777958721,
+    "oi_change": 11645.0,
+    "oi_change_pct": 2.9533500043114502,
+    "settlement_change_pct": 0.05931198102016033,
+    "close_vs_pre_settle_pct": 0.0638744410986325,
+    "close_vs_previous_close_pct": 0.0638744410986325,
+    "atr20_unrounded": 0.11583835821078113
+  },
+  "weekly_return": {
+    "周涨锚日": "20261006",
+    "周涨起日": "20260930",
+    "周涨止日": "20261013",
+    "周涨起价": 109.41,
+    "周涨止价": 109.655,
+    "周涨起口径": "settle",
+    "周涨止口径": "settle",
+    "周涨%": 0.2239283429,
+    "周涨起结算": 109.41,
+    "周涨止结算": 109.655
+  },
+  "notes": [
+    "复用 future_data.daily、indicators、contract_price_evidence 的量价计算；仅提取市场字段。",
+    "px优先结算价，缺失时回退close；本次所有行均为settle。MA/HV及TR前价沿用该口径。",
+    "ATR20用TR的ewm(alpha=1/20,adjust=False)，ADX14沿用原脚本。",
+    "H20/L20/H60/L60均含当日；不等同v3前20日突破通道。",
+    "ATR分位和H250只有141日样本，H250实际为该合约上市以来高点。",
+    "周涨锚日10月6日无行情，按逻辑选择不晚于锚日的9月30日，与10月13日比较。",
+    "成交量与持仓量单位手；成交量比为当日成交量/含当日20日均量。",
+    "到期交易日数沿用原脚本SSE trade_cal计数，区间[20261013,20261211)；日历未降级。"
+  ],
+  "execution_permission": "not_evaluated",
+  "validation": {
+    "actual_tushare_api": true,
+    "response_contract_identity": true,
+    "unique_sorted_dates": true,
+    "ohlc_finite_and_in_range": true,
+    "volume_oi_finite_nonnegative": true
+  },
+  "calculation_source_sha256": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7",
+  "daily_csv_sha256": "c9bfe023312c3b11374647e3b028612bd12fd8bc67c42b9bdfaeceb807ad36b3"
+}
