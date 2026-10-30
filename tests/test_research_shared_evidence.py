@@ -42,7 +42,10 @@ class SharedEvidenceTests(unittest.TestCase):
         profiles = [runtime.default_profile(g) for g in ('codex', 'dsh')]
         self.config = dict(schema_version=runtime.CONFIG_SCHEMA, profiles=profiles,
                            active={p['producer']:p['profile_id'] for p in profiles})
-        self.extra_env = patch.dict(os.environ, {'MOCK_PARALLEL_BARRIER':'0', 'MOCK_PARALLEL_SLEEP':'.05'})
+        # The fake CLI never calls an API; do not depend on developer credentials
+        # (including the adapter's local Claude-settings fallback) in offline CI.
+        self.extra_env = patch.dict(os.environ, {'DEEPSEEK_API_KEY':'offline-shared-evidence-fixture',
+                                                'MOCK_PARALLEL_BARRIER':'0', 'MOCK_PARALLEL_SLEEP':'.05'})
         self.extra_env.start(); self.addCleanup(self.extra_env.stop)
 
     def prepare(self):

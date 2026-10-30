@@ -570,9 +570,13 @@ def execute(intent_path, exchange, methods=ROOT, *, cli=None):
                 else:
                     require(not (folder / 'launched.json').exists(), 'incomplete recovery attempt requires audit; no duplicate launch')
                     endpoint_cli = cli or runner.default_cli('dsh', profile)
+                    # load_intent/validate_recovery_run above bind this authorized
+                    # continuation to the completed original round. It is not a
+                    # fresh daily reservation; keep its frozen valuation date
+                    # without requiring the new child to have a same-day PID.
                     runner.run_provider(run, request, raw, task, 'dsh', endpoint_cli,
                                         methods, intent['timeout_seconds'], cancelled,
-                                        launch_date=request['valuation_date'], attempt=attempt)
+                                        attempt=attempt)
                     entry = read(folder / 'entry.json')
                 last_folder = folder
                 if entry['status'] == 'completed' or not runner.retryable_failure(folder) or cancelled.is_set():

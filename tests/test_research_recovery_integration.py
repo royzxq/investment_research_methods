@@ -116,6 +116,38 @@ class RecoveryIntegrationTests(unittest.TestCase):
         self.assertFalse((self.f.exchange/'recoveries'/('c'*32)).exists())
         recovery.load_intent(intent, self.f.methods, self.f.exchange)
 
+    def assert_cross_day_recovery(self, intent):
+        state = scheduler.new_state()
+        day = self.f.request['valuation_date']
+        state['days'] = {day:{'SH-600066':{'immutable':'reservation'}}}
+        scheduler.sync_started(state, self.f.methods)
+        before = deepcopy(state)
+        first = self.execute(intent)
+        self.assertEqual(first[0]['status'], 'completed')
+        with patch.object(runner, 'run_provider') as launched:
+            self.assertEqual(self.execute(intent), first)
+        launched.assert_not_called()
+        _, child_path, _ = recovery.load_intent(intent, self.f.methods, self.f.exchange)
+        child = recovery.read(child_path)
+        self.assertEqual(child['valuation_date'], day)
+        self.assertEqual(child['tasks'], self.f.request['tasks'])
+        self.assertEqual(child['generators'], ['dsh'])
+        recovery.load_supplement(first[0]['supplement'], self.f.methods, self.f.exchange)
+        scheduler.sync_started(state, self.f.methods)
+        self.assertEqual(state, before)
+        self.assertEqual({p:p.read_bytes() for p in self.protected}, self.protected)
+
+    def test_authorized_recovery_prepared_and_started_after_original_day(self):
+        tomorrow = (datetime.fromisoformat(runner.stamp()) + timedelta(days=1)).isoformat()
+        with patch.object(runner, 'stamp', return_value=tomorrow):
+            self.assert_cross_day_recovery(self.prepare())
+
+    def test_authorized_recovery_prepared_before_midnight_can_start_next_day(self):
+        intent = self.prepare()
+        tomorrow = (datetime.fromisoformat(runner.stamp()) + timedelta(days=1)).isoformat()
+        with patch.object(runner, 'stamp', return_value=tomorrow):
+            self.assert_cross_day_recovery(intent)
+
     def test_intent_request_and_claim_tampering_fail_before_launch(self):
         intent = self.prepare()
         value = recovery.read(intent)
