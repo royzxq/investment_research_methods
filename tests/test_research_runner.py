@@ -94,6 +94,8 @@ if '本批交付契约：stock-research/v4' in payload.decode() and mode!='legac
 if mode=='control_only' and doc['meta']['schema_version']=='stock-research/v4':
  doc['price_map'].update(mode='unavailable',reason='quotes cannot be verified; holding exit independently confirmed',p1=None,t1=dict(price_condition='本轮不提供T1报价'))
  doc['research_controls']=dict(entry=dict(status='blocked',refs=['offline_gate','EXIT']),add=dict(status='blocked',refs=['offline_gate','EXIT']),holding=dict(status='exit_required',refs=['EXIT']))
+if mode=='bad_monitor_source': doc['monitoring'][0]['source']='; ;'
+if mode=='bad_monitor_search': doc['monitoring'][0]['public_search']='待补充'
 receipt_price=price
 if mode=='exact_delivery_paths': price=price_file
 (staged/price).write_text(json.dumps(doc))
@@ -212,6 +214,35 @@ class ResearchRunnerTests(unittest.TestCase):
 
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
+
+    def test_new_delivery_rejects_unusable_monitoring_before_publication(self):
+        os.environ['MOCK_MODE'] = 'bad_monitor_source'
+        result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('source', entry['reason'])
+        self.assertFalse(list((self.methods/'research').rglob('*-price-map-*.json')))
+
+    def test_frozen_public_monitoring_contract_keeps_original_validation(self):
+        old = dict(runner.OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v4')
+        with patch.object(runner, 'NEW_CONTRACT', old):
+            run = runner.prepare_request(self.request_path, self.methods)
+        frozen = (run/'execution/SH-600066/claude/prompt.txt').read_bytes()
+        os.environ['MOCK_MODE'] = 'bad_monitor_source'
+        result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        self.assertEqual((run/'execution/SH-600066/claude/prompt.txt').read_bytes(), frozen)
+
+    def test_frozen_quality_checks_survive_default_rollback(self):
+        runner.prepare_request(self.request_path, self.methods)
+        os.environ['MOCK_MODE'] = 'bad_monitor_source'
+        with patch.object(runner, 'NEW_CONTRACT', runner.PUBLIC_MONITORING_CONTRACT):
+            result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('source', entry['reason'])
+        self.assertFalse(list((self.methods/'research').rglob('*-price-map-*.json')))
 
     def test_agent_self_checks_cannot_collide_with_runner_records(self):
         os.environ['MOCK_MODE']='agent_validation_collision'

@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import unicodedata
 
 
 SCHEMA = "stock-research/v4"
@@ -132,17 +133,32 @@ def validate_monitoring(items, valuation_date, *, versioned=False):
                     f"{label}: future observation")
 
 
-def validate_monitoring_delivery(document):
+def validate_monitoring_delivery(document, *, quality=False):
     """New batch policy; historical validation remains deliberately permissive.
 
     public_search records the researcher's completed public-source search.
     Structural checks do not independently certify source truth/accessibility.
+    quality is frozen by the runner contract, not inferred from report dates.
     """
     items = document['monitoring']
     require(isinstance(items, list) and len(items) <= 7, 'monitoring delivery: expected 0-7 items')
+    seen = set()
     for i, item in enumerate(items):
-        string(item.get('public_search'), f'monitoring[{i}].public_search')
-        string(item.get('source'), f'monitoring[{i}].source')
+        for key in ('public_search', 'source'):
+            value = string(item.get(key), f'monitoring[{i}].{key}')
+            if quality:
+                normalized = unicodedata.normalize('NFKC', value).casefold()
+                words = ''.join(c for c in normalized if c.isalnum())
+                require(any(c.isalpha() for c in words) and words not in {
+                    'na', 'none', 'null', 'unknown', 'tbd', 'todo', 'pending',
+                    '未提供', '未知', '待补充', '待补证', '待核验', '未核验', '不适用',
+                }, f'monitoring[{i}].{key}: unusable source/search placeholder')
+        if quality:
+            # Only typographic equivalence; different periods and economic
+            # measures stay distinct. Semantic deduplication needs research.
+            name = ''.join(unicodedata.normalize('NFKC', item['variable']).casefold().split())
+            require(name not in seen, f'monitoring[{i}]: duplicate normalized variable')
+            seen.add(name)
 
 
 def validate_triggers(value, label):
@@ -429,6 +445,8 @@ def main(argv=None):
                        help="Actual host producing the research, not the source of cited material")
     check = sub.add_parser("check", help="validate v4/v3/v2 quotes and states, not report semantics")
     check.add_argument("file")
+    check.add_argument('--require-monitoring-quality', action='store_true',
+                       help='new delivery: reject unusable source/search placeholders and typographic duplicates')
     args = parser.parse_args(argv)
     try:
         if args.command == "build":
@@ -463,6 +481,10 @@ def main(argv=None):
             validate_document(document)
             validate_price_references(document)
             checks = 'structure/state/V50 references'
+            if args.require_monitoring_quality:
+                require(document['meta']['schema_version'] == SCHEMA, 'monitoring quality requires v4 delivery')
+                validate_monitoring_delivery(document, quality=True)
+                checks += '/monitoring delivery quality'
             if document['meta']['schema_version'] in {SCHEMA, LEGACY_SCHEMA}:
                 validate_t1_delivery(document)
                 checks += '/T1 delivery'

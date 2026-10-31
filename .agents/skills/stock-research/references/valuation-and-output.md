@@ -12,6 +12,23 @@
 4. 敏感性至少展示最重要假设变化对 V50/P1 的影响，并核对是否改变结论。敏感性结果不自动成为最终 P1 区间；报告须明确最终采用的 P1 单价或区间及各值含义，不为 JSON 凑齐三档。报告原有 P1 与框架算式冲突时，先回查并在报告内裁决，导出不得静默改价。
 5. 不再论证 step_down 或 P2/T2 金额。cap 缺失留在报告参数化，不影响价格计算；首笔/预留60/40以cap_final约束后的计划目标仓位为分母，预留须独立复核且扣已用预算，不因取消追加转给首笔，不生成账户执行计划。
 
+## 财务定义与估值分歧复核
+
+适用于调整后/非准则利润、口径冲突及会改变估值结论的差异；在既有事实底稿和报告估值节完成，不要求所有公司新增一份表或一轮全量研究。
+
+- **先核定义，再验算。** 定位公司原始披露的定义段、调节表列头/单位及相关附注，记录期间、合并/归母归属、原始利润、各项加回或扣除和结果。股份支付、投资公允价值、收购摊销等以本公司本期定义为准；不能凭“经调整”名称断言包含或剔除，也不把校验器通过当作定义已验证。
+- **公司披露与研究模型分开。** 公司口径、研究者为经常盈利作的调整、预测期假设分别说明。若公司加回股份支付，须说明研究估值如何处理其经济成本及稀释，不能声称公司利润已承担该成本，也不能机械再扣一遍已经在模型承担的成本。现金、限制性资产和权益调整同样核归属与重复计入；半年累计不能直接冒称单季，年化属于假设。
+- **纠错须追到结论。** 原文与报告冲突时先修事实底稿，追查利润率、盈利、现金桥及每股价值的影响；影响无法可靠量化就披露边界，不按发现的调节金额机械平移整份目标价。未解决的关键事实不进入单一已验证基准；依原契约给有依据的条件情景，仍无法估值才阻断受影响报价。
+- **解释差异，不强求一致。** 独立估值完成后，若已有同证券可比报告或历史基线，按证据截止/预测期间、盈利口径、现金债务、股本/汇率、方法/倍数和折扣定位主要差异，给会改变结论的参数隔离敏感性。区分事实冲突与合理假设差异；没有另一端结果不等待、不声称完成跨模型比较，不从它的目标价反推本端输入。没有经过验证的通用分歧阈值，不新设硬阈值、强行收敛价格或调整共识权重。
+
+## 监控触发与交付复核
+
+- 核同一口径的**当前状态、未来触发、触发动作、解除条件、下一检查期**。当前值已满足本期判据时不能仍描述成“等待首次发生”；上一年度已满足而本轮观察下一年度时，明确年份与本轮状态，不把旧事实当新告警。定性条件可以使用，但判断方向和比较对象要明确。
+- 恶化触发与关闭告警分别表达，不能把“新增处罚→关闭告警”混成一条无条件动作。确为无需继续的旧观察，写清关闭依据；若新处罚又需复评，另明确该条件。不能由摘要措辞自动清除 audit 中的有效约束。
+- 日常核心项必须有可重复取得的公开指标或明确的正式披露事件。尚不知是否公开披露的采购、套保、内部成本或研究者自建压力现金桥属于补证工作，保留在完整报告/控制中，不冒充已有可监控指标；正式披露路径已确认但窗口未到的项目仍可 current/as_of=null。单纯“本轮暂停追加”等计划状态不替代外部监控变量，原限制仍完整保留。
+- 最终每端摘要按原规则最多7项，同义观察合并且保留限定；不堆叠其它端整套变量，不混拼不同阈值。source 保留可定位出处，public_search 保留真实使用的检索词；`; ;`、`待补充`、孤立占位不能充当出处或查询路径。下游去掉 URL 后也应能凭机构/文档/期间查回原文。
+- 新冻结 `two-price-controls/v5` 的正常发布、方法隔离后发布、恢复验收执行同一质量检查。手动新交付用 `stock_price_map.py check <JSON> --require-monitoring-quality`；原 v4 公开监控合同、v3 证据合同及更早冻结批次保持原门禁，普通历史 check 不追补。程序只拒绝来源/检索占位、纯标点/数字和全半角/空白/大小写造成的重复变量，不判断任意自然语言触发逻辑、来源真实性或经济上的同义关系。
+
 ## 导出 v4（四个顶层键；历史 v3/v2 原样读取）
 
 | 对象 | 固定字段 | 语义 |
@@ -38,7 +55,7 @@
 - eligible仍需价格、账户、组合与执行核验；entry/add任一eligible必须mode=buy_candidate，tracking/observation/frozen/rejected/unavailable均不得eligible。只加仓受限可entry eligible、add blocked；全局freeze/reject/unavailable必须覆盖entry+add，不使用entry-only freeze。
 - entry/add unknown不能增加对应暴露；holding unknown要求补证/复评，不写成已失效/已清仓。确认invalidated/exit_required阻断entry+add，持仓复评不自动等于全局冻结。eligible/normal的refs=[]；blocked/unknown/review_required/invalidated/exit_required必须有可解析依据，refs精确等于audit该scope全部blocking/unknown ID的集合，不遗漏、不混入其它scope或普通经营观察。观察依据仍可留在monitoring。
 - monitoring.kind为`general/entry_constraint/add_constraint/thesis_invalidation/exit_condition`；state为`watching/triggered/cleared/unknown`。控制相关项目与同ID审计相符：triggered→blocking，unknown→unknown，cleared→有非空clearance.evidence的clear或not_applicable；watching不进入未解集合。首次不适用可不填clearance，但解除历史阻断即使用not_applicable也须有解除证据。一般经营跟踪无需伪造constraint。
-- 新批次 two-price-controls/v4 的每项必须有 public_search（非空字符串）：本轮实际使用的普通搜索检索词，能够定位 source 指定的公开原文；需实际读到无需内部权限或付费订阅的正文，不能只看摘要或声明“公开”。source 记录机构、文档/指标、披露期和章节或 URL。内部订单/渠道数据、私有访谈、付费终端指标不入摘要；有报告证据时用公开替代指标，否则保留研究局限。最多7项，按估值/逻辑失效影响排序、合并重复，不跨假设凑数；全无合格项用[]并披露。完整条件、audit全部限制及解除证据不因筛除/难查询而清除或截断。
+- two-price-controls/v4 及后续合同的每项必须有 public_search（非空字符串）：本轮实际使用的普通搜索检索词，能够定位 source 指定的公开原文；需实际读到无需内部权限或付费订阅的正文，不能只看摘要或声明“公开”。source 记录机构、文档/指标、披露期和章节或 URL。内部订单/渠道数据、私有访谈、付费终端指标不入摘要；有报告证据时用公开替代指标，否则保留研究局限。最多7项，按估值/逻辑失效影响排序、合并重复，不跨假设凑数；全无合格项用[]并披露。完整条件、audit全部限制及解除证据不因筛除/难查询而清除或截断。
 - 历史 v2/v3/v4 的 public_search 可缺，原1–10项照常读取；新v4 build最多7项，runner新合同另校验公开检索声明；旧冻结合同/提示词按原分支验收。结构声明检查不证明公开来源真实性，事实核验由研究者负责。
 - current为数值、带单位文字或null；非空必须有不晚于估值日的as_of。source定位URL/公告章节/包字段；trigger含窗口、单位、方向，action明确复评、重算、暂停追加或持仓处置。next_check为日期/明确事件；未取得时current/as_of可null，报告写补证路径，不以0冒充。
 - 历史有效阻断按稳定ID/scope接续，来源缺席、未再提及、unknown不表示解除；新证据明确解除才清除。方法兼容性待复评时派生版本frozen并阻断entry/add，原报告、JSON、回执与holding风险保留，不自动提升latest。
@@ -69,7 +86,7 @@
 
 ```sh
 python3 scripts/stock_price_map.py build --generator codex --input output/<本次目录>/quote-input.json --output output/<本次目录>/investment-<代码>-<日期>-price-map-codex.json
-python3 scripts/stock_price_map.py check output/<本次目录>/investment-<代码>-<日期>-price-map-codex.json
+python3 scripts/stock_price_map.py check output/<本次目录>/investment-<代码>-<日期>-price-map-codex.json --require-monitoring-quality
 ```
 
 临时输入只有`meta, mode, reason, valuation, p1, t1, research_controls, monitoring`。除valuation单位换算外与最终字段同义。P1/T1均由报告明确提供；旧discounts/step_down/p2/t2输入拒绝，不保留重推价分支。meta可省略schema_version，默认补v4；旧冻结合同只有显式legacy writer可写v3。CLI必须`--generator codex|claude|dsh`并与已有meta一致；输出JSON与报告名称按代码、估值日、生成端和rN后缀配对。

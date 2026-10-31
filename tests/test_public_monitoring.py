@@ -1,6 +1,10 @@
 from copy import deepcopy
 from pathlib import Path
 import hashlib
+import contextlib
+import io
+import json
+import tempfile
 import sys
 import unittest
 from unittest.mock import patch
@@ -10,6 +14,45 @@ from scripts import stock_price_map as prices, research_runner as runner
 
 
 class PublicMonitoringTests(unittest.TestCase):
+    def test_quality_rejects_unusable_source_and_search_without_retroactive_rejection(self):
+        for field in ('source', 'public_search'):
+            for bad in ('; ;', '(未提供)', '待补充', 'N/A', '---', '12345'):
+                with self.subTest(field=field, bad=bad):
+                    doc = prices.build_document(self.document())
+                    doc['monitoring'][0][field] = bad
+                    prices.validate_monitoring_delivery(doc)  # Frozen v4 contract.
+                    with self.assertRaisesRegex(ValueError, field):
+                        prices.validate_monitoring_delivery(doc, quality=True)
+
+    def test_quality_deduplicates_typography_without_merging_distinct_periods(self):
+        doc = prices.build_document(self.document(2))
+        doc['monitoring'][0]['variable'] = 'OCF / Profit'
+        doc['monitoring'][1]['variable'] = 'ＯＣＦ/ＰＲＯＦＩＴ'
+        prices.validate_monitoring_delivery(doc)
+        with self.assertRaisesRegex(ValueError, 'duplicate'):
+            prices.validate_monitoring_delivery(doc, quality=True)
+        doc['monitoring'][1]['variable'] = 'Q3 OCF / Profit'
+        prices.validate_monitoring_delivery(doc, quality=True)
+
+    def test_quality_allows_pending_disclosure_with_real_locator_and_empty_summary(self):
+        doc = prices.build_document(self.document())
+        doc['monitoring'][0].update(current=None, as_of=None,
+            source='Company 2026 Q3 earnings announcement, cash flow statement',
+            next_check='Next Q3 earnings release')
+        prices.validate_monitoring_delivery(doc, quality=True)
+        prices.validate_monitoring_delivery(prices.build_document(self.document(0)), quality=True)
+
+    def test_manual_quality_check_rejects_placeholder_without_rewriting_artifact(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'prices.json'
+            doc = prices.build_document(self.document())
+            doc['monitoring'][0]['source'] = '; ;'
+            raw = json.dumps(doc).encode(); path.write_bytes(raw)
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(prices.main(['check', str(path)]), 0)
+                self.assertEqual(prices.main(['check', str(path), '--require-monitoring-quality']), 1)
+            self.assertEqual(path.read_bytes(), raw)
+
     def document(self, count=1):
         value = sample()
         value['monitoring'] = [dict(value['monitoring'][0], id=f'v{i}', variable=f'metric{i}',
@@ -57,9 +100,12 @@ class PublicMonitoringTests(unittest.TestCase):
             args = (request, task, 'claude', '冻结输入正文不可截断\n'.encode(), Path('/offline/research'), frameworks, targets)
             old = runner.make_prompt(*args, research_validation=runner.research_consistency.SCHEMA, delivery=old_contract)
             self.assertEqual(hashlib.sha256(old).hexdigest(), '9cf8614a93cd36acaa1cd77f21cc392e91d863a059a75b7002f14807399f9ee3')
+            public_contract = dict(runner.OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v4')
+            public = runner.make_prompt(*args, research_validation=runner.research_consistency.SCHEMA, delivery=public_contract)
+            self.assertEqual(hashlib.sha256(public).hexdigest(), '55baffbb6ab6bc78175a1fbe1fca58a7090166c9b2f42a020330463ffe6d3c2d')
             current = runner.make_prompt(*args, research_validation=runner.research_consistency.SCHEMA)
         self.assertFalse(current == old)
         self.assertIn(b'public_search', current)
-        self.assertEqual(runner.NEW_CONTRACT['prompt_template'], 'two-price-controls/v4')
+        self.assertEqual(runner.NEW_CONTRACT['prompt_template'], 'two-price-controls/v5')
         frozen = dict(delivery_contract=old_contract, research_validation=runner.research_consistency.SCHEMA)
         self.assertEqual(runner.delivery_contract(frozen), old_contract)

@@ -63,7 +63,7 @@ FAKE_CLI = _fixture.FAKE_CLI.replace(
     "ticker,market=code.split('.')", TRACE_CODE + "\nticker,market=code.split('.')"
 ).replace(
     "{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code]",
-    "{'600066.SH':'宇通客车','600900.SH':'长江电力','600276.SH':'恒瑞医药','600519.SH':'贵州茅台'}[code]",
+    "{'600066.SH':'宇通客车','600900.SH':'长江电力','600276.SH':'恒瑞医药','600519.SH':'贵州茅台','600887.SH':'伊利股份','600036.SH':'招商银行'}[code]",
 )
 
 
@@ -156,6 +156,37 @@ class ParallelResearchTests(unittest.TestCase):
         self.assertEqual(self.observation()['maximum'],4)
         self.assertEqual(self.observation()['active'],[])
         self.assertEqual(len(self.seals()),4)
+
+    def test_six_listings_start_five_pairs_with_four_worker_peak(self):
+        request = json.loads(self.request_path.read_text())
+        for code, name in (('600887', '伊利股份'), ('600036', '招商银行')):
+            task = json.loads(json.dumps(self.tasks[-1]))
+            task.update(task_id=f'SH-{code}', code=f'{code}.SH', name=name)
+            relative = f'packs/SH-{code}.md'
+            pack = self.request_path.parent/relative
+            pack.write_text(f'# {code}.SH 量价与基本面数据包\n- 最新收盘: 25.30\n- 最新成交量(手): 12345\n完整原始资料\n')
+            task['data_pack'] = dict(path=relative, sha256=hashlib.sha256(pack.read_bytes()).hexdigest())
+            evidence = {'review': code}
+            identity = dict(market='A', code=code, sources=task['sources'], evidence=evidence)
+            event_key = hashlib.sha256(json.dumps(identity, sort_keys=True, ensure_ascii=False,
+                                                  allow_nan=False).encode()).hexdigest()
+            task['data_pack_meta']['research_trigger'].update(event_key=event_key, evidence=evidence)
+            request['tasks'].append(task)
+        self.request_path.write_text(json.dumps(request, ensure_ascii=False))
+        with patch.dict(os.environ, {'MOCK_PARALLEL_BARRIER': '4'}):
+            result = tick(self.exchange, self.methods, execute=True,
+                          clis={'codex': str(self.fake), 'claude': str(self.fake)}, timeout=10)
+        self.assertEqual(result['failures'], [])
+        self.assertEqual(result['used'], 5)
+        self.assertEqual(result['deferred'], 1)
+        self.assertEqual(len(self.seals()), 5)
+        observed = self.observation()
+        self.assertEqual(observed['maximum'], 4)
+        self.assertEqual(observed['active'], [])
+        self.assertEqual(sum(e['event'] == 'start' for e in observed['events']), 10)
+        before = self.trace.read_bytes()
+        self.assertEqual(self.run_tick()['used'], 5)
+        self.assertEqual(self.trace.read_bytes(), before)
 
     def test_real_children_reach_three_and_pair_runs_overlap(self):
         result = self.run_tick()

@@ -63,7 +63,7 @@ def main():
         sys.stdout.buffer.write(raw)
         return
     target = Path.home()/'Library/LaunchAgents'/f'{LABEL}.plist'
-    from research_scheduler import journal
+    from research_scheduler import DAILY_LIMIT, journal
     event_log=ROOT.parent/'ai_investment/logs/research_loop/events.jsonl'
     journal(event_log,'service_install_requested',details={'time':'05:00','replace_when_idle':args.replace_when_idle})
     if target.exists():
@@ -89,7 +89,7 @@ def main():
     subprocess.run(['launchctl','enable',f'gui/{os.getuid()}/{LABEL}'],check=True)
     subprocess.run(['launchctl', 'bootstrap', f'gui/{os.getuid()}', str(target)], check=True)
     journal(event_log,'service_installed',details={'time':'05:00','plist':str(target)})
-    print(f'Installed {LABEL}; quarter-hour wakeups, one daily check from 05:00 Asia/Shanghai; daily cap 4',flush=True)
+    print(f'Installed {LABEL}; quarter-hour wakeups, one daily check from 05:00 Asia/Shanghai; daily cap {DAILY_LIMIT}',flush=True)
 
 
 if __name__ == '__main__':
