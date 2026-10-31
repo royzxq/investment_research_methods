@@ -1,0 +1,19 @@
+{
+  "source_url": "https://www.stats.gov.cn/sj/zxfbhjd/202610/t20261031_1965718.html",
+  "published_at": "2026-10-31T09:30:00+08:00",
+  "retrieved_at": "2026-11-01T02:10:47.043662+08:00",
+  "data_period": "2026-10",
+  "http_status": 200,
+  "raw_response_sha256": "fe2dcf9b22d438483a2f3ed4c42db143f7956106ebd19c7eb0ff194bd9e886cc",
+  "pmi": 49.3,
+  "production": 49.8,
+  "new_orders": 49.4,
+  "new_export_orders": 48.7,
+  "input_price_diffusion": 56.8,
+  "output_price_diffusion": 51.7,
+  "non_manufacturing_activity": 49.7,
+  "construction": 48.0,
+  "services": 50.0,
+  "composite_output": 49.7,
+  "note": "扩散指数，非PPI同比；原文与表格已读。"
+}

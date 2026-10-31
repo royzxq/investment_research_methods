@@ -1,0 +1,41 @@
+{
+  "as_of": "2026-11-01",
+  "handoff_validation": "passed",
+  "source_hashes": "passed",
+  "selected": "research/investment/weekly/2026-11-01/investment-2026-11-01-handoff.json",
+  "current_lifecycle": {
+    "status": "active",
+    "reason": "No adopted withdrawal or supersession",
+    "evidence": []
+  },
+  "prior_lifecycle": {
+    "status": "superseded",
+    "reason": "Frozen maintenance source explicitly withdrawn or superseded",
+    "evidence": [
+      {
+        "path": "research/investment/weekly/2026-11-01/investment-2026-11-01-handoff.json",
+        "sha256": "fda43aaf255b7923a81eac8be8f70579b8011b09ab0c9c091de07d283b7fe08b",
+        "as_of": "2026-11-01"
+      }
+    ]
+  },
+  "withdrawal_old_method_no_resurrection": "passed",
+  "pending_carry_forward": "5 preserved; completed=0",
+  "R21_latest_three_session_window": "passed: 10/28–30; not_met",
+  "future_evidence_rejected": true,
+  "offline_tests": {
+    "command": "python3 -m unittest discover -s tests -p 'test_investment_*.py' -v",
+    "count": 46,
+    "seconds": 0.315,
+    "result": "OK"
+  },
+  "governance": "passed before and after observation edit",
+  "true_api": {
+    "provider": "tushare",
+    "calls": 6,
+    "success": 6,
+    "missing": "10/30 SZSE/BSE margin; official star50 direct original absent"
+  },
+  "nbs_direct_http": 200,
+  "limits": "结构/来源与定向离线回归，不证明完整语义等价、投资效果或交易执行；未跑全仓回归/账户API。"
+}

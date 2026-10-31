@@ -1,0 +1,95 @@
+{
+  "as_of": "2026-11-01",
+  "units": "index_daily amount=thousand CNY; sum SH000001+SZ399106 /1e9 => trillion CNY; margin rzrqye yuan /1e8",
+  "rows": [
+    {
+      "date": "2026-10-23",
+      "turnover_trillion": 1.9562578436216,
+      "margin_balance_yi": 24317.59315594,
+      "margin_change_yi": null,
+      "margin_missing": [],
+      "star50_provider_close": 1345.5146,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-10-26",
+      "turnover_trillion": 1.6087851052044202,
+      "margin_balance_yi": 24261.79206093,
+      "margin_change_yi": -55.8010950099997,
+      "margin_missing": [],
+      "star50_provider_close": 1315.4984,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-10-27",
+      "turnover_trillion": 1.4609409315274902,
+      "margin_balance_yi": 24097.53819056,
+      "margin_change_yi": -164.2538703700011,
+      "margin_missing": [],
+      "star50_provider_close": 1252.2776,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-10-28",
+      "turnover_trillion": 1.62847800066359,
+      "margin_balance_yi": 24120.41432521,
+      "margin_change_yi": 22.876134649999585,
+      "margin_missing": [],
+      "star50_provider_close": 1282.9312,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-10-29",
+      "turnover_trillion": 1.55651700292398,
+      "margin_balance_yi": 23849.60766121,
+      "margin_change_yi": -270.8066639999997,
+      "margin_missing": [],
+      "star50_provider_close": 1228.0907,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-10-30",
+      "turnover_trillion": 1.67446338310773,
+      "margin_balance_yi": null,
+      "margin_change_yi": null,
+      "margin_missing": [
+        "BSE",
+        "SZSE"
+      ],
+      "star50_provider_close": 1160.8384,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    }
+  ],
+  "latest_window": [
+    "2026-10-28",
+    "2026-10-29",
+    "2026-10-30"
+  ],
+  "calendar": [
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28",
+    "2026-10-29",
+    "2026-10-30"
+  ],
+  "R21": "not_met",
+  "original_rebuild": "not_met",
+  "official_star50": null,
+  "account_execution": null
+}

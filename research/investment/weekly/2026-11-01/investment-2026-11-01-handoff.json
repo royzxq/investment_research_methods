@@ -1,0 +1,579 @@
+{
+  "schema": "investment-maintenance/v1",
+  "id": "investment-2026-11-01-handoff",
+  "as_of": "2026-11-01",
+  "revision": null,
+  "status": "adopted",
+  "adoption_basis": "automation-2本次明确full+publish授权采用当前状态；方法以origin/main已合并stock-two-price-controls-v2及PR54 db540b5bb7eb7fe34516a05052e28743d978d634实际两份正文为准。新观测PR未采纳，不改写旧记录。",
+  "supersedes": [
+    "investment-2026-10-25-handoff-r2"
+  ],
+  "method_status": "adopted",
+  "methods": {
+    "canonical": {
+      "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+      "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+      "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+    },
+    "compact": {
+      "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+      "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+      "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+    }
+  },
+  "reports": {
+    "market_research": {
+      "path": "research/investment/weekly/2026-11-01/investment-2026-11-01-market-research.md",
+      "sha256": "ef4ebfa14638d9ebf68957d5a306905510ddda98fc38612973fd5180c732fb89",
+      "as_of": "2026-11-01"
+    },
+    "change_decision": {
+      "path": "research/investment/weekly/2026-11-01/investment-2026-11-01-change-decision.md",
+      "sha256": "aa2619fff010e5564bd1db4060ee4b2359658cee59995a4c34b0a69ce286c560",
+      "as_of": "2026-11-01"
+    }
+  },
+  "evidence": [
+    {
+      "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+      "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+      "as_of": "2026-11-01"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-01/evidence/calculations.json",
+      "sha256": "2da4c9620e65ad1b87c260af1dfaf85914ffecb76e516e18691cdf817c9449d7",
+      "as_of": "2026-11-01"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-01/evidence/adoption-review.md",
+      "sha256": "900b32eae0a4eb07358a453d0e42f02693bc3950414c693d69e6c368ab7c278c",
+      "as_of": "2026-11-01"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-01/evidence/tushare-inputs.json",
+      "sha256": "ea831a9cdccf249953a92edfcd1dabb9d4a59cb8a097bdcdc8ca30731b6a300e",
+      "as_of": "2026-11-01"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-01/evidence/nbs-pmi-values.json",
+      "sha256": "c241d7531955b3ca4cc6a8c4b6b39e34be2747661c0aa52d886cca1dd602ef65",
+      "as_of": "2026-11-01"
+    },
+    {
+      "path": "research/investment/weekly/2026-10-25/investment-2026-10-25-handoff-r2.json",
+      "sha256": "12f1c255d7361407be9f19d8d27971880dc50116d5b558e6d27d87f5195ab960",
+      "as_of": "2026-10-25"
+    },
+    {
+      "path": "research/investment/weekly/2026-10-25/investment-2026-10-25-market-research-r2.md",
+      "sha256": "da0d852cdbc0e68cc04e694769bbba893b91ba90219cdcba76a5463a2bf367f2",
+      "as_of": "2026-10-25"
+    },
+    {
+      "path": "research/investment/weekly/2026-10-25/investment-2026-10-25-change-decision-r2.md",
+      "sha256": "96b654a4eca368fa20902e8e7e4185ddc2f1aea752f2c9ed91d78a9f3d77ba6b",
+      "as_of": "2026-10-25"
+    },
+    {
+      "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+      "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+      "as_of": "2026-10-18"
+    },
+    {
+      "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+      "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+      "as_of": "2026-10-25"
+    },
+    {
+      "path": "research/investment/weekly/2026-10-11/investment-2026-10-11-market-research.md",
+      "sha256": "4906a6f05f50fe4db622b39c7f82e5d59ab3f1661275341eed95ccdb81ce7dee",
+      "as_of": "2026-10-11"
+    },
+    {
+      "path": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
+      "sha256": "a4f94c9b1998447afa47af5873c2c20222f00473edb360fd918ca070380f2489",
+      "as_of": "2026-10-25"
+    }
+  ],
+  "withdrawn_sources": [
+    {
+      "path": "research/investment/weekly/2026-10-11/investment-2026-10-11-change-decision.md",
+      "sha256": "06b59f529cf18cbfe55c08dffe10ca99ecb8c75ed5fbba6678e43fe681b2187a"
+    }
+  ],
+  "changes": [
+    {
+      "kind": "state_refresh",
+      "summary": "FOMC已维持3.75–4.00，路径回撤证据不足，全面执行维持并按暴露复核"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "10月PMI49.3与新订单49.4；R20同月解除仍未达"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "10/28–30三日R21及独立原重建未达；10/30完整两融和官方指数缺口保留"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "新云业务盈利与资本消耗证据；港股反弹不替代资金/估值验证"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "PR54已合并，冻结实际正文建立新接续，五pending与既有撤回继承"
+    }
+  ],
+  "classification": {
+    "evidence_correction": false,
+    "method_change": false,
+    "state_refresh": true,
+    "update_needed": false
+  },
+  "rule_evaluations": [
+    {
+      "rule_id": "D5/deepening",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "triggered",
+      "affected_objects": [
+        "A"
+      ],
+      "summary": "深化延续；10/29成交<1.6且完整两融<-150，两项各为原充分触发；非全市场持仓退出。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/calculations.json",
+          "sha256": "2da4c9620e65ad1b87c260af1dfaf85914ffecb76e516e18691cdf817c9449d7",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "R21/repair-exit",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "not_triggered",
+      "affected_objects": [
+        "A"
+      ],
+      "summary": "最新10/28–30窗口中10/29量能1.556517万亿、完整两融-270.807亿使合取失败；官方指数及10/30完整两融null",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/calculations.json",
+          "sha256": "2da4c9620e65ad1b87c260af1dfaf85914ffecb76e516e18691cdf817c9449d7",
+          "as_of": "2026-11-01"
+        }
+      ],
+      "window": [
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23"
+      ]
+    },
+    {
+      "rule_id": "D5/original-rebuild",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "not_triggered",
+      "affected_objects": [
+        "A"
+      ],
+      "summary": "最新三日成交均未>2万亿元，原重建合取不成立；不因R21缺官方指数误写满足。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/calculations.json",
+          "sha256": "2da4c9620e65ad1b87c260af1dfaf85914ffecb76e516e18691cdf817c9449d7",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "UST10Y/latest-five-gt5",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "not_triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "10/26–30十年CMT=5.00/4.99/5.05/4.98/4.94，最新五日未全>5%，不取消历史复评。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "UST10Y/historical-review-open",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "10/18接续确认历史五日>5%强制复评；未取得受暴露公司完成凭证，保留开放事项，不等于全市场自动冻结。 10/9首次触发的10/5–9序列见10/11未撤回市场研究，仅作历史事实。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-11/investment-2026-10-11-market-research.md",
+          "sha256": "4906a6f05f50fe4db622b39c7f82e5d59ab3f1661275341eed95ccdb81ce7dee",
+          "as_of": "2026-10-11"
+        }
+      ],
+      "trigger_date": "2026-10-09"
+    },
+    {
+      "rule_id": "R2/CPI-observation",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "9月3.7/核心环比0.3命中原观察分支；只适用受暴露高估值成长。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
+          "sha256": "a4f94c9b1998447afa47af5873c2c20222f00473edb360fd918ca070380f2489",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-10-14"
+    },
+    {
+      "rule_id": "R2/CPI-gt4",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "not_triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "总同比3.7不满足严格>4%。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
+          "sha256": "a4f94c9b1998447afa47af5873c2c20222f00473edb360fd918ca070380f2489",
+          "as_of": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "rule_id": "R2/FOMC-release",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "unknown",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "10/28已不加息，官方声明未明确路径回撤且发布会逐字稿未核，第二子项unknown；保持从严，不锁12月",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "R20/domestic-release",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "not_triggered",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "9月已核社零1.1未>2，贷款子项仍缺；10月PMI不代替滚动同月合取",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "R14/new-threshold",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "unknown",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "同一布伦特主力合约连续结算未取得；既有三层暴露与85/130情景不变",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "R17/gold-dollar",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "unknown",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "黄金与ICE DXY同口径连续值缺，不能从搜索边栏判新触发",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "R7/capex-and-orders",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "Microsoft/AWS增长及Amazon资本消耗有原始披露，A/H对应订单同步转弱未核，不能由负FCF认定核心证伪",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "R19/policy-second-link",
+      "rule_status": "adopted",
+      "as_of": "2026-11-01",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "贸易延期共识只改善背景，具体税号与公司份额/回款缺；旧规划4–8周时钟不变",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/S5548-named-exposure",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "SZ-300308",
+        "SZ-300502"
+      ],
+      "summary": "历史已触发复评事项仍开放；原触发日保留，最新进程/公司入账缺完成凭证。9/24原始提案命名式风险接续pending；最新全立法行动链及实际收入敞口仍unknown，无全面禁令判断。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-09-24"
+    },
+    {
+      "rule_id": "Precheck2/Hengrui-settlement",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "SH-600276",
+        "HK-01276"
+      ],
+      "summary": "历史已触发复评事项仍开放；原触发日保留，最新进程/公司入账缺完成凭证。原合同预期Q4，未核交割/到账/收入，延续受影响部分核验pending。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-09-29"
+    },
+    {
+      "rule_id": "Precheck2/Akeso-income-attribution",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "HK-09926"
+      ],
+      "summary": "历史已触发复评事项仍开放；原触发日保留，最新进程/公司入账缺完成凭证。AZ20亿美元交割对象为Summit；康方实际权益/里程碑/入账另核，原核验事项pending。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-10-05"
+    },
+    {
+      "rule_id": "R6/FOMC-post-event",
+      "as_of": "2026-11-01",
+      "rule_status": "adopted",
+      "result": "triggered",
+      "trigger_date": "2026-10-29",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "会议已结束，对存在实质估值/融资暴露公司按实际结果复核；all是筛查范围，不是所有公司一律冻结。公司清单待定向核验，无新增批次授权。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "company": "SZ-300308",
+      "trigger_id": "R6/S5548-named-exposure",
+      "trigger_date": "2026-09-24",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日、证据截止及pending保持；新方法正文仅观测字节差，方法指纹相同。未有合格配对/定向复核凭证，不称完成，不启动公司批次或重置冷却。"
+    },
+    {
+      "company": "SZ-300502",
+      "trigger_id": "R6/S5548-named-exposure",
+      "trigger_date": "2026-09-24",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日、证据截止及pending保持；新方法正文仅观测字节差，方法指纹相同。未有合格配对/定向复核凭证，不称完成，不启动公司批次或重置冷却。"
+    },
+    {
+      "company": "SH-600276",
+      "trigger_id": "Precheck2/Hengrui-settlement",
+      "trigger_date": "2026-09-29",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日、证据截止及pending保持；新方法正文仅观测字节差，方法指纹相同。未有合格配对/定向复核凭证，不称完成，不启动公司批次或重置冷却。"
+    },
+    {
+      "company": "HK-01276",
+      "trigger_id": "Precheck2/Hengrui-settlement",
+      "trigger_date": "2026-09-29",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日、证据截止及pending保持；新方法正文仅观测字节差，方法指纹相同。未有合格配对/定向复核凭证，不称完成，不启动公司批次或重置冷却。"
+    },
+    {
+      "company": "HK-09926",
+      "trigger_id": "Precheck2/Akeso-income-attribution",
+      "trigger_date": "2026-10-05",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日、证据截止及pending保持；新方法正文仅观测字节差，方法指纹相同。未有合格配对/定向复核凭证，不称完成，不启动公司批次或重置冷却。"
+    }
+  ],
+  "generator": "codex",
+  "deployment_status": "deployed",
+  "account_execution": null
+}
