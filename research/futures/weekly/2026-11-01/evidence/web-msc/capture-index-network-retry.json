@@ -1,0 +1,122 @@
+[
+  {
+    "id": "ma-notice",
+    "url": "https://www.citicsf.com/e-futures/content/000204/826335?mobile=1",
+    "retrieved_at": "2026-11-01T01:02:08.142971+08:00",
+    "status_code": 403,
+    "final_url": "https://www.citicsf.com/e-futures/content/000204/826335?mobile=1",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-notice.html",
+    "sha256": "cb3dbfcb6f7bb242e3f7c59469a32acf1669c80a08dd6ccc202a040eccaa7b4b",
+    "bytes": 7358
+  },
+  {
+    "id": "ma-demand",
+    "url": "https://www.quheqihuo.com/qhyb/2026103032584.html",
+    "retrieved_at": "2026-11-01T01:02:08.739521+08:00",
+    "status_code": 200,
+    "final_url": "https://www.quheqihuo.com/qhyb/2026103032584.html",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-demand.html",
+    "sha256": "6b899866056c0fa34e56ee1ec62a11fe9e592c8bbda58e9c3809c46e395cfe3d",
+    "bytes": 52237
+  },
+  {
+    "id": "ma-crosscheck",
+    "url": "https://www.citicf.com/e-futures/content/000501/826386",
+    "retrieved_at": "2026-11-01T01:02:09.266287+08:00",
+    "status_code": 403,
+    "final_url": "https://www.citicf.com/e-futures/content/000501/826386",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-crosscheck.html",
+    "sha256": "838dfdee9268b3c88d2aa0fdcf8bb2394905494d6d8dbe81328a42d3bb0afd46",
+    "bytes": 7383
+  },
+  {
+    "id": "ma-contract",
+    "url": "https://www.czce.com.cn/cn/rootfiles/2024/03/26/1708572241789969-1708572241836105.pdf",
+    "retrieved_at": "2026-11-01T01:02:10.830016+08:00",
+    "status_code": 200,
+    "final_url": "https://www.czce.com.cn/cn/rootfiles/2024/03/26/1708572241789969-1708572241836105.pdf",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-contract.pdf",
+    "sha256": "a3f011447ef7fe66e1da88afcaf06d0080e334cd3c7513e6a04823f2f0afbdf3",
+    "bytes": 1639559
+  },
+  {
+    "id": "ma-storage",
+    "url": "https://www.czce.com.cn/cn/rootfiles/2022/02/15/1644398618920021-1644398618945195.pdf",
+    "retrieved_at": "2026-11-01T01:02:12.896546+08:00",
+    "status_code": 200,
+    "final_url": "https://www.czce.com.cn/cn/rootfiles/2022/02/15/1644398618920021-1644398618945195.pdf",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-storage.pdf",
+    "sha256": "a7f193a6d48b296f94f16e4b9e9f4365d747a08d62ed054ba3e2947ed8a0968a",
+    "bytes": 1994549
+  },
+  {
+    "id": "sr-storage",
+    "url": "https://www.hsqh.net/col230/4842",
+    "retrieved_at": "2026-11-01T01:02:13.969579+08:00",
+    "status_code": 200,
+    "final_url": "https://www.hsqh.net/col230/4842",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-storage.html",
+    "sha256": "70119865e14005f920d187b4ee1328b565fc62334667ee054bd1f11d40ef4fbb",
+    "bytes": 155644
+  },
+  {
+    "id": "sr-start",
+    "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3221408&columnId=1014195&pageId=1014425",
+    "retrieved_at": "2026-11-01T01:02:15.787264+08:00",
+    "status_code": 200,
+    "final_url": "https://www.msweet.com.cn/eportal/ui?articleKey=3221408&columnId=1014195&pageId=1014425",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-start.html",
+    "sha256": "325cb2abefdb348f1394e92004ea210be3c43684bbf10262d8d7fbb071290129",
+    "bytes": 53287
+  },
+  {
+    "id": "sr-spot",
+    "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3221573&columnId=1014067&pageId=1014425",
+    "retrieved_at": "2026-11-01T01:02:16.612438+08:00",
+    "status_code": 200,
+    "final_url": "https://www.msweet.com.cn/eportal/ui?articleKey=3221573&columnId=1014067&pageId=1014425",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-spot.html",
+    "sha256": "45645fc2fbc86c24bd359fe5e439b8f7f5dd647995d72343ba9858559aa6af6d",
+    "bytes": 53579
+  },
+  {
+    "id": "sr-old-stock",
+    "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3221023&columnId=1014253&pageId=1014425",
+    "retrieved_at": "2026-11-01T01:02:17.143904+08:00",
+    "status_code": 200,
+    "final_url": "https://www.msweet.com.cn/eportal/ui?articleKey=3221023&columnId=1014253&pageId=1014425",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-old-stock.html",
+    "sha256": "fb772624f98fca4b6791fd484e85789574f87e034469f356f4aaffe3480aa166",
+    "bytes": 53253
+  },
+  {
+    "id": "cf-table",
+    "url": "https://mianye.mysteel.com/mianhua/",
+    "retrieved_at": "2026-11-01T01:02:18.053782+08:00",
+    "status_code": 200,
+    "final_url": "https://mianye.mysteel.com/mianhua/",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-table.html",
+    "sha256": "c987eca73f81cb9d0354acc65ebf7027f581de36753870359c0ea9852cb67aa5",
+    "bytes": 211603
+  },
+  {
+    "id": "cf-monthly",
+    "url": "https://goodsfu.10jqka.com.cn/20261030/c681308938.shtml",
+    "retrieved_at": "2026-11-01T01:02:18.698255+08:00",
+    "status_code": 403,
+    "final_url": "https://goodsfu.10jqka.com.cn/20261030/c681308938.shtml",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-monthly.html",
+    "sha256": "05b8c01e1442fb244cc5fa0224ba05b1a42821bff5db472ae528bb1811927d08",
+    "bytes": 60
+  },
+  {
+    "id": "cf-mysteel-monthly",
+    "url": "https://ncp.mysteel.com/a/26103017/0DEE3C72EA986C9C.html",
+    "retrieved_at": "2026-11-01T01:02:18.796875+08:00",
+    "status_code": 200,
+    "final_url": "https://ncp.mysteel.com/a/26103017/0DEE3C72EA986C9C.html",
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-mysteel-monthly.html",
+    "sha256": "72982b6a815c979b26f4b4872813b9587fc49b0ddd57c54899609ac182c69fce",
+    "bytes": 128983
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "as_of_date": "2026-10-25",
+  "corrected_at": "2026-10-25T01:17:23.437859+08:00",
+  "scope": "current-use source attribution only; original preserved",
+  "original_claim": "10/16 bean meal109.60 is Mysteel/full-sample and comparable with109.08",
+  "correction_basis": "frozen m-eastmoney-shcif-1023.txt bean-meal section does not name statistician or sample; Mysteel occurs in other product sections",
+  "revised_claim": "Shanghai CIF public transfer reports109.60 and own +0.48%; original statistical sample unknown;109.08 comparison contextual only",
+  "affected_decisions": [
+    "M economic explanation only; no current T signal or new plan"
+  ],
+  "recalculation": "completed; M G2 remains unknown, no method change",
+  "other_review_results": [
+    "MA conditional stops3090–3188 and trigger dates independently recalculated",
+    "RB price/ATR/band/stop/risk/clock/latest exits and mean volume independently reproduced",
+    "G4/G5/G6unknown and accountnull preserved"
+  ],
+  "run_start_time_note": "run-baseline.json started_at01:00 was schedule-aligned annotation, actual first-action time not independently recorded; evaluated/registered/fetched timestamps are actual"
+}

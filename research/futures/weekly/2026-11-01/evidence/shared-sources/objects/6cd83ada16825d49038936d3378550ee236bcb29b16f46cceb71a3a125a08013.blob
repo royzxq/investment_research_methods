@@ -1,0 +1,1081 @@
+<!-- 获取父级品种 -->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> 今日油料价格行情分析/油料市场最新消息_我的农产品网</title>
+    <meta name="keywords"
+        content="油料信息网,油料价格走势分析,今日油料价格分析,油料库存,油料最新消息,我的农产品网" />
+    <meta name="description"
+        content="我的农产品网油料价格网提供油料价格走势分析,油料现货走势分析,油料热点资讯,为您的企业提供运营参考,让您轻松了解油料市场动态" />
+    <meta property="og:image" content="//a.mysteelcdn.com/wap/ydz/v2/images/share_logo.png" />
+    <link rel="canonical" href="https://m.mysteel.com/article/p-----0702---------1.html" />
+        <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="applicable-device" content="mobile">
+    <link rel="stylesheet" href="//a.mysteelcdn.com/libs/sui/sui.css">
+    <link rel="stylesheet" href="//a.mysteelcdn.com/wap/ydz/v2/css/common.css?v=20260703">    <style>
+        .tab-btn .tabover {
+            padding: 0 0.5rem;
+            display: inline-block;
+        }
+
+        .h-article-list .h-list-item:first-child::before {
+            width: 0;
+            height: 0;
+        }
+
+                .tab-btn .tab1{
+            width: 33.3%;
+        }
+        
+        .swiper-slide-link {
+            display: block;
+            position: relative;
+            width: 100%;
+            background: url(//img01.mysteelcdn.com/gg/uploaded/M1_750x160app__20170425.jpg?v=202405281432) no-repeat center;
+            background-size: 100%;
+        }
+
+        .swiper-slide-link>img {
+            display: block;
+            width: 100%;
+            margin: 0;
+            ;
+        }
+    </style>
+</head>
+
+<body city="油料" breed="0702" rootId="07">
+    <div class="page-group">
+        <div class="page page-current">
+            <header class="bar bar-nav bar_height">
+                <hgroup class="clearfix">
+                    <div class="pull-left logoCon">
+                        <a href="//m.mysteel.com/" class="logo" rel="nsofollow" external></a>
+                        <a href="//www.steelphone.com/xz/?fr=01163" class="app-enter-logo"></a>
+                    </div>
+                    <h1 class="title title-h1" data1="0702" data2="" data3="">
+                        油料资讯
+                    </h1>
+                    <a href="//m.mysteel.com/nav.html" external class="app-search"></a>
+<span class="top-login-state">
+	<a href="javascript:;" onclick="window.location.href='https://passport.mysteel.com/m/?site=abc&location='+encodeURIComponent('公用头部')+'&callback='+encodeURI(document.location.href)" external class="app-login calabash h-login">登录/注册</a>
+	<a href="javascript:;" onclick="window.location.href='http://passport.mysteel.com/logout.jsp?site=mysteel&callback='+encodeURI(document.location.href)" external class="app-login" style="display:none;">退出</a>
+	<a href="javascript:;" onclick="window.location.href='https://passport.mysteel.com/m/switch-account.html?site=mysteel&callback='+encodeURI(document.location.href)+'&location='+encodeURIComponent('公用头部')" external class="app-login" style="display:none;">切换账号</a>
+</span>                    <div class="bottom-bor clearfix">
+                        <div class="border-bott1"></div>
+                        <div class="border-bott2"></div>
+                    </div>
+                </hgroup>
+            </header>
+            <div class="content">
+                <div class="top-banner">
+                    <a external rel="nofollow"
+                        href="https://m.steelphone.com/share/invite/#/invite?userId=ge2dkn2xg55a&inviteSource=118&uniqueMark=&poster=&source=M站-品种热点列表页"
+                        class="swiper-slide-link">
+                        <img src="//img08.mysteelcdn.com/sg/uploaded/picnews/12703/24E75A47E18C5D4E.jpg" alt="我的钢铁APP">
+                        <p
+                            style="position: absolute; right: 0; bottom: 0; width: 26px; height: 14px; z-index: 12; background: url(//a.mysteelcdn.com/common/3.0/leftbottom_new2.png) 100% 0% no-repeat;">
+                        </p>
+                    </a>
+                    <div id='mycity' class="area clearfix">
+                        <ul class="clearfix">
+                                                                                    
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0701---------1.html"
+                                    external>油脂</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0703---------1.html"
+                                    external>饲料</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0704---------1.html"
+                                    external>粮食</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0705---------1.html"
+                                    external>棉业</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0706---------1.html"
+                                    external>糖业</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0707---------1.html"
+                                    external>猪业</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0708---------1.html"
+                                    external>食品添加剂</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0709---------1.html"
+                                    external>鸭业</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0710---------1.html"
+                                    external>果蔬</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0711---------1.html"
+                                    external>淀粉</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0712---------1.html"
+                                    external>鸡业</a>
+                            </li>
+                            
+                            
+                                                        <li>
+                                <a                                     href="https://m.mysteel.com/article/p-----0713---------1.html"
+                                    external>牛业</a>
+                            </li>
+                            
+                            
+                            
+                            
+                                                        
+                        </ul>
+                        <div id="develop" class="develop">展开<i></i></div>
+                    </div>
+                </div>
+                <div class="h-nav">
+                    <a href="https://m.mysteel.com" rel="nofollow" external>首页</a> >
+                                                                                <a href="https://m.mysteel.com/market/p-967-----07-0--------1.html"
+                        external>农产品频道</a> >
+                                        <span>油料最新资讯</span>
+                                    </div>
+                <div class="tab-btn clearfix" style="overflow: auto;">
+                                        <div class="tab1 text-center ">
+                        <a class='external' href="//m.mysteel.com/market/p-968-----0702-0--------1.html">
+                            <span>油料价格</span>
+                        </a>
+                    </div>
+                                        <div class="tab1 text-center ">
+                        <a class='external' href="//m.mysteel.com/price/p-0-0702-1.html">
+                            <span>价格汇总</span>
+                        </a>
+                    </div>
+                                        <div id="hot_init" class="tab1 text-center at" data-start='1'>
+                        <a class='external' href="//m.mysteel.com/article/p-----0702---------1.html">
+                            <span>油料热点</span>
+                        </a>
+                    </div>
+                                    </div>
+                <div class="tabs tabsBack">
+                    <div id="tab2" class="tab active">
+                        <div class="content-2">
+                            <div class="select-box clearfix">
+                                <div class="select-data">
+                                    <p>
+                                        <span>不限时间</span>
+                                        <i></i>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="newTime">
+                                <div class="newTime_list">
+                                    <div id="T_Box" class="list-block list-time-box">
+                                        <ul>
+                                            <li class="item-content cover">
+                                                <div class="item-media">
+                                                    <i class="icon icon-f7"></i>
+                                                </div>
+                                                <div class="item-inner cover1">
+                                                    <div class="item-title" pageflag=0>不限时间</div>
+                                                </div>
+                                            </li>
+                                                                                                                                    <li class="item-content cover">
+                                                <div class="item-media">
+                                                    <i class="icon icon-f7"></i>
+                                                </div>
+                                                <div class="item-inner cover1">
+                                                    <div class="item-title" pageflag=0 data1=>2026-10-23
+                                                    </div>
+                                                </div>
+                                            </li>
+                                                                                        <li class="item-content cover">
+                                                <div class="item-media">
+                                                    <i class="icon icon-f7"></i>
+                                                </div>
+                                                <div class="item-inner cover1">
+                                                    <div class="item-title" pageflag=0 data1=>2026-10-22
+                                                    </div>
+                                                </div>
+                                            </li>
+                                                                                        <li class="item-content cover">
+                                                <div class="item-media">
+                                                    <i class="icon icon-f7"></i>
+                                                </div>
+                                                <div class="item-inner cover1">
+                                                    <div class="item-title" pageflag=0 data1=>2026-10-21
+                                                    </div>
+                                                </div>
+                                            </li>
+                                                                                        <li class="item-content cover">
+                                                <div class="item-media">
+                                                    <i class="icon icon-f7"></i>
+                                                </div>
+                                                <div class="item-inner cover1">
+                                                    <div class="item-title" pageflag=0 data1=>2026-10-20
+                                                    </div>
+                                                </div>
+                                            </li>
+                                                                                        <li class="item-content cover">
+                                                <div class="item-media">
+                                                    <i class="icon icon-f7"></i>
+                                                </div>
+                                                <div class="item-inner cover1">
+                                                    <div class="item-title" pageflag=0 data1=>2026-10-19
+                                                    </div>
+                                                </div>
+                                            </li>
+                                                                                    </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-list">
+                                <div class="list-block revise" id="hot_art">
+                                    <ul class="h-article-list">
+                                                                                                                                                                                                        <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102319/3020B598D67952CD_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：马来西亚BMD棕榈油主力收平（20261022）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/31C426A95B88CD55_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：沿海地区主要油厂菜籽压榨调查统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/699E1EEC5591999A_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：西北市场主要油厂大豆及豆粕库存统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/5A7C6C3C7E761A99_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：全国油厂豆粕周度提货量（10.19-10.23）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/1B484827812A6ABD_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：全国油厂豆粕周度成交量（10.19-10.23）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/478489EEB299491B_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：全国油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/6BD405F9CF3C2C76_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        2026年10月23日全国主要油厂豆粕成交统计
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/4239D83E823B7032_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        2026年10月23日全国主要油厂豆粕提货量统计
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/DA14FB4BD38D99B5_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：福建油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/61488ED9049BCB84_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：全国主要油厂菜粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/E549FD04E5F440D3_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：全国菜粕市场价格日报（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102318/D685BA6BB5202214_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：两湖油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/FB911826CE19A825_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：全国主要油厂大豆压榨预估调查统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/359432845ACFB59E_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：广东油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/3B64D3340FB53376_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：全国主要油厂大豆开停机情况汇总（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/99FF74EA21C3352D_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：国内辣椒市场行情动态（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/7F7C36911D6DCAA2_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：库内外货源供应充足 薯价弱稳窄调整理（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/F61AE9B9281013AD_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：中国辣椒主产区价格汇总（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/A833152879299CAD_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：东北油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/9C855A7D8C9C9CB1_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：全国苹果市场晚富士地面交易继续进行（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/8CE47F7DD1D594FF_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：广西及云南油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/3D953BFE89077AAF_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：花生价格呈弱运行（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/D6C08D8C15E8CC59_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：木薯淀粉市场稳中偏弱（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/F699F69CCAAF6CF8_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：淀粉糖整体出货价格暂稳（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/7AE94112101FA099_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：白糖今日价格震荡偏弱（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/01C7C85D6EC4EC42_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：马铃薯淀粉市场价格持续承压（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/9F6BAD49F871FF35_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：西北油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/C2A79A0C1CC28498_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：全国主要油厂菜油成交统计(20261023)
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/3B21EF5AB461A655_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：10月23日华东重点油厂豆油成交量统计
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/4431C24C0ED6D077_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：供应偏紧情绪担忧 豆油领涨三大油脂（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/58EE246B89A9EED8_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：山东油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/E1482A9B07B4AE7B_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：全国主要产区马铃薯价格汇总（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/4E274EF661E8CB11_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：华东油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/7B4EF84DB7D75306_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：江西油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/7D200C67BADA5696_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：全国主要地区饲料企业豆粕库存天数调查（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/64C781ACD7ADD282_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：下游订单偏弱 棉价依旧承压（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/4F4AEE75B9E7F172_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：华北油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/83351560F426FC5A_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：全国玉米副产品市场价格偏弱 成交暗降为主（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/A6884B9CE3202486_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：白羽肉鸡行情速览（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/783DB71D325A9297_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：川渝油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/E26784BACB114002_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：国内生姜价格动态(20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/B136DB1290C7AEC7_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：巴西/泰国原糖进口加工利润（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/069A20B029BD074B_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：柠檬酸市场稳定（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/A92032294971EAA5_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：支撑不足 棉纱上涨受阻（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/BB9B9B84BCDCB5C9_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel解读：2026年秋季蔬菜价格低迷原因分析
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/15BD8BB867023ADC_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：河南油厂开机及豆粕成交量统计（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102316/FFBAEAA1F1394812_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：东北持粮心态转强，销区走货一般，国产豆多空博弈延续（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/99F28FBDF536C452_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：DDGS价格暂稳，下游市场需求疲软（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/F303A5AF8F5C045E_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：白羽鸡苗议价成交，白羽肉鸡低位震荡（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/6CE2AA9872568703_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：葵油市场整体持稳小幅偏弱，玉米油持稳小幅偏强（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/87B44A1EF535CCF2_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel：加工糖企业白砂糖报价（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/6BB78626D9A71BFA_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：817小白鸡市场窄幅调整、青脚麻鸡弱稳运行
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/AD966655D6C2B505_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：进口棉花主要港口商业库存情况(20261022）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/205A730A26ADD177_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：10月23日广西重点油厂豆油成交量统计
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/360AC078B2EAC854_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：10月23日全国重点油厂豆油成交量统计
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/69E454CD30E4FF64_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：10月23日广东重点油厂豆油成交量统计
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/CD8215A52E2F6B7E_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel日报：新稻上量叠加托市托底 稻米市场区域分化（20261023）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                                <a class="h-list-item h-hot-news" external href="//ncp.m.mysteel.com/a/26102317/40E4E9A082069AA9_abc.html">
+                                                                                                                                    <div class="h-list-right">
+                                                <h3>
+                                                                                                        Mysteel数据：全国主流地区纺企开机情况（20261022）
+                                                </h3>
+                                                <p>10-23</p>
+                                            </div>
+                                                                                    </a>
+                                                                            </ul>
+                                </div>
+                            </div>
+                            <!-- 判断下 文章列表如果大于60条 显示加载更多 -->
+                                                                                    <p class="more text-center" id="more-article" data-status="0">
+                                <a href="https://www.mysteel.com/" external>容量有限，更多历史价格请上电脑查看<i></i></a>
+                            </p>
+                                                                                    <div class="tabCon2" >
+                                <section class="searchTips">
+                                    <p>没有找到相关的信息</p>
+                                </section>
+                                                                                            </div>
+                        </div>
+                    </div>
+                </div>
+                                <p class="hot-city">
+	<a class="hot-city-tit" href="https://m.mysteel.com/nav.html" external>热门城市：</a>
+	<span><a href="https://m.mysteel.com/market/p-966------0-010101-------1.html" external>上海</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-966------0-010601-------1.html" external>重庆</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-966------0-01070101-------1.html" external>西安</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-966------0-01060201-------1.html" external>成都</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-966------0-01010701-------1.html" external>合肥</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-966------0-01020101-------1.html" external>广州</a></span>
+</p>
+<p class="hot-city" style="margin-top: 0">
+	<a class="hot-city-tit" href="https://m.mysteel.com/nav.html" external>热门品种：</a>
+	<span><a href="https://m.mysteel.com/market/p-968-----010101-0--------1.html" external>螺纹钢</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----010103-0--------1.html" external>热卷</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----010102-0--------1.html" external>中板</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----0306-0--------1.html" external>废钢</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----010107-0--------1.html" external>型钢</a></span>
+</p>
+<p class="hot-city" style="margin-top: 0">
+	<a class="hot-city-tit" href="https://m.mysteel.com/nav.html" external>推荐品种：</a>
+	<span><a href="https://m.mysteel.com/market/p-968-----0311-0--------1.html" external>铁矿石</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----050202-0--------1.html" external>焦煤</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----0501-0--------1.html" external>焦炭</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----0303-0--------1.html" external>铁合金</a></span>、
+	<span><a href="https://m.mysteel.com/market/p-968-----03030202-0--------1.html" external>硅锰</a></span>
+</p>
+                                          <div class="related">
+        <div class="related-title">相关热搜词</div>
+        <div class="related-list">
+                        <a href="https://m.mysteel.com/hot/796597.html" title="玻璃钢管道报价表" external target="_blank">玻璃钢管道报价表</a>
+                        <a href="https://m.mysteel.com/hot/27824.html" title="构造钢筋网片" external target="_blank">构造钢筋网片</a>
+                        <a href="https://m.mysteel.com/hot/318562.html" title="株洲脚手架价格" external target="_blank">株洲脚手架价格</a>
+                        <a href="https://m.mysteel.com/hot/1538602.html" title="潍坊生猪最新价格" external target="_blank">潍坊生猪最新价格</a>
+                        <a href="https://m.mysteel.com/hot/508196.html" title="9月23号鸡蛋期货" external target="_blank">9月23号鸡蛋期货</a>
+                        <a href="https://m.mysteel.com/hot/1539052.html" title="东莞成品棕榈油最新价格" external target="_blank">东莞成品棕榈油最新价格</a>
+                        <a href="https://m.mysteel.com/hot/702293.html" title="张家港焦炭" external target="_blank">张家港焦炭</a>
+                        <a href="https://m.mysteel.com/hot/702703.html" title="焦炭粉尘粉尘性质" external target="_blank">焦炭粉尘粉尘性质</a>
+                        <a href="https://m.mysteel.com/hot/24586.html" title="无烟煤价格几钱一吨" external target="_blank">无烟煤价格几钱一吨</a>
+                        <a href="https://m.mysteel.com/hot/318418.html" title="枣庄脚手架价格" external target="_blank">枣庄脚手架价格</a>
+                        <a href="https://m.mysteel.com/hot/327974.html" title="防城港砂浆价格" external target="_blank">防城港砂浆价格</a>
+                        <a href="https://m.mysteel.com/hot/1081668.html" title="北京冶金焦" external target="_blank">北京冶金焦</a>
+                        <a href="https://m.mysteel.com/hot/469625.html" title="华宝铜期货基金" external target="_blank">华宝铜期货基金</a>
+                        <a href="https://m.mysteel.com/hot/1081687.html" title="上海普钢" external target="_blank">上海普钢</a>
+                        <a href="https://m.mysteel.com/hot/123697.html" title="热镀锌穿线管厂家" external target="_blank">热镀锌穿线管厂家</a>
+                        <a href="https://m.mysteel.com/hot/1540142.html" title="锦州港玉米最新价格" external target="_blank">锦州港玉米最新价格</a>
+                        <a href="https://m.mysteel.com/hot/389668.html" title="江门盘扣式脚手架管价格" external target="_blank">江门盘扣式脚手架管价格</a>
+                        <a href="https://m.mysteel.com/hot/1536394.html" title="锦州港玉米走势图" external target="_blank">锦州港玉米走势图</a>
+                        <a href="https://m.mysteel.com/hot/1535091.html" title="驻马店生猪走势图" external target="_blank">驻马店生猪走势图</a>
+                        <a href="https://m.mysteel.com/hot/846459.html" title="甘其毛都口岸煤炭价格" external target="_blank">甘其毛都口岸煤炭价格</a>
+                    </div>
+        <div class="related-more">查看更多<span>&or;</span></div>
+    </div>
+                    <link rel="stylesheet" href="//a.mysteelcdn.com/wap/ydz/v2/css/max750.css?v=202302201842">
+<div class="buttons-tab banben" style="background:#fff !important;">
+    <a target="_blank" id="pc" rel="nofollow" class="external edition">
+        <i class="pc-icon"></i>PC端
+    </a>
+    <a href="//www.steelphone.com/xz/?fr=01047" rel="nofollow" target="_blank" class="external edition">
+        <i class="app-icon"></i>手机版
+    </a>
+    <a href="https://m.mysteel.com/abc_dxqjs.html" rel="nofollow" target="_blank" class="external edition border-r">
+        <i class="wx-icon"></i>官方微信
+    </a>
+</div>
+
+<div class="buttons-tab banben banben2" style="background:#fff !important;">
+    <a href="https://m.mysteel.com/nav.html" rel="nofollow" class="external edition">
+        <i class="nav-icon"></i>导航
+    </a>
+    <a onclick="location.href='//m.mysteel.com/feedback.html?from='+location.href" rel="nofollow"
+        class="external edition feedbackA">
+        <i class="feedback-icon"></i>意见反馈
+    </a>
+    <a href="https://m.mysteel.com/" rel="nofollow" class="border-r external edition">
+        <i class="index-icon"></i>返回首页
+    </a>
+    <a href="javascript:scroll(0,0)" class="external back-top back-top-new"></a>
+    <a href="https://m.mysteel.com/so.html" class="external filter "></a>
+    <a class="external share"></a>
+    <a class="external message"></a>
+
+    <div class="h-share">
+        <div class="h-share-content">
+            <div class="h-share-content-board">
+                <p class="text">分享到</p>
+                <div class="main">
+                    <span class="item link">
+                        <p></p>
+                        <span>复制链接</span>
+                    </span>
+                    <span class="item weibo">
+                        <p></p>
+                        <span>微博</span>
+                    </span>
+                    <span class="item zone">
+                        <p></p>
+                        <span>QQ空间</span>
+                    </span>
+                    <span class="item weixin">
+                        <p></p>
+                        <span>微信</span>
+                    </span>
+                </div>
+            </div>
+            <p class="h-share-content-cancel">取消</p>
+        </div>
+        <div class="h-share-browser">
+            <div class="h-share-browser-content">
+                <p class="h-share-browser-tip">点击确定复制下方链接，去粘贴发送给好友或者朋友圈：</p>
+                <p class="h-share-browser-link"></p>
+            </div>
+            <p class="h-share-browser-cancel">确定</p>
+        </div>
+        <div class="h-share-weixin">
+            <img src="//a.mysteelcdn.com/wap/ydz/v2/images/line.png" alt="">
+            <div class="h-share-weixin-content">
+                <p class="h-share-weixin-content-line1">分享给好友</p>
+                <p class="h-share-weixin-content-line2">
+                    <span>1. 点击右上<b class='icon'>···</b>分享给好友</span>
+                </p>
+                <p class="h-share-weixin-content-line3">
+                    <span>2. 点击下方<span class='text'>确定</span>按钮即可复制链接，分享链接给好友或发朋友圈</span>
+                </p>
+            </div>
+            <p class="h-share-weixin-confirm">确定</p>
+        </div>
+    </div>
+</div>
+<div class="custom-service">
+    <p>客服热线 <a href="tel:400-671-1818">400-671-1818</a></p>
+    <p class="beian">沪ICP备15006920号-8</p>
+</div>
+<div class="toast-wrap">
+    <span class="toast-msg"></span>
+</div>
+<script src="//a.mysteelcdn.com/libs/jquery.min.js" charset="gbk"></script>
+<script src="//a.mysteelcdn.com/libs/require.min.js" charset="gbk"></script>
+<script>
+    require(['//a.mysteelcdn.com/wap/ydz/v2/js/share.js?v=202508262015'], function (share) {
+        share.init();
+    })
+</script>            </div>
+            <style>
+    .suspend {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2.6rem;
+        box-shadow: 0 .3rem .5rem .5rem #e4e4e4;
+        background-color: #ffffff;
+        z-index: 99;
+    }
+
+    .suspend-container {
+        position: relative;
+        width: 100%;
+        height: 2.6rem;
+    }
+
+    .suspend-container-close {
+        position: absolute;
+        left: 0.75rem;
+        bottom: 0.85rem;
+        width: 0.75rem;
+        height: 0.75rem;
+        margin-left: 0.2rem;
+        vertical-align: middle;
+    }
+
+    .suspend-container-logo {
+        position: absolute;
+        left: 2.5rem;
+        bottom: 0.48rem;      
+        height: 1.5rem;
+        margin-left: 0.2rem;
+        vertical-align: middle;
+    }
+
+    .suspend-container-text {
+        display: inline-block;
+        width: 12rem;
+        margin-top: 0.3rem;
+        margin-left: 5rem;
+        vertical-align: middle;
+    }
+
+    .suspend-container-text p:nth-child(1) {
+        font-size: 0.65rem;
+        color: #333333;
+        font-weight: 500;
+    }
+
+    .suspend-container-text p:nth-child(2) {
+        margin-top: 0.1rem;
+        font-size: 0.6rem;
+        color: #999999;
+        font-weight: 400;
+    }
+
+    .suspend-container-button {
+        position: absolute;
+        bottom: 0.65rem;
+        right: 0.75rem;
+        width: 2.5rem;
+        height: 1.3rem;
+        line-height: 1.3rem;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #ffffff;
+        background-color: #2d8ee7;
+        border-radius: 0.75rem;
+    }
+</style>
+<div class="suspend" id="suspend">
+    <div class="suspend-container">
+        <img class="suspend-container-close" src="//a.mysteelcdn.com/wap/ydz/v2/images/foot_close.png">
+        <img class="suspend-container-logo" src="//a.mysteelcdn.com/wap/ydz/v2/images/nb-logo.jpg">
+        <div class="suspend-container-text">
+            <p>2023-2024大宗商品年报新鲜出炉！</p>
+            <p>限时优惠购，亮点抢鲜看</p>
+        </div>
+        <p class="suspend-container-button">查看</p>
+    </div>
+</div>
+<script>
+    // $(".suspend").show()
+    $(".suspend-container-close").click(function () {
+        $(".suspend").hide()
+    })
+    $(".suspend-container-button").click(function () {
+        window.location.href = 'https://sem.mysteel.com/reportm.html?nianbao_Mzhan'
+    })
+</script>        </div>
+    </div>
+    <script src="//a.mysteelcdn.com/libs/require.min.js?v=79" charset="gbk"></script>
+    <script>
+        require.config({
+            baseUrl: "//a.mysteelcdn.com/wap/ydz/v2/js/",
+            paths: {
+                'zepto': "//a.mysteelcdn.com/libs/zepto.min",
+                'touch': "//a.mysteelcdn.com/libs/zepto-touch",
+                'sm': "//a.mysteelcdn.com/libs/sui/sui"
+            },
+            shim: {
+                "touch": {
+                    deps: ["zepto"],
+                    exports: "touch"
+                },
+                "sm": {
+                    deps: ["zepto"],
+                    exports: "sm"
+                },
+                "main1": {
+                    deps: ["zepto"],
+                    exports: "main1"
+                }
+            },
+            waitSeconds: 0
+        })
+    </script>
+    <script src="//a.mysteelcdn.com/wap/ydz/v2/js/breedHot.js?v=2025082619" charset="gbk"></script>
+    <script>
+        $(".content").scroll(function () {
+            if ($("#mycity").height()) {
+                if ($(this).scrollTop() > $(".top-banner a").height()) {
+                    $("#mycity").addClass("current-target")
+                    $(".h-nav").css("padding-top", $("#mycity").height())
+                } else {
+                    $("#mycity").removeClass("current-target")
+                    $(".h-nav").css("padding-top", "0.3rem")
+                }
+            }
+        })
+
+        function replaceUrl(str) {
+            if (str.indexOf("//") == 0) {
+                str = "https:" + str
+            }
+            if (str.indexOf("_abc") !== -1) {
+                return str
+            }
+
+            str = str.replace(".html", "_abc.html")
+            var top = str.split("/")[2],
+                bottom = str.split("/").slice(3).join("/")
+
+            if (top.indexOf("100njz.com") > -1) {
+                path = "https://m.100njz.com/" + bottom
+            } else if(top.indexOf("bxg.mysteel.com") > -1){
+                path = "https://bxg.m.mysteel.com/" + bottom
+            } else if (top.indexOf("feibxg.mysteel.com") > -1) {
+                path = "https://feibxg.m.mysteel.com/" + bottom
+            } else if (top.indexOf("ge.mysteel.com") > -1) {
+                path = "https://ge.m.mysteel.com/" + bottom
+            } else {
+                path = "https://m.mysteel.com/" + bottom
+            }  
+
+            return path
+        }
+
+        $("#mycity ul li").each(function (i) {
+            if ($("body").attr("rootId") == "02") {
+                if ($(this).text().indexOf("镍") > -1 || $(this).text().indexOf("铬") > -1) {
+                    $(this).hide()
+                }
+            }
+        })
+
+        // 针对公司企业微信来更改页面标题和描述
+        var ua = window.navigator.userAgent.toLowerCase();
+        if ((ua.match(/MicroMessenger/i) == 'micromessenger') || (ua.match(/wxwork/i) == 'wxwork')) {
+            document.title = "今日" + $("body").attr("city") + "价格资讯分析_我的钢铁网";
+            jQuery('meta[name="description"]').attr('content', "我的钢铁网提供" + $("body").attr("city") + "价格走势分析," + $("body").attr("city") + "热点资讯,让您轻松了解" + $("body").attr("city") + "市场动态");
+        }
+
+    </script>
+    <script src="//a.mysteelcdn.com/wap/ydz/js/whyapp/cookie.v202209.js?v=202508262015" charset="gb2312"></script>
+<!--文章图集轮播js-->
+<script src="//a.mysteelcdn.com/libs/picture-carousel-wap.js?v=20240409" charset="gbk"></script>    <script>
+    try {
+        setTimeout(function () {
+            $(".big-top-image").attr("src", $(".big-top-image").attr("url"))
+        }, 5000)
+    } catch (error) {
+        console.log(error)
+    }
+</script>    <script src="//a.mysteelcdn.com/wap/ydz/v2/js/seo_keyword.js" charset="utf-8"></script>
+<script src="https://s9.cnzz.com/z_stat.php?id=1280674193&web_id=1280674193"></script>    <!-- 百度+公司内部代码统计 -->
+    <script src="//a.mysteelcdn.com/mysteel_public/js/statistics.js?v=202608261859" defer charset="gbk"></script>
+</body>
+
+</html>

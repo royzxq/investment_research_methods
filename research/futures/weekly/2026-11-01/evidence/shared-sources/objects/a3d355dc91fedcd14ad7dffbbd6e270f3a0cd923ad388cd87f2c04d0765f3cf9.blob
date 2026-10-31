@@ -1,0 +1,42 @@
+[
+  {
+    "id": "m-eastmoney-shcif-1023",
+    "url": "https://qhweb.eastmoney.com/news/202610233904969353.html",
+    "fetched_at": "2026-10-25T01:08:40.241058+08:00",
+    "status": "ok",
+    "sha256": "ac98a819b461e07600d525f7e4379653c8d0fd17b375f3988cc931e17215afb5",
+    "raw": "m-eastmoney-shcif-1023.html",
+    "text": "m-eastmoney-shcif-1023.txt",
+    "text_length": 4926
+  },
+  {
+    "id": "m-eastmoney-premarket-1023",
+    "url": "https://emwap.eastmoney.com/a/202610233906504824.html",
+    "fetched_at": "2026-10-25T01:08:40.241483+08:00",
+    "status": "ok",
+    "sha256": "8a83df33230aee6d56e937ebfb93c863764b3e190584e262a34a6c5d04571c14",
+    "raw": "m-eastmoney-premarket-1023.html",
+    "text": "m-eastmoney-premarket-1023.txt",
+    "text_length": 1684
+  },
+  {
+    "id": "rb-xinhua-1022-direct",
+    "url": "https://finance.sina.com.cn/money/bond/2026-10-22/doc-iniwarrm5185175.shtml",
+    "fetched_at": "2026-10-25T01:08:40.241762+08:00",
+    "status": "ok",
+    "sha256": "2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60",
+    "raw": "rb-xinhua-1022-direct.html",
+    "text": "rb-xinhua-1022-direct.txt",
+    "text_length": 3024
+  },
+  {
+    "id": "rb-xiben-1023-direct",
+    "url": "https://m.steelx2.com/news-content.aspx?id=648431",
+    "fetched_at": "2026-10-25T01:08:40.241946+08:00",
+    "status": "ok",
+    "sha256": "bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6",
+    "raw": "rb-xiben-1023-direct.html",
+    "text": "rb-xiben-1023-direct.txt",
+    "text_length": 868
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "pair": [
+      "MA2701",
+      "MA2705"
+    ],
+    "source_checks": [
+      {
+        "contract": "MA2701",
+        "ts_code": "MA2701.ZCE",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:07.243977+08:00"
+      },
+      {
+        "contract": "MA2705",
+        "ts_code": "MA2705.ZCE",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.245782+08:00"
+      }
+    ],
+    "calendar_source": "Tushare SSE actual dates proxy; execution venue sessions not fully verified",
+    "latest_three": [
+      {
+        "trade_date": "20261021",
+        "near_contract": "MA2701",
+        "far_contract": "MA2705",
+        "near_settle": 3110.0,
+        "far_settle": 2889.0,
+        "spread": 221.0
+      },
+      {
+        "trade_date": "20261022",
+        "near_contract": "MA2701",
+        "far_contract": "MA2705",
+        "near_settle": 3152.0,
+        "far_settle": 2887.0,
+        "spread": 265.0
+      },
+      {
+        "trade_date": "20261023",
+        "near_contract": "MA2701",
+        "far_contract": "MA2705",
+        "near_settle": 3197.0,
+        "far_settle": 2923.0,
+        "spread": 274.0
+      }
+    ],
+    "economic_signal": "not_evaluated_no_anchor"
+  },
+  {
+    "pair": [
+      "RB2701",
+      "RB2703"
+    ],
+    "source_checks": [
+      {
+        "contract": "RB2701",
+        "ts_code": "RB2701.SHF",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:07.756808+08:00"
+      },
+      {
+        "contract": "RB2703",
+        "ts_code": "RB2703.SHF",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.775373+08:00"
+      }
+    ],
+    "calendar_source": "Tushare SSE actual dates proxy; execution venue sessions not fully verified",
+    "latest_three": [
+      {
+        "trade_date": "20261021",
+        "near_contract": "RB2701",
+        "far_contract": "RB2703",
+        "near_settle": 3080.0,
+        "far_settle": 3083.0,
+        "spread": -3.0
+      },
+      {
+        "trade_date": "20261022",
+        "near_contract": "RB2701",
+        "far_contract": "RB2703",
+        "near_settle": 3064.0,
+        "far_settle": 3069.0,
+        "spread": -5.0
+      },
+      {
+        "trade_date": "20261023",
+        "near_contract": "RB2701",
+        "far_contract": "RB2703",
+        "near_settle": 3043.0,
+        "far_settle": 3047.0,
+        "spread": -4.0
+      }
+    ],
+    "economic_signal": "not_evaluated_no_anchor"
+  },
+  {
+    "pair": [
+      "SR2701",
+      "SR2705"
+    ],
+    "source_checks": [
+      {
+        "contract": "SR2701",
+        "ts_code": "SR2701.ZCE",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:08.806222+08:00"
+      },
+      {
+        "contract": "SR2705",
+        "ts_code": "SR2705.ZCE",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:11.302897+08:00"
+      }
+    ],
+    "calendar_source": "Tushare SSE actual dates proxy; execution venue sessions not fully verified",
+    "latest_three": [
+      {
+        "trade_date": "20261021",
+        "near_contract": "SR2701",
+        "far_contract": "SR2705",
+        "near_settle": 5397.0,
+        "far_settle": 5479.0,
+        "spread": -82.0
+      },
+      {
+        "trade_date": "20261022",
+        "near_contract": "SR2701",
+        "far_contract": "SR2705",
+        "near_settle": 5378.0,
+        "far_settle": 5459.0,
+        "spread": -81.0
+      },
+      {
+        "trade_date": "20261023",
+        "near_contract": "SR2701",
+        "far_contract": "SR2705",
+        "near_settle": 5364.0,
+        "far_settle": 5441.0,
+        "spread": -77.0
+      }
+    ],
+    "economic_signal": "not_evaluated_no_anchor"
+  },
+  {
+    "pair": [
+      "MA2705",
+      "MA2709"
+    ],
+    "source_checks": [
+      {
+        "contract": "MA2705",
+        "ts_code": "MA2705.ZCE",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.245782+08:00"
+      },
+      {
+        "contract": "MA2709",
+        "ts_code": "MA2709.ZCE",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:11.803815+08:00"
+      }
+    ],
+    "calendar_source": "Tushare SSE actual dates proxy; execution venue sessions not fully verified",
+    "latest_three": [
+      {
+        "trade_date": "20261021",
+        "near_contract": "MA2705",
+        "far_contract": "MA2709",
+        "near_settle": 2889.0,
+        "far_settle": 2811.0,
+        "spread": 78.0
+      },
+      {
+        "trade_date": "20261022",
+        "near_contract": "MA2705",
+        "far_contract": "MA2709",
+        "near_settle": 2887.0,
+        "far_settle": 2796.0,
+        "spread": 91.0
+      },
+      {
+        "trade_date": "20261023",
+        "near_contract": "MA2705",
+        "far_contract": "MA2709",
+        "near_settle": 2923.0,
+        "far_settle": 2808.0,
+        "spread": 115.0
+      }
+    ],
+    "economic_signal": "not_evaluated_no_anchor"
+  },
+  {
+    "pair": [
+      "RB2703",
+      "RB2705"
+    ],
+    "source_checks": [
+      {
+        "contract": "RB2703",
+        "ts_code": "RB2703.SHF",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:10.775373+08:00"
+      },
+      {
+        "contract": "RB2705",
+        "ts_code": "RB2705.SHF",
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-10-25T01:03:12.329458+08:00"
+      }
+    ],
+    "calendar_source": "Tushare SSE actual dates proxy; execution venue sessions not fully verified",
+    "latest_three": [
+      {
+        "trade_date": "20261021",
+        "near_contract": "RB2703",
+        "far_contract": "RB2705",
+        "near_settle": 3083.0,
+        "far_settle": 3095.0,
+        "spread": -12.0
+      },
+      {
+        "trade_date": "20261022",
+        "near_contract": "RB2703",
+        "far_contract": "RB2705",
+        "near_settle": 3069.0,
+        "far_settle": 3078.0,
+        "spread": -9.0
+      },
+      {
+        "trade_date": "20261023",
+        "near_contract": "RB2703",
+        "far_contract": "RB2705",
+        "near_settle": 3047.0,
+        "far_settle": 3061.0,
+        "spread": -14.0
+      }
+    ],
+    "economic_signal": "not_evaluated_no_anchor"
+  }
+]

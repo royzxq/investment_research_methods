@@ -1,0 +1,97 @@
+{
+  "as_of_date": "2026-10-25",
+  "evaluated_at": "2026-10-25T01:10:57.364586+08:00",
+  "contract": "MA2701",
+  "source_inputs": [
+    {
+      "path": "research/futures/refresh/2026-10-25/evidence/2026-10-25-signal-refresh-r2/market-inputs.json",
+      "sha256": "4dfe9acbe8728ce651b5d68222271dcf4c72c711501fa86056d481b20ff95799"
+    }
+  ],
+  "original_reference_entry": 3338,
+  "original_reference_initial_stop": 3139,
+  "first_daily_low_crossing_reference_stop": {
+    "ts_code": "MA2701.ZCE",
+    "trade_date": "20261019",
+    "close": 3143.0,
+    "high": 3243.0,
+    "low": 3131.0,
+    "response_ts_code": "MA2701.ZCE"
+  },
+  "reference_stop_initial_range_for_original_entry_band": [
+    3090,
+    3188
+  ],
+  "all_band_initial_stops_crossed_by": "2026-10-20",
+  "basis": "Original entry band 3289..3387 and original signal ATR, 2ATR outward-rounded initial stops 3090..3188. 10/20 low3089 is below even the minimum; this establishes a conditional stop-boundary breach, not a fill or exit execution. Tightened stops could trigger earlier.",
+  "current_recent10_completed_low": 3016.0,
+  "current_recent10_completed_high": 3384.0,
+  "next_session_effective_only": true,
+  "holding_verified": false,
+  "actual_entry": null,
+  "actual_effective_stop": null,
+  "actual_exit": null,
+  "pnl": null,
+  "dates": [
+    {
+      "trade_date": "20261012",
+      "low": 3176.0,
+      "high": 3384.0,
+      "close": 3229.0
+    },
+    {
+      "trade_date": "20261013",
+      "low": 3193.0,
+      "high": 3278.0,
+      "close": 3235.0
+    },
+    {
+      "trade_date": "20261014",
+      "low": 3220.0,
+      "high": 3320.0,
+      "close": 3262.0
+    },
+    {
+      "trade_date": "20261015",
+      "low": 3164.0,
+      "high": 3289.0,
+      "close": 3170.0
+    },
+    {
+      "trade_date": "20261016",
+      "low": 3146.0,
+      "high": 3223.0,
+      "close": 3192.0
+    },
+    {
+      "trade_date": "20261019",
+      "low": 3131.0,
+      "high": 3243.0,
+      "close": 3143.0
+    },
+    {
+      "trade_date": "20261020",
+      "low": 3089.0,
+      "high": 3180.0,
+      "close": 3157.0
+    },
+    {
+      "trade_date": "20261021",
+      "low": 3016.0,
+      "high": 3193.0,
+      "close": 3130.0
+    },
+    {
+      "trade_date": "20261022",
+      "low": 3081.0,
+      "high": 3239.0,
+      "close": 3191.0
+    },
+    {
+      "trade_date": "20261023",
+      "low": 3160.0,
+      "high": 3243.0,
+      "close": 3219.0
+    }
+  ]
+}

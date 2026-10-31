@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "refresh_version": "1.2",
+  "rule_version": "v3.0",
+  "as_of_date": "2026-11-01",
+  "evaluated_at": "2026-11-01T01:00:17.744279+08:00",
+  "generator": "codex",
+  "scope": "mechanical_refresh_only",
+  "refresh_status": "failed",
+  "issues": [
+    "calendar_degraded_to_weekdays"
+  ],
+  "trend": [],
+  "economic_reversion": [],
+  "registered_plan_windows": [],
+  "calendar_source": "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+  "publication_note": "18:00 cutoff is a guard, not verified final-settlement publication",
+  "execution_permission": "not_evaluated",
+  "readiness": "not_evaluated",
+  "final_lots": null,
+  "performance_status": "not_automated",
+  "source_inputs": [
+    {
+      "role": "market-inputs",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/futures-refresh-fetch/2026-11-01/run-t9zarhjx/v3_research_inputs_20261101.json",
+      "path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/market-inputs.json",
+      "sha256": "957798291ec4d745df5e1a7385e027f1d85c1678d7695e1c84a62833acad662d",
+      "bytes": 5672
+    },
+    {
+      "role": "data-snapshot",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/futures-refresh-fetch/2026-11-01/run-t9zarhjx/data-snapshot.txt",
+      "path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/data-snapshot.txt",
+      "sha256": "be55fcc33fa3af40fc29552f1199ca50ef2b034edadbb39b25a40cb114528dac",
+      "bytes": 13524
+    },
+    {
+      "role": "frozen-anchors",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/continuity-r2/anchors.json",
+      "path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/frozen-anchors.json",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "bytes": 70
+    },
+    {
+      "role": "registered-plans",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/continuity-r2/plans.json",
+      "path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/registered-plans.json",
+      "sha256": "9cbc4993b15e27734483e00cab8d1bcc9ea4c6aefdaa8c360ed675d4638a5049",
+      "bytes": 10064
+    }
+  ],
+  "method": {
+    "canonical": "framework/futures_framework.md",
+    "canonical_sha256": "7d55001e2b42880bae58d827fc7d77eb939fe0e387bd5e7ee59965d89de4398b",
+    "helper": "scripts/futures_strategy.py",
+    "helper_sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "refresh_sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6"
+  },
+  "input_script_version": "v1.18.1",
+  "evaluated_snapshot_sha256": "be55fcc33fa3af40fc29552f1199ca50ef2b034edadbb39b25a40cb114528dac",
+  "input_selection": {
+    "selected": "/private/tmp/futures-weekly-automation-2026-11-01/output/futures-refresh-fetch/2026-11-01/run-t9zarhjx/v3_research_inputs_20261101.json",
+    "selected_sha256": "957798291ec4d745df5e1a7385e027f1d85c1678d7695e1c84a62833acad662d",
+    "attempted": [
+      {
+        "path": "/private/tmp/futures-weekly-automation-2026-11-01/output/cache/futures/v3_research_inputs_20261011.json",
+        "snapshot": "/private/tmp/futures-weekly-automation-2026-11-01/research/futures/snapshots/2026-10-11-data-snapshot.txt",
+        "refresh_status": "failed",
+        "issues": [],
+        "raw_sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+        "price_gaps": [
+          {
+            "contract": "CF2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "M2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "MA2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "RB2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          },
+          {
+            "contract": "SR2701",
+            "missing_fields": [
+              "price_source_contract_identity_missing"
+            ]
+          }
+        ]
+      }
+    ],
+    "selected_snapshot": "/private/tmp/futures-weekly-automation-2026-11-01/output/futures-refresh-fetch/2026-11-01/run-t9zarhjx/data-snapshot.txt"
+  },
+  "complete": true
+}

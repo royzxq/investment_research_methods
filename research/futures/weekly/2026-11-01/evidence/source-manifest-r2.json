@@ -1,0 +1,1319 @@
+{
+  "schema": "futures-used-source-graph/v2",
+  "as_of_date": "2026-11-01",
+  "note": "Original paths denote frozen provenance only; explicit selected handoff defines adoption. Opaque bytes preserve drafts/failed receipts without reinterpreting their metadata against current root.",
+  "sources": [
+    {
+      "original_path": "research/futures/anchors/2026-11-01/2026-11-01-anchors.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/52def715004541f4ed1af5d45569d24437bc374804ec9779731221aeb2cad96f.blob",
+        "sha256": "52def715004541f4ed1af5d45569d24437bc374804ec9779731221aeb2cad96f",
+        "bytes": 3791
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/2026-11-01-signal-refresh-r2.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/1cb7995f5d6ba30cf6d44a0eb1567668b71cae1a8784d94fb4594ae17c727bb7.blob",
+        "sha256": "1cb7995f5d6ba30cf6d44a0eb1567668b71cae1a8784d94fb4594ae17c727bb7",
+        "bytes": 14904
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/2026-11-01-signal-refresh-r2.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/2b86dd24157cfad7d8ae1fe6bea91a9d3edceb6f364eef772c072ae3dd6812ed.blob",
+        "sha256": "2b86dd24157cfad7d8ae1fe6bea91a9d3edceb6f364eef772c072ae3dd6812ed",
+        "bytes": 1555
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/2026-11-01-signal-refresh.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/d0369e5c48ecd0cd8838670e044c8a08a5dbe7ae49946af381d5a339b72feb78.blob",
+        "sha256": "d0369e5c48ecd0cd8838670e044c8a08a5dbe7ae49946af381d5a339b72feb78",
+        "bytes": 4640
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/2026-11-01-signal-refresh.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/9e9d9448946322d9824b07ba676dc9a8e6541d70ee98db33cb74bbd64f903278.blob",
+        "sha256": "9e9d9448946322d9824b07ba676dc9a8e6541d70ee98db33cb74bbd64f903278",
+        "bytes": 1299
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/data-snapshot.txt",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/be55fcc33fa3af40fc29552f1199ca50ef2b034edadbb39b25a40cb114528dac.blob",
+        "sha256": "be55fcc33fa3af40fc29552f1199ca50ef2b034edadbb39b25a40cb114528dac",
+        "bytes": 13524
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/frozen-anchors.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd.blob",
+        "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+        "bytes": 70
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/market-inputs.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/957798291ec4d745df5e1a7385e027f1d85c1678d7695e1c84a62833acad662d.blob",
+        "sha256": "957798291ec4d745df5e1a7385e027f1d85c1678d7695e1c84a62833acad662d",
+        "bytes": 5672
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh/registered-plans.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/9cbc4993b15e27734483e00cab8d1bcc9ea4c6aefdaa8c360ed675d4638a5049.blob",
+        "sha256": "9cbc4993b15e27734483e00cab8d1bcc9ea4c6aefdaa8c360ed675d4638a5049",
+        "bytes": 10064
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh-r2/data-snapshot.txt",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/141f69dbf8e57217ee1f6663146959ddf6470fd5c1d146cadd6d1e9234211359.blob",
+        "sha256": "141f69dbf8e57217ee1f6663146959ddf6470fd5c1d146cadd6d1e9234211359",
+        "bytes": 11526
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh-r2/frozen-anchors.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd.blob",
+        "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+        "bytes": 70
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh-r2/market-inputs.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/4b028ee62ffc917fcac24bf83c9d44fa700b9e0b382f853ddec61c8ce85896df.blob",
+        "sha256": "4b028ee62ffc917fcac24bf83c9d44fa700b9e0b382f853ddec61c8ce85896df",
+        "bytes": 680470
+      }
+    },
+    {
+      "original_path": "research/futures/refresh/2026-11-01/evidence/2026-11-01-signal-refresh-r2/registered-plans.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ee4913c1f4c9d6ab6d0d634815ebb7911183e20316a344759a943e46b78df47b.blob",
+        "sha256": "ee4913c1f4c9d6ab6d0d634815ebb7911183e20316a344759a943e46b78df47b",
+        "bytes": 10316
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-change-decision-r2.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/1d6df31d3d61484c6090e3d5af9f6af552f2d2a1bd581702c717c9c170483a21.blob",
+        "sha256": "1d6df31d3d61484c6090e3d5af9f6af552f2d2a1bd581702c717c9c170483a21",
+        "bytes": 5005
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-change-decision-r3.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e11e7e07a6cc3c595ca6e2c3a361d9dd317397f3fe02a0e8204c0a40ab873eaf.blob",
+        "sha256": "e11e7e07a6cc3c595ca6e2c3a361d9dd317397f3fe02a0e8204c0a40ab873eaf",
+        "bytes": 5155
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-change-decision.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/401099853c10eb7b6dae822cb7760fbee7c79dee796b7154f85fdcc0de464beb.blob",
+        "sha256": "401099853c10eb7b6dae822cb7760fbee7c79dee796b7154f85fdcc0de464beb",
+        "bytes": 4878
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r2.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/0f0a0c15338125b89d275175f8c187c7de425091c3d0a584bee51b39bdbe97b3.blob",
+        "sha256": "0f0a0c15338125b89d275175f8c187c7de425091c3d0a584bee51b39bdbe97b3",
+        "bytes": 61323
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r3.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/0d55accd0dfde8af6dfa2fde845813006794e3632222c268138265e337aaf703.blob",
+        "sha256": "0d55accd0dfde8af6dfa2fde845813006794e3632222c268138265e337aaf703",
+        "bytes": 61476
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/931e7286cce5605cb344b8c3d9a6e947dc78a6d0f06c6449b8696cb772c336aa.blob",
+        "sha256": "931e7286cce5605cb344b8c3d9a6e947dc78a6d0f06c6449b8696cb772c336aa",
+        "bytes": 61157
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-market-research-r2.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/8f4ae58aa912a10bd19cd8634a2a08ec59af696d818e3416de706ff5211dc1cb.blob",
+        "sha256": "8f4ae58aa912a10bd19cd8634a2a08ec59af696d818e3416de706ff5211dc1cb",
+        "bytes": 9417
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-market-research-r3.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/74d0b6a16f2ebd75b82832405b798743eb11e481e24add8da7582d7e07854d32.blob",
+        "sha256": "74d0b6a16f2ebd75b82832405b798743eb11e481e24add8da7582d7e07854d32",
+        "bytes": 9564
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-market-research.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/f6c35b0150e8136074127174351c8a5dcb958179660c6cb8fb355d47d782d3a4.blob",
+        "sha256": "f6c35b0150e8136074127174351c8a5dcb958179660c6cb8fb355d47d782d3a4",
+        "bytes": 9263
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/calendar-review.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/7ae1cf5ffee9b0af0c3a1e3e6bb2f002fa4edcff87c6296e4a6e867831ad187c.blob",
+        "sha256": "7ae1cf5ffee9b0af0c3a1e3e6bb2f002fa4edcff87c6296e4a6e867831ad187c",
+        "bytes": 1134
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/continuity-reconciliation.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/9439623e0f3c1ab037d7d3c1a61e31b5ef53d9fe40314ee58e4c48ecbed6d01d.blob",
+        "sha256": "9439623e0f3c1ab037d7d3c1a61e31b5ef53d9fe40314ee58e4c48ecbed6d01d",
+        "bytes": 3217
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/independent-audit-review-r2.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/04d09df806a57a720daa949a23d56319143650dc9b7d573cc06199f5cc6271a8.blob",
+        "sha256": "04d09df806a57a720daa949a23d56319143650dc9b7d573cc06199f5cc6271a8",
+        "bytes": 4499
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/independent-audit-review.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/d7d50cc3eaaa5c386299b3261fce3f42b8e87a7dc77e815c75c5608a9d082e77.blob",
+        "sha256": "d7d50cc3eaaa5c386299b3261fce3f42b8e87a7dc77e815c75c5608a9d082e77",
+        "bytes": 14142
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/m-rb-research-r2.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/f235de8c0b9033032ccfdd938130c5b3abc9d8a70fa14c5de0d7fff70f4eab4b.blob",
+        "sha256": "f235de8c0b9033032ccfdd938130c5b3abc9d8a70fa14c5de0d7fff70f4eab4b",
+        "bytes": 7834
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/m-rb-research.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/085b844ad6efebe358b477da39605ab1998bb8ef8cc2f1fa119e3018aafb5cfc.blob",
+        "sha256": "085b844ad6efebe358b477da39605ab1998bb8ef8cc2f1fa119e3018aafb5cfc",
+        "bytes": 7634
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/ma-sr-cf-research.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/89b003912259a08372e4ee6577a145ea3f8ba2fb307301e630b55ac78e17c871.blob",
+        "sha256": "89b003912259a08372e4ee6577a145ea3f8ba2fb307301e630b55ac78e17c871",
+        "bytes": 10274
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/main-execution-audit-resolve.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/8307a14ff7bcd2f1ec40f78d3ff1d622eaf020f6893ccfc4eef8fbadd000250d.blob",
+        "sha256": "8307a14ff7bcd2f1ec40f78d3ff1d622eaf020f6893ccfc4eef8fbadd000250d",
+        "bytes": 6571
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/main-market-research-resolve.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e3e0370d8e68bd57bb5c2a1e916323e83bc56a62064b5c6a8e6c935b3a3c4568.blob",
+        "sha256": "e3e0370d8e68bd57bb5c2a1e916323e83bc56a62064b5c6a8e6c935b3a3c4568",
+        "bytes": 6571
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/run-baseline.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/1f56be8fcf6914351f7eaa88e65f7eda780ae5e51a7bc335425649417fbccade.blob",
+        "sha256": "1f56be8fcf6914351f7eaa88e65f7eda780ae5e51a7bc335425649417fbccade",
+        "bytes": 3101
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/catalog.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/2a7dd8888c9b031857c359816c873d4bb427139781fc8ee6a49e1ee8368bf6a2.blob",
+        "sha256": "2a7dd8888c9b031857c359816c873d4bb427139781fc8ee6a49e1ee8368bf6a2",
+        "bytes": 475861
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/063d8ccfdff2ee15dc9d1193f8d9e5f7d4cf14b906f18f33d1362823fe33a8bf.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/063d8ccfdff2ee15dc9d1193f8d9e5f7d4cf14b906f18f33d1362823fe33a8bf.blob",
+        "sha256": "063d8ccfdff2ee15dc9d1193f8d9e5f7d4cf14b906f18f33d1362823fe33a8bf",
+        "bytes": 192945
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/07937f3ab4bf37780ad03e6f25db9b4f953ad3999c62be8d727aae457aea63d0.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/07937f3ab4bf37780ad03e6f25db9b4f953ad3999c62be8d727aae457aea63d0.blob",
+        "sha256": "07937f3ab4bf37780ad03e6f25db9b4f953ad3999c62be8d727aae457aea63d0",
+        "bytes": 8119
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/0a6ae137d586419933689e70edd2c10f1c627f40ef8900653284caf3bf6a83fe.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/0a6ae137d586419933689e70edd2c10f1c627f40ef8900653284caf3bf6a83fe.blob",
+        "sha256": "0a6ae137d586419933689e70edd2c10f1c627f40ef8900653284caf3bf6a83fe",
+        "bytes": 9998
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/0e87ec4cd8764499b036d16ce80fd44a2f9c6b8082926203916366b4632721ee.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/0e87ec4cd8764499b036d16ce80fd44a2f9c6b8082926203916366b4632721ee.blob",
+        "sha256": "0e87ec4cd8764499b036d16ce80fd44a2f9c6b8082926203916366b4632721ee",
+        "bytes": 14785
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/0f0cd37f072c3723e441f053f4ea10bc952100ba5b444c05f735a2632b76e3c5.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/0f0cd37f072c3723e441f053f4ea10bc952100ba5b444c05f735a2632b76e3c5.blob",
+        "sha256": "0f0cd37f072c3723e441f053f4ea10bc952100ba5b444c05f735a2632b76e3c5",
+        "bytes": 36124
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/106b58f527ed7abaa99a9f7f6fb4dfc459e88d82856c6901e75c5f6c6f61ad73.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/106b58f527ed7abaa99a9f7f6fb4dfc459e88d82856c6901e75c5f6c6f61ad73.blob",
+        "sha256": "106b58f527ed7abaa99a9f7f6fb4dfc459e88d82856c6901e75c5f6c6f61ad73",
+        "bytes": 8173
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/1de7d0464df0eadde91745e1a540212c1eb3f25e194bafa3b46089dcb05cc9c7.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/1de7d0464df0eadde91745e1a540212c1eb3f25e194bafa3b46089dcb05cc9c7.blob",
+        "sha256": "1de7d0464df0eadde91745e1a540212c1eb3f25e194bafa3b46089dcb05cc9c7",
+        "bytes": 14230
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2285229a215f1eefb284ab6c1aaff9f606ab5c5b27c7334c1d6399d667dc0169.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2285229a215f1eefb284ab6c1aaff9f606ab5c5b27c7334c1d6399d667dc0169.blob",
+        "sha256": "2285229a215f1eefb284ab6c1aaff9f606ab5c5b27c7334c1d6399d667dc0169",
+        "bytes": 10660
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2597d20e1235fb97c44108febaa154c2bd4e07fa91c5178c0fbb4048f06fd898.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2597d20e1235fb97c44108febaa154c2bd4e07fa91c5178c0fbb4048f06fd898.blob",
+        "sha256": "2597d20e1235fb97c44108febaa154c2bd4e07fa91c5178c0fbb4048f06fd898",
+        "bytes": 78767
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/28fca63925d91cf6ef0db765e59c168b8d226ecd2dd25410f08ac116140a642e.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/28fca63925d91cf6ef0db765e59c168b8d226ecd2dd25410f08ac116140a642e.blob",
+        "sha256": "28fca63925d91cf6ef0db765e59c168b8d226ecd2dd25410f08ac116140a642e",
+        "bytes": 2396
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2ba45a1c65ece081644577fe95e83bfcd9559ff730ce7fd6ddd84b6fb4f30d41.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2ba45a1c65ece081644577fe95e83bfcd9559ff730ce7fd6ddd84b6fb4f30d41.blob",
+        "sha256": "2ba45a1c65ece081644577fe95e83bfcd9559ff730ce7fd6ddd84b6fb4f30d41",
+        "bytes": 4122
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60.blob",
+        "sha256": "2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60",
+        "bytes": 95302
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/31391cedf18645dfb264fdfea25f0ac09b23eaf1f00ce118372ffd309aa12bfa.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/31391cedf18645dfb264fdfea25f0ac09b23eaf1f00ce118372ffd309aa12bfa.blob",
+        "sha256": "31391cedf18645dfb264fdfea25f0ac09b23eaf1f00ce118372ffd309aa12bfa",
+        "bytes": 14252
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/314a40dbbdb8e3be47dcea768985f47c5a495abc4bd00a5a49151550e59cf167.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/314a40dbbdb8e3be47dcea768985f47c5a495abc4bd00a5a49151550e59cf167.blob",
+        "sha256": "314a40dbbdb8e3be47dcea768985f47c5a495abc4bd00a5a49151550e59cf167",
+        "bytes": 7421
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/31ab7ef1db295fa5fe340f910f884f611868b998f40c0bee7e2a13c3a2a02035.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/31ab7ef1db295fa5fe340f910f884f611868b998f40c0bee7e2a13c3a2a02035.blob",
+        "sha256": "31ab7ef1db295fa5fe340f910f884f611868b998f40c0bee7e2a13c3a2a02035",
+        "bytes": 9871
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/395ac01f15bb88402311e18d43cea6bfa61ce8cf19e59f6bc4e09e799b7f736e.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/395ac01f15bb88402311e18d43cea6bfa61ce8cf19e59f6bc4e09e799b7f736e.blob",
+        "sha256": "395ac01f15bb88402311e18d43cea6bfa61ce8cf19e59f6bc4e09e799b7f736e",
+        "bytes": 9208
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/3fc67c9f0902e619e899b54f72d83e7f1f06b79a82d4e220cb1e7148846088d8.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/3fc67c9f0902e619e899b54f72d83e7f1f06b79a82d4e220cb1e7148846088d8.blob",
+        "sha256": "3fc67c9f0902e619e899b54f72d83e7f1f06b79a82d4e220cb1e7148846088d8",
+        "bytes": 13552
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/40434433070fd3e30c17087d4de90f925ffa7ea9aac9e630cd13c629eddd9cd5.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/40434433070fd3e30c17087d4de90f925ffa7ea9aac9e630cd13c629eddd9cd5.blob",
+        "sha256": "40434433070fd3e30c17087d4de90f925ffa7ea9aac9e630cd13c629eddd9cd5",
+        "bytes": 90643
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/44467464d12cd36d054c0a03babcd1e0bc90b7f3c2b66597390efbe9a9d04022.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/44467464d12cd36d054c0a03babcd1e0bc90b7f3c2b66597390efbe9a9d04022.blob",
+        "sha256": "44467464d12cd36d054c0a03babcd1e0bc90b7f3c2b66597390efbe9a9d04022",
+        "bytes": 14130
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/4861fdf3a8d6a3fd92273e9a2462290286964931a80ce1675c17d5f3e3e06385.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/4861fdf3a8d6a3fd92273e9a2462290286964931a80ce1675c17d5f3e3e06385.blob",
+        "sha256": "4861fdf3a8d6a3fd92273e9a2462290286964931a80ce1675c17d5f3e3e06385",
+        "bytes": 21764
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/48fbdd0baac54ad2498c73362f59a992b69fde4f73f64f95927d5460ca1107be.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/48fbdd0baac54ad2498c73362f59a992b69fde4f73f64f95927d5460ca1107be.blob",
+        "sha256": "48fbdd0baac54ad2498c73362f59a992b69fde4f73f64f95927d5460ca1107be",
+        "bytes": 13634
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/4dfe9acbe8728ce651b5d68222271dcf4c72c711501fa86056d481b20ff95799.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/4dfe9acbe8728ce651b5d68222271dcf4c72c711501fa86056d481b20ff95799.blob",
+        "sha256": "4dfe9acbe8728ce651b5d68222271dcf4c72c711501fa86056d481b20ff95799",
+        "bytes": 670639
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/53748e29eb16dfc26da545925341acf827ab20e83434f214d227a53a29f32a49.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/53748e29eb16dfc26da545925341acf827ab20e83434f214d227a53a29f32a49.blob",
+        "sha256": "53748e29eb16dfc26da545925341acf827ab20e83434f214d227a53a29f32a49",
+        "bytes": 1396
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/56f2ee4644db9aedb8e4c577ec7d2cc627c6e3c51305c338a112b8eca35fc266.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/56f2ee4644db9aedb8e4c577ec7d2cc627c6e3c51305c338a112b8eca35fc266.blob",
+        "sha256": "56f2ee4644db9aedb8e4c577ec7d2cc627c6e3c51305c338a112b8eca35fc266",
+        "bytes": 2096
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5c83aa4b729807458d2f670ab0e9ffa3cc8c4b96dcf2e58215e7a61322993132.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5c83aa4b729807458d2f670ab0e9ffa3cc8c4b96dcf2e58215e7a61322993132.blob",
+        "sha256": "5c83aa4b729807458d2f670ab0e9ffa3cc8c4b96dcf2e58215e7a61322993132",
+        "bytes": 8954
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297.blob",
+        "sha256": "5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297",
+        "bytes": 1993
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/63f494ec74bc252c27e9646290528b5e5566a6d15c0cbed748eb4f9d7a9a846d.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/63f494ec74bc252c27e9646290528b5e5566a6d15c0cbed748eb4f9d7a9a846d.blob",
+        "sha256": "63f494ec74bc252c27e9646290528b5e5566a6d15c0cbed748eb4f9d7a9a846d",
+        "bytes": 11141
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/677c54bb3090b3abb514e7c1874b310b8a770652bc17afe0e4cf238eccefeb61.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/677c54bb3090b3abb514e7c1874b310b8a770652bc17afe0e4cf238eccefeb61.blob",
+        "sha256": "677c54bb3090b3abb514e7c1874b310b8a770652bc17afe0e4cf238eccefeb61",
+        "bytes": 2476
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/685270fdd94bee3540a46ffda9de4709de793a634f65de48c1a1e79d0eb2d893.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/685270fdd94bee3540a46ffda9de4709de793a634f65de48c1a1e79d0eb2d893.blob",
+        "sha256": "685270fdd94bee3540a46ffda9de4709de793a634f65de48c1a1e79d0eb2d893",
+        "bytes": 15493
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/6cd83ada16825d49038936d3378550ee236bcb29b16f46cceb71a3a125a08013.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/6cd83ada16825d49038936d3378550ee236bcb29b16f46cceb71a3a125a08013.blob",
+        "sha256": "6cd83ada16825d49038936d3378550ee236bcb29b16f46cceb71a3a125a08013",
+        "bytes": 81146
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/72a66cceb423f65ad46ae3fc13d70a2135ac7671456887b75640e200e7b99f96.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/72a66cceb423f65ad46ae3fc13d70a2135ac7671456887b75640e200e7b99f96.blob",
+        "sha256": "72a66cceb423f65ad46ae3fc13d70a2135ac7671456887b75640e200e7b99f96",
+        "bytes": 11698
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/776e257c677792d3ffdd88d84e06bd678893bf556b70f7f55623163dfee757c0.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/776e257c677792d3ffdd88d84e06bd678893bf556b70f7f55623163dfee757c0.blob",
+        "sha256": "776e257c677792d3ffdd88d84e06bd678893bf556b70f7f55623163dfee757c0",
+        "bytes": 716
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/77b4a5d2074658ef0726c434dd99aa59369a1325a55394a85e04691fee7da19c.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/77b4a5d2074658ef0726c434dd99aa59369a1325a55394a85e04691fee7da19c.blob",
+        "sha256": "77b4a5d2074658ef0726c434dd99aa59369a1325a55394a85e04691fee7da19c",
+        "bytes": 2632
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7cd9367d4ef12a8beb27388b6db60faaa464c2bdf208f46e3c157daeb53ca192.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7cd9367d4ef12a8beb27388b6db60faaa464c2bdf208f46e3c157daeb53ca192.blob",
+        "sha256": "7cd9367d4ef12a8beb27388b6db60faaa464c2bdf208f46e3c157daeb53ca192",
+        "bytes": 13531
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7d55001e2b42880bae58d827fc7d77eb939fe0e387bd5e7ee59965d89de4398b.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7d55001e2b42880bae58d827fc7d77eb939fe0e387bd5e7ee59965d89de4398b.blob",
+        "sha256": "7d55001e2b42880bae58d827fc7d77eb939fe0e387bd5e7ee59965d89de4398b",
+        "bytes": 32372
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7f9af3f75fb9f209b4fd6bf8062149b4badbbe3e59f9971780fde9394437704e.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7f9af3f75fb9f209b4fd6bf8062149b4badbbe3e59f9971780fde9394437704e.blob",
+        "sha256": "7f9af3f75fb9f209b4fd6bf8062149b4badbbe3e59f9971780fde9394437704e",
+        "bytes": 2415
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7fbf80c30cb80d961fd232b70095dc227eebe1c7042b2e260eebaf95a5df32a4.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/7fbf80c30cb80d961fd232b70095dc227eebe1c7042b2e260eebaf95a5df32a4.blob",
+        "sha256": "7fbf80c30cb80d961fd232b70095dc227eebe1c7042b2e260eebaf95a5df32a4",
+        "bytes": 11287
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/85eb3f9009fa017174a8fe539b9aa155cf78e52428294526a7aa9775117374b5.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/85eb3f9009fa017174a8fe539b9aa155cf78e52428294526a7aa9775117374b5.blob",
+        "sha256": "85eb3f9009fa017174a8fe539b9aa155cf78e52428294526a7aa9775117374b5",
+        "bytes": 7007
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/8a83df33230aee6d56e937ebfb93c863764b3e190584e262a34a6c5d04571c14.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/8a83df33230aee6d56e937ebfb93c863764b3e190584e262a34a6c5d04571c14.blob",
+        "sha256": "8a83df33230aee6d56e937ebfb93c863764b3e190584e262a34a6c5d04571c14",
+        "bytes": 24293
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/8cd46f131f6f30e72239ebc1d80f226e257e7375fc3aa0c117b6b9efd351076f.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/8cd46f131f6f30e72239ebc1d80f226e257e7375fc3aa0c117b6b9efd351076f.blob",
+        "sha256": "8cd46f131f6f30e72239ebc1d80f226e257e7375fc3aa0c117b6b9efd351076f",
+        "bytes": 36239
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/8d6ab7c1de6fcf25d8ae61f880ac5d67ec19a71b00632f79f9ffdd57992acce2.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/8d6ab7c1de6fcf25d8ae61f880ac5d67ec19a71b00632f79f9ffdd57992acce2.blob",
+        "sha256": "8d6ab7c1de6fcf25d8ae61f880ac5d67ec19a71b00632f79f9ffdd57992acce2",
+        "bytes": 127755
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/94f1ecbddb0ac1cd8df452d47407896964da110d899addc31ebb2294dc8f1c16.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/94f1ecbddb0ac1cd8df452d47407896964da110d899addc31ebb2294dc8f1c16.blob",
+        "sha256": "94f1ecbddb0ac1cd8df452d47407896964da110d899addc31ebb2294dc8f1c16",
+        "bytes": 455
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/9518f182f220f7f321087d6c8cc078eb2ef3f88f182aac903d39b365efabc8be.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/9518f182f220f7f321087d6c8cc078eb2ef3f88f182aac903d39b365efabc8be.blob",
+        "sha256": "9518f182f220f7f321087d6c8cc078eb2ef3f88f182aac903d39b365efabc8be",
+        "bytes": 21219
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/964146a58be677a3b24b7c8c8e5329ce92fcd5c474c602e54023ad12773ee88f.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/964146a58be677a3b24b7c8c8e5329ce92fcd5c474c602e54023ad12773ee88f.blob",
+        "sha256": "964146a58be677a3b24b7c8c8e5329ce92fcd5c474c602e54023ad12773ee88f",
+        "bytes": 6346
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/9dcf2a2aa47ff7648f4941fd8ae73cea2825831a473ee14a853ac9ab3a25ad79.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/9dcf2a2aa47ff7648f4941fd8ae73cea2825831a473ee14a853ac9ab3a25ad79.blob",
+        "sha256": "9dcf2a2aa47ff7648f4941fd8ae73cea2825831a473ee14a853ac9ab3a25ad79",
+        "bytes": 7322
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/9fc71d0c744042515110b14e966faf56fe7fa0c3045dd5b7860714df68943c7c.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/9fc71d0c744042515110b14e966faf56fe7fa0c3045dd5b7860714df68943c7c.blob",
+        "sha256": "9fc71d0c744042515110b14e966faf56fe7fa0c3045dd5b7860714df68943c7c",
+        "bytes": 59843
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/a3d355dc91fedcd14ad7dffbbd6e270f3a0cd923ad388cd87f2c04d0765f3cf9.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/a3d355dc91fedcd14ad7dffbbd6e270f3a0cd923ad388cd87f2c04d0765f3cf9.blob",
+        "sha256": "a3d355dc91fedcd14ad7dffbbd6e270f3a0cd923ad388cd87f2c04d0765f3cf9",
+        "bytes": 1534
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/a8647a591000e096c6a277215b61dc3dd5d511313d9f3636ab0b3f83ffb8c0cf.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/a8647a591000e096c6a277215b61dc3dd5d511313d9f3636ab0b3f83ffb8c0cf.blob",
+        "sha256": "a8647a591000e096c6a277215b61dc3dd5d511313d9f3636ab0b3f83ffb8c0cf",
+        "bytes": 20414
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/aa02227a35e678983b1f257e504256da7afb5057d0ed75bafc5f4b44a87538d9.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/aa02227a35e678983b1f257e504256da7afb5057d0ed75bafc5f4b44a87538d9.blob",
+        "sha256": "aa02227a35e678983b1f257e504256da7afb5057d0ed75bafc5f4b44a87538d9",
+        "bytes": 120044
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ac98a819b461e07600d525f7e4379653c8d0fd17b375f3988cc931e17215afb5.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ac98a819b461e07600d525f7e4379653c8d0fd17b375f3988cc931e17215afb5.blob",
+        "sha256": "ac98a819b461e07600d525f7e4379653c8d0fd17b375f3988cc931e17215afb5",
+        "bytes": 51155
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ae13c141230a33f2e2401a76d4f6978afd561dde53f17be9a23c6aa2d39cc8c6.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ae13c141230a33f2e2401a76d4f6978afd561dde53f17be9a23c6aa2d39cc8c6.blob",
+        "sha256": "ae13c141230a33f2e2401a76d4f6978afd561dde53f17be9a23c6aa2d39cc8c6",
+        "bytes": 2991
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/b00d7582b7ca0bba319c7f110c28cf2df77fd5aa0a92850a7d71d1f5d84fdff3.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/b00d7582b7ca0bba319c7f110c28cf2df77fd5aa0a92850a7d71d1f5d84fdff3.blob",
+        "sha256": "b00d7582b7ca0bba319c7f110c28cf2df77fd5aa0a92850a7d71d1f5d84fdff3",
+        "bytes": 2931
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/b1c627ca09bbcb0f5ce4b40dadea87a82c155740b877769fbec4d206ad86817d.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/b1c627ca09bbcb0f5ce4b40dadea87a82c155740b877769fbec4d206ad86817d.blob",
+        "sha256": "b1c627ca09bbcb0f5ce4b40dadea87a82c155740b877769fbec4d206ad86817d",
+        "bytes": 1562
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ba40dfd6705b688c8a84c69b37ed79d166eb3db08e7fb80b7a0908278bd6c385.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ba40dfd6705b688c8a84c69b37ed79d166eb3db08e7fb80b7a0908278bd6c385.blob",
+        "sha256": "ba40dfd6705b688c8a84c69b37ed79d166eb3db08e7fb80b7a0908278bd6c385",
+        "bytes": 2671
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6.blob",
+        "sha256": "bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6",
+        "bytes": 16144
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/bb4dbb451966b65f7a2bef1e54563d047ba16d4d37d1c1f2477abcdffbc87e0e.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/bb4dbb451966b65f7a2bef1e54563d047ba16d4d37d1c1f2477abcdffbc87e0e.blob",
+        "sha256": "bb4dbb451966b65f7a2bef1e54563d047ba16d4d37d1c1f2477abcdffbc87e0e",
+        "bytes": 11714
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/bf82787ac2e69ba440a935e40e0f72b22cbffa60bcb46184836b4b8ad94f7817.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/bf82787ac2e69ba440a935e40e0f72b22cbffa60bcb46184836b4b8ad94f7817.blob",
+        "sha256": "bf82787ac2e69ba440a935e40e0f72b22cbffa60bcb46184836b4b8ad94f7817",
+        "bytes": 36988
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c85ca8b1935ffca7e2ab72bcd9be6cd0ea23332c96126f9f1ab844d377ab33bc.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c85ca8b1935ffca7e2ab72bcd9be6cd0ea23332c96126f9f1ab844d377ab33bc.blob",
+        "sha256": "c85ca8b1935ffca7e2ab72bcd9be6cd0ea23332c96126f9f1ab844d377ab33bc",
+        "bytes": 2698
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c9bc44e1640b8683d93b4d7c61d65116cdebcad4fe8e3985b281c574a627f5ca.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c9bc44e1640b8683d93b4d7c61d65116cdebcad4fe8e3985b281c574a627f5ca.blob",
+        "sha256": "c9bc44e1640b8683d93b4d7c61d65116cdebcad4fe8e3985b281c574a627f5ca",
+        "bytes": 29707
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/cc16f6ff10c741b9ee1bce3e8e7a0d0f01c303826f6cdf9005f19b310484a007.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/cc16f6ff10c741b9ee1bce3e8e7a0d0f01c303826f6cdf9005f19b310484a007.blob",
+        "sha256": "cc16f6ff10c741b9ee1bce3e8e7a0d0f01c303826f6cdf9005f19b310484a007",
+        "bytes": 127217
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/cd38cf7f1772c9cf298169ea1adc4735f98dc267af912fa318dd44eb2ff54c4c.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/cd38cf7f1772c9cf298169ea1adc4735f98dc267af912fa318dd44eb2ff54c4c.blob",
+        "sha256": "cd38cf7f1772c9cf298169ea1adc4735f98dc267af912fa318dd44eb2ff54c4c",
+        "bytes": 6019
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/cf1f10a01a67aa829de629ff229262f6efecc7e20299ea89038ab36296eee045.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/cf1f10a01a67aa829de629ff229262f6efecc7e20299ea89038ab36296eee045.blob",
+        "sha256": "cf1f10a01a67aa829de629ff229262f6efecc7e20299ea89038ab36296eee045",
+        "bytes": 2773
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/d0a24f3264d35801be643cd74e7e49189ae796b82e4a9fca20c06b7e2c7fd88b.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/d0a24f3264d35801be643cd74e7e49189ae796b82e4a9fca20c06b7e2c7fd88b.blob",
+        "sha256": "d0a24f3264d35801be643cd74e7e49189ae796b82e4a9fca20c06b7e2c7fd88b",
+        "bytes": 7439
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/db627b3da130a9dcf8e3c5ef33e7d4f3b147f24e31057eb546284052bea8d6d2.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/db627b3da130a9dcf8e3c5ef33e7d4f3b147f24e31057eb546284052bea8d6d2.blob",
+        "sha256": "db627b3da130a9dcf8e3c5ef33e7d4f3b147f24e31057eb546284052bea8d6d2",
+        "bytes": 564175
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/dd298ebc89a902ec16ea63a2690271b3988cef480a8b52da01dad11445609735.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/dd298ebc89a902ec16ea63a2690271b3988cef480a8b52da01dad11445609735.blob",
+        "sha256": "dd298ebc89a902ec16ea63a2690271b3988cef480a8b52da01dad11445609735",
+        "bytes": 35563
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/de05d0901ffb932602558b613760ea2ec962055d76e0b0996fe9dfad966246cc.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/de05d0901ffb932602558b613760ea2ec962055d76e0b0996fe9dfad966246cc.blob",
+        "sha256": "de05d0901ffb932602558b613760ea2ec962055d76e0b0996fe9dfad966246cc",
+        "bytes": 120008
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e10ed5a93ea2233511ce9cabb355f95a65792c9b2fda0537e8a2042135af10ac.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e10ed5a93ea2233511ce9cabb355f95a65792c9b2fda0537e8a2042135af10ac.blob",
+        "sha256": "e10ed5a93ea2233511ce9cabb355f95a65792c9b2fda0537e8a2042135af10ac",
+        "bytes": 15329
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e4c77f3602455212a7cc9758022e0d6bb46865618ff54f7ea62006841cb1a9bf.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e4c77f3602455212a7cc9758022e0d6bb46865618ff54f7ea62006841cb1a9bf.blob",
+        "sha256": "e4c77f3602455212a7cc9758022e0d6bb46865618ff54f7ea62006841cb1a9bf",
+        "bytes": 110891
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e5dcd20e7be0daf7e5d785ed713962c38d688cf1c39cf94954d74894b0e40c48.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e5dcd20e7be0daf7e5d785ed713962c38d688cf1c39cf94954d74894b0e40c48.blob",
+        "sha256": "e5dcd20e7be0daf7e5d785ed713962c38d688cf1c39cf94954d74894b0e40c48",
+        "bytes": 46576
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e8c5cde4d27a5a4fb9fef587d2c8a7c1abc9539a144a37a0f44300193c34571e.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e8c5cde4d27a5a4fb9fef587d2c8a7c1abc9539a144a37a0f44300193c34571e.blob",
+        "sha256": "e8c5cde4d27a5a4fb9fef587d2c8a7c1abc9539a144a37a0f44300193c34571e",
+        "bytes": 8118
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e9059129f6b9d3ba4035c4dd4962b56c17d3c0ade82ea0b01adfc511a9aff924.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/e9059129f6b9d3ba4035c4dd4962b56c17d3c0ade82ea0b01adfc511a9aff924.blob",
+        "sha256": "e9059129f6b9d3ba4035c4dd4962b56c17d3c0ade82ea0b01adfc511a9aff924",
+        "bytes": 7521
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6.blob",
+        "sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6",
+        "bytes": 47632
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ee4913c1f4c9d6ab6d0d634815ebb7911183e20316a344759a943e46b78df47b.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/ee4913c1f4c9d6ab6d0d634815ebb7911183e20316a344759a943e46b78df47b.blob",
+        "sha256": "ee4913c1f4c9d6ab6d0d634815ebb7911183e20316a344759a943e46b78df47b",
+        "bytes": 10316
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f4259a5b1e66eb7e06cdd852f7b4bb437be522f1d0bae0496ac51cf6e879b57f.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f4259a5b1e66eb7e06cdd852f7b4bb437be522f1d0bae0496ac51cf6e879b57f.blob",
+        "sha256": "f4259a5b1e66eb7e06cdd852f7b4bb437be522f1d0bae0496ac51cf6e879b57f",
+        "bytes": 341612
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422.blob",
+        "sha256": "f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422",
+        "bytes": 5699
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f683092feb7fbe3e8bdbf335107465c811a916c797807a98fae3a33cbff60711.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f683092feb7fbe3e8bdbf335107465c811a916c797807a98fae3a33cbff60711.blob",
+        "sha256": "f683092feb7fbe3e8bdbf335107465c811a916c797807a98fae3a33cbff60711",
+        "bytes": 63155
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f9bc4329a43d72452b06b548a98f17eb74ebbb6740ce995d170cd36a6d4885d6.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/f9bc4329a43d72452b06b548a98f17eb74ebbb6740ce995d170cd36a6d4885d6.blob",
+        "sha256": "f9bc4329a43d72452b06b548a98f17eb74ebbb6740ce995d170cd36a6d4885d6",
+        "bytes": 1187
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/fadea67898a5b73bebca2089774a52ce479579d74c817d6ada69be34de7cd1e3.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/fadea67898a5b73bebca2089774a52ce479579d74c817d6ada69be34de7cd1e3.blob",
+        "sha256": "fadea67898a5b73bebca2089774a52ce479579d74c817d6ada69be34de7cd1e3",
+        "bytes": 37745
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/fd9a9923044f64e187c71b3701498d47cfef2d13cecab0d70ecc6844e9d27bb6.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/fd9a9923044f64e187c71b3701498d47cfef2d13cecab0d70ecc6844e9d27bb6.blob",
+        "sha256": "fd9a9923044f64e187c71b3701498d47cfef2d13cecab0d70ecc6844e9d27bb6",
+        "bytes": 160774
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/fe2648b971a365bdecb6482d84688e01de8d801625993a405463578e218e521e.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/fe2648b971a365bdecb6482d84688e01de8d801625993a405463578e218e521e.blob",
+        "sha256": "fe2648b971a365bdecb6482d84688e01de8d801625993a405463578e218e521e",
+        "bytes": 2012
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/source-manifest.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e7a72ebcb3dc0e84e8260cf4418fed158226f1fe48d7c991c030db21b64be171.blob",
+        "sha256": "e7a72ebcb3dc0e84e8260cf4418fed158226f1fe48d7c991c030db21b64be171",
+        "bytes": 34355
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/validation-r2.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/85673ed4bc1a0e13fdfb4218c8834e0a0ba48a0137ec794896c7b0c3d2aeb4e4.blob",
+        "sha256": "85673ed4bc1a0e13fdfb4218c8834e0a0ba48a0137ec794896c7b0c3d2aeb4e4",
+        "bytes": 4157
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/validation.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/771c8c7957c37deaa50c66f1ac39d23d13f1bcabea3fc39fc0951ae7bd40916b.blob",
+        "sha256": "771c8c7957c37deaa50c66f1ac39d23d13f1bcabea3fc39fc0951ae7bd40916b",
+        "bytes": 2700
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d.blob",
+        "sha256": "2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d",
+        "bytes": 279
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386.blob",
+        "sha256": "4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386",
+        "bytes": 11729
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab.blob",
+        "sha256": "6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab",
+        "bytes": 150
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/aa33497d9dacdfa9da933a1c1740bdb4218f46693400aed5fcc353f5d017c391.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/aa33497d9dacdfa9da933a1c1740bdb4218f46693400aed5fcc353f5d017c391.blob",
+        "sha256": "aa33497d9dacdfa9da933a1c1740bdb4218f46693400aed5fcc353f5d017c391",
+        "bytes": 339961
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a.blob",
+        "sha256": "e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a",
+        "bytes": 279
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/e4a1a0967b0265da79f7fc46b7718c7ba22519849f9c91c99101137db7187b79.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e4a1a0967b0265da79f7fc46b7718c7ba22519849f9c91c99101137db7187b79.blob",
+        "sha256": "e4a1a0967b0265da79f7fc46b7718c7ba22519849f9c91c99101137db7187b79",
+        "bytes": 295654
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1.blob",
+        "sha256": "e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1",
+        "bytes": 119
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import-r2.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1.blob",
+        "sha256": "e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1",
+        "bytes": 119
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import-r2.json.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1.blob",
+        "sha256": "e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1",
+        "bytes": 119
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import-r3.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d.blob",
+        "sha256": "2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d",
+        "bytes": 279
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import-r3.json.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d.blob",
+        "sha256": "2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d",
+        "bytes": 279
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import-r4.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a.blob",
+        "sha256": "e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a",
+        "bytes": 279
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import-r4.json.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a.blob",
+        "sha256": "e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a",
+        "bytes": 279
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab.blob",
+        "sha256": "6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab",
+        "bytes": 150
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/main-import.json.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab.blob",
+        "sha256": "6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab",
+        "bytes": 150
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/refresh-check.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386.blob",
+        "sha256": "4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386",
+        "bytes": 11729
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/refresh-check.json.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386.blob",
+        "sha256": "4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386",
+        "bytes": 11729
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/unittest-permitted.log.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/e4a1a0967b0265da79f7fc46b7718c7ba22519849f9c91c99101137db7187b79.blob",
+        "sha256": "e4a1a0967b0265da79f7fc46b7718c7ba22519849f9c91c99101137db7187b79",
+        "bytes": 295654
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/verification/unittest.log.blob",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/aa33497d9dacdfa9da933a1c1740bdb4218f46693400aed5fcc353f5d017c391.blob",
+        "sha256": "aa33497d9dacdfa9da933a1c1740bdb4218f46693400aed5fcc353f5d017c391",
+        "bytes": 339961
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/guodu-risk-20261030.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/39a06b60a54844e10139fc932b46eb53a03310513dd5278f2e9a3e945bd056b2.blob",
+        "sha256": "39a06b60a54844e10139fc932b46eb53a03310513dd5278f2e9a3e945bd056b2",
+        "bytes": 422933
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/m-cicc-20261030.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/c5c1284365a35a1975c76718d577946a44bf6a6d089676965cdf1140359519a9.blob",
+        "sha256": "c5c1284365a35a1975c76718d577946a44bf6a6d089676965cdf1140359519a9",
+        "bytes": 78418
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/m-morning-read-note.md",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/bcc0f849bb543b589d27a30c5aa4d98973847a445b0f3c6797e9873ef5da3a0e.blob",
+        "sha256": "bcc0f849bb543b589d27a30c5aa4d98973847a445b0f3c6797e9873ef5da3a0e",
+        "bytes": 943
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-100ppi-20261030.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/49a6f0b5ae8d015c039fb939dbbea42c9afd2bf9769b0afd8b78358aaad8160b.blob",
+        "sha256": "49a6f0b5ae8d015c039fb939dbbea42c9afd2bf9769b0afd8b78358aaad8160b",
+        "bytes": 660
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-business-rule.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/b19deb6ee3dfb44cf83d760fe96893eb2a53758d78488b6407df6e2245379841.blob",
+        "sha256": "b19deb6ee3dfb44cf83d760fe96893eb2a53758d78488b6407df6e2245379841",
+        "bytes": 210620
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-delivery-rule.docx",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/f98363df70013f4fdce2d9b54bdebbd1a603703f5650138f6fdaf13b1f35af24.blob",
+        "sha256": "f98363df70013f4fdce2d9b54bdebbd1a603703f5650138f6fdaf13b1f35af24",
+        "bytes": 23198
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-storage-official.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/95d951a3f19e4026fbf77f855ae16f7986043f46d5d96f7e7d964441899ef3e4.blob",
+        "sha256": "95d951a3f19e4026fbf77f855ae16f7986043f46d5d96f7e7d964441899ef3e4",
+        "bytes": 133184
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-weekly-cnfin.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/165870bbf2b29d7260bc3882ae70ba2238e66f62f7d1e5734fb5f6dce163d451.blob",
+        "sha256": "165870bbf2b29d7260bc3882ae70ba2238e66f62f7d1e5734fb5f6dce163d451",
+        "bytes": 54485
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/shfe-hours.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/050d8b3aec41708512962c0cacfeda66460db8af5c8c8297df7db98aba372588.blob",
+        "sha256": "050d8b3aec41708512962c0cacfeda66460db8af5c8c8297df7db98aba372588",
+        "bytes": 138870
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/sources.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/afe190ba4d3e7dc63585fec1f80a9a40dc66cc9c92282fddd4360282306749eb.blob",
+        "sha256": "afe190ba4d3e7dc63585fec1f80a9a40dc66cc9c92282fddd4360282306749eb",
+        "bytes": 4477
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-mrb/wasde-schedule.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/c38342f1cbd360d5a607f23606103f40bfa66eade95b8317dc09cacd8bd4645b.blob",
+        "sha256": "c38342f1cbd360d5a607f23606103f40bfa66eade95b8317dc09cacd8bd4645b",
+        "bytes": 160518
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/all-files-sha256.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/37ec8f9e1e663878acc59e203c9b0a213a98ebfa999ab78d15622a76139e9d23.blob",
+        "sha256": "37ec8f9e1e663878acc59e203c9b0a213a98ebfa999ab78d15622a76139e9d23",
+        "bytes": 2905
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/capture-index-network-retry.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/927d060f1eeca7098d3f5bcb60754de2eb5518f92a5ad17721ec6fa8ce102aca.blob",
+        "sha256": "927d060f1eeca7098d3f5bcb60754de2eb5518f92a5ad17721ec6fa8ce102aca",
+        "bytes": 5561
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/capture-index.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/7c612d90900268043ff3210fa44a8e55e7abf06148bc7134fea896f2758d8542.blob",
+        "sha256": "7c612d90900268043ff3210fa44a8e55e7abf06148bc7134fea896f2758d8542",
+        "bytes": 6000
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-monthly.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/05b8c01e1442fb244cc5fa0224ba05b1a42821bff5db472ae528bb1811927d08.blob",
+        "sha256": "05b8c01e1442fb244cc5fa0224ba05b1a42821bff5db472ae528bb1811927d08",
+        "bytes": 60
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-mysteel-monthly.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/72982b6a815c979b26f4b4872813b9587fc49b0ddd57c54899609ac182c69fce.blob",
+        "sha256": "72982b6a815c979b26f4b4872813b9587fc49b0ddd57c54899609ac182c69fce",
+        "bytes": 128983
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-table.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/c987eca73f81cb9d0354acc65ebf7027f581de36753870359c0ea9852cb67aa5.blob",
+        "sha256": "c987eca73f81cb9d0354acc65ebf7027f581de36753870359c0ea9852cb67aa5",
+        "bytes": 211603
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-contract.pdf",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/a3f011447ef7fe66e1da88afcaf06d0080e334cd3c7513e6a04823f2f0afbdf3.blob",
+        "sha256": "a3f011447ef7fe66e1da88afcaf06d0080e334cd3c7513e6a04823f2f0afbdf3",
+        "bytes": 1639559
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-crosscheck.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/838dfdee9268b3c88d2aa0fdcf8bb2394905494d6d8dbe81328a42d3bb0afd46.blob",
+        "sha256": "838dfdee9268b3c88d2aa0fdcf8bb2394905494d6d8dbe81328a42d3bb0afd46",
+        "bytes": 7383
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-demand.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/6b899866056c0fa34e56ee1ec62a11fe9e592c8bbda58e9c3809c46e395cfe3d.blob",
+        "sha256": "6b899866056c0fa34e56ee1ec62a11fe9e592c8bbda58e9c3809c46e395cfe3d",
+        "bytes": 52237
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-notice.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/cb3dbfcb6f7bb242e3f7c59469a32acf1669c80a08dd6ccc202a040eccaa7b4b.blob",
+        "sha256": "cb3dbfcb6f7bb242e3f7c59469a32acf1669c80a08dd6ccc202a040eccaa7b4b",
+        "bytes": 7358
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-storage.pdf",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/a7f193a6d48b296f94f16e4b9e9f4365d747a08d62ed054ba3e2947ed8a0968a.blob",
+        "sha256": "a7f193a6d48b296f94f16e4b9e9f4365d747a08d62ed054ba3e2947ed8a0968a",
+        "bytes": 1994549
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-storage.txt",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/ae324de54db646ab5feff69c1cba2c0d0da958199e2598e8d96a2e58ddae2a80.blob",
+        "sha256": "ae324de54db646ab5feff69c1cba2c0d0da958199e2598e8d96a2e58ddae2a80",
+        "bytes": 70677
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-old-stock.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/fb772624f98fca4b6791fd484e85789574f87e034469f356f4aaffe3480aa166.blob",
+        "sha256": "fb772624f98fca4b6791fd484e85789574f87e034469f356f4aaffe3480aa166",
+        "bytes": 53253
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-spot.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/45645fc2fbc86c24bd359fe5e439b8f7f5dd647995d72343ba9858559aa6af6d.blob",
+        "sha256": "45645fc2fbc86c24bd359fe5e439b8f7f5dd647995d72343ba9858559aa6af6d",
+        "bytes": 53579
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-start.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/325cb2abefdb348f1394e92004ea210be3c43684bbf10262d8d7fbb071290129.blob",
+        "sha256": "325cb2abefdb348f1394e92004ea210be3c43684bbf10262d8d7fbb071290129",
+        "bytes": 53287
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-storage.html",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/70119865e14005f920d187b4ee1328b565fc62334667ee054bd1f11d40ef4fbb.blob",
+        "sha256": "70119865e14005f920d187b4ee1328b565fc62334667ee054bd1f11d40ef4fbb",
+        "bytes": 155644
+      }
+    },
+    {
+      "original_path": "research/futures/weekly/2026-11-01/evidence/weekly-mechanical-review.json",
+      "frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/used-source-objects/3b6ae41363d4b894e5329ff51f59fd1a5116785d034981ce78c226a105d32e34.blob",
+        "sha256": "3b6ae41363d4b894e5329ff51f59fd1a5116785d034981ce78c226a105d32e34",
+        "bytes": 99188
+      }
+    }
+  ]
+}

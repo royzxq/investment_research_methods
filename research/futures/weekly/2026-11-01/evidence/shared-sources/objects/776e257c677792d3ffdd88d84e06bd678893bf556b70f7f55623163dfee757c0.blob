@@ -1,0 +1,19 @@
+[
+  {
+    "id": "usda-wasde-calendar",
+    "url": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+    "fetched_at": "2026-10-25T01:10:16.620205+08:00",
+    "status": "ok",
+    "sha256": "fd9a9923044f64e187c71b3701498d47cfef2d13cecab0d70ecc6844e9d27bb6",
+    "raw": "usda-wasde-calendar.html",
+    "text": "usda-wasde-calendar.txt",
+    "text_length": 13502
+  },
+  {
+    "id": "fas-program-calendar",
+    "url": "https://www.fas.usda.gov/programs/export-sales-reporting-program/about-export-sales-reporting-program",
+    "fetched_at": "2026-10-25T01:10:16.621028+08:00",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  }
+]

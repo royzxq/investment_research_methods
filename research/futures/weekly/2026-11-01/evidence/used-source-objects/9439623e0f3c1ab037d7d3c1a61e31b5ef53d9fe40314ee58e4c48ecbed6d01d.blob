@@ -1,0 +1,71 @@
+{
+  "schema": "futures-continuity-reconciliation/v1",
+  "as_of_date": "2026-11-01",
+  "evaluated_at": "2026-11-01T01:06:24.913824+08:00",
+  "status": "resolved_for_current_review",
+  "source_status": "needs_reconciliation",
+  "execution_reuse": false,
+  "requires_fresh_evaluation": true,
+  "conflicts": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "reason": "original_clock_or_identity_changed",
+      "sources": [
+        {
+          "as_of_date": "2026-10-15",
+          "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+          "execution_reuse": false,
+          "materialized_root": "sources/23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+          "method_compatible": true,
+          "producer": "daily",
+          "scope": "local",
+          "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+        },
+        {
+          "as_of_date": "2026-10-15",
+          "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+          "execution_reuse": false,
+          "materialized_root": "sources/7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+          "method_compatible": true,
+          "producer": "daily",
+          "scope": "local",
+          "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+        }
+      ]
+    }
+  ],
+  "requires_plan_reassessment": [],
+  "requires_method_reassessment": [],
+  "review_scope_count": 11,
+  "correction_groups": 16,
+  "source_inputs": [
+    {
+      "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/catalog.json",
+      "sha256": "2a7dd8888c9b031857c359816c873d4bb427139781fc8ee6a49e1ee8368bf6a2"
+    }
+  ],
+  "decisions": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "signal_date": "2026-10-15",
+      "registered_at": "2026-10-15T19:30:56+08:00",
+      "valid_until": "2026-10-19",
+      "resolution": "adopt_explicitly_corrected_r2_registration; preserve initial null original as history",
+      "basis": "Frozen r2 supersedes initial only for actual registration. Main10/18 and10/25 explicitly adopt this correction; no new clock.",
+      "current_disposition": "cancelled10/16 due price deviation, expired10/19; actual position unknown; no numerical executable plan"
+    },
+    {
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "resolution": "original entry expired10/13; stop boundary crossed10/19 reference, all original initial stops10/20; not evidence of actual exit"
+    },
+    {
+      "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+      "resolution": "entry expired10/27; possible actual holding requires independent stop/economic/time review; reference path only"
+    },
+    {
+      "issue": "duplicate entry510252 vs39d1",
+      "resolution": "same243 byte-hashed files; first import omitted optional anchors pointer, then full original parameter set idempotently matched39d1. Keep both entries, deduplicate economic meaning; sixteen groups are not sixteen independent facts."
+    }
+  ],
+  "method_change_needed": false
+}

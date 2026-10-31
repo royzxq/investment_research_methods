@@ -1,0 +1,36 @@
+{
+  "as_of_date": "2026-10-25",
+  "evaluated_at": "2026-10-25T01:13:39.852010+08:00",
+  "actual_api": {
+    "futures_refresh": "fresh; v1.18.1; fiveT and five ordered spread raw pairs; source response identity verified",
+    "market_trade_date": "2026-10-23",
+    "contract_and_volume": "actual fut_basic/fut_daily RB/M/MA success",
+    "account_or_fills": "not_verified"
+  },
+  "offline": {
+    "initial_full_suite": {
+      "command": "python3 -m unittest discover -s tests -v",
+      "tests": 1125,
+      "errors": 45,
+      "cause": "sandbox denied local sockets or process ps",
+      "passed": false
+    },
+    "retry_full_suite": {
+      "command": "python3 -m unittest discover -s tests -v with approved local process/network permissions",
+      "tests": 1125,
+      "seconds": 179.003,
+      "result": "OK"
+    },
+    "governance": "passed 30currentanchors and277legacy IDs",
+    "audit_r2": "validate_futures_audit.py valid",
+    "audit_initial": "12 published_at missing; kept original; r2 clarifies local artifact freeze time without inventing original release"
+  },
+  "method_changes": false,
+  "performance_validation": "not performed",
+  "limits": [
+    "structure not full semantic equivalence",
+    "calendar usesSSE proxy, RB official session/holiday separately checked",
+    "not all venue temporary calendars/dynamic parameters verified",
+    "no account/trades/returns"
+  ]
+}

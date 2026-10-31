@@ -1,0 +1,76 @@
+[
+  {
+    "id": "mysteel-inventory-1019",
+    "url": "https://ncp.mysteel.com/a/26101916/151285E418D0D504.html",
+    "fetched_at": "2026-10-25T01:06:09.473944+08:00",
+    "status": "ok",
+    "sha256": "8d6ab7c1de6fcf25d8ae61f880ac5d67ec19a71b00632f79f9ffdd57992acce2",
+    "raw": "mysteel-inventory-1019.html",
+    "text": "mysteel-inventory-1019.txt",
+    "text_length": 6496
+  },
+  {
+    "id": "mysteel-offtake-1023",
+    "url": "https://ncp.mysteel.com/a/26102318/5A7C6C3C7E761A99.html",
+    "fetched_at": "2026-10-25T01:06:09.474522+08:00",
+    "status": "ok",
+    "sha256": "cc16f6ff10c741b9ee1bce3e8e7a0d0f01c303826f6cdf9005f19b310484a007",
+    "raw": "mysteel-offtake-1023.html",
+    "text": "mysteel-offtake-1023.txt",
+    "text_length": 6273
+  },
+  {
+    "id": "mysteel-m-oil-list",
+    "url": "https://m.mysteel.com/article/p-----0702---------1.html",
+    "fetched_at": "2026-10-25T01:06:09.474753+08:00",
+    "status": "ok",
+    "sha256": "6cd83ada16825d49038936d3378550ee236bcb29b16f46cceb71a3a125a08013",
+    "raw": "mysteel-m-oil-list.html",
+    "text": "mysteel-m-oil-list.txt",
+    "text_length": 2994
+  },
+  {
+    "id": "mysteel-m-primary-index",
+    "url": "https://list1.m.mysteel.com/zhishi/quanguodoupo.html",
+    "fetched_at": "2026-10-25T01:06:09.474952+08:00",
+    "status": "failed",
+    "error": "<urlopen error _ssl.c:980: The handshake operation timed out>"
+  },
+  {
+    "id": "shfe-arbitrage-1023",
+    "url": "https://www.shfe.com.cn/publicnotice/notice/202610/t20261023_833816.html",
+    "fetched_at": "2026-10-25T01:06:09.475146+08:00",
+    "status": "ok",
+    "sha256": "aa02227a35e678983b1f257e504256da7afb5057d0ed75bafc5f4b44a87538d9",
+    "raw": "shfe-arbitrage-1023.html",
+    "text": "shfe-arbitrage-1023.txt",
+    "text_length": 2928
+  },
+  {
+    "id": "shfe-delivery-1019",
+    "url": "https://www.shfe.com.cn/publicnotice/notice/202610/t20261019_833739.html",
+    "fetched_at": "2026-10-25T01:06:09.475338+08:00",
+    "status": "ok",
+    "sha256": "de05d0901ffb932602558b613760ea2ec962055d76e0b0996fe9dfad966246cc",
+    "raw": "shfe-delivery-1019.html",
+    "text": "shfe-delivery-1019.txt",
+    "text_length": 2953
+  },
+  {
+    "id": "nass-october-calendar",
+    "url": "https://data.nass.usda.gov/Publications/Calendar/reports_by_date.php?js=1&month=10&view=l&year=2026",
+    "fetched_at": "2026-10-25T01:06:09.475520+08:00",
+    "status": "ok",
+    "sha256": "f683092feb7fbe3e8bdbf335107465c811a916c797807a98fae3a33cbff60711",
+    "raw": "nass-october-calendar.html",
+    "text": "nass-october-calendar.txt",
+    "text_length": 9866
+  },
+  {
+    "id": "fas-home",
+    "url": "https://www.fas.usda.gov/",
+    "fetched_at": "2026-10-25T01:06:09.475740+08:00",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  }
+]

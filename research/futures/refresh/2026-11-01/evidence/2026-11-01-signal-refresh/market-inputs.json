@@ -1,0 +1,151 @@
+{
+  "rule_version": "v3.0",
+  "script_version": "v1.18.1",
+  "scope": "v3_research_inputs_only",
+  "as_of_date": "20261101",
+  "trend": [
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "contract": "MA2701",
+      "scope": "v3_market_inputs_only",
+      "status": "incomplete",
+      "signal": "unknown",
+      "missing_fields": [
+        "真实交易日历不可用；不以工作日近似计算v3"
+      ],
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "contract": "RB2701",
+      "scope": "v3_market_inputs_only",
+      "status": "incomplete",
+      "signal": "unknown",
+      "missing_fields": [
+        "真实交易日历不可用；不以工作日近似计算v3"
+      ],
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "contract": "M2701",
+      "scope": "v3_market_inputs_only",
+      "status": "incomplete",
+      "signal": "unknown",
+      "missing_fields": [
+        "真实交易日历不可用；不以工作日近似计算v3"
+      ],
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "contract": "SR2701",
+      "scope": "v3_market_inputs_only",
+      "status": "incomplete",
+      "signal": "unknown",
+      "missing_fields": [
+        "真实交易日历不可用；不以工作日近似计算v3"
+      ],
+      "execution_permission": "not_evaluated"
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "contract": "CF2701",
+      "scope": "v3_market_inputs_only",
+      "status": "incomplete",
+      "signal": "unknown",
+      "missing_fields": [
+        "真实交易日历不可用；不以工作日近似计算v3"
+      ],
+      "execution_permission": "not_evaluated"
+    }
+  ],
+  "economic_reversion": [
+    {
+      "rule_version": "v3.0",
+      "strategy": "economic_reversion",
+      "scope": "v3_raw_spread_inputs_only",
+      "research_stage": "current",
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "signal": "unknown",
+      "economic_anchor": null,
+      "execution_permission": "not_evaluated",
+      "status": "incomplete",
+      "missing_fields": [
+        "HTTPConnectionPool(host='api.waditu.com', port=80): Max retries exceeded with url: /dataapi/fut_basic (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11ec19e10>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))",
+        "frozen_economic_anchor_and_mechanism"
+      ]
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "economic_reversion",
+      "scope": "v3_raw_spread_inputs_only",
+      "research_stage": "current",
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "signal": "unknown",
+      "economic_anchor": null,
+      "execution_permission": "not_evaluated",
+      "status": "incomplete",
+      "missing_fields": [
+        "HTTPConnectionPool(host='api.waditu.com', port=80): Max retries exceeded with url: /dataapi/fut_basic (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11ec19f50>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))",
+        "frozen_economic_anchor_and_mechanism"
+      ]
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "economic_reversion",
+      "scope": "v3_raw_spread_inputs_only",
+      "research_stage": "current",
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "signal": "unknown",
+      "economic_anchor": null,
+      "execution_permission": "not_evaluated",
+      "status": "incomplete",
+      "missing_fields": [
+        "HTTPConnectionPool(host='api.waditu.com', port=80): Max retries exceeded with url: /dataapi/fut_basic (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11ec1a1d0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))",
+        "frozen_economic_anchor_and_mechanism"
+      ]
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "economic_reversion",
+      "scope": "v3_raw_spread_inputs_only",
+      "research_stage": "roll_preparation",
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "signal": "unknown",
+      "economic_anchor": null,
+      "execution_permission": "not_evaluated",
+      "status": "incomplete",
+      "missing_fields": [
+        "HTTPConnectionPool(host='api.waditu.com', port=80): Max retries exceeded with url: /dataapi/fut_basic (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11ec1a690>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))",
+        "frozen_economic_anchor_and_mechanism"
+      ]
+    },
+    {
+      "rule_version": "v3.0",
+      "strategy": "economic_reversion",
+      "scope": "v3_raw_spread_inputs_only",
+      "research_stage": "roll_preparation",
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "signal": "unknown",
+      "economic_anchor": null,
+      "execution_permission": "not_evaluated",
+      "status": "incomplete",
+      "missing_fields": [
+        "HTTPConnectionPool(host='api.waditu.com', port=80): Max retries exceeded with url: /dataapi/fut_basic (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11ec19350>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))",
+        "frozen_economic_anchor_and_mechanism"
+      ]
+    }
+  ],
+  "execution_permission": "not_evaluated"
+}

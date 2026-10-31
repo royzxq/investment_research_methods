@@ -1,0 +1,241 @@
+{
+  "frozen_at": "2026-10-25T01:12:06.014680+08:00",
+  "purpose": "M/RB published public source trace; full HTML hashes do not assert paid body was read",
+  "files": [
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-cj-1019.html",
+      "bytes": 14230,
+      "sha256": "1de7d0464df0eadde91745e1a540212c1eb3f25e194bafa3b46089dcb05cc9c7"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-cj-1019.txt",
+      "bytes": 7439,
+      "sha256": "d0a24f3264d35801be643cd74e7e49189ae796b82e4a9fca20c06b7e2c7fd88b"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-premarket-1023.html",
+      "bytes": 24293,
+      "sha256": "8a83df33230aee6d56e937ebfb93c863764b3e190584e262a34a6c5d04571c14"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-premarket-1023.txt",
+      "bytes": 4122,
+      "sha256": "2ba45a1c65ece081644577fe95e83bfcd9559ff730ce7fd6ddd84b6fb4f30d41"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-shcif-1023.html",
+      "bytes": 51155,
+      "sha256": "ac98a819b461e07600d525f7e4379653c8d0fd17b375f3988cc931e17215afb5"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/m-eastmoney-shcif-1023.txt",
+      "bytes": 11714,
+      "sha256": "bb4dbb451966b65f7a2bef1e54563d047ba16d4d37d1c1f2477abcdffbc87e0e"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-1019.html",
+      "bytes": 127755,
+      "sha256": "8d6ab7c1de6fcf25d8ae61f880ac5d67ec19a71b00632f79f9ffdd57992acce2"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-1019.txt",
+      "bytes": 14785,
+      "sha256": "0e87ec4cd8764499b036d16ce80fd44a2f9c6b8082926203916366b4632721ee"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-index.html",
+      "bytes": 110891,
+      "sha256": "e4c77f3602455212a7cc9758022e0d6bb46865618ff54f7ea62006841cb1a9bf"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-inventory-index.txt",
+      "bytes": 15493,
+      "sha256": "685270fdd94bee3540a46ffda9de4709de793a634f65de48c1a1e79d0eb2d893"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-crush-mobile.html",
+      "bytes": 35563,
+      "sha256": "dd298ebc89a902ec16ea63a2690271b3988cef480a8b52da01dad11445609735"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-crush-mobile.txt",
+      "bytes": 2396,
+      "sha256": "28fca63925d91cf6ef0db765e59c168b8d226ecd2dd25410f08ac116140a642e"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-daily-mobile.html",
+      "bytes": 36988,
+      "sha256": "bf82787ac2e69ba440a935e40e0f72b22cbffa60bcb46184836b4b8ad94f7817"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-daily-mobile.txt",
+      "bytes": 2991,
+      "sha256": "ae13c141230a33f2e2401a76d4f6978afd561dde53f17be9a23c6aa2d39cc8c6"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-offtake-mobile.html",
+      "bytes": 36239,
+      "sha256": "8cd46f131f6f30e72239ebc1d80f226e257e7375fc3aa0c117b6b9efd351076f"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-offtake-mobile.txt",
+      "bytes": 2476,
+      "sha256": "677c54bb3090b3abb514e7c1874b310b8a770652bc17afe0e4cf238eccefeb61"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-oil-list.html",
+      "bytes": 81146,
+      "sha256": "6cd83ada16825d49038936d3378550ee236bcb29b16f46cceb71a3a125a08013"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-oil-list.txt",
+      "bytes": 6019,
+      "sha256": "cd38cf7f1772c9cf298169ea1adc4735f98dc267af912fa318dd44eb2ff54c4c"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-turnover-mobile.html",
+      "bytes": 36124,
+      "sha256": "0f0cd37f072c3723e441f053f4ea10bc952100ba5b444c05f735a2632b76e3c5"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-m-turnover-mobile.txt",
+      "bytes": 2671,
+      "sha256": "ba40dfd6705b688c8a84c69b37ed79d166eb3db08e7fb80b7a0908278bd6c385"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-offtake-1023.html",
+      "bytes": 127217,
+      "sha256": "cc16f6ff10c741b9ee1bce3e8e7a0d0f01c303826f6cdf9005f19b310484a007"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/mysteel-offtake-1023.txt",
+      "bytes": 14252,
+      "sha256": "31391cedf18645dfb264fdfea25f0ac09b23eaf1f00ce118372ffd309aa12bfa"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nanhua-1023.html",
+      "bytes": 192945,
+      "sha256": "063d8ccfdff2ee15dc9d1193f8d9e5f7d4cf14b906f18f33d1362823fe33a8bf"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nanhua-1023.txt",
+      "bytes": 90643,
+      "sha256": "40434433070fd3e30c17087d4de90f925ffa7ea9aac9e630cd13c629eddd9cd5"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nass-october-calendar.html",
+      "bytes": 63155,
+      "sha256": "f683092feb7fbe3e8bdbf335107465c811a916c797807a98fae3a33cbff60711"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/nass-october-calendar.txt",
+      "bytes": 9871,
+      "sha256": "31ab7ef1db295fa5fe340f910f884f611868b998f40c0bee7e2a13c3a2a02035"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023-direct.html",
+      "bytes": 16144,
+      "sha256": "bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023-direct.txt",
+      "bytes": 2096,
+      "sha256": "56f2ee4644db9aedb8e4c577ec7d2cc627c6e3c51305c338a112b8eca35fc266"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023.html",
+      "bytes": 16144,
+      "sha256": "bad6439f8a0189c1e5608c53f620807c94f87a6ea5e744ca498b44f7d9fea2e6"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-1023.txt",
+      "bytes": 2096,
+      "sha256": "56f2ee4644db9aedb8e4c577ec7d2cc627c6e3c51305c338a112b8eca35fc266"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-weekly.html",
+      "bytes": 78767,
+      "sha256": "2597d20e1235fb97c44108febaa154c2bd4e07fa91c5178c0fbb4048f06fd898"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xiben-weekly.txt",
+      "bytes": 13531,
+      "sha256": "7cd9367d4ef12a8beb27388b6db60faaa464c2bdf208f46e3c157daeb53ca192"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022-direct.html",
+      "bytes": 95302,
+      "sha256": "2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022-direct.txt",
+      "bytes": 7007,
+      "sha256": "85eb3f9009fa017174a8fe539b9aa155cf78e52428294526a7aa9775117374b5"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022.html",
+      "bytes": 95302,
+      "sha256": "2c1a3dae3686aa72359153ab253a0c584c8d3189ce9bf81a6663b468b8cc0a60"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/rb-xinhua-1022.txt",
+      "bytes": 7007,
+      "sha256": "85eb3f9009fa017174a8fe539b9aa155cf78e52428294526a7aa9775117374b5"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-calendar-manifest.json",
+      "bytes": 716,
+      "sha256": "776e257c677792d3ffdd88d84e06bd678893bf556b70f7f55623163dfee757c0"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-extra-manifest.json",
+      "bytes": 2773,
+      "sha256": "cf1f10a01a67aa829de629ff229262f6efecc7e20299ea89038ab36296eee045"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-fallback-manifest.json",
+      "bytes": 1534,
+      "sha256": "a3d355dc91fedcd14ad7dffbbd6e270f3a0cd923ad388cd87f2c04d0765f3cf9"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-manifest.json",
+      "bytes": 2632,
+      "sha256": "77b4a5d2074658ef0726c434dd99aa59369a1325a55394a85e04691fee7da19c"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/retrieval-mobile-manifest.json",
+      "bytes": 1562,
+      "sha256": "b1c627ca09bbcb0f5ce4b40dadea87a82c155740b877769fbec4d206ad86817d"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-arbitrage-1023.html",
+      "bytes": 120044,
+      "sha256": "aa02227a35e678983b1f257e504256da7afb5057d0ed75bafc5f4b44a87538d9"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-arbitrage-1023.txt",
+      "bytes": 7322,
+      "sha256": "9dcf2a2aa47ff7648f4941fd8ae73cea2825831a473ee14a853ac9ab3a25ad79"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-delivery-1019.html",
+      "bytes": 120008,
+      "sha256": "de05d0901ffb932602558b613760ea2ec962055d76e0b0996fe9dfad966246cc"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/shfe-delivery-1019.txt",
+      "bytes": 7421,
+      "sha256": "314a40dbbdb8e3be47dcea768985f47c5a495abc4bd00a5a49151550e59cf167"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/usda-wasde-calendar.html",
+      "bytes": 160774,
+      "sha256": "fd9a9923044f64e187c71b3701498d47cfef2d13cecab0d70ecc6844e9d27bb6"
+    },
+    {
+      "path": "research/futures/weekly/2026-10-25/evidence/m-rb/usda-wasde-calendar.txt",
+      "bytes": 13552,
+      "sha256": "3fc67c9f0902e619e899b54f72d83e7f1f06b79a82d4e220cb1e7148846088d8"
+    }
+  ]
+}

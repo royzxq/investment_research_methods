@@ -1,0 +1,3507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <!-- START Public CSS -->
+  <script type="text/javascript" charset="utf-8" src="/images/ydui.flexible.js"></script>
+<link rel="stylesheet" type="text/css" href="/images/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/images/global.css">
+<link rel="stylesheet" type="text/css" href="/images/share.min.css">
+<link rel="stylesheet" type="text/css" href="/images/m_common.css" media="screen and ( max-device-width:750px )" />
+<link rel="stylesheet" type="text/css" href="/images/hc-demo.css" media="screen and ( max-device-width:750px )" />
+<link rel="stylesheet" type="text/css" href="/images/isMobile.css" media="screen and ( max-device-width:750px )" />
+<script>
+  var pathjs = "/"
+</script>
+  <!-- END Public CSS -->
+  <!-- START Plugin CSS -->
+  <link rel="stylesheet" type="text/css" href="/images/notice_inner_page2023.css" />
+  <link rel="stylesheet" type="text/css" href="/images/content_details_noleft.css" />
+  <link rel="stylesheet" type="text/css" href="/images/viewer.min.css" media="screen and ( max-device-width:750px )" />
+  <link rel="stylesheet" type="text/css" href="/images/m_details.css" media="screen and ( max-device-width:750px )" />
+  <link rel="stylesheet" type="text/css" href="/images/m_serviceCommon.css" media="screen and ( max-device-width:750px )" />
+  <!-- END Plugin CSS -->
+
+  <style>
+    #page a {
+      display: inline-block;
+      padding: 5px 10px;
+      margin: 0px 3px;
+      border: 1px solid;
+    }
+    .notice_contain{
+      overflow: auto;
+    }
+  </style>
+  <!-- START head CSS -->
+  <!--
+ * @Description: content
+ * @Author: fu.qiang
+ * @Date: 2023-07-07 15:55:16
+ * @LastEditors: xwzhou xwzhou1@163.com
+ * @LastEditTime: 2023-07-21 17:02:50
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="format-detection" content="telephone=yes" />
+<!-- rem -->
+<script type="text/javascript" charset="utf-8" src="/images/ydui.flexible.js"></script>
+<!--[if lt IE 9]>
+		<scriptignoreapd="1" src="/images/html5shiv.min.js"></script>
+		<scriptignoreapd="1" src="/images/respond.min.js"></script>
+	<![endif]-->
+  <title>上海期货交易所螺纹钢期货业务细则</title>
+</head>
+
+  <body>
+    <!-- START nav -->
+    
+    <!-- END nav -->
+
+    <!-- START body -->
+    <div class="control" id="js_index">
+      <!-- START header -->
+      <style>
+.inc-header .input-box{
+	width: 1.5688rem;	
+}
+  .contentNew {
+    width: 1.5688rem !important;
+    height: 0.25rem !important;
+    margin-top: 0 !important;
+  }
+  .contentNew .search-block {
+    width: 1.5688rem !important;
+    height: 0.25rem !important;
+    top: 0 !important;
+  }
+  .contentNew .search-block .inline-input {
+    height: 0.25rem !important;
+    width: 1.5688rem !important;
+  }
+  .contentNew .el-input {
+    height: 0.25rem !important;
+  }
+  .contentNew .el-input__inner {
+    border: none !important;
+  }
+
+  .inc-header img {
+    width: 82%;
+    height: auto;
+  }
+
+  /* PC端 */
+  .m_pc_box {
+    display: block;
+  }
+  .m_mobile_box {
+    display: none;
+  }
+
+  .hc-offcanvas-nav {
+    display: none;
+  }
+  .hc-offcanvas-nav.hc-nav-1 {
+    display: none;
+  }
+  .home_top_investor{ 
+	  color: #003e8e;
+  }
+  .home_top_edu{
+	  margin-right: 0.15rem;
+	  color: #003e8e;
+  }
+  .home_investor_edu_gap{
+	color: #003e8e; 
+	 position: relative;
+	 top:-0.0015rem;
+	 padding:0 0.02rem;
+
+  }
+
+  /* 移动端 */
+  @media screen and (max-width: 750px) {
+    .m_pc_box {
+      display: none;
+    }
+    .hc-offcanvas-nav {
+      display: block;
+    }
+    .m_mobile_box {
+      display: block;
+    }
+    .control {
+      min-width: unset;
+    }
+    .hc-offcanvas-nav {
+      display: block;
+    }
+    .hc-offcanvas-nav.hc-nav-1 {
+      display: block;
+    }
+
+    .m_img {
+      position: relative;
+      width: 100%;
+      height: 0.73rem;
+    }
+    .m_des_text {
+      position: absolute;
+      top: 0.3rem;
+      left: 0.3rem;
+      font-size: 0.12rem;
+      color: #fff;
+      font-weight: bold;
+    }
+    /* .isMobile .sqs_search, .sqs_search>img */
+    .sqs_searchAndLogin .sqs_eng {
+      width: 0.24rem;
+    }
+    .sqs_eng > img {
+      width: 0.24rem;
+      height: 0.23rem;
+      position: relative;
+      top: -0.025rem;
+    }
+  }
+</style>
+
+<!-- pc端 -->
+<div class="m_pc_box">
+  <div class="inc-header">
+    <div class="header-box flex-row">
+      <div class="logo">
+        <a href="/" style="display: block"><img src="/images/index_icon.jpg" alt="" /> </a>
+      </div>
+      <div class="top-right flex-row align-center" id="search_idNew">
+        <div class="input-box">
+          <div class="contentNew content_select">
+            <div class="search-block">
+              <el-autocomplete class="inline-input" v-model="inputStr" id="searchText" :fetch-suggestions="getFullKey" value-key="word" placeholder="请输入内容" :trigger-on-focus="false" @select="handleSelect" @keyup.enter.native="searchTextNew">
+                <i slot="suffix">
+                  <a class="search-icon cur" id="searchHeaderBtn" @click="searchHeaderBtnNew"></a>
+                </i>
+              </el-autocomplete>
+            </div>
+          </div>
+        </div>
+        <a id="height_btn" @click="height_btnNew">高级搜索</a>
+		<span  id="home_top_investor" style="display: none;">
+		<a class="home_top_investor"  href="/specialtopic/investor/" >
+		我是投资者
+		</a><i class="home_investor_edu_gap">|</i>
+		<a class="home_top_edu" href="https://edu.shfe.com.cn">投资者教育网站</a>
+		 </span>
+        <div class="language flex-row align-center">
+          <a href="/eng/">EN</a>
+          <span class="bor"></span>
+          <span id="StranLink">繁</span>
+          <span id="StranLink1">简</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-nav">
+    <div class="header-nav-box">
+      <ul class="flex-row align-center">
+        <li>
+          <a href="/">首页</a>
+        </li>
+        <li class="header-link-tit">
+          <a href="/products/">
+            产品
+            <span class="nav-arrow"></span>
+          </a>
+        </li>
+        <li class="header-link-tit">
+          <a href="/reports/">
+            数据
+            <span class="nav-arrow"></span>
+          </a>
+        </li>
+        <li class="header-link-tit">
+          <a href="/services/">
+            服务
+            <span class="nav-arrow"></span>
+          </a>
+        </li>
+        <li class="header-link-tit">
+          <a href="/regulation/">
+            规则
+            <span class="nav-arrow"></span>
+          </a>
+        </li>
+        <li class="header-link-tit">
+          <a href="/publicnotice/">
+            公告
+            <span class="nav-arrow"></span>
+          </a>
+        </li>
+        <li class="header-link-tit">
+          <a href="/about/">
+            关于
+            <span class="nav-arrow"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- 二级导航折叠 -->
+  <div class="header-subs">
+    <div class="header-sub">
+      <!-- 产品 -->
+      <div class="subContent sub">
+        <div class="subItem">
+          期货
+          <div class="subItemContent">
+            <ul class="itemContent">
+              <li class="left">金属</li>
+              
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/cu_f/">铜</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/bc_f/">铜(BC)</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/al_f/">铝</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/zn_f/">锌</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/pb_f/">铅</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/ni_f/">镍</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/sn_f/">锡</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/ao_f/">氧化铝</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/nonferrousmetal/ad_f/">铸造铝合金</a>
+                  </li>
+                
+              
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/ferrousandpreciousmetal/au_f/">黄金</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/ferrousandpreciousmetal/ag_f/">白银</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/ferrousandpreciousmetal/rb_f/">螺纹钢</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/ferrousandpreciousmetal/wr_f/">线材</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/ferrousandpreciousmetal/hc_f/">热轧卷板</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/futures/metal/ferrousandpreciousmetal/ss_f/">不锈钢</a>
+                  </li>
+                
+              
+            </ul>
+
+            <ul class="itemContent">
+              <li class="left">能源化工</li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/sc_f/">原油</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/lu_f/">低硫燃料油</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/fu_f/">燃料油</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/bu_f/">石油沥青</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/br_f/">合成橡胶</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/ru_f/">天然橡胶</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/nr_f/">20号胶</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/sp_f/">纸浆</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/energyandchemical/op_f/">胶版印刷纸</a>
+                </li>
+              
+            </ul>
+
+            <ul class="itemContent">
+              <li class="left">指数</li>
+              
+                <li class="isActive">
+                  <a href="/products/futures/index_f/ec_f/">SCFIS欧线</a>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+        <div class="subItem">
+          期权
+          <div class="subItemContent">
+            <ul class="itemContent">
+              
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/cu_o/">铜</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/bc_o/">铜(BC)</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/al_o/">铝</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/zn_o/">锌</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/pb_o/">铅</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/ni_o/">镍</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/sn_o/">锡</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/ao_o/">氧化铝</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/nonferrousmetal/ad_o/">铸造铝合金</a>
+                  </li>
+                
+              
+                
+                  <li class="isActive">
+                    <a href="/products/option/ferrousandpreciousmetal/au_o/">黄金</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/ferrousandpreciousmetal/ag_o/">白银</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/ferrousandpreciousmetal/rb_o/">螺纹钢</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/ferrousandpreciousmetal/hc_o/">热轧卷板</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/ferrousandpreciousmetal/ss_o/">不锈钢</a>
+                  </li>
+                
+              
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/sc_o/">原油</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/lu_o/">低硫燃料油</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/fu_o/">燃料油</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/bu_o/">石油沥青</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/br_o/">合成橡胶</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/ru_o/">天然橡胶</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/nr_o/">20号胶</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/sp_o/">纸浆</a>
+                  </li>
+                
+                  <li class="isActive">
+                    <a href="/products/option/energyandchemical/op_o/">胶版印刷纸</a>
+                  </li>
+                
+              
+            </ul>
+          </div>
+        </div>
+        <div class="leftLine"></div>
+        <div class="subItem">
+          <a class="btn_lv" href="/products/isin/">ISIN编码</a>
+          <div class="subItemContent"></div>
+        </div>
+      </div>
+    </div>
+    <!-- 数据 -->
+    <div class="header-sub">
+      <div class="subContent sub">
+        <div class="subItem">
+          <div class="subItemContent">
+            <ul class="itemContent">
+              <li class="left">业务数据</li>
+
+              
+                <li class="isActive">
+                  <a href="/reports/businessdata/prmsummary/">业务参数汇总查询</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/reports/businessdata/adjtomonthlysettlementprm/">月度结算参数调整表</a>
+                </li>
+              
+                <li class="isActive">
+                  <a href="/reports/businessdata/feeandcharges/">收费标准</a>
+                </li>
+              
+            </ul>
+            <ul class="itemContent">
+              <li class="left">市场数据</li>
+              
+                
+                  <li class="isActive">
+                    <a href="/reports/marketdata/delayedquotes/">延时行情</a>
+                  </li>
+                
+              
+            </ul>
+            <ul class="itemContent">
+              <li class="left">统计数据</li>
+              
+                
+                  <li class="isActive">
+                    <a href="/reports/tradedata/dailyandweeklydata/">日周数据</a>
+                  </li>
+                
+              
+                
+                  <li class="isActive">
+                    <a href="/reports/tradedata/monthlyandyearlydata/">月年数据</a>
+                  </li>
+                
+              
+                
+                  <li class="isActive">
+                    <a href="/reports/tradedata/datadownload/">数据下载</a>
+                  </li>
+                
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 服务 -->
+    <div class="header-sub">
+      <div class="subContent sub">
+        <div class="subItem serve_title_id">
+          
+            <div class="subItemContent">
+              <ul class="itemContent">
+                
+                  <li class="left">
+                    <span class="title_lv">交易日历</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/calenderandholidays/tradingcalendar/">交易日历</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/calenderandholidays/holiday/">休市安排</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/calenderandholidays/tradinghours/">交易时间</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">交易</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/business/">交易业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/floortrader/">入场入会业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/representatives/">出市代表管理指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/accoutopening/">统一开户业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/appropriate_system/">适当性制度操作指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/seatmanagement/">远程席位管理业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/programtrading/">程序化交易报备指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/hedgingoperation/">套期保值业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/tas/">交易指令业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/download/">下载资料</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/trading/marketmaker/">做市商专题</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">结算</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/settlement/guideline_set/">交割结算服务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/settlement/service/">结算服务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/settlement/portfoliomargin/">组合保证金服务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/settlement/bank/">存管银行</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/settlement/download/">下载资料</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">交割</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/businessregulations/">业务规定</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/accountmanagement/">标准仓单帐户管理指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/bondeddelivery/">保税交割指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/warehousewarrant1/">标准仓单指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/brandregistration/">品牌注册指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/certifieddeliverywarehouse/">指定交割库指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/warehouseandassayer/">交割仓库与质检机构</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/warehousedisplay/">交割仓库展示</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/standardwarrantms/">标准仓单管理系统</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/opinion/">意见征集和举报投诉</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/delivery/download/">下载资料</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">技术</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/technology/service_technical/">技术服务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/technology/business_notification/">业务通知</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/technology/technical_download/">技术规范及下载</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">信息</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/information/sale/">行情销售业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/information/namelist/">行情转发商名单</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/information/forwarder/">相关技术文档</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">法律</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/law/guideline_legal/">法律相关事务工作指引</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+              </ul>
+            </div>
+          
+            <div class="subItemContent">
+              <ul class="itemContent">
+                
+                  <li class="left">
+                    <span class="title_lv">监查</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/supervise/guideline_report/">大户报告业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/supervise/controlaccount/">实际控制关系帐户日常管理业务指引</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">投教与活动</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/activity/lecture/">期货大讲堂</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/activity/shforums/">上海衍生品市场论坛</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="https://edu.shfe.com.cn">投资者教育基地</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/activity/industry/">产业服务</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">市场研究</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/marketresearch/magazine/">期货与金融衍生品杂志</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/marketresearch/report/">研究报告</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/marketresearch/scientificresearch/">科研管理</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/marketresearch/links/">友情链接</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">指数与期权</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/indexopt/notification/">公告与通知</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/indexopt/contractrules/">合约规则</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/indexopt/guideline/">业务指引</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/indexopt/marketmakingservice/">做市业务</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/indexopt/indexcompile/">指数编制</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/indexopt/market/">指数行情</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="/services/indexopt/promotion/">市场推广</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">现货指数</span>
+                    <ul class="left_content special_lv">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="https://www.shpgx.com/html/zgshrlybscgbj.html">上海保税船供报价</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="https://www.zme.com.cn/zsjg/index.htm">舟山保税船供报价</a>
+                        </li>
+                      
+                        <li class="left_content_item isActive1">
+                          <a href="https://www.cneeex.com/dtfw/lsjr/lszq/zgqjzs/zgqjzstxjgfb/">中国氢价指数</a>
+                        </li>
+                      
+                    </ul>
+                  </li>
+                
+                  <li class="left">
+                    <span class="title_lv">PFMI</span>
+                    <ul class="left_content special_lv">
+                      
+                          <li class="left_content_item isActive1">
+                            <a href="/services/pfmi/">PFMI</a>
+                          </li>
+                        
+                      
+                    </ul>
+                  </li>
+                
+              </ul>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- 规则 -->
+    <div class="header-sub">
+      <div class="subContent sub">
+        
+          <div class="subItem">
+            
+                交易所规则
+                <div class="subItemContent">
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/exchangerules/rules/">章程与交易规则、结算规则</a>
+                      </li>
+                    </ul>
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/exchangerules/otherrules/">管理办法</a>
+                      </li>
+                    </ul>
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/exchangerules/productrules/">品种细则</a>
+                      </li>
+                    </ul>
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/exchangerules/historicalversion/">历史版本</a>
+                      </li>
+                    </ul>
+                  
+                </div>
+              
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </div>
+        
+          <div class="subItem">
+            
+                能源中心规则
+                <div class="subItemContent">
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/ineregulation/rules/">章程与交易规则、结算规则</a>
+                      </li>
+                    </ul>
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/ineregulation/businessmethods/">业务办法</a>
+                      </li>
+                    </ul>
+                  
+                </div>
+              
+              
+              
+            
+              
+              
+            
+          </div>
+        
+          <div class="subItem">
+            
+                <a class="btn_lv" href="/regulation/futureslaw/">期货法规</a>
+                <div class="subItemContent"></div>
+              
+          </div>
+        
+          <div class="subItem">
+            
+                合规监管
+                <div class="subItemContent">
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/marketregulation/regulatory/">监管信息通报</a>
+                      </li>
+                    </ul>
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/marketregulation/penalties/">合规宣传教育</a>
+                      </li>
+                    </ul>
+                  
+                    <ul class="itemContent">
+                      <li class="left">
+                        <a href="/regulation/marketregulation/regulationfile/">监管业务文件</a>
+                      </li>
+                    </ul>
+                  
+                </div>
+              
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </div>
+        
+      </div>
+    </div>
+    <div class="header-sub">
+      <div class="subContent sub">
+        
+          <div class="subItem">
+            <a href="/publicnotice/notice/">公告通知</a>
+            <div class="subItemContent"></div>
+          </div>
+        
+          <div class="subItem">
+            <a href="/publicnotice/newsrelease/">新闻发布</a>
+            <div class="subItemContent"></div>
+          </div>
+        
+          <div class="subItem">
+            <a href="/publicnotice/spotlight/">聚焦交易所</a>
+            <div class="subItemContent"></div>
+          </div>
+        
+          <div class="subItem">
+            <a href="/publicnotice/medium/">媒体报道</a>
+            <div class="subItemContent"></div>
+          </div>
+        
+          <div class="subItem">
+            <a href="/publicnotice/collection/">集采业务公告</a>
+            <div class="subItemContent"></div>
+          </div>
+        
+          <div class="subItem">
+            <a href="/publicnotice/specialcolumn/">专题</a>
+            <div class="subItemContent"></div>
+          </div>
+        
+      </div>
+    </div>
+    <!-- 关于 -->
+    <div class="header-sub">
+      <div class="subContent sub">
+        
+          <div class="subItem">
+            
+                交易所介绍
+                <div class="subItemContent">
+                  <ul class="itemContent">
+                    
+                      <li class="left">
+                        <a href="/about/introduce/simintro/">简介</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/introduce/organization/">组织机构</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/introduce/strategic/">战略规划</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/introduce/events/">大事记</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/introduce/reports_annual/">年报</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/introduce/job/">人才招聘</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/introduce/informaton/">信息公开</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/introduce/contact/">联系方式</a>
+                      </li>
+                    
+                  </ul>
+                </div>
+              
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </div>
+        
+          <div class="subItem">
+            
+                会员及境外特殊参与者
+                <div class="subItemContent">
+                  <ul class="itemContent">
+                    
+                      <li class="left">
+                        <a href="/about/member_shfe/memberlist/">会员及境外特殊参与者名单</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/member_shfe/shfe_excellentanalyst/">境外中介机构名单</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/member_shfe/shfe_recognition/">如何成为会员或境外特殊参与者</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/member_shfe/recognition/">历年表彰</a>
+                      </li>
+                    
+                  </ul>
+                </div>
+              
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </div>
+        
+          <div class="subItem">
+            
+                博士后工作站
+                <div class="subItemContent">
+                  <ul class="itemContent">
+                    
+                      <li class="left">
+                        <a href="/about/postdocworkstation/introduction/">工作站简介</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/postdocworkstation/form_download/">表格下载</a>
+                      </li>
+                    
+                      <li class="left">
+                        <a href="/about/postdocworkstation/recruit/">招收信息</a>
+                      </li>
+                    
+                  </ul>
+                </div>
+              
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </div>
+        
+        <div class="last_title_info">
+          
+            <div class="subItem">
+              <a class="btn_lv" href="/about/socialresponsibility/">社会责任</a>
+              <div class="subItemContent"></div>
+            </div>
+          
+            <div class="subItem">
+              <a class="btn_lv" href="/about/branch/">交易所子公司</a>
+              <div class="subItemContent"></div>
+            </div>
+          
+            <div class="subItem">
+              <a class="btn_lv" href="/about/personalpolicy/">个人信息保护政策</a>
+              <div class="subItemContent"></div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- mobile端 -->
+<div class="isMobile m_mobile_box">
+  <body class="theme-default">
+    <div id="container">
+      <header>
+        <div class="wrapper cf">
+          <nav id="main-nav">
+            <ul class="first-nav">
+              <!-- 首页 -->
+              <li class="">
+                <span><a href="/">首页</a></span>
+              </li>
+              <!--产品-->
+              <li class="">
+                <span>产品</span>
+                <ul>
+                  <li class="">
+                    <a href="/products/futures/">期货</a>
+                    <ul>
+                      <li>
+                        <div class="m_varieties">
+                          <div class="m_content">
+                            
+								  
+                              <div class="m_item_title"><a href="/products/futures/metal/nonferrousmetal/">有色金属</a></div>
+                              <div class="m_item">
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/cu_f/">铜</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/bc_f/">铜(BC)</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/al_f/">铝</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/zn_f/">锌</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/pb_f/">铅</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/ni_f/">镍</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/sn_f/">锡</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/ao_f/">氧化铝</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/nonferrousmetal/ad_f/">铸造铝合金</a></div>
+                                   
+                              </div>
+							   
+                              <div class="m_item_title"><a href="/products/futures/metal/ferrousandpreciousmetal/">贵金属与黑色金属</a></div>
+                              <div class="m_item">
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/ferrousandpreciousmetal/au_f/">黄金</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/ferrousandpreciousmetal/ag_f/">白银</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/ferrousandpreciousmetal/rb_f/">螺纹钢</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/ferrousandpreciousmetal/wr_f/">线材</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/ferrousandpreciousmetal/hc_f/">热轧卷板</a></div>
+                                  
+                                    <div class="m_item_it"><a href="/products/futures/metal/ferrousandpreciousmetal/ss_f/">不锈钢</a></div>
+                                   
+                              </div>
+							   
+                            
+								
+                            
+                              <div class="m_item_title"><a href="/products/futures/energyandchemical/">能源化工</a></div>
+							  <div class="m_item">
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/sc_f/">原油</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/lu_f/">低硫燃料油</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/fu_f/">燃料油</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/bu_f/">石油沥青</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/br_f/">合成橡胶</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/ru_f/">天然橡胶</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/nr_f/">20号胶</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/sp_f/">纸浆</a></div>
+							    
+							      <div class="m_item_it"><a href="/products/futures/energyandchemical/op_f/">胶版印刷纸</a></div>
+							    
+							  </div>
+                              
+                            
+                            
+                              <div class="m_item_title"><a href="/products/futures/index_f/">指数</a></div>
+                              <div class="m_item">
+                                
+                                  <div class="m_item_it"><a href="/products/futures/index_f/ec_f/">SCFIS欧线</a></div>
+                                
+                              </div>
+                            
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="">
+                    <a href="/products/option/">期权</a>
+                    <ul>
+                      <li>
+                        <div class="m_varieties">
+                          <div class="m_content">
+                            
+                              <div class="m_item_title"><a href="/products/option/nonferrousmetal/">有色金属</a></div>
+                              <div class="m_item">
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/cu_o/">铜</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/bc_o/">铜(BC)</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/al_o/">铝</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/zn_o/">锌</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/pb_o/">铅</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/ni_o/">镍</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/sn_o/">锡</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/ao_o/">氧化铝</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/nonferrousmetal/ad_o/">铸造铝合金</a></div>
+                                
+                              </div>
+                            
+                              <div class="m_item_title"><a href="/products/option/ferrousandpreciousmetal/">贵金属与黑色金属</a></div>
+                              <div class="m_item">
+                                
+                                  <div class="m_item_it"><a href="/products/option/ferrousandpreciousmetal/au_o/">黄金</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/ferrousandpreciousmetal/ag_o/">白银</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/ferrousandpreciousmetal/rb_o/">螺纹钢</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/ferrousandpreciousmetal/hc_o/">热轧卷板</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/ferrousandpreciousmetal/ss_o/">不锈钢</a></div>
+                                
+                              </div>
+                            
+                              <div class="m_item_title"><a href="/products/option/energyandchemical/">能源化工</a></div>
+                              <div class="m_item">
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/sc_o/">原油</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/lu_o/">低硫燃料油</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/fu_o/">燃料油</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/bu_o/">石油沥青</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/br_o/">合成橡胶</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/ru_o/">天然橡胶</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/nr_o/">20号胶</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/sp_o/">纸浆</a></div>
+                                
+                                  <div class="m_item_it"><a href="/products/option/energyandchemical/op_o/">胶版印刷纸</a></div>
+                                
+                              </div>
+                            
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="">
+                    <a href="/products/isin/">ISIN编码</a>
+                  </li>
+                </ul>
+              </li>
+              <!--数据-->
+              <li class="">
+                <span>数据</span>
+                <ul>
+                  
+                    <li class="">
+                      业务数据
+                      <ul>
+                        
+                          <li>
+                            <a href="/reports/businessdata/prmsummary/">业务参数汇总查询</a>
+                          </li>
+                        
+                          <li>
+                            <a href="/reports/businessdata/adjtomonthlysettlementprm/">月度结算参数调整表</a>
+                          </li>
+                        
+                          <li>
+                            <a href="/reports/businessdata/feeandcharges/">收费标准</a>
+                          </li>
+                        
+                      </ul>
+                    </li>
+                  
+                    <li class="">
+                      市场数据
+                      <ul>
+                        
+                          <li>
+                            <a href="/reports/marketdata/delayedquotes/">延时行情</a>
+                          </li>
+                        
+                      </ul>
+                    </li>
+                  
+                    <li class="">
+                      统计数据
+                      <ul>
+                        
+                          <li>
+                            <a href="/reports/tradedata/dailyandweeklydata/">日周数据</a>
+                          </li>
+                        
+                          <li>
+                            <a href="/reports/tradedata/monthlyandyearlydata/">月年数据</a>
+                          </li>
+                        
+                          <li>
+                            <a href="/reports/tradedata/datadownload/">数据下载</a>
+                          </li>
+                        
+                      </ul>
+                    </li>
+                  
+                </ul>
+              </li>
+              <!--服务-->
+              <li class="">
+                <span>服务</span>
+                <ul>
+                  
+                    <li class="">
+                      
+                        交易日历
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/calenderandholidays/tradingcalendar/">交易日历</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/calenderandholidays/holiday/">休市安排</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/calenderandholidays/tradinghours/">交易时间</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        交易
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/trading/business/">交易业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/floortrader/">入场入会业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/representatives/">出市代表管理指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/accoutopening/">统一开户业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/appropriate_system/">适当性制度操作指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/seatmanagement/">远程席位管理业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/programtrading/">程序化交易报备指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/hedgingoperation/">套期保值业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/tas/">交易指令业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/download/">下载资料</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/trading/marketmaker/">做市商专题</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        结算
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/settlement/guideline_set/">交割结算服务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/settlement/service/">结算服务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/settlement/portfoliomargin/">组合保证金服务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/settlement/bank/">存管银行</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/settlement/download/">下载资料</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        交割
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/delivery/businessregulations/">业务规定</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/accountmanagement/">标准仓单帐户管理指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/bondeddelivery/">保税交割指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/warehousewarrant1/">标准仓单指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/brandregistration/">品牌注册指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/certifieddeliverywarehouse/">指定交割库指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/warehouseandassayer/">交割仓库与质检机构</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/warehousedisplay/">交割仓库展示</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/standardwarrantms/">标准仓单管理系统</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/opinion/">意见征集和举报投诉</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/delivery/download/">下载资料</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        技术
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/technology/service_technical/">技术服务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/technology/business_notification/">业务通知</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/technology/technical_download/">技术规范及下载</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        信息
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/information/sale/">行情销售业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/information/namelist/">行情转发商名单</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/information/forwarder/">相关技术文档</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        法律
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/law/guideline_legal/">法律相关事务工作指引</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        监查
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/supervise/guideline_report/">大户报告业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/supervise/controlaccount/">实际控制关系帐户日常管理业务指引</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        投教与活动
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/activity/lecture/">期货大讲堂</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/activity/shforums/">上海衍生品市场论坛</a>
+                            </li>
+                          
+                            <li>
+                              <a href="https://edu.shfe.com.cn">投资者教育基地</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/activity/industry/">产业服务</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        市场研究
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/marketresearch/magazine/">期货与金融衍生品杂志</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/marketresearch/report/">研究报告</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/marketresearch/scientificresearch/">科研管理</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/marketresearch/links/">友情链接</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        指数与期权
+                        <ul>
+                          
+                            <li>
+                              <a href="/services/indexopt/notification/">公告与通知</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/indexopt/contractrules/">合约规则</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/indexopt/guideline/">业务指引</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/indexopt/marketmakingservice/">做市业务</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/indexopt/indexcompile/">指数编制</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/indexopt/market/">指数行情</a>
+                            </li>
+                          
+                            <li>
+                              <a href="/services/indexopt/promotion/">市场推广</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                        现货指数
+                        <ul>
+                          
+                            <li>
+                              <a href="https://www.shpgx.com/html/zgshrlybscgbj.html">上海保税船供报价</a>
+                            </li>
+                          
+                            <li>
+                              <a href="https://www.zme.com.cn/zsjg/index.htm">舟山保税船供报价</a>
+                            </li>
+                          
+                            <li>
+                              <a href="https://www.cneeex.com/dtfw/lsjr/lszq/zgqjzs/zgqjzstxjgfb/">中国氢价指数</a>
+                            </li>
+                          
+                        </ul>
+                      
+                      
+                    </li>
+                  
+                    <li class="">
+                      
+                      
+                        <a href="/services/pfmi/">PFMI</a>
+                      
+                    </li>
+                  
+                </ul>
+              </li>
+              <!--规则-->
+              <li class="">
+                <span>规则</span>
+                  <ul>
+					   
+						   <li>
+							   
+							交易所规则
+							<ul>
+							  
+								<li>
+								  <a href="/regulation/exchangerules/rules/">章程与交易规则、结算规则</a>
+								</li>
+							  
+								<li>
+								  <a href="/regulation/exchangerules/otherrules/">管理办法</a>
+								</li>
+							  
+								<li>
+								  <a href="/regulation/exchangerules/productrules/">品种细则</a>
+								</li>
+							  
+								<li>
+								  <a href="/regulation/exchangerules/historicalversion/">历史版本</a>
+								</li>
+							  
+							</ul>
+						 
+						  
+						  
+						   
+					   
+						  
+						   
+					   
+						  
+						   
+					   
+						  
+						   
+					   
+					   </li>
+					   
+						   <li>
+							   
+							能源中心规则
+							<ul>
+							  
+								<li>
+								  <a href="/regulation/ineregulation/rules/">章程与交易规则、结算规则</a>
+								</li>
+							  
+								<li>
+								  <a href="/regulation/ineregulation/businessmethods/">业务办法</a>
+								</li>
+							  
+							</ul>
+						 
+						  
+						  
+						   
+					   
+						  
+						   
+					   
+					   </li>
+					   
+						   <li>
+							   
+							  <a href="/regulation/futureslaw/">期货法规</a>
+						  
+					   </li>
+					   
+						   <li>
+							   
+							合规监管
+							<ul>
+							  
+								<li>
+								  <a href="/regulation/marketregulation/regulatory/">监管信息通报</a>
+								</li>
+							  
+								<li>
+								  <a href="/regulation/marketregulation/penalties/">合规宣传教育</a>
+								</li>
+							  
+								<li>
+								  <a href="/regulation/marketregulation/regulationfile/">监管业务文件</a>
+								</li>
+							  
+							</ul>
+						 
+						  
+						  
+						   
+					   
+						  
+						   
+					   
+						  
+						   
+					   
+					   </li>
+					   
+                   </ul>
+
+               
+              </li>
+
+              <!--公告-->
+              <li class="">
+                <span>公告</span>
+                
+                  <ul>
+                    <li>
+                      <a href="/publicnotice/notice/">公告通知</a>
+                    </li>
+                  </ul>
+                
+                  <ul>
+                    <li>
+                      <a href="/publicnotice/newsrelease/">新闻发布</a>
+                    </li>
+                  </ul>
+                
+                  <ul>
+                    <li>
+                      <a href="/publicnotice/spotlight/">聚焦交易所</a>
+                    </li>
+                  </ul>
+                
+                  <ul>
+                    <li>
+                      <a href="/publicnotice/medium/">媒体报道</a>
+                    </li>
+                  </ul>
+                
+                  <ul>
+                    <li>
+                      <a href="/publicnotice/collection/">集采业务公告</a>
+                    </li>
+                  </ul>
+                
+                  <ul>
+                    <li>
+                      <a href="/publicnotice/specialcolumn/">专题</a>
+                    </li>
+                  </ul>
+                
+              </li>
+
+              <!--关于-->
+              <li class="">
+                <span>关于</span>
+                  <ul>
+                   
+					   <li>
+						   
+						交易所介绍
+						<ul>
+						  
+							<li>
+							  <a href="/about/introduce/simintro/">简介</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/introduce/organization/">组织机构</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/introduce/strategic/">战略规划</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/introduce/events/">大事记</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/introduce/reports_annual/">年报</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/introduce/job/">人才招聘</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/introduce/informaton/">信息公开</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/introduce/contact/">联系方式</a>
+							</li>
+						  
+						</ul>
+					 
+					  
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+                   </li>
+                   
+					   <li>
+						   
+						会员及境外特殊参与者
+						<ul>
+						  
+							<li>
+							  <a href="/about/member_shfe/memberlist/">会员及境外特殊参与者名单</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/member_shfe/shfe_excellentanalyst/">境外中介机构名单</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/member_shfe/shfe_recognition/">如何成为会员或境外特殊参与者</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/member_shfe/recognition/">历年表彰</a>
+							</li>
+						  
+						</ul>
+					 
+					  
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+                   </li>
+                   
+					   <li>
+						   
+						博士后工作站
+						<ul>
+						  
+							<li>
+							  <a href="/about/postdocworkstation/introduction/">工作站简介</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/postdocworkstation/form_download/">表格下载</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/postdocworkstation/recruit/">招收信息</a>
+							</li>
+						  
+						</ul>
+					 
+					  
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+                   </li>
+                   
+					   <li>
+						   
+						社会责任
+						<ul>
+						  
+							<li>
+							  <a href="/about/socialresponsibility/ocialresponsibilityreports/">社会责任报告</a>
+							</li>
+						  
+							<li>
+							  <a href="/about/socialresponsibility/supportfarmersreports/">支农专项报告</a>
+							</li>
+						  
+						</ul>
+					 
+					  
+					  
+					   
+                   
+					  
+					   
+                   
+                   </li>
+                   
+					   <li>
+						   
+						交易所子公司
+						<ul>
+						  
+							<li>
+							  <a href="/about/branch/commercialaffairs/">上海上期商务服务有限公司</a>
+							</li>
+						  
+							<li>
+							  <a href="https://www.shfe.com.cn/sfit/">上海期货信息技术有限公司</a>
+							</li>
+						  
+							<li>
+							  <a href="https://www.shfe.com.cn/ifd/">上海期货与衍生品研究院</a>
+							</li>
+						  
+							<li>
+							  <a href="https://www.ine.cn/">上海国际能源交易中心</a>
+							</li>
+						  
+						</ul>
+					 
+					  
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+					  
+					   
+                   
+                   </li>
+                   
+					   <li>
+						   
+						  <a href="/about/personalpolicy/">个人信息保护政策</a>
+					  
+                   </li>
+                   
+                  </ul>
+               
+              </li>
+            </ul>
+          </nav>
+
+          <div class="sqs_top_line" id="top_nav_mobile">
+            <!-- logo -->
+            <a href="/" class="sqs_top_logo">
+              <img src="/images/index_icon.png" />
+            </a>
+            <!-- 头部搜索和登录 -->
+            <div class="sqs_top_fr_box">
+              <div class="sqs_searchAndLogin">
+                <a href="/pubilc/server/" class="sqs_search">
+                  <img src="/images/m_nav_search.svg" />
+                </a>
+
+                <a  href="/eng/" class="sqs_search sqs_eng">
+                  <img src="/images/m_nav_en.svg" />
+                </a>
+
+                <a class="toggle_menu" href="#">
+                  <img src="/images/m_nav_menu.svg" />
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+  </body>
+</div>
+
+<script src="/images/jquery.min.js"></script>
+
+<!-- Monitor Start -->
+<script type="text/javascript">
+  var serverUrl = "http://" + window.location.host + "/";
+  if(location.pathname=='/'||location.pathname=='/shfe/' ){$('#home_top_investor').show()}
+</script>
+<script language="JavaScript" charset="utf-8" src="/images/count.js"></script>
+<script type="text/javascript">
+
+
+  params.siteId='13';
+
+  params.siteName='上期所';
+</script>
+<script language="JavaScript" charset="utf-8" src="/images/submit.js"></script>
+
+<!-- Monitor End -->
+
+<!-- <link rel="stylesheet" href="/images/element-ui/theme-chalk/index.css" /> -->
+<link rel="stylesheet" type="text/css" href="/images/search_header.css" />
+
+<script type="text/javascript" charset="utf-8" src="/images/vue.min.js"></script>
+
+<script src="/images/element-ui/index.js"></script>
+
+<script>
+    (function () {
+    new Vue({
+      el: "#search_idNew",
+      data() {
+        return {
+          baseUrl: '/api/search/',
+          showHistory: false,
+          currentPage: 1,
+          pageSize: 10,
+          searchHistoryList: [],
+          selectValue: " or ",
+          timeradioVal: 1,
+          timeRange: [],
+          keyWordRadio: "1",
+          showMoreSearch: false,
+          pageTotal: 0,
+          inputStr: "",
+          searchParams: {
+            chlid: 1003,
+            cutsize: 150,
+            dynexpr: [],
+            dynidx: 1,
+            extopt: [],
+            orderby: "",
+            page: 1,
+            searchword: "",
+            size: 20,
+  		  siteId: 'shfe'
+          },
+          hotTagsList: [],
+          loading: false,
+          listData: [], // 列表数据
+          timeStr: "",
+          sourceObj: {
+            products: "产品",
+            reports: "数据",
+            services: "服务",
+            regulation: "规则",
+            publicnotice: "公告",
+            about: "关于",
+          },
+          classifyObj: {
+            allNum: 0,
+            productsNum: 0,
+            reportsNum: 0,
+            servicesNum: 0,
+            regulationNum: 0,
+            publicnoticeNum: 0,
+            aboutNum: 0,
+            othersNum: 0,
+          },
+          allData: [], // 全量数据--用于分类
+          hootKeyParams: {
+            chlid: 1005,
+            cutsize: 150,
+            dynexpr: [],
+            dynidx: 1,
+            extopt: [],
+            orderby: "-searchcnt",
+            page: 1,
+            searchword: "siteid=shfe",
+            size: 20,
+  		      siteId: 'shfe'
+          },
+          fullKeyParams: {
+            chlid: 1006,
+            cutsize: 150,
+            dynexpr: [],
+            dynidx: 1,
+            extopt: [],
+            orderby: "-cnt",
+            page: 1,
+            searchword: "word=铜%",
+            size: 10,
+  		      siteId: 'shfe'
+          },
+          fullSourceDic: [],
+          fullSourceParams: {
+            chlid: 1010,
+            cutsize: 1000,
+            dynexpr: [],
+            dynidx: 1,
+            extopt: [],
+            orderby: "",
+            page: 1,
+            searchword: "",
+            size: 1000,
+            siteId: 'shfe'
+          },
+          selectedType: "all",
+          typeSearchStr: "",
+          loading: false,
+        };
+      },
+      mounted() {
+        let arr = JSON.parse(localStorage.getItem("searchHistoryList"));
+        if (arr && arr.length > 0) {
+          this.searchHistoryList = arr;
+        } else {
+          this.searchHistoryList = [];
+        }
+      },
+      methods: {
+        height_btnNew(){
+          let recordSearchWord = $('#searchText').val()
+          if( recordSearchWord != "" ) {
+            let recordParamsWord_str = recordSearchWord.trim();
+            if( recordParamsWord_str != "" && recordParamsWord_str.length > 50 ) {
+              this.$message({
+                message: '搜索词的最大长度为50，请调整后再重新输入！' ,
+                type: "warning"
+              });
+              return false
+            }
+          }
+          let searchheadertext=  ''
+          searchheadertext= $('#searchText').val().trim() ? encodeURI( $('#searchText').val().trim()) : '' ;
+          let str = '/pubilc/server/'
+          let str1 = str + '?searchText='+ searchheadertext + '&high=1';
+          $('#height_btn').attr('href',  str1)
+        },
+        searchHeaderBtnNew(){
+          let recordSearchWord = $('#searchText').val()
+          if( recordSearchWord != "" ) {
+            let recordParamsWord_str = recordSearchWord.trim();
+            if( recordParamsWord_str != "" && recordParamsWord_str.length > 50 ) {
+              this.$message({
+                message: '搜索词的最大长度为50，请调整后再重新输入！' ,
+                type: "warning"
+              });
+              return false
+            }
+          }
+          let searchheadertext=  ''
+          searchheadertext= $('#searchText').val().trim() ? encodeURI( $('#searchText').val().trim()) : '' ;
+          let str = '/pubilc/server/'
+          let str1 = str + '?searchText='+ searchheadertext+ '&high=0';
+          $('#searchHeaderBtn').attr('href',  str1)
+        },
+        searchTextNew(e){
+          let searchheadertext=  ''
+          if (e.which=== 13) {
+          e.preventDefault()
+            searchheadertext= $('#searchText').val().trim() ? encodeURI( $('#searchText').val().trim()) : '' ;
+            let str = '/pubilc/server/'
+            let str1 = str + '?searchText='+ searchheadertext+ '&high=0';
+            window.open(str1)
+          }
+        },
+        // 获取热词
+        getHootKeys() {
+          let _this = this;
+          let obj = JSON.stringify(_this.hootKeyParams);
+          $.ajax({
+            url: _this.baseUrl,
+            //调用servlet方法
+            // data:"action=jQueryAjax",
+            data: obj,
+            type: "POST",
+            contentType: "application/json",
+            success: function (res) {
+              if (res.data?.content?.length > 0) {
+                _this.hotTagsList = [];
+                res.data.content.map((item) => {
+                  _this.hotTagsList.push(item.hotkey);
+                });
+              }
+            },
+            //返回数据的格式
+            dataType: "json",
+          });
+        },
+        // 获取联想词
+        getFullKey(queryString, cb) {
+          let _this = this;
+          let strInfo = queryString ? queryString.trim() : queryString;
+          _this.fullKeyParams.searchword = "word=" + "%" + strInfo + "%" + " and siteid=shfe" ;
+          let obj = JSON.stringify(_this.fullKeyParams);
+          $.ajax({
+            url: _this.baseUrl,
+            //调用servlet方法
+            // data:"action=jQueryAjax",
+            data: obj,
+            type: "POST",
+            contentType: "application/json",
+            success: function (res) {
+              let arr = [];
+              if (res.data && res.data.content.length > 0) {
+                arr = res.data.content;
+              }
+              cb(arr);
+            },
+            //返回数据的格式
+            dataType: "json",
+          });
+        },
+        handleSelect(item) {
+          this.inputStr = item.word;
+          this.search();
+        },
+        handleSearch() {
+          this.searchParams.page = 1;
+          this.search();
+        },
+        chooseOrderType(val) {
+          this.searchParams.orderby = val;
+          this.search(true);
+        },
+        chooseType(val) {
+          this.selectedType = val;
+          if (val === "all") {
+            this.typeSearchStr = "";
+          } else if (val === "others") {
+            this.typeSearchStr =
+              "chnldesc!=products and chnldesc!=reports and chnldesc!=services and chnldesc!=regulation and chnldesc!=publicnotice and chnldesc!=about";
+          } else {
+            this.typeSearchStr = "chnldesc=" + val;
+          }
+          this.searchParams.page = 1;
+          this.search(true);
+        },
+        search(val) {
+          let _this = this;
+          _this.loading = true
+          // if (_this.searchParams.page === 1) {
+          //   _this.classifyObj = {
+          //     products: [],
+          //     reports: [],
+          //     services: [],
+          //     regulation: [],
+          //     publicnotice: [],
+          //     about: [],
+          //     others: [],
+          //   };
+          //   _this.allData = [];
+          // }
+          _this.listData = [];
+          // _this.pageTotal = 0;
+          _this.showHistory = false;
+          _this.showMoreSearch = false;
+          _this.searchParams.searchword = "";
+          if (_this.inputStr != "") {
+            _this.searchHistoryList.unshift(_this.inputStr);
+            _this.searchHistoryList = Array.from(
+              new Set(_this.searchHistoryList)
+            );
+            let str = JSON.stringify(_this.searchHistoryList);
+            localStorage.setItem("searchHistoryList", str);
+          }
+          if (_this.inputStr != "") {
+            let arr = _this.inputStr.split(" ").filter((e) => {
+              return e !== "";
+            });
+            let wordArr = [];
+            arr.map((item) => {
+              let symbolsRegex = /[（）()-_=+/?<>,.<=>=%$#*@]/;
+              if (symbolsRegex.test(item)) {
+                wordArr.push("'" + item + "'");
+              } else {
+                wordArr.push("%" + item + "%");
+              }
+            });
+            if (_this.keyWordRadio == "1") {
+              _this.searchParams.searchword = wordArr.join(_this.selectValue);
+            } else {
+              let tArr = [];
+              wordArr.map((item) => {
+                tArr.push(_this.keyWordRadio + item);
+              });
+              _this.searchParams.searchword = tArr.join(_this.selectValue);
+            }
+          }
+          if (_this.timeStr !== "") {
+            if (_this.searchParams.searchword !== "") {
+              _this.searchParams.searchword =
+                _this.searchParams.searchword + " and " + _this.timeStr;
+            } else {
+              _this.searchParams.searchword = _this.timeStr;
+            }
+          }
+          let tempsearchword = this.searchParams.searchword
+          if (_this.searchParams.searchword.length > 0) {
+            if (_this.typeSearchStr != "") {
+              _this.searchParams.searchword =
+                _this.searchParams.searchword + " and " + _this.typeSearchStr;
+            }
+          } else {
+            if (_this.typeSearchStr != "") {
+              _this.searchParams.searchword = _this.typeSearchStr;
+            }
+          }
+          let obj = JSON.stringify(_this.searchParams);
+          // let forAllObj = JSON.parse(JSON.stringify(_this.searchParams));
+          $.ajax({
+            url: _this.baseUrl,
+            //调用servlet方法
+            // data:"action=jQueryAjax",
+            data: obj,
+            type: "POST",
+            contentType: "application/json",
+            success: function (res) {
+              if (res.data?.content?.length > 0) {
+                _this.listData = res.data.content;
+                _this.pageTotal = res.data.totalElements;
+                _this.addUbas()
+                // if (_this.searchParams.page === 1) {
+                //   forAllObj.size = res.data.totalElements;
+                //   forAllObj = JSON.stringify(forAllObj);
+                //   $.ajax({
+                //     url: _this.baseUrl,
+                //     //调用servlet方法
+                //     // data:"action=jQueryAjax",
+                //     data: forAllObj,
+                //     type: "POST",
+                //     contentType: "application/json",
+                //     success: function (value) {
+                //       if (value.data?.content?.length > 0) {
+                //         _this.allData = value.data.content;
+                //         _this.getClassify();
+                //       } else {
+                //         _this.allData = [];
+                //       }
+                //     },
+                //     //返回数据的格式
+                //     dataType: "json",
+                //   });
+                // }
+              } else {
+                _this.listData = [];
+                _this.pageTotal = 0;
+              }
+              _this.loading = false
+              if (!val) {
+                _this.getAllTypesCounts(tempsearchword);
+              }
+            },
+            //返回数据的格式
+            dataType: "json",
+          });
+        },
+        // 选择时间
+        timeRadioChange(val) {
+          this.timeRange = [];
+          if (val === 1) {
+            this.timeStr = "";
+          } else if (val === 2) {
+            let s = moment(new Date(new Date() - 6 * 24 * 3600 * 1000)).format(
+              "YYYY.MM.DD"
+            );
+            let e = moment(new Date()).format("YYYY.MM.DD");
+            this.timeStr = "docreltime>=" + s + " and docreltime<=" + e;
+          } else if (val === 3) {
+            let s = moment(new Date(new Date() - 30 * 24 * 3600 * 1000)).format(
+              "YYYY.MM.DD"
+            );
+            let e = moment(new Date()).format("YYYY.MM.DD");
+            this.timeStr = "docreltime>=" + s + " and docreltime<=" + e;
+          } else if (val === 4) {
+            let s = moment(new Date(new Date() - 365 * 24 * 3600 * 1000)).format(
+              "YYYY.MM.DD"
+            );
+            let e = moment(new Date()).format("YYYY.MM.DD");
+            this.timeStr = "docreltime>=" + s + " and docreltime<=" + e;
+          } else if (val === 5) {
+            this.timeStr = "";
+          }
+        },
+        selectTimeRange() {
+          let s = moment(this.timeRange[0]).format("YYYY.MM.DD");
+          let e = moment(this.timeRange[1]).format("YYYY.MM.DD");
+          this.timeStr = "docreltime>=" + s + " and docreltime<=" + e;
+        },
+        handleClose(tag) {
+          this.searchHistoryList.splice(this.searchHistoryList.indexOf(tag), 1);
+          let str = JSON.stringify(this.searchHistoryList);
+          localStorage.setItem("searchHistoryList", str);
+        },
+        handleTagClick(val) {
+          // let reg = /[\t\r\f\n\s]*/g;
+          // this.inputStr = val.target.innerText.replace(reg, "");
+          this.inputStr = val.target.innerText.replace(/(^\s*)|(\s*$)/g, "");
+        },
+        // 分页
+        handleCurrentChange(val) {
+          this.searchParams.page = val;
+          this.search(true);
+        },
+        handleSizeChange(val) {
+          this.searchParams.page = 1;
+          this.searchParams.size = val;
+          this.search(true);
+        },
+        openUrl(val) {
+          window.open(val);
+        },
+        reset() {
+          this.inputStr = "";
+          this.selectValue = " or ";
+          this.timeRange = [];
+          this.timeradioVal = 1;
+          this.keyWordRadio = "1";
+          this.timeStr = "";
+          this.search();
+        },
+        // 分类
+        getClassify() {
+          this.allData.map((item) => {
+            let key = item.chnldesc;
+            if (!!this.classifyObj[key]) {
+              this.classifyObj[key].push(item.id);
+            } else {
+              this.classifyObj.others.push(item.id);
+            }
+          });
+        },
+        getAllTypesCounts(val) {
+          let _this = this
+          let arr = [
+            {
+              num: 'allNum',
+              str: ''
+            }, {
+              num: 'productsNum',
+              str: 'chnldesc=products'
+            }, {
+              num: 'reportsNum',
+              str: 'chnldesc=reports'
+            }, {
+              num: 'servicesNum',
+              str: 'chnldesc=services'
+            }, {
+              num: 'regulationNum',
+              str: 'chnldesc=regulation'
+            }, {
+              num: 'publicnoticeNum',
+              str: 'chnldesc=publicnotice'
+            }, {
+              num: 'aboutNum',
+              str: 'chnldesc=about'
+            }, {
+              num: 'othersNum',
+              str: 'chnldesc!=products and chnldesc!=reports and chnldesc!=services and chnldesc!=regulation and chnldesc!=publicnotice and chnldesc!=about'
+            }
+          ]
+          arr.map(item => {
+            let searchword = ''
+            if (val.length > 0) {
+              if (item.str != "") {
+                searchword =
+                  val + " and " + item.str;
+              } else {
+                searchword = val
+              }
+            } else {
+              if (item.str != "") {
+                searchword = item.str;
+              }
+            }
+            let obj = {
+              chlid: 1003,
+              page: 1,
+              searchword: searchword,
+              size: 10,
+  			siteId: 'shfe'
+            }
+            $.ajax({
+              url: _this.baseUrl,
+              //调用servlet方法
+              // data:"action=jQueryAjax",
+              data: JSON.stringify(obj),
+              type: "POST",
+              contentType: "application/json",
+              success: function (res) {
+                  _this.classifyObj[item.num] =  res.data ?  res.data.totalElements : 0
+              },
+              //返回数据的格式
+              dataType: "json",
+            });
+          })
+        },
+        // 获取来源的字典
+        getFullSourceDic() {
+          let _this = this;
+          let obj = JSON.stringify(_this.fullSourceParams);
+          $.ajax({
+            url: _this.baseUrl,
+            //调用servlet方法
+            // data:"action=jQueryAjax",
+            data: obj,
+            type: "POST",
+            contentType: "application/json",
+            success: function (res) {
+              if (res.data?.content?.length > 0) {
+                _this.fullSourceDic = res.data.content
+              }
+              _this.search();
+            },
+            //返回数据的格式
+            dataType: "json",
+          });
+        },
+        // 获取来源的完整路径
+        getFullSource(val) {
+          if (val.length > 0) {
+            let arr = val.split(',')
+            let str = ''
+            arr.map(item => {
+              let a = this.fullSourceDic.find(obj => obj.datapath === item)
+              str += a ? (a.chnldesc + '-') : ''
+            })
+            if (str.endsWith('-')) {
+              str = str.slice(0, -1)
+            }
+            return str
+          } else {
+            return '其他'
+          }
+        },
+        // ubas关键词统计
+        addUbas() {
+          createParams();
+          params.referrer = window.location.origin + '/pubilc/server/?searchText=' + this.inputStr
+          var strParam = "";
+          for(var key in params){
+              strParam += key+"="+params[key]+"&";
+          }
+          console.log('=======', params, strParam)
+          strParam = strParam.substring(0,strParam.length-1);
+          var trsImg =  document.createElement("img");
+          trsImg.src = encodeURI(encodeURI(addUrl+"?"+strParam));
+          trsImg.style.display = "none";
+          document.body.appendChild(trsImg);
+      }
+
+      },
+    });
+  })();
+</script>
+      <!-- END header -->
+      <div class="page">
+        <div class="banner m_pc_box">
+          
+            
+              <img src="../../../banner/202401/W020240120579063153242.png" />
+            
+          
+          <div class="position_info">
+            <a href="/" title="首页" class="text_info">首页</a><span class="text_icon"> > </span><a href="/regulation/" title="规则" class="text_info">规则</a><span class="text_icon"> > </span><a href="/regulation/exchangerules/" title="交易所规则" class="text_info">交易所规则</a><span class="text_icon"> > </span><a href="/regulation/exchangerules/productrules/" title="品种细则" class="text_info">品种细则</a>
+          </div>
+        </div>
+
+        <div class="mobile_box m_mobile_box">
+         <div class="m_p_banner">
+          <div class="m_top_img">
+              
+              
+              <!-- banner -->
+
+<img class="m_img" src="/regulation/banner/202401/W020240120579063153242.png" />
+
+
+<!-- Monitor Start -->
+<script type='text/javascript'>
+  params.docId='';
+  params.doctitle='';
+  params.channelId='2382';
+  params.channelName='栏目banner';
+params.siteId='13';
+  params.siteName='上期所';
+  </script>
+  <!-- Monitor End -->
+              
+          </div>
+          <div class="m_nav">
+            <a href="/" title="首页" class="m_text_info">首页</a><span class="text_icon"> > </span><a href="/regulation/" title="规则" class="m_text_info">规则</a><span class="text_icon"> > </span><a href="/regulation/exchangerules/" title="交易所规则" class="m_text_info">交易所规则</a><span class="text_icon"> > </span><a href="/regulation/exchangerules/productrules/" title="品种细则" class="m_text_info">品种细则</a>
+          </div>
+        </div>
+       </div>
+
+        <div class="content m_content">
+          <div class="notice_page">
+            <h1 class="title">
+              上海期货交易所螺纹钢期货业务细则
+            </h1>
+            <div class="notice_nav">
+              <div class="nav_left">
+                <span>
+                  发布日期：
+                  2026-01-01
+                </span>
+                  
+              </div>
+              <div class="nav_right">
+                <img src="/images/table_dayin.png" alt="" />
+                <a href="javascript:printTable();">打印</a>
+              </div>
+            </div>
+            <div class="notice_contain">
+              <div class=TRS_Editor>&nbsp;
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt;"><span style="font-size: 10.5pt;">&nbsp;</span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正黑体简体">第一章</font> <font face="方正黑体简体">总则</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第一条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">为了规范上海期货交易所（以下简称交易所）螺纹钢期货相关业务，根据《上海期货交易所交易规则》《上海期货交易所螺纹钢期货合约》以及相关业务规则，制定本细则。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">交易所、会员、客户、</font></span><span style="font-size: 15pt;"><font face="方正仿宋简体">交割库</font></span><span style="font-size: 15pt;"><font face="方正仿宋简体">、指定检验机构、期货保证金存管机构以及期货市场其他参与者应当遵守本细则。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-family: 黑体; font-size: 15pt;"><font face="黑体">第二章</font> <font face="黑体">交易业务</font></span><span style="font-family: 黑体; font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约的交易单位为</font>10<font face="方正仿宋简体">吨</font><font face="Times New Roman">/</font><font face="方正仿宋简体">手。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第四条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约的报价单位为元（人民币）</font>/<font face="方正仿宋简体">吨。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第五条</font> </span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">螺纹钢期货合约的最小变动价位为</font>1<font face="方正仿宋简体">元</font><font face="Times New Roman">/</font><font face="方正仿宋简体">吨。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第六条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约月份为</font>1<font face="方正仿宋简体">～</font><font face="Times New Roman">12</font><font face="方正仿宋简体">月。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第七条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约的交易时间为上午</font>9:00<font face="方正仿宋简体">～</font><font face="Times New Roman">11:30 </font><font face="方正仿宋简体">，下午</font><font face="Times New Roman">1:30</font><font face="方正仿宋简体">～</font><font face="Times New Roman">3:00</font><font face="方正仿宋简体">和交易所规定的其他交易时间。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第八条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约的最后交易日为合约月份的</font>15<font face="方正仿宋简体">日，遇国家法定节假日顺延，春节月份等最后交易日交易所可另行调整并通知。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第九条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约的交易代码为</font>RB<font face="方正仿宋简体">。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十条</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;</span></b><span style="font-family: 方正仿宋简体; font-size: 15pt;">螺纹钢</span><span style="font-size: 15pt;"><font face="方正仿宋简体">期货套期保值交易</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">持仓额度</span><span style="font-size: 15pt;"><font face="方正仿宋简体">和套利交易</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">持仓额度</span><span style="font-size: 15pt;"><font face="方正仿宋简体">，所涉的一般月份是指合约挂牌至交割月前第二月的最后一个交易日，所涉的临近交割月份是指交割月前第一月和交割月份。</font></span><b><span style="font-size: 15pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十一条</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;</span></b><span style="font-family: 方正仿宋简体; font-size: 15pt;">按合约方式申请螺纹钢期货一般月份套期保值交易持仓额度的，应当在该套期保值所涉合约交割月前第二月的最后一个交易日之前提出，逾期交易所不再受理。按品种方式申请一般月份套期保值交易持仓额度的，按照《上海期货交易所套期保值交易管理办法》相关规定执行。</span><span style="font-family: 方正仿宋简体; font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;">螺纹钢期货临近交割月份套期保值交易持仓额度的申请应当在该套期保值所涉合约交割月前第二月的</span><span style="font-size: 15pt;"><font face="方正仿宋简体">第一个交易日至交割月前第一月的最后一个交易日之间提出，逾期交易所不再受理；螺纹钢期货临近交割月份套利交易</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">持仓额度</span><span style="font-size: 15pt;"><font face="方正仿宋简体">的申请应当在该套利所涉合约交割月前第二月的第一个交易日至交割月前第一月的最后一个交易日之间提出，逾期交易所不再受理。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十二条</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;</span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">螺纹钢期货套期保值交易</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">持仓额度</span><span style="font-size: 15pt;"><font face="方正仿宋简体">自交割月份第一交易日起不得重复使用。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="黑体">第三章</font> <font face="黑体">交割业务</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第一节</font> <font face="方正仿宋简体">一般规定</font></span></b><b><span style="font-size: 15pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十三条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货适用期货转现货、仓库交割、厂库交割。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">螺纹钢期货实行完税交割。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十四条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货的交割品级详见《上海期货交易所螺纹钢期货合约》。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十五条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">交割螺纹钢质量规定</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">交割螺纹钢应当是在交易所注册的生产企业生产的注册商品。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">交割螺纹钢的外形、尺寸、重量及允许偏差应当符合国标</font>GB 1499.2-2024<font face="方正仿宋简体">《钢筋混凝土用钢 第</font><font face="Times New Roman">2</font><font face="方正仿宋简体">部分：热轧带肋钢筋》的规定。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">交割螺纹钢其长度为</font>9<font face="方正仿宋简体">米和</font><font face="Times New Roman">12</font><font face="方正仿宋简体">米定尺。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十六条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">交割螺纹钢的包装</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">交割螺纹钢包装、标志及质量证明书等应当符合</font>GB 1499.2-2024<font face="方正仿宋简体">《钢筋混凝土用钢 第</font><font face="Times New Roman">2</font><font face="方正仿宋简体">部分：热轧带肋钢筋》。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">每一标准仓单的螺纹钢，应当是同一生产企业生产、同一牌号、同一注册商标、同一公称直径、同一长度的商品组成，并且组成每一标准仓单的螺纹钢的生产日期应当不超过连续十日，且以最早日期作为该标准仓单的生产日期。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十七条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">交割商品必备单证</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">应当提供注册生产企业出具的产品质量证明书。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十八条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">计量和溢短</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">交割螺纹钢以理论计重方式计量。每张螺纹钢标准仓单的溢短不超过</font><font face="Times New Roman">±3%</font><font face="方正仿宋简体">。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第十九条</font> </span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">螺纹钢期货合约的交割单位为</font>300<font face="方正仿宋简体">吨。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二十条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约的交割日期为最后交易日后连续二个工作日。</font></span><b><span style="font-size: 15pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二十一条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约交割结算的基准价为该期货合约最后交易日的结算价。</font></span><b><span style="font-size: 15pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二十二条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">交割地点：交易所交割仓库和交割厂库，由交易所另行公告。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二十三条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">期转现使用标准仓单并通过交易所结算发生螺纹钢交割实物质量纠纷的，买方应当在货款和标准仓单交换日后的</font>25<font face="方正仿宋简体">天内提出质量异议申请，并应当同时提供交易所指定检验机构出具的质量鉴定结论。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二节</font> <font face="方正仿宋简体">仓库交割</font></span></b><b><span style="font-size: 15pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二十四条</font> </span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">交割螺纹钢的每批商品的有效期限为生产日起的</font>90<font face="方正仿宋简体">天内，并且应在生产日起的</font><font face="Times New Roman">45</font><font face="方正仿宋简体">天内入交割仓库方可制作仓库标准仓单。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二十五条</font> </span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">用于交割的螺纹钢每一仓库标准仓单的标的实物应当作为一个堆放垛位进行堆放。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第二十六条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">实物交割完成后，若买方对交割商品的质量、数量有异议的（有异议的螺纹钢应当在交割仓库内），应当在实物交割月份的下一月份的</font>15<font face="方正仿宋简体">日之前（含当日，遇法定假日时顺延至假日后的第一个工作日），向交易所提出书面申请，并应当同时提供交易所指定检验机构出具的质量鉴定结论。用于交割的螺纹钢每批商品的有效期应当涵盖本次交割的最后交割日。即使交割螺纹钢每批商品的有效期截止时间早于质量异议期的提交截止时间，如果该批商品的质量鉴定结论不合格，卖方对该批交割商品的实际质量仍需承担全部责任。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三节</font> <font face="方正仿宋简体">厂库交割</font></span></b><b><span style="font-size: 15pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">第二十七</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;<font face="方正仿宋简体">申请单位申请</font></span><span style="font-size: 15pt;"><font face="方正仿宋简体">交割</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">厂库</span><span style="font-size: 15pt;"><font face="方正仿宋简体">，</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="方正仿宋简体">净资产不足</font><font face="Times New Roman">1</font><font face="方正仿宋简体">亿元的，应当向交易所提供有关单位出具的担保函。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">第二十八</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;<font face="方正仿宋简体">厂库提货地包括交易所相关钢材期货品种注册企业（生）产地、交割库以及其他经交易所公布的提货地。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">第二十九</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;<font face="方正仿宋简体">厂库提货地分为基准提货地和非基准提货地。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;">基准提货地名单以及对应的提货升贴水由交易所确定并公告。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;">非基准提货地名单以及对应的提货升贴水由厂库确定、调整，并通过交易所网站公布。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;">提货地的提货升贴水由厂库和厂库标准仓单货主按厂库标准仓单重量自行结算。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;">厂库标准仓单货主在提交提货申请时，应当选择并确认提货地。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">三十</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">申请</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">厂库签发厂库标准仓单前，须向交易所提交签发申请。申请内容包括品种、牌号、商标、会员单位、货主名称、拟申请签发仓单数量等。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">三十一</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">厂库标准仓单交割有效期的规定</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">厂库标准仓单的交割有效期为厂库标准仓单生成之日起</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">1</font></span><span style="font-size: 15pt;">80</span><span style="font-family: 方正仿宋简体; font-size: 15pt;">日</span><span style="font-size: 15pt;"><font face="方正仿宋简体">。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">三十二</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">提货申请</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（一）货主应</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">按照对应</span><span style="font-size: 15pt;"><font face="方正仿宋简体">提货地</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">最小提货量、提前申请日数等规定</span><span style="font-size: 15pt;"><font face="方正仿宋简体">通过标准仓单管理系统向厂库提交提货申请，</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">具体内容由交易所另行公告。</span><span style="font-size: 15pt;"><font face="方正仿宋简体">申请内容包括数量、拟提货日、提货方式、提货计划（每日提货量）、提货人身份证号码、联系电话等相关内容</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（二）厂库在货主提交提货申请后的</font>3<font face="方正仿宋简体">个工作日内、参照货主提交的提货日、规格及企业的生产计划等，确认货主的提货申请</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">如果货主提交的拟提货日有多个持有厂库标准仓单的货主同时申请提货，且日提货总量超出厂库的日发货量时，厂库可参照各个货主申请提货日的先后、提货计划及生产计划等统筹安排发货，并在货主提交提货申请后的</font>3<font face="方正仿宋简体">个工作日内，向货主提供一个可供选择的提货时间范围和发货计划（每日发货量）。货主如无异议，可选择并确定其中一天为提货日，并确定发货计划。如有异议，可重新和厂库协商直至双方确定一致的提货日和发货计划</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（三）由上款所述多个货主同时申请提货而造成货主提货时间的延迟，厂库不承担经济责任。但厂库应及时报交易所书面备案，阐明原因。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">第三十三</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢厂库标准仓单货主申请提货的，厂库提供的出库商品规格（公称直径）分布应当符合下列要求：</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">1</font><font face="方正仿宋简体">．厂库标准仓单货主提货数量≤</font><font face="Times New Roman">2400</font><font face="方正仿宋简体">吨，出库商品可以是同一公称直径或者一个以上公称直径。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">2</font><font face="方正仿宋简体">．</font><font face="Times New Roman">2400</font><font face="方正仿宋简体">吨</font><font face="Times New Roman">&lt;</font><font face="方正仿宋简体">厂库标准仓单货主提货数量≤</font><font face="Times New Roman">9600</font><font face="方正仿宋简体">吨，出库商品至少是三个公称直径，并且每一公称直径提货数量不得高于其总提货数量的</font><font face="Times New Roman">40%</font><font face="方正仿宋简体">。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">3</font><font face="方正仿宋简体">．厂库标准仓单货主提货数量</font><font face="Times New Roman">&gt;9600</font><font face="方正仿宋简体">吨，出库商品至少是四个公称直径，并且每一公称直径提货数量不得高于其总数量的</font><font face="Times New Roman">30%</font><font face="方正仿宋简体">。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">四</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">出库商品生产日期的规定</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">出库商品的生产日期应在货主和厂库之间已经确定的提货日之前的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">九十日</span><span style="font-size: 15pt;"><font face="方正仿宋简体">之内</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">，组成每一厂库标准仓单出库的螺纹钢生产日期应当不超过连续三十日。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">五</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">货主应按约定的提货日和发货计划到厂库提货。过了提货日但在约定的提货日后</font>15<font face="方正仿宋简体">日内（含第十五日）到厂库提货，或因非厂库过错的原因而无法按约定的日发货计划提货，厂库仍应按期货标准承担有关商品质量的责任，并按当时各货主的提货情况统一安排发货计划，直至全部发完。货主应向厂库支付滞纳金</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">滞纳金金额</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">=</font></span><span style="font-size: 15pt;">2<font face="方正仿宋简体">元</font><font face="Times New Roman">/</font><font face="方正仿宋简体">吨</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">·</span><span style="font-size: 15pt;"><font face="方正仿宋简体">天</font><font face="Times New Roman">×</font><font face="方正仿宋简体">应提而未提的商品数量</font><font face="Times New Roman">×</font><font face="方正仿宋简体">该批商品的滞留天数</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">对因货主原因而造成发货延迟的处理，如双方约定另行协商处理，则按双方协商而定。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">六</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">货主未在约定的提货日后</font>15<font face="方正仿宋简体">日内（含第十五日）到厂库提货，厂库标准仓单被注销，货主须向厂库支付滞纳金，对应商品转为现货，具体提货事宜由双方自行协商</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">滞纳金金额</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">=</font></span><span style="font-size: 15pt;">35<font face="方正仿宋简体">元</font><font face="Times New Roman">/</font><font face="方正仿宋简体">吨</font><font face="Times New Roman">×</font><font face="方正仿宋简体">应提而未提的商品数量</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">七</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">货主在提货日到库提货，厂库未按约定的发货计划发货，但在约定的提货日后</font>15<font face="方正仿宋简体">日内（含第十五日）完成了相应商品的发货，厂库应向货主支付赔偿金</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">赔偿金金额</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">=</font></span><span style="font-size: 15pt;">50<font face="方正仿宋简体">元</font><font face="Times New Roman">/</font><font face="方正仿宋简体">吨</font><font face="Times New Roman">×</font><font face="方正仿宋简体">按日发货计划应发而未发的商品数量</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">八</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">厂库在约定的提货日后</font>15<font face="方正仿宋简体">日（含第十五日）内未完成按日发货计划相应商品的发货，货主可做如下选择：</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（一）货主在约定提货日后的第</font>15<font face="方正仿宋简体">日向厂库提出自约定提货日后的第</font><font face="Times New Roman">16</font><font face="方正仿宋简体">日起，终止接受厂库应发而未发的剩余商品，厂库须向货主返还货款并支付追加赔偿金</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">返还货款和追加赔偿金的金额</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;"><font face="Times New Roman">=</font></span><span style="font-size: 15pt;"><font face="方正仿宋简体">赔偿结算价</font><font face="Times New Roman">×</font><font face="方正仿宋简体">应发而未发的商品数量</font><font face="Times New Roman">×130%</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">赔偿结算价为约定提货日后的第</font>16<font face="方正仿宋简体">日前一交易日交易所挂牌交易的最近月份对应期货合约的结算价</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（二）货主在约定提货日后的第</font>15<font face="方正仿宋简体">日未向厂库提出终止接受厂库应发而未发的剩余商品，则剩余商品具体提货事宜由双方自行协商。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第三十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">九</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">当厂库发生第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">七</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条、第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">八</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条中的违约行为时，首先由厂库直接向货主支付赔偿金。厂库未支付的或支付数额不足的，交易所按照以下步骤向货主支付赔偿金：</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（一）动用厂库提供的担保方式支付</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">；</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（二）交易所代为垫付，并通过包括法律程序在内的其他手段向厂库追索</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">四十</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">当货主发生第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">五</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条、第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">六</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条中的违约行为时，首先由货主直接向厂库支付赔偿金。货主未支付的或支付数额不足的，厂库可通过包括法律程序在内的其他手段向货主追索</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">四十一</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">当发生第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">五</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条、第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">六</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条、第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">七</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条、第三十</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">八</span><span style="font-size: 15pt;"><font face="方正仿宋简体">条所述情况而给厂库或货主其中一方造成损失，如双方约定另行协商处理，则按双方协议而定，书面协议报交易所备案。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">四十二</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">质量争议处理</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">若提货方对交割商品的质量有异议的，须在实物交收完成后</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">十日</span><span style="font-size: 15pt;"><font face="方正仿宋简体">内，向交易所提出书面申请，并须同时提供交易所指定检验机构出具的质量鉴定结论。逾期未提出申请的，视为提货方对所交割商品无异议，交易所不再受理交割商品有异议的申请。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">第四十三</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;<font face="方正仿宋简体">厂库持有的厂库标准仓单被注销后，厂库可以向交易所申请调整担保数额。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-family: 黑体; font-size: 15pt;"><font face="黑体">第四章</font> <font face="黑体">风险管理</font></span><span style="font-family: 黑体; font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第四十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">四</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约的最低交易保证金为合约价值的</font>5%<font face="方正仿宋简体">。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第四十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">五</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约上市运行不同阶段的交易保证金收取标准为：</font></span><b><span style="color: rgb(255, 0, 0); font-size: 15pt;"><o:p></o:p></span></b></p>
+<div align="center" style="font-size: medium;">
+<table class="MsoNormalTable" border="1" cellspacing="0" style="font-family: &quot;Times New Roman&quot;; font-size: 10pt; border-collapse: collapse; width: 411.45pt; border: none;">
+    <tbody>
+        <tr style="height: 22.7pt; break-inside: avoid;">
+            <td width="299" valign="top" style="width: 224.75pt; padding: 0pt 5.4pt; border-width: 1pt; border-style: solid; border-color: windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 24.05pt; line-height: 21px;"><b><span style="line-height: 24px; font-size: 12pt;"><font face="方正仿宋简体">交易时间段</font></span></b><b><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></b></p>
+            </td>
+            <td width="248" valign="top" style="width: 186.7pt; padding: 0pt 5.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: 1pt solid windowtext; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><b><span style="line-height: 24px; font-size: 12pt;"><font face="方正仿宋简体">螺纹钢交易保证金比例</font></span></b><b><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></b></p>
+            </td>
+        </tr>
+        <tr style="height: 22.7pt; break-inside: avoid;">
+            <td width="299" valign="top" style="width: 224.75pt; padding: 0pt 5.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;"><font face="方正仿宋简体">合约挂牌之日起</font></span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="248" valign="top" style="width: 186.7pt; padding: 0pt 5.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;">5%</span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 22.7pt; break-inside: avoid;">
+            <td width="299" valign="top" style="width: 224.75pt; padding: 0pt 5.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;"><font face="方正仿宋简体">交割月前第一月的第一个交易日起</font></span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="248" valign="top" style="width: 186.7pt; padding: 0pt 5.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;">10%</span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 22.7pt; break-inside: avoid;">
+            <td width="299" valign="top" style="width: 224.75pt; padding: 0pt 5.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;"><font face="方正仿宋简体">交割月份第一个交易日起</font></span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="248" valign="top" style="width: 186.7pt; padding: 0pt 5.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;">15%</span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 22.7pt; break-inside: avoid;">
+            <td width="299" valign="top" style="width: 224.75pt; padding: 0pt 5.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;"><font face="方正仿宋简体">最后交易日前二个交易日起</font></span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="248" valign="top" style="width: 186.7pt; padding: 0pt 5.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 21px;"><span style="line-height: 24px; font-size: 12pt;">20%</span><span style="line-height: 24px; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第四十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">六</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font> </span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">螺纹钢期货合约涨跌停板幅度为上一交易日结算价</font><font face="Times New Roman">±3%</font><font face="方正仿宋简体">。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第四十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">七</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">螺纹钢期货合约在不同时期的限仓比例和限仓数额具体规定如下：</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 24pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">（单位：手）</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+<div align="center" style="font-size: medium;">
+<table class="MsoNormalTable" border="1" cellspacing="0" style="font-family: &quot;Times New Roman&quot;; font-size: 10pt; border-collapse: collapse; width: 773.688px; border: none;">
+    <tbody>
+        <tr style="height: 51.8pt; break-inside: avoid;">
+            <td width="11.5200%" valign="center" rowspan="3" style="width: 84.0156px; padding: 0pt 1.4pt; border-width: 1pt; border-style: solid; border-color: windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">&nbsp;</span></p>
+            </td>
+            <td width="44.2000%" valign="center" colspan="3" style="width: 336.453px; padding: 0pt 1.4pt; border-width: 1pt; border-style: solid; border-color: windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">合约挂牌至交割月前第二月的最后一个交易日</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="23.9200%" valign="center" colspan="2" style="width: 179.703px; padding: 0pt 1.4pt; border-width: 1pt; border-style: solid; border-color: windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">交割月前</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">第一月</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="20.3200%" valign="center" colspan="2" style="width: 152.078px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: 1pt solid windowtext; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">交割月份</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 12.5pt; break-inside: avoid;">
+            <td width="19.9000%" valign="center" rowspan="2" style="width: 148.781px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">某一期</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">货合约</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">持仓量</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="24.3000%" valign="center" colspan="2" style="width: 182.641px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">限仓比例（</font></span><span style="font-family: 方正仿宋简体; font-size: 12pt;"><font face="Times New Roman">%</font></span><span style="font-size: 12pt;"><font face="方正仿宋简体">）</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">和限仓数额</font></span><span style="font-family: 方正仿宋简体; font-size: 12pt;">（手）</span><span style="font-family: 方正仿宋简体; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="23.9200%" valign="center" colspan="2" style="width: 179.703px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">限仓数额</font></span><span style="font-family: 方正仿宋简体; font-size: 12pt;">（手）</span><span style="font-family: 方正仿宋简体; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="20.3200%" valign="center" colspan="2" style="width: 152.078px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: 1pt solid windowtext; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">限仓数额</font></span><span style="font-family: 方正仿宋简体; font-size: 12pt;">（手）</span><span style="font-family: 方正仿宋简体; font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 76.7pt; break-inside: avoid;">
+            <td width="12.6800%" valign="center" style="width: 92.9688px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">非期货</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">公司</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">会员</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="11.6000%" valign="center" style="width: 84.6406px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">客户</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="12.6000%" valign="center" style="width: 92.3594px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">非期货公司</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">会员</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="11.3000%" valign="center" style="width: 82.3125px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: 1pt solid windowtext; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">客户</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="11.8600%" valign="center" style="width: 86.6406px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: 1pt solid windowtext; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">非期货</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">公司</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">会员</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="8.4600%" valign="center" style="width: 60.4062px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: 1pt solid windowtext; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">客户</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 9.05pt; break-inside: avoid;">
+            <td width="11.5200%" valign="center" rowspan="2" style="width: 84.0156px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">螺纹钢</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="19.9000%" valign="center" style="width: 148.781px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-family: 方正仿宋简体; font-size: 12pt;">≥</span><span style="font-size: 12pt;">90<font face="方正仿宋简体">万手</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="12.6800%" valign="center" style="width: 92.9688px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">10</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="11.6000%" valign="center" style="width: 84.6406px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">10</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="12.6000%" valign="center" rowspan="2" style="width: 92.3594px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">4500</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="11.3000%" valign="center" rowspan="2" style="width: 82.3125px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">4500</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="11.8600%" valign="center" rowspan="2" style="width: 86.6406px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">900</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="8.4600%" valign="center" rowspan="2" style="width: 60.4062px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">900</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 9.05pt; break-inside: avoid;">
+            <td width="19.9000%" valign="center" style="width: 148.781px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">＜</font>90<font face="方正仿宋简体">万手</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="12.6800%" valign="center" style="width: 92.9688px; padding: 0pt 1.4pt; border-left: 1pt solid windowtext; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">90000</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+            <td width="11.6000%" valign="center" style="width: 84.6406px; padding: 0pt 1.4pt; border-left: none; border-right: 1pt solid windowtext; border-top: none; border-bottom: 1pt solid windowtext;">
+            <p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;">90000</span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-size: 12pt;"><font face="方正仿宋简体">注：表中持仓量、限仓数额为单向计算。</font></span><span style="font-size: 12pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第四十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">八</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;</span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">交割月前第一月的最后一个交易日收盘前，</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易者（即客户、非期货公司会员，下同）</span><span style="font-size: 15pt;"><font face="方正仿宋简体">在每个</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易编码上的</span><span style="font-size: 15pt;"><font face="方正仿宋简体">螺纹钢期货合约的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓应当调整为</font>30<font face="方正仿宋简体">手的整倍数（遇市场特殊情况无法按期调整的，可以顺延一天）</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">；</span><span style="font-size: 15pt;"><font face="方正仿宋简体">进入交割月后，螺纹钢期货合约</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓应当是</font>30<font face="方正仿宋简体">手的整倍数，新开仓、平仓也应当是</font><font face="Times New Roman">30</font><font face="方正仿宋简体">手的整倍数。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第四十</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">九</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;</span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">交易所对某一螺纹钢期货合约采取强制减仓的，其申报平仓数量、</font></span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓盈利</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易者</span><span style="font-size: 15pt;"><font face="方正仿宋简体">平仓范围以及平仓数量的分配原则及方法按照下列方法确定：</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（一）申报平仓数量。在强制减仓基准日收市后，已在计算机系统中以涨跌停板价申报无法成交的，且</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易者</span><span style="font-size: 15pt;"><font face="方正仿宋简体">该螺纹钢期货合约的单位净持仓亏损大于或者等于强制减仓基准日结算价</font>6%<font face="方正仿宋简体">的所有申报平仓数量的总和为平仓数量。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（二）持仓盈利</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易者</span><span style="font-size: 15pt;"><font face="方正仿宋简体">平仓范围。根据《上海期货交易所风险控制管理办法》所述方法计算的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易者</span><span style="font-size: 15pt;"><font face="方正仿宋简体">单位净持仓盈利的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓以及</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易者</span><span style="font-size: 15pt;"><font face="方正仿宋简体">单位净持仓盈利大于或者等于强制减仓基准日结算价</font>6%<font face="方正仿宋简体">的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">套期保值交易持仓</span><span style="font-size: 15pt;"><font face="方正仿宋简体">都列入平仓范围。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（三）平仓数量的分配原则。在平仓范围内按盈利的大小和</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓与</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">套期保值交易持仓</span><span style="font-size: 15pt;"><font face="方正仿宋简体">的不同分成四级，逐级进行分配。首先分配给属平仓范围内单位净持仓盈利大于或者等于强制减仓基准日结算价</font>6%<font face="方正仿宋简体">的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓；其次分配给单位净持仓盈利大于或者等于强制减仓基准日结算价</font>3%<font face="方正仿宋简体">，小于</font><font face="Times New Roman">6%</font><font face="方正仿宋简体">的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓；再次分配给单位净持仓盈利小于强制减仓基准日结算价</font>3%<font face="方正仿宋简体">的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓；最后分配给单位净持仓盈利大于或者等于强制减仓基准日结算价</font>6%<font face="方正仿宋简体">的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">套期保值交易持仓</span><span style="font-size: 15pt;"><font face="方正仿宋简体">。上述各级分配比例均按申报平仓数量（剩余申报平仓数量）与各级可平仓的盈利</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">持仓</span><span style="font-size: 15pt;"><font face="方正仿宋简体">数量之比进行分配</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">。</span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30pt; line-height: 28pt;"><span style="font-size: 15pt;"><font face="方正仿宋简体">（四）平仓数量的分配方法。盈利</font>6%<font face="方正仿宋简体">以上的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓数量大于或者等于申报平仓数量的，根据申报平仓数量与盈利</font>6%<font face="方正仿宋简体">以上的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓数量的比例，将申报平仓数量向盈利</font>6%<font face="方正仿宋简体">以上的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓分配实际平仓数量；盈利</font>6%<font face="方正仿宋简体">以上的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓数量小于申报平仓数量的，根据盈利</font>6%<font face="方正仿宋简体">以上的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓数量与申报平仓数量的比例，将盈利</font>6%<font face="方正仿宋简体">以上</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓数量向申报平仓</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">交易者</span><span style="font-size: 15pt;"><font face="方正仿宋简体">分配实际平仓数量。再把剩余的申报平仓数量按上述的分配方法向盈利</font>3%<font face="方正仿宋简体">以上的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓分配；还有剩余的，再向盈利</font>3%<font face="方正仿宋简体">以下的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">一般</span><span style="font-size: 15pt;"><font face="方正仿宋简体">持仓分配；再有剩余的，再向盈利</font>6%<font face="方正仿宋简体">以上的</font></span><span style="font-family: 方正仿宋简体; font-size: 15pt;">套期保值交易持仓</span><span style="font-size: 15pt;"><font face="方正仿宋简体">分配。还有剩余的不再分配。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="center" style="margin: 0pt 0pt 0.0001pt; text-align: center; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; line-height: 28pt;"><span style="font-family: 黑体; font-size: 15pt;"><font face="黑体">第五章</font> <font face="黑体">附则</font></span><span style="font-family: 黑体; font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">五十</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font> </span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">本细则未规定的，按照交易所相关业务规则的规定执行。</font></span><b><span style="font-size: 15pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">五十一</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><span style="font-size: 15pt;">&nbsp;<font face="方正仿宋简体">违反本细则规定的，交易所按照《上海期货交易所违规处理办法》的有关规定处理。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">五十二</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font> </span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">本细则的解释权属于上海期货交易所。</font></span><span style="font-size: 15pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt; text-indent: 30.1pt; line-height: 28pt;"><b><span style="font-size: 15pt;"><font face="方正仿宋简体">第</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">五十三</span></b><b><span style="font-size: 15pt;"><font face="方正仿宋简体">条</font></span></b><b><span style="font-family: 方正仿宋简体; font-size: 15pt;">&nbsp;</span></b><span style="font-size: 15pt;"><font face="方正仿宋简体">本细则自</font></span><span style="font-family: Times; font-size: 15pt;">2026</span><span style="font-family: 方正仿宋简体; font-size: 15pt;">年</span><span style="font-family: Times; font-size: 15pt;">1</span><span style="font-family: 方正仿宋简体; font-size: 15pt;">月</span><span style="font-family: Times; font-size: 15pt;">1</span><span style="font-family: 方正仿宋简体; font-size: 15pt;">日</span><span style="font-size: 15pt;"><font face="方正仿宋简体">起实施。</font></span><span style="font-size: 14pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0pt 0pt 0.0001pt; text-align: justify; font-family: &quot;Times New Roman&quot;; font-size: 10.5pt;"><span style="font-size: 10.5pt;">&nbsp;</span></p></div>
+            </div>
+
+            <!-- PC -->
+           
+              <div class="share">
+                <span>分享到：</span>
+                <span class="icon_btn wechat">
+                </span>
+                <span class="icon_btn weibo">
+              </div>
+           
+
+            
+                <div class="attachment_download">
+                  <p>附件下载</p>
+                  
+                    <div class="document_download">
+                      <div class="docx_title">
+                        <img src="/images/table_excel.png" alt="" />
+						    <a href="./P020251231387806725796.docx">上海期货交易所螺纹钢期货业务细则.docx</a>
+                      </div>
+                    </div>
+                  
+                </div>
+              
+              
+            
+          </div>
+        </div>
+
+      </div>
+      <!-- END body -->
+      <!-- START footer -->
+      <!-- pc端底部 -->
+<div class="m_pc_box">
+ <div class="inc-footer">
+  <div class="inc-footer-box">
+    <div class="inc-footer-top">
+      <div class="footer-cot-last flex-row">
+        <div class="footer-cot-last-first">
+          <div class="footer-tit">市场服务中心</div>
+          <a class="footer-tel" href="javascript:;">4008666099</a>
+        </div>
+        <div>
+          <div class="footer-tit">联系我们</div>
+          <div class="footer-email">
+            公共邮箱：
+            <span class="cur"> <a href="mailto:msc@shfe.com.cn" class="gray">msc@shfe.com.cn</a></span>
+          </div>
+          <div class="footer-address">
+            办公地址：
+            <span class="cur">上海市浦东新区浦电路500号</span>
+          </div>
+        </div>
+        <div class="footer-cot-last-contract">
+          <div class="footer-tit footer-focus">关注我们</div>
+          <div class="footer-social flex-row">
+            <div class="footer-social-icon wechat1">
+              <a>
+                <img src="/images/footer-wechat.png" />
+              </a>
+              <div class="click_top_info">
+                <img src="/images/weixin.png" />
+              </div>
+            </div>
+            <div class="footer-social-icon weibo1">
+              <a title="新浪微博" href="https://www.shfe.com.cn/weibo/sina/" target="_blank">
+                <img src="/images/footer-weibo.png" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-txt-box">
+    <div class="inc-footer-box flex-row">
+      <div class="left-link align-center">
+        <a target="_blank" href="/disclaimer/">版权声明</a>
+        <span class="footer-bor"></span>
+        <a target="_blank" href="/about/personalpolicy/">个人信息保护政策</a>
+        <span class="footer-bor"></span>
+        <a target="_blank" href="/sitemap/">网站地图</a>
+        <span class="footer-bor"></span>
+        <a target="_blank" href="/services/marketresearch/links/">友情链接</a>
+      </div>
+      <div class="right-desc align-center"> 
+        <p class="top_item_browser">本网站支持IPV6访问 上海期货交易所 版权所有 SHFE.COM.CN <div class="bottom_item_browser">建议使用谷歌浏览器、Microsoft Edge浏览器的最新版本</div>　
+           <a target="_blank" href="http://beian.miit.gov.cn" style="color:#ffffff99" >沪ICP备11031067号-1</a>
+        </p>
+        <span class="footer-bor"></span>
+       <p><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502008304" style="color:#ffffff99" >沪公网安备 31011502008304号</a></p>
+         <span class="footer-bor"></span>
+          <p style="line-height: 1.5;">
+             <a href="https://bszs.conac.cn/sitename?method=show&id=230151C803D27D32E06310291AAC87D8" target="_blank" >
+                 <img id="imgConac" vspace="0" hspace="0" border="0" src="/images/footer-icon-blue.png" />
+             </a>
+          </p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-guide">
+    <a class="guide-icon" target="_blank" href="/services/calenderandholidays/tradingcalendar/">
+      <img src="/images/guide-calendar.png" alt="" />
+    </a>
+    <a class="guide-icon" target="_blank" href="/about/introduce/contact/">
+      <img src="/images/guide-service.png" alt="" />
+    </a>
+    <div class="guide-icon" id="commonTop">
+      <img src="/images/guide-top.png" alt="" />
+    </div>
+  </div>
+</div>
+</div>
+<!--
+ * @Description: 
+ * @Author: zhou.xiaowei@trs.com.cn
+ * @Date: 2024-04-17 16:35:55
+-->
+
+<!-- mobile端底部 -->
+<div class="m_mobile_box">
+<div class="mobile_footer" style="height:3.42rem">
+  <div class="mobile_footer_top">
+    <div class="mobile_logo">
+      <div class="mobile_logo_left">
+        <div class="m_hot_info">
+          <div class="m_hot_logo_title">市场服务中心</div>
+          <div class="m_hot_logo_tel">4008666099</div>
+        </div>
+      </div>
+      <div class="mobile_logo_right">
+        <div class="m_attention_us">关注我们</div>
+        <div class="sqs_footer_middle_icon">
+          <div class="tc_QRBox" style="display: none">
+            <div class="tc_QR">
+              <img src="/images/weixin.png" />
+            </div>
+            <div class="tc_QRafter"></div>
+          </div>
+          <a href="javascript:;" id="wx_mobile">
+            <img src="/images/m_weixin.png" />
+          </a>
+          <a href="https://www.shfe.com.cn/weibo/sina/" target="_blank">
+            <img src="/images/m_weibo.png" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mobile_desc">
+      <div class="mobile_left">
+        <div class="m_left_desc">联系我们</div>
+        <div class="mobile_left_item" href="javascript:;">
+          <span class="m_footer_item_info">公共邮箱：</span>
+          <a href="mailto:msc@shfe.com.cn" >msc@shfe.com.cn</a>
+        </div>
+        <div class="mobile_left_item" href="javascript:;">
+          <span class="m_footer_item_info">办公地址：</span>
+          上海市浦东新区浦电路500号
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mobile_footer_bottom">
+    <div class="mobile_footer_bottom_link">
+
+<a class="link_dtail" href="/disclaimer/">版权声明</a>
+<span class="link_line_item">|</span>
+<a class="link_dtail" href="/sitemap/">网站地图</a>
+<span class="link_line_item">|</span>
+<a class="link_dtail" href="/services/marketresearch/links/">友情链接</a>
+
+    </div>
+    <div class="mobile_footer_bottom_address" >
+      <div class="m_footer_bottom_item">
+        <span class="copy_left">建议使用谷歌浏览器、火狐浏览器的最新版本</span>
+      </div>
+      <div class="m_footer_bottom_item">
+        <span class="copy_left">本网站支持IPV6访问</span>
+        <span class="copy_right">上海期货交易所 版权所有 SHFE.COM.CN</span>
+         <a href="https://bszs.conac.cn/sitename?method=show&id=230151C803D27D32E06310291AAC87D8" target="_blank" style=" margin-left: 0.15rem;">
+             <img id="imgConac" vspace="0" hspace="0" border="0" src="/images/footer-icon-blue.png" style=" width: 0.19rem;height: auto;" />
+         </a>
+      </div>
+      <div class="m_footer_bottom_item">
+        <a class="copy_left" href="http://beian.miit.gov.cn"
+          >沪ICP备11031067号-1</a
+        >
+        <span class="link_line_item" style="vertical-align: baseline;">|</span>
+        <a
+          class="copy_right"
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502008304"
+          >沪公网安备 31011502008304号
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+      <!-- END footer -->
+    </div>
+    <!-- START Public JS -->
+    <script src="/images/jquery.min.js"></script>
+<script type="text/javascript" src="/images/modernizr.custom.js"></script>
+<script type="text/javascript" src="/images/jquery.dlmenu.js"></script>
+<script type="text/javascript" src="/images/moment.min.js"></script>
+<script type="text/javascript" src="/images/select.js"></script>
+<script type="text/javascript" src="/images/side_menu.js"></script>
+<script type="text/javascript" src="/images/enum.js"></script>
+<script type="text/javascript" src="/images/api.js"></script>
+<script type="text/javascript" src="/images/print2.js"></script>
+<script type="text/javascript" src="/images/common_utils.js"></script>
+<script type="text/javascript" src="/images/jquery.share.min.js"></script>
+<script type="text/javascript" src="/images/Std_StranJF.js"></script>
+<script type="text/javascript" src="/images/global.js"></script>
+
+<script type="text/javascript" src="/images/hc-offcanvas-nav.js"></script>
+<script>
+    var Nav = new hcOffcanvasNav("#main-nav", {
+      width: '250',
+      position: "right",
+      levelSpacing: 44,
+      customToggle: ".toggle_menu",
+      levelTitles: true,
+      labelClose: "关闭",
+      labelBack: "返回",
+    });
+    Nav.on( 'open.level', ( e, settings ) => {
+      sessionStorage.setItem('NavLevel', e.data.currentLevel);
+      sessionStorage.setItem('NavIndex', e.data.currentIndex);
+    });
+    Nav.on( 'close.level', ( e, settings ) => {
+      sessionStorage.setItem('NavLevel', e.data.currentLevel);
+      sessionStorage.setItem('NavIndex', e.data.currentIndex);
+    });
+    Nav.on( 'toggle', ( e, settings ) => {
+      if( e.data.action == 'open' ) {
+        Nav.open(  sessionStorage.getItem('NavLevel'), sessionStorage.getItem('NavIndex') )
+      }
+    });
+</script>
+<!-- 导航 -->
+<script type="text/javascript" src="/images/sqs_nav.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8" src="/images/viewer.min.js" media="screen and ( max-device-width:750px )"></script>
+    <script type="text/javascript" charset="utf-8" src="/images/m_viewer.js" media="screen and ( max-device-width:750px )"></script>
+   
+
+    <!-- END Public JS -->
+    <!-- START Plugin JS -->
+    <script></script>
+    <!-- END Plugin JS -->
+<!-- Monitor Start -->
+<script type='text/javascript'>
+  $(function() {
+   
+  
+  $(document).ready(
+    function(){
+      var a_label_datas=$('.docx_title a');
+      let str = "/" +  "images/";
+      if(a_label_datas.length>0){
+        $.each(a_label_datas, function (i) {
+          if($('.docx_title a').eq(i).prop('href').endsWith("xlsx")|| $('.docx_title a').eq(i).prop('href').endsWith("xls")){
+            $('.docx_title a').eq(i).siblings().attr("src",  str + "excle.png");
+          }else if($('.docx_title a').eq(i).prop('href').endsWith("doc")|| $('.docx_title a').eq(i).prop('href').endsWith("docx")){
+            $('.docx_title a').eq(i).siblings().attr("src", str + "docx.png");
+          }else if($('.docx_title a').eq(i).prop('href').endsWith("pdf")){
+            $('.docx_title a').eq(i).siblings().attr("src", str +  "pdf.png");
+          }else if($('.docx_title a').eq(i).prop('href').endsWith("zip")){
+            $('.docx_title a').eq(i).siblings().attr("src", str +  "zip.png");
+          }else if($('.docx_title a').eq(i).prop('href').endsWith("jpg")|| $('.docx_title a').eq(i).prop('href').endsWith("png")){
+            $('.docx_title a').eq(i).siblings().attr("src", str +  "picture.png");
+          }else{
+            $('.docx_title a').eq(i).siblings().attr("src", str +  "common.png");
+          }
+        }
+      )}
+  })
+})
+
+  params.docId='829962';
+  params.doctitle='上海期货交易所螺纹钢期货业务细则';
+  params.channelId='2362';
+  params.channelName='品种细则';
+
+  </script>
+  <!-- Monitor End -->
+  </body>
+</html>

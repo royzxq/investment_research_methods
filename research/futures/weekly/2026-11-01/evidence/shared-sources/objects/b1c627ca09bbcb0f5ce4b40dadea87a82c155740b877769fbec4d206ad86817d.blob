@@ -1,0 +1,42 @@
+[
+  {
+    "id": "mysteel-m-offtake-mobile",
+    "url": "https://ncp.m.mysteel.com/a/26102318/5A7C6C3C7E761A99_abc.html",
+    "fetched_at": "2026-10-25T01:06:29.358416+08:00",
+    "status": "ok",
+    "sha256": "8cd46f131f6f30e72239ebc1d80f226e257e7375fc3aa0c117b6b9efd351076f",
+    "raw": "mysteel-m-offtake-mobile.html",
+    "text": "mysteel-m-offtake-mobile.txt",
+    "text_length": 1081
+  },
+  {
+    "id": "mysteel-m-turnover-mobile",
+    "url": "https://ncp.m.mysteel.com/a/26102318/1B484827812A6ABD_abc.html",
+    "fetched_at": "2026-10-25T01:06:29.358900+08:00",
+    "status": "ok",
+    "sha256": "0f0cd37f072c3723e441f053f4ea10bc952100ba5b444c05f735a2632b76e3c5",
+    "raw": "mysteel-m-turnover-mobile.html",
+    "text": "mysteel-m-turnover-mobile.txt",
+    "text_length": 1205
+  },
+  {
+    "id": "mysteel-m-daily-mobile",
+    "url": "https://ncp.m.mysteel.com/a/26102318/478489EEB299491B_abc.html",
+    "fetched_at": "2026-10-25T01:06:29.359115+08:00",
+    "status": "ok",
+    "sha256": "bf82787ac2e69ba440a935e40e0f72b22cbffa60bcb46184836b4b8ad94f7817",
+    "raw": "mysteel-m-daily-mobile.html",
+    "text": "mysteel-m-daily-mobile.txt",
+    "text_length": 1296
+  },
+  {
+    "id": "mysteel-m-crush-mobile",
+    "url": "https://ncp.m.mysteel.com/a/26102317/FB911826CE19A825_abc.html",
+    "fetched_at": "2026-10-25T01:06:29.359298+08:00",
+    "status": "ok",
+    "sha256": "dd298ebc89a902ec16ea63a2690271b3988cef480a8b52da01dad11445609735",
+    "raw": "mysteel-m-crush-mobile.html",
+    "text": "mysteel-m-crush-mobile.txt",
+    "text_length": 1063
+  }
+]

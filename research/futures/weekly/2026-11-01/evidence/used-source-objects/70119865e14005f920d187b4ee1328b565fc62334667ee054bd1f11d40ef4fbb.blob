@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+    <!--
+                       (0 0)
+   +=============oOO====(_)================+
+   |   Powered By wanhu - www.wanhu.com.cn |
+   |   Tel:400-888-0035  020-85575672      |
+   |   Creation:2015.06.27                 |
+   |   ezEip v4.1.0                        |
+   +==========================oOO==========+
+                      |__|__|
+                       || ||
+                      ooO Ooo
+-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="Author" content="万户网络">
+<meta content="万户网络 www.wanhu.com.cn" name="design">
+<title>徽商期货有限责任公司</title>
+<link rel="shortcut icon" href="/cn/res/images/favicon.ico" type="image/x-icon" />
+<script type="text/javascript" src="/cn/res/scripts/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/cn/res/scripts/whir.common.js"></script>
+
+<title>徽商期货有限责任公司</title>
+<meta name="keywords" content="徽商期货有限责任公司">
+<meta name="description" content="徽商期货有限责任公司">
+
+
+<!--网页常用效果 s-->
+<link rel="stylesheet" href="/cn/res/css/slick.css">
+<script src="/cn/res/scripts/slick.js"></script>
+
+<link rel="stylesheet" href="/cn/res/css/animate.css">
+<script src="/cn/res/scripts/wow.js"></script>
+
+<script src="/cn/res/scripts/jquery.SuperSlide.2.1.1.js"></script>
+
+<!--网页常用效果 end-->
+
+<link rel="stylesheet" type="text/css" href="/cn/res/css/css_whir.css"/>
+<script src="/cn/res/scripts/common.js"></script>
+
+<!--[if lt IE 9]>
+  <script type="text/javascript" src="/cn/res/scripts/html5shiv.v3.72.min.js"></script>
+  <script type="text/javascript" src="/cn/res/scripts/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+    document.write(decodeURI("%3Cscript src='https://www.hsqh.net/1/230/visit_log?url=")+encodeURIComponent(document.location.href)+decodeURI("&referrer=")+encodeURIComponent(document.referrer)+decodeURI("' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+
+<meta name="baidu-site-verification" content="codeva-n4EqeDqqkp" /><script type="text/javascript">
+
+        var navID = "4";
+
+    var menuID = "166";
+
+
+
+
+</script>
+</head>
+
+<body class="bg_white">
+<!--top-->
+<header class="Top">
+   <div class="Contain">
+      <div class="Logo fl">
+         <a href="/">
+            <img src="/cn/res/uploadfiles/image/logo.png" alt="" class="img1">
+            <img src="/cn/res/uploadfiles/image/logo_1.png" alt="" class="img2">
+         </a>
+      </div>
+      <div class="m-btn fr">
+         <span></span>
+      </div>
+      <div class="topCon fr">
+         <div class="topNav">
+	<u class="auxiliary fr" style="font-size:14px;margin:0 10px;cursor:pointer;">辅助工具</u> 
+            <div class="SearchBox fr ">
+               <div class="SearchIco"><img src="/cn/res/images/search.png" alt=""></div>
+               <div class="Search">
+                  <input type="text" id="textfield" placeholder="请输入搜索关键词" autocomplete="off">
+                  <button onclick="GoSearchUrl();"></button>
+               </div>
+            </div>
+            <ul class="fr">
+               <li class="tel">
+                  <img src="/cn/res/images/toptel.png" alt="">400-887-8707
+               </li>
+               <li>
+                  <div class="linav">
+                     <a href="https://oa.hsqh.net/seeyon/main.do?method=index" target="_blank">
+                        <div class="ico">
+                           <img src="https://www.hsqh.net/upload/cn/image/2022-09/col69/1663119239709.png" alt="" class="img1">
+                           <img src="https://www.hsqh.net/upload/cn/image/2022-09/col69/1663119245911.png" alt="" class="img2">
+                        </div>
+                        OA办公
+                     </a>
+                  </div>
+               </li>
+                  <li class="download-btn">
+                  <div class="linav">
+			  <a href="/col121/">
+                        <div class="ico">
+                           <img src="/cn/res/images/download.png" alt="" class="img1">
+                           <img src="/cn/res/images/download_1.png" alt="" class="img2">
+                        </div>
+                        软件下载
+                     </a>
+                  </div>
+                  <div class="download_menu">
+                     <div class="dlbox">
+                        <dl>
+                           <dt><div class="ico"><img src="/cn/res/images/ico1.png" alt=""></div>行情</dt>
+
+                           <dd class="hot">
+                                        <a href="https://ftpc.wenhua.com.cn/files/Mytrader_setup/mytrader_ahhuishang.exe" target="_blank" ><i></i>文华赢顺WH6</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/jiaoyi/徽商期货-博易大师7_7.0.17.16.exe" target="_blank" ><i></i>博易大师7</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/jiaoyi/徽商期货-博易云交易版_5.5.96.9.exe" target="_blank" ><i></i>博易云</a>
+								
+                        </dl>
+                        <dl>
+                           <dt><div class="ico"><img src="/cn/res/images/ico2.png" alt=""></div>交易</dt>
+
+                           <dd class="hot">
+                                        <a href="https://ftpc.wenhua.com.cn/files/Mytrader_setup/mytrader_ahhuishang.exe" target="_blank" ><i></i>文华赢顺WH6</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/jiaoyi/徽商期货-博易大师7_7.0.17.16.exe" target="_blank" ><i></i>博易大师7</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/jiaoyi/徽商期货-博易云交易版_5.5.96.9.exe" target="_blank" ><i></i>博易云</a>
+								
+
+                           <dd >
+                                        <a href="https://publish2.shinnytech.com/packs/Q72_standard_hsqh_4_2.93.405.1956.exe" target="_blank" ><i></i>徽商期货_快期V2</a>
+								
+
+                           <dd >
+                                        <a href="https://publish2.shinnytech.com/packs/Q73N_standard_hsqh_3_3.9.2603.2.exe" target="_blank" ><i></i>徽商期货_快期V3</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/jiaoyi/徽商期货_易盛8.5客户端.exe" target="_blank" ><i></i>徽商期货_易盛8.5</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/jiaoyi/HuiShangQiHuo_9.5.exe" target="_blank" ><i></i>徽商期货_易盛9.5</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/jiaoyi/徽商期货-MT股票期权客户端.exe" target="_blank" ><i></i>徽商期货_MT股票期权客户端</a>
+								
+                        </dl>
+                        <dl>
+                           <dt><div class="ico"><img src="/cn/res/images/ico3.png" alt=""></div>仿真</dt>
+
+                           <dd class="hot">
+                                        <a href="https://down.hsqh.net/softdown/fangzhen/Q72_standard_hsqh_15_2.93.405.2010.rar" target="_blank" ><i></i>快期仿真客户端</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/fangzhen/徽商掌上财富仿真.apk" target="_blank" ><i></i>掌上财富仿真版</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/fangzhen/徽商期货-博易云交易版仿真_5.5.96.9.exe" target="_blank" ><i></i>博易云仿真版</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/fangzhen/MT专业版-徽商期货-期权仿真.exe" target="_blank" ><i></i>MT股票期权仿真客户端</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/fangzhen/徽商期货无限易仿真.exe" target="_blank" ><i></i>徽商期货股票期权无限易（仿真版）</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/fangzhen/mytrader_whmn_6.8.559.exe" target="_blank" ><i></i>赢顺WH6模拟版</a>
+								
+                        </dl>
+                        <dl>
+                           <dt><div class="ico"><img src="/cn/res/images/ico4.png" alt=""></div>增值</dt>
+
+                           <dd class="hot">
+                                        <a href="https://down.hsqh.net/softdown/zengzhi/徽商期货_博易五档.exe" target="_blank" ><i></i>徽商期货_博易五档</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/zengzhi/徽商期货无限易.exe" target="_blank" ><i></i>徽商期货_无限易（标准版）</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/zengzhi/徽商期货无限易（程序化）.exe" target="_blank" ><i></i>徽商期货_无限易（程序化版_需申请开通程序化权限）</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/zengzhi/徽商期货无限易(股票期权).exe" target="_blank" ><i></i>徽商期货股票期权无限易（标准版）</a>
+								
+
+                           <dd >
+                                        <a href="https://doc.shinnytech.com/tqsdk/latest/quickstart.html" target="_blank" ><i></i>天勤量化TqSdk</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/zengzhi/徽商期货_交易开拓者TB.zip" target="_blank" ><i></i>徽商期货_交易开拓者TB</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/zengzhi/徽商期货_金字塔.exe" target="_blank" ><i></i>徽商期货_金字塔</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/zengzhi/MCCN.64.Install.zip" target="_blank" ><i></i>徽商期货_MCv9</a>
+								
+                        </dl>
+                        <dl>
+                           <dt><div class="ico"><img src="/cn/res/images/ico5.png" alt=""></div>手机</dt>
+
+                           <dd class="hot">
+                                        <a href="https://multiapp.hsqh.net:4443/pages/h5Page/downLoadApp" target="_blank" ><i></i>徽商期货</a>
+								
+
+                           <dd >
+                                        <a href="https://down.hsqh.net/softdown/shouji/徽商掌上财富.apk" target="_blank" ><i></i>徽商掌上财富</a>
+								
+                        </dl>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="wskh">
+                  <div class="linav">
+                     <a href="https://mma.hsqh.net/openAccountWeb">
+                        <div class="ico">
+                           <img src="/cn/res/images/kh.png" alt="" class="img1">
+                           <img src="/cn/res/images/kh_1.png" alt="" class="img2">
+                        </div>
+                        网上开户
+                     </a>
+                  </div>
+               </li>
+               <li class="wskh">
+                  <div class="linav">
+                     <a href="https://hyzx.hsqh.net:5443/Login">
+                        <div class="ico">
+                           <img src="/upload/cn/image/2024-05/col70/1715332375797.png" alt="" class="img1">
+                           <img src="/upload/cn/image/2024-05/col70/1715332411603.png" alt="" class="img2">
+                        </div>
+                        徽商智汇
+                     </a>
+                  </div>
+               </li>               
+               <!--
+               <li>
+                  <div class="linav">
+                     <div class="ico">
+                        <img src="/cn/res/images/lan.png" alt="" class="img1">
+                        <img src="/cn/res/images/lan_1.png" alt="" class="img2">
+                     </div>
+                     <a href="/" target="_blank">中文</a>  / <a href="http://en.hsqh.net/" target="_blank">EN</a>
+                  </div>
+               </li>
+               -->
+            </ul>
+            <div class="clear"></div>
+         </div>
+         <nav class="MainNav">
+            <ul>
+               <li id="nav1">
+                  <em><a class="navA" href="/" target="_blank"><span>首页</span></a></em>
+               </li>
+
+
+
+               <li id="nav3">
+                  <em><a class="navA"
+                     href="/col17/" target="_blank"
+                  >
+                  <span>走进徽商</span></a><i></i></em>
+                  <div class="NavPull">
+                     <div class="Contain">
+                        <div class="navtit fl">
+                           走进徽商
+                        </div>
+                        <div class="navCon fr">
+                           <div class="NavPullBox">
+                              <dl>
+                                 <dt><a href="/col17/index" target="_blank">关于我们</a></dt>
+
+                                 <dd><a href="/col17/index" target="_blank">公司简介</a></dd>
+                                 <dd><a href="/col18/index" target="_blank">组织机构</a></dd>
+                                 <dd><a href="/col48/index" target="_blank">荣誉资质</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col49/list" target="_blank">媒体中心</a></dt>
+
+                                 <dd><a href="/col49/list" target="_blank">公司公告</a></dd>
+                                 <dd><a href="/col50/list" target="_blank">公司新闻</a></dd>
+                                 <dd><a href="/col52/list" target="_blank">员工风采</a></dd>
+                                 <dd><a href="/col53/list" target="_blank">采购公告</a></dd>
+                                 <dd><a href="/col54/list" target="_blank">专题栏目</a></dd>
+                                 <dd><a href="/col267/list" target="_blank">媒体关注</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col56/index" target="_blank">信息公示</a></dt>
+
+                                 <dd><a href="/col56/index" target="_blank">基本情况</a></dd>
+                                 <dd><a href="/col57/index" target="_blank">历史情况</a></dd>
+                                 <dd><a href="/col58/index" target="_blank">股东信息</a></dd>
+                                 <dd><a href="/col59/index" target="_blank">高管信息</a></dd>
+                                 <dd><a href="/col60/index" target="_blank">分支机构及公司情况</a></dd>
+                                 <dd><a href="/col61/index" target="_blank">从业人员信息</a></dd>
+                                 <dd><a href="/col62/index" target="_blank">财务信息</a></dd>
+                                 <dd><a href="/col63/index" target="_blank">诚信记录信息</a></dd>
+                                 <dd><a href="/col68/index" target="_blank">业务流程</a></dd>
+                                 <dd><a href="/col64/index" target="_blank">风险管理子公司</a></dd>
+                                 <dd><a href="/col65/index" target="_blank">居间人信息</a></dd>
+                                 <dd><a href="/col66/index" target="_blank">经济信息</a></dd>
+                                 <dd><a href="/col270/index" target="_blank">互联网营销信息公示</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col100/list" target="_blank">信息公开</a></dt>
+
+                                 <dd><a href="/col100/list" target="_blank">经济信息</a></dd>
+                                 <dd><a href="/col93/list" target="_blank">“三重一大”事项</a></dd>
+                                 <dd><a href="/col94/list" target="_blank">社会责任履行</a></dd>
+                                 <dd><a href="/col95/list" target="_blank">整改落实情况</a></dd>
+                                 <dd><a href="/col97/list" target="_blank">有关部门其他事项</a></dd>
+                                 <dd><a href="/col168/list" target="_blank">直属(控股)公司信息公开</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col98/index" target="_blank">加入我们</a></dt>
+
+                                 <dd><a href="/col98/index" target="_blank">人才招聘</a></dd>
+                              </dl>
+                              <div class="clear"></div>
+                           </div>
+                           <div class="NavImg">
+                              <div class="img imgbox">
+                                 <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col10/1663121193384.jpg)"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+
+
+
+               <li id="nav4">
+                  <em><a class="navA"
+                     href="/col115/index" target="_blank"
+                  >
+                  <span>客户服务</span></a><i></i></em>
+                  <div class="NavPull">
+                     <div class="Contain">
+                        <div class="navtit fl">
+                           客户服务
+                        </div>
+                        <div class="navCon fr">
+                           <div class="NavPullBox">
+                              <dl>
+                                 <dt><a href="https://mma.hsqh.net/openAccountWeb" target="_blank">开户办理</a></dt>
+
+                                 <dd><a href="https://mma.hsqh.net/openAccountWeb" target="_blank">经纪业务开户</a></dd>
+                                 <dd><a href="http://47.98.83.136:7011/etrading/account/register/frame#/etrading/account/ajax/antimoneyGetbankinfo?sign_biztype=OPENACCO&SECURE_TOKEN=G3IgrwtsMvnBdNskBBMQjURJTIc8YXInXwCiFEp5jU@main@SJL" target="_blank">基金业务开户</a></dd>
+                                 <dd><a href="/col113/index" target="_blank">交易咨询开户</a></dd>
+                                 <dd><a href="/col114/index" target="_blank">股票期权开户</a></dd>
+                                 <dd><a href="/col115/index" target="_blank">预约开户</a></dd>
+                                 <dd><a href="/col116/index" target="_blank">仿真开户</a></dd>
+                                 <dd><a href="/col117/index" target="_blank">开户指南</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="https://investorservice.cfmmc.com/" target="_blank">账户业务</a></dt>
+
+                                 <dd><a href="https://investorservice.cfmmc.com/" target="_blank">账单查询</a></dd>
+                                 <dd><a href="/col24/index" target="_blank">保证金账户</a></dd>
+                                 <dd><a href="/col119/index" target="_blank">银期转账</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col121/index" target="_blank">软件及其他服务</a></dt>
+
+                                 <dd><a href="/col121/index" target="_blank">软件下载</a></dd>
+                                 <dd><a href="/col27/index" target="_blank">期货工具箱</a></dd>
+                                 <dd><a href="/col126/index" target="_blank">表单下载</a></dd>
+                                 <dd><a href="/col134/index" target="_blank">投诉建议</a></dd>
+                                 <dd><a href="/col135/index" target="_blank">常见问题</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col237/list" target="_blank">交易服务</a></dt>
+
+                                 <dd><a href="/col237/list" target="_blank">交易所通知</a></dd>
+                                 <dd><a href="/jyrl/index" target="_blank">交易日历</a></dd>
+                                 <dd><a href="/col155/list" target="_blank">交易提示</a></dd>
+                                 <dd><a href="/col170/index" target="_blank">保证金比例</a></dd>
+                                 <dd><a href="/col179/list" target="_blank">手续费标准</a></dd>
+                                 <dd><a href="/col238/list" target="_blank">申报费标准</a></dd>
+                                 <dd><a href="/col230/list" target="_blank">交割知识</a></dd>
+                                 <dd><a href="/col180/list" target="_blank">交割提示</a></dd>
+                                 <dd><a href="/col181/list" target="_blank">组合保证金</a></dd>
+                                 <dd><a href="/col234/list" target="_blank">股票期权手续费标准</a></dd>
+                                 <dd><a href="/col236/list" target="_blank">股票期权保证金比例</a></dd>
+                              </dl>
+                              <div class="clear"></div>
+                           </div>
+                           <div class="NavImg">
+                              <div class="img imgbox">
+                                 <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col10/1663121193384.jpg)"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+
+
+
+               <li id="nav5">
+                  <em><a class="navA"
+                     href="/col72/list" target="_blank"
+                  >
+                  <span>研究资讯</span></a><i></i></em>
+                  <div class="NavPull">
+                     <div class="Contain">
+                        <div class="navtit fl">
+                           研究资讯
+                        </div>
+                        <div class="navCon fr">
+                           <div class="NavPullBox">
+                              <dl>
+                                 <dt><a href="/col72/list" target="_blank">徽商头条</a></dt>
+
+                                 <dd><a href="/col72/list" target="_blank">徽商头条</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="https://hyzx.hsqh.net:5443/Staging" target="_blank">徽商智汇</a></dt>
+
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col87/list" target="_blank">研究团队</a></dt>
+
+                                 <dd><a href="/col87/list" target="_blank">研究所介绍</a></dd>
+                                 <dd><a href="/col88/list" target="_blank">团队介绍</a></dd>
+                              </dl>
+                              <div class="clear"></div>
+                           </div>
+                           <div class="NavImg">
+                              <div class="img imgbox">
+                                 <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col10/1663121193384.jpg)"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+
+
+
+               <li id="nav6">
+                  <em><a class="navA"
+                     href="https://www.hsqh.net/col127/list" target="_blank"
+                  >
+                  <span>业务板块</span></a><i></i></em>
+                  <div class="NavPull">
+                     <div class="Contain">
+                        <div class="navtit fl">
+                           业务板块
+                        </div>
+                        <div class="navCon fr">
+                           <div class="NavPullBox">
+                              <dl>
+                                 <dt><a href="http://47.98.83.136:7011/etrading" target="_blank">基金理财</a></dt>
+
+                                 <dd><a href="https://www.hsqh.net/jjcs/" target="_blank">基金公告</a></dd>
+                                 <dd><a href="http://47.98.83.136:7011/etrading" target="_blank">基金登录</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col127/list" target="_blank">资产管理</a></dt>
+
+                                 <dd><a href="/col127/list" target="_blank">产品公告</a></dd>
+                                 <dd><a href="/col128/list" target="_blank">募集账户</a></dd>
+                                 <dd><a href="/col129/list" target="_blank">资产管理信息公示</a></dd>
+                                 <dd><a href="/col269/list" target="_blank">资管投资者教育</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col130/list" target="_blank">交易咨询</a></dt>
+
+                                 <dd><a href="/col130/list" target="_blank">业务介绍</a></dd>
+                                 <dd><a href="/col171/list" target="_blank">产品中心</a></dd>
+                                 <dd><a href="/col175/list" target="_blank">信息公示</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col133/index" target="_blank">风险管理</a></dt>
+
+                                 <dd><a href="/col133/index" target="_blank">业务介绍</a></dd>
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col186/list" target="_blank">股票期权</a></dt>
+
+                                 <dd><a href="/col186/list" target="_blank">业务介绍</a></dd>
+                              </dl>
+                              <div class="clear"></div>
+                           </div>
+                           <div class="NavImg">
+                              <div class="img imgbox">
+                                 <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col10/1663121193384.jpg)"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+
+
+
+               <li id="nav7">
+                  <em><a class="navA"
+                     href="/col38/" target="_blank"
+                  >
+                  <span>营业网点</span></a><i></i></em>
+                  <div class="NavPull">
+                     <div class="Contain">
+                        <div class="navtit fl">
+                           营业网点
+                        </div>
+                        <div class="navCon fr">
+                           <div class="NavPullBox">
+                              <dl>
+                                 <dt><a href="/col38/index" target="_blank">营业部</a></dt>
+
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col39/index" target="_blank">分公司</a></dt>
+
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col40/index" target="_blank">子公司</a></dt>
+
+                              </dl>
+                              <div class="clear"></div>
+                           </div>
+                           <div class="NavImg">
+                              <div class="img imgbox">
+                                 <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col10/1663121193384.jpg)"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+
+
+
+               <li id="nav8">
+                  <em><a class="navA"
+                     href="https://www.hsqh.net/tjjd/" target="_blank"
+                                       >
+                  <span>投资者教育</span></a><i></i></em>
+                  <div class="NavPull">
+                     <div class="Contain">
+                        <div class="navtit fl">
+                           投资者教育
+                        </div>
+                        <div class="navCon fr">
+                           <div class="NavPullBox">
+                              <div class="clear"></div>
+                           </div>
+                           <div class="NavImg">
+                              <div class="img imgbox">
+                                 <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col10/1663121193384.jpg)"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+
+
+
+               <li id="nav9">
+                  <em><a class="navA"
+                     href="/col45/list" target="_blank"
+                  >
+                  <span> 党建专栏</span></a><i></i></em>
+                  <div class="NavPull">
+                     <div class="Contain">
+                        <div class="navtit fl">
+                           党建专栏
+                        </div>
+                        <div class="navCon fr">
+                           <div class="NavPullBox">
+                              <dl>
+                                 <dt><a href="/col45/list" target="_blank">党建工作</a></dt>
+
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col46/list" target="_blank">群团工作</a></dt>
+
+                              </dl>
+                              <dl>
+                                 <dt><a href="/col47/list" target="_blank">消费扶贫</a></dt>
+
+                              </dl>
+                              <div class="clear"></div>
+                           </div>
+                           <div class="NavImg">
+                              <div class="img imgbox">
+                                 <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col10/1663121193384.jpg)"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+               </li>
+
+
+
+
+               <div class="clear"></div>
+            </ul>
+         </nav>
+      </div>
+      <div class="clear"></div>
+   </div>
+
+</header>
+<script type="text/javascript">
+   //导航选中
+    $("#nav" + navID).addClass("on");
+
+   function GoSearchUrl() {
+      var searchinput = document.getElementById("textfield");
+      if (searchinput.value == "" || searchinput.value == "输入关键词...") {
+         alert("请填写需要搜索的内容！");
+         searchinput.focus();
+         return false;
+      }
+      if (searchinput.value.length > 50) {
+         alert("输入的关键词字数不要过多！");
+         searchinput.focus();
+         return false;
+      }
+      // var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）—|{}【】‘；：”“'。，、？]");
+      // if(pattern.test(searchinput.value))
+      // {
+      //    alert("您输入的内容存在特殊字符!");
+      //    searchinput.focus();
+      //    return false;
+      // }
+      window.location = "/cn/search?page=1&keyword=" + encodeURI(encodeURI(searchinput.value));
+      return true;
+   }
+
+$(".auxiliary").on("click",function(){
+                if(parent.window.fn && parent.window.fn.openAuxiliary){
+                        parent.window.fn.openAuxiliary()
+                }else{
+                        window.location = "/col183?src="+window.location.href
+                };
+        })
+
+</script>
+<!--top End-->
+
+
+<div class="subBan">
+    <div class="img imgbox">
+        <span style="background-image:url(https://www.hsqh.net/upload/cn/image/2022-09/col89/1663310398591.jpg)"></span>
+    </div>
+    <div class="txt">
+        <div class="txt_en">service</div>
+        <div class="txt_cn">专业服务</div>
+    </div>
+</div>
+
+
+
+<div class="Localtion">
+    <div class="Contain">
+        <div class="LocaltionBox">
+            <img src="/cn/res/images/location.png" alt="">当前位置：
+            <a href="/col115/index">客户服务</a>/<a href="/col237/list">交易服务</a>/<span>交割知识<span>
+        </div>
+    </div>
+</div>
+
+<div class="Main">
+    <div class="Contain">
+<div class="subMenu fl">
+    <div class="tit">
+                客户服务 <span></span>
+
+    </div>
+    <ul>
+        <li  id="menu19" >
+            <em><a href="https://mma.hsqh.net/openAccountWeb">开户办理</a><i></i></em>
+            <dl>
+
+
+
+
+                <dd >
+                <a href="https://mma.hsqh.net/openAccountWeb"
+
+                target="_blank"
+
+                >经纪业务开户</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="http://47.98.83.136:7011/etrading/account/register/frame#/etrading/account/ajax/antimoneyGetbankinfo?sign_biztype=OPENACCO&SECURE_TOKEN=G3IgrwtsMvnBdNskBBMQjURJTIc8YXInXwCiFEp5jU@main@SJL"
+
+                target="_blank"
+
+                >基金业务开户</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col113/index"
+
+
+                >交易咨询开户</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col114/index"
+
+
+                >股票期权开户</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col115/index"
+
+
+                >预约开户</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col116/index"
+
+
+                >仿真开户</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col117/index"
+
+
+                >开户指南</a>
+
+                </dd>
+
+
+            </dl>
+        </li>
+        <li  id="menu22" >
+            <em><a href="https://investorservice.cfmmc.com/">账户业务</a><i></i></em>
+            <dl>
+
+
+
+
+                <dd >
+                <a href="https://investorservice.cfmmc.com/"
+
+                target="_blank"
+
+                >账单查询</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col24/index"
+
+
+                >保证金账户</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col119/index"
+
+
+                >银期转账</a>
+
+                </dd>
+
+
+            </dl>
+        </li>
+        <li  id="menu25" >
+            <em><a href="/col121/index">软件及其他服务</a><i></i></em>
+            <dl>
+
+
+
+
+                <dd >
+                <a href="/col121/index"
+
+
+                >软件下载</a>
+
+                <b></b>
+                <div class="FourNav">
+
+                        <a href="/col121/index">
+                     行情</a>
+
+                        <a href="/col122/index">
+                     交易</a>
+
+                        <a href="/col123/index">
+                     仿真</a>
+
+                        <a href="/col124/index">
+                     增值</a>
+
+                        <a href="/col125/index">
+                     手机</a>
+                </div>
+                </dd>
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col27/index"
+
+
+                >期货工具箱</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col126/index"
+
+
+                >表单下载</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col134/index"
+
+
+                >投诉建议</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col135/index"
+
+
+                >常见问题</a>
+
+                </dd>
+
+
+            </dl>
+        </li>
+        <li  id="menu166" >
+            <em><a href="/col237/list">交易服务</a><i></i></em>
+            <dl>
+
+
+
+
+                <dd >
+                <a href="/col237/list"
+
+
+                >交易所通知</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/jyrl/index"
+
+
+                >交易日历</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col155/list"
+
+
+                >交易提示</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col170/index"
+
+
+                >保证金比例</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col179/list"
+
+
+                >手续费标准</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col238/list"
+
+
+                >申报费标准</a>
+
+                </dd>
+
+
+
+
+                <dd class="on">
+                <a href="/col230/list"
+
+
+                >交割知识</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col180/list"
+
+
+                >交割提示</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col181/list"
+
+
+                >组合保证金</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col234/list"
+
+
+                >股票期权手续费标准</a>
+
+                </dd>
+
+
+
+
+                <dd >
+                <a href="/col236/list"
+
+
+                >股票期权保证金比例</a>
+
+                </dd>
+
+
+            </dl>
+        </li>
+    </ul>
+</div>
+
+
+<script type="text/javascript">
+    //导航选中
+    $("#menu" + menuID).addClass("on");
+
+</script>
+
+
+        <div class="MainContent fr">
+            <div class="NewsInfo">
+                <div class="NewsTit">
+                    <h1>各品种仓单有效期、仓储费一览表</h1>
+                    <div class="date">
+                        <span><img src="/cn/res/images/time.png" alt="">发布时间：2025-11-27</span>
+                        <span><img src="/cn/res/images/eye.png" alt="">浏览次数：<span class="wtl_hit" id="9ebeeb1b-4574-47b3-815c-fc7229208c24"></span>
+<script>
+ $.ajax({
+            type : "POST",
+            url : "https://www.hsqh.net/ajax/hit",
+            data : {siteId:1,subId:0,columnId:230,infoId:4842,prevUid:''},
+            dataType : "json",
+            success : function(res) {
+            if(res.code==200)
+{
+$("#9ebeeb1b-4574-47b3-815c-fc7229208c24").html(res.info);
+} 
+            },
+            error : function(e){
+                console.log(e.responseText);
+            }
+        });
+</script>
+</span>
+                        <span><img src="/cn/res/images/time.png" alt="">作者：</span>
+                    </div>
+                </div>
+                <div class="InfoCon">
+                    <p><span style="text-wrap-mode: wrap;"></span></p><p></p><p></p><p><span style="text-wrap-mode: wrap;"></span></p><p></p><p></p><table width="724"><tbody><tr style="height:80px" class="firstRow"><td width="724" valign="center" colspan="3" style="padding: 5px 10px; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:24px">大连商品交易所</span></strong></p></td></tr><tr style="height:27px"><td width="68" valign="center" rowspan="2" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">品种</span></strong></p></td><td width="168" valign="center" rowspan="2" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓储费</span></strong></p></td><td width="487" valign="center" rowspan="2" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><strong><span style="font-family:宋体;font-size:16px">仓单有效期</span></strong></p></td></tr><tr style="height:21px"></tr><tr style="height:99px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">黄大豆</span>1号</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">5月1日—10月31日：</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px">0.5元/吨</span><span style="font-family:宋体;font-size:16px">*</span><span style="font-family:宋体;font-size:16px">天；</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px">11月1日—4月30日：</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px">0.4元/吨天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:87px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">黄大豆</span>2号</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨</span><span style="font-family:宋体;font-size:16px">*</span><span style="font-family:宋体;font-size:16px">天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每个交割月份最后交割日后</span>3个交易日内应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">豆粕</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3、7、11月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">豆油</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.9元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3、7、11月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">棕榈油</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.9元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每个交割月份最后交割日后</span>3个交易日内应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">玉米</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">5月1日—10月31日：</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px">0.6元/吨<span style="font-family: 宋体; text-align: center;">*</span>天；</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px">11月1日—4月30日：</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px">0.5元/吨<span style="font-family: 宋体; text-align: center;">*</span>天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:54px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">聚乙烯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:47px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">聚氯乙烯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:65px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">聚丙烯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:58px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">玉米淀粉</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.8元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3、7、11月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:63px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">乙二醇</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.5元/吨*</span><span style="font-family:宋体;font-size:16px">天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3月份最后1个交易日之前（含最后1个交易日）应当进行标准仓单注销</span></p></td></tr><tr style="height:53px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">焦炭</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:55px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">焦煤</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每个交割月份最后交割日后</span>3个交易日内应当进行标准仓单注销</span></p></td></tr><tr style="height:53px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">铁矿石</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.3元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3、9月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:57px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">纤维板</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/立方米*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3、9月份最后1个交易日之前应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">胶合板</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.035元/张*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">胶合板标准仓单参与交割配对的，相应标准仓单在交收日闭市后且当日内、交易所将卖方交割的标准仓单过户给对应的配对买方后立即注销，但因交割违约或者不符合交割配对条件等原因未完成过户的除外，未参与交割配对的，相应标准仓单在每个交割月份最后</span><span style="font-family:宋体">1个交易日之前应当进行标准仓单注销。</span></span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">鸡蛋</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">6元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">交割配对成功的，相应标准仓单在交收日闭市后且当日内、交易所将卖方交割的标准仓单过户给对应的配对买方后立即注销。未参与滚动交割或者申报交割但不符合交割配对条件的，相应标准仓单应当在仓单注册日后第</span><span style="font-family:宋体">1个交易日闭市后且当日内予以注销。</span></span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px">在最后交易日前一交易日闭市后注册的标准仓单，卖方可以使用其参与一次性交割，所有标准仓单在最后交割日闭市后且当日内予以注销。</span></p></td></tr><tr style="height:48px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">粳米</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">每个交割月份最后交割日前（含当日）应当进行标准仓单注销</span></p></td></tr><tr style="height:45px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">苯乙烯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.6元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">每个交割月份最后交割日前（含当日）应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">液化石油气</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年的</span>3、9月份最后1个交易日之前（含当日）应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">生猪</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">参与交割配对的，相应标准仓单在交收日闭市后且当日内、交易所将卖方交割的标准仓单过户给对应的配对买方后立即注销，但因生猪疫情原因未完成过户的除外</span><span style="font-family:宋体;font-size:16px">；</span><span style="font-family:宋体;font-size:16px">未参与交割配对的，相应标准仓单在每个交割月份最后交割日前（含当日）应当进行标准仓单注销</span><span style="font-family:宋体;font-size:16px">。</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">原木</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.6元/立方米*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">原木标准仓单参与交割配对的，相应标准仓单在交收日闭市后且当日内、交易所将卖方交割的标准仓单过户给对应的配对买方后立即注销</span><span style="font-family:宋体;font-size:16px">；</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">未参与交割配对的，相应标准仓单在每年的</span>3、7、11月份最后交割日前（含当日）应当进行标准仓单注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style="text-align:center"><span style="font-family:宋体;font-size:16px">纯苯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style="text-align:center"><span style="font-family:宋体;font-size:16px">2</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">元</span>/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">纯苯标准仓单在每个交割月份最后交割日前（含当日）应当进行标准仓单注销。</span></p></td></tr><tr style="height:80px"><td width="724" valign="center" colspan="3" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:24px">郑州商品交易所</span></strong></p></td></tr><tr style="height:27px"><td width="68" valign="center" rowspan="2" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">品种</span></strong></p></td><td width="168" valign="center" rowspan="2" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓储费</span></strong></p></td><td width="487" valign="center" rowspan="2" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓单有效期</span></strong></p></td></tr><tr style="height:27px"></tr><tr style="height:57px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">强麦</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">车板交割，无仓单交割</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">棉花</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:12px">新疆地区</span><span style="font-family:宋体;font-size:12px">：</span><span style="font-family:宋体;font-size:12px">0.60元/吨*天</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:12px">非新疆地区</span><span style="font-family:宋体;font-size:12px">：</span><span style="font-family:宋体;font-size:12px">0.80元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">N年生产的棉花注册的标准仓单，有效期至N+1年11月份的第15个交易日（含该日）</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">普麦</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.4</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">元</span>/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">普麦期货标准仓单有效期为每年</span><span style="font-family:宋体">9月的最后一个工作日</span></span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">白糖</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">N制糖年度（是指每年10月1日至次年9月30日）生产的白糖所注册的标准仓单，有效期为该制糖年度（是指每年10月1日至次年9月30日）结束后当年11月份的最后一个工作日（含该日）</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">PTA</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.50元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>9月第15个交易日之前（含该日）注册的PTA期货标准仓单，应当在当年9月第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">菜籽</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">N年6月1日起接受菜籽期货标准仓单注册申请，标准仓单有效期至N年11月最后一个工作日（含该日）</span></p><p><span style="font-family:宋体;font-size:16px"><br/></span></p><p><span style="font-family:宋体;font-size:16px"></span></p><p><span style=";font-family:宋体;font-size:16px"><span style="font-family:宋体">（</span><span style="font-family:宋体">2701合约之后）每年3月、9月第15个交易日之前（含该日）注册的菜籽期货标准仓单，应当在当年3月、9月第15个交易日之前（含该日）全部注销</span></span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">菜油</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.90元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">N年6月1日起注册的菜油期货标准仓单，有效期至N+1年5月最后一个工作日（含该日）</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">菜粕</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>3月、7月、11月第15个交易日之前（含该日）注册的菜粕期货标准仓单，应当在当年3月、7月、11月第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">早籼稻</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.50元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">N年8月1日起注册的早籼稻期货标准仓单，有效期至N+1年</span><span style="font-family:宋体;font-size:16px">7</span><span style="font-family:宋体;font-size:16px">月份最后一个工作日（含该日）</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">晚籼稻</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:11px"><span style="font-family:宋体">每年</span>10月1日-下一年度4月30日</span><span style="font-family:宋体;font-size:11px">：</span><span style="font-family:宋体;font-size:11px">0.5元/吨*天(含保险费等);</span><span style="font-family:宋体;font-size:11px"><br/></span><span style="font-family:宋体;font-size:11px"><span style="font-family:宋体">每年</span>5月1日-9月30日：</span><span style="font-family:宋体;font-size:11px"><br/></span><span style="font-family:宋体;font-size:11px">0.55元/吨*天(含保险费等)</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">N年10月1日起注册的晚籼稻期货标准仓单，有效期至N+1年9月份的最后一个工作日（含该日）</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">粳稻</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:11px"><span style="font-family:宋体">每年</span>10月1日-下一年度4月30日0.5元/吨*天(含保险费等);</span><span style="font-family:宋体;font-size:11px"><br/></span><span style="font-family:宋体;font-size:11px"><span style="font-family:宋体">每年</span>5月1日-9月30日：</span><span style="font-family:宋体;font-size:11px"><br/></span><span style="font-family:宋体;font-size:11px">0.55元/吨*天(含保险费等)</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">N年10月1日起注册的粳稻期货标准仓单，有效期至N+1年9月份的最后一个工作日（含该日）</span></p></td></tr><tr style="height:6px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">甲醇</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">2元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>5月、11月第15个交易日之前（含该日）注册的甲醇完税标准仓单，应当在当年5月、11月第15个交易日之前（含该日）全部注销</span><span style="font-family:宋体;font-size:16px">；</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">保税标准仓单的有效期在完税标准仓单有效期的基础上顺延</span>5个交易日</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">硅铁</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.45元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>2月、6月、10月第15个交易日之前（含该日）注册的硅铁期货标准仓单，应当在当年2月、6月、10月第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">锰硅</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.45元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>10月第15个交易日之前（含该日）注册的锰硅期货标准仓单，应当在当年10月第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:6px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">棉纱</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">2.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span><span style="font-family:宋体">1月、5月、9月第15个交易日之前（含该日）注册的棉纱期货标准仓单，应当在当年1月、5月、9月第15个交易日之前（含该日）全部注销</span></span></p></td></tr><tr style="height:179px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">苹果</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>3月第15个交易日之前（含该日）注册的苹果仓库标准仓单，应当在当年3月的第15个交易日之前（含该日）全部注销；每年3月第16个交易日（含该日）至9月最后一个交易日（含该日）不受理苹果仓库标准仓单注册申请</span><span style="font-family:宋体;font-size:16px">；</span></p><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>1月、5月第15个交易日之前（含该日）注册的苹果厂库标准仓单，应当在当年1月、5月的第15个交易日之前（含该日）全部注销；每年5月第16个交易日（含该日）至9月最后一个交易日（含该日）不受理苹果厂库标准仓单注册申请</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">玻璃</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.2元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>1月、3月、5月、7月、9月、11月第15个交易日之前（含该日）注册的玻璃期货标准仓单，应当在当年1月、3月、5月、7月、9月、11月的第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">动力煤</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.05元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>5月、11月第10个交易日之前（含该日）注册的动力煤期货标准仓单，应当在当年5月、11月的第10个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">红枣</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">新疆：</span>3元/吨*天</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">内地：</span>2.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">仓库标准仓单应当在</span>N+1年9月的最后一个交易日之前（含该日）全部注销</span><span style="font-family:宋体;font-size:16px">；</span><span style="font-family:宋体;font-size:16px">N+1年3月、9月最后一个交易日之前（含该日）注册的厂库标准仓单，应在当月的最后一个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">花生</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:14px"><span style="font-family:宋体">厂库</span>0.6元/吨·天；</span><span style="font-family:宋体;font-size:14px"><br/></span><span style="font-family:宋体;font-size:14px">车船板临时存储费</span><span style="font-family:宋体;font-size:14px">：</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:14px">0.6元/吨·天(常温库)</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:14px">1.5元/吨·天(恒温库)</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>1月、5月第15个交易日之前（含该日）注册的花生期货标准仓单，应当在当年1月、5月第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">尿素</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.4元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>2月、6月、10月第15个交易日之前（含该日）注册的尿素期货标准仓单，应在当年2月、6月、10月第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">对二甲苯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">3元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>1月、3月、5月、7月、9月和11月第15个交易日之前（含该日）注册的对二甲苯期货标准仓单，应当在当年1月、3月、5月、7月、9月和11月第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">烧碱</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">32%液碱与50%液碱</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">均为</span>2.5元/吨·天（湿吨）</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>1月、3月、5月、7月、9月、11月第15个交易日之前（含该日）注册的烧碱标准仓单，应当在当年1月、3月、5月、7月、9月、11月的第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">短纤</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.2元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span><span style="font-family:宋体">3月、6月、9月、12月第15个交易日之前（含该日）注册的短纤期货标准仓单，应当在当年3月、6月、9月、12月的第15个交易日之前（含该日）全部注销</span></span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">纯碱</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.5/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>1月、3月、5月、7月、9月、11月第15个交易日之前（含该日）注册的纯碱期货标准仓单，应当在当年1月、3月、5月、7月、9月、11月的第15个交易日之前（含该日）全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">瓶片</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.8/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>1月、5月、9月第15个交易日之前(含该日)注册的瓶片期货标准仓单，应当在当年1月、5月、9月第15个交易日之前(含该日)全部注销</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">丙烯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:15px">仓库仓单：</span><span style="font-family:宋体;font-size:15px">5</span><span style="font-family:宋体;font-size:15px">元</span><span style="font-family:宋体;font-size:15px">/</span><span style="font-family:宋体;font-size:15px">吨</span><span style="font-family:宋体;font-size:15px">*</span><span style="font-family:宋体;font-size:15px">天</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">厂库仓单：</span><span style="font-family:宋体">4元</span></span><span style="font-family:宋体;font-size:15px">/</span><span style="font-family:宋体;font-size:15px">吨</span><span style="font-family:宋体;font-size:15px">*</span><span style="font-family:宋体;font-size:15px">天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span><span style="font-family:宋体">1月、3月、5月、7月、9月、11月第15个交易日之前（含该日）注册的丙烯期货标准仓单，应当在当年1月、3月、5月、7月、9月、11月的第15个交易日之前（含该日）全部注销。</span></span></p></td></tr><tr style="height:80px"><td width="724" valign="center" colspan="3" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:24px">广州期货交易所</span></strong></p></td></tr><tr style="height:53px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">品种</span></strong></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓储费</span></strong></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓单有效期</span></strong></p></td></tr><tr style="height:76px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">工业硅</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">元</span>/</span><span style="font-family:宋体;font-size:16px">吨</span><span style="font-family:宋体;font-size:16px">*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span><span style="font-family:宋体">11月最后一个交易日之前（含当日）注册的工业硅期货标准仓单，应在当日之前（含当日）全部注销。注销后，未出库的且生产（出厂）日期在90天以内（含当日）的可以重新申请注册，无需进行质量检验。</span></span></p></td></tr><tr style="height:118px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">碳酸锂</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">5元/</span><span style="font-family:宋体;font-size:16px">吨</span><span style="font-family:宋体;font-size:16px">*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span><span style="font-family:宋体">3月、7月、11月最后一个交易日之前（含当日）注册的碳酸锂期货标准仓单，应当在当年3月、7月、11月的最后一个交易日之前（含当日）全部注销。注销后，未出库且生产日期在60天以内（含当日）的基准交割品和240天以内的替代交割品可以重新申请注册，无需进行质量检验。</span></span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">多晶硅</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">4</span><span style="font-family:宋体;font-size:16px"> <span style="font-family:宋体">元</span>/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>5月、11月最后一个交易日闭市后，交易所对多晶硅期货仓库标准仓单和厂库标准仓单进行统一注销，但是生产日期在90日以内（含当日）的多晶硅期货仓库标准仓单除外。</span></p></td></tr><tr style="height:75px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px; border-style: none solid; border-color: currentcolor rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px">钯</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px medium medium; border-style: none solid none none; border-color: currentcolor rgb(0, 0, 0) currentcolor currentcolor;"><p style=";text-align:center"><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px">1.8 元/千克*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px"><span style="font-family:宋体">每年</span><span style="font-family:宋体">8月最后一个交易日闭市后，交易所对钯期货厂库标准仓单进行统一注销</span></span><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px">；</span><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px"><span style="font-family:宋体">仓库标准仓单</span><span style="font-family:宋体">:长期有效</span></span></p></td></tr><tr style="height:75px"><td width="68" valign="center" style="padding: 5px 10px; border-width: 1px 1px medium; border-style: solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px">铂</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px">1.8 元/千克*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px"><span style="font-family:宋体">每年</span><span style="font-family:宋体">8月最后一个交易日闭市后，交易所对铂期货厂库标准仓单进行统一注销</span></span><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px">；</span><span style="font-family: 宋体;letter-spacing: 0;font-size: 16px"><span style="font-family:宋体">仓库标准仓单</span><span style="font-family:宋体">:长期有效</span></span></p></td></tr><tr style="height:80px"><td width="724" valign="center" colspan="3" style="padding: 5px 10px; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:24px">上海期货交易所</span></strong></p></td></tr><tr style="height:80px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">品种</span></strong></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓储费</span></strong></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓单有效期</span></strong></p></td></tr><tr style="height:86px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">铜</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:15px">完税</span><span style="font-family:宋体;font-size:15px">：</span><span style="font-family:宋体;font-size:15px">0.3元/吨*天</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">保税库房</span>0.</span><span style="font-family:宋体;font-size:15px">5</span><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">元</span>/吨*天</span><span style="font-family:宋体;font-size:15px"><br/></span><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">保税货场</span>0.</span><span style="font-family:宋体;font-size:15px">4</span><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">元</span>/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">铝</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:15px">完税</span><span style="font-family:宋体;font-size:15px">:</span><span style="font-family:宋体;font-size:15px">0.4元/吨*天</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">保税库房</span>0.6元/吨*天</span><span style="font-family:宋体;font-size:15px"><br/></span><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">保税货场</span>0.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:57px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">锌</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.3元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">铅</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.7元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">镍</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.25元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">锡</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.50元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:6px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">氧化铝</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">厂库</span>0.25元/吨/天</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">仓库室内</span>0.4元/吨/天</span><span style="font-family:宋体;font-size:15px"><br/></span><span style="font-family:宋体;font-size:15px"><span style="font-family:宋体">仓库室外</span>0.3元/吨/天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、氧化铝仓库标准仓单的有效期为该批次产品最早生产日期起180天以内，并且该批次产品应在生产日期起的60天内进入交割仓库方可制成标准仓单；</span></p><p><span style="font-family:宋体;font-size:16px">2、氧化铝厂库标准仓单的交割有效期为厂库标准仓单生成之日起180日。</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">黄金</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.8元/千克*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">白银</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.016元/千克*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">螺纹钢</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.15元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、</span><span style="font-family:宋体;font-size:16px">螺纹钢</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">仓库仓单每批商品的有效期限为生产日起的</span><span style="font-family:宋体">90天内，并且应在生产日起的45天内入交割仓库方可制作仓库标准仓单；</span></span></p><p><span style="font-family:宋体;font-size:16px">2、</span><span style="font-family:宋体;font-size:16px">螺纹钢</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">厂库标准仓单的交割有效期为厂库标准仓单生成之日起</span><span style="font-family:宋体">180日。</span></span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">线材</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.15元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、</span><span style="font-family:宋体;font-size:16px">线材</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">仓库仓单交割线材的每批商品的有效期限为生产日起的</span><span style="font-family:宋体">90天内，并且应在生产日起的30天内入交割仓库方可制作标准仓单；</span></span></p><p><span style="font-family:宋体;font-size:16px">2、</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">线材厂库标准仓单的交割有效期为厂库标准仓单生成之日起</span><span style="font-family:宋体">180日。</span></span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">热轧卷板</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.15元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、热轧卷板仓库仓单的每批商品的有效期限为生产日起的360天内，每一仓库标准仓单的热轧卷板以其中最早的生产日期作为该标准仓单的生产日期；</span></p><p><span style="font-family:宋体;font-size:16px">2、热轧卷板厂库标准仓单的交割有效期为厂库标准仓单生成之日起180日。</span></p></td></tr><tr style="height:56px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">天然橡胶</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.3元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、国产天然橡胶（SCR WF）在库交割的有效期限为生产年份的第二年的最后一个交割月份，超过期限的转作现货。当年生产的国产天然橡胶如要用于实物交割，最迟应当在第二年的六月份以前（不含六月）入库完毕，超过期限不得用于交割。</span></p><p><span style="font-family:宋体;font-size:16px">2、进口3号烟胶片在库交割的有效期限为进口货物报关单申报日期起十八个月，超过期限的转作现货。用于实物交割的3号烟胶片应当在进口货物报关单申报日期起六个月内进库，否则不得用于交割。</span></p><p><span style="font-family:宋体;font-size:16px">3、在库天然橡胶的质检证（或检测/鉴定报告）自签发之日起90天内有效。期满后，其相应的商品应当重新检验合格后方可用于下次交割。</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">丁二烯橡胶</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">仓库</span>0.14元/吨*天</span></p><p style=";text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">厂库</span>0.13元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、丁二烯橡胶仓库标准仓单的有效期为生产年份的第二年的6月30日，超过期限的转作现货并注销。用于实物交割的丁二烯橡胶，最迟应当在生产日期起六个月内入库完毕，超过期限不得用于交割。</span></p><p><span style="font-family:宋体;font-size:16px">2、厂库标准仓单的交割有效期为厂库标准仓单生成年份的第二年的6月30日。</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">纸浆</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.8元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、用于实物交割的国产漂针浆有效期限为生产年份的第二年的最后一个交割月份，超过期限的转作现货并注销。</span></p><p><span style="font-family:宋体;font-size:16px">2、用于实物交割的进口漂针浆应当在到港日起六个月内入库，有效期限为到港日的第二年的最后一个交割月份，超过期限的转作现货并注销。</span></p><p><span style="font-family:宋体;font-size:16px">3、厂库标准仓单的交割有效期为厂库标准仓单生成之日起一年零六个月。</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">石油沥青</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">仓库</span>1.5/吨*天</span><span style="font-family:宋体;font-size:16px"><br/></span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">厂库</span>1.2元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>9月15日（遇法定假日顺延）之前生成的厂库标准仓单，应在10月的最后一个工作日（含该日）之前全部注销</span><span style="font-family:宋体;font-size:16px">;仓库仓单长期有效。</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">燃料油</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.4元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">燃料油保税标准仓单有效期限为保税标准仓单生效年份的第二年的最后一个交割月份，超过期限的转作现货</span></p></td></tr><tr style="height:67px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">铸造铝合金</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">元</span>/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">铸造铝合金仓库每一标准仓单的有效期为该批次产品最早生产日期起</span><span style="font-family:宋体">360天以内，并且该批次产品应在最早生产日期起180天内进入交割仓库方可制成标准仓单。</span></span></p></td></tr><tr style="height:75px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">不锈钢</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.8元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">不锈钢仓库标准仓单有效期限为该批次产品最早生产日起的</span><span style="font-family:宋体">360天内。</span></span></p><p><span style="font-family:宋体;font-size:16px">2、</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">厂库标准仓单的有效期为厂库标准仓单生成之日起的150</span><span style="font-family:宋体">天内。</span></span></p></td></tr><tr style="height:199px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px; border-style: none solid; border-color: currentcolor rgb(0, 0, 0);"><p style="text-align:center"><span style="font-family:宋体;font-size:16px">胶版印刷纸</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style="text-align:center"><span style="font-family:宋体;font-size:16px">仓库：</span><span style="font-family:宋体;font-size:16px">1</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">元</span>/吨*天</span></p><p style="text-align:center"><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">厂库：</span><span style="font-family:宋体">0.9</span></span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">元</span>/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、用于实物交割的国产双胶纸：应当在生产日期起三个月内入库，生产日期在6月30日（含该日）之前的，标准仓单有效期为当年的12月31日；生产日期在7月1日（含该日）之后的，标准仓单有效期为第二年的6月30日，超过期限的转作现货并注销；</span></p><p><span style="font-family:宋体;font-size:16px">2、用于实物交割的进口双胶纸：应当在到港日期起三个月内入库，到港日期在6月30日（含该日）之前的，标准仓单有效期为当年的12月31日；到港日期在7月1日（含该日）之后的，标准仓单有效期为第二年的6月30日，超过期限的转作现货并注销；</span></p><p><span style="font-family:宋体;font-size:16px">3、厂库标准仓单的交割有效期为厂库标准仓单生成之日起12个月，厂库标准仓单超过交割有效期不得用于期货交割。</span></p></td></tr><tr style="height:80px"><td width="724" valign="center" colspan="3" style="padding: 5px 10px; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:24px">上海国际能源交易中心</span></strong></p></td></tr><tr style="height:80px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">品种</span></strong></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓储费</span></strong></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: 1px 1px 1px medium; border-style: solid solid solid none; border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><strong><span style="font-family:宋体;font-size:16px">仓单有效期</span></strong></p></td></tr><tr style="height:53px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">原油</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">0.2元/桶*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:53px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">国际铜</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:12px"><span style="font-family:宋体">库房费</span>0.5元/吨·天(境内)</span><span style="font-family:宋体;font-size:12px"><br/></span><span style="font-family:宋体;font-size:12px"><span style="font-family:宋体">货场费</span>0.4元/吨·天(境内)</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">长期</span></p></td></tr><tr style="height:6px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">20号胶</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.5元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、组成每一标准仓单的20号胶标准品或替代品的生产日期应当不超过连续30天。每一标准仓单20号胶标准品或替代品的最早生产日期为该标准仓单的生产日期。20号胶标准品或替代品保税标准仓单的有效期为自标识的生产月份起十二个月止。20号胶境外标准仓单的有效期为签发之日起六个月止，首次交割后立即注销。</span></p><p><span style="font-family:宋体;font-size:16px">2、用于实物交割的20号胶标准品或替代品应当在生产日期起90天内入库，超过90天入库的，不得用于生成保税标准仓单。</span></p><p><span style="font-family:宋体;font-size:16px">3、入库生成保税标准仓单时的20号胶标准品或替代品的检验报告自签发之日起180天内有效，在库商品的检验报告自签发之日起90天内有效。期满后，其相应的商品应当重新检验，合格后方可用于交割。对在库20号胶标准品或替代品重新检验时，质量检验报告不合格的，保税标准仓单持有人对其商品质量承担全部责任，指定交割仓库有责任的除外。</span></p></td></tr><tr style="height:151px"><td width="68" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px; border-style: none solid solid; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0);"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">低硫燃料油</span></p></td><td width="168" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p style=";text-align:center"><span style="font-family:宋体;font-size:16px">1.4元/吨*天</span></p></td><td width="487" valign="center" style="padding: 5px 10px; border-width: medium 1px 1px medium; border-style: none solid solid none; border-color: currentcolor rgb(0, 0, 0) rgb(0, 0, 0) currentcolor;"><p><span style="font-family:宋体;font-size:16px">1、</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>11月1日（遇国家法定节假日、休息日顺延）之前生成的低硫燃料油保税标准仓单，其有效期限为生成之日起至当年12月31日，超过期限的转作现货</span><span style="font-family:宋体;font-size:16px">；</span></p><p><span style="font-family:宋体;font-size:16px">2、</span><span style="font-family:宋体;font-size:16px"><span style="font-family:宋体">每年</span>11月1日（含当日，遇国家法定节假日、休息日顺延）之后生成的低硫燃料油保税标准仓单，其有效期限为生成之日起至下一年度12月31日，超过期限的转作现货</span><span style="font-family:宋体;font-size:16px">。</span></p></td></tr></tbody></table><p><br/></p><p><span style="text-wrap-mode: wrap;">【免责申明】:本表格内容整理自各交易所，如各交易所规则更新，请以交易所通知公告内容为准。</span></p>
+                </div>
+
+                <div class="InfoPage">
+                    <dl>
+                        <dd class="dot"><a href="/col230/6040">上一篇：各交易所交割仓（厂）库名录</a></dd>
+
+                        <dd class="dot"><a href="/col230/4839">下一篇：各品种​交割参数及交割条件一览表</a></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+
+<!--bottom-->
+<footer class="Bottom">
+   <div class="Contain">
+      <div class="BottomCon">
+         <div class="BottomNav fl">
+            <ul>
+
+                              <li>
+                  <dl>
+                     <dt><a href="/col17/">走进徽商</a></dt>
+
+                     <dd><a href="/col17/index">关于我们</a></dd>
+                     <dd><a href="/col49/list">媒体中心</a></dd>
+                     <dd><a href="/col56/index">信息公示</a></dd>
+                     <dd><a href="/col100/list">信息公开</a></dd>
+                     <dd><a href="/col98/index">加入我们</a></dd>
+                  </dl>
+               </li>
+               <li>
+                  <dl>
+                     <dt><a href="/col115/index">客户服务</a></dt>
+
+                     <dd><a href="https://mma.hsqh.net/openAccountWeb">开户办理</a></dd>
+                     <dd><a href="https://investorservice.cfmmc.com/">账户业务</a></dd>
+                     <dd><a href="/col121/index">软件及其他服务</a></dd>
+                     <dd><a href="/col237/list">交易服务</a></dd>
+                  </dl>
+               </li>
+               <li>
+                  <dl>
+                     <dt><a href="/col72/list">研究资讯</a></dt>
+
+                     <dd><a href="/col72/list">徽商头条</a></dd>
+                     <dd><a href="https://hyzx.hsqh.net:5443/Staging">徽商智汇</a></dd>
+                     <dd><a href="/col87/list">研究团队</a></dd>
+                  </dl>
+               </li>
+               <li>
+                  <dl>
+                     <dt><a href="https://www.hsqh.net/col127/list">业务板块</a></dt>
+
+                     <dd><a href="http://47.98.83.136:7011/etrading">基金理财</a></dd>
+                     <dd><a href="/col127/list">资产管理</a></dd>
+                     <dd><a href="/col130/list">交易咨询</a></dd>
+                     <dd><a href="/col133/index">风险管理</a></dd>
+                     <dd><a href="/col186/list">股票期权</a></dd>
+                  </dl>
+               </li>
+               <li>
+                  <dl>
+                     <dt><a href="/col38/">营业网点</a></dt>
+
+                     <dd><a href="/col38/index">营业部</a></dd>
+                     <dd><a href="/col39/index">分公司</a></dd>
+                     <dd><a href="/col40/index">子公司</a></dd>
+                  </dl>
+               </li>
+               <li>
+                  <dl>
+                     <dt><a href="https://www.hsqh.net/tjjd/" target="_blank">投资者教育</a></dt>
+
+                  </dl>
+               </li>
+               <li>
+                  <dl>
+                     <dt><a href="/col45/list"> 党建专栏</a></dt>
+
+                     <dd><a href="/col45/list">党建工作</a></dd>
+                     <dd><a href="/col46/list">群团工作</a></dd>
+                     <dd><a href="/col47/list">消费扶贫</a></dd>
+                  </dl>
+               </li>
+
+               <div class="clear"></div>
+            </ul>
+         </div>
+         <div class="BottomContact fr">
+            <div class="tel">
+
+               <img src="/cn/res/images/bottomtel.png" alt="">400 887 8707
+            </div>
+            <div class="tellist">
+               <ul>
+                  <li>客服电话：0551-62865905、62865867</li>
+                  <li>夜盘客服：0551-62873721</li>
+                  <li>交易电话：0551-62861596、65533017</li>
+               </ul>
+               <ul>
+                  <li>技术部：0551-62873590</li>
+                  <li>地址：合肥市芜湖路258号</li>
+               </ul>
+               <div class="clear"></div>
+            </div>
+            <div class="ewa">
+               <ul>
+                  <li>
+                     <img src="https://www.hsqh.net/upload/cn/image/2022-09/col2/1663053318333.jpg" alt="">
+                     <p>徽商期货官方微信</p>
+                  </li>
+                  <li>
+                     <img src="https://www.hsqh.net/upload/cn/image/2024-03/col2/1711454298249.png" alt="">
+                     <p>徽商期货</p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="clear"></div>
+      </div>
+      <div class="Copyright">
+         <p>Copyright 2022 徽商期货有限责任公司 All Rights Reserved <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" title="皖ICP备08006607号-2">皖ICP备08006607号-2</a> Designed by Wanhu&nbsp;&nbsp;&nbsp;本站支持IPv6访问</p><p><br/></p>
+      </div>
+   </div>
+</footer>
+
+<div class="FloatBox">
+   <ul>
+      <li class="li1">
+         <a href="javascript:void(0);">
+            <div class="ico">
+               <img src="/cn/res/images/fico1.png" alt="">
+            </div>
+         </a>
+         <div class="tcbox">
+            <h1>在线客服：</h1>
+            <dl class="dl1">
+               <dd><a href="http://float2006.tq.cn/static.jsp?version=vip&amp;admiuin=8074649&amp;uin=9813339&amp;ltype=0&amp;is" target="_blank"><img src="/cn/res/images/message.png" alt="">国际业务 [在线]</a></dd>
+               <dd><a href="http://float2006.tq.cn/static.jsp?version=vip&amp;admiuin=8074649&amp;uin=8778448&amp;ltype=0&amp;is" target="_blank"><img src="/cn/res/images/message.png" alt="">在线开户 [在线]</a></dd>
+               <dd><a href="http://float2006.tq.cn/static.jsp?version=vip&amp;admiuin=8074649&amp;uin=8778451&amp;ltype=0&amp;is" target="_blank"><img src="/cn/res/images/message.png" alt="">居间合作 [在线]</a></dd>
+               <dd><a href="http://float2006.tq.cn/static.jsp?version=vip&amp;admiuin=8074649&amp;uin=8778453&amp;ltype=0&amp;is" target="_blank"><img src="/cn/res/images/message.png" alt="">专家咨询 [在线]</a></dd>
+               <dd><a href="http://float2006.tq.cn/static.jsp?version=vip&amp;admiuin=8074649&amp;uin=8778456&amp;ltype=0&amp;is" target="_blank"><img src="/cn/res/images/message.png" alt="">套保方案 [在线]</a></dd>
+
+            </dl>
+            <dl class="dl2">
+               <dd>
+                  <div class="tit">在线客服：</div>
+                  <p>0551-62865905</p>
+                  <p>0551-62865867</p>
+
+               </dd>
+               <dd>
+                  <div class="tit">夜盘客服：</div>
+                  <p>0551-62873721</p>
+               </dd>
+               <dd>
+                  <div class="tit">交易电话：</div>
+                  <p>0551-62861596</p>
+                  <p>0551-65533017</p>
+               </dd>
+               <dd>
+                  <div class="tit">技术部：</div>
+                  <p>0551-62873590</p>
+               </dd>
+            </dl>
+         </div>
+      </li>
+      <li class="li2">
+         <a href="">
+            <div class="ico">
+               <img src="/cn/res/images/fico2.png" alt="">
+            </div>
+         </a>
+         <div class="tcbox tcewa">
+            <img src="https://www.hsqh.net/upload/cn/image/2024-03/col2/1711454305929.png" alt="">
+         </div>
+      </li>
+      <li class="li3">
+         <a href="javascript:void(0);">
+            <div class="ico">
+               <img src="/cn/res/images/fico3.png" alt="">
+            </div>
+         </a>
+         <div class="tcbox tcewa">
+            <img src="https://www.hsqh.net/upload/cn/image/2022-09/col2/1663053318333.jpg" alt="">
+         </div>
+      </li>
+      <li class="gotop li4">
+         <a href="javascript:void(0);">
+            <div class="ico">
+               <img src="/cn/res/images/fico4.png" alt="">
+            </div>
+         </a>
+      </li>
+   </ul>
+</div>
+
+<script type="text/javascript">
+   //整站无图处理
+   $('img').bind('error', function () {
+      $(this).attr('src', '/cn/res/uploadfiles/nopic.jpg');
+   });
+</script>
+<!--bottom End-->
+</body>
+</html>

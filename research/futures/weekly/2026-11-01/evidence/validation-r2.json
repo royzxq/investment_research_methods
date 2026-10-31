@@ -1,0 +1,79 @@
+{
+  "as_of_date": "2026-11-01",
+  "evaluated_at": "2026-11-01T01:11:38.521855+08:00",
+  "baseline": "72afd7430cbb99feb13521740f4929e20a647fd2",
+  "actual_api": {
+    "futures_refresh": "v1.18.1 realAPI fresh/complete; exact-contract identities checked",
+    "market_trade_date": "2026-10-30",
+    "snapshot_complete": true,
+    "account_fills_returns": "not_verified"
+  },
+  "offline": {
+    "initial_full_suite": {
+      "tests": 1212,
+      "errors": 45,
+      "seconds": 216.327,
+      "result": "FAILED",
+      "cause": "sandbox local socket/process permissions; originals retained"
+    },
+    "permitted_full_suite": {
+      "tests": 1212,
+      "seconds": 238.213,
+      "result": "OK"
+    },
+    "governance": "passed30 current anchors/277 legacy IDs",
+    "audit_r2": "valid structure only",
+    "refresh_frozen_input_check": "success; no network"
+  },
+  "source_inputs": [
+    {
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/unittest.log",
+      "path": "research/futures/weekly/2026-11-01/evidence/verification/aa33497d9dacdfa9da933a1c1740bdb4218f46693400aed5fcc353f5d017c391.blob",
+      "sha256": "aa33497d9dacdfa9da933a1c1740bdb4218f46693400aed5fcc353f5d017c391",
+      "bytes": 339961
+    },
+    {
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/unittest-permitted.log",
+      "path": "research/futures/weekly/2026-11-01/evidence/verification/e4a1a0967b0265da79f7fc46b7718c7ba22519849f9c91c99101137db7187b79.blob",
+      "sha256": "e4a1a0967b0265da79f7fc46b7718c7ba22519849f9c91c99101137db7187b79",
+      "bytes": 295654
+    },
+    {
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/refresh-check.json",
+      "path": "research/futures/weekly/2026-11-01/evidence/verification/4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386.blob",
+      "sha256": "4b9efb906ced9732503c615a2da4c24721bd366d0fe2fde98435ef358506e386",
+      "bytes": 11729
+    },
+    {
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/main-import.json",
+      "path": "research/futures/weekly/2026-11-01/evidence/verification/6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab.blob",
+      "sha256": "6309424ec6dceb5b20b0e9ef7335ae00fbd2dd42b1d3ff683f64e643103b11ab",
+      "bytes": 150
+    },
+    {
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/main-import-r2.json",
+      "path": "research/futures/weekly/2026-11-01/evidence/verification/e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1.blob",
+      "sha256": "e74f9bfc43999e8ff859cd9aad9db5d74b6607b7018c787f437ae0078b6fe2a1",
+      "bytes": 119
+    },
+    {
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/main-import-r3.json",
+      "path": "research/futures/weekly/2026-11-01/evidence/verification/2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d.blob",
+      "sha256": "2e854161ab41f83d384139d6b0aecca9b63a257b81016f0f9efcbfac1ae81c6d",
+      "bytes": 279
+    },
+    {
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-01/output/runs/futures/2026-11-01/automation/main-import-r4.json",
+      "path": "research/futures/weekly/2026-11-01/evidence/verification/e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a.blob",
+      "sha256": "e3ed2d05e2337d88b859de40e69dfc10d357fa284930fefdd84be72686eda93a",
+      "bytes": 279
+    }
+  ],
+  "method_change": false,
+  "limitations": [
+    "no account/fills/performance validation",
+    "SSE actual dated sessions are a disclosed calendar proxy, SHFE annual holidays/trading hours separately read; not all venue exceptions",
+    "no full semantic-equivalence or investment-effectiveness claim"
+  ],
+  "source_graph_revision": "r2: opaque receipt filenames avoid treating raw check-only source_inputs=null as a new evidence manifest; no historical bytes or findings changed"
+}

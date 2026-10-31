@@ -1,0 +1,77 @@
+[
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-old-stock.html",
+    "sha256": "fb772624f98fca4b6791fd484e85789574f87e034469f356f4aaffe3480aa166",
+    "size": 53253
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-spot.html",
+    "sha256": "45645fc2fbc86c24bd359fe5e439b8f7f5dd647995d72343ba9858559aa6af6d",
+    "size": 53579
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-contract.pdf",
+    "sha256": "a3f011447ef7fe66e1da88afcaf06d0080e334cd3c7513e6a04823f2f0afbdf3",
+    "size": 1639559
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/capture-index.json",
+    "sha256": "7c612d90900268043ff3210fa44a8e55e7abf06148bc7134fea896f2758d8542",
+    "size": 6000
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-storage.html",
+    "sha256": "70119865e14005f920d187b4ee1328b565fc62334667ee054bd1f11d40ef4fbb",
+    "size": 155644
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-monthly.html",
+    "sha256": "05b8c01e1442fb244cc5fa0224ba05b1a42821bff5db472ae528bb1811927d08",
+    "size": 60
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-storage.pdf",
+    "sha256": "a7f193a6d48b296f94f16e4b9e9f4365d747a08d62ed054ba3e2947ed8a0968a",
+    "size": 1994549
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-notice.html",
+    "sha256": "cb3dbfcb6f7bb242e3f7c59469a32acf1669c80a08dd6ccc202a040eccaa7b4b",
+    "size": 7358
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-mysteel-monthly.html",
+    "sha256": "72982b6a815c979b26f4b4872813b9587fc49b0ddd57c54899609ac182c69fce",
+    "size": 128983
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/sr-start.html",
+    "sha256": "325cb2abefdb348f1394e92004ea210be3c43684bbf10262d8d7fbb071290129",
+    "size": 53287
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/cf-table.html",
+    "sha256": "c987eca73f81cb9d0354acc65ebf7027f581de36753870359c0ea9852cb67aa5",
+    "size": 211603
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-storage.txt",
+    "sha256": "ae324de54db646ab5feff69c1cba2c0d0da958199e2598e8d96a2e58ddae2a80",
+    "size": 70677
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-demand.html",
+    "sha256": "6b899866056c0fa34e56ee1ec62a11fe9e592c8bbda58e9c3809c46e395cfe3d",
+    "size": 52237
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/ma-crosscheck.html",
+    "sha256": "838dfdee9268b3c88d2aa0fdcf8bb2394905494d6d8dbe81328a42d3bb0afd46",
+    "size": 7383
+  },
+  {
+    "path": "research/futures/weekly/2026-11-01/evidence/web-msc/capture-index-network-retry.json",
+    "sha256": "927d060f1eeca7098d3f5bcb60754de2eb5518f92a5ad17721ec6fa8ce102aca",
+    "size": 5561
+  }
+]

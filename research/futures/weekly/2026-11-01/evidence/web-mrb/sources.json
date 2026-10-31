@@ -1,0 +1,99 @@
+{
+  "frozen_at": "2026-11-01T01:05:17.380830+08:00",
+  "items": [
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-weekly-cnfin.html",
+      "url": "https://www.cnfin.com/dz-lb/detail/20261029/4488060_1.html",
+      "sha256": "165870bbf2b29d7260bc3882ae70ba2238e66f62f7d1e5734fb5f6dce163d451",
+      "bytes": 54485,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/m-cicc-20261030.html",
+      "url": "https://www.ciccwmf.cn/zpsd/93456.jhtml",
+      "sha256": "c5c1284365a35a1975c76718d577946a44bf6a6d089676965cdf1140359519a9",
+      "bytes": 78418,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-storage-official.html",
+      "url": "https://www.shfe.com.cn/products/futures/metal/ferrousandpreciousmetal/rb_f/attach/202206/t20220630_798893.html",
+      "sha256": "95d951a3f19e4026fbf77f855ae16f7986043f46d5d96f7e7d964441899ef3e4",
+      "bytes": 133184,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/guodu-risk-20261030.html",
+      "url": "https://www.guodu.cc/03/07/2026-10-30/41086.html",
+      "sha256": "39a06b60a54844e10139fc932b46eb53a03310513dd5278f2e9a3e945bd056b2",
+      "bytes": 422933,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-delivery-rule.docx",
+      "url": "https://www.shfe.com.cn/products/futures/metal/ferrousandpreciousmetal/rb_f/regulations/202512/P020251205635797253282.docx",
+      "sha256": "f98363df70013f4fdce2d9b54bdebbd1a603703f5650138f6fdaf13b1f35af24",
+      "bytes": 23198,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-business-rule.html",
+      "url": "https://www.shfe.com.cn/regulation/exchangerules/productrules/202512/t20251231_829962.html",
+      "sha256": "b19deb6ee3dfb44cf83d760fe96893eb2a53758d78488b6407df6e2245379841",
+      "bytes": 210620,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/wasde-schedule.html",
+      "url": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+      "sha256": "c38342f1cbd360d5a607f23606103f40bfa66eade95b8317dc09cacd8bd4645b",
+      "bytes": 160518,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/shfe-hours.html",
+      "url": "https://www.shfe.com.cn/services/calenderandholidays/tradinghours/",
+      "sha256": "050d8b3aec41708512962c0cacfeda66460db8af5c8c8297df7db98aba372588",
+      "bytes": 138870,
+      "verified": true,
+      "basis": "downloaded_original_bytes_and_read_body"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/rb-100ppi-20261030.html",
+      "url": "https://www.100ppi.com/forecast/detail-20261030-209600.html",
+      "sha256": "49a6f0b5ae8d015c039fb939dbbea42c9afd2bf9769b0afd8b78358aaad8160b",
+      "bytes": 660,
+      "verified": false,
+      "basis": "invalid_challenge_page_not_adopted"
+    },
+    {
+      "file": "research/futures/weekly/2026-11-01/evidence/web-mrb/m-morning-read-note.md",
+      "url": "https://goodsfu.10jqka.com.cn/20261030/c681270306.shtml",
+      "sha256": "bcc0f849bb543b589d27a30c5aa4d98973847a445b0f3c6797e9873ef5da3a0e",
+      "bytes": 943,
+      "verified": true,
+      "basis": "read_web_body_paraphrase_not_original_html"
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://ncp.mysteel.com/a/26103018/926D8F1BC90974F0.html",
+      "result": "web411/curl403; feed inventory7.4days search snippet not adopted as verified fact"
+    },
+    {
+      "url": "https://ncp.mysteel.com/a/26103019/441FCF855208F455.html",
+      "result": "webunavailable; monthly3255 search snippet not adopted as verified fact"
+    },
+    {
+      "url": "https://www.dce.com.cn/dalianshangpin/sspz/487180/487184/1391326/index.html",
+      "result": "webtimeout; curl25s timeout; no original body verified"
+    }
+  ]
+}

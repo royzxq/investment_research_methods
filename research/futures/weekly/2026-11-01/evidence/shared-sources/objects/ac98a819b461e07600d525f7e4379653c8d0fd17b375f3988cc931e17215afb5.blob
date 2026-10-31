@@ -1,0 +1,1148 @@
+<!doctype html>
+<html>
+<head>
+<title>农产品 | 南美大豆产量风险加大 关注后期南美天气变化-东方财富期货</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta data-hid="description" name="description" content="豆粕：隔夜豆粕依托3250元/吨震荡，10月份美豆收割压力上升，截至2026年10月18日当周，美国大豆收割率为64%，五年均值为65%。10月份以来美豆出口转弱，截至10月2日当周美国2026/2027年度大豆出口净销售为54.94万吨，环比下降46.85%，出口端支撑减弱。">
+<meta data-hid="keywords" name="keywords" content="库存,环比,10,2026,生猪,产量,加大,风险,南美,变化">
+<style>
+html.qhPagePreScroll {
+overflow-y: scroll;
+}
+</style>
+<script>
+document.documentElement.className += ' qhPagePreScroll';
+(function () {
+/**
+* 移除首屏预留滚动条样式。
+* @returns {void}
+*/
+function removePreScroll() {
+document.documentElement.className = document.documentElement.className.replace(/\s?qhPagePreScroll/g, '');
+}
+window.addEventListener('DOMContentLoaded', removePreScroll);
+setTimeout(removePreScroll, 2000);
+})();
+</script>
+<link rel="stylesheet" href="https://qhrs.eastmoney.com/static/style/news/news.css?v=1792483622782">
+<link rel="stylesheet" href="https://qhrs.eastmoney.com/static/style/news/detail.css?v=1792483622782">
+<link rel="stylesheet" href="https://qhrs.eastmoney.com/static/lib/elementui/index.min.css">
+</head>
+<body>
+<script src="https://qhemrs.eastmoney.com/h5/resources/js/share.js?v=20260311"></script>
+<script>
+// 判断此时是否应跳转qhh5
+var jumpHref = function() {
+var isMobile = window.EMF && window.EMF.env.isMobile
+var subUrlArr = window.location.href.match(/\d+\.html$/g);
+var articleid = ''
+if (subUrlArr && subUrlArr.length) {
+articleid = subUrlArr[0].split('.')[0];
+articleid = 'uid=&platform=&version=1.0.0&articleid=' + articleid;
+// 拼成qhweb链接上的参数, 跳往app过程其他参数值未知，qhh5中getNewsId方法也没用到其他参数
+articleid = btoa(articleid)
+}
+if (!isMobile) return
+// window.location.href = 'https://qhh5.eastmoney.com/news/#/share?code=' + articleid
+window.location.href = /^http:\/\/(\d|\.)+(:\d{4})?/.test(location.origin)? 'http://10.228.131.27:8080/news/#/?code=' + articleid :
+'https://qhh5.eastmoney.com/news/#/?code=' + articleid
+}
+jumpHref()
+</script>
+<script src="https://qhrs.eastmoney.com/static/lib/vue@2.6.11.min.js"></script>
+<script src="https://qhrs.eastmoney.com/static/lib/elementui/index.min.js?v=1792483622782"></script>
+<section class="Wrap ">
+<link rel="stylesheet" href="https://qhrs.eastmoney.com/static/style/components/common.css?v=1792483622782" type="text/css">
+<header id="BaseHeader">
+<div class="top">
+<div class="topCont">
+<div class="navs navs0">
+<a href="https://qs.dfcfw.com/3301" target="_blank">东方财富网</a>
+<a href="https://qs.dfcfw.com/3302" emf-track-key="qhweb_header_hqzx" target="_blank">行情中心</a>
+<a href="https://qs.dfcfw.com/3303" emf-track-key="qhweb_header_qh" target="_blank">期货</a>
+<a href="https://qs.dfcfw.com/3304" emf-track-key="qhweb_header_qq" target="_blank">期权</a>
+<a href="https://qs.dfcfw.com/3305" emf-track-key="qhweb_header_gp" target="_blank">股票</a>
+<a href="https://qs.dfcfw.com/3306" emf-track-key="qhweb_header_jj" target="_blank">基金</a>
+<a href="https://qs.dfcfw.com/3307" emf-track-key="qhweb_header_gb" target="_blank">股吧</a>
+<a href="https://qs.dfcfw.com/3308" emf-track-key="qhweb_header_choice" target="_blank">Choice数据</a>
+</div>
+<div class="navs navs1">
+<button id="qhHeaderLoginBtn" class="qhHeaderLogin" type="button" onclick="qhLogin.handleHeaderLoginClick()">登录</button>
+<div id="qhHeaderUserEntry" class="qhHeaderUserEntry">
+<img id="qhHeaderUserAvatar" class="qhHeaderUserAvatar" src="" alt="">
+<span id="qhHeaderUserName" class="qhHeaderUserName"></span>
+<a class="qhHeaderLogout" href="javascript:void(0);" onclick="qhLogin.logoutAndReload()">退出</a>
+</div>
+<a class="qhHeaderApp" emf-track-key="qhweb_header_qhapp" href="https://qhweb.eastmoney.com/download/android" target="_blank">期货APP</a>
+<a emf-track-key="qhweb_header_help" href="https://qhweb.eastmoney.com/help" target="_blank">帮助中心</a>
+<a class="qhHeaderOpenAccount" emf-track-key="qhweb_header_kh" href="https://qs.dfcfw.com/3311" target="_blank">期货开户</a>
+</div>
+</div>
+</div>
+<div class="headerCont">
+<div class="btns">
+<a href="https://qhweb.eastmoney.com" class="logo"></a>
+<div><a href="https://qhweb.eastmoney.com" emf-track-key="qhweb_nav_shouye" class="btn ">首页</a></div>
+<div><a href="https://qhweb.eastmoney.com/news" emf-track-key="qhweb_nav_zixun" class="btn act">资讯</a></div>
+<div><a href="https://qhweb.eastmoney.com/kuaixun" emf-track-key="qhweb_nav_kuaixun" class="btn ">快讯</a></div>
+<div><a href="https://qhweb.eastmoney.com/quote" emf-track-key="qhweb_nav_hangqing" class="btn ">行情</a></div>
+<div><a href="https://qhweb.eastmoney.com/lhb" emf-track-key="qhweb_nav_longhubang" class="btn ">龙虎榜</a></div>
+<div><a href="https://qs.dfcfw.com/3313" target="_blank" emf-track-key="qhweb_nav_qihuoba" class="btn">期货吧</a></div>
+<div>
+<a href="https://qhweb.eastmoney.com/download" emf-track-key="qhweb_nav_rjxz" class="btn ">
+软件下载
+</a>
+</div>
+</div>
+</div>
+</header>
+<link rel="stylesheet" href="https://qhrs.eastmoney.com/static/style/components/qhLoginPopup.css?v=1792483622782" type="text/css">
+<script src="https://qhrs.eastmoney.com/static/lib/aes.js?v=1792483622782"></script>
+<script src="https://qhrs.eastmoney.com/static/js/qhLogin.js?v=1792483622782"></script>
+<div class="qhLoginPopupWrap" id="qhLoginPopupWrap">
+<div class="qhLoginPopup" role="dialog" aria-modal="true" aria-label="扫码登录">
+<button id="qhLoginPopupClose" class="qhLoginPopup-close" type="button" onclick="qhLogin.closeLoginPopup()" aria-label="关闭登录弹窗"></button>
+<div class="qhLoginPopup-left">
+<img src="https://qhrs.eastmoney.com/static/images/login-popup/bg@2x.png" alt="东方财富期货" class="qhLoginPopup-bg">
+<a class="qhLoginPopup-leftDownload" href="https://qhweb.eastmoney.com/download/" onclick="qhLogin.trackEvent('qhweb_download_click')">点击下载</a>
+</div>
+<div class="qhLoginPopup-right">
+<img src="https://qhrs.eastmoney.com/static/images/login-popup/title@2x.png" alt="扫码登录 查看更多内容" class="qhLoginPopup-title">
+<div class="qhLoginPopup-main">
+<div class="qhLoginPopup-qrcodeBox">
+<img src="https://qhrs.eastmoney.com/static/images/login-popup/qrcode-bg@2x.png" alt="" class="qhLoginPopup-qrcodeBg">
+<img id="qhLoginPopupQrcode" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="二维码" class="qhLoginPopup-qrcodeImg">
+<div id="qhLoginPopupQrcodeExpired" class="qhLoginPopup-qrcodeExpired">
+<div class="qhLoginPopup-expiredText">二维码已失效</div>
+<button class="qhLoginPopup-refreshBtn" type="button" onclick="qhLogin.refreshQrcode()">点击刷新</button>
+</div>
+<div id="qhLoginPopupSuccess" class="qhLoginPopup-success">
+<img src="https://qhrs.eastmoney.com/static/images/login-popup/tick@2x.png" alt="" class="qhLoginPopup-successIcon">
+<div class="qhLoginPopup-successText">扫码成功</div>
+</div>
+</div>
+<img src="https://qhrs.eastmoney.com/static/images/login-popup/phone@2x.png" alt="使用东方财富期货APP扫一扫" class="qhLoginPopup-phone">
+</div>
+<div class="qhLoginPopup-tip">
+使用东方财富期货APP<span>我的</span>界面上方<span>扫一扫</span>功能登录
+</div>
+<div class="qhLoginPopup-download">没有APP？<span class="qhLoginPopup-downloadTrigger" onmouseenter="qhLogin.trackEvent('qhweb_download_hover')">扫码下载<img src="https://qhrs.eastmoney.com/static/images/login-popup/download-1@2x.png" alt="" class="qhLoginPopup-downloadIcon"><span class="qhLoginPopup-downloadPopup"><img src="https://qhrs.eastmoney.com/static/images/login-popup/popup-qrcode@2x.png" alt="下载二维码" class="qhLoginPopup-downloadQrcode"></span></span></div>
+<a class="qhLoginPopup-other" href="javascript:void(0);" onclick="qhLogin.otherLogin()">其他登录方式</a>
+</div>
+</div>
+</div>
+<script>
+window.qhLogin && qhLogin.initHeaderLogin();
+</script>
+<script>
+window.QhAnalyticsObject = "emfTracker";
+window.emfTracker = window.emfTracker || function () { (emfTracker.q = emfTracker.q || []).push(arguments) }; emfTracker.l = +new Date;
+var _hmt = _hmt || [];
+(function() {
+var hm = document.createElement("script");
+hm.src = "https://hm.baidu.com/hm.js?966e53181b4b3c8b013bd0f2b8b14ffd";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script src="https://qhemrs.eastmoney.com/h5/resources/js/share.js"></script>
+<script async src="https://qhemrs.eastmoney.com/h5/resources/js/qhtracker.js"></script>
+<!--列表-->
+<div class="newsWrap mainCont">
+<div class="news">
+<div class="leftBox">
+<div id="leftBox" @click="handleShareClick(-1)">
+<!-- 文章内容 -->
+<div class="articleCont" :class="[act === 0 ? 'big' : act === 2 ? 'small' : '']">
+<h1 class="boldFont">农产品 | 南美大豆产量风险加大 关注后期南美天气变化</h1>
+<div class="sourceBox">
+<div class="left-part">
+<span>2026年10月23日</span>
+<span>08:59</span>
+<span>来源：上海中期期货</span>
+</div>
+<div class="right-part" v-cloak>
+<span v-for="(item, idx) in fontsizeArr" :key="idx"
+:class="[act === idx ? 'act' : '']"
+@click="changeFontSize(idx)">{{ item }}</span>
+</div>
+</div>
+<div class="summaryBox">
+<div class="summary">摘要</div>
+<div>豆粕：隔夜豆粕依托3250元/吨震荡，10月份美豆收割压力上升，截至2026年10月18日当周，美国大豆收割率为64%，五年均值为65%。10月份以来美豆出口转弱，截至10月2日当周美国2026/2027年度大豆出口净销售为54.94万吨，环比下降46.85%，出口端支撑减弱。</div>
+</div>
+<div class="article">
+<div class="article-body"><center style="text-align:left;"><div class="em_adv_mods" type="1" tag="6" style="display:none;"></div></center><p align="center"><a href="https://quote.eastmoney.com/unify/r/114.mm" data-code="mm" data-market="114" target="_blank">豆粕</a>：</p><p> 隔夜豆粕依托3250元/吨震荡，10月份美豆收割压力上升，截至2026年10月18日当周，美国大豆收割率为64%，五年均值为65%。10月份以来美豆出口转弱，截至10月2日当周美国2026/2027年度大豆出口净销售为54.94万吨，环比下降46.85%，出口端支撑减弱。巴西大豆种植开局良好，CONAB数据显示，截至10月16日，巴西2026/27年度大豆播种进度为30.1%，快于去年同期21.4%和五年均值26.4%，短期大豆市场缺乏上涨驱动，但四季度超强厄尔尼诺将给巴西大豆单产带来较强不确定性。国内方面，随着巴西大豆集中到港，大豆库存逐步累积，油厂开机维持高位，截至10月16日当周，大<a href="https://quote.eastmoney.com/unify/r/114.ym" data-code="ym" data-market="114" target="_blank">豆油</a>厂周度压榨222.34万吨，高于上周的120.93万吨，豆粕库存维持高位，截至10月16日当周，国内进口大豆库存为843.01万吨，环比减少2.22%，同比增加12.21%，豆粕库存为109.6万吨,环比增加0.48%,同比增加3.93%。综合来看，美豆上市季供需博弈增强，短期豆粕震荡风险偏高，但厄尔尼诺预期下，南美大豆产量风险加大，关注后期南美天气变化。</p><p> <a href="https://quote.eastmoney.com/unify/r/115.RSM" data-code="RSM" data-market="115" target="_blank">菜籽</a>类：</p><p> 加拿大农业部在9月供需报告中，将2026/27年度加拿大油菜籽产量预估上调45万吨至2205万吨，国际菜籽供应压力有所增加。国内方面来看，当前<a href="https://quote.eastmoney.com/unify/r/115.RMM" data-code="RMM" data-market="115" target="_blank">菜粕</a>库存仍处低位，但随着进口菜籽菜粕到港量增加，菜粕库存整体呈现回升态势，截至10月16日，沿海主要油厂菜粕库存为2.16万吨,环比减少12.20%,同比增加204.23%。而下游采购情绪较为谨慎，菜粕价格或延续震荡运行。<a href="https://quote.eastmoney.com/unify/r/115.OIM" data-code="OIM" data-market="115" target="_blank">菜油</a>方面，随着菜籽到港增加，菜籽压榨量维持偏高水平，但黑海地区部分港口封锁，引发菜油出口受限，同时国内菜油收储导致库存恢复偏慢，菜油库存依旧偏低，截至10月16日，华东主要油厂菜油库存为34.2万吨，环比减少0.87%,同比减少30.77%。随着厄尔尼诺担忧上升以及<a href="https://quote.eastmoney.com/unify/r/142.scm" data-code="scm" data-market="142" target="_blank">原油</a>价格走高，近期菜油偏强运行，关注后期菜油进口情况。</p><p> <a href="https://quote.eastmoney.com/unify/r/114.pm" data-code="pm" data-market="114" target="_blank">棕榈油</a>：</p><p> 隔夜棕榈油承压9,650 元/吨震荡，10 月马棕产量增速放缓，SPPOMA 数据显示 10 月 1–20 日马棕产量较上月同期下降 0.52%，产量环比转负、季节性拐点临近；同时马棕出口大幅回升，ITS 与 AmSpec 数据分别显示 10 月 1–20 日马棕出口较上月同期增加 58.5% 和 78.4%，印度（黑海葵油运输受阻后转向棕油替代）与欧盟采购放量是核心驱动，马棕供需边际好转。长期来看，厄尔尼诺持续增强，2027 年棕榈油供应收紧风险上升；近期马来印尼降水分化，马来产区降水充足、GAPKI 预计印尼 2027 年产量或下滑 400–500 万吨。政策方面，印尼 B50 生物柴油自 2026 年 7 月起分阶段执行，预计年新增棕油需求 300–400 万吨，但执行节奏与落地效果仍待观察；马来西亚则正讨论临时豁免毛棕油出口税，以削减 9 月末高达 351.09 万吨的创纪录库存。国内方面，库存仍处高位，截至 10 月 16 日当周，全国重点地区棕榈油商业库存 120.47 万吨，环比增加 3.79%，同比增加 109.26%，豆棕价差深度倒挂抑制终端需求，棕榈油消费清淡。综合来看，马棕即将进入减产周期、出口强劲反弹与远月减产预期为盘面提供支撑，但马棕及国内双高库存压制反弹高度，短期宏观扰动与原油波动加大震荡风险，预计 P2701 大概率维持宽幅震荡。</p><p> 豆油：</p><p> 2026年以来美豆油需求持续处于高位，NOPA报告显示8月成员豆油库存降至年度低点，美国8月豆油库存为12.01亿磅，环比下降11.7%，同比下降7.5%，供应端超预期收紧对美豆油形成支撑。但是，EPA 在维持2026/27 高生物柴油掺混义务的同时，保留了进口生柴原料RIN积分，进口生柴大幅增加，替代本土美豆油需求，限制美豆油上涨空间。国内方面，近期大豆油厂开机升至高位，豆油库存止降转升，较往年依然偏高，截至10月16日，华东主要油厂菜油库存为34.2万吨，环比减少0.87%,同比减少30.77%。中国豆油出口持续偏高，2026年1-8月中国豆油累积出口68.8万吨，较上年同期增加48.2万吨，国内豆油供应较为充足。综合来看，随着美豆油短期需求端不确定增强，豆油高位压力有所增加。</p> <p align="center">养殖：</p><p> <a href="https://quote.eastmoney.com/unify/r/114.lhm" data-code="lhm" data-market="114" target="_blank">生猪</a>方面：昨日生猪主力价格震荡偏弱运行。现货方面，全国生猪出栏均价为10.01元/公斤，较上周下跌0.21元/公斤，环比下跌2.05%，同比下跌8.58%，周内猪价呈现持续下跌态势，均价重心下移。根据Mysteel数据，截至10月15日全国外三元生猪出栏均价跌至9.9元/公斤，较节前（10月1日10.17元/公斤）下跌0.27元/公斤，跌幅2.65%，也是自 6 月底回升至 10 元 / 公斤以上后，再度跌破 10 元关口。根据mysteel数据，10月重点省份养殖企业生猪计划出栏量合计1508.18万头，环比9月实际出栏量增加1.91%，出栏压力持续兑现。总的来说，生猪市场供应加量，猪价震荡走弱，均价重心持续下移。</p><p> <a href="https://quote.eastmoney.com/unify/r/114.jdm" data-code="jdm" data-market="114" target="_blank">鸡蛋</a>方面：昨日鸡蛋期货主力合约震荡偏弱运行。现货方面，鸡蛋主产区均价4.20元/斤，较上周下跌0.25元/斤，环比下跌5.62%，同比上涨31.25%。根据Mysteel数据，截至10月16日，全国生产环节库存为1.47天，较昨日增0.08天，增幅5.76%。流通环节库存为1.85天，较昨日增0.08天，增幅4.52%。整体来看，鸡蛋市场整体供应量保持小幅递增态势，货源供给充足，鸡蛋终端消费转淡，贸易商拿货谨慎，产区走货放缓，各环节被动累库压力增加。</p><p> <a href="https://quote.eastmoney.com/unify/r/114.cm" data-code="cm" data-market="114" target="_blank">玉米</a>：</p><p> 隔夜玉米主力低位震荡偏强运行，全国玉米周度均价2194元/吨，较上周下调41元/吨，跌幅1.83%。随着东北新粮上市，深加工企业利润承压，收购意愿谨慎，持续下调收购价格。国内方面，Mysteel调查显示，截至2026年10月14日，全国95家主要玉米加工企业库存总量256.9万吨，环比增加5.46%，同比增加4.35%。根据Mysteel数据，全国样本饲料企业玉米平均库存为24.95天，较上周增加0.83天，环比上涨3.44%，同比上涨2.09%。总的来说，华北新粮上市进入中后期，新粮上市节奏加快，供应压力逐步显现。深加工企业到货量冲高后回落，收购价先小幅反弹后承压回调。</p><p> <a href="https://quote.eastmoney.com/unify/r/115.CFM" data-code="CFM" data-market="115" target="_blank">棉花</a>：</p><p> 隔夜棉花主力合约价格震荡偏弱运行。国际方面，USDA 10月报告显示2026/27年度全球棉花供需格局小幅宽松。产量环比上调0.54%至2568.1万吨，主要因美、巴主产国增产；消费基本持平，环比微增0.13%；期末库存上调1.17%至1538.9万吨，库存消费比升至57.43%。供应压力边际增加缓解此前紧缺预期，压制棉价上行。国内方面，据Mysteel<a href="https://quote.eastmoney.com/unify/r/0.000061" data-code="000061" data-market="0" target="_blank">农产品</a>数据监测，截至10月15日，主流地区纺企开机负荷为69.4%，周环比下降0.04。受“银十”旺季成色不足影响，<a href="https://quote.eastmoney.com/unify/r/115.CYM" data-code="CYM" data-market="115" target="_blank">棉纱</a>坯布走货偏弱，纺纱利润不佳，企业多随用随买，产成品库存持续累积。总的来说，新疆新棉采收推进，籽棉收购博弈加剧，棉花期现货维持区间震荡。纺企原料库存低位，坚持刚需随采，大批量补库意愿偏弱，下游织厂订单不及预期。</p><p> <a href="https://quote.eastmoney.com/unify/r/115.SRM" data-code="SRM" data-market="115" target="_blank">白糖</a>：</p><p> 隔夜白糖主力合约价格震荡运行。国际方面，巴西中南部遭遇持续性暴雨洪涝，甘蔗收割、压榨大面积停滞，码头物流装运延误，市场大幅下调巴西 26/27 榨季产糖预期；叠加巴西糖厂优先生产乙醇、制糖比例走低，全球短期可流通原糖供应收紧。国内方面，2026/27榨季，内蒙古已开机糖厂10家，超八成，预计开机13家；新疆12家糖厂全部开机。产量方面，内蒙古甜菜糖产量预计53万吨左右，同比减少15万吨；新疆预计产糖70万吨左右，同比减少约9.5万吨。总的来说，受全球 2026/27 榨季供应缺口预期支撑，ICE 原糖高位走强，国内白糖期现价格预计仍有支撑。</p><center style="text-align:left;"><div class="em_adv_mods" type="1" tag="7" style="display:none;"></div></center><p class="em_media">（文章来源：上海中期期货）</p></div>
+<div class="skip-image">
+</div>
+</div>
+<div class="declaration">
+<p>文章来源：上海中期期货</p>
+<p>
+<span>郑重声明：东方财富网发布此信息的目的在于传播更多信息，与本站立场无关。</span>
+<a :href="jubaoHref" target="_blank">
+举报</a>
+</p>
+</div>
+</div>
+<div v-if="!briefInfo.repost_state_flag" class="shareBox">
+<div>分享至：</div>
+<div class="sharebottom">
+<span v-for="(item, idx) in txtArr" :key="idx" :title="'分享到' + item"
+@click.stop="handleShareClick(idx)"></span>
+<div v-show="wxshareFlg" class="wxshare" @click.stop="function(){}">
+<div class="qrimg">
+<img :src="imgUrl" alt="" class="qrcode">
+<img :src="imgLogoUrl" alt="" class="logo">
+</div>
+<div class="txt">使用微信扫一扫</div>
+<div class="txt">分享文章到朋友圈</div>
+</div>
+</div>
+</div>
+</div>
+<link rel="stylesheet" href="https://qhrs.eastmoney.com/static/style/news/comments.css?v=1792483622782" type="text/css">
+<!-- 评论区 -->
+<div id="commentWrap" v-cloak>
+<div v-if="list.length !== 0" class="commentWrap">
+<div class="titBox">
+<div class="title">所有评论</div>
+<div class="selectBox">
+<div v-for="({ text }, idx) in actions" :key="idx" :class="['text', idx === act ? 'act' : '']" @click="handleSelectClick(idx)">
+{{ text }}
+</div>
+</div>
+</div>
+<!--评论-->
+<div class="replyList" ref="replyList" v-for="item in list" :key="item.reply_id">
+<div class="listCont">
+<a :href="'https://i.eastmoney.com/' + item.user_id">
+<img class="avatar" :src="'https://avator.eastmoney.com/qface/' + item.reply_user.user_id + '/166'" alt=""/>
+</a>
+<div :class="['infoCont', expandFlg ? 'expand' : '']">
+<div class="titleBox">
+<a class="nickname boldFont" :href="'https://i.eastmoney.com/' + item.user_id">
+{{ item.reply_user.user_nickname }}</a>
+<div class="time">{{ item.reply_time_format }}</div>
+</div>
+<div class="txtCont">
+<div class="text" ref="text">
+<emoji-comment :comment='item.reply_text'></emoji-comment>
+</div>
+<a v-if="item.reply_picture" :href="item.reply_picture" class="img_link" target="_blank">
+<img :src="item.reply_picture" />
+</a>
+</div>
+<!--超过5行-->
+</div>
+</div>
+<!--子回复-->
+<div v-if="item.childReplys.length > 0" class="comment">
+<div class="comment-li" v-for="(reply, i) in item.childReplys" :key="i">
+<!--回复其他评论-->
+<div :class="['leftCont', expandFlg ? 'expand' : '']">
+<div class="txtCont">
+<div class="text" ref="text">
+<a :href="'https://i.eastmoney.com/' + reply.user_id">
+{{ reply.user_nickname }}{{ reply.isComment ? ':' : '' }}</a>
+<span v-if="!reply.isComment">
+回复
+<a :href="'https://i.eastmoney.com/' + reply.reply_user_id">
+{{reply.reply_user_nickname}}:</a>
+</span>
+<emoji-comment :comment='reply.reply_text'></emoji-comment>
+<a v-if="reply.reply_picture" :href="reply.reply_picture" class="l2_img_link" target="_blank">
+<em class="icon icon_list_img"></em>查看图片
+</a>
+</div>
+</div>
+<!--超过5行-->
+</div>
+<div class="date">{{ reply.reply_time }}</div>
+</div>
+<!--查看全部-->
+<div v-if="item.reply_count > item.childReplys.length" class="btn">
+还有{{ item.reply_count - item.childReplys.length }}条回复，<span
+@click="getReplyDetail(item.reply_id)">点击查看全部</span>
+</div>
+</div>
+</div>
+<div v-show="!actions[act].finishedFlg || list.length < replyList[act].length" class="moreBtn">
+<div class="btn" @click="handleMoreClick">点击查看更多评论</div>
+</div>
+<!--<div class="comment-image">-->
+<!--<slot></slot>-->
+<!--</div>-->
+</div>
+<div v-if="!briefInfo.post_comment_authority_flag && list.length === 0" class="empty">
+<img src="https://qhrs.eastmoney.com/static/images/features/emptyComment.png" alt="">
+<div class="text">暂无评论</div>
+</div>
+</div>
+<script src="https://qhrs.eastmoney.com/static/js/pcBridge.js?v=1792483622782"></script>
+<script src="https://qhrs.eastmoney.com/static/lib/jquery3.5.1.min.js"></script>
+<script src="https://qhweb.eastmoney.com/xinwen/emoji-comment.js"></script>
+<script src="https://qhrs.eastmoney.com/static/js/utils.js?v=1792483622782"></script>
+<script>
+// jsonp 请求的基础参数
+var baseParams = {
+postid: '',
+// 默认用户名的md5
+deviceid: '',
+version: '1.0.0',
+product: 'Futures',
+plat: 'web',
+_: 1640585326852
+}
+var briefInfo = {};
+var ptm = {
+// 接口
+url: 'https://gbapi.emhudong.cn/'
+}
+// 配置 p第几页 initFlg 第一次请求 finishedFlg 数据全部加载
+var actions = [
+{text: '最新', opt: {sort: 1, sorttype: 1, p: 1}, initFlg: true, finishedFlg: true},
+{text: '最热', opt: {sort: 1, sorttype: -1, p: 1}, initFlg: true, finishedFlg: true},
+{text: '最早', opt: {sort: -1, sorttype: 1, p: 1}, initFlg: true, finishedFlg: true}
+]
+var vm = new Vue({
+el: '#commentWrap',
+data: function () {
+return {
+// 通过 actions 属性来定义菜单选项
+actions: actions,
+act: 0,
+// 评论
+replyList: [[], [], []],
+list: [],
+line: 5,
+lineHeight: 18,
+// 是否显示
+showFlg: false,
+// 是否展开全部评论
+expandFlg: false,
+// 子评论页数
+p: 1,
+briefInfo: {
+post_comment_authority_flag: false, // 是否允许评论 true 为不允许评论
+allow_likes_state_flag: true, // 是否允许点赞
+repost_state_flag: true, // 是否允许转发
+},
+}
+},
+beforeCreate: function() {
+if (window.pcBridge) {
+window.pcBridge.init(function() {
+window.pcBridge.connectAppInfo();
+});
+}
+},
+mounted: function () {
+this.setPostId();
+},
+methods: {
+setPostId: function () {
+var formatNum = this.formatNum;
+var that = this;
+$.ajax({
+url: apis.briefInfo,
+type: "GET",
+dataType: "jsonp", //指定服务器返回的数据类型
+jsonpCallback: "jsonpdata",
+data: Object.assign(baseParams, {type: 1, postid: this.getNewsId()}),
+success: function (data) {
+var obj = data.re[0];
+var post_uid = obj.post_uid;
+var post_id = obj.post_id;
+// post_uid存在
+if (post_uid) {
+// 赋值
+Object.assign(baseParams, {postid: post_id});
+// 评论、分享
+var post_comment_count = obj.post_comment_count;
+var post_forward_count = obj.post_forward_count;
+var post_comment_authority_flag = obj.post_comment_authory === 3
+var allow_likes_state_flag = obj.allow_likes_state === 1
+var repost_state_flag = obj.repost_state === 1 // 是否允许转发（目前帖子不能关闭分享）
+console.log( obj.post_comment_authory ,'obj.post_comment_authority ' )
+console.log( obj.allow_likes_state ,'obj.allow_likes_state ' )
+console.log( obj.repost_state ,'obj.repost_state ' )
+var briefInfo= {
+post_comment_authority_flag,
+allow_likes_state_flag,
+repost_state_flag,
+}
+that.briefInfo = briefInfo
+// 赋值
+setTimeout(()=>{
+vmDetail.changeBrief(briefInfo)
+},50)
+}
+that.getReplyList();
+}
+});
+},
+// 评论
+getReplyList: function (params) {
+var that = this;
+var act = this.act;
+var replyList = this.replyList;
+// 是否第一次加载
+var obj = actions[act];
+var list = replyList[act];
+// 请求
+$.ajax({
+url: apis.replyList,
+type: "GET",
+dataType: "jsonp", //指定服务器返回的数据类型
+jsonpCallback: "jsonpdata",
+data: Object.assign({
+type: 0, ps: 20, p: 1, sort: 1, sorttype: 1, deviceid: 1, IsTC: false
+}, params ? params : {}, baseParams),
+success: function (data) {
+var re = data.re;
+var count = data.count;
+if(re){
+re.forEach(function (item) {
+var reply_time = item.reply_time;
+var user_id = item.reply_user.user_id;
+item.reply_time_format = reply_time ? reply_time.substring(0, reply_time.length - 3) : '';
+var childReplys = that.fmtData(item.child_replys, user_id)
+list.push(Object.assign(item, { p: 1, childReplys: childReplys }));
+})
+}
+// 判断是否全部加载
+if (list.length >= count) {
+obj.finishedFlg = true
+} else {
+obj.opt.p += 1
+obj.finishedFlg = false
+}
+// 首次，显示5条
+that.list = obj.initFlg ? list.slice(0, 5) : list;
+// that.calcExpand();
+}
+});
+},
+// 子评论
+getReplyDetail: function (replyid) {
+var that = this;
+var act = this.act;
+var replyList = this.replyList;
+var list = replyList[act];
+// 筛选
+var index = list.findIndex(function(item) {
+return item.reply_id === replyid;
+});
+var arr = list[index];
+// 请求
+$.ajax({
+url: apis.replyDetail,
+type: "GET",
+dataType: "jsonp", //指定服务器返回的数据类型
+jsonpCallback: "jsonpdata",
+data: Object.assign({
+replyid: replyid,
+p: arr.p,
+ps: 10,
+sort: 1,
+sorttype: 1,
+type: 0,
+}, baseParams),
+success: function (data) {
+var count = data.count;
+var child_replys = data.re.child_replys;
+arr.p === 1 && (arr.childReplys = []);
+console.log(arr.p)
+var childReplys = that.fmtData(child_replys, replyid);
+// // 判断是否全部加载
+// 添加
+childReplys.forEach(function(item) {
+arr.childReplys.push(item)
+})
+arr.childReplys.length < count && (arr.p += 1);
+}
+});
+},
+fmtData: function (list, user_id) {
+var childReplys = [];
+if (list.length === 0) return [];
+list.forEach(function (t) {
+var reply_user_id = t.source_reply[0].source_reply_user_id;
+childReplys.push(Object.assign(t, {
+// 图片
+reply_picture: t.reply_picture,
+// 内容
+reply_text: t.reply_text,
+// 回复人
+user_nickname: t.reply_user.user_nickname,
+// 被回复人通行证
+reply_user_id: reply_user_id,
+// 被回复人
+reply_user_nickname: t.source_reply[0].source_reply_user_nickname,
+// 是评论还是回复评论
+isComment: user_id == reply_user_id,
+reply_time: t.reply_time.substring(0, t.reply_time.length - 3)
+}));
+})
+return childReplys;
+},
+// 切换最新 最热 最早
+handleSelectClick: function (idx) {
+var replyList = this.replyList;
+var getReplyList = this.getReplyList;
+var list = replyList[idx];
+// 赋值
+Object.assign(this, {act: idx})
+// 无数据，请求
+list.length === 0 ? getReplyList(actions[idx].opt) : this.list = list
+},
+// 更多评论
+handleMoreClick: function () {
+var act = this.act;
+var replyList = this.replyList;
+var getReplyList = this.getReplyList;
+var initFlg = actions[act].initFlg;
+// 最初显示五条，第一次加载，加载剩余的部分
+if (initFlg) {
+actions[act].initFlg = false;
+this.list = replyList[act];
+return;
+}
+// 请求
+getReplyList(actions[act].opt);
+},
+getNewsId: function () {
+var articleid = location.href.replace(/.*news\/(\d+).*/, '$1');
+// 赋值参数信息
+articleid && Object.assign(baseParams, {
+postid: articleid
+});
+return articleid;
+},
+formatNum: function (num) {
+return num < 10000 ? num : (num / 10000).toFixed(1) + '万';
+},
+handleExpandClick: function () {
+var expandFlg = this.expandFlg;
+this.expandFlg = !expandFlg;
+},
+// 计算是否展开评论
+calcExpand: function () {
+// console.log(that.$refs.text)
+},
+handleJumpClick: function (url) {
+if (window.pcBridge && window.pcBridge.isInQTUOS) {
+return window.pcBridge.OpenInBrowser(url)
+}
+if (typeof window.OpenInBrowser === 'function') {
+window.OpenInBrowser(url)
+}
+},
+getListLength:function(){
+console.log(this.list,'list')
+console.log(this.list.length,'list.length')
+return this.list.length
+},
+}
+})
+</script>
+<div id="desc" class="desc">
+郑重声明：用户在社区发表的所有资料、言论等仅代表个人观点，与本网站立场无关，不对您构成任何投资建议。用户应基于自己的独立判断，自行决定证券投资并承担相应风险。
+<a href="https://guba.eastmoney.com/gltl.aspx" target="_blank">
+《东方财富社区管理规定》</a>
+</div>
+</div>
+<div class="rightBox">
+<link rel="stylesheet"
+href="https://qhrs.eastmoney.com/static/style/news/rightBox.css?v=1792483622782" type="text/css">
+<div class="carouselBox" style="height: 132px">
+<el-carousel v-bind="opt">
+<el-carousel-item>
+<a href="https://qs.dfcfw.com/3328" target="_blank" :tracker-eventcode="tracker">
+<img src="https://qhrs.eastmoney.com/apiFiles/commonConfig/20230215/202302151421095980.png" alt="">
+</a>
+</el-carousel-item>
+</el-carousel>
+</div>
+<script>
+var pathname = window.location.pathname;
+var onlyImgFlg = 1 ===1;
+var vm = new Vue({
+el: '.carouselBox',
+data: function() {
+return {
+opt: {
+interval: 2000,
+trigger: 'click',
+loop: true,
+'indicator-position': onlyImgFlg ? 'none' : '',
+arrow: onlyImgFlg ? 'never' : 'hover'
+},
+tracker: pathname.indexOf('kuaixun') !== -1 ? 'PCdwebymfw_dfcfqhkxwy_ysfgg_ck' : pathname.indexOf('headlines') !== -1 ? 'PCdwebymfw_dfcfqhqhttwy_ysfgg_ck' :
+pathname.indexOf('news') !== -1 && pathname.indexOf('html') !== -1 ? 'PCdwebymfw_dfcfqhzxxqwy_ysfgg_ck' : 'PCdwebymfw_dfcfqhzxwy_ysfgg_ck'
+}
+}
+})
+</script> <div class="rightCont" id="rightCont">
+<div class="titBox">
+<div class="tit">期货头条</div>
+<a class="more" href="https://qhweb.eastmoney.com/headlines" target="_blank" :tracker-eventcode="tracker">查看更多 ></a>
+</div>
+<div class="listBox">
+<a
+href="https://qhweb.eastmoney.com/news/202610243906830462.html"
+class="list"
+:class="isRightRead('202610243906830462') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610243906830462')"
+>
+<div class="line">
+<div class="rank rank1 boldFont">1</div>
+<div class="title">特朗普称可能对伊发动一次小规模“史诗怒火”行动</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">券商中国</div>
+<div class="showTime">10-24 04:40</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610243906819077.html"
+class="list"
+:class="isRightRead('202610243906819077') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610243906819077')"
+>
+<div class="line">
+<div class="rank rank2 boldFont">2</div>
+<div class="title">现货金价跌破4000美元关口 避险市场下资金为何抛售黄金？</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">财联社</div>
+<div class="showTime">10-24 02:20</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610243907095140.html"
+class="list"
+:class="isRightRead('202610243907095140') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610243907095140')"
+>
+<div class="line">
+<div class="rank rank3 boldFont">3</div>
+<div class="title">加息大消息！美联储 重磅来袭</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">券商中国</div>
+<div class="showTime">10-24 16:13</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610243907092582.html"
+class="list"
+:class="isRightRead('202610243907092582') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610243907092582')"
+>
+<div class="line">
+<div class="rank rank4 boldFont">4</div>
+<div class="title">2025年全国初婚人数重回千万 达1042.33万</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">第一财经</div>
+<div class="showTime">10-24 15:38</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610223904576980.html"
+class="list"
+:class="isRightRead('202610223904576980') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610223904576980')"
+>
+<div class="line">
+<div class="rank rank5 boldFont">5</div>
+<div class="title">全国蛋价跌回“4元时代” 未来还会降吗？</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">央视财经</div>
+<div class="showTime">10-23 07:00</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610243907068582.html"
+class="list"
+:class="isRightRead('202610243907068582') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610243907068582')"
+>
+<div class="line">
+<div class="rank rank6 boldFont">6</div>
+<div class="title">伊朗总统将于下周访俄并与普京会谈</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">央视新闻</div>
+<div class="showTime">10-24 11:19</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610243906806317.html"
+class="list"
+:class="isRightRead('202610243906806317') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610243906806317')"
+>
+<div class="line">
+<div class="rank rank7 boldFont">7</div>
+<div class="title">泽连斯基确认乌美俄三方会谈将于11月上半月举行</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">央视新闻</div>
+<div class="showTime">10-24 00:16</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610233906441021.html"
+class="list"
+:class="isRightRead('202610233906441021') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610233906441021')"
+>
+<div class="line">
+<div class="rank rank8 boldFont">8</div>
+<div class="title">国常会：优化面向家庭的财税、社保、住房等支持举措 努力稳定新出生人口规模</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">新华社</div>
+<div class="showTime">10-23 19:13</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610233906158396.html"
+class="list"
+:class="isRightRead('202610233906158396') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610233906158396')"
+>
+<div class="line">
+<div class="rank rank9 boldFont">9</div>
+<div class="title">互联网泡沫惨痛回忆！AI动荡“拷问”美联储：今年还敢加息吗？</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">财联社</div>
+<div class="showTime">10-23 14:34</div>
+</div>
+</a>
+<a
+href="https://qhweb.eastmoney.com/news/202610243907032279.html"
+class="list"
+:class="isRightRead('202610243907032279') ? 'gray' : ''"
+target="_blank"
+:tracker-eventcode="trackerList"
+@click="handleRightClick('202610243907032279')"
+>
+<div class="line">
+<div class="rank rank10 boldFont">10</div>
+<div class="title">美伊“风向”生变？特朗普暗示或再打击伊朗 美方已做好长期对峙准备！</div>
+</div>
+<div class="detailInfo">
+<div class="mediaName">财联社</div>
+<div class="showTime">10-24 08:11</div>
+</div>
+</a>
+</div>
+</div>
+<script>
+var pathname = window.location.pathname;
+// 缓存名
+var HEAD_CACHE_KEY = 'futures_hotNews';
+new Vue({
+el: '#rightCont',
+data: function () {
+return {
+// 本地记录
+rightRecordList: [],
+tracker: pathname.indexOf('kuaixun') !== -1 ? 'PCdwebymfw_dfcfqhkxwy_ycqhtt_ckgd' : pathname.indexOf('news') !== -1 && pathname.indexOf('html') !== -1 ? 'PCdwebymfw_dfcfqhzxxqwy_ycqhtt_ckgd' : 'PCdwebymfw_dfcfqhzxwy_ycqhtt_ckgd',
+trackerList: pathname.indexOf('kuaixun') !== -1 ? 'PCdwebymfw_dfcfqhkxwy_ycqhtt_ckxq' : pathname.indexOf('news') !== -1 && pathname.indexOf('html') !== -1 ? 'PCdwebymfw_dfcfqhzxxqwy_ycqhtt_ckxq' : 'PCdwebymfw_dfcfqhzxwy_ycqhtt_ckxq'
+}
+},
+created: function () {
+this.rightRecordList = JSON.parse(localStorage.getItem(HEAD_CACHE_KEY)) || [];
+},
+methods: {
+isRightRead: function (code) {
+return this.rightRecordList.indexOf(code) !== -1
+},
+// 点击列表
+handleRightClick: function (code) {
+var rightRecordList = this.rightRecordList;
+// 数组中已有code，返回
+if (rightRecordList.indexOf(code) !== -1) return;
+// 添加
+rightRecordList.push(code);
+// 存储本地
+localStorage.setItem(HEAD_CACHE_KEY, JSON.stringify(rightRecordList));
+}
+}
+});
+</script>
+</div>
+</div>
+</div>
+<div class="blank" style="height: 210px">
+<footer id="footer">
+<div class="msg">
+<div class="handbar">
+<a href="https://about.eastmoney.com/" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_gywm">关于我们</a>
+<a href="https://about.eastmoney.com/home/contact" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_lxwm">联系我们</a>
+<a href="https://qhweb.eastmoney.com/suggestion" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_yhfk">用户反馈</a>
+<a href="https://about.eastmoney.com/home/disclaimer" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_mzsm">免责声明</a>
+<a href="https://about.eastmoney.com/home/legal" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_flsm">法律声明</a>
+<a href="https://about.eastmoney.com/home/conceal" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_ysbh">隐私保护</a>
+<a href="https://about.eastmoney.com/home/protocol" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_fwxy">服务协议</a>
+<a href="https://about.eastmoney.com/home/links" target="_blank" class="item" tracker-eventcode="PCdwebymfw_dfcfqhzxwy_ymdl_yqlj">友情链接</a>
+</div>
+<div class="txt">
+<div>信息网络传播视听节目许可证：0908328号&nbsp;&nbsp;&nbsp;
+经营证券期货业务许可证编号：913101046312860336&nbsp;&nbsp;&nbsp;
+违法和不良信息举报:021-61278686&nbsp;&nbsp;&nbsp;
+举报邮箱：<a href="mailto:jubao@eastmoney.com">jubao@eastmoney.com</a><br />
+<em class="icon icon_icp"></em>&nbsp; 沪ICP证: 沪B2-20070217 &nbsp; <a rel="nofollow" href="https://beian.miit.gov.cn/">网站备案号: 沪ICP备05006054号-11</a> &nbsp;
+<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402000120"><em class="icon icon_pol"></em> 沪公网安备 31010402000120号</a> &nbsp; 版权所有: 东方财富网 &nbsp; 意见与建议: 4000300059/952500
+</div>
+<div class="icons">
+<img src="//g1.dfcfw.com/g3/201905/20190531140719.png"
+title="亲爱的市民朋友，上海警方反诈劝阻电话“962110”系专门针对避免您财产被骗受损而设，请您一旦收到来电，立即接听。"/>
+<div class="icon icon_police" title="上海网警网络110"></div>
+<div class="icon icon_zx110" title="网络社会征信网"></div>
+<a target="_blank" href="http://www.shjbzx.cn/" class="icon icon_shjubao" title="上海违法和违规信息举报中心"></a>
+<a target="_blank" href="http://www.12377.cn" class="icon icon_12377" title="中国互联网违法和不良信息举报中心"></a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+if ('xinwen' === 'help' || 'xinwen' === 'course') {
+var configBottom = {
+height: 210,
+topHeight: 140,
+top: { left: '#f97927', right: '#f67520' },
+bottom: { left: '#FFF', right: '#FFF' },
+img: 'https://qhrs.eastmoney.com/static/images/footer-short.png'
+}
+function bgBottom(configBottom) {
+// 附加背景
+var left = configBottom.left;
+var right = configBottom.right;
+return 'linear-gradient(90deg,' + left + ',' + left + ' calc((100vw - 1860px) / 2),transparent, transparent, transparent calc(100vw - (100vw - 1720px) / 2),' + right + ' calc(100vw - (100vw - 1870px) / 2),' + right + ' 100%)';
+}
+function loadImg() {
+var img = configBottom.img;
+if (!img) return;
+var imgElm = new Image();
+imgElm.src = img;
+// 加载背景图
+imgElm.onload = function () {
+setTimeout(function () {
+document.getElementsByClassName('blanktop_footer')[0].style.background = bgBottom(configBottom.top);
+}, 100);
+}
+}
+// loadImg();
+}
+</script>
+<div id="floatWrap">
+<div :class="['floatWrap', scrollFlg ? 'fadeIn' : '']">
+<div v-show="showFlg && !hideContFlg" class="floatCont">
+<div class="logo"></div>
+<div class="txt">为用户创造更多价值</div>
+<div class="code"></div>
+<div class="txt">扫码下载APP</div>
+<a :href="downloadUrl" emf-track-key="qhweb_float_window_download" tracker-eventcode="PCdwebymfw_dfcfqhsy_yctc_windows"
+class="btn download">
+Windows下载
+</a>
+<a :href="kaihuHref" emf-track-key="qhweb_float_kaihu" tracker-eventcode="PCdwebymfw_dfcfqhsy_yctc_ljkh" target="_blank" class="btn">立即开户</a>
+<div emf-track-key="qhweb_float_close" class="close" @click="close"></div>
+</div>
+<div class="topIcon" emf-track-key="qhweb_float_top" @click="handleTopClick">
+<div class="topBtn"></div>
+</div>
+</div>
+</div>
+<script>
+var vm = new Vue({
+el: '#floatWrap',
+data: function () {
+return {
+// 是否显示
+showFlg: true,
+// 隐藏内容
+hideContFlg: false,
+scrollFlg: false,
+// 是否是xp
+isXP: false,
+// 开户地址
+kaihuHref: 'https://qs.dfcfw.com/1629',
+// 下载
+downloadUrl: 'https://qs.dfcfw.com/7681',
+// xp下载
+downloadXPUrl: 'https://qs.dfcfw.com/3355'
+}
+},
+mounted: function () {
+var name = 'xinwen' || 'detail';
+var listArr = ['xinwen', 'kuaixunc', 'headlines', 'hangqing', 'tradinghours', 'longhubang']
+// 资讯
+this.hideContFlg = listArr.indexOf(name) !== -1
+this.jumpXP()
+// 帮助中心展示
+if (name == 'help') {
+var that = this
+return setTimeout(function () {
+that.scrollFlg = true
+}, 20)
+}
+// 滚动监听
+this.scrollEvtInit(true)
+},
+beforeDestroy: function () {
+this.scrollEvtInit()
+},
+methods: {
+// 判断是否是xp
+jumpXP: function () {
+var ua = navigator.userAgent
+if (ua.indexOf('Windows NT 5.1') !== -1 || ua.indexOf('Windows XP') !== -1) {
+this.isXP = true
+}
+},
+// 设置/销毁滚动监听
+scrollEvtInit: function (flg) {
+window[(flg ? 'add' : 'remove') + 'EventListener']('scroll', this.handleScroll)
+},
+// 滚动监听
+handleScroll: function (e) {
+// 获取到页面滚动的值
+var sclTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+this.scrollFlg = sclTop > 580
+},
+// 关闭
+close: function () {
+this.showFlg = false
+},
+// 回顶部
+handleTopClick: function () {
+window.scrollTo(0, 0)
+}
+}
+})
+</script>
+</section>
+<div class="iePopupWrap" id="iePopupWrap">
+<div class="iePopup" onclick="jumpEdge()">
+<div class="iePopup-close" id="iePopup-close">
+<img src="https://qhrs.eastmoney.com/static/images/close1.png" alt="" class="iePopup-close-img"/>
+</div>
+<img src="https://qhrs.eastmoney.com/static/images/ie-upgrade.png" alt="" class="iePopup-img"/>
+<div class="iePopup-tit boldFont">您浏览器版本过低哦</div>
+<div class="iePopup-txt">亲爱的用户，由于微软官方近期停止支持IE内核的浏览器，您当前使用的浏览器将无法正常访问。</div>
+<div class="iePopup-btn">升级浏览器</div>
+</div>
+</div>
+<script>
+var IE = !!window.ActiveXObject || "ActiveXObject" in window;
+var dom = document.getElementById('iePopupWrap');
+var closeDom = document.getElementById('iePopup-close');
+if (IE) {
+dom.style.display = 'block';
+}
+// 跳edge
+function jumpEdge() {
+window.location.href = 'https://www.microsoftedgeinsider.com/zh-cn/';
+}
+function closeFun(e) {
+dom.style.display = 'none';
+var evt = e || window.event;
+evt.stopPropagation ? evt.stopPropagation() : evt.cancelBubble = true;
+}
+// 兼容ie7,8
+if (window.addEventListener) {
+closeDom.addEventListener('click',function(e){
+closeFun(e);
+});
+} else {
+closeDom.attachEvent('onclick',function(e){
+closeFun(e);
+});
+}
+</script> <script src="https://qhrs.eastmoney.com/static/lib/qrcode.js"></script>
+<script src="https://qhrs.eastmoney.com/static/lib/axios@0.21.4.min.js"></script>
+<script src="https://qhrs.eastmoney.com/static/js/pcBridge.js?v=1792483622782"></script>
+<script src="https://bdstatics.eastmoney.com/web/prd/jump_tracker.js"></script>
+<script src="https://qhrs.eastmoney.com/static/js/utils.js?v=1792483622782"></script>
+<script>
+utils.tracker();
+utils.logger('140000328111');
+var CACHE_KEY = 'article_fontsize';
+// 链接
+var LINKS = [
+'http://guba.eastmoney.com/share.aspx',
+'http://service.weibo.com/share/share.php',
+'',
+'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey'
+];
+var imgLogoUrl = 'https://qhemrs.eastmoney.com/h5/resources/images/share.png';
+var PICTURE = encodeURIComponent(imgLogoUrl);
+document.addEventListener('click', function(e) {
+var target = e.target;
+while (target && target.tagName !== 'A') {
+target = target.parentElement;
+}
+if (target && target.tagName === 'A') {
+var href = target.getAttribute('href');
+if (href && href !== '#' && !href.startsWith('javascript:') && !href.startsWith('#')) {
+// 检查是否在QTUOS环境中
+if (window.pcBridge && window.pcBridge.isInQTUOS) {
+e.preventDefault(); // 阻止默认跳转
+window.pcBridge.OpenInBrowser(href); // 使用pcBridge跳转
+}
+// 其他情况保持原有的跳转行为
+}
+}
+});
+function handleJump(url) {
+if (window.pcBridge && window.pcBridge.isInQTUOS) {
+return window.pcBridge.OpenInBrowser(url)
+}
+if (typeof window.OpenInBrowser === 'function') {
+window.OpenInBrowser(url)
+}
+}
+var vmDetail = new Vue({
+el: '#leftBox',
+data: function () {
+return {
+act: 1,
+titleFmt: '',
+descFmt: '',
+wxshareFlg: false,
+imgUrl: '',
+imgLogoUrl: imgLogoUrl,
+fontsizeArr: ['大字', '标准', '小字'],
+txtArr: ['股吧', '新浪微博', '微信', 'QQ空间'],
+jubaoHref: 'http://help.eastmoney.com/report_center.html?reportType=3&title=' + encodeURIComponent('农产品 | 南美大豆产量风险加大 关注后期南美天气变化') + '&systype=3&id=202610233904969353&newsurl=' + window.location.href,
+briefInfo: {
+post_comment_authority_flag: false, // 是否允许评论 true 为不允许评论
+allow_likes_state_flag: true, // 是否允许点赞
+repost_state_flag: true, // 是否允许转发
+},
+}
+},
+beforeCreate: function() {
+if (window.pcBridge) {
+window.pcBridge.init(function() {
+window.pcBridge.connectAppInfo();
+});
+}
+},
+mounted: function () {
+this.act = Number(localStorage.getItem(CACHE_KEY) || 1)
+var that = this;
+var desc = '豆粕：隔夜豆粕依托3250元/吨震荡，10月份美豆收割压力上升，截至2026年10月18日当周，美国大豆收割率为64%，五年均值为65%。10月份以来美豆出口转弱，截至10月2日当周美国2026/2027年度大豆出口净销售为54.94万吨，环比下降46.85%，出口端支撑减弱。';
+Object.assign(this, {
+titleFmt: encodeURIComponent('农产品 | 南美大豆产量风险加大 关注后期南美天气变化'),
+// qq分享最多显示120字
+descFmt: encodeURIComponent(desc.length > 120 ? desc.substring(0, 118) + '...' : desc)
+})
+// 转码
+var base64 = encodeURIComponent(btoa('articleid=202610233904969353&uid=""'))
+QRCode.toDataURL('https://qhh5.eastmoney.com/news/#/?code=' + base64).then(function (url) {
+that.imgUrl = url;
+}).catch(function (err) {
+console.error(err);
+});
+// 埋点上报
+this.dataCollect();
+},
+methods: {
+// 改变字体大小
+changeFontSize: function (idx) {
+this.act = idx
+localStorage.setItem(CACHE_KEY, idx)
+},
+handleShareClick: function (idx) {
+var title = this.titleFmt;
+var desc = this.descFmt;
+var wxshareFlg = this.wxshareFlg;
+var str = ''
+// 返回
+if (!('org.sothis.web.qhsite.bo.NewsDetailBo@1f20f455' && 'org.sothis.web.qhsite.bo.NewsBo@20cc2a5d')) return
+// 点其他区域，关闭
+if (idx === -1) {
+this.wxshareFlg = false
+return
+}
+// 二维码
+if (idx === 2) {
+this.wxshareFlg = !wxshareFlg
+return
+}
+// 0 股吧 1微博 3 qq空间
+var obj = Object.assign({url: encodeURIComponent(window.location.href), title: title}, idx === 1 ? {
+searchPic: false, pic: PICTURE
+} : idx === 3 ? {
+// summary: '',
+desc: desc, pics: PICTURE
+} : {})
+// 循环拼接字符串
+Object.keys(obj).forEach(function (key, idx) {
+str += (idx !== 0 ? '&' : '') + key + '=' + obj[key];
+});
+var linkUrl = LINKS[idx] + '?' + str;
+if (window.pcBridge && window.pcBridge.isInQTUOS) {
+return window.pcBridge.OpenInBrowser(linkUrl)
+}
+// 跳转兼容pc客户端
+typeof window.OpenInBrowser === 'function' ? window.OpenInBrowser(linkUrl) : window.open(linkUrl);
+},
+handleJumpClick: function (url) {
+handleJump(url)
+},
+// 埋点上报
+dataCollect: function () {
+axios.post(apis.dataCollect, {
+event_type: 1,
+source: 14,
+collect_mode: 2,
+info_type: 1,
+info_id: '202610233904969353',
+req_id: utils.getUuid()
+});
+},
+changeBrief:function (brief){
+console.log(brief,'brief')
+this.briefInfo=brief
+if(brief.post_comment_authority_flag){
+document.getElementById('desc').style.display = 'none';
+}
+}
+}
+})
+</script>
+</body>
+</html>
