@@ -259,20 +259,57 @@ class SchedulerTests(unittest.TestCase):
             self.assertEqual(result['used'], 0)
             self.assertEqual(result['failures'], [])
 
-    def test_four_in_priority_order_and_remaining_wait(self):
+    def test_five_in_priority_order_and_remaining_wait(self):
         state = new_state()
         merge_candidates(state, candidates(), NOW)
         chosen = reserve(state, NOW)
         self.assertEqual([r['task_id'] for r in chosen],
-                         ['SH-600004', 'SH-600005', 'SH-600003', 'SH-600002'])
+                         ['SH-600004', 'SH-600005', 'SH-600003', 'SH-600002', 'SH-600006'])
         self.assertEqual(reserve(copy.deepcopy(state), NOW), [])
-        self.assertEqual(len([e for e in state['entries'].values() if e['status']=='pending']), 3)
+        self.assertEqual(len([e for e in state['entries'].values() if e['status']=='pending']), 2)
 
-    def test_five_and_six_also_cap_at_four(self):
-        for n in (5, 6):
+    def test_candidate_counts_cap_at_five(self):
+        for n in (0, 4, 5, 6, 7):
             state = new_state()
             merge_candidates(state, candidates()[:n], NOW)
+            self.assertEqual(len(reserve(state, NOW)), min(n, 5))
+
+    def test_same_day_batches_share_five_slots_across_reload(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/'state.json'
+            state = new_state()
+            merge_candidates(state, candidates()[:4], NOW)
             self.assertEqual(len(reserve(state, NOW)), 4)
+            path.write_text(json.dumps(state))
+            state = load_state(path)
+            merge_candidates(state, candidates()[4:], NOW)
+            self.assertEqual([e['task_id'] for e in reserve(state, NOW)], ['SH-600005'])
+            path.write_text(json.dumps(state))
+            restored = load_state(path)
+            self.assertEqual(reserve(restored, NOW), [])
+            self.assertEqual(len(restored['days']['2026-10-07']), 5)
+            restored['days']['2026-10-07']['SH-600008'] = 'f'*64
+            path.write_text(json.dumps(restored))
+            with self.assertRaisesRegex(ValueError, 'daily budget'):
+                load_state(path)
+
+    def test_run_with_four_used_attempts_only_one_more_listing(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            queue = root/'output/research_queue'
+            queue.mkdir(parents=True)
+            state = new_state()
+            state['days']['2026-10-07'] = {e['task_id']: e['event_key'] for e in candidates()[:4]}
+            (queue/'state.json').write_text(json.dumps(state))
+            with patch('scripts.research_scheduler.datetime', wraps=datetime) as clock, \
+                 patch('scripts.research_scheduler.scan_requests', return_value=(candidates()[4:], [])), \
+                 patch('scripts.research_scheduler.admission_profiles', return_value=([], {})), \
+                 patch('scripts.research_scheduler.prepare_entry', side_effect=OSError('offline preflight')) as prepare:
+                clock.now.return_value = NOW
+                result = tick(root/'exchange', root, execute=True, clis={})
+            prepare.assert_called_once()
+            self.assertEqual(prepare.call_args.args[0]['task_id'], 'SH-600005')
+            self.assertEqual(result['used'], 4)  # Unlaunched preflight failure refunds the fifth reservation.
 
     def test_failure_does_not_refund_and_new_batch_same_security_cannot_bypass(self):
         state = new_state()
@@ -295,7 +332,7 @@ class SchedulerTests(unittest.TestCase):
             entry['valuation_date'] = '2026-10-08'
             entry['created_at'] = tomorrow.isoformat()
         merge_candidates(state, fresh, tomorrow)
-        self.assertEqual(len(reserve(state, tomorrow)), 4)
+        self.assertEqual(len(reserve(state, tomorrow)), 5)
         self.assertTrue(all(e['first_seen']==NOW.isoformat() for e in state['entries'].values()))
 
 
@@ -341,7 +378,7 @@ class CooldownTests(unittest.TestCase):
         fresh = [dict(e, valuation_date='2026-10-08', created_at=tomorrow.isoformat()) for e in candidates()]
         merge_candidates(state, fresh+[dict(fresh[3], task_id='HK-60004', priority=1)], tomorrow)
         chosen = reserve(state, tomorrow)
-        self.assertEqual([e['task_id'] for e in chosen], ['HK-60004','SH-600005','SH-600003','SH-600002'])
+        self.assertEqual([e['task_id'] for e in chosen], ['HK-60004','SH-600005','SH-600003','SH-600002','SH-600006'])
         self.assertEqual(state['entries']['SH-600004']['status'], 'pending')
 
     def test_legacy_state_plan_uses_failed_process_start_and_is_read_only(self):

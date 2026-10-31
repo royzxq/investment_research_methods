@@ -36,7 +36,7 @@ except ImportError:
     from research_loop_log import record
     import research_runtime
 
-DAILY_LIMIT = 4
+DAILY_LIMIT = 5
 MAX_CONCURRENCY = 4
 RESEARCH_INTERVAL = timedelta(days=7)
 LISTING = r'(?:SH|SZ)-\d{6}|HK-\d{5}'
