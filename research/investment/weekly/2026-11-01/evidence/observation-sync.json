@@ -1,0 +1,36 @@
+{
+  "canonical": {
+    "before": {
+      "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+      "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+      "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+    },
+    "after": {
+      "path": "framework/investment_framework.md",
+      "sha256": "b61b32e2cec6d478a3a81aeb71ea5663ff84dfba379bcd82e3ae343cd802cddd",
+      "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+    },
+    "before_bytes": 92147,
+    "after_bytes": 93090,
+    "before_lines": 653,
+    "after_lines": 685,
+    "outside_state_unchanged": true
+  },
+  "compact": {
+    "before": {
+      "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+      "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+      "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+    },
+    "after": {
+      "path": "framework/investment_framework_compact.md",
+      "sha256": "7c814210e3c1725abb17073853f02ddbafe55d62e7c0b32b3aea7a7ab1667b36",
+      "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+    },
+    "before_bytes": 59202,
+    "after_bytes": 60145,
+    "before_lines": 412,
+    "after_lines": 444,
+    "outside_state_unchanged": true
+  }
+}
