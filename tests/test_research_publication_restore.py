@@ -60,6 +60,29 @@ class PublicationRestoreTests(unittest.TestCase):
         return recovery.restore_publication(self.base,self.f.exchange,self.f.methods,
             authorization='Human requested restore of exact staged Codex bytes, without new research')
 
+    def test_restore_rechecks_monitoring_quality_of_original_bound_artifact(self):
+        malformed = fixture.FAKE_CLI.replace('receipt_price=price',
+            "doc['monitoring'][0]['source']='; ;'\nreceipt_price=price")
+        other = PublicationRestoreTests('runTest')
+        try:
+            # Simulate a previous process that reached publication with a weak
+            # monitor. All original artifact hashes and native receipts agree.
+            with patch.object(fixture, 'FAKE_CLI', malformed), \
+                    patch.object(dsh_fixture, 'build_fake_dsh_cli',
+                                 return_value=dsh_fixture.build_fake_dsh_cli(malformed)), \
+                    patch.object(runner, 'validate_monitoring_delivery', return_value=None):
+                other.setUp()
+            with self.assertRaisesRegex(ValueError, 'source'):
+                other.restore()
+            candidate = recovery.read(other.folder/'candidate-result.json')['results'][0]
+            self.assertFalse((other.f.methods/candidate['price_map']['path']).exists())
+            context = recovery.load_base(other.base, other.f.methods, other.f.exchange)
+            with self.assertRaisesRegex(ValueError, 'source'):
+                recovery.validate_completed(context, other.f.methods,
+                    other.run/'execution/SH-600066/dsh')
+        finally:
+            other.doCleanups()
+
     def test_restore_preserves_history_existing_opinion_and_native_bytes_then_replays(self):
         with patch.object(runner,'run_provider',side_effect=AssertionError('no research launch')):
             wrapper=self.restore()
