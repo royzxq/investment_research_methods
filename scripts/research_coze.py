@@ -1,6 +1,6 @@
-"""Methods-owned Coze email adapter. Transport stays in the Gmail skill.
+"""Methods-owned conditional Coze CLI adapter, with historical email replay.
 
-Scan current sealed pairs; attach only verified email research as an immutable
+Scan current sealed pairs; attach only verified research as an immutable
 supplement. A pending/held Coze opinion never changes the original pair seal.
 """
 from __future__ import annotations
@@ -36,6 +36,7 @@ SCHEMA = 'stock-research-coze/v2'
 LEGACY_SCHEMA = 'stock-research-coze/v1'
 SUPPORTED_SCHEMAS = {LEGACY_SCHEMA, SCHEMA}
 SEAL_SCHEMA = 'research-sealed-coze/v1'
+CLI_SEAL_SCHEMA = 'research-sealed-coze/v2'
 BASE_KEYS = {'schema_version', 'task_id', 'batch_id', 'event_key', 'request',
              'request_sha256', 'budget_date', 'results'}
 DEFAULT_MAIL_ROOT = ROOT.parent/'ai_investment/investment_rawdata/coze_email'
@@ -49,20 +50,38 @@ def read(path):
     return _strict_json(Path(path).read_bytes(), str(path))
 
 
+def fsync_directory(path):
+    fd = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+
+
+def mkdirs(path):
+    path = Path(path)
+    if path.exists():
+        return
+    mkdirs(path.parent)
+    path.mkdir(exist_ok=True)
+    fsync_directory(path.parent)
+
+
 def atomic(path, value):
-    path.parent.mkdir(parents=True, exist_ok=True)
+    mkdirs(path.parent)
     raw = (json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+'\n').encode()
     fd, temporary = tempfile.mkstemp(dir=path.parent)
     try:
         with os.fdopen(fd, 'wb') as sink:
             sink.write(raw); sink.flush(); os.fsync(sink.fileno())
         os.replace(temporary, path)
+        fsync_directory(path.parent)
     finally:
         Path(temporary).unlink(missing_ok=True)
 
 
 def immutable(path, raw):
-    path.parent.mkdir(parents=True, exist_ok=True)
+    mkdirs(path.parent)
     if path.exists():
         require(path.read_bytes() == raw, 'immutable Coze artifact already exists with different bytes')
         return
@@ -71,6 +90,7 @@ def immutable(path, raw):
         with os.fdopen(fd, 'wb') as sink:
             sink.write(raw); sink.flush(); os.fsync(sink.fileno())
         os.link(temporary, path)
+        fsync_directory(path.parent)
     finally:
         Path(temporary).unlink(missing_ok=True)
 
@@ -193,7 +213,7 @@ def reply_in_time(request, received_at):
     return started <= _timestamp(received_at, 'reply received_at') <= started + timedelta(minutes=15)
 
 
-def scan(methods, exchange, mail_root, not_before):
+def scan(methods, exchange, mail_root, not_before, *, cli_config=None):
     """Use the newest round's verified effective pair; no extra daily slot."""
     methods, mail_root = Path(methods).resolve(), Path(mail_root).resolve()
     cutoff = _timestamp(not_before, 'activation cutoff')
@@ -237,8 +257,18 @@ def scan(methods, exchange, mail_root, not_before):
                 pack_sha256=task['data_pack']['sha256'], mail_root=str(mail_root),
                 p1={g: context['documents'][g]['price_map']['p1']['base']
                     for g in pair_generators(context['documents'])})
+            if cli_config is not None:
+                identity.pop('mail_root')
+                identity.update(schema_version='coze-intent/v2', transport='cli',
+                    state_dir=cli_config['state_dir'],
+                    **{k:cli_config[k] for k in ('session_id','claw_id','user_id')})
             if path.exists():
                 intent = read(path)
+                # Existing email intents, including failed/unbound ones, keep
+                # ownership. A transport cutover must never create a retry.
+                if cli_config is not None and intent.get('transport') != 'cli':
+                    result.append(dict(intent=str(path), **intent))
+                    continue
                 if not all(intent.get(k) == v for k, v in identity.items()):
                     errors.append(dict(seal=str(context['path']), intent=str(path),
                                        reason='Coze intent input changed; existing intent preserved'))
@@ -381,6 +411,16 @@ def bind(intent_path, request_id):
         require(intent['status'] != 'failed' and intent.get('retry_allowed') is not False,
                 'failed Coze intent is terminal; no retry')
         require(intent['request_id'] in (None, request_id), 'intent already bound to another request')
+        if intent.get('transport') == 'cli':
+            request = read(Path(intent['state_dir'])/'requests.json')['requests'][request_id]
+            require(request['intent_key'] == intent['base_sha256']+':'+intent['task_id']
+                    and request['pack_sha256'] == intent['pack_sha256']
+                    and all(request[k] == intent[k] for k in ('code','valuation_date','session_id','claw_id','user_id')),
+                    'CLI request input/target mismatch')
+            require(not failed_request(request), 'failed CLI request is terminal')
+            intent.update(request_id=request_id, status='pending', reason=None)
+            atomic(intent_path, intent)
+            return intent
         request = read(Path(intent['mail_root'])/'requests.json')['requests'][request_id]
         require(not failed_request(request) and request['status'] != 'superseded',
                 'failed Coze request is terminal; no retry')
@@ -523,6 +563,118 @@ def archived_email(third, intent, methods):
     return text.decode('utf-8')
 
 
+def cli_module():
+    try:
+        from . import coze_cli
+    except ImportError:
+        import coze_cli
+    return coze_cli
+
+
+def cli_client(intent, config=None, *, methods=ROOT):
+    cli = cli_module()
+    cfg = cli.load_config(config, methods=methods)
+    require(cfg['state_dir'] == intent['state_dir'], 'CLI state directory changed')
+    require(all(cfg[k] == intent[k] for k in ('session_id','claw_id','user_id')), 'CLI target changed')
+    return cli.Client(cfg)
+
+
+@contextmanager
+def current_cli_intent(intent_path, methods, exchange, config):
+    """Do not submit a prepared request after a newer round has taken over."""
+    methods = Path(methods).resolve()
+    queue = methods/'output/research_queue'
+    queue.mkdir(parents=True, exist_ok=True)
+    with (queue/'queue.lock').open('a') as stream:
+        fcntl.flock(stream, fcntl.LOCK_SH | fcntl.LOCK_NB)
+        intent = read(intent_path)
+        context = load_base(intent['base_seal'], methods, exchange)
+        require(context['base_sha256'] == intent['base_sha256'] and eligible(context), 'CLI trigger changed')
+        current = scan(methods, exchange, DEFAULT_MAIL_ROOT, context['request']['created_at'], cli_config=config)
+        require(any(Path(row['intent']).resolve() == Path(intent_path).resolve()
+                    and row.get('transport') == 'cli' and row['base_sha256'] == intent['base_sha256']
+                    for row in current['intents']), 'CLI intent is not the latest eligible round')
+        yield intent
+
+
+def capture_cli(intent, extraction_path):
+    # Publishing is a local evidence operation and does not need OAuth, a CLI
+    # executable, or today's mutable transport configuration.
+    client = cli_module().Client({k:intent[k] for k in ('state_dir','session_id','claw_id','user_id')})
+    # Read the selection and its files while excluding ledger mutations.
+    with client.ledger() as db:
+        request = dict(db['requests'][intent['request_id']])
+    selected = client.capture(intent['request_id'])
+    require(selected['request'] == request, 'CLI selection changed while reading')
+    selected.update(base_sha256=intent['base_sha256'], extraction=read(extraction_path),
+        query=(client.folder(intent['request_id'])/'query.txt').read_text(encoding='utf-8'))
+    return selected
+
+
+def freeze_cli(intent, selected, methods, report_path):
+    folder = (methods/report_path).parent/'evidence/coze'/intent['request_id']
+    def save(name, raw):
+        path = folder/name
+        immutable(path, raw)
+        return dict(path=str(path.relative_to(methods)), sha256=sha(raw))
+    attachments = []
+    for i, item in enumerate(selected['attachments']):
+        attachments.append(dict(key=item['key'], filename=item['filename'], status=item['status'],
+            raw=save(f'attachment-{i:03d}.bin', bytes.fromhex(item['raw'])),
+            text=save(f'attachment-{i:03d}.txt', item['text'].encode())))
+    archive = dict(schema_version=cli_module().RECEIPT_SCHEMA, request=selected['request'],
+        request_message=selected['request_message'], message=selected['message'], attachments=attachments,
+        query=save('query.txt', selected['query'].encode()),
+        pack=save('pack.md', Path(intent['pack']).read_bytes()), result=save('result.md', selected['text'].encode()))
+    archive['submission'] = (save('submission-receipt.json', bytes.fromhex(selected['submission_receipt']))
+        if selected.get('submission_receipt') is not None else None)
+    receipt = save('cli-receipt.json', encoded(archive))
+    return archive['result'], receipt
+
+
+def archived_cli(third, intent, methods):
+    receipt_path, raw = _artifact(third['transport_receipt'], methods, 'CLI receipt')
+    archive = _strict_json(raw, 'CLI receipt')
+    fields(archive, {'schema_version','request','request_message','message','attachments','query','pack','result','submission'}, 'CLI archive')
+    cli = cli_module()
+    require(archive['schema_version'] == cli.RECEIPT_SCHEMA and intent.get('transport') == 'cli', 'native CLI receipt required')
+    request, message = archive['request'], archive['message']
+    require(request['request_id'] == intent['request_id'] == third['request_id']
+            and request['status'] == 'complete' and not cli.terminal(request), 'CLI request is incomplete/failed')
+    require(request['intent_key'] == intent['base_sha256']+':'+intent['task_id'], 'CLI intent binding mismatch')
+    for key in ('code','name','valuation_date','pack_sha256','base_sha256','task_id','session_id','claw_id','user_id'):
+        require(request[key] == intent[key], 'CLI archive '+key+' mismatch')
+    cli.verify_request_message(request, archive['request_message'])
+    require(cli.message_time(archive['request_message']) == request['sent_at'], 'CLI send time mismatch')
+    _, reply = cli.verify_message(request, message)
+    require(reply.get('stream') is False and message['id'] == request['selected_reply_id'], 'CLI reply not final/selected')
+    require(archive['result'] == third['transport_result'], 'CLI result descriptor mismatch')
+    # All descriptors must stay in this immutable receipt directory.
+    def artifact(desc, label):
+        path, content = _artifact(desc, methods, label)
+        require(path.parent == receipt_path.parent, 'CLI archive scope mismatch')
+        return content
+    pack = artifact(archive['pack'], 'CLI pack')
+    query = artifact(archive['query'], 'CLI query')
+    require(sha(pack) == intent['pack_sha256'] and sha(query) == request['query_sha256'], 'CLI input hashes changed')
+    require(pack.decode() in query.decode(), 'CLI query omitted frozen pack')
+    if archive['submission'] is not None:
+        artifact(archive['submission'], 'CLI submission receipt')
+    inventory = message['files'] or []
+    require(len(inventory) == len(archive['attachments']), 'CLI attachment count mismatch')
+    parts = [reply['content']]
+    for i, item in enumerate(archive['attachments']):
+        require(item['key'] == str(i) and item['filename'] == inventory[i]['file_name']
+                and item['status'] == 'read', 'CLI attachment inventory mismatch')
+        require(artifact(item['raw'], 'CLI attachment raw'), 'empty original attachment')
+        text = artifact(item['text'], 'CLI attachment text').decode()
+        require(text.strip(), 'empty attachment text')
+        parts.append(text)
+    text = artifact(archive['result'], 'CLI result').decode()
+    require(text == '\n\n'.join(parts), 'CLI result omitted or altered full evidence')
+    return text
+
+
 def publish(intent_path, extraction_path, methods, exchange):
     intent_path, methods = Path(intent_path).resolve(strict=True), Path(methods).resolve()
     with locked(intent_path.parent.parent):
@@ -541,7 +693,7 @@ def publish(intent_path, extraction_path, methods, exchange):
             selected_path = intent_path.parent/'selected-reply.json'
             selected = read(selected_path) if selected_path.exists() else None
             if selected is None:
-                selected = capture_email(intent, extraction_path)
+                selected = (capture_cli if intent.get('transport') == 'cli' else capture_email)(intent, extraction_path)
                 selected['delivery_schema'] = SCHEMA
                 raw_path, text, request = Path(selected['raw_path']), selected['text'], selected['request']
                 extracted = selected['extraction']
@@ -550,7 +702,9 @@ def publish(intent_path, extraction_path, methods, exchange):
                         and selected['request']['request_id'] == intent['request_id'], 'selected reply binding changed')
                 raw_path, text, request = Path(selected['raw_path']), selected['text'], selected['request']
                 extracted = selected['extraction']
-            require(not failed_request(request) and reply_in_time(request, selected['message']['received_at']),
+            received = (cli_module().message_time(selected['message']) if intent.get('transport') == 'cli'
+                        else selected['message']['received_at'])
+            require(not failed_request(request) and reply_in_time(request, received),
                     'selected Coze reply is failed or outside the 15-minute deadline')
             selected_schema = selected.get('delivery_schema', LEGACY_SCHEMA)
             validate_extraction(extracted, text, schema=selected_schema)
@@ -578,7 +732,8 @@ def publish(intent_path, extraction_path, methods, exchange):
             # Select only fully validated content, before any formal artifact.
             # Crash recovery reuses it even if later replies change the inbox ledger.
             immutable(selected_path, encoded(selected))
-            email_descriptor, mail_receipt = freeze_email(intent, selected, methods, targets['research'])
+            native = intent.get('transport') == 'cli'
+            result_descriptor, receipt = (freeze_cli if native else freeze_email)(intent, selected, methods, targets['research'])
             report = (f"# Coze 股票调研原文\n\n证券：{intent['name']} {intent['code']}；币种：CNY\n"
                 f"估值日：{intent['valuation_date']}；批次：{intent['batch_id']}\n"
                 f"数据包SHA256：{intent['pack_sha256']}\n请求ID：{intent['request_id']}\n"
@@ -586,10 +741,11 @@ def publish(intent_path, extraction_path, methods, exchange):
             price = encoded(doc)
             immutable(methods/targets['research'], report)
             immutable(methods/targets['price-map'], price)
-            seal = dict({key: context['seal'][key] for key in BASE_KEYS}, schema_version=SEAL_SCHEMA,
+            seal = dict({key: context['seal'][key] for key in BASE_KEYS}, schema_version=CLI_SEAL_SCHEMA if native else SEAL_SCHEMA,
                 base_seal=dict(path=str(context['path'].relative_to(methods)), sha256=context['base_sha256']),
                 coze=dict(intent=str(intent_path.relative_to(methods)), request_id=intent['request_id'],
-                    email_result=email_descriptor, mail_receipt=mail_receipt,
+                    **({'transport_result':result_descriptor, 'transport_receipt':receipt} if native
+                       else {'email_result':result_descriptor, 'mail_receipt':receipt}),
                     report=dict(path=targets['research'], sha256=sha(report)),
                     price_map=dict(path=targets['price-map'], sha256=sha(price))))
             sealed = methods/'output/research_queue/sealed'/f"{intent['batch_id']}-{intent['task_id']}-coze.json"
@@ -608,18 +764,20 @@ def load_supplement(path, methods, exchange):
     methods = Path(methods).resolve()
     seal = read(path)
     fields(seal, BASE_KEYS | {'base_seal', 'coze'}, 'supplement seal')
-    require(seal['schema_version'] == SEAL_SCHEMA, 'unsupported supplement seal')
+    require(seal['schema_version'] in {SEAL_SCHEMA, CLI_SEAL_SCHEMA}, 'unsupported supplement seal')
     base_path, base_raw = _artifact(seal['base_seal'], methods, 'base seal')
     context = load_base(base_path, methods, exchange)
     require(eligible(context), 'supplement lacks eligible two-model P1 divergence')
     require(all(seal[k] == context['seal'][k] for k in BASE_KEYS-{'schema_version'}), 'supplement changed original pair')
     third = seal['coze']
-    fields(third, {'intent', 'request_id', 'email_result', 'mail_receipt', 'report', 'price_map'}, 'third opinion')
+    native = seal['schema_version'] == CLI_SEAL_SCHEMA
+    fields(third, {'intent', 'request_id', 'report', 'price_map'} |
+        ({'transport_result','transport_receipt'} if native else {'email_result','mail_receipt'}), 'third opinion')
     intent_path = _contained_path(methods, third['intent'], 'intent')
     require(intent_path.parent.parent == methods/'output/research_queue/coze', 'intent outside Coze queue')
     intent = read(intent_path)
     require(intent['base_sha256'] == sha(base_raw) and intent['request_id'] == third['request_id'], 'intent binding mismatch')
-    text = archived_email(third, intent, methods)
+    text = (archived_cli if native else archived_email)(third, intent, methods)
     report_path, report = _artifact(third['report'], methods, 'Coze report')
     price_path, price = _artifact(third['price_map'], methods, 'Coze price map')
     doc = _strict_json(price, 'Coze price map')
@@ -637,16 +795,62 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--methods', type=Path, default=ROOT)
     parser.add_argument('--exchange', type=Path, default=ROOT.parent/'ai_investment/investment_rawdata/data_packs/research_exchange')
+    parser.add_argument('--cli-config', type=Path)
     sub = parser.add_subparsers(dest='command', required=True)
-    p = sub.add_parser('scan'); p.add_argument('--mail-root', type=Path, default=DEFAULT_MAIL_ROOT)
+    p = sub.add_parser('scan')
     p.add_argument('--not-before', required=True)
     p = sub.add_parser('expire'); p.add_argument('--mail-root', type=Path, default=DEFAULT_MAIL_ROOT)
     p = sub.add_parser('bind'); p.add_argument('--intent', required=True); p.add_argument('--request-id', required=True)
     p = sub.add_parser('hold'); p.add_argument('--intent', required=True); p.add_argument('--reason', required=True)
     p = sub.add_parser('publish'); p.add_argument('--intent', required=True); p.add_argument('--extraction', required=True)
+    for command in ('prepare','submit','collect','review','extract-attachment','fail'):
+        p = sub.add_parser(command); p.add_argument('--intent', required=True)
+        if command == 'prepare': p.add_argument('--public-input-reviewed', action='store_true')
+        if command == 'submit': p.add_argument('--allow-submit', action='store_true')
+        if command == 'fail': p.add_argument('--reason', required=True)
+        if command in {'review','extract-attachment'}: p.add_argument('--reply-id', required=True)
+        if command == 'review':
+            p.add_argument('--extraction', required=True); p.add_argument('--verified-result', action='store_true')
+        if command == 'extract-attachment':
+            p.add_argument('--key', required=True); p.add_argument('--text-file', required=True)
+            p.add_argument('--raw-sha256', required=True); p.add_argument('--verified-fulltext', action='store_true')
     args = parser.parse_args()
     if args.command == 'scan':
-        result = scan(args.methods, args.exchange, args.mail_root, args.not_before)
+        cfg = cli_module().load_config(args.cli_config, methods=args.methods)
+        result = scan(args.methods, args.exchange, DEFAULT_MAIL_ROOT, args.not_before, cli_config=cfg)
+    elif args.command in {'prepare','submit','collect','review','extract-attachment','fail'}:
+        intent = read(args.intent)
+        client = cli_client(intent, args.cli_config, methods=args.methods)
+        if args.command == 'prepare':
+            with current_cli_intent(args.intent, args.methods, args.exchange, client.config) as intent:
+                result = client.prepare(intent, public_input_reviewed=args.public_input_reviewed)
+            bind(args.intent, result['request_id'])
+        elif args.command == 'submit':
+            with current_cli_intent(args.intent, args.methods, args.exchange, client.config) as intent:
+                result = client.submit(intent['request_id'], allow_submit=args.allow_submit)
+        elif args.command == 'collect':
+            result = client.get(intent['request_id'])
+            if not failed_request(result): result = client.collect(intent['request_id'])
+            if failed_request(result):
+                with locked(Path(args.intent).parent.parent):
+                    intent.update(status='failed', retry_allowed=False, reason=result.get('reason'))
+                    atomic(Path(args.intent), intent)
+        elif args.command == 'fail':
+            result = client.fail(intent['request_id'], args.reason)
+            with locked(Path(args.intent).parent.parent):
+                intent.update(status='failed', retry_allowed=False, reason=result['reason'])
+                atomic(Path(args.intent), intent)
+        elif args.command == 'extract-attachment':
+            client.record_extraction(intent['request_id'], args.reply_id, args.key,
+                args.text_file, args.raw_sha256, verified_fulltext=args.verified_fulltext)
+            result = dict(status='extraction_recorded')
+        else:
+            extracted = read(args.extraction)
+            def validate(text):
+                validate_extraction(extracted, text)
+                if extracted['monitoring']: validate_monitoring(extracted['monitoring'], intent['valuation_date'])
+            result = client.complete(intent['request_id'], args.reply_id,
+                verified_identity=args.verified_result, validator=validate)
     elif args.command == 'expire':
         result = expire(args.methods, args.mail_root)
     elif args.command == 'bind':
