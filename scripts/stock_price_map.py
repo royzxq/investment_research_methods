@@ -447,6 +447,8 @@ def main(argv=None):
     check.add_argument("file")
     check.add_argument('--require-monitoring-quality', action='store_true',
                        help='new delivery: reject unusable source/search placeholders and typographic duplicates')
+    for command in (build, check):
+        command.add_argument('--execution-folder', help='bind identity to this frozen runner attempt')
     args = parser.parse_args(argv)
     try:
         if args.command == "build":
@@ -455,6 +457,13 @@ def main(argv=None):
             require(data["meta"].get("generator", args.generator) == args.generator,
                     "meta.generator conflicts with --generator")
             data["meta"]["generator"] = args.generator
+            if args.execution_folder:
+                try:
+                    from .research_runner import verified_delivery_name
+                except ImportError:
+                    from research_runner import verified_delivery_name
+                data['meta']['name'] = verified_delivery_name(
+                    args.execution_folder, meta=data['meta'], output=args.output)
             if args.legacy_snapshot:
                 try:
                     from .research_runner import verified_legacy_writer
@@ -479,6 +488,14 @@ def main(argv=None):
         else:
             document = load_json(args.file)
             validate_document(document)
+            if args.execution_folder:
+                try:
+                    from .research_runner import verified_delivery_name
+                except ImportError:
+                    from research_runner import verified_delivery_name
+                expected_name = verified_delivery_name(
+                    args.execution_folder, meta=document['meta'], output=args.file)
+                require(document['meta']['name'] == expected_name, 'price_map.meta.name: inconsistent with frozen request')
             validate_price_references(document)
             checks = 'structure/state/V50 references'
             if args.require_monitoring_quality:

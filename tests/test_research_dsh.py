@@ -189,11 +189,42 @@ class ResearchDSHTests(unittest.TestCase):
                 self.parse()
 
     def test_final_receipt_must_be_exact_strict_json_object(self):
+        # Already prepared v1 attempts retain the original transport contract.
+        metadata = json.loads((self.folder / 'dsh-runtime.json').read_text())
+        metadata['schema_version'] = 'research-dsh-runtime/v1'
+        metadata.pop('receipt_encoding', None)
+        (self.folder / 'dsh-runtime.json').write_text(json.dumps(metadata))
         for final in ('```json\n{}\n```', 'done {}', '[1]', '{"status":1,"status":2}', '{"value":NaN}'):
             rows = self.success()
             rows[-1]['text'] = final
             self.events(rows)
             with self.subTest(final=final), self.assertRaises(ValueError):
+                self.parse()
+
+    def test_new_runtime_accepts_only_one_complete_json_fence(self):
+        for final in (json.dumps(self.receipt), '```json\n' + json.dumps(self.receipt) + '\n```',
+                      '\n```json\r\n' + json.dumps(self.receipt) + '\r\n```\n'):
+            rows = self.success(); rows[-1]['text'] = final
+            self.events(rows)
+            self.assertEqual(self.parse(), self.receipt)
+        for final in ('```\n{}\n```', '```JSON\n{}\n```', 'done\n```json\n{}\n```',
+                      '```json\n{}\n```\ndone', '```json\n{}\n```\n```json\n{}\n```',
+                      '```json\n{"status":1,"status":2}\n```', '```json\n{"x":NaN}\n```',
+                      '```json\n{"x":1e999}\n```', '```json\n[]\n```',
+                      '```json\n{', '```json\n```json\n{}\n```\n```'):
+            rows = self.success(); rows[-1]['text'] = final
+            self.events(rows)
+            with self.subTest(final=final), self.assertRaises(ValueError):
+                self.parse()
+
+    def test_receipt_encoding_requires_known_runtime_version_and_policy(self):
+        self.events(self.success())
+        original = json.loads((self.folder / 'dsh-runtime.json').read_text())
+        for updates in ({'schema_version':'unknown'}, {'receipt_encoding':'permissive'},
+                        {'schema_version':'research-dsh-runtime/v1'}):
+            metadata = dict(original, **updates)
+            (self.folder / 'dsh-runtime.json').write_text(json.dumps(metadata))
+            with self.subTest(updates=updates), self.assertRaises(ValueError):
                 self.parse()
 
     def test_invalid_lines_or_truncated_terminal_cannot_be_ignored(self):

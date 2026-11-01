@@ -91,6 +91,8 @@ python3 scripts/stock_price_map.py check output/<本次目录>/investment-<代�
 
 临时输入只有`meta, mode, reason, valuation, p1, t1, research_controls, monitoring`。除valuation单位换算外与最终字段同义。P1/T1均由报告明确提供；旧discounts/step_down/p2/t2输入拒绝，不保留重推价分支。meta可省略schema_version，默认补v4；旧冻结合同只有显式legacy writer可写v3。CLI必须`--generator codex|claude|dsh`并与已有meta一致；输出JSON与报告名称按代码、估值日、生成端和rN后缀配对。
 
+runner 提供 `--execution-folder` 时，build 与 check 均带该本次尝试目录。build 验证冻结上下文及 code/市场、日期、生成端、报告与暂存输出路径后，从冻结任务确定性填充 `meta.name`；check 对现有名称严格比较，不修正。独立研究不带此参数时保持原有显式元数据。最终 exchange 仍严格比较名称及全部身份，不删除 A/H 后缀或接受模糊别名。详见 [DSH 交付可靠性 ADR](../../../../docs/adr/ADR-20261101-dsh-delivery-reliability.md)。
+
 `valuation` 二选一：
 
 ```json

@@ -23,6 +23,7 @@ from scripts import research_paths as paths
 from scripts import research_runner as runner
 from scripts import research_runtime as runtime
 from scripts import research_scheduler as scheduler
+from scripts import research_recovery as recovery
 
 
 class DSHExchangeTests(unittest.TestCase):
@@ -395,6 +396,110 @@ class DSHRunnerIntegrationTests(unittest.TestCase):
         self.assertEqual(process['exit_code'], 0)
         self.assertEqual(process['status'], 'failed')
         self.assertFalse(list((self.f.methods/'research/investment/companies').glob('**/*-dsh.*')))
+
+    def test_name_bound_by_real_writer_and_fenced_receipt_complete(self):
+        source = runner_fixture.FAKE_CLI.replace('__RESEARCH_TEST_ROOT__', str(ROOT))
+        writer = '''
+sys.path.insert(0, __ROOT__)
+from scripts import stock_price_map as writer
+doc['meta']['name'] += '（模型别名）'
+writer_input = dict(meta=doc['meta'], mode=doc['price_map']['mode'], reason=doc['price_map']['reason'],
+ valuation=dict(kind='per_share', values=doc['price_map']['v50'], currency='CNY', unit='per_share', fx_to_quote=1),
+ p1=doc['price_map']['p1'], t1=doc['price_map']['t1'], research_controls=doc['research_controls'], monitoring=doc['monitoring'])
+writer_file = staged/'writer-input.json'
+writer_file.write_text(json.dumps(writer_input))
+delivery = args[args.index('--append-system-prompt')+1]
+import shlex
+execution = re.search(r'--execution-folder (.*?)。', delivery)[1]
+assert writer.main(['build','--input',str(writer_file),'--output',str(staged/price),
+ '--generator',generator,'--execution-folder',shlex.split(execution)[0]]) == 0
+assert writer.main(['check',str(staged/price),'--execution-folder',shlex.split(execution)[0]]) == 0
+doc = json.loads((staged/price).read_text())
+'''.replace('__ROOT__', repr(str(ROOT)))
+        source = source.replace('(staged/price).write_text(json.dumps(doc))', writer)
+        fake = dsh_fixture.build_fake_dsh_cli(source).replace(
+            "json.dumps(result.get('structured_output',{}))", "'```json\\n'+json.dumps(result.get('structured_output',{}))+'\\n```'")
+        self.f.fake.write_text(fake)
+        result_path = self.execute()
+        result = exchange.load_results(result_path, self.f.request_path, self.f.methods)
+        entry = result['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        self.assertEqual(json.loads((self.f.methods/entry['price_map']['path']).read_text())['meta']['name'], '宇通客车')
+        folder = result_path.parent/'execution/SH-600066/dsh'
+        metadata = json.loads((folder/'dsh-runtime.json').read_text())
+        process = json.loads((folder/'process.json').read_text())
+        self.assertEqual(metadata['schema_version'], 'research-dsh-runtime/v2')
+        self.assertEqual(process['dsh_runtime_sha256'], runner.sha((folder/'dsh-runtime.json').read_bytes()))
+
+    def test_fenced_wrong_identity_and_path_still_fail_shared_gate(self):
+        for field, value in [('code', '00001.HK'), ('report_path', '../escape.md')]:
+            with self.subTest(field=field):
+                fake = dsh_fixture.build_fake_dsh_cli().replace(
+                    "session='session-offline-dsh'",
+                    f"result['structured_output'][{field!r}]={value!r}\nsession='session-offline-dsh'")
+                fake = fake.replace("json.dumps(result.get('structured_output',{}))",
+                    "'```json\\n'+json.dumps(result.get('structured_output',{}))+'\\n```'")
+                self.f.fake.write_text(fake)
+                result_path = self.execute()
+                entry = json.loads(result_path.read_text())['results'][0]
+                self.assertEqual(entry['status'], 'failed')
+                self.assertIn(f'research receipt {field} mismatch', entry['reason'])
+                self.assertIsNone(entry['report']); self.assertIsNone(entry['price_map'])
+                # Each attempted endpoint is immutable; use a fresh batch next.
+                self.f.request['batch_id'] = 'b'*32
+                self.f.write_request()
+
+    def test_runtime_tamper_is_detected_before_receipt_and_before_publication(self):
+        fake = dsh_fixture.build_fake_dsh_cli().replace("session='session-offline-dsh'", """
+runtime=folder/'dsh-runtime.json'
+metadata=json.loads(runtime.read_text()); metadata['receipt_encoding']='permissive'
+runtime.write_text(json.dumps(metadata))
+session='session-offline-dsh'""")
+        self.f.fake.write_text(fake)
+        with patch.object(runner, 'provider_receipt', side_effect=AssertionError('must not parse tampered runtime')):
+            result_path = self.execute()
+        entry = json.loads(result_path.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('DSH frozen runtime changed during research', entry['reason'])
+        self.f.request['batch_id'] = 'b'*32; self.f.write_request()
+        self.f.fake.write_text(dsh_fixture.build_fake_dsh_cli())
+        original = runner.accepted_entry
+        def tamper_after_receipt(*args, **kwargs):
+            entry = original(*args, **kwargs)
+            runtime = self.f.methods/'output/runs/investment/2026-10-06'/('b'*32)/'execution/SH-600066/dsh/dsh-runtime.json'
+            runtime.write_bytes(runtime.read_bytes()+b' ')
+            return entry
+        with patch.object(runner, 'accepted_entry', side_effect=tamper_after_receipt):
+            result_path = self.execute()
+        entry = json.loads(result_path.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('DSH frozen runtime changed before publication', entry['reason'])
+        self.assertFalse(list((self.f.methods/'research/investment/companies').glob('**/*-dsh.*')))
+
+    def test_recovery_replay_binds_runtime_but_preserves_v1_without_hash(self):
+        result_path = self.execute()
+        entry = json.loads(result_path.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        context = dict(request=self.f.request, request_path=self.f.request_path,
+                       task=self.f.request['tasks'][0], entries={'dsh':entry})
+        folder = result_path.parent/'execution/SH-600066/dsh'
+        runtime_path, process_path = folder/'dsh-runtime.json', folder/'process.json'
+        runtime = json.loads(runtime_path.read_text()); process = json.loads(process_path.read_text())
+        recovery.validate_completed(context, self.f.methods, folder)
+        for value in (None, 'wrong', '0'*64):
+            changed = dict(process)
+            if value is None: changed.pop('dsh_runtime_sha256')
+            else: changed['dsh_runtime_sha256'] = value
+            process_path.write_text(json.dumps(changed))
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'runtime binding'):
+                recovery.validate_completed(context, self.f.methods, folder)
+        runtime.update(schema_version='research-dsh-runtime/v1'); runtime.pop('receipt_encoding')
+        runtime_path.write_text(json.dumps(runtime))
+        process.pop('dsh_runtime_sha256'); process_path.write_text(json.dumps(process))
+        recovery.validate_completed(context, self.f.methods, folder)
+        process['dsh_runtime_sha256'] = '0'*64; process_path.write_text(json.dumps(process))
+        with self.assertRaisesRegex(ValueError, 'runtime binding'):
+            recovery.validate_completed(context, self.f.methods, folder)
 
     def test_scheduler_pair_retries_dsh_from_frozen_profile_and_seals_v2(self):
         f = scheduler_profile_fixture.SchedulerProfileTests('runTest')

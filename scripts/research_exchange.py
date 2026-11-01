@@ -74,7 +74,15 @@ def seal_schema(request):
 
 
 def _strict_json(raw, label):
-    value = json.loads(raw.decode("utf-8"), object_pairs_hook=no_duplicates, parse_constant=reject_constant)
+    try:
+        value = json.loads(raw.decode("utf-8"), object_pairs_hook=no_duplicates, parse_constant=reject_constant)
+    except UnicodeError:
+        raise ValueError(f"{label}: invalid UTF-8 JSON") from None
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"{label}: invalid JSON at line {exc.lineno} column {exc.colno}: {exc.msg}") from None
+    except ValueError:
+        # Duplicate keys and nonstandard constants are untrusted content too.
+        raise ValueError(f"{label}: duplicate key or nonstandard JSON constant") from None
 
     def finite(item):
         if isinstance(item, float):
