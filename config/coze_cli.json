@@ -1,0 +1,10 @@
+{
+  "schema_version": "coze-cli-config/v1",
+  "enabled": false,
+  "executable": "/usr/local/bin/coze",
+  "session_id": "7669294798322467118",
+  "claw_id": "7669290905110790410",
+  "user_id": "2100524352023411",
+  "state_dir": "../ai_investment/investment_rawdata/coze_cli",
+  "attachment_hosts": ["static.coze.site"]
+}

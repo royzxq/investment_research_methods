@@ -30,6 +30,7 @@ STREAM_IDLE_MS = 180000
 BASE_URL = 'https://api.deepseek.com/anthropic'
 SEARCH_URL = BASE_URL + '/v1'
 MAX_EVENT_LINE = 16 * 1024 * 1024
+RECEIPT_ENCODING = 'strict-json-or-single-json-fence/v1'
 
 # DSH deliberately scrubs credential-shaped ambient environment names from
 # tool children. This fixed trusted plugin restores only the data credential
@@ -318,7 +319,8 @@ class DSHCLIAdapter(CLIAdapter):
             rows.append({'insert': mcp_rows})
         patch = folder / 'dsh-runtime.patch.json'
         _new(patch, _encode(rows))
-        _new(folder / 'dsh-runtime.json', _encode({'schema_version': 'research-dsh-runtime/v1',
+        _new(folder / 'dsh-runtime.json', _encode({'schema_version': 'research-dsh-runtime/v2',
+            'receipt_encoding': RECEIPT_ENCODING,
             'harness': self.harness_id, 'producer': self.producer, 'model': model, 'effort': effort,
             'subagent_model': subagent_model, 'subagent_effort': effort,
             'pdf_fallback_python': pdf_python,
@@ -339,12 +341,24 @@ class DSHCLIAdapter(CLIAdapter):
     def receipt(self, folder, strict_json, write_new, encode):
         folder = Path(folder)
         metadata = strict_json(_regular_bytes(folder / 'dsh-runtime.json'), 'DSH runtime binding')
+        version = metadata.get('schema_version')
+        if version == 'research-dsh-runtime/v1':
+            if 'receipt_encoding' in metadata:
+                raise ValueError('DSH legacy runtime cannot override receipt encoding')
+        elif version != 'research-dsh-runtime/v2' or metadata.get('receipt_encoding') != RECEIPT_ENCODING:
+            raise ValueError('DSH runtime has unsupported receipt encoding/version')
         for name, field in (('dsh-runtime.patch.json', 'patch_sha256'),
                             ('dsh-data-environment.mjs', 'data_environment_sha256')):
             raw = _regular_bytes(folder / name)
             if hashlib.sha256(raw).hexdigest() != metadata.get(field):
                 raise ValueError('DSH prepared runtime changed during research')
         final, _ = _events(folder, strict_json)
+        if version == 'research-dsh-runtime/v2':
+            # One whole transport envelope only. The payload still goes through
+            # the same strict JSON parser and every shared acceptance gate.
+            wrapped = re.fullmatch(r'```json\r?\n([\s\S]*)\r?\n```', final.strip(' \t\r\n'))
+            if wrapped is not None:
+                final = wrapped[1]
         receipt = strict_json(final.encode(), 'DSH final research receipt')
         if not isinstance(receipt, dict):
             raise ValueError('DSH final research receipt must be an object')

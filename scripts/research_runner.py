@@ -17,6 +17,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import signal
 import stat
@@ -105,6 +106,57 @@ def verified_legacy_writer(manifest, *, meta, output):
     if Path(output).resolve() not in permitted:
         raise ValueError('legacy writer output must match frozen staging/retry target')
     return 'stock-research/v3'
+
+
+def verified_delivery_name(folder, *, meta, output):
+    """Return the task-owned name only after all other identity bindings pass.
+
+    This read-only writer preflight does not repair a result or loosen final
+    acceptance. Standalone research retains its explicitly supplied metadata.
+    """
+    folder = Path(folder).absolute()
+    first = folder.parent if folder.name == 'retry-1' else folder
+    if len(first.parents) < 8 or first.parent.parent.name != 'execution':
+        raise ValueError('delivery identity requires a frozen execution folder')
+    run, root = first.parents[2], first.parents[7]
+    # Do not follow alternate attempt/context paths, including linked files
+    # pointing at byte-identical data. verify_prepared must never migrate here.
+    paths = [folder, first, run/'request.json', run/'framework-snapshot/manifest.json']
+    paths += [base/name for base in {first, folder}
+              for name in ('input.json', 'targets.json', 'prompt.txt', 'receipt-schema.json')]
+    paths.append(Path(output).absolute())
+    for path in paths:
+        if any(p.is_symlink() for p in (path, *path.parents) if p == root or root in p.parents):
+            raise ValueError('delivery identity paths cannot contain symbolic links')
+    if not (run/'framework-snapshot/manifest.json').is_file():
+        raise ValueError('delivery identity requires an existing frozen snapshot')
+    raw = (run/'request.json').read_bytes()
+    request, _, _, verified = verify_prepared(run, raw, root)
+    task = next((item for item in request['tasks'] if item['task_id'] == first.parent.name), None)
+    generator = first.name
+    if task is None or generator not in request['generators']:
+        raise ValueError('delivery identity task/provider is not in frozen request')
+    if run != root/'output/runs/investment'/request['valuation_date']/request['batch_id']:
+        raise ValueError('delivery identity batch location mismatch')
+    frozen = verified[(task['task_id'], generator)]
+    targets = frozen['targets']
+    prompt = (folder/'prompt.txt').read_bytes()
+    if _strict_json((folder/'input.json').read_bytes(), 'delivery input') != input_record(
+            request, raw, task, generator, prompt, frozen['frameworks'], targets):
+        raise ValueError('delivery identity frozen attempt input mismatch')
+    if (_strict_json((folder/'targets.json').read_bytes(), 'delivery targets') != targets
+            or _strict_json((folder/'receipt-schema.json').read_bytes(), 'delivery receipt schema')
+            != receipt_schema(request, task, generator, targets)):
+        raise ValueError('delivery identity frozen attempt targets mismatch')
+    for key, expected in (('code', task['code']), ('valuation_date', request['valuation_date']),
+                          ('generator', generator), ('report_path', targets['report_path'])):
+        if meta.get(key) != expected:
+            raise ValueError(f'price_map.meta.{key}: inconsistent with frozen request/target')
+    attempt = 2 if folder != first else 1
+    expected = staging_root(root, request, task, generator, attempt)/targets['price_map_path']
+    if Path(output).absolute() != expected:
+        raise ValueError('delivery identity output must match exact frozen attempt target')
+    return task['name']
 
 
 
@@ -898,9 +950,13 @@ def command(cli, generator, folder, root, profile=None):
         delivery = (f'本次暂存报告绝对路径：{report}\n'
                     f'本次暂存价格JSON绝对路径：{price}\n'
                     f'先建立公司目录 {price.parent}；报告写上述报告路径；'
-                    f'stock_price_map.py build --output {price} --generator {generator}{legacy_option}。'
+                    f'stock_price_map.py build --output {shlex.quote(str(price))} --generator {generator}{legacy_option}'
+                    f' --execution-folder {shlex.quote(str(folder))}。'
                     '--output 是完整文件路径，不是暂存根目录，不得平铺文件。'
-                    'meta.report_path及回执继续填写冻结输入中的最终相对路径。')
+                    'meta.report_path及回执继续填写冻结输入中的最终相对路径。'
+                    f'自检使用 stock_price_map.py check {shlex.quote(str(price))}'
+                    f' --execution-folder {shlex.quote(str(folder))}；'
+                    'build核对证券/日期/生成端/路径后从冻结任务填充name，check和最终验收严格核对name。')
     context = research_harness.LaunchContext(folder, root, generator,
                                             research_jev.registration(folder), delivery)
     return adapter.command(cli, context, profile)
@@ -1381,6 +1437,12 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
             env = adapter.launch_environment(env, profile, research_harness.LaunchContext(
                 folder, root, generator, research_jev.registration(folder), None))
             args = command(cli, generator, folder, root, profile)
+            # Hold the original bytes in this process, not a child-writable
+            # process.json field, so changing the encoding/version cannot make
+            # a malformed response acceptable. Historical v1 stays v1.
+            dsh_runtime = (folder/'dsh-runtime.json').read_bytes() if adapter.harness_id == 'dsh-cli' else None
+            if dsh_runtime is not None:
+                process['dsh_runtime_sha256'] = sha(dsh_runtime)
             instruction = adapter.instruction_from_command(args)
             delivery = None if instruction is None else instruction.encode('utf-8')
             if delivery is not None:
@@ -1416,6 +1478,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     process['exit_code'] = proc.returncode
             if proc.returncode != 0:
                 raise ValueError(f'research CLI exit {proc.returncode}; inspect local events/stderr')
+            if dsh_runtime is not None and (folder/'dsh-runtime.json').read_bytes() != dsh_runtime:
+                raise ValueError('DSH frozen runtime changed during research')
             receipt = provider_receipt(folder, generator, profile)
             completed = stamp()
             entry = accepted_entry(receipt, request, task, generator, started, completed, staged, frozen['frameworks'], targets)
@@ -1464,6 +1528,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     raise ValueError('executed input record changed during research')
                 if delivery is not None and (folder / 'delivery-prompt.txt').read_bytes() != delivery:
                     raise ValueError('executed delivery instruction changed during research')
+                if dsh_runtime is not None and (folder/'dsh-runtime.json').read_bytes() != dsh_runtime:
+                    raise ValueError('DSH frozen runtime changed before publication')
                 if ((folder/'jev-runtime-prompt.txt').read_bytes() != payload
                         or sha((folder/'jev/config.json').read_bytes()) != process['jev_config_sha256']):
                     raise ValueError('executed Jev routing input changed during research')

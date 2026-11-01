@@ -178,6 +178,14 @@ def validate_completed(context, methods, folder):
             'recovery runtime prompt changed')
     require(process.get('jev_config_sha256') == sha(folder / 'jev/config.json'),
             'recovery Jev routing configuration changed')
+    runtime_path = folder/'dsh-runtime.json'
+    runtime_version = read(runtime_path).get('schema_version')
+    runtime_hash = process.get('dsh_runtime_sha256')
+    # v1 predates the durable hash; preserve only that historical exception.
+    # This is replay consistency, not the live runner's in-memory trust root.
+    if runtime_version != 'research-dsh-runtime/v1' or 'dsh_runtime_sha256' in process:
+        require(isinstance(runtime_hash, str) and re.fullmatch('[0-9a-f]{64}', runtime_hash)
+                and runtime_hash == sha(runtime_path), 'recovery DSH runtime binding changed or missing')
     adapter = runner.research_harness.get_adapter(frozen['execution_profile']['harness'])
 
     def already_written(path, raw):
