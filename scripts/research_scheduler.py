@@ -516,6 +516,18 @@ def seal_entry(entry, state_root, request, results, event_log=None, run_id=None)
     else:
         atomic_json(path, seal)
     entry.update(status='completed' if succeeded else 'failed', sealed=str(path))
+    # The outbox write is local and bounded. Remote work never occupies a
+    # provider slot. A failed notification is repaired by explicit reconciliation.
+    try:
+        try:
+            from . import coze_events
+        except ImportError:
+            import coze_events
+        coze_events.enqueue(path, state_root.parent.parent, request)
+    except Exception as exc:
+        journal(event_log, 'coze_event_enqueue_failed', run_id=run_id,
+                batch_id=entry['batch_id'], task_id=entry['task_id'],
+                details={'error_type': type(exc).__name__, 'seal': str(path)})
     journal(event_log,'stock_sealed',run_id=run_id,batch_id=entry['batch_id'],task_id=entry['task_id'],
             status=entry['status'],details={'seal':str(path)})
 

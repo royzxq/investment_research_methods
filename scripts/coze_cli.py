@@ -5,7 +5,7 @@ read-only remotely. No login, token handling, SMTP or production writer lives he
 """
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from datetime import datetime, timedelta, timezone
 import fcntl
 from functools import wraps
@@ -302,7 +302,7 @@ class Client:
                     and reply_data(m)[0].get('session_id') == request['session_id']
                     for m in page.get('data', {}).get('messages', [])), 'pinned agent not verified in session')
 
-    def submit(self, rid, *, allow_submit=False):
+    def submit(self, rid, *, allow_submit=False, claim_guard=nullcontext):
         require(self.config['enabled'] is True and allow_submit is True, 'submission disabled; explicit enable and allow-submit required')
         request = self.get(rid)
         require(request['status'] == 'prepared' and request['attempts'] == 0, 'already claimed; reconcile, never resend')
@@ -310,10 +310,14 @@ class Client:
         query = (self.folder(rid)/'query.txt').read_text(encoding='utf-8')
         require(digest(query.encode()) == request['query_sha256'], 'prepared query changed')
         safe_query(query)
-        with self.ledger() as db:
-            current = db['requests'][rid]
-            require(current['status'] == 'prepared' and current['attempts'] == 0, 'send claimed concurrently')
-            current.update(status='sending', attempts=1, sending_at=self.clock().isoformat())
+        # The adapter rechecks the latest research round here, after remote
+        # preflight. Hold its queue lock only through the durable send claim;
+        # neither auth/history nor the remote send may occupy the main queue.
+        with claim_guard():
+            with self.ledger() as db:
+                current = db['requests'][rid]
+                require(current['status'] == 'prepared' and current['attempts'] == 0, 'send claimed concurrently')
+                current.update(status='sending', attempts=1, sending_at=self.clock().isoformat())
         try:
             receipt = self.call(['session', 'message', '--session-id', request['session_id']],
                                 payload=query, receipt=self.folder(rid)/'submit-receipt.json')

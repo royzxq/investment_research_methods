@@ -124,6 +124,42 @@ class TransportTests(unittest.TestCase):
         with self.assertRaises(ValueError): self.client.submit(rid, allow_submit=True)
         self.assertEqual(cli.read(self.client.root/'requests.json')['requests'][rid]['attempts'], 0)
 
+    def test_submission_guard_surrounds_durable_claim_only(self):
+        from contextlib import contextmanager
+        rid = self.prepare()
+        held = []
+        @contextmanager
+        def guard():
+            self.assertEqual(len(self.calls), 2)  # auth and target preflight are outside
+            self.assertEqual(self.client.get(rid)['status'], 'prepared')
+            held.append(True)
+            try:
+                yield
+                self.assertEqual(self.client.get(rid)['status'], 'sending')
+                self.assertEqual(self.client.get(rid)['attempts'], 1)
+            finally:
+                held.pop()
+        run = self.client.run
+        def checked_run(*args, **kwargs):
+            self.assertEqual(held, [], 'network call while the research queue is locked')
+            return run(*args, **kwargs)
+        self.client.run = checked_run
+        self.assertEqual(self.client.submit(rid, allow_submit=True, claim_guard=guard)['status'], 'pending')
+
+    def test_submission_guard_rejection_after_preflight_cannot_send_or_claim(self):
+        from contextlib import contextmanager
+        rid = self.prepare()
+        @contextmanager
+        def guard():
+            self.assertEqual(len(self.calls), 2)
+            raise ValueError('new research arrived during preflight')
+            yield
+        with self.assertRaisesRegex(ValueError, 'new research'):
+            self.client.submit(rid, allow_submit=True, claim_guard=guard)
+        self.assertEqual(self.client.get(rid)['attempts'], 0)
+        self.assertEqual(self.client.get(rid)['status'], 'prepared')
+        self.assertFalse(any(c[0][1:3] == ['session','message'] for c in self.calls))
+
     def test_unknown_send_reconciles_unique_actual_query_without_resend(self):
         self.send_timeout = True
         rid = self.send()

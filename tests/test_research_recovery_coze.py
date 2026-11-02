@@ -139,6 +139,29 @@ class RecoveryCozeTests(unittest.TestCase):
         self.assertEqual(result['intents'], [])
         self.assertEqual(result['errors'], [])
 
+    def test_targeted_scan_accepts_verified_seal_without_task_in_filename(self):
+        result = coze.scan(self.f.artifact_root, self.f.request_root, self.f.root/'mail',
+                           '2026-10-01T00:00:00+08:00', only_seal=self.wrapper)
+        self.assertEqual(len(result['intents']), 1)
+        self.assertEqual(result['intents'][0]['base_seal'], str(self.wrapper))
+
+    def test_targeted_scan_does_not_miss_newer_round_with_restored_filename(self):
+        target = self.wrapper.with_name('eligible-SH-600066.json')
+        self.wrapper.rename(target)
+        newer = target.with_name('restored.json')
+        coze.atomic(newer, coze.read(self.base))
+        original_load = coze.load_base
+        def contexts(path, methods, exchange):
+            value = original_load(path, methods, exchange)
+            if Path(path) == newer:
+                value['request'] = dict(value['request'], created_at='2026-10-06T11:00:00+08:00')
+            return value
+        with patch.object(coze, 'load_base', side_effect=contexts):
+            result = coze.scan(self.f.artifact_root, self.f.request_root, self.f.root/'mail',
+                               '2026-10-01T00:00:00+08:00', only_seal=target)
+        self.assertEqual(result['intents'], [])
+        self.assertEqual(result['errors'], [])
+
     def test_existing_changed_intent_is_held_without_replacing_terminal_history(self):
         folder = self.f.artifact_root/'output/research_queue/coze'/('1'*32+'-SH-600066')
         prior = dict(schema_version='coze-intent/v1', status='failed', retry_allowed=False,

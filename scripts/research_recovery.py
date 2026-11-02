@@ -19,6 +19,18 @@ except ImportError:
                                    load_results, seal_schema, _timestamp)
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def notify_coze(path, methods):
+    try:
+        try:
+            from . import coze_events
+        except ImportError:
+            import coze_events
+        coze_events.enqueue(path, methods)
+    except Exception as exc:
+        runner.emit(dict(event='coze_event_enqueue_failed', error_type=type(exc).__name__, seal=str(path)))
+
 SEAL_SCHEMA = 'research-sealed-recovery/v1'
 INTENT_SCHEMA = 'research-seat-recovery/v1'
 PUBLICATION_SCHEMA = 'research-publication-restore/v1'
@@ -440,6 +452,7 @@ def restore_publication(seal_path, exchange, methods=ROOT, *, authorization):
             wrapper_path = methods / 'output/research_queue/sealed' / (base['path'].stem + '-publication-restore.json')
             if wrapper_path.exists():
                 load_supplement(wrapper_path, methods, exchange)
+                notify_coze(wrapper_path, methods)
                 return wrapper_path
             folder, staged, candidate, frozen, audit = staged_publication(base, methods)
             intent = dict(schema_version=PUBLICATION_SCHEMA, created_at=runner.stamp(),
@@ -490,6 +503,7 @@ def restore_publication(seal_path, exchange, methods=ROOT, *, authorization):
                 recovered_generators=['codex'])
             runner.write_new(wrapper_path, runner.encode(wrapper))
             load_supplement(wrapper_path, methods, exchange)
+            notify_coze(wrapper_path, methods)
             return wrapper_path
 
 
@@ -614,6 +628,7 @@ def execute(intent_path, exchange, methods=ROOT, *, cli=None):
                 if not supplement.exists():
                     runner.write_new(supplement, runner.encode(wrapper))
                 load_supplement(supplement, methods, exchange)
+                notify_coze(supplement, methods)
             summary = dict(task_id=task['task_id'], status=entry['status'], private_seal=str(private),
                            supplement=str(supplement) if supplement else None)
             summaries.append(summary)

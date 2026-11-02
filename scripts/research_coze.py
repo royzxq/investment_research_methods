@@ -213,19 +213,29 @@ def reply_in_time(request, received_at):
     return started <= _timestamp(received_at, 'reply received_at') <= started + timedelta(minutes=15)
 
 
-def scan(methods, exchange, mail_root, not_before, *, cli_config=None):
+def scan(methods, exchange, mail_root, not_before, *, cli_config=None, only_seal=None):
     """Use the newest round's verified effective pair; no extra daily slot."""
     methods, mail_root = Path(methods).resolve(), Path(mail_root).resolve()
     cutoff = _timestamp(not_before, 'activation cutoff')
     root = methods/'output/research_queue/coze'
     with locked(root):
         candidates, errors = {}, []
+        target_task = None
+        if only_seal is not None:
+            target_task = read(only_seal)['task_id']
+            require(re.fullmatch(r'(?:SH|SZ)-\d{6}|HK-\d{5}', target_task), 'invalid target task')
         for path in sorted((methods/'output/research_queue/sealed').glob('*.json')):
             try:
                 # Coze supplements never trigger another Coze request. A
                 # validated seat recovery supplies the original missing seat.
-                if read(path).get('schema_version') not in {
+                header = read(path)
+                if header.get('schema_version') not in {
                         'research-sealed/v1', 'research-sealed/v2', 'research-sealed-recovery/v1'}:
+                    continue
+                # Filenames are not part of the seal contract. A restored or
+                # renamed newer round must still suppress an unsent old one.
+                # Only same-security envelopes incur full artifact validation.
+                if target_task is not None and header.get('task_id') != target_task:
                     continue
                 context = load_base(path, methods, exchange)
                 stamp = _timestamp(context['request']['created_at'], 'created_at')
@@ -240,6 +250,8 @@ def scan(methods, exchange, mail_root, not_before, *, cli_config=None):
         queue = read(methods/'output/research_queue/state.json')['entries'] if (methods/'output/research_queue/state.json').exists() else {}
         result = []
         for task_id, (order, context) in sorted(candidates.items()):
+            if only_seal is not None and context['path'] != Path(only_seal).resolve():
+                continue
             stamp = order[0]
             if stamp < cutoff or not eligible(context):
                 continue
@@ -590,7 +602,8 @@ def current_cli_intent(intent_path, methods, exchange, config):
         intent = read(intent_path)
         context = load_base(intent['base_seal'], methods, exchange)
         require(context['base_sha256'] == intent['base_sha256'] and eligible(context), 'CLI trigger changed')
-        current = scan(methods, exchange, DEFAULT_MAIL_ROOT, context['request']['created_at'], cli_config=config)
+        current = scan(methods, exchange, DEFAULT_MAIL_ROOT, context['request']['created_at'], cli_config=config,
+                       only_seal=intent['base_seal'])
         require(any(Path(row['intent']).resolve() == Path(intent_path).resolve()
                     and row.get('transport') == 'cli' and row['base_sha256'] == intent['base_sha256']
                     for row in current['intents']), 'CLI intent is not the latest eligible round')
@@ -826,8 +839,8 @@ def main():
                 result = client.prepare(intent, public_input_reviewed=args.public_input_reviewed)
             bind(args.intent, result['request_id'])
         elif args.command == 'submit':
-            with current_cli_intent(args.intent, args.methods, args.exchange, client.config) as intent:
-                result = client.submit(intent['request_id'], allow_submit=args.allow_submit)
+            result = client.submit(intent['request_id'], allow_submit=args.allow_submit,
+                claim_guard=lambda: current_cli_intent(args.intent, args.methods, args.exchange, client.config))
         elif args.command == 'collect':
             result = client.get(intent['request_id'])
             if not failed_request(result): result = client.collect(intent['request_id'])
