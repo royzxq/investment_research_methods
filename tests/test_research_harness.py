@@ -1,7 +1,9 @@
 """CLI adapter contracts verified locally without provider API calls."""
 from copy import deepcopy
 import json
+import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -28,6 +30,33 @@ def encode(value):
 def write_new(path, raw):
     with path.open('xb') as stream:
         stream.write(raw)
+
+
+DISABLED_SKILLS = {
+    'lark-approval', 'lark-apps', 'lark-attendance', 'lark-calendar', 'lark-contact',
+    'lark-event', 'lark-mail', 'lark-markdown', 'lark-meeting', 'lark-minutes',
+    'lark-note', 'lark-okr', 'lark-openapi-explorer', 'lark-skill-maker', 'lark-slides',
+    'lark-task', 'lark-vc', 'lark-vc-agent', 'lark-whiteboard', 'lark-wiki',
+    'lark-workflow-meeting-summary', 'lark-workflow-standup-report',
+    'pages:maintain-space', 'pages:manage-schedules', 'pages:organize-space', 'pages:write-page',
+    'sites:sites', 'sites:sites-remix', 'work-pets:create-pet', 'work-pets:pets',
+    'work-pets:update-pet', 'presentations:Presentations',
+    'spreadsheets:excel-live-control', 'template-creator:template-creator',
+}
+
+
+def skill_overrides(args):
+    matches = [value.removeprefix('skills.config=')
+               for index, value in enumerate(args)
+               if index and args[index - 1] == '-c' and value.startswith('skills.config=')]
+    if len(matches) != 1:
+        raise AssertionError(f'expected one session skill filter, got {len(matches)}')
+    # Validate the emitted TOML subset without requiring Python 3.11's tomllib.
+    entry = r'\{name="([A-Za-z0-9_:-]+)",enabled=(true|false)\}'
+    if not re.fullmatch(r'\[(?:' + entry + r'(?:,' + entry + r')*)?\]', matches[0]):
+        raise AssertionError('invalid session skill filter')
+    return [{'name': name, 'enabled': enabled == 'true'}
+            for name, enabled in re.findall(entry, matches[0])]
 
 
 class ResearchHarnessTests(unittest.TestCase):
@@ -67,12 +96,54 @@ class ResearchHarnessTests(unittest.TestCase):
                     '-c', 'mcp_servers.first.command="/local/one"',
                     '-c', 'mcp_servers.first.args=' + json.dumps(['--config', '一']),
                     '--no-daemon', 'exec', '--approve-for-me', '-c', 'web_search="live"',
-                    '-c', 'mcp_servers.jev.enabled=false',
+                    '-c', 'mcp_servers.jev.enabled=false', '-c', harness.CODEX_SKILL_FILTER,
                     '--ephemeral', '--json', '--color', 'never', '--output-schema',
                     str(self.folder / 'receipt-schema.json'), '-o', str(self.folder / 'cli-receipt.json'),
                     '-C', str(self.root.resolve()), '-']
         self.assertEqual(actual, expected)
         self.assertIsNone(self.codex.instruction_from_command(actual))
+
+    def test_codex_research_filters_only_the_approved_34_skills(self):
+        for chosen in (profile('codex'), profile('codex', model='chosen', effort='high')):
+            with self.subTest(profile=chosen):
+                args = self.codex.command(str(self.cli), self.context('codex'), chosen)
+                entries = skill_overrides(args)
+                self.assertEqual(len(entries), 34)
+                self.assertEqual({entry['name'] for entry in entries}, DISABLED_SKILLS)
+                self.assertTrue(all(entry == {'name': entry['name'], 'enabled': False}
+                                    for entry in entries))
+
+    def test_manual_launcher_and_scheduled_adapter_share_the_same_filter(self):
+        binary = self.root / 'bin'
+        binary.mkdir()
+        fake = binary / 'codex'
+        fake.write_text(f'#!{sys.executable}\nimport json,sys\nprint(json.dumps(sys.argv[1:]))\n')
+        fake.chmod(0o700)
+        (binary / 'python3').symlink_to(sys.executable)
+        # Exercise PATH fallback without inheriting a caller's real CLI override.
+        env = dict(os.environ, PATH=str(binary) + os.pathsep + os.environ.get('PATH', ''), CODEX_CLI='')
+        result = subprocess.run(['/bin/bash', str(ROOT / 'codex.sh'), 'exec', '保留 空格'],
+                                cwd=self.root, env=env, capture_output=True, text=True, check=True)
+        manual = json.loads(result.stdout)
+        scheduled = self.codex.command(str(self.cli), self.context('codex'), profile('codex'))
+        self.assertEqual(skill_overrides(manual), skill_overrides(scheduled))
+        self.assertEqual(manual[-2:], ['exec', '保留 空格'])
+
+    def test_manual_launcher_accepts_explicit_cli_without_codex_on_path(self):
+        binary = self.root / 'bin'
+        binary.mkdir()
+        fake = binary / 'custom codex'
+        fake.write_text(f'#!{sys.executable}\nimport json,sys\nprint(json.dumps(sys.argv[1:]))\n')
+        fake.chmod(0o700)
+        (binary / 'python3').symlink_to(sys.executable)
+        env = dict(os.environ, PATH=str(binary) + ':/usr/bin:/bin', CODEX_CLI=str(fake))
+        result = subprocess.run(['/bin/bash', str(ROOT / 'codex.sh'), 'exec', '保留 空格'],
+                                cwd=self.root, env=env, capture_output=True, text=True, check=True)
+        actual = json.loads(result.stdout)
+        self.assertEqual(skill_overrides(actual),
+                         skill_overrides(self.codex.command(str(fake), self.context('codex'), profile('codex'))))
+        self.assertEqual(actual[-2:], ['exec', '保留 空格'])
+        self.assertEqual(actual[:3], ['--no-daemon', '--cd', str(ROOT)])
 
     def test_default_claude_argv_preserves_original_schema_and_options(self):
         actual = self.claude.command(str(self.cli), self.context('claude'), profile('claude'))
