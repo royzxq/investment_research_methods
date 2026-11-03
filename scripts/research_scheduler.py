@@ -331,7 +331,14 @@ def merge_candidates(state, records, now):
             continue
         if previous and previous['status'] == 'failed' and previous['request_sha256'] == record['request_sha256']:
             continue  # Exhausted rounds need fresh input after cooldown; do not reopen a seal.
-        first = previous['first_seen'] if previous and previous['status'] != 'completed' else now.isoformat()
+        if previous and all(previous.get(k) == record.get(k) for k in
+                            ('event_key', 'request_sha256', 'batch_id', 'created_at')):
+            continue  # Retain the explicit disposition while rescanning the same request.
+        disposition = (previous or {}).get('admission', {})
+        resolved = (bool(disposition.get('decisions')) and not disposition.get('requires_fresh_input')
+                    and all(d.get('disposition') == 'handled' for d in disposition['decisions'])
+                    and previous['event_key'] != record['event_key'])
+        first = previous['first_seen'] if previous and previous['status'] != 'completed' and not resolved else now.isoformat()
         state['entries'][key] = dict(record, first_seen=first, status='pending')
 
 
@@ -343,9 +350,82 @@ def pending_admissions(state, now, *, held=frozenset()):
     candidates = [e for e in state['entries'].values() if e['status']=='pending'
                   and e['valuation_date']==today and e['task_id'] not in used
                   and (e['task_id'], e['event_key']) not in held
+                  and not (e.get('admission', {}).get('date') == today)
                   and cooldown_until(state, e, now) is None]
     candidates.sort(key=lambda e: (e['priority'], e['first_seen'], e['task_id']))
     return candidates[:remaining]
+
+
+def apply_admission(state, exchange, now):
+    """Reconcile explicit daily demand dispositions; absence never cancels work.
+
+    Keep pending entries in refresh-needed for earnings recovery. Never mark a
+    research completion, alter first_seen/budget, or interrupt a started round.
+    """
+    today = now.astimezone(ZONE).date().isoformat()
+    for entry in state['entries'].values():
+        entry.pop('admission', None)
+    path = Path(exchange) / 'admission/latest.json'
+    if not path.exists():
+        return []
+    try:
+        snapshot = path.read_bytes()
+        doc = _strict_json(snapshot, 'research admission')
+        if doc.get('schema_version') != 'research-admission/v1' or not isinstance(doc.get('listings'), list):
+            raise ValueError('invalid research admission schema')
+        stamp = _timestamp(doc['created_at'], 'admission created_at')
+        observed = _timestamp(doc['observed_at'], 'admission observed_at')
+        if doc.get('date') != today or stamp.astimezone(ZONE).date().isoformat() != today or stamp > now:
+            return ['准入快照日期无效或过期，保留原需求']
+        if observed > stamp or observed.astimezone(ZONE).date().isoformat() != today:
+            return ['准入观测时点无效，保留原需求']
+        updates, seen = [], set()
+        for row in doc['listings']:
+            task = row['task_id']
+            if task in seen or not re.fullmatch(LISTING, task):
+                raise ValueError('duplicate/invalid admission listing')
+            seen.add(task)
+            entry = state['entries'].get(task)
+            if not entry or entry['status'] != 'pending' or entry['priority'] == 1:
+                continue
+            if row.get('bypass') == 'monitor_stale':
+                continue
+            if _timestamp(entry['created_at'], 'request created_at') > observed:
+                continue
+            exact = entry['event_key'] == row['original_event_key']
+            request_path = Path(entry['request']).resolve()
+            if not request_path.is_relative_to(Path(exchange).resolve()):
+                raise ValueError('admission request outside exchange')
+            raw = request_path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != entry['request_sha256']:
+                raise ValueError('admission request changed')
+            request = _strict_json(raw, 'admission request')
+            original = next(t for t in request['tasks'] if t['task_id'] == task)
+            sources = set(original['sources'])
+            decisions = row['decisions']
+            if 'monitor_stale' in sources or not sources <= set(row['original_sources']):
+                continue
+            eligible = set()
+            historical_ref = dict(event_key=entry['event_key'], request_sha256=entry['request_sha256'])
+            for decision in decisions:
+                if decision.get('disposition') not in {'handled','waiting','needs_evidence'}:
+                    continue
+                expiry = datetime.strptime(decision['valid_until'], '%Y-%m-%d').date().isoformat()
+                if (decision.get('reason') and decision.get('reopen_when') and expiry > today
+                        and re.fullmatch(r'[0-9a-f]{64}', decision.get('review_sha256', ''))
+                        and (exact or historical_ref in decision.get('supersedes', []))):
+                    eligible.add(decision['source'])
+            removed = set(row['original_sources']) - set(row['effective_sources'])
+            if not removed or not removed <= eligible or not (sources & removed):
+                continue
+            updates.append((entry, dict(date=today, decisions=decisions,
+                                       requires_fresh_input=bool(row['effective_sources']),
+                                       snapshot_sha256=hashlib.sha256(snapshot).hexdigest())))
+        for entry, disposition in updates:
+            entry['admission'] = disposition
+        return []
+    except (ValueError, OSError, KeyError, TypeError, AttributeError, StopIteration) as exc:
+        return [f'准入快照不可用，保留原需求: {exc}']
 
 
 def reserve(state, now, *, held=frozenset()):
@@ -560,10 +640,13 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         apply_cooldown(state, methods, now, held)
         merge_candidates(state, records, now)
         cooldown_skipped = apply_cooldown(state, methods, now, held)
+        admission_warnings = apply_admission(state, exchange, now)
         selected = reserve(state, now, held=held)
         manual_held = sorted(e['task_id'] for e in state['entries'].values()
                              if (e['task_id'], e['event_key']) in held)
-        return dict(selected=selected, rejected=rejected, mode='plan', manual_held=manual_held, cooldown_skipped=cooldown_skipped)
+        return dict(selected=selected, rejected=rejected, mode='plan', manual_held=manual_held,
+                    cooldown_skipped=cooldown_skipped, admission_warnings=admission_warnings,
+                    admission_deferred=[e['task_id'] for e in state['entries'].values() if e.get('admission')])
     with queue_lock(state_root), cancellation_scope() as cancelled:
         run_id='research-'+uuid4().hex
         check_path=state_root/'daily-check.json'
@@ -589,6 +672,12 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         apply_cooldown(state, methods, now, held)
         merge_candidates(state, records, now)
         cooldown_skipped = apply_cooldown(state, methods, now, held)
+        admission_warnings = apply_admission(state, exchange, now)
+        for warning in admission_warnings:
+            journal(event_log, 'admission_warning', run_id=run_id, details={'reason': warning})
+        for entry in state['entries'].values():
+            if entry.get('admission'):
+                journal(event_log, 'admission_deferred', run_id=run_id, task_id=entry['task_id'], details=entry['admission'])
         for skipped in cooldown_skipped:
             journal(event_log,'cooldown_skipped',run_id=run_id,task_id=skipped['task_id'],
                     batch_id=skipped['batch_id'],details=skipped)
@@ -599,6 +688,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
                 details=dict(candidates=len(eligible),manual_held=manual_held,rejected=rejected))
         active = any(e['status'] in {'reserved','running','interrupted'} for e in eligible)
         available = any(e['status']=='pending' and e['valuation_date']==now.date().isoformat()
+                        and not e.get('admission')
                         and e['task_id'] not in state['days'].get(now.date().isoformat(), {})
                         and cooldown_until(state, e, now) is None
                         for e in eligible)
