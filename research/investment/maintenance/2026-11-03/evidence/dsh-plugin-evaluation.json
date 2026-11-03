@@ -1,0 +1,1054 @@
+{
+  "schema_version": "dsh-plugin-evaluation-evidence/v1",
+  "date": "2026-11-03",
+  "generator": "codex",
+  "dsh_version": "0.2.1-rc.2",
+  "manifest": {
+    "schema_version": "dsh-plugin-trial-manifest/v1",
+    "as_of": "2026-11-03",
+    "repeats": 2,
+    "cases": [
+      {
+        "id": "byd-q3",
+        "kind": "search",
+        "query": "比亚迪 2026 第三季度报告 营业收入 归属于上市公司股东 净利润"
+      },
+      {
+        "id": "byd-annual",
+        "kind": "search",
+        "query": "BYD 2025 annual report cash flows hkex"
+      },
+      {
+        "id": "cmoc-q3",
+        "kind": "search",
+        "query": "洛阳钼业 2026 第三季度报告 603993"
+      },
+      {
+        "id": "unicom-q3",
+        "kind": "search",
+        "query": "中国联通 2026 第三季度报告 600050"
+      },
+      {
+        "id": "cosco-h1",
+        "kind": "search",
+        "query": "中远海控 2026 半年度报告 601919"
+      },
+      {
+        "id": "gold-q3",
+        "kind": "search",
+        "query": "赤峰黄金 2026 第三季度报告 600988"
+      },
+      {
+        "id": "hkex-pdf",
+        "kind": "fetch",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900816.pdf"
+      },
+      {
+        "id": "cninfo-pdf",
+        "kind": "fetch",
+        "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225641442.PDF"
+      },
+      {
+        "id": "iea-ev",
+        "kind": "fetch",
+        "url": "https://www.iea.org/reports/global-ev-outlook-2026/executive-summary"
+      },
+      {
+        "id": "iea-uncertainty",
+        "kind": "fetch",
+        "url": "https://www.iea.org/reports/electric-car-markets-in-a-time-of-uncertainty/executive-summary"
+      },
+      {
+        "id": "hkab-rates",
+        "kind": "fetch",
+        "url": "https://www.hkab.org.hk/sc/rates/exchange-rates"
+      }
+    ],
+    "criteria": {
+      "search": "12 paired calls: candidate usable >= baseline; source-level company/period relevance and primary-source discovery must not regress; median latency improve >=20% OR materially improve source coverage; no authentication failures. Small trial only, no general speed claim.",
+      "fetch": "10 paired calls: HTML substantive extraction no worse; PDFs must retain all preregistered financial figures or keep original PDF path. Promotion may be limited to optional fallback rather than global replacement. Missing/blocked content is failure even if mapped HTTP200.",
+      "aktools": "MCP handshake + discovery + describe + get_data and pagination; >=2 securities including A/H financial history; fields/period/currency must reconcile against frozen primary evidence; repeated selected calls succeed; version frozen. Failure retains existing methods and stays disabled.",
+      "isolation": "No production execution plan/report/latest modified. No change to research method, data authority, acceptance or schedules."
+    }
+  },
+  "manifest_sha256": "98ef4a842d1b0148bb6534cbb868356679223e7217825b6b2eaaf5adfb3c8f44",
+  "web": {
+    "search": {
+      "baseline": {
+        "total": 12,
+        "ok": 12,
+        "median_ms": 7000.0
+      },
+      "candidate": {
+        "total": 12,
+        "ok": 12,
+        "median_ms": 948.5
+      }
+    },
+    "fetch": {
+      "baseline": {
+        "total": 10,
+        "ok": 6,
+        "median_ms": 1543.5
+      },
+      "candidate": {
+        "total": 10,
+        "ok": 2,
+        "median_ms": 4913.5
+      }
+    },
+    "search_source_pairs": [
+      {
+        "id": "byd-annual",
+        "repeat": 0,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "byd-annual",
+        "repeat": 1,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "byd-q3",
+        "repeat": 0,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "byd-q3",
+        "repeat": 1,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "cmoc-q3",
+        "repeat": 0,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "cmoc-q3",
+        "repeat": 1,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "cosco-h1",
+        "repeat": 0,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "cosco-h1",
+        "repeat": 1,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "gold-q3",
+        "repeat": 0,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "gold-q3",
+        "repeat": 1,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "unicom-q3",
+        "repeat": 0,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 10,
+        "baseline_only": [],
+        "candidate_only": []
+      },
+      {
+        "id": "unicom-q3",
+        "repeat": 1,
+        "baseline": 10,
+        "candidate": 10,
+        "overlap": 9,
+        "baseline_only": [
+          "https://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/company/rptid/846859637285/index.phtml"
+        ],
+        "candidate_only": [
+          "http://vip.stock.finance.sina.com.cn/q/go.php/vReport_Show/kind/lastest/rptid/846859637285/index.phtml"
+        ]
+      }
+    ],
+    "snippet_coverage": {
+      "baseline": {
+        "sources_with_snippet": 0,
+        "total_sources": 120,
+        "median_snippet_chars": 0.0
+      },
+      "candidate": {
+        "sources_with_snippet": 120,
+        "total_sources": 120,
+        "median_snippet_chars": 116.5
+      }
+    },
+    "success_definition": "original ok counts are nonempty transport responses, not substantive source retrieval",
+    "content_review": "dsh-fetch-content-review.json",
+    "substantive_fetch_results": {
+      "baseline": 0,
+      "candidate": 2
+    }
+  },
+  "aktools": {
+    "checks": [
+      {
+        "issuer": "BYD-A",
+        "field": "OPERATE_INCOME",
+        "period": "2026-09-30 00:00:00",
+        "currency": "CNY",
+        "value": 566303672000,
+        "primary_value_yuan": 566303672000,
+        "tolerance_yuan": 0,
+        "match": true
+      },
+      {
+        "issuer": "BYD-A",
+        "field": "PARENT_NETPROFIT",
+        "period": "2026-09-30 00:00:00",
+        "currency": "CNY",
+        "value": 22344978000,
+        "primary_value_yuan": 22344978000,
+        "tolerance_yuan": 0,
+        "match": true
+      },
+      {
+        "issuer": "BYD-A",
+        "field": "DEDUCT_PARENT_NETPROFIT",
+        "period": "2026-09-30 00:00:00",
+        "currency": "CNY",
+        "value": 21003793000.0,
+        "primary_value_yuan": 21003793000,
+        "tolerance_yuan": 0,
+        "match": true
+      },
+      {
+        "issuer": "CMOC-A",
+        "field": "OPERATE_INCOME",
+        "period": "2026-09-30 00:00:00",
+        "currency": "CNY",
+        "value": 207290422442.21,
+        "primary_value_yuan": 207290422000,
+        "tolerance_yuan": 500,
+        "match": true
+      },
+      {
+        "issuer": "CMOC-A",
+        "field": "PARENT_NETPROFIT",
+        "period": "2026-09-30 00:00:00",
+        "currency": "CNY",
+        "value": 24019512869.56,
+        "primary_value_yuan": 24019513000,
+        "tolerance_yuan": 500,
+        "match": true
+      },
+      {
+        "issuer": "CMOC-A",
+        "field": "DEDUCT_PARENT_NETPROFIT",
+        "period": "2026-09-30 00:00:00",
+        "currency": "CNY",
+        "value": 23335363869.56,
+        "primary_value_yuan": 23335364000,
+        "tolerance_yuan": 500,
+        "match": true
+      },
+      {
+        "issuer": "BYD-H",
+        "field": "营业额",
+        "period": "2026-09-30 00:00:00",
+        "currency_from_api": null,
+        "currency_verified_from_pdf": "CNY",
+        "value": 566303672000.0,
+        "primary_value_yuan": 566303672000,
+        "tolerance_yuan": 0,
+        "match": true
+      },
+      {
+        "issuer": "BYD-H",
+        "field": "股东应占溢利",
+        "period": "2026-09-30 00:00:00",
+        "currency_from_api": null,
+        "currency_verified_from_pdf": "CNY",
+        "value": 22344978000.0,
+        "primary_value_yuan": 22344978000,
+        "tolerance_yuan": 0,
+        "match": true
+      }
+    ],
+    "pagination": {
+      "total_rows": 2061,
+      "page_sizes": [
+        1000,
+        1000,
+        61
+      ],
+      "unique_rows": 2061,
+      "final_page_truncated": true,
+      "complete_by_offset_plus_returned": true
+    },
+    "repeat": {
+      "same_process_cache_hit": true,
+      "fresh_process_A_data_equal": true,
+      "fresh_process_H_data_equal": true
+    },
+    "limits": [
+      "8 selected financial facts, not all 200+ fields or all interfaces",
+      "HK currency absent from API; primary PDF remains required",
+      "Cached repeats are not independent upstream availability trials"
+    ]
+  },
+  "historical_metrics": {
+    "all_attempts": {
+      "attempts": 32,
+      "statuses": {
+        "completed": 26,
+        "failed": 6
+      },
+      "retries": 5,
+      "completed_median_seconds": 792.342,
+      "tools": {
+        "bash": {
+          "calls": 3133,
+          "results": 3133,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 2438525,
+          "timed_results": 3133
+        },
+        "edit": {
+          "calls": 91,
+          "results": 91,
+          "errors": 9,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 2249,
+          "timed_results": 91
+        },
+        "grep": {
+          "calls": 4,
+          "results": 4,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 277,
+          "timed_results": 4
+        },
+        "interrupt_agent": {
+          "calls": 3,
+          "results": 3,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 34,
+          "timed_results": 3
+        },
+        "job_list": {
+          "calls": 2,
+          "results": 2,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 21,
+          "timed_results": 2
+        },
+        "job_output": {
+          "calls": 5,
+          "results": 5,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 60,
+          "timed_results": 5
+        },
+        "list_agents": {
+          "calls": 51,
+          "results": 51,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 952,
+          "timed_results": 51
+        },
+        "mcp__jev_research__research_jev_route": {
+          "calls": 40,
+          "results": 40,
+          "errors": 6,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 22113,
+          "timed_results": 40
+        },
+        "read": {
+          "calls": 568,
+          "results": 568,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 13308,
+          "timed_results": 568
+        },
+        "read_image": {
+          "calls": 48,
+          "results": 48,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 3302,
+          "timed_results": 48
+        },
+        "send_message": {
+          "calls": 17,
+          "results": 17,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 494,
+          "timed_results": 17
+        },
+        "skill": {
+          "calls": 34,
+          "results": 34,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 680,
+          "timed_results": 34
+        },
+        "subagent": {
+          "calls": 18,
+          "results": 18,
+          "errors": 1,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 1215,
+          "timed_results": 18
+        },
+        "todo_write": {
+          "calls": 19,
+          "results": 19,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 294,
+          "timed_results": 19
+        },
+        "web_fetch": {
+          "calls": 292,
+          "results": 292,
+          "errors": 13,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 658478,
+          "timed_results": 292
+        },
+        "web_search": {
+          "calls": 223,
+          "results": 223,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 1356441,
+          "timed_results": 223
+        },
+        "write": {
+          "calls": 58,
+          "results": 58,
+          "errors": 0,
+          "unknown_error_status": 0,
+          "missing_results": 0,
+          "duration_ms": 1655,
+          "timed_results": 58
+        }
+      },
+      "tokens": {
+        "inputTokens": {
+          "known_sum": 8176151,
+          "known_samples": 4057,
+          "missing_samples": 0
+        },
+        "outputTokens": {
+          "known_sum": 4095501,
+          "known_samples": 4057,
+          "missing_samples": 0
+        },
+        "cacheReadTokens": {
+          "known_sum": 674709504,
+          "known_samples": 4057,
+          "missing_samples": 0
+        },
+        "cacheWriteTokens": {
+          "known_sum": 0,
+          "known_samples": 4057,
+          "missing_samples": 0
+        },
+        "totalTokens": {
+          "known_sum": 686981156,
+          "known_samples": 4057,
+          "missing_samples": 0
+        }
+      },
+      "assistant_records_without_usage": 4,
+      "attempt_wall_seconds": 25578.717,
+      "auxiliary_search_requests": 548,
+      "bash_nonzero_exits": 69,
+      "cost_usd": null,
+      "cost_complete": false
+    },
+    "by_status": {
+      "completed": {
+        "attempts": 26,
+        "statuses": {
+          "completed": 26
+        },
+        "retries": 4,
+        "completed_median_seconds": 792.342,
+        "tools": {
+          "bash": {
+            "calls": 2494,
+            "results": 2494,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 1964170,
+            "timed_results": 2494
+          },
+          "edit": {
+            "calls": 78,
+            "results": 78,
+            "errors": 9,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 1939,
+            "timed_results": 78
+          },
+          "grep": {
+            "calls": 4,
+            "results": 4,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 277,
+            "timed_results": 4
+          },
+          "interrupt_agent": {
+            "calls": 1,
+            "results": 1,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 15,
+            "timed_results": 1
+          },
+          "job_output": {
+            "calls": 3,
+            "results": 3,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 36,
+            "timed_results": 3
+          },
+          "list_agents": {
+            "calls": 33,
+            "results": 33,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 633,
+            "timed_results": 33
+          },
+          "mcp__jev_research__research_jev_route": {
+            "calls": 33,
+            "results": 33,
+            "errors": 5,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 16576,
+            "timed_results": 33
+          },
+          "read": {
+            "calls": 480,
+            "results": 480,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 11205,
+            "timed_results": 480
+          },
+          "read_image": {
+            "calls": 26,
+            "results": 26,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 1863,
+            "timed_results": 26
+          },
+          "send_message": {
+            "calls": 12,
+            "results": 12,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 363,
+            "timed_results": 12
+          },
+          "skill": {
+            "calls": 28,
+            "results": 28,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 564,
+            "timed_results": 28
+          },
+          "subagent": {
+            "calls": 13,
+            "results": 13,
+            "errors": 1,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 830,
+            "timed_results": 13
+          },
+          "todo_write": {
+            "calls": 16,
+            "results": 16,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 255,
+            "timed_results": 16
+          },
+          "web_fetch": {
+            "calls": 189,
+            "results": 189,
+            "errors": 11,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 434101,
+            "timed_results": 189
+          },
+          "web_search": {
+            "calls": 148,
+            "results": 148,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 889040,
+            "timed_results": 148
+          },
+          "write": {
+            "calls": 46,
+            "results": 46,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 1345,
+            "timed_results": 46
+          }
+        },
+        "tokens": {
+          "inputTokens": {
+            "known_sum": 6446404,
+            "known_samples": 3201,
+            "missing_samples": 0
+          },
+          "outputTokens": {
+            "known_sum": 3218233,
+            "known_samples": 3201,
+            "missing_samples": 0
+          },
+          "cacheReadTokens": {
+            "known_sum": 532238336,
+            "known_samples": 3201,
+            "missing_samples": 0
+          },
+          "cacheWriteTokens": {
+            "known_sum": 0,
+            "known_samples": 3201,
+            "missing_samples": 0
+          },
+          "totalTokens": {
+            "known_sum": 541902973,
+            "known_samples": 3201,
+            "missing_samples": 0
+          }
+        },
+        "assistant_records_without_usage": 1,
+        "attempt_wall_seconds": 20579.218999999997,
+        "auxiliary_search_requests": 381,
+        "bash_nonzero_exits": 55,
+        "cost_usd": null,
+        "cost_complete": false
+      },
+      "failed": {
+        "attempts": 6,
+        "statuses": {
+          "failed": 6
+        },
+        "retries": 1,
+        "completed_median_seconds": null,
+        "tools": {
+          "bash": {
+            "calls": 639,
+            "results": 639,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 474355,
+            "timed_results": 639
+          },
+          "edit": {
+            "calls": 13,
+            "results": 13,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 310,
+            "timed_results": 13
+          },
+          "interrupt_agent": {
+            "calls": 2,
+            "results": 2,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 19,
+            "timed_results": 2
+          },
+          "job_list": {
+            "calls": 2,
+            "results": 2,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 21,
+            "timed_results": 2
+          },
+          "job_output": {
+            "calls": 2,
+            "results": 2,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 24,
+            "timed_results": 2
+          },
+          "list_agents": {
+            "calls": 18,
+            "results": 18,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 319,
+            "timed_results": 18
+          },
+          "mcp__jev_research__research_jev_route": {
+            "calls": 7,
+            "results": 7,
+            "errors": 1,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 5537,
+            "timed_results": 7
+          },
+          "read": {
+            "calls": 88,
+            "results": 88,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 2103,
+            "timed_results": 88
+          },
+          "read_image": {
+            "calls": 22,
+            "results": 22,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 1439,
+            "timed_results": 22
+          },
+          "send_message": {
+            "calls": 5,
+            "results": 5,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 131,
+            "timed_results": 5
+          },
+          "skill": {
+            "calls": 6,
+            "results": 6,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 116,
+            "timed_results": 6
+          },
+          "subagent": {
+            "calls": 5,
+            "results": 5,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 385,
+            "timed_results": 5
+          },
+          "todo_write": {
+            "calls": 3,
+            "results": 3,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 39,
+            "timed_results": 3
+          },
+          "web_fetch": {
+            "calls": 103,
+            "results": 103,
+            "errors": 2,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 224377,
+            "timed_results": 103
+          },
+          "web_search": {
+            "calls": 75,
+            "results": 75,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 467401,
+            "timed_results": 75
+          },
+          "write": {
+            "calls": 12,
+            "results": 12,
+            "errors": 0,
+            "unknown_error_status": 0,
+            "missing_results": 0,
+            "duration_ms": 310,
+            "timed_results": 12
+          }
+        },
+        "tokens": {
+          "inputTokens": {
+            "known_sum": 1729747,
+            "known_samples": 856,
+            "missing_samples": 0
+          },
+          "outputTokens": {
+            "known_sum": 877268,
+            "known_samples": 856,
+            "missing_samples": 0
+          },
+          "cacheReadTokens": {
+            "known_sum": 142471168,
+            "known_samples": 856,
+            "missing_samples": 0
+          },
+          "cacheWriteTokens": {
+            "known_sum": 0,
+            "known_samples": 856,
+            "missing_samples": 0
+          },
+          "totalTokens": {
+            "known_sum": 145078183,
+            "known_samples": 856,
+            "missing_samples": 0
+          }
+        },
+        "assistant_records_without_usage": 3,
+        "attempt_wall_seconds": 4999.4980000000005,
+        "auxiliary_search_requests": 167,
+        "bash_nonzero_exits": 14,
+        "cost_usd": null,
+        "cost_complete": false
+      }
+    }
+  },
+  "raw_files_sha256": {
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/call-00.json": "6b534c8e537690c490bf72ea5d8293456adda83d68309d5d42e4f640ab5c24b0",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/call-01.json": "2212b59506418ee9c3f0e579f814510577cbb5857742064653364c9e5cb104bf",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/call-02.json": "2d02cccb9a695c2279602f67742855d446c321362a0baf692cad1bdb35adab24",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/call-03.json": "b95e2b04f724c964d54bdc0d8be89a233894f1a17e3257aaee792cdbb8b1ec66",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/call-04.json": "572230484f061103e3bcf44288c65728129d69ba1a0d3700a4d4a0feeaf9f8af",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/call-05.json": "f8dafa18c1484f1afab6e0ab40e8cc8716eea9ac35dae21bc75453c288a4dbed",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/call-06.json": "ccf9f81962eb19d223f9360acd5f09540124d0247afded1d0afdceb604f8e370",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/initialize.json": "ab8d551ff927e3f3be4805f83171d1317c22f680d54c3a4fd9a6023d5b9e4061",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-data/tools.json": "fcb68388a80441a7bdef98357c6101658a1b61065ee57238c65df28233e15e1b",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-repeat/call-00.json": "a9b711aac1d092c579ac22dc310241d9e18877e724873a86909aaf257430b7ca",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-repeat/call-01.json": "d00d60050816dd3df911b83d7a49d15f6c11a7865bb7848bfbd820e99063583a",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-repeat/call-02.json": "844709a3d2ae77474dd89b65dc02593aa1390e2098aabe7fcdb000687839c28b",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-repeat/call-03.json": "10c7fe424d2e2c82fda3e7c7388dbe98b57949ba8bef9c94cf6429b6e97dd46a",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-repeat/initialize.json": "ab8d551ff927e3f3be4805f83171d1317c22f680d54c3a4fd9a6023d5b9e4061",
+    "output/dsh-plugin-evaluation/2026-11-03/aktools-repeat/tools.json": "fcb68388a80441a7bdef98357c6101658a1b61065ee57238c65df28233e15e1b",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-aktools-final/dsh-home/profiles/headless/package.json": "563c0b6082748a6e93daad51514f01335c51fc9c44f5f88253383f18ac2557b5",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-aktools-final/dsh-runtime.json": "454b6a06a76f92ea2b085423855a4b1a126f3412f59b454c0e92cd4fda88def6",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-aktools-final/dsh-runtime.patch.json": "0a6a55ca836784a130f24d1db742761d3dfb5b5efbc048d40b7f7af7f419aca3",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-aktools-final/dsh-storage/session_projcache/sessions/session-3aa98d37-5897-42d1-b42e-de99da7a58a8.json": "04ad47f10a75d65b01c7f839f7db34bb7395b31ac812e5e6d5159ee78de533ad",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-aktools-final/metrics.json": "994e45199c01d004b8378a0fede133362e4585daf6393c7ccddf13c431555e9c",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-aktools-final/receipt-schema.json": "718a2d0649a7a4bb4780339f5c3be0902fbab72af57160af250eb65b76bc2596",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-aktools-final/test-result.json": "32367b2e3ddef9bdf9549ad8b21db504f300ed4433443b8ceffa1e6dbe1971ca",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-baseline/dsh-home/profiles/headless/package.json": "563c0b6082748a6e93daad51514f01335c51fc9c44f5f88253383f18ac2557b5",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-baseline/dsh-runtime.json": "863ed94dd0e26b9cea8c692b05c20ca0e94822f56110ab203cf04380552e8204",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-baseline/dsh-runtime.patch.json": "6de81768887c976d86d201bb21fecb98d73c8d3a86745eda80b14b7c57e17fc9",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-baseline/dsh-storage/session_projcache/sessions/session-a0eb9940-fe3b-4992-8af4-e63f23424681.json": "fea3cc40a6569f774361371a56b4166e82341f9c4c42a3fcfc87d9a30ab3df81",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-baseline/metrics.json": "63c5a5bf64753558914d2fd98290e909e5afcb7a3d6bb94823acb04ce0008b55",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-baseline/receipt-schema.json": "1d4cf7e2b6707811d8cf77f8202b558b1171f0051520ed15c40ca08feaf97896",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-baseline/test-result.json": "b0fcfb8169c4c696b3f7c29d1e6565e3b44b6d899dd6e32d5d34d7337734cfc5",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-candidate/dsh-home/profiles/headless/package.json": "563c0b6082748a6e93daad51514f01335c51fc9c44f5f88253383f18ac2557b5",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-candidate/dsh-runtime.json": "f17f5901c960f54f1f9deb4a296c0e78bfc5d6139e5e348342f3a729ba005e9c",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-candidate/dsh-runtime.patch.json": "82719644d39720a95b86ae6eec2aed8954bde607ffc5f2492d56ba1c5cfef0a9",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-candidate/dsh-storage/session_projcache/sessions/session-38cf4d02-6146-4a72-8cbb-56781e69a186.json": "67457b55ca5b73be82deaaeedc273096969d47f1c29b8739e522fc509da9eae1",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-candidate/metrics.json": "643b95d5e8ade66213bd5bb00af71a04b9cde1ec8644c8714f24755dbeed2288",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-candidate/receipt-schema.json": "1d4cf7e2b6707811d8cf77f8202b558b1171f0051520ed15c40ca08feaf97896",
+    "output/dsh-plugin-evaluation/2026-11-03/dsh-smoke-candidate/test-result.json": "274e3ee124d766f93e5274d403d324607ff3c672d79610009e35a043561025db",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-annual-0-baseline.json": "c9d43f56256cbf7f2d70f281f18f2d1f95d6345c0e9db9118ed12fccb7578da4",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-annual-0-candidate.json": "9f718af42d8e2abfc9cbf15da4e345705e8f65193578c6e881b73462e9e9aca1",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-annual-1-baseline.json": "1c96120064b27754ed77b05518c47174a15fde29f4eb7ea0989e0a5e6a3af9b8",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-annual-1-candidate.json": "750d12439274a3f49f8233c2ce44310bf61f6d24fd4806b0f06f6e145d72d597",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-q3-0-baseline.json": "1375200005babb7eea0b54b535267a04854db9326392262bc4514d569a3b4c4c",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-q3-0-candidate.json": "ad3fd27043b09275dffc52df9caeb01b410c340bcd7f38c9771391cc68581b0c",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-q3-1-baseline.json": "b9a7872fc3982dbd2d75149141e997442a8ebda0061d21338120ee5b7e7d6c6c",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/byd-q3-1-candidate.json": "1143c02cd09512e9cbd63d6d3317e132099da711b1e295355b808713abfb8ce7",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cmoc-q3-0-baseline.json": "5400a0d8d283360308d7de56bb0194d097c0ca620cd355297b78c13b10180b49",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cmoc-q3-0-candidate.json": "8ba25391b0b5dbe4248d65216954d9df477f56d853847f8c30494d6312af13a0",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cmoc-q3-1-baseline.json": "9f5b19a4a5ad657d6a99718d97e50beb1f54dfcdb95ebcf0146da99d19dd9eac",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cmoc-q3-1-candidate.json": "6101861640598f537ddca25e5400659f18b52df9e2aacb256dce5b800a30a93e",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cninfo-pdf-0-baseline.json": "30e4007f9ac9cf60216921786ea4080ae7831ce5630b4e15085f240f0c50ad70",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cninfo-pdf-0-candidate.json": "d58e663fd8764e42653d1223b4f5a99776521f57fb30c33aa225d9169a5d0c7e",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cninfo-pdf-1-baseline.json": "ec63b7f2b6b1fc4404b0488cae22dc7571740ae45180759aa5465fc09b0f8d42",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cninfo-pdf-1-candidate.json": "8869c141bd0db8904d25c5bd93e0f4dbaa9696ab17b1b5e59e05df469f97d2cd",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cosco-h1-0-baseline.json": "3493c4250793da44f57e292bf8ee2b91ab59a178906f6e471a079fbd815ac6e1",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cosco-h1-0-candidate.json": "be4fe3c61a98f33eb760738deace31b7dc51d93a874eb4393617563ba872b20e",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cosco-h1-1-baseline.json": "4ea85f44068358d0283915a09a5551ea971bd9800b1cf300cfe45c2136562071",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/cosco-h1-1-candidate.json": "e97e39cdb48e330f9bfd0d7b3b9a249094df0c8090afdc5cb330e2f02f632ae1",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/gold-q3-0-baseline.json": "bb2a686537fcd3f9b8a0d8f28b99a7cabe3a60fa16f74a20eb9ac1bbc2f0f0ec",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/gold-q3-0-candidate.json": "f04e38cce42c4581bc7ab42fb64b0b5be2cae2383b805a63d0c92d5891f2dd33",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/gold-q3-1-baseline.json": "4b40ad8bb35e0d0895735a0cf05985a5b0f9dd74d7248925b5a5264ddb6fdb2b",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/gold-q3-1-candidate.json": "01b95679a32f315834fd1b6247337e1ddf4c3082d2fefead8f942d012e1b4bbe",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkab-rates-0-baseline.json": "2231b8b95382f7242f0899edcc8ec195f99b9aee16ae2f4d318ec7eb4d971bd1",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkab-rates-0-candidate.json": "9e3b755170d4fc0c3bdb11c034e3e75c4fbc0ff04909c5c57fb37728315122dc",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkab-rates-1-baseline.json": "320e8507eab90dc355b7dc64b63f92af65d02b4a2fa30e22eb4372952cd06cea",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkab-rates-1-candidate.json": "c40a6640fdb23feff34e349060b47822c041b58ef59d8ae58742850bd8cc2e26",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkex-pdf-0-baseline.json": "27fafc3569f6083358623d04532767ce368d9d59766d6ad8368c4b579572cf69",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkex-pdf-0-candidate.json": "21a1cb3f288672f952c074344dd200e636dac7a56c69c4b60b2ba71a25d20c40",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkex-pdf-1-baseline.json": "83d63bf5752111ded09c238ac7465bb98a553421e4559c3f15833af721c908b4",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/hkex-pdf-1-candidate.json": "a0f9a7a30723bdaf2c91d8f6acef810cd4ae7c28d7630678c76b3bd394abd211",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-ev-0-baseline.json": "dca1c821921d7dfe663f7f45c454b352ec31bcac5fa22a9c98b906000914b422",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-ev-0-candidate.json": "3acf630c962bf021f0337ba3ab6659bfd8db6bef7c15f37755e6a56872a26a99",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-ev-1-baseline.json": "b65f0bcf3e36ee96fa6c349b3fa9e7eb8271cdcb967ffd703e4f2487851e587a",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-ev-1-candidate.json": "308fd8f155bf92ae705142abafc9d3949cb0fe5f0c3bfff68562a3a34cce334f",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-uncertainty-0-baseline.json": "74f12c31cf770910a19d1197783796eca57d01a1ad7aa7b82589ad5ab857d0d5",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-uncertainty-0-candidate.json": "ed5ddfa231227542c867684e73b95ebe52afbaffa29feb122ee75c76a56c5575",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-uncertainty-1-baseline.json": "0bc9fa4944927aad601f2d468c9dd7307fe93cfbf9f421da4839d94109eb7da4",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/iea-uncertainty-1-candidate.json": "c3573ad01ff0f685fd5ba0ed12b3c6f2d47edb615301ff338793c38a7f6a65a1",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/summary.json": "5ace5b6f68fd734c36eb14618d4ec52c6494c9524519ed40bda7aa9d6417c2bd",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/unicom-q3-0-baseline.json": "84f573b357d737bae9ae2460cf69eae6071620faafbede17aed6e35c4707e714",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/unicom-q3-0-candidate.json": "da119f3c69c3b58fb286c8598427f149b618399cfb8c3d7e06258d88353e02d6",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/unicom-q3-1-baseline.json": "d1f22dedd7762cb77aea70e0a936842cf7146c6f0680cd1f6c57b1bdea3bc37e",
+    "output/dsh-plugin-evaluation/2026-11-03/web-trial-r2/unicom-q3-1-candidate.json": "68794179e5a3421ef0ea476ef711030c6d594d9a7296e7ab29e20039fa10612e"
+  },
+  "method_and_gate_files_sha256": {
+    "framework/investment_framework.md": "b61b32e2cec6d478a3a81aeb71ea5663ff84dfba379bcd82e3ae343cd802cddd",
+    "framework/investment_framework_compact.md": "7c814210e3c1725abb17073853f02ddbafe55d62e7c0b32b3aea7a7ab1667b36",
+    "scripts/research_consistency.py": "9f21013f430f897998ef01c2e867c8bf32d36cb60ff757571d2e7a733f5fc0b0",
+    "scripts/research_shared_evidence.py": "c008db479f85c746aed889609238a1f60e511134600f0f4961c1a6c056fab184",
+    "scripts/stock_price_map.py": "7b8d2d934bb295a9fd0531ba42a6f41cd7434696a769676539fd2243bc0c6c1e",
+    "scripts/research_exchange.py": "4aead92bdd332da921a48c216e275ffaf05dcb757efdb67a391e7abc6a97f8b5"
+  },
+  "limitations": [
+    "Not a full-company research A/B",
+    "No claim of total billed cost or full report time improvement",
+    "Initial web-trial excluded: harness synchronous credential resolver error; retained as INVALID-HARNESS.json",
+    "Initial AKTools driver log was generated in repository cwd; preserved in isolated evidence, production and final driver now set a private cwd."
+  ],
+  "primary_financial_evidence": [
+    {
+      "company": "HK-01211",
+      "physical_page": 2,
+      "source": {
+        "id": "S1",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900816.pdf",
+        "title": "比亚迪2026第三季度报告（H股英文，未经审计）",
+        "published_at": "2026-10-29",
+        "original": {
+          "path": "sources/S1-original.pdf",
+          "sha256": "171c13d370565ce165ab7592d5ef345645d295276e0aa961ada4a75a240e068c"
+        },
+        "text": {
+          "path": "sources/S1-excerpt.txt",
+          "sha256": "829eda34e9467385d98c55168c01d548165519aa8d68d9c967b7832c53c27200"
+        }
+      },
+      "local_original": "output/runs/investment/2026-11-03/c09461267e264fbf874a7b280931d1ec/execution/HK-01211/codex/runner/shared-evidence/sources/S1-original.pdf",
+      "bundle_sha256": "b8941c4bf0c63829695615add166d6df17cdc56ca1b5cb94849c8a30a43e502f"
+    },
+    {
+      "company": "SH-603993",
+      "physical_page": 3,
+      "source": {
+        "id": "S1",
+        "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102301163.pdf",
+        "title": "洛阳钼业2026年第三季度报告英文原件",
+        "published_at": "2026-10-23",
+        "original": {
+          "path": "sources/S1-original.pdf",
+          "sha256": "1d954d9691b5e493880ccf27ac246d1af4c6f8ddc4d9e830714b19b63509333c"
+        },
+        "text": {
+          "path": "sources/S1-text.txt",
+          "sha256": "1b454a320789ee61db7aa2dfef3c0c4cf1bd689dd2a98dd1f54d9c61e2764f3e"
+        }
+      },
+      "local_original": "output/runs/investment/2026-11-03/c09461267e264fbf874a7b280931d1ec/execution/SH-603993/codex/runner/shared-evidence/sources/S1-original.pdf",
+      "bundle_sha256": "a02223a395376cdfb2b493ea50a824470add5320a7b6fcbb767fcf2b808763aa"
+    }
+  ]
+}

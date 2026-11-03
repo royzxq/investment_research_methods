@@ -1,0 +1,32 @@
+{
+  "schema_version": "dsh-plugin-review-validation/v1",
+  "review_date": "2026-11-03",
+  "full_suite": {
+    "tests": 1312,
+    "passed": true,
+    "seconds": 268.616,
+    "path": "output/dsh-plugin-evaluation/2026-11-03/review-full-tests-host.log",
+    "sha256": "be7be782f5daae8dae0f714c5b4622229e7c14d7f20393d13101ab3b3493f9a2"
+  },
+  "node_boundary_tests": {
+    "tests": 3,
+    "passed": true,
+    "path": "output/dsh-plugin-evaluation/2026-11-03/review/node-tests.log",
+    "sha256": "dd987c97d558487889a58e0f4f53ebf4556b3d61e1bab2ecfc80b69121248bf4"
+  },
+  "historical_metrics": {
+    "attempts": 32,
+    "summary_equal_to_prior": true,
+    "path": "output/dsh-plugin-evaluation/2026-11-03/review/historical-metrics.json",
+    "sha256": "090915c7d8e742f9dc7c2e7dadd7d83e4b2841864e2c0cfc767012942aa68290"
+  },
+  "web_transport_regrade": {
+    "calls_rechecked": 44,
+    "original_decision_unchanged": true,
+    "network_calls": 0
+  },
+  "content_correction": "dsh-fetch-content-review.json",
+  "production_config_sha256": "dfedbf5ac063e4a6e517a197b9bec7f53a74729b8e456103b353269e5a4c273c",
+  "new_network_calls": 0,
+  "method_and_acceptance_sources_unchanged": true
+}

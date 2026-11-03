@@ -376,11 +376,22 @@ class DSHRunnerIntegrationTests(unittest.TestCase):
         folder = result_path.parent/'execution/SH-600066/dsh'
         process = json.loads((folder/'process.json').read_text())
         self.assertEqual(process['actual_model'], 'offline-dsh-observed')
+        self.assertEqual(process['dsh_metrics']['path'], 'runner/dsh-metrics.json')
+        self.assertTrue((folder/'runner/dsh-metrics.json').is_file())
         self.assertEqual(process['execution_profile']['producer'], 'dsh')
         self.assertEqual(process['execution_profile']['harness'], 'dsh-cli')
         self.assertEqual(self.f.request_path.read_bytes(), raw)
         self.assertFalse(list((result_path.parent/'execution/SH-600066').glob('claude/*')))
         self.assertEqual(json.loads((self.f.methods/entry['price_map']['path']).read_text())['meta']['generator'], 'dsh')
+
+    def test_metrics_failure_cannot_change_shared_acceptance(self):
+        with patch.object(runner.research_dsh_metrics, 'summarize', side_effect=ValueError('private detail')):
+            result_path = self.execute()
+        result = exchange.load_results(result_path, self.f.request_path, self.f.methods)
+        self.assertEqual(result['results'][0]['status'], 'completed')
+        process = json.loads((result_path.parent/'execution/SH-600066/dsh/process.json').read_text())
+        self.assertEqual(process['dsh_metrics_error'], 'ValueError')
+        self.assertNotIn('private detail', json.dumps(process))
 
     def test_exit_zero_with_aborted_native_turn_cannot_publish_artifacts(self):
         self.f.fake.write_text(self.f.fake.read_text().replace(
