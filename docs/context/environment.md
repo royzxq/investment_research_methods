@@ -34,3 +34,16 @@ ETF 快照的研究覆盖率默认参考 `/Users/xinquanzhou/Workspace/ai_invest
 `output/` 是 Git 忽略的行情与自聚合原始缓存，已作为迁移资产单独备份。历史快照和缓存只证明各自日期的数据，不证明当前行情、事件状态或账户持仓。
 
 目录迁移后缓存分到 `output/cache/futures/` 与 `output/cache/etf/`；两脚本均以仓库根定位，不依赖 shell 当前目录。正式快照默认拒绝覆盖，成功且标记一致才原子发布；失败保留被忽略的 `.partial`，旧正式快照不变。显式 `--overwrite` 仍须符合任务授权。ETF 日期机器读数保存在 snapshots，latest 只在 `output/indexes/`。
+
+## DSH 首批工具运行时（2026-11-03）
+
+DSH 0.2.1-rc.2 已隔离实测官方 `deepseek-search-api` 和 AKTools stdio。生产选择与冻结/回退说明见 [DSH 工具 ADR](../adr/ADR-20261103-dsh-research-tools.md)。Fetch API 样本未通过，默认仍为 `http`；原 PDF 下载/PyMuPDF 核页路径保留。
+
+AKTools 使用本仓独立 `output/runtime/aktools-0.1.4/bin/python`，不依赖系统 Python 或投研脚本的 conda 包。已核验 Python 3.11、AKTools 0.1.4、AKShare 1.20.22、MCP 2.3.0，完整依赖固定在 `config/dsh_aktools-0.1.4-r1.requirements.txt`，运行前对照同名 lock JSON。新 checkout 需要显式重建环境；自动投研不会执行 pip 或自行升级：
+
+```sh
+/Users/xinquanzhou/miniconda3/bin/python3 -m venv output/runtime/aktools-0.1.4
+output/runtime/aktools-0.1.4/bin/python -m pip install -r config/dsh_aktools-0.1.4-r1.requirements.txt
+```
+
+API 的网络、币种、字段口径仍按每次实际返回核验；安装/预检成功不代表任意接口可用。日志按尝试保存在 `dsh-aktools/`，DSH 的汇总统计在 `runner/dsh-metrics.json`；密钥、提示词和命令正文不进入汇总。

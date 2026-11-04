@@ -124,6 +124,16 @@ python3 scripts/research_runner.py run --request /absolute/path/to/request.json 
 
 默认使用 PATH 中对应 CLI；可用 `--cli /absolute/path/to/cli` 指定安装位置。Codex/CC未显式选模型时继承既有配置，DSH使用显式模型配置与workspace-write/approval never，无需人工确认，不宣称与CC自动审批审查等价。运行需要实际凭据/网络；拒绝权限或模型失败会留失败回执，不跳过适配器的沙箱检查。`--timeout-seconds` 默认3600，超时终止本次进程组。该入口不安装定时任务、不写飞书/CSV、不提交Git，也不更新 INDEX/latest；自动扫描、预算和失败恢复由 `research_scheduler.py` 管理。
 
+本仓 Codex 适配器通过会话参数 `-c skills.config=...` 按名称禁用指定的 34 个技能，定时调度与手工 runner 均适用；根目录 `codex.sh` 读取同一份名单。名单维护在 `scripts/research_harness.py`，未列入的项目技能和通用投研技能不加入禁用规则，不写全局配置；Claude/DSH 沿用各自适配器。这是当前 Codex 进程的技能加载设置，不卸载插件、不禁用对应 MCP 工具，也不追改其他已运行会话。配置语义见 [官方技能配置说明](https://developers.openai.com/codex/build-skills)。
+
+手动启动用 `./codex.sh [Codex CLI 参数或子命令]`，默认从 PATH 找 `codex`；应用内 CLI 不在 PATH 时，通过 `CODEX_CLI` 指定单个可执行文件路径，例如本机：
+
+```sh
+CODEX_CLI="/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex" ./codex.sh
+```
+
+2026-11-03 使用本机 Codex CLI 0.166.0-alpha.5.1 的独立 app-server，在禁止网络、禁止写全局配置和认证文件的条件下调用 `skills/list` 对照核验：已安装的25个名单内技能全部从enabled=true变为false，其余45个技能状态不变；没有发起模型轮次。名单中的Pages、Sites、Pets共9个云端技能未出现在离线清单，本次未验证其真实云端加载效果。两次清单均报告 `~/.agents/skills/investment-research/SKILL.md` 缺少YAML frontmatter，这是已有文件问题，此改动未处理。
+
 2026-10-21 执行层已抽取 profile 与 harness adapter；不提供配置仍使用legacy Codex/CC默认。可给 prepare/run 或 scheduler 显式 `--runtime-config /absolute/runtime.json`，按[示例](../config/research_runtime.example.json)选择已有适配器支持的主模型/effort及子模型。新批次在 `framework-snapshot/execution-plan.json` 冻结完整选中配置并绑定原请求；已有批次按自己的计划或旧合同恢复，不受当前配置变化影响。2026-10-23起DSH已正式接入，新v2请求须选择含DSH的显式配置，例如[生产配置](../config/research_runtime.production.json)；旧v1/CC计划及原业务席位、共识与Coze规则保留。能力与继承语义见[执行配置ADR](../docs/adr/ADR-20261021-research-runtime-profiles.md)与[DSH迁移ADR](../docs/adr/ADR-20261023-dsh-research-seat-migration.md)。
 
 Jev 默认 `auto`，Codex/Claude/DSH 均注册可审计的 `jev_research` 路由。可用 `run --jev-mode auto|off|force` 指定，或设置 `RESEARCH_JEV_MODE`（定时调度入口也继承该环境变量）；命令行优先，重试保留首次模式。批量公告/年报候选提交后由程序判断是否达到阈值，已精确定位及小批次记录跳过原因；全部候选保留，失败回退原文核验。触发参数和候选格式见 [Jev 条件路由](../.agents/skills/stock-research/references/jev-routing.md)。每端每次尝试在 `execution/<task_id>/<generator>/jev/` 留 `calls.jsonl`、排序结果和最终 `summary.json`，摘要同时进入 `process.json.jev`；retry-1 使用自己的目录。`not_requested` 表示没有提交候选，不能当作程序已评估后跳过。

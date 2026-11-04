@@ -1,8 +1,12 @@
+2026-11-02 事件触发改造（隔离未启用）：未来主入口改为基础/恢复封存事件 outbox 与独立 worker，不再依赖每15分钟 heartbeat。输入及报告审阅门禁保留，低频 reconcile 只修复崩溃缺口。见 [事件 ADR](../adr/ADR-20261102-coze-sealed-events.md)。原运行目录尚未切换；今日三只不补发。
+
 # Coze 条件第三模型：CLI 迁移与切换
 
-2026-11-01：本分支已实现原生 CLI 传输，`config/coze_cli.json` 的 `enabled=false`，尚未部署到原运行目录。当前只读复核 `coze` heartbeat 为 PAUSED、每15分钟，既有 prompt 仍属邮件链路（此前记录曾为ACTIVE）；本次不修改它、不新增定时任务、不发送新 Coze 请求、不生产写回。原 05:00 研究检查及 ai 07:30/22:00 消费保持原样。切换时使用下述流程，不能把“代码完成”表述成“已启用”。
+2026-11-02：本分支包含原生 CLI 传输与封存事件实现，`config/coze_cli.json` 的 `enabled=false`，`coze_events.json` 的 `enabled/dispatch_enabled=false`，尚未部署到原运行目录。此前只读复核 `coze` heartbeat 为 PAUSED、每15分钟，既有 prompt 仍属邮件链路；该历史入口继续暂停，不作为事件方案的主触发。本次未安装或启用服务、未发送新 Coze 请求、未生产写回。原 05:00 研究检查及 ai 07:30/22:00 消费保持原样。切换时使用下述流程，不能把“代码完成”表述成“已启用”。
 
 2026-10-14 起的既有条件授权继续适用：仅沪深 A 股，同批同冻结包两个基础席成功（当前 Codex+DSH；旧批 Codex+Claude），显式正数 P1.base 的 `max/min - 1 > 0.10` 才请求第三意见；恰好10%不触发。拒绝、失败、缺 base、仅区间不触发，不推中值；只处理每证券最新轮，较新在途轮抑制旧轮。不另占每日证券名额、不重置七天冷却。原两席 seal 不变，第三意见 pending/held/failed 不阻断基础消费。
+
+这些资格规则不等于本轮新增自动发送授权。用户确认的事件起点为北京时间2026-11-03零点（含），原请求创建时间与验证后的有效双席完成时间都须达界；11月2日批次晚完成、恢复、重封存或重启均不补发。未来启用和真实发送仍须明确授权。
 
 ## 传输与证据
 
@@ -20,10 +24,19 @@
 
 ## 操作顺序（仓库根）
 
-配置默认禁止发送。以下 prepare 仅生成本地输入；submit 需要部署后的 enabled=true 和显式 --allow-submit，两道门禁均满足才可能外发。首次发送前核对 pinned 账户、会话及 CLI 版本、原完整包是否公共，并检查旧 intent 清单和已有请求。
+配置默认禁止发送。未来获授权部署后，以封存通知唤醒 worker；合格事件先停在 awaiting_public_review，受授权审阅者读完原冻结包后执行 approve。worker 才能在两层发送开关均启用时准备和提交。plan-launchd 只输出配置；本次没有运行以下生产操作。
 
 ```sh
-python3 scripts/research_coze.py scan --not-before 2026-10-14T00:00:00+08:00
+python3 scripts/coze_events.py plan-launchd
+python3 scripts/coze_events.py worker
+python3 scripts/coze_events.py approve --key <seal_sha256> --public-input-reviewed
+python3 scripts/coze_events.py reconcile
+```
+
+以下原 CLI 命令保留为显式人工操作接口，不配置为15分钟候选扫描。prepare 仅生成本地输入；submit 需要部署后的 enabled=true 和显式 --allow-submit。首次发送前核对 pinned 账户、会话及 CLI 版本、原完整包是否公共，并检查旧 intent 清单和已有请求；不能用手工 scan 的较早起点绕开本次不补历史的范围。
+
+```sh
+python3 scripts/research_coze.py scan --not-before 2026-11-03T00:00:00+08:00
 python3 scripts/research_coze.py prepare --intent /absolute/intent.json --public-input-reviewed
 python3 scripts/research_coze.py submit --intent /absolute/intent.json --allow-submit
 python3 scripts/research_coze.py collect --intent /absolute/intent.json
@@ -47,8 +60,8 @@ python3 scripts/research_coze.py fail --intent /absolute/intent.json --reason '�
 
 1. 完成独立 Astra/xhigh review、修复和离线回归后本地 commit；不自动 push/部署。当前 worktree 中的模拟端到端只能证明协议适配和消费门禁，尚未用本适配器发新真实任务。
 2. 经切换授权后，先确认原邮件 heartbeat 保持暂停，快照所有旧 intent/mail 请求及未知发送状态；不得重置它们或把同一原 seal 改投 CLI。安装两个仓库配对提交，确保 CLI版本/账户/目标会话、依赖和证据目录权限正常；旧邮件 skill 不再作为新请求入口。
-3. 在真实运行配置显式启用 CLI，使用本页规则替换既有 heartbeat prompt，仍每15分钟、目标聊天不变。不要另建重复任务。一次只提交 eligible 的新CLI intent；每次先收取已有请求，再扫描；未知发送只核验，不重发。每次通知按 request_id+错误/终态保存 monitor.json 的 notified 去重，通知成功后记录；无变化保持安静。失败检查不充当超时证据。
-4. heartbeat 只 prepare/submit/collect/人工验收/publish，不直接生产写回。既有 ai07:30/22:00 消费 supplement，保留 base-first、最新轮、人工改价保护、报价唯一属主和 CSV 事务。备份已加入可选 CLI 台账目录及配置（首次启用前不存在不算错误；一经收录后消失按原规则失败）。
-5. 如需回滚，关闭CLI发送并暂停 heartbeat，保留全部台账和不可变证据，不删除发送占位；先核验未知状态，再恢复历史消费者或经授权的邮件入口。不能将已提交 CLI intent 自动转换为邮件重新请求。
+3. 获得未来发送与部署授权后，审阅并安装 plan-launchd 输出的 QueueDirectories worker 和每小时 reconcile；填写已确认起点后按授权启用 event.enabled、dispatch_enabled 与 CLI.enabled。旧邮件/15分钟 heartbeat 继续暂停。封存通知只落本地事件，worker 在原 provider 槽位之外验证资格；reconcile 只修复丢事件、marker 和派生 job，不作为候选主扫描。unknown/sending 只查历史，失败检查不充当超时证据。
+4. 公开包审阅、approve、报告/附件全文审阅和原 review/publish 是明确人工门禁，没有无人值守语义审核器。worker 不审批报告、不写生产。既有 ai07:30/22:00 消费 supplement，保留 base-first、最新轮、人工改价保护、报价唯一属主和 CSV 事务。备份覆盖事件配置、event/job/marker、intent、CLI台账、原件及正式证据；首次启用前可选目标不存在不算错误，一经收录后消失按原规则失败。
+5. 如需回滚，关闭事件和CLI开关并 bootout 两个 event job，旧 heartbeat 继续暂停；保留全部台账和不可变证据，不删除发送占位。只关闭配置而 pending 非空时 launchd 仍可能节流唤醒。先核验未知状态，再按明确授权恢复消费者；不能把已提交 CLI intent 自动转换为邮件或新请求。
 
-CLI运行状态在 methods `output/research_queue/coze/` 与 ai `investment_rawdata/coze_cli/`；正式证据仍在公司目录 `evidence/coze/<request_id>/`，已有备份覆盖正式报告。旧邮件历史在 `investment_rawdata/coze_email/`；本次未触碰。
+事件运行状态在 methods `output/research_queue/coze-events/`，CLI intent 在 `output/research_queue/coze/`，传输台账在 ai `investment_rawdata/coze_cli/`；正式证据仍在公司目录 `evidence/coze/<request_id>/`。丢失派生 job 时仅从相同 seal/冻结包/目标的原台账恢复已有 public_input_reviewed 记录，不创造审阅授权；原台账缺失则阻断。已发送请求即使出现新研究也继续收取，未发送请求仍在发送占位前重新检查最新轮。旧邮件历史在 `investment_rawdata/coze_email/`；本次未触碰。

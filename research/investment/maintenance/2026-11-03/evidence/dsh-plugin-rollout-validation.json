@@ -1,0 +1,75 @@
+{
+  "schema_version": "dsh-plugin-rollout-validation/v1",
+  "completed_at": "2026-11-03T09:43:55.062341+08:00",
+  "active_profile": {
+    "profile_id": "dsh-deepseek-flash-high-tools-v1",
+    "revision": 1,
+    "producer": "dsh",
+    "harness": "dsh-cli",
+    "models": {
+      "main": {
+        "model": "deepseek-flash",
+        "effort": "high"
+      },
+      "subagent": {
+        "model": "deepseek-flash"
+      }
+    },
+    "tools": {
+      "search": "deepseek-search-api",
+      "fetch": "http",
+      "aktools": "aktools-0.1.4-r1"
+    }
+  },
+  "production_config_sha256": "dfedbf5ac063e4a6e517a197b9bec7f53a74729b8e456103b353269e5a4c273c",
+  "previous_config_sha256": "f13c7ad3566af11e074808cb05a14071fb07fdd0220ec951996a4ae75562d0f3",
+  "frozen_compatibility": {
+    "existing_plan_path": "output/runs/investment/2026-11-03/c09461267e264fbf874a7b280931d1ec/framework-snapshot/execution-plan.json",
+    "sha256_before_after": "4394385c7f764e17dedccf25d6af07fa44d547a080c1dceb350e069ed162c841",
+    "old_profile_has_tools": false,
+    "new_plan_preview_has_tools": true,
+    "codex_profile_unchanged": true,
+    "existing_plan_not_written": true
+  },
+  "validation": {
+    "full_offline_suite_host": {
+      "tests": 1306,
+      "passed": true,
+      "seconds": 259.568,
+      "log_sha256": "cc93e325a7ecfec15349ca5dcde27e121f1bb402640e19e9314b7aaaf2759468"
+    },
+    "focused_dsh_suite": {
+      "tests": 51,
+      "passed": true,
+      "log_sha256": "73984f6f7d61396f5b63e532468d6536b5c3c61fe642de1017098cc67af941f5"
+    },
+    "initial_sandbox_suite": {
+      "tests": 1306,
+      "permission_errors": 45,
+      "note": "43 local mock socket binds and 2 ps queries; full host rerun passed"
+    },
+    "candidate_preflight": true,
+    "stock_governance_structure_check": true,
+    "method_and_acceptance_sources_match_head": [
+      "framework/investment_framework.md",
+      "framework/investment_framework_compact.md",
+      "scripts/research_consistency.py",
+      "scripts/research_shared_evidence.py",
+      "scripts/stock_price_map.py",
+      "scripts/research_exchange.py"
+    ]
+  },
+  "service": {
+    "label": "com.investment-research-methods.research",
+    "observed_state": "not running",
+    "configuration_path_matches_launchd": true,
+    "schedule_unchanged": true,
+    "restart_needed": false,
+    "applies_to": "next newly prepared batch; existing frozen batches unchanged"
+  },
+  "scope_limits": [
+    "No full-company online A/B research was run",
+    "No actual production research was forced to run",
+    "No automatic Git push, PR, external messages or trades"
+  ]
+}

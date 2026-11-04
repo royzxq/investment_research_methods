@@ -38,7 +38,7 @@ try:
     from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
     from . import research_jev
     from . import research_consistency
-    from . import research_harness, research_runtime, research_shared_evidence
+    from . import research_harness, research_runtime, research_shared_evidence, research_dsh_metrics
 except ImportError:
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
@@ -49,7 +49,7 @@ except ImportError:
     from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
     import research_jev
     import research_consistency
-    import research_harness, research_runtime, research_shared_evidence
+    import research_harness, research_runtime, research_shared_evidence, research_dsh_metrics
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
@@ -1573,6 +1573,17 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
         write_new(folder / 'runner/jev-summary.json', encode(process['jev']))
     except Exception as exc:
         process['jev_audit_error'] = type(exc).__name__
+    if generator == 'dsh':
+        try:
+            metrics = research_dsh_metrics.summarize(folder, process=process)
+            raw_metrics = encode(metrics)
+            write_new(folder / 'runner/dsh-metrics.json', raw_metrics)
+            process['dsh_metrics'] = dict(schema_version=metrics['schema_version'],
+                path='runner/dsh-metrics.json', sha256=hashlib.sha256(raw_metrics).hexdigest(),
+                sessions=len(metrics['sessions']), issues=metrics['issues'], cost_complete=False)
+        except Exception as exc:
+            # Telemetry must never weaken or become a new acceptance gate.
+            process['dsh_metrics_error'] = type(exc).__name__
     save(folder / 'process.json', process)
     save(folder / 'entry.json', entry)
     emit(dict(event='research_finished', task_id=task['task_id'], generator=generator,

@@ -100,7 +100,12 @@ def _model_option(value: Any, label: str) -> None:
 
 
 def _validate_profile(value: Any) -> Profile:
-    _fields(value, PROFILE_KEYS, 'profile')
+    # Additive opt-in: absent tools preserve the exact historical DSH patch.
+    optional = {'tools'} if isinstance(value, dict) and 'tools' in value else set()
+    _fields(value, PROFILE_KEYS | optional, 'profile')
+    if optional:
+        _require(value.get('harness') == 'dsh-cli' and value.get('producer') == 'dsh',
+                 'profile.tools: only supported by DSH')
     _slug(value['profile_id'], 'profile.profile_id')
     _require(type(value['revision']) is int and value['revision'] > 0,
              'profile.revision: expected positive integer')

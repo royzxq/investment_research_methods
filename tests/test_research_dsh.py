@@ -129,6 +129,66 @@ class ResearchDSHTests(unittest.TestCase):
         self.assertEqual(original['DSH_HOME'], '/shared/home')
         self.assertEqual(env['DSH_TELEMETRY_DISABLED'], '1')
 
+    def test_explicit_web_providers_are_frozen_and_legacy_patch_is_unchanged(self):
+        from scripts import research_runtime
+        legacy_rows = json.loads((self.folder / 'dsh-runtime.patch.json').read_text())
+        self.assertNotIn('web', {row.get('id') for row in legacy_rows})
+        item = profile()
+        item['tools'] = dict(search='deepseek-search-api', fetch='http')
+        frozen = research_runtime._validate_profile(item)
+        item['tools']['search'] = 'deepseek-official'
+        self.assertEqual(frozen['tools']['search'], 'deepseek-search-api')
+        folder = self.root / 'candidate'; folder.mkdir()
+        (folder / 'receipt-schema.json').write_text('{"type":"object"}')
+        context = harness.LaunchContext(folder, self.root, 'dsh', {}, 'delivery')
+        self.adapter.command('/local/dsh', context, frozen)
+        rows = json.loads((folder / 'dsh-runtime.patch.json').read_text())
+        self.assertEqual(next(r['config'] for r in rows if r.get('id') == 'web'),
+                         dict(searchProvider='deepseek-search-api', fetchProvider='http'))
+        for invalid in ({'search': 'deepseek-search-api'}, {'search': 'unknown', 'fetch': 'http'},
+                        {'search': 'deepseek-search-api', 'fetch': 'http', 'api_key': 'PRIVATE'}, None):
+            bad = profile(); bad['tools'] = invalid
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError) as caught:
+                research_runtime._validate_profile(bad)
+            self.assertNotIn('PRIVATE', str(caught.exception))
+        other = research_runtime.default_profile('codex'); other['tools'] = frozen['tools']
+        with self.assertRaises(ValueError):
+            research_runtime._validate_profile(other)
+
+    def test_aktools_is_opt_in_pinned_and_optional_at_mcp_startup(self):
+        item = profile()
+        item['tools'] = dict(search='deepseek-search-api', fetch='http', aktools='aktools-0.1.4-r1')
+        folder = self.root / 'aktools'; folder.mkdir()
+        (folder / 'receipt-schema.json').write_text('{"type":"object"}')
+        context = harness.LaunchContext(folder, self.root, 'dsh', {}, 'delivery')
+        with patch.object(dsh, '_aktools_runtime', return_value=('/locked/python', 'a' * 64)):
+            self.adapter.command('/local/dsh', context, item)
+        rows = json.loads((folder / 'dsh-runtime.patch.json').read_text())
+        inserted = [entry for row in rows for entry in row.get('insert', [])]
+        mcp = next(r['config'] for r in inserted if r['id'] == 'research-mcp-aktools')
+        self.assertEqual(mcp['command'], '/locked/python')
+        self.assertEqual(mcp['args'], ['-I', '-B', '-m', 'aktools.mcp_server'])
+        self.assertFalse(mcp['failOnStartupError'])
+        self.assertEqual(Path(mcp['cwd']), (folder/'dsh-aktools').resolve())
+        self.assertEqual(mcp['toolCallTimeoutMs'], 90000)
+        self.assertEqual(set(mcp['env']), {'AKTOOLS_TIMEOUT', 'AKTOOLS_CACHE_TTL', 'PYTHONUNBUFFERED'})
+        self.assertIn('total_rows/offset/returned_rows/truncated', (folder/'dsh-delivery-instruction.txt').read_text())
+        metadata = json.loads((folder/'dsh-runtime.json').read_text())
+        self.assertEqual(metadata['aktools_lock_sha256'], 'a' * 64)
+        item['tools']['aktools'] = 'latest'
+        with self.assertRaises(ValueError):
+            self.adapter.validate_profile(item)
+
+    def test_missing_or_drifted_aktools_installation_fails_closed(self):
+        with self.assertRaisesRegex(ValueError, 'missing or differs'):
+            dsh._aktools_runtime(self.root)
+        (self.root/'config').mkdir()
+        (self.root/'config/dsh_aktools-0.1.4-r1.lock.json').write_text(json.dumps(
+            dict(python='3.11', packages={'aktools': '0.1.4'}, source_sha256={})))
+        result = subprocess.CompletedProcess([], 0, json.dumps(dict(python='3.11', packages={'aktools': '9'}, source_sha256={})), '')
+        with patch.object(dsh.subprocess, 'run', return_value=result), self.assertRaisesRegex(ValueError, 'missing or differs'):
+            dsh._aktools_runtime(self.root)
+
     def test_fallback_key_requires_exact_official_cc_provider(self):
         cc = self.root / '.claude'
         cc.mkdir()

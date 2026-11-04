@@ -202,6 +202,31 @@ def _events(folder, strict_json):
     return final, session
 
 
+def _aktools_runtime(root):
+    """Resolve one trusted, version-locked local sidecar; never install on a run."""
+    root = Path(root).resolve()
+    lock = root / 'config/dsh_aktools-0.1.4-r1.lock.json'
+    python = root / 'output/runtime/aktools-0.1.4/bin/python'
+    try:
+        expected = json.loads(lock.read_bytes())
+        probe = '''import hashlib,importlib.metadata as m,json,sys,sysconfig
+from pathlib import Path
+site=Path(sysconfig.get_paths()['purelib'])
+spec=json.load(sys.stdin)
+packages={d.metadata['Name'].lower().replace('_','-'):d.version for d in m.distributions() if d.metadata['Name'].lower() not in ('pip','setuptools')}
+files={p:hashlib.sha256((site/p).read_bytes()).hexdigest() for p in spec['source_sha256']}
+print(json.dumps(dict(python=f'{sys.version_info.major}.{sys.version_info.minor}',packages=packages,source_sha256=files)))
+'''
+        result = subprocess.run([str(python), '-I', '-c', probe], input=json.dumps(expected),
+                                capture_output=True, text=True, timeout=10)
+        observed = json.loads(result.stdout)
+        if result.returncode or any(observed[key] != expected[key] for key in ('python', 'packages', 'source_sha256')):
+            raise ValueError()
+    except (OSError, ValueError, KeyError, subprocess.TimeoutExpired):
+        raise ValueError('AKTools isolated runtime is missing or differs from its tested lock') from None
+    return str(python), hashlib.sha256(lock.read_bytes()).hexdigest()
+
+
 class DSHCLIAdapter(CLIAdapter):
     harness_id = 'dsh-cli'
     producer = 'dsh'
@@ -211,6 +236,13 @@ class DSHCLIAdapter(CLIAdapter):
 
     def validate_profile(self, profile):
         super().validate_profile(profile)
+        if 'tools' in profile:
+            tools = profile['tools']
+            if (type(tools) is not dict or set(tools) not in ({'search', 'fetch'}, {'search', 'fetch', 'aktools'})
+                    or tools['search'] not in ('deepseek-official', 'deepseek-search-api')
+                    or tools['fetch'] not in ('http', 'deepseek-fetch-api')
+                    or tools.get('aktools') not in (None, 'aktools-0.1.4-r1')):
+                raise ValueError('DSH tools require the supported nonsecret provider selections')
         models = profile['models']
         if models['main']['model'] is None or models['subagent']['model'] is None:
             raise ValueError('DSH requires explicit main and subagent model selections')
@@ -221,6 +253,8 @@ class DSHCLIAdapter(CLIAdapter):
         super().preflight(cli, root, profile, codex_check=codex_check)
         _key(os.environ)
         _pdf_python()
+        if profile.get('tools', {}).get('aktools'):
+            _aktools_runtime(root)
         with tempfile.TemporaryDirectory(prefix='research-dsh-preflight-') as temp:
             env = dict(os.environ, DSH_HOME=str(Path(temp) / 'dsh-home'),
                        HOME=str(Path(temp) / 'home'), DSH_TELEMETRY_DISABLED='1')
@@ -279,6 +313,17 @@ class DSHCLIAdapter(CLIAdapter):
                            '程序例：doc=pymupdf.open(path); doc[page-1].get_text()；'
                            '图表/扫描页用get_pixmap()渲染核对，不凭抽取失败判证据不存在。')
         delivery = context.delivery_instruction + '\n' + pdf_instruction + '\n' + receipt_instruction
+        aktools_runtime = None
+        if profile.get('tools', {}).get('aktools'):
+            aktools_runtime = _aktools_runtime(context.root)
+            delivery += ('\n可按需用 AKTools MCP 获取结构化历史财务、补已有数据缺口：先 search_interfaces，'
+                         '再 describe_interface，最后 get_data。它是第三方数据线索，沿用现有一手证据及财务口径验收；'
+                         '不得替代原公告/PDF核页或覆盖已验证共享事实。记录接口、参数、报告期、抓取时点和来源；'
+                         '检查 total_rows/offset/returned_rows/truncated，默认100行、最多1000行并非完整历史，'
+                         '按所需报告期分页；分页终止按 offset+returned_rows>=total_rows，'
+                         'truncated只表示本页非整表，尾页也可能为true。港股币种/单位可能缺失，'
+                         '须从原公告确认，缺失保持未知。'
+                         '冷调用可能数十秒，同进程缓存60秒，缓存命中不代表数据更新。失败时继续现有取数路径。')
         _new(folder / 'dsh-delivery-instruction.txt', delivery.encode())
         _new(folder / 'dsh-data-environment.mjs', DATA_ENV_BRIDGE.encode())
         rows = [
@@ -305,8 +350,28 @@ class DSHCLIAdapter(CLIAdapter):
                                                      'model': model, 'maxTokens': 4096, 'maxUses': 5}},
             {'insert': [{'id': 'research-data-environment', 'name': str(folder / 'dsh-data-environment.mjs')}]},
         ]
+        if 'tools' in profile:
+            rows.extend([
+                {'id': 'web', 'config': {'searchProvider': profile['tools']['search'],
+                                         'fetchProvider': profile['tools']['fetch']}},
+                {'id': 'web-deepseek-api', 'config': {'apiKeyEnv': 'DEEPSEEK_API_KEY',
+                    'baseURL': 'https://api.deepseek.com/v1/tools', 'count': 10}},
+            ])
         mcp_rows = []
+        if aktools_runtime:
+            # AKTools writes a local log in cwd; keep it inside this attempt.
+            aktools_cwd = folder / 'dsh-aktools'
+            if aktools_cwd.is_symlink():
+                raise ValueError('DSH AKTools working directory cannot be a symbolic link')
+            aktools_cwd.mkdir(mode=0o700, exist_ok=True)
+            mcp_rows.append({'id': 'research-mcp-aktools', 'name': '@deepseek-ai/dsh-mcp-client',
+                'config': {'serverName': 'aktools', 'transport': 'stdio', 'command': aktools_runtime[0],
+                    'args': ['-I', '-B', '-m', 'aktools.mcp_server'], 'cwd': str(aktools_cwd),
+                    'env': {'AKTOOLS_TIMEOUT': '20', 'AKTOOLS_CACHE_TTL': '60', 'PYTHONUNBUFFERED': '1'},
+                    'toolCallTimeoutMs': 90000, 'failOnStartupError': False}})
         for name, server in context.mcp_servers.items():
+            if name == 'aktools' and aktools_runtime:
+                raise ValueError('DSH MCP AKTools namespace is reserved by the frozen tool profile')
             if not re.fullmatch(r'[A-Za-z0-9_-]{1,32}', name):
                 raise ValueError('DSH MCP server namespace is invalid')
             config = {'serverName': name, 'transport': 'stdio', 'command': server['command'],
@@ -323,6 +388,8 @@ class DSHCLIAdapter(CLIAdapter):
             'receipt_encoding': RECEIPT_ENCODING,
             'harness': self.harness_id, 'producer': self.producer, 'model': model, 'effort': effort,
             'subagent_model': subagent_model, 'subagent_effort': effort,
+            **({'aktools_runtime': profile['tools']['aktools'], 'aktools_lock_sha256': aktools_runtime[1]}
+               if aktools_runtime else {}),
             'pdf_fallback_python': pdf_python,
             'pdf_fallback_python_realpath': str(Path(pdf_python).resolve()),
             'max_tokens': MAX_TOKENS, 'stream_idle_ms': STREAM_IDLE_MS,

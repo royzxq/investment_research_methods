@@ -16,6 +16,23 @@ import threading
 from types import MappingProxyType
 
 
+# Shared by scheduled Codex research and the repository's manual launcher.
+_CODEX_DISABLED_SKILLS = (
+    'lark-approval', 'lark-apps', 'lark-attendance', 'lark-calendar', 'lark-contact',
+    'lark-event', 'lark-mail', 'lark-markdown', 'lark-meeting', 'lark-minutes',
+    'lark-note', 'lark-okr', 'lark-openapi-explorer', 'lark-skill-maker', 'lark-slides',
+    'lark-task', 'lark-vc', 'lark-vc-agent', 'lark-whiteboard', 'lark-wiki',
+    'lark-workflow-meeting-summary', 'lark-workflow-standup-report',
+    'pages:maintain-space', 'pages:manage-schedules', 'pages:organize-space', 'pages:write-page',
+    'sites:sites', 'sites:sites-remix', 'work-pets:create-pet', 'work-pets:pets',
+    'work-pets:update-pet', 'presentations:Presentations',
+    'spreadsheets:excel-live-control', 'template-creator:template-creator',
+)
+CODEX_SKILL_FILTER = 'skills.config=[' + ','.join(
+    '{name=' + json.dumps(name) + ',enabled=false}' for name in _CODEX_DISABLED_SKILLS
+) + ']'
+
+
 @dataclass(frozen=True)
 class LaunchContext:
     folder: Path
@@ -176,7 +193,7 @@ class CodexCLIAdapter(CLIAdapter):
         self._validate_context(context, profile)
         folder = Path(context.folder)
         args = [cli, '--no-daemon', 'exec', '--approve-for-me', '-c', 'web_search="live"',
-                '-c', 'mcp_servers.jev.enabled=false',
+                '-c', 'mcp_servers.jev.enabled=false', '-c', CODEX_SKILL_FILTER,
                 '--ephemeral', '--json', '--color', 'never', '--output-schema',
                 str(folder / 'receipt-schema.json'), '-o', str(folder / 'cli-receipt.json'),
                 '-C', str(Path(context.root).resolve()), '-']
