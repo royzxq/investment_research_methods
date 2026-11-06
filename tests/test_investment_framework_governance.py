@@ -38,6 +38,18 @@ class InvestmentGovernanceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Undefined"):
             check(self.root)
 
+    def test_new_rule_cannot_be_missing_duplicated_or_renumbered(self):
+        path = self.root / "framework" / FILES[1]
+        original = path.read_text()
+        for replacement in ("- **ETF ", "- **R21 ", "- **R23 "):
+            with self.subTest(replacement=replacement):
+                path.write_text(original.replace("- **R22 ", replacement, 1))
+                with self.assertRaisesRegex(ValueError, "definitions"):
+                    check(self.root)
+        path.write_text(original + "\n- **R22 duplicate**\n")
+        with self.assertRaisesRegex(ValueError, "definitions"):
+            check(self.root)
+
     def test_only_one_copy_refreshing_state_is_rejected(self):
         text = (self.root / "framework" / FILES[0]).read_text()
         block = re.search(r"<!-- investment-state:start -->\s*```json\s*(.*?)\s*```", text, re.S)

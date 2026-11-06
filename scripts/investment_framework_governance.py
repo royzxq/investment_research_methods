@@ -40,7 +40,7 @@ def check(root=ROOT):
     if states[0] != states[1]:
         raise ValueError("Canonical and compact observation snapshots differ")
     compact = texts[FILES[1]]
-    for prefix, total in (("R", 21), ("D", 8)):
+    for prefix, total in (("R", 22), ("D", 8)):
         definitions = Counter(re.findall(rf"(?m)^- \*\*({prefix}\d+)\s", compact))
         expected = {f"{prefix}{i}" for i in range(1, total + 1)}
         if set(definitions) != expected or any(n != 1 for n in definitions.values()):
