@@ -16,6 +16,7 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 import tempfile
 from zoneinfo import ZoneInfo
@@ -23,18 +24,22 @@ from uuid import uuid4
 
 try:
     from .research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
-                                  check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure,
+                                  check_codex_cli, observed_model, cancellation_scope, stop_group, wait_for_process,
+                                  prepare_request, execution_folder, retryable_failure,
                                   execution_profile, preflight_profile, default_cli, sequential_research)
     from .research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS, DEFAULT_GENERATORS, seal_schema
     from .research_loop_log import record
     from . import research_runtime
+    from .research_candidate_packs import SOURCE as CANDIDATE_SOURCE, due_candidates
 except ImportError:
     from research_runner import (ROOT, read_request, run_provider, manifest, group_alive,
-                                 check_codex_cli, observed_model, cancellation_scope, prepare_request, execution_folder, retryable_failure,
+                                 check_codex_cli, observed_model, cancellation_scope, stop_group, wait_for_process,
+                                 prepare_request, execution_folder, retryable_failure,
                                  execution_profile, preflight_profile, default_cli, sequential_research)
     from research_exchange import _strict_json, load_results, _timestamp, ENTRY_KEYS, DEFAULT_GENERATORS, seal_schema
     from research_loop_log import record
     import research_runtime
+    from research_candidate_packs import SOURCE as CANDIDATE_SOURCE, due_candidates
 
 DAILY_LIMIT = 5
 MAX_CONCURRENCY = 4
@@ -308,15 +313,80 @@ def scan_requests(exchange, now):
                                                       allow_nan=False).encode()).hexdigest()
                 if trigger['event_key'] != event_key:
                     raise ValueError('trigger evidence hash mismatch')
-                batch_records.append(dict(task_id=task['task_id'], event_key=event_key,
-                                    priority=trigger['priority'], request=str(path.resolve()),
-                                    request_sha256=hashlib.sha256(raw).hexdigest(),
-                                    batch_id=request['batch_id'], valuation_date=request['valuation_date'],
-                                    created_at=request['created_at']))
+                record = dict(task_id=task['task_id'], event_key=event_key,
+                              priority=trigger['priority'], request=str(path.resolve()),
+                              request_sha256=hashlib.sha256(raw).hexdigest(),
+                              batch_id=request['batch_id'], valuation_date=request['valuation_date'],
+                              created_at=request['created_at'])
+                if CANDIDATE_SOURCE in task['sources']:
+                    source = trigger['evidence'].get(CANDIDATE_SOURCE, {})
+                    order = source.get('order') if isinstance(source, dict) else None
+                    if (task['sources'] != [CANDIDATE_SOURCE] or type(order) is not int or order < 0
+                            or source.get('research_on') != request['valuation_date']):
+                        raise ValueError('invalid research candidate evidence')
+                    record['candidate_order'] = order
+                batch_records.append(record)
             records.extend(batch_records)
         except (ValueError, OSError, KeyError, TypeError) as exc:
             rejected.append(dict(path=str(path), reason=str(exc)))
     return records, rejected
+
+
+def collect_candidate_packs(methods, exchange, now, state, held, records, cancelled, event_log, run_id):
+    day = now.date().isoformat()
+    try:
+        due = due_candidates(methods/'config/research_candidates.json', day)
+    except (OSError, TypeError, ValueError) as exc:
+        journal(event_log, 'candidate_pack_failed', run_id=run_id, details={'reason': str(exc)})
+        return False, [{'reason': str(exc)}]
+    if not due:
+        return False, []
+
+    ready = {e['task_id'] for e in records if e['valuation_date'] == day and 'candidate_order' in e}
+    held_ids = {task_id for task_id, _ in held}
+    used = state['days'].get(day, {})
+    if len(used) >= DAILY_LIMIT:
+        return False, []
+    jobs = []
+    for candidate in due:
+        code, suffix = candidate['code'].split('.')
+        task_id = f'{suffix}-{code}'
+        if (task_id not in ready and task_id not in used and task_id not in held_ids
+                and cooldown_until(state, {'task_id': task_id}, now) is None):
+            jobs.append((task_id, candidate))
+    if not jobs:
+        return False, []
+
+    def fetch(job):
+        task_id, candidate = job
+        ai_root = methods.parent/'ai_investment'
+        try:
+            if cancelled.is_set():
+                raise ValueError('scheduler cancelled before candidate pack launch')
+            command = [sys.executable, str(methods/'scripts/research_candidate_packs.py'),
+                       str(ai_root), str(Path(exchange).resolve()), json.dumps(candidate)]
+            with subprocess.Popen(command, cwd=ai_root, start_new_session=True) as process:
+                try:
+                    status = wait_for_process(process, 240, cancelled)
+                finally:
+                    stop_group(process)
+            if status:
+                raise ValueError(f'candidate pack process exited with status {status}')
+        except (OSError, ValueError) as exc:
+            failure = dict(task_id=task_id, reason=str(exc))
+            journal(event_log, 'candidate_pack_failed', run_id=run_id, task_id=task_id, details=failure)
+            return failure
+        journal(event_log, 'candidate_pack_ready', run_id=run_id, task_id=task_id)
+        return None
+
+    with ThreadPoolExecutor(max_workers=min(MAX_CONCURRENCY, len(jobs))) as pool:
+        return True, [failure for failure in pool.map(fetch, jobs) if failure is not None]
+
+
+def queue_order(entry):
+    order = entry.get('candidate_order')
+    return (order is None, order if order is not None else entry['priority'],
+            entry['first_seen'], entry['task_id'])
 
 
 def merge_candidates(state, records, now):
@@ -327,8 +397,12 @@ def merge_candidates(state, records, now):
         previous = state['entries'].get(key)
         if previous and previous['status'] in {'reserved', 'running', 'interrupted'}:
             continue
-        if previous and previous['created_at'] > record['created_at']:
-            continue
+        if previous:
+            same_day = previous['valuation_date'] == record['valuation_date']
+            previous_order = (same_day and 'candidate_order' in previous, previous['created_at'])
+            incoming_order = (same_day and 'candidate_order' in record, record['created_at'])
+            if previous_order > incoming_order:
+                continue
         if previous and previous['status'] == 'failed' and previous['request_sha256'] == record['request_sha256']:
             continue  # Exhausted rounds need fresh input after cooldown; do not reopen a seal.
         if previous and all(previous.get(k) == record.get(k) for k in
@@ -352,7 +426,7 @@ def pending_admissions(state, now, *, held=frozenset()):
                   and (e['task_id'], e['event_key']) not in held
                   and not (e.get('admission', {}).get('date') == today)
                   and cooldown_until(state, e, now) is None]
-    candidates.sort(key=lambda e: (e['priority'], e['first_seen'], e['task_id']))
+    candidates.sort(key=queue_order)
     return candidates[:remaining]
 
 
@@ -386,7 +460,8 @@ def apply_admission(state, exchange, now):
                 raise ValueError('duplicate/invalid admission listing')
             seen.add(task)
             entry = state['entries'].get(task)
-            if not entry or entry['status'] != 'pending' or entry['priority'] == 1:
+            if (not entry or entry['status'] != 'pending' or entry['priority'] == 1
+                    or 'candidate_order' in entry):
                 continue
             if row.get('bypass') == 'monitor_stale':
                 continue
@@ -589,7 +664,9 @@ def seal_entry(entry, state_root, request, results, event_log=None, run_id=None)
                 batch_id=entry['batch_id'], event_key=entry['event_key'],
                 request=entry['request'], request_sha256=entry['request_sha256'],
                 budget_date=entry['budget_date'], results=[results[g][1] for g in request['generators']])
-    path = state_root / 'sealed' / f"{entry['batch_id']}-{entry['task_id']}.json"
+    research_only = 'candidate_order' in entry
+    seal_dir = 'candidate-sealed' if research_only else 'sealed'
+    path = state_root / seal_dir / f"{entry['batch_id']}-{entry['task_id']}.json"
     if path.exists():
         if _strict_json(path.read_bytes(), 'seal') != seal:
             raise ValueError('sealed receipt already exists with different contents')
@@ -599,11 +676,12 @@ def seal_entry(entry, state_root, request, results, event_log=None, run_id=None)
     # The outbox write is local and bounded. Remote work never occupies a
     # provider slot. A failed notification is repaired by explicit reconciliation.
     try:
-        try:
-            from . import coze_events
-        except ImportError:
-            import coze_events
-        coze_events.enqueue(path, state_root.parent.parent, request)
+        if not research_only:
+            try:
+                from . import coze_events
+            except ImportError:
+                import coze_events
+            coze_events.enqueue(path, state_root.parent.parent, request)
     except Exception as exc:
         journal(event_log, 'coze_event_enqueue_failed', run_id=run_id,
                 batch_id=entry['batch_id'], task_id=entry['task_id'],
@@ -670,6 +748,13 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             atomic_json(check_path,dict(checked_on=now.date().isoformat(),checked_at=now.isoformat()))
         records, rejected = scan_requests(exchange, now)
         apply_cooldown(state, methods, now, held)
+        attempted, failures = collect_candidate_packs(methods, exchange, now, state, held, records,
+                                                       cancelled, event_log, run_id)
+        if cancelled.is_set():
+            return dict(mode='run', status='cancelled', failures=failures, rejected=rejected)
+        if attempted:
+            now = datetime.now(ZONE)
+            records, rejected = scan_requests(exchange, now)
         merge_candidates(state, records, now)
         cooldown_skipped = apply_cooldown(state, methods, now, held)
         admission_warnings = apply_admission(state, exchange, now)
@@ -698,7 +783,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
             atomic_json(state_root/'refresh-needed.json', pending)
             journal(event_log,'no_research',run_id=run_id,details=dict(deferred=len(pending)))
             return dict(mode='run', used=len(state['days'].get(now.date().isoformat(), {})),
-                        deferred=len(pending), rejected=rejected, failures=[], manual_held=manual_held, cooldown_skipped=cooldown_skipped)
+                        deferred=len(pending), rejected=rejected, failures=failures, manual_held=manual_held, cooldown_skipped=cooldown_skipped)
         admissions = [e for e in eligible if e['status'] in {'reserved', 'running', 'interrupted'}]
         admissions.extend(pending_admissions(state, now, held=held))
         profiles, preparation_configs = admission_profiles(admissions, methods, runtime_config)
@@ -719,10 +804,11 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
         atomic_json(state_path, state)
         journal(event_log,'quota_reserved',run_id=run_id,details=dict(
             used=len(state['days'][now.date().isoformat()]),
-            selected=[dict(task_id=e['task_id'],priority=e['priority']) for e in eligible if e['status']=='reserved']))
+            selected=[dict(task_id=e['task_id'],priority=e['priority'])
+                      for e in sorted(eligible, key=queue_order) if e['status']=='reserved']))
         if not (state_root/'initialized.json').exists():
             atomic_json(state_root/'initialized.json', dict(created_at=now.isoformat()))
-        failures, contexts, jobs, outcomes, errors = [], {}, deque(), {}, {}
+        contexts, jobs, outcomes, errors = {}, deque(), {}, {}
         def persist_entry(entry, error=None):
             if error is not None:
                 entry.update(status='interrupted', error=str(error))
@@ -742,7 +828,7 @@ def tick(exchange, methods=ROOT, state_root=None, *, execute=False, clis=None, t
                     entry.pop('budget_date', None)
             atomic_json(state_path, state)
 
-        for entry in sorted(eligible, key=lambda e: (e['priority'], e['first_seen'], e['task_id'])):
+        for entry in sorted(eligible, key=queue_order):
             if entry['status'] not in {'reserved', 'running', 'interrupted'}:
                 continue
             if cancelled.is_set():
