@@ -1,0 +1,47 @@
+[
+  {
+    "id": "m-weekly-pickup",
+    "url": "https://ncp.mysteel.com/a/26110618/9A6238B0C3851368.html",
+    "final_url": "https://ncp.mysteel.com/a/26110618/9A6238B0C3851368.html",
+    "status": 200,
+    "read_at": "2026-11-08T01:06:59.576277+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-weekly-pickup.html",
+    "sha256": "75bae5dfd381f4b703f692aee406215088dc5446a031da22c8ae5b3cdc6a88f7",
+    "bytes": 127865
+  },
+  {
+    "id": "m-weekly-sales",
+    "url": "https://ncp.mysteel.com/a/26110618/B6F53160291E5B5A.html",
+    "final_url": "https://ncp.mysteel.com/a/26110618/B6F53160291E5B5A.html",
+    "status": 200,
+    "read_at": "2026-11-08T01:07:00.053456+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-weekly-sales.html",
+    "sha256": "39eb0e91e4ae8e53109fc5d91cd3ca97c7eafef0819995ae635013aa35e8ea72",
+    "bytes": 126887
+  },
+  {
+    "id": "m-current-quotes",
+    "url": "https://siliao.mysteel.com/doupo/p/26110609/43356EDFC44DA356.html",
+    "final_url": "https://siliao.mysteel.com/doupo/p/26110609/43356EDFC44DA356.html",
+    "status": 200,
+    "read_at": "2026-11-08T01:06:58.929792+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-current-quotes.html",
+    "sha256": "8f26c8bfb085c05668021c2acb7dfa098b47c9272c39ca1b7bb7bd072a8c6e7c",
+    "bytes": 299649
+  },
+  {
+    "id": "m-dadi",
+    "url": "https://finance.sina.com.cn/money/future/2026-11-03/doc-inixncmx8647916.shtml",
+    "final_url": "https://finance.sina.com.cn/money/future/2026-11-03/doc-inixncmx8647916.shtml",
+    "status": 200,
+    "read_at": "2026-11-08T01:06:59.930021+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-dadi.html",
+    "sha256": "3f8012229b3b043576a503af6bba974b1f5c454219570204e6da9fae3d3866a5",
+    "bytes": 167756
+  },
+  {
+    "id": "dce-session-guide",
+    "url": "https://www.dce.com.cn/dalianshangpin/resource/cms/2017/04/%E6%9C%9F%E8%B4%A7%E5%85%AC%E5%8F%B8%E8%B1%86%E7%B2%95%E6%9C%9F%E6%9D%83%E4%B8%9A%E5%8A%A1%E6%8C%87%E5%8D%97%281%29.pdf",
+    "error": "HTTPSConnectionPool(host='www.dce.com.cn', port=443): Max retries exceeded with url: /dalianshangpin/resource/cms/2017/04/%E6%9C%9F%E8%B4%A7%E5%85%AC%E5%8F%B8%E8%B1%86%E7%B2%95%E6%9C%9F%E6%9D%83%E4%B8%9A%E5%8A%A1%E6%8C%87%E5%8D%97%281%29.pdf (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x10470c1f0>, 'Connection to www.dce.com.cn timed out. (connect timeout=25)'))"
+  }
+]

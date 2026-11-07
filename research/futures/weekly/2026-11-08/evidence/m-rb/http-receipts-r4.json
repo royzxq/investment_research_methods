@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rb-xiben",
+    "url": "https://m.steelx2.com/news-content.aspx?id=649001",
+    "final_url": "https://m.steelx2.com/news-content.aspx?id=649001",
+    "status": 200,
+    "read_at": "2026-11-08T01:07:51.455086+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-xiben.html",
+    "sha256": "b2a56d2397d81b2666663ae9bfdf338200ee1f6551ef8813361ab06519012d2b",
+    "bytes": 19072
+  },
+  {
+    "id": "m-guangdong-hot",
+    "url": "https://www.mysteel.com/hot/1438243.html",
+    "final_url": "https://www.mysteel.com/hot/1438243.html",
+    "status": 200,
+    "read_at": "2026-11-08T01:07:51.184188+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangdong-hot.html",
+    "sha256": "23307f06ff5fd84921854473add378173a12df845f9ac7c9caab6c7fe560c7ec",
+    "bytes": 111564
+  },
+  {
+    "id": "public-params-gt",
+    "url": "https://www.gtjaqh.com/pc/calendar?date=20261106",
+    "final_url": "https://www.gtjaqh.com/pc/calendar?date=20261106",
+    "status": 200,
+    "read_at": "2026-11-08T01:07:50.714961+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/public-params-gt.html",
+    "sha256": "daba851a0da6b7bc93cd1518aaf1c57500fa1a9dc3bcb2f3b12057c585f49267",
+    "bytes": 691391
+  },
+  {
+    "id": "public-params-mk",
+    "url": "https://www.mkqh.com/front/serviceinfo/38444",
+    "final_url": "https://www.mkqh.com/front/serviceinfo/38444",
+    "status": 403,
+    "read_at": "2026-11-08T01:07:50.443872+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/public-params-mk.html",
+    "sha256": "325bdd7520fecbd511ed9d0ee6896ecf482e89994d6081fc9d423a2cf4350620",
+    "bytes": 2472
+  }
+]

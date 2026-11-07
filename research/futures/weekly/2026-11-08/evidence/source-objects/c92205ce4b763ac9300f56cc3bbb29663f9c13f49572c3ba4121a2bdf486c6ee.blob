@@ -1,0 +1,2332 @@
+<!doctype html>
+<html
+  lang="zh-CN"
+>
+  <head>
+    <meta charset="utf-8" />
+    <!-- 双核浏览器（360、QQ、搜狗等）优先切到极速内核；仍停在 IE 内核时用最高文档模式，不退回 IE7。 -->
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>宁证期货早间点评(2026.11.06) · 宁证期货</title>
+    <meta name="description" content="【短评-原油】据华尔街日报报道，沙特主动与胡塞武装接
+触，试图了解需要付出什么代价，才能通过谈判结束敌对行
+动；11月5日，俄罗斯总统新闻秘书佩斯科夫在例行新闻简报会
+上表示，根据俄美双方达成的协议，所有运往美国的俄罗斯柴
+油都将找到买家。评：当前事态正向着地缘降温的方向努力，
+处于预期阶段。目前伊美谈判尚未达成新进展，后续仍需高度
+关注美伊谈判，海峡通航进展情况。高位谨慎空单持有，同时
+注意做好风险控制。" />
+    <meta name="keywords" content="晨报,研究资讯,宁证期货" />
+    <meta name="nzfco:lastmod" content="2026-11-06" />
+    <link rel="canonical" href="https://www.nzfco.com/research/morning/30379" />
+    
+    
+    
+      <meta property="og:type" content="article" />
+      <meta
+        property="og:title"
+        content="宁证期货早间点评(2026.11.06) · 宁证期货"
+      />
+      <meta property="og:description" content="【短评-原油】据华尔街日报报道，沙特主动与胡塞武装接
+触，试图了解需要付出什么代价，才能通过谈判结束敌对行
+动；11月5日，俄罗斯总统新闻秘书佩斯科夫在例行新闻简报会
+上表示，根据俄美双方达成的协议，所有运往美国的俄罗斯柴
+油都将找到买家。评：当前事态正向着地缘降温的方向努力，
+处于预期阶段。目前伊美谈判尚未达成新进展，后续仍需高度
+关注美伊谈判，海峡通航进展情况。高位谨慎空单持有，同时
+注意做好风险控制。" />
+      <meta property="og:url" content="https://www.nzfco.com/research/morning/30379" />
+      <meta property="og:site_name" content="宁证期货" />
+      
+    
+    <meta name="generator" content="portal-ssg" />
+    
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <meta name="nzfco:sentry-dsn" content="https://061ccc9d0c7226bbe039f821a12103a9@sentry.jstcnet.com/16" />
+    
+    <!-- App PDF mode must not flash the website chrome before the deferred runtime. -->
+    <script>
+      (function () {
+        if (!/(?:^\?|&)view=pdf(?:&|$)/.test(location.search)) return;
+        var root = document.documentElement;
+        root.setAttribute('data-nz-pdf-pending', '');
+        root.style.visibility = 'hidden';
+        // A blocked/missing runtime must not leave an inaccessible blank page.
+        setTimeout(function () {
+          if (!root.hasAttribute('data-nz-pdf-pending')) return;
+          root.removeAttribute('data-nz-pdf-pending');
+          root.style.visibility = '';
+        }, 5000);
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/tokens.e23338a775.css" />
+    <link rel="stylesheet" href="/assets/portal.b43a491472.css" />
+    <link rel="stylesheet" href="/assets/blocks.98876ab74d.css" />
+    <meta name="nzfco:legacy-css" content="/assets/legacy.6127691267.css" />
+    <meta name="nzfco:legacy-js" content="/assets/legacy.a5aea19753.js" />
+    <!-- FOUC boot: apply font-scale / reading-aids before first paint (ES5). -->
+    <script>
+      (function () {
+        // IE 内核（documentMode 只有 IE8–11 才有）：同步补上 legacy.css / legacy.js，排在 portal.js 之前。
+        try {
+          if (document.documentMode) {
+            var legacyCss = document.querySelector('meta[name="nzfco:legacy-css"]');
+            var legacyJs = document.querySelector('meta[name="nzfco:legacy-js"]');
+            if (legacyCss) document.write('<link rel="stylesheet" href="' + legacyCss.getAttribute('content') + '">');
+            if (legacyJs) document.write('<script src="' + legacyJs.getAttribute('content') + '"><\/script>');
+          }
+        } catch (e) {}
+        try {
+          var s = localStorage.getItem('nzfco:font-scale');
+          var scales = { standard: '1', large: '1.125', xlarge: '1.25' };
+          var scale = scales[s] || null;
+          if (scale) {
+            document.documentElement.style.setProperty('--nz-font-scale', scale);
+            document.documentElement.setAttribute('data-nz-font-scale', s);
+          }
+        } catch (e) {}
+        try {
+          var raw = localStorage.getItem('nzfco:reading-aids');
+          if (!raw) return;
+          var data = JSON.parse(raw) || {};
+          var root = document.documentElement;
+          if (data.contrast === 'high') root.setAttribute('data-nz-contrast', 'high');
+          var lh = { normal: '2', relaxed: '2.2', loose: '2.5' };
+          var line = data.lineHeight && lh[data.lineHeight] ? data.lineHeight : 'normal';
+          root.style.setProperty('--nz-reading-line-height', lh[line]);
+          root.setAttribute('data-nz-line-height', line);
+          if (data.cursor) root.setAttribute('data-nz-cursor', 'large');
+          if (data.guide) root.setAttribute('data-nz-reading-guide', 'on');
+        } catch (e) {}
+      })();
+    </script>
+    <script type="application/ld+json"
+    >{"@context":"https://schema.org","@type":"Article","headline":"宁证期货早间点评(2026.11.06)","datePublished":"2026-11-06T08:49:21+08:00","dateModified":"2026-11-06T08:49:21+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.nzfco.com/research/morning/30379"},"articleSection":"晨报","description":"【短评-原油】据华尔街日报报道，沙特主动与胡塞武装接\n触，试图了解需要付出什么代价，才能通过谈判结束敌对行\n动；11月5日，俄罗斯总统新闻秘书佩斯科夫在例行新闻简报会\n上表示，根据俄美双方达成的协议，所有运往美国的俄罗斯柴\n油都将找到买家。评：当前事态正向着地缘降温的方向努力，\n处于预期阶段。目前伊美谈判尚未达成新进展，后续仍需高度\n关注美伊谈判，海峡通航进展情况。高位谨慎空单持有，同时\n注意做好风险控制。","publisher":{"@type":"Organization","name":"宁证期货有限责任公司","logo":"https://www.nzfco.com/images/nzfco-logo.png"}}</script><script type="application/ld+json"
+    >{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://www.nzfco.com/"},{"@type":"ListItem","position":2,"name":"晨报","item":"https://www.nzfco.com/research/morning"},{"@type":"ListItem","position":3,"name":"宁证期货早间点评(2026.11.06)","item":"https://www.nzfco.com/research/morning/30379"}]}</script>
+  </head>
+  <body>
+    <div
+      id="legacy-browser-notice"
+      class="legacy-browser-notice"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="legacy-browser-notice-title"
+      hidden
+      data-legacy-browser-notice
+    >
+      <div class="legacy-browser-notice__card">
+        <h2 id="legacy-browser-notice-title">浏览器兼容模式提示</h2>
+        <p>
+          当前浏览器正以兼容模式（IE 内核）打开本站，部分版式与功能受限。建议切换到极速模式（点击地址栏右侧的内核图标），或使用
+          Chrome、Edge、Firefox 等浏览器访问。
+        </p>
+        <button
+          id="legacy-browser-notice-close"
+          type="button"
+          data-legacy-browser-notice-close
+        >
+          我知道了
+        </button>
+      </div>
+    </div>
+    <div class="site-shell">
+      
+      
+      <header class="site-header">
+        <a class="skip-link" href="#main-content">跳到主内容</a>
+        <div class="header-inner page-shell">
+          <a class="brand" href="/" aria-label="宁证期货首页">
+            <img
+              src="/assets/img/nzfco-logo-352.e7258b6605.webp"
+              alt="宁证期货"
+              width="316"
+              height="84" data-nz-fallback-src="/assets/img/nzfco-logo-352.fdf0b4e0a0.png"
+            />
+          </a>
+
+          <nav class="site-nav" aria-label="主导航" data-site-nav>
+            <div class="site-nav__row">
+              <a class="site-nav__link" href="/">首页</a>
+              
+                <div
+                  class="mega"
+                  data-mega
+                >
+                  <a
+                    class="mega__trigger"
+                    href="/horn/party"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="site-mega-0"
+                    >宁证号角</a
+                  >
+                  <div
+                    class="mega__panel"
+                    id="site-mega-0"
+                    data-mega-panel
+                  >
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/horn/party"
+                      >
+                        <span class="mega__item-label">党建动态</span>
+                        
+                      </a>
+                    
+                  </div>
+                </div>
+                
+              
+                <div
+                  class="mega"
+                  data-mega
+                >
+                  <a
+                    class="mega__trigger is-active"
+                    href="/research/morning"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="site-mega-1"
+                    >研究资讯</a
+                  >
+                  <div
+                    class="mega__panel"
+                    id="site-mega-1"
+                    data-mega-panel
+                  >
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/research/morning" aria-current="location"
+                      >
+                        <span class="mega__item-label">晨报</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/research/reports"
+                      >
+                        <span class="mega__item-label">研报</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/research/topics"
+                      >
+                        <span class="mega__item-label">专题报告</span>
+                        
+                      </a>
+                    
+                  </div>
+                </div>
+                
+              
+                <div
+                  class="mega"
+                  data-mega
+                >
+                  <a
+                    class="mega__trigger"
+                    href="/asset-management/introduction"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="site-mega-2"
+                    >资产管理</a
+                  >
+                  <div
+                    class="mega__panel"
+                    id="site-mega-2"
+                    data-mega-panel
+                  >
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/asset-management/introduction"
+                      >
+                        <span class="mega__item-label">业务介绍</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/asset-management/team"
+                      >
+                        <span class="mega__item-label">人员公示</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/asset-management/announcements"
+                      >
+                        <span class="mega__item-label">产品公告</span>
+                        
+                      </a>
+                    
+                  </div>
+                </div>
+                
+              
+                <div
+                  class="mega"
+                  data-mega
+                >
+                  <a
+                    class="mega__trigger"
+                    href="/investor-education/protection"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="site-mega-3"
+                    >投资者教育园地</a
+                  >
+                  <div
+                    class="mega__panel"
+                    id="site-mega-3"
+                    data-mega-panel
+                  >
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/investor-education/protection"
+                      >
+                        <span class="mega__item-label">投资者保护</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/investor-education/regulations"
+                      >
+                        <span class="mega__item-label">法律法规</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/investor-education/aml"
+                      >
+                        <span class="mega__item-label">反洗钱宣传</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/investor-education/anti-illegal"
+                      >
+                        <span class="mega__item-label">法制防非打非</span>
+                        
+                      </a>
+                    
+                  </div>
+                </div>
+                
+              
+                <div
+                  class="mega"
+                  data-mega
+                >
+                  <a
+                    class="mega__trigger"
+                    href="/service/downloads"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="site-mega-4"
+                    >客户服务</a
+                  >
+                  <div
+                    class="mega__panel"
+                    id="site-mega-4"
+                    data-mega-panel
+                  >
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/service/downloads"
+                      >
+                        <span class="mega__item-label">软件下载</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/service/funds"
+                      >
+                        <span class="mega__item-label">资金存取</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/service/emergency"
+                      >
+                        <span class="mega__item-label">应急流程</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/service/calendar"
+                      >
+                        <span class="mega__item-label">交易日历</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/service/notices"
+                      >
+                        <span class="mega__item-label">公司公告</span>
+                        
+                      </a>
+                    
+                  </div>
+                </div>
+                
+              
+                <div
+                  class="mega"
+                  data-mega
+                >
+                  <a
+                    class="mega__trigger"
+                    href="/about/company"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="site-mega-5"
+                    >走近宁证</a
+                  >
+                  <div
+                    class="mega__panel"
+                    id="site-mega-5"
+                    data-mega-panel
+                  >
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/about/company"
+                      >
+                        <span class="mega__item-label">公司介绍</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/about/organization"
+                      >
+                        <span class="mega__item-label">组织架构</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/about/news"
+                      >
+                        <span class="mega__item-label">公司动态</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/about/disclosure"
+                      >
+                        <span class="mega__item-label">信息公示</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/about/careers"
+                      >
+                        <span class="mega__item-label">诚聘英才</span>
+                        
+                      </a>
+                    
+                      
+                      <a
+                        class="mega__item"
+                        href="/about/contact"
+                      >
+                        <span class="mega__item-label">联系我们</span>
+                        
+                      </a>
+                    
+                  </div>
+                </div>
+                
+              
+            </div>
+          </nav>
+
+          <div class="header-actions">
+            <!-- 全局搜索：脚本接管后在页头下方展开搜索面板；无脚本（或 IE 兜底失败）时就是去搜索页的链接。
+                 后台关闭全站搜索（search.enabled）时整个入口不渲染；变量缺失按开启处理。 -->
+            
+            <button
+              class="a11y-entry"
+              type="button"
+              aria-label="无障碍阅读"
+              aria-expanded="false"
+              aria-controls="reading-aids-toolbar"
+              data-a11y-toggle
+            >
+              <span class="a11y-entry__mark" aria-hidden="true">Aa</span>
+              <span class="a11y-entry__text">无障碍</span>
+            </button>
+            <a
+              class="service-phone"
+              href="tel:400-822-1758" aria-label="全国客服电话 400-822-1758"
+            >
+              <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M5 20q-.825 0-1.412-.587T3 18v-7q0-1.85.713-3.488T5.65 4.65t2.863-1.937T12 2t3.488.713T18.35 4.65t1.938 2.863T21 11v10q0 .825-.587 1.413T19 23h-6q-.425 0-.712-.288T12 22t.288-.712T13 21h6v-1h-2q-.825 0-1.412-.587T15 18v-4q0-.825.588-1.412T17 12h2v-1q0-2.9-2.05-4.95T12 4T7.05 6.05T5 11v1h2q.825 0 1.413.588T9 14v4q0 .825-.587 1.413T7 20zm0-2h2v-4H5zm12 0h2v-4h-2zM5 14h2zm12 0h2z"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+              <span>全国客服电话</span>
+              <strong>400-822-1758</strong>
+            </a>
+            <button
+              id="site-menu-toggle"
+              class="menu-toggle"
+              type="button"
+              aria-label="打开导航菜单"
+              aria-expanded="false"
+              aria-controls="site-mobile-drawer"
+              data-menu-toggle
+            >
+              <span data-menu-icon="bars" aria-hidden="true">
+                <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+              </span>
+              <span data-menu-icon="xmark" hidden aria-hidden="true">
+                <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      
+      
+
+      <div
+        id="reading-aids-toolbar"
+        class="reading-aids"
+        role="region"
+        aria-label="无障碍阅读工具栏"
+        hidden
+        data-reading-aids
+      >
+        <div class="reading-aids__accent" aria-hidden="true"></div>
+        <div class="reading-aids__inner page-shell">
+          <p class="reading-aids__hint">
+            <span class="reading-aids__hint-text">调整文字与视觉辅助</span>
+            <span class="reading-aids__hint-key">Esc 关闭</span>
+          </p>
+          <div class="reading-aids__groups">
+            <section class="reading-aids__section" aria-label="文字设置">
+              <span class="reading-aids__section-label">文字</span>
+              <div class="reading-aids__section-controls">
+                <div class="reading-aids__field" role="group" aria-label="正文字号">
+                  <span class="reading-aids__field-label">字号</span>
+                  <div class="reading-aids__segment" data-font-scale>
+                    <button type="button" class="reading-aids__segment-btn" data-scale="standard" aria-pressed="true">标准</button>
+                    <button type="button" class="reading-aids__segment-btn" data-scale="large" aria-pressed="false">大</button>
+                    <button type="button" class="reading-aids__segment-btn" data-scale="xlarge" aria-pressed="false">特大</button>
+                  </div>
+                </div>
+                <div class="reading-aids__field" role="group" aria-label="行距">
+                  <span class="reading-aids__field-label">行距</span>
+                  <div class="reading-aids__segment" data-line-height>
+                    <button type="button" class="reading-aids__segment-btn" data-line="normal" aria-pressed="true">标准</button>
+                    <button type="button" class="reading-aids__segment-btn" data-line="relaxed" aria-pressed="false">较大</button>
+                    <button type="button" class="reading-aids__segment-btn" data-line="loose" aria-pressed="false">特大</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="reading-aids__divider" aria-hidden="true"></div>
+            <section class="reading-aids__section" aria-label="视觉辅助">
+              <span class="reading-aids__section-label">视觉</span>
+              <div class="reading-aids__section-controls reading-aids__section-controls--chips">
+                <button type="button" class="reading-aids__chip" data-aid="contrast" aria-pressed="false">高对比</button>
+                <button type="button" class="reading-aids__chip" data-aid="cursor" aria-pressed="false">放大光标</button>
+                <button type="button" class="reading-aids__chip" data-aid="guide" aria-pressed="false">辅助线</button>
+              </div>
+            </section>
+            <div class="reading-aids__divider" aria-hidden="true"></div>
+            <section class="reading-aids__section" aria-label="朗读与其他">
+              <span class="reading-aids__section-label">辅助</span>
+              <div class="reading-aids__section-controls reading-aids__section-controls--chips">
+                <button type="button" class="reading-aids__chip" data-aid="speech" aria-pressed="false">朗读正文</button>
+              </div>
+            </section>
+          </div>
+          <div class="reading-aids__actions">
+            <button type="button" class="reading-aids__action" data-aid="reset">重置</button>
+            <button
+              type="button"
+              class="reading-aids__action reading-aids__action--close"
+              aria-label="关闭无障碍阅读工具栏"
+              data-aid="close"
+            >
+              关闭
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-aids-guide" aria-hidden="true" hidden data-reading-guide>
+        <div class="reading-aids-guide__h" data-guide-h></div>
+        <div class="reading-aids-guide__v" data-guide-v></div>
+      </div>
+
+      <main id="main-content" class="site-main" tabindex="-1">
+        
+    <section class="page-banner page-banner--article">
+      <div class="page-banner__inner page-shell">
+        <div class="page-banner__lead">
+          <p
+          >研究资讯 · 2026-11-06</p>
+          <h1>晨报</h1>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="page-shell detail-layout  detail-layout--with-nav detail-layout--detail-brief"
+      data-content-template="DETAIL_BRIEF"
+    >
+      <aside
+        class="section-nav"
+        aria-label="栏目导航"
+      >
+        <h2
+        >研究资讯</h2>
+        <div class="section-nav__list">
+          <a
+            href="/research/morning"
+            aria-current="location" class=" is-active"
+            >晨报</a
+          ><a
+            href="/research/reports"
+            >研报</a
+          ><a
+            href="/research/topics"
+            >专题报告</a
+          >
+        </div>
+      </aside>
+
+      <div class="detail-main">
+        <nav class="breadcrumb" aria-label="面包屑">
+          <ol class="breadcrumb__list">
+            <li class="breadcrumb__item">
+              <a href="/">首页</a>
+            </li>
+            <li class="breadcrumb__item">
+              <span class="breadcrumb__sep" aria-hidden="true">/</span>
+              <a href="/research/morning">晨报</a>
+            </li>
+            <li class="breadcrumb__item">
+              <span class="breadcrumb__sep" aria-hidden="true">/</span>
+              <strong aria-current="page">宁证期货早间点评(2026.11.06)</strong>
+            </li>
+          </ol>
+        </nav>
+
+        
+    <article class="article-page" data-preview-core>
+      <header class="article-page__header">
+        <h2 class="article-page__title">宁证期货早间点评(2026.11.06)</h2>
+        <ul class="article-page__meta">
+          <li class="article-page__meta-item">
+            <span class="article-page__meta-label">栏目</span>
+            <span>晨报</span>
+          </li>
+          <li class="article-page__meta-item">
+            <span class="article-page__meta-label">发布时间</span>
+            <time data-content-date datetime="2026-11-06T08:49:21+08:00"
+              >2026-11-06 08:49</time
+            >
+          </li>
+        </ul>
+        
+          <details class="article-page__abstract">
+            <summary>内容摘要</summary>
+            <p class="article-page__intro">【短评-原油】据华尔街日报报道，沙特主动与胡塞武装接
+触，试图了解需要付出什么代价，才能通过谈判结束敌对行
+动；11月5日，俄罗斯总统新闻秘书佩斯科夫在例行新闻简报会
+上表示，根据俄美双方达成的协议，所有运往美国的俄罗斯柴
+油都将找到买家。评：当前事态正向着地缘降温的方向努力，
+处于预期阶段。目前伊美谈判尚未达成新进展，后续仍需高度
+关注美伊谈判，海峡通航进展情况。高位谨慎空单持有，同时
+注意做好风险控制。</p>
+          </details>
+          
+        
+      </header>
+      <div class="article-page__body article-body">
+        <div><section class="nz-block-pdf">
+<div class="nz-block-pdf__header"><h3>宁证期货早间点评(2026.11.06).pdf</h3><div class="nz-block-pdf__actions"><a class="nz-block-pdf__action" href="https://images.nzfco.com/oss/public/sha256/a3/a311b881990ad199047fd6c6ba8e425c1dcc09b3dd809c8587b870ed3bb98cef" download="宁证期货早间点评(2026.11.06).pdf" data-nz-track="download" data-nz-track-ref="ATT-20261106-HRDF752M">下载 PDF</a><a class="nz-block-pdf__action nz-block-pdf__action--secondary" href="https://images.nzfco.com/oss/public/sha256/a3/a311b881990ad199047fd6c6ba8e425c1dcc09b3dd809c8587b870ed3bb98cef" target="_blank" rel="noopener noreferrer">查看原件</a><a class="nz-block-pdf__action" href="/assets/pdfjs/6.4.299-nz8/web/viewer-d64f88564bb7.html?file=https%3A%2F%2Fimages.nzfco.com%2Foss%2Fpublic%2Fsha256%2Fa3%2Fa311b881990ad199047fd6c6ba8e425c1dcc09b3dd809c8587b870ed3bb98cef#zoom=page-width" target="_blank" rel="noopener noreferrer">全屏阅读</a></div></div>
+<iframe class="nz-block-pdf__frame" src="/assets/pdfjs/6.4.299-nz8/web/viewer-d64f88564bb7.html?file=https%3A%2F%2Fimages.nzfco.com%2Foss%2Fpublic%2Fsha256%2Fa3%2Fa311b881990ad199047fd6c6ba8e425c1dcc09b3dd809c8587b870ed3bb98cef#zoom=page-width" title="宁证期货早间点评(2026.11.06).pdf 预览" loading="lazy"></iframe>
+<details class="nz-block-pdf__extract"><summary>文本版（供检索）</summary><p>投资咨询中心 2026年11月06日
+今 日 早 评
+研究员
+姓名：师秀明
+邮箱：shixiuming@nzfco.com
+期货从业资格号：F0255552
+重点品种： 期货投资咨询从业证书号：Z0010784
+姓名：曹宝琴
+邮箱：caobaoqin@nzfco.com
+【短评-原油】据华尔街日报报道，沙特主动与胡塞武装接
+期货从业资格号：F3008987
+触，试图了解需要付出什么代价，才能通过谈判结束敌对行 期货投资咨询从业证书号：Z0012851
+动；11月5日，俄罗斯总统新闻秘书佩斯科夫在例行新闻简报会
+上表示，根据俄美双方达成的协议，所有运往美国的俄罗斯柴 姓名：蒯三可
+油都将找到买家。评：当前事态正向着地缘降温的方向努力， 邮箱：kuaisanke@nzfco.com
+处于预期阶段。目前伊美谈判尚未达成新进展，后续仍需高度 期货从业资格号：F3040522
+期货投资咨询从业证书号:Z0015369
+关注美伊谈判，海峡通航进展情况。高位谨慎空单持有，同时
+注意做好风险控制。 姓名：丛燕飞
+邮箱：congyanfei@nzfco.com
+期货从业资格号：F3020240
+【短评-黄金】美国总统特朗普表示，非常接近解决俄乌冲 期货投资咨询从业证书号:Z0015666
+突，将达成一项协议。这将是一项重大协议，而且涉及的范围
+姓名：夏磊
+将不止乌克兰，可能涉及整个欧洲。对于伊朗问题，特朗普称 邮箱：xialei@nzfco.com
+目前进展非常顺利。如果必须把剩下的伊朗问题解决掉，美国 期货从业资格号：F03095349
+已经准备就绪。伊朗高级官员表示，伊朗已通过卡塔尔向美国 期货投资咨询从业证书号:Z0020160
+发送一份核问题提案，只有在美国满足其七项要求后才会讨论
+该提案。评：美、伊战争仍然面临很大不确定性。美股大跌，
+避险情绪增加，黄金配置价值凸显，贵金属依然定位短期反
+弹，中期或震荡筑底，关注中东地缘走向。
+电话：400-822-1758
+2020 年 11月18
+请参阅最后一页的重要声明</p><p>今日早评
+【短评-股指】昨日上证指数低开高走，开盘即探全日最低3646点，随后买盘涌入推动指数翻红，盘
+中最高触及3701点，最终收于3689.91点，微涨0.10%。成交额2.14万亿，较前日放量832亿。隔夜美股三
+大指数全线重挫，道指跌3.44%，纳指跌5.52%，标普500跌4.36%，恐慌情绪达到3月底以来最高。评：富
+时A50夜盘已收跌1.85%。外盘科技股暴跌对A股AI及半导体链条的映射压力不可忽视。短期政策底部逐渐
+明确。IF区间震荡磨底；IM中长期弹性仍在，但波动风险更大，建议观望为主。
+【短评-豆粕】据Mysteel数据，11月5日，国内豆粕现货市场价格下跌，其中天津市场3180元/吨，跌
+10元/吨，山东市场3080元/吨，跌10元/吨，江苏市场3080元/吨，持稳，广东市场3080元/吨，跌10元/
+吨。评：基本面呈现“高库存+弱需求+成本托底”的三重博弈，豆粕库存接近140万吨，养殖深度亏损，
+饲料厂维持20-25天头寸、随采随用，豆粕添加比例已处低位，油厂现货榨利亏损近300元/吨，主动让价
+意愿减弱，个别油厂已选择停报停售，加之恰逢通关政策调整在一定程度上提振市场情绪。短期豆粕价格
+承压但向下深跌空间有限。
+【短评-PTA】本周国内PTA产量为136.41万吨，较上周+4.5万吨，较去年同期-13.15万吨；今日国内
+聚酯行业产能利用率为74.69%。评：周期内福建百宏停车检修，福海创短停，而上周嘉通能源和独山能源
+相继重启，本周期PTA国内整体产量持续增加。11月PTA检修装置不多，供应回归大方向不变。聚酯端负荷
+处于五年期低位水平，且旺季即将结束；PTA整体负荷相对下游偏高，PTA预计将持续累库。绝对价格受成
+本端影响较大。空单谨慎持有，同时注意做好风险控制。
+【短评-天然橡胶】泰国原料胶水价格83.75泰铢/公斤（-0.5/-0.59%），杯胶价格73.5泰铢/公斤（-
+0.5/-0.68%）；云南胶水进全乳厂17800价格元/吨（-400/-2.2%）；2026年泰国橡胶产量向下微调至
+490.5万吨，同比料增加1.5%，2025年为483.7万吨;全年收割面积料微降0.2%至2226万莱，2025年为
+2235.9万莱。另外，全年亩产由217公斤/莱增加至220公斤/莱，提升1.4%。评：长期视角逢低做多，供应
+缺乏弹性；中短期上游仍处供应逐步进入增量阶段，原料端整体维持弱势格局,我国社会库存和保税区库
+库存低位，去库存，全球车市销量下滑，下游企业高价承接能力有限。阶段性橡胶承压调整。
+【短评-生猪】据Mysteel农产品定点样本监测数据，10月能繁母猪存栏呈现“总体下行、结构分化”
+的特征。在123家规模养殖场样本中，10月能繁母猪存栏量为456.56万头，环比下降1.47%，较9月份降幅
+扩大0.67个百分点。评：全国生猪终端走货一般，标肥价差收窄，二育观望，散户大猪认卖增加，市场情
+绪低迷。短期缺乏实质利好，下跌风险仍存。
+【短评-白银】日本央行9月会议纪要显示，委员们一致认为有必要继续提高利率，部分委员甚至释放
+请参阅最后一页的重要声明 1</p><p>今日早评
+出可能加快加息步伐的信号。这进一步强化了市场对日本央行最快可能在12月再次加息的预期。多名委员
+预计，从初秋开始，消费者通胀将进一步加速。评：如果日本持续加息，对全球经济将形成压制，利空白
+银。白银被动跟随黄金波动，关注铜等大宗商品对白银的影响，白银短期反弹，中期走势尚需观察，关注
+中东地缘走向。
+【短评-铝】据Mysteel统计，截止11月5日国内主要市场电解铝社会库存46.7万吨，较11月2日减少
+3.4万吨。无锡减0.7万吨，佛山减1.1万吨，巩义减1万吨，上海减0.4万吨。评：国内社库去库仍在加
+速，低库存的现实比市场预期更紧。供应端，国内运行产能贴近天花板，产量弹性极为有限，海外中东复
+产与东南亚新投仍在推进，短期现货偏紧，长期存在供应宽松预期。需求端，铝加工开工率维持温和，旺
+季结束后下游以刚需提货为主，社会库存去化至极低位置。中期选举后宏观压制放缓，叠加低库存支撑，
+短期铝价或有向上修复可能。
+【短评-十年期国债】《国务院关于金融工作情况的报告》全文发布。对于下一步工作考虑，《报
+告》提出，继续实施好适度宽松的货币政策，综合运用多种工具，保持流动性充裕。民主党横扫国会引发
+AI监管担忧，周四美股大跌科技股遭抛售。评：货币宽松，流动性充裕取向不变，对债市整体形成支撑。
+由于美股大跌，全球股市动荡，A股或受到一定影响，关注股债跷跷板对债市的影响。
+【短评-铅】据SMM了解，2026年10月国内再生铅产量26.33万吨，环比减少1.13万吨，降幅4.11%；再
+生精铅产量19.6万吨，环比增长2.49%。预计11月再生铅产量28.42万吨，环比增7.9%，再生精铅22.21万
+吨，环比提升13.3%。但增产仍面临多重风险，安徽某大型炼厂已计划11月减产30%以上，存在产量增量存
+在不及预期的可能。评：供应端，11月再生铅增产预期与安徽大厂减产计划形成对冲，名义复产节奏面临
+原料与设备约束，实际增量可能不及预期。需求端，旺季结束，铅蓄电池开工率回落，下游补库意愿偏
+弱，社会库存去库进程有所反复，但整体处于相对低位。目前低库存与成本托底为铅价提供反弹动力，但
+基本面格局不改，修复空间或有限，预计铅价短期区间震荡。
+【短评-锌】据Mysteel数据，昨日国产地区加工费较上一工作日持平，锌精矿价格较上一工作日上涨
+170元/金属吨。进口锌精矿价格较上一工作日上涨220元/金属吨，TC市场主流报价在-150美元/干吨到-
+130美元/干吨，较上一工作日持平。评：供应端，矿紧格局未改，矿端TC深陷负值，冶炼厂持续亏损，但
+实际减产兑现缓慢，11月精炼锌产量环比有望回升。需求端，下游镀锌订单边际改善，压铸与氧化锌需求
+仍偏弱，虽然出口分流部分库存，但锌锭社会库存去化速率趋缓。综合来看，矿端成本刚性托底，但供应
+回升与需求平淡压制弹性，预计锌价短期以震荡为主。
+请参阅最后一页的重要声明 2</p><p>今日早评
+【短评-鸡蛋】11月5日鸡蛋主产区价格为4.25元/斤，较11月4日上涨0.03元/斤，主销区价格为4.27
+元/斤，较11月4日上涨0.06元/斤。评：现货端再度走高，随蛋价回升及淡季拖累，需求端备货及低价补
+库需求或有减速，低价猪肉和蔬菜的替代效应上升；供给端尽管高龄老鸡持续消化，但结合前期大量补栏
+鸡苗的开产，供给增加预期仍存。预计鸡蛋短期宽幅震荡，关注现货价格变化、淘鸡节奏和需求复苏。
+【短评-白糖】据泛糖科技资讯，泰国甘蔗糖业委员会（OCSB）第二次田间调研结果显示，全国甘蔗
+种植面积约160万公顷（约2400万亩），平均单产9.7吨/莱，预计收获甘蔗9700万吨，最终产量仍取决于
+天气状况。评：外盘泰国丰产预期及印度开榨积极，但全球偏紧格局未改，原糖多空拉锯。国内广西、云
+南新糖上市临近，市场估产总量并不低，且陈糖高结转库存与淡季消费疲软持续施压。但随近期糖价回
+落，国内空头动能减弱，暂不过度看空。预计郑糖短期维持震荡，需重点跟踪外盘情绪与产区开榨进度。
+【短评-棉花】据国际棉花咨询委员会（ICAC）发布的11月全球产量及需求预测，26/27年度全球棉花
+产量预计为2575万吨，低于去年但高于近十年均值；全球棉花消费量预计在2610万吨左右，略高于去年的
+水平，期末随有下滑但依然处于近10年偏高位置。评：国内籽棉采购成本持稳，新花采摘进入尾声，轧花
+厂集中加工，商业库存和公检量持续攀升，下游需求未见。国际端新年度全球供需偏紧的预期仍存，短期
+受宏观情绪回暖、出口需求回暖及空头回补带动略有反弹，但美棉集中上市期间供给压力持续。美棉基本
+面强于国内，短期震荡调整为主。
+【短评-聚烯烃】中国重点生产企业聚烯烃库存76.5万吨，较昨日库存上涨0.5万吨，同比增加
+7.75%；华东聚丙烯现货价11343元/吨，较昨日下降257元/吨；聚丙烯产能利用率64.81%，油制利润1523
+元/吨；聚丙烯下游行业平均开工周上升0.01个百分点至43.75%；华东LLDPE现货价10200元/吨，较上日-
+375元/吨，油制LLDPE毛利742元/吨；聚乙烯社会样本仓库库存为29.5万吨，环比-6.21%，同比-43.98%。
+评：聚烯烃生产企业库存近期较稳，整体利润尚可，现货供应压力不大，下游工厂开工率偏低，高价挤压
+下游利润，维持刚需拿货，整体交投偏清淡，聚乙烯社会样本仓库库存近期下降，成本端原油价格走弱。
+聚烯烃整体供需双弱，基差大，库存低位，成本支撑松动，预计短期震荡运行。
+【短评-纯碱】全国重质纯碱主流价1104元/吨，价格较较稳；纯碱周度产量70.62万吨，环比
++13.17%；纯碱厂家总库存141.28万吨，环比上升3.39%；浮法玻璃开工率66.89%，周度持平；全国浮法玻
+璃样本企业总库存6896.2万重箱，环比-2.21%；全国浮法玻璃均价1063元/吨，环比上日持平。评：浮法
+玻璃行业利润水平不佳，开工较稳，成本压力下，多数企业趋稳操作，需求依旧偏弱。国内纯碱市场淡稳
+维持，交投气氛一般，下游需求表现一般，保持刚需补库。纯碱供需双弱，本周检修企业预期继续恢复，
+企业库存高位有所下降，纯碱价格短期预计震荡偏空，关注供应端变化。
+请参阅最后一页的重要声明 3</p><p>今日早评
+【短评-甲醇】江苏太仓甲醇市场价3640元/吨，下降220元/吨；中国甲醇港口样本库存量41.27万
+吨，较上期+5.89万吨；中国甲醇样本生产企业库存31.08万吨，较上期降1.42万吨，样本企业订单待发
+21.48万吨，较上期降2.49万吨；甲醇开工88.45%，周下降0.41%，下游总产能利用率66.5%，周上升
+0.02%。评：国内甲醇开工高位下降，下游需求回落，甲醇港口库存积累，江苏沿江主流库区提货一般。
+内地甲醇市场下跌，企业竞拍成家尚可，港口甲醇市场基差偏弱，成交不佳。美伊谈判前景仍存，本周甲
+醇港口库存低位回升，现货市场表现不佳，预计短期甲醇价格震荡运行。
+请参阅最后一页的重要声明 4</p><p>今日早评
+联系我们
+宁证期货有限责任公司总部
+地址：南京市建邺区白龙江东街9号2幢二单元1901室
+电话：025-52865008
+宁证期货有限责任公司南京分公司
+地址：南京市建邺区嘉陵江东街8号综合体B3栋2单元805室
+电话：025-52865127，025-52865048
+宁证期货有限责任公司湖北分公司
+地址：湖北省武汉市武昌区前进路与和平大道交叉口中国铁建·积玉万象11栋1001室
+电话：027-59329152
+宁证期货有限责任公司深圳分公司
+地址：深圳市前海深港合作区南山街道金融街1号弘毅大厦写字楼24B1
+电话：0755-33965308
+宁证期货有限责任公司青岛分公司
+地址：山东省青岛市崂山区石岭路39号1号楼601户
+电话：0532-68669280
+宁证期货有限责任公司汉口营业部
+地址：湖北省武汉市江汉区江汉北路5号泛悦·南国中心T2写字楼25层8室
+电话：027-85825755
+宁证期货有限责任公司南昌营业部
+地址：江西省南昌市红谷滩新区红谷中大道1326号江西日报传媒大厦10层1010室
+电话：0791-86807618
+宁证期货有限责任公司苏州分公司
+地址: 苏州工业园区苏州大道西8号中银惠龙大厦1705室
+电话：0512-67609550
+宁证期货有限责任公司合肥营业部
+地址：安徽省合肥市蜀山区荷叶地街道祁门路333号新地中心6幢2007室
+电话：0551-65111656
+宁证期货有限责任公司杭州营业部
+地址：浙江省杭州市上城区婺江路217号1号楼15层1504室
+电话：0576-88733665
+宁证期货有限责任公司日照营业部
+地址：山东省日照市东港区秦楼街道青岛路西、山东路南华润置地广场001幢01单元（01）3106号
+电话：0633-8216067
+宁证期货有限责任公司济南分公司
+地址：山东省济南市高新区舜华路街道新泺大街2117号铭盛大厦16层1607室
+电话：0531-62331123
+请参阅最后一页的重要声明 5</p><p>今日早评
+重要声明
+除非另有说明，本报告的著作权属宁证期货有限责任公司。未经宁证期货有限责任公
+司书面授权，任何人不得更改或以任何方式发送、复制或传播此报告的全部或部分材料、
+内容。
+此报告所载的全部内容仅作参考之用。此报告的内容不构成对任何人的投资建议，且
+宁证期货有限责任公司不因接收人收到此报告而视其为客户。
+本报告中的信息均来源于公开可获得资料，宁证期货有限责任公司力求准确可靠，但
+对这些信息的准确性及完整性不做任何保证。宁证期货有限责任公司不对因使用此报告及
+所载材料而造成的损失承担任何责任。
+此报告不应取代个人的独立判断。本报告仅反映编写人的不同设想、见解及分析方
+法，不构成投资咨询建议，敬请考虑本报告中的任何意见或建议是否符合个别客户特殊的
+投资目标、财务状况或需要。此报告不构成投资、法律、会计或税务建议，且不担保任何
+投资及策略适合阁下。
+官方网址：www.nzfco.com
+全国统一客服电话：400-822-1758 ， 025-52865008
+请参阅最后一页的重要声明 6</p></details>
+</section>
+<figure class="nz-block-quote">
+<blockquote><div>期货市场风险莫测，交易务请谨慎从事。本报告观点仅供参考，不构成投资建议。</div></blockquote>
+</figure>
+</div>
+        
+        <p class="risk-note">风险提示：期货及衍生品交易具有较高风险，相关内容仅供参考，不构成任何投资建议。</p>
+      </div>
+    </article>
+  
+
+        <div class="detail-share">
+          <div class="share-bar">
+            <span class="share-bar__label">分享</span>
+            <div class="share-bar__actions">
+              <button
+                class="share-bar__action"
+                type="button"
+                data-share="copy"
+                data-nz-track="share"
+                data-nz-track-ref="link"
+              >
+                <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M7 17q-2.075 0-3.537-1.463T2 12t1.463-3.537T7 7h3q.425 0 .713.288T11 8t-.288.713T10 9H7q-1.25 0-2.125.875T4 12t.875 2.125T7 15h3q.425 0 .713.288T11 16t-.288.713T10 17zm2-4q-.425 0-.712-.288T8 12t.288-.712T9 11h6q.425 0 .713.288T16 12t-.288.713T15 13zm5 4q-.425 0-.712-.288T13 16t.288-.712T14 15h3q1.25 0 2.125-.875T20 12t-.875-2.125T17 9h-3q-.425 0-.712-.288T13 8t.288-.712T14 7h3q2.075 0 3.538 1.463T22 12t-1.463 3.538T17 17z"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>复制链接
+              </button>
+              
+              <button class="share-bar__action" type="button" data-share="wechat"
+                data-nz-track="share" data-nz-track-ref="wechat"
+                aria-haspopup="dialog" aria-controls="share-dialog">微信</button>
+              <button class="share-bar__action" type="button" data-share="qrcode"
+                data-nz-track="share" data-nz-track-ref="qrcode"
+                aria-haspopup="dialog" aria-controls="share-dialog">二维码</button>
+              <button class="share-bar__action" type="button" data-share="print">
+                <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M8 21q-.825 0-1.412-.587T6 19v-2H4q-.825 0-1.412-.587T2 15v-4q0-1.275.875-2.137T5 8h14q1.275 0 2.138.863T22 11v4q0 .825-.587 1.413T20 17h-2v2q0 .825-.587 1.413T16 21zm-4-6h2q0-.825.588-1.412T8 13h8q.825 0 1.413.588T18 15h2v-4q0-.425-.288-.712T19 10H5q-.425 0-.712.288T4 11zm12-7V5H8v3H6V5q0-.825.588-1.412T8 3h8q.825 0 1.413.588T18 5v3zm2 4.5q.425 0 .713-.288T19 11.5t-.288-.712T18 10.5t-.712.288T17 11.5t.288.713t.712.287M16 19v-4H8v4zM4 10h16z"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>打印
+              </button>
+            </div>
+            <span class="share-bar__status" role="status" aria-live="polite" data-share-status></span>
+            <dialog class="share-dialog" id="share-dialog" aria-labelledby="share-dialog-title" data-share-dialog>
+              <h2 id="share-dialog-title" data-share-dialog-title>分享本页</h2>
+              <p data-share-dialog-help>扫一扫打开本页，也可保存二维码后分享。</p>
+              <img src="/assets/share/8a5703cc23ba628dd6a2988d3db8fb69a2d90787e8e6a38533b20411dec46bde.png" width="320" height="320" alt="打开本页的二维码" loading="lazy" decoding="async" />
+              <div class="share-dialog__actions">
+                <a href="/assets/share/8a5703cc23ba628dd6a2988d3db8fb69a2d90787e8e6a38533b20411dec46bde.png" download="页面二维码.png">保存二维码</a>
+                <button type="button" data-share-dialog-close autofocus>关闭</button>
+              </div>
+            </dialog>
+          </div>
+        </div>
+
+        <nav
+          class="article-pager"
+          aria-label="相邻文章"
+        >
+          <div class="article-pager__item article-pager__item--prev">
+            
+            <span class="article-pager__empty" aria-hidden="true"
+              >上一篇</span
+            >
+          </div>
+          <div class="article-pager__item article-pager__item--next">
+            
+              <span class="article-pager__label">下一篇</span>
+              <a href="/research/morning/30375" rel="next">宁证期货早间点评(2026.11.05)</a>
+            
+            
+          </div>
+        </nav>
+
+        <section
+          class="related-articles"
+          aria-labelledby="related-articles-title"
+        >
+          <h2 id="related-articles-title" class="related-articles__title">相关推荐</h2>
+          <ul class="related-articles__list">
+            <li class="related-articles__item">
+              <a href="/research/morning/30372">宁证期货早间点评(2026.11.04)</a>
+              <time
+                data-content-date
+                >2026-11-04</time
+              >
+            </li>
+            <li class="related-articles__item">
+              <a href="/research/morning/30367">宁证期货早间点评(2026.11.03)</a>
+              <time
+                data-content-date
+                >2026-11-03</time
+              >
+            </li>
+            <li class="related-articles__item">
+              <a href="/research/morning/30348">宁证期货早间点评(2026.11.02)</a>
+              <time
+                data-content-date
+                >2026-11-02</time
+              >
+            </li>
+            <li class="related-articles__item">
+              <a href="/research/morning/30345">宁证期货早间点评(2026.10.30)</a>
+              <time
+                data-content-date
+                >2026-10-30</time
+              >
+            </li>
+            <li class="related-articles__item">
+              <a href="/research/morning/30342">宁证期货早间点评(2026.10.29)</a>
+              <time
+                data-content-date
+                >2026-10-29</time
+              >
+            </li>
+            <li class="related-articles__item">
+              <a href="/research/morning/30337">宁证期货早间点评(2026.10.28)</a>
+              <time
+                data-content-date
+                >2026-10-28</time
+              >
+            </li>
+          </ul>
+        </section>
+
+        <div class="detail-back">
+          <a class="text-link" href="/research/morning">返回栏目列表</a>
+        </div>
+      </div>
+    </div>
+  
+      </main>
+      
+
+      <footer id="about" class="site-footer scheme-a-footer">
+        <div class="page-shell footer-inner scheme-a-footer__inner">
+          <h2 class="footer-title scheme-a-footer__title">金融综合业务</h2>
+
+          <div
+            class="partner-logos source-business-logos" aria-label="金融综合业务"
+          >
+            <a
+              href="https://www.njzq.com.cn/" aria-label="南京证券" target="_blank" rel="noopener noreferrer" data-nz-track="outbound_click" data-nz-track-ref="https://www.njzq.com.cn/"
+            >
+              <img
+                src="/images/partners/njzj.png"
+                alt="南京证券"
+                width="240"
+                height="100"
+                loading="lazy"
+                decoding="async"
+              />
+              
+              <span class="sr-only">（站外链接，新窗口打开）</span>
+            </a><a
+              href="https://www.fadfunds.com/" aria-label="富安达基金管理有限公司" target="_blank" rel="noopener noreferrer" data-nz-track="outbound_click" data-nz-track-ref="https://www.fadfunds.com/"
+            >
+              <img
+                src="/images/partners/fad.png"
+                alt="富安达基金管理有限公司"
+                width="240"
+                height="100"
+                loading="lazy"
+                decoding="async"
+              />
+              
+              <span class="sr-only">（站外链接，新窗口打开）</span>
+            </a><a
+              href="https://www.jushict.com/#/home" aria-label="巨石创投" target="_blank" rel="noopener noreferrer" data-nz-track="outbound_click" data-nz-track-ref="https://www.jushict.com/#/home"
+            >
+              <img
+                src="/images/partners/jsct.png"
+                alt="巨石创投"
+                width="240"
+                height="100"
+                loading="lazy"
+                decoding="async"
+              />
+              
+              <span class="sr-only">（站外链接，新窗口打开）</span>
+            </a><a
+              href="http://www.njbic.com.cn/" aria-label="蓝天投资" target="_blank" rel="noopener noreferrer" data-nz-track="outbound_click" data-nz-track-ref="http://www.njbic.com.cn/"
+            >
+              <img
+                src="/images/partners/lttz.png"
+                alt="蓝天投资"
+                width="240"
+                height="100"
+                loading="lazy"
+                decoding="async"
+              />
+              
+              <span class="sr-only">（站外链接，新窗口打开）</span>
+            </a><a
+              href="https://www.china-nxee.com/" aria-label="宁夏股权托管交易中心" target="_blank" rel="noopener noreferrer" data-nz-track="outbound_click" data-nz-track-ref="https://www.china-nxee.com/"
+            >
+              <img
+                src="/images/partners/nxgq.png"
+                alt="宁夏股权托管交易中心"
+                width="240"
+                height="100"
+                loading="lazy"
+                decoding="async"
+              />
+              
+              <span class="sr-only">（站外链接，新窗口打开）</span>
+            </a>
+          </div>
+
+          <div class="footer-contact scheme-a-footer__contacts">
+            <p
+              class="footer-contact__item scheme-a-footer__contact"
+            >
+              <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M19.95 21q-3.125 0-6.175-1.362t-5.55-3.863t-3.862-5.55T3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.238t.325.562l.65 3.5q.05.4-.025.675T9.4 8.45L6.975 10.9q.5.925 1.187 1.787t1.513 1.663q.775.775 1.625 1.438T13.1 17l2.35-2.35q.225-.225.588-.337t.712-.063l3.45.7q.35.1.575.363T21 15.9v4.05q0 .45-.3.75t-.75.3M6.025 9l1.65-1.65L7.25 5H5.025q.125 1.025.35 2.025T6.025 9m8.95 8.95q.975.425 1.988.675T19 18.95v-2.2l-2.35-.475zm0 0"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+              <span>
+                <small>客户专线：</small>
+                <a href="tel:400-822-1758">400-822-1758</a>
+                
+              </span>
+            </p>
+            <p
+              class="footer-contact__item scheme-a-footer__contact"
+            >
+              <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M11.288 6.713Q11 6.425 11 6V3q0-.425.288-.712T12 2t.713.288T13 3v3q0 .425-.288.713T12 7t-.712-.288M16.9 9.1q-.275-.3-.287-.7t.287-.7l2.125-2.125q.3-.3.713-.288t.712.313q.275.3.288.7t-.288.7l-2.125 2.125q-.3.3-.712.288T16.9 9.1m-9.8 0q-.3.3-.712.313t-.713-.288L3.55 7q-.3-.3-.287-.7t.287-.7q.3-.3.713-.312t.712.287L7.1 7.7q.3.3.288.7t-.288.7M3.4 20.4l-2.3-2.25q-.3-.3-.3-.7t.3-.7q2.2-2.375 5.075-3.562T12 12t5.813 1.188T22.9 16.75q.3.3.3.7t-.3.7l-2.3 2.25q-.275.275-.638.3t-.662-.2l-2.9-2.2q-.2-.15-.3-.35t-.1-.45v-2.85q-.95-.3-1.95-.475T12 14t-2.05.175T8 14.65v2.85q0 .25-.1.45t-.3.35l-2.9 2.2q-.3.225-.663.2t-.637-.3M6 15.35q-.725.375-1.4.863T3.2 17.3l1 1L6 16.9zm12 .05v1.5l1.8 1.4l1-.95q-.725-.65-1.4-1.125T18 15.4m0 0"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+              <span>
+                <small>适当性投诉专线：</small>
+                
+                025-52865008　025-52865001(总部)
+              </span>
+            </p>
+            <p
+              class="footer-contact__item scheme-a-footer__contact"
+            >
+              <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M12 19.35q3.05-2.8 4.525-5.087T18 10.2q0-2.725-1.737-4.462T12 4T7.738 5.738T6 10.2q0 1.775 1.475 4.063T12 19.35m-.7 1.85q-.35-.125-.625-.375Q9.05 19.325 7.8 17.9t-2.087-2.762t-1.275-2.575T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 1.125-.437 2.363t-1.275 2.575T16.2 17.9t-2.875 2.925q-.275.25-.625.375t-.7.125t-.7-.125m2.113-9.787Q14 10.825 14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12t1.413-.587"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+              <span>
+                <small>地址：</small>
+                
+                南京市建邺区白龙江东街9号2幢二单元1901室
+              </span>
+            </p>
+            
+          </div>
+
+          <div class="legal-row">
+            <span>ICP备案号：苏ICP备12029425号-1</span><span>苏公网安备 32010402001492号</span><span>© 宁证期货有限责任公司 版权所有</span><span>本站已支持IPv6网络访问</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Drawer sits outside sticky header so backdrop-filter cannot trap fixed descendants. -->
+    <div class="drawer-root" hidden data-drawer-root>
+      <div class="drawer-scrim" aria-hidden="true" data-drawer-scrim></div>
+      <div
+        id="site-mobile-drawer"
+        class="drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="站点导航"
+        data-drawer-panel
+      >
+        <nav class="drawer__nav" aria-label="站点导航">
+          <a class="drawer__link" href="/" data-drawer-close>首页</a>
+          
+            <div
+              class="drawer__group"
+            >
+              <button
+                class="drawer__link drawer__toggle"
+                type="button"
+                aria-expanded="false"
+                data-drawer-toggle aria-controls="drawer-panel-0"
+              >
+                <span>宁证号角</span>
+                <span class="drawer__caret" aria-hidden="true">
+                  <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M12 14.95q-.2 0-.375-.062t-.325-.213l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213T12 14.95"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+                </span>
+              </button>
+              <div
+                class="drawer__sub"
+                id="drawer-panel-0"
+                hidden
+                data-drawer-sub
+              >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/horn/party"
+                    data-drawer-close
+                    >党建动态</a
+                  >
+                
+              </div>
+            </div>
+            
+          
+            <div
+              class="drawer__group"
+            >
+              <button
+                class="drawer__link drawer__toggle is-active"
+                type="button"
+                aria-expanded="false"
+                data-drawer-toggle aria-controls="drawer-panel-1"
+              >
+                <span>研究资讯</span>
+                <span class="drawer__caret" aria-hidden="true">
+                  <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M12 14.95q-.2 0-.375-.062t-.325-.213l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213T12 14.95"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+                </span>
+              </button>
+              <div
+                class="drawer__sub"
+                id="drawer-panel-1"
+                hidden
+                data-drawer-sub
+              >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/research/morning"
+                    data-drawer-close
+                    aria-current="location"
+                    >晨报</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/research/reports"
+                    data-drawer-close
+                    >研报</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/research/topics"
+                    data-drawer-close
+                    >专题报告</a
+                  >
+                
+              </div>
+            </div>
+            
+          
+            <div
+              class="drawer__group"
+            >
+              <button
+                class="drawer__link drawer__toggle"
+                type="button"
+                aria-expanded="false"
+                data-drawer-toggle aria-controls="drawer-panel-2"
+              >
+                <span>资产管理</span>
+                <span class="drawer__caret" aria-hidden="true">
+                  <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M12 14.95q-.2 0-.375-.062t-.325-.213l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213T12 14.95"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+                </span>
+              </button>
+              <div
+                class="drawer__sub"
+                id="drawer-panel-2"
+                hidden
+                data-drawer-sub
+              >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/asset-management/introduction"
+                    data-drawer-close
+                    >业务介绍</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/asset-management/team"
+                    data-drawer-close
+                    >人员公示</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/asset-management/announcements"
+                    data-drawer-close
+                    >产品公告</a
+                  >
+                
+              </div>
+            </div>
+            
+          
+            <div
+              class="drawer__group"
+            >
+              <button
+                class="drawer__link drawer__toggle"
+                type="button"
+                aria-expanded="false"
+                data-drawer-toggle aria-controls="drawer-panel-3"
+              >
+                <span>投资者教育园地</span>
+                <span class="drawer__caret" aria-hidden="true">
+                  <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M12 14.95q-.2 0-.375-.062t-.325-.213l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213T12 14.95"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+                </span>
+              </button>
+              <div
+                class="drawer__sub"
+                id="drawer-panel-3"
+                hidden
+                data-drawer-sub
+              >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/investor-education/protection"
+                    data-drawer-close
+                    >投资者保护</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/investor-education/regulations"
+                    data-drawer-close
+                    >法律法规</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/investor-education/aml"
+                    data-drawer-close
+                    >反洗钱宣传</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/investor-education/anti-illegal"
+                    data-drawer-close
+                    >法制防非打非</a
+                  >
+                
+              </div>
+            </div>
+            
+          
+            <div
+              class="drawer__group"
+            >
+              <button
+                class="drawer__link drawer__toggle"
+                type="button"
+                aria-expanded="false"
+                data-drawer-toggle aria-controls="drawer-panel-4"
+              >
+                <span>客户服务</span>
+                <span class="drawer__caret" aria-hidden="true">
+                  <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M12 14.95q-.2 0-.375-.062t-.325-.213l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213T12 14.95"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+                </span>
+              </button>
+              <div
+                class="drawer__sub"
+                id="drawer-panel-4"
+                hidden
+                data-drawer-sub
+              >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/service/downloads"
+                    data-drawer-close
+                    >软件下载</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/service/funds"
+                    data-drawer-close
+                    >资金存取</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/service/emergency"
+                    data-drawer-close
+                    >应急流程</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/service/calendar"
+                    data-drawer-close
+                    >交易日历</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/service/notices"
+                    data-drawer-close
+                    >公司公告</a
+                  >
+                
+              </div>
+            </div>
+            
+          
+            <div
+              class="drawer__group"
+            >
+              <button
+                class="drawer__link drawer__toggle"
+                type="button"
+                aria-expanded="false"
+                data-drawer-toggle aria-controls="drawer-panel-5"
+              >
+                <span>走近宁证</span>
+                <span class="drawer__caret" aria-hidden="true">
+                  <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M12 14.95q-.2 0-.375-.062t-.325-.213l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213T12 14.95"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+                </span>
+              </button>
+              <div
+                class="drawer__sub"
+                id="drawer-panel-5"
+                hidden
+                data-drawer-sub
+              >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/about/company"
+                    data-drawer-close
+                    >公司介绍</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/about/organization"
+                    data-drawer-close
+                    >组织架构</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/about/news"
+                    data-drawer-close
+                    >公司动态</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/about/disclosure"
+                    data-drawer-close
+                    >信息公示</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/about/careers"
+                    data-drawer-close
+                    >诚聘英才</a
+                  >
+                
+                  
+                  <a
+                    class="drawer__sub-link"
+                    href="/about/contact"
+                    data-drawer-close
+                    >联系我们</a
+                  >
+                
+              </div>
+            </div>
+            
+          
+        </nav>
+        <div class="drawer__actions">
+          <button class="drawer__action" type="button" data-drawer-a11y>
+            <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M10.588 5.413Q10 4.825 10 4t.588-1.412T12 2t1.413.588T14 4t-.587 1.413T12 6t-1.412-.587M9 21V9q-1.225-.1-2.475-.275t-2.45-.45q-.425-.1-.687-.475T3.25 7t.525-.625t.85-.1q1.75.375 3.638.55T12 7t3.738-.175t3.637-.55q.45-.1.85.1T20.75 7t-.137.8t-.688.475q-1.2.275-2.45.45T15 9v12q0 .425-.287.713T14 22t-.712-.288T13 21v-5h-2v5q0 .425-.288.713T10 22t-.712-.288T9 21"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+            无障碍阅读
+          </button>
+          
+          <a
+            class="drawer__action drawer__action--accent"
+            href="https://nzqh.cfmmc.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-nz-track="outbound_click"
+            data-drawer-close
+          >
+            <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M9.175 10.825Q8 9.65 8 8t1.175-2.825T12 4t2.825 1.175T16 8t-1.175 2.825T12 12t-2.825-1.175M4 18v-.8q0-.85.438-1.562T5.6 14.55q1.55-.775 3.15-1.162T12 13t3.25.388t3.15 1.162q.725.375 1.163 1.088T20 17.2v.8q0 .825-.587 1.413T18 20H6q-.825 0-1.412-.587T4 18m2 0h12v-.8q0-.275-.137-.5t-.363-.35q-1.35-.675-2.725-1.012T12 15t-2.775.338T6.5 16.35q-.225.125-.363.35T6 17.2zm7.413-8.587Q14 8.825 14 8t-.587-1.412T12 6t-1.412.588T10 8t.588 1.413T12 10t1.413-.587M12 18"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+            网上开户
+          </a>
+          <a
+            class="drawer__action"
+            href="tel:400-822-1758"
+          >
+            <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="M5 20q-.825 0-1.412-.587T3 18v-7q0-1.85.713-3.488T5.65 4.65t2.863-1.937T12 2t3.488.713T18.35 4.65t1.938 2.863T21 11v10q0 .825-.587 1.413T19 23h-6q-.425 0-.712-.288T12 22t.288-.712T13 21h6v-1h-2q-.825 0-1.412-.587T15 18v-4q0-.825.588-1.412T17 12h2v-1q0-2.9-2.05-4.95T12 4T7.05 6.05T5 11v1h2q.825 0 1.413.588T9 14v4q0 .825-.587 1.413T7 20zm0-2h2v-4H5zm12 0h2v-4h-2zM5 14h2zm12 0h2z"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+            全国客服电话 <span>400-822-1758</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="back-to-top"
+      type="button"
+      aria-label="回到页面顶部"
+      aria-hidden="true"
+      tabindex="-1"
+      data-back-to-top
+    >
+      <svg
+    class="nz-icon"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <path
+      fill="currentColor"
+      d="m11 7.825l-4.9 4.9q-.3.3-.7.288t-.7-.313q-.275-.3-.288-.7t.288-.7l6.6-6.6q.15-.15.325-.212T12 4.425t.375.063t.325.212l6.6 6.6q.275.275.275.688t-.275.712q-.3.3-.712.3t-.713-.3L13 7.825V19q0 .425-.288.713T12 20t-.712-.288T11 19z"
+    />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </svg>
+    </button>
+
+    <!-- 发布标识只给统计上报用（portal.js 的 withReleaseId 会等它加载完），不阻塞 DOMContentLoaded。 -->
+    <script src="/_release/release.js" async data-nz-release></script>
+    <!-- type="module"：IE 不执行模块脚本，避免解析 ES2015+ 产物时报语法错误；现代浏览器里与 defer 同序执行。 -->
+    <script src="/assets/sentry.9bd0cb241e.js" type="module"></script>
+    <script src="/assets/portal.08fae92b1b.js" defer></script>
+  </body>
+</html>

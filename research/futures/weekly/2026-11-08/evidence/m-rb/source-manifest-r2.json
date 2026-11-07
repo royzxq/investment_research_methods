@@ -1,0 +1,199 @@
+{
+  "schema": "futures-public-source-freeze/v1",
+  "as_of_date": "2026-11-08",
+  "created_at": "2026-11-08T01:11:44.974650+08:00",
+  "supersedes_scope": "manifest-r2 adds web reading receipt and Guangda qualitative supplement; original manifest retained",
+  "sources": [
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/http-receipts-r2.json",
+      "sha256": "2395b7fbd84c0743c7823a00c18410b32bf276439df302e60d321fd0e16d84af",
+      "bytes": 2299
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/http-receipts-r3.json",
+      "sha256": "14d2b53d0cc19e0bb4c04c9f7e13473463572507ae95948f7f29bd27061a0a9a",
+      "bytes": 2462
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/http-receipts-r4.json",
+      "sha256": "6803e2ac284bd04cbdd673eff8ebde6d26e507a21b529b05c2c4c50f68057e19",
+      "bytes": 1675
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/http-receipts-r5.json",
+      "sha256": "1a17eb675611320fff61fc55f6e48a57122093e518c21208a4e88ca1f18993b6",
+      "bytes": 372
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/http-receipts-r6.json",
+      "sha256": "8eaa3720ec1b0cb9a3eab1a2acb265510790c0a681d01373a0a2191fde0cf81a",
+      "bytes": 384
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/http-receipts.json",
+      "sha256": "5543a5cbf39fd4ecea40cfca1f2e3d675124f893890d09e46c876b45b1a9255f",
+      "bytes": 2303
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-current-quotes.html",
+      "sha256": "8f26c8bfb085c05668021c2acb7dfa098b47c9272c39ca1b7bb7bd072a8c6e7c",
+      "bytes": 299649
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-current-quotes.txt",
+      "sha256": "d7d60a43db3d5278422d8038e07f7746b88955929281ec84556c14a4c5d2addc",
+      "bytes": 9640
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-dadi.html",
+      "sha256": "3f8012229b3b043576a503af6bba974b1f5c454219570204e6da9fae3d3866a5",
+      "bytes": 167756
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-dadi.txt",
+      "sha256": "223cc217af82cb9a54dc7b3e3fab0db0c7c734f1fd5b1cad96f3957dd7828648",
+      "bytes": 18349
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangda-supplement.md",
+      "sha256": "43a94918db33d8dc53cb41eb84ae0c8c3e39ed1d9962d76add9a59397395e066",
+      "bytes": 872
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangda.html",
+      "sha256": "47ae98116afaf263278c7b8398593629e1fb443e8f92458373572fe4e73f0666",
+      "bytes": 103754
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangda.txt",
+      "sha256": "b1827dcc7df620c56e24a695a5e79809a4357609c29a23970683cea5e60f5a96",
+      "bytes": 11935
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangdong-hot.html",
+      "sha256": "23307f06ff5fd84921854473add378173a12df845f9ac7c9caab6c7fe560c7ec",
+      "bytes": 111564
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangdong-hot.txt",
+      "sha256": "6372a1891cfb94c5c6a0741a58788c7dce4adac300358c4fd6e32d83ecdb368c",
+      "bytes": 14539
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangdong-quote.html",
+      "sha256": "50534b3b2f7731e94492f2be1e097540d25ade5210a480ca8c89305916e52ce0",
+      "bytes": 125795
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-guangdong-quote.txt",
+      "sha256": "db81db2b55134333fcbec5a718626faf09e192f26c1b523d60079196dd2f3a93",
+      "bytes": 6258
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-mysteel.html",
+      "sha256": "71c9ea36b9443748409848209e238c305fe7b064b46f459090375ee7fe4a0a93",
+      "bytes": 129966
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-mysteel.txt",
+      "sha256": "fb27bd0421888ae34f6ac5f62fdf34bd976125f5f6e6e6ee099a61b35cbd71fa",
+      "bytes": 9881
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-weekly-pickup.html",
+      "sha256": "75bae5dfd381f4b703f692aee406215088dc5446a031da22c8ae5b3cdc6a88f7",
+      "bytes": 127865
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-weekly-pickup.txt",
+      "sha256": "605ca1500ff5e1ccfcbb41a15edb6fbf87e1abb16b25a43b1b70d9bb42e646fb",
+      "bytes": 6986
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-weekly-sales.html",
+      "sha256": "39eb0e91e4ae8e53109fc5d91cd3ca97c7eafef0819995ae635013aa35e8ea72",
+      "bytes": 126887
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-weekly-sales.txt",
+      "sha256": "1f3fcc4232c5630dce5e6fb0fa3b6cd88033c6e2f15499a6e2dcadd9c15aa68d",
+      "bytes": 6818
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/public-params-gt.html",
+      "sha256": "daba851a0da6b7bc93cd1518aaf1c57500fa1a9dc3bcb2f3b12057c585f49267",
+      "bytes": 691391
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/public-params-gt.txt",
+      "sha256": "d27db87e1fe88010ecc5d0c69e2094a4c7176579a84973177d172b17c8782e97",
+      "bytes": 30873
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/public-params-mk.html",
+      "sha256": "325bdd7520fecbd511ed9d0ee6896ecf482e89994d6081fc9d423a2cf4350620",
+      "bytes": 2472
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/public-params-mk.txt",
+      "sha256": "7c47cbd9f47d5b31dca16120312d6383c38c7b1bfe9b22eec8c84c2a726127e1",
+      "bytes": 86
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-cnfin.html",
+      "sha256": "e3e9a5bde64a8d38847fbe1226b7bf10d0c7b369c43d19d5f03721b9d709a905",
+      "bytes": 54539
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-cnfin.txt",
+      "sha256": "abd43339571444c28507459d2a8e6ec426f1f524db0ec5b4bc306ac793dc1d4a",
+      "bytes": 3464
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-mysteel.html",
+      "sha256": "04793a562351965e4e5f38932c5695491931d7e8f2529e1864cc8e8096272d73",
+      "bytes": 65603
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-mysteel.txt",
+      "sha256": "16c661a5c9188a96f69db562a69b9094c4a594c07db33c502d050e32a3b16b0b",
+      "bytes": 7346
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-xiben.html",
+      "sha256": "b2a56d2397d81b2666663ae9bfdf338200ee1f6551ef8813361ab06519012d2b",
+      "bytes": 19072
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-xiben.txt",
+      "sha256": "e63ee4ce5b86ac34fff0cef4e4d01d81d83e566e01828bd8db556dd54185544e",
+      "bytes": 5204
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/research-note.md",
+      "sha256": "8dde1045cda83b4068f204b292ca5d8c5a99b2476a81886f4bcca940d54836b8",
+      "bytes": 8987
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/wasde-time-conversion.json",
+      "sha256": "d6ef56791a967b517c3420280a78f30a7e403f6e596878ff51dd480d70caa28a",
+      "bytes": 632
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/wasde-usda.html",
+      "sha256": "98ed2e12d7b608be998063ef0b011986f59d9b29e7dc8f217d3de76eb780c5cb",
+      "bytes": 159713
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/wasde-usda.txt",
+      "sha256": "d1ee8bd1934655ab3de3a5e95c21174a4d3538cd42d87cf9c75c1a04414a4cfe",
+      "bytes": 2655
+    },
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/m-rb/web-reading-receipt.json",
+      "sha256": "e2ae760d2f12beb6af3555210877d116135bb14397ebb51b8e91338cead5729e",
+      "bytes": 2079
+    }
+  ],
+  "adopted_note": "research-note.md plus m-guangda-supplement.md; AI-only numeric exclusions in research-note.md remain in force"
+}

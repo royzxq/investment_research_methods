@@ -1,0 +1,47 @@
+[
+  {
+    "id": "rb-cnfin",
+    "url": "https://www.cnfin.com/dz-lb/detail/20261105/4491421_1.html",
+    "final_url": "https://www.cnfin.com/dz-lb/detail/20261105/4491421_1.html",
+    "status": 200,
+    "read_at": "2026-11-08T01:05:46.354418+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-cnfin.html",
+    "sha256": "e3e9a5bde64a8d38847fbe1226b7bf10d0c7b369c43d19d5f03721b9d709a905",
+    "bytes": 54539
+  },
+  {
+    "id": "m-mysteel",
+    "url": "https://ncp.mysteel.com/a/26110612/9D555E15178A78EC.html",
+    "final_url": "https://ncp.mysteel.com/a/26110612/9D555E15178A78EC.html",
+    "status": 200,
+    "read_at": "2026-11-08T01:05:48.105670+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/m-mysteel.html",
+    "sha256": "71c9ea36b9443748409848209e238c305fe7b064b46f459090375ee7fe4a0a93",
+    "bytes": 129966
+  },
+  {
+    "id": "rb-mysteel",
+    "url": "https://factory.mysteel.com/a/26110611/DBAB1F670E96F4C1.html",
+    "final_url": "https://factory.mysteel.com/a/26110611/DBAB1F670E96F4C1.html",
+    "status": 200,
+    "read_at": "2026-11-08T01:05:46.917775+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/rb-mysteel.html",
+    "sha256": "04793a562351965e4e5f38932c5695491931d7e8f2529e1864cc8e8096272d73",
+    "bytes": 65603
+  },
+  {
+    "id": "wasde-usda",
+    "url": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+    "final_url": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+    "status": 200,
+    "read_at": "2026-11-08T01:05:47.561158+08:00",
+    "path": "research/futures/weekly/2026-11-08/evidence/m-rb/wasde-usda.html",
+    "sha256": "98ed2e12d7b608be998063ef0b011986f59d9b29e7dc8f217d3de76eb780c5cb",
+    "bytes": 159713
+  },
+  {
+    "id": "dce-session-notice",
+    "url": "https://www.dce.com.cn/dalianshangpin/ywfw/jystz/ywtz/8525218/index.html",
+    "error": "HTTPSConnectionPool(host='www.dce.com.cn', port=443): Max retries exceeded with url: /dalianshangpin/ywfw/jystz/ywtz/8525218/index.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x1017928f0>, 'Connection to www.dce.com.cn timed out. (connect timeout=35)'))"
+  }
+]

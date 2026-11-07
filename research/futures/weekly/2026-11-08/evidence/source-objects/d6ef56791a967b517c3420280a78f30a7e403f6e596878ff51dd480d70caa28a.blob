@@ -1,0 +1,13 @@
+{
+  "official_release": "2026-11-10T12:00:00-05:00",
+  "beijing": "2026-11-11T01:00:00+08:00",
+  "first_domestic_session": null,
+  "domestic_event_T": null,
+  "conditional_normal_session_inference": "若DCE豆粕常规夜盘至23:00且11/11无临时停市，发布时夜盘已结束，则首次为2026-11-11 09:00+08；本轮两份DCE原始来源均连接失败，故未升级为已核场次/T。",
+  "source_refs": [
+    "wasde-usda.html",
+    "http-receipts-r2.json",
+    "http-receipts-r3.json"
+  ],
+  "scope": "M directly related through global soybean supply and import/crush cost transmission; RB not automatically included"
+}

@@ -1,0 +1,599 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="viewport" content="width=device-width, initial-scale=0, user-scalable=0, maximum-scale=1.0">
+<title>全国棉花交易市场</title>
+<script type="text/javascript" src="https://www.cottonchina.org.cn/cncenew/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.cottonchina.org.cn/cncenew/js/js.js?v=15"></script>
+
+<link type="text/css" rel="stylesheet" href="https://www.cottonchina.org.cn/cncenew/css/top.css?v=9">
+<link type="text/css" rel="stylesheet" href="https://www.cottonchina.org.cn/cncenew/css/css.css?v=16">
+
+</head>
+
+<body>
+<div class="bigbox">
+
+
+
+<div id="tophead"></div>
+<script type="text/javascript" src="js/top.js?v=2" ></script>
+
+<!--头图-->
+<!--头图JS自动获取图片数量，增加图片只需添加moveimg容器即可（不带动画）-->
+	<div class="topimg">
+		<div class="movebox">
+			<div class="moveimg">
+				<div class="moveimg1"><a href='https://www.chinacoop.gov.cn/special.html?cid=7893&aid=1861170' target='_blank'><img src="images/topimg/244.jpg"/></a></div>
+			</div>
+			<div class="moveimg">
+				<div class="moveimg1"><img src="https://www.cottonchina.org.cn/guanggao_4/bxgd.jpg"/></div>
+			</div>
+		<div class="moveimg">
+				<div class="moveimg1"><img src="images/topimg/top0814.jpg"/></div>
+			</div>
+			<div class="moveimg">
+				<div class="moveimg1"><a href='https://www.chinacoop.gov.cn/special.html?cid=7244&aid=1807041&articleId=1807343' target='_blank'><img src="images/topimg/top2467.jpg"/></a></div>
+			</div>
+			<div class="moveimg">
+				<div class="dj1"><img src="images/dj1.png"/></div>
+				<div class="dj2"><img src="images/dj2.png"/></div>
+				<div class="moveimg1"><a href='https://www.cottonchina.org.cn/zhuanti/20th/index.htm' target='_blank'><img src="images/topimg/top0.jpg"/></a></div>
+			</div>
+			<div class="moveimg">
+				<div class="yj"><img src="images/yj.png"/></div>
+				<div class="yjcn"><img src="images/yjcn.png"/></div>
+				<div class="yjen"><img src="images/yjen.png"/></div>
+				<div class="moveimg1"><img src="images/topimg/top1.jpg"/></div>
+			</div>
+
+			<div class="moveimg">
+				<div class="sm"><img src="images/sm.png"/></div>
+				<div class="smcn"><img src="images/smcn.png"/></div>
+				<div class="smline"><img src="images/smline.png"/></div>
+				<div class="moveimg1"><img src="images/topimg/top2.jpg"/></div>
+			</div>
+			<div class="moveimg">
+				<div class="ln"><img src="images/ln.png"/></div>
+				<div class="lncn"><img src="images/lncn.png"/></div>
+
+				<div class="moveimg1"><img src="images/topimg/top3.jpg"/></div>
+			</div>
+			<div class="moveimg">
+				<div class="zx"><img src="images/zx.png"/></div>
+				<div class="zxcn"><img src="images/zxcn.png"/></div>
+				<div class="zxring1"><img src="images/zxring1.png"/></div>
+				<div class="zxring2"><img src="images/zxring2.png"/></div>
+				<div class="zxring3"><img src="images/zxring3.png"/></div>
+				<div class="moveimg1"><img src="images/topimg/top4.jpg"/></div>
+			</div>
+		</div>
+	</div>
+
+<!--图片新闻-->
+	<div class="newsbg">
+
+			<div class="allbox">
+	<div class="feature">
+
+
+	<div class="fe">
+    <a href='https://www.cottonchina.org.cn/huiyi/bco_xj26/' target='_blank'><img src='images/fe3-2026.png?v=3' /></a>
+	</div>
+
+	<div class="fe">
+	<a href='https://www.cottonchina.org.cn/special/nongzibaogong26/' target='_blank'><img src='images/baogong-2026.png' /></a>
+	</div>
+	<div class="fe">
+	<a href='https://www.cottonchina.org.cn/zhuanti/yfbt/index.php' target='_blank'><img src='images/fe1-26.png' /></a>
+	</div>
+	</div>
+	</div>
+
+
+		<div class="allbox">
+			<div class="newsimgbox">
+<!--切换的图片-->
+				<div class="newsimg">
+				<!--注意第一张样式没有 dpn -->
+
+				<div class="n_i_img"><a href="http://www.cnce.cn/news_show.php?articleid=321168&newstime=2026-10-27" target="_blank"><img src="https://www.cottonchina.org.cn/imgnews_4/xsjy-5.jpg"/></a></div>
+				<div class="n_i_img dpn"><a href="https://www.cottonchina.org.cn/special/nongzibaogong26/" target="_blank"><img src="https://www.cottonchina.org.cn/imgnews_4/baogong26.jpg"/></a></div>
+				<div class="n_i_img dpn"><a href="http://www.cnce.cn/news_show.php?articleid=312561&newstime=2026-03-01" target="_blank"><img src="https://www.cottonchina.org.cn/guanggao_4/icottonReturn.jpg"/></a></div>
+
+				<!--<div class="n_i_img dpn"><a href="https://www.cottonchina.org.cn/huiyi/2026cnce/" target="_blank"><img src="https://www.cottonchina.org.cn/guanggao_4/2026cnce.jpg"/></a></div>-->
+				<div class="n_i_img dpn"><a href="zt/sdcd/" target="_blank"><img src="images/newsimg/sdcd.jpg"/></a></div>
+				<!--<div class="n_i_img dpn"><a href="http://www.cnce.cn/news_show.php?articleid=297120&newstime=2024-12-30" target="_blank"><img src="https://www.cottonchina.org.cn/imgnews_4/cnce2025-001.jpg"/></a></div>-->
+				<!--<div class="n_i_img dpn"><a href="http://www.cnce.cn/news_show.php?articleid=293648&newstime=2024-09-28" target="_blank"><img src="https://www.cottonchina.org.cn/imgnews_4/cnce2024-001.png"/></a></div>-->
+				</div>
+
+<!--移动的按钮背景-->
+				<div class="newstitle">
+					<div class="nt nt1"></div>
+					<div class="nt"></div>
+					<div class="nt"></div>
+					<div class="nt"></div>
+					<div class="nt"></div>
+				</div>
+			</div>
+
+<!--新闻-->
+			<div class="newsbox">
+				<div class="news_class">
+					<div class="nc nc_t1">CNCE公告</div>
+					<div class="nc nc_t2">CNCE动态</div>
+					<div class="nc nc_t3">媒体报道</div>
+				</div>
+				<div id="nb">
+
+					<div class="nb_con">
+					<div class='topone'><span>Top</span><a href="http://www.cnce.cn/idc/" target="_blank">全国棉花交易市场大数据中心</a></div>
+						<ul><li><a href='news_show.php?articleid=321215&newstime=2026-10-26' target='_blank'>关于发布《国家化肥商业储备氮磷及复合肥建储线上采购交易办法》的公告</a><span>26/10/26</span></li><li><a href='news_show.php?articleid=321425&newstime=2026-10-30' target='_blank'>关于组织基差竞卖专场交易的通知</a><span>26/10/30</span></li><li><a href='news_show.php?articleid=320545&newstime=2026-10-08' target='_blank'>关于开放2026年度甘肃棉花专业监管仓库预约入库公检的通知（2</a><span>26/10/08</span></li><li><a href='news_show.php?articleid=320321&newstime=2026-09-28' target='_blank'>关于对2026年度甘肃省棉花“专业仓储监管+在库公证检验”专业</a><span>26/09/28</span></li><li><a href='news_show.php?articleid=320238&newstime=2026-09-27' target='_blank'>关于基差交易平台寄售模式及优化相关功能的通知（2026年第20号</a><span>26/09/27</span></li><li><a href='news_show.php?articleid=320253&newstime=2026-09-25' target='_blank'>关于停止2026年中央储备棉销售的公告</a><span>26/09/25</span></li><li><a href='news_show.php?articleid=320250&newstime=2026-09-24' target='_blank'>《关于进一步规范新疆监管棉花预约入库主体的通知》有关问题解</a><span>26/09/24</span></li><li><a href='news_show.php?articleid=320230&newstime=2026-09-24' target='_blank'>关于公布2026年度第一批指定交割（监管）仓库的通知（2026年第</a><span>26/09/24</span></li><li><a href='news_show.php?articleid=320175&newstime=2026-09-23' target='_blank'>关于进一步规范新疆专业仓储监管棉花相关工作的通知（2026年第</a><span>26/09/23</span></li></ul>
+						<div class="nb_more"><a href="news_more.php?newskey=gg" target="_blank"></a></div>
+					</div>
+					<div class="nb_con" style='display:none'>
+					<div class='topone'><span>Top</span><a href="http://www.cnce.cn/idc/" target="_blank">全国棉花交易市场大数据中心</a></div>
+
+						<ul><li><a href='news_show.php?articleid=321578&newstime=2026-11-04' target='_blank'>全国棉花交易市场在“中国供销集团杯”职工乒乓球、羽毛球团体</a><span>26/11/04</span></li><li><a href='news_show.php?articleid=321201&newstime=2026-10-26' target='_blank'>快速班列又增线，疆棉三天到四川</a><span>26/10/26</span></li><li><a href='news_show.php?articleid=321168&newstime=2026-10-26' target='_blank'>交易产品矩阵先暏为快</a><span>26/10/26</span></li><li><a href='news_show.php?articleid=321165&newstime=2026-10-26' target='_blank'>竞价交易看门道</a><span>26/10/26</span></li><li><a href='news_show.php?articleid=320876&newstime=2026-10-16' target='_blank'>基差交易探玄机</a><span>26/10/16</span></li><li><a href='news_show.php?articleid=320371&newstime=2026-09-30' target='_blank'>预购交易如何解</a><span>26/09/30</span></li><li><a href='news_show.php?articleid=320120&newstime=2026-09-22' target='_blank'>协商交易知多少</a><span>26/09/22</span></li><li><a href='news_show.php?articleid=319623&newstime=2026-09-10' target='_blank'>深化改革谋创新 提质增效促发展——2026新疆棉花棉纱产业发展</a><span>26/09/10</span></li></ul>
+						<div class="nb_more"><a href="news_more.php?newskey=dt" target="_blank"></a></div>
+					</div>
+					<div class="nb_con" style='display:none'>
+					<div class='topone'><span>Top</span><a href="http://www.cnce.cn/news_show.php?articleid=282527&newstime=2023-10-31" target="_blank">【央视新闻直播间】别眨眼，中国供销集团带你看“数字棉花”</a></div>
+					<div class='topone'><span>Top</span><a href="https://m.alltuu.com/album/eec19e950c2895bb87ba12dcb8b8eae9/?from=appmessage&menu=live" target="_blank">2026’新疆棉花棉纱产业发展论坛照片直播</a></div>
+					<div class='topone'><span>Top</span><a href="https://live.pailixiang.com/album/a11927320869?from=singlemessage" target="_blank">第三届“CNCE·利华杯”乒乓球友谊赛照片直播</a></div>
+						<ul><li><a href='news_show.php?articleid=311548&newstime=2026-01-27' target='_blank'>【新疆新闻广播】新疆开行全国首趟棉花快速班列</a><span>26/01/27</span></li><li><a href='news_show.php?articleid=311526&newstime=2026-01-27' target='_blank'>【中国新闻网】新疆开行全国首趟棉花快速班列</a><span>26/01/27</span></li><li><a href='news_show.php?articleid=311032&newstime=2026-01-14' target='_blank'>【中国经济新闻网】“棉e贷”年度新增贷款投放超300亿元，助力</a><span>26/01/14</span></li><li><a href='news_show.php?articleid=308799&newstime=2025-11-18' target='_blank'>【光明日报客户端】“全国农资保供线上平台”完成首次竞拍交易</a><span>25/11/18</span></li><li><a href='news_show.php?articleid=308797&newstime=2025-11-18' target='_blank'>【农民日报客户端】“全国农资保供线上平台”完成首次竞拍交易</a><span>25/11/18</span></li><li><a href='news_show.php?articleid=308796&newstime=2025-11-18' target='_blank'>【中国经济新闻网】“全国农资保供线上平台”完成首次竞拍交易</a><span>25/11/18</span></li></ul>
+						<div class="nb_more"><a href="news_more.php?newskey=mt" target="_blank"></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<!--行业服务-->
+	<div class="big_title">交易商服务</div>
+
+	<div class="allbox">
+		<div class="service_box">
+			<div class="service_items">
+				<div class="se_i_bg"></div>
+<!--指示器-->
+				<div class="se_i">
+				    <div class="se_ico se_ico5"><a href='storage.html' ></a></div>
+					<div class="se_ico se_ico1"><a href='transaction.php' ></a></div>
+					<div class="se_ico se_ico2"><a href='finance.html' ></a></div>
+					<div class="se_ico se_ico4"><a href='logistic.html' ></a></div>
+					<div class="se_ico se_ico3"><a href='import.php' ></a></div>
+
+				</div>
+<!--文字-->
+				<div class="se_t">
+				    <div class="se_t_t"><a href='storage.html' >仓储监管</a></div>
+					<div class="se_t_t"><a href='transaction.php' >商品棉交易</a></div>
+					<div class="se_t_t"><a href='finance.html' >供应链金融</a></div>
+					<div class="se_t_t"><a href='logistic.html' >物流综合服务</a></div>
+					<div class="se_t_t"><a href='import.php' >进口棉综合服务</a></div>
+
+
+				</div>
+			</div>
+<!--内容-->
+			<div class="se_content">
+
+			<!--仓储监管-->
+				<div class="se_b">
+					<div class="se_c_b_l"><img src="images/services/ck.jpg" /></div>
+					<div class="se_c_b_r">
+						<div class="se_c_t">仓储监管</div>
+						<div class="se_c_c">
+							<P>交易市场具备功能完善的棉花第三方监管网络体系。拥有覆盖全国主要棉花产销区和物流集散地的指定交割（监管）仓库130余家，静态棉花仓储能力超过1700万吨，累计为涉棉企业、合作银行等提供规范的棉花监管服务达5000多万吨，实现全国90%以上棉花的在库规范监管，成为落实国家棉花宏观政策的得力抓手和引导棉花行业高质量发展的重要支点。</P>
+							<div class="nb_more"><a href="storage.html" target="_blank"></a></div>
+						</div>
+					</div>
+				</div>
+
+<!--商品棉-->
+				<div class="se_b">
+					<div class="se_c_b_l"><img src="images/services/spm.jpg?v=2" /></div>
+					<div class="se_c_b_r">
+						<div class="se_c_t">商品棉交易</div>
+						<div class="se_c_c">
+							<P>交易市场商品棉交易平台实现了在线匹配买卖双方供求信息，在线见证合同、在线变更货权，有效解决了棉花现货贸易环节履约保障难题，确保货款、货权同步流转，同时配套融资和运输服务，系统衔接监管银行、存储仓库进行确权、确费、确贷，助力涉棉企业在复杂的经营环境下减少不可控的风险因素，实现高质量稳定经营。</P>
+							<div class="nb_more"><a href="transaction.php" target="_blank"></a></div>
+						</div>
+					</div>
+				</div>
+
+<!--供应链金融-->
+				<div class="se_b">
+					<div class="se_c_b_l"><div class="se_c_t">供应链金融</div>
+						<div class="se_c_c">
+							<P>交易市场供应链金融服务板块经过近二十年的发展和完善，不断加强与国内各大型银行合作，专注于开发更适合涉棉企业的融资方式。目前已拥有网上操作与线下运行、远期订单与现货贸易相结合的多种融资渠道和融资方式，在满足广大涉棉企业不同业务需求的同时，大大降低了企业融资成本，提高了业务办理效率。</P>
+							<div class="nb_more"><a href="finance.html" target="_blank"></a></div>
+						</div>
+					</div>
+					<div class="se_c_b_r se_img_r"><img src="images/services/jr.jpg" /></div>
+				</div>
+
+
+
+<!--运输-->
+				<div class="se_b">
+					<div class="se_c_b_l"> <div class="se_c_t">物流综合服务</div>
+						<div class="se_c_c">
+							<P>交易市场积极响应国家出台的“公转铁”相关政策， 与中国铁路乌鲁木齐局集团有限公司加强战略合作，建立全疆棉花铁路发运体系，为客户提供出疆棉铁路“门到门”运输服务。搭建集在线申请发运、足额陆运一切险、货物在途跟踪、公铁联运等功能为一体的棉花铁路智慧物流系统。客户足不出户既能实现全疆棉花铁路自助发运。</P>
+							<div class="nb_more"><a href="logistic.html" target="_blank"></a></div>
+						</div>
+					</div>
+					<div class="se_c_b_r se_img_r"><img src="images/services/ys.jpg" /></div>
+				</div>
+<!--进口棉-->
+				<div class="se_b">
+					<div class="se_c_b_l se_c_b_l2"><img src="images/services/jk.jpg?v=2" /></div>
+					<div class="se_c_b_r se_c_b_r2">
+						<div class="se_c_t">进口棉综合服务</div>
+						<div class="se_c_c se_c_c2">
+							<P>交易市场经过多年的业务积累，逐步建立起一支专业的进口棉业务团队，依托交易市场平台资源和保障体系，倾力打造进口棉供应链综合服务平台。平台秉承交易市场不投机、不自营的原则，整合交易市场位于北京、青岛保税区、张家港保税区等地的国际贸易公司资源，在银行方便、快捷、成本低廉的资金支持下，满足交易商不同的业务需求，提供进口棉询价、采购、监管、转售、进口、通关、索赔、物流、风险控制及资金融通等“一站式”服务，降低进口棉采购成本，提高市场流通效率，控制业务风险。交易市场与ICA、Cotlook、ABRAPA等业界组织建立了稳固的合作关系，利用交易市场近5,000家交易商渠道和完善的客服体系，为国内外客户提供安全、便捷、低成本的进口棉综合服务。</P>
+							<div class="nb_more"><a href="import.php" target="_blank"></a></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!--数据-->
+	<div class="big_title bigt2">行业数据</div>
+	<div class="databox">
+		<div class="allbox">
+			<div class="data_c_l">
+				<div class="data_t" id="data_t1">
+					<div class="d_t_t d_t_s">棉花指数</div>
+					<div class="d_t_t">纺织指数</div>
+					<div class="d_t_t">交易价格</div>
+					<div class="d_t_t">国内资源</div>
+					<div class="d_t_t">运价指数</div>
+				</div>
+				<div class="d_t_c" id="d_t_c1">
+					<div class="d_t_d" >
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>CC Index 3128B</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/ccindex_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>16889</span> 元/吨</div>
+<div class='p_color_r'>+111</div>
+</div>
+
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>CC Index 2227B</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/ccindex_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>15371</span> 元/吨</div>
+<div class='p_color_r'>+81</div>
+</div>
+
+<div class='nd_cotton_block mgr0'>
+<div class='nd_block_t'>CC Index 2129B</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/ccindex_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>17183</span> 元/吨</div>
+<div class='p_color_r'>+98</div>
+</div>
+
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>FC Index M</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/fcindex_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>88.85</span> 美分/磅</div>
+<div class='p_color_r'>+0.60</div>
+<div class='nd_block_p2'>1%关税折：14690 元/吨</div>
+</div>
+
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>Cotlook A</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/cotlook_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>90.40</span> 美分/磅</div>
+<div class='p_color_r'>+0.50</div>
+<div class='nd_block_p2'>1%关税折：14942 元/吨</div>
+</div>
+
+<div class='nd_cotton_block mgr0'>
+<div class='nd_block_t'>内外棉价差</div>
+<div class='nd_block_d'>今日数据暂未更新</div>
+<div class='nd_block_p'><span>-</span> 元/吨</div>
+</div>
+</div>
+					<div class="d_t_d">
+<div class='nd_textile_block'>
+<div class='nd_block_t'>CY Index C32S</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/qms_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p3'><span>23021</span> 元/吨</div>
+<div class='p_color_g'>-11</div>
+</div>
+
+<div class='nd_textile_block mgr0'>
+<div class='nd_block_t'>FCY Index C32S</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/fcyi_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p3'><span>23038</span> 元/吨</div>
+<div class='p_color_r'>+10</div>
+</div>
+
+<div class='nd_cotton_block ' >
+<div class='nd_block_t nd_block_t2'>涤纶短纤</div>
+<div class='nd_block_d2'>2026-11-06</div>
+<div class='nd_block_p3'><span>8555</span> 元/吨</div>
+<div class='p_color_r'>+15</div>
+<div class='nd_block_t nd_block_t2'>粘胶短纤</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/xgyl_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_p3'><span>14850</span> 元/吨</div>
+<div class='p_color_b'>0</div>
+</div>
+
+<div class='nd_cotton_block'>
+<div class='nd_block_t nd_block_t2'>T32S</div>
+<div class='nd_block_d2'>2026-11-06</div>
+<div class='nd_block_p'><span>12650</span> 元/吨</div>
+<div class='p_color_b'>0</div>
+<div class='nd_block_t nd_block_t2'>R30S</div>
+<div class='nd_block_m'><a href='https://www.cottonchina.org.cn/newprice/qms_more.php' target='_blank'>更多</a></div>
+<div class='nd_block_p'><span>18100</span> 元/吨</div>
+<div class='p_color_b'>0</div>
+</div>
+
+<div class='nd_cotton_block mgr0'>
+<div class='nd_block_t'>棉纺PMI</div>
+<div class='nd_block_d'>2026-07</div>
+<div class='nd_block_p'><span>40.67</span> </div>
+<div class='p_color_g'>-0.52</div>
+</div></div>
+					<div class="d_t_d">
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>ICE</div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>79.11</span> 美分/磅</div>
+<div class='p_color_r'>+0.40</div>
+</div>
+
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>CF701</div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>15345</span> 元/吨</div>
+<div class='p_color_r'>+5</div>
+</div>
+
+<div class='nd_cotton_block  mgr0' >
+<div class='nd_block_t'>CY701</div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>21290</span> 元/吨</div>
+<div class='p_color_r'>+35</div>
+</div>
+
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>国际期现价差</div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>11.69</span> 美分/磅</div>
+</div>
+
+<div class='nd_cotton_block'>
+<div class='nd_block_t'>国内期现价差</div>
+<div class='nd_block_d'>2026-11-05</div>
+<div class='nd_block_p'><span>1549</span> 元/吨</div>
+</div>
+
+<div class='nd_cotton_block mgr0' >
+<div class='nd_block_t'>PF612</div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p'><span>7906</span> 元/吨</div>
+<div class='p_color_g'>-72</div>
+</div>
+</div>
+					<div class="d_t_d">
+<div class='nt_box'>
+<table border='0' cellpadding='0' cellspacing='1' class='newtable'>
+  <tr>
+    <td colspan='4' ><div class='t1'>&nbsp;&nbsp; BCO中国棉花产消存量资源表</div>     <div class='t2'>2026-10 发布&nbsp;&nbsp;&nbsp;&nbsp;单位：万吨&nbsp;&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td align='center' width='160'></td>
+    <td align='center' width='160' class='font_w'>2024/25</td>
+    <td align='center' width='160' class='font_w'>2025/26</td>
+    <td align='center' width='160' class='font_w'>2026/27</td>
+  </tr>
+  <tr>
+    <td class='font_w'>&nbsp;&nbsp;总供应</td>
+    <td align='center' class='font_w'>1472</td>
+    <td align='center' class='font_w'>1553</td>
+    <td align='center' class='font_w'>1521</td>
+  </tr>
+  <tr>
+    <td align='right'>其中：期初库存&nbsp;</td>
+    <td align='center'>681</td>
+    <td align='center'>616</td>
+    <td align='center'>640</td>
+  </tr>
+  <tr>
+    <td align='right'>产 量&nbsp;</td>
+    <td align='center'>685</td>
+    <td align='center'>778</td>
+    <td align='center'>742</td>
+  </tr>
+  <tr>
+    <td align='right'>进 口&nbsp;</td>
+    <td align='center'>106</td>
+    <td align='center'>159</td>
+    <td align='center'>140</td>
+  </tr>
+  <tr>
+    <td class='font_w'>&nbsp;&nbsp;总需求</td>
+    <td align='center' class='font_w'>856</td>
+    <td align='center' class='font_w'>914</td>
+    <td align='center' class='font_w'>890</td>
+  </tr>
+  <tr>
+    <td align='right'>其中：纺棉消费&nbsp;</td>
+    <td align='center'>817</td>
+    <td align='center'>878</td>
+    <td align='center'>853</td>
+  </tr>
+  <tr>
+    <td align='right'>其他消费&nbsp;</td>
+    <td align='center'>38</td>
+    <td align='center'>35</td>
+    <td align='center'>35</td>
+  </tr>
+  <tr>
+    <td align='right'>出 口&nbsp;</td>
+    <td align='center'>1</td>
+    <td align='center'>1</td>
+    <td align='center'>2</td>
+  </tr>
+  <tr>
+    <td class='font_w'>&nbsp;&nbsp;期末库存</td>
+    <td align='center' class='font_w'>616</td>
+    <td align='center' class='font_w'>639</td>
+    <td align='center' class='font_w'>631</td>
+  </tr>
+</table></div></div>
+					<div class="d_t_d">
+<div class='nd_transaction_block'>
+<div class='nd_block_t'>运价指数</div>
+<div class='nd_block_m' ><a href='https://www.cottonchina.org.cn/news/newsser.php?relnews=%D4%CB%BC%DB%D6%B8%CA%FD' target='_blank' id='moresrc'>更多</a></div>
+<div class='nd_block_d'>2026-11-06</div>
+<div class='nd_block_p3 nd_block_p4'><span>0.2164</span> 元/吨·公里</div>
+<div class='p_color_r wid150 p_color_b'>0 %</div>
+</div></div>
+				</div>
+			</div>
+
+
+			<div class="data_c_r">
+				<div class="data_t" id="data_t2">
+					<div class="d_t_t d_t_s">仓单日报</div>
+					<div class="d_t_t ">运价指数</div>
+					<div class="d_t_t ">交易资讯</div>
+				</div>
+				<div class="d_t_c"  id="d_t_c2">
+					<div class="data_ifr">
+						<ul><li><a href='news_show.php?articleid=321673&newstime=2026-11-06' target='_blank'>【仓单日报】CNCE业务棉花信息（11.6）</a><span>26/11/06</span></li><li><a href='news_show.php?articleid=321616&newstime=2026-11-05' target='_blank'>【仓单日报】CNCE业务棉花信息（11.5）</a><span>26/11/05</span></li><li><a href='news_show.php?articleid=321576&newstime=2026-11-04' target='_blank'>【仓单日报】CNCE业务棉花信息（11.4）</a><span>26/11/04</span></li><li><a href='news_show.php?articleid=321525&newstime=2026-11-03' target='_blank'>【仓单日报】CNCE业务棉花信息（11.3）</a><span>26/11/03</span></li><li><a href='news_show.php?articleid=321475&newstime=2026-11-02' target='_blank'>【仓单日报】CNCE业务棉花信息（11.2）</a><span>26/11/02</span></li><li><a href='news_show.php?articleid=321396&newstime=2026-10-30' target='_blank'>【仓单日报】CNCE业务棉花信息（10.30）</a><span>26/10/30</span></li><li><a href='news_show.php?articleid=321348&newstime=2026-10-29' target='_blank'>【仓单日报】CNCE业务棉花信息（10.29）</a><span>26/10/29</span></li><li><a href='news_show.php?articleid=321311&newstime=2026-10-28' target='_blank'>【仓单日报】CNCE业务棉花信息（10.28）</a><span>26/10/28</span></li></ul>
+						<div class="nb_more"><a href="news_more.php?newskey=rb" target="_blank"></a></div>
+					</div>
+					<div class="data_ifr" >
+						<ul><li><a href='news_show.php?articleid=321689&newstime=2026-11-07' target='_blank'>出疆棉公路运输价格指数(2026.11.7)</a><span>26/11/07</span></li><li><a href='news_show.php?articleid=321662&newstime=2026-11-06' target='_blank'>出疆棉公路运输价格指数(2026.11.6)</a><span>26/11/06</span></li><li><a href='news_show.php?articleid=321610&newstime=2026-11-05' target='_blank'>出疆棉公路运输价格指数(2026.11.4)</a><span>26/11/05</span></li><li><a href='news_show.php?articleid=321562&newstime=2026-11-04' target='_blank'>出疆棉公路运输价格指数(2026.11.4)</a><span>26/11/04</span></li><li><a href='news_show.php?articleid=321518&newstime=2026-11-03' target='_blank'>出疆棉公路运输价格指数(2026.11.3)</a><span>26/11/03</span></li><li><a href='news_show.php?articleid=321469&newstime=2026-11-02' target='_blank'>出疆棉公路运输价格指数(2026.11.2)</a><span>26/11/02</span></li><li><a href='news_show.php?articleid=321436&newstime=2026-11-01' target='_blank'>出疆棉公路运输价格指数(2026.11.1)</a><span>26/11/01</span></li><li><a href='news_show.php?articleid=321431&newstime=2026-10-31' target='_blank'>出疆棉公路运输价格指数 (2026.10.31)</a><span>26/10/31</span></li></ul>
+						<div class="nb_more"><a href="news_more.php?newskey=yj" target="_blank"></a></div>
+					</div>
+					<div class="data_ifr" >
+						<ul><li><a href='news_show.php?articleid=321663&newstime=2026-11-06' target='_blank'>【资源日报】2026.11.05基差交易上市资源5300吨</a><span>26/11/06</span></li><li><a href='news_show.php?articleid=321587&newstime=2026-11-05' target='_blank'>【资源日报】2026.11.04基差交易上市资源6700吨</a><span>26/11/05</span></li><li><a href='news_show.php?articleid=321549&newstime=2026-11-04' target='_blank'>【资源日报】2026.11.03基差交易上市资源6100吨</a><span>26/11/04</span></li><li><a href='news_show.php?articleid=321506&newstime=2026-11-03' target='_blank'>【资源日报】2026.11.02基差交易上市资源4900吨</a><span>26/11/03</span></li><li><a href='news_show.php?articleid=321450&newstime=2026-11-02' target='_blank'>【资源日报】2026.10.30基差交易上市资源1.29万吨</a><span>26/11/02</span></li><li><a href='news_show.php?articleid=321427&newstime=2026-10-30' target='_blank'>11月3日商品棉基差竞卖专场预告</a><span>26/10/30</span></li><li><a href='news_show.php?articleid=321387&newstime=2026-10-30' target='_blank'>【资源日报】2026.10.29基差交易上市资源1.04万吨</a><span>26/10/30</span></li><li><a href='news_show.php?articleid=321345&newstime=2026-10-29' target='_blank'>【资源日报】2026.10.28基差交易上市资源6400吨</a><span>26/10/29</span></li></ul>
+						<div class="nb_more"><a href="news_more.php?newskey=zx" target="_blank"></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--常用工具-->
+	<div class="tools">
+
+
+		<div class="big_title">相关网站</div>
+		<div class="allbox">
+			<div class="institute">
+				<div class="ins_ul">
+					<a class="ins_li" href="https://www.ndrc.gov.cn/" target="_blank">国家发展改革委</a>
+					<a class="ins_li" href="http://www.moa.gov.cn/" target="_blank">农业农村部</a>
+					<a class="ins_li" href="http://www.mof.gov.cn/index.htm" target="_blank">财政部</a>
+					<a class="ins_li" href="http://www.mofcom.gov.cn/" target="_blank">商务部</a>
+					<a class="ins_li" href="https://www.miit.gov.cn/" target="_blank">工业和信息化部</a>
+					<a class="ins_li" href="http://www.stats.gov.cn/" target="_blank">国家统计局</a>
+					<a class="ins_li" href="https://www.samr.gov.cn/" target="_blank">国家市场监督管理总局</a>
+					<a class="ins_li" href="http://www.customs.gov.cn/" target="_blank">海关总署</a>
+					<a class="ins_li" href="http://ccqsc.cfqmc.cn/" target="_blank">中国纤维质量监测中心</a>
+				</div>
+				<div class="ins_ul">
+					<a class="ins_li" href="https://www.chinacoop.gov.cn/" target="_blank">中华全国供销合作总社</a>
+					<a class="ins_li" href="http://www.ccoopg.com/" target="_blank">中国供销集团</a>
+					<a class="ins_li" href="http://www.china-cotton.org" target="_blank">中国棉花协会</a>
+					<a class="ins_li" href="https://www.icbc.com.cn/" target="_blank">中国工商银行</a>
+					<a class="ins_li" href="http://www.ccb.com/cn/home/indexv3.html" target="_blank">中国建设银行</a>
+					<a class="ins_li" href="https://www.abchina.com/cn/" target="_blank">中国农业银行</a>
+					<a class="ins_li" href="http://www.adbc.com.cn/" target="_blank">中国农业发展银行</a>
+					<a class="ins_li" href="http://www.cebbank.com/" target="_blank">中国光大银行</a>
+
+				</div>
+				<div class="ins_ul ins_ul2">
+					<a class="ins_li" href="http://www.cmbc.com.cn/" target="_blank">中国民生银行</a>
+					<a class="ins_li" href="http://www.czce.com.cn/" target="_blank">郑州商品交易所</a>
+					<a class="ins_li" href="http://www.china-railway.com.cn/" target="_blank">国铁集团</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div class="bottom"><img src='images/bottom.png' usemap="#Map" border="0" />
+      <map name="Map" id="Map">
+        <area shape="rect" coords="378,150,570,171" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010202009205" target="_blank" />
+        <area shape="rect" coords="586,151,710,171" href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" />
+      </map>
+	</div>
+
+<!--浮动菜单-->
+	<div class="floatmenu">
+		<div class="floa_ico">
+			<div class="f_m_ico f_m_ico1"> </div>
+			<div class="f_m_ico f_m_ico2"> </div>
+			<div class="f_m_ico f_m_ico3"><a href='guide.html' target='_blank'></a></div>
+			<div class="f_m_ico f_m_ico4"><a href='charge.html' target='_blank'></a></a></div>
+			<div class="f_m_ico f_m_ico5" id="openbank"></div>
+			<div class="f_m_ico f_m_ico6"><a href='https://www.cottoneasy.com/warehouse' target='_blank'></a></div>
+			<div class="f_m_ico f_m_ico7"> </div>
+		</div>
+		<div class="fm_show">
+			<div class="fm_bg"><img src="images/kfdh.jpg" /></div>
+			<div class="fm_bg"><img src="images/kfsc.png" /></div>
+			<div class="fm_bg"><img src="images/djck.jpg" /></div>
+			<div class="fm_bg"><img src="images/djck.jpg" /></div>
+			<div class="fm_bg"><img src="images/djck.jpg" /></div>
+			<div class="fm_bg"><img src="images/djck.jpg" /></div>
+			<div class="fm_bg"><img src="images/tsdh.jpg" /></div>
+		</div>
+	</div>
+</div>
+
+
+<div class="inst">
+<div class="ins_close"></div>
+<div class="insts"><img src='images/lv2img/jr_yh.jpg?v=2'/></div>
+
+</div>
+<div class="maskbg"></div>
+
+<div class="gotop"></div>
+
+
+	<!--二维码分享 star---------->
+			<div class="qrcode">
+				<div class="qrcodeBtn" id="qrcodeBtn"></div>
+				<div class="qrcodeShow" id="qrcodeShow">
+					<div class="qrImg" id="qrcodeImg"></div>
+                 <div class="qrText" >微信扫码打开<br/>分享好友或朋友圈</div>
+				</div>
+
+				</div>
+			</div>
+	<script src="../js/qrcode.min.js"></script>
+	<script src="../js/qrcode.js"></script>
+	<link rel="stylesheet" href="../css/qrcode.css">
+	<!--二维码分享 end---------->
+
+
+<script src="js/floating-cnce_ad.js"></script>
+<script src="js/floating-cnce_ad-init.js"></script>
+
+</body>
+<script type="text/javascript" src="js/menu.js?v=10"></script>
+</html>

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "ma-port",
+    "url": "https://nenghua.mysteel.com/a/26110414/7DB614888B0D3ECB.html",
+    "captured_at": "2026-11-08T01:06:02.459974+08:00",
+    "error": "HTTPSConnectionPool(host='nenghua.mysteel.com', port=443): Max retries exceeded with url: /a/26110414/7DB614888B0D3ECB.html (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x104dbd0d0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "ma-nz",
+    "url": "https://www.nzfco.com/research/morning/30379",
+    "captured_at": "2026-11-08T01:06:02.466833+08:00",
+    "error": "HTTPSConnectionPool(host='www.nzfco.com', port=443): Max retries exceeded with url: /research/morning/30379 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x105b04a50>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "sr-start",
+    "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3223237&columnId=1014195&pageId=1014425",
+    "captured_at": "2026-11-08T01:06:02.467439+08:00",
+    "error": "HTTPSConnectionPool(host='www.msweet.com.cn', port=443): Max retries exceeded with url: /eportal/ui?articleKey=3223237&columnId=1014195&pageId=1014425 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x105b050d0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "sr-clear",
+    "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3222944&columnId=1014253&pageId=1014425",
+    "captured_at": "2026-11-08T01:06:02.467974+08:00",
+    "error": "HTTPSConnectionPool(host='www.msweet.com.cn', port=443): Max retries exceeded with url: /eportal/ui?articleKey=3222944&columnId=1014253&pageId=1014425 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x105b05490>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "sr-spot",
+    "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3223266&columnId=1014067&pageId=1014425",
+    "captured_at": "2026-11-08T01:06:02.468480+08:00",
+    "error": "HTTPSConnectionPool(host='www.msweet.com.cn', port=443): Max retries exceeded with url: /eportal/ui?articleKey=3223266&columnId=1014067&pageId=1014425 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x105b04a50>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "sr-estimate",
+    "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3222055&columnId=1014243&pageId=1014425",
+    "captured_at": "2026-11-08T01:06:02.468963+08:00",
+    "error": "HTTPSConnectionPool(host='www.msweet.com.cn', port=443): Max retries exceeded with url: /eportal/ui?articleKey=3222055&columnId=1014243&pageId=1014425 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x105b05810>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "cf-yarn",
+    "url": "https://news.10jqka.com.cn/20261106/c681546416.shtml",
+    "captured_at": "2026-11-08T01:06:02.469443+08:00",
+    "error": "HTTPSConnectionPool(host='news.10jqka.com.cn', port=443): Max retries exceeded with url: /20261106/c681546416.shtml (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x105b05910>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "cf-cnce",
+    "url": "https://www.cottonchina.org.cn/cncenew/",
+    "captured_at": "2026-11-08T01:06:02.469898+08:00",
+    "error": "HTTPSConnectionPool(host='www.cottonchina.org.cn', port=443): Max retries exceeded with url: /cncenew/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x104d9c8d0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "ma-rules",
+    "url": "https://www.czce.com.cn/cn/uploadfile/2024/02/07/20240207154824122.pdf",
+    "captured_at": "2026-11-08T01:06:02.470417+08:00",
+    "error": "HTTPSConnectionPool(host='www.czce.com.cn', port=443): Max retries exceeded with url: /cn/uploadfile/2024/02/07/20240207154824122.pdf (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x105b05710>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  }
+]

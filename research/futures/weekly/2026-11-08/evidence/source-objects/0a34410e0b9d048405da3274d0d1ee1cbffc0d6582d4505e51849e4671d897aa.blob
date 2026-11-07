@@ -1,0 +1,347 @@
+{
+  "schema": "futures-research-source-manifest/v1",
+  "as_of_date": "2026-11-08",
+  "generator": "codex",
+  "generated_at": "2026-11-08T01:10:48.269655+08:00",
+  "sources": [
+    {
+      "id": "ma-port",
+      "url": "https://nenghua.mysteel.com/a/26110414/7DB614888B0D3ECB.html",
+      "captured_at": "2026-11-08T01:06:14.272675+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-port.html",
+      "sha256": "9643f5dbd9469363a0ea9e4c63d7c04b12cfd5587aaea68e7a7f60db5247716a",
+      "content_type": "text/html; charset=UTF-8",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "ma-nz",
+      "url": "https://www.nzfco.com/research/morning/30379",
+      "captured_at": "2026-11-08T01:06:16.085814+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-nz.html",
+      "sha256": "c92205ce4b763ac9300f56cc3bbb29663f9c13f49572c3ba4121a2bdf486c6ee",
+      "content_type": "text/html;charset=UTF-8",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "sr-start",
+      "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3223237&columnId=1014195&pageId=1014425",
+      "captured_at": "2026-11-08T01:06:16.933605+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/sr-start.html",
+      "sha256": "98ed1e923f6dea16846b5e528029180865970ad9ae8638253e10adabdb2f427d",
+      "content_type": "text/html; charset=UTF-8",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "sr-clear",
+      "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3222944&columnId=1014253&pageId=1014425",
+      "captured_at": "2026-11-08T01:06:17.817370+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/sr-clear.html",
+      "sha256": "dc21285e9f1d6b31ca9f9ed47adcbf8a9f50a0cf9dc9dc4a09b694571bd79710",
+      "content_type": "text/html; charset=UTF-8",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "sr-spot",
+      "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3223266&columnId=1014067&pageId=1014425",
+      "captured_at": "2026-11-08T01:06:18.286507+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/sr-spot.html",
+      "sha256": "ccc80e004cde8af147f9e5a0d2bd7cbfeaa73d854bc75b0a9e7677ad7109292f",
+      "content_type": "text/html; charset=UTF-8",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "sr-estimate",
+      "url": "https://www.msweet.com.cn/eportal/ui?articleKey=3222055&columnId=1014243&pageId=1014425",
+      "captured_at": "2026-11-08T01:06:18.782916+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/sr-estimate.html",
+      "sha256": "f183caaa3d8ceea4653af13d0cf8284e225682514c26fa697902e122c48309c3",
+      "content_type": "text/html; charset=UTF-8",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "cf-yarn",
+      "url": "https://news.10jqka.com.cn/20261106/c681546416.shtml",
+      "captured_at": "2026-11-08T01:06:19.338305+08:00",
+      "status": 404,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/cf-yarn.html",
+      "sha256": "b588c7d16376374d2f54986bacb45403bd3622a7a4791d01504fce9f534caa80",
+      "content_type": "text/html; charset=utf-8",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "cf-cnce",
+      "url": "https://www.cottonchina.org.cn/cncenew/",
+      "captured_at": "2026-11-08T01:06:19.659779+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/cf-cnce.html",
+      "sha256": "8f8879a9d8261eb2852f6805302b60e8b08795dd30b5644b6cce8be66c9e92e8",
+      "content_type": "text/html; charset=GB2312",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "ma-rules",
+      "url": "https://www.czce.com.cn/cn/uploadfile/2024/02/07/20240207154824122.pdf",
+      "captured_at": "2026-11-08T01:06:20.239806+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-rules.pdf",
+      "sha256": "5c4e72f89b7a39cb0816e05694bad05c22241c246359e3b196fc159bf770f9a6",
+      "content_type": "application/pdf",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef.blob",
+          "sha256": "08ff67fa2fc24d5f122d48d7898c661fd5e3fba1da9647c664635af40f0664ef",
+          "bytes": 4081
+        }
+      }
+    },
+    {
+      "id": "ma-gl9",
+      "url": "https://www.glqh.com/jyts/50836.jhtml",
+      "captured_at": "2026-11-08T01:07:52.715878+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-gl9.html",
+      "sha256": "f4e0a67f9f6d331fb7ad37db9407ac43b709c5a458f5323b28e41251ab26120c",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "ma-gl6",
+      "url": "https://www.glqh.com/jyts/50834.jhtml",
+      "captured_at": "2026-11-08T01:07:53.858067+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-gl6.html",
+      "sha256": "bc51b34ad4bb14796daeecc38a14bb816308a8a4a765e00eb1100302b1cdc2cf",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "ma-gl9-margin",
+      "url": "https://www.glqh.com/u/cms/www/202611/06163628q0sl.pdf",
+      "captured_at": "2026-11-08T01:07:54.561171+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-gl9-margin.pdf",
+      "sha256": "9ebe19e5af6bb93f506136e2ed83c0c590fa4db6b7ab0313e06e1ba0f709a451",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "ma-hicend-margin",
+      "url": "https://m.hicend.com.cn/h5/CommonArticleDetail/16193",
+      "captured_at": "2026-11-08T01:07:55.115177+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-hicend-margin.html",
+      "sha256": "ba606968fe987b68b1481a322cb7a2cfe3041ed67523f5ef30bbd9febc9589f4",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "rb-storage",
+      "url": "https://www.shfe.com.cn/products/futures/metal/ferrousandpreciousmetal/rb_f/attach/202206/t20220630_798893.html",
+      "captured_at": "2026-11-08T01:07:56.667842+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/rb-storage.html",
+      "sha256": "95d951a3f19e4026fbf77f855ae16f7986043f46d5d96f7e7d964441899ef3e4",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "rb-rules",
+      "url": "https://www.shfe.com.cn/regulation/exchangerules/productrules/202512/t20251231_829962.html",
+      "captured_at": "2026-11-08T01:07:57.115958+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/rb-rules.html",
+      "sha256": "b19deb6ee3dfb44cf83d760fe96893eb2a53758d78488b6407df6e2245379841",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "ma-storage",
+      "url": "https://www.czce.com.cn/cn/rootfiles/2022/04/27/1644404734921877-1644404734985457.pdf",
+      "captured_at": "2026-11-08T01:07:57.250607+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/ma-storage.pdf",
+      "sha256": "96dee5811faa84be134350f40208643c52bdec5d89df2f73f1bb2aa2fcc306bf",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "sr-storage",
+      "url": "https://www.hsqh.net/col230/4842",
+      "captured_at": "2026-11-08T01:07:58.513703+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/sr-storage.html",
+      "sha256": "fd0e4a907fa19faef99179d1b6260d074a600a9b8a7d562c1b10d1be3ac763bd",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "cf-yarn-list",
+      "url": "https://www.mysteel.com/oilchem/article/k5qez6/",
+      "captured_at": "2026-11-08T01:07:58.991819+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/cf-yarn-list.html",
+      "sha256": "a80e8b2e3a367dfa65352a05109a6ed5641967ab841ad8e8eac9bfbc48beab98",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "czce-holiday-lineage",
+      "url": "https://finance.eastmoney.com/a/202512173594248238.html",
+      "captured_at": "2026-11-08T01:08:00.854074+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/czce-holiday-lineage.html",
+      "sha256": "c656e193cae4df1e04e591ef9ccf7bff14059040237784141cbd148939ff6d82",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-extra-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a.blob",
+          "sha256": "249842ec43646574e350fa628194e60c4beefe9b195e2a7ad5014671ce97047a",
+          "bytes": 4053
+        }
+      }
+    },
+    {
+      "id": "cf-weekly",
+      "url": "https://www.mysteel.com/oilchem/a/26110518/9457984B9DAD0CAD.html",
+      "captured_at": "2026-11-08T01:08:35.833075+08:00",
+      "status": 200,
+      "path": "research/futures/weekly/2026-11-08/evidence/other-products/cf-weekly.html",
+      "sha256": "163798100ddef3bac87445861cf221b58a2f5b1d7c4c942dca54c0f59519a031",
+      "capture_index": {
+        "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/capture-cf-index.json",
+        "frozen_ref": {
+          "path": "research/futures/weekly/2026-11-08/evidence/source-objects/b7b41bdb1d88415f072962bcd3311440a5699d37843478a352312ceb0ccfe6a1.blob",
+          "sha256": "b7b41bdb1d88415f072962bcd3311440a5699d37843478a352312ceb0ccfe6a1",
+          "bytes": 388
+        }
+      }
+    }
+  ],
+  "note_sha256": "feac4c1dfe5b8ba146e79911090ef4be325126ee411ab3ba184ad297f06584ba",
+  "revision_note": "Provenance-only revision: capture receipts retain exact original bytes through opaque frozen references. Public source paths, source hashes, observations, reading scope and note hash unchanged; original manifest retained.",
+  "original_manifest": {
+    "original_path": "research/futures/weekly/2026-11-08/evidence/other-products/source-manifest.json",
+    "frozen_ref": {
+      "path": "research/futures/weekly/2026-11-08/evidence/source-objects/508da95c22f2875990f761ce214422c97953a619677115e4e226f8e333cfbda7.blob",
+      "sha256": "508da95c22f2875990f761ce214422c97953a619677115e4e226f8e333cfbda7",
+      "bytes": 10280
+    }
+  }
+}

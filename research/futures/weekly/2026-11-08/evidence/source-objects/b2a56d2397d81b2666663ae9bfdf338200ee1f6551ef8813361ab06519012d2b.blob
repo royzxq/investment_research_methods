@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>上海建筑钢市日记（期螺调整，现货徘徊）（西本资讯）</title>
+    <meta content="西本新干线网系西本新干线现货电子交易平台，内容包括（钢材价格、铁矿石价格、焦炭价格、钢坯价格及行情分析、西本新干线会员交易指导价、钢材指数、钢铁PMI、预警分析、行情汇总、行情报价、行情地图、在线钢铁商城等。" name="description" />
+    <meta content="西本新干线网系西本新干线现货电子交易平台，内容包括（钢材价格、铁矿石价格、焦炭价格、钢坯价格及行情分析、西本新干线会员交易指导价、钢材指数、钢铁PMI、预警分析、行情汇总、行情报价、行情地图、在线钢铁商城等。" name="keywords" />
+    <meta name="author" content="西本">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <link href="css/allcss.css?2022110101" rel="stylesheet" type="text/css">
+    <style>
+        body .jiathis_style_32x32 .jtico {
+            background: initial;
+            height: 33px !important;
+            padding-left: 3px;
+            padding-right: 5px;
+        }
+
+        body .jiathis_style_32x32 a {
+            display: inline-block;
+        }
+
+        body .jiathis_style_32x32 .jtico_tqq {
+            background: url(images/share-icon1.png) 4px 0px no-repeat;
+        }
+
+        body .jiathis_style_32x32 .jtico_weixin {
+            background: url(images/share-icon2.png) 4px 0px no-repeat;
+        }
+
+        body .jiathis_style_32x32 .jtico_qzone {
+            background: url(images/share-icon3.png) 4px 0px no-repeat;
+        }
+
+        body .jiathis_style_32x32 .jtico_tsina {
+            background: url(images/share-icon4.png) 4px 0px no-repeat;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Views -->
+    <div class="views">
+        <div class="view view-main">
+
+            <!-- Top Navbar-->
+            
+<div style="margin: 0 auto; width: 0px; height: 0px; overflow: hidden;">
+    <img src="/xb.jpg" />
+</div>
+<div class="navbar no-border">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="/">
+                <img src="images/logo2.png?2021" alt=""></a>
+        </div>
+        <div class="right">
+            <a href="quotation.aspx"><i class="iconfont">&#xe611;</i>最新报价</a>
+            <a href="##" id="menu"><i class="iconfont">&#xe614;</i>导航菜单</a>
+        </div>
+    </div>
+    <!-- Menu -->
+    <div class="menu-bg">
+        <div class="menu">
+            <dl>
+                <dt>商品指数</dt>
+                <dd>
+                    <a href="database.aspx?id=65">钢材指数</a>
+                    <a href="database.aspx?id=61">铁矿石指数</a>
+                    <a href="database.aspx?id=64">焦炭指数</a>
+                    <a href="database.aspx?id=78">废钢指数</a>
+                    <a href="database.aspx?id=79">钢坯指数</a>
+                    <a href="database.aspx?id=178">成本指数</a>
+                    <a href="database.aspx?id=118">钢铁PMI</a>
+                    <a href="database-directory.aspx">更多</a>
+                </dd>
+                <dt>区域价格</dt>
+                <dd>
+                    <a href="quotation.aspx">西本指导价</a>
+                    <a href="quotation-query.aspx">历史价格</a>
+                </dd>
+                <dt>西本资讯</dt>
+                <dd>
+                    <a href="column.aspx?tid=1&isnew=1">最新要闻</a>
+                    <a href="column.aspx?tid=2&isnew=0">预警报告</a>
+                    <a href="column.aspx?tid=3&isnew=0">行情分析</a>
+                    <a href="column.aspx?tid=4&isnew=0">行业动态</a>
+                </dd>
+                <dt>关于西本</dt>
+                <dd>
+                    <a href="about.aspx">西本简介</a>
+                    <a href="column.aspx?columnid=31">平台动态</a>
+                    <a href="column.aspx?columnid=38">媒体关注</a>
+                    <a href="column.aspx?columnid=39">通知公告</a>
+                </dd>
+                <dt>其他</dt>
+                <dd>
+                    <a href="reference-data.aspx">参考数据</a>
+                    <a href="quality-list.aspx">优质品名录</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <!-- Menu End -->
+</div>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script src="/js/jquery-1.9.0.min.js"></script>
+<script>
+    $(function () {
+        $(document.body).attr("logo", "https://m.steelx2.com/xb.jpg");
+        var jsApiList = ['updateTimelineShareData', 'updateAppMessageShareData', 'onMenuShareTimeline', 'onMenuShareAppMessage'];
+        //wx.checkJsApi({
+        //    jsApiList: jsApiList, // 需要检测的 JS 接口列表，所有 JS 接口列表见附录2,
+        //    success: function (res) {
+        //        // 以键值对的形式返回，可用的 api 值true，不可用为false
+        //        // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+        //        var checkResult = {};
+        //        var supt = false;
+        //        for (var i = 0; i < jsApiList.length; i++) {
+        //            key = jsApiList[i];
+        //            var itemSupt = res.checkResult[key] || false;
+        //            checkResult[key] = itemSupt;
+        //            supt = supt || itemSupt;
+        //        }
+        //        if (supt) {
+                    $.ajax({
+                        url: "/Handler/GetWxConfig.ashx",
+                        data: { url: window.location.href },
+                        success: function (config) {
+                            var title = config.title || window.document.title || "";
+                            var desc = config.desc || "";
+                            var debug = config.debug || false;
+                            var imgUrl = config.imgUrl || "";
+                            var url = config.url || "";
+                            wx.ready(function () {
+                                //if (checkResult.updateTimelineShareData) {
+                                    wx.updateTimelineShareData({
+                                        title: title, // 分享标题
+                                        link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+                                        imgUrl: imgUrl, // 分享图标
+                                        success: function () {
+                                            // 设置成功
+                                        },
+                                        cancel: function () {
+                                            // 用户取消分享后执行的回调函数
+                                        }
+                                    });
+                                //}
+                                //if (checkResult.updateAppMessageShareData) {
+                                    wx.updateAppMessageShareData({
+                                        title: title, // 分享标题
+                                        desc: desc, // 分享描述
+                                        link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+                                        imgUrl: imgUrl, // 分享图标
+                                        success: function () {
+                                            // 设置成功
+                                        },
+                                        cancel: function () {
+                                            // 用户取消分享后执行的回调函数
+                                        }
+                                    });
+                                //}
+                                //if (checkResult.onMenuShareTimeline) {
+                                    wx.onMenuShareTimeline({
+                                        title: title, // 分享标题
+                                        link: url, // 分享链接
+                                        imgUrl: imgUrl, // 分享图标
+                                        success: function () {
+                                            // 用户确认分享后执行的回调函数
+                                        },
+                                        cancel: function () {
+                                            // 用户取消分享后执行的回调函数
+                                        }
+                                    });
+                                //}
+                                //if (checkResult.onMenuShareTimeline) {
+                                    wx.onMenuShareAppMessage({
+                                        title: title, // 分享标题
+                                        desc: desc, // 分享描述
+                                        link: url, // 分享链接
+                                        imgUrl: imgUrl, // 分享图标
+                                        type: '', // 分享类型,music、video或link，不填默认为link
+                                        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                                        success: function () {
+                                            // 用户确认分享后执行的回调函数
+                                        },
+                                        cancel: function () {
+                                            // 用户取消分享后执行的回调函数
+                                        }
+                                    });
+                                //}
+                            });
+                            wx.config({
+                                debug: debug, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                                appId: config.appId, // 必填，公众号的唯一标识
+                                timestamp: config.timestamp, // 必填，生成签名的时间戳
+                                nonceStr: config.nonceStr, // 必填，生成签名的随机串
+                                signature: config.signature,// 必填，签名，见附录1
+                                jsApiList: jsApiList // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                            });
+                        }
+                    });
+    //            }
+    //        }
+    //    });
+    });
+</script>
+
+            <!-- Top Navbar End -->
+
+            <!-- Pages -->
+            <div class="pages navbar-through toolbar-through">
+                <div data-page="index" class="page">
+                    <div class="page-content">
+
+
+                        <!-- News-content -->
+                        <div class="news-content">
+
+                            <h1>
+                                上海建筑钢市日记（期螺调整，现货徘徊）</h1>
+                            <span class="time">
+                                2026年11月06日15:23
+                                来源：西本资讯</span>
+
+                            <div class="summary">
+                                <p>摘要：11月6日上海建筑钢市日记：午后，螺纹钢期货窄幅调整，主力合约最终小幅收红；期螺未能上攻，现货几乎躺平：价格方面：大户报价稳定，中小公司保持原价</p>
+                            </div>
+                            
+                            <div class="news-content-text">
+                            <p>11月6日，阴转多云。岁月不会停下脚步，就像时光回不到过去，不必急于求成，也不必畏惧前路起伏，稳住心神，步步踏实，每一次跨越，终会留下属于自己的印记。今天的申城，阳光偶尔，气温回升；今天的市场，价格整理，交易平稳。</p><p>期螺稳步收高，现货同步上移；刚需有所恢复，商家情绪回暖——昨天，国内建筑钢市开盘多数上涨，盘中维持强势，上海市场价格环比上调。昨日夜间，外盘欧美股市多数下跌，原油期货反弹，内盘黑色系商品震荡收红；今天早盘，全国主要现货市场报价惯性走高，具体到上海市场，价格略有抬升，如，库提资源中，黄海、镔鑫、中新、金罡、桂鑫、萍钢、长江、中天等价格趋强，主流螺纹钢基价挂在3070-3180元，盘螺售价3230-3380元/吨；厂提资源价格盘整，中天和永钢产螺纹基价报3060-3160元/吨，永钢盘螺级差200元/吨。大户或稳或涨，散户谨慎跟随，单单从早盘报价看，上海建筑钢市稳中偏强。</p><p>期货收复失地，现货应声而涨；工地主动补货，成交环比增量。昨天的市场，是期螺引领，是现货上调，是阴跌的行情终于出现了转机。今天早间，部分区域现货报价惯性调高，上海市场价格未能全面提升。报价部分趋强，用户表现平静，早盘市场交易未能继续升温：九点以后，少数工地报出计划；九点半后，库存大户开单不多——同期，期螺主力合约延续昨晚的回调走势，又助长了用户的观望情绪。商家想涨价，期螺有点弱，客户在等待，与昨天的“热闹”不同，期待中的“抢购”未能出现，在这样的情形下，早盘市场价格呈现小幅波动：十点之前，订单不多，采购能够压压价；十点以后，期螺趋暖，报价就是成交价。一边是期货拉不动，一边是需求不放大，至中午时分，主导资源价格没有进一步变化。</p><p>整个上午，期螺回升受阻，现货上行无力；工地按需进货，市场交易一般。从价格走势看，主导资源售价环比变化不大，如，库提资源中，优质品螺纹钢基准价格3070-3180元，盘螺售价3230-3380元/吨；厂提资源中，永钢、中天螺纹基价3060-3160元，永钢盘螺加价200元/吨。对比前一交易日同期，多数资源售价不变，个别产品上调10元/吨；从实际开单情况看，上海本地需求不多，周边市场交易平淡。</p><p>上午期螺区间调整，现货大体稳定；下午期螺波动不大，现货基本未变。午后，螺纹钢期货窄幅调整，主力合约最终小幅收红；期螺未能上攻，现货几乎躺平：价格方面：大户报价稳定，中小公司保持原价（如，库提资源中，多数抗震螺纹钢基价3070-3100元，厂提资源中，永钢螺纹基价3160元/吨）。需求方面：虽然天气转好，但下午工地没有大量进货，期螺收盘之后，市场交易较少；全天下来，库存大户销量约两千吨，中小公司少量开单。</p><p>今天，上海市场价格趋稳，周边市场变化不大。其中，合肥市场主导钢厂回稳，市场价格持平；南京主导钢厂补涨，市场价格不变；南昌主导钢厂调高，市场相对平稳；福州、厦门市场价格盘整，交易不多；杭州市场开盘稳定，盘中小幅整理。另外，今日河北唐山市场钢坯价格走稳，预计钢坯出厂价格不变。另据西本资讯跟踪的全国建材市场报价，持平城市占比38%，上涨市场占比62%，午后更多区域盘整。</p><p>现货再现滞涨，期螺未能拔高。今天沪钢期货主力合约早盘走弱，盘中小幅调整，午后走势平淡，所有合约收盘结算价格收红。其中，螺纹钢2701合约开盘3042元，最高3059元，最低3030元，收盘3038元，较上一交易日结算价格上涨8元。</p><p>无事心不空，有事心不乱；大事心不畏，小事心不慢。今天的上海建筑钢市，价格波动很小，销量未能提升。总结：期螺调整，现货徘徊；量能不足，有心无力。[文]西本新干线特邀评论员希玛拉亚峰</p>
+                                </div>
+
+                            
+                        </div>
+                        <!-- /News-content End-->
+
+                        <!-- Footer -->
+                        
+<!-- Bottom Toolbar-->
+<div class="toolbar">
+    <div class="footer">
+        <div class="friend-link">
+            <a href="/">返回首页</a>
+            <a href="about.aspx">平台简介</a>
+            <a href="column.aspx?columnid=31">平台动态</a>
+            <a href="column.aspx?columnid=38">媒体关注 </a>
+            <a href="column.aspx?columnid=39">通知公告</a>
+        </div>
+        <div class="versionchange">
+            <a href="https://m.steelx2.com">触屏版</a>  
+            <a href="https://www.steelx2.com/?ui=www">电脑版 </a>
+        </div>
+        <div  class="copyright">
+            
+             <a class="textlink" href="https://dxzhgl.miit.gov.cn/" target="_blank">沪B2-20190795</a>
+             <a class="textlink" href="https://beian.miit.gov.cn/" target="_blank">沪ICP备12025672号</a>
+             <a class="textlink" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010902001335" target="_blank"><span class="gaba"></span>沪公网安备 31010902001335号</a>
+        </div>
+    </div>
+</div>
+
+                        <!-- /Footer End-->
+                    </div>
+                </div>
+            </div>
+            <!-- Pages End -->
+
+
+        </div>
+    </div>
+    <!-- /Views End -->
+
+
+
+    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/framework7.min.js"></script>
+    <script src="js/mine.js"></script>
+    
+<script type="text/javascript">
+    /*百度统计*/
+    var _hmt = _hmt || [];
+    var staticUrl = "https://hm.baidu.com/hm.js?cb6b22a1a4f05c4b092e947457bc8441";
+    if (staticUrl) {
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = staticUrl;
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    }
+</script>
+<script type="text/javascript" src="/js/wechatminihelper.js?2024041810"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "refresh_version": "1.2",
+  "rule_version": "v3.0",
+  "as_of_date": "2026-11-08",
+  "evaluated_at": "2026-11-08T01:05:20.499595+08:00",
+  "generator": "codex",
+  "scope": "mechanical_refresh_only",
+  "refresh_status": "failed",
+  "issues": [
+    "no_complete_v1.18_input_found",
+    "collector_failed:exit_1:isolated_partial_preserved"
+  ],
+  "trend": [],
+  "economic_reversion": [],
+  "registered_plan_windows": [],
+  "calendar_source": "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions",
+  "publication_note": "18:00 cutoff is a guard, not verified final-settlement publication",
+  "execution_permission": "not_evaluated",
+  "readiness": "not_evaluated",
+  "final_lots": null,
+  "performance_status": "not_automated",
+  "source_inputs": [
+    {
+      "role": "frozen-anchors",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-08/output/runs/futures/2026-11-08/automation/continuity/anchors.json",
+      "path": "research/futures/refresh/2026-11-08/evidence/2026-11-08-signal-refresh/frozen-anchors.json",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "bytes": 70
+    },
+    {
+      "role": "registered-plans",
+      "original_path": "/private/tmp/futures-weekly-automation-2026-11-08/output/runs/futures/2026-11-08/automation/continuity/plans.json",
+      "path": "research/futures/refresh/2026-11-08/evidence/2026-11-08-signal-refresh/registered-plans.json",
+      "sha256": "25aea5a209c4487a59f2c6b59d1eb1e4c4646e5e24613a254d0861bf08fcca0b",
+      "bytes": 7365
+    }
+  ],
+  "method": {
+    "canonical": "framework/futures_framework.md",
+    "canonical_sha256": "b2f7f4bc293d301690e5cd5ad8d91aebc450d8d7c59dcb7a4f6a5609f6f843b9",
+    "helper": "scripts/futures_strategy.py",
+    "helper_sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+    "refresh_sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6"
+  },
+  "input_selection": {
+    "selected": null,
+    "selected_sha256": null,
+    "attempted": [],
+    "selected_snapshot": null
+  },
+  "complete": true
+}

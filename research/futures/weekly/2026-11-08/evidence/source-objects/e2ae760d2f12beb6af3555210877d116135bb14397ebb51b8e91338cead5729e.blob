@@ -1,0 +1,59 @@
+{
+  "created_at": "2026-11-08T01:11:44.974650+08:00",
+  "tool": "built-in web search/open/find",
+  "read_sources": [
+    {
+      "url": "https://www.cnfin.com/dz-lb/detail/20261105/4491421_1.html",
+      "status": "full article read",
+      "observed_date": "2026-11-05",
+      "observations": {
+        "rb_output_wan_tonnes": 185.9,
+        "output_wow": 4.72,
+        "factory_inventory": 147.39,
+        "factory_wow": 0.15,
+        "social_inventory": 334.98,
+        "social_wow": -15.05,
+        "apparent_consumption_residual": 200.8,
+        "apparent_wow": -5.27
+      }
+    },
+    {
+      "url": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+      "status": "official body read",
+      "observations": {
+        "scheduled_local": "2026-11-10 12:00 ET"
+      }
+    },
+    {
+      "url": "https://www.gtjaqh.com/pc/calendar?date=20261106",
+      "status": "body and table read",
+      "observations": {
+        "M_company_margin": 0.13,
+        "M_limit": 0.06,
+        "RB_company_margin": 0.11,
+        "RB_limit": 0.05,
+        "applicability": "2026-11-05 settlement to 2026-11-06 day close; not user actual margin"
+      }
+    },
+    {
+      "url": "https://www.mkqh.com/front/serviceinfo/38444",
+      "status": "web body read; direct HTTP 403 saved",
+      "observations": {
+        "M_company_margin": 0.1,
+        "M_limit": 0.06,
+        "applicability": "2026-11-06 company page, not user actual margin"
+      }
+    }
+  ],
+  "failed_original_reads": [
+    {
+      "url": "https://www.dce.com.cn/dalianshangpin/ywfw/jystz/ywtz/8525218/index.html",
+      "status": "web timeout; HTTP connect timeout"
+    },
+    {
+      "url": "https://www.dce.com.cn/dalianshangpin/resource/cms/2017/04/期货公司豆粕期权业务指南(1).pdf",
+      "status": "web unavailable; HTTP connect timeout"
+    }
+  ],
+  "http_recovery": "Mysteel and Xiben web failures were recovered only by reading exact-URL HTTP originals saved in this directory; AI-only accessible boxes excluded from adoption."
+}

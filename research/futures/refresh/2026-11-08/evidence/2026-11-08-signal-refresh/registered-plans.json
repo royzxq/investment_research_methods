@@ -1,0 +1,208 @@
+{
+  "as_of_date": "2026-11-08",
+  "candidates": [
+    {
+      "actual_position_status": "unknown",
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261009-MA2701-trend-long-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-01",
+        "entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+        "execution_reuse": false,
+        "materialized_root": "sources/fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-01"
+      },
+      "contracts": [
+        "MA2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "Original entry expired/cancelled; actual holdings/stop/fills/account and executable quote unknown; preserve historical numeric plan only",
+      "direction": "long",
+      "entry_window_state": "expired",
+      "evaluated_at": "2026-11-01T01:06:24.913824+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "ORIGINAL-SOURCES",
+        "HOLDING-REVIEW",
+        "PRICE-MA2701"
+      ],
+      "execution_permission": "not_evaluated",
+      "execution_state_inherited": false,
+      "final_lots": null,
+      "first_blocker": "G3",
+      "historical_price_screen": "original 2026-10-09 long price signal retained; 2026-10-15 new T signal not_triggered",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "plan": {
+        "alternate_entry": {
+          "entry_date": "2026-10-13",
+          "latest_exit_date": "2026-11-09",
+          "same_signal_valid_until": "2026-10-13"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/ec72726d1dd2d82308f236fc8d3f2724192b1b206f1d9f42606711b83da4b14a",
+        "cost_basis": "研究预算，非用户实收；实际费用/滑点变化后必须重算",
+        "earliest_future_execution_at": "2026-10-12T09:00:00+08:00",
+        "entry": 3338,
+        "entry_date": "2026-10-12",
+        "entry_quote_status": "expired_original_plan_not_current_quote",
+        "entry_range": [
+          3289,
+          3387
+        ],
+        "evaluated_at": "2026-10-11T18:14:54+08:00",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-06",
+        "registered_at": "2026-10-11T18:14:54+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-09",
+        "stop": 3139,
+        "targets": null,
+        "valid_until": "2026-10-13"
+      },
+      "price_screening_date": "2026-10-23",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "risk_factors": {
+        "exchange_buffer": null,
+        "market_risk": 0.5,
+        "market_risk_reason": "nonfatal economic disagreement/ongoing supply event; one factor only",
+        "strategy": 0.7
+      },
+      "signal": "triggered",
+      "signal_evidence_refs": [
+        "ORIGINAL-SOURCES"
+      ],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-10-30",
+      "unknown_checks": [
+        "G1",
+        "G2",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    },
+    {
+      "actual_position_status": "unknown",
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261023-RB2701-trend-short-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-01",
+        "entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+        "execution_reuse": false,
+        "materialized_root": "sources/fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-01"
+      },
+      "contracts": [
+        "RB2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "Original entry expired/cancelled; actual holdings/stop/fills/account and executable quote unknown; preserve historical numeric plan only",
+      "direction": "short",
+      "entry_window_state": "remaining_window",
+      "evaluated_at": "2026-11-01T01:06:24.913824+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "ORIGINAL-SOURCES",
+        "HOLDING-REVIEW",
+        "PRICE-RB2701"
+      ],
+      "execution_permission": "not_evaluated",
+      "execution_state_inherited": false,
+      "final_lots": null,
+      "first_blocker": "G3",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+      "plan": {
+        "alternate_entry": {
+          "entry_date": "2026-10-27",
+          "latest_exit_date": "2026-11-23",
+          "same_signal_valid_until": "2026-10-27"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297.blob",
+        "cost_basis": "research cost budget, not actual broker fee; revalidate actual fill and costs",
+        "earliest_future_execution_at": "2026-10-26T09:00:00+08:00",
+        "entry": 3047,
+        "entry_date": "2026-10-26",
+        "entry_range": [
+          3034,
+          3050
+        ],
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-20",
+        "registered_at": "2026-10-25T01:06:50.045735+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-23",
+        "stop": 3103,
+        "targets": null,
+        "valid_until": "2026-10-27"
+      },
+      "registered_at": "2026-10-25T01:06:50.045735+08:00",
+      "risk_factors": {
+        "exchange_buffer": null,
+        "market_risk": 0.5,
+        "market_risk_reason": "nonfatal conflict: residual demand falls but total rebar stocks still destock; HV20/HV60=.9102 not high",
+        "strategy": 0.7
+      },
+      "signal": "triggered",
+      "signal_evidence_refs": [
+        "ORIGINAL-SOURCES"
+      ],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "stress_review": {
+        "adverse_price": 3140,
+        "basis": "observed prior20 high as one adverse scenario, not worst case",
+        "gap_ratio": 1.6166666666666667,
+        "light_review_line": 1.5,
+        "planned_loss": 600,
+        "reject_line": 2,
+        "result": "above light line; absolute stress capacity and current limit/quote scenarios required; G4/G5/G6 remain unknown",
+        "stressed_loss": 970
+      },
+      "trade_date": "2026-10-30",
+      "unknown_checks": [
+        "G1",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    }
+  ],
+  "execution_permission": "not_evaluated",
+  "final_lots": null,
+  "schema": "futures-local-continuity/v1",
+  "scope": "candidate_continuity_only"
+}

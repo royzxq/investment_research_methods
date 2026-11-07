@@ -1,0 +1,62 @@
+{
+  "as_of_date": "2026-11-08",
+  "generator": "codex",
+  "mode": "full+publish",
+  "baseline_origin_main": "949d020af04ba55e68cbeacada91099cc960d104",
+  "head": "949d020af04ba55e68cbeacada91099cc960d104",
+  "deployment": "present",
+  "maintenance_contract": "futures-maintenance/v2",
+  "recorded_at": "2026-11-08T01:08:12.827831+08:00",
+  "files": [
+    {
+      "path": "framework/futures_framework.md",
+      "sha256": "b2f7f4bc293d301690e5cd5ad8d91aebc450d8d7c59dcb7a4f6a5609f6f843b9",
+      "head_matches": true
+    },
+    {
+      "path": "framework/futures_framework_compact.md",
+      "sha256": "beebbcac45dadd017534a00ede8739cd6d64ce2d38afd3f6870008c2c196c49b",
+      "head_matches": true
+    },
+    {
+      "path": "framework/FUTURES_DATA_PROTOCOL.md",
+      "sha256": "e10ed5a93ea2233511ce9cabb355f95a65792c9b2fda0537e8a2042135af10ac",
+      "head_matches": true
+    },
+    {
+      "path": ".agents/skills/futures-weekly-review/SKILL.md",
+      "sha256": "5c83aa4b729807458d2f670ab0e9ffa3cc8c4b96dcf2e58215e7a61322993132",
+      "head_matches": true
+    },
+    {
+      "path": "scripts/futures_handoff.py",
+      "sha256": "fadea67898a5b73bebca2089774a52ce479579d74c817d6ada69be34de7cd1e3",
+      "head_matches": true
+    },
+    {
+      "path": "scripts/futures_refresh.py",
+      "sha256": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6",
+      "head_matches": true
+    },
+    {
+      "path": "scripts/futures_continuity.py",
+      "sha256": "c9bc44e1640b8683d93b4d7c61d65116cdebcad4fe8e3985b281c574a627f5ca",
+      "head_matches": true
+    },
+    {
+      "path": "scripts/futures_strategy.py",
+      "sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+      "head_matches": true
+    },
+    {
+      "path": "scripts/futures_risk.py",
+      "sha256": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+      "head_matches": true
+    },
+    {
+      "path": "scripts/future_data.py",
+      "sha256": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7",
+      "head_matches": true
+    }
+  ]
+}

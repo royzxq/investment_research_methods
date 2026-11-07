@@ -1,0 +1,1752 @@
+{
+  "schema": "futures-continuity-reconciliation/v2",
+  "as_of_date": "2026-11-08",
+  "evaluated_at": "2026-11-08T01:08:53.342413+08:00",
+  "status": "resolved_for_current_review",
+  "source_status": "needs_reconciliation",
+  "execution_reuse": false,
+  "requires_fresh_evaluation": true,
+  "source_inputs": [
+    {
+      "path": "research/futures/weekly/2026-11-08/evidence/continuity-catalog.json",
+      "sha256": "c771909b22cfb29040993e988300028deb994d6016c15c93b15d722981c13d3a"
+    }
+  ],
+  "conflicts": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "reason": "original_clock_or_identity_changed",
+      "sources": [
+        {
+          "as_of_date": "2026-10-15",
+          "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+          "execution_reuse": false,
+          "materialized_root": "sources/23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+          "method_compatible": true,
+          "producer": "daily",
+          "scope": "local",
+          "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+        },
+        {
+          "as_of_date": "2026-10-15",
+          "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+          "execution_reuse": false,
+          "materialized_root": "sources/7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+          "method_compatible": true,
+          "producer": "daily",
+          "scope": "local",
+          "source_root": "/Users/xinquanzhou/.codex/worktrees/futures-daily-automation-3/investment_research_methods"
+        }
+      ]
+    }
+  ],
+  "requires_plan_reassessment": [],
+  "requires_method_reassessment": [],
+  "review_scope_count": 13,
+  "correction_groups": 16,
+  "correction_decisions": [
+    {
+      "correction_group_index": 0,
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "inherited_scope": [
+        "采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。"
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 1,
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "inherited_scope": [],
+      "inherited_evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "撤回信号必须晚于版本生效的额外门；当前重评与历史回填不同，价格原始证据未变",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "FRAMEWORK"
+        }
+      ],
+      "resolution": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 2,
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "inherited_scope": [
+        "采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。"
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 3,
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "inherited_scope": [],
+      "inherited_evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "撤回信号必须晚于版本生效的额外门；当前重评与历史回填不同，价格原始证据未变",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "FRAMEWORK"
+        }
+      ],
+      "resolution": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 4,
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "inherited_scope": [
+        "采用r2产业研究及r3当前执行审计。r3替代r2市场报告第4/8节、KEY_CONSTRAINTS与PRECHECK_ITEMS中要求框架生效后新信号的约束及MA执行结论，并替代r2执行审计相应版本时间障碍；原MA信号日10/09、登记10/11、原截止10/13不变。未重做其他产业证据，不将r2整份视为r3已核。"
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 5,
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "inherited_scope": [],
+      "inherited_evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "撤回信号必须晚于版本生效的额外门；当前重评与历史回填不同，价格原始证据未变",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "FRAMEWORK"
+        }
+      ],
+      "resolution": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 6,
+      "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+      "inherited_scope": [
+        "仅撤回10/11 r3 的 MA2701 当前 G2 产业适用性 pass，待核需求负反馈与专属行情；原 ID、信号日、登记、10/13 截止不变；其他路线仍属10/09历史。"
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "继续撤回MA2701旧当前G2产业pass；不能把未被重核的旧pass复活。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 7,
+      "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+      "inherited_scope": [
+        "仅更新 MA2701 10/13 收盘现况、产业反证和原入场窗口；原 10/09 信号、10/11 登记、10/13 截止、其他路线历史与 10/11 市场研究范围不变"
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "仅接续MA10/13行情、产业反证和原截止；入场到期不证明持仓退出。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 8,
+      "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+      "inherited_scope": [
+        "仅更新 MA2701 10/15 存量价格/期限/产业风险，并新增 M2701 10/15 价格触发与待核审计；原 MA 信号日、登记及 10/13 截止和 10/11 市场研究其他范围不变"
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "接续MA原风险及M10/15研究信号；M首稿登记null仅保留为历史原件，不当作新时钟。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 9,
+      "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+      "inherited_scope": [
+        "r2 仅补 M2701 研究候选实际登记时间以便后续连续性读取；没有数值计划或许可。MA2701 10/15 存量状态和新 M 价格信号其余事实不变；原 MA 10/13 截止及 10/11 市场研究其他范围不变"
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "采纳显式r2对M真实登记时间19:30:56的限定纠正；无数值可执行计划、不扩大其余采纳范围。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 10,
+      "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+      "inherited_scope": [
+        "Replace the prior main market/audit current-use conclusions with 10/18 state and retain all historical facts and inherited corrections. M metadata reconciliation and exact local original bytes are in the current audit and frozen source catalog: original ID, 10/15 signal, actual 19:30:56 registration and 10/19 deadline preserved, original entry cancelled after price deviation. MA 10/09 signal/10/11 registration/10/13 deadline preserved; entry expiry is not holding exit. No method change or historical trade reconstruction."
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "接续10/18取消M原入场用途及MA原时钟和条件管理；原ID/登记/截止不变，重复捕获不算独立证据。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 11,
+      "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "inherited_scope": [
+        "Replace the prior main market/audit current-use conclusions with 10/18 state and retain all historical facts and inherited corrections. M metadata reconciliation and exact local original bytes are in the current audit and frozen source catalog: original ID, 10/15 signal, actual 19:30:56 registration and 10/19 deadline preserved, original entry cancelled after price deviation. MA 10/09 signal/10/11 registration/10/13 deadline preserved; entry expiry is not holding exit. No method change or historical trade reconstruction."
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "接续10/18取消M原入场用途及MA原时钟和条件管理；原ID/登记/截止不变，重复捕获不算独立证据。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 12,
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "inherited_scope": [
+        "Adopt 10/25 market r3, decision r3, audit r2 under actual main v3 unchanged rules. Replace 10/18 current-use state only; preserve all historical facts, IDs, signal/registration/deadlines and inherited withdrawals. M original 10/15 19:30:56 /10/19 remains cancelled and expired; metadata conflict explicitly reconciled without rewriting originals. MA original clock remains, conditional reference SL crossed10/19 and all original-band initial stops by10/20, no assumed fill/exit. Withdraw M full-sample/Mysteel attribution and direct cross-sample comparison109.60 versus109.08; retain transfer own +0.48%. New RB registered10/25, signal10/23, deadline10/27, G4/account unknown; no retrospective session fills or trade permission. Current three V no economic anchors; MA preparation pair38 missing settle dates separate from no_signal. Original drafts retained; no method change."
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "接续10/25限定替代范围：M109.60全样本/Mysteel归因和跨样本硬比较撤回；MA已条件穿越SL、RB新计划的原时钟保留；无事后成交、无V锚。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 13,
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "inherited_scope": [],
+      "inherited_evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "继承10/12已采纳的当前产业pass撤回；本期MTO/低库分歧重评仍unknown，不恢复旧pass。",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "WITHDRAWN-MA-G2"
+        }
+      ],
+      "resolution": "保留继承的MA当前产业pass撤回；当前G2须重新核验，不因新周期恢复旧pass。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 14,
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "inherited_scope": [
+        "Adopt 10/25 market r3, decision r3, audit r2 under actual main v3 unchanged rules. Replace 10/18 current-use state only; preserve all historical facts, IDs, signal/registration/deadlines and inherited withdrawals. M original 10/15 19:30:56 /10/19 remains cancelled and expired; metadata conflict explicitly reconciled without rewriting originals. MA original clock remains, conditional reference SL crossed10/19 and all original-band initial stops by10/20, no assumed fill/exit. Withdraw M full-sample/Mysteel attribution and direct cross-sample comparison109.60 versus109.08; retain transfer own +0.48%. New RB registered10/25, signal10/23, deadline10/27, G4/account unknown; no retrospective session fills or trade permission. Current three V no economic anchors; MA preparation pair38 missing settle dates separate from no_signal. Original drafts retained; no method change."
+      ],
+      "inherited_evidence_corrections": [],
+      "resolution": "接续10/25限定替代范围：M109.60全样本/Mysteel归因和跨样本硬比较撤回；MA已条件穿越SL、RB新计划的原时钟保留；无事后成交、无V锚。",
+      "applied_to_current_review": true,
+      "method_change": false
+    },
+    {
+      "correction_group_index": 15,
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "inherited_scope": [],
+      "inherited_evidence_corrections": [
+        {
+          "affected_checks": [
+            {
+              "candidate_id": "20261009-MA2701-trend-long-v3",
+              "rule_id": "G2"
+            }
+          ],
+          "reason": "继承10/12已采纳的当前产业pass撤回；本期MTO/低库分歧重评仍unknown，不恢复旧pass。",
+          "recalculation": "completed",
+          "withdrawn_evidence_id": "WITHDRAWN-MA-G2"
+        }
+      ],
+      "resolution": "保留继承的MA当前产业pass撤回；当前G2须重新核验，不因新周期恢复旧pass。",
+      "applied_to_current_review": true,
+      "method_change": false
+    }
+  ],
+  "review_scope_decisions": [
+    {
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "as_of_date": "2026-10-11",
+      "audit_original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-M2701-trend-short-v3",
+          "opportunity_id": "20261011-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-RB2701-trend-short-v3",
+          "opportunity_id": "20261011-observe-RB2701-trend-short-v3",
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261009-SR2701-trend-unknown-v3",
+          "opportunity_id": "20261011-observe-SR2701-trend-unknown-v3",
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-CF2701-trend-unknown-v3",
+          "opportunity_id": "20261011-observe-CF2701-trend-unknown-v3",
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-MA2705-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-MA2701-MA2705-economic_reversion-unknown-v3",
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-RB2701-RB2703-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-RB2701-RB2703-economic_reversion-unknown-v3",
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-SR2701-SR2705-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-SR2701-SR2705-economic_reversion-unknown-v3",
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "as_of_date": "2026-10-11",
+      "audit_original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-M2701-trend-short-v3",
+          "opportunity_id": "20261011-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-RB2701-trend-short-v3",
+          "opportunity_id": "20261011-observe-RB2701-trend-short-v3",
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261009-SR2701-trend-unknown-v3",
+          "opportunity_id": "20261011-observe-SR2701-trend-unknown-v3",
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-CF2701-trend-unknown-v3",
+          "opportunity_id": "20261011-observe-CF2701-trend-unknown-v3",
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-MA2705-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-MA2701-MA2705-economic_reversion-unknown-v3",
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-RB2701-RB2703-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-RB2701-RB2703-economic_reversion-unknown-v3",
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-SR2701-SR2705-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-SR2701-SR2705-economic_reversion-unknown-v3",
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "as_of_date": "2026-10-11",
+      "audit_original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-M2701-trend-short-v3",
+          "opportunity_id": "20261011-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-RB2701-trend-short-v3",
+          "opportunity_id": "20261011-observe-RB2701-trend-short-v3",
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261009-SR2701-trend-unknown-v3",
+          "opportunity_id": "20261011-observe-SR2701-trend-unknown-v3",
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-CF2701-trend-unknown-v3",
+          "opportunity_id": "20261011-observe-CF2701-trend-unknown-v3",
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-MA2705-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-MA2701-MA2705-economic_reversion-unknown-v3",
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-RB2701-RB2703-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-RB2701-RB2703-economic_reversion-unknown-v3",
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-SR2701-SR2705-economic_reversion-unknown-v3",
+          "opportunity_id": "20261011-observe-SR2701-SR2705-economic_reversion-unknown-v3",
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+      "as_of_date": "2026-10-12",
+      "audit_original_path": "research/futures/weekly/2026-10-12/2026-10-12-execution-audit.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587",
+        "sha256": "29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587",
+        "bytes": 41487
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        }
+      ]
+    },
+    {
+      "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+      "as_of_date": "2026-10-13",
+      "audit_original_path": "research/futures/weekly/2026-10-13/2026-10-13-execution-audit.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127",
+        "sha256": "dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127",
+        "bytes": 14811
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        }
+      ]
+    },
+    {
+      "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+      "as_of_date": "2026-10-15",
+      "audit_original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+        "sha256": "a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+        "bytes": 20878
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        }
+      ]
+    },
+    {
+      "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+      "as_of_date": "2026-10-15",
+      "audit_original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit-r2.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+        "sha256": "6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+        "bytes": 21061
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-15T19:30:56+08:00",
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        }
+      ]
+    },
+    {
+      "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+      "as_of_date": "2026-10-18",
+      "audit_original_path": "research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-25/evidence/shared-sources/objects/d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c.blob",
+        "sha256": "d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c",
+        "bytes": 80920
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-15T19:30:56+08:00",
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261016-RB2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-MA2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-SR2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-CF2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-MA2701-MA2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-RB2701-RB2703-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-SR2701-SR2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "as_of_date": "2026-10-18",
+      "audit_original_path": "research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-10-25/evidence/shared-sources/objects/d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c.blob",
+        "sha256": "d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c",
+        "bytes": 80920
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-15T19:30:56+08:00",
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261016-RB2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-MA2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-SR2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-CF2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-MA2701-MA2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-RB2701-RB2703-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261016-SR2701-SR2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "as_of_date": "2026-10-25",
+      "audit_original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-15T19:30:56+08:00",
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261023-RB2701-trend-short-v3",
+          "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-25T01:06:50.045735+08:00",
+          "signal_date": "2026-10-23",
+          "valid_until": "2026-10-27",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261023-CF2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-M2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-MA2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-SR2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-MA2701-MA2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-RB2701-RB2703-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-SR2701-SR2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "as_of_date": "2026-10-25",
+      "audit_original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-15T19:30:56+08:00",
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261023-RB2701-trend-short-v3",
+          "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-25T01:06:50.045735+08:00",
+          "signal_date": "2026-10-23",
+          "valid_until": "2026-10-27",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261023-CF2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-M2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-MA2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-SR2701-trend-current-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-MA2701-MA2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-RB2701-RB2703-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261023-SR2701-SR2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018",
+      "as_of_date": "2026-11-01",
+      "audit_original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r6.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-11-08/evidence/continuity-sources/objects/068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6.blob",
+        "sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6",
+        "bytes": 62201
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261030-CF2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-M2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-MA2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-RB2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-SR2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-15T19:30:56+08:00",
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261023-RB2701-trend-short-v3",
+          "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-25T01:06:50.045735+08:00",
+          "signal_date": "2026-10-23",
+          "valid_until": "2026-10-27",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261030-MA2701-MA2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-RB2701-RB2703-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-SR2701-SR2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    },
+    {
+      "entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "as_of_date": "2026-11-01",
+      "audit_original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r6.md",
+      "audit_frozen_ref": {
+        "path": "research/futures/weekly/2026-11-08/evidence/continuity-sources/objects/068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6.blob",
+        "sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6",
+        "bytes": 62201
+      },
+      "current_account_verified": false,
+      "historical_account_status": "unknown",
+      "candidates": [
+        {
+          "candidate_id": "20261030-CF2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "CF2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-M2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-MA2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-RB2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-SR2701-trend-screen-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701"
+          ],
+          "historical_signal": "not_triggered",
+          "historical_status": "no_signal",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261009-MA2701-trend-long-v3",
+          "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+          "contracts": [
+            "MA2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-11T18:14:54+08:00",
+          "signal_date": "2026-10-09",
+          "valid_until": "2026-10-13",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261015-M2701-trend-short-v3",
+          "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+          "contracts": [
+            "M2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-15T19:30:56+08:00",
+          "signal_date": "2026-10-15",
+          "valid_until": "2026-10-19",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261023-RB2701-trend-short-v3",
+          "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+          "contracts": [
+            "RB2701"
+          ],
+          "historical_signal": "triggered",
+          "historical_status": "incomplete",
+          "registered_at": "2026-10-25T01:06:50.045735+08:00",
+          "signal_date": "2026-10-23",
+          "valid_until": "2026-10-27",
+          "review_disposition": "保留原ID/时钟并重新评估条件管理，不继承执行状态"
+        },
+        {
+          "candidate_id": "20261030-MA2701-MA2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "MA2701",
+            "MA2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-RB2701-RB2703-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "RB2701",
+            "RB2703"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        },
+        {
+          "candidate_id": "20261030-SR2701-SR2705-economic-reversion-research-v3",
+          "opportunity_id": null,
+          "contracts": [
+            "SR2701",
+            "SR2705"
+          ],
+          "historical_signal": "unknown",
+          "historical_status": "incomplete",
+          "registered_at": null,
+          "signal_date": null,
+          "valid_until": null,
+          "review_disposition": "旧未触发/未成案研究观察，无原数值计划或已核持仓，不继承旧no_signal/pass；当前五T和三V另评估"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "signal_date": "2026-10-15",
+      "registered_at": "2026-10-15T19:30:56+08:00",
+      "valid_until": "2026-10-19",
+      "resolution": "采纳显式r2真实登记补充；首稿null原件保留。10/16价格越原范围取消入场用途、10/19到期，不重启信号、不补造数值计划。",
+      "source_inputs": [
+        {
+          "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+          "sha256": "a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+          "bytes": 20878
+        },
+        {
+          "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+          "sha256": "6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+          "bytes": 21061
+        },
+        {
+          "path": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/c14b5c28c4affbce02483577bafef5fdc2c716a527391843b36cca7a9ee1be32",
+          "sha256": "c14b5c28c4affbce02483577bafef5fdc2c716a527391843b36cca7a9ee1be32",
+          "bytes": 5001
+        }
+      ],
+      "actual_position_status": "unknown",
+      "requires_current_conditional_management": true
+    },
+    {
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "signal_date": "2026-10-09",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "valid_until": "2026-10-13",
+      "resolution": "原入场expired标签正确；参考SL3139在10/19、原带所有初始SL在10/20条件穿越，原11/06或11/09时间上限仍保留，不覆盖更早边界；退出和实际持仓均未核。",
+      "actual_position_status": "unknown",
+      "requires_current_conditional_management": true
+    },
+    {
+      "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+      "signal_date": "2026-10-23",
+      "registered_at": "2026-10-25T01:06:50.045735+08:00",
+      "valid_until": "2026-10-27",
+      "resolution": "原窗口已expired；当前审计必须纠正沿袭的remaining_window标签。原Entry3047/带3034–3050/SL3103和11/20或11/23时间界作为历史计划保留，当前是否持仓/有效SL/退出另核。",
+      "actual_position_status": "unknown",
+      "requires_current_conditional_management": true
+    },
+    {
+      "issue": "重复共享捕获",
+      "resolution": "39d1与510252具有相同243文件集合但可选anchors指针不同；2bff与fa1采用同11/01r6报告，捕获范围分别222/293文件。均保留原entry和对象；重复内容不增加独立产业证据或新机会。"
+    },
+    {
+      "issue": "v1与历史方法原件",
+      "resolution": "本轮13条有效entry均为含futures-effective-rules/v1指纹和strategy/risk计算身份的已兼容v2采纳；无需新migrate。现有历史迁移依据和登记时原件逐字节保留，仅历史读取，不以当前helper冒充历史，也不继承旧执行判断。"
+    },
+    {
+      "issue": "requires_*空列表",
+      "resolution": "原始collect两个列表均空；这不豁免全存量审阅或上述RB状态标签纠错。M因原钟冲突未自动导出到plans，仍按原ID显式接续。"
+    }
+  ],
+  "new_evidence_corrections": [
+    {
+      "correction_id": "RB-ENTRY-WINDOW-STATE-20261108",
+      "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+      "original_claim": "已采纳11/01 execution-audit-r6 candidate.entry_window_state=remaining_window；collect plans继承同值。",
+      "corrected_value": "expired",
+      "basis": "原plan.signal_date=2026-10-23、valid_until=2026-10-27，11/01及本期11/08均晚于截止。原11/01正文与G3已判到期，此处仅修正不一致状态元数据。",
+      "affected_checks": [
+        {
+          "candidate_id": "20261023-RB2701-trend-short-v3",
+          "rule_id": "G3"
+        }
+      ],
+      "source_inputs": [
+        {
+          "path": "research/futures/weekly/2026-11-08/evidence/continuity-sources/objects/068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6.blob",
+          "sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6",
+          "bytes": 62201
+        },
+        {
+          "path": "research/futures/weekly/2026-11-08/evidence/continuity-sources/objects/25aea5a209c4487a59f2c6b59d1eb1e4c4646e5e24613a254d0861bf08fcca0b.blob",
+          "sha256": "25aea5a209c4487a59f2c6b59d1eb1e4c4646e5e24613a254d0861bf08fcca0b",
+          "bytes": 7365
+        }
+      ],
+      "recalculation": "completed",
+      "scope": "current status metadata only; original identity/clock and reports remain immutable",
+      "method_change": false
+    }
+  ],
+  "anchor_continuity": {
+    "active_anchors": 0,
+    "signal_observations": 0,
+    "withdrawals": 0,
+    "resolution": "没有有效旧锚需撤回；当前研究若无充分经济区间保持未评估，不将空锚解释为no_signal。"
+  },
+  "method_change_needed": false,
+  "current_market_and_execution_reassessment": "由本期market-research/execution-audit完成；本文件仅裁决接续身份/撤回与元数据，不断言当前行情、账户或真实成交。"
+}

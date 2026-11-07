@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ma-gl9",
+    "url": "https://www.glqh.com/jyts/50836.jhtml",
+    "captured_at": "2026-11-08T01:07:52.715878+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/ma-gl9.html",
+    "sha256": "f4e0a67f9f6d331fb7ad37db9407ac43b709c5a458f5323b28e41251ab26120c"
+  },
+  {
+    "id": "ma-gl6",
+    "url": "https://www.glqh.com/jyts/50834.jhtml",
+    "captured_at": "2026-11-08T01:07:53.858067+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/ma-gl6.html",
+    "sha256": "bc51b34ad4bb14796daeecc38a14bb816308a8a4a765e00eb1100302b1cdc2cf"
+  },
+  {
+    "id": "ma-gl9-margin",
+    "url": "https://www.glqh.com/u/cms/www/202611/06163628q0sl.pdf",
+    "captured_at": "2026-11-08T01:07:54.561171+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/ma-gl9-margin.pdf",
+    "sha256": "9ebe19e5af6bb93f506136e2ed83c0c590fa4db6b7ab0313e06e1ba0f709a451"
+  },
+  {
+    "id": "ma-hicend-margin",
+    "url": "https://m.hicend.com.cn/h5/CommonArticleDetail/16193",
+    "captured_at": "2026-11-08T01:07:55.115177+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/ma-hicend-margin.html",
+    "sha256": "ba606968fe987b68b1481a322cb7a2cfe3041ed67523f5ef30bbd9febc9589f4"
+  },
+  {
+    "id": "rb-storage",
+    "url": "https://www.shfe.com.cn/products/futures/metal/ferrousandpreciousmetal/rb_f/attach/202206/t20220630_798893.html",
+    "captured_at": "2026-11-08T01:07:56.667842+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/rb-storage.html",
+    "sha256": "95d951a3f19e4026fbf77f855ae16f7986043f46d5d96f7e7d964441899ef3e4"
+  },
+  {
+    "id": "rb-rules",
+    "url": "https://www.shfe.com.cn/regulation/exchangerules/productrules/202512/t20251231_829962.html",
+    "captured_at": "2026-11-08T01:07:57.115958+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/rb-rules.html",
+    "sha256": "b19deb6ee3dfb44cf83d760fe96893eb2a53758d78488b6407df6e2245379841"
+  },
+  {
+    "id": "ma-storage",
+    "url": "https://www.czce.com.cn/cn/rootfiles/2022/04/27/1644404734921877-1644404734985457.pdf",
+    "captured_at": "2026-11-08T01:07:57.250607+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/ma-storage.pdf",
+    "sha256": "96dee5811faa84be134350f40208643c52bdec5d89df2f73f1bb2aa2fcc306bf"
+  },
+  {
+    "id": "sr-storage",
+    "url": "https://www.hsqh.net/col230/4842",
+    "captured_at": "2026-11-08T01:07:58.513703+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/sr-storage.html",
+    "sha256": "fd0e4a907fa19faef99179d1b6260d074a600a9b8a7d562c1b10d1be3ac763bd"
+  },
+  {
+    "id": "cf-yarn-list",
+    "url": "https://www.mysteel.com/oilchem/article/k5qez6/",
+    "captured_at": "2026-11-08T01:07:58.991819+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/cf-yarn-list.html",
+    "sha256": "a80e8b2e3a367dfa65352a05109a6ed5641967ab841ad8e8eac9bfbc48beab98"
+  },
+  {
+    "id": "czce-holiday-lineage",
+    "url": "https://finance.eastmoney.com/a/202512173594248238.html",
+    "captured_at": "2026-11-08T01:08:00.854074+08:00",
+    "status": 200,
+    "path": "/private/tmp/futures-weekly-automation-2026-11-08/research/futures/weekly/2026-11-08/evidence/other-products/czce-holiday-lineage.html",
+    "sha256": "c656e193cae4df1e04e591ef9ccf7bff14059040237784141cbd148939ff6d82"
+  }
+]

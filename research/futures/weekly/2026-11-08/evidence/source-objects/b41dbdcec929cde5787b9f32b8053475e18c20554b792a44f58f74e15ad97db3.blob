@@ -1,0 +1,26 @@
+{
+  "schema": "futures-continuity-freeze-validation/v1",
+  "as_of_date": "2026-11-08",
+  "validated_at": "2026-11-08T01:09:34.563137+08:00",
+  "entry_integrity_checks": "13 entries via futures_continuity.load_entry; every exported source compared byte-for-byte",
+  "statistics": {
+    "entries": 13,
+    "entry_file_references": 1543,
+    "distinct_frozen_objects": 262,
+    "new_opaque_objects": 19,
+    "reused_existing_opaque_objects": 243
+  },
+  "source_graph_files": 264,
+  "live_output_dependencies": [],
+  "capture_files_result": "passed",
+  "adopted_catalog": {
+    "path": "research/futures/weekly/2026-11-08/evidence/continuity-catalog-r2.json",
+    "sha256": "3b6b855a6b33d8cd3e00acabdcaa8444dc0977494f7c39b1d80276cd9af93a3c"
+  },
+  "adopted_reconciliation": {
+    "path": "research/futures/weekly/2026-11-08/evidence/continuity-reconciliation-r2.json",
+    "sha256": "ead5682c3f31deb180541d9f5ce2baf0053250caad8916092137a12b88eda3a7"
+  },
+  "preserved_draft_status": "Initial catalog/reconciliation retained as unadopted drafts after live historical path interpretation failed; no historical object overwritten. r2 uses exact original_path provenance field and opaque frozen_ref references.",
+  "scope": "Byte identity and persistent source graph only; no market freshness, economics, account, trade or profitability validation"
+}

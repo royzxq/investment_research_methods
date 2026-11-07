@@ -1,0 +1,27 @@
+[
+  {
+    "id": "rb-cnfin",
+    "url": "https://www.cnfin.com/dz-lb/detail/20261105/4491421_1.html",
+    "error": "HTTPSConnectionPool(host='www.cnfin.com', port=443): Max retries exceeded with url: /dz-lb/detail/20261105/4491421_1.html (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10432a830>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "m-mysteel",
+    "url": "https://ncp.mysteel.com/a/26110612/9D555E15178A78EC.html",
+    "error": "HTTPSConnectionPool(host='ncp.mysteel.com', port=443): Max retries exceeded with url: /a/26110612/9D555E15178A78EC.html (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10432a620>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "rb-mysteel",
+    "url": "https://factory.mysteel.com/a/26110611/DBAB1F670E96F4C1.html",
+    "error": "HTTPSConnectionPool(host='factory.mysteel.com', port=443): Max retries exceeded with url: /a/26110611/DBAB1F670E96F4C1.html (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10432aa40>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "wasde-usda",
+    "url": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+    "error": "HTTPSConnectionPool(host='www.usda.gov', port=443): Max retries exceeded with url: /about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10432a440>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  },
+  {
+    "id": "dce-session-notice",
+    "url": "http://www.dce.com.cn/dalianshangpin/ywfw/jystz/ywtz/8525218/index.html",
+    "error": "HTTPConnectionPool(host='www.dce.com.cn', port=80): Max retries exceeded with url: /dalianshangpin/ywfw/jystz/ywtz/8525218/index.html (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x104329de0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))"
+  }
+]

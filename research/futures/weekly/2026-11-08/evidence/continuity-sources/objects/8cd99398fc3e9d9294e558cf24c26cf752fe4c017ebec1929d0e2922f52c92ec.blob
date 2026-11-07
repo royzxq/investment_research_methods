@@ -1,0 +1,75 @@
+{
+  "schema": "futures-handoff/v2",
+  "status": "adopted",
+  "scope": "published",
+  "as_of_date": "2026-11-01",
+  "registered_at": "2026-11-01T01:15:40.195308+08:00",
+  "market_as_of_date": "2026-10-30",
+  "method": {
+    "path": "framework/futures_framework.md",
+    "version": "v3.0",
+    "fingerprint_schema": "futures-effective-rules/v1",
+    "rule_sections": {
+      "r-v3-scope": "5b81af28271d88744c25d02d644a11a1f11ea503795a2725d2cd8a8f6320f712",
+      "r-v3-pool": "4685daa7ee7da441b33ddd53d74973f9d3135e17e8f5a795f46ead7304fe070d",
+      "r-v3-workflow": "ac406122dda886b8c2569f0173b6b2cdd0f8126dd0e4d14156347f47f82ac897",
+      "r-v3-data": "7f50bbd5f7d46519d6328db564b83f5dbead890b2610ec1f6985cc847d88acf1",
+      "r-v3-calendar": "de876d0c34b7ebc5e04fd339b3774fee2bdf63d9d02ed83c8a0e70ca6af2fb61",
+      "r-v3-economics": "a28ec6fa1cc4cd46cdde6a8c6d1c110820fd6b710eba61c6c4adb04a66428434",
+      "r-v3-quality": "c03221c9598a7f72297ed018286a35de6aa1ad195a189cf24f415cb8bd2329fc",
+      "r-v3-signal-t": "2bba1ec2abad37b6fbf38771d178801908e6aa4f2d649112cd97825029f69ba9",
+      "r-v3-plan-t": "5315eb7516730fbd8e05e54a40deb78ec95065e8548c7f4a03fe1fb4b80a058f",
+      "r-v3-signal-v": "73837a3e9d75da928ab23c19864db2d7a066b08a76d5828ae06a79e3f4d56330",
+      "r-v3-plan-v": "7896ee1e7f62c74943b2dd060bd12b5d8cfa01cedaa3dccd8711e1ae65c665a6",
+      "r-v3-expiry": "4a2574c2b4bdf57788539848ae02734d5642b5005c7f8061c029ce3d8aabae51",
+      "r-v3-liquidity": "86806e831b97ab3c81a67020589a9ef7b0d9f7382d09dbe779490ac5e9f688db",
+      "r-v3-budget": "91d5981c97fc8d079f80fb93659531ad6606b77b836f77438d79ccf7a064fc42",
+      "r-v3-factors": "ae6a7d2d50725136a874e8ac16db70d1fdb7f63d0f3cc55282e9f72da2a0d736",
+      "r-v3-account": "e2913a4f75177eceeab4c856a633d197d4925c5c3b63c8bdcef4113b61c2b97d",
+      "r-v3-margin": "90b57870c9e5a039ec8dc5538ecb3a1f38c760e5b750c568ab50c74bccaf11b6",
+      "r-v3-gap": "57793d9c1dfc9e84874e49bc7dc39ccfc0d843aaa993cab03f6993c4680ded8e",
+      "r-v3-pair": "ef20a22534a928e247ab4c7e6ab44bf91ddcf54ca9254f45d09f7aa0bd2b60ee",
+      "r-v3-event": "e92033b6762bd9a2b60434ed399ea67d6c0b1e7e2abb86d710f970f6bdfa0e02",
+      "r-v3-stop": "30bcc722990fdf8381dbade33c0c5f4e726fd74c62e4a9336bf9e7938acfd719",
+      "r-v3-manage": "e2beb1ceaf330ea2e6dede59209f3d68aeadfacb75c95f3980f49bb1967d6bda",
+      "r-v3-roll": "247f63376cf69c340ba472e880f7e38012b0b2a3966ec25294302bf7d81299f9",
+      "r-v3-status": "4df254ab718d3b7df4aefd8113c59761821d786691e0828ccdc27c3f5bf7066e",
+      "r-v3-audit": "741675242b5e8bd9616d1cc365962b64e04d9556b0b11898c8625ce88d3f1a9d",
+      "r-v3-shadow": "8004a466099a2f4891e61a0ce4f07bc03e7e4ec9a4a91d88d11f51d262731302",
+      "r-v3-validation": "04733e6117c79567975f740b60da79227dec3c3abb14b6e76dadfc9f7252272b",
+      "r-v3-retirement": "e52a13bcc08b45c4197ca08d1438506bca9f3c7e02610b2622a589505227e19a"
+    },
+    "dependencies": {
+      "scripts/futures_strategy.py": "093a6194c435e99d5c4247530ec61171b18b146fe1735c8bd05280fa342b7ac5",
+      "scripts/futures_risk.py": "881d0638174179a0f3517f3dd9f5c143a01e860bd11d15a76cde743a0fd26f19"
+    },
+    "source_dependencies": {
+      "scripts/futures_strategy.py": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+      "scripts/futures_risk.py": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+      "scripts/future_data.py": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7"
+    },
+    "sha256": "c3b3f87f039c46fda68f8d584f28d9496529a166100526c44c04cb564c879a55",
+    "canonical_full_sha256": "7d55001e2b42880bae58d827fc7d77eb939fe0e387bd5e7ee59965d89de4398b",
+    "revision": "72afd7430cbb99feb13521740f4929e20a647fd2"
+  },
+  "artifacts": {
+    "market_research": {
+      "path": "research/futures/weekly/2026-11-01/2026-11-01-market-research-r6.md",
+      "sha256": "3c97e4e1ff0b46c6c1a2835e714aaa51b7637984398ebee211ae888ba0e6d200"
+    },
+    "execution_audit": {
+      "path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r6.md",
+      "sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6"
+    },
+    "change_decision": {
+      "path": "research/futures/weekly/2026-11-01/2026-11-01-change-decision-r6.md",
+      "sha256": "5344d33ce2ede8c62513e5f651ed008647be3309cca03f07e73cadd033f45758"
+    }
+  },
+  "corrections": {
+    "scope": [],
+    "supersedes": []
+  },
+  "previous_handoff": null,
+  "legacy_migration": null
+}
