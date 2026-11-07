@@ -16,9 +16,9 @@
 ```json
 {
   "schema": "investment-state/v1",
-  "as_of": "2026-11-01",
-  "evidence_cutoff": "2026-11-01",
-  "source_report": "research/investment/weekly/2026-11-01/investment-2026-11-01-market-research.md",
+  "as_of": "2026-11-08",
+  "evidence_cutoff": "2026-11-08",
+  "source_report": "research/investment/weekly/2026-11-08/investment-2026-11-08-market-research.md",
   "observations": [
     {
       "id": "us_cpi_yoy",
@@ -62,18 +62,18 @@
     },
     {
       "id": "ust_cmt_10y",
-      "value": 4.94,
+      "value": 4.86,
       "unit": "percent",
-      "observed_at": "2026-10-30",
-      "source": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
       "status": "verified"
     },
     {
       "id": "ust_cmt_30y",
-      "value": 5.31,
+      "value": 5.26,
       "unit": "percent",
-      "observed_at": "2026-10-30",
-      "source": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
       "status": "verified"
     },
     {
@@ -110,19 +110,19 @@
     },
     {
       "id": "hsi_close",
-      "value": 23294.42,
-      "unit": "index_points",
-      "observed_at": "2026-10-30",
-      "source": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+      "value": 24481.86,
+      "unit": "points; secondary close",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
       "status": "verified"
     },
     {
       "id": "hk_mainboard_turnover",
-      "value": null,
-      "unit": "HKD_100m",
-      "observed_at": null,
-      "source": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
-      "status": "unknown"
+      "value": 2474.3,
+      "unit": "100m HKD; secondary",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
     },
     {
       "id": "a_margin_complete_balance_latest",
@@ -211,6 +211,70 @@
       "unit": "percent",
       "status": "verified",
       "source": "research/investment/weekly/2026-11-01/evidence/source-ledger.md"
+    },
+    {
+      "id": "star50_official_rounded_close",
+      "value": 1253,
+      "unit": "integer points; SSE weekly rounded",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "sse_etf_weekly_turnover",
+      "value": 23381,
+      "unit": "100m CNY; includes money market ETF",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "sse_etf_shares",
+      "value": 22393,
+      "unit": "100m shares; includes money market ETF",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "sse_etf_market_value",
+      "value": 36315,
+      "unit": "100m CNY; includes money market ETF",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "pbc_overnight_reverse_repo_rate",
+      "value": 1.25,
+      "unit": "percent; overnight tenor",
+      "observed_at": "2026-11-02",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "pbc_overnight_reverse_repo_gross",
+      "value": 5410,
+      "unit": "100m CNY; gross not net",
+      "observed_at": "2026-11-02",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "us_nonfarm_payroll_change",
+      "value": 165000,
+      "unit": "persons; October period",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
+    },
+    {
+      "id": "us_unemployment_rate",
+      "value": 4.1,
+      "unit": "percent; October period",
+      "observed_at": "2026-11-06",
+      "source": "research/investment/weekly/2026-11-08/evidence/source-ledger.md",
+      "status": "verified"
     }
   ]
 }
