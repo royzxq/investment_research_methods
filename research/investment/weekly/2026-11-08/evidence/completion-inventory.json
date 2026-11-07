@@ -1,0 +1,18 @@
+{
+  "as_of": "2026-11-08",
+  "scope": "只读原项目正式公司产物；非重新执行个股研究",
+  "completed_accepted": 0,
+  "items": [
+    {
+      "local_path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-11-05/SH-600276/investment-600276-2026-11-05-research-codex.md",
+      "content_sha256": "4eafe25bf8fa21ff5fdfdc84e768ce5cf83eff433d8304c206c7cd5622132016",
+      "product_date": "2026-11-05"
+    },
+    {
+      "local_path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-11-05/SH-600276/investment-600276-2026-11-05-price-map-codex.json",
+      "content_sha256": "214d1ce1c6a92a77a8ddb8597919c9953a4412981048cd59eabde0b5b2388ff5",
+      "product_date": "2026-11-05"
+    }
+  ],
+  "assessment": "Codex完整配对存在且正文已读；冻结controls-v2而非当前R22，未取得当前方法兼容审查；报告明确Novo交割/到账/会计分配未决。不得用文件存在关闭Precheck2/Hengrui-settlement。未复制公司报告进市场基线。其余四证券本次扫描未发现合格本地配对，不等同从未研究。"
+}

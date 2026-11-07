@@ -1,0 +1,77 @@
+{
+  "as_of": "2026-11-08",
+  "evidence_cutoff": "2026-11-08",
+  "ust": {
+    "dates": [
+      "2026-11-02",
+      "2026-11-03",
+      "2026-11-04",
+      "2026-11-05",
+      "2026-11-06"
+    ],
+    "ten_year_percent": [
+      4.91,
+      4.95,
+      4.9,
+      4.84,
+      4.86
+    ],
+    "thirty_year_last_percent": 5.26,
+    "latest_five_gt5": false,
+    "historical_obligation_closed": false,
+    "source": "S01"
+  },
+  "repair": {
+    "latest_candidate_window": [
+      "2026-11-04",
+      "2026-11-05",
+      "2026-11-06"
+    ],
+    "authoritative_complete_calendar": null,
+    "authoritative_daily_turnover_trillion": [
+      null,
+      null,
+      null
+    ],
+    "complete_margin_change_100m": [
+      null,
+      null,
+      null
+    ],
+    "star50_exact_closes": [
+      null,
+      null,
+      null
+    ],
+    "star50_official_rounded_last": 1253,
+    "source": "S11",
+    "r21_result": "not_triggered",
+    "basis": "三日各日>=1516.2是必要条件，最后一日官方整数1253远低于阈值，已足以否定合取；并非完整helper三日计算",
+    "original_rebuild_result": "not_triggered",
+    "helper_actual_market_run": false,
+    "helper_skip_reason": "无权威完整交易日历和完整逐日输入，未伪造调用"
+  },
+  "a_share_turnover_media_proxy_100m": {
+    "2026-11-06": 16578,
+    "source": "S12",
+    "official": false
+  },
+  "cn": {
+    "retail_yoy_september": 1.1,
+    "ppi_output_yoy_september": 5.0,
+    "ppi_input_yoy_september": 6.9,
+    "ppi_gap_pp": 1.9,
+    "october_retail": null,
+    "same_month_loan_official": null
+  },
+  "hk": {
+    "official_hsi_close": null,
+    "official_hstech_close": null,
+    "secondary_hsi_close": 24481.86,
+    "secondary_hstech_close": 4078.23,
+    "date": "2026-11-06",
+    "source": "S13",
+    "weekly_total_return": null
+  },
+  "account_execution": null
+}

@@ -1,0 +1,171 @@
+{
+  "as_of": "2026-11-08",
+  "ETF_LIQUIDITY_CONTEXT": [
+    {
+      "evidence_id": "S11",
+      "market": "SSE;A股上市ETF但含货币ETF",
+      "window": "2026-11-02/2026-11-06",
+      "disclosed_at": "2026-11-06",
+      "source": "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10837029/files/6173403a067e4165b85131e235667847.pdf",
+      "coverage": "上交所周报ETF汇总；不含深市/港股，也不是股票ETF独立样本",
+      "turnover_100m_cny": 23381,
+      "shares_100m": 22393,
+      "market_value_100m_cny": 36315,
+      "net_subscriptions": null,
+      "price_flow_decomposition": null,
+      "link_fund_deduplication": "不可由汇总验证；未叠加联接数据",
+      "constituent_announcement_effective_dates": null,
+      "liquidity_matched_samples": null,
+      "spread_depth_stress_comparison": null,
+      "counterevidence": "尚无同市场行业/市值/原流动性匹配样本；流出、剔除、非成分但交易充足的反例待核，不作身份因果判断",
+      "transmission": "若证实被动申赎影响价差/深度，应首先评估容量/执行；只有未吸收风险再交R22审计，非经营价值自动提升",
+      "affected_objects": "实际受基金交易影响且有证据的公司，当前未确定名单",
+      "review_rule": "R22",
+      "already_absorbed": "成交活跃仅作市场背景；个股已计价差/交易风险须从既有audit核对，本轮未新增折扣",
+      "missing": [
+        "两期同口径份额及分红拆分",
+        "逐基金净申赎",
+        "成分变动公告及生效日",
+        "匹配成交/价差/深度及压力窗口"
+      ]
+    }
+  ],
+  "BENCHMARK_CONTEXT": [
+    {
+      "evidence_id": "S16",
+      "benchmark": "000300",
+      "investable_candidate": "510300（候选映射/当期产品条款待补核）",
+      "coverage": "A股300只大盘宽基",
+      "currency": "CNY",
+      "risk_style_weights": "大盘；当前权重/集中度unknown",
+      "history": "指数2005年推出；当前共同有效TR序列未取齐",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "本次首次诊断窗口，取数前声明；后续复用。公司已有窗口继续沿用，不以此新定全市场硬窗口",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "当期费用及跟踪差异unknown",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计"
+    },
+    {
+      "evidence_id": "S17",
+      "benchmark": "HSI",
+      "investable_candidate": "2800 / 82800",
+      "coverage": "香港上市宽基",
+      "currency": "HKD（82800人民币交易柜台不改变基础风险）",
+      "risk_style_weights": "大盘；当期集中度unknown",
+      "history": "ETF1999年推出，长历史不等于当前可比TR已取得",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "本次首次诊断窗口，取数前声明；后续复用。公司已有窗口继续沿用，不以此新定全市场硬窗口",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "KFS ongoing 0.060%；2025差异有NAV与adjusted NAV两口径，不当alpha；实际比较优先净值含分红且不重复扣费",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计"
+    },
+    {
+      "evidence_id": "S18",
+      "benchmark": "HSTECH",
+      "investable_candidate": "3033",
+      "coverage": "港股大型科技；不能代表含生物科技的全部科技行业",
+      "currency": "HKD",
+      "risk_style_weights": "科技成长/集中度待核",
+      "history": "ETF2020/8/28上市；共同有效TR日期unknown",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "本次首次诊断窗口，取数前声明；后续复用。公司已有窗口继续沿用，不以此新定全市场硬窗口",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "2026/3文件管理费0.99%，非全部费用，当前总费率/跟踪差异unknown",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计"
+    },
+    {
+      "evidence_id": "S19",
+      "benchmark": "HSTCI / HSTCL / HSTCMS",
+      "investable_candidate": null,
+      "coverage": "香港广义科技含生物科技；大/中小盘分组",
+      "currency": "HKD",
+      "risk_style_weights": "行业组合与HSTECH不同，当前个股权重unknown",
+      "history": "2026/9推出，2023—26比较含回溯；无已核可投资ETF",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "本次首次诊断窗口，取数前声明；后续复用。公司已有窗口继续沿用，不以此新定全市场硬窗口",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "产品费用不适用，未证明存在可买替代",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计"
+    }
+  ]
+}
