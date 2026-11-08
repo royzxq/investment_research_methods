@@ -1,0 +1,25 @@
+{
+  "native_prune_chars_removed": 34897,
+  "native_compactions": 1,
+  "critical_text_missing_after_prune": true,
+  "summary_omitted_evidence": true,
+  "reread_exact": true,
+  "citation_status": "mechanical_pass",
+  "model_calls": 0,
+  "schema_version": "research-evidence-context-native-replay/v1",
+  "date": "2026-11-08",
+  "dsh_version": "0.2.1-rc.2",
+  "fixture": "synthetic Chinese long disclosure; restricted cash, reporting period, CNY unit and counterevidence",
+  "pruner": "installed ToolResultPruner.pruneSession with default budgets",
+  "compactor": "installed BasicCompactionEngine.compactRegion; only summarize hook replaced with deterministic lossy summary",
+  "context_required_survived_optional_suppression": true,
+  "network_calls": 0,
+  "evidence_log": {
+    "path": "output/evidence-context-validation/2026-11-08/native-node-final.log",
+    "sha256": "8768f8054fc1698f0a0315d5763f9869b9e864f079d78db255df9eb47de0b135"
+  },
+  "limitations": [
+    "Tests call retrieval tools explicitly; no assertion about autonomous model compliance or real summary quality",
+    "Mechanical citation correspondence does not verify issuer facts or economic inference"
+  ]
+}

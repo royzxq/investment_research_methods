@@ -1,0 +1,34 @@
+{
+  "schema_version": "research-evidence-effects/v1",
+  "cases": 1,
+  "attempts": 1,
+  "categories": {
+    "pagination": 1
+  },
+  "triggers": {
+    "pagination_incomplete": 1
+  },
+  "document_kinds": {},
+  "retrieval_statuses": {
+    "retrieved": 1
+  },
+  "deduplicated_requests": 0,
+  "supplemental_tool_calls": 2,
+  "document_download_attempts": 0,
+  "recovery_wall_ms_sum": 49,
+  "artifacts_checked_cases": 1,
+  "reads_recorded": 0,
+  "cases_read": 0,
+  "use_assessments_recorded": 0,
+  "cases_with_declared_use": 0,
+  "cases_awaiting_assessment": 1,
+  "final_citations_verified": null,
+  "facts_independently_verified": null,
+  "sources": [
+    {
+      "path": "evidence-recovery/1ef768e0032d0a2e903815b02eea42531078796f06c24867452c4e48ba559c08/event-000008.json",
+      "sha256": "68b6b8f5ccaafe377922f204761e36d76f027a0ec724c741d91e3a236f839054"
+    }
+  ],
+  "issues": []
+}

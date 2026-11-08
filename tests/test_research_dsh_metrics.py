@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -15,6 +16,67 @@ def usage_record(**usage):
 
 
 class DSHMetricsTests(unittest.TestCase):
+    def test_context_metrics_report_unexercised_and_changed_records_without_source_text(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp).resolve()
+            self.assertIsNone(metrics.context_metrics(root))
+            folder = root/'evidence-context'
+            for name in ('sources', 'anchors', 'pins', 'citations', 'events'):
+                (folder/name).mkdir(parents=True)
+            self.assertEqual(metrics.context_metrics(root)['sources'], 0)
+            self.assertIsNone(metrics.context_metrics(root)['final_report_audit'])
+            (folder/'sources/invalid.json').write_text(json.dumps({'id': 'bad', 'data': {'excerpt': 'PRIVATE SOURCE'}}))
+            value = metrics.context_metrics(root)
+            self.assertIn('invalid_or_changed_context_store', value['issues'])
+            self.assertNotIn('PRIVATE SOURCE', json.dumps(value))
+
+    def test_recovery_effects_keep_reading_use_claims_and_final_citations_separate(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp).resolve()
+            self.assertIsNone(metrics.recovery_metrics(root))
+            folder = root / 'evidence-recovery' / ('a' * 64); folder.mkdir(parents=True)
+            raw = b'{"source":"PRIVATE SOURCE TEXT"}\n'
+            (folder / 'page.json').write_bytes(raw)
+            state = dict(schema_version='research-evidence-recovery/v1', gap_id=folder.name,
+                revision=1, category='pagination', retrieval_status='retrieved', attempts=1,
+                deduplicated_requests=2, request={'url': 'SECRET-URL'},
+                pages=[{'raw': {'file': 'page.json', 'sha256': hashlib.sha256(raw).hexdigest()}}],
+                reads=[{'receipt_id': 'r1'}], reviews=[dict(receipt_id='r1', disposition='used_partial', reason='PRIVATE REASON')])
+            (folder / 'event-000001.json').write_text(json.dumps(state))
+            value = metrics.recovery_metrics(root)
+            self.assertEqual(value['cases'], 1)
+            self.assertEqual(value['cases_read'], 1)
+            self.assertEqual(value['cases_with_declared_use'], 1)
+            self.assertIsNone(value['final_citations_verified'])
+            self.assertIsNone(value['facts_independently_verified'])
+            self.assertNotIn('PRIVATE', json.dumps(value))
+            self.assertNotIn('SECRET-URL', json.dumps(value))
+            state['revision'] = 2
+            state['reviews'].append(dict(receipt_id='r1', disposition='rejected'))
+            (folder / 'event-000002.json').write_text(json.dumps(state))
+            self.assertEqual(metrics.recovery_metrics(root)['cases_with_declared_use'], 0)
+            (folder / 'page.json').write_text('tampered')
+            value = metrics.recovery_metrics(root)
+            self.assertEqual(value['cases'], 0)
+            self.assertIn('invalid_or_changed_recovery_case', value['issues'])
+
+    def test_recovery_missing_events_unread_cases_and_symlinks_are_not_silent_success(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp).resolve()
+            folder = root / 'evidence-recovery' / ('b' * 64); folder.mkdir(parents=True)
+            self.assertIn('invalid_or_changed_recovery_case', metrics.recovery_metrics(root)['issues'])
+            state = dict(schema_version='research-evidence-recovery/v1', gap_id=folder.name,
+                revision=1, category='document', retrieval_status='failed', attempts=1,
+                deduplicated_requests=0, pages=[], reads=[], reviews=[])
+            (folder / 'event-000001.json').write_text(json.dumps(state))
+            value = metrics.recovery_metrics(root)
+            self.assertEqual(value['retrieval_statuses'], {'failed': 1})
+            self.assertEqual(value['cases_awaiting_assessment'], 1)
+            self.assertEqual(value['cases_read'], 0)
+            self.assertIn('evidence_recovery', metrics.summarize(root, process={}))
+            (root / 'evidence-recovery' / ('c' * 64)).symlink_to(folder, target_is_directory=True)
+            self.assertIn('invalid_or_changed_recovery_case', metrics.recovery_metrics(root)['issues'])
+
     def test_usage_replaces_same_step_and_counts_actual_retry(self):
         rows = [event('assistant/attempt', dict(turn=1, step=1, stream=[usage_record(inputTokens=10, outputTokens=1)])),
                 event('assistant/message', dict(turn=1, step=1, usage={'inputTokens': 10, 'outputTokens': 2})),

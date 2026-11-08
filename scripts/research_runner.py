@@ -1553,6 +1553,13 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                         require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT))
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
                     write_new(folder / 'runner/research-validation.json', encode(audit_result))
+                if generator == 'dsh' and profile.get('tools', {}).get('evidence_context'):
+                    _, evidence_report = _artifact(entry['report'], staged, 'report')
+                    citation_audit = adapter.evidence_citation_audit(folder, evidence_report)
+                    write_new(folder / 'runner/evidence-citations.json', encode(citation_audit))
+                    if citation_audit['status'] == 'failed':
+                        codes = sorted({issue['code'] for issue in citation_audit['issues']})
+                        raise ValueError('DSH evidence citations failed: ' + ', '.join(codes))
                 write_new(folder / 'runner/framework-compatibility.json', encode(compatibility))
                 save(folder / 'process.json', process)
                 publish_pair(entry, staged, root)

@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-08",
+  "scope": "DSH web/PDF/pagination recovery and effect recording",
+  "full_regression": {
+    "passed": 1335,
+    "seconds": 236.479,
+    "log_sha256": "b544a035e2653389c80e84715e1daa27e6a0383fecd60f528982f564066047cb",
+    "final_dispatch_guard_covered_by_subsequent_native_node_tests": true
+  },
+  "node_final": {
+    "passed": 29,
+    "failed": 0,
+    "skipped": 0,
+    "installed_dsh": "0.2.1-rc.2",
+    "log_sha256": "439d0642d79310831b4e3311940e5e1203aceebd3829fd7fd022230975cef568"
+  },
+  "document_checks": {
+    "passed": 7,
+    "local_http_server": true,
+    "real_pymupdf": true,
+    "public_network_requests": 0
+  },
+  "local_profile_preflight": "passed",
+  "stock_governance": "passed_structure_only",
+  "skill_validation": "passed",
+  "historical_replay": {
+    "pages": 3,
+    "rows": 2061,
+    "supplemental_tool_calls": 2,
+    "new_network_requests": 0,
+    "new_model_requests": 0
+  },
+  "artifacts": {
+    "scripts/research_evidence_recovery.mjs": "2239cded5424010a6a779ec923aa83e17c084d5fbcbd38caccbd72ff5b4ac5e3",
+    "scripts/research_document_recovery.py": "b795b213f398a5613170dade91d2295523ca58180c60075fda7fa51ecfa7bada",
+    "scripts/research_dsh.py": "97634132acb215486f3f3d9701b28dda51e33d2b2e62bbbd10856d58adc777db",
+    "scripts/research_dsh_metrics.py": "a791e969e50e2860145ba4abd41ec340c95a437c93a80a9bdfd79c59eb97d019",
+    "scripts/research_data_health.mjs": "c5a18434d3568e9323bab82e9b49964647d712ab340cf1941eca777b74bb4cdb",
+    "config/research_runtime.production.json": "8269bf8fe33d7e253c994c272156a1f28f0a71868d9c510850b8f42287c0814b",
+    ".agents/skills/stock-research/references/data-acquisition.md": "dc4ac5e1bc2ef3695462cf0f1aecc54da05618d64910de8072decace1aad69a7",
+    "tests/test_research_evidence_recovery.mjs": "7f9015028a7a101e0ffeee5928d5a4e6f4840d86e91abb1b6a4305366516e897",
+    "tests/test_research_document_recovery.py": "23e7cacf5ddd026c369d000a82d6e430de123cc8e953f99297b64898d4937483",
+    "tests/test_research_dsh.py": "64d3a9d24a74aef0ed820def53c82622e0ec2666cfd99568947b53f42fa1d29a",
+    "tests/test_research_dsh_metrics.py": "0eab6568ac43f36438f9028c1fb6430fc768238d61ff58ecdeaa792d7d6ff70e"
+  },
+  "limitations": [
+    "No new paid research or live finance API call",
+    "No universal website/browser/OCR coverage",
+    "Declared use is a research-agent assessment, not independently verified fact or final report citation",
+    "Old frozen profiles retain old behavior"
+  ]
+}

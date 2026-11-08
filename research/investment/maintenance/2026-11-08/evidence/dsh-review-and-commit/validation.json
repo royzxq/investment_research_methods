@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-08",
+  "baseline_commit": "e1d32a6",
+  "review_status": "passed_after_fixes",
+  "unresolved_blocking_findings": 0,
+  "fixed_findings": [
+    {
+      "priority": "P1",
+      "issue": "UTF-8 characters split across process pipe chunks changed report hashes and document metadata",
+      "tests_before_fix_failed": 2
+    },
+    {
+      "priority": "P2",
+      "issue": "More than 12 anchors from one source lacked a continuation cursor",
+      "tests_before_fix_failed": 1
+    },
+    {
+      "priority": "P2",
+      "issue": "Recovery text reads/searches did not recheck the raw PDF/document hash",
+      "tests_before_fix_failed": 1
+    }
+  ],
+  "regressions": {
+    "reproduced_failures": 4,
+    "fixed_passed": 4
+  },
+  "full_unittest": {
+    "passed": 1341,
+    "seconds": 267.379
+  },
+  "native_node": {
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0,
+    "dsh_version": "0.2.1-rc.2"
+  },
+  "production_preflight": {
+    "profile": "dsh-deepseek-flash-high-context-v1",
+    "local_preflight": "passed",
+    "frozen_preparation": "passed",
+    "empty_audit": "not_exercised",
+    "provider_calls": 0
+  },
+  "stock_governance": "passed_structure_only",
+  "skill_validation": "stock-research quick_validate passed",
+  "diff_check": "passed",
+  "historical_validation_policy": "Earlier stage reports and hashes are preserved. These hashes describe the reviewed final code.",
+  "excluded_file": "research/investment/maintenance/2026-11-07/investment-2026-11-07-r22-midea-reassessment-codex.md",
+  "source_sha256": {
+    "scripts/research_data_health.mjs": "c5a18434d3568e9323bab82e9b49964647d712ab340cf1941eca777b74bb4cdb",
+    "scripts/research_evidence_recovery.mjs": "608dabb4236ac85a63eef4f12413c2342ffd5587c18a28da8aa041e128e618a9",
+    "scripts/research_document_recovery.py": "b795b213f398a5613170dade91d2295523ca58180c60075fda7fa51ecfa7bada",
+    "scripts/research_evidence_context.mjs": "040fd7482c1ce8ad8dfc16c6fcc6a7f9c92463aadedd09c3e65e367661297a2c",
+    "scripts/research_dsh.py": "a96dec96258a5acd690232f8c5d489b2401ec60002a7a41aec415cb0be73eccb",
+    "scripts/research_runner.py": "cffdb08f1371b02dca788540ab312eb0ae7b4ea4910fdfac2637e6077380b7ea",
+    "scripts/research_dsh_metrics.py": "559ad3ec6582d8e403b3773ed660e86d401f94697b214220f53bf543669b6011",
+    "config/research_runtime.production.json": "f6a4a15c2fad9cdad4cd7efd0c21a9e3c5066ab697d58c642204534adda62c76",
+    ".agents/skills/stock-research/references/data-acquisition.md": "92897780d467e164e202890be0756c94364b2bf34f04e21ee781d7190f4dd1d1",
+    "docs/context/environment.md": "b4dede71cc919c135f96ecdef1b5bcf35605f10d8ebeead5b79b79d4c70667d2",
+    "docs/adr/ADR-20261108-dsh-data-health.md": "cc5dceb1bda064391180d6f317728b6ad726938cf40a2ce32b4810c8402880d3",
+    "docs/adr/ADR-20261108-dsh-evidence-recovery.md": "6030eff129a142dd95d2e76119b61300b3d440f356a02df3cb678a2e3ad7bb52",
+    "docs/adr/ADR-20261108-dsh-evidence-context.md": "beea6fe54ebd783a672c9c158fd135a6134af52f403d5ad0b8cf38820d6d08d1",
+    "tests/test_research_data_health.py": "3f330a31e2e25b68368f764f96eed3184881475f5c6509b0052c025de190cc30",
+    "tests/test_research_data_health.mjs": "12823724bc8d7ac18d370a009e420a9a1fb294a833622dac014f2e3cfe125c1a",
+    "tests/test_research_evidence_recovery.mjs": "6e7d5cc853f9bb6e09e4547bd8d4ec7499275b23a49fd97220962d31c9377398",
+    "tests/test_research_document_recovery.py": "23e7cacf5ddd026c369d000a82d6e430de123cc8e953f99297b64898d4937483",
+    "tests/test_research_evidence_context.mjs": "0ee749208c8fe3b2e23c048edde69903072853902288281ab1b9cd35f9ecdb9c",
+    "tests/test_research_dsh.py": "f3c1df8f2083ee6592b319c48b7fa41dfa8eae3fcdc102aa6f23a1906ab26380",
+    "tests/test_research_dsh_contract.py": "e99c922679a53dc66afd373a16c6323434b0fc359d8c217af94b3b0b6523e2e5",
+    "tests/test_research_dsh_metrics.py": "d743e0471b3d5dbb67cb9f42347f541b7d22d333ba7530178df28d053496bc59"
+  },
+  "logs": {
+    "output/dsh-review-validation/2026-11-08/reproduced-before-fix.log": "547705341c1f44c82157039137aac04039ab8492b1f7fd5e98e284f34d30b02e",
+    "output/dsh-review-validation/2026-11-08/fixed-regressions.log": "6e20f9fd682edcb8809fa7ff015bcff0c90da325af88515d6e82e735f68f23eb",
+    "output/dsh-review-validation/2026-11-08/native-node.log": "c9906a065cca86a0f30d371e3f9cdb92ebf809f4cebce2f9418382ffe8827f2d",
+    "output/dsh-review-validation/2026-11-08/full-unittest.log": "42ae1d5643ffe79d103981c0cb5637b3344999c115227f7265e970753528ff15",
+    "output/dsh-review-validation/2026-11-08/production-preflight.json": "e2610de798990ebd00d4a34fc69240b6467ee4d41686aae33926e0ee87353eec"
+  },
+  "limitations": [
+    "No paid model or live finance API validation",
+    "Mechanical traceability is not factual verification or semantic entailment",
+    "DSH native compaction tests use an intentionally lossy offline summarizer"
+  ]
+}

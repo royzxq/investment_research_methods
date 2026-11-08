@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-08",
+  "scope": "DSH durable locators, rereading and citations after native pruning and lossy compaction",
+  "active_profile": "dsh-deepseek-flash-high-context-v1",
+  "installed_dsh": "0.2.1-rc.2",
+  "full_regression": {
+    "passed": 1341,
+    "seconds": 257.87,
+    "search_continuation_added_during_full_run": "covered by subsequent final Node and focused Python runs"
+  },
+  "final_node": {
+    "passed": 37,
+    "failed": 0,
+    "skipped": 0,
+    "context_tests": 11,
+    "real_native_services": true,
+    "deterministic_summarizer": true,
+    "real_pymupdf_fixture": true
+  },
+  "final_focused_python": {
+    "passed": 66,
+    "seconds": 9.915
+  },
+  "production_preflight": {
+    "profile": "dsh-deepseek-flash-high-context-v1",
+    "local_preflight": "passed",
+    "frozen_production_preparation": "passed",
+    "empty_audit": "not_exercised",
+    "provider_calls": 0,
+    "network_calls": 0
+  },
+  "governance": "stock structure check passed; not a proof of semantic equivalence or investment effectiveness",
+  "skill_validation": "stock-research quick_validate passed",
+  "service": {
+    "repository_config_is_existing_launchd_argument": true,
+    "schedule_unchanged": "05:00 Asia/Shanghai",
+    "restart_performed": false
+  },
+  "prior_health_and_recovery_modules_unchanged": true,
+  "artifacts": {
+    "scripts/research_evidence_context.mjs": "434c39a48b4ba4b1a67c6ae4ece844229a2fc221972a570ad76471768d0b68b0",
+    "scripts/research_dsh.py": "a96dec96258a5acd690232f8c5d489b2401ec60002a7a41aec415cb0be73eccb",
+    "scripts/research_runner.py": "cffdb08f1371b02dca788540ab312eb0ae7b4ea4910fdfac2637e6077380b7ea",
+    "scripts/research_dsh_metrics.py": "559ad3ec6582d8e403b3773ed660e86d401f94697b214220f53bf543669b6011",
+    "scripts/research_data_health.mjs": "c5a18434d3568e9323bab82e9b49964647d712ab340cf1941eca777b74bb4cdb",
+    "scripts/research_evidence_recovery.mjs": "2239cded5424010a6a779ec923aa83e17c084d5fbcbd38caccbd72ff5b4ac5e3",
+    "scripts/research_document_recovery.py": "b795b213f398a5613170dade91d2295523ca58180c60075fda7fa51ecfa7bada",
+    "config/research_runtime.production.json": "f6a4a15c2fad9cdad4cd7efd0c21a9e3c5066ab697d58c642204534adda62c76",
+    ".agents/skills/stock-research/references/data-acquisition.md": "abc1ce6ec6db2d0b47621f5985f7ec7df5deb9cf9cd9e087bd1b2aaa4c537eea",
+    "docs/adr/ADR-20261108-dsh-evidence-context.md": "307b12e80d239001f354ff893f841a29915fded374a33ead3b5e01385d276313",
+    "docs/context/environment.md": "b4dede71cc919c135f96ecdef1b5bcf35605f10d8ebeead5b79b79d4c70667d2",
+    "tests/test_research_evidence_context.mjs": "310d254949fb3a2418dc61ce5a64bd6dbe4bf66a2fba4c222a46fa9c50be3b9d",
+    "tests/test_research_data_health.py": "3f330a31e2e25b68368f764f96eed3184881475f5c6509b0052c025de190cc30",
+    "tests/test_research_dsh.py": "f3c1df8f2083ee6592b319c48b7fa41dfa8eae3fcdc102aa6f23a1906ab26380",
+    "tests/test_research_dsh_contract.py": "e99c922679a53dc66afd373a16c6323434b0fc359d8c217af94b3b0b6523e2e5",
+    "tests/test_research_dsh_metrics.py": "d743e0471b3d5dbb67cb9f42347f541b7d22d333ba7530178df28d053496bc59"
+  },
+  "logs": {
+    "output/evidence-context-validation/2026-11-08/full-unittest.log": "ac64d714a9d82d8dbe160d34cafd067219b5dc60bdadc5bfd2212116c88a169c",
+    "output/evidence-context-validation/2026-11-08/native-node-final.log": "8768f8054fc1698f0a0315d5763f9869b9e864f079d78db255df9eb47de0b135",
+    "output/evidence-context-validation/2026-11-08/focused-python-final.log": "edf379ad9afe469bc3cc145d6b54f03d7af356f5e02a100927330cec245a3bfa",
+    "output/evidence-context-validation/2026-11-08/production-preflight.json": "be74a4b101cfbd62b5c99c18f809b08d30e86ab654970bad29c916012fe91f52"
+  },
+  "limitations": [
+    "No paid model or live financial-data call",
+    "Tests invoke retrieval tools explicitly; real model summary quality/compliance unmeasured",
+    "Mechanical audit covers registered citations and required pins, not all possible critical evidence or semantic entailment",
+    "Unregistered bash/local/MCP/AKTools table sources do not automatically enter this registry",
+    "Local rereading requires retention of attempt evidence files"
+  ]
+}
