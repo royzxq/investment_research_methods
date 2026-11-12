@@ -2,6 +2,10 @@
 
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
+## 可持续分红基础估值采纳（2026-11-12）
+
+用户明确采纳 canonical §4.1A 并授权兼容检查后同步生产。新方法 `stock-two-price-controls-v2-etf-relative-v1-dividend-v1` 在 V50 内明确计入可持续分红，与 R22 复用一致预测并去重。新准备的自动研究按本版及新的 adopted handoff 接续，旧冻结产物发布前按实际方法差异复核。市场证据沿用原披露截止，原 pending 逐项接续。版本、接口与生产验收见[接续记录](../../research/investment/maintenance/2026-11-12/investment-2026-11-12-dividend-production-codex.md)。
+
 ## Codex 先行与共享事实（2026-10-29）
 
 用户采纳“先 Codex 完成，再 DSH 基于事实增量研究”。新准备的 Codex + DSH 批次顺序衔接，同股禁止同时启动，其他股票仍可并发；默认与上限均为4个根研究进程。Codex 额外交付带原始来源、摘录与哈希的事实包，DSH 在可追溯复用的基础上独立补证和估值，不接收 Codex 报告及估值结论。旧冻结批次不迁移；失败、重试及 DSH 恢复保持原轮证据绑定。详见[实施与边界](../adr/ADR-20261029-sequential-stock-evidence.md)。本机日频 Codex 及股票周更均已按用户要求配置 Astra / Extra High；DSH 继续原配置。此项改造不更新投资方法或共识计算。
