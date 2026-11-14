@@ -3,7 +3,7 @@
   "status": "adopted",
   "scope": "published",
   "as_of_date": "2026-11-15",
-  "registered_at": "2026-11-15T01:21:52.767805+08:00",
+  "registered_at": "2026-11-15T01:22:39.004539+08:00",
   "market_as_of_date": "2026-11-13",
   "method": {
     "path": "framework/futures_framework.md",
@@ -67,23 +67,8 @@
     }
   },
   "corrections": {
-    "scope": [
-      "11/15最新周度状态；撤回11/08及此前MA 10/13按原入场带可达和RB 10/27参考3047可达的备选诊断用途。保留原事实稿、ID、信号、登记、截止、全部既有撤回及实仓未知；SR仅研究登记及取消处置；无方法变化。"
-    ],
-    "supersedes": [
-      {
-        "path": "research/futures/weekly/2026-11-08/2026-11-08-execution-audit-r2.md",
-        "sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310"
-      },
-      {
-        "path": "research/futures/weekly/2026-11-08/2026-11-08-market-research-r2.md",
-        "sha256": "917022d4a248610496e3d68b3a38be44db243745a150f04c67e8453dff3718b4"
-      },
-      {
-        "path": "research/futures/weekly/2026-11-08/2026-11-08-change-decision-r2.md",
-        "sha256": "30461bf88abd6950a5e824b08f4e56342b5092a5c823923951ebaaba90d8b9d6"
-      }
-    ]
+    "scope": [],
+    "supersedes": []
   },
   "previous_handoff": null,
   "legacy_migration": null

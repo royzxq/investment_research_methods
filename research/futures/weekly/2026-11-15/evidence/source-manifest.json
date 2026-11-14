@@ -276,6 +276,11 @@
       "path": "research/futures/weekly/2026-11-15/evidence/tushare-supplement.json",
       "sha256": "44da0309b7ded5886cf458dfd7fd565066556460e41326f1ccfff4cc41839413",
       "bytes": 57542
+    },
+    {
+      "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/63de3de99bcb8a15d13bcee342f6f744d828e42d5d80729e68048f5da6f81bc2.blob",
+      "sha256": "63de3de99bcb8a15d13bcee342f6f744d828e42d5d80729e68048f5da6f81bc2",
+      "bytes": 5276
     }
   ],
   "baseline_files": {
@@ -287,5 +292,6 @@
     "scripts/futures_refresh.py": "ebd16811a021ca467c2d0300781fe6576d30f6b794c0eb7a073c16a083b89dd6",
     "scripts/futures_risk.py": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
     "scripts/futures_strategy.py": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444"
-  }
+  },
+  "provenance_note": "The pre-push receipt with recursive historical supersedes failed continuity capture on an old compact hash after the 11/08 status merge. It is kept byte-for-byte as a provenance object. Current correction scope is recorded in the adopted audit and decision, with the exact 11/08 artifacts pinned in the continuity index. The old files were not edited."
 }
