@@ -384,6 +384,42 @@ class MaintenanceTests(unittest.TestCase):
         maintenance.validate_handoff(record, self.root)
         self.assertEqual(report.read_bytes(), original)
 
+    def test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch(self):
+        from scripts import research_consistency as checks
+        from research_audit_fixture import audit_for
+        record = self.complete_v4_record()
+        completion = record['reviews'][0]['completion']
+        report = self.root / completion['report']['path']
+        price = self.root / completion['price_map']['path']
+        document = json.loads(price.read_text())
+        document['price_map']['v50'] = dict(low=22, base=26, high=32)
+        document['price_map']['p1'] = dict(base=13)
+        audit = audit_for(document)
+        audit['schema_version'] = 'stock-research-audit/v3'
+        audit['valuation']['currency'] = 'HKD'
+        for row in audit['valuation']['scenarios'].values():
+            row['equity_adjustments'] = [dict(id='cash', amount=20,
+                reason='net proceeds not included in operating earnings', source='offline issuer note')]
+            row['equity_value'] += 20
+        prefix = report.read_text().split(checks.VIEW_START)[0]
+        report.write_text(prefix + checks.render_report_block(audit, document))
+        price.write_text(json.dumps(document))
+        for key, path in (('report', report), ('price_map', price)):
+            completion[key] = maintenance.file_ref(self.root, path, as_of='2026-10-11')
+        original_report, original_price = report.read_bytes(), price.read_bytes()
+        maintenance.write_handoff(self.root, record)
+        selected = maintenance.select_adopted(self.root, '2026-10-11', self.live_methods())
+        self.assertEqual(selected['record']['reviews'][0]['status'], 'completed')
+        self.assertEqual(report.read_bytes(), original_report)
+        self.assertEqual(price.read_bytes(), original_price)
+        # Fresh source hash cannot make inconsistent cash a valid completion.
+        text = report.read_text()
+        self.assertIn('"amount": 20', text)
+        report.write_text(text.replace('"amount": 20', '"amount": 40', 1))
+        completion['report'] = maintenance.file_ref(self.root, report, as_of='2026-10-11')
+        with self.assertRaisesRegex(ValueError, 'equity_value'):
+            maintenance.validate_handoff(record, self.root)
+
     def test_completion_rejects_meta_only_wrong_identity_and_invisible_sections(self):
         for mistake in ('meta_only', 'wrong_code', 'wrong_generator', 'commented', 'empty_sections'):
             with self.subTest(mistake=mistake):

@@ -31,6 +31,35 @@ BASE_URL = 'https://api.deepseek.com/anthropic'
 SEARCH_URL = BASE_URL + '/v1'
 MAX_EVENT_LINE = 16 * 1024 * 1024
 RECEIPT_ENCODING = 'strict-json-or-single-json-fence/v1'
+DATA_HEALTH_VERSION = 'data-health-v1'
+EVIDENCE_RECOVERY_VERSION = 'evidence-recovery-v1'
+EVIDENCE_CONTEXT_VERSION = 'evidence-context-v1'
+
+
+def _data_health_source():
+    return _regular_bytes(Path(__file__).with_name('research_data_health.mjs'))
+
+
+def _evidence_recovery_sources():
+    return {target: _regular_bytes(Path(__file__).with_name(source)) for target, source in (
+        ('dsh-evidence-recovery.mjs', 'research_evidence_recovery.mjs'),
+        ('dsh-document-recovery.py', 'research_document_recovery.py'))}
+
+
+def _evidence_context_source():
+    return _regular_bytes(Path(__file__).with_name('research_evidence_context.mjs'))
+
+
+def _context_audit_node():
+    node = shutil.which('node')
+    if not node:
+        raise ValueError('Evidence context citation audit requires installed Node.js')
+    node = str(Path(node).resolve())
+    probe = subprocess.run([node, '-e', 'process.exit(Number(process.versions.node.split(".")[0]) >= 20 ? 0 : 1)'],
+                           capture_output=True, timeout=10)
+    if probe.returncode:
+        raise ValueError('Evidence context citation audit requires Node.js 20 or newer')
+    return node
 
 # DSH deliberately scrubs credential-shaped ambient environment names from
 # tool children. This fixed trusted plugin restores only the data credential
@@ -238,10 +267,16 @@ class DSHCLIAdapter(CLIAdapter):
         super().validate_profile(profile)
         if 'tools' in profile:
             tools = profile['tools']
-            if (type(tools) is not dict or set(tools) not in ({'search', 'fetch'}, {'search', 'fetch', 'aktools'})
+            if (type(tools) is not dict or not {'search', 'fetch'}.issubset(tools)
+                    or set(tools) - {'search', 'fetch', 'aktools', 'data_health', 'evidence_recovery', 'evidence_context'}
                     or tools['search'] not in ('deepseek-official', 'deepseek-search-api')
                     or tools['fetch'] not in ('http', 'deepseek-fetch-api')
-                    or tools.get('aktools') not in (None, 'aktools-0.1.4-r1')):
+                    or tools.get('aktools') not in (None, 'aktools-0.1.4-r1')
+                    or ('data_health' in tools and tools['data_health'] != DATA_HEALTH_VERSION)
+                    or ('evidence_recovery' in tools and (tools['evidence_recovery'] != EVIDENCE_RECOVERY_VERSION
+                        or tools.get('data_health') != DATA_HEALTH_VERSION))
+                    or ('evidence_context' in tools and (tools['evidence_context'] != EVIDENCE_CONTEXT_VERSION
+                        or tools.get('evidence_recovery') != EVIDENCE_RECOVERY_VERSION))):
                 raise ValueError('DSH tools require the supported nonsecret provider selections')
         models = profile['models']
         if models['main']['model'] is None or models['subagent']['model'] is None:
@@ -255,6 +290,13 @@ class DSHCLIAdapter(CLIAdapter):
         _pdf_python()
         if profile.get('tools', {}).get('aktools'):
             _aktools_runtime(root)
+        if profile.get('tools', {}).get('data_health'):
+            _data_health_source()
+        if profile.get('tools', {}).get('evidence_recovery'):
+            _evidence_recovery_sources()
+        if profile.get('tools', {}).get('evidence_context'):
+            _evidence_context_source()
+            _context_audit_node()
         with tempfile.TemporaryDirectory(prefix='research-dsh-preflight-') as temp:
             env = dict(os.environ, DSH_HOME=str(Path(temp) / 'dsh-home'),
                        HOME=str(Path(temp) / 'home'), DSH_TELEMETRY_DISABLED='1')
@@ -313,6 +355,73 @@ class DSHCLIAdapter(CLIAdapter):
                            '程序例：doc=pymupdf.open(path); doc[page-1].get_text()；'
                            '图表/扫描页用get_pixmap()渲染核对，不凭抽取失败判证据不存在。')
         delivery = context.delivery_instruction + '\n' + pdf_instruction + '\n' + receipt_instruction
+        health_source = None
+        health_config = None
+        recovery_sources = None
+        recovery_config = None
+        context_source = None
+        evidence_context = None
+        context_node = None
+        if profile.get('tools', {}).get('data_health'):
+            # The existing frozen receipt schema owns the valuation cutoff.
+            schema = json.loads(_regular_bytes(folder / 'receipt-schema.json'))
+            dates = schema.get('properties', {}).get('valuation_date', {}).get('enum')
+            if (not isinstance(dates, list) or len(dates) != 1 or not isinstance(dates[0], str)
+                    or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', dates[0])):
+                raise ValueError('Data health requires the frozen receipt valuation date')
+            from datetime import date
+            date.fromisoformat(dates[0])
+            health_dir = folder / 'data-health'
+            if health_dir.is_symlink():
+                raise ValueError('DSH data health directory cannot be a symbolic link')
+            health_dir.mkdir(mode=0o700, exist_ok=True)
+            health_source = _data_health_source()
+            _new(folder / 'dsh-data-health.mjs', health_source)
+            health_config = {'directory': str(health_dir), 'asOf': dates[0]}
+            delivery += ('\n本次 web_fetch 与 AKTools get_data 已启用取数前后机械体检，'
+                         '原响应与体检记录在本次 data-health/。rejected 只拒绝该次响应，'
+                         'review_required 须按所需输入处理分页、截断、身份/单位/日期缺口；'
+                         'mechanical_checks_only 也不表示事实核验通过。不得自动修值或补零。'
+                         '只用已核片段时明确范围；记录原值、换算依据与采用值，缺口只限制受影响判断。'
+                         'bash/curl、PDF 和其它取数路径不被此插件拦截，继续按 data-acquisition.md 核验。')
+        if profile.get('tools', {}).get('evidence_recovery'):
+            recovery_dir = folder / 'evidence-recovery'
+            if recovery_dir.is_symlink():
+                raise ValueError('DSH evidence recovery directory cannot be a symbolic link')
+            recovery_dir.mkdir(mode=0o700, exist_ok=True)
+            recovery_sources = _evidence_recovery_sources()
+            for name, raw in recovery_sources.items():
+                _new(folder / name, raw)
+            recovery_config = dict(directory=str(recovery_dir), asOf=health_config['asOf'],
+                python=pdf_python, worker=str(folder / 'dsh-document-recovery.py'),
+                healthModule=str(folder / 'dsh-data-health.mjs'))
+            delivery += ('\n本次启用补证闭环：网页截断/空壳、PDF取数失败和AKTools分页不足会触发一次有界补证。'
+                         '直接PDF链接可用 research_recover_evidence(url)，分页仍不足可按gap_id续补。'
+                         '每轮最多3页、每数据集最多3轮，单来源下载去重；失败不得循环重试。'
+                         'research_read_evidence 可搜索/按页读取正文或生成原页图片；图片生成不等于已查看。'
+                         '对实际读取的receipt_id，用 research_record_evidence_use 记录采用范围、相关输入、'
+                         '报告章节或未解决原因；程序记录读取和研究者判断，不自动确认事实或最终引用。'
+                         '完整下载、分页收齐和事实核验分开；按原方法核主体、披露日、单位和所需附注。'
+                         '最终正文保留来源URL和页码/章节；本次 evidence-recovery/ 留存原件和补证过程。')
+        if profile.get('tools', {}).get('evidence_context'):
+            context_dir = folder / 'evidence-context'
+            if context_dir.is_symlink():
+                raise ValueError('DSH evidence context directory cannot be a symbolic link')
+            context_dir.mkdir(mode=0o700, exist_ok=True)
+            context_source = _evidence_context_source()
+            _new(folder / 'dsh-evidence-context.mjs', context_source)
+            context_node = _context_audit_node()
+            evidence_context = dict(directory=str(context_dir), recoveryDirectory=recovery_config['directory'],
+                                    asOf=health_config['asOf'])
+            delivery += ('\n本次有独立于对话压缩的证据定位簿。已允许的web_fetch与补证文档进入持久索引；'
+                         '其他bash/本地文件路径不自动登记。用research_find_evidence找来源或在原文定位，'
+                         '用research_open_evidence按页/范围读原文，获得稳定evidence_id。'
+                         '关键估值输入及反证用research_pin_evidence保留主体、期间、单位、币种、披露日与未决状态，未知留空。'
+                         '压缩或裁剪后通过evidence_id核哈希重读，不把摘要当原文。'
+                         '引用用research_cite_evidence生成markdown并原样放入报告，包括隐藏的evidence-cite标记；'
+                         '引用中的quote必须逐字对应。关键标记默认要求最终引用；不采用时明确理由并设required_citation=false。'
+                         '交付前research_check_citations检查文本；runner还会核最终暂存报告的引用和已标记的关键漏引。'
+                         '机械核验不证明事实或经济推论；不改变投资方法或最终JSON字段。')
         aktools_runtime = None
         if profile.get('tools', {}).get('aktools'):
             aktools_runtime = _aktools_runtime(context.root)
@@ -357,6 +466,15 @@ class DSHCLIAdapter(CLIAdapter):
                 {'id': 'web-deepseek-api', 'config': {'apiKeyEnv': 'DEEPSEEK_API_KEY',
                     'baseURL': 'https://api.deepseek.com/v1/tools', 'count': 10}},
             ])
+        if health_config:
+            rows.append({'insert': [{'id': 'research-data-health',
+                'name': str(folder / 'dsh-data-health.mjs'), 'config': health_config}]})
+        if recovery_config:
+            rows.append({'insert': [{'id': 'research-evidence-recovery',
+                'name': str(folder / 'dsh-evidence-recovery.mjs'), 'config': recovery_config}]})
+        if evidence_context:
+            rows.append({'insert': [{'id': 'research-evidence-context',
+                'name': str(folder / 'dsh-evidence-context.mjs'), 'config': evidence_context}]})
         mcp_rows = []
         if aktools_runtime:
             # AKTools writes a local log in cwd; keep it inside this attempt.
@@ -390,6 +508,15 @@ class DSHCLIAdapter(CLIAdapter):
             'subagent_model': subagent_model, 'subagent_effort': effort,
             **({'aktools_runtime': profile['tools']['aktools'], 'aktools_lock_sha256': aktools_runtime[1]}
                if aktools_runtime else {}),
+            **({'data_health_version': DATA_HEALTH_VERSION,
+                'data_health_sha256': hashlib.sha256(health_source).hexdigest()} if health_source else {}),
+            **({'evidence_recovery_version': EVIDENCE_RECOVERY_VERSION,
+                'evidence_recovery_sources': {name: hashlib.sha256(raw).hexdigest()
+                    for name, raw in recovery_sources.items()}} if recovery_sources else {}),
+            **({'evidence_context_version': EVIDENCE_CONTEXT_VERSION,
+                'evidence_context_sha256': hashlib.sha256(context_source).hexdigest(),
+                'evidence_context_config': evidence_context, 'evidence_context_node': context_node}
+               if context_source else {}),
             'pdf_fallback_python': pdf_python,
             'pdf_fallback_python_realpath': str(Path(pdf_python).resolve()),
             'max_tokens': MAX_TOKENS, 'stream_idle_ms': STREAM_IDLE_MS,
@@ -414,6 +541,23 @@ class DSHCLIAdapter(CLIAdapter):
                 raise ValueError('DSH legacy runtime cannot override receipt encoding')
         elif version != 'research-dsh-runtime/v2' or metadata.get('receipt_encoding') != RECEIPT_ENCODING:
             raise ValueError('DSH runtime has unsupported receipt encoding/version')
+        if 'data_health_version' in metadata or 'data_health_sha256' in metadata:
+            if (version != 'research-dsh-runtime/v2' or metadata.get('data_health_version') != DATA_HEALTH_VERSION
+                    or hashlib.sha256(_regular_bytes(folder / 'dsh-data-health.mjs')).hexdigest()
+                    != metadata.get('data_health_sha256')):
+                raise ValueError('DSH data health runtime changed or is unsupported')
+        if 'evidence_recovery_version' in metadata or 'evidence_recovery_sources' in metadata:
+            sources = metadata.get('evidence_recovery_sources')
+            if (version != 'research-dsh-runtime/v2'
+                    or metadata.get('evidence_recovery_version') != EVIDENCE_RECOVERY_VERSION
+                    or metadata.get('data_health_version') != DATA_HEALTH_VERSION
+                    or not isinstance(sources, dict)
+                    or set(sources) != {'dsh-evidence-recovery.mjs', 'dsh-document-recovery.py'}
+                    or any(hashlib.sha256(_regular_bytes(folder / name)).hexdigest() != expected
+                           for name, expected in sources.items())):
+                raise ValueError('DSH evidence recovery runtime changed or is unsupported')
+        if 'evidence_context_version' in metadata or 'evidence_context_sha256' in metadata:
+            self._validate_evidence_context(folder, metadata)
         for name, field in (('dsh-runtime.patch.json', 'patch_sha256'),
                             ('dsh-data-environment.mjs', 'data_environment_sha256')):
             raw = _regular_bytes(folder / name)
@@ -431,6 +575,45 @@ class DSHCLIAdapter(CLIAdapter):
             raise ValueError('DSH final research receipt must be an object')
         write_new(folder / 'cli-receipt.json', encode(receipt))
         return receipt
+
+    def _validate_evidence_context(self, folder, metadata):
+        config = metadata.get('evidence_context_config')
+        dates = json.loads(_regular_bytes(Path(folder) / 'receipt-schema.json')).get('properties', {}).get('valuation_date', {}).get('enum')
+        if (metadata.get('evidence_context_version') != EVIDENCE_CONTEXT_VERSION
+                or metadata.get('evidence_recovery_version') != EVIDENCE_RECOVERY_VERSION
+                or hashlib.sha256(_regular_bytes(Path(folder) / 'dsh-evidence-context.mjs')).hexdigest()
+                    != metadata.get('evidence_context_sha256')
+                or not isinstance(config, dict) or set(config) != {'directory', 'recoveryDirectory', 'asOf'}
+                or config['directory'] != str(Path(folder).resolve() / 'evidence-context')
+                or config['recoveryDirectory'] != str(Path(folder).resolve() / 'evidence-recovery')
+                or dates != [config['asOf']]
+                or not isinstance(metadata.get('evidence_context_node'), str)
+                or not Path(metadata['evidence_context_node']).is_absolute()):
+            raise ValueError('DSH evidence context runtime changed or is unsupported')
+
+    def evidence_citation_audit(self, folder, report_raw):
+        """Check only opted-in frozen evidence references against the final report."""
+        folder = Path(folder).resolve()
+        metadata = json.loads(_regular_bytes(folder / 'dsh-runtime.json'))
+        self._validate_evidence_context(folder, metadata)
+        request = dict(config=metadata['evidence_context_config'], report=report_raw.decode('utf-8'))
+        try:
+            result = subprocess.run([metadata['evidence_context_node'], str(folder / 'dsh-evidence-context.mjs'), '--check-citations'],
+                input=json.dumps(request, ensure_ascii=False), text=True, capture_output=True, timeout=45,
+                env={key: value for key, value in os.environ.items() if key in ('PATH', 'LANG', 'LC_ALL', 'TMPDIR', 'SYSTEMROOT')})
+            if result.returncode or len(result.stdout) > 2 * 1024 * 1024:
+                raise ValueError()
+            audit = json.loads(result.stdout)
+            if (not isinstance(audit, dict) or audit.get('schema_version') != 'research-evidence-citations/v1'
+                    or audit.get('report_sha256') != hashlib.sha256(report_raw).hexdigest()
+                    or audit.get('status') not in ('failed', 'mechanical_pass', 'not_exercised')
+                    or not isinstance(audit.get('issues'), list)
+                    or any(not isinstance(x, dict) or not isinstance(x.get('code'), str) for x in audit['issues'])
+                    or bool(audit['issues']) != (audit['status'] == 'failed')):
+                raise ValueError()
+            return audit
+        except (OSError, ValueError, subprocess.TimeoutExpired):
+            raise ValueError('DSH evidence citation audit unavailable or evidence changed') from None
 
     def observed_model(self, folder, strict_json):
         """Only use the main persisted runtime header, never the chosen profile."""

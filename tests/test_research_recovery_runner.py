@@ -224,6 +224,7 @@ class RecoveryRunnerTests(unittest.TestCase):
     def test_older_delivery_contract_is_not_silently_upgraded(self):
         _, snapshot = runner.snapshot_hashes(self.parent)
         snapshot['delivery_contract'] = dict(runner.ACCEPTANCE_CONTROLS_CONTRACT)
+        snapshot['research_validation'] = snapshot['delivery_contract']['audit_schema']
         self.refresh_parent_prompts(snapshot)
         child = self.prepare()
         _, inherited = runner.snapshot_hashes(child)

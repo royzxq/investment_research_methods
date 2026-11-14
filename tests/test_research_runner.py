@@ -116,6 +116,9 @@ if generator=='codex' and b'codex-then-dsh-evidence/v1' in payload:
   facts=[dict(id='F1',kind='disclosed',statement='Reported revenue',value=100,unit='CNY',period='H1',source_id='S1',quote=source.decode(),locator='p1')],gaps=[],coverage=[])
  (fact_root/'bundle.json').write_bytes(shared.encode(evidence))
 audit=audit_for(doc)
+if b'two-price-controls/v6' in payload and doc['meta']['schema_version']=='stock-research/v4' and mode!='wrong_audit_version':
+ audit['schema_version']='stock-research-audit/v3'
+ for row in audit['valuation']['scenarios'].values(): row['equity_adjustments']=[]
 if mode=='missing_lifecycle':
  for row in audit['constraints']: row.pop('lifecycle',None)
 if mode=='control_only':
@@ -329,6 +332,7 @@ class ResearchRunnerTests(unittest.TestCase):
         manifest = run/'framework-snapshot/manifest.json'
         snapshot = json.loads(manifest.read_text())
         snapshot['delivery_contract'] = dict(contract)
+        snapshot['research_validation'] = contract['audit_schema']
         manifest.chmod(0o644)
         manifest.write_bytes(runner.encode(snapshot))
         request, raw, packs = runner.read_request(self.request_path)
@@ -355,7 +359,10 @@ class ResearchRunnerTests(unittest.TestCase):
         frameworks = {'investment_framework.md': '2'*64, 'investment_framework_compact.md': '3'*64}
         targets = dict(report_path='research/offline-report.md', price_map_path='research/offline-price.json')
         expected = ((runner.OLD_TWO_PRICE_CONTRACT, '21c3f8f8b13acd6af71843da01dbb73c4c9dabbe2914cab06708ec522aaf607a'),
-                    (runner.SCOPED_CONTROLS_CONTRACT, '9756d639bd3a398532b0943e4f852af7a04d0f8794d215273562ee6e2bcec395'))
+                    (runner.SCOPED_CONTROLS_CONTRACT, '9756d639bd3a398532b0943e4f852af7a04d0f8794d215273562ee6e2bcec395'),
+                    (runner.ACCEPTANCE_CONTROLS_CONTRACT, '9cf8614a93cd36acaa1cd77f21cc392e91d863a059a75b7002f14807399f9ee3'),
+                    (runner.PUBLIC_MONITORING_CONTRACT, '55baffbb6ab6bc78175a1fbe1fca58a7090166c9b2f42a020330463ffe6d3c2d'),
+                    (runner.QUALITY_CONTROLS_CONTRACT, 'ba3853ad2d5973a8252ea36a3e32f2497e26226a6d78b5695305cb31205dc8d5'))
         with patch.object(runner, 'owned_path', side_effect=lambda root, relative: Path(root)/relative):
             for contract, digest in expected:
                 with self.subTest(contract=contract['prompt_template']):
@@ -363,7 +370,17 @@ class ResearchRunnerTests(unittest.TestCase):
                         Path('/offline/research'), frameworks, targets,
                         research_validation=runner.research_consistency.SCHEMA, delivery=contract)
                     self.assertEqual(hashlib.sha256(payload).hexdigest(), digest)
-                    self.assertNotIn(b'two-price-controls/v3', payload)
+                    self.assertNotIn(b'two-price-controls/v6', payload)
+
+    def test_new_contract_rejects_v2_audit_and_preserves_input(self):
+        run = prepare_request(self.request_path, self.methods)
+        snapshot = json.loads((run/'framework-snapshot/manifest.json').read_text())
+        self.assertEqual(snapshot['delivery_contract'], runner.CAPITAL_CONTROLS_CONTRACT)
+        originals = {p:p.read_bytes() for p in run.glob('execution/*/*/prompt.txt')}
+        with patch.dict(os.environ, {'MOCK_MODE':'wrong_audit_version'}):
+            entries = json.loads(self.execute().read_text())['results']
+        self.assertTrue(all(e['status']=='failed' and 'frozen audit contract' in e['reason'] for e in entries))
+        self.assertTrue(all(p.read_bytes()==b for p,b in originals.items()))
 
     def test_v3_frozen_snapshot_and_legacy_writer_remain_bound(self):
         run = prepare_request(self.request_path, self.methods)
@@ -415,6 +432,7 @@ class ResearchRunnerTests(unittest.TestCase):
         manifest=run/'framework-snapshot/manifest.json'
         snapshot=json.loads(manifest.read_text())
         snapshot['delivery_contract']=dict(runner.OLD_TWO_PRICE_CONTRACT)
+        snapshot['research_validation'] = snapshot['delivery_contract']['audit_schema']
         manifest.chmod(0o644); manifest.write_bytes(runner.encode(snapshot))
         request,raw,packs=runner.read_request(self.request_path)
         frameworks,_=runner.snapshot_hashes(run)
@@ -459,6 +477,7 @@ class ResearchRunnerTests(unittest.TestCase):
         for folder, (payload, inputs) in originals.items():
             self.assertIn(b'two-price-controls/v2', payload)
             self.assertNotIn(b'two-price-controls/v3', payload)
+            self.assertNotIn(b'two-price-controls/v6', payload)
             self.assertEqual((folder/'prompt.txt').read_bytes(), payload)
             self.assertEqual((folder/'input.json').read_bytes(), inputs)
         report = (self.methods/entries[0]['report']['path']).read_text()

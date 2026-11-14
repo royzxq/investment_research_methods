@@ -393,6 +393,67 @@ class DSHRunnerIntegrationTests(unittest.TestCase):
         self.assertEqual(process['dsh_metrics_error'], 'ValueError')
         self.assertNotIn('private detail', json.dumps(process))
 
+    def enable_evidence_context(self):
+        selected = next(p for p in self.config['profiles'] if p['profile_id'] == self.config['active']['dsh'])
+        selected['tools'] = dict(search='deepseek-search-api', fetch='http', data_health='data-health-v1',
+            evidence_recovery='evidence-recovery-v1', evidence_context='evidence-context-v1')
+
+    def test_context_no_registered_evidence_is_not_exercised_and_existing_delivery_completes(self):
+        self.enable_evidence_context()
+        result_path = self.execute()
+        entry = json.loads(result_path.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'completed', entry['reason'])
+        folder = result_path.parent/'execution/SH-600066/dsh'
+        audit = json.loads((folder/'runner/evidence-citations.json').read_text())
+        self.assertEqual(audit['status'], 'not_exercised')
+        summary = json.loads((folder/'runner/dsh-metrics.json').read_text())
+        self.assertEqual(summary['evidence_context']['final_report_audit']['status'], 'not_exercised')
+
+    def test_context_unknown_reference_blocks_publication_of_final_staged_report(self):
+        self.enable_evidence_context()
+        source = runner_fixture.FAKE_CLI.replace("report_file.write_text(body+'\\n\\n'+block)",
+            "report_file.write_text(body+'\\n\\n'+block+'\\n\\n<!-- evidence-cite:invented -->')")
+        self.f.fake.write_text(dsh_fixture.build_fake_dsh_cli(source))
+        result_path = self.execute()
+        entry = json.loads(result_path.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('unknown_citation', entry['reason'])
+        folder = result_path.parent/'execution/SH-600066/dsh'
+        self.assertEqual(json.loads((folder/'runner/evidence-citations.json').read_text())['status'], 'failed')
+        self.assertFalse(list((self.f.methods/'research/investment/companies').glob('**/*-dsh.*')))
+
+    def test_context_registered_critical_evidence_must_appear_in_final_report(self):
+        self.enable_evidence_context()
+        node_source = r'''
+import fs from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+const folder=process.argv[1];
+const metadata=JSON.parse(await fs.readFile(folder+'/dsh-runtime.json'));
+const {EvidenceStore}=await import(pathToFileURL(folder+'/dsh-evidence-context.mjs').href);
+const store=await new EvidenceStore(metadata.evidence_context_config).init();
+const source=await store.registerWeb({url:'https://example.org/disclosure'}, {statusCode:200,truncated:false,body:{kind:'text',content:'Restricted cash -1234.50 CNY'}});
+const read=await store.open({source_id:source.id});
+await store.pin({evidence_id:read.evidence_id,label:'Restricted cash',stance:'counterevidence',note:'Exclude from free cash'});
+process.stdout.write(JSON.stringify(await store.cite({evidence_id:read.evidence_id,quote:'Restricted cash -1234.50 CNY'})));
+'''
+        for i, include in enumerate((False, True)):
+            with self.subTest(include=include):
+                self.f.request['batch_id'] = ('a' if i == 0 else 'b') * 32
+                self.f.write_request()
+                injected = ("execution=staged.parents[2]/'execution'/get('task_id')/generator\n"
+                    f"citation=json.loads(subprocess.check_output(['node','--input-type=module','-e',{node_source!r},str(execution)],text=True))\n"
+                    f"report_file.write_text(body+'\\n\\n'+block+('\\n\\n'+citation['markdown'] if {include!r} else ''))")
+                source = runner_fixture.FAKE_CLI.replace("report_file.write_text(body+'\\n\\n'+block)", injected)
+                self.f.fake.write_text(dsh_fixture.build_fake_dsh_cli(source))
+                result_path = self.execute()
+                entry = json.loads(result_path.read_text())['results'][0]
+                self.assertEqual(entry['status'], 'completed' if include else 'failed', entry['reason'])
+                if not include:
+                    self.assertIn('required_evidence_not_cited', entry['reason'])
+                audit = json.loads((result_path.parent/'execution/SH-600066/dsh/runner/evidence-citations.json').read_text())
+                self.assertEqual(audit['required_evidence'], 1)
+                self.assertEqual(audit['verified_evidence'], int(include))
+
     def test_exit_zero_with_aborted_native_turn_cannot_publish_artifacts(self):
         self.f.fake.write_text(self.f.fake.read_text().replace(
             "'completed' if success else 'error'", "'aborted' if success else 'error'"))

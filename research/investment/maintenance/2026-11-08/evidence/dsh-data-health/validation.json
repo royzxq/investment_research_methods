@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-08",
+  "scope": "local data retrieval health checks; no new model or data API calls",
+  "artifacts": [
+    {
+      "path": "scripts/research_data_health.mjs",
+      "sha256": "c5a18434d3568e9323bab82e9b49964647d712ab340cf1941eca777b74bb4cdb"
+    },
+    {
+      "path": "scripts/research_dsh.py",
+      "sha256": "e69280aad18118e33ae93eb451d379ae177e03546422ef8ccf909e4a79d8cb27"
+    },
+    {
+      "path": "config/research_runtime.production.json",
+      "sha256": "bdcfdc20014d35d534cd8b3a469bbebf6302351235f5131a2fa45889584e8faf"
+    },
+    {
+      "path": ".agents/skills/stock-research/references/data-acquisition.md",
+      "sha256": "f912da06cb43970f5c85657b9dfed1525c439318bfaae003a089b0cf43531740"
+    },
+    {
+      "path": "tests/test_research_data_health.mjs",
+      "sha256": "12823724bc8d7ac18d370a009e420a9a1fb294a833622dac014f2e3cfe125c1a"
+    },
+    {
+      "path": "tests/test_research_data_health.py",
+      "sha256": "3b283818b1a5e0e2529b7275373975442c4be578f5d70f87412149df86d2de43"
+    },
+    {
+      "path": "tests/test_research_dsh.py",
+      "sha256": "955a3f1b81193b843178ff638fe5ce522bfd38f12c1d210bdde38123fc630fa8"
+    },
+    {
+      "path": "output/data-health-validation/2026-11-08/replay.mjs",
+      "sha256": "eb499e5ed4e99cd8e7d23fd459539c91ffc70c87a529c77dcdcd51238d762972"
+    },
+    {
+      "path": "output/data-health-validation/2026-11-08/focused-final.log",
+      "sha256": "472cbbeae53366b7f6c3197fe5f4f4814b561e09ce687ea610e9944e89c0f7a5"
+    },
+    {
+      "path": "output/data-health-validation/2026-11-08/node-tests-final.log",
+      "sha256": "2e102547bb5bd908c5645f56f74014602d42741bc2c30589af6978c668806fa0"
+    }
+  ],
+  "real_runtime": {
+    "dsh": "0.2.1-rc.2",
+    "type": "offline native ToolRuntime integration",
+    "passed": true
+  },
+  "focused_python": {
+    "passed": 43
+  },
+  "node": {
+    "passed": 18,
+    "skipped": 0
+  },
+  "historical_replay": {
+    "cases": 31,
+    "upstream_failed": 12,
+    "review_required": 17,
+    "mechanical_checks_only": 2,
+    "known_truncated_html": 6
+  },
+  "production_preflight": "passed",
+  "legacy_profiles_unchanged": true,
+  "other_model_profiles_unchanged": true,
+  "schedule_unchanged": {
+    "hour": 5,
+    "minute": 0
+  },
+  "full_regression": {
+    "passed": 1324,
+    "seconds": 224.76,
+    "log_path": "output/data-health-validation/2026-11-08/full-tests.log",
+    "log_sha256": "4aac211401e910a5f2b8b31006a2874b8cfb66625fb6f5070e5cd5748d445f3a",
+    "final_small_edits_covered_by_focused_and_node_checks": true
+  },
+  "limitations": [
+    "No new paid model or live data API run",
+    "No semantic verification of company reports",
+    "Automatic interception limited to web_fetch and AKTools get_data",
+    "Financial field interpretation limited to two validated interfaces",
+    "Byte/hash and schema checks do not prove source truth"
+  ],
+  "skill_validation": "passed",
+  "stock_governance": "passed_structure_only",
+  "diff_check": "passed"
+}

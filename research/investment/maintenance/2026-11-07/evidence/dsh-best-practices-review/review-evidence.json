@@ -1,0 +1,368 @@
+{
+  "as_of": "2026-11-07",
+  "read_at": "2026-11-07T23:27:44.680928+08:00",
+  "generator": "codex",
+  "scope": "read-only document/config/log review; no new DSH or stock-x API calls",
+  "source_report": {
+    "original_path": "/Users/xinquanzhou/.codex/attachments/2977a3f0-133a-47b2-b7b0-f51bd32ff906/已粘贴的文本.txt",
+    "sha256": "f1cce86030c1b359b4c581eb2ef16068cff182132d52d42bdf0c41b508ab0167",
+    "snapshot": "source-report.txt",
+    "referenced_three_evidence_documents_available": false
+  },
+  "summary_all": {
+    "attempts_with_metrics": 20,
+    "completed_exit0_with_duration": 20,
+    "min_minutes": 10.521566666666667,
+    "median_minutes": 14.256775,
+    "max_minutes": 18.9915
+  },
+  "summary_a_shares": {
+    "attempts_with_metrics": 17,
+    "completed_exit0_with_duration": 17,
+    "min_minutes": 11.716816666666666,
+    "median_minutes": 14.07645,
+    "max_minutes": 18.9915
+  },
+  "processes_missing_metrics": [],
+  "attempts": [
+    {
+      "day": "2026-11-04",
+      "stock": "HK-01093",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 914.658,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/HK-01093/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "0190ab1e1ac4d696da4afe9f1c739b114b8cb44392cef6c6aa2c15610d3fa2d8",
+      "process_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/HK-01093/dsh/process.json",
+      "process_sha256": "3ff6c10f2713a62f1847f8b724f34caab4e37bdc82cbce9cca1fbd54d0ed5bbc"
+    },
+    {
+      "day": "2026-11-04",
+      "stock": "HK-01952",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 1069.734,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/HK-01952/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "cee91a430f7b61f19fb17846878925d8677a051829b13975375066e540787d01",
+      "process_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/HK-01952/dsh/process.json",
+      "process_sha256": "dde48372f589ea22f1817ac58a4b73a5de26da1d056ceb121023fb62960d5b54"
+    },
+    {
+      "day": "2026-11-04",
+      "stock": "SH-600900",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 812.364,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/SH-600900/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "82824afefb56631a4f5d5e10c7f8bbcdba0d04c14b68fcf628ec3dbd4f1da547",
+      "process_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/SH-600900/dsh/process.json",
+      "process_sha256": "27147cfc3c6903355e9b401be91cc51c7d1b958a90a27086b66dfa2d3f2bf2cc"
+    },
+    {
+      "day": "2026-11-04",
+      "stock": "SZ-000651",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 1048.897,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/SZ-000651/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "0e8baaead7e13853fa6f416d4d4ea1ca66bdfbe3eb4ec55e4da9dac554c37968",
+      "process_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/SZ-000651/dsh/process.json",
+      "process_sha256": "cf1274223682d0b30349a293a7c2413cf9d58b248d3b6c9e45a16a02a5541e2c"
+    },
+    {
+      "day": "2026-11-04",
+      "stock": "SZ-300760",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 703.009,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/SZ-300760/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "84ec53acff1375d9e33f851cb68757619a4a6136dfe243f8e0d25aef407240fc",
+      "process_path": "output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef/execution/SZ-300760/dsh/process.json",
+      "process_sha256": "d37b46f094835e19713548b6cc2f811f3933263f453fed4e895010ba818f5554"
+    },
+    {
+      "day": "2026-11-05",
+      "stock": "SH-600089",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 891.488,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600089/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "dcf0777ac93f0e1b1381c943fd6a1e19fb01c4e3e2276736f8119f003e76d5df",
+      "process_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600089/dsh/process.json",
+      "process_sha256": "ef02579c88ee065d444de3021eac0895c94e605b043e161b5e2aee1a6f3050de"
+    },
+    {
+      "day": "2026-11-05",
+      "stock": "SH-600276",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 1139.49,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600276/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "dc5af4ece4c73be139edd4889662a09c08b6e6d05bcf57cd82b06eb545aef0b8",
+      "process_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600276/dsh/process.json",
+      "process_sha256": "b66de27c06d574b2e91e87482225bab5e6d23392e7943a024044a8fe5604fe4d"
+    },
+    {
+      "day": "2026-11-05",
+      "stock": "SH-600875",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 843.843,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600875/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "ff6c83f1e3342bc54e89506fcad61ed4e6071b64d35401b76063239a42c4664f",
+      "process_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600875/dsh/process.json",
+      "process_sha256": "ea72c17b42dfc068af9b9977b2510923c42a4ddb3659403bbea767a156777296"
+    },
+    {
+      "day": "2026-11-05",
+      "stock": "SH-600887",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 831.851,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600887/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "632e97bcba377a78f7458553037d2f86a262a921076e825161121c6684e674fc",
+      "process_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-600887/dsh/process.json",
+      "process_sha256": "26bb35ac4e6fbb4ff4020e80ac9d74181fc472dcc9eef3984eb1c6a14dac8ce1"
+    },
+    {
+      "day": "2026-11-05",
+      "stock": "SH-603337",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 844.47,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-603337/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "30d193363e3a6b4daa90ba2409b45a20f8c6cab4aaa03593b29c8755a72cbda1",
+      "process_path": "output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab/execution/SH-603337/dsh/process.json",
+      "process_sha256": "afe9bfa6bc1654e3be868efe8b4e018af81ed7863b3dcc04a1b12e0301aca5c5"
+    },
+    {
+      "day": "2026-11-06",
+      "stock": "SZ-002439",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 1045.829,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-06/0a9cb43b1988495f818d6f03596267e0/execution/SZ-002439/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "ffda3e7dfdcc4084e981a80561fb1d71221353ad7afaaab8e945e69ecba8c86a",
+      "process_path": "output/runs/investment/2026-11-06/0a9cb43b1988495f818d6f03596267e0/execution/SZ-002439/dsh/process.json",
+      "process_sha256": "2848f8238035677b7981650b40dc14a302345b48a8777659622a03bd5b057d73"
+    },
+    {
+      "day": "2026-11-06",
+      "stock": "HK-00700",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 631.294,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-06/57980a66288540a8aea2d067b2455409/execution/HK-00700/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "aafbd0f76ab6edc46b43c67f93a64e5a664f1a5225febf3d4b189ad6ee4a52d4",
+      "process_path": "output/runs/investment/2026-11-06/57980a66288540a8aea2d067b2455409/execution/HK-00700/dsh/process.json",
+      "process_sha256": "366e0aa1efbe565eccb923a2a31e20249aeef49a14aa76c62111722575431bbf"
+    },
+    {
+      "day": "2026-11-06",
+      "stock": "SH-600406",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 954.038,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-06/57980a66288540a8aea2d067b2455409/execution/SH-600406/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "95a0f989a682010f013d3fe9c2ea628b8ff47105f8cee91ddf44eba41b0229cb",
+      "process_path": "output/runs/investment/2026-11-06/57980a66288540a8aea2d067b2455409/execution/SH-600406/dsh/process.json",
+      "process_sha256": "b5f16ee02e6f43bce102226592535cafdc0ad92de648f8c90b2033ccf9b88eca"
+    },
+    {
+      "day": "2026-11-06",
+      "stock": "SH-601877",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 844.587,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-06/57980a66288540a8aea2d067b2455409/execution/SH-601877/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "228d733bfd0f797a77d52557ba64aea37855becbc1115f0210e751d059ed7fed",
+      "process_path": "output/runs/investment/2026-11-06/57980a66288540a8aea2d067b2455409/execution/SH-601877/dsh/process.json",
+      "process_sha256": "b0f04267c2bab0fbecadee37fe5906472794d08600be2169a7e2ccff54d3ef84"
+    },
+    {
+      "day": "2026-11-06",
+      "stock": "SZ-300454",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 866.226,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-06/d1a2915d4d5a4a92af199681366c8880/execution/SZ-300454/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "a933c04ea971cd7b7e92590d754c1d8030736f7349ea03a78722df9f3599a50a",
+      "process_path": "output/runs/investment/2026-11-06/d1a2915d4d5a4a92af199681366c8880/execution/SZ-300454/dsh/process.json",
+      "process_sha256": "173a31bc610fe962d095ec5aebea9d7da7bbfeb9892015ed2f94b2041865bcc6"
+    },
+    {
+      "day": "2026-11-07",
+      "stock": "SH-688208",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 988.162,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SH-688208/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "4255ad8726b74b7530873ca0bd03f993fdfb74383250060b31a27a1260e8c83f",
+      "process_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SH-688208/dsh/process.json",
+      "process_sha256": "8c8c825e6b345fc188c8c5fd420953026ddb65c1d3244ebff0579ac2d267ae3c"
+    },
+    {
+      "day": "2026-11-07",
+      "stock": "SH-688356",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 832.143,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SH-688356/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "a93a94fd8f71f58077dd51b5b506fc90089ea5feeb3a4397bb8c005aea856dc1",
+      "process_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SH-688356/dsh/process.json",
+      "process_sha256": "ea68c5e94853211151983d20906b523375744dd50fc28841e84accfca1dc5017"
+    },
+    {
+      "day": "2026-11-07",
+      "stock": "SZ-000333",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 1053.814,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SZ-000333/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "e5eff4de4caf1fcb84932ec154b2971df1a4ee3502080b965e5ee21665136336",
+      "process_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SZ-000333/dsh/process.json",
+      "process_sha256": "21a7fd27c941eb3c100277f9b4c94e6ca6e5b98e22abc692e75302bc34e05c68"
+    },
+    {
+      "day": "2026-11-07",
+      "stock": "SZ-000988",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 741.187,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SZ-000988/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "486867eb27516fe8857e2797b64ce2ed6b09d5a03fb304eec05f60d32f05d17e",
+      "process_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SZ-000988/dsh/process.json",
+      "process_sha256": "dc78f7f99b89a00862cb5de366b0cf6c43e0b2ea9adb83d113a5096b24874b08"
+    },
+    {
+      "day": "2026-11-07",
+      "stock": "SZ-002371",
+      "attempt": 1,
+      "process_status": "completed",
+      "exit_code": 0,
+      "wall_seconds": 750.806,
+      "profile_id": "dsh-deepseek-flash-high-tools-v1",
+      "metrics_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SZ-002371/dsh/runner/dsh-metrics.json",
+      "metrics_sha256": "7a193f80d61e371fce8870b083c34032596ed667f7bcfbc9ed7763d2c9bcb772",
+      "process_path": "output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811/execution/SZ-002371/dsh/process.json",
+      "process_sha256": "4625e19da2ba4cd0318c4e7726b36e9611c306fdb51eaec4b52edf13fb7d2d33"
+    }
+  ],
+  "local_sources": [
+    {
+      "path": "framework/investment_framework.md",
+      "sha256": "10a8cb94f5288b7340589a469d1f57c71bdf0fc07346a4d2b2ab0185227edab0"
+    },
+    {
+      "path": "framework/investment_framework_compact.md",
+      "sha256": "071ab7d37d6d11b073cdbb0b5de3f6be9445af2ede5519a7264e1b7378831040"
+    },
+    {
+      "path": "config/research_runtime.production.json",
+      "sha256": "dfedbf5ac063e4a6e517a197b9bec7f53a74729b8e456103b353269e5a4c273c"
+    },
+    {
+      "path": ".agents/skills/stock-research/SKILL.md",
+      "sha256": "bcb0687297264578a40f335719ac7e5215649c940f6b3cfabb5ad6b72f7680b3"
+    },
+    {
+      "path": ".agents/skills/stock-research/references/data-acquisition.md",
+      "sha256": "6c3feadf9e9960460ca5b500fe0214730480ace02421363561529b44006205a6"
+    },
+    {
+      "path": ".agents/skills/stock-research/references/acceptance-gates.md",
+      "sha256": "f7e39ffdb7b35271a43cf6f74f000049033715e49319b1d65802f7a6a7f0e382"
+    },
+    {
+      "path": "docs/adr/ADR-20261029-sequential-stock-evidence.md",
+      "sha256": "c14c5b42cf1839e44e54ea4bc0a4c7f35973238636093702d9699d5cac4f9abc"
+    },
+    {
+      "path": "docs/adr/ADR-20261101-dsh-delivery-reliability.md",
+      "sha256": "81064b1ee36545ba825a767908a0240be0515a7bf8d0792411dbf63cb2977f61"
+    },
+    {
+      "path": "docs/adr/ADR-20261103-dsh-research-tools.md",
+      "sha256": "fec7a1e1727d073a23d7e303f24a34ea5ac65108b48439448c2e7db7766abfc8"
+    },
+    {
+      "path": "research/investment/maintenance/2026-11-03/investment-2026-11-03-dsh-plugin-review-codex.md",
+      "sha256": "5374e53f30b8c523de8f6a6c4ceb49b06940d7fa0e5e986fa45a9484ed315323"
+    },
+    {
+      "path": "scripts/research_dsh.py",
+      "sha256": "4140a7db782b379de8e67b3cb285f65bce4af2ad78512666090cc0cc42e75a4a"
+    },
+    {
+      "path": "scripts/research_dsh_metrics.py",
+      "sha256": "0080b618c0355ff712aaeec8fee758a76680f8d5cc09264e96e5f8fd4238bea3"
+    },
+    {
+      "path": "research/README.md",
+      "sha256": "3c3ad25161258228952f142fbbc37935a48fecf3ad9d9c280392295774b7c945"
+    }
+  ],
+  "web_sources": [
+    {
+      "url": "https://star.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260424_10816474.shtml",
+      "publication_date": "2026-04-24",
+      "effective_date": "2026-07-06",
+      "retrieved_date": "2026-11-07",
+      "read_status": "opened_body",
+      "supports": "SSE main-board risk-warning stock price limit changed from 5% to 10%"
+    },
+    {
+      "url": "https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml",
+      "publication_date": "2026-04-24",
+      "effective_date": "2026-07-06",
+      "retrieved_date": "2026-11-07",
+      "read_status": "opened_body",
+      "supports": "2026 trading rules effective date and current status"
+    }
+  ],
+  "limitations": [
+    "No semantic revalidation of the 20 company reports",
+    "No raw session-log metrics recomputation; existing metrics read with process records",
+    "Wall time excludes upstream Codex, queueing and downstream consumption",
+    "No causal pre/post comparison or cost estimate",
+    "No new market prices or stock-x response claims verified"
+  ]
+}

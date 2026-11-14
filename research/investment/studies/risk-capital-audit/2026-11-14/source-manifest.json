@@ -1,0 +1,66 @@
+[
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-11-12/SH-600988/investment-600988-2026-11-12-research-codex-r2.md",
+    "sha256": "7ba8166c29956d94ba638a00f20dd6ed1a2f167befa858af1ca1b5c91b9f87d9"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-11-12/SH-600988/investment-600988-2026-11-12-price-map-codex-r2.json",
+    "sha256": "fe501ccc5895de02dbbfbc00a365f7fd6baea3bcfe7d6ef7328b9f9134853662"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/framework-snapshot/research-baselines/SH-600988-codex.md",
+    "sha256": "115069b954d20579ed1d070dc9bf10b1d13f968a0b1ba723557e7da363ad6aa5"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/execution/SH-600988/codex/agent/financial/pages/2025ESG/092.txt",
+    "sha256": "f82c123aaa17c89352835a0782640914b105e0ac98aece92b2ed5069f273065e"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/execution/SH-600988/codex/agent/financial/pages/2025ESG/092.txt",
+    "sha256": "f82c123aaa17c89352835a0782640914b105e0ac98aece92b2ed5069f273065e"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/execution/SH-600988/codex/agent/financial/pages/2026Q3/013.txt",
+    "sha256": "0d9513bfb360c0852044e7ca1e5de5462f1a5e4ddcfdab781753275c5701d37e"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-11-12/SH-600988/investment-600988-2026-11-12-research-dsh-r2.md",
+    "sha256": "26d4b3241b0312ef868e4336df1acb1ff8211ea2e6108450df5b6a2f285bccef"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-11-12/SH-600988/investment-600988-2026-11-12-price-map-dsh-r2.json",
+    "sha256": "97e749cc68dd094357bb9d92e612ad7cf522cd2d3d622ad70b20a9bfa8f55b50"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/framework-snapshot/research-baselines/SH-600988-dsh.md",
+    "sha256": "fb28c3a2dc0da80065ae6ecba86aabdce7cd835f940c61ab57690e4623179e0b"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/execution/SH-600988/dsh/agent/evidence/q3_p2_p7_extract.txt",
+    "sha256": "41892dae694945a496d3a3ed70e2ab7763309a04a87bb5e0562983a3590cba0a"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/execution/SH-600988/dsh/agent/evidence/q3_p2_p7_extract.txt",
+    "sha256": "41892dae694945a496d3a3ed70e2ab7763309a04a87bb5e0562983a3590cba0a"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe/execution/SH-600988/dsh/agent/evidence/esg_p92_extract.txt",
+    "sha256": "b48089acb1dd22e2ccd5d769e5adec20aacee71a494d29ff0fb56b5c6c01dfb6"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-10-15/HK-01810/investment-01810-2026-10-15-research-codex.md",
+    "sha256": "926df55582de356616c8283ed65de22e4d47c2525dba055ca346407bbbe882c9"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-10-15/HK-01810/investment-01810-2026-10-15-research-claude.md",
+    "sha256": "7919878da0f8ccd0472df62c6174d44c595a99af85145cf65007ea5e013edf8d"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/ai_investment/outputs/methods_rules_20261114/worktree/framework/investment_framework.md",
+    "sha256": "7e59dd445a2477381b34c1e6371b5f1669976a659a6a917cfcb0d76e932a3909"
+  },
+  {
+    "path": "/Users/xinquanzhou/Workspace/ai_investment/outputs/methods_rules_20261114/worktree/framework/investment_framework_compact.md",
+    "sha256": "1215f2745292383fa06d4c34caf9ed1fd75b22dbfe84382c0a2b647d820763bb"
+  }
+]

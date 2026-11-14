@@ -189,6 +189,109 @@ class ResearchDSHTests(unittest.TestCase):
         with patch.object(dsh.subprocess, 'run', return_value=result), self.assertRaisesRegex(ValueError, 'missing or differs'):
             dsh._aktools_runtime(self.root)
 
+    def test_data_health_is_opt_in_frozen_and_tamper_checked(self):
+        old_patch = (self.folder / 'dsh-runtime.patch.json').read_bytes()
+        item = profile()
+        item['tools'] = dict(search='deepseek-search-api', fetch='http', data_health='data-health-v1')
+        folder = self.root / 'health'; folder.mkdir()
+        (folder / 'receipt-schema.json').write_text(json.dumps(
+            {'properties': {'valuation_date': {'enum': ['2026-11-08']}}}))
+        context = harness.LaunchContext(folder, self.root, 'dsh', {}, 'delivery')
+        self.adapter.command('/local/dsh', context, item)
+        rows = json.loads((folder / 'dsh-runtime.patch.json').read_text())
+        inserted = [entry for row in rows for entry in row.get('insert', [])]
+        health = next(r for r in inserted if r['id'] == 'research-data-health')
+        self.assertEqual(health['config']['asOf'], '2026-11-08')
+        self.assertEqual(Path(health['config']['directory']), (folder / 'data-health').resolve())
+        self.assertEqual((folder / 'dsh-data-health.mjs').read_bytes(), dsh._data_health_source())
+        self.adapter.command('/local/dsh', context, item)  # Exact repeat is idempotent.
+        self.assertEqual((self.folder / 'dsh-runtime.patch.json').read_bytes(), old_patch)
+        self.assertFalse((self.folder / 'dsh-data-health.mjs').exists())
+        (folder / 'events.jsonl').write_text(''.join(json.dumps(row) + '\n' for row in self.success()))
+        self.assertEqual(self.adapter.receipt(folder, _strict_json, write_new, encode), self.receipt)
+        (folder / 'dsh-data-health.mjs').write_text('tampered')
+        with self.assertRaisesRegex(ValueError, 'data health runtime changed'):
+            self.adapter.receipt(folder, _strict_json, write_new, encode)
+        for value in (None, 'latest', {'command': 'bad'}):
+            item['tools']['data_health'] = value
+            with self.assertRaises(ValueError):
+                self.adapter.validate_profile(item)
+
+    def test_data_health_requires_frozen_valid_date(self):
+        item = profile()
+        item['tools'] = dict(search='deepseek-search-api', fetch='http', data_health='data-health-v1')
+        for i, dates in enumerate((None, ['2026-02-30'], ['2026-11-07', '2026-11-08'])):
+            folder = self.root / f'bad-date-{i}'; folder.mkdir()
+            (folder / 'receipt-schema.json').write_text(json.dumps({'properties': {'valuation_date': {'enum': dates}}}))
+            with self.assertRaises(ValueError):
+                self.adapter.command('/local/dsh', harness.LaunchContext(folder, self.root, 'dsh', {}, 'delivery'), item)
+
+    def test_evidence_recovery_freezes_both_sources_and_preserves_legacy_profile(self):
+        old_patch = (self.folder / 'dsh-runtime.patch.json').read_bytes()
+        item = profile()
+        item['tools'] = dict(search='deepseek-search-api', fetch='http', data_health='data-health-v1',
+                             evidence_recovery='evidence-recovery-v1')
+        folder = self.root / 'recovery'; folder.mkdir()
+        (folder / 'receipt-schema.json').write_text(json.dumps({'properties': {'valuation_date': {'enum': ['2026-11-08']}}}))
+        context = harness.LaunchContext(folder, self.root, 'dsh', {}, 'delivery')
+        self.adapter.command('/local/dsh', context, item)
+        self.adapter.command('/local/dsh', context, item)
+        rows = json.loads((folder / 'dsh-runtime.patch.json').read_text())
+        inserted = [entry for row in rows for entry in row.get('insert', [])]
+        plugin = next(r for r in inserted if r['id'] == 'research-evidence-recovery')
+        self.assertEqual(Path(plugin['config']['directory']), (folder / 'evidence-recovery').resolve())
+        self.assertEqual(plugin['config']['asOf'], '2026-11-08')
+        self.assertEqual(Path(plugin['config']['worker']), (folder / 'dsh-document-recovery.py').resolve())
+        (folder / 'events.jsonl').write_text(''.join(json.dumps(row) + '\n' for row in self.success()))
+        self.assertEqual(self.adapter.receipt(folder, _strict_json, write_new, encode), self.receipt)
+        for name, original in dsh._evidence_recovery_sources().items():
+            self.assertEqual((folder / name).read_bytes(), original)
+            (folder / name).write_text('tampered')
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'evidence recovery runtime changed'):
+                self.adapter.receipt(folder, _strict_json, write_new, encode)
+            (folder / name).write_bytes(original)
+        self.assertEqual((self.folder / 'dsh-runtime.patch.json').read_bytes(), old_patch)
+        self.assertFalse((self.folder / 'evidence-recovery').exists())
+
+    def test_evidence_recovery_rejects_unknown_versions_and_requires_health(self):
+        for value, health in [('latest', 'data-health-v1'), (None, 'data-health-v1'), ('evidence-recovery-v1', None)]:
+            item = profile()
+            item['tools'] = dict(search='deepseek-search-api', fetch='http', evidence_recovery=value)
+            if health:
+                item['tools']['data_health'] = health
+            with self.subTest(value=value, health=health), self.assertRaises(ValueError):
+                self.adapter.validate_profile(item)
+
+    def test_evidence_context_freezes_source_and_runs_audit_on_final_report(self):
+        item = profile()
+        item['tools'] = dict(search='deepseek-search-api', fetch='http', data_health='data-health-v1',
+            evidence_recovery='evidence-recovery-v1', evidence_context='evidence-context-v1')
+        folder = self.root / 'context'; folder.mkdir()
+        (folder / 'receipt-schema.json').write_text(json.dumps({'properties': {'valuation_date': {'enum': ['2026-11-08']}}}))
+        self.adapter.command('/local/dsh', harness.LaunchContext(folder, self.root, 'dsh', {}, 'delivery'), item)
+        self.assertEqual((folder / 'dsh-evidence-context.mjs').read_bytes(), dsh._evidence_context_source())
+        self.assertFalse((self.folder / 'dsh-evidence-context.mjs').exists())
+        (folder / 'events.jsonl').write_text(''.join(json.dumps(row) + '\n' for row in self.success()))
+        self.assertEqual(self.adapter.receipt(folder, _strict_json, write_new, encode), self.receipt)
+        self.assertEqual(self.adapter.evidence_citation_audit(folder, b'# No registered evidence')['status'], 'not_exercised')
+        bad = self.adapter.evidence_citation_audit(folder, b'<!-- evidence-cite:invented -->')
+        self.assertEqual(bad['status'], 'failed')
+        self.assertEqual(bad['issues'][0]['code'], 'unknown_citation')
+        (folder / 'dsh-evidence-context.mjs').write_text('tampered')
+        with self.assertRaisesRegex(ValueError, 'context runtime changed'):
+            self.adapter.evidence_citation_audit(folder, b'# report')
+        with self.assertRaisesRegex(ValueError, 'context runtime changed'):
+            self.adapter.receipt(folder, _strict_json, write_new, encode)
+
+    def test_evidence_context_requires_known_version_and_recovery(self):
+        for version, recovery in [('latest', 'evidence-recovery-v1'), (None, 'evidence-recovery-v1'), ('evidence-context-v1', None)]:
+            item = profile()
+            item['tools'] = dict(search='deepseek-search-api', fetch='http', data_health='data-health-v1', evidence_context=version)
+            if recovery:
+                item['tools']['evidence_recovery'] = recovery
+            with self.subTest(version=version, recovery=recovery), self.assertRaises(ValueError):
+                self.adapter.validate_profile(item)
+
     def test_fallback_key_requires_exact_official_cc_provider(self):
         cc = self.root / '.claude'
         cc.mkdir()

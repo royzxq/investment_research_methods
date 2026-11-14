@@ -23,6 +23,99 @@ def candidates():
 
 
 class SchedulerTests(unittest.TestCase):
+    def test_dated_research_candidates_take_first_slots_with_existing_cooldown(self):
+        from scripts.research_candidate_packs import due_candidates
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/'research_candidates.json'
+            path.write_text(json.dumps([
+                dict(code='300454.SZ', name='深信服', research_on='2026-10-07'),
+                dict(code='002439.SZ', name='启明星辰', research_on='2026-10-07'),
+            ]))
+            self.assertEqual(due_candidates(path, '2026-10-08'), [])
+            due = due_candidates(path, '2026-10-07')
+            manual = [
+                dict(candidates()[i], task_id=f"SZ-{row['code'].split('.')[0]}",
+                     event_key=str(i+7)*64, candidate_order=row['order'])
+                for i, row in enumerate(due)
+            ]
+            state = new_state()
+            merge_candidates(state, candidates()+manual, NOW)
+            chosen = reserve(copy.deepcopy(state), NOW)
+            self.assertEqual([e['task_id'] for e in chosen[:2]], ['SZ-300454', 'SZ-002439'])
+            self.assertEqual(len(chosen), 5)
+            state['last_started']['SZ-300454'] = dict(started_at=(NOW-timedelta(days=1)).isoformat())
+            chosen = reserve(state, NOW)
+            self.assertEqual(chosen[0]['task_id'], 'SZ-002439')
+            self.assertNotIn('SZ-300454', [e['task_id'] for e in chosen])
+
+    def test_candidate_seal_does_not_enter_production_writeback_or_coze(self):
+        from scripts import research_scheduler as scheduler
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            entry = dict(candidates()[0], candidate_order=0, budget_date='2026-10-07')
+            with patch('scripts.coze_events.enqueue') as coze:
+                scheduler.seal_entry(entry, root, {'generators': ['codex'],
+                                                  'schema_version': 'stock-research-request/v2'},
+                                     {'codex': ('completed', {'generator': 'codex'})})
+            coze.assert_not_called()
+            self.assertTrue(Path(entry['sealed']).is_file())
+            self.assertEqual(Path(entry['sealed']).parent, root/'candidate-sealed')
+            self.assertFalse((root/'sealed').exists())
+
+    def test_late_automatic_pack_preserves_same_day_candidate(self):
+        state = new_state()
+        initial = candidates()[0]
+        manual = dict(initial, candidate_order=0)
+        automatic = dict(initial, event_key='b'*64, created_at=(NOW+timedelta(minutes=1)).isoformat())
+        merge_candidates(state, [automatic, manual], NOW)
+        self.assertEqual(state['entries'][initial['task_id']]['event_key'], manual['event_key'])
+        tomorrow = NOW + timedelta(days=1)
+        newer = dict(automatic, valuation_date=tomorrow.date().isoformat(), created_at=tomorrow.isoformat())
+        merge_candidates(state, [manual, newer], tomorrow)
+        self.assertNotIn('candidate_order', state['entries'][initial['task_id']])
+
+    def test_candidate_pack_failure_isolated_and_children_cleaned_up(self):
+        from threading import Event
+        from scripts import research_scheduler as scheduler
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            rows = [
+                dict(code='300454.SZ', name='深信服', research_on='2026-10-07', order=0),
+                dict(code='002439.SZ', name='启明星辰', research_on='2026-10-07', order=1),
+                dict(code='600519.SH', name='贵州茅台', research_on='2026-10-07', order=2),
+            ]
+            subprocess_factory = subprocess.Popen
+            scheduler_wait = scheduler.wait_for_process
+
+            def wait_for_pack(process, timeout, cancelled):
+                if json.loads(process.args[-1])['order'] == 0:
+                    raise ValueError('candidate pack timeout')
+                scheduler_wait(process, timeout, cancelled)
+
+            def launch_fixture(args, **kwargs):
+                exit_code = 7 if json.loads(args[-1])['order'] == 1 else 0
+                return subprocess_factory([sys.executable, '-c', 'import sys; sys.exit(int(sys.argv[1]))',
+                                           str(exit_code), args[-1]],
+                                          start_new_session=kwargs['start_new_session'])
+
+            event_log = root/'events.jsonl'
+            with patch.object(scheduler, 'due_candidates', return_value=rows), \
+                 patch.object(scheduler.subprocess, 'Popen', side_effect=launch_fixture), \
+                 patch.object(scheduler, 'wait_for_process', side_effect=wait_for_pack), \
+                 patch.object(scheduler, 'stop_group', wraps=scheduler.stop_group) as cleanup:
+                attempted, failures = scheduler.collect_candidate_packs(
+                    root, root/'exchange', NOW, new_state(), set(), [], Event(), event_log, 'test')
+            self.assertTrue(attempted)
+            self.assertEqual(failures, [dict(task_id='SZ-300454', reason='candidate pack timeout'),
+                                        dict(task_id='SZ-002439', reason='candidate pack process exited with status 7')])
+            self.assertEqual(cleanup.call_count, 3)
+            events = [json.loads(line) for line in event_log.read_text().splitlines()]
+            self.assertEqual({(e['task_id'], e['event']) for e in events}, {
+                ('SZ-300454', 'candidate_pack_failed'), ('SZ-002439', 'candidate_pack_failed'),
+                ('SH-600519', 'candidate_pack_ready'),
+            })
+
     def test_service_wakes_clock_gate_without_load_or_interval_trigger(self):
         from scripts.install_research_service import service
         plist=service(sys.executable,sys.executable,sys.executable)

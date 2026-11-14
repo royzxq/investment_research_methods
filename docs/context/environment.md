@@ -47,3 +47,16 @@ output/runtime/aktools-0.1.4/bin/python -m pip install -r config/dsh_aktools-0.1
 ```
 
 API 的网络、币种、字段口径仍按每次实际返回核验；安装/预检成功不代表任意接口可用。日志按尝试保存在 `dsh-aktools/`，DSH 的汇总统计在 `runner/dsh-metrics.json`；密钥、提示词和命令正文不进入汇总。
+
+## DSH 取数体检（2026-11-08）
+
+新准备批次最初启用 `dsh-deepseek-flash-high-health-v1`，保留原工具与模型，增加 `data_health=data-health-v1`。原生网页取数与 AKTools get_data 前后自动检查，并将原响应和体检记录保存在每次尝试的 `data-health/`；财务语义细检限已验证的两类接口，其他接口只做通用结构与分页检查。bash/curl、PDF 等路径仍按技能人工/模型核验。旧冻结计划不变，不用新体检追认历史。实施、回退和未覆盖范围见 [体检 ADR](../adr/ADR-20261108-dsh-data-health.md)。
+
+## DSH 有界补证（2026-11-08 后续）
+
+按用户后续授权，当时新准备批次进一步选择 `dsh-deepseek-flash-high-recovery-v1`，叠加 `evidence_recovery=evidence-recovery-v1`。原生体检提示的网页截断/空壳、PDF不支持和分页不足会进入有界补证；新增工具支持公开文档下载、按页/范围读取、原页渲染及绑定读取凭证的采用记录。自动补证与原工具返回分开，效果记录进入每次尝试的 `evidence-recovery/` 和 `runner/dsh-metrics.json`。本机继续复用已验证的 PyMuPDF 解释器，不安装新依赖。原 health profile 留作回退，旧冻结计划不变。范围、预算、取消及事实核验边界见 [补证 ADR](../adr/ADR-20261108-dsh-evidence-recovery.md)。
+
+
+## DSH 长正文与上下文接续（2026-11-08 后续）
+
+当前新准备批次使用 `dsh-deepseek-flash-high-context-v1`，在体检及补证上叠加 `evidence-context-v1`。原生网页和恢复文档进入每次尝试的 `evidence-context/`，通过短定位簿、稳定 evidence_id 和原件哈希跨裁剪/压缩接续。关键输入与反证标记保留口径和未决状态；新 runner 对最终暂存报告核引用文字、链接、位置和已标记的必引项。无登记引用时为 not_exercised，不视为已核事实。需要本机 Node.js 20+（本次22.14.0），复用现有DSH/PyMuPDF，不安装依赖。旧冻结批次不变；回退选择 recovery-v1。范围、原件保留要求、验证和语义边界见[上下文 ADR](../adr/ADR-20261108-dsh-evidence-context.md)。

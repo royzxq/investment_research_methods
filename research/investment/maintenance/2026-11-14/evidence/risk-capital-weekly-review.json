@@ -1,0 +1,22 @@
+{
+  "scope": "offline copies of actual canonical/compact; no production handoff, market research or quote writes",
+  "source_sha256": {
+    "investment_framework.md": "7e59dd445a2477381b34c1e6371b5f1669976a659a6a917cfcb0d76e932a3909",
+    "investment_framework_compact.md": "1215f2745292383fa06d4c34caf9ed1fd75b22dbfe84382c0a2b647d820763bb"
+  },
+  "checks": {
+    "current_method_selects_bound_handoff": true,
+    "state_only_refresh_keeps_method_and_pending": true,
+    "removing_dedup_rule_is_not_state_compatible": true,
+    "frozen_method_and_handoff_unchanged": true
+  },
+  "weekly_regression": {
+    "command": "python -m unittest discover -s tests -p test_investment*.py -v",
+    "result_tail": [
+      "----------------------------------------------------------------------",
+      "Ran 48 tests in 0.292s",
+      "",
+      "OK"
+    ]
+  }
+}

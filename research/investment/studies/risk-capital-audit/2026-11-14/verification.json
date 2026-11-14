@@ -1,0 +1,193 @@
+{
+  "codex": {
+    "old": {
+      "schema_version": "stock-research-audit/v2",
+      "status": "passed",
+      "discount_factor": 0.68288,
+      "unresolved_constraints": {
+        "holding": [
+          "HOLD-Q3-20261024",
+          "HOLDING_MARGIN_REVIEW"
+        ],
+        "entry": [
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ],
+        "add": [
+          "ADD-PLAN-20261007",
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R14-ENERGY-600988",
+          "R14_OIL_COST_UNKNOWN",
+          "R17-GOLD-600988",
+          "R17_PRECIOUS_METAL",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ]
+      },
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "acceptance": {
+        "schema_version": "stock-research-acceptance/v1",
+        "status": "passed",
+        "semantic_source_review_required": true,
+        "scope": "evidence availability/binding, declared R14 state, all-of recovery and explicit prose contradictions"
+      }
+    },
+    "new": {
+      "schema_version": "stock-research-audit/v3",
+      "status": "passed",
+      "discount_factor": 0.68288,
+      "unresolved_constraints": {
+        "holding": [
+          "HOLD-Q3-20261024",
+          "HOLDING_MARGIN_REVIEW"
+        ],
+        "entry": [
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ],
+        "add": [
+          "ADD-PLAN-20261007",
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R14-ENERGY-600988",
+          "R14_OIL_COST_UNKNOWN",
+          "R17-GOLD-600988",
+          "R17_PRECIOUS_METAL",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ]
+      },
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "acceptance": {
+        "schema_version": "stock-research-acceptance/v1",
+        "status": "passed",
+        "semantic_source_review_required": true,
+        "scope": "evidence availability/binding, declared R14 state, all-of recovery and explicit prose contradictions"
+      }
+    },
+    "prices_unchanged": true,
+    "controls_unchanged": true,
+    "negative_probes": {
+      "omit_cash": "rejected: research audit base.equity_value: 472.273099 != calculated 394.433325",
+      "fold_cash_into_pe": "rejected: research audit base.equity_value: 472.273099 != calculated 550.112872999999985645815",
+      "duplicate_cash_id": "rejected: duplicate profit/equity adjustment ID"
+    }
+  },
+  "dsh": {
+    "old": {
+      "schema_version": "stock-research-audit/v2",
+      "status": "passed",
+      "discount_factor": 0.65856,
+      "unresolved_constraints": {
+        "holding": [
+          "HOLD-Q3-20261024",
+          "HOLDING_MARGIN_REVIEW"
+        ],
+        "entry": [
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ],
+        "add": [
+          "ADD-PLAN-20261007",
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R14-ENERGY-600988",
+          "R14_OIL_COST_UNKNOWN",
+          "R17-GOLD-600988",
+          "R17_PRECIOUS_METAL",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ]
+      },
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "acceptance": {
+        "schema_version": "stock-research-acceptance/v1",
+        "status": "passed",
+        "semantic_source_review_required": true,
+        "scope": "evidence availability/binding, declared R14 state, all-of recovery and explicit prose contradictions"
+      }
+    },
+    "new": {
+      "schema_version": "stock-research-audit/v3",
+      "status": "passed",
+      "discount_factor": 0.65856,
+      "unresolved_constraints": {
+        "holding": [
+          "HOLD-Q3-20261024",
+          "HOLDING_MARGIN_REVIEW"
+        ],
+        "entry": [
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ],
+        "add": [
+          "ADD-PLAN-20261007",
+          "MARGIN_COST_QUALITY",
+          "METHOD_COMPATIBILITY",
+          "R14-ENERGY-600988",
+          "R14_OIL_COST_UNKNOWN",
+          "R17-GOLD-600988",
+          "R17_PRECIOUS_METAL",
+          "R4-EARNINGS-600988",
+          "TEMP-600988"
+        ]
+      },
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "acceptance": {
+        "schema_version": "stock-research-acceptance/v1",
+        "status": "passed",
+        "semantic_source_review_required": true,
+        "scope": "evidence availability/binding, declared R14 state, all-of recovery and explicit prose contradictions"
+      }
+    },
+    "prices_unchanged": true,
+    "controls_unchanged": true,
+    "negative_probes": {}
+  },
+  "xiaomi": {
+    "original_equity_bn": 374.97682552559655,
+    "original_v50": 16.96474586472896,
+    "original_p1": 9.25165019103797,
+    "rv5_zero_only": 10.279611323375521,
+    "terminal_zero_only": 10.056141511997792,
+    "both_zero": 11.173490568886436,
+    "all_three_zero": 15.96212938412348,
+    "scope": "conditional arithmetic only; no calibrated new P1"
+  },
+  "chifeng_conditions": [
+    {
+      "K": "0",
+      "codex_v50": 21.357126054236744,
+      "dsh_v50": 20.926440328405903
+    },
+    {
+      "K": "4.369125595",
+      "codex_v50": 21.159545530855702,
+      "dsh_v50": 20.72885980502486
+    },
+    {
+      "K": "7.011705595",
+      "codex_v50": 21.040042823020112,
+      "dsh_v50": 20.60935709718927
+    },
+    {
+      "K": "39.310137",
+      "codex_v50": 19.579443707103277,
+      "dsh_v50": 19.148757981272436
+    },
+    {
+      "K": "77.839774",
+      "codex_v50": 17.83705711770115,
+      "dsh_v50": 17.40637139187031
+    }
+  ]
+}
