@@ -7,7 +7,8 @@ the completeness of a model's disclosures. Historical reports remain readable.
 from __future__ import annotations
 
 import argparse
-from decimal import Decimal, DecimalException, ROUND_HALF_UP
+from datetime import date
+from decimal import Context, Decimal, DecimalException, ROUND_HALF_UP, localcontext
 import hashlib
 import json
 from pathlib import Path
@@ -18,10 +19,12 @@ try:
 except ImportError:
     from stock_price_map import fields, json_number, load_json, number, require, string, validate_document
 
-SCHEMA = 'stock-research-audit/v3'
+SCHEMA = 'stock-research-audit/v4'
+CAPITAL_SCHEMA = 'stock-research-audit/v3'
 SCOPED_SCHEMA = 'stock-research-audit/v2'
 LEGACY_SCHEMA = 'stock-research-audit/v1'
-SCOPED_SCHEMAS = {SCOPED_SCHEMA, SCHEMA}
+SCOPED_SCHEMAS = {SCOPED_SCHEMA, CAPITAL_SCHEMA, SCHEMA}
+CAPITAL_SCHEMAS = {CAPITAL_SCHEMA, SCHEMA}
 SUPPORTED_SCHEMAS = {LEGACY_SCHEMA, *SCOPED_SCHEMAS}
 DISCOUNTS = ('d_base', 'r_chip', 'r_v5', 'r_gov', 'r_terminal')
 SCENARIOS = ('low', 'base', 'high')
@@ -134,11 +137,61 @@ def baseline_values(audit, root):
     return result
 
 
+def validate_valuation_review(audit, document):
+    review = audit['valuation_review']
+    fields(review, {'base_case', 'method_choice', 'pe_crosscheck', 'market_check', 'reverse_dcf'}, 'valuation_review')
+    for key in ('base_case', 'method_choice', 'pe_crosscheck'):
+        string(review[key], 'valuation_review.' + key)
+    market = review['market_check']
+    fields(market, {'price', 'as_of', 'source', 'explanation'}, 'market_check')
+    string(market['source'], 'market source')
+    string(market['explanation'], 'market explanation')
+    if market['price'] is None:
+        require(market['as_of'] is None, 'unknown market price requires null date')
+    else:
+        number(market['price'], 'market price', positive=True)
+        try:
+            day = date.fromisoformat(market['as_of'])
+            require(day.isoformat() == market['as_of'] and day <= date.fromisoformat(document['meta']['valuation_date']),
+                    'market date exceeds valuation cutoff')
+        except (TypeError, ValueError) as exc:
+            raise ValueError('invalid market date or date exceeds valuation cutoff') from exc
+    reverse = review['reverse_dcf']
+    fields(reverse, {'status', 'reason', 'cases'}, 'reverse_dcf')
+    string(reverse['reason'], 'reverse reason')
+    require(reverse['status'] in ('solved', 'no_solution', 'unavailable', 'not_applicable'), 'invalid reverse status')
+    require(isinstance(reverse['cases'], list), 'reverse cases must be list')
+    if reverse['status'] in ('unavailable', 'not_applicable'):
+        require(not reverse['cases'], 'unsolved reverse cannot claim solved cases')
+        require(not (reverse['status'] == 'not_applicable' and audit['valuation']['kind'] == 'dcf_fcff'),
+                'FCFF reverse is applicable; record missing inputs as unavailable')
+        return
+    require(audit['valuation']['kind'] == 'dcf_fcff' and reverse['cases'] and market['price'] is not None,
+            'solved/no_solution reverse requires FCFF model, market price and cases')
+    try:
+        from .research_valuation import validate_reverse_dcf, solve_reverse_dcf, ReverseNoSolutionError
+    except ImportError:
+        from research_valuation import validate_reverse_dcf, solve_reverse_dcf, ReverseNoSolutionError
+    for case in reverse['cases']:
+        require(isinstance(case, dict), 'reverse case must be object')
+        close(case.get('target_price'), number(market['price'], 'market price'), 'reverse target price', Decimal('.000001'))
+        if reverse['status'] == 'solved':
+            validate_reverse_dcf(audit['valuation'], case)
+        else:
+            fields(case, {'scenario', 'segment_id', 'variable', 'target_price', 'lower', 'upper'}, 'reverse no_solution case')
+            try:
+                solve_reverse_dcf(audit['valuation'], **case)
+            except ReverseNoSolutionError:
+                continue
+            raise ValueError('reverse no_solution claim has a solution')
+
+
 def validate_audit(audit, document, *, root=None):
     validate_document(document)
     require(document['meta'].get('generator') in ('codex', 'claude', 'dsh'), 'research audit requires declared generator')
     fields(audit, {'schema_version', 'identity', 'valuation', 'discounts', 'risks',
-                   'constraints', 'release_all_of', 'baseline', 'p1_basis'}, 'research audit')
+                   'constraints', 'release_all_of', 'baseline', 'p1_basis'}
+           | ({'valuation_review'} if audit.get('schema_version') == SCHEMA else set()), 'research audit')
     require(audit['schema_version'] in SUPPORTED_SCHEMAS, 'research audit schema mismatch')
     require((document['meta']['schema_version'] == 'stock-research/v4') == (audit['schema_version'] in SCOPED_SCHEMAS), 'price/audit contract mismatch')
     fields(audit['identity'], {'code', 'generator', 'valuation_date', 'currency'}, 'audit identity')
@@ -165,7 +218,7 @@ def validate_audit(audit, document, *, root=None):
         values = {}
         for label, row in model['scenarios'].items():
             fields(row, {'revenue', 'net_margin', 'adjustments', 'profit', 'pe', 'equity_value'}
-                   | ({'equity_adjustments'} if audit['schema_version'] == SCHEMA else set()), label)
+                   | ({'equity_adjustments'} if audit['schema_version'] in CAPITAL_SCHEMAS else set()), label)
             revenue = number(row['revenue'], label + '.revenue', positive=True)
             margin = number(row['net_margin'], label + '.net_margin')
             require(-1 <= margin <= 1, 'net_margin uses fraction, not percent points')
@@ -184,7 +237,7 @@ def validate_audit(audit, document, *, root=None):
             pe = number(row['pe'], label + '.pe', positive=True)
             require(profit > 0, 'profit_pe requires positive normalized earnings')
             equity = number(row['profit'], label + '.profit') * pe
-            if audit['schema_version'] == SCHEMA:
+            if audit['schema_version'] in CAPITAL_SCHEMAS:
                 require(isinstance(row['equity_adjustments'], list), label + '.equity_adjustments must be a list')
                 for item in row['equity_adjustments']:
                     fields(item, {'id', 'amount', 'reason', 'source'}, 'equity adjustment')
@@ -199,6 +252,19 @@ def validate_audit(audit, document, *, root=None):
             require(pm['v50'] is not None, 'profit_pe requires quoted V50')
             require(quote_round(values[label], document['meta']['currency']) == number(pm['v50'][label], label),
                     'research audit V50 mismatch: ' + label)
+    elif kind == 'dcf_fcff':
+        require(audit['schema_version'] == SCHEMA, 'dcf_fcff requires audit-v4')
+        try:
+            from .research_valuation import evaluate_dcf
+        except ImportError:
+            from research_valuation import evaluate_dcf
+        values = evaluate_dcf(model)['values']
+        if model['currency'] == document['meta']['currency']:
+            require(number(model['fx_to_quote'], 'fx') == 1, 'same-currency fx must be 1')
+        require(pm['v50'] is not None, 'DCF requires quoted V50')
+        for key, value in values.items():
+            require(quote_round(value, document['meta']['currency']) == number(pm['v50'][key], key),
+                    'research audit DCF V50 mismatch: ' + key)
     else:
         fields(model, {'kind', 'reason'} | ({'unrounded_v50'} if kind == 'other' else set()), 'valuation')
         require(kind in ('other', 'unavailable'), 'unsupported audit valuation kind')
@@ -214,6 +280,9 @@ def validate_audit(audit, document, *, root=None):
                 require(quote_round(value, document['meta']['currency']) == number(pm['v50'][key], 'v50'),
                         'research audit unrounded V50 mismatch: ' + key)
 
+    if audit['schema_version'] == SCHEMA:
+        validate_valuation_review(audit, document)
+
     require(isinstance(audit['risks'], list), 'risks: expected list')
     risks = {}
     for risk in audit['risks']:
@@ -221,7 +290,7 @@ def validate_audit(audit, document, *, root=None):
         ident = string(risk['id'], 'risk.id')
         require(ident not in risks, 'duplicate risk ID: ' + ident)
         require(risk['owner'] in (*DISCOUNTS, 'revenue', 'margin', 'multiple', 'eligibility',
-                                  *(['equity_adjustment'] if audit['schema_version'] == SCHEMA else [])),
+                                  *(['equity_adjustment'] if audit['schema_version'] in CAPITAL_SCHEMAS else [])),
                 'risk owner must be a single valuation/eligibility/discount bucket')
         for key in ('description', 'scope', 'source'):
             string(risk[key], 'risk.' + key)
@@ -472,13 +541,22 @@ def validate_scoped_controls(audit, document, *, root=None):
 
 
 def render_checks(audit, document):
+    # New DCF views are independent of a notebook/CLI caller's Decimal context.
+    # Frozen legacy rendering retains its original implementation.
+    if audit['schema_version'] == SCHEMA:
+        with localcontext(Context(prec=50)):
+            return _render_checks(audit, document)
+    return _render_checks(audit, document)
+
+
+def _render_checks(audit, document):
     """Single human-readable calculation table, bound to the audit inputs."""
     model, pm = audit['valuation'], document['price_map']
     lines = [VIEW_START, '研究一致性核算（金额为模型币种亿元，价格为报价币种/股）：']
     if model['kind'] == 'profit_pe':
         lines += ['', '| 情景 | 收入 | 经常净利率 | 利润调整 | 经常归母利润 | PE | 权益价值 | V50 |',
                   '|---|---:|---:|---:|---:|---:|---:|---:|']
-        if audit['schema_version'] == SCHEMA:
+        if audit['schema_version'] in CAPITAL_SCHEMAS:
             lines[-2] = lines[-2].replace('| 权益价值 |', '| 权益调整 | 权益价值 |')
             lines[-1] += '---:|'
         for key in SCENARIOS:
@@ -486,11 +564,40 @@ def render_checks(audit, document):
             adjustment = sum((number(item['amount'], 'adjustment') for item in row['adjustments']), Decimal(0))
             entries = [key, row['revenue'], decimal_text(number(row['net_margin'], 'margin') * 100) + '%',
                        adjustment, row['profit'], row['pe'], row['equity_value'], pm['v50'][key]]
-            if audit['schema_version'] == SCHEMA:
+            if audit['schema_version'] in CAPITAL_SCHEMAS:
                 entries.insert(6, sum((number(item['amount'], 'equity_adjustment') for item in row['equity_adjustments']), Decimal(0)))
             lines.append('| ' + ' | '.join(cell(decimal_text(v) if isinstance(v, (Decimal, float, int)) else v) for v in entries) + ' |')
+    elif model['kind'] == 'dcf_fcff':
+        try:
+            from .research_valuation import evaluate_dcf
+        except ImportError:
+            from research_valuation import evaluate_dcf
+        result = evaluate_dcf(model)
+        lines += ['', '| 情景 | 经营价值 | 权益调整 | 权益价值 | V50 |', '|---|---:|---:|---:|---:|']
+        for key in SCENARIOS:
+            row = result['details'][key]
+            entries = [key, row['enterprise_value'], row['equity_adjustments'], row['equity_value'], pm['v50'][key]]
+            lines.append('| ' + ' | '.join(cell(decimal_text(v) if isinstance(v, (Decimal, float, int)) else v) for v in entries) + ' |')
+        lines += ['', '| 情景 | 分部 | 年 | NOPAT | FCFF | 现值 |', '|---|---|---:|---:|---:|---:|']
+        for key in SCENARIOS:
+            for segment in result['details'][key]['segments']:
+                for year in segment['years']:
+                    entries = [key, segment['id'], year['year'], *[format(year[k], '.6f') for k in ('nopat','fcff','present_value')]]
+                    lines.append('| ' + ' | '.join(cell(v) for v in entries) + ' |')
+        lines += ['', '| 情景 | 分部 | 显式期现值 | 终值首年NOPAT | 终值再投资 | 终值现值 |', '|---|---|---:|---:|---:|---:|']
+        for key in SCENARIOS:
+            for segment in result['details'][key]['segments']:
+                entries = [key, segment['id'], *[format(segment[k], '.6f') for k in ('explicit_pv','terminal_nopat','terminal_reinvestment','terminal_pv')]]
+                lines.append('| ' + ' | '.join(cell(v) for v in entries) + ' |')
     else:
         lines += ['', '估值链适用性：' + cell(model['kind'] + '；' + model['reason'])]
+    if audit['schema_version'] == SCHEMA:
+        review = audit['valuation_review']
+        lines += ['', '估值假设与市价差异（检查声明及算术，不证明预测正确）：']
+        for key in ('base_case', 'method_choice', 'pe_crosscheck'):
+            lines.append('- ' + key + '：' + cell(review[key]))
+        lines += ['- 市价核对：' + cell(json.dumps(review['market_check'], ensure_ascii=False, sort_keys=True, default=json_number)),
+                  '- 反向DCF条件解：' + cell(json.dumps(review['reverse_dcf'], ensure_ascii=False, sort_keys=True, default=json_number))]
     lines += ['', '| 折扣 | 取值 | 论证区间 | 独占风险ID | 变化分类 |', '|---|---:|---|---|---|']
     factor = Decimal(1)
     for key in DISCOUNTS:
@@ -590,8 +697,13 @@ def isolate_report(report, document, *, root=None):
 
 def render_report_block(audit, document, *, root=None):
     validate_audit(audit, document, root=root)
-    return (render_checks(audit, document) + '\n\n<details><summary>计算、风险归属与解除条件审计输入</summary>\n\n'
-            + START + '\n```json\n' + json.dumps(audit, ensure_ascii=False, indent=2, allow_nan=False, default=json_number)
+    encoded = json.dumps(audit, ensure_ascii=False, indent=2, allow_nan=False, default=json_number)
+    # The visible table must bind to the exact serialized inputs, including any
+    # Decimal-to-JSON precision loss, rather than a higher-precision transient object.
+    serialized = json.loads(encoded, parse_float=Decimal) if audit['schema_version'] == SCHEMA else audit
+    validate_audit(serialized, document, root=root)
+    return (render_checks(serialized, document) + '\n\n<details><summary>计算、风险归属与解除条件审计输入</summary>\n\n'
+            + START + '\n```json\n' + encoded
             + '\n```\n' + END + '\n\n</details>\n')
 
 

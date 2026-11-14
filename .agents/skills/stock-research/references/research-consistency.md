@@ -1,6 +1,6 @@
 # 研究计算与状态一致性
 
-本页接续2026-10-18已采纳的两价发布契约；本工作树新准备使用 v4 + audit-v3（two-price-controls/v6），仍处隔离验收。冻结合同优先：旧两价v1及controls-v2…v5继续audit-v2，使用本页注明的旧字段/公式；更早价格v3/audit-v1使用 [legacy-audit-v1](legacy-audit-v1.md)，不追溯改写。只编码 canonical 已定义的计算与按scope控制，不另加折扣常数或投资阈值。
+本页接续2026-10-18两价发布契约；新准备使用价格v4 + audit-v4（two-price-controls/v7）；用户已授权评审后合并本地dev，实际采纳以匹配正文指纹的adopted handoff为准。冻结合同优先：旧controls-v6使用audit-v3，旧两价v1及controls-v2…v5继续audit-v2，使用各自旧字段/公式；更早价格v3/audit-v1使用 [legacy-audit-v1](legacy-audit-v1.md)，不追溯改写。只编码 canonical 已定义的计算与按scope控制，不另加折扣常数或投资阈值。
 
 ## 一份可核算底稿
 
@@ -8,18 +8,18 @@
 
 ```sh
 python3 scripts/research_consistency.py render --audit output/<本轮>/research-audit.json --price-map output/<本轮>/price-map.json > output/<本轮>/research-checks.md
-python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v3
+python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v4
 ```
 
 把生成内容完整放入报告§5或§7，保留唯一的可见核算表与可展开JSON审计块。经营假设的数字表以此为准，正文解释依据，不另写一套未经桥接的收入/利润表。九节、原始证据、现金桥、Terminal、敏感性和监控仍按原契约完成。
 
-程序只检查并拒绝矛盾，不重写P1/T1。计算模型先正确，再从报告提取报价；不得通过换成`other`、删除基线、清空报价或改折扣绕过错误。非PE方法如实选`other`并保留其完整适用计算；真正不可估选`unavailable`，说明阻断输入。语义与来源仍须人工核验。
+程序只检查并拒绝矛盾，不重写P1/T1。计算模型先正确，再从报告提取报价；不得通过换成`other`、删除基线、清空报价或改折扣绕过错误。audit-v4受支持的持续经营FCFF使用`dcf_fcff`；其它方法如实选`other`并保留专项计算与未自动覆盖限制；真正不可估选`unavailable`。语义、来源及方法是否适用仍须人工核验。
 
 ## 审计输入
 
-顶层字段固定为 `schema_version, identity, valuation, baseline, discounts, risks, constraints, release_all_of, p1_basis`。
+顶层字段为 `schema_version, identity, valuation, baseline, discounts, risks, constraints, release_all_of, p1_basis`；仅audit-v4另必填`valuation_review`，旧版本不追补。
 
-- `schema_version`：新合同为 `stock-research-audit/v3`；旧冻结 v1–v5 仍用 audit-v2，字段/公式/可见表保留原样。旧价格v3仍配audit-v1。
+- `schema_version`：新合同为 `stock-research-audit/v4`；冻结v6用audit-v3、v1–v5用audit-v2，字段/公式/可见表保留原样。旧价格v3仍配audit-v1。
 - `identity`：`code, generator, valuation_date, currency`，与本轮价格JSON一致。
 - PE模型 `valuation`：`kind="profit_pe", currency, amount_unit="100_million", shares, fx_to_quote, horizon, profit_basis, scenarios`。shares为实际股数；同币种fx=1，跨币种方向与依据留正文。
 - `scenarios`必须有low/base/high，每项为`revenue, net_margin, adjustments, profit, pe, equity_adjustments, equity_value`。利润率用小数，例如11%写0.11。每项强制核验`收入×利润率＋调整=经常归母利润`、`利润×PE＋Σequity_adjustments=股权价值`（旧audit-v2仍核利润×PE），再核股本/币种换算后的V50。
@@ -29,6 +29,22 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 - `p1_basis`只列已明确报价的字段所对应的V50情景，例如单价`{"base":"base"}`，实际区间可为`{"low":"low","base":"base","high":"high"}`；base=null不填对应键。核验公式与明确报价一致，不代为生成缺价。
 
 折扣 `discounts`固定五项 `d_base/r_chip/r_v5/r_gov/r_terminal`，每项包含：
+
+### audit-v4 的 DCF 与估值复核字段
+
+`valuation.kind=dcf_fcff` 的顶层精确字段为 `kind,currency,amount_unit,shares,fx_to_quote,scenarios`。金额单位固定`100_million`；每个low/base/high情景有`segments,equity_adjustments,equity_value`。每个分部精确字段`id,source,assumptions,discount_rate,years,terminal`，id同情景唯一，source定位事实、assumptions解释预测；discount_rate为WACC小数。years非空且year从1连续，同情景分部预测期一致；年行字段`year,revenue,ebit_margin,tax_rate,da,capex,delta_nwc`。收入/DA/capex非负，ΔNWC有符号，利润率小数；亏损年的税率设0，亏损可利用影响以后实际纳税年，不能自动给退款。
+
+terminal字段`growth,roic,margin,tax_rate`，按末年收入×(1+growth)×margin×(1-tax)得终值首年NOPAT；正NOPAT、0≤growth<roic、WACC>growth，再按再投资闭合FCFF和终值。其它终值机制选适用专项模型而非硬塞本计算器。equity_adjustments复用`id,amount,reason,source`，经营EV加合计得声明equity_value，程序从原始输入复算（不从已舍入V50倒推）；分部可负、总权益须正且low≤base≤high。
+
+本次FCFF计算边界补充：残差业务可显式设终值利润率=0且g=0，表示终值价值为0，仍完整计入显式期成本及投入；不能为通过审计编造正利润。非零增长的亏损/零利润终局仍不适用该永续式；反向求解仍要求正终局利润率的可识别条件解。
+
+`valuation_review`精确字段`base_case,method_choice,pe_crosscheck,market_check,reverse_dcf`。前三项为非空解释，分别说明中性联合假设、方法适用与主辅裁决、同口径倍数依据或不适用原因；文字存在不证明论证正确。market_check含`price,as_of,source,explanation`，price为报价币种/股的正数、as_of为不晚于估值日的实际行情日，缺价时两者null并解释来源缺口；explanation说明主要业务分歧与市价在情景外的复核。
+
+reverse_dcf含`status,reason,cases`。status为solved/no_solution/unavailable/not_applicable，后两者cases=[]并说明缺口/替代；FCFF不能填not_applicable。solved的每个case精确字段`scenario,segment_id,variable,target_price,lower,upper,parameter,modeled_price,residual`，variable仅terminal_margin，区间满足0≤lower<upper≤1，target_price须等market_check.price。在同一正向模型固定其余参数反求，parameter为终值利润率，modeled_price/residual重新回代，不是任意复制目标价。no_solution的case只有前六个输入字段，程序验证有效输入确实区间无解，不吞输入错误。各case通过scripts/research_valuation.py计算；如需跨WACC敏感性，另保存实际改变参数的完整模型并分别核算，不把其解填到未变主模型case。无解或一个条件解不能证明整体业务天花板/市场错误。
+
+DCF审计不增加价格档，不改五项折扣，不将现金流、资本桥或模型中的同一损失再折扣。正式研究仍需全部适用验收、来源核验与旧基线接续。旧v6/audit-v3保持原字段和可见表字节。
+
+### 折扣字段示例
 
 ```json
 {

@@ -1,0 +1,351 @@
+{
+  "01810": {
+    "alternative_segment_split_contributions": null,
+    "audit": {
+      "discount_factor": 0.54534564,
+      "schema_version": "stock-research-audit/v4",
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "status": "passed",
+      "unresolved_constraints": {
+        "add": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "entry": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "holding": [
+          "HOLDING_NOT_REASSESSED"
+        ]
+      }
+    },
+    "bridge_per_share": 3.09449898973891,
+    "conditional_discount_sensitivity": [
+      {
+        "p1": 13.336330423152411,
+        "remove": "d_base"
+      },
+      {
+        "p1": 9.624155975470812,
+        "remove": "r_chip"
+      },
+      {
+        "p1": 10.372701440229653,
+        "remove": "r_v5"
+      },
+      {
+        "p1": 9.624155975470812,
+        "remove": "r_gov"
+      },
+      {
+        "p1": 10.147207930659443,
+        "remove": "r_terminal"
+      }
+    ],
+    "explicit_pv_per_share": 6.0538235274072,
+    "fixed_input_new_rule_audit": {
+      "discount_factor": 0.54534564,
+      "schema_version": "stock-research-audit/v4",
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "status": "passed",
+      "unresolved_constraints": {
+        "add": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "entry": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "holding": [
+          "HOLDING_NOT_REASSESSED"
+        ]
+      }
+    },
+    "input_hashes": {
+      "assumptions.json": "c4b0be83c0821dd97a944ce745cc45b3a67c4cafdeef485e4d417de9e866141c",
+      "data-pack.md": "1e54cf4b508da0a5f3000dffd587d6cff5c4bb7a3d66ba6b0f1c9339cb7f67f2",
+      "evidence.md": "edec83ab9faae19571883be6d3e832b203bc86fa6de0576ee89b4be98c45c8a8"
+    },
+    "legacy_discount_factor": 0.54534564,
+    "locked_dcf_v50": {
+      "base": 13.797114978759147,
+      "high": 21.516769292022246,
+      "low": 8.753221169668636
+    },
+    "market_date": "2026-10-30",
+    "market_price": 26.48,
+    "normalized_multiple_v50": {
+      "base": 17.116354611812934,
+      "high": 26.493902874919517,
+      "low": 10.828423584671915
+    },
+    "old_p1": 9.26118108918871,
+    "old_rule_audit": {
+      "discount_factor": 0.54534564,
+      "schema_version": "stock-research-audit/v2",
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "status": "passed",
+      "unresolved_constraints": {
+        "add": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "entry": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "holding": [
+          "HOLDING_NOT_REASSESSED"
+        ]
+      }
+    },
+    "p1_contributions": {
+      "capital_representation": 0.24289659493935206,
+      "dcf_expansion_and_added_long_term_assumptions": -1.810132862001082,
+      "discount_rate": 0.0,
+      "margin_tax": 0.35728648173920435,
+      "reinvestment": -0.2655275656030071,
+      "revenue": 1.2321975594522554,
+      "tax_loss_normalization": -0.16974832388198594,
+      "terminal": 0.48727832237324165
+    },
+    "raw_old_v50": {
+      "base": 16.982222667423745,
+      "high": 26.501405835803805,
+      "low": 9.991057866424894
+    },
+    "reverse": {
+      "cases": [
+        {
+          "lower": 0,
+          "modeled_price": 26.48,
+          "parameter": 0.3475217745902895,
+          "residual": 0.0,
+          "scenario": "base",
+          "segment_id": "ev_ai",
+          "target_price": 26.48,
+          "upper": 0.5,
+          "variable": "terminal_margin"
+        }
+      ],
+      "reason": "冻结显式期与其它业务，仅反解指定业务终值利润率；不是唯一业务天花板",
+      "status": "solved"
+    },
+    "reverse_sensitivity": [
+      {
+        "result": {
+          "modeled_price": 26.48,
+          "parameter": 0.2281463277244218,
+          "residual": 0.0,
+          "status": "solved"
+        },
+        "wacc_shift": -0.01
+      },
+      {
+        "result": {
+          "modeled_price": 26.48,
+          "parameter": 0.3475217745902895,
+          "residual": 0.0,
+          "status": "solved"
+        },
+        "wacc_shift": 0.0
+      },
+      {
+        "result": {
+          "modeled_price": 26.48,
+          "parameter": 0.48718662575578414,
+          "residual": 1e-48,
+          "status": "solved"
+        },
+        "wacc_shift": 0.01
+      }
+    ],
+    "rule_repair_final_p1": null,
+    "rule_repair_note": "仅明确取消无依据的即时亏损税盾，折扣不自动取新值；规则不自动决定损失金额/资产归属，唯一正式修复后P1无法确定。",
+    "rules_only_v50": {
+      "base": 16.670955259322735,
+      "high": 26.501405835803805,
+      "low": 9.47721960543275
+    },
+    "terminal_pv_per_share": 7.970052714031475,
+    "updated_conditional_p1_at_legacy_discount": 9.335431296206687,
+    "updated_dcf_v50": {
+      "base": 17.118375231177584,
+      "high": 33.298477912895386,
+      "low": 8.61308774785172
+    },
+    "v50_contributions": {
+      "capital_representation": 0.44539935249019696,
+      "dcf_expansion_and_added_long_term_assumptions": -3.319239633053786,
+      "discount_rate": 0.0,
+      "margin_tax": 0.6551560249738209,
+      "reinvestment": -0.48689775094379983,
+      "revenue": 2.25947998676996,
+      "tax_loss_normalization": -0.311267408101009,
+      "terminal": 0.8935219916184562
+    }
+  },
+  "09988": {
+    "alternative_segment_split_contributions": {
+      "discount_rate": 2.913243944481984,
+      "margin_tax": 1.2196543492019416,
+      "reinvestment": -2.77806341041783,
+      "revenue": 40.12064009757834,
+      "terminal": 22.567855855682726
+    },
+    "audit": {
+      "discount_factor": 0.75,
+      "schema_version": "stock-research-audit/v4",
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "status": "passed",
+      "unresolved_constraints": {
+        "add": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "entry": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "holding": [
+          "HOLDING_NOT_REASSESSED"
+        ]
+      }
+    },
+    "bridge_per_share": 21.31761710211986,
+    "conditional_discount_sensitivity": [],
+    "explicit_pv_per_share": 21.88020630624339,
+    "fixed_input_new_rule_audit": {
+      "discount_factor": 0.75,
+      "schema_version": "stock-research-audit/v4",
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "status": "passed",
+      "unresolved_constraints": {
+        "add": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "entry": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "holding": [
+          "HOLDING_NOT_REASSESSED"
+        ]
+      }
+    },
+    "input_hashes": {
+      "assumptions.json": "1baeef6141f059ce0b3bb12196635f353a7afd92b4a752f8dc1cf6731fe6e28c",
+      "data-pack.md": "871622c658210c2623f45f7551f302597c07f228ed8b8d0772f9db8494a2cd0b",
+      "evidence.md": "5395f8de66af18199f07ec8688eb91515a4f5b998d8cdc90081950d71d48570e"
+    },
+    "legacy_discount_factor": 0.75,
+    "locked_dcf_v50": {
+      "base": 29.98130238229762,
+      "high": 48.008678623127146,
+      "low": 7.910153400095804
+    },
+    "market_date": "2026-10-30",
+    "market_price": 97.05,
+    "normalized_multiple_v50": {
+      "base": 50.63140078721905,
+      "high": 85.85324481311056,
+      "low": 25.888055359030268
+    },
+    "old_p1": 37.97355059041429,
+    "old_rule_audit": {
+      "discount_factor": 0.75,
+      "schema_version": "stock-research-audit/v2",
+      "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+      "status": "passed",
+      "unresolved_constraints": {
+        "add": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "entry": [
+          "CAPITAL_UNRESOLVED"
+        ],
+        "holding": [
+          "HOLDING_NOT_REASSESSED"
+        ]
+      }
+    },
+    "p1_contributions": {
+      "capital_representation": 0.0,
+      "dcf_expansion_and_added_long_term_assumptions": -15.487573803691072,
+      "discount_rate": 3.4154892956967275,
+      "margin_tax": 16.650897955166364,
+      "reinvestment": -1.9292789296770647,
+      "revenue": 8.689018388027376,
+      "tax_loss_normalization": 0.0,
+      "terminal": 21.20637141818197
+    },
+    "raw_old_v50": {
+      "base": 50.63140078721905,
+      "high": 85.85324481311056,
+      "low": 25.888055359030268
+    },
+    "reverse": {
+      "cases": [
+        {
+          "lower": 0,
+          "modeled_price": 97.05,
+          "parameter": 0.1570157381282522,
+          "residual": 2e-48,
+          "scenario": "base",
+          "segment_id": "ai_cloud_labs",
+          "target_price": 97.05,
+          "upper": 0.5,
+          "variable": "terminal_margin"
+        }
+      ],
+      "reason": "冻结显式期与其它业务，仅反解指定业务终值利润率；不是唯一业务天花板",
+      "status": "solved"
+    },
+    "reverse_sensitivity": [
+      {
+        "result": {
+          "modeled_price": 97.05,
+          "parameter": 0.004758956809693875,
+          "residual": 2e-48,
+          "status": "solved"
+        },
+        "wacc_shift": -0.01
+      },
+      {
+        "result": {
+          "modeled_price": 97.05,
+          "parameter": 0.1570157381282522,
+          "residual": 2e-48,
+          "status": "solved"
+        },
+        "wacc_shift": 0.0
+      },
+      {
+        "result": {
+          "modeled_price": 97.05,
+          "parameter": 0.3296640666358609,
+          "residual": 2e-48,
+          "status": "solved"
+        },
+        "wacc_shift": 0.01
+      }
+    ],
+    "rule_repair_final_p1": null,
+    "rule_repair_note": "仅明确取消无依据的即时亏损税盾，折扣不自动取新值；规则不自动决定损失金额/资产归属，唯一正式修复后P1无法确定。",
+    "rules_only_v50": {
+      "base": 50.63140078721905,
+      "high": 85.85324481311056,
+      "low": 25.888055359030268
+    },
+    "terminal_pv_per_share": 50.82680981046153,
+    "updated_conditional_p1_at_legacy_discount": 70.51847491411858,
+    "updated_dcf_v50": {
+      "base": 94.02463321882479,
+      "high": 179.8271981849517,
+      "low": 36.61566156642788
+    },
+    "v50_contributions": {
+      "capital_representation": 0.0,
+      "dcf_expansion_and_added_long_term_assumptions": -20.65009840492143,
+      "discount_rate": 4.553985727595637,
+      "margin_tax": 22.201197273555152,
+      "reinvestment": -2.572371906236086,
+      "revenue": 11.585357850703168,
+      "tax_loss_normalization": 0.0,
+      "terminal": 28.275161890909292
+    }
+  }
+}

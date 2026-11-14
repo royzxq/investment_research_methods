@@ -98,7 +98,7 @@ def _source(source, *, root, cutoff):
 def validate_claims(acceptance, audit, *, root=None):
     fields(acceptance, {'schema_version', 'r14', 'recovery'}, 'research acceptance')
     require(acceptance['schema_version'] == SCHEMA, 'acceptance schema mismatch')
-    require(audit['schema_version'] in {'stock-research-audit/v2', 'stock-research-audit/v3'}, 'acceptance requires scoped audit')
+    require(audit['schema_version'] in {'stock-research-audit/v2', 'stock-research-audit/v3', 'stock-research-audit/v4'}, 'acceptance requires scoped audit')
     r14 = acceptance['r14']
     fields(r14, {'applicability', 'stress_test', 'constraint_ids', 'reason', 'inputs', 'calculation'}, 'R14 acceptance')
     require(r14['applicability'] in ('applicable', 'unknown', 'not_applicable'), 'R14 invalid applicability')

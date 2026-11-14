@@ -83,6 +83,52 @@ class PublicationRestoreTests(unittest.TestCase):
         finally:
             other.doCleanups()
 
+    def test_recovery_rechecks_frozen_audit_version_lifecycle_and_acceptance(self):
+        cases = [('frozen_v3_audit', 'frozen audit contract'),
+                 ('missing_lifecycle', 'explicit lifecycle'),
+                 ('missing_acceptance', 'acceptance')]
+        for mode, error in cases:
+            other = PublicationRestoreTests('runTest')
+            try:
+                # All hashes and native receipts bind these exact invalid bytes.
+                # Simulate a prior process that failed to enforce its v7 gates;
+                # recovery must independently reject it on both actual paths.
+                malformed = fixture.FAKE_CLI.replace("mode=os.environ.get('MOCK_MODE','success')", f'mode={mode!r}')
+                with patch.object(fixture, 'FAKE_CLI', malformed), \
+                        patch.object(dsh_fixture, 'build_fake_dsh_cli',
+                                     return_value=dsh_fixture.build_fake_dsh_cli(malformed)), \
+                        patch.object(runner.research_consistency, 'validate_report',
+                                     return_value={'status': 'passed'}):
+                    other.setUp()
+                context = recovery.load_base(other.base, other.f.methods, other.f.exchange)
+                with self.subTest(mode=mode, path='completed'), self.assertRaisesRegex(ValueError, error):
+                    recovery.validate_completed(context, other.f.methods,
+                        other.run/'execution/SH-600066/dsh')
+                with self.subTest(mode=mode, path='publication'):
+                    with self.assertRaisesRegex(ValueError, error):
+                        other.restore()
+                    candidate = recovery.read(other.folder/'candidate-result.json')['results'][0]
+                    self.assertFalse((other.f.methods/candidate['report']['path']).exists())
+            finally:
+                other.doCleanups()
+
+    def test_older_frozen_contracts_restore_without_version_upgrade(self):
+        for contract in (runner.CAPITAL_CONTROLS_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT):
+            other = PublicationRestoreTests('runTest')
+            try:
+                with patch.object(runner, 'NEW_CONTRACT', contract):
+                    other.setUp()
+                context = recovery.load_base(other.base, other.f.methods, other.f.exchange)
+                recovery.validate_completed(context, other.f.methods,
+                    other.run/'execution/SH-600066/dsh')
+                with patch.object(runner, 'run_provider', side_effect=AssertionError('no new research')):
+                    other.restore()
+                self.assertEqual({p: p.read_bytes() for p in other.protected}, other.protected)
+                self.assertEqual(recovery.read(other.run/'framework-snapshot/manifest.json')['research_validation'],
+                                 contract['audit_schema'])
+            finally:
+                other.doCleanups()
+
     def test_restore_preserves_history_existing_opinion_and_native_bytes_then_replays(self):
         with patch.object(runner,'run_provider',side_effect=AssertionError('no research launch')):
             wrapper=self.restore()

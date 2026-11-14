@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "code": "01810.HK",
+    "currency": "HKD",
+    "generator": "codex",
+    "name": "小米集团-W",
+    "report_path": "research/investment/studies/valuation-expectations/2026-11-14/01810-updated-isolated-audit.md",
+    "schema_version": "stock-research/v4",
+    "valuation_date": "2026-10-31"
+  },
+  "monitoring": [],
+  "price_map": {
+    "mode": "tracking",
+    "p1": {
+      "base": 9.335
+    },
+    "reason": "隔离条件估值；资本归属未闭合，不构成新买入资格",
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    },
+    "v50": {
+      "base": 17.118,
+      "high": 33.298,
+      "low": 8.613
+    }
+  },
+  "research_controls": {
+    "add": {
+      "refs": [
+        "CAPITAL_UNRESOLVED"
+      ],
+      "status": "unknown"
+    },
+    "entry": {
+      "refs": [
+        "CAPITAL_UNRESOLVED"
+      ],
+      "status": "unknown"
+    },
+    "holding": {
+      "refs": [
+        "HOLDING_NOT_REASSESSED"
+      ],
+      "status": "unknown"
+    }
+  }
+}

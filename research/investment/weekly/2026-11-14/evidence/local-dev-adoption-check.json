@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "implementation_commit": "31ce43083a9f15a71edb43a82f54603b910dff53",
+  "handoff_path": "research/investment/weekly/2026-11-14/investment-2026-11-14-handoff.json",
+  "handoff_sha256": "23048b133151087e09249cd2d7d6f8a8ede148e1968e487f3ac696c9273169ba",
+  "selected_method_sha256": {
+    "canonical": {
+      "path": "research/investment/weekly/2026-11-14/evidence/investment-2026-11-14-handoff-methods/investment_framework.md",
+      "sha256": "61a118fad095da7f028a1a7002e9354e38f3aed7573981db8b2d2c8561012d7f",
+      "method_sha256": "6b90ff1a149123e882bb27524629fa7dd2645070871fe7ae94e46e045af3e52b"
+    },
+    "compact": {
+      "path": "research/investment/weekly/2026-11-14/evidence/investment-2026-11-14-handoff-methods/investment_framework_compact.md",
+      "sha256": "191d73ab2e9d889159b23f64c7a0480fcec3f900f5d556c6cbd87dcf1e35f6ee",
+      "method_sha256": "8b75958d5facf48e1e464423b3781191fa800d31b5f02bdbcd28c67346048761"
+    }
+  },
+  "pending_preserved": 5,
+  "rule_evaluations_unchanged": true,
+  "frozen_sources": 34,
+  "production_files_unchanged": 1291,
+  "quotes_written": false
+}

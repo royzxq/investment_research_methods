@@ -106,6 +106,6 @@ class PublicMonitoringTests(unittest.TestCase):
             current = runner.make_prompt(*args, research_validation=runner.research_consistency.SCHEMA)
         self.assertFalse(current == old)
         self.assertIn(b'public_search', current)
-        self.assertEqual(runner.NEW_CONTRACT['prompt_template'], 'two-price-controls/v6')
+        self.assertEqual(runner.NEW_CONTRACT['prompt_template'], 'two-price-controls/v7')
         frozen = dict(delivery_contract=old_contract, research_validation=old_contract['audit_schema'])
         self.assertEqual(runner.delivery_contract(frozen), old_contract)

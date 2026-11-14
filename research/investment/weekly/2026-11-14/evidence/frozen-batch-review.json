@@ -1,0 +1,255 @@
+{
+  "runs": [
+    {
+      "contract": "legacy",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-12/18d534fd57754ff6b885ea4d08a8828c",
+      "status": "failed",
+      "reason": "ValueError: prepared prompt mismatch: SZ-300760 codex",
+      "baseline_status": "failed",
+      "baseline_reason": "ValueError: prepared prompt mismatch: SZ-300760 codex"
+    },
+    {
+      "contract": "legacy",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-13/15ba3513dabf431bb7bcc930cc9560e9",
+      "status": "failed",
+      "reason": "ValueError: prepared prompt mismatch: SZ-300750 codex",
+      "baseline_status": "failed",
+      "baseline_reason": "ValueError: prepared prompt mismatch: SZ-300750 codex"
+    },
+    {
+      "contract": "legacy",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-14/8c8264de54c14680bd0f6418e09e39db",
+      "status": "failed",
+      "reason": "ValueError: prepared prompt mismatch: SZ-300748 codex",
+      "baseline_status": "failed",
+      "baseline_reason": "ValueError: prepared prompt mismatch: SZ-300748 codex"
+    },
+    {
+      "contract": "legacy",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-15/1e067439b3fb477a918e6d14a571561f",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "legacy",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-16/dab16595f8624f2a9d6453db8397c1dd",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "legacy",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-17/31fa8d7de8e541439766e0dbc3305a73",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price/v1",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-19/70e1c2e880564bc69ea9fcdaa915da44",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v2",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-21/f42a808980914f5dbc5a42be145492e7",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v2",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-22/13cda8275aac4d769670baa72c19ec53",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v3",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-23/9b1b173fe9cd4906aad5fbd7a79eddfc",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-24/4d633500a49c4b8197e43914ed7799c5",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-24/8094449450ca4f9686712d08850579ca",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-25/259d3ad683e04dd4aae53f3555c9c9aa",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-26/91b123b1e7f844b9bb6731c173471f11",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-27/e9f2975657c14e7181ea73a27c399413",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-28/2a39331908c944c7a6e8bfbfa3e02442",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-29/c28c8a6b46eb496695bc90c2045e6af6",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-30/fda9f737c3f748a3a3fdacde6c13d2e1",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v4",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-10-31/40e52fb7faa844aa97f9b63e6794ff03",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-01/8137e069be444425abb5efe99ca8685f",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-02/13ea369242904b31ba2873887fa79807",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-03/c09461267e264fbf874a7b280931d1ec",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-04/2e6d8d92a7e144c3ab6669335fd3d6a1",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-04/f706d4a1a7644df8b012daf6af95f8ef",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-05/ae96671ca27846d18af2feb28d4dab3f",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-05/d2ed1c80607448c8aae03d1e3ccecbab",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-06/0a9cb43b1988495f818d6f03596267e0",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-06/57980a66288540a8aea2d067b2455409",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-06/d1a2915d4d5a4a92af199681366c8880",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-07/c3f4d1db409b491ba188a9bed1890811",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-08/142ea5b77a734fabb28da81c20cd7f7d",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-09/5fcec3e82e044caaa8e6daa055b722e5",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-12/f2941611d994405f9dcb5ee31a490cfe",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-13/2c42383ce6ad48b9bc0348b7a0e811ec",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    },
+    {
+      "contract": "two-price-controls/v5",
+      "run": "/Users/xinquanzhou/Workspace/investment_research_methods/output/runs/investment/2026-11-14/6d28dc9c7897407f9d3589567b9f7728",
+      "status": "passed",
+      "baseline_status": "passed",
+      "baseline_reason": null
+    }
+  ],
+  "protected_input_files": 3706,
+  "input_bytes_unchanged": true,
+  "same_as_baseline_edbc90f": true
+}

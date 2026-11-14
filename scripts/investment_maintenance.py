@@ -319,11 +319,11 @@ def validate_handoff(record, root):
             try:
                 from .research_exchange import _report_sections, _validate_pair
                 from .stock_price_map import SUPPORTED_SCHEMAS, validate_price_references
-                from .research_consistency import validate_report
+                from .research_consistency import CAPITAL_SCHEMAS, extract_audit, validate_report
             except ImportError:
                 from research_exchange import _report_sections, _validate_pair
                 from stock_price_map import SUPPORTED_SCHEMAS, validate_price_references
-                from research_consistency import validate_report
+                from research_consistency import CAPITAL_SCHEMAS, extract_audit, validate_report
             if meta.get("schema_version") not in SUPPORTED_SCHEMAS:
                 raise ValueError("Company completion requires a stock-research/v4, v3 or v2 pair")
             market, code = review["company"].split("-")
@@ -334,7 +334,13 @@ def validate_handoff(record, root):
             validate_price_references(document)
             report_raw = _check_ref(root, completion["report"])
             if meta["schema_version"] == "stock-research/v4":
-                validate_report(report_raw.decode("utf-8"), document, root=Path(root))
+                text = report_raw.decode("utf-8")
+                # audit-v3/v4 only belong to controls-v6/v7, whose existing
+                # delivery contracts require both gates. audit-v2 spans older
+                # frozen contracts, so do not infer new requirements by date.
+                strict = extract_audit(text)["schema_version"] in CAPITAL_SCHEMAS
+                validate_report(text, document, root=Path(root),
+                                require_lifecycle=strict, require_acceptance=strict)
             report_input = _report_sections(report_raw)[0]
             if any(ref["sha256"] not in report_input for ref in review.get("methods", {}).values()):
                 raise ValueError("Company report method provenance differs from review methods")

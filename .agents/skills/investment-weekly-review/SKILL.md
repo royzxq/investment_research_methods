@@ -23,9 +23,9 @@ description: 维护本仓 A 股与港股研究框架，执行周度元研究、�
 
 1. 检查工作区与本期既有产物。`local` 不自动 fetch，记录远程新鲜度限制；已授权发布时安全同步 `origin/main`，不夹带其他改动。同日同输入复用，不同输入默认隔离 `-rN`，不覆盖旧报告。
 2. 读取[维护接续](references/maintenance-handoff.md)，用 helper 选择截至研究日、与已采纳方法兼容的明确 adopted handoff。未桥接历史只能当历史证据；先核验相关 Git 合并/明确采纳事实，再为历史正式报告建立一次桥接。首次无实质基线不虚构比较，但仍可在既有规则下刷新当前状态。
-3. 执行完整元研究，保留全文；变化检测同时比较新证据与当前方法，不仅比较上周文字。逐项分类 `state_refresh` / `evidence_correction` / `method_change`，允许同一期包含多类。
+3. 读取[元研究](references/meta-investment-analysis.md)执行完整研究，保留全文及估值假设/风险归属证据；接[变化检测](references/investment-change-analysis.md)同时比较新证据与当前方法，不仅比较上周文字。逐项分类 `state_refresh` / `evidence_correction` / `method_change`，允许同一期包含多类。沿用原七变量与重要变化项，旧报告缺项保留未研究，旧冻结合同不随入口更新而升级。
 4. **没有方法修改也完成状态/纠错接续**：保存研究、变化报告及采用凭证，更新受影响观察与待逐股复评。`update_needed` 仅保留为 `method_change` 的兼容别名，不再表示“本期无事可做”。状态应按当前证据和既有方法重算，不能继承旧正文“当前”断言；数据缺口保留 unknown。
-5. 方法变更另做完整定义、经济理由、正反及边界场景、兼容影响；未采纳提案不影响当前状态计算。需修改 canonical 正文或观测块时在分支/隔离 worktree 局部适配，再同步 compact（读取 `.agents/skills/framework-condense/SKILL.md`），无正文变化不做无效精简。方法 PR 未合并不阻断已采纳方法下的独立状态/纠错 handoff。
+5. 方法变更另做完整定义、经济理由、正反及边界场景、兼容影响；未采纳提案不影响当前状态计算。需修改 canonical 正文或观测块时，读取[框架适配](references/investment-adaption.md)，在分支/隔离 worktree 局部适配，再同步 compact（读取 `.agents/skills/framework-condense/SKILL.md`），无正文变化不做无效精简。方法 PR 未合并不阻断已采纳方法下的独立状态/纠错 handoff。
 6. 运行 helper 结构/来源检查与相关回归；声明它们不证明研究语义、方法有效性或真实交易执行。返回日期、三类判定、方法采纳状态、已采用 handoff、待研究及报告路径。
 
 ## 发布与后续复核

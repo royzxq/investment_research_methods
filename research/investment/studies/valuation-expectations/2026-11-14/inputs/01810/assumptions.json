@@ -1,0 +1,3841 @@
+{
+  "meta": {
+    "code": "01810",
+    "company": "小米集团-W",
+    "valuation_date": "2026-10-31",
+    "research_performed_at": "2026-11-14",
+    "mode": "backend",
+    "research_mode": "incremental",
+    "amount_unit": "亿元CNY",
+    "status": "conditional_inputs_not_formal_price_map",
+    "baseline": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-10-31/HK-01810/investment-01810-2026-10-31-research-codex.md",
+    "baseline_sha256": "27a811c8f0d685d94200c9c3353b9b3116c95464c76e6f3ebc3f0cec3ca899a6",
+    "reporting_currency": "CNY",
+    "forecast_year_convention": "DCF的Y1严格是2026-11-01至2027-10-31滚动12个月，Y10截至2036-10-31；以旧2027全年预测作为首个滚动期经营量代理，并非精确自然2027现金流。所有比较组同约定；自然年度日期近似另作stub敏感性。未将未披露2026年11/12月现金流当已知。",
+    "equity_value_note": "由主代理计算；所有含0占位的基金/额外NAV结果为条件值，不能声称完整公允价值。"
+  },
+  "old_multiple_baseline": {
+    "kind": "segment_nopat_capitalization_not_PE",
+    "source": "B1§5.1–5.2",
+    "scenarios": {
+      "low": {
+        "year": 2027,
+        "segments": [
+          {
+            "id": "smartphones",
+            "revenue": 1600,
+            "ebit_margin": 0.015
+          },
+          {
+            "id": "iot",
+            "revenue": 1050,
+            "ebit_margin": 0.03
+          },
+          {
+            "id": "internet",
+            "revenue": 350,
+            "ebit_margin": 0.4
+          },
+          {
+            "id": "ev_ai",
+            "revenue": 780,
+            "ebit_margin": -0.05
+          },
+          {
+            "id": "other",
+            "revenue": 20,
+            "ebit_margin": 0
+          }
+        ],
+        "tax_rate": 0.2,
+        "ebit": 156.5,
+        "nopat": 125.2,
+        "capitalization_multiple": 16,
+        "discount_divisor": 1.1,
+        "operating_ev": 1821.090909090909,
+        "raw_legacy_equity_adjustment": 384.91634046,
+        "raw_legacy_equity_value": 2206.007249550909,
+        "common_bridge_equity_adjustment": 683.2597004599999
+      },
+      "base": {
+        "year": 2027,
+        "segments": [
+          {
+            "id": "smartphones",
+            "revenue": 1750,
+            "ebit_margin": 0.025
+          },
+          {
+            "id": "iot",
+            "revenue": 1200,
+            "ebit_margin": 0.04
+          },
+          {
+            "id": "internet",
+            "revenue": 380,
+            "ebit_margin": 0.45
+          },
+          {
+            "id": "ev_ai",
+            "revenue": 1050,
+            "ebit_margin": -0.02
+          },
+          {
+            "id": "other",
+            "revenue": 20,
+            "ebit_margin": 0
+          }
+        ],
+        "tax_rate": 0.2,
+        "ebit": 241.75,
+        "nopat": 193.4,
+        "capitalization_multiple": 18,
+        "discount_divisor": 1.1,
+        "operating_ev": 3164.7272727272725,
+        "raw_legacy_equity_adjustment": 584.91634046,
+        "raw_legacy_equity_value": 3749.6436131872724,
+        "common_bridge_equity_adjustment": 683.2597004599999
+      },
+      "high": {
+        "year": 2027,
+        "segments": [
+          {
+            "id": "smartphones",
+            "revenue": 1900,
+            "ebit_margin": 0.035
+          },
+          {
+            "id": "iot",
+            "revenue": 1350,
+            "ebit_margin": 0.05
+          },
+          {
+            "id": "internet",
+            "revenue": 410,
+            "ebit_margin": 0.48
+          },
+          {
+            "id": "ev_ai",
+            "revenue": 1220,
+            "ebit_margin": 0.02
+          },
+          {
+            "id": "other",
+            "revenue": 20,
+            "ebit_margin": 0
+          }
+        ],
+        "tax_rate": 0.2,
+        "ebit": 355.19999999999993,
+        "nopat": 284.15999999999997,
+        "capitalization_multiple": 20,
+        "discount_divisor": 1.1,
+        "operating_ev": 5166.545454545453,
+        "raw_legacy_equity_adjustment": 684.91634046,
+        "raw_legacy_equity_value": 5851.4617950054535,
+        "common_bridge_equity_adjustment": 683.2597004599999
+      }
+    },
+    "shares": 25795986357,
+    "fx_to_quote": 1.1683061896861928
+  },
+  "old_risk_discounts": {
+    "source": "B1§7.1，10/31正式Codex报告",
+    "d_base": {
+      "value": 0.3,
+      "range": [
+        0.25,
+        0.3
+      ],
+      "risk": "恢复兑现与估计误差/收益安全边际",
+      "repair": "不能凭风险条数取上沿；无新概率/回报校准，不任意改数"
+    },
+    "r_chip": {
+      "value": 0.03,
+      "range": [
+        0,
+        0.05
+      ],
+      "risk": "未来额外资本行动及注销时差，不包括已进分母/SBC",
+      "repair": "10/15 Claude缺证当成立不是本Codex数值的充分撤销理由"
+    },
+    "r_v5": {
+      "value": 0.1,
+      "range": [
+        0.07,
+        0.12
+      ],
+      "risk": "超正常储备的联合现金转换/扩张/期限尾部",
+      "repair": "DCF capex、ΔNWC、亏损与资本桥已计的同一损失不得再扣；超范围尾部的概率/损失待证"
+    },
+    "r_gov": {
+      "value": 0.03,
+      "range": [
+        0.02,
+        0.05
+      ],
+      "risk": "VIE/WVR与印度/召回超预提责任",
+      "repair": "受限现金/普通质保已计，残余损失未量化；不直接归零"
+    },
+    "r_terminal": {
+      "value": 0.08,
+      "range": [
+        0.05,
+        0.1
+      ],
+      "risk": "2027以后利润持续性与长期路线",
+      "repair": "DCF增长衰减/稳定ROIC/折现后仅剩未计独立损失可另计；无依据直接保留或归零"
+    },
+    "multiplier": 0.54534564,
+    "pure_rule_repair_unique_numeric_result": null,
+    "note": "规则修复可以撤错误推理，不能以规则自动推出唯一新P1。此文件不生成P1。"
+  },
+  "capital_bridge": {
+    "common_conditional_equity_adjustment": 683.2597004599999,
+    "common_adjustments": [
+      {
+        "id": "bank_assets",
+        "amount": 1654.28714,
+        "reason": "6/30现金等价物与两类定存；不含受限现金；仍含未拆分基金现金",
+        "source": "S1印59/94"
+      },
+      {
+        "id": "borrowings",
+        "amount": -392.76762,
+        "reason": "流动及非流动借款合计，含可转债；不另增转股分母",
+        "source": "S1印60/100"
+      },
+      {
+        "id": "lease_debt",
+        "amount": -50.40762,
+        "reason": "租赁融资口径；DCF的capex含未来新增使用权资产，旧租赁偿付不再进FCFF",
+        "source": "S1印95–96"
+      },
+      {
+        "id": "lp_liability_legacy_anchor",
+        "amount": -142.3216,
+        "reason": "只作可复算条件锚；须与基金现金及投资净归属一起替换，非假定基金资产零",
+        "source": "S1印110"
+      },
+      {
+        "id": "old_intangible_payables",
+        "amount": -50.74695,
+        "reason": "6/30已确认无形资产应付；年度capex只计估值后新增资本，排除这一存量结算",
+        "source": "S1印110/112"
+      },
+      {
+        "id": "old_construction_payables",
+        "amount": -17.80532,
+        "reason": "6/30已确认工程应付；从旧笼统储备中拆出，只扣一次",
+        "source": "S1印112"
+      },
+      {
+        "id": "minorities",
+        "amount": -1.1949,
+        "reason": "少数权益账面近似；未取得公允价值，固定跨模型比较",
+        "source": "S1印60"
+      },
+      {
+        "id": "post_june_buybacks",
+        "amount": -15.78342954,
+        "reason": "沿用截至10/28已核回购链合计HKD18.4398784226亿元×0.85594；不是回购授权全额",
+        "source": "B1§5.2，S2/S3"
+      },
+      {
+        "id": "minimum_operating_cash",
+        "amount": -300.0,
+        "reason": "条件假设：持续留存经营现金300亿元；250–400敏感性，不代表现金已损失；不含未来capex或ΔNWC",
+        "source": "A-CASH；旧B1基准营运储备300亿元；本研究明确范围"
+      },
+      {
+        "id": "fund_net_adjustment_condition",
+        "amount": 0.0,
+        "reason": "仅为条件C_f=142.3216、N_f=0、R_parent=0的算术锚；一般必须另加Δfund=-C_f+142.3216+N_f-R_parent；0不是已核事实",
+        "source": "G-FUND；S1印89–91/110"
+      },
+      {
+        "id": "unmodeled_nonbank_assets_condition",
+        "amount": 0.0,
+        "reason": "与旧比较一致的未估值资产占位；不证明投资资产价值为零。所有绝对股权值仅在该附加NAV=0条件下成立；另按净归属补充",
+        "source": "G-NAV；S1印59/89–91"
+      }
+    ],
+    "raw_legacy_policy": {
+      "bank_assets": 1654.28714,
+      "borrowings": -392.76762,
+      "leases": -50.40762,
+      "fund_lp": -142.3216,
+      "old_intangible_payable": -50.74695,
+      "all_commitments": -16.14868,
+      "nci": -1.1949,
+      "post_june_buybacks": -15.78342954,
+      "normal_reserve_low_base_high": [
+        400,
+        300,
+        250
+      ],
+      "future_expansion_and_construction_reserve_low_base_high": [
+        200,
+        100,
+        50
+      ]
+    },
+    "normalization_vs_base_raw": 98.34335999999985,
+    "normalization_explanation": "移除未来扩张笼统储备100、明确扣存量工程17.80532、移除单独承诺16.14868（经营7.52纳入未来capex；投资8.62868对应资产未知，保持投资模块未估值条件）。这是比较政策规范化，不是经济价值确定增加98.34336亿元。",
+    "minimum_operating_cash": {
+      "anchor": 300,
+      "conditional_range": [
+        250,
+        400
+      ],
+      "basis": "旧基准300；约H1收入年化的6%–10%，只作运营现金/期限缓冲敏感性。公司未披露必须保留金额。",
+      "price_effect_per_100_cny": 0.45290231337448406
+    },
+    "fund_net": {
+      "known_noncurrent_lp_liability": 142.3216,
+      "fund_cash_in_bank_assets": null,
+      "net_attributable_value": null,
+      "additional_parent_recourse": null,
+      "current_lp_claims": null,
+      "delta_formula": "-C_f + 142.3216 + N_f - R_parent",
+      "conditional_examples": [
+        {
+          "conditions": "C_f=142.3216; N_f=0; R_parent=0",
+          "delta": 0
+        },
+        {
+          "conditions": "C_f=0; noncash assets cover all LP claims; N_f=0; R_parent=0",
+          "delta": 142.3216
+        },
+        {
+          "conditions": "C_f=200; N_f=0; R_parent=0",
+          "delta": -57.6784
+        }
+      ],
+      "example_range_is_not_evidence_bound": true,
+      "note": "未知C_f/N_f/R不是零。基金净值可能为正，额外流动请求权或追索也可能使调整更负；没有证据支持有限总体经济上下界。"
+    },
+    "nonbank_asset_gross_book_reference": {
+      "treasury_and_debt_products": 579.04367,
+      "ordinary_preferred_and_other_fund_investments": 654.52864,
+      "equity_method": 66.1491,
+      "loan_receivables": 130.89949,
+      "total": 1430.6209,
+      "source": "S1印59/89–91",
+      "adopted_additional_nav": null,
+      "note": "账面项目非可分配净值，也不是新增普通股权益上界；基金资产、金融业务营运资金及少数权益须配对。固定不计只使方法对照可比，不表示完整企业估值。"
+    }
+  },
+  "dcf_assumptions_basis": {
+    "wacc": {
+      "low": 0.11,
+      "base": 0.1,
+      "high": 0.09,
+      "basis": "以旧折现10%作比较锚、对称±1pp敏感性；非声称已估市场beta/CAPM。名义CNY，不能由即时股价反推。"
+    },
+    "terminal_growth": {
+      "low": 0.01,
+      "base": 0.02,
+      "high": 0.025
+    },
+    "terminal_roic": {
+      "low": {
+        "smartphones": 0.12,
+        "iot": 0.12,
+        "internet": 0.2,
+        "ev_ai": 0.1,
+        "other": 0.12
+      },
+      "base": {
+        "smartphones": 0.15,
+        "iot": 0.15,
+        "internet": 0.25,
+        "ev_ai": 0.12,
+        "other": 0.15
+      },
+      "high": {
+        "smartphones": 0.18,
+        "iot": 0.18,
+        "internet": 0.3,
+        "ev_ai": 0.15,
+        "other": 0.18
+      },
+      "basis": "手机/IoT轻资产但硬件竞争限制12%–18%；互联网20%–30%；汽车10%–15%。均为成熟增量资本回报假设，非披露ROIC；终值FCFF=NOPAT×(1-g/ROIC)。"
+    },
+    "tax": "盈利年度20%，亏损年度0%，不即期承认跨分部税盾，也未在未来凭空加历史亏损抵扣；可核NOL后另敏感性。旧资本化统一乘80%，故锁定组低/基准首年NOPAT比旧分别少7.8/4.2亿元，应独立归为税务规则完整化，不能算经营预测恶化。",
+    "da": "收入占比手机1.5%、IoT2%、互联网2.5%、新业务4%、其他0.5%；仅模型分摊。基准2027合计约97.49亿元，与H1总D&A49.85901亿元年化相近，但不是年度预测验证。",
+    "reinvestment": "起点新增capex强度手机1.7%、IoT2.5%、互联网3%、新业务6.5%、其他0.6%收入；ΔNWC首年收入的0.2%（新业务1%）作为显式资金占用假设，之后为新增收入×4%/4%/1%/8%/2%。第7–10年总再投资线性收敛到终值g/ROIC并按capex与ΔNWC分配，保证末年与终值不凭空取消再投资。",
+    "sbc": "正常SBC在EBIT费用内，绝不额外加回；未来新增稀释不再机械扣同一经济成本。",
+    "new_business_scope": "保留公司新业务分部：汽车+AI+其他，不另给尚未被经营预测支持的AI期权值。",
+    "updated_vs_locked": "updated改变近端经营假设及汽车修复速度；locked只固定2027输入，延长期增长、margin fade、再投资同样是新增假设。两者都不是从市价倒推。",
+    "probabilities": "low/base/high为条件情景，无未经证据校准的概率权重，不称P10/P50/P90。"
+  },
+  "models": {
+    "locked_assumptions_dcf": {
+      "kind": "dcf_fcff",
+      "currency": "CNY",
+      "amount_unit": "100_million",
+      "shares": 25795986357,
+      "fx_to_quote": 1.1683061896861928,
+      "scenarios": {
+        "low": {
+          "segments": [
+            {
+              "id": "smartphones_and_other",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。手机H1收入863.92014亿元、毛利率9.3%、ASP1330元但出货6500万部；内存成本压毛利，Q3行业/小米量弱。预测收入与经营率独立假设，未把毛利当EBIT；末期保留低单位利润。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 传统其他业务收入/资本投入并入本分部，零EBIT；合并后利润率为加权结果，不能拿该稀释率对比披露手机毛利。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1620.0,
+                  "ebit_margin": 0.014814814814814815,
+                  "tax_rate": 0.2,
+                  "da": 24.1,
+                  "capex": 27.32,
+                  "delta_nwc": 3.24
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1636.2,
+                  "ebit_margin": 0.014814814814814814,
+                  "tax_rate": 0.2,
+                  "da": 24.340999999999998,
+                  "capex": 27.593200000000003,
+                  "delta_nwc": 0.644
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1652.5620000000001,
+                  "ebit_margin": 0.014814814814814815,
+                  "tax_rate": 0.2,
+                  "da": 24.58441,
+                  "capex": 27.869132,
+                  "delta_nwc": 0.65044
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1669.08762,
+                  "ebit_margin": 0.014814814814814814,
+                  "tax_rate": 0.2,
+                  "da": 24.8302541,
+                  "capex": 28.14782332,
+                  "delta_nwc": 0.6569444
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1685.7784962,
+                  "ebit_margin": 0.014814814814814812,
+                  "tax_rate": 0.2,
+                  "da": 25.078556640000002,
+                  "capex": 28.42930155,
+                  "delta_nwc": 0.66351384
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1702.63628116,
+                  "ebit_margin": 0.014814814814832216,
+                  "tax_rate": 0.2,
+                  "da": 25.32934221,
+                  "capex": 28.71359457,
+                  "delta_nwc": 0.67014899
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1719.6626439699999,
+                  "ebit_margin": 0.014814814814832045,
+                  "tax_rate": 0.2,
+                  "da": 25.58263563,
+                  "capex": 28.40160224,
+                  "delta_nwc": 0.67685047
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1736.85927041,
+                  "ebit_margin": 0.01481481481483294,
+                  "tax_rate": 0.2,
+                  "da": 25.83846199,
+                  "capex": 28.0804987,
+                  "delta_nwc": 0.68361898
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1754.22786311,
+                  "ebit_margin": 0.014814814814835927,
+                  "tax_rate": 0.2,
+                  "da": 26.09684661,
+                  "capex": 27.750132930000003,
+                  "delta_nwc": 0.69045517
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1771.77014174,
+                  "ebit_margin": 0.014814814814845124,
+                  "tax_rate": 0.2,
+                  "da": 26.35781507,
+                  "capex": 27.41468322,
+                  "delta_nwc": 0.69302829
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.12,
+                "margin": 0.014814814814845124,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "iot",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。IoT H1收入559.5916亿元、毛利率22.3%，境外渠道有增长但国内耐用品压力；费用分摊后的3%–6%经营率远低于毛利，成熟增长逐步收敛。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1050.0,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 21.0,
+                  "capex": 26.25,
+                  "delta_nwc": 2.1
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1060.5,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 21.21,
+                  "capex": 26.5125,
+                  "delta_nwc": 0.42
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1071.105,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 21.4221,
+                  "capex": 26.777625,
+                  "delta_nwc": 0.4242
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1081.81605,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 21.636321,
+                  "capex": 27.04540125,
+                  "delta_nwc": 0.428442
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1092.6342105,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 21.85268421,
+                  "capex": 27.31585526,
+                  "delta_nwc": 0.43272642
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1103.56055261,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 22.07121105,
+                  "capex": 27.58901382,
+                  "delta_nwc": 0.43705368
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1114.59615813,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 22.29192316,
+                  "capex": 26.91860078,
+                  "delta_nwc": 0.44142422
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1125.74211971,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 22.51484239,
+                  "capex": 26.23202058,
+                  "delta_nwc": 0.44583846
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1136.99954091,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 22.73999082,
+                  "capex": 25.52901692,
+                  "delta_nwc": 0.45029685
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1148.36953632,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 22.96739073,
+                  "capex": 24.80932998,
+                  "delta_nwc": 0.45479982
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.12,
+                "margin": 0.03,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "internet",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。互联网H1收入185.12009亿元、同比1.9%、毛利率76.4%；全球MAU增4.8%不能直接当收入增速。40%–50% EBIT为研发、获客和总部费用后假设，不是披露分部EBIT。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 350.0,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 8.75,
+                  "capex": 10.5,
+                  "delta_nwc": 0.7
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 353.5,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 8.8375,
+                  "capex": 10.605,
+                  "delta_nwc": 0.035
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 357.035,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 8.925875,
+                  "capex": 10.71105,
+                  "delta_nwc": 0.03535
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 360.60535,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.01513375,
+                  "capex": 10.8181605,
+                  "delta_nwc": 0.0357035
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 364.2114035,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.10528509,
+                  "capex": 10.92634211,
+                  "delta_nwc": 0.03606053
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 367.85351754,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.19633794,
+                  "capex": 11.03560553,
+                  "delta_nwc": 0.03642114
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 371.53205271,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.28830132,
+                  "capex": 12.15847839,
+                  "delta_nwc": 0.03678535
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 375.24737324,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.38118433,
+                  "capex": 13.30270515,
+                  "delta_nwc": 0.03715321
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 378.99984697,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.47499617,
+                  "capex": 14.46860059,
+                  "delta_nwc": 0.03752474
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 382.78984544,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.56974614,
+                  "capex": 15.65648368,
+                  "delta_nwc": 0.03789998
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.2,
+                "margin": 0.4,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "ev_ai",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。汽车/AI/其他新业务H1收入447.60253亿元、交付185055辆、毛利率19.6%、经营亏损约57亿元；AI已有收入包含在本分部。亏损修复与规模扩张需要再投资，未另加独立AI/机器人许可价值。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 780.0,
+                  "ebit_margin": -0.05,
+                  "tax_rate": 0.0,
+                  "da": 31.2,
+                  "capex": 50.7,
+                  "delta_nwc": 7.8
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 787.8,
+                  "ebit_margin": -0.04333333,
+                  "tax_rate": 0.0,
+                  "da": 31.512,
+                  "capex": 51.207,
+                  "delta_nwc": 0.624
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 795.678,
+                  "ebit_margin": -0.03666667,
+                  "tax_rate": 0.0,
+                  "da": 31.82712,
+                  "capex": 51.71907,
+                  "delta_nwc": 0.63024
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 803.63478,
+                  "ebit_margin": -0.03,
+                  "tax_rate": 0.0,
+                  "da": 32.1453912,
+                  "capex": 52.2362607,
+                  "delta_nwc": 0.6365424
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 811.6711278,
+                  "ebit_margin": -0.02333333,
+                  "tax_rate": 0.0,
+                  "da": 32.46684511,
+                  "capex": 52.75862331,
+                  "delta_nwc": 0.64290782
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 819.78783908,
+                  "ebit_margin": -0.01666667,
+                  "tax_rate": 0.0,
+                  "da": 32.79151356,
+                  "capex": 53.28620954,
+                  "delta_nwc": 0.6493369
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 827.98571747,
+                  "ebit_margin": -0.01,
+                  "tax_rate": 0.0,
+                  "da": 33.1194287,
+                  "capex": 48.48020333,
+                  "delta_nwc": 0.65583027
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 836.26557464,
+                  "ebit_margin": -0.00333333,
+                  "tax_rate": 0.0,
+                  "da": 33.45062299,
+                  "capex": 43.57274838,
+                  "delta_nwc": 0.66238857
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 844.62823039,
+                  "ebit_margin": 0.00333333,
+                  "tax_rate": 0.2,
+                  "da": 33.78512922,
+                  "capex": 38.73122196,
+                  "delta_nwc": 0.66901246
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 853.07451269,
+                  "ebit_margin": 0.01,
+                  "tax_rate": 0.2,
+                  "da": 34.12298051,
+                  "capex": 34.12973753,
+                  "delta_nwc": 0.67570258
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.1,
+                "margin": 0.010000000000000002,
+                "tax_rate": 0.2
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "bank_assets",
+              "amount": 1654.28714,
+              "reason": "6/30现金等价物与两类定存；不含受限现金；仍含未拆分基金现金",
+              "source": "S1印59/94"
+            },
+            {
+              "id": "borrowings",
+              "amount": -392.76762,
+              "reason": "流动及非流动借款合计，含可转债；不另增转股分母",
+              "source": "S1印60/100"
+            },
+            {
+              "id": "lease_debt",
+              "amount": -50.40762,
+              "reason": "租赁融资口径；DCF的capex含未来新增使用权资产，旧租赁偿付不再进FCFF",
+              "source": "S1印95–96"
+            },
+            {
+              "id": "lp_liability_legacy_anchor",
+              "amount": -142.3216,
+              "reason": "只作可复算条件锚；须与基金现金及投资净归属一起替换，非假定基金资产零",
+              "source": "S1印110"
+            },
+            {
+              "id": "old_intangible_payables",
+              "amount": -50.74695,
+              "reason": "6/30已确认无形资产应付；年度capex只计估值后新增资本，排除这一存量结算",
+              "source": "S1印110/112"
+            },
+            {
+              "id": "old_construction_payables",
+              "amount": -17.80532,
+              "reason": "6/30已确认工程应付；从旧笼统储备中拆出，只扣一次",
+              "source": "S1印112"
+            },
+            {
+              "id": "minorities",
+              "amount": -1.1949,
+              "reason": "少数权益账面近似；未取得公允价值，固定跨模型比较",
+              "source": "S1印60"
+            },
+            {
+              "id": "post_june_buybacks",
+              "amount": -15.78342954,
+              "reason": "沿用截至10/28已核回购链合计HKD18.4398784226亿元×0.85594；不是回购授权全额",
+              "source": "B1§5.2，S2/S3"
+            },
+            {
+              "id": "minimum_operating_cash",
+              "amount": -300.0,
+              "reason": "条件假设：持续留存经营现金300亿元；250–400敏感性，不代表现金已损失；不含未来capex或ΔNWC",
+              "source": "A-CASH；旧B1基准营运储备300亿元；本研究明确范围"
+            },
+            {
+              "id": "fund_net_adjustment_condition",
+              "amount": 0.0,
+              "reason": "仅为条件C_f=142.3216、N_f=0、R_parent=0的算术锚；一般必须另加Δfund=-C_f+142.3216+N_f-R_parent；0不是已核事实",
+              "source": "G-FUND；S1印89–91/110"
+            },
+            {
+              "id": "unmodeled_nonbank_assets_condition",
+              "amount": 0.0,
+              "reason": "与旧比较一致的未估值资产占位；不证明投资资产价值为零。所有绝对股权值仅在该附加NAV=0条件下成立；另按净归属补充",
+              "source": "G-NAV；S1印59/89–91"
+            }
+          ],
+          "equity_value": null
+        },
+        "base": {
+          "segments": [
+            {
+              "id": "smartphones_and_other",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。手机H1收入863.92014亿元、毛利率9.3%、ASP1330元但出货6500万部；内存成本压毛利，Q3行业/小米量弱。预测收入与经营率独立假设，未把毛利当EBIT；末期保留低单位利润。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 传统其他业务收入/资本投入并入本分部，零EBIT；合并后利润率为加权结果，不能拿该稀释率对比披露手机毛利。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1770.0,
+                  "ebit_margin": 0.024717514124293787,
+                  "tax_rate": 0.2,
+                  "da": 26.35,
+                  "capex": 29.87,
+                  "delta_nwc": 3.54
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1805.4,
+                  "ebit_margin": 0.024717514124293783,
+                  "tax_rate": 0.2,
+                  "da": 26.877,
+                  "capex": 30.467399999999998,
+                  "delta_nwc": 1.408
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1841.508,
+                  "ebit_margin": 0.024717514124293787,
+                  "tax_rate": 0.2,
+                  "da": 27.414540000000002,
+                  "capex": 31.076748,
+                  "delta_nwc": 1.4361599999999999
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1878.33816,
+                  "ebit_margin": 0.02471751412429379,
+                  "tax_rate": 0.2,
+                  "da": 27.9628308,
+                  "capex": 31.69828296,
+                  "delta_nwc": 1.4648832
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1915.9049232,
+                  "ebit_margin": 0.024717514124293787,
+                  "tax_rate": 0.2,
+                  "da": 28.52208742,
+                  "capex": 32.33224862,
+                  "delta_nwc": 1.49418086
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1954.22302166,
+                  "ebit_margin": 0.02471751412434438,
+                  "tax_rate": 0.2,
+                  "da": 29.092529159999998,
+                  "capex": 32.9788936,
+                  "delta_nwc": 1.52406448
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1993.3074821,
+                  "ebit_margin": 0.024717514124234976,
+                  "tax_rate": 0.2,
+                  "da": 29.67437975,
+                  "capex": 33.57266825,
+                  "delta_nwc": 1.55454577
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 2033.17363174,
+                  "ebit_margin": 0.024717514124330604,
+                  "tax_rate": 0.2,
+                  "da": 30.26786735,
+                  "capex": 34.17700233,
+                  "delta_nwc": 1.58563669
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 2073.83710437,
+                  "ebit_margin": 0.02471751412429379,
+                  "tax_rate": 0.2,
+                  "da": 30.87322469,
+                  "capex": 34.79311453,
+                  "delta_nwc": 1.6163156
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 2115.3138464599997,
+                  "ebit_margin": 0.0247175141243225,
+                  "tax_rate": 0.2,
+                  "da": 31.49068919,
+                  "capex": 35.42746471,
+                  "delta_nwc": 1.64032313
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.15,
+                "margin": 0.0247175141243225,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "iot",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。IoT H1收入559.5916亿元、毛利率22.3%，境外渠道有增长但国内耐用品压力；费用分摊后的3%–6%经营率远低于毛利，成熟增长逐步收敛。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1200.0,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 24.0,
+                  "capex": 30.0,
+                  "delta_nwc": 2.4
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1224.0,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 24.48,
+                  "capex": 30.6,
+                  "delta_nwc": 0.96
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1248.48,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 24.9696,
+                  "capex": 31.212,
+                  "delta_nwc": 0.9792
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1273.4496,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 25.468992,
+                  "capex": 31.83624,
+                  "delta_nwc": 0.998784
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1298.918592,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 25.97837184,
+                  "capex": 32.4729648,
+                  "delta_nwc": 1.01875968
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1324.89696384,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 26.49793928,
+                  "capex": 33.1224241,
+                  "delta_nwc": 1.03913487
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1351.39490312,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 27.02789806,
+                  "capex": 33.27213745,
+                  "delta_nwc": 1.05991757
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1378.42280118,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 27.56845602,
+                  "capex": 33.41459037,
+                  "delta_nwc": 1.08111592
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1405.9912572,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 28.11982514,
+                  "capex": 33.54943256,
+                  "delta_nwc": 1.10273824
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1434.11108235,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 28.68222165,
+                  "capex": 33.67630259,
+                  "delta_nwc": 1.12479301
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.15,
+                "margin": 0.04,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "internet",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。互联网H1收入185.12009亿元、同比1.9%、毛利率76.4%；全球MAU增4.8%不能直接当收入增速。40%–50% EBIT为研发、获客和总部费用后假设，不是披露分部EBIT。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 380.0,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 9.5,
+                  "capex": 11.4,
+                  "delta_nwc": 0.76
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 387.6,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 9.69,
+                  "capex": 11.628,
+                  "delta_nwc": 0.076
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 395.352,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 9.8838,
+                  "capex": 11.86056,
+                  "delta_nwc": 0.07752
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 403.25904,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 10.081476,
+                  "capex": 12.0977712,
+                  "delta_nwc": 0.0790704
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 411.3242208,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 10.28310552,
+                  "capex": 12.33972662,
+                  "delta_nwc": 0.08065181
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 419.55070522,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 10.48876763,
+                  "capex": 12.58652116,
+                  "delta_nwc": 0.08226484
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 427.94171932,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 10.69854298,
+                  "capex": 15.36352727,
+                  "delta_nwc": 0.08391014
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 436.50055371,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 10.91251384,
+                  "capex": 18.24657903,
+                  "delta_nwc": 0.08558834
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 445.23056478,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 11.13076412,
+                  "capex": 21.23880744,
+                  "delta_nwc": 0.08730011
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 454.13517608,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 11.3533794,
+                  "capex": 24.34342636,
+                  "delta_nwc": 0.08904611
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.25,
+                "margin": 0.45,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "ev_ai",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。汽车/AI/其他新业务H1收入447.60253亿元、交付185055辆、毛利率19.6%、经营亏损约57亿元；AI已有收入包含在本分部。亏损修复与规模扩张需要再投资，未另加独立AI/机器人许可价值。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1050.0,
+                  "ebit_margin": -0.02,
+                  "tax_rate": 0.0,
+                  "da": 42.0,
+                  "capex": 68.25,
+                  "delta_nwc": 10.5
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1071.0,
+                  "ebit_margin": -0.01444444,
+                  "tax_rate": 0.0,
+                  "da": 42.84,
+                  "capex": 69.615,
+                  "delta_nwc": 1.68
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1092.42,
+                  "ebit_margin": -0.00888889,
+                  "tax_rate": 0.0,
+                  "da": 43.6968,
+                  "capex": 71.0073,
+                  "delta_nwc": 1.7136
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1114.2684,
+                  "ebit_margin": -0.00333333,
+                  "tax_rate": 0.0,
+                  "da": 44.570736,
+                  "capex": 72.427446,
+                  "delta_nwc": 1.747872
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1136.553768,
+                  "ebit_margin": 0.00222222,
+                  "tax_rate": 0.2,
+                  "da": 45.46215072,
+                  "capex": 73.87599492,
+                  "delta_nwc": 1.78282944
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1159.28484336,
+                  "ebit_margin": 0.00777778,
+                  "tax_rate": 0.2,
+                  "da": 46.37139373,
+                  "capex": 75.35351482,
+                  "delta_nwc": 1.81848603
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1182.47054023,
+                  "ebit_margin": 0.01333333,
+                  "tax_rate": 0.2,
+                  "da": 47.29882161,
+                  "capex": 69.53197276,
+                  "delta_nwc": 1.85485575
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1206.11995103,
+                  "ebit_margin": 0.01888889,
+                  "tax_rate": 0.2,
+                  "da": 48.24479804,
+                  "capex": 63.89413871,
+                  "delta_nwc": 1.89195286
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1230.24235005,
+                  "ebit_margin": 0.02444444,
+                  "tax_rate": 0.2,
+                  "da": 49.209694,
+                  "capex": 58.45862383,
+                  "delta_nwc": 1.92979192
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1254.84719705,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 50.19388788,
+                  "capex": 53.24488891,
+                  "delta_nwc": 1.96838776
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.12,
+                "margin": 0.030000000000000002,
+                "tax_rate": 0.2
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "bank_assets",
+              "amount": 1654.28714,
+              "reason": "6/30现金等价物与两类定存；不含受限现金；仍含未拆分基金现金",
+              "source": "S1印59/94"
+            },
+            {
+              "id": "borrowings",
+              "amount": -392.76762,
+              "reason": "流动及非流动借款合计，含可转债；不另增转股分母",
+              "source": "S1印60/100"
+            },
+            {
+              "id": "lease_debt",
+              "amount": -50.40762,
+              "reason": "租赁融资口径；DCF的capex含未来新增使用权资产，旧租赁偿付不再进FCFF",
+              "source": "S1印95–96"
+            },
+            {
+              "id": "lp_liability_legacy_anchor",
+              "amount": -142.3216,
+              "reason": "只作可复算条件锚；须与基金现金及投资净归属一起替换，非假定基金资产零",
+              "source": "S1印110"
+            },
+            {
+              "id": "old_intangible_payables",
+              "amount": -50.74695,
+              "reason": "6/30已确认无形资产应付；年度capex只计估值后新增资本，排除这一存量结算",
+              "source": "S1印110/112"
+            },
+            {
+              "id": "old_construction_payables",
+              "amount": -17.80532,
+              "reason": "6/30已确认工程应付；从旧笼统储备中拆出，只扣一次",
+              "source": "S1印112"
+            },
+            {
+              "id": "minorities",
+              "amount": -1.1949,
+              "reason": "少数权益账面近似；未取得公允价值，固定跨模型比较",
+              "source": "S1印60"
+            },
+            {
+              "id": "post_june_buybacks",
+              "amount": -15.78342954,
+              "reason": "沿用截至10/28已核回购链合计HKD18.4398784226亿元×0.85594；不是回购授权全额",
+              "source": "B1§5.2，S2/S3"
+            },
+            {
+              "id": "minimum_operating_cash",
+              "amount": -300.0,
+              "reason": "条件假设：持续留存经营现金300亿元；250–400敏感性，不代表现金已损失；不含未来capex或ΔNWC",
+              "source": "A-CASH；旧B1基准营运储备300亿元；本研究明确范围"
+            },
+            {
+              "id": "fund_net_adjustment_condition",
+              "amount": 0.0,
+              "reason": "仅为条件C_f=142.3216、N_f=0、R_parent=0的算术锚；一般必须另加Δfund=-C_f+142.3216+N_f-R_parent；0不是已核事实",
+              "source": "G-FUND；S1印89–91/110"
+            },
+            {
+              "id": "unmodeled_nonbank_assets_condition",
+              "amount": 0.0,
+              "reason": "与旧比较一致的未估值资产占位；不证明投资资产价值为零。所有绝对股权值仅在该附加NAV=0条件下成立；另按净归属补充",
+              "source": "G-NAV；S1印59/89–91"
+            }
+          ],
+          "equity_value": null
+        },
+        "high": {
+          "segments": [
+            {
+              "id": "smartphones_and_other",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。手机H1收入863.92014亿元、毛利率9.3%、ASP1330元但出货6500万部；内存成本压毛利，Q3行业/小米量弱。预测收入与经营率独立假设，未把毛利当EBIT；末期保留低单位利润。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 传统其他业务收入/资本投入并入本分部，零EBIT；合并后利润率为加权结果，不能拿该稀释率对比披露手机毛利。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1920.0,
+                  "ebit_margin": 0.03463541666666667,
+                  "tax_rate": 0.2,
+                  "da": 28.6,
+                  "capex": 32.419999999999995,
+                  "delta_nwc": 3.84
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1968.0,
+                  "ebit_margin": 0.03463541666666667,
+                  "tax_rate": 0.2,
+                  "da": 29.314999999999998,
+                  "capex": 33.2305,
+                  "delta_nwc": 1.91
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 2017.2,
+                  "ebit_margin": 0.03463541666666667,
+                  "tax_rate": 0.2,
+                  "da": 30.047874999999998,
+                  "capex": 34.0612625,
+                  "delta_nwc": 1.95775
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 2067.63,
+                  "ebit_margin": 0.03463541666666667,
+                  "tax_rate": 0.2,
+                  "da": 30.79907187,
+                  "capex": 34.912794059999996,
+                  "delta_nwc": 2.00669375
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 2119.32075,
+                  "ebit_margin": 0.03463541666670796,
+                  "tax_rate": 0.2,
+                  "da": 31.56904867,
+                  "capex": 35.785613919999996,
+                  "delta_nwc": 2.0568611
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 2172.30376875,
+                  "ebit_margin": 0.03463541666663142,
+                  "tax_rate": 0.2,
+                  "da": 32.35827489,
+                  "capex": 36.680254270000006,
+                  "delta_nwc": 2.10828262
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 2226.61136296,
+                  "ebit_margin": 0.034635416666732165,
+                  "tax_rate": 0.2,
+                  "da": 33.16723176,
+                  "capex": 38.09171743,
+                  "delta_nwc": 2.16098968
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 2282.27664704,
+                  "ebit_margin": 0.03463541666671779,
+                  "tax_rate": 0.2,
+                  "da": 33.996412559999996,
+                  "capex": 39.550828609999996,
+                  "delta_nwc": 2.21501442
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 2339.33356322,
+                  "ebit_margin": 0.034635416666669784,
+                  "tax_rate": 0.2,
+                  "da": 34.84632287,
+                  "capex": 41.06191115,
+                  "delta_nwc": 2.26756666
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 2397.8169023,
+                  "ebit_margin": 0.034635416666651465,
+                  "tax_rate": 0.2,
+                  "da": 35.71748094,
+                  "capex": 42.63022516,
+                  "delta_nwc": 2.31496551
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.18,
+                "margin": 0.034635416666651465,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "iot",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。IoT H1收入559.5916亿元、毛利率22.3%，境外渠道有增长但国内耐用品压力；费用分摊后的3%–6%经营率远低于毛利，成熟增长逐步收敛。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1350.0,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 27.0,
+                  "capex": 33.75,
+                  "delta_nwc": 2.7
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1383.75,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 27.675,
+                  "capex": 34.59375,
+                  "delta_nwc": 1.35
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1418.34375,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 28.366875,
+                  "capex": 35.45859375,
+                  "delta_nwc": 1.38375
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1453.80234375,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 29.07604687,
+                  "capex": 36.34505859,
+                  "delta_nwc": 1.41834375
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1490.14740234,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 29.80294805,
+                  "capex": 37.25368506,
+                  "delta_nwc": 1.45380234
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1527.4010874,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 30.54802175,
+                  "capex": 38.18502719,
+                  "delta_nwc": 1.4901474
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1565.58611459,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 31.31172229,
+                  "capex": 38.97524511,
+                  "delta_nwc": 1.52740109
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1604.72576745,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 32.09451535,
+                  "capex": 39.78110829,
+                  "delta_nwc": 1.56558611
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1644.84391164,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 32.89687823,
+                  "capex": 40.6029051,
+                  "delta_nwc": 1.60472577
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1685.96500943,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 33.71930019,
+                  "capex": 41.44092855,
+                  "delta_nwc": 1.64484391
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.18,
+                "margin": 0.05,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "internet",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。互联网H1收入185.12009亿元、同比1.9%、毛利率76.4%；全球MAU增4.8%不能直接当收入增速。40%–50% EBIT为研发、获客和总部费用后假设，不是披露分部EBIT。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 410.0,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 10.25,
+                  "capex": 12.3,
+                  "delta_nwc": 0.82
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 420.25,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 10.50625,
+                  "capex": 12.6075,
+                  "delta_nwc": 0.1025
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 430.75625,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 10.76890625,
+                  "capex": 12.9226875,
+                  "delta_nwc": 0.1050625
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 441.52515625,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 11.03812891,
+                  "capex": 13.24575469,
+                  "delta_nwc": 0.10768906
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 452.56328516,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 11.31408213,
+                  "capex": 13.57689855,
+                  "delta_nwc": 0.11038129
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 463.87736729,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 11.59693418,
+                  "capex": 13.91632102,
+                  "delta_nwc": 0.11314082
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 475.47430147,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 11.88685754,
+                  "capex": 17.44468824,
+                  "delta_nwc": 0.11596934
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 487.361159,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 12.18402898,
+                  "capex": 21.14077613,
+                  "delta_nwc": 0.11886858
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 499.54518798,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 12.4886297,
+                  "capex": 25.01076548,
+                  "delta_nwc": 0.12184029
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 512.03381768,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 12.80084544,
+                  "capex": 29.06104131,
+                  "delta_nwc": 0.1248863
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.3,
+                "margin": 0.48,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "ev_ai",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "B1 2027分部收入/EBIT率冻结；盈利年度20%、亏损年度0%税率；第二个滚动年度后收入按终值g低速增长，非汽车利润率固定，汽车逐渐收敛至1%/3%/5%。延长期与再投资为DCF新增必要假设，不称纯代数方法效果。汽车/AI/其他新业务H1收入447.60253亿元、交付185055辆、毛利率19.6%、经营亏损约57亿元；AI已有收入包含在本分部。亏损修复与规模扩张需要再投资，未另加独立AI/机器人许可价值。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1220.0,
+                  "ebit_margin": 0.02,
+                  "tax_rate": 0.2,
+                  "da": 48.8,
+                  "capex": 79.3,
+                  "delta_nwc": 12.2
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1250.5,
+                  "ebit_margin": 0.02333333,
+                  "tax_rate": 0.2,
+                  "da": 50.02,
+                  "capex": 81.2825,
+                  "delta_nwc": 2.44
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1281.7625,
+                  "ebit_margin": 0.02666667,
+                  "tax_rate": 0.2,
+                  "da": 51.2705,
+                  "capex": 83.3145625,
+                  "delta_nwc": 2.501
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1313.8065625,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 52.5522625,
+                  "capex": 85.39742656,
+                  "delta_nwc": 2.563525
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1346.65172656,
+                  "ebit_margin": 0.03333333,
+                  "tax_rate": 0.2,
+                  "da": 53.86606906,
+                  "capex": 87.53236223,
+                  "delta_nwc": 2.62761312
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1380.31801973,
+                  "ebit_margin": 0.03666667,
+                  "tax_rate": 0.2,
+                  "da": 55.21272079,
+                  "capex": 89.72067128,
+                  "delta_nwc": 2.69330345
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1414.82597022,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 56.59303881,
+                  "capex": 84.31730137,
+                  "delta_nwc": 2.76063604
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1450.19661948,
+                  "ebit_margin": 0.04333333,
+                  "tax_rate": 0.2,
+                  "da": 58.00786478,
+                  "capex": 78.90995345,
+                  "delta_nwc": 2.82965194
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1486.45153496,
+                  "ebit_margin": 0.04666667,
+                  "tax_rate": 0.2,
+                  "da": 59.4580614,
+                  "capex": 73.50986239,
+                  "delta_nwc": 2.90039324
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1523.61282334,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 60.94451293,
+                  "capex": 68.12902869,
+                  "delta_nwc": 2.97290307
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.15,
+                "margin": 0.05,
+                "tax_rate": 0.2
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "bank_assets",
+              "amount": 1654.28714,
+              "reason": "6/30现金等价物与两类定存；不含受限现金；仍含未拆分基金现金",
+              "source": "S1印59/94"
+            },
+            {
+              "id": "borrowings",
+              "amount": -392.76762,
+              "reason": "流动及非流动借款合计，含可转债；不另增转股分母",
+              "source": "S1印60/100"
+            },
+            {
+              "id": "lease_debt",
+              "amount": -50.40762,
+              "reason": "租赁融资口径；DCF的capex含未来新增使用权资产，旧租赁偿付不再进FCFF",
+              "source": "S1印95–96"
+            },
+            {
+              "id": "lp_liability_legacy_anchor",
+              "amount": -142.3216,
+              "reason": "只作可复算条件锚；须与基金现金及投资净归属一起替换，非假定基金资产零",
+              "source": "S1印110"
+            },
+            {
+              "id": "old_intangible_payables",
+              "amount": -50.74695,
+              "reason": "6/30已确认无形资产应付；年度capex只计估值后新增资本，排除这一存量结算",
+              "source": "S1印110/112"
+            },
+            {
+              "id": "old_construction_payables",
+              "amount": -17.80532,
+              "reason": "6/30已确认工程应付；从旧笼统储备中拆出，只扣一次",
+              "source": "S1印112"
+            },
+            {
+              "id": "minorities",
+              "amount": -1.1949,
+              "reason": "少数权益账面近似；未取得公允价值，固定跨模型比较",
+              "source": "S1印60"
+            },
+            {
+              "id": "post_june_buybacks",
+              "amount": -15.78342954,
+              "reason": "沿用截至10/28已核回购链合计HKD18.4398784226亿元×0.85594；不是回购授权全额",
+              "source": "B1§5.2，S2/S3"
+            },
+            {
+              "id": "minimum_operating_cash",
+              "amount": -300.0,
+              "reason": "条件假设：持续留存经营现金300亿元；250–400敏感性，不代表现金已损失；不含未来capex或ΔNWC",
+              "source": "A-CASH；旧B1基准营运储备300亿元；本研究明确范围"
+            },
+            {
+              "id": "fund_net_adjustment_condition",
+              "amount": 0.0,
+              "reason": "仅为条件C_f=142.3216、N_f=0、R_parent=0的算术锚；一般必须另加Δfund=-C_f+142.3216+N_f-R_parent；0不是已核事实",
+              "source": "G-FUND；S1印89–91/110"
+            },
+            {
+              "id": "unmodeled_nonbank_assets_condition",
+              "amount": 0.0,
+              "reason": "与旧比较一致的未估值资产占位；不证明投资资产价值为零。所有绝对股权值仅在该附加NAV=0条件下成立；另按净归属补充",
+              "source": "G-NAV；S1印59/89–91"
+            }
+          ],
+          "equity_value": null
+        }
+      }
+    },
+    "evidence_updated_dcf": {
+      "kind": "dcf_fcff",
+      "currency": "CNY",
+      "amount_unit": "100_million",
+      "shares": 25795986357,
+      "fx_to_quote": 1.1683061896861928,
+      "scenarios": {
+        "low": {
+          "segments": [
+            {
+              "id": "smartphones_and_other",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "手机H1收入863.92014亿元、毛利率9.3%、ASP1330元但出货6500万部；内存成本压毛利，Q3行业/小米量弱。预测收入与经营率独立假设，未把毛利当EBIT；末期保留低单位利润。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 传统其他业务收入/资本投入并入本分部，零EBIT；合并后利润率为加权结果，不能拿该稀释率对比披露手机毛利。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1545,
+                  "ebit_margin": 0.009708737864077669,
+                  "tax_rate": 0.2,
+                  "da": 22.725,
+                  "capex": 25.77,
+                  "delta_nwc": 3.09
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1545,
+                  "ebit_margin": 0.009708737864077669,
+                  "tax_rate": 0.2,
+                  "da": 22.725,
+                  "capex": 25.77,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1561,
+                  "ebit_margin": 0.011646380525304293,
+                  "tax_rate": 0.2,
+                  "da": 22.955000000000002,
+                  "capex": 26.031,
+                  "delta_nwc": 0.62
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1576,
+                  "ebit_margin": 0.0116497461928934,
+                  "tax_rate": 0.2,
+                  "da": 23.18,
+                  "capex": 26.286,
+                  "delta_nwc": 0.6
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1592,
+                  "ebit_margin": 0.014557160804020102,
+                  "tax_rate": 0.2,
+                  "da": 23.41,
+                  "capex": 26.547,
+                  "delta_nwc": 0.62
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1607,
+                  "ebit_margin": 0.014561294337274424,
+                  "tax_rate": 0.2,
+                  "da": 23.634999999999998,
+                  "capex": 26.802,
+                  "delta_nwc": 0.6
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1623,
+                  "ebit_margin": 0.01455637707948244,
+                  "tax_rate": 0.2,
+                  "da": 23.865,
+                  "capex": 26.50225,
+                  "delta_nwc": 0.62
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1638,
+                  "ebit_margin": 0.014560439560439559,
+                  "tax_rate": 0.2,
+                  "da": 24.09,
+                  "capex": 26.198999999999998,
+                  "delta_nwc": 0.6
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1654,
+                  "ebit_margin": 0.014555622732769044,
+                  "tax_rate": 0.2,
+                  "da": 24.32,
+                  "capex": 25.876250000000002,
+                  "delta_nwc": 0.61725
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1669,
+                  "ebit_margin": 0.014559616536848412,
+                  "tax_rate": 0.2,
+                  "da": 24.545,
+                  "capex": 25.565,
+                  "delta_nwc": 0.6
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.12,
+                "margin": 0.014559616536848412,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "iot",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "IoT H1收入559.5916亿元、毛利率22.3%，境外渠道有增长但国内耐用品压力；费用分摊后的3%–6%经营率远低于毛利，成熟增长逐步收敛。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1000,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 20.0,
+                  "capex": 25.0,
+                  "delta_nwc": 2.0
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1020,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 20.4,
+                  "capex": 25.5,
+                  "delta_nwc": 0.8
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1040,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 20.8,
+                  "capex": 26.0,
+                  "delta_nwc": 0.8
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1060,
+                  "ebit_margin": 0.032,
+                  "tax_rate": 0.2,
+                  "da": 21.2,
+                  "capex": 26.5,
+                  "delta_nwc": 0.8
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1080,
+                  "ebit_margin": 0.033,
+                  "tax_rate": 0.2,
+                  "da": 21.6,
+                  "capex": 27.0,
+                  "delta_nwc": 0.8
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1100,
+                  "ebit_margin": 0.035,
+                  "tax_rate": 0.2,
+                  "da": 22.0,
+                  "capex": 27.5,
+                  "delta_nwc": 0.8
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1122,
+                  "ebit_margin": 0.035,
+                  "tax_rate": 0.2,
+                  "da": 22.44,
+                  "capex": 27.082,
+                  "delta_nwc": 0.88
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1144,
+                  "ebit_margin": 0.035,
+                  "tax_rate": 0.2,
+                  "da": 22.88,
+                  "capex": 26.63466667,
+                  "delta_nwc": 0.88
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1167,
+                  "ebit_margin": 0.035,
+                  "tax_rate": 0.2,
+                  "da": 23.34,
+                  "capex": 26.151,
+                  "delta_nwc": 0.92
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1190,
+                  "ebit_margin": 0.035,
+                  "tax_rate": 0.2,
+                  "da": 23.8,
+                  "capex": 25.65666667,
+                  "delta_nwc": 0.92
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.12,
+                "margin": 0.035,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "internet",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "互联网H1收入185.12009亿元、同比1.9%、毛利率76.4%；全球MAU增4.8%不能直接当收入增速。40%–50% EBIT为研发、获客和总部费用后假设，不是披露分部EBIT。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 360,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.0,
+                  "capex": 10.8,
+                  "delta_nwc": 0.72
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 364,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.1,
+                  "capex": 10.92,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 368,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.2,
+                  "capex": 11.04,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 372,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.3,
+                  "capex": 11.16,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 376,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.4,
+                  "capex": 11.28,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 380,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.5,
+                  "capex": 11.4,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 384,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.6,
+                  "capex": 12.566,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 388,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.7,
+                  "capex": 13.754,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 392,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.8,
+                  "capex": 14.964,
+                  "delta_nwc": 0.04
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 396,
+                  "ebit_margin": 0.4,
+                  "tax_rate": 0.2,
+                  "da": 9.9,
+                  "capex": 16.196,
+                  "delta_nwc": 0.04
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.2,
+                "margin": 0.4,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "ev_ai",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "汽车/AI/其他新业务H1收入447.60253亿元、交付185055辆、毛利率19.6%、经营亏损约57亿元；AI已有收入包含在本分部。亏损修复与规模扩张需要再投资，未另加独立AI/机器人许可价值。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 800,
+                  "ebit_margin": -0.1,
+                  "tax_rate": 0.0,
+                  "da": 32.0,
+                  "capex": 52.0,
+                  "delta_nwc": 8.0
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 840,
+                  "ebit_margin": -0.08,
+                  "tax_rate": 0.0,
+                  "da": 33.6,
+                  "capex": 54.6,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 880,
+                  "ebit_margin": -0.06,
+                  "tax_rate": 0.0,
+                  "da": 35.2,
+                  "capex": 57.2,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 920,
+                  "ebit_margin": -0.04,
+                  "tax_rate": 0.0,
+                  "da": 36.8,
+                  "capex": 59.8,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 960,
+                  "ebit_margin": -0.02,
+                  "tax_rate": 0.0,
+                  "da": 38.4,
+                  "capex": 62.4,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1000,
+                  "ebit_margin": 0,
+                  "tax_rate": 0.0,
+                  "da": 40.0,
+                  "capex": 65.0,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1040,
+                  "ebit_margin": 0.005,
+                  "tax_rate": 0.2,
+                  "da": 41.6,
+                  "capex": 60.404,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1080,
+                  "ebit_margin": 0.01,
+                  "tax_rate": 0.2,
+                  "da": 43.2,
+                  "capex": 55.532,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1110,
+                  "ebit_margin": 0.015,
+                  "tax_rate": 0.2,
+                  "da": 44.4,
+                  "capex": 50.5365,
+                  "delta_nwc": 2.4
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1130,
+                  "ebit_margin": 0.015,
+                  "tax_rate": 0.2,
+                  "da": 45.2,
+                  "capex": 45.2,
+                  "delta_nwc": 1.356
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.1,
+                "margin": 0.015,
+                "tax_rate": 0.2
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "bank_assets",
+              "amount": 1654.28714,
+              "reason": "6/30现金等价物与两类定存；不含受限现金；仍含未拆分基金现金",
+              "source": "S1印59/94"
+            },
+            {
+              "id": "borrowings",
+              "amount": -392.76762,
+              "reason": "流动及非流动借款合计，含可转债；不另增转股分母",
+              "source": "S1印60/100"
+            },
+            {
+              "id": "lease_debt",
+              "amount": -50.40762,
+              "reason": "租赁融资口径；DCF的capex含未来新增使用权资产，旧租赁偿付不再进FCFF",
+              "source": "S1印95–96"
+            },
+            {
+              "id": "lp_liability_legacy_anchor",
+              "amount": -142.3216,
+              "reason": "只作可复算条件锚；须与基金现金及投资净归属一起替换，非假定基金资产零",
+              "source": "S1印110"
+            },
+            {
+              "id": "old_intangible_payables",
+              "amount": -50.74695,
+              "reason": "6/30已确认无形资产应付；年度capex只计估值后新增资本，排除这一存量结算",
+              "source": "S1印110/112"
+            },
+            {
+              "id": "old_construction_payables",
+              "amount": -17.80532,
+              "reason": "6/30已确认工程应付；从旧笼统储备中拆出，只扣一次",
+              "source": "S1印112"
+            },
+            {
+              "id": "minorities",
+              "amount": -1.1949,
+              "reason": "少数权益账面近似；未取得公允价值，固定跨模型比较",
+              "source": "S1印60"
+            },
+            {
+              "id": "post_june_buybacks",
+              "amount": -15.78342954,
+              "reason": "沿用截至10/28已核回购链合计HKD18.4398784226亿元×0.85594；不是回购授权全额",
+              "source": "B1§5.2，S2/S3"
+            },
+            {
+              "id": "minimum_operating_cash",
+              "amount": -300.0,
+              "reason": "条件假设：持续留存经营现金300亿元；250–400敏感性，不代表现金已损失；不含未来capex或ΔNWC",
+              "source": "A-CASH；旧B1基准营运储备300亿元；本研究明确范围"
+            },
+            {
+              "id": "fund_net_adjustment_condition",
+              "amount": 0.0,
+              "reason": "仅为条件C_f=142.3216、N_f=0、R_parent=0的算术锚；一般必须另加Δfund=-C_f+142.3216+N_f-R_parent；0不是已核事实",
+              "source": "G-FUND；S1印89–91/110"
+            },
+            {
+              "id": "unmodeled_nonbank_assets_condition",
+              "amount": 0.0,
+              "reason": "与旧比较一致的未估值资产占位；不证明投资资产价值为零。所有绝对股权值仅在该附加NAV=0条件下成立；另按净归属补充",
+              "source": "G-NAV；S1印59/89–91"
+            }
+          ],
+          "equity_value": null
+        },
+        "base": {
+          "segments": [
+            {
+              "id": "smartphones_and_other",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "手机H1收入863.92014亿元、毛利率9.3%、ASP1330元但出货6500万部；内存成本压毛利，Q3行业/小米量弱。预测收入与经营率独立假设，未把毛利当EBIT；末期保留低单位利润。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 传统其他业务收入/资本投入并入本分部，零EBIT；合并后利润率为加权结果，不能拿该稀释率对比披露手机毛利。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1698,
+                  "ebit_margin": 0.019434628975265017,
+                  "tax_rate": 0.2,
+                  "da": 24.99,
+                  "capex": 28.338,
+                  "delta_nwc": 3.396
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1749,
+                  "ebit_margin": 0.024299599771297885,
+                  "tax_rate": 0.2,
+                  "da": 25.745,
+                  "capex": 29.194,
+                  "delta_nwc": 2.02
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1800,
+                  "ebit_margin": 0.02722222222222222,
+                  "tax_rate": 0.2,
+                  "da": 26.5,
+                  "capex": 30.05,
+                  "delta_nwc": 2.02
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1851,
+                  "ebit_margin": 0.029173419773095625,
+                  "tax_rate": 0.2,
+                  "da": 27.255,
+                  "capex": 30.906000000000002,
+                  "delta_nwc": 2.02
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1892,
+                  "ebit_margin": 0.029175475687103592,
+                  "tax_rate": 0.2,
+                  "da": 27.860000000000003,
+                  "capex": 31.592000000000002,
+                  "delta_nwc": 1.62
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1933,
+                  "ebit_margin": 0.029177444386963267,
+                  "tax_rate": 0.2,
+                  "da": 28.465,
+                  "capex": 32.278,
+                  "delta_nwc": 1.62
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1974,
+                  "ebit_margin": 0.02917933130699088,
+                  "tax_rate": 0.2,
+                  "da": 29.07,
+                  "capex": 33.121500000000005,
+                  "delta_nwc": 1.62
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 2015,
+                  "ebit_margin": 0.029181141439205954,
+                  "tax_rate": 0.2,
+                  "da": 29.674999999999997,
+                  "capex": 33.988499999999995,
+                  "delta_nwc": 1.62
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 2055,
+                  "ebit_margin": 0.029182481751824817,
+                  "tax_rate": 0.2,
+                  "da": 30.265,
+                  "capex": 34.8921,
+                  "delta_nwc": 1.579
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 2096,
+                  "ebit_margin": 0.029184160305343508,
+                  "tax_rate": 0.2,
+                  "da": 30.87,
+                  "capex": 35.794799999999995,
+                  "delta_nwc": 1.6
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.15,
+                "margin": 0.029184160305343508,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "iot",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "IoT H1收入559.5916亿元、毛利率22.3%，境外渠道有增长但国内耐用品压力；费用分摊后的3%–6%经营率远低于毛利，成熟增长逐步收敛。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1150,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 23.0,
+                  "capex": 28.75,
+                  "delta_nwc": 2.3
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1230,
+                  "ebit_margin": 0.043,
+                  "tax_rate": 0.2,
+                  "da": 24.6,
+                  "capex": 30.75,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1310,
+                  "ebit_margin": 0.045,
+                  "tax_rate": 0.2,
+                  "da": 26.2,
+                  "capex": 32.75,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1390,
+                  "ebit_margin": 0.048,
+                  "tax_rate": 0.2,
+                  "da": 27.8,
+                  "capex": 34.75,
+                  "delta_nwc": 3.2
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1460,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 29.2,
+                  "capex": 36.5,
+                  "delta_nwc": 2.8
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1530,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 30.6,
+                  "capex": 38.25,
+                  "delta_nwc": 2.8
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1600,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 32.0,
+                  "capex": 39.43333333,
+                  "delta_nwc": 2.8
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1660,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 33.2,
+                  "capex": 40.57666667,
+                  "delta_nwc": 2.4
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 1720,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 34.4,
+                  "capex": 41.63,
+                  "delta_nwc": 2.4
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 1772,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 35.44,
+                  "capex": 42.81066667,
+                  "delta_nwc": 2.08
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.15,
+                "margin": 0.05,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "internet",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "互联网H1收入185.12009亿元、同比1.9%、毛利率76.4%；全球MAU增4.8%不能直接当收入增速。40%–50% EBIT为研发、获客和总部费用后假设，不是披露分部EBIT。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 380,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 9.5,
+                  "capex": 11.4,
+                  "delta_nwc": 0.76
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 400,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 10.0,
+                  "capex": 12.0,
+                  "delta_nwc": 0.2
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 420,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 10.5,
+                  "capex": 12.6,
+                  "delta_nwc": 0.2
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 440,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 11.0,
+                  "capex": 13.2,
+                  "delta_nwc": 0.2
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 460,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 11.5,
+                  "capex": 13.8,
+                  "delta_nwc": 0.2
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 480,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 12.0,
+                  "capex": 14.4,
+                  "delta_nwc": 0.2
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 500,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 12.5,
+                  "capex": 17.925,
+                  "delta_nwc": 0.2
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 520,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 13.0,
+                  "capex": 21.688,
+                  "delta_nwc": 0.2
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 538,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 13.45,
+                  "capex": 25.6083,
+                  "delta_nwc": 0.18
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 554,
+                  "ebit_margin": 0.45,
+                  "tax_rate": 0.2,
+                  "da": 13.85,
+                  "capex": 29.6452,
+                  "delta_nwc": 0.16
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.25,
+                "margin": 0.45,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "ev_ai",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "汽车/AI/其他新业务H1收入447.60253亿元、交付185055辆、毛利率19.6%、经营亏损约57亿元；AI已有收入包含在本分部。亏损修复与规模扩张需要再投资，未另加独立AI/机器人许可价值。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1000,
+                  "ebit_margin": -0.06,
+                  "tax_rate": 0.0,
+                  "da": 40.0,
+                  "capex": 65.0,
+                  "delta_nwc": 10.0
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1150,
+                  "ebit_margin": -0.03,
+                  "tax_rate": 0.0,
+                  "da": 46.0,
+                  "capex": 74.75,
+                  "delta_nwc": 12.0
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1300,
+                  "ebit_margin": 0,
+                  "tax_rate": 0.0,
+                  "da": 52.0,
+                  "capex": 84.5,
+                  "delta_nwc": 12.0
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1450,
+                  "ebit_margin": 0.02,
+                  "tax_rate": 0.2,
+                  "da": 58.0,
+                  "capex": 94.25,
+                  "delta_nwc": 12.0
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1600,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.2,
+                  "da": 64.0,
+                  "capex": 104.0,
+                  "delta_nwc": 12.0
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 1730,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 69.2,
+                  "capex": 112.45,
+                  "delta_nwc": 10.4
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 1850,
+                  "ebit_margin": 0.045,
+                  "tax_rate": 0.2,
+                  "da": 74.0,
+                  "capex": 109.0625,
+                  "delta_nwc": 9.6
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 1960,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 78.4,
+                  "capex": 105.03333333,
+                  "delta_nwc": 8.8
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 2050,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 82.0,
+                  "capex": 99.6625,
+                  "delta_nwc": 7.2
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 2120,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 84.8,
+                  "capex": 93.33333333,
+                  "delta_nwc": 5.6
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.12,
+                "margin": 0.05,
+                "tax_rate": 0.2
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "bank_assets",
+              "amount": 1654.28714,
+              "reason": "6/30现金等价物与两类定存；不含受限现金；仍含未拆分基金现金",
+              "source": "S1印59/94"
+            },
+            {
+              "id": "borrowings",
+              "amount": -392.76762,
+              "reason": "流动及非流动借款合计，含可转债；不另增转股分母",
+              "source": "S1印60/100"
+            },
+            {
+              "id": "lease_debt",
+              "amount": -50.40762,
+              "reason": "租赁融资口径；DCF的capex含未来新增使用权资产，旧租赁偿付不再进FCFF",
+              "source": "S1印95–96"
+            },
+            {
+              "id": "lp_liability_legacy_anchor",
+              "amount": -142.3216,
+              "reason": "只作可复算条件锚；须与基金现金及投资净归属一起替换，非假定基金资产零",
+              "source": "S1印110"
+            },
+            {
+              "id": "old_intangible_payables",
+              "amount": -50.74695,
+              "reason": "6/30已确认无形资产应付；年度capex只计估值后新增资本，排除这一存量结算",
+              "source": "S1印110/112"
+            },
+            {
+              "id": "old_construction_payables",
+              "amount": -17.80532,
+              "reason": "6/30已确认工程应付；从旧笼统储备中拆出，只扣一次",
+              "source": "S1印112"
+            },
+            {
+              "id": "minorities",
+              "amount": -1.1949,
+              "reason": "少数权益账面近似；未取得公允价值，固定跨模型比较",
+              "source": "S1印60"
+            },
+            {
+              "id": "post_june_buybacks",
+              "amount": -15.78342954,
+              "reason": "沿用截至10/28已核回购链合计HKD18.4398784226亿元×0.85594；不是回购授权全额",
+              "source": "B1§5.2，S2/S3"
+            },
+            {
+              "id": "minimum_operating_cash",
+              "amount": -300.0,
+              "reason": "条件假设：持续留存经营现金300亿元；250–400敏感性，不代表现金已损失；不含未来capex或ΔNWC",
+              "source": "A-CASH；旧B1基准营运储备300亿元；本研究明确范围"
+            },
+            {
+              "id": "fund_net_adjustment_condition",
+              "amount": 0.0,
+              "reason": "仅为条件C_f=142.3216、N_f=0、R_parent=0的算术锚；一般必须另加Δfund=-C_f+142.3216+N_f-R_parent；0不是已核事实",
+              "source": "G-FUND；S1印89–91/110"
+            },
+            {
+              "id": "unmodeled_nonbank_assets_condition",
+              "amount": 0.0,
+              "reason": "与旧比较一致的未估值资产占位；不证明投资资产价值为零。所有绝对股权值仅在该附加NAV=0条件下成立；另按净归属补充",
+              "source": "G-NAV；S1印59/89–91"
+            }
+          ],
+          "equity_value": null
+        },
+        "high": {
+          "segments": [
+            {
+              "id": "smartphones_and_other",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "手机H1收入863.92014亿元、毛利率9.3%、ASP1330元但出货6500万部；内存成本压毛利，Q3行业/小米量弱。预测收入与经营率独立假设，未把毛利当EBIT；末期保留低单位利润。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 传统其他业务收入/资本投入并入本分部，零EBIT；合并后利润率为加权结果，不能拿该稀释率对比披露手机毛利。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1850,
+                  "ebit_margin": 0.02918918918918919,
+                  "tax_rate": 0.2,
+                  "da": 27.25,
+                  "capex": 30.900000000000002,
+                  "delta_nwc": 3.7
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1952,
+                  "ebit_margin": 0.03406762295081967,
+                  "tax_rate": 0.2,
+                  "da": 28.76,
+                  "capex": 32.611999999999995,
+                  "delta_nwc": 4.04
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 2054,
+                  "ebit_margin": 0.03894839337877313,
+                  "tax_rate": 0.2,
+                  "da": 30.27,
+                  "capex": 34.324,
+                  "delta_nwc": 4.04
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 2156,
+                  "ebit_margin": 0.03896103896103896,
+                  "tax_rate": 0.2,
+                  "da": 31.78,
+                  "capex": 36.036,
+                  "delta_nwc": 4.04
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 2258,
+                  "ebit_margin": 0.03897254207263064,
+                  "tax_rate": 0.2,
+                  "da": 33.29,
+                  "capex": 37.748,
+                  "delta_nwc": 4.04
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 2350,
+                  "ebit_margin": 0.038978723404255324,
+                  "tax_rate": 0.2,
+                  "da": 34.65,
+                  "capex": 39.29,
+                  "delta_nwc": 3.64
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 2432,
+                  "ebit_margin": 0.03898026315789473,
+                  "tax_rate": 0.2,
+                  "da": 35.86,
+                  "capex": 41.28483333,
+                  "delta_nwc": 3.24
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 2504,
+                  "ebit_margin": 0.038977635782747606,
+                  "tax_rate": 0.2,
+                  "da": 36.92,
+                  "capex": 43.39422222,
+                  "delta_nwc": 2.84
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 2566,
+                  "ebit_margin": 0.03897116134060795,
+                  "tax_rate": 0.2,
+                  "da": 37.83,
+                  "capex": 45.613333329999996,
+                  "delta_nwc": 2.4265
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 2631,
+                  "ebit_margin": 0.03896617255796275,
+                  "tax_rate": 0.2,
+                  "da": 38.785000000000004,
+                  "capex": 47.656111110000005,
+                  "delta_nwc": 2.52
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.18,
+                "margin": 0.03896617255796275,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "iot",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "IoT H1收入559.5916亿元、毛利率22.3%，境外渠道有增长但国内耐用品压力；费用分摊后的3%–6%经营率远低于毛利，成熟增长逐步收敛。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1300,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.2,
+                  "da": 26.0,
+                  "capex": 32.5,
+                  "delta_nwc": 2.6
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1430,
+                  "ebit_margin": 0.055,
+                  "tax_rate": 0.2,
+                  "da": 28.6,
+                  "capex": 35.75,
+                  "delta_nwc": 5.2
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1570,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 31.4,
+                  "capex": 39.25,
+                  "delta_nwc": 5.6
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1720,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 34.4,
+                  "capex": 43.0,
+                  "delta_nwc": 6.0
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 1870,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 37.4,
+                  "capex": 46.75,
+                  "delta_nwc": 6.0
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 2010,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 40.2,
+                  "capex": 50.25,
+                  "delta_nwc": 5.6
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 2140,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 42.8,
+                  "capex": 53.09166667,
+                  "delta_nwc": 5.2
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 2260,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 45.2,
+                  "capex": 55.98333333,
+                  "delta_nwc": 4.8
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 2370,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 47.4,
+                  "capex": 58.9125,
+                  "delta_nwc": 4.4
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 2465,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.2,
+                  "da": 49.3,
+                  "capex": 61.93333333,
+                  "delta_nwc": 3.8
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.18,
+                "margin": 0.06,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "internet",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "互联网H1收入185.12009亿元、同比1.9%、毛利率76.4%；全球MAU增4.8%不能直接当收入增速。40%–50% EBIT为研发、获客和总部费用后假设，不是披露分部EBIT。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 410,
+                  "ebit_margin": 0.48,
+                  "tax_rate": 0.2,
+                  "da": 10.25,
+                  "capex": 12.3,
+                  "delta_nwc": 0.82
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 443,
+                  "ebit_margin": 0.49,
+                  "tax_rate": 0.2,
+                  "da": 11.075,
+                  "capex": 13.29,
+                  "delta_nwc": 0.33
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 478,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 11.95,
+                  "capex": 14.34,
+                  "delta_nwc": 0.35
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 515,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 12.875,
+                  "capex": 15.45,
+                  "delta_nwc": 0.37
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 554,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 13.85,
+                  "capex": 16.62,
+                  "delta_nwc": 0.39
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 595,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 14.875,
+                  "capex": 17.85,
+                  "delta_nwc": 0.41
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 637,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 15.925,
+                  "capex": 23.51708333,
+                  "delta_nwc": 0.42
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 678,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 16.95,
+                  "capex": 29.74,
+                  "delta_nwc": 0.41
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 716,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 17.9,
+                  "capex": 36.41,
+                  "delta_nwc": 0.38
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 752,
+                  "ebit_margin": 0.5,
+                  "tax_rate": 0.2,
+                  "da": 18.8,
+                  "capex": 43.50666667,
+                  "delta_nwc": 0.36
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.3,
+                "margin": 0.5,
+                "tax_rate": 0.2
+              }
+            },
+            {
+              "id": "ev_ai",
+              "source": "S1印11–13/78/80/95–96；B1§5.1；A-DCF",
+              "assumptions": "汽车/AI/其他新业务H1收入447.60253亿元、交付185055辆、毛利率19.6%、经营亏损约57亿元；AI已有收入包含在本分部。亏损修复与规模扩张需要再投资，未另加独立AI/机器人许可价值。 D&A含使用权折旧；capex含新增使用权/递延付款形成的新资本，不含旧应付结算；正常SBC已在EBIT扣除，无FCFF加回。第7–10年再投资收敛到NOPAT×g/ROIC。 2027预测量只作估值日起首个12个月的代理，非宣称精确自然年度现金流。",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "period_start": "2026-11-01",
+                  "period_end": "2027-10-31",
+                  "revenue": 1200,
+                  "ebit_margin": 0,
+                  "tax_rate": 0.0,
+                  "da": 48.0,
+                  "capex": 78.0,
+                  "delta_nwc": 12.0
+                },
+                {
+                  "year": 2,
+                  "period_start": "2027-11-01",
+                  "period_end": "2028-10-31",
+                  "revenue": 1440,
+                  "ebit_margin": 0.02,
+                  "tax_rate": 0.2,
+                  "da": 57.6,
+                  "capex": 93.6,
+                  "delta_nwc": 19.2
+                },
+                {
+                  "year": 3,
+                  "period_start": "2028-11-01",
+                  "period_end": "2029-10-31",
+                  "revenue": 1700,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.2,
+                  "da": 68.0,
+                  "capex": 110.5,
+                  "delta_nwc": 20.8
+                },
+                {
+                  "year": 4,
+                  "period_start": "2029-11-01",
+                  "period_end": "2030-10-31",
+                  "revenue": 1980,
+                  "ebit_margin": 0.055,
+                  "tax_rate": 0.2,
+                  "da": 79.2,
+                  "capex": 128.7,
+                  "delta_nwc": 22.4
+                },
+                {
+                  "year": 5,
+                  "period_start": "2030-11-01",
+                  "period_end": "2031-10-31",
+                  "revenue": 2280,
+                  "ebit_margin": 0.065,
+                  "tax_rate": 0.2,
+                  "da": 91.2,
+                  "capex": 148.2,
+                  "delta_nwc": 24.0
+                },
+                {
+                  "year": 6,
+                  "period_start": "2031-11-01",
+                  "period_end": "2032-10-31",
+                  "revenue": 2570,
+                  "ebit_margin": 0.07,
+                  "tax_rate": 0.2,
+                  "da": 102.8,
+                  "capex": 167.05,
+                  "delta_nwc": 23.2
+                },
+                {
+                  "year": 7,
+                  "period_start": "2032-11-01",
+                  "period_end": "2033-10-31",
+                  "revenue": 2840,
+                  "ebit_margin": 0.075,
+                  "tax_rate": 0.2,
+                  "da": 113.6,
+                  "capex": 168.55,
+                  "delta_nwc": 21.6
+                },
+                {
+                  "year": 8,
+                  "period_start": "2033-11-01",
+                  "period_end": "2034-10-31",
+                  "revenue": 3090,
+                  "ebit_margin": 0.08,
+                  "tax_rate": 0.2,
+                  "da": 123.6,
+                  "capex": 168.705,
+                  "delta_nwc": 20.0
+                },
+                {
+                  "year": 9,
+                  "period_start": "2034-11-01",
+                  "period_end": "2035-10-31",
+                  "revenue": 3300,
+                  "ebit_margin": 0.08,
+                  "tax_rate": 0.2,
+                  "da": 132.0,
+                  "capex": 166.425,
+                  "delta_nwc": 16.8
+                },
+                {
+                  "year": 10,
+                  "period_start": "2035-11-01",
+                  "period_end": "2036-10-31",
+                  "revenue": 3465,
+                  "ebit_margin": 0.08,
+                  "tax_rate": 0.2,
+                  "da": 138.6,
+                  "capex": 162.36,
+                  "delta_nwc": 13.2
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.15,
+                "margin": 0.08,
+                "tax_rate": 0.2
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "bank_assets",
+              "amount": 1654.28714,
+              "reason": "6/30现金等价物与两类定存；不含受限现金；仍含未拆分基金现金",
+              "source": "S1印59/94"
+            },
+            {
+              "id": "borrowings",
+              "amount": -392.76762,
+              "reason": "流动及非流动借款合计，含可转债；不另增转股分母",
+              "source": "S1印60/100"
+            },
+            {
+              "id": "lease_debt",
+              "amount": -50.40762,
+              "reason": "租赁融资口径；DCF的capex含未来新增使用权资产，旧租赁偿付不再进FCFF",
+              "source": "S1印95–96"
+            },
+            {
+              "id": "lp_liability_legacy_anchor",
+              "amount": -142.3216,
+              "reason": "只作可复算条件锚；须与基金现金及投资净归属一起替换，非假定基金资产零",
+              "source": "S1印110"
+            },
+            {
+              "id": "old_intangible_payables",
+              "amount": -50.74695,
+              "reason": "6/30已确认无形资产应付；年度capex只计估值后新增资本，排除这一存量结算",
+              "source": "S1印110/112"
+            },
+            {
+              "id": "old_construction_payables",
+              "amount": -17.80532,
+              "reason": "6/30已确认工程应付；从旧笼统储备中拆出，只扣一次",
+              "source": "S1印112"
+            },
+            {
+              "id": "minorities",
+              "amount": -1.1949,
+              "reason": "少数权益账面近似；未取得公允价值，固定跨模型比较",
+              "source": "S1印60"
+            },
+            {
+              "id": "post_june_buybacks",
+              "amount": -15.78342954,
+              "reason": "沿用截至10/28已核回购链合计HKD18.4398784226亿元×0.85594；不是回购授权全额",
+              "source": "B1§5.2，S2/S3"
+            },
+            {
+              "id": "minimum_operating_cash",
+              "amount": -300.0,
+              "reason": "条件假设：持续留存经营现金300亿元；250–400敏感性，不代表现金已损失；不含未来capex或ΔNWC",
+              "source": "A-CASH；旧B1基准营运储备300亿元；本研究明确范围"
+            },
+            {
+              "id": "fund_net_adjustment_condition",
+              "amount": 0.0,
+              "reason": "仅为条件C_f=142.3216、N_f=0、R_parent=0的算术锚；一般必须另加Δfund=-C_f+142.3216+N_f-R_parent；0不是已核事实",
+              "source": "G-FUND；S1印89–91/110"
+            },
+            {
+              "id": "unmodeled_nonbank_assets_condition",
+              "amount": 0.0,
+              "reason": "与旧比较一致的未估值资产占位；不证明投资资产价值为零。所有绝对股权值仅在该附加NAV=0条件下成立；另按净归属补充",
+              "source": "G-NAV；S1印59/89–91"
+            }
+          ],
+          "equity_value": null
+        }
+      }
+    }
+  },
+  "open_gaps": [
+    "G-FUND: 基金分实体银行现金/资产/全部LP请求权、分配限制与母公司追索未得。",
+    "G-NAV: 非银行投资/金融资产按普通股净归属尚未估值，模型权益是条件截面。",
+    "G-CASH: 6/30至10/31完整现金/借款/资本开支/营运资金桥未披露；只加可核回购，不能当10/31真实余额。",
+    "G-SEG: 公司不披露四小分部EBIT与资产/资本开支分摊；年度预测全为研究假设。",
+    "G-TAX: 各实体亏损抵税可用性未核；模型亏损年税率0且不预先资本化NOL。",
+    "G-WACC: 未估历史beta/资本结构成本；9%–11%为假设敏感性。",
+    "G-NEWS: 本轮披露易无关键词目录已核10/22–10/31共4条；IR季报仅Q1/Q2；范围仅交易所公司公告，不等于所有媒体、监管案卷、DI和其他事件穷尽。"
+  ],
+  "coverage": {
+    "url": "https://www1.hkexnews.hk/search/titlesearch.xhtml?category=0&market=SEHK&stockId=190371&from=20261022&to=20261031",
+    "retrieved_date": "2026-11-14",
+    "stock_id": "190371",
+    "code": "01810",
+    "from": "2026-10-22",
+    "to": "2026-10-31",
+    "observed_count": 4,
+    "total_count": 4,
+    "scope": "无关键词全类别，一页4/4；已核隐藏日期/主体字段",
+    "raw_snapshot": "/tmp/xiaomi-directory-20261022-1031.html",
+    "sha256": "6f07a1addde9c7fda1f2d395ce9208b1d5f9ef8cf303ecc228361e6983d03b68",
+    "failure_recovery": "web目录读取错误；沙盒curl DNS失败；已授权只读联网curl成功。一次组合web等待未完成被终止，单项重读完成。"
+  },
+  "tax_method_normalization": {
+    "negative_ebit_tax_rate": 0,
+    "profitable_tax_rate": 0.2,
+    "locked_first_year_nopat_reduction_vs_legacy": {
+      "low": 7.8,
+      "base": 4.2,
+      "high": 0
+    },
+    "future_loss_carryforward_valuation": null,
+    "basis": "无可核跨实体即时税盾/NOL，模型不预先变现亏损抵税；未来取得证据再建桥。"
+  }
+}

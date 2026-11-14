@@ -385,7 +385,8 @@ class MaintenanceTests(unittest.TestCase):
         self.assertEqual(report.read_bytes(), original)
 
     def test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch(self):
-        from scripts import research_consistency as checks
+        from scripts import research_consistency as checks, research_acceptance as acceptance
+        from tests.test_research_acceptance import fixture
         from research_audit_fixture import audit_for
         record = self.complete_v4_record()
         completion = record['reviews'][0]['completion']
@@ -402,7 +403,10 @@ class MaintenanceTests(unittest.TestCase):
                 reason='net proceeds not included in operating earnings', source='offline issuer note')]
             row['equity_value'] += 20
         prefix = report.read_text().split(checks.VIEW_START)[0]
-        report.write_text(prefix + checks.render_report_block(audit, document))
+        gate = fixture()[2]
+        gate['recovery']['scopes'] = copy.deepcopy(audit['release_all_of'])
+        report.write_text(prefix + checks.render_report_block(audit, document)
+                          + acceptance.render_block(gate, audit))
         price.write_text(json.dumps(document))
         for key, path in (('report', report), ('price_map', price)):
             completion[key] = maintenance.file_ref(self.root, path, as_of='2026-10-11')
@@ -419,6 +423,74 @@ class MaintenanceTests(unittest.TestCase):
         completion['report'] = maintenance.file_ref(self.root, report, as_of='2026-10-11')
         with self.assertRaisesRegex(ValueError, 'equity_value'):
             maintenance.validate_handoff(record, self.root)
+
+    def test_weekly_v4_dcf_completion_and_state_only_compatibility(self):
+        from scripts import research_consistency as checks, research_acceptance as acceptance
+        from tests.test_research_acceptance import fixture
+        from test_research_consistency import ValuationAuditTests
+        record = self.complete_v4_record()
+        completion = record['reviews'][0]['completion']
+        report = self.root / completion['report']['path']
+        price = self.root / completion['price_map']['path']
+        original = json.loads(price.read_text())
+        audit, document = ValuationAuditTests().dcf_example()
+        document['meta'] = original['meta']
+        audit['identity'] = {k:document['meta'][k] for k in audit['identity']}
+        audit['valuation']['currency'] = document['meta']['currency']
+        audit['valuation_review']['market_check']['as_of'] = document['meta']['valuation_date']
+        prefix = report.read_text().split(checks.VIEW_START)[0]
+        gate = fixture()[2]
+        gate['recovery']['scopes'] = copy.deepcopy(audit['release_all_of'])
+        report.write_text(prefix + checks.render_report_block(audit, document)
+                          + acceptance.render_block(gate, audit))
+        price.write_text(json.dumps(document))
+        for key, path in (('report',report), ('price_map',price)):
+            completion[key] = maintenance.file_ref(self.root, path, as_of='2026-10-11')
+        before = report.read_bytes(), price.read_bytes()
+        maintenance.write_handoff(self.root, record)
+        selected = maintenance.select_adopted(self.root, '2026-10-11', self.live_methods())
+        self.assertEqual(selected['record']['reviews'][0]['status'], 'completed')
+        self.assertEqual((report.read_bytes(), price.read_bytes()), before)
+        # Rehashing a corrupt DCF does not make it a valid weekly completion.
+        text = report.read_text().replace('"capex": 0', '"capex": 1', 1)
+        report.write_text(text)
+        completion['report'] = maintenance.file_ref(self.root, report, as_of='2026-10-11')
+        with self.assertRaisesRegex(ValueError, 'equity_value'):
+            maintenance.validate_handoff(record, self.root)
+
+    def test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle(self):
+        from scripts import research_consistency as checks, research_acceptance as acceptance
+        from tests.research_audit_fixture import valuation_review_for
+        from tests.test_research_acceptance import fixture
+        for schema in ('stock-research-audit/v3', 'stock-research-audit/v4'):
+            for missing in (None, 'acceptance', 'lifecycle'):
+                with self.subTest(schema=schema, missing=missing):
+                    record = self.complete_v4_record()
+                    completion = record['reviews'][0]['completion']
+                    report = self.root / completion['report']['path']
+                    document = json.loads((self.root / completion['price_map']['path']).read_text())
+                    audit = checks.extract_audit(report.read_text())
+                    audit['schema_version'] = schema
+                    if schema == checks.SCHEMA:
+                        audit['valuation_review'] = valuation_review_for(document)
+                    if missing == 'lifecycle':
+                        for row in audit['constraints']:
+                            row.pop('lifecycle')
+                    body = report.read_text().split(checks.VIEW_START)[0]
+                    body += checks.render_report_block(audit, document)
+                    if missing != 'acceptance':
+                        gate = fixture()[2]
+                        gate['recovery']['scopes'] = copy.deepcopy(audit['release_all_of'])
+                        body += acceptance.render_block(gate, audit)
+                    report.write_text(body)
+                    completion['report'] = maintenance.file_ref(self.root, report, as_of='2026-10-11')
+                    if missing is None:
+                        original = report.read_bytes()
+                        maintenance.validate_handoff(record, self.root)
+                        self.assertEqual(report.read_bytes(), original)
+                    else:
+                        with self.assertRaisesRegex(ValueError, missing):
+                            maintenance.validate_handoff(record, self.root)
 
     def test_completion_rejects_meta_only_wrong_identity_and_invisible_sections(self):
         for mistake in ('meta_only', 'wrong_code', 'wrong_generator', 'commented', 'empty_sections'):

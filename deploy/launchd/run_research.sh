@@ -11,6 +11,8 @@ if [ -f "$HOME/.zshrc" ]; then
   eval "$(grep -E '^[[:space:]]*export [A-Za-z_][A-Za-z0-9_]*=' "$HOME/.zshrc" 2>/dev/null)" 2>/dev/null || true
   set -u
 fi
+# launchd's default PATH omits Homebrew, which provides Node.js for DSH citation audits.
+export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
 cd "$PROJECT_DIR"
 scheduler_args=("$1" scripts/research_scheduler.py run --scheduled --codex-cli "$2" --claude-cli "$3")
 if [[ -n "${4:-}" ]]; then

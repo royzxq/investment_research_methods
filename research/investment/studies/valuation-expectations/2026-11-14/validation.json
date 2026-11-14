@@ -1,0 +1,159 @@
+{
+  "as_of": "2026-11-14",
+  "deterministic_replay": {
+    "artifact_count": 20,
+    "hash_seeds": [
+      1,
+      42
+    ],
+    "status": "passed"
+  },
+  "framework_governance": "passed",
+  "full_offline_suite": {
+    "command": "/Users/xinquanzhou/Workspace/ai_investment/myenv/bin/python -m unittest discover -s tests -v",
+    "seconds": 289.57,
+    "status": "passed",
+    "tests": 1374
+  },
+  "limitations": "Offline tests and conditional model arithmetic; not forecast accuracy, source truth, complete research gates or deployment.",
+  "official_quotes_updated": false,
+  "production_acceptance_run": false,
+  "production_missing": [],
+  "production_unchanged": true,
+  "protected_production_files": 1291,
+  "six_saved_audit_cli_checks": [
+    {
+      "arm": "old-rule",
+      "code": "09988",
+      "result": {
+        "discount_factor": 0.75,
+        "schema_version": "stock-research-audit/v2",
+        "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+        "status": "passed",
+        "unresolved_constraints": {
+          "add": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "entry": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "holding": [
+            "HOLDING_NOT_REASSESSED"
+          ]
+        }
+      },
+      "schema": "stock-research-audit/v2"
+    },
+    {
+      "arm": "fixed-input-new-rule",
+      "code": "09988",
+      "result": {
+        "discount_factor": 0.75,
+        "schema_version": "stock-research-audit/v4",
+        "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+        "status": "passed",
+        "unresolved_constraints": {
+          "add": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "entry": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "holding": [
+            "HOLDING_NOT_REASSESSED"
+          ]
+        }
+      },
+      "schema": "stock-research-audit/v4"
+    },
+    {
+      "arm": "updated",
+      "code": "09988",
+      "result": {
+        "discount_factor": 0.75,
+        "schema_version": "stock-research-audit/v4",
+        "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+        "status": "passed",
+        "unresolved_constraints": {
+          "add": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "entry": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "holding": [
+            "HOLDING_NOT_REASSESSED"
+          ]
+        }
+      },
+      "schema": "stock-research-audit/v4"
+    },
+    {
+      "arm": "old-rule",
+      "code": "01810",
+      "result": {
+        "discount_factor": 0.54534564,
+        "schema_version": "stock-research-audit/v2",
+        "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+        "status": "passed",
+        "unresolved_constraints": {
+          "add": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "entry": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "holding": [
+            "HOLDING_NOT_REASSESSED"
+          ]
+        }
+      },
+      "schema": "stock-research-audit/v2"
+    },
+    {
+      "arm": "fixed-input-new-rule",
+      "code": "01810",
+      "result": {
+        "discount_factor": 0.54534564,
+        "schema_version": "stock-research-audit/v4",
+        "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+        "status": "passed",
+        "unresolved_constraints": {
+          "add": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "entry": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "holding": [
+            "HOLDING_NOT_REASSESSED"
+          ]
+        }
+      },
+      "schema": "stock-research-audit/v4"
+    },
+    {
+      "arm": "updated",
+      "code": "01810",
+      "result": {
+        "discount_factor": 0.54534564,
+        "schema_version": "stock-research-audit/v4",
+        "scope": "declared calculations, typed controls and state consistency; not economic truth or execution",
+        "status": "passed",
+        "unresolved_constraints": {
+          "add": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "entry": [
+            "CAPITAL_UNRESOLVED"
+          ],
+          "holding": [
+            "HOLDING_NOT_REASSESSED"
+          ]
+        }
+      },
+      "schema": "stock-research-audit/v4"
+    }
+  ],
+  "skill_validation": "passed"
+}
