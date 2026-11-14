@@ -1,0 +1,158 @@
+{
+  "retrieved_at": "2026-11-15T02:08:22.321543+08:00",
+  "sources": [
+    {
+      "id": "S01",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202611/t20261109_1965794.html",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S01.html",
+      "sha256": "be8f932d01bbe42dcf817abf1a35b57e3260d9d470edb6bca372cfe1d4bdd585",
+      "bytes": 109047,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S02",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202611/t20261109_1965795.html",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S02.html",
+      "sha256": "38c03eed85d485a07d5e2052449825ba20cffac52e945caee85524bf71199c6b",
+      "bytes": 235157,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S03",
+      "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+      "status": "failed",
+      "error": "403 Client Error: Forbidden for url: https://www.bls.gov/news.release/archives/cpi_11102026.htm"
+    },
+    {
+      "id": "S04",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S04.html",
+      "sha256": "e9b42f7c8373490c986d5dced9c95bef1319114e50040bc419606a5c1086c24e",
+      "bytes": 1392515,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    {
+      "id": "S05",
+      "url": "https://www.federalreserve.gov/newsevents/speech/waller20261110a.htm",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S05.html",
+      "sha256": "dd464fda0c596f722e8a6ee9fc8edd003587b9117a861654f6f2da89519ac54d",
+      "bytes": 105831,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S06",
+      "url": "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10837710/files/2c5cd52d68364e30883040a7b378ef9a.pdf",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S06.pdf",
+      "sha256": "0f320487b4af0b843b733d976e1e5ce7873399eb8542716c997ad6d43995abec",
+      "bytes": 103780,
+      "content_type": "application/pdf"
+    },
+    {
+      "id": "S07",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026111315073060062/index.html",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S07.html",
+      "sha256": "48461c69ab2b86e9cc69ae6f691263b472bdc5ee95c9f81f99df2cf88a604341",
+      "bytes": 41478,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S08",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026111116292271519/index.html",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S08.html",
+      "sha256": "05cf37ed511eff9a7c4384623468bd0e36975faac2c1545dbc9ba6ea627109bc",
+      "bytes": 30247,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S09",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026110408502315269/index.html",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S09.html",
+      "sha256": "c97b8b562a07d460a989843cba94191a18c900233f8e04e856e9a51bab5eb09f",
+      "bytes": 24659,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S10",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026110313380716818/index.html",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S10.html",
+      "sha256": "461839a76548388e3e8ba6f8bd93ac425fdc12159767453fb09c8c106bd9334f",
+      "bytes": 24063,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S11",
+      "url": "https://pr.tsmc.com/english/news/3349",
+      "status": "failed",
+      "error": "403 Client Error: Forbidden for url: https://pr.tsmc.com/english/news/3349"
+    },
+    {
+      "id": "S12",
+      "url": "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001045810/2bc9480b-60a6-4d8a-90cb-87190f804a3b.pdf",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S12.pdf",
+      "sha256": "88b7bc7a25e9cf819f2a19e174588849da59f5e77a6cd85c773dc16f7224006c",
+      "bytes": 105952,
+      "content_type": "application/pdf"
+    },
+    {
+      "id": "S13",
+      "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/default.aspx",
+      "status": "failed",
+      "error": "403 Client Error: Forbidden for url: https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/default.aspx"
+    },
+    {
+      "id": "S14",
+      "url": "https://www.cnindex.com.cn/zh_information/notices_news/2026/202611/P020261106683336733126.pdf",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S14.pdf",
+      "sha256": "0dc56d90b26284169bc34477741079d843ea27c05466df17ab5604a469c12cac",
+      "bytes": 122991,
+      "content_type": "application/pdf"
+    },
+    {
+      "id": "S15",
+      "url": "https://www.mofcom.gov.cn/xwfbzt/2026/swbzklxxwfbh2026n11y12r/index.html",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S15.html",
+      "sha256": "8f3d6bb24ea074626f4eb6c021e3e7637ea03a9526ec1846869761041167b70e",
+      "bytes": 16890,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S16",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401586_c.pdf",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S16.pdf",
+      "sha256": "2dc3ca49ee18faf7c92e61603b94735cf32c95bfe1bec328b609fa3efb4ef72e",
+      "bytes": 114511,
+      "content_type": "application/pdf"
+    },
+    {
+      "id": "S17",
+      "url": "https://www.stats.gov.cn/fbyg/?qt=2026",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S17.html",
+      "sha256": "f1310f33f2ba0c2d6a4ecbf4930b8b0e93367e68b90697609ab5c48fd8afc247",
+      "bytes": 63807,
+      "content_type": "text/html"
+    },
+    {
+      "id": "S18",
+      "url": "https://www.hkex.com.hk/Mutual-Market/Stock-Connect/Statistics/Hong-Kong-and-Mainland-Market-Highlights?sc_l=&sc_lang=en",
+      "status": 200,
+      "path": "output/runs/investment/2026-11-15/automation-2/originals/S18.html",
+      "sha256": "b652583cacdef415a39770c2a4f6d2302b21048b16edcac917584cf2d01e033a",
+      "bytes": 387804,
+      "content_type": "text/html; charset=utf-8"
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "as_of": "2026-11-15",
+  "ETF_LIQUIDITY_CONTEXT": [
+    {
+      "evidence_id": "S06",
+      "market": "SSE;A股上市ETF但含货币ETF",
+      "window": "2026-11-09/2026-11-13",
+      "disclosed_at": "2026-11-13",
+      "source": "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10837710/files/2c5cd52d68364e30883040a7b378ef9a.pdf",
+      "coverage": "上交所周报ETF汇总；不含深市/港股，也不是股票ETF独立样本",
+      "turnover_100m_cny": 18202,
+      "shares_100m": 22399,
+      "market_value_100m_cny": 35838,
+      "net_subscriptions": null,
+      "price_flow_decomposition": null,
+      "link_fund_deduplication": "不可由汇总验证；未叠加联接数据",
+      "constituent_announcement_effective_dates": {
+        "source_id": "S14",
+        "disclosed_at": "2026-11-06",
+        "effective_at": "2026-12-14",
+        "scope": "创业板相关指数渐进权重上限；具体成分/基金名单待核",
+        "economic_effect": "潜在被动调仓和交易容量，不等于经营损益",
+        "fund_holding_weights": null,
+        "realized_net_flow": null
+      },
+      "liquidity_matched_samples": null,
+      "spread_depth_stress_comparison": null,
+      "counterevidence": "尚无同市场行业/市值/原流动性匹配样本；流出、剔除、非成分但交易充足的反例待核，不作身份因果判断",
+      "transmission": "若证实被动申赎影响价差/深度，应首先评估容量/执行；只有未吸收风险再交R22审计，非经营价值自动提升",
+      "affected_objects": "实际受基金交易影响且有证据的公司，当前未确定名单",
+      "review_rule": "R22",
+      "already_absorbed": "成交活跃仅作市场背景；个股已计价差/交易风险须从既有audit核对，本轮未新增折扣",
+      "missing": [
+        "逐基金同集合份额/拆分/分红",
+        "真实申购赎回与资金价格拆分",
+        "联接基金去重",
+        "匹配行业/市值/原流动性样本及剔除/流出/非成分反例",
+        "正常与压力期价差/深度/冲击成本",
+        "具体指数调整权重和实际持仓"
+      ],
+      "week_comparison": {
+        "previous_period_end": "2026-11-06",
+        "turnover_pct": -22.150464052008047,
+        "shares_change_100m": 6,
+        "market_value_change_100m_cny": -477,
+        "caveat": "同表合计口径但基金集合/份额拆分未齐，不能推净申赎；市值受价格与份额共同影响"
+      }
+    }
+  ],
+  "BENCHMARK_CONTEXT": [
+    {
+      "evidence_id": "HIST-20261108-S16",
+      "benchmark": "000300",
+      "investable_candidate": "510300（候选映射/当期产品条款待补核）",
+      "coverage": "A股300只大盘宽基",
+      "currency": "CNY",
+      "risk_style_weights": "大盘；当前权重/集中度unknown",
+      "history": "指数2005年推出；当前共同有效TR序列未取齐",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "保留11/08已声明两窗口；本周增加端点11/13价格诊断，不滚动替换既有窗口，不据结果换基准。",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "当期费用及跟踪差异unknown",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计",
+      "terms_verification": "产品/指数条款沿用11/08已读证据，当期条款未重核；不能声称费用或权重于11/15更新",
+      "incremental_window": "2026-11-06/2026-11-13",
+      "price_diagnostic": {
+        "start_date": "2026-11-06",
+        "end_date": "2026-11-13",
+        "start": 4054.2769,
+        "end": 4016.2897,
+        "price_return_pct": -0.9369660962229798,
+        "return_type": "price; not total return",
+        "provider": "Tushare"
+      },
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算"
+    },
+    {
+      "evidence_id": "HIST-20261108-S17",
+      "benchmark": "HSI",
+      "investable_candidate": "2800 / 82800",
+      "coverage": "香港上市宽基",
+      "currency": "HKD（82800人民币交易柜台不改变基础风险）",
+      "risk_style_weights": "大盘；当期集中度unknown",
+      "history": "ETF1999年推出，长历史不等于当前可比TR已取得",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "保留11/08已声明两窗口；本周增加端点11/13价格诊断，不滚动替换既有窗口，不据结果换基准。",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "KFS ongoing 0.060%；2025差异有NAV与adjusted NAV两口径，不当alpha；实际比较优先净值含分红且不重复扣费",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计",
+      "terms_verification": "产品/指数条款沿用11/08已读证据，当期条款未重核；不能声称费用或权重于11/15更新",
+      "incremental_window": "2026-11-06/2026-11-13",
+      "price_diagnostic": {
+        "start_date": "2026-11-06",
+        "end_date": "2026-11-13",
+        "start": 24481.86,
+        "end": 23637.6,
+        "price_return_pct": -3.448512490472544,
+        "return_type": "price; not total return",
+        "provider": "Tushare"
+      },
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算"
+    },
+    {
+      "evidence_id": "HIST-20261108-S18",
+      "benchmark": "HSTECH",
+      "investable_candidate": "3033",
+      "coverage": "港股大型科技；不能代表含生物科技的全部科技行业",
+      "currency": "HKD",
+      "risk_style_weights": "科技成长/集中度待核",
+      "history": "ETF2020/8/28上市；共同有效TR日期unknown",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "保留11/08已声明两窗口；本周增加端点11/13价格诊断，不滚动替换既有窗口，不据结果换基准。",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "2026/3文件管理费0.99%，非全部费用，当前总费率/跟踪差异unknown",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计",
+      "terms_verification": "产品/指数条款沿用11/08已读证据，当期条款未重核；不能声称费用或权重于11/15更新",
+      "incremental_window": "2026-11-06/2026-11-13",
+      "price_diagnostic": null,
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算"
+    },
+    {
+      "evidence_id": "HIST-20261108-S19",
+      "benchmark": "HSTCI / HSTCL / HSTCMS",
+      "investable_candidate": null,
+      "coverage": "香港广义科技含生物科技；大/中小盘分组",
+      "currency": "HKD",
+      "risk_style_weights": "行业组合与HSTECH不同，当前个股权重unknown",
+      "history": "2026/9推出，2023—26比较含回溯；无已核可投资ETF",
+      "research_windows": [
+        "2026-10-30/2026-11-06",
+        "2025-11-06/2026-11-06"
+      ],
+      "window_policy": "保留11/08已声明两窗口；本周增加端点11/13价格诊断，不滚动替换既有窗口，不据结果换基准。",
+      "common_valid_dates": null,
+      "return_type": "要求含分红总收益；本期未取齐，价格资料仅局限参考",
+      "fees_tracking": "产品费用不适用，未证明存在可买替代",
+      "relative_performance": null,
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "already_absorbed": "净值费用不重复扣除；个股盈利/倍数/流动性/机会成本去重交canonical §6.6及既有审计",
+      "terms_verification": "产品/指数条款沿用11/08已读证据，当期条款未重核；不能声称费用或权重于11/15更新",
+      "incremental_window": "2026-11-06/2026-11-13",
+      "price_diagnostic": null,
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算"
+    }
+  ],
+  "history_ref": {
+    "path": "research/investment/weekly/2026-11-08/evidence/r22-context.json",
+    "sha256": "15fbc407d4893c2b497cb4e83ba783a56b46aeacac73b9fff1592f3217496c2b",
+    "as_of": "2026-11-08"
+  }
+}

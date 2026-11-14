@@ -1,0 +1,40 @@
+{
+  "as_of": "2026-11-15",
+  "handoff_valid": true,
+  "selected": "research/investment/weekly/2026-11-15/investment-2026-11-15-handoff.json",
+  "selected_sha256": "675da6be813fa77fa703bc54882702538435d5ef8a6ebf0056bcf64ce8851940",
+  "lifecycle": "active",
+  "previous_lifecycle": "superseded",
+  "withdrawn_old_method_selection": null,
+  "withdrawals_preserved": 4,
+  "pending_dates_methods_preserved": 5,
+  "completed": 0,
+  "rejected_mutations": {
+    "tampered_source_hash": "Source hash changed: research/investment/weekly/2026-11-15/investment-2026-11-15-market-research.md",
+    "future_evidence": "Referenced evidence comes from the future"
+  },
+  "r21_boundary_checks": "pass: inclusive index, strict turnover/margin, missing value",
+  "frameworks": {
+    "canonical": {
+      "old_sha256": "61a118fad095da7f028a1a7002e9354e38f3aed7573981db8b2d2c8561012d7f",
+      "new_sha256": "0a9f32372bc5de6f81ec406655b5c9a7f3f2fef3dbbe3ba5f1d35b8402b4a6b7",
+      "method_sha256": "6b90ff1a149123e882bb27524629fa7dd2645070871fe7ae94e46e045af3e52b",
+      "before_bytes": 124671,
+      "after_bytes": 127456,
+      "before_lines": 876,
+      "after_lines": 956,
+      "outside_observation_byte_identical": true
+    },
+    "compact": {
+      "old_sha256": "191d73ab2e9d889159b23f64c7a0480fcec3f900f5d556c6cbd87dcf1e35f6ee",
+      "new_sha256": "5bdfff9838f397aac736919ba8710c4a29f580d1f0ee0351aafa7b4ab1d80ec1",
+      "method_sha256": "8b75958d5facf48e1e464423b3781191fa800d31b5f02bdbcd28c67346048761",
+      "before_bytes": 83115,
+      "after_bytes": 85900,
+      "before_lines": 562,
+      "after_lines": 642,
+      "outside_observation_byte_identical": true
+    }
+  },
+  "observation_count": 42
+}

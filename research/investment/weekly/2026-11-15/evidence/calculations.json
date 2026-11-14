@@ -1,0 +1,225 @@
+{
+  "as_of": "2026-11-15",
+  "data_cutoff": "2026-11-13",
+  "calendar_source": "Tushare trade_cal SSE; supplier calendar, not independently downloaded exchange calendar",
+  "calendar": [
+    "2026-10-30",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13"
+  ],
+  "units": {
+    "index_daily.amount": "1000 CNY; SH+SZ /1e9 = trillion CNY",
+    "margin.rzrqye": "CNY; /1e8 = 100m CNY; SSE/SZSE/BSE both days required"
+  },
+  "daily": [
+    {
+      "date": "2026-11-02",
+      "turnover_trillion": 1.78369041254601,
+      "margin_balance_yi": 23308.44554859,
+      "margin_change_yi": -122.87111455,
+      "missing_exchanges": [],
+      "star50_provider_close": 1196.9363,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-03",
+      "turnover_trillion": 1.7034345445162602,
+      "margin_balance_yi": 22988.61099331,
+      "margin_change_yi": -319.83455528,
+      "missing_exchanges": [],
+      "star50_provider_close": 1151.2826,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-04",
+      "turnover_trillion": 2.03769173462002,
+      "margin_balance_yi": 23004.44676501,
+      "margin_change_yi": 15.8357717,
+      "missing_exchanges": [],
+      "star50_provider_close": 1265.4717,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-05",
+      "turnover_trillion": 2.1179500738618997,
+      "margin_balance_yi": 23073.3367739,
+      "margin_change_yi": 68.89000889,
+      "missing_exchanges": [],
+      "star50_provider_close": 1286.675,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-06",
+      "turnover_trillion": 1.65779329233051,
+      "margin_balance_yi": 22833.52967818,
+      "margin_change_yi": -239.80709572,
+      "missing_exchanges": [],
+      "star50_provider_close": 1253.1957,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-09",
+      "turnover_trillion": 1.48261132162509,
+      "margin_balance_yi": 22957.84141868,
+      "margin_change_yi": 124.3117405,
+      "missing_exchanges": [],
+      "star50_provider_close": 1256.9574,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-10",
+      "turnover_trillion": 1.5048132973196502,
+      "margin_balance_yi": 22945.60763663,
+      "margin_change_yi": -12.23378205,
+      "missing_exchanges": [],
+      "star50_provider_close": 1265.0217,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-11",
+      "turnover_trillion": 1.6762764064811102,
+      "margin_balance_yi": 23022.94339469,
+      "margin_change_yi": 77.33575806,
+      "missing_exchanges": [],
+      "star50_provider_close": 1300.3836,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-12",
+      "turnover_trillion": 1.93207698067103,
+      "margin_balance_yi": 23028.64590917,
+      "margin_change_yi": 5.70251448,
+      "missing_exchanges": [],
+      "star50_provider_close": 1309.8367,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-13",
+      "turnover_trillion": 1.6556682118278399,
+      "margin_balance_yi": null,
+      "margin_change_yi": null,
+      "missing_exchanges": [
+        "BSE",
+        "SZSE"
+      ],
+      "star50_provider_close": 1279.6615,
+      "star50_close": null,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    }
+  ],
+  "R21": {
+    "window": [
+      "2026-11-11",
+      "2026-11-12",
+      "2026-11-13"
+    ],
+    "helper_result": "unknown",
+    "adjudicated_result": "not_triggered",
+    "necessary_condition_evidence": "SSE weekly 11/13 rounded STAR50=1280; even rounding upper bound is below1516.2. Exact official three-day series remains null; do not call this a complete three-day calculation."
+  },
+  "D5": {
+    "deepening": "triggered",
+    "original_rebuild": "not_triggered",
+    "reason": "Official rounded latest close below1516.2; all latest three turnovers below2tn; no release."
+  },
+  "UST": {
+    "source_id": "S04",
+    "dates": [
+      "2026-11-06",
+      "2026-11-09",
+      "2026-11-10",
+      "2026-11-12",
+      "2026-11-13"
+    ],
+    "10y": [
+      4.86,
+      4.88,
+      4.98,
+      5.1,
+      5.15
+    ],
+    "30y": [
+      5.26,
+      5.26,
+      5.35,
+      5.43,
+      5.47
+    ],
+    "all_five_gt5": false,
+    "note": "11/11 official table has no observation; no fill-forward. Historical 10/9 trigger remains open."
+  },
+  "price_diagnostics": {
+    "sh": {
+      "start_date": "2026-11-06",
+      "end_date": "2026-11-13",
+      "start": 3649.1774,
+      "end": 3634.353,
+      "price_return_pct": -0.4062394993457952,
+      "return_type": "price; not total return",
+      "provider": "Tushare"
+    },
+    "csi300": {
+      "start_date": "2026-11-06",
+      "end_date": "2026-11-13",
+      "start": 4054.2769,
+      "end": 4016.2897,
+      "price_return_pct": -0.9369660962229798,
+      "return_type": "price; not total return",
+      "provider": "Tushare"
+    },
+    "star": {
+      "start_date": "2026-11-06",
+      "end_date": "2026-11-13",
+      "start": 1253.1957,
+      "end": 1279.6615,
+      "price_return_pct": 2.1118648906950366,
+      "return_type": "price; not total return",
+      "provider": "Tushare"
+    },
+    "hsi": {
+      "start_date": "2026-11-06",
+      "end_date": "2026-11-13",
+      "start": 24481.86,
+      "end": 23637.6,
+      "price_return_pct": -3.448512490472544,
+      "return_type": "price; not total return",
+      "provider": "Tushare"
+    }
+  },
+  "ETF": {
+    "turnover_pct_change": -22.150464052008047,
+    "shares_change_100m": 6,
+    "market_value_change_100m_cny": -477,
+    "net_subscriptions": null
+  },
+  "cn_ppi_input_output_gap_pp": 2.2,
+  "cn_ppi_gap_change_pp": 0.3,
+  "real_api_calls": 7
+}
