@@ -7,9 +7,10 @@
 - `AS_OF_DATE`：入口传入的北京时间日期。
 - 读取仓库 `projects/meta_investment_analysis/INSTRUCTIONS.md`，按其中角色、固定范围、来源要求及六步流程执行；将 `{{AS_OF_DATE}}` 作为本次输入绑定，不改写原模板。
 - 固定市场为中国 A 股与港股。按已采纳 canonical 核对六种研究机制（含供给冲击重估型）；新增机制或改优先规则另列方法提案。主动核验宏观与流动性、政策监管、中观产业、资金风格、估值风险偏好及海外映射；区分阶段性噪音和足以改变研究框架的变化，不直接推荐个股。
+- 按主提示词“估值假设与风险归属的证据接续”收集经营、估值及市场预期的不同证据，核对支持/反证、原假设、已吸收与待核残余；只在本轮实际采纳方法的适用范围内提出复评线索，不制定统一估值参数。旧报告缺项记当期未研究，旧冻结批次不追补新方法或审计合同。
 - 使用当前可用检索及原文读取工具；股票阶段不可误用期货的输出字段。
 
 ## 输出
 
 - 严格按 instruction 模板写入口分配的 `research/investment/weekly/<AS_OF_DATE>/investment-<AS_OF_DATE>-market-research[-rN].md`；整包共用一个 revision。保留第 9 节的 `MAIN_CONTRADICTION`、`DOMINANT_RETURN_DRIVERS`、`KEY_CONSTRAINTS`、`PRIORITY_MECHANISMS`、`FRAGILE_NARRATIVE`、`TOP_MISTAKE_TO_AVOID`、`PRECHECK_ITEMS`，不用期货的 `DOMINANT_TRADE_DRIVERS`／`FRAGILE_TRADE_NARRATIVE` 替代。
-- 返回报告全文与路径，作为 `CURRENT_META_RESULT`；后续不可仅传摘要。已有同日期文件按入口幂等规则处理。
+- 返回报告全文与路径，作为 `CURRENT_META_RESULT`；后续不可仅传摘要。估值证据沿用原七变量并保留正文中的来源/日期、对象、假设及风险归属，不增加必填顶层字段；由变化检测分类后交原适配/维护接续。已有同日期文件按入口幂等规则处理。
