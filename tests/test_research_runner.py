@@ -103,7 +103,7 @@ price=receipt_price
 sys.path.insert(0,'__RESEARCH_TEST_ROOT__')
 sys.path.insert(0,'__RESEARCH_TEST_ROOT__/tests')
 from scripts.research_consistency import render_report_block, extract_audit
-from research_audit_fixture import audit_for
+from research_audit_fixture import audit_for, valuation_review_for
 if generator=='codex' and b'codex-then-dsh-evidence/v1' in payload:
  from scripts import research_shared_evidence as shared
  fact_root=Path(re.search(r'本轮必须交付事实证据包：(.*?)。',payload.decode())[1]).parent
@@ -119,6 +119,9 @@ audit=audit_for(doc)
 if b'two-price-controls/v6' in payload and doc['meta']['schema_version']=='stock-research/v4' and mode!='wrong_audit_version':
  audit['schema_version']='stock-research-audit/v3'
  for row in audit['valuation']['scenarios'].values(): row['equity_adjustments']=[]
+if b'two-price-controls/v7' in payload and doc['meta']['schema_version']=='stock-research/v4' and mode not in ('wrong_audit_version','frozen_v3_audit'):
+ audit['schema_version']='stock-research-audit/v4'
+ audit['valuation_review']=valuation_review_for(doc)
 if mode=='missing_lifecycle':
  for row in audit['constraints']: row.pop('lifecycle',None)
 if mode=='control_only':
@@ -362,7 +365,8 @@ class ResearchRunnerTests(unittest.TestCase):
                     (runner.SCOPED_CONTROLS_CONTRACT, '9756d639bd3a398532b0943e4f852af7a04d0f8794d215273562ee6e2bcec395'),
                     (runner.ACCEPTANCE_CONTROLS_CONTRACT, '9cf8614a93cd36acaa1cd77f21cc392e91d863a059a75b7002f14807399f9ee3'),
                     (runner.PUBLIC_MONITORING_CONTRACT, '55baffbb6ab6bc78175a1fbe1fca58a7090166c9b2f42a020330463ffe6d3c2d'),
-                    (runner.QUALITY_CONTROLS_CONTRACT, 'ba3853ad2d5973a8252ea36a3e32f2497e26226a6d78b5695305cb31205dc8d5'))
+                    (runner.QUALITY_CONTROLS_CONTRACT, 'ba3853ad2d5973a8252ea36a3e32f2497e26226a6d78b5695305cb31205dc8d5'),
+                    (runner.CAPITAL_CONTROLS_CONTRACT, '7af3acdd4817b29cbf027c4809291a49f2fc585a512d1742145cd7cf5f4fdc9f'))
         with patch.object(runner, 'owned_path', side_effect=lambda root, relative: Path(root)/relative):
             for contract, digest in expected:
                 with self.subTest(contract=contract['prompt_template']):
@@ -370,12 +374,42 @@ class ResearchRunnerTests(unittest.TestCase):
                         Path('/offline/research'), frameworks, targets,
                         research_validation=runner.research_consistency.SCHEMA, delivery=contract)
                     self.assertEqual(hashlib.sha256(payload).hexdigest(), digest)
-                    self.assertNotIn(b'two-price-controls/v6', payload)
+                    self.assertNotIn(b'two-price-controls/v7', payload)
+
+    def test_v1_to_v6_frozen_recovers_under_new_default_without_rewriting(self):
+        for contract in (runner.OLD_TWO_PRICE_CONTRACT, runner.SCOPED_CONTROLS_CONTRACT,
+                         runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT,
+                         runner.QUALITY_CONTROLS_CONTRACT, runner.CAPITAL_CONTROLS_CONTRACT):
+            with self.subTest(contract=contract['prompt_template']):
+                other = ResearchRunnerTests('runTest')
+                try:
+                    other.setUp()
+                    with patch.object(runner, 'NEW_CONTRACT', contract):
+                        run = prepare_request(other.request_path, other.methods)
+                    frozen = {p:p.read_bytes() for p in run.rglob('*') if p.is_file()}
+                    entries = json.loads(other.execute().read_text())['results']
+                    self.assertTrue(all(e['status']=='completed' for e in entries), entries)
+                    self.assertTrue(all(p.read_bytes()==b for p,b in frozen.items()))
+                    for entry in entries:
+                        audit = runner.research_consistency.extract_audit(
+                            (other.methods/entry['report']['path']).read_text())
+                        self.assertEqual(audit['schema_version'], contract['audit_schema'])
+                finally:
+                    other.doCleanups()
+
+    def test_new_v7_requires_v4_audit_not_merely_capital_v3(self):
+        self.assertEqual(runner.NEW_CONTRACT['prompt_template'], 'two-price-controls/v7')
+        run = prepare_request(self.request_path, self.methods)
+        payload = next(run.glob('execution/*/*/prompt.txt')).read_text()
+        self.assertIn('dcf_fcff', payload)
+        with patch.dict(os.environ, {'MOCK_MODE':'frozen_v3_audit'}):
+            entries = json.loads(self.execute().read_text())['results']
+        self.assertTrue(all(e['status']=='failed' and 'frozen audit contract' in e['reason'] for e in entries), entries)
 
     def test_new_contract_rejects_v2_audit_and_preserves_input(self):
         run = prepare_request(self.request_path, self.methods)
         snapshot = json.loads((run/'framework-snapshot/manifest.json').read_text())
-        self.assertEqual(snapshot['delivery_contract'], runner.CAPITAL_CONTROLS_CONTRACT)
+        self.assertEqual(snapshot['delivery_contract'], runner.NEW_CONTRACT)
         originals = {p:p.read_bytes() for p in run.glob('execution/*/*/prompt.txt')}
         with patch.dict(os.environ, {'MOCK_MODE':'wrong_audit_version'}):
             entries = json.loads(self.execute().read_text())['results']

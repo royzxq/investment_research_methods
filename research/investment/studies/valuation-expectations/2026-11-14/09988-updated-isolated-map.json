@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "code": "09988.HK",
+    "currency": "HKD",
+    "generator": "codex",
+    "name": "阿里巴巴-W",
+    "report_path": "research/investment/studies/valuation-expectations/2026-11-14/09988-updated-isolated-audit.md",
+    "schema_version": "stock-research/v4",
+    "valuation_date": "2026-10-31"
+  },
+  "monitoring": [],
+  "price_map": {
+    "mode": "tracking",
+    "p1": {
+      "base": 70.518
+    },
+    "reason": "隔离条件估值；资本归属未闭合，不构成新买入资格",
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    },
+    "v50": {
+      "base": 94.025,
+      "high": 179.827,
+      "low": 36.616
+    }
+  },
+  "research_controls": {
+    "add": {
+      "refs": [
+        "CAPITAL_UNRESOLVED"
+      ],
+      "status": "unknown"
+    },
+    "entry": {
+      "refs": [
+        "CAPITAL_UNRESOLVED"
+      ],
+      "status": "unknown"
+    },
+    "holding": {
+      "refs": [
+        "HOLDING_NOT_REASSESSED"
+      ],
+      "status": "unknown"
+    }
+  }
+}

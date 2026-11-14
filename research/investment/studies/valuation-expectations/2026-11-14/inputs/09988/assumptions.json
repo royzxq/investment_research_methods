@@ -1,0 +1,2269 @@
+{
+  "schema_version": "dcf-study-assumptions/v1",
+  "company": "Alibaba Group Holding Limited",
+  "security": "09988.HK",
+  "valuation_cutoff": "2026-10-31",
+  "read_date": "2026-11-14",
+  "mode": "backend",
+  "research_mode": "incremental",
+  "baseline": "B1",
+  "status": "conditional_model_ready; cash/investment/NCI bridge is not fully verified as of cutoff",
+  "sources": {
+    "S1": {
+      "title": "June Quarter 2026 Results",
+      "published_at": "2026-08-20",
+      "period": "2026-06-30",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000745.pdf",
+      "read_pages": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "local_pdf": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-09988-2026-10-16-claude/sources/2026082000745.pdf",
+      "sha256": "20f681e2561f5af21de9a513e3233160e1492fcbcdfdf69c0b2676aa7c44924a",
+      "status": "original read"
+    },
+    "S2": {
+      "title": "Completion of Placing of New Shares",
+      "published_at": "2026-08-26",
+      "period": "2026-08-26",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082601205.pdf",
+      "read_pages": [
+        1,
+        2,
+        3
+      ],
+      "local_pdf": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-09988-2026-10-16-claude/sources/2026082601205.pdf",
+      "sha256": "3399b91ac91eec4445e1da7de043643bb925146116cfa8ad1593554f97dfb8da",
+      "status": "original read"
+    },
+    "S3": {
+      "title": "September Monthly Return",
+      "published_at": "2026-10-07",
+      "period": "2026-09-30",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1007/2026100701422.pdf",
+      "read_pages": [
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "local_pdf": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-09988-2026-10-16-claude/sources/2026100701422.pdf",
+      "sha256": "c9a8c2474290960c5dae585cd2869981fa492cd172758e76b4d8cd0c3ad51f2a",
+      "status": "original read"
+    },
+    "S4": {
+      "title": "FY2026 Annual Results",
+      "published_at": "2026-05-13",
+      "period": "2026-03-31",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0513/2026051300653.pdf",
+      "read_pages": [
+        1,
+        3,
+        5,
+        6,
+        36,
+        37,
+        38,
+        45
+      ],
+      "local_pdf": "/Users/xinquanzhou/Workspace/investment_research_methods/output/stock-research-HK-09988-2026-10-16-claude/sources/2026051300653.pdf",
+      "sha256": "5b4d97e9f9cd008a297f746ea2ad951c4aa17f8d5e05b7da631675700f14268e",
+      "status": "original read"
+    },
+    "S5": {
+      "title": "FY2026 Annual Report",
+      "published_at": "2026-06-18",
+      "period": "2026-03-31",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0618/2026061800844.pdf",
+      "read_url": "https://data.alibabagroup.com/ecms-files/1514443390/5b9061ed-71c8-465b-b000-d995d1e77bf4/Alibaba%20Group%20Holding%20Limited%20Fiscal%20Year%202026%20Annual%20Report.pdf",
+      "read_pages": [
+        105,
+        206,
+        215,
+        218,
+        219,
+        220,
+        241,
+        250,
+        251
+      ],
+      "local_pdf": null,
+      "download_status": "curl DNS resolution failed; original PDF text read through built-in web",
+      "status": "original read"
+    },
+    "S6": {
+      "title": "Overseas regulatory announcement: Form S-8",
+      "published_at": "2026-10-14",
+      "period": "2026-10-13",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400017.pdf",
+      "read_pages": [
+        1,
+        2,
+        3,
+        8
+      ],
+      "local_pdf": null,
+      "status": "original read"
+    },
+    "S7": {
+      "title": "HKEX issuer title search (stockId 1000015694)",
+      "published_at": null,
+      "period": "historical window inspected 2026-06-18 to 2026-10-31",
+      "url": "https://www.hkexnews.hk/search/titlesearch.xhtml?category=0&lang=EN&market=SEHK&stockId=1000015694",
+      "read_position": "first screen; lines 21-170; not all 569 records/pages"
+    },
+    "S8": {
+      "title": "Alibaba IR news and quarterly directories",
+      "published_at": null,
+      "url": "https://www.alibabagroup.com/en-US/ir-news-filings",
+      "other_url": "https://www.alibabagroup.com/en-US/ir-financial-reports-quarterly-results",
+      "read_position": "visible first page; Nov 6 notice explicitly excluded"
+    },
+    "S9": {
+      "title": "人民币市场汇价（10月30日）",
+      "published_at": "2026-10-30",
+      "period": "2026-10-30",
+      "url": "https://www3.xinhuanet.com/fortune/20261030/c21b0fd2313543b89d85c9ff6d1a0c17/c.html",
+      "read_position": "lines 19-31",
+      "status": "read official Xinhua republication of CFETS fixing; direct SAFE query failed"
+    },
+    "B1": {
+      "title": "Codex formal research baseline",
+      "published_at": "2026-10-24",
+      "period": "2026-10-24",
+      "local_path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-10-24/HK-09988/investment-09988-2026-10-24-research-codex.md",
+      "read_position": "sections 0 and 5, model and sensitivity tables",
+      "sha256": "eeeb78700d02b24fd5c4e88f13f70da94b9249dcc020c3fb0ea92a3559c7cd5e"
+    },
+    "B2": {
+      "title": "DSH formal cross-check baseline",
+      "published_at": "2026-10-24",
+      "period": "2026-10-24",
+      "local_path": "/Users/xinquanzhou/Workspace/investment_research_methods/research/investment/companies/2026-10-24/HK-09988/investment-09988-2026-10-24-research-dsh.md",
+      "read_position": "fact table and normalized profit discussion only; not adopted as authoritative facts",
+      "sha256": "bf3e01b5d4afdcb90a0252f017ef859feeda79a96ad415bab46e2d6b451a6a33"
+    },
+    "S10": {
+      "title": "DOJ Alibaba/AUS resolution",
+      "published_at": "2026-07-01",
+      "url": "https://www.justice.gov/opa/pr/alibaba-group-and-aus-merchant-services-agree-pay-600-million-resolve-allegations-they",
+      "status": "original read",
+      "read_position": "lines56,62-76; exact own obligation USD125m+200m, excludes AUS USD275m"
+    },
+    "S11": {
+      "title": "European Commission AliExpress DSA fine",
+      "published_at": "2026-07-20",
+      "updated_at": "2026-07-27",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/commission-fines-aliexpress-eu550-million-breaching-digital-services-act",
+      "status": "original read",
+      "read_position": "lines3-12"
+    }
+  },
+  "facts": {
+    "amount_unit": "100_million CNY unless stated",
+    "june_quarter": {
+      "revenue": 2689.53,
+      "segments": [
+        {
+          "id": "ecommerce",
+          "revenue": 2058.62,
+          "adjusted_ebita": 397.49
+        },
+        {
+          "id": "ai_cloud",
+          "revenue": 484.37,
+          "adjusted_ebita": 56.28
+        },
+        {
+          "id": "ai_labs",
+          "revenue": 33.38,
+          "adjusted_ebita": -138.61
+        },
+        {
+          "id": "all_other",
+          "revenue": 288.03,
+          "adjusted_ebita": -33.43
+        },
+        {
+          "id": "unallocated",
+          "revenue": 7.83,
+          "adjusted_ebita": -1.63
+        },
+        {
+          "id": "elimination",
+          "revenue": -182.7,
+          "adjusted_ebita": -6.81
+        }
+      ],
+      "adjusted_ebita": 273.29,
+      "noncash_sbc": 29.62,
+      "intangible_amortization": 6.65,
+      "goodwill_impairment_and_other_adjustments": 85.41,
+      "gaap_operating_income": 151.61,
+      "net_profit_ordinary_basic": 105.37,
+      "nongap_ordinary_diluted": 205.83,
+      "nongap_group": 207.15,
+      "total_sbc_cash_and_noncash": 33.04,
+      "da_proxy_depreciation_impairment_land_use_lease": 118.14,
+      "operating_cash_flow": 229.45,
+      "capex_total": 676.78,
+      "fcf_ppe_deduction": 676.6,
+      "buyer_protection_adjustment": 0.45,
+      "company_fcf": -446.7,
+      "source": "S1"
+    },
+    "fy2026": {
+      "revenue": 10236.7,
+      "adjusted_ebita": 764.16,
+      "ordinary_net_profit_basic": 1059.04,
+      "ordinary_non_gaap_adjustment": -413.65,
+      "ordinary_nongap_diluted": 644.38,
+      "group_nongap_net_profit": 606.58,
+      "noncash_sbc": 111.8,
+      "intangibles_amortization_and_impairment": 50.79,
+      "da_proxy_depreciation_impairment_land_use_lease": 370.67,
+      "operating_cash_flow": 762.13,
+      "company_fcf": -466.09,
+      "capex": 1260.63,
+      "source": "S4"
+    },
+    "june_2025_comparison": {
+      "revenue": 2476.52,
+      "adjusted_ebita": 388.44,
+      "ordinary_net_profit_basic": 431.16,
+      "ordinary_non_gaap_adjustment": -77.34,
+      "ordinary_nongap_diluted": 352.91,
+      "group_nongap_net_profit": 335.1,
+      "noncash_sbc": 31.94,
+      "intangibles_amortization": 8.07,
+      "da_proxy_depreciation_impairment_land_use_lease": 68.91,
+      "operating_cash_flow": 206.72,
+      "company_fcf": -188.15,
+      "capex": 386.76,
+      "source": "S1"
+    },
+    "june_balance": {
+      "unrestricted_cash_and_liquid_treasury": 4745.05,
+      "cash": 1429.14,
+      "short_term_investments": 1546.53,
+      "restricted_cash_and_escrow": 425.85,
+      "current_equity_securities_and_other_investments": 881.3,
+      "noncurrent_equity_securities_and_other_investments": 3430.18,
+      "equity_method_investments": 2032.07,
+      "debt_components": [
+        306.14,
+        560.07,
+        1157.16,
+        549.05,
+        92.88
+      ],
+      "debt_total": 2665.3,
+      "noncontrolling_book_equity": 572.72,
+      "mezzanine_book_equity": 75.84,
+      "source": "S1 pp20-21"
+    },
+    "capital": {
+      "shares": 19901959514,
+      "share_date": "2026-09-30",
+      "disclosed_at": "2026-10-07",
+      "ordinary_per_ads": 8,
+      "issued_placement_shares": 710000000,
+      "placement_date": "2026-08-26",
+      "placement_price_hkd": 112.7,
+      "net_placement_proceeds_100m_hkd": 797,
+      "net_proceeds_use_lines_sum_100m_hkd": 797.85,
+      "proceeds_use": "100% full-stack AI infrastructure; 60% global compute, 40% data centers/storage/network",
+      "oct14_registration_not_issuance": 100000000,
+      "source": "S2/S3/S6",
+      "existing_option_rsu_gross_overhang_shares": 233827443,
+      "potential_convertible_max_shares": 692857552
+    },
+    "dividend": {
+      "usd_per_ordinary": 0.13125,
+      "aggregate_100m_usd_approx": 25,
+      "expected_payment_dates": [
+        "2026-07-06",
+        "2026-07-13"
+      ],
+      "actual_payment_verified": false,
+      "source": "S4 pp5-6"
+    },
+    "commitments_march31": {
+      "capex_contracted_total": 541.36,
+      "capex_within_one_year": 534.84,
+      "investment_commitments": 145.01,
+      "other_commitments_total": 2000.62,
+      "other_within_one_year": 574.41,
+      "lease_liabilities": 217.26,
+      "restricted_net_assets_not_cash": 3445.8,
+      "source": "S5 pp218,250-251"
+    },
+    "fx": {
+      "hkd_to_cny": 0.85594,
+      "cny_to_hkd": 1.1683061896861928,
+      "usd_to_cny": 6.7138,
+      "eur_to_cny": 7.4792,
+      "type": "2026-10-30 CFETS central parity, not execution spot",
+      "source": "S9"
+    },
+    "market_price_reverse_only": {
+      "hkd": 97.05,
+      "as_of": "2026-10-30",
+      "source": "caller pack 2026-10-31; not independently refetched",
+      "use": "reverse DCF only, excluded from parameter construction"
+    },
+    "research_derived_ttm": {
+      "revenue": 10449.71,
+      "adjusted_ebita": 649.01,
+      "noncash_sbc": 109.48,
+      "intangible_amortization_and_impairment_proxy": 49.37,
+      "normalized_operating_ebit_proxy": 490.16,
+      "ordinary_basic_nongap_proxy": 513.25,
+      "ordinary_after_gross_sbc_proxy": 403.77,
+      "group_after_gross_sbc_proxy": 369.15,
+      "ordinary_diluted_after_gross_sbc_proxy": 387.82,
+      "da_proxy": 469.27,
+      "capex": 1550.65,
+      "ocf": 784.86,
+      "fcf": -724.64,
+      "bridge_formula": "FY2026 - June2025 + June2026; EBIT=649.01-109.48-49.37; basic common recurring=513.25-109.48; amounts are research proxies, not disclosed adjusted profit",
+      "nonoperating_and_tax_attribution_residual_at_25pct_tax": 36.15
+    },
+    "regulatory_obligations": {
+      "alibaba_own_100m_usd": 3.25,
+      "aliexpress_100m_eur": 5.5,
+      "translated_at_cutoff_100m_cny": 62.95545,
+      "paid_as_of_cutoff": null,
+      "sources": [
+        "S10",
+        "S11"
+      ],
+      "not_annualized": true
+    }
+  },
+  "models": {
+    "old_multiple_baseline": {
+      "kind": "equity_pe",
+      "currency": "CNY",
+      "amount_unit": "100_million",
+      "shares": 19901959514,
+      "fx_to_quote": 1.1683061896861928,
+      "source": "B1 section5",
+      "scenarios": {
+        "low": {
+          "revenue": 10500,
+          "net_margin": 0.035,
+          "normalized_ordinary_profit": 367.50000000000006,
+          "pe": 12,
+          "equity_value": 4410.000000000001,
+          "equity_adjustments": [],
+          "reason": "Real old PE method, not GAAP net profit times current quoted PE. Includes recurring interest/investee earnings; no extra cash/investment or full debt subtraction. Original 25% execution/model discount is excluded from intrinsic-value method comparison and recorded separately."
+        },
+        "base": {
+          "revenue": 11500,
+          "net_margin": 0.05,
+          "normalized_ordinary_profit": 575.0,
+          "pe": 15,
+          "equity_value": 8625.0,
+          "equity_adjustments": [],
+          "reason": "Real old PE method, not GAAP net profit times current quoted PE. Includes recurring interest/investee earnings; no extra cash/investment or full debt subtraction. Original 25% execution/model discount is excluded from intrinsic-value method comparison and recorded separately."
+        },
+        "high": {
+          "revenue": 12500,
+          "net_margin": 0.065,
+          "normalized_ordinary_profit": 812.5,
+          "pe": 18,
+          "equity_value": 14625.0,
+          "equity_adjustments": [],
+          "reason": "Real old PE method, not GAAP net profit times current quoted PE. Includes recurring interest/investee earnings; no extra cash/investment or full debt subtraction. Original 25% execution/model discount is excluded from intrinsic-value method comparison and recorded separately."
+        }
+      }
+    },
+    "locked_assumptions_dcf": {
+      "kind": "dcf_fcff",
+      "currency": "CNY",
+      "amount_unit": "100_million",
+      "shares": 19901959514,
+      "fx_to_quote": 1.1683061896861928,
+      "forecast_start": "2026-11-01",
+      "scenarios": {
+        "low": {
+          "segments": [
+            {
+              "id": "legacy_profit_locked_group",
+              "source": "B1 section5 plus S1/S4 research bridge",
+              "assumptions": "Lock old year1 revenue 10500 and ordinary net profit 367.50000000000006. Convert by EBIT=(net profit-36.15)/75%; 36.15 is a historical residual combining nonoperating income/tax/attribution, not independently recurring cash. Lock resulting EBIT margin for ten years; 2% growth is a new explicit assumption, not the old report. DA/capex intensity shares same year-specific consolidated ratios as updated scenario to isolate operating path; year10 net investment anchored to g/ROIC. This control cannot identify a pure rule effect.",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 10500.0,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 573.728177,
+                  "capex": 2317.247557,
+                  "delta_nwc": 1.0058
+                },
+                {
+                  "year": 2,
+                  "revenue": 10710.0,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 779.914694,
+                  "capex": 2196.165789,
+                  "delta_nwc": 4.2
+                },
+                {
+                  "year": 3,
+                  "revenue": 10924.2,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 1010.927175,
+                  "capex": 1965.864404,
+                  "delta_nwc": 4.284
+                },
+                {
+                  "year": 4,
+                  "revenue": 11142.684,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 1171.227075,
+                  "capex": 1798.967939,
+                  "delta_nwc": 4.36968
+                },
+                {
+                  "year": 5,
+                  "revenue": 11365.53768,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 1236.366729,
+                  "capex": 1576.331634,
+                  "delta_nwc": 4.457074
+                },
+                {
+                  "year": 6,
+                  "revenue": 11592.848434,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 1186.944073,
+                  "capex": 1401.017328,
+                  "delta_nwc": 4.546215
+                },
+                {
+                  "year": 7,
+                  "revenue": 11824.705402,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 1120.608016,
+                  "capex": 1268.355807,
+                  "delta_nwc": 4.637139
+                },
+                {
+                  "year": 8,
+                  "revenue": 12061.19951,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 1041.977884,
+                  "capex": 1192.589679,
+                  "delta_nwc": 4.729882
+                },
+                {
+                  "year": 9,
+                  "revenue": 12302.423501,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 990.325612,
+                  "capex": 1143.946927,
+                  "delta_nwc": 4.82448
+                },
+                {
+                  "year": 10,
+                  "revenue": 12548.471971,
+                  "ebit_margin": 0.04207619047619049,
+                  "tax_rate": 0.25,
+                  "da": 930.816658,
+                  "capex": 991.894675,
+                  "delta_nwc": 4.920969
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.12,
+                "margin": 0.04207619047619049,
+                "tax_rate": 0.25
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "june_unrestricted_cash_treasury",
+              "amount": 4745.05,
+              "reason": "6/30 unrestricted cash plus treasury, already includes long-dated deposits/securities; excludes 425.85 restricted cash",
+              "source": "S1 pp15,20"
+            },
+            {
+              "id": "post_june_completed_placement",
+              "amount": 682.18418,
+              "reason": "Completed 8/26; translate approximate HKD79.7 billion net amount (797亿元HKD) at common cutoff fixing; actual settlement FX unavailable, capital purpose is AI capex not discretionary dividend",
+              "source": "S2 p2; S9"
+            },
+            {
+              "id": "post_june_cash_burn_estimate",
+              "amount": -893.4,
+              "reason": "Unverified Jul-Oct cash-burn assumption = June company FCF outflow 446.70 x 4/3 x 1.5; excludes separately listed dividend and fines. Not the September reported result. Future years start 11/1 so no period overlap.",
+              "source": "S1 p26 plus research assumption"
+            },
+            {
+              "id": "post_june_declared_dividend",
+              "amount": -167.845,
+              "reason": "FY2026 dividend expected in July, after June cash date. Reserve approximate USD2.5bn regardless of settlement timing; exact payment/FX not verified. Do not also deduct dividend payable.",
+              "source": "S4 pp5-6; S9"
+            },
+            {
+              "id": "regulatory_cash_obligation_range_reserve",
+              "amount": -63,
+              "reason": "Conservative conditional reserve63 for own USD325m and EUR550m (cutoff translation62.95545). Actual payment or any overlap withJune30 cash/estimated burn unknown. Range0-63 means amount still absent from the starting cash/burn ledger, not uncertainty about the legal amounts. Deduct once as post-June use OR outstanding obligation, never both.",
+              "source": "S10/S11 original official releases; S1 p13 EC provision"
+            },
+            {
+              "id": "unreconstructed_post_june_changes_X",
+              "amount": 0,
+              "reason": "Conditional algebra uses X=0 solely to make unresolved cash change explicit; actual X is unknown and not asserted zero. Includes un-reconstructed buybacks, FX, acquisitions and net debt changes. Subtract actual net outflow X from resulting equity value; no unsupported fixed allowance substituted for missing records.",
+              "source": "research assumption; S7 titles show July buybacks not fully reconstructed"
+            },
+            {
+              "id": "operating_cash_retention",
+              "amount": -500,
+              "reason": "Permanent operating liquidity reserve; low/base/high 500/400/300 (~3%-5% of current sales), not reported restricted cash; future NWC excludes cash. Must not be confused with deducting future capex again.",
+              "source": "research assumption supported by S1 cash-burn risk"
+            },
+            {
+              "id": "june_interest_bearing_debt",
+              "amount": -2665.3,
+              "reason": "Five balance-sheet debt lines; use debt treatment for convertibles. No extra if-converted shares. Subsequent net debt changes unresolved.",
+              "source": "S1 pp20-21"
+            },
+            {
+              "id": "noncash_financial_investments",
+              "amount": 1829.668,
+              "reason": "Noncash financial investment book 4574.17 = equities/other 4311.48 - liquid treasury already included 1769.38 + equity method2032.07; recoverability 40%. Includes Ant, so do not add separate Ant NAV. Haircut is an assumption, not observed market value.",
+              "source": "S1 pp20-21; S5 p215"
+            },
+            {
+              "id": "noncontrolling_and_mezzanine",
+              "amount": -648.56,
+              "reason": "Group FCFF includes NCI; deduct NCI572.72 plus mezzanine75.84 at book proxy. Fair-value NCI not independently estimated, +/-20% sensitivity necessary; no NCI earnings deduction inside consolidated EBIT.",
+              "source": "S1 p21"
+            }
+          ],
+          "equity_value": null,
+          "equity_value_status": "parent to calculate",
+          "year1_net_profit_reconciliation": {
+            "locked_ordinary_net_profit": 367.50000000000006,
+            "operating_ebit": 441.8000000000001,
+            "after_tax_ebit": 331.3500000000001,
+            "nonoperating_tax_attribution_residual": 36.15,
+            "check": 367.50000000000006
+          },
+          "cash_bridge_condition": "Not a most-likely/base balance: X=0 and regulatory remaining-uncounted liability63, plus stated burn/investment-recovery conditions; independently rerun regulatory reserve0 and X sensitivities."
+        },
+        "base": {
+          "segments": [
+            {
+              "id": "legacy_profit_locked_group",
+              "source": "B1 section5 plus S1/S4 research bridge",
+              "assumptions": "Lock old year1 revenue 11500 and ordinary net profit 575.0. Convert by EBIT=(net profit-36.15)/75%; 36.15 is a historical residual combining nonoperating income/tax/attribution, not independently recurring cash. Lock resulting EBIT margin for ten years; 2% growth is a new explicit assumption, not the old report. DA/capex intensity shares same year-specific consolidated ratios as updated scenario to isolate operating path; year10 net investment anchored to g/ROIC. This control cannot identify a pure rule effect.",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 11500.0,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 616.328665,
+                  "capex": 2351.300602,
+                  "delta_nwc": 21.0058
+                },
+                {
+                  "year": 2,
+                  "revenue": 11730.0,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 876.639595,
+                  "capex": 2268.742056,
+                  "delta_nwc": 4.6
+                },
+                {
+                  "year": 3,
+                  "revenue": 11964.6,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1143.703807,
+                  "capex": 2017.380389,
+                  "delta_nwc": 4.692
+                },
+                {
+                  "year": 4,
+                  "revenue": 12203.892,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1322.161047,
+                  "capex": 1816.195546,
+                  "delta_nwc": 4.78584
+                },
+                {
+                  "year": 5,
+                  "revenue": 12447.96984,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1371.603027,
+                  "capex": 1609.507146,
+                  "delta_nwc": 4.881557
+                },
+                {
+                  "year": 6,
+                  "revenue": 12696.929237,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1354.402984,
+                  "capex": 1466.319927,
+                  "delta_nwc": 4.979188
+                },
+                {
+                  "year": 7,
+                  "revenue": 12950.867822,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1273.709792,
+                  "capex": 1339.482663,
+                  "delta_nwc": 5.078772
+                },
+                {
+                  "year": 8,
+                  "revenue": 13209.885178,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1173.366228,
+                  "capex": 1286.845355,
+                  "delta_nwc": 5.180347
+                },
+                {
+                  "year": 9,
+                  "revenue": 13474.082882,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1105.784366,
+                  "capex": 1270.818553,
+                  "delta_nwc": 5.283954
+                },
+                {
+                  "year": 10,
+                  "revenue": 13743.564539,
+                  "ebit_margin": 0.062475362318840585,
+                  "tax_rate": 0.25,
+                  "da": 1076.995102,
+                  "capex": 1178.934741,
+                  "delta_nwc": 5.389633
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.12,
+                "margin": 0.062475362318840585,
+                "tax_rate": 0.25
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "june_unrestricted_cash_treasury",
+              "amount": 4745.05,
+              "reason": "6/30 unrestricted cash plus treasury, already includes long-dated deposits/securities; excludes 425.85 restricted cash",
+              "source": "S1 pp15,20"
+            },
+            {
+              "id": "post_june_completed_placement",
+              "amount": 682.18418,
+              "reason": "Completed 8/26; translate approximate HKD79.7 billion net amount (797亿元HKD) at common cutoff fixing; actual settlement FX unavailable, capital purpose is AI capex not discretionary dividend",
+              "source": "S2 p2; S9"
+            },
+            {
+              "id": "post_june_cash_burn_estimate",
+              "amount": -595.6,
+              "reason": "Unverified Jul-Oct cash-burn assumption = June company FCF outflow 446.70 x 4/3 x 1.0; excludes separately listed dividend and fines. Not the September reported result. Future years start 11/1 so no period overlap.",
+              "source": "S1 p26 plus research assumption"
+            },
+            {
+              "id": "post_june_declared_dividend",
+              "amount": -167.845,
+              "reason": "FY2026 dividend expected in July, after June cash date. Reserve approximate USD2.5bn regardless of settlement timing; exact payment/FX not verified. Do not also deduct dividend payable.",
+              "source": "S4 pp5-6; S9"
+            },
+            {
+              "id": "regulatory_cash_obligation_range_reserve",
+              "amount": -63,
+              "reason": "Conservative conditional reserve63 for own USD325m and EUR550m (cutoff translation62.95545). Actual payment or any overlap withJune30 cash/estimated burn unknown. Range0-63 means amount still absent from the starting cash/burn ledger, not uncertainty about the legal amounts. Deduct once as post-June use OR outstanding obligation, never both.",
+              "source": "S10/S11 original official releases; S1 p13 EC provision"
+            },
+            {
+              "id": "unreconstructed_post_june_changes_X",
+              "amount": 0,
+              "reason": "Conditional algebra uses X=0 solely to make unresolved cash change explicit; actual X is unknown and not asserted zero. Includes un-reconstructed buybacks, FX, acquisitions and net debt changes. Subtract actual net outflow X from resulting equity value; no unsupported fixed allowance substituted for missing records.",
+              "source": "research assumption; S7 titles show July buybacks not fully reconstructed"
+            },
+            {
+              "id": "operating_cash_retention",
+              "amount": -400,
+              "reason": "Permanent operating liquidity reserve; low/base/high 500/400/300 (~3%-5% of current sales), not reported restricted cash; future NWC excludes cash. Must not be confused with deducting future capex again.",
+              "source": "research assumption supported by S1 cash-burn risk"
+            },
+            {
+              "id": "june_interest_bearing_debt",
+              "amount": -2665.3,
+              "reason": "Five balance-sheet debt lines; use debt treatment for convertibles. No extra if-converted shares. Subsequent net debt changes unresolved.",
+              "source": "S1 pp20-21"
+            },
+            {
+              "id": "noncash_financial_investments",
+              "amount": 2744.502,
+              "reason": "Noncash financial investment book 4574.17 = equities/other 4311.48 - liquid treasury already included 1769.38 + equity method2032.07; recoverability 60%. Includes Ant, so do not add separate Ant NAV. Haircut is an assumption, not observed market value.",
+              "source": "S1 pp20-21; S5 p215"
+            },
+            {
+              "id": "noncontrolling_and_mezzanine",
+              "amount": -648.56,
+              "reason": "Group FCFF includes NCI; deduct NCI572.72 plus mezzanine75.84 at book proxy. Fair-value NCI not independently estimated, +/-20% sensitivity necessary; no NCI earnings deduction inside consolidated EBIT.",
+              "source": "S1 p21"
+            }
+          ],
+          "equity_value": null,
+          "equity_value_status": "parent to calculate",
+          "year1_net_profit_reconciliation": {
+            "locked_ordinary_net_profit": 575.0,
+            "operating_ebit": 718.4666666666667,
+            "after_tax_ebit": 538.85,
+            "nonoperating_tax_attribution_residual": 36.15,
+            "check": 575.0
+          },
+          "cash_bridge_condition": "Not a most-likely/base balance: X=0 and regulatory remaining-uncounted liability63, plus stated burn/investment-recovery conditions; independently rerun regulatory reserve0 and X sensitivities."
+        },
+        "high": {
+          "segments": [
+            {
+              "id": "legacy_profit_locked_group",
+              "source": "B1 section5 plus S1/S4 research bridge",
+              "assumptions": "Lock old year1 revenue 12500 and ordinary net profit 812.5. Convert by EBIT=(net profit-36.15)/75%; 36.15 is a historical residual combining nonoperating income/tax/attribution, not independently recurring cash. Lock resulting EBIT margin for ten years; 2% growth is a new explicit assumption, not the old report. DA/capex intensity shares same year-specific consolidated ratios as updated scenario to isolate operating path; year10 net investment anchored to g/ROIC. This control cannot identify a pure rule effect.",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 12500.0,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 653.692869,
+                  "capex": 2476.49843,
+                  "delta_nwc": 41.0058
+                },
+                {
+                  "year": 2,
+                  "revenue": 12750.0,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 914.162393,
+                  "capex": 2383.535134,
+                  "delta_nwc": 5.0
+                },
+                {
+                  "year": 3,
+                  "revenue": 13005.0,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1180.289189,
+                  "capex": 2217.452572,
+                  "delta_nwc": 5.1
+                },
+                {
+                  "year": 4,
+                  "revenue": 13265.1,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1384.820122,
+                  "capex": 1993.061447,
+                  "delta_nwc": 5.202
+                },
+                {
+                  "year": 5,
+                  "revenue": 13530.402,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1444.530904,
+                  "capex": 1808.168011,
+                  "delta_nwc": 5.30604
+                },
+                {
+                  "year": 6,
+                  "revenue": 13801.01004,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1425.897634,
+                  "capex": 1699.977086,
+                  "delta_nwc": 5.412161
+                },
+                {
+                  "year": 7,
+                  "revenue": 14077.030241,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1381.816723,
+                  "capex": 1608.657699,
+                  "delta_nwc": 5.520404
+                },
+                {
+                  "year": 8,
+                  "revenue": 14358.570846,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1314.149751,
+                  "capex": 1546.206226,
+                  "delta_nwc": 5.630812
+                },
+                {
+                  "year": 9,
+                  "revenue": 14645.742263,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1231.018655,
+                  "capex": 1468.06734,
+                  "delta_nwc": 5.743428
+                },
+                {
+                  "year": 10,
+                  "revenue": 14938.657108,
+                  "ebit_margin": 0.08281066666666667,
+                  "tax_rate": 0.25,
+                  "da": 1195.135308,
+                  "capex": 1343.912031,
+                  "delta_nwc": 5.858297
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.12,
+                "margin": 0.08281066666666667,
+                "tax_rate": 0.25
+              }
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "june_unrestricted_cash_treasury",
+              "amount": 4745.05,
+              "reason": "6/30 unrestricted cash plus treasury, already includes long-dated deposits/securities; excludes 425.85 restricted cash",
+              "source": "S1 pp15,20"
+            },
+            {
+              "id": "post_june_completed_placement",
+              "amount": 682.18418,
+              "reason": "Completed 8/26; translate approximate HKD79.7 billion net amount (797亿元HKD) at common cutoff fixing; actual settlement FX unavailable, capital purpose is AI capex not discretionary dividend",
+              "source": "S2 p2; S9"
+            },
+            {
+              "id": "post_june_cash_burn_estimate",
+              "amount": -297.8,
+              "reason": "Unverified Jul-Oct cash-burn assumption = June company FCF outflow 446.70 x 4/3 x 0.5; excludes separately listed dividend and fines. Not the September reported result. Future years start 11/1 so no period overlap.",
+              "source": "S1 p26 plus research assumption"
+            },
+            {
+              "id": "post_june_declared_dividend",
+              "amount": -167.845,
+              "reason": "FY2026 dividend expected in July, after June cash date. Reserve approximate USD2.5bn regardless of settlement timing; exact payment/FX not verified. Do not also deduct dividend payable.",
+              "source": "S4 pp5-6; S9"
+            },
+            {
+              "id": "regulatory_cash_obligation_range_reserve",
+              "amount": -63,
+              "reason": "Conservative conditional reserve63 for own USD325m and EUR550m (cutoff translation62.95545). Actual payment or any overlap withJune30 cash/estimated burn unknown. Range0-63 means amount still absent from the starting cash/burn ledger, not uncertainty about the legal amounts. Deduct once as post-June use OR outstanding obligation, never both.",
+              "source": "S10/S11 original official releases; S1 p13 EC provision"
+            },
+            {
+              "id": "unreconstructed_post_june_changes_X",
+              "amount": 0,
+              "reason": "Conditional algebra uses X=0 solely to make unresolved cash change explicit; actual X is unknown and not asserted zero. Includes un-reconstructed buybacks, FX, acquisitions and net debt changes. Subtract actual net outflow X from resulting equity value; no unsupported fixed allowance substituted for missing records.",
+              "source": "research assumption; S7 titles show July buybacks not fully reconstructed"
+            },
+            {
+              "id": "operating_cash_retention",
+              "amount": -300,
+              "reason": "Permanent operating liquidity reserve; low/base/high 500/400/300 (~3%-5% of current sales), not reported restricted cash; future NWC excludes cash. Must not be confused with deducting future capex again.",
+              "source": "research assumption supported by S1 cash-burn risk"
+            },
+            {
+              "id": "june_interest_bearing_debt",
+              "amount": -2665.3,
+              "reason": "Five balance-sheet debt lines; use debt treatment for convertibles. No extra if-converted shares. Subsequent net debt changes unresolved.",
+              "source": "S1 pp20-21"
+            },
+            {
+              "id": "noncash_financial_investments",
+              "amount": 3659.336,
+              "reason": "Noncash financial investment book 4574.17 = equities/other 4311.48 - liquid treasury already included 1769.38 + equity method2032.07; recoverability 80%. Includes Ant, so do not add separate Ant NAV. Haircut is an assumption, not observed market value.",
+              "source": "S1 pp20-21; S5 p215"
+            },
+            {
+              "id": "noncontrolling_and_mezzanine",
+              "amount": -648.56,
+              "reason": "Group FCFF includes NCI; deduct NCI572.72 plus mezzanine75.84 at book proxy. Fair-value NCI not independently estimated, +/-20% sensitivity necessary; no NCI earnings deduction inside consolidated EBIT.",
+              "source": "S1 p21"
+            }
+          ],
+          "equity_value": null,
+          "equity_value_status": "parent to calculate",
+          "year1_net_profit_reconciliation": {
+            "locked_ordinary_net_profit": 812.5,
+            "operating_ebit": 1035.1333333333334,
+            "after_tax_ebit": 776.3500000000001,
+            "nonoperating_tax_attribution_residual": 36.15,
+            "check": 812.5000000000001
+          },
+          "cash_bridge_condition": "Not a most-likely/base balance: X=0 and regulatory remaining-uncounted liability63, plus stated burn/investment-recovery conditions; independently rerun regulatory reserve0 and X sensitivities."
+        }
+      },
+      "warning": "Not a mathematically assumption-free PE-to-DCF conversion. Locks old year1 sales/net profit, holds segment economics aggregate constant thereafter with only 2% nominal sales growth. New reinvestment/terminal assumptions are shared visibly with updated DCF. One aggregate segment avoids inventing old segment forecasts."
+    },
+    "evidence_updated_dcf": {
+      "kind": "dcf_fcff",
+      "currency": "CNY",
+      "amount_unit": "100_million",
+      "shares": 19901959514,
+      "fx_to_quote": 1.1683061896861928,
+      "forecast_start": "2026-11-01",
+      "years_are": "rolling twelve-month periods through Oct 31, not fiscal-year labels",
+      "scenarios": {
+        "low": {
+          "label": "投入高、变现慢",
+          "segments": [
+            {
+              "id": "ecommerce",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-10. E-commerce combines domestic, quick commerce, international and wholesale; Q1 annualized revenue 8234.48. Year1 sales 8200/8500/8800 are assumptions around this run-rate, not an annual forecast from management. EBIT margins include economic SBC, ordinary intangible amortization and lease expense; later margin/growth changes are research forecasts. DA 1.8% revenue and capex 2.5%-3.4% are allocation assumptions; no segment capex disclosure.",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 8200,
+                  "ebit_margin": 0.15,
+                  "tax_rate": 0.25,
+                  "da": 147.6,
+                  "capex": 205.0,
+                  "delta_nwc": -0.6896
+                },
+                {
+                  "year": 2,
+                  "revenue": 8364.0,
+                  "ebit_margin": 0.15,
+                  "tax_rate": 0.25,
+                  "da": 150.552,
+                  "capex": 234.192,
+                  "delta_nwc": 3.28
+                },
+                {
+                  "year": 3,
+                  "revenue": 8531.28,
+                  "ebit_margin": 0.155,
+                  "tax_rate": 0.25,
+                  "da": 153.56304,
+                  "capex": 255.9384,
+                  "delta_nwc": 3.3456
+                },
+                {
+                  "year": 4,
+                  "revenue": 8701.9056,
+                  "ebit_margin": 0.16,
+                  "tax_rate": 0.25,
+                  "da": 156.634301,
+                  "capex": 269.759074,
+                  "delta_nwc": 3.412512
+                },
+                {
+                  "year": 5,
+                  "revenue": 8875.943712,
+                  "ebit_margin": 0.165,
+                  "tax_rate": 0.25,
+                  "da": 159.766987,
+                  "capex": 284.030199,
+                  "delta_nwc": 3.480762
+                },
+                {
+                  "year": 6,
+                  "revenue": 9053.462586,
+                  "ebit_margin": 0.17,
+                  "tax_rate": 0.25,
+                  "da": 162.962327,
+                  "capex": 289.710803,
+                  "delta_nwc": 3.550377
+                },
+                {
+                  "year": 7,
+                  "revenue": 9189.264525,
+                  "ebit_margin": 0.17,
+                  "tax_rate": 0.25,
+                  "da": 165.406761,
+                  "capex": 294.056465,
+                  "delta_nwc": 2.716039
+                },
+                {
+                  "year": 8,
+                  "revenue": 9327.103493,
+                  "ebit_margin": 0.17,
+                  "tax_rate": 0.25,
+                  "da": 167.887863,
+                  "capex": 298.467312,
+                  "delta_nwc": 2.756779
+                },
+                {
+                  "year": 9,
+                  "revenue": 9467.010045,
+                  "ebit_margin": 0.17,
+                  "tax_rate": 0.25,
+                  "da": 170.406181,
+                  "capex": 302.944321,
+                  "delta_nwc": 2.798131
+                },
+                {
+                  "year": 10,
+                  "revenue": 9609.015196,
+                  "ebit_margin": 0.17,
+                  "tax_rate": 0.25,
+                  "da": 172.962274,
+                  "capex": 292.637114,
+                  "delta_nwc": 2.840103
+                }
+              ],
+              "terminal": {
+                "growth": 0.015,
+                "roic": 0.15,
+                "margin": 0.17,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            },
+            {
+              "id": "ai_cloud_labs",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-10. Cloud plus AI Labs eliminates an unsupported separation between AI infrastructure benefit and model/app cost. Q1 combined revenue 517.75 and EBITA -82.33; annualized revenue 2071.00. Year1 +20/30/40% and decelerating growth are below or near the latest 45% cloud growth; recovery margins require utilization/pricing and Labs cost absorption. DA and capex are explicit allocation assumptions constrained by S1 group capex and S5 computer lives 3-5 years; no company ten-year plan is claimed.",
+              "discount_rate": 0.13,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 2485.2,
+                  "ebit_margin": -0.2,
+                  "tax_rate": 0.0,
+                  "da": 447.336,
+                  "capex": 2236.68,
+                  "delta_nwc": 8.284
+                },
+                {
+                  "year": 2,
+                  "revenue": 2857.98,
+                  "ebit_margin": -0.18,
+                  "tax_rate": 0.0,
+                  "da": 685.9152,
+                  "capex": 2143.485,
+                  "delta_nwc": 7.4556
+                },
+                {
+                  "year": 3,
+                  "revenue": 3200.9376,
+                  "ebit_margin": -0.14,
+                  "tax_rate": 0.0,
+                  "da": 960.28128,
+                  "capex": 1920.56256,
+                  "delta_nwc": 6.859152
+                },
+                {
+                  "year": 4,
+                  "revenue": 3521.03136,
+                  "ebit_margin": -0.1,
+                  "tax_rate": 0.0,
+                  "da": 1161.940349,
+                  "capex": 1760.51568,
+                  "delta_nwc": 6.401875
+                },
+                {
+                  "year": 5,
+                  "revenue": 3802.713869,
+                  "ebit_margin": -0.06,
+                  "tax_rate": 0.0,
+                  "da": 1254.895577,
+                  "capex": 1521.085548,
+                  "delta_nwc": 5.63365
+                },
+                {
+                  "year": 6,
+                  "revenue": 4030.876701,
+                  "ebit_margin": -0.02,
+                  "tax_rate": 0.0,
+                  "da": 1209.26301,
+                  "capex": 1330.189311,
+                  "delta_nwc": 4.563257
+                },
+                {
+                  "year": 7,
+                  "revenue": 4192.111769,
+                  "ebit_margin": 0.01,
+                  "tax_rate": 0.25,
+                  "da": 1131.870178,
+                  "capex": 1173.791295,
+                  "delta_nwc": 3.224701
+                },
+                {
+                  "year": 8,
+                  "revenue": 4317.875122,
+                  "ebit_margin": 0.025,
+                  "tax_rate": 0.25,
+                  "da": 1036.290029,
+                  "capex": 1079.468781,
+                  "delta_nwc": 2.515267
+                },
+                {
+                  "year": 9,
+                  "revenue": 4404.232624,
+                  "ebit_margin": 0.035,
+                  "tax_rate": 0.25,
+                  "da": 968.931177,
+                  "capex": 1012.973504,
+                  "delta_nwc": 1.72715
+                },
+                {
+                  "year": 10,
+                  "revenue": 4448.274951,
+                  "ebit_margin": 0.04,
+                  "tax_rate": 0.25,
+                  "da": 889.65499,
+                  "capex": 905.455175,
+                  "delta_nwc": 0.880847
+                }
+              ],
+              "terminal": {
+                "growth": 0.01,
+                "roic": 0.08,
+                "margin": 0.04,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            },
+            {
+              "id": "other_corporate_eliminations",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-8. Residual is All Others + Unallocated + intersegment eliminations, not a reported standalone business. Q1 net revenue 113.16 and adjusted EBITA -41.87. This preserves group totals and keeps elimination costs. A more negative initial margin than the old group estimate and later loss reduction are assumptions; segment-internal sales mix is unknown. Margin interpretation is accounting-residual only, not industry comparison.",
+              "discount_rate": 0.13,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 450,
+                  "ebit_margin": -0.45,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": -0.0528
+                },
+                {
+                  "year": 2,
+                  "revenue": 450,
+                  "ebit_margin": -0.42,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 3,
+                  "revenue": 450,
+                  "ebit_margin": -0.38,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 4,
+                  "revenue": 450,
+                  "ebit_margin": -0.32,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 5,
+                  "revenue": 450,
+                  "ebit_margin": -0.25,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 6,
+                  "revenue": 450,
+                  "ebit_margin": -0.18,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 7,
+                  "revenue": 450,
+                  "ebit_margin": -0.12,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 8,
+                  "revenue": 450,
+                  "ebit_margin": -0.08,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 9,
+                  "revenue": 450,
+                  "ebit_margin": -0.04,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 15.75,
+                  "delta_nwc": 0.0
+                },
+                {
+                  "year": 10,
+                  "revenue": 450,
+                  "ebit_margin": 0,
+                  "tax_rate": 0.0,
+                  "da": 13.5,
+                  "capex": 13.5,
+                  "delta_nwc": 0.0
+                }
+              ],
+              "terminal": {
+                "growth": 0,
+                "roic": 0.08,
+                "margin": 0,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "june_unrestricted_cash_treasury",
+              "amount": 4745.05,
+              "reason": "6/30 unrestricted cash plus treasury, already includes long-dated deposits/securities; excludes 425.85 restricted cash",
+              "source": "S1 pp15,20"
+            },
+            {
+              "id": "post_june_completed_placement",
+              "amount": 682.18418,
+              "reason": "Completed 8/26; translate approximate HKD79.7 billion net amount (797亿元HKD) at common cutoff fixing; actual settlement FX unavailable, capital purpose is AI capex not discretionary dividend",
+              "source": "S2 p2; S9"
+            },
+            {
+              "id": "post_june_cash_burn_estimate",
+              "amount": -893.4,
+              "reason": "Unverified Jul-Oct cash-burn assumption = June company FCF outflow 446.70 x 4/3 x 1.5; excludes separately listed dividend and fines. Not the September reported result. Future years start 11/1 so no period overlap.",
+              "source": "S1 p26 plus research assumption"
+            },
+            {
+              "id": "post_june_declared_dividend",
+              "amount": -167.845,
+              "reason": "FY2026 dividend expected in July, after June cash date. Reserve approximate USD2.5bn regardless of settlement timing; exact payment/FX not verified. Do not also deduct dividend payable.",
+              "source": "S4 pp5-6; S9"
+            },
+            {
+              "id": "regulatory_cash_obligation_range_reserve",
+              "amount": -63,
+              "reason": "Conservative conditional reserve63 for own USD325m and EUR550m (cutoff translation62.95545). Actual payment or any overlap withJune30 cash/estimated burn unknown. Range0-63 means amount still absent from the starting cash/burn ledger, not uncertainty about the legal amounts. Deduct once as post-June use OR outstanding obligation, never both.",
+              "source": "S10/S11 original official releases; S1 p13 EC provision"
+            },
+            {
+              "id": "unreconstructed_post_june_changes_X",
+              "amount": 0,
+              "reason": "Conditional algebra uses X=0 solely to make unresolved cash change explicit; actual X is unknown and not asserted zero. Includes un-reconstructed buybacks, FX, acquisitions and net debt changes. Subtract actual net outflow X from resulting equity value; no unsupported fixed allowance substituted for missing records.",
+              "source": "research assumption; S7 titles show July buybacks not fully reconstructed"
+            },
+            {
+              "id": "operating_cash_retention",
+              "amount": -500,
+              "reason": "Permanent operating liquidity reserve; low/base/high 500/400/300 (~3%-5% of current sales), not reported restricted cash; future NWC excludes cash. Must not be confused with deducting future capex again.",
+              "source": "research assumption supported by S1 cash-burn risk"
+            },
+            {
+              "id": "june_interest_bearing_debt",
+              "amount": -2665.3,
+              "reason": "Five balance-sheet debt lines; use debt treatment for convertibles. No extra if-converted shares. Subsequent net debt changes unresolved.",
+              "source": "S1 pp20-21"
+            },
+            {
+              "id": "noncash_financial_investments",
+              "amount": 1829.668,
+              "reason": "Noncash financial investment book 4574.17 = equities/other 4311.48 - liquid treasury already included 1769.38 + equity method2032.07; recoverability 40%. Includes Ant, so do not add separate Ant NAV. Haircut is an assumption, not observed market value.",
+              "source": "S1 pp20-21; S5 p215"
+            },
+            {
+              "id": "noncontrolling_and_mezzanine",
+              "amount": -648.56,
+              "reason": "Group FCFF includes NCI; deduct NCI572.72 plus mezzanine75.84 at book proxy. Fair-value NCI not independently estimated, +/-20% sensitivity necessary; no NCI earnings deduction inside consolidated EBIT.",
+              "source": "S1 p21"
+            }
+          ],
+          "equity_value": null,
+          "equity_value_status": "parent to calculate",
+          "tax_loss_policy": "No immediate cross-entity tax benefit on loss-making segments; future NOL carryforward credit omitted, conservative and not a tax forecast.",
+          "cash_bridge_condition": "Not a most-likely/base balance: X=0 and regulatory remaining-uncounted liability63, plus stated burn/investment-recovery conditions; independently rerun regulatory reserve0 and X sensitivities."
+        },
+        "base": {
+          "label": "电商稳定、云与Labs合并逐步变现",
+          "segments": [
+            {
+              "id": "ecommerce",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-10. E-commerce combines domestic, quick commerce, international and wholesale; Q1 annualized revenue 8234.48. Year1 sales 8200/8500/8800 are assumptions around this run-rate, not an annual forecast from management. EBIT margins include economic SBC, ordinary intangible amortization and lease expense; later margin/growth changes are research forecasts. DA 1.8% revenue and capex 2.5%-3.4% are allocation assumptions; no segment capex disclosure.",
+              "discount_rate": 0.1,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 8500,
+                  "ebit_margin": 0.17,
+                  "tax_rate": 0.25,
+                  "da": 153.0,
+                  "capex": 212.5,
+                  "delta_nwc": 5.3104
+                },
+                {
+                  "year": 2,
+                  "revenue": 8840.0,
+                  "ebit_margin": 0.175,
+                  "tax_rate": 0.25,
+                  "da": 159.12,
+                  "capex": 247.52,
+                  "delta_nwc": 6.8
+                },
+                {
+                  "year": 3,
+                  "revenue": 9193.6,
+                  "ebit_margin": 0.18,
+                  "tax_rate": 0.25,
+                  "da": 165.4848,
+                  "capex": 275.808,
+                  "delta_nwc": 7.072
+                },
+                {
+                  "year": 4,
+                  "revenue": 9515.376,
+                  "ebit_margin": 0.185,
+                  "tax_rate": 0.25,
+                  "da": 171.276768,
+                  "capex": 294.976656,
+                  "delta_nwc": 6.43552
+                },
+                {
+                  "year": 5,
+                  "revenue": 9800.83728,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 176.415071,
+                  "capex": 313.626793,
+                  "delta_nwc": 5.709226
+                },
+                {
+                  "year": 6,
+                  "revenue": 10094.862398,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 181.707523,
+                  "capex": 323.035597,
+                  "delta_nwc": 5.880502
+                },
+                {
+                  "year": 7,
+                  "revenue": 10347.233958,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 186.250211,
+                  "capex": 331.111487,
+                  "delta_nwc": 5.047431
+                },
+                {
+                  "year": 8,
+                  "revenue": 10554.178638,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 189.975215,
+                  "capex": 337.733716,
+                  "delta_nwc": 4.138894
+                },
+                {
+                  "year": 9,
+                  "revenue": 10765.26221,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 193.77472,
+                  "capex": 344.488391,
+                  "delta_nwc": 4.221671
+                },
+                {
+                  "year": 10,
+                  "revenue": 10980.567454,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 197.650214,
+                  "capex": 349.817196,
+                  "delta_nwc": 4.306105
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.2,
+                "margin": 0.19,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            },
+            {
+              "id": "ai_cloud_labs",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-10. Cloud plus AI Labs eliminates an unsupported separation between AI infrastructure benefit and model/app cost. Q1 combined revenue 517.75 and EBITA -82.33; annualized revenue 2071.00. Year1 +20/30/40% and decelerating growth are below or near the latest 45% cloud growth; recovery margins require utilization/pricing and Labs cost absorption. DA and capex are explicit allocation assumptions constrained by S1 group capex and S5 computer lives 3-5 years; no company ten-year plan is claimed.",
+              "discount_rate": 0.12,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 2692.3,
+                  "ebit_margin": -0.15,
+                  "tax_rate": 0.0,
+                  "da": 457.691,
+                  "capex": 2153.84,
+                  "delta_nwc": 12.426
+                },
+                {
+                  "year": 2,
+                  "revenue": 3365.375,
+                  "ebit_margin": -0.1,
+                  "tax_rate": 0.0,
+                  "da": 774.03625,
+                  "capex": 2187.49375,
+                  "delta_nwc": 13.4615
+                },
+                {
+                  "year": 3,
+                  "revenue": 4038.45,
+                  "ebit_margin": -0.04,
+                  "tax_rate": 0.0,
+                  "da": 1130.766,
+                  "capex": 2019.225,
+                  "delta_nwc": 13.4615
+                },
+                {
+                  "year": 4,
+                  "revenue": 4684.602,
+                  "ebit_margin": 0.02,
+                  "tax_rate": 0.25,
+                  "da": 1405.3806,
+                  "capex": 1873.8408,
+                  "delta_nwc": 12.92304
+                },
+                {
+                  "year": 5,
+                  "revenue": 5246.75424,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.25,
+                  "da": 1521.55873,
+                  "capex": 1678.961357,
+                  "delta_nwc": 11.243045
+                },
+                {
+                  "year": 6,
+                  "revenue": 5718.962122,
+                  "ebit_margin": 0.09,
+                  "tax_rate": 0.25,
+                  "da": 1544.119773,
+                  "capex": 1544.119773,
+                  "delta_nwc": 9.444158
+                },
+                {
+                  "year": 7,
+                  "revenue": 6119.28947,
+                  "ebit_margin": 0.11,
+                  "tax_rate": 0.25,
+                  "da": 1468.629473,
+                  "capex": 1407.436578,
+                  "delta_nwc": 8.006547
+                },
+                {
+                  "year": 8,
+                  "revenue": 6425.253944,
+                  "ebit_margin": 0.12,
+                  "tax_rate": 0.25,
+                  "da": 1349.303328,
+                  "capex": 1349.303328,
+                  "delta_nwc": 6.119289
+                },
+                {
+                  "year": 9,
+                  "revenue": 6650.137832,
+                  "ebit_margin": 0.12,
+                  "tax_rate": 0.25,
+                  "da": 1263.526188,
+                  "capex": 1330.027566,
+                  "delta_nwc": 4.497678
+                },
+                {
+                  "year": 10,
+                  "revenue": 6783.140588,
+                  "ebit_margin": 0.12,
+                  "tax_rate": 0.25,
+                  "da": 1220.965306,
+                  "capex": 1320.05236,
+                  "delta_nwc": 2.660055
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.12,
+                "margin": 0.12,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            },
+            {
+              "id": "other_corporate_eliminations",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-8. Residual is All Others + Unallocated + intersegment eliminations, not a reported standalone business. Q1 net revenue 113.16 and adjusted EBITA -41.87. This preserves group totals and keeps elimination costs. A more negative initial margin than the old group estimate and later loss reduction are assumptions; segment-internal sales mix is unknown. Margin interpretation is accounting-residual only, not industry comparison.",
+              "discount_rate": 0.12,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 460,
+                  "ebit_margin": -0.35,
+                  "tax_rate": 0.0,
+                  "da": 13.8,
+                  "capex": 16.1,
+                  "delta_nwc": 0.1472
+                },
+                {
+                  "year": 2,
+                  "revenue": 469.2,
+                  "ebit_margin": -0.3,
+                  "tax_rate": 0.0,
+                  "da": 14.076,
+                  "capex": 16.422,
+                  "delta_nwc": 0.184
+                },
+                {
+                  "year": 3,
+                  "revenue": 478.584,
+                  "ebit_margin": -0.24,
+                  "tax_rate": 0.0,
+                  "da": 14.35752,
+                  "capex": 16.75044,
+                  "delta_nwc": 0.18768
+                },
+                {
+                  "year": 4,
+                  "revenue": 488.15568,
+                  "ebit_margin": -0.18,
+                  "tax_rate": 0.0,
+                  "da": 14.64467,
+                  "capex": 17.085449,
+                  "delta_nwc": 0.191434
+                },
+                {
+                  "year": 5,
+                  "revenue": 497.918794,
+                  "ebit_margin": -0.12,
+                  "tax_rate": 0.0,
+                  "da": 14.937564,
+                  "capex": 17.427158,
+                  "delta_nwc": 0.195262
+                },
+                {
+                  "year": 6,
+                  "revenue": 507.877169,
+                  "ebit_margin": -0.06,
+                  "tax_rate": 0.0,
+                  "da": 15.236315,
+                  "capex": 17.775701,
+                  "delta_nwc": 0.199168
+                },
+                {
+                  "year": 7,
+                  "revenue": 518.034713,
+                  "ebit_margin": 0,
+                  "tax_rate": 0.0,
+                  "da": 15.541041,
+                  "capex": 18.131215,
+                  "delta_nwc": 0.203151
+                },
+                {
+                  "year": 8,
+                  "revenue": 528.395407,
+                  "ebit_margin": 0.03,
+                  "tax_rate": 0.25,
+                  "da": 15.851862,
+                  "capex": 18.493839,
+                  "delta_nwc": 0.207214
+                },
+                {
+                  "year": 9,
+                  "revenue": 538.963315,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.25,
+                  "da": 16.168899,
+                  "capex": 18.863716,
+                  "delta_nwc": 0.211358
+                },
+                {
+                  "year": 10,
+                  "revenue": 549.742582,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.25,
+                  "da": 16.492277,
+                  "capex": 21.224375,
+                  "delta_nwc": 0.215585
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.1,
+                "margin": 0.06,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "june_unrestricted_cash_treasury",
+              "amount": 4745.05,
+              "reason": "6/30 unrestricted cash plus treasury, already includes long-dated deposits/securities; excludes 425.85 restricted cash",
+              "source": "S1 pp15,20"
+            },
+            {
+              "id": "post_june_completed_placement",
+              "amount": 682.18418,
+              "reason": "Completed 8/26; translate approximate HKD79.7 billion net amount (797亿元HKD) at common cutoff fixing; actual settlement FX unavailable, capital purpose is AI capex not discretionary dividend",
+              "source": "S2 p2; S9"
+            },
+            {
+              "id": "post_june_cash_burn_estimate",
+              "amount": -595.6,
+              "reason": "Unverified Jul-Oct cash-burn assumption = June company FCF outflow 446.70 x 4/3 x 1.0; excludes separately listed dividend and fines. Not the September reported result. Future years start 11/1 so no period overlap.",
+              "source": "S1 p26 plus research assumption"
+            },
+            {
+              "id": "post_june_declared_dividend",
+              "amount": -167.845,
+              "reason": "FY2026 dividend expected in July, after June cash date. Reserve approximate USD2.5bn regardless of settlement timing; exact payment/FX not verified. Do not also deduct dividend payable.",
+              "source": "S4 pp5-6; S9"
+            },
+            {
+              "id": "regulatory_cash_obligation_range_reserve",
+              "amount": -63,
+              "reason": "Conservative conditional reserve63 for own USD325m and EUR550m (cutoff translation62.95545). Actual payment or any overlap withJune30 cash/estimated burn unknown. Range0-63 means amount still absent from the starting cash/burn ledger, not uncertainty about the legal amounts. Deduct once as post-June use OR outstanding obligation, never both.",
+              "source": "S10/S11 original official releases; S1 p13 EC provision"
+            },
+            {
+              "id": "unreconstructed_post_june_changes_X",
+              "amount": 0,
+              "reason": "Conditional algebra uses X=0 solely to make unresolved cash change explicit; actual X is unknown and not asserted zero. Includes un-reconstructed buybacks, FX, acquisitions and net debt changes. Subtract actual net outflow X from resulting equity value; no unsupported fixed allowance substituted for missing records.",
+              "source": "research assumption; S7 titles show July buybacks not fully reconstructed"
+            },
+            {
+              "id": "operating_cash_retention",
+              "amount": -400,
+              "reason": "Permanent operating liquidity reserve; low/base/high 500/400/300 (~3%-5% of current sales), not reported restricted cash; future NWC excludes cash. Must not be confused with deducting future capex again.",
+              "source": "research assumption supported by S1 cash-burn risk"
+            },
+            {
+              "id": "june_interest_bearing_debt",
+              "amount": -2665.3,
+              "reason": "Five balance-sheet debt lines; use debt treatment for convertibles. No extra if-converted shares. Subsequent net debt changes unresolved.",
+              "source": "S1 pp20-21"
+            },
+            {
+              "id": "noncash_financial_investments",
+              "amount": 2744.502,
+              "reason": "Noncash financial investment book 4574.17 = equities/other 4311.48 - liquid treasury already included 1769.38 + equity method2032.07; recoverability 60%. Includes Ant, so do not add separate Ant NAV. Haircut is an assumption, not observed market value.",
+              "source": "S1 pp20-21; S5 p215"
+            },
+            {
+              "id": "noncontrolling_and_mezzanine",
+              "amount": -648.56,
+              "reason": "Group FCFF includes NCI; deduct NCI572.72 plus mezzanine75.84 at book proxy. Fair-value NCI not independently estimated, +/-20% sensitivity necessary; no NCI earnings deduction inside consolidated EBIT.",
+              "source": "S1 p21"
+            }
+          ],
+          "equity_value": null,
+          "equity_value_status": "parent to calculate",
+          "tax_loss_policy": "No immediate cross-entity tax benefit on loss-making segments; future NOL carryforward credit omitted, conservative and not a tax forecast.",
+          "cash_bridge_condition": "Not a most-likely/base balance: X=0 and regulatory remaining-uncounted liability63, plus stated burn/investment-recovery conditions; independently rerun regulatory reserve0 and X sensitivities."
+        },
+        "high": {
+          "label": "高增速持续、利用率及Labs商业化较好",
+          "segments": [
+            {
+              "id": "ecommerce",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-10. E-commerce combines domestic, quick commerce, international and wholesale; Q1 annualized revenue 8234.48. Year1 sales 8200/8500/8800 are assumptions around this run-rate, not an annual forecast from management. EBIT margins include economic SBC, ordinary intangible amortization and lease expense; later margin/growth changes are research forecasts. DA 1.8% revenue and capex 2.5%-3.4% are allocation assumptions; no segment capex disclosure.",
+              "discount_rate": 0.09,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 8800,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 158.4,
+                  "capex": 220.0,
+                  "delta_nwc": 11.3104
+                },
+                {
+                  "year": 2,
+                  "revenue": 9328.0,
+                  "ebit_margin": 0.195,
+                  "tax_rate": 0.25,
+                  "da": 167.904,
+                  "capex": 261.184,
+                  "delta_nwc": 10.56
+                },
+                {
+                  "year": 3,
+                  "revenue": 9887.68,
+                  "ebit_margin": 0.2,
+                  "tax_rate": 0.25,
+                  "da": 177.97824,
+                  "capex": 296.6304,
+                  "delta_nwc": 11.1936
+                },
+                {
+                  "year": 4,
+                  "revenue": 10382.064,
+                  "ebit_margin": 0.205,
+                  "tax_rate": 0.25,
+                  "da": 186.877152,
+                  "capex": 321.843984,
+                  "delta_nwc": 9.88768
+                },
+                {
+                  "year": 5,
+                  "revenue": 10849.25688,
+                  "ebit_margin": 0.21,
+                  "tax_rate": 0.25,
+                  "da": 195.286624,
+                  "capex": 347.17622,
+                  "delta_nwc": 9.343858
+                },
+                {
+                  "year": 6,
+                  "revenue": 11283.227155,
+                  "ebit_margin": 0.215,
+                  "tax_rate": 0.25,
+                  "da": 203.098089,
+                  "capex": 361.063269,
+                  "delta_nwc": 8.679406
+                },
+                {
+                  "year": 7,
+                  "revenue": 11678.140106,
+                  "ebit_margin": 0.22,
+                  "tax_rate": 0.25,
+                  "da": 210.206522,
+                  "capex": 373.700483,
+                  "delta_nwc": 7.898259
+                },
+                {
+                  "year": 8,
+                  "revenue": 12028.484309,
+                  "ebit_margin": 0.22,
+                  "tax_rate": 0.25,
+                  "da": 216.512718,
+                  "capex": 384.911498,
+                  "delta_nwc": 7.006884
+                },
+                {
+                  "year": 9,
+                  "revenue": 12329.196417,
+                  "ebit_margin": 0.22,
+                  "tax_rate": 0.25,
+                  "da": 221.925535,
+                  "capex": 394.534285,
+                  "delta_nwc": 6.014242
+                },
+                {
+                  "year": 10,
+                  "revenue": 12637.426327,
+                  "ebit_margin": 0.22,
+                  "tax_rate": 0.25,
+                  "da": 227.473674,
+                  "capex": 429.82661,
+                  "delta_nwc": 6.164598
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.25,
+                "margin": 0.22,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            },
+            {
+              "id": "ai_cloud_labs",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-10. Cloud plus AI Labs eliminates an unsupported separation between AI infrastructure benefit and model/app cost. Q1 combined revenue 517.75 and EBITA -82.33; annualized revenue 2071.00. Year1 +20/30/40% and decelerating growth are below or near the latest 45% cloud growth; recovery margins require utilization/pricing and Labs cost absorption. DA and capex are explicit allocation assumptions constrained by S1 group capex and S5 computer lives 3-5 years; no company ten-year plan is claimed.",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 2899.4,
+                  "ebit_margin": -0.1,
+                  "tax_rate": 0.0,
+                  "da": 463.904,
+                  "capex": 2174.55,
+                  "delta_nwc": 16.568
+                },
+                {
+                  "year": 2,
+                  "revenue": 3769.22,
+                  "ebit_margin": -0.03,
+                  "tax_rate": 0.0,
+                  "da": 791.5362,
+                  "capex": 2261.532,
+                  "delta_nwc": 17.3964
+                },
+                {
+                  "year": 3,
+                  "revenue": 4711.525,
+                  "ebit_margin": 0.05,
+                  "tax_rate": 0.25,
+                  "da": 1177.88125,
+                  "capex": 2261.532,
+                  "delta_nwc": 18.8461
+                },
+                {
+                  "year": 4,
+                  "revenue": 5653.83,
+                  "ebit_margin": 0.1,
+                  "tax_rate": 0.25,
+                  "da": 1526.5341,
+                  "capex": 2148.4554,
+                  "delta_nwc": 18.8461
+                },
+                {
+                  "year": 5,
+                  "revenue": 6558.4428,
+                  "ebit_margin": 0.14,
+                  "tax_rate": 0.25,
+                  "da": 1705.195128,
+                  "capex": 2033.117268,
+                  "delta_nwc": 18.092256
+                },
+                {
+                  "year": 6,
+                  "revenue": 7345.455936,
+                  "ebit_margin": 0.17,
+                  "tax_rate": 0.25,
+                  "da": 1762.909425,
+                  "capex": 1983.273103,
+                  "delta_nwc": 15.740263
+                },
+                {
+                  "year": 7,
+                  "revenue": 8006.54697,
+                  "ebit_margin": 0.19,
+                  "tax_rate": 0.25,
+                  "da": 1761.440333,
+                  "capex": 1921.571273,
+                  "delta_nwc": 13.221821
+                },
+                {
+                  "year": 8,
+                  "revenue": 8486.939788,
+                  "ebit_margin": 0.2,
+                  "tax_rate": 0.25,
+                  "da": 1697.387958,
+                  "capex": 1867.126753,
+                  "delta_nwc": 9.607856
+                },
+                {
+                  "year": 9,
+                  "revenue": 8826.41738,
+                  "ebit_margin": 0.2,
+                  "tax_rate": 0.25,
+                  "da": 1588.755128,
+                  "capex": 1765.283476,
+                  "delta_nwc": 6.789552
+                },
+                {
+                  "year": 10,
+                  "revenue": 9047.077814,
+                  "ebit_margin": 0.2,
+                  "tax_rate": 0.25,
+                  "da": 1538.003228,
+                  "capex": 1722.070808,
+                  "delta_nwc": 4.413209
+                }
+              ],
+              "terminal": {
+                "growth": 0.025,
+                "roic": 0.18,
+                "margin": 0.2,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            },
+            {
+              "id": "other_corporate_eliminations",
+              "source": "S1 pp7-10,23; S5 pp206,218-220; assumptions in evidence.md",
+              "assumptions": "S1 pp7-8. Residual is All Others + Unallocated + intersegment eliminations, not a reported standalone business. Q1 net revenue 113.16 and adjusted EBITA -41.87. This preserves group totals and keeps elimination costs. A more negative initial margin than the old group estimate and later loss reduction are assumptions; segment-internal sales mix is unknown. Margin interpretation is accounting-residual only, not industry comparison.",
+              "discount_rate": 0.11,
+              "years": [
+                {
+                  "year": 1,
+                  "revenue": 470,
+                  "ebit_margin": -0.25,
+                  "tax_rate": 0.0,
+                  "da": 14.1,
+                  "capex": 16.45,
+                  "delta_nwc": 0.3472
+                },
+                {
+                  "year": 2,
+                  "revenue": 488.8,
+                  "ebit_margin": -0.15,
+                  "tax_rate": 0.0,
+                  "da": 14.664,
+                  "capex": 17.108,
+                  "delta_nwc": 0.376
+                },
+                {
+                  "year": 3,
+                  "revenue": 508.352,
+                  "ebit_margin": -0.05,
+                  "tax_rate": 0.0,
+                  "da": 15.25056,
+                  "capex": 17.79232,
+                  "delta_nwc": 0.39104
+                },
+                {
+                  "year": 4,
+                  "revenue": 528.68608,
+                  "ebit_margin": 0.02,
+                  "tax_rate": 0.25,
+                  "da": 15.860582,
+                  "capex": 18.504013,
+                  "delta_nwc": 0.406682
+                },
+                {
+                  "year": 5,
+                  "revenue": 547.190093,
+                  "ebit_margin": 0.06,
+                  "tax_rate": 0.25,
+                  "da": 16.415703,
+                  "capex": 19.151653,
+                  "delta_nwc": 0.37008
+                },
+                {
+                  "year": 6,
+                  "revenue": 563.605796,
+                  "ebit_margin": 0.08,
+                  "tax_rate": 0.25,
+                  "da": 16.908174,
+                  "capex": 19.726203,
+                  "delta_nwc": 0.328314
+                },
+                {
+                  "year": 7,
+                  "revenue": 577.69594,
+                  "ebit_margin": 0.1,
+                  "tax_rate": 0.25,
+                  "da": 17.330878,
+                  "capex": 20.219358,
+                  "delta_nwc": 0.281803
+                },
+                {
+                  "year": 8,
+                  "revenue": 589.249859,
+                  "ebit_margin": 0.1,
+                  "tax_rate": 0.25,
+                  "da": 17.677496,
+                  "capex": 20.623745,
+                  "delta_nwc": 0.231078
+                },
+                {
+                  "year": 9,
+                  "revenue": 601.034856,
+                  "ebit_margin": 0.1,
+                  "tax_rate": 0.25,
+                  "da": 18.031046,
+                  "capex": 21.03622,
+                  "delta_nwc": 0.2357
+                },
+                {
+                  "year": 10,
+                  "revenue": 613.055554,
+                  "ebit_margin": 0.1,
+                  "tax_rate": 0.25,
+                  "da": 18.391667,
+                  "capex": 25.814447,
+                  "delta_nwc": 0.240414
+                }
+              ],
+              "terminal": {
+                "growth": 0.02,
+                "roic": 0.12,
+                "margin": 0.1,
+                "tax_rate": 0.25
+              },
+              "discount_rationale": "Nominal CNY required-return judgment: legacy 10% anchor, +2pp for unproven AI/residual business, +/-1pp scenario spread; not a measured CAPM WACC or market-implied calibration. No market share price used."
+            }
+          ],
+          "equity_adjustments": [
+            {
+              "id": "june_unrestricted_cash_treasury",
+              "amount": 4745.05,
+              "reason": "6/30 unrestricted cash plus treasury, already includes long-dated deposits/securities; excludes 425.85 restricted cash",
+              "source": "S1 pp15,20"
+            },
+            {
+              "id": "post_june_completed_placement",
+              "amount": 682.18418,
+              "reason": "Completed 8/26; translate approximate HKD79.7 billion net amount (797亿元HKD) at common cutoff fixing; actual settlement FX unavailable, capital purpose is AI capex not discretionary dividend",
+              "source": "S2 p2; S9"
+            },
+            {
+              "id": "post_june_cash_burn_estimate",
+              "amount": -297.8,
+              "reason": "Unverified Jul-Oct cash-burn assumption = June company FCF outflow 446.70 x 4/3 x 0.5; excludes separately listed dividend and fines. Not the September reported result. Future years start 11/1 so no period overlap.",
+              "source": "S1 p26 plus research assumption"
+            },
+            {
+              "id": "post_june_declared_dividend",
+              "amount": -167.845,
+              "reason": "FY2026 dividend expected in July, after June cash date. Reserve approximate USD2.5bn regardless of settlement timing; exact payment/FX not verified. Do not also deduct dividend payable.",
+              "source": "S4 pp5-6; S9"
+            },
+            {
+              "id": "regulatory_cash_obligation_range_reserve",
+              "amount": -63,
+              "reason": "Conservative conditional reserve63 for own USD325m and EUR550m (cutoff translation62.95545). Actual payment or any overlap withJune30 cash/estimated burn unknown. Range0-63 means amount still absent from the starting cash/burn ledger, not uncertainty about the legal amounts. Deduct once as post-June use OR outstanding obligation, never both.",
+              "source": "S10/S11 original official releases; S1 p13 EC provision"
+            },
+            {
+              "id": "unreconstructed_post_june_changes_X",
+              "amount": 0,
+              "reason": "Conditional algebra uses X=0 solely to make unresolved cash change explicit; actual X is unknown and not asserted zero. Includes un-reconstructed buybacks, FX, acquisitions and net debt changes. Subtract actual net outflow X from resulting equity value; no unsupported fixed allowance substituted for missing records.",
+              "source": "research assumption; S7 titles show July buybacks not fully reconstructed"
+            },
+            {
+              "id": "operating_cash_retention",
+              "amount": -300,
+              "reason": "Permanent operating liquidity reserve; low/base/high 500/400/300 (~3%-5% of current sales), not reported restricted cash; future NWC excludes cash. Must not be confused with deducting future capex again.",
+              "source": "research assumption supported by S1 cash-burn risk"
+            },
+            {
+              "id": "june_interest_bearing_debt",
+              "amount": -2665.3,
+              "reason": "Five balance-sheet debt lines; use debt treatment for convertibles. No extra if-converted shares. Subsequent net debt changes unresolved.",
+              "source": "S1 pp20-21"
+            },
+            {
+              "id": "noncash_financial_investments",
+              "amount": 3659.336,
+              "reason": "Noncash financial investment book 4574.17 = equities/other 4311.48 - liquid treasury already included 1769.38 + equity method2032.07; recoverability 80%. Includes Ant, so do not add separate Ant NAV. Haircut is an assumption, not observed market value.",
+              "source": "S1 pp20-21; S5 p215"
+            },
+            {
+              "id": "noncontrolling_and_mezzanine",
+              "amount": -648.56,
+              "reason": "Group FCFF includes NCI; deduct NCI572.72 plus mezzanine75.84 at book proxy. Fair-value NCI not independently estimated, +/-20% sensitivity necessary; no NCI earnings deduction inside consolidated EBIT.",
+              "source": "S1 p21"
+            }
+          ],
+          "equity_value": null,
+          "equity_value_status": "parent to calculate",
+          "tax_loss_policy": "No immediate cross-entity tax benefit on loss-making segments; future NOL carryforward credit omitted, conservative and not a tax forecast.",
+          "cash_bridge_condition": "Not a most-likely/base balance: X=0 and regulatory remaining-uncounted liability63, plus stated burn/investment-recovery conditions; independently rerun regulatory reserve0 and X sensitivities."
+        }
+      }
+    }
+  },
+  "legacy_discount_outside_intrinsic_value": {
+    "d_base": 0.25,
+    "other_discounts": 0,
+    "source": "B1 section7",
+    "classification": "rule/execution/model buffer; do not mix its removal with revised DCF operating assumptions"
+  },
+  "model_conventions": {
+    "fcff": "EBIT*(1-tax_rate)+DA-capex-deltaNWC",
+    "terminal": "year10 revenue*(1+g)*terminal margin*(1-tax)*(1-g/ROIC)/(WACC-g)",
+    "economic_sbc": "EBIT margins include SBC economic cost, with no SBC addback in FCFF. Actual issued shares used; no future dilution on top of same ongoing compensation cost. Existing unvested awards omitted from actual denominator; disclose/sensitize up to existing overhang separately.",
+    "lease": "Lease cost retained in EBIT; no operating lease liability deduction. Finance debt already in specified debt lines. Land-use amortization in DA proxy needs refinement if precise lease model required.",
+    "investments": "Operating FCFF excludes interest, equity-method results and investment revaluations; noncash investments valued only once in bridge.",
+    "cash_period": "Snapshot June30 + completed Aug financing - conditional Jul-Oct uses, future forecasts Nov1 onward. Not a cutoff balance sheet.",
+    "forecast_vs_fact": "Every future year, WACC, terminal g/ROIC, investment recovery and post-June cash-burn amount is an assumption."
+  },
+  "unresolved": [
+    {
+      "id": "cash_cutoff",
+      "impact": "high",
+      "detail": "No disclosed September balance sheet/FCF within cutoff located; actual Jul-Oct burn, dividend settlement FX, capex purchases/commitments outstanding, fines cash, investments and financing changes not reconstructed.",
+      "required": "Next eligible quarterly filing or full historical cash movement disclosure; do not use later results in this historical study."
+    },
+    {
+      "id": "segment_cash_allocation",
+      "impact": "high",
+      "detail": "Group DA/capex/NWC not disclosed per new segment; allocation is modeled. Proportional or internal-transfer uncertainty means segment values are conditional."
+    },
+    {
+      "id": "investment_nav_nci",
+      "impact": "high",
+      "detail": "4574.17 book financial investments and648.56 book NCI/mezz not market-value NAV; 40/60/80% recoverability and book minority deduction are explicit ranges."
+    },
+    {
+      "id": "sbc_existing_awards",
+      "impact": "medium",
+      "detail": "Month report shows existing option/RSU overhang and S8 registration; not all granted awards fair-valued in this study. Actual common share denominator is verified, fully diluted economic claim valuation remains sensitivity."
+    },
+    {
+      "id": "wacc_roic",
+      "impact": "high",
+      "detail": "Nominal CNY hurdle rates and terminal ROIC judgment, not empirical CAPM/peer-calibrated values. Need sensitivity; do not claim source proves 10-year returns."
+    },
+    {
+      "id": "complete_disclosure_coverage",
+      "impact": "medium",
+      "detail": "Issuer-specific first screen covers change window; not all569 records or SEC exhibits/corporate news reviewed. No new in-window result located, not an absolute no-disclosure claim."
+    }
+  ],
+  "jev": {
+    "mode": "auto",
+    "result": "skipped",
+    "reason": "declared_precise_location",
+    "candidate_count": 4,
+    "no_candidates_dropped": true,
+    "log": "/private/tmp/alibaba-dcf-jev/output/review/jev/calls.jsonl"
+  },
+  "usage": {
+    "subagents": 0,
+    "token_usage": "unavailable"
+  },
+  "cash_bridge_sensitivity": {
+    "unreconstructed_other_net_outflows_X": null,
+    "equity_value_formula": "model equity value minus X; base computation conditional on X=0",
+    "hkd_per_share_change_per_100m_cny_net_outflow": -0.005870307337648586,
+    "illustrative_sensitivities_100m_cny": [
+      0,
+      100,
+      300
+    ],
+    "these_are_ranges_of_sensitivity_not_probabilistic_bounds": true,
+    "fine_reserve_sensitivity_100m_cny": [
+      0,
+      63
+    ],
+    "investment_recovery_factors": [
+      0.4,
+      0.6,
+      0.8
+    ],
+    "minority_book_proxy_sensitivity": [
+      -0.2,
+      0,
+      0.2
+    ]
+  },
+  "certainty_partition": {
+    "determinate_corrections": [
+      {
+        "id": "currency",
+        "finding": "Underlying accounts CNY millions, model converted to100m CNY; HKD quote and8 shares/ADS separated",
+        "source": "S1/S4 headers"
+      },
+      {
+        "id": "ebita_sbc",
+        "finding": "Adjusted EBITA already excludes noncash SBC; future economic EBIT/FCFF must keep compensation cost once",
+        "source": "S1 pp8,18,23"
+      },
+      {
+        "id": "profit_attribution",
+        "finding": "369.15 group vs403.77 basic common vs387.82 diluted common after gross SBC are different research proxies, not interchangeable disclosed recurring profit",
+        "source": "S1 p25/S4 p38"
+      },
+      {
+        "id": "placement_share_status",
+        "finding": "710m shares completed Aug26; Sept30 actual19901959514 already includes placement; S8 registration is not issuance",
+        "source": "S2/S3/S6"
+      },
+      {
+        "id": "liquidity_date_mismatch",
+        "finding": "June cash and post-Aug shares are different dates; cannot call old netcash a cutoff balance",
+        "source": "S1/S2/S3"
+      },
+      {
+        "id": "cash_treasury_double_count",
+        "finding": "1769.38 treasury already inside4745.05 cash/liquid balance; exclude from separate investment book",
+        "source": "S1 pp15,20-21"
+      }
+    ],
+    "conditional_attribution_values": [
+      {
+        "id": "bridge_total",
+        "finding": "Every combined June-to-October equity bridge value is conditional; not a determinate correction amount"
+      },
+      {
+        "id": "placement_cash",
+        "finding": "Completed net proceeds797亿元HKD determinate approximate; CNY translation at cutoff is model convention, actual settlement FX unknown"
+      },
+      {
+        "id": "cash_burn_and_X",
+        "finding": "Burn1.5/1/.5 times four-month run-rate is a stress grid, no probabilities. X=0 is algebraic section, actualX=null"
+      },
+      {
+        "id": "regulatory_reserve",
+        "finding": "Underlying own legal amounts determinate;63亿元 reserve is maximal unpaid/un-counted condition, not most likely cash balance or new expected loss. Recompute0 condition too."
+      },
+      {
+        "id": "investment_nav_nci",
+        "finding": "40/60/80% investment book recovery and book NCI/mezz are proxies, not independently observed market values"
+      },
+      {
+        "id": "forward_cash_flows",
+        "finding": "All year1-10/terminal business forecasts, WACC/ROIC and cash-flow allocation are assumptions, not rule corrections"
+      }
+    ]
+  }
+}

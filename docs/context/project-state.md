@@ -2,6 +2,10 @@
 
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
+## 估值审计与本地dev接续（2026-11-14）
+
+用户授权评审修复后合并本地dev，不更新正式报价。新准备合同为`two-price-controls/v7` / `stock-research-audit/v4`，增加中性基准、分部FCFF与同模型反解，保留资本/风险去重；旧冻结v1–v6按原提示和验收恢复。周更完成登记对audit-v3/v4强制其原合同的lifecycle和acceptance，算术实验不能登记正式完成。实际合并后按两份正文哈希建立[本地方法handoff](../../research/investment/weekly/2026-11-14/investment-2026-11-14-handoff.json)，保留原5项pending及证据日期；无全局新旧估值等价声明。审查及验证见[评审记录](../../research/investment/weekly/2026-11-14/investment-2026-11-14-change-decision.md)。未推送远端、未重启调度、未把隔离阿里/小米结果提升正式报价。
+
 ## 可持续分红基础估值采纳（2026-11-12）
 
 用户明确采纳 canonical §4.1A 并授权兼容检查后同步生产。新方法 `stock-two-price-controls-v2-etf-relative-v1-dividend-v1` 在 V50 内明确计入可持续分红，与 R22 复用一致预测并去重。新准备的自动研究按本版及新的 adopted handoff 接续，旧冻结产物发布前按实际方法差异复核。市场证据沿用原披露截止，原 pending 逐项接续。版本、接口与生产验收见[接续记录](../../research/investment/maintenance/2026-11-12/investment-2026-11-12-dividend-production-codex.md)。

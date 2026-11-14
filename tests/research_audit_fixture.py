@@ -1,6 +1,15 @@
 """Explicit offline assumptions for delivery tests; no investment calibration."""
 
 
+def valuation_review_for(document):
+    return dict(base_case='offline neutral operating path, not a probability quantile',
+                method_choice='offline PE applicable to stable recurring earnings',
+                pe_crosscheck='offline earnings basis and cash distribution, not market calibration',
+                market_check=dict(price=25, as_of=document['meta']['valuation_date'],
+                    source='offline close', explanation='offline difference in earnings assumptions'),
+                reverse_dcf=dict(status='not_applicable', reason='offline stable PE case; no FCFF model', cases=[]))
+
+
 def audit_for(document):
     audit = {
         'schema_version': 'stock-research-audit/v1',

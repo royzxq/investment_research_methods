@@ -212,10 +212,12 @@ def validate_completed(context, methods, folder):
         price = read(_contained_path(methods, entry['price_map']['path'], 'recovery price'))
         runner.validate_delivery_monitoring(price, frozen['delivery'])
         runner.research_consistency.validate_report(report.decode(), price, root=methods,
-            expected_baseline=frozen['research_baseline'],
+            expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
             require_lifecycle=frozen['delivery'] in (runner.SCOPED_CONTROLS_CONTRACT,
-                runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT),
-            require_acceptance=frozen['delivery'] in (runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT))
+                runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT,
+                runner.CAPITAL_CONTROLS_CONTRACT, runner.VALUATION_CONTROLS_CONTRACT),
+            require_acceptance=frozen['delivery'] in (runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT,
+                runner.QUALITY_CONTROLS_CONTRACT, runner.CAPITAL_CONTROLS_CONTRACT, runner.VALUATION_CONTROLS_CONTRACT))
 
 
 def intent_claim(root, parent_descriptor):
@@ -377,10 +379,12 @@ def staged_publication(context, methods, *, check_stopped=True):
     runner.validate_t1_delivery(document)
     runner.validate_delivery_monitoring(document, frozen['delivery'])
     audit = runner.research_consistency.validate_report(report_raw.decode(), document, root=methods,
-        expected_baseline=frozen['research_baseline'],
+        expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
         require_lifecycle=frozen['delivery'] in (runner.SCOPED_CONTROLS_CONTRACT,
-            runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT),
-        require_acceptance=frozen['delivery'] in (runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT))
+            runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT,
+            runner.CAPITAL_CONTROLS_CONTRACT, runner.VALUATION_CONTROLS_CONTRACT),
+        require_acceptance=frozen['delivery'] in (runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT,
+            runner.QUALITY_CONTROLS_CONTRACT, runner.CAPITAL_CONTROLS_CONTRACT, runner.VALUATION_CONTROLS_CONTRACT))
     audit.update(report_sha256=runner.sha(report_raw), price_map_sha256=runner.sha(price_raw))
     return folder, staged, candidate, frozen, audit
 

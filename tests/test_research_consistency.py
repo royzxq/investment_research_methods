@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT/'tests'))
 from scripts import research_consistency as checks
-from research_audit_fixture import audit_for
+from research_audit_fixture import audit_for, valuation_review_for
 
 
 def example():
@@ -280,6 +280,103 @@ class CapitalAuditTests(unittest.TestCase):
             derived = checks.isolate_report(report, doc, root=root)
             checks.validate_report(derived, doc, root=root, expected_schema='stock-research-audit/v3')
             self.assertEqual((root/'prior.md').read_text(), old)
+
+class ValuationAuditTests(unittest.TestCase):
+    def example(self):
+        audit, doc = CapitalAuditTests().example()
+        audit['schema_version'] = 'stock-research-audit/v4'
+        audit['valuation_review'] = valuation_review_for(doc)
+        return audit, doc
+
+    def test_v4_review_roundtrip_and_legacy_v3_preserved(self):
+        audit, doc = self.example()
+        before = deepcopy(doc)
+        report = checks.render_report_block(audit, doc)
+        checks.validate_report(report, doc, expected_schema='stock-research-audit/v4')
+        self.assertIn('估值假设与市价差异', report)
+        self.assertEqual(doc, before)
+        old, doc = CapitalAuditTests().example()
+        checks.validate_report(checks.render_report_block(old, doc), doc,
+                               expected_schema='stock-research-audit/v3')
+
+    def test_v4_missing_review_future_price_or_false_reverse_fails(self):
+        for problem, error in [('missing', 'valuation_review'), ('future', 'market.*date'),
+                               ('source', 'source'), ('reverse', 'reverse')]:
+            audit, doc = self.example()
+            if problem == 'missing': audit.pop('valuation_review')
+            if problem == 'future': audit['valuation_review']['market_check']['as_of'] = '2099-01-01'
+            if problem == 'source': audit['valuation_review']['market_check']['source'] = ''
+            if problem == 'reverse': audit['valuation_review']['reverse_dcf']['status'] = 'solved'
+            with self.subTest(problem=problem), self.assertRaisesRegex(ValueError, error):
+                checks.validate_audit(audit, doc)
+
+    def test_frozen_v3_cannot_silently_accept_v4_fields(self):
+        audit, doc = self.example()
+        audit['schema_version'] = 'stock-research-audit/v3'
+        with self.assertRaisesRegex(ValueError, 'valuation_review'):
+            checks.validate_audit(audit, doc)
+
+    def dcf_example(self):
+        from test_research_valuation import example as dcf_model
+        from scripts.research_valuation import solve_reverse_dcf
+        audit, doc = self.example()
+        audit['valuation'] = dcf_model()
+        doc['price_map']['v50'] = dict(low=85, base=160, high=235)
+        doc['price_map']['p1'] = dict(base=80)
+        market = audit['valuation_review']['market_check']
+        market['price'] = 180
+        case = dict(scenario='base', segment_id='core', variable='terminal_margin',
+                    target_price=180, lower=.01, upper=.5)
+        case.update(solve_reverse_dcf(audit['valuation'], **case))
+        audit['valuation_review']['reverse_dcf'] = dict(status='solved', reason='conditional terminal margin only', cases=[case])
+        return audit, doc
+
+    def test_dcf_full_audit_reverse_and_visible_bridge(self):
+        audit, doc = self.dcf_example()
+        report = checks.render_report_block(audit, doc)
+        checks.validate_report(report, doc, expected_schema='stock-research-audit/v4')
+        self.assertIn('经营价值', report)
+        for problem, error in [('cash','equity_value'), ('reverse','parameter'), ('market','target price'), ('fx','same-currency')]:
+            changed = deepcopy(audit)
+            if problem == 'cash': changed['valuation']['scenarios']['base']['equity_adjustments'][0]['amount'] += 1
+            if problem == 'reverse': changed['valuation_review']['reverse_dcf']['cases'][0]['parameter'] += checks.Decimal('.01')
+            if problem == 'market': changed['valuation_review']['market_check']['price'] += 1
+            if problem == 'fx': changed['valuation']['currency'] = 'CNY'; changed['valuation']['fx_to_quote'] = 2
+            with self.subTest(problem=problem), self.assertRaisesRegex(ValueError, error):
+                checks.validate_audit(changed, doc)
+
+    def test_no_solution_is_recomputed_and_not_used_to_hide_invalid_model(self):
+        audit, doc = self.dcf_example()
+        case = audit['valuation_review']['reverse_dcf']['cases'][0]
+        for key in ('parameter','modeled_price','residual'): case.pop(key)
+        audit['valuation_review']['reverse_dcf']['status'] = 'no_solution'
+        with self.assertRaisesRegex(ValueError, 'has a solution'):
+            checks.validate_audit(audit, doc)
+        case['upper'] = .02
+        checks.validate_audit(audit, doc)
+        case['segment_id'] = 'nonexistent'
+        with self.assertRaisesRegex(ValueError, 'unknown segment'):
+            checks.validate_audit(audit, doc)
+
+    def test_dcf_render_survives_decimal_json_precision_roundtrip(self):
+        from decimal import localcontext
+        import json
+        from scripts.research_valuation import evaluate_dcf
+        audit, doc = self.dcf_example()
+        # Independent arithmetic at high precision as used by research notebooks.
+        with localcontext() as ctx:
+            ctx.prec = 50
+            for row in audit['valuation']['scenarios'].values():
+                row['segments'][0]['years'][0]['capex'] = 1
+                row['equity_value'] = checks.Decimal(str(row['equity_value'])) - checks.Decimal(1)/checks.Decimal('1.1')
+            values = evaluate_dcf(audit['valuation'])['values']
+            doc['price_map']['v50'] = {k:float(checks.quote_round(v,'CNY')) for k,v in values.items()}
+            doc['price_map']['p1']['base'] = float(checks.quote_round(values['base']/2,'CNY'))
+            audit['valuation_review']['reverse_dcf'] = dict(status='unavailable',reason='precision regression only',cases=[])
+            report = checks.render_report_block(audit, doc)
+        doc = json.loads(json.dumps(doc), parse_float=checks.Decimal)
+        checks.validate_report(report, doc)
+
 
 if __name__ == '__main__':
     unittest.main()
