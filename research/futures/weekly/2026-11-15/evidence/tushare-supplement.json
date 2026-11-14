@@ -1,0 +1,2303 @@
+{
+  "fetched_at": "2026-11-15T01:05:31.173371+08:00",
+  "responses": [
+    {
+      "endpoint": "trade_cal",
+      "parameters": {
+        "exchange": "DCE",
+        "start_date": "20261009",
+        "end_date": "20270131"
+      },
+      "source": "Tushare Pro API",
+      "status": "ok",
+      "api_count": 115,
+      "records": [
+        {
+          "exchange": "DCE",
+          "cal_date": "20270131",
+          "is_open": 0,
+          "pretrade_date": "20270129"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270130",
+          "is_open": 0,
+          "pretrade_date": "20270129"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270129",
+          "is_open": 1,
+          "pretrade_date": "20270128"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270128",
+          "is_open": 1,
+          "pretrade_date": "20270127"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270127",
+          "is_open": 1,
+          "pretrade_date": "20270126"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270126",
+          "is_open": 1,
+          "pretrade_date": "20270125"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270125",
+          "is_open": 1,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270124",
+          "is_open": 0,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270123",
+          "is_open": 0,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270122",
+          "is_open": 1,
+          "pretrade_date": "20270121"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270121",
+          "is_open": 1,
+          "pretrade_date": "20270120"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270120",
+          "is_open": 1,
+          "pretrade_date": "20270119"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270119",
+          "is_open": 1,
+          "pretrade_date": "20270118"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270118",
+          "is_open": 1,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270117",
+          "is_open": 0,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270116",
+          "is_open": 0,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270115",
+          "is_open": 1,
+          "pretrade_date": "20270114"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270114",
+          "is_open": 1,
+          "pretrade_date": "20270113"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270113",
+          "is_open": 1,
+          "pretrade_date": "20270112"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270112",
+          "is_open": 1,
+          "pretrade_date": "20270111"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270111",
+          "is_open": 1,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270110",
+          "is_open": 0,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270109",
+          "is_open": 0,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270108",
+          "is_open": 1,
+          "pretrade_date": "20270107"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270107",
+          "is_open": 1,
+          "pretrade_date": "20270106"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270106",
+          "is_open": 1,
+          "pretrade_date": "20270105"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270105",
+          "is_open": 1,
+          "pretrade_date": "20270104"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270104",
+          "is_open": 1,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270103",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270102",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20270101",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261231",
+          "is_open": 1,
+          "pretrade_date": "20261230"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261230",
+          "is_open": 1,
+          "pretrade_date": "20261229"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261229",
+          "is_open": 1,
+          "pretrade_date": "20261228"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261228",
+          "is_open": 1,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261227",
+          "is_open": 0,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261226",
+          "is_open": 0,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261225",
+          "is_open": 1,
+          "pretrade_date": "20261224"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261224",
+          "is_open": 1,
+          "pretrade_date": "20261223"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261223",
+          "is_open": 1,
+          "pretrade_date": "20261222"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261222",
+          "is_open": 1,
+          "pretrade_date": "20261221"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261221",
+          "is_open": 1,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261220",
+          "is_open": 0,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261219",
+          "is_open": 0,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261218",
+          "is_open": 1,
+          "pretrade_date": "20261217"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261217",
+          "is_open": 1,
+          "pretrade_date": "20261216"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261216",
+          "is_open": 1,
+          "pretrade_date": "20261215"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261215",
+          "is_open": 1,
+          "pretrade_date": "20261214"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261214",
+          "is_open": 1,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261213",
+          "is_open": 0,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261212",
+          "is_open": 0,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261211",
+          "is_open": 1,
+          "pretrade_date": "20261210"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261210",
+          "is_open": 1,
+          "pretrade_date": "20261209"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261209",
+          "is_open": 1,
+          "pretrade_date": "20261208"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261208",
+          "is_open": 1,
+          "pretrade_date": "20261207"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261207",
+          "is_open": 1,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261206",
+          "is_open": 0,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261205",
+          "is_open": 0,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261204",
+          "is_open": 1,
+          "pretrade_date": "20261203"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261203",
+          "is_open": 1,
+          "pretrade_date": "20261202"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261202",
+          "is_open": 1,
+          "pretrade_date": "20261201"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261201",
+          "is_open": 1,
+          "pretrade_date": "20261130"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261130",
+          "is_open": 1,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261129",
+          "is_open": 0,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261128",
+          "is_open": 0,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261127",
+          "is_open": 1,
+          "pretrade_date": "20261126"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261126",
+          "is_open": 1,
+          "pretrade_date": "20261125"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261125",
+          "is_open": 1,
+          "pretrade_date": "20261124"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261124",
+          "is_open": 1,
+          "pretrade_date": "20261123"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261123",
+          "is_open": 1,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261122",
+          "is_open": 0,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261121",
+          "is_open": 0,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261120",
+          "is_open": 1,
+          "pretrade_date": "20261119"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261119",
+          "is_open": 1,
+          "pretrade_date": "20261118"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261118",
+          "is_open": 1,
+          "pretrade_date": "20261117"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261117",
+          "is_open": 1,
+          "pretrade_date": "20261116"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261116",
+          "is_open": 1,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261115",
+          "is_open": 0,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261114",
+          "is_open": 0,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261113",
+          "is_open": 1,
+          "pretrade_date": "20261112"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261112",
+          "is_open": 1,
+          "pretrade_date": "20261111"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261111",
+          "is_open": 1,
+          "pretrade_date": "20261110"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261110",
+          "is_open": 1,
+          "pretrade_date": "20261109"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261109",
+          "is_open": 1,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261108",
+          "is_open": 0,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261107",
+          "is_open": 0,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261106",
+          "is_open": 1,
+          "pretrade_date": "20261105"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261105",
+          "is_open": 1,
+          "pretrade_date": "20261104"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261104",
+          "is_open": 1,
+          "pretrade_date": "20261103"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261103",
+          "is_open": 1,
+          "pretrade_date": "20261102"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261102",
+          "is_open": 1,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261101",
+          "is_open": 0,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261031",
+          "is_open": 0,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261030",
+          "is_open": 1,
+          "pretrade_date": "20261029"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261029",
+          "is_open": 1,
+          "pretrade_date": "20261028"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261028",
+          "is_open": 1,
+          "pretrade_date": "20261027"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261027",
+          "is_open": 1,
+          "pretrade_date": "20261026"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261026",
+          "is_open": 1,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261025",
+          "is_open": 0,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261024",
+          "is_open": 0,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261023",
+          "is_open": 1,
+          "pretrade_date": "20261022"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261022",
+          "is_open": 1,
+          "pretrade_date": "20261021"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261021",
+          "is_open": 1,
+          "pretrade_date": "20261020"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261020",
+          "is_open": 1,
+          "pretrade_date": "20261019"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261019",
+          "is_open": 1,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261018",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261017",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261016",
+          "is_open": 1,
+          "pretrade_date": "20261015"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261015",
+          "is_open": 1,
+          "pretrade_date": "20261014"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261014",
+          "is_open": 1,
+          "pretrade_date": "20261013"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261013",
+          "is_open": 1,
+          "pretrade_date": "20261012"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261012",
+          "is_open": 1,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261011",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261010",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "DCE",
+          "cal_date": "20261009",
+          "is_open": 1,
+          "pretrade_date": "20261008"
+        }
+      ]
+    },
+    {
+      "endpoint": "fut_basic",
+      "parameters": {
+        "exchange": "DCE",
+        "fut_type": "1",
+        "fields": "ts_code,symbol,exchange,per_unit,quote_unit,list_date,delist_date,d_month,last_ddate,trade_time_desc"
+      },
+      "source": "Tushare Pro API",
+      "status": "ok",
+      "api_count": 3304,
+      "records": [
+        {
+          "ts_code": "M2701.DCE",
+          "symbol": "M2701",
+          "exchange": "DCE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260119",
+          "delist_date": "20270115",
+          "d_month": "202701",
+          "last_ddate": "20270120",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        }
+      ]
+    },
+    {
+      "endpoint": "trade_cal",
+      "parameters": {
+        "exchange": "SHFE",
+        "start_date": "20261009",
+        "end_date": "20270131"
+      },
+      "source": "Tushare Pro API",
+      "status": "ok",
+      "api_count": 115,
+      "records": [
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270131",
+          "is_open": 0,
+          "pretrade_date": "20270129"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270130",
+          "is_open": 0,
+          "pretrade_date": "20270129"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270129",
+          "is_open": 1,
+          "pretrade_date": "20270128"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270128",
+          "is_open": 1,
+          "pretrade_date": "20270127"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270127",
+          "is_open": 1,
+          "pretrade_date": "20270126"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270126",
+          "is_open": 1,
+          "pretrade_date": "20270125"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270125",
+          "is_open": 1,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270124",
+          "is_open": 0,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270123",
+          "is_open": 0,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270122",
+          "is_open": 1,
+          "pretrade_date": "20270121"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270121",
+          "is_open": 1,
+          "pretrade_date": "20270120"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270120",
+          "is_open": 1,
+          "pretrade_date": "20270119"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270119",
+          "is_open": 1,
+          "pretrade_date": "20270118"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270118",
+          "is_open": 1,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270117",
+          "is_open": 0,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270116",
+          "is_open": 0,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270115",
+          "is_open": 1,
+          "pretrade_date": "20270114"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270114",
+          "is_open": 1,
+          "pretrade_date": "20270113"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270113",
+          "is_open": 1,
+          "pretrade_date": "20270112"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270112",
+          "is_open": 1,
+          "pretrade_date": "20270111"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270111",
+          "is_open": 1,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270110",
+          "is_open": 0,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270109",
+          "is_open": 0,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270108",
+          "is_open": 1,
+          "pretrade_date": "20270107"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270107",
+          "is_open": 1,
+          "pretrade_date": "20270106"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270106",
+          "is_open": 1,
+          "pretrade_date": "20270105"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270105",
+          "is_open": 1,
+          "pretrade_date": "20270104"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270104",
+          "is_open": 1,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270103",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270102",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20270101",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261231",
+          "is_open": 1,
+          "pretrade_date": "20261230"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261230",
+          "is_open": 1,
+          "pretrade_date": "20261229"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261229",
+          "is_open": 1,
+          "pretrade_date": "20261228"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261228",
+          "is_open": 1,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261227",
+          "is_open": 0,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261226",
+          "is_open": 0,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261225",
+          "is_open": 1,
+          "pretrade_date": "20261224"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261224",
+          "is_open": 1,
+          "pretrade_date": "20261223"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261223",
+          "is_open": 1,
+          "pretrade_date": "20261222"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261222",
+          "is_open": 1,
+          "pretrade_date": "20261221"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261221",
+          "is_open": 1,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261220",
+          "is_open": 0,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261219",
+          "is_open": 0,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261218",
+          "is_open": 1,
+          "pretrade_date": "20261217"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261217",
+          "is_open": 1,
+          "pretrade_date": "20261216"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261216",
+          "is_open": 1,
+          "pretrade_date": "20261215"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261215",
+          "is_open": 1,
+          "pretrade_date": "20261214"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261214",
+          "is_open": 1,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261213",
+          "is_open": 0,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261212",
+          "is_open": 0,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261211",
+          "is_open": 1,
+          "pretrade_date": "20261210"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261210",
+          "is_open": 1,
+          "pretrade_date": "20261209"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261209",
+          "is_open": 1,
+          "pretrade_date": "20261208"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261208",
+          "is_open": 1,
+          "pretrade_date": "20261207"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261207",
+          "is_open": 1,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261206",
+          "is_open": 0,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261205",
+          "is_open": 0,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261204",
+          "is_open": 1,
+          "pretrade_date": "20261203"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261203",
+          "is_open": 1,
+          "pretrade_date": "20261202"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261202",
+          "is_open": 1,
+          "pretrade_date": "20261201"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261201",
+          "is_open": 1,
+          "pretrade_date": "20261130"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261130",
+          "is_open": 1,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261129",
+          "is_open": 0,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261128",
+          "is_open": 0,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261127",
+          "is_open": 1,
+          "pretrade_date": "20261126"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261126",
+          "is_open": 1,
+          "pretrade_date": "20261125"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261125",
+          "is_open": 1,
+          "pretrade_date": "20261124"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261124",
+          "is_open": 1,
+          "pretrade_date": "20261123"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261123",
+          "is_open": 1,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261122",
+          "is_open": 0,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261121",
+          "is_open": 0,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261120",
+          "is_open": 1,
+          "pretrade_date": "20261119"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261119",
+          "is_open": 1,
+          "pretrade_date": "20261118"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261118",
+          "is_open": 1,
+          "pretrade_date": "20261117"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261117",
+          "is_open": 1,
+          "pretrade_date": "20261116"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261116",
+          "is_open": 1,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261115",
+          "is_open": 0,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261114",
+          "is_open": 0,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261113",
+          "is_open": 1,
+          "pretrade_date": "20261112"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261112",
+          "is_open": 1,
+          "pretrade_date": "20261111"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261111",
+          "is_open": 1,
+          "pretrade_date": "20261110"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261110",
+          "is_open": 1,
+          "pretrade_date": "20261109"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261109",
+          "is_open": 1,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261108",
+          "is_open": 0,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261107",
+          "is_open": 0,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261106",
+          "is_open": 1,
+          "pretrade_date": "20261105"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261105",
+          "is_open": 1,
+          "pretrade_date": "20261104"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261104",
+          "is_open": 1,
+          "pretrade_date": "20261103"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261103",
+          "is_open": 1,
+          "pretrade_date": "20261102"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261102",
+          "is_open": 1,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261101",
+          "is_open": 0,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261031",
+          "is_open": 0,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261030",
+          "is_open": 1,
+          "pretrade_date": "20261029"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261029",
+          "is_open": 1,
+          "pretrade_date": "20261028"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261028",
+          "is_open": 1,
+          "pretrade_date": "20261027"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261027",
+          "is_open": 1,
+          "pretrade_date": "20261026"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261026",
+          "is_open": 1,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261025",
+          "is_open": 0,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261024",
+          "is_open": 0,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261023",
+          "is_open": 1,
+          "pretrade_date": "20261022"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261022",
+          "is_open": 1,
+          "pretrade_date": "20261021"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261021",
+          "is_open": 1,
+          "pretrade_date": "20261020"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261020",
+          "is_open": 1,
+          "pretrade_date": "20261019"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261019",
+          "is_open": 1,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261018",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261017",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261016",
+          "is_open": 1,
+          "pretrade_date": "20261015"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261015",
+          "is_open": 1,
+          "pretrade_date": "20261014"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261014",
+          "is_open": 1,
+          "pretrade_date": "20261013"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261013",
+          "is_open": 1,
+          "pretrade_date": "20261012"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261012",
+          "is_open": 1,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261011",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261010",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "SHFE",
+          "cal_date": "20261009",
+          "is_open": 1,
+          "pretrade_date": "20261008"
+        }
+      ]
+    },
+    {
+      "endpoint": "fut_basic",
+      "parameters": {
+        "exchange": "SHFE",
+        "fut_type": "1",
+        "fields": "ts_code,symbol,exchange,per_unit,quote_unit,list_date,delist_date,d_month,last_ddate,trade_time_desc"
+      },
+      "source": "Tushare Pro API",
+      "status": "ok",
+      "api_count": 3613,
+      "records": [
+        {
+          "ts_code": "RB2701.SHF",
+          "symbol": "RB2701",
+          "exchange": "SHFE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260116",
+          "delist_date": "20270115",
+          "d_month": "202701",
+          "last_ddate": "20270119",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        },
+        {
+          "ts_code": "RB2703.SHF",
+          "symbol": "RB2703",
+          "exchange": "SHFE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260317",
+          "delist_date": "20270315",
+          "d_month": "202703",
+          "last_ddate": "20270317",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        },
+        {
+          "ts_code": "RB2705.SHF",
+          "symbol": "RB2705",
+          "exchange": "SHFE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260518",
+          "delist_date": "20270517",
+          "d_month": "202705",
+          "last_ddate": "20270519",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        }
+      ]
+    },
+    {
+      "endpoint": "trade_cal",
+      "parameters": {
+        "exchange": "CZCE",
+        "start_date": "20261009",
+        "end_date": "20270131"
+      },
+      "source": "Tushare Pro API",
+      "status": "ok",
+      "api_count": 115,
+      "records": [
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270131",
+          "is_open": 0,
+          "pretrade_date": "20270129"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270130",
+          "is_open": 0,
+          "pretrade_date": "20270129"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270129",
+          "is_open": 1,
+          "pretrade_date": "20270128"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270128",
+          "is_open": 1,
+          "pretrade_date": "20270127"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270127",
+          "is_open": 1,
+          "pretrade_date": "20270126"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270126",
+          "is_open": 1,
+          "pretrade_date": "20270125"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270125",
+          "is_open": 1,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270124",
+          "is_open": 0,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270123",
+          "is_open": 0,
+          "pretrade_date": "20270122"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270122",
+          "is_open": 1,
+          "pretrade_date": "20270121"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270121",
+          "is_open": 1,
+          "pretrade_date": "20270120"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270120",
+          "is_open": 1,
+          "pretrade_date": "20270119"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270119",
+          "is_open": 1,
+          "pretrade_date": "20270118"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270118",
+          "is_open": 1,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270117",
+          "is_open": 0,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270116",
+          "is_open": 0,
+          "pretrade_date": "20270115"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270115",
+          "is_open": 1,
+          "pretrade_date": "20270114"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270114",
+          "is_open": 1,
+          "pretrade_date": "20270113"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270113",
+          "is_open": 1,
+          "pretrade_date": "20270112"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270112",
+          "is_open": 1,
+          "pretrade_date": "20270111"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270111",
+          "is_open": 1,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270110",
+          "is_open": 0,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270109",
+          "is_open": 0,
+          "pretrade_date": "20270108"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270108",
+          "is_open": 1,
+          "pretrade_date": "20270107"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270107",
+          "is_open": 1,
+          "pretrade_date": "20270106"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270106",
+          "is_open": 1,
+          "pretrade_date": "20270105"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270105",
+          "is_open": 1,
+          "pretrade_date": "20270104"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270104",
+          "is_open": 1,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270103",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270102",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20270101",
+          "is_open": 0,
+          "pretrade_date": "20261231"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261231",
+          "is_open": 1,
+          "pretrade_date": "20261230"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261230",
+          "is_open": 1,
+          "pretrade_date": "20261229"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261229",
+          "is_open": 1,
+          "pretrade_date": "20261228"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261228",
+          "is_open": 1,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261227",
+          "is_open": 0,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261226",
+          "is_open": 0,
+          "pretrade_date": "20261225"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261225",
+          "is_open": 1,
+          "pretrade_date": "20261224"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261224",
+          "is_open": 1,
+          "pretrade_date": "20261223"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261223",
+          "is_open": 1,
+          "pretrade_date": "20261222"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261222",
+          "is_open": 1,
+          "pretrade_date": "20261221"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261221",
+          "is_open": 1,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261220",
+          "is_open": 0,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261219",
+          "is_open": 0,
+          "pretrade_date": "20261218"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261218",
+          "is_open": 1,
+          "pretrade_date": "20261217"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261217",
+          "is_open": 1,
+          "pretrade_date": "20261216"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261216",
+          "is_open": 1,
+          "pretrade_date": "20261215"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261215",
+          "is_open": 1,
+          "pretrade_date": "20261214"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261214",
+          "is_open": 1,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261213",
+          "is_open": 0,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261212",
+          "is_open": 0,
+          "pretrade_date": "20261211"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261211",
+          "is_open": 1,
+          "pretrade_date": "20261210"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261210",
+          "is_open": 1,
+          "pretrade_date": "20261209"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261209",
+          "is_open": 1,
+          "pretrade_date": "20261208"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261208",
+          "is_open": 1,
+          "pretrade_date": "20261207"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261207",
+          "is_open": 1,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261206",
+          "is_open": 0,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261205",
+          "is_open": 0,
+          "pretrade_date": "20261204"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261204",
+          "is_open": 1,
+          "pretrade_date": "20261203"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261203",
+          "is_open": 1,
+          "pretrade_date": "20261202"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261202",
+          "is_open": 1,
+          "pretrade_date": "20261201"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261201",
+          "is_open": 1,
+          "pretrade_date": "20261130"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261130",
+          "is_open": 1,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261129",
+          "is_open": 0,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261128",
+          "is_open": 0,
+          "pretrade_date": "20261127"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261127",
+          "is_open": 1,
+          "pretrade_date": "20261126"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261126",
+          "is_open": 1,
+          "pretrade_date": "20261125"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261125",
+          "is_open": 1,
+          "pretrade_date": "20261124"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261124",
+          "is_open": 1,
+          "pretrade_date": "20261123"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261123",
+          "is_open": 1,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261122",
+          "is_open": 0,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261121",
+          "is_open": 0,
+          "pretrade_date": "20261120"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261120",
+          "is_open": 1,
+          "pretrade_date": "20261119"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261119",
+          "is_open": 1,
+          "pretrade_date": "20261118"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261118",
+          "is_open": 1,
+          "pretrade_date": "20261117"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261117",
+          "is_open": 1,
+          "pretrade_date": "20261116"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261116",
+          "is_open": 1,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261115",
+          "is_open": 0,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261114",
+          "is_open": 0,
+          "pretrade_date": "20261113"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261113",
+          "is_open": 1,
+          "pretrade_date": "20261112"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261112",
+          "is_open": 1,
+          "pretrade_date": "20261111"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261111",
+          "is_open": 1,
+          "pretrade_date": "20261110"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261110",
+          "is_open": 1,
+          "pretrade_date": "20261109"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261109",
+          "is_open": 1,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261108",
+          "is_open": 0,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261107",
+          "is_open": 0,
+          "pretrade_date": "20261106"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261106",
+          "is_open": 1,
+          "pretrade_date": "20261105"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261105",
+          "is_open": 1,
+          "pretrade_date": "20261104"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261104",
+          "is_open": 1,
+          "pretrade_date": "20261103"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261103",
+          "is_open": 1,
+          "pretrade_date": "20261102"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261102",
+          "is_open": 1,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261101",
+          "is_open": 0,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261031",
+          "is_open": 0,
+          "pretrade_date": "20261030"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261030",
+          "is_open": 1,
+          "pretrade_date": "20261029"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261029",
+          "is_open": 1,
+          "pretrade_date": "20261028"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261028",
+          "is_open": 1,
+          "pretrade_date": "20261027"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261027",
+          "is_open": 1,
+          "pretrade_date": "20261026"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261026",
+          "is_open": 1,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261025",
+          "is_open": 0,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261024",
+          "is_open": 0,
+          "pretrade_date": "20261023"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261023",
+          "is_open": 1,
+          "pretrade_date": "20261022"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261022",
+          "is_open": 1,
+          "pretrade_date": "20261021"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261021",
+          "is_open": 1,
+          "pretrade_date": "20261020"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261020",
+          "is_open": 1,
+          "pretrade_date": "20261019"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261019",
+          "is_open": 1,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261018",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261017",
+          "is_open": 0,
+          "pretrade_date": "20261016"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261016",
+          "is_open": 1,
+          "pretrade_date": "20261015"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261015",
+          "is_open": 1,
+          "pretrade_date": "20261014"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261014",
+          "is_open": 1,
+          "pretrade_date": "20261013"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261013",
+          "is_open": 1,
+          "pretrade_date": "20261012"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261012",
+          "is_open": 1,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261011",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261010",
+          "is_open": 0,
+          "pretrade_date": "20261009"
+        },
+        {
+          "exchange": "CZCE",
+          "cal_date": "20261009",
+          "is_open": 1,
+          "pretrade_date": "20261008"
+        }
+      ]
+    },
+    {
+      "endpoint": "fut_basic",
+      "parameters": {
+        "exchange": "CZCE",
+        "fut_type": "1",
+        "fields": "ts_code,symbol,exchange,per_unit,quote_unit,list_date,delist_date,d_month,last_ddate,trade_time_desc"
+      },
+      "source": "Tushare Pro API",
+      "status": "ok",
+      "api_count": 2910,
+      "records": [
+        {
+          "ts_code": "SR2705.ZCE",
+          "symbol": "SR705",
+          "exchange": "CZCE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260520",
+          "delist_date": "20270514",
+          "d_month": "202705",
+          "last_ddate": "20270519",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        },
+        {
+          "ts_code": "SR2701.ZCE",
+          "symbol": "SR701",
+          "exchange": "CZCE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260119",
+          "delist_date": "20270114",
+          "d_month": "202701",
+          "last_ddate": "20270119",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        },
+        {
+          "ts_code": "MA2701.ZCE",
+          "symbol": "MA701",
+          "exchange": "CZCE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260119",
+          "delist_date": "20270114",
+          "d_month": "202701",
+          "last_ddate": "20270119",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        },
+        {
+          "ts_code": "MA2705.ZCE",
+          "symbol": "MA705",
+          "exchange": "CZCE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260520",
+          "delist_date": "20270514",
+          "d_month": "202705",
+          "last_ddate": "20270519",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        },
+        {
+          "ts_code": "CF2701.ZCE",
+          "symbol": "CF701",
+          "exchange": "CZCE",
+          "per_unit": 5.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260119",
+          "delist_date": "20270114",
+          "d_month": "202701",
+          "last_ddate": "20270119",
+          "trade_time_desc": "上午9:00-11:30,下午13:30-15:00,下午21:00-23:00(夜盘)"
+        },
+        {
+          "ts_code": "MA2709.ZCE",
+          "symbol": "MA709",
+          "exchange": "CZCE",
+          "per_unit": 10.0,
+          "quote_unit": "人民币元/吨",
+          "list_date": "20260915",
+          "delist_date": "20270914",
+          "d_month": "202709",
+          "last_ddate": "20270922",
+          "trade_time_desc": "日盘交易：每周一至周五,9：00—11：30(法定节假日除外),1：30—3：00；夜盘交易：21:00-23:00"
+        }
+      ]
+    },
+    {
+      "endpoint": "fut_daily",
+      "parameters": {
+        "ts_code": "SR2701.ZCE",
+        "start_date": "20261113",
+        "end_date": "20261113"
+      },
+      "source": "Tushare Pro API",
+      "status": "ok",
+      "api_count": 1,
+      "records": [
+        {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261113",
+          "pre_close": 5187.0,
+          "pre_settle": 5194.0,
+          "open": 5174.0,
+          "high": 5174.0,
+          "low": 5134.0,
+          "close": 5146.0,
+          "settle": 5155.0,
+          "change1": -48.0,
+          "change2": -39.0,
+          "vol": 530987.0,
+          "amount": 2737164.77,
+          "oi": 718966.0,
+          "oi_chg": 32929.0
+        }
+      ]
+    }
+  ]
+}

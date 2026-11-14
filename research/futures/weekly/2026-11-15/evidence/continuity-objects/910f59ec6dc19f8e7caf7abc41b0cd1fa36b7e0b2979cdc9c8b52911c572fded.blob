@@ -1,0 +1,124 @@
+{
+  "schema": "futures-economic-anchors/v1",
+  "as_of_date": "2026-11-08",
+  "generator": "codex",
+  "frozen_at": "2026-11-08T01:11:21.650453+08:00",
+  "anchors": [],
+  "withdrawals": [],
+  "signal_observations": [],
+  "existing_active_anchor_count": 0,
+  "research_records": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "status": "research_only",
+      "economic_evidence": "11/04隆众原站公开正文港库41.27万吨、周+5.89，江苏提货一般；生产企业样本去库为反证。历史官方仓储2元/吨天，非通用仓单及5/11月注销规则本期重核。",
+      "calculation": "假设120自然日仅仓储2*120=240元/吨，不是准确交割持有期或合理双侧S区间。",
+      "missing": [
+        "2027目标库点当期费用/融资税费及可实现持货资质/容量",
+        "近远月供需到价格的独立数值转换",
+        "未来5–20交易日可核收敛机制及反证强度"
+      ],
+      "applicable_months": [
+        "2027-01",
+        "2027-05"
+      ],
+      "source_refs": [
+        "research/futures/weekly/2026-11-08/evidence/other-products/research-note.md",
+        "research/futures/weekly/2026-11-08/evidence/other-products/ma-port.html",
+        "research/futures/weekly/2026-11-08/evidence/other-products/ma-nz.html",
+        "research/futures/weekly/2026-11-08/evidence/other-products/ma-storage.pdf",
+        "research/futures/weekly/2026-11-08/evidence/other-products/ma-rules.pdf"
+      ],
+      "invalidation_conditions": [
+        "港库/到港/需求实据推翻原解释",
+        "费用或仓单适用性不覆盖目标月份"
+      ],
+      "numeric_anchor_frozen": false,
+      "review_due": "2026-11-13",
+      "raw_price_status": "not_refreshed_this_period",
+      "price_confirmation_status": "not_evaluated",
+      "raw_gap": "本轮行情认证前失败，无本期同对两腿完整原料；历史完整性不等于当前完整性"
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "status": "research_only",
+      "economic_evidence": "官方当前展示仓储0.15元/吨天、仓库进出库15或18，仓库生产日起90日且45日内入库、厂库仓单生成后180日；厂库出库商品生产日另受90日约束。",
+      "calculation": "假设60自然日仅仓储0.15*60=9元/吨；不含融资、物流、品级、区域或仓单路线，不证明可持货跨两次交割。",
+      "missing": [
+        "真实可交割批次生产日期及仓库/厂单路线",
+        "货值融资及地区品级税费转换",
+        "独立月间数值带及5–20交易日修复触发"
+      ],
+      "applicable_months": [
+        "2027-01",
+        "2027-03"
+      ],
+      "source_refs": [
+        "research/futures/weekly/2026-11-08/evidence/other-products/research-note.md",
+        "research/futures/weekly/2026-11-08/evidence/other-products/rb-storage.html",
+        "research/futures/weekly/2026-11-08/evidence/other-products/rb-rules.html"
+      ],
+      "invalidation_conditions": [
+        "仓单不能覆盖目标交割",
+        "供需修复或成本机制不成立"
+      ],
+      "numeric_anchor_frozen": false,
+      "review_due": "2026-11-13",
+      "raw_price_status": "not_refreshed_this_period",
+      "price_confirmation_status": "not_evaluated",
+      "raw_gap": "本轮行情认证前失败，无本期同对两腿完整原料；历史完整性不等于当前完整性"
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "status": "research_only",
+      "economic_evidence": "云南已2厂实际开榨但设计产能非实际产量，陈糖集团清库为供压反证；沐甜广西780–810万吨为预测。经纪商白糖仓储0.5元/吨天与年度仓单期限本期重核。",
+      "calculation": "假设120自然日仅仓储0.5*120=60元/吨，不构成[-60,+60]双侧锚。",
+      "missing": [
+        "新季实际产量/交付和近远供应差",
+        "官方2027逐库费用、融资和真实持有期",
+        "可辩护价格转换区间及5–20交易日机制"
+      ],
+      "applicable_months": [
+        "2027-01",
+        "2027-05"
+      ],
+      "source_refs": [
+        "research/futures/weekly/2026-11-08/evidence/other-products/research-note.md",
+        "research/futures/weekly/2026-11-08/evidence/other-products/sr-start.html",
+        "research/futures/weekly/2026-11-08/evidence/other-products/sr-clear.html",
+        "research/futures/weekly/2026-11-08/evidence/other-products/sr-spot.html",
+        "research/futures/weekly/2026-11-08/evidence/other-products/sr-estimate.html",
+        "research/futures/weekly/2026-11-08/evidence/other-products/sr-storage.html"
+      ],
+      "invalidation_conditions": [
+        "开榨/产量或年度仓单适用性改变",
+        "数值成本或供需机制不成立"
+      ],
+      "numeric_anchor_frozen": false,
+      "review_due": "2026-11-13",
+      "raw_price_status": "not_refreshed_this_period",
+      "price_confirmation_status": "not_evaluated",
+      "raw_gap": "本轮行情认证前失败，无本期同对两腿完整原料；历史完整性不等于当前完整性"
+    }
+  ],
+  "preparation_pairs": [
+    {
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "raw_gap": "本期未刷新；不将11/01缺33日远腿的历史状态写成当前缺口计数",
+      "economic_gap": "跨5月仓单注销、融资/重新注册路线及未来供需未量化"
+    },
+    {
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "raw_gap": "本期未刷新，历史完整不证明当前完整",
+      "economic_gap": "无独立数值带和未来5–20日机制"
+    }
+  ],
+  "lifecycle_note": "collect确认无继承有效锚，故无锚待withdraw；空列表不隐式撤销历史。新证据仅未来适用不可变修订，不回填锚、信号或重启旧计划时钟。",
+  "source_manifest": "research/futures/weekly/2026-11-08/evidence/other-products/source-manifest-r2.json",
+  "revision_note": "Provenance-only revision: capture receipts referenced by unchanged-hash opaque objects; economic facts/frozen_at/empty active-anchor set unchanged."
+}

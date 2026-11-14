@@ -1,0 +1,234 @@
+{
+  "schema": "futures-continuity-reconciliation/v1",
+  "as_of_date": "2026-11-15",
+  "consumed": [
+    "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+    "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+    "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+    "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+    "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+    "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+    "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+    "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+    "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+    "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018",
+    "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+    "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+    "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+  ],
+  "review_scope": [
+    {
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "historical_candidate_count": 8,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "historical_candidate_count": 8,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "historical_candidate_count": 8,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+      "historical_candidate_count": 1,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+      "historical_candidate_count": 1,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+      "historical_candidate_count": 2,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+      "historical_candidate_count": 2,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+      "historical_candidate_count": 9,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "historical_candidate_count": 9,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "historical_candidate_count": 10,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "historical_candidate_count": 10,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018",
+      "historical_candidate_count": 11,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "historical_candidate_count": 11,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+      "historical_candidate_count": 11,
+      "current_account_verified": false
+    },
+    {
+      "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "historical_candidate_count": 11,
+      "current_account_verified": false
+    }
+  ],
+  "requires_plan_reassessment": [],
+  "requires_method_reassessment": [],
+  "correction_decisions": [
+    {
+      "group": 0,
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "received_record_sha256": "7797f451b2a3eb01ea8b72a201f368df2bf6742fdb6bdd54d2996b56e6a1794d",
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。"
+    },
+    {
+      "group": 1,
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "received_record_sha256": "5b0f552a8e7c6c5fedb87cdf511aeab37d6419c4d9bc157d33cb9c0df1867716",
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。"
+    },
+    {
+      "group": 2,
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "received_record_sha256": "7797f451b2a3eb01ea8b72a201f368df2bf6742fdb6bdd54d2996b56e6a1794d",
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。"
+    },
+    {
+      "group": 3,
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "received_record_sha256": "5b0f552a8e7c6c5fedb87cdf511aeab37d6419c4d9bc157d33cb9c0df1867716",
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。"
+    },
+    {
+      "group": 4,
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "received_record_sha256": "7797f451b2a3eb01ea8b72a201f368df2bf6742fdb6bdd54d2996b56e6a1794d",
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。"
+    },
+    {
+      "group": 5,
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "received_record_sha256": "5b0f552a8e7c6c5fedb87cdf511aeab37d6419c4d9bc157d33cb9c0df1867716",
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅纠正版本时间障碍，不追认成交或延长原窗口。后续MA当前产业pass撤回继续优先。"
+    },
+    {
+      "group": 6,
+      "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+      "received_record_sha256": "7d04fa40d57c45b63d752e4ea7a5651cc070f44ab2563b4aee93fdce8e9fcd34",
+      "disposition": "继续撤回MA2701旧当前G2产业pass；不能把未被重核的旧pass复活。"
+    },
+    {
+      "group": 7,
+      "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+      "received_record_sha256": "2dbd405e1de7d86ee513bfb501f187811f1282dae7e77830a83afe0767c028e7",
+      "disposition": "仅接续MA10/13行情、产业反证和原截止；入场到期不证明持仓退出。"
+    },
+    {
+      "group": 8,
+      "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+      "received_record_sha256": "31dbc91e2805e05b0dd54a3b21a26117806f01963951c1856c94ece546b65d54",
+      "disposition": "接续MA原风险及M10/15研究信号；M首稿登记null仅保留为历史原件，不当作新时钟。"
+    },
+    {
+      "group": 9,
+      "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+      "received_record_sha256": "0a8d0ba064f3892ff76aa936a2a0c8df31f7f85c121b2e058d210b46e5600919",
+      "disposition": "采纳显式r2对M真实登记时间19:30:56的限定纠正；无数值可执行计划、不扩大其余采纳范围。"
+    },
+    {
+      "group": 10,
+      "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+      "received_record_sha256": "bace8bbc031e160554aa1644c681e68cc94d09ac72021a20e17eb78d404dc923",
+      "disposition": "接续10/18取消M原入场用途及MA原时钟和条件管理；原ID/登记/截止不变，重复捕获不算独立证据。"
+    },
+    {
+      "group": 11,
+      "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "received_record_sha256": "bace8bbc031e160554aa1644c681e68cc94d09ac72021a20e17eb78d404dc923",
+      "disposition": "接续10/18取消M原入场用途及MA原时钟和条件管理；原ID/登记/截止不变，重复捕获不算独立证据。"
+    },
+    {
+      "group": 12,
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "received_record_sha256": "9ab4ccc326df6bb7f44591c3da8776e3ff83387eb7a12928387336642e25fd6b",
+      "disposition": "保留继承的MA当前产业pass撤回；当前G2须重新核验，不因新周期恢复旧pass。"
+    },
+    {
+      "group": 13,
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "received_record_sha256": "1c218f26283a8d83c9c2b9f42d171fe1710f6c598c58a0f442a23204a369ae90",
+      "disposition": "保留继承的MA当前产业pass撤回；当前G2须重新核验，不因新周期恢复旧pass。"
+    },
+    {
+      "group": 14,
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "received_record_sha256": "9ab4ccc326df6bb7f44591c3da8776e3ff83387eb7a12928387336642e25fd6b",
+      "disposition": "保留继承的MA当前产业pass撤回；当前G2须重新核验，不因新周期恢复旧pass。"
+    },
+    {
+      "group": 15,
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "received_record_sha256": "1c218f26283a8d83c9c2b9f42d171fe1710f6c598c58a0f442a23204a369ae90",
+      "disposition": "保留继承的MA当前产业pass撤回；当前G2须重新核验，不因新周期恢复旧pass。"
+    },
+    {
+      "group": 16,
+      "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+      "received_record_sha256": "6e06be9e47e91eac27baaac58aeb68075a0c635680ca32630006da028a1dee00",
+      "disposition": "接11/08市场基线与RB期限元数据纠正；10/30行情只作历史。重复捕获仅一份报告，不构成独立证据"
+    },
+    {
+      "group": 17,
+      "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+      "received_record_sha256": "4a315a85cacb617f22208b60d808817e9a5ada60a7b9a0b431abd6e40e1c365a",
+      "disposition": "接11/08市场基线与RB期限元数据纠正；10/30行情只作历史。重复捕获仅一份报告，不构成独立证据"
+    },
+    {
+      "group": 18,
+      "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "received_record_sha256": "6e06be9e47e91eac27baaac58aeb68075a0c635680ca32630006da028a1dee00",
+      "disposition": "接11/08市场基线与RB期限元数据纠正；10/30行情只作历史。重复捕获仅一份报告，不构成独立证据"
+    },
+    {
+      "group": 19,
+      "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "received_record_sha256": "4a315a85cacb617f22208b60d808817e9a5ada60a7b9a0b431abd6e40e1c365a",
+      "disposition": "接11/08市场基线与RB期限元数据纠正；10/30行情只作历史。重复捕获仅一份报告，不构成独立证据"
+    }
+  ],
+  "conflicts": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "reason": "original_clock_or_identity_changed",
+      "entry_ids": [
+        "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+        "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c"
+      ],
+      "resolution": "保留首稿null；采用同日r2已核的真实19:30:56登记和原10/19截止，10/16越带取消，排序/持仓仍由证据单独核。"
+    }
+  ],
+  "source_index": "research/futures/weekly/2026-11-15/evidence/continuity-source-index.json"
+}
