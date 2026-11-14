@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "code": "600988.SH",
+    "valuation_date": "2026-11-12",
+    "currency": "CNY",
+    "report_path": "research/investment/studies/risk-capital-audit/2026-11-14/chifeng-dsh-audit-v3-replay.md",
+    "generator": "dsh",
+    "name": "赤峰黄金",
+    "schema_version": "stock-research/v4"
+  },
+  "price_map": {
+    "mode": "frozen",
+    "reason": "价值可估但买入资格不成立：2026Q3单季归母-41.84%、AISC 494.31元/克(+38.71%)、全年目标下调至12.5-13吨，entry与add均被持续约束阻断；11/11收盘39.30元高于V50上沿29.05元35.3%，T1处于减仓评估区间，持仓review_required。跟踪价不赋予新增资格。；方法接续待复核 needs_review，仅供按冻结框架复核，不代表当前买入资格。",
+    "v50": {
+      "low": 9.94,
+      "base": 17.41,
+      "high": 29.05
+    },
+    "p1": {
+      "base": 11.46
+    },
+    "t1": {
+      "price_condition": "股价≥29.05元/股"
+    }
+  },
+  "research_controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "MARGIN_COST_QUALITY",
+        "R4-EARNINGS-600988",
+        "TEMP-600988",
+        "METHOD_COMPATIBILITY"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "MARGIN_COST_QUALITY",
+        "R4-EARNINGS-600988",
+        "TEMP-600988",
+        "ADD-PLAN-20261007",
+        "R17_PRECIOUS_METAL",
+        "R17-GOLD-600988",
+        "R14_OIL_COST_UNKNOWN",
+        "R14-ENERGY-600988",
+        "METHOD_COMPATIBILITY"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD-Q3-20261024",
+        "HOLDING_MARGIN_REVIEW"
+      ]
+    }
+  },
+  "monitoring": [
+    {
+      "id": "R17_PRECIOUS_METAL",
+      "kind": "add_constraint",
+      "state": "triggered",
+      "variable": "上海金Au99.99收盘价（元/克）",
+      "current": "851.33",
+      "as_of": "2026-11-12",
+      "trigger": "连续20个交易日均价<800元/克；或现货收盘≥4,500美元/盎司（撤销上调）；或连续两周收于4,300美元/盎司上方且美元指数>100（降级）",
+      "action": "触发任一条件则重算V50/P1并复核R17；未解除前add维持阻断，不凭单日反弹恢复",
+      "source": "上海黄金交易所每日行情（2026-11-12 Au99.99开869.00、高871.40、低850.02、收851.33、-2.48%；11-11收872.98）；WGC Weekly Markets Monitor 2026-11-09（LBMA PM 4,050美元/盎司，11-06）",
+      "next_check": "2026-11-19（下一周WGC周报与上金所日行情）",
+      "public_search": "上海黄金交易所 Au99.99 2026年11月12日 收盘价 851.33"
+    },
+    {
+      "id": "MARGIN_COST_QUALITY",
+      "kind": "entry_constraint",
+      "state": "triggered",
+      "variable": "单季归母净利率与自产金全维持成本（元/克）",
+      "current": "Q3单季归母净利率18.0%；9M AISC 494.31",
+      "as_of": "2026-09-30",
+      "trigger": "下一正式报告期单季归母净利率<20%或AISC同比再升→维持entry/add不具资格；连续两个报告期净利率≥20%且AISC同比转降→重评",
+      "action": "维持entry/add阻断，不新增、不追加；不以金价反弹替代利润率与成本证据",
+      "source": "赤峰黄金2026年第三季度报告（2026-10-23）PDF2-3主要财务数据、PDF7-8产销量与单位成本",
+      "next_check": "2026年年度报告（预约披露日未取得）",
+      "public_search": "赤峰黄金 2026年第三季度报告 全维持成本 494.31 元/克 单季净利率"
+    },
+    {
+      "id": "SELF_MINE_OUTPUT",
+      "kind": "general",
+      "state": "watching",
+      "variable": "自产金季度产量与2027年产量指引（吨）",
+      "current": "9M 8.90881；Q3单季约2.76；2026目标12.5-13、Q4 3.5-4",
+      "as_of": "2026-09-30",
+      "trigger": "Q4<3.5吨或2027年指引<13吨→下调销量并重算V50/P1；2027年指引≥15吨且有可研支撑→上调销量与终局份额",
+      "action": "重算销量、V50/P1与Terminal可达性；不单独解除资格约束",
+      "source": "赤峰黄金2026年第三季度报告（2026-10-23）PDF7-8产销量与目标更新",
+      "next_check": "2026年年度报告及2027年产量指引",
+      "public_search": "赤峰黄金 2026年 黄金产量目标 12.5-13吨 第四季度 3.5-4吨"
+    },
+    {
+      "id": "HOLDING_MARGIN_REVIEW",
+      "kind": "general",
+      "state": "triggered",
+      "variable": "持仓减仓评估：现价相对V50上沿与Q3盈利/成本",
+      "current": "39.30元，较V50上沿29.05元高35.3%；Q3归母净利率18.0%",
+      "as_of": "2026-11-11",
+      "trigger": "下一报告期净利率、AISC与产量三项未同时改善，或价格维持V50上沿上方→维持减仓评估；三项同时改善确认或完成评估另立结论→复核",
+      "action": "维持holding review_required；评估减仓不等于清仓，卖出以证据为准",
+      "source": "赤峰黄金2026年第三季度报告PDF2-4、7-8；本报告§7.1（11-11收盘39.30元）",
+      "next_check": "2026年年度报告",
+      "public_search": "赤峰黄金 600988 2026年11月11日 收盘 39.30 换手率"
+    },
+    {
+      "id": "EGM_GOVERNANCE",
+      "kind": "general",
+      "state": "watching",
+      "variable": "2026年第二次临时股东会结果与第十届董事会构成",
+      "current": "定于2026-11-16 09:00；议案含注册资本变更、薪酬方案、董事会提前换届",
+      "as_of": "2026-10-22",
+      "trigger": "议案否决/延期，或董事会构成、关联交易/同业竞争安排与协议不符→复评治理与DEAL_INTEGRATION",
+      "action": "复评治理折扣与整合观察项；不自动改变估值或产生成交推断",
+      "source": "赤峰黄金2026年第二次临时股东会通告（2026-10-22）PDF1；会议材料（2026-10-23）",
+      "next_check": "2026-11-16",
+      "public_search": "赤峰黄金 2026年第二次临时股东会 2026年11月16日 董事会提前换届"
+    },
+    {
+      "id": "CASH_PROCEEDS_USE",
+      "kind": "general",
+      "state": "watching",
+      "variable": "H股净募资用途与海外项目资本开支（百万港元）",
+      "current": "净额估计9,180；拟用途50%海外扩产与勘探/20%并购/30%一般用途",
+      "as_of": "2026-10-22",
+      "trigger": "披露可研、预算与投产时间表或用途变更→重估募资对产量与成本的贡献；未披露前不加回股权价值",
+      "action": "重估产量/成本或维持现金仅作V5生存缓冲",
+      "source": "完成转让股份及发行新H股公告（2026-10-22）PDF3；10-26业绩说明会预征集问答",
+      "next_check": "2026年年度报告或海外项目公告",
+      "public_search": "赤峰黄金 H股 募集资金 91亿 用途 海外矿山 2026"
+    },
+    {
+      "id": "OCF_MATCH",
+      "kind": "general",
+      "state": "watching",
+      "variable": "OCF/归母净利润（倍）",
+      "current": "1.36（9M）",
+      "as_of": "2026-09-30",
+      "trigger": "<1.0且无税费或回款异常解释→复核现金流质量并复评持仓",
+      "action": "复评现金流质量与持仓；确认核心现金流证伪才升级退出",
+      "source": "赤峰黄金2026年第三季度报告（2026-10-23）PDF2、PDF13",
+      "next_check": "2026年年度报告",
+      "public_search": "赤峰黄金 2026年前三季度 经营活动现金流量净额 31.17亿"
+    }
+  ]
+}

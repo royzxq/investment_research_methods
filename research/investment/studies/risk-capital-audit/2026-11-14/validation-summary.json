@@ -1,0 +1,81 @@
+{
+  "unittest": {
+    "command": "python -m unittest discover -s tests -v",
+    "tests": 1347,
+    "elapsed_seconds": 271.706,
+    "status": "OK",
+    "log": "output/audits/investment/2026-11-14/risk-capital-audit/full-unittest.log",
+    "log_sha256": "adfd584ca34cfefe16cd7b537c6890eaf2cc3bac79aa5a43a3d9725ce9ffb548",
+    "environment": "Python 3.11 via ai_investment/myenv; unsandboxed local test sockets and process cleanup; offline model stubs"
+  },
+  "framework": {
+    "status": "passed",
+    "method_version": "stock-two-price-controls-v2-etf-relative-v1-dividend-v1-capital-v1",
+    "state_as_of": "2026-11-08",
+    "method_fingerprints": {
+      "investment_framework.md": "4b9c953919b58b6406f3af5eb2975ad5efbcf87c9767ca99a804d67f67460531",
+      "investment_framework_compact.md": "f931b6a3d0406fe741439146e931fb8c740309d5450eced42a883cbf57026b99"
+    },
+    "sizes": {
+      "investment_framework.md": {
+        "bytes": 118773,
+        "lines": 854
+      },
+      "investment_framework_compact.md": {
+        "bytes": 79075,
+        "lines": 548
+      }
+    },
+    "limits": "Structure only; not complete semantic equivalence, evidence truth or investment effectiveness"
+  },
+  "framework_before_after": {
+    "investment_framework.md": {
+      "before": {
+        "bytes": 112260,
+        "lines": 811,
+        "sha256": "b2ac2b44c38156d102f7c9bdb6a0a282819d66754428d2606a093adcc3246972"
+      },
+      "after": {
+        "bytes": 118773,
+        "lines": 854,
+        "sha256": "7e59dd445a2477381b34c1e6371b5f1669976a659a6a917cfcb0d76e932a3909"
+      },
+      "observation_bytes_unchanged": true
+    },
+    "investment_framework_compact.md": {
+      "before": {
+        "bytes": 74861,
+        "lines": 534,
+        "sha256": "ba3ec6af1aa4598db0cf2ed7e4285e1f39ca59f84825285cb886520979ad1062"
+      },
+      "after": {
+        "bytes": 79075,
+        "lines": 548,
+        "sha256": "1215f2745292383fa06d4c34caf9ed1fd75b22dbfe84382c0a2b647d820763bb"
+      },
+      "observation_bytes_unchanged": true
+    }
+  },
+  "skill_validate": "Skill is valid!",
+  "formal_source_hash_checks": [
+    {
+      "manifest": "/Users/xinquanzhou/Workspace/ai_investment/outputs/research_rules_audit_20261114/source_manifest.json",
+      "manifest_sha256": "0b391a9e5429081310854d9058b2c0d2c2777f83e3e470d107fda1028c83750d",
+      "records": 22,
+      "changed": []
+    },
+    {
+      "manifest": "/Users/xinquanzhou/Workspace/ai_investment/outputs/price_map_cause_audit_20261114/source_manifest.json",
+      "manifest_sha256": "7d972c3f4370e157e29a3d3c8bbb6b4bcb47b49acfb02d835cb1ccd2fc0ca234",
+      "records": 42,
+      "changed": []
+    }
+  ],
+  "post_review_validation": {
+    "command": "python -m unittest tests.test_research_runner.ResearchRunnerTests.test_old_scoped_controls_prepared_contract_keeps_prompts_without_new_acceptance -v",
+    "status": "OK",
+    "tests": 1,
+    "reason": "Restore stronger no-v3 assertion for frozen controls-v2; final changes otherwise documentation/evidence only",
+    "log": "output/audits/investment/2026-11-14/risk-capital-audit/post-review-targeted.log"
+  }
+}

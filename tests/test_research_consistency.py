@@ -186,5 +186,100 @@ class ResearchConsistencyTests(unittest.TestCase):
             checks.validate_audit(audit, doc, root=root)
 
 
+
+class CapitalAuditTests(unittest.TestCase):
+    def example(self, version='stock-research-audit/v3'):
+        _, doc = example()
+        doc['meta']['schema_version'] = 'stock-research/v4'
+        for key in ('p2', 't2'):
+            doc['price_map'].pop(key)
+        doc['price_map']['t1'].pop('events')
+        doc['monitoring'] = []
+        doc['research_controls'] = {s: dict(status='unknown', refs=['RESEARCH_ELIGIBILITY']) for s in ('entry','add')}
+        doc['research_controls']['holding'] = dict(status='normal', refs=[])
+        audit = audit_for(doc)
+        audit['schema_version'] = version
+        if version.endswith('/v3'):
+            for row in audit['valuation']['scenarios'].values():
+                row['equity_adjustments'] = []
+        return audit, doc
+
+    def test_cash_and_claims_keep_real_pe_and_render_bridge(self):
+        audit, doc = self.example()
+        row = audit['valuation']['scenarios']['base']
+        row['equity_adjustments'] = [dict(id='cash', amount=40, reason='net proceeds excluding interest income', source='issuer note'),
+                                     dict(id='spent', amount=-10, reason='incremental investment needed by forecast', source='project note')]
+        row['equity_value'] = 270
+        doc['price_map']['v50']['base'] = 27
+        doc['price_map']['p1']['base'] = 13.5
+        before = deepcopy(doc)
+        report = checks.render_report_block(audit, doc)
+        result = checks.validate_report(report, doc, expected_schema='stock-research-audit/v3', require_lifecycle=True)
+        self.assertEqual(result['schema_version'], 'stock-research-audit/v3')
+        self.assertIn('权益调整', report)
+        self.assertIn('cash', report)
+        self.assertEqual(row['pe'], 10)
+        self.assertEqual(doc, before)
+        row['equity_value'] = 240
+        with self.assertRaisesRegex(ValueError, 'equity_value'):
+            checks.validate_audit(audit, doc)
+
+    def test_equity_adjustment_sources_ids_and_finite_amounts(self):
+        for mutation, error in [('missing', 'equity_adjustments'), ('source', 'source'), ('duplicate', 'duplicate'), ('nan', 'nonfinite'), ('cross', 'duplicate')]:
+            audit, doc = self.example()
+            row = audit['valuation']['scenarios']['base']
+            item = dict(id='cash', amount=0, reason='explicit no balance', source='issuer note')
+            row['equity_adjustments'] = [item]
+            if mutation == 'missing': row.pop('equity_adjustments')
+            if mutation == 'source': item['source'] = ''
+            if mutation == 'duplicate': row['equity_adjustments'].append(deepcopy(item))
+            if mutation == 'nan': item['amount'] = float('nan')
+            if mutation == 'cross': row['adjustments'] = [deepcopy(item)]
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, error):
+                checks.validate_audit(audit, doc)
+
+    def test_equity_risk_cannot_be_discounted_again(self):
+        audit, doc = self.example()
+        audit['risks'].append(dict(id='cash_claim', description='cash already deducted', owner='equity_adjustment', scope='same cash claim', source='note'))
+        checks.validate_audit(audit, doc)
+        audit['discounts']['d_base']['risk_ids'].append('cash_claim')
+        with self.assertRaisesRegex(ValueError, 'already absorbed'):
+            checks.validate_audit(audit, doc)
+
+    def test_version_pairs_and_frozen_schema_enforcement(self):
+        for version in ('stock-research-audit/v2','stock-research-audit/v3'):
+            audit, doc = self.example(version)
+            report = checks.render_report_block(audit, doc)
+            self.assertEqual(checks.validate_report(report, doc, require_lifecycle=True)['schema_version'], version)
+            other = 'stock-research-audit/v3' if version.endswith('/v2') else 'stock-research-audit/v2'
+            with self.assertRaisesRegex(ValueError, 'frozen audit contract'):
+                checks.validate_report(report, doc, expected_schema=other)
+            _, legacy = example()
+            with self.assertRaisesRegex(ValueError, 'contract mismatch'):
+                checks.validate_audit(audit, legacy)
+        audit, doc = self.example('stock-research-audit/v2')
+        audit['valuation']['scenarios']['base']['equity_adjustments'] = []
+        with self.assertRaisesRegex(ValueError, 'equity_adjustments'):
+            checks.validate_audit(audit, doc)
+
+    def test_v2_baseline_v3_recovery_and_non_pe(self):
+        audit, doc = self.example('stock-research-audit/v2')
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            old = checks.render_report_block(audit, doc)
+            (root/'prior.md').write_text(old)
+            audit['schema_version'] = 'stock-research-audit/v3'
+            audit['valuation'] = dict(kind='other', reason='actual DCF; no PE', unrounded_v50=dict(low=20, base=24, high=30))
+            audit['baseline'] = dict(report_path='prior.md', sha256=hashlib.sha256(old.encode()).hexdigest(),
+                discounts={k:dict(value=v['value'],quote='explicit offline assumption') for k,v in audit['discounts'].items()})
+            for entry in audit['discounts'].values(): entry['change']['kind'] = 'unchanged'
+            report = checks.render_report_block(audit, doc, root=root)
+            doc['price_map']['mode'] = 'frozen'
+            for scope in ('entry','add'):
+                doc['research_controls'][scope] = dict(status='blocked', refs=['RESEARCH_ELIGIBILITY','METHOD_COMPATIBILITY'])
+            derived = checks.isolate_report(report, doc, root=root)
+            checks.validate_report(derived, doc, root=root, expected_schema='stock-research-audit/v3')
+            self.assertEqual((root/'prior.md').read_text(), old)
+
 if __name__ == '__main__':
     unittest.main()

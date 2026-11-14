@@ -89,7 +89,7 @@ def validation_projection(result):
     audit = deepcopy(result['audit'])
     fields(audit, {'schema_version', 'identity', 'valuation', 'baseline', 'discounts',
                    'risks', 'constraints', 'release_all_of', 'p1_basis'}, 'experiment audit')
-    require(audit['schema_version'] == consistency.SCHEMA, 'experiment requires audit-v2')
+    require(audit['schema_version'] == consistency.SCOPED_SCHEMA, 'experiment requires audit-v2')
     fields(audit['identity'], IDENTITY_KEYS, 'neutral audit identity')
     require(audit['identity'] == {key: result[key] for key in IDENTITY_KEYS},
             'experiment audit identity mismatch')

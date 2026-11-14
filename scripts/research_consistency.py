@@ -18,9 +18,11 @@ try:
 except ImportError:
     from stock_price_map import fields, json_number, load_json, number, require, string, validate_document
 
-SCHEMA = 'stock-research-audit/v2'
+SCHEMA = 'stock-research-audit/v3'
+SCOPED_SCHEMA = 'stock-research-audit/v2'
 LEGACY_SCHEMA = 'stock-research-audit/v1'
-SUPPORTED_SCHEMAS = {LEGACY_SCHEMA, SCHEMA}
+SCOPED_SCHEMAS = {SCOPED_SCHEMA, SCHEMA}
+SUPPORTED_SCHEMAS = {LEGACY_SCHEMA, *SCOPED_SCHEMAS}
 DISCOUNTS = ('d_base', 'r_chip', 'r_v5', 'r_gov', 'r_terminal')
 SCENARIOS = ('low', 'base', 'high')
 START, END = '<!-- research-audit:start -->', '<!-- research-audit:end -->'
@@ -138,7 +140,7 @@ def validate_audit(audit, document, *, root=None):
     fields(audit, {'schema_version', 'identity', 'valuation', 'discounts', 'risks',
                    'constraints', 'release_all_of', 'baseline', 'p1_basis'}, 'research audit')
     require(audit['schema_version'] in SUPPORTED_SCHEMAS, 'research audit schema mismatch')
-    require((document['meta']['schema_version'] == 'stock-research/v4') == (audit['schema_version'] == SCHEMA), 'price/audit contract mismatch')
+    require((document['meta']['schema_version'] == 'stock-research/v4') == (audit['schema_version'] in SCOPED_SCHEMAS), 'price/audit contract mismatch')
     fields(audit['identity'], {'code', 'generator', 'valuation_date', 'currency'}, 'audit identity')
     for key, value in audit['identity'].items():
         require(value == document['meta'][key], 'research audit identity mismatch: ' + key)
@@ -162,7 +164,8 @@ def validate_audit(audit, document, *, root=None):
         fields(model['scenarios'], set(SCENARIOS), 'scenarios')
         values = {}
         for label, row in model['scenarios'].items():
-            fields(row, {'revenue', 'net_margin', 'adjustments', 'profit', 'pe', 'equity_value'}, label)
+            fields(row, {'revenue', 'net_margin', 'adjustments', 'profit', 'pe', 'equity_value'}
+                   | ({'equity_adjustments'} if audit['schema_version'] == SCHEMA else set()), label)
             revenue = number(row['revenue'], label + '.revenue', positive=True)
             margin = number(row['net_margin'], label + '.net_margin')
             require(-1 <= margin <= 1, 'net_margin uses fraction, not percent points')
@@ -181,6 +184,16 @@ def validate_audit(audit, document, *, root=None):
             pe = number(row['pe'], label + '.pe', positive=True)
             require(profit > 0, 'profit_pe requires positive normalized earnings')
             equity = number(row['profit'], label + '.profit') * pe
+            if audit['schema_version'] == SCHEMA:
+                require(isinstance(row['equity_adjustments'], list), label + '.equity_adjustments must be a list')
+                for item in row['equity_adjustments']:
+                    fields(item, {'id', 'amount', 'reason', 'source'}, 'equity adjustment')
+                    ident = string(item['id'], 'equity_adjustment.id')
+                    require(ident not in adjustment_ids, 'duplicate profit/equity adjustment ID')
+                    adjustment_ids.add(ident)
+                    string(item['reason'], 'equity_adjustment.reason')
+                    string(item['source'], 'equity_adjustment.source')
+                    equity += number(item['amount'], 'equity_adjustment.amount')
             close(row['equity_value'], equity, label + '.equity_value')
             values[label] = number(row['equity_value'], label + '.equity_value') * Decimal(100_000_000) / shares * fx
             require(pm['v50'] is not None, 'profit_pe requires quoted V50')
@@ -207,7 +220,8 @@ def validate_audit(audit, document, *, root=None):
         fields(risk, {'id', 'description', 'owner', 'scope', 'source'}, 'risk')
         ident = string(risk['id'], 'risk.id')
         require(ident not in risks, 'duplicate risk ID: ' + ident)
-        require(risk['owner'] in (*DISCOUNTS, 'revenue', 'margin', 'multiple', 'eligibility'),
+        require(risk['owner'] in (*DISCOUNTS, 'revenue', 'margin', 'multiple', 'eligibility',
+                                  *(['equity_adjustment'] if audit['schema_version'] == SCHEMA else [])),
                 'risk owner must be a single valuation/eligibility/discount bucket')
         for key in ('description', 'scope', 'source'):
             string(risk[key], 'risk.' + key)
@@ -252,9 +266,9 @@ def validate_audit(audit, document, *, root=None):
         require(quote_round(values[scenario] * factor, document['meta']['currency']) == number(pm['p1'][quote], 'P1'),
                 'research audit P1 formula disagrees with explicit report quote: ' + quote)
 
-    if audit['schema_version'] == SCHEMA:
+    if audit['schema_version'] in SCOPED_SCHEMAS:
         unresolved = validate_scoped_controls(audit, document, root=root)
-        return {'schema_version': SCHEMA, 'status': 'passed', 'discount_factor': float(factor),
+        return {'schema_version': audit['schema_version'], 'status': 'passed', 'discount_factor': float(factor),
                 'unresolved_constraints': unresolved,
                 'scope': 'declared calculations, typed controls and state consistency; not economic truth or execution'}
     require(isinstance(audit['constraints'], list), 'constraints: expected list')
@@ -464,11 +478,16 @@ def render_checks(audit, document):
     if model['kind'] == 'profit_pe':
         lines += ['', '| 情景 | 收入 | 经常净利率 | 利润调整 | 经常归母利润 | PE | 权益价值 | V50 |',
                   '|---|---:|---:|---:|---:|---:|---:|---:|']
+        if audit['schema_version'] == SCHEMA:
+            lines[-2] = lines[-2].replace('| 权益价值 |', '| 权益调整 | 权益价值 |')
+            lines[-1] += '---:|'
         for key in SCENARIOS:
             row = model['scenarios'][key]
             adjustment = sum((number(item['amount'], 'adjustment') for item in row['adjustments']), Decimal(0))
             entries = [key, row['revenue'], decimal_text(number(row['net_margin'], 'margin') * 100) + '%',
                        adjustment, row['profit'], row['pe'], row['equity_value'], pm['v50'][key]]
+            if audit['schema_version'] == SCHEMA:
+                entries.insert(6, sum((number(item['amount'], 'equity_adjustment') for item in row['equity_adjustments']), Decimal(0)))
             lines.append('| ' + ' | '.join(cell(decimal_text(v) if isinstance(v, (Decimal, float, int)) else v) for v in entries) + ' |')
     else:
         lines += ['', '估值链适用性：' + cell(model['kind'] + '；' + model['reason'])]
@@ -482,19 +501,19 @@ def render_checks(audit, document):
         lines.append(f"| {key} | {decimal_text(value * 100)}% | {bounds} | {cell(', '.join(entry['risk_ids']) or '无额外扣减')} | {cell(entry['change']['kind'])} |")
     lines += ['', '总折扣乘数：' + decimal_text(factor) + '；用途：' + pm['mode'] + '。',
               '明确报价：P1=' + json.dumps(pm['p1'], ensure_ascii=False, sort_keys=True, default=json_number) +
-              ('；T1=' + json.dumps(pm['t1'], ensure_ascii=False, sort_keys=True, default=json_number) if audit['schema_version'] == SCHEMA else '；P2=' + json.dumps(pm['p2'], ensure_ascii=False, sort_keys=True, default=json_number)) + '。',
+              ('；T1=' + json.dumps(pm['t1'], ensure_ascii=False, sort_keys=True, default=json_number) if audit['schema_version'] in SCOPED_SCHEMAS else '；P2=' + json.dumps(pm['p2'], ensure_ascii=False, sort_keys=True, default=json_number)) + '。',
               '', '| 约束 | 作用 | 状态 | 依据 |', '|---|---|---|---|']
     for row in audit['constraints']:
-        values = [row[k] for k in ('id', 'action' if audit['schema_version'] == SCHEMA else 'effect', 'status', 'reason')]
-        if audit['schema_version'] == SCHEMA:
+        values = [row[k] for k in ('id', 'action' if audit['schema_version'] in SCOPED_SCHEMAS else 'effect', 'status', 'reason')]
+        if audit['schema_version'] in SCOPED_SCHEMAS:
             values[1] = ','.join(row['scope']) + ': ' + values[1]
         lines.append('| ' + ' | '.join(cell(v) for v in values) + ' |')
-    if audit['schema_version'] == SCHEMA:
+    if audit['schema_version'] in SCOPED_SCHEMAS:
         lines += ['', '| 范围 | 当前研究状态 | 未解约束ID |', '|---|---|---|']
         for scope in ('entry', 'add', 'holding'):
             control = document['research_controls'][scope]
             lines.append('| ' + ' | '.join(cell(v) for v in (scope, control['status'], ', '.join(control['refs']) or '无')) + ' |')
-    lines += ['', '恢复前须同时解除全部仍有效约束：' + cell(json.dumps(audit['release_all_of'], ensure_ascii=False, sort_keys=True) if audit['schema_version'] == SCHEMA else ('、'.join(audit['release_all_of']) or '无未解约束')) + '。', VIEW_END]
+    lines += ['', '恢复前须同时解除全部仍有效约束：' + cell(json.dumps(audit['release_all_of'], ensure_ascii=False, sort_keys=True) if audit['schema_version'] in SCOPED_SCHEMAS else ('、'.join(audit['release_all_of']) or '无未解约束')) + '。', VIEW_END]
     return '\n'.join(lines)
 
 
@@ -510,11 +529,13 @@ def constraint_claim_sha256(rule):
 
 
 def validate_report(report, document, *, root=None, expected_baseline=None, require_lifecycle=False,
-                    require_acceptance=False):
+                    require_acceptance=False, expected_schema=None):
     audit = extract_audit(report)
+    if expected_schema is not None:
+        require(audit.get('schema_version') == expected_schema, 'frozen audit contract mismatch')
     result = validate_audit(audit, document, root=root)
     if require_lifecycle:
-        require(audit['schema_version'] == SCHEMA, 'new controls semantics require audit-v2')
+        require(audit['schema_version'] in SCOPED_SCHEMAS, 'new controls semantics require scoped audit')
         for rule in audit['constraints']:
             require('lifecycle' in rule, 'new controls require explicit lifecycle')
     if expected_baseline is not None:
@@ -543,7 +564,7 @@ def isolate_report(report, document, *, root=None):
     rule = dict(id='METHOD_COMPATIBILITY', status='blocking',
         reason='发布前方法或采纳证据接续变化，适用性待复核；保留原价格',
         release_conditions=['取得兼容性核验及本公司受影响判断复评凭证'])
-    if audit['schema_version'] == SCHEMA:
+    if audit['schema_version'] in SCOPED_SCHEMAS:
         rule.update(action='freeze', scope=['entry', 'add'], lifecycle='persistent')
         for scope in ('entry', 'add'):
             audit['release_all_of'][scope].append('METHOD_COMPATIBILITY')
@@ -584,6 +605,7 @@ def main(argv=None):
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--require-lifecycle', action='store_true', help='new controls semantics; legacy check remains readable')
     parser.add_argument('--require-acceptance', action='store_true', help='new evidence/all-of gate; preserve legacy checks')
+    parser.add_argument('--expected-schema', choices=sorted(SUPPORTED_SCHEMAS), help='enforce frozen audit version')
     args = parser.parse_args(argv)
     try:
         if args.command == 'claims':
@@ -597,7 +619,7 @@ def main(argv=None):
             require(args.report is not None, 'check requires --report')
             print(json.dumps(validate_report(args.report.read_text(), document, root=args.root,
                                             require_lifecycle=args.require_lifecycle,
-                                            require_acceptance=args.require_acceptance), ensure_ascii=False))
+                                            require_acceptance=args.require_acceptance, expected_schema=args.expected_schema), ensure_ascii=False))
         else:
             require(args.audit is not None, 'render requires --audit')
             audit = load_json(args.audit)

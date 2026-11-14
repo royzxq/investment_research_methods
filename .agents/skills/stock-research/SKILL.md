@@ -5,9 +5,9 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 # 个股调研与价格地图
 
-**两价已本地采纳（2026-10-18）**：用户授权依据既有回测正式落地；新交付使用 v4/audit-v2 并按正式流程更新本端 latest。旧冻结批次按下文 legacy 路由恢复，不重写历史、不补造旧控制。默认仍本地保存，未经授权不推送或外发。
+**两价已本地采纳（2026-10-18）**：保留原本地正式流程及 latest 规则；隔离复评不提升正式结果。旧冻结批次按下文版本路由恢复，不重写历史、不补造旧控制，未经授权不推送或外发。
 
-新准备批次使用 `two-price-controls/v5` 交付合同，在既有 v4 公开监控摘要、v3 证据验收和 v2 控制语义上增加财务定义复核、监控触发裁决及交付质量检查；具体见[估值与轻量输出契约](references/valuation-and-output.md)。[研究一致性](references/research-consistency.md)及[共享证据与恢复验收](references/acceptance-gates.md)继续适用，不据格式升级解除旧限制。已冻结的 v1–v4 合同按原 prompt/input/hash 和各自门禁恢复，不追补新要求；DSH 接入不批量改写生产历史或授权推送。
+新准备批次使用 `two-price-controls/v6`（价格 v4 / audit-v3），增加经济损失去重、三值条件与资本桥，PE保留真实倍数、权益调整单列；继续保留 v5 财务定义/监控质量、v4 公开监控、v3 证据验收与 v2 控制语义。具体见[估值与轻量输出契约](references/valuation-and-output.md)、[研究一致性](references/research-consistency.md)和[共享证据与恢复验收](references/acceptance-gates.md)。已冻结 v1–v5 按原 prompt/input/hash 和各自门禁恢复，不追补新字段、不据版本升级解除旧限制。2026-11-14 本次实现仅在独立工作树验证，未部署或提升正式报价。
 
 输出目录、通用技能映射与发现命令统一见仓库 `research/README.md`；正式产物不写 `research/` 根目录。
 
@@ -19,7 +19,7 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 - 按 compact §10 输出 0–8 九节报告；最终 JSON 仅含必要标识、P1/T1 价格地图、研究控制摘要和重点监控变量。完整证据、参数论证、Gate 判定及缺口留在 Markdown。
 - 日期采用 `Asia/Shanghai`。估值日默认当天；历史研究按**公开披露日**限制证据，不只比较财报期末日。D1–D8 按已采纳方法结合截止日内最新兼容观测重新判断，旧段落中的“当前”只代表原观测日；按原规则刷新受影响状态不等于修改宏观方法、阈值或权重。缺证保持 unknown，未采纳方法不作生产有效规则；本工作区的已授权影子任务明确绑定候选版本，不冒充已采纳。
 - runner 提供 `framework-snapshot` 时，主、子研究统一使用其中冻结的 canonical/compact 及已采纳状态输入，禁止执行中改读工作区最新正文；批次指纹指向这些实际正文。手工复评用 `python3 scripts/investment_maintenance.py select --date <估值日>` 核对最新已采纳状态、方法兼容性、估值截止与证据来源，再冻结本轮输入；无兼容接续记录时沿用方法原文并补证受影响状态，不能拿未采纳提案或过期读数替代。状态触发只登记待复评，完成须有同一对象、证据截止及方法的实际报告；研究完成不等于账户执行。
-- **交付版本先判定**：普通新交付使用 v4 + audit-v2。runner 已验证旧冻结批次要求 v3 时，按原审计要求（audit-v1 或原无强制审计）改用 [legacy-v3-output](references/legacy-v3-output.md) 和 [legacy-audit-v1](references/legacy-audit-v1.md)，并用原冻结框架；既有 prompt/input/hash 保持原字节，运行器附加的版本路由优先于本技能默认交付。无法恢复原合同则保留旧批次、新建任务，不混用新技能默认 writer。
+- **交付版本先判定**：普通新交付使用 v4 + audit-v3。已冻结 two-price v1 / controls v2–v5 仍使用 v4 + audit-v2，不追补 equity_adjustments；冻结合同优先于本默认。runner 已验证旧冻结批次要求 v3 时，按原审计要求（audit-v1 或原无强制审计）改用 [legacy-v3-output](references/legacy-v3-output.md) 和 [legacy-audit-v1](references/legacy-audit-v1.md)，并用原冻结框架；既有 prompt/input/hash 保持原字节，运行器附加的版本路由优先于本技能默认交付。无法恢复原合同则保留旧批次、新建任务，不混用新技能默认 writer。
 - 批量公告分流或年报候选章节定位按 [Jev 条件路由](references/jev-routing.md) 执行。runner 默认 `auto`，先提交公开候选 manifest，由程序判断阈值并记录调用/未调用原因；不能口头判断无需 Jev 后省略记录。排序不删除证据，原文和语义核验继续由当前宿主主模型完成。
 - 只做研究。不给下单金额、执行时间或账户分批计划；不交易，不自动 commit/push/开 PR。同日运行先检查旧文件，未获覆写授权则复用或隔离。
 
@@ -83,8 +83,9 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 计算前必读 [估值与轻量输出契约](references/valuation-and-output.md)。关键约定：
 
-- 新自动交付及本次复评按 [研究一致性](references/research-consistency.md) 生成报告内唯一核算表与审计块，闭合收入→经常利润→股权价值→V50/P1链；独占风险归属、同端基线折扣变化和全部阻断的合取解除均在发布前校验。按 [共享证据与恢复验收](references/acceptance-gates.md) 另生成唯一验收块及可见表，不能仅自报 R14 passed，正文恢复逻辑须与各 scope 的全部有效约束一致。检查不替代原文/语义核验；新交付为 v4 + audit-v2，既有利润桥/风险归属/折扣检查保留，旧历史不追溯改写。
+- 新自动交付及本次复评按 [研究一致性](references/research-consistency.md) 生成报告内唯一核算表与审计块，闭合收入→经常利润→股权价值→V50/P1链；独占风险归属、同端基线折扣变化和全部阻断的合取解除均在发布前校验。按 [共享证据与恢复验收](references/acceptance-gates.md) 另生成唯一验收块及可见表，不能仅自报 R14 passed，正文恢复逻辑须与各 scope 的全部有效约束一致。检查不替代原文/语义核验；新交付为 v4 + audit-v3，既有利润桥/风险归属/折扣检查保留，旧历史不追溯改写。
 
+- 先按 canonical §1.3 三值判定与 §4.1B/§4.1C 完成经济损失去重和股本—资金—用途—收益桥。不同ID不证明损失独立，未知不算条件成立；规则命中次数不决定折扣。独立核验者复核已吸收/残余和现金桥，无可用独立能力时主代理反向核验并记录局限。确认重扣可correction，不需等待公司新闻；去重不解除资格/持仓限制。
 - canonical 已有数值必须沿用；未规定绝对档位的 `d_base/r_k` 是本次分析假设。研究者给证据、取值理由、区间/敏感性与风险去重说明，再选基准值。不得称其为框架默认值，也不创建通用折扣表替代 canonical。
 - 最终价格统一为交易币种/股。总市值与每股价值分开输入；EV 先明确扣净债务及其它权益调整。汇率写清方向，股份数用实际股数。
 - 新研究仅给 P1/T1；P2/T2 及 step_down 已退休，不换名称重建。临时市场/相关事件冻结但可估者保留完整估值与观察 P1/可论证 T1，entry/add 均受阻；公司真硬失败、否决或不可估不产新 P1，持仓处置仍可进行。历史空值可读，不补造本期价格。
@@ -103,7 +104,7 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 - 人工语义验收：关键证据冲突已裁决或明确影响；报告九节与 DCS 完整；币种/股本/现金桥/Terminal 算术正确；风险没有重复扣减；报告与 JSON 的 V50/P1/T1/研究控制/监控基线一致，P1 的每个已填值均能定位报告原句/表格、未填上下沿未被补造；非买入价位不含执行许可。
 - 数据验收：新披露查询的市场/主体/日期范围及分页缺口已交代；关键估值事实能定位原始文件、版本与页码/章节，抽取表格的单位、列头和附注已核对。取得公告目录、下载 PDF、文本提取和读原文核验是不同状态；未完成项写入报告对应缺口，完整取证仍留报告，最终 JSON 只在 monitoring 增加公开检索词 public_search，不复制完整证据。
 - 估值修订后，从最终 JSON 的 V50/P1/T1 回读核对引用和距现价百分比；build 不重写 T1 文本。控制另核报告/audit/摘要一致性，不能报价更新而沿用已经失效的旧 eligible。
-- 新交付运行 `python3 scripts/stock_price_map.py check <JSON> --require-monitoring-quality` 与 `python3 scripts/research_consistency.py check --report <报告> --price-map <JSON> --require-lifecycle --require-acceptance`；分别验证报价/精度/T1 引用/监控交付/控制结构、证据绑定与按 scope 的全部恢复条件。已验证的旧冻结合同不追加新参数，按其原验收分支运行。它们不证明原文提取语义、来源真实性、经济风险不重叠或估值合理性。
+- 新交付运行 `python3 scripts/stock_price_map.py check <JSON> --require-monitoring-quality` 与 `python3 scripts/research_consistency.py check --report <报告> --price-map <JSON> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v3`；分别验证报价/精度/T1 引用/监控交付/控制结构、证据绑定与按 scope 的全部恢复条件。已验证的旧冻结合同不追加新参数，按其原验收分支运行。它们不证明原文提取语义、来源真实性、经济风险不重叠或估值合理性。
 - 最终文件：`research/investment/companies/<日期>/<市场>-<代码>/investment-<代码>-<日期>-research-<生成端>.md`、`research/investment/companies/<日期>/<市场>-<代码>/investment-<代码>-<日期>-price-map-<生成端>.json`。生产正式流程验证完成后按输出契约选择同一生成端截止日内最近正式 v4/v3/v2，刷新 `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest-<生成端>.json` 为所选日期 JSON 的完全相同副本；`meta.report_path` 始终指向对应报告，不因格式新旧越过较新估值日。新完成的正式研究按此规则刷新本端 latest；隔离复评仍不自动覆盖正式产物。
 - 同日同一生成端已有产物先核对报告 §0 的输入/框架指纹与证据截止。完全匹配且未要求复评可复用；其它情况自动选择未使用的 `-r2/-r3…` 同后缀报告和 JSON，隔离运行不刷新 latest。只有用户明确授权才覆写原文件或提升隔离版；不能因旧指纹缺失假定输入相同。
 - 报告 §0 记录生成端、运行模式、`research_mode` 及理由、数据/证据日期、框架版本及 SHA-256、已提供数据包指纹、隔离/复评来源及基线实际证据截止，摘要列出沿用／更新／纠错／待补证范围和依据（无项明确无）；完整推导、本期结论所依赖的关键事实及其原始来源和页码/章节仍直接保留在报告，不能只引用旧报告或被忽略的 scratch 目录。

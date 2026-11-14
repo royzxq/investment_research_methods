@@ -60,7 +60,8 @@ SCOPED_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-pri
 ACCEPTANCE_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v3')
 PUBLIC_MONITORING_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v4')
 QUALITY_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v5')
-NEW_CONTRACT = QUALITY_CONTROLS_CONTRACT
+CAPITAL_CONTROLS_CONTRACT = dict(QUALITY_CONTROLS_CONTRACT, audit_schema='stock-research-audit/v3', prompt_template='two-price-controls/v6')
+NEW_CONTRACT = CAPITAL_CONTROLS_CONTRACT
 
 
 def delivery_contract(snapshot):
@@ -69,14 +70,14 @@ def delivery_contract(snapshot):
         if snapshot.get('research_validation') not in (None, research_consistency.LEGACY_SCHEMA):
             raise ValueError('new audit requires a frozen delivery contract')
         return dict(price_schema='stock-research/v3', audit_schema=snapshot.get('research_validation'), prompt_template='report-quotes/v3')
-    if contract not in (QUALITY_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, SCOPED_CONTROLS_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
+    if contract not in (CAPITAL_CONTROLS_CONTRACT, QUALITY_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, SCOPED_CONTROLS_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
         raise ValueError('unsupported frozen delivery contract')
     return dict(contract)
 
 
 def validate_delivery_monitoring(document, contract):
-    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT):
-        validate_monitoring_delivery(document, quality=contract == QUALITY_CONTROLS_CONTRACT)
+    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT):
+        validate_monitoring_delivery(document, quality=contract in (QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT))
 
 
 def verified_legacy_writer(manifest, *, meta, output):
@@ -342,7 +343,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                'entry/add=eligible|blocked|unknown，holding=normal|review_required|invalidated|exit_required|unknown。'
                'monitoring增加id/kind/state；控制refs绑定报告audit，scope分entry/add/holding，全部解除按scope合取；'
                '未知不允许新增，复评不等于失效或成交。新build默认v4，不可借旧writer绕过。\n\n')
-    if contract in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT):
+    if contract in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT):
         prefix += ('本批控制语义two-price-controls/v2：每条audit约束显式lifecycle=persistent/runtime/observation；'
                    '只有已触发持续研究限制或必要资格缺证可进入blocking/unknown。'
                    '纯现价相对P1/T1、最低收益由运行时判断，不制造永久价格阻断；'
@@ -352,7 +353,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '规则ID与具体事件/计划实例稳定；同义ID必须有证据映射，不自动去重；'
                    '每项解除注明必要合取/合法替代路径/仅触发复评。多来源不同主张的解除用clearance.covers列出其内容SHA256；'
                    '不能只因日期过去、跌价或另一个来源缺席解除。\n\n')
-    if contract in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT):
+    if contract in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT):
         prefix += ('本批验收语义two-price-controls/v3：读取 '
                    '.agents/skills/stock-research/references/acceptance-gates.md，'
                    '在报告保留唯一 stock-research-acceptance/v1 验收输入及由 '
@@ -363,7 +364,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '规则内部合法替代路径和复评阶段保留，不得以大部分解除或价格到位代替全部必要解除证据。'
                    '正文与结构化验收及审计一致；检查失败回原稿定向修正，不改投资方法或历史报告。'
                    '本批发布前强制 research_consistency.py check --require-lifecycle --require-acceptance。\n\n')
-    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT):
+    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT):
         prefix += ('本批监控摘要two-price-controls/v4：monitoring只留0–7个公开可查核心变量，不凑数，按估值/逻辑失效影响排序、同义去重。'
                    '每项public_search填写本轮实际使用的通用搜索检索词，source定位机构、文档/指标、披露期及章节或URL；'
                    '必须已通过普通搜索找到并读到无需内部权限或付费订阅的公开原文，搜索摘要、URL及模型声明不等于已核验。'
@@ -372,7 +373,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '每项一两句保留当前值/期间、触发、动作和公开查询路径，不重复估值推导。'
                    '无合格项monitoring=[]，报告说明缺口；完整研究条件、全部有效/未知风险及解除证据继续留报告/audit，'
                    '不得因不可公开核验或七项上限解除、合并、截断任何research_controls或refs。\n\n')
-    if contract == QUALITY_CONTROLS_CONTRACT:
+    if contract in (QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT):
         prefix += ('本批研究质量two-price-controls/v5：按stock-research的估值输出契约核对财务定义与调节表。'
                    '采用调整后利润须区分公司披露定义、研究调整及预测假设；股份支付等项目先查原文加回/扣除方向，'
                    '算术闭合不证明口径正确。影响估值的口径冲突须回原文裁决，不能用任意折扣或改标签掩盖。'
@@ -383,6 +384,25 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '不先提供拟采用结论；无法独立核验则主代理复查并披露方式，结果留现有底稿/报告，不另建打分表。'
                    '发布前运行stock_price_map.py check <JSON> --require-monitoring-quality；'
                    '程序只拦无效来源/检索占位与排版重复，公开性、口径含义及触发方向仍须逐项语义核验。\n\n')
+    if contract == CAPITAL_CONTROLS_CONTRACT:
+        prefix = prefix.replace('stock-research-audit/v2', 'stock-research-audit/v3').replace('审计v2按', '审计v3按')
+        prefix = prefix.replace('利润×PE＝权益价值', '利润×真实PE＋独立权益调整＝权益价值')
+        prefix = prefix.replace('不再同ID扣价', '不再对同一期间、范围的经济损失扣价（不同ID也不得重复）')
+        prefix += ('本批经济归属与资本桥two-price-controls/v6：先独立完成合理价值，再选择残余折扣。'
+                   '按canonical §4.1B/§4.1C填写事实/期间→损失机制→已计收入、利润、倍数、再投资或权益调整→未覆盖部分→唯一计价位置→敏感性。'
+                   '所有价格上调/取上沿先合并同一损失，不按触发次数叠加；unknown不计为条件成立，资格和持仓限制继续独立保留。'
+                   'd_base不重复承担已被模型或其它折扣吸收的损失；已确认重复计价用correction，不必等待新增公司新闻。'
+                   '增发、回购、可转债、基金资产和大额现金先作同日/同币种/同归属的股本—资金—用途—收益桥。'
+                   '禁止只计摊薄不交代融资所得；计划用途不等于已支出或100%损失，也不证明全部可分配。'
+                   '逐项核预测利润所需增量投入，现金与其收益、项目价值与已耗资金不重复计入，基金资产和第三方请求权成对核验。'
+                   'profit_pe每情景必填equity_adjustments数组（无调整为[]），复用{id,amount,reason,source}，单位为模型币种亿元；'
+                   'profit仍等于revenue×net_margin＋利润adjustments，equity_value=profit×pe＋equity_adjustments之和。'
+                   '保留真实PE，不把现金折入PE或利润，不以other掩盖可核算的PE加调整；真正非PE模型仍用other保留专项计算。'
+                   '已由资产/现金桥吸收的风险可用owner=equity_adjustment，不能再扣价。'
+                   '金额不可约束时给有依据条件情景或阻断受影响估值，不用任意保守折扣遮盖。'
+                   '可用独立核验者复核损失归属和资金桥，不先给目标价；无独立能力则主代理反向复核并记录局限。'
+                   '程序只验证算术、ID归属和冻结版本，跨ID经济同义、来源与假设仍须语义复核。'
+                   '正式报价文件由属主处理，研究只忠实提取最终明确报价；发布前另强制--expected-schema stock-research-audit/v3。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
         result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)
@@ -728,7 +748,7 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
             prepared.append((task, generator, targets))
     run.mkdir(parents=True, exist_ok=False)
     snapshot = write_framework_snapshot(run, contents, root, request['valuation_date'],
-                                        research_validation=research_consistency.SCHEMA, research_request=request,
+                                        research_validation=NEW_CONTRACT['audit_schema'], research_request=request,
                                         delivery=NEW_CONTRACT, runtime_plan=runtime_plan,
                                         evidence_workflow=(research_shared_evidence.WORKFLOW
                                             if set(request['generators']) == {'codex', 'dsh'} else None))
@@ -1498,9 +1518,9 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     _, report_raw = _artifact(entry['report'], staged, 'report')
                     audit_result = research_consistency.validate_report(
                         report_raw.decode('utf-8'), document, root=root,
-                        expected_baseline=frozen['research_baseline'],
-                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT),
-                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT))
+                        expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT),
+                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT))
                 if frozen['evidence_workflow'] is not None:
                     if generator == 'codex':
                         process['shared_evidence'] = research_shared_evidence.freeze(folder, request, task)
@@ -1548,9 +1568,9 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     document = _strict_json(price_raw, 'price map')
                     validate_delivery_monitoring(document, frozen['delivery'])
                     audit_result = research_consistency.validate_report(report_raw.decode('utf-8'),
-                        document, root=root, expected_baseline=frozen['research_baseline'],
-                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT),
-                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT))
+                        document, root=root, expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT),
+                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT))
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
                     write_new(folder / 'runner/research-validation.json', encode(audit_result))
                 if generator == 'dsh' and profile.get('tools', {}).get('evidence_context'):
