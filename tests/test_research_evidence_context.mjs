@@ -64,6 +64,34 @@ test('exact citations catch changed amounts, locator, source, missing markers an
   const empty = await setup(t); assert.equal((await empty.store.checkCitations('无登记证据')).status, 'not_exercised');
 });
 
+test('citation audit distinguishes nested list content from code blocks', async t => {
+  const {store} = await setup(t), read = await reading(store);
+  await store.pin(pin(read.evidence_id));
+  const {markdown} = await store.cite({evidence_id: read.evidence_id, quote: middle});
+  for (const report of [
+    `1. Valuation inputs\n    - ${markdown}`,
+    `1. Valuation inputs\n    - Restricted cash\n      ${markdown}`,
+    `1. Valuation inputs\n\n    ${markdown}`,
+    `1. Valuation inputs\n\t- ${markdown}`,
+    `1. Valuation inputs\n\n   \`\`\`md\n   example\n   \`\`\`\n\n   ${markdown}`,
+    `1. Valuation inputs\n\n   \`\`\`md\n   example\n\n${markdown}`,
+  ]) {
+    assert.equal((await store.checkCitations(report)).status, 'mechanical_pass', report);
+  }
+  for (const report of [
+    `    - ${markdown}`,
+    `1. Valuation inputs\n\n       - ${markdown}`,
+    `1. Valuation inputs\n\n    - Example\n\n          ${markdown}`,
+    `1. Valuation inputs\n\n    \`\`\`md\n    ${markdown}\n    \`\`\``,
+    `1. Valuation inputs\n    - \`\`\`md\n      ${markdown}\n      \`\`\``,
+    `1. Valuation inputs\n\nOut of the list.\n\n    - ${markdown}`,
+  ]) {
+    const audit = await store.checkCitations(report);
+    assert.equal(audit.citation_markers, 0, report);
+    assert.deepEqual(audit.issues.map(issue => issue.code), ['required_evidence_not_cited']);
+  }
+});
+
 test('search continuation crosses dense keyword matches and later document parts without losing hits', async t => {
   const {store} = await setup(t);
   const a = await web(store, 'cash 1\n'.repeat(25));

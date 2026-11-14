@@ -21,17 +21,48 @@ const urlOf = value => {
 };
 const checkAbort = signal => { if (signal?.aborted) throw new Error('cancelled'); };
 
+function indentColumn(whitespace, column = 0) {
+  for (const char of whitespace) column += char === '\t' ? 4 - column % 4 : 1;
+  return column;
+}
+
 // Preserve offsets while excluding code examples and non-citation comments.
 function narrativeOnly(report) {
+  const listIndents = [];
   let fence = null;
   let visible = report.split(/(?<=\n)/).map(line => {
-    const marker = /^ {0,3}(`{3,}|~{3,})(.*)/.exec(line);
+    if (!line.trim()) return line;
+    const leading = /^[ \t]*/.exec(line)[0];
+    let column = indentColumn(leading);
+    let content = line.slice(leading.length);
+    while (listIndents.length && column < listIndents.at(-1)) listIndents.pop();
+    if (fence && listIndents.length < fence.depth) fence = null;
+
     if (fence) {
+      const marker = column - (listIndents.at(-1) ?? 0) < 4 && /^(`{3,}|~{3,})(.*)/.exec(content);
       if (marker && marker[1][0] === fence.char && marker[1].length >= fence.length && !marker[2].trim()) fence = null;
       return ' '.repeat(line.length);
     }
-    if (marker) { fence = {char: marker[1][0], length: marker[1].length}; return ' '.repeat(line.length); }
-    return /^(?: {4}|\t)/.test(line) ? ' '.repeat(line.length) : line;
+
+    // List markers establish content columns. Four columns beyond the active
+    // item still introduce indented code, even when the sample starts with '-'.
+    while (column - (listIndents.at(-1) ?? 0) < 4) {
+      if (/^(?:(?:\*[ \t]*){3,}|(?:-[ \t]*){3,}|(?:_[ \t]*){3,})\r?$/.test(content.trimEnd())) break;
+      const item = /^([-+*]|\d{1,9}[.)])([ \t]+|(?=\r?\n?$))/.exec(content);
+      if (!item) break;
+      const markerEnd = column + item[1].length;
+      column = indentColumn(item[2], markerEnd);
+      const padding = column - markerEnd;
+      listIndents.push(markerEnd + (padding >= 1 && padding <= 4 ? padding : 1));
+      content = content.slice(item[0].length);
+      if (!content.trim()) return line;
+    }
+    const relativeIndent = column - (listIndents.at(-1) ?? 0);
+    if (relativeIndent >= 4) return ' '.repeat(line.length);
+    const marker = /^(`{3,}|~{3,})(.*)/.exec(content);
+    if (!marker) return line;
+    fence = {char: marker[1][0], length: marker[1].length, depth: listIndents.length};
+    return ' '.repeat(line.length);
   }).join('');
   visible = visible.replace(/(?<!\\)(`+)([\s\S]*?)\1(?!`)/g, m => ' '.repeat(m.length));
   return visible.replace(/(?<!\\)<!--(?!\s*evidence-cite:)[\s\S]*?(?:-->|$)/g, m => ' '.repeat(m.length));

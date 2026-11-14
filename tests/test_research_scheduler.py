@@ -83,28 +83,38 @@ class SchedulerTests(unittest.TestCase):
             rows = [
                 dict(code='300454.SZ', name='深信服', research_on='2026-10-07', order=0),
                 dict(code='002439.SZ', name='启明星辰', research_on='2026-10-07', order=1),
+                dict(code='600519.SH', name='贵州茅台', research_on='2026-10-07', order=2),
             ]
+            subprocess_factory = subprocess.Popen
+            scheduler_wait = scheduler.wait_for_process
 
             def wait_for_pack(process, timeout, cancelled):
                 if json.loads(process.args[-1])['order'] == 0:
                     raise ValueError('candidate pack timeout')
-                return process.wait(timeout=timeout)
-
-            subprocess_factory = subprocess.Popen
+                scheduler_wait(process, timeout, cancelled)
 
             def launch_fixture(args, **kwargs):
-                return subprocess_factory([sys.executable, '-c', 'pass', args[-1]],
+                exit_code = 7 if json.loads(args[-1])['order'] == 1 else 0
+                return subprocess_factory([sys.executable, '-c', 'import sys; sys.exit(int(sys.argv[1]))',
+                                           str(exit_code), args[-1]],
                                           start_new_session=kwargs['start_new_session'])
 
+            event_log = root/'events.jsonl'
             with patch.object(scheduler, 'due_candidates', return_value=rows), \
                  patch.object(scheduler.subprocess, 'Popen', side_effect=launch_fixture), \
                  patch.object(scheduler, 'wait_for_process', side_effect=wait_for_pack), \
                  patch.object(scheduler, 'stop_group', wraps=scheduler.stop_group) as cleanup:
                 attempted, failures = scheduler.collect_candidate_packs(
-                    root, root/'exchange', NOW, new_state(), set(), [], Event(), None, 'test')
+                    root, root/'exchange', NOW, new_state(), set(), [], Event(), event_log, 'test')
             self.assertTrue(attempted)
-            self.assertEqual(failures, [dict(task_id='SZ-300454', reason='candidate pack timeout')])
-            self.assertEqual(cleanup.call_count, 2)
+            self.assertEqual(failures, [dict(task_id='SZ-300454', reason='candidate pack timeout'),
+                                        dict(task_id='SZ-002439', reason='candidate pack process exited with status 7')])
+            self.assertEqual(cleanup.call_count, 3)
+            events = [json.loads(line) for line in event_log.read_text().splitlines()]
+            self.assertEqual({(e['task_id'], e['event']) for e in events}, {
+                ('SZ-300454', 'candidate_pack_failed'), ('SZ-002439', 'candidate_pack_failed'),
+                ('SH-600519', 'candidate_pack_ready'),
+            })
 
     def test_service_wakes_clock_gate_without_load_or_interval_trigger(self):
         from scripts.install_research_service import service

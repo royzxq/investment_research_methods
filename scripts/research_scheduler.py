@@ -367,11 +367,11 @@ def collect_candidate_packs(methods, exchange, now, state, held, records, cancel
                        str(ai_root), str(Path(exchange).resolve()), json.dumps(candidate)]
             with subprocess.Popen(command, cwd=ai_root, start_new_session=True) as process:
                 try:
-                    status = wait_for_process(process, 240, cancelled)
+                    wait_for_process(process, 240, cancelled)
                 finally:
                     stop_group(process)
-            if status:
-                raise ValueError(f'candidate pack process exited with status {status}')
+            if process.returncode != 0:
+                raise ValueError(f'candidate pack process exited with status {process.returncode}')
         except (OSError, ValueError) as exc:
             failure = dict(task_id=task_id, reason=str(exc))
             journal(event_log, 'candidate_pack_failed', run_id=run_id, task_id=task_id, details=failure)
