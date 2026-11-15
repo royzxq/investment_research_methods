@@ -56,3 +56,10 @@ def audit_for(document):
             rule['action'] = rule.pop('effect')
             rule['lifecycle'] = 'persistent'
     return audit
+
+
+def input_basis_for(document):
+    return {key: dict(status='resolved', affects='p1' if key == 'residual_discount' else 'v50',
+                     explanation='offline explicit evidence and reconciled assumptions', gaps=[],
+                     evidence=[dict(source='offline fixture', as_of=document['meta']['valuation_date'])])
+            for key in ('profit', 'investment', 'tax', 'capital', 'residual_discount')}

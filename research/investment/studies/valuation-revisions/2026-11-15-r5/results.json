@@ -1,0 +1,228 @@
+{
+  "schema": "isolated-input-bridges/v1",
+  "production_eligible": false,
+  "full_research_started": false,
+  "stocks": {
+    "09988": {
+      "valuation_date": "2026-11-09",
+      "pack_sha256": "8816b3490e0597bd0f17641b88f7def6fad01f839261550d1e84dbb7e88be76b",
+      "original_v50": 50.5616963666841,
+      "original_p1": 37.92127227501308,
+      "old_r2_conditional_v50": 130.3075007851758,
+      "equivalent_migration_delta": 1.1801583960844814e-27,
+      "stages": [
+        {
+          "stage": "tax_no_cross_entity_offset",
+          "conditional_v50": 128.4403031846926,
+          "delta_v50": -1.8671976004831687,
+          "diagnostic_p1_at_unchanged25": 96.33022738851946,
+          "delta_p1_at_unchanged25": -1.4003982003623765
+        },
+        {
+          "stage": "commerce_recovery_assumption",
+          "conditional_v50": 122.53905609328947,
+          "delta_v50": -5.901247091403138,
+          "diagnostic_p1_at_unchanged25": 91.9042920699671,
+          "delta_p1_at_unchanged25": -4.425935318552353
+        },
+        {
+          "stage": "labs_cost_assumption",
+          "conditional_v50": 120.37412306779515,
+          "delta_v50": -2.164933025494323,
+          "diagnostic_p1_at_unchanged25": 90.28059230084637,
+          "delta_p1_at_unchanged25": -1.6236997691207424
+        }
+      ],
+      "pure_tax_sensitivity": [
+        {
+          "tax_rate": 0.15,
+          "conditional_v50": 131.67322996353622,
+          "commerce_reinvestment": 113.07735177870136
+        },
+        {
+          "tax_rate": 0.2,
+          "conditional_v50": 126.02367651566567,
+          "commerce_reinvestment": 113.07735177870136
+        },
+        {
+          "tax_rate": 0.25,
+          "conditional_v50": 120.37412306779515,
+          "commerce_reinvestment": 113.07735177870136
+        }
+      ],
+      "adopted_v50": null,
+      "adopted_p1": null
+    },
+    "01810": {
+      "valuation_date": "2026-11-08",
+      "pack_sha256": "4c53ea20a25e661b8583382093f7297e95f7d39c0393469bb3501b144eb62264",
+      "original": {
+        "codex": {
+          "low": {
+            "nopat": "125.20000",
+            "ev": "1821.090909090909090909090909090909090909",
+            "capital": "384.894581406421088",
+            "v50": "9.977075783087471858217105222957235178290",
+            "p1": "5.440954778256338516501396506760956110935"
+          },
+          "base": {
+            "nopat": "193.40000",
+            "ev": "3164.727272727272727272727272727272727273",
+            "capital": "584.894581406421088",
+            "v50": "16.95852559219636337367093480978936743900",
+            "p1": "9.248257992532704789687135093242860851217"
+          },
+          "high": {
+            "nopat": "284.16000",
+            "ev": "5166.545454545454545454545454545454545455",
+            "capital": "684.894581406421088",
+            "v50": "26.46448080931047243358215624957493268443",
+            "p1": "14.43228922422113754799421849250444139275"
+          }
+        },
+        "dsh": {
+          "low": {
+            "nopat": "147.3250",
+            "ev": "1915.2250",
+            "capital": "1124.19792",
+            "v50": "13.74648788050571767529463735735623338293",
+            "p1": "10.23537664804972208111785656652469344009"
+          },
+          "base": {
+            "nopat": "198.0250",
+            "ev": "3168.4000",
+            "capital": "1124.19792",
+            "v50": "19.41425949474778989989224523823149432545",
+            "p1": "14.45549292292459552222649632856037049611"
+          },
+          "high": {
+            "nopat": "266.4000",
+            "ev": "5061.6000",
+            "capital": "1124.19792",
+            "v50": "27.97669109455076325605414699981550614851",
+            "p1": "20.83091864686028718437015287891123434390"
+          }
+        }
+      },
+      "historical_waterfall": {
+        "codex": [
+          {
+            "stage": "original",
+            "v50": "16.95852559219636337367093480978936743900",
+            "p1_old_discounts": "9.248257992532704789687135093242860851217"
+          },
+          {
+            "stage": "known_cash_events_only",
+            "v50": "16.95864787354239825140834129455978183964",
+            "p1_old_discounts": "9.248324678131618241549162784620132745599",
+            "delta_v50": "0.00012228134603487773740648477041440064"
+          },
+          {
+            "stage": "capital_perimeter_and_required_input_reconstruction",
+            "v50": "23.20664204577611604060698711842005727147",
+            "p1_old_discounts": "12.65564105870468529887908337856654192155",
+            "qualification": "Changes asset perimeter, existing payables, required cash and lease operating boundary; no operating forecast change yet. Not a deterministic correction total.",
+            "delta_v50": "6.24799417223371778919864582386027543183"
+          },
+          {
+            "stage": "fcff_model_old_operating_assumptions",
+            "v50": "23.37696032352923628377188938175073017462",
+            "p1_old_discounts": "12.74852338888965841988480262890005626755",
+            "delta_v50": "0.17031827775312024316490226333067290315"
+          },
+          {
+            "stage": "coupled_ev_revenue_gross_profit_opex_capex_update",
+            "v50": "23.67030884237669145540914332555654324307",
+            "p1_old_discounts": "12.90849972464357592283263072872736143108",
+            "delta_v50": "0.29334851884745517163725394380581306845"
+          },
+          {
+            "stage": "replace_unjustified_fixed_discounts_with_explicit_return_hurdle",
+            "v50": "23.67030884237669145540914332555654324307",
+            "p1_operating_hurdle_before_independent_tail": "19.50498473567617062711277717479877101646",
+            "d_base": "0.1759725288942317164327589333576126727006",
+            "qualification": "Not final publication price; quantified separate net legal/recall loss is applied below; original Gates are unchanged.",
+            "delta_v50": "0E-38"
+          }
+        ],
+        "dsh": [
+          {
+            "stage": "original",
+            "v50": "19.41425949474778989989224523823149432545",
+            "p1_old_discounts": "14.45549292292459552222649632856037049611"
+          },
+          {
+            "stage": "known_cash_events_only",
+            "v50": "19.34289918246689387231663769654145202413",
+            "p1_old_discounts": "14.40235937490370653672557696080563564599",
+            "delta_v50": "-0.07136031228089602757560754169004230132"
+          },
+          {
+            "stage": "capital_perimeter_and_required_input_reconstruction",
+            "v50": "23.22325279797211128308191849152418083704",
+            "p1_old_discounts": "17.29159778456622415527234381495004176952",
+            "qualification": "Changes asset perimeter, existing payables, required cash and lease operating boundary; no operating forecast change yet. Not a deterministic correction total.",
+            "delta_v50": "3.88035361550521741076528079498272881291"
+          },
+          {
+            "stage": "fcff_model_old_operating_assumptions",
+            "v50": "23.37696032352923628377188938175073017462",
+            "p1_old_discounts": "17.40604552070019184019295817870955750056",
+            "delta_v50": "0.15370752555712500068997089022654933758"
+          },
+          {
+            "stage": "coupled_ev_revenue_gross_profit_opex_capex_update",
+            "v50": "23.67030884237669145540914332555654324307",
+            "p1_old_discounts": "17.62446731728208041154865825945203151913",
+            "delta_v50": "0.29334851884745517163725394380581306845"
+          },
+          {
+            "stage": "replace_unjustified_fixed_discounts_with_explicit_return_hurdle",
+            "v50": "23.67030884237669145540914332555654324307",
+            "p1_operating_hurdle_before_independent_tail": "19.50498473567617062711277717479877101646",
+            "d_base": "0.1759725288942317164327589333576126727006",
+            "qualification": "Not final publication price; quantified separate net legal/recall loss is applied below; original Gates are unchanged.",
+            "delta_v50": "0E-38"
+          }
+        ]
+      },
+      "old_r2_conditional_v50": 23.67030884237669,
+      "expense_cases": [
+        {
+          "expense_ratio": 0.142,
+          "conditional_v50": 22.66750428646992,
+          "equivalent_migration_delta": 4.396591283844908e-15
+        },
+        {
+          "expense_ratio": 0.1455,
+          "conditional_v50": 22.06727058613637,
+          "equivalent_migration_delta": 1.2325576908150368e-15
+        },
+        {
+          "expense_ratio": 0.149,
+          "conditional_v50": 21.467036885802827,
+          "equivalent_migration_delta": 2.3145078248076262e-15
+        }
+      ],
+      "expense_assumption_delta": -1.6030382562403203,
+      "diagnostic_p1_at_old_discounts": 12.034289800849715,
+      "old_discount_factor": 0.54534564,
+      "adopted_residual_discounts": {
+        "d_base": null,
+        "r_chip": null,
+        "r_v5": null,
+        "r_gov": null,
+        "r_terminal": null
+      },
+      "adopted_v50": null,
+      "adopted_p1": null
+    }
+  },
+  "caveats": [
+    "迁移等价不是新估值准确性证明",
+    "税纠错以既有25%及无跨主体抵扣条件为前提；真实法律主体税仍未决",
+    "小米资本桥/回报门槛均条件；无新增可确认资本归属收益",
+    "顺序分解有路径依赖，DCF、利润路径、折扣不可都记成规则纠错",
+    "条件P1保留旧折扣仅供影响分解，禁止采纳"
+  ]
+}

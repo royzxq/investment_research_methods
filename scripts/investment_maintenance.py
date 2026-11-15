@@ -335,7 +335,7 @@ def validate_handoff(record, root):
             report_raw = _check_ref(root, completion["report"])
             if meta["schema_version"] == "stock-research/v4":
                 text = report_raw.decode("utf-8")
-                # audit-v3/v4 only belong to controls-v6/v7, whose existing
+                # audit-v3/v4/v5 only belong to controls-v6/v7/v8, whose existing
                 # delivery contracts require both gates. audit-v2 spans older
                 # frozen contracts, so do not infer new requirements by date.
                 strict = extract_audit(text)["schema_version"] in CAPITAL_SCHEMAS

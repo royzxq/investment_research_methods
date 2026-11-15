@@ -1,0 +1,1501 @@
+{
+  "schema": "isolated-valuation-evidence-inputs/v1",
+  "production_eligible": false,
+  "valuation_date": "2026-11-09",
+  "batch_id": "5fcec3e82e044caaa8e6daa055b722e5",
+  "source_manifest": "sources/manifest.json",
+  "original": {
+    "revenue_100m": 11500,
+    "margin": 0.05,
+    "pe": 15,
+    "d_base": 0.25,
+    "shares": 19901959514,
+    "cny_per_hkd": 0.85712
+  },
+  "model": {
+    "kind": "dcf_fcff",
+    "currency": "CNY",
+    "amount_unit": "100_million",
+    "shares": 19901959514,
+    "fx_to_quote": 1.1666977786074295,
+    "scenarios": {
+      "low": {
+        "segments": [
+          {
+            "id": "commerce",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.115,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 8316.824799999999,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 99.8018976,
+                "capex": 133.0691968,
+                "delta_nwc": 2.4703439999999883
+              },
+              {
+                "year": 2,
+                "revenue": 8399.993048,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 100.79991657600002,
+                "capex": 134.399888768,
+                "delta_nwc": 2.495047440000019
+              },
+              {
+                "year": 3,
+                "revenue": 8483.99297848,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 101.80791574176,
+                "capex": 135.74388765568,
+                "delta_nwc": 2.5199979144000166
+              },
+              {
+                "year": 4,
+                "revenue": 8568.832908264802,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 102.8259948991776,
+                "capex": 137.1013265322368,
+                "delta_nwc": 2.545197893544014
+              },
+              {
+                "year": 5,
+                "revenue": 8654.52123734745,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 103.85425484816938,
+                "capex": 138.4723397975592,
+                "delta_nwc": 2.5706498724794304
+              },
+              {
+                "year": 6,
+                "revenue": 8654.52123734745,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 103.85425484816938,
+                "capex": 138.4723397975592,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 7,
+                "revenue": 8654.52123734745,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 103.85425484816938,
+                "capex": 138.4723397975592,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 8,
+                "revenue": 8654.52123734745,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 103.85425484816938,
+                "capex": 138.4723397975592,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 9,
+                "revenue": 8654.52123734745,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 103.85425484816938,
+                "capex": 138.4723397975592,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 10,
+                "revenue": 8654.52123734745,
+                "ebit_margin": 0.15590016613070892,
+                "tax_rate": 0.25,
+                "da": 103.85425484816938,
+                "capex": 138.4723397975592,
+                "delta_nwc": 0.0
+              }
+            ],
+            "terminal": {
+              "growth": 0.015,
+              "roic": 0.2,
+              "margin": 0.15590016613070892,
+              "tax_rate": 0.25
+            }
+          },
+          {
+            "id": "cloud_and_ai_labs",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.125,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 2575.398,
+                "ebit_margin": -0.15774338568252363,
+                "tax_rate": 0,
+                "da": 550,
+                "capex": 2300,
+                "delta_nwc": 15.131940000000004
+              },
+              {
+                "year": 2,
+                "revenue": 3082.8002,
+                "ebit_margin": -0.10978337162427847,
+                "tax_rate": 0,
+                "da": 800,
+                "capex": 2200,
+                "delta_nwc": 15.222066000000003
+              },
+              {
+                "year": 3,
+                "revenue": 3545.2202300000004,
+                "ebit_margin": -0.06086637387827384,
+                "tax_rate": 0,
+                "da": 1100,
+                "capex": 2100,
+                "delta_nwc": 13.872600899999998
+              },
+              {
+                "year": 4,
+                "revenue": 3976.7386745000003,
+                "ebit_margin": -0.02219073407208366,
+                "tax_rate": 0,
+                "da": 1400,
+                "capex": 2000,
+                "delta_nwc": 12.945553335000003
+              },
+              {
+                "year": 5,
+                "revenue": 4386.088907675001,
+                "ebit_margin": 0.021455082534996558,
+                "tax_rate": 0.25,
+                "da": 1600,
+                "capex": 1900,
+                "delta_nwc": 12.28050699525001
+              },
+              {
+                "year": 6,
+                "revenue": 4755.774969106251,
+                "ebit_margin": 0.0584766024980075,
+                "tax_rate": 0.25,
+                "da": 1700,
+                "capex": 1900,
+                "delta_nwc": 11.090581842937505
+              },
+              {
+                "year": 7,
+                "revenue": 5068.9170558609885,
+                "ebit_margin": 0.09073440404141532,
+                "tax_rate": 0.25,
+                "da": 1700,
+                "capex": 1850,
+                "delta_nwc": 9.394262602642131
+              },
+              {
+                "year": 8,
+                "revenue": 5357.879494098057,
+                "ebit_margin": 0.10133139933567191,
+                "tax_rate": 0.25,
+                "da": 1650,
+                "capex": 1800,
+                "delta_nwc": 8.668873147112045
+              },
+              {
+                "year": 9,
+                "revenue": 5617.123154448663,
+                "ebit_margin": 0.11049041771172093,
+                "tax_rate": 0.25,
+                "da": 1600,
+                "capex": 1750,
+                "delta_nwc": 7.777309810518186
+              },
+              {
+                "year": 10,
+                "revenue": 5842.00167018178,
+                "ebit_margin": 0.11849661661631605,
+                "tax_rate": 0.25,
+                "da": 1500,
+                "capex": 1750,
+                "delta_nwc": 6.746355471993523
+              }
+            ],
+            "terminal": {
+              "growth": 0.025,
+              "roic": 0.12,
+              "margin": 0.12,
+              "tax_rate": 0.25
+            }
+          },
+          {
+            "id": "other_businesses",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.11,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.3672675857193354,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 2,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.3230823612583952,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 3,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.25680452456698477,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 4,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.19052668787557442,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 5,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.14634146341463414,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 6,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.10215623895369388,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 7,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.057971014492753624,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 8,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.013785790031813364,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 9,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 10,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              }
+            ],
+            "terminal": {
+              "growth": 0,
+              "roic": 0.1,
+              "margin": 0,
+              "tax_rate": 0.25
+            }
+          }
+        ],
+        "equity_adjustments": [
+          {
+            "id": "net_cash_ex_operating",
+            "amount": 954.0449696703297,
+            "reason": "June cash minus five debt buckets; placing and pre-valuation forecast flows; no future capex reserve",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "listed_securities",
+            "amount": 855.049,
+            "reason": "March composition anchor with realizability/tax assumption",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "private_securities",
+            "amount": 717.4585000000001,
+            "reason": "March carrying values adjusted for tax and exit/mark-to-model uncertainty",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "debt_investments",
+            "amount": 87.04,
+            "reason": "Net March carrying basis with further collection sensitivity",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "june_unallocated_delta",
+            "amount": 45.496000000000116,
+            "reason": "June aggregate bridge; not claimed as verified category allocation",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "ant_equity",
+            "amount": 480,
+            "reason": "Alibaba share of sustainable earnings times explicit equity multiple; excludes all equity-method earnings from FCFF",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "other_equity_method",
+            "amount": 130.0,
+            "reason": "Earnings approach excluding Ant; no addition of full carrying value",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "nci",
+            "amount": -750,
+            "reason": "Consolidated FCFF to common equity; book anchor range, not exact fair value",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "mezzanine",
+            "amount": -75.84,
+            "reason": "Latest redeemable request rights at carrying amount",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          }
+        ],
+        "equity_value": 7629.852282535034
+      },
+      "base": {
+        "segments": [
+          {
+            "id": "commerce",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.1,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 8563.8592,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 102.76631040000001,
+                "capex": 137.0217472,
+                "delta_nwc": 9.881376000000023
+              },
+              {
+                "year": 2,
+                "revenue": 8906.413568,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 106.876962816,
+                "capex": 142.502617088,
+                "delta_nwc": 10.276631039999994
+              },
+              {
+                "year": 3,
+                "revenue": 9262.67011072,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 111.15204132864001,
+                "capex": 148.20272177152,
+                "delta_nwc": 10.687696281600005
+              },
+              {
+                "year": 4,
+                "revenue": 9633.1769151488,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 115.5981229817856,
+                "capex": 154.13083064238083,
+                "delta_nwc": 11.115204132863994
+              },
+              {
+                "year": 5,
+                "revenue": 10018.503991754753,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 120.22204790105704,
+                "capex": 160.29606386807603,
+                "delta_nwc": 11.559812298178587
+              },
+              {
+                "year": 6,
+                "revenue": 10319.059111507397,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 123.82870933808876,
+                "capex": 165.10494578411837,
+                "delta_nwc": 9.016653592579313
+              },
+              {
+                "year": 7,
+                "revenue": 10628.630884852619,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 127.54357061823143,
+                "capex": 170.0580941576419,
+                "delta_nwc": 9.287153200356647
+              },
+              {
+                "year": 8,
+                "revenue": 10947.489811398198,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 131.3698777367784,
+                "capex": 175.1598369823712,
+                "delta_nwc": 9.565767796367368
+              },
+              {
+                "year": 9,
+                "revenue": 11275.914505740144,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 135.3109740688817,
+                "capex": 180.4146320918423,
+                "delta_nwc": 9.852740830258357
+              },
+              {
+                "year": 10,
+                "revenue": 11614.191940912347,
+                "ebit_margin": 0.1759001661307089,
+                "tax_rate": 0.25,
+                "da": 139.37030329094816,
+                "capex": 185.82707105459752,
+                "delta_nwc": 10.148323055166111
+              }
+            ],
+            "terminal": {
+              "growth": 0.02,
+              "roic": 0.25,
+              "margin": 0.1759001661307089,
+              "tax_rate": 0.25
+            }
+          },
+          {
+            "id": "cloud_and_ai_labs",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.11,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 2782.498,
+                "ebit_margin": -0.11064884862450935,
+                "tax_rate": 0,
+                "da": 550,
+                "capex": 2200,
+                "delta_nwc": 21.34494
+              },
+              {
+                "year": 2,
+                "revenue": 3608.9024,
+                "ebit_margin": -0.029639679920410163,
+                "tax_rate": 0,
+                "da": 800,
+                "capex": 2100,
+                "delta_nwc": 24.792132
+              },
+              {
+                "year": 3,
+                "revenue": 4511.128,
+                "ebit_margin": 0.03991208961483693,
+                "tax_rate": 0.25,
+                "da": 1100,
+                "capex": 2000,
+                "delta_nwc": 27.066767999999996
+              },
+              {
+                "year": 4,
+                "revenue": 5426.3926625,
+                "ebit_margin": 0.09233879801266594,
+                "tax_rate": 0.25,
+                "da": 1400,
+                "capex": 1950,
+                "delta_nwc": 27.457939874999997
+              },
+              {
+                "year": 5,
+                "revenue": 6272.949218125,
+                "ebit_margin": 0.13403362652301415,
+                "tax_rate": 0.25,
+                "da": 1650,
+                "capex": 1900,
+                "delta_nwc": 25.396696668749996
+              },
+              {
+                "year": 6,
+                "revenue": 7078.67431570625,
+                "ebit_margin": 0.16008277503002222,
+                "tax_rate": 0.25,
+                "da": 1750,
+                "capex": 1850,
+                "delta_nwc": 24.171752927437524
+              },
+              {
+                "year": 7,
+                "revenue": 7862.942504112814,
+                "ebit_margin": 0.18189804966116535,
+                "tax_rate": 0.25,
+                "da": 1750,
+                "capex": 1850,
+                "delta_nwc": 23.528045652196894
+              },
+              {
+                "year": 8,
+                "revenue": 8600.212309959417,
+                "ebit_margin": 0.18556218859104084,
+                "tax_rate": 0.25,
+                "da": 1700,
+                "capex": 1850,
+                "delta_nwc": 22.118094175398117
+              },
+              {
+                "year": 9,
+                "revenue": 9267.434879794777,
+                "ebit_margin": 0.1877031448574066,
+                "tax_rate": 0.25,
+                "da": 1650,
+                "capex": 1850,
+                "delta_nwc": 20.016677095060764
+              },
+              {
+                "year": 10,
+                "revenue": 9847.040594459835,
+                "ebit_margin": 0.1884533450192855,
+                "tax_rate": 0.25,
+                "da": 1550,
+                "capex": 1850,
+                "delta_nwc": 17.388171439951748
+              }
+            ],
+            "terminal": {
+              "growth": 0.03,
+              "roic": 0.15,
+              "margin": 0.19,
+              "tax_rate": 0.25
+            }
+          },
+          {
+            "id": "other_businesses",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.11,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.3075733474726051,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 2,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.202677624602333,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 3,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.11430717568045248,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 4,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.02593672675857193,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 5,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 6,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 7,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 8,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 9,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 10,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.0,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              }
+            ],
+            "terminal": {
+              "growth": 0,
+              "roic": 0.1,
+              "margin": 0,
+              "tax_rate": 0.25
+            }
+          }
+        ],
+        "equity_adjustments": [
+          {
+            "id": "net_cash_ex_operating",
+            "amount": 1616.6823323076924,
+            "reason": "June cash minus five debt buckets; placing and pre-valuation forecast flows; no future capex reserve",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "listed_securities",
+            "amount": 930.4944999999999,
+            "reason": "March composition anchor with realizability/tax assumption",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "private_securities",
+            "amount": 978.3525,
+            "reason": "March carrying values adjusted for tax and exit/mark-to-model uncertainty",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "debt_investments",
+            "amount": 97.92000000000002,
+            "reason": "Net March carrying basis with further collection sensitivity",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "june_unallocated_delta",
+            "amount": 62.04000000000015,
+            "reason": "June aggregate bridge; not claimed as verified category allocation",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "ant_equity",
+            "amount": 875.28,
+            "reason": "Alibaba share of sustainable earnings times explicit equity multiple; excludes all equity-method earnings from FCFF",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "other_equity_method",
+            "amount": 212.88,
+            "reason": "Earnings approach excluding Ant; no addition of full carrying value",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "nci",
+            "amount": -572.72,
+            "reason": "Consolidated FCFF to common equity; book anchor range, not exact fair value",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "mezzanine",
+            "amount": -75.84,
+            "reason": "Latest redeemable request rights at carrying amount",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          }
+        ],
+        "equity_value": 22228.332414351073
+      },
+      "high": {
+        "segments": [
+          {
+            "id": "commerce",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.09,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 8728.5488,
+                "ebit_margin": 0.18090016613070892,
+                "tax_rate": 0.25,
+                "da": 104.74258559999998,
+                "capex": 139.6567808,
+                "delta_nwc": 14.822064
+              },
+              {
+                "year": 2,
+                "revenue": 9252.261728,
+                "ebit_margin": 0.18590016613070892,
+                "tax_rate": 0.25,
+                "da": 111.02714073599999,
+                "capex": 148.036187648,
+                "delta_nwc": 15.711387839999997
+              },
+              {
+                "year": 3,
+                "revenue": 9807.39743168,
+                "ebit_margin": 0.19090016613070893,
+                "tax_rate": 0.25,
+                "da": 117.68876918016,
+                "capex": 156.91835890688,
+                "delta_nwc": 16.65407111040001
+              },
+              {
+                "year": 4,
+                "revenue": 10395.841277580801,
+                "ebit_margin": 0.19590016613070893,
+                "tax_rate": 0.25,
+                "da": 124.7500953309696,
+                "capex": 166.33346044129283,
+                "delta_nwc": 17.65331537702401
+              },
+              {
+                "year": 5,
+                "revenue": 11019.591754235647,
+                "ebit_margin": 0.19590016613070893,
+                "tax_rate": 0.25,
+                "da": 132.23510105082778,
+                "capex": 176.31346806777037,
+                "delta_nwc": 18.71251429964543
+              },
+              {
+                "year": 6,
+                "revenue": 11460.375424405074,
+                "ebit_margin": 0.19590016613070893,
+                "tax_rate": 0.25,
+                "da": 137.5245050928609,
+                "capex": 183.36600679048118,
+                "delta_nwc": 13.223510105082777
+              },
+              {
+                "year": 7,
+                "revenue": 11918.790441381278,
+                "ebit_margin": 0.19590016613070893,
+                "tax_rate": 0.25,
+                "da": 143.02548529657534,
+                "capex": 190.70064706210044,
+                "delta_nwc": 13.752450509286085
+              },
+              {
+                "year": 8,
+                "revenue": 12395.542059036528,
+                "ebit_margin": 0.19590016613070893,
+                "tax_rate": 0.25,
+                "da": 148.74650470843835,
+                "capex": 198.3286729445845,
+                "delta_nwc": 14.302548529657564
+              },
+              {
+                "year": 9,
+                "revenue": 12891.36374139799,
+                "ebit_margin": 0.19590016613070893,
+                "tax_rate": 0.25,
+                "da": 154.6963648967759,
+                "capex": 206.26181986236784,
+                "delta_nwc": 14.874650470843836
+              },
+              {
+                "year": 10,
+                "revenue": 13407.01829105391,
+                "ebit_margin": 0.19590016613070893,
+                "tax_rate": 0.25,
+                "da": 160.88421949264693,
+                "capex": 214.51229265686254,
+                "delta_nwc": 15.469636489677576
+              }
+            ],
+            "terminal": {
+              "growth": 0.025,
+              "roic": 0.3,
+              "margin": 0.19590016613070893,
+              "tax_rate": 0.25
+            }
+          },
+          {
+            "id": "cloud_and_ai_labs",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.1,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 2989.598,
+                "ebit_margin": -0.06387880243430723,
+                "tax_rate": 0,
+                "da": 550,
+                "capex": 2400,
+                "delta_nwc": 27.55794
+              },
+              {
+                "year": 2,
+                "revenue": 4035.9573,
+                "ebit_margin": 0.032449895840077396,
+                "tax_rate": 0.25,
+                "da": 850,
+                "capex": 2350,
+                "delta_nwc": 31.390779000000002
+              },
+              {
+                "year": 3,
+                "revenue": 5258.911500000001,
+                "ebit_margin": 0.11184222801619692,
+                "tax_rate": 0.25,
+                "da": 1200,
+                "capex": 2300,
+                "delta_nwc": 36.68862600000001
+              },
+              {
+                "year": 4,
+                "revenue": 6606.490302,
+                "ebit_margin": 0.16210884761319974,
+                "tax_rate": 0.25,
+                "da": 1500,
+                "capex": 2250,
+                "delta_nwc": 40.42736406000001
+              },
+              {
+                "year": 5,
+                "revenue": 7994.311489575,
+                "ebit_margin": 0.19427272811114416,
+                "tax_rate": 0.25,
+                "da": 1800,
+                "capex": 2200,
+                "delta_nwc": 41.63463562725
+              },
+              {
+                "year": 6,
+                "revenue": 9313.19984192625,
+                "ebit_margin": 0.22077665245581468,
+                "tax_rate": 0.25,
+                "da": 2000,
+                "capex": 2150,
+                "delta_nwc": 39.566650570537476
+              },
+              {
+                "year": 7,
+                "revenue": 10616.682701847938,
+                "ebit_margin": 0.2341719137535932,
+                "tax_rate": 0.25,
+                "da": 2050,
+                "capex": 2100,
+                "delta_nwc": 39.104485797650646
+              },
+              {
+                "year": 8,
+                "revenue": 11951.137370404718,
+                "ebit_margin": 0.23552083030836432,
+                "tax_rate": 0.25,
+                "da": 2050,
+                "capex": 2100,
+                "delta_nwc": 40.03364005670339
+              },
+              {
+                "year": 9,
+                "revenue": 13304.95092886345,
+                "ebit_margin": 0.2341926067217578,
+                "tax_rate": 0.25,
+                "da": 2000,
+                "capex": 2100,
+                "delta_nwc": 40.614406753761955
+              },
+              {
+                "year": 10,
+                "revenue": 14566.782328546153,
+                "ebit_margin": 0.2300931751265418,
+                "tax_rate": 0.25,
+                "da": 1950,
+                "capex": 2100,
+                "delta_nwc": 37.85494199048111
+              }
+            ],
+            "terminal": {
+              "growth": 0.035,
+              "roic": 0.18,
+              "margin": 0.23,
+              "tax_rate": 0.25
+            }
+          },
+          {
+            "id": "other_businesses",
+            "source": "S1 PDF pp4,7-8,15,23; S12 PDF pp206,238; A1-A5 evidence.md",
+            "assumptions": "Forward 12-month periods from 2026-11-09; economic EBIT includes SBC; rentals stay operating expense; DA excludes lease principal/land rights; amounts CNY100m.",
+            "discount_rate": 0.11,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.23471191233651467,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 2,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.10215623895369388,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 3,
+                "revenue": 452.64000000000004,
+                "ebit_margin": -0.013785790031813364,
+                "tax_rate": 0,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 4,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.07458465889006716,
+                "tax_rate": 0.25,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 5,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.1187698833510074,
+                "tax_rate": 0.25,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 6,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.14086249558147754,
+                "tax_rate": 0.25,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 7,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.16295510781194766,
+                "tax_rate": 0.25,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 8,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.1850477200424178,
+                "tax_rate": 0.25,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 9,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.1850477200424178,
+                "tax_rate": 0.25,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              },
+              {
+                "year": 10,
+                "revenue": 452.64000000000004,
+                "ebit_margin": 0.1850477200424178,
+                "tax_rate": 0.25,
+                "da": 6.7896,
+                "capex": 6.7896,
+                "delta_nwc": 0.0
+              }
+            ],
+            "terminal": {
+              "growth": 0,
+              "roic": 0.1,
+              "margin": 0.1850477200424178,
+              "tax_rate": 0.25
+            }
+          }
+        ],
+        "equity_adjustments": [
+          {
+            "id": "net_cash_ex_operating",
+            "amount": 2206.7922224175827,
+            "reason": "June cash minus five debt buckets; placing and pre-valuation forecast flows; no future capex reserve",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "listed_securities",
+            "amount": 985.8211999999999,
+            "reason": "March composition anchor with realizability/tax assumption",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "private_securities",
+            "amount": 1174.0230000000001,
+            "reason": "March carrying values adjusted for tax and exit/mark-to-model uncertainty",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "debt_investments",
+            "amount": 108.80000000000001,
+            "reason": "Net March carrying basis with further collection sensitivity",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "june_unallocated_delta",
+            "amount": 74.44800000000018,
+            "reason": "June aggregate bridge; not claimed as verified category allocation",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "ant_equity",
+            "amount": 1360,
+            "reason": "Alibaba share of sustainable earnings times explicit equity multiple; excludes all equity-method earnings from FCFF",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "other_equity_method",
+            "amount": 308.00000000000006,
+            "reason": "Earnings approach excluding Ant; no addition of full carrying value",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "nci",
+            "amount": -400,
+            "reason": "Consolidated FCFF to common equity; book anchor range, not exact fair value",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          },
+          {
+            "id": "mezzanine",
+            "amount": -75.84,
+            "reason": "Latest redeemable request rights at carrying amount",
+            "source": "S1 pp15,20-21; S12 pp232-233,237,251; S17 p2; A6 evidence.md"
+          }
+        ],
+        "equity_value": 41336.639641535294
+      }
+    }
+  },
+  "capital": {
+    "low": {
+      "inputs": {
+        "cfo": 20,
+        "capex": 80,
+        "op_cash": 60,
+        "other": -15,
+        "nci": 75,
+        "listed": 0.85,
+        "private": 0.55,
+        "debt": 0.8,
+        "ant_profit": 4,
+        "ant_pe": 12,
+        "other_eq_profit": 1.3,
+        "other_eq_pe": 10
+      },
+      "bridge": {
+        "net_cash_before_operating_reserve": 155.40449696703297,
+        "net_cash_after_reserve": 95.40449696703297,
+        "quarter_equivalents": 1.4505494505494505,
+        "dividend_estimate": 17.25,
+        "buyback_estimate": 1.6,
+        "other_financial_assets": 170.50435,
+        "ant_equity": 48,
+        "other_equity_method": 13.0,
+        "nci": 75,
+        "mezzanine": 7.584,
+        "total": 244.32484696703295
+      }
+    },
+    "base": {
+      "inputs": {
+        "cfo": 35,
+        "capex": 70,
+        "op_cash": 45,
+        "other": 0,
+        "nci": 57.272,
+        "listed": 0.925,
+        "private": 0.75,
+        "debt": 0.9,
+        "ant_profit": 6.252,
+        "ant_pe": 14,
+        "other_eq_profit": 1.774,
+        "other_eq_pe": 12
+      },
+      "bridge": {
+        "net_cash_before_operating_reserve": 206.66823323076923,
+        "net_cash_after_reserve": 161.66823323076923,
+        "quarter_equivalents": 1.4505494505494505,
+        "dividend_estimate": 17.25,
+        "buyback_estimate": 1.6,
+        "other_financial_assets": 206.88070000000002,
+        "ant_equity": 87.52799999999999,
+        "other_equity_method": 21.288,
+        "nci": 57.272,
+        "mezzanine": 7.584,
+        "total": 412.50893323076923
+      }
+    },
+    "high": {
+      "inputs": {
+        "cfo": 45,
+        "capex": 60,
+        "op_cash": 30,
+        "other": 15,
+        "nci": 40,
+        "listed": 0.98,
+        "private": 0.9,
+        "debt": 1,
+        "ant_profit": 8,
+        "ant_pe": 17,
+        "other_eq_profit": 2.2,
+        "other_eq_pe": 14
+      },
+      "bridge": {
+        "net_cash_before_operating_reserve": 250.67922224175825,
+        "net_cash_after_reserve": 220.67922224175825,
+        "quarter_equivalents": 1.4505494505494505,
+        "dividend_estimate": 17.25,
+        "buyback_estimate": 1.6,
+        "other_financial_assets": 234.30922,
+        "ant_equity": 136,
+        "other_equity_method": 30.800000000000004,
+        "nci": 40,
+        "mezzanine": 7.584,
+        "total": 574.2044422417583
+      }
+    }
+  },
+  "ai_decomposition_cny_billion": {
+    "low": [
+      {
+        "year": 1,
+        "cloud_revenue": 242.185,
+        "cloud_ebit": 19.3748,
+        "labs_revenue": 15.3548,
+        "labs_ebit": -60,
+        "combined_ebit": -40.6252
+      },
+      {
+        "year": 2,
+        "cloud_revenue": 290.622,
+        "cloud_ebit": 26.15598,
+        "labs_revenue": 17.658019999999997,
+        "labs_ebit": -60,
+        "combined_ebit": -33.84402
+      },
+      {
+        "year": 3,
+        "cloud_revenue": 334.2153,
+        "cloud_ebit": 33.421530000000004,
+        "labs_revenue": 20.306722999999995,
+        "labs_ebit": -55,
+        "combined_ebit": -21.578469999999996
+      },
+      {
+        "year": 4,
+        "cloud_revenue": 374.321136,
+        "cloud_ebit": 41.175324960000005,
+        "labs_revenue": 23.352731449999993,
+        "labs_ebit": -50,
+        "combined_ebit": -8.824675039999995
+      },
+      {
+        "year": 5,
+        "cloud_revenue": 411.75324960000006,
+        "cloud_ebit": 49.410389952,
+        "labs_revenue": 26.85564116749999,
+        "labs_ebit": -40,
+        "combined_ebit": 9.410389952000003
+      },
+      {
+        "year": 6,
+        "cloud_revenue": 444.6935095680001,
+        "cloud_ebit": 57.81015624384001,
+        "labs_revenue": 30.883987342624984,
+        "labs_ebit": -30,
+        "combined_ebit": 27.810156243840012
+      },
+      {
+        "year": 7,
+        "cloud_revenue": 471.37512014208016,
+        "cloud_ebit": 65.99251681989124,
+        "labs_revenue": 35.51658544401873,
+        "labs_ebit": -20,
+        "combined_ebit": 45.992516819891236
+      },
+      {
+        "year": 8,
+        "cloud_revenue": 494.9438761491841,
+        "cloud_ebit": 69.29214266088579,
+        "labs_revenue": 40.844073260621535,
+        "labs_ebit": -15,
+        "combined_ebit": 54.29214266088579
+      },
+      {
+        "year": 9,
+        "cloud_revenue": 514.7416311951515,
+        "cloud_ebit": 72.06382836732122,
+        "labs_revenue": 46.970684249714765,
+        "labs_ebit": -10,
+        "combined_ebit": 62.06382836732122
+      },
+      {
+        "year": 10,
+        "cloud_revenue": 530.183880131006,
+        "cloud_ebit": 74.22574321834085,
+        "labs_revenue": 54.01628688717197,
+        "labs_ebit": -5,
+        "combined_ebit": 69.22574321834085
+      }
+    ],
+    "base": [
+      {
+        "year": 1,
+        "cloud_revenue": 261.5598,
+        "cloud_ebit": 26.15598,
+        "labs_revenue": 16.69,
+        "labs_ebit": -56.944,
+        "combined_ebit": -30.788020000000003
+      },
+      {
+        "year": 2,
+        "cloud_revenue": 340.02774,
+        "cloud_ebit": 40.803328799999996,
+        "labs_revenue": 20.8625,
+        "labs_ebit": -51.5,
+        "combined_ebit": -10.696671200000004
+      },
+      {
+        "year": 3,
+        "cloud_revenue": 425.034675,
+        "cloud_ebit": 59.50485450000001,
+        "labs_revenue": 26.078125,
+        "labs_ebit": -41.5,
+        "combined_ebit": 18.004854500000008
+      },
+      {
+        "year": 4,
+        "cloud_revenue": 510.04161000000005,
+        "cloud_ebit": 81.6066576,
+        "labs_revenue": 32.59765625,
+        "labs_ebit": -31.5,
+        "combined_ebit": 50.106657600000005
+      },
+      {
+        "year": 5,
+        "cloud_revenue": 586.5478515,
+        "cloud_ebit": 105.57861326999999,
+        "labs_revenue": 40.7470703125,
+        "labs_ebit": -21.5,
+        "combined_ebit": 84.07861326999999
+      },
+      {
+        "year": 6,
+        "cloud_revenue": 656.9335936800001,
+        "cloud_ebit": 124.81738279920002,
+        "labs_revenue": 50.933837890625,
+        "labs_ebit": -11.5,
+        "combined_ebit": 113.31738279920002
+      },
+      {
+        "year": 7,
+        "cloud_revenue": 722.6269530480001,
+        "cloud_ebit": 144.52539060960004,
+        "labs_revenue": 63.66729736328125,
+        "labs_ebit": -1.5,
+        "combined_ebit": 143.02539060960004
+      },
+      {
+        "year": 8,
+        "cloud_revenue": 780.4371092918402,
+        "cloud_ebit": 156.08742185836806,
+        "labs_revenue": 79.58412170410156,
+        "labs_ebit": 3.5,
+        "combined_ebit": 159.58742185836806
+      },
+      {
+        "year": 9,
+        "cloud_revenue": 827.2633358493507,
+        "cloud_ebit": 165.45266716987015,
+        "labs_revenue": 99.48015213012695,
+        "labs_ebit": 8.5,
+        "combined_ebit": 173.95266716987015
+      },
+      {
+        "year": 10,
+        "cloud_revenue": 860.3538692833248,
+        "cloud_ebit": 172.07077385666497,
+        "labs_revenue": 124.35019016265869,
+        "labs_ebit": 13.5,
+        "combined_ebit": 185.57077385666497
+      }
+    ],
+    "high": [
+      {
+        "year": 1,
+        "cloud_revenue": 280.9346,
+        "cloud_ebit": 30.902805999999998,
+        "labs_revenue": 18.0252,
+        "labs_ebit": -50,
+        "combined_ebit": -19.097194000000002
+      },
+      {
+        "year": 2,
+        "cloud_revenue": 379.26171,
+        "cloud_ebit": 53.0966394,
+        "labs_revenue": 24.334020000000002,
+        "labs_ebit": -40,
+        "combined_ebit": 13.0966394
+      },
+      {
+        "year": 3,
+        "cloud_revenue": 493.0402230000001,
+        "cloud_ebit": 83.81683791000002,
+        "labs_revenue": 32.850927000000006,
+        "labs_ebit": -25,
+        "combined_ebit": 58.81683791000002
+      },
+      {
+        "year": 4,
+        "cloud_revenue": 616.3002787500001,
+        "cloud_ebit": 117.09705296250002,
+        "labs_revenue": 44.34875145000001,
+        "labs_ebit": -10,
+        "combined_ebit": 107.09705296250002
+      },
+      {
+        "year": 5,
+        "cloud_revenue": 739.5603345000001,
+        "cloud_ebit": 155.307670245,
+        "labs_revenue": 59.87081445750002,
+        "labs_ebit": 0,
+        "combined_ebit": 155.307670245
+      },
+      {
+        "year": 6,
+        "cloud_revenue": 850.494384675,
+        "cloud_ebit": 195.61370847525,
+        "labs_revenue": 80.82559951762502,
+        "labs_ebit": 10,
+        "combined_ebit": 205.61370847525
+      },
+      {
+        "year": 7,
+        "cloud_revenue": 952.553710836,
+        "cloud_ebit": 228.61289060064001,
+        "labs_revenue": 109.11455934879379,
+        "labs_ebit": 20,
+        "combined_ebit": 248.61289060064001
+      },
+      {
+        "year": 8,
+        "cloud_revenue": 1047.8090819196002,
+        "cloud_ebit": 251.47417966070404,
+        "labs_revenue": 147.30465512087162,
+        "labs_ebit": 30,
+        "combined_ebit": 281.47417966070407
+      },
+      {
+        "year": 9,
+        "cloud_revenue": 1131.6338084731683,
+        "cloud_ebit": 271.5921140335604,
+        "labs_revenue": 198.8612844131767,
+        "labs_ebit": 40,
+        "combined_ebit": 311.5921140335604
+      },
+      {
+        "year": 10,
+        "cloud_revenue": 1188.2154988968268,
+        "cloud_ebit": 285.1717197352384,
+        "labs_revenue": 268.46273395778854,
+        "labs_ebit": 50,
+        "combined_ebit": 335.1717197352384
+      }
+    ]
+  },
+  "discounts": {
+    "d_base": {
+      "base": 0.25,
+      "range": [
+        0.2,
+        0.25
+      ]
+    },
+    "r_chip": 0,
+    "r_v5": 0,
+    "r_gov": 0,
+    "r_terminal": 0
+  },
+  "forecast_timing": "10 forward 12-month years 2026-11-09 through 2036-11-09; end-year convention; June operating run-rate anchor is a proxy, not a repetition of elapsed cash flows",
+  "unavailable": {
+    "actual_20261109_cash": null,
+    "actual_20261109_financial_asset_breakdown": null,
+    "ant_separate_current_book_value": null,
+    "exact_nci_fair_value": null
+  },
+  "controls_preserved": true
+}

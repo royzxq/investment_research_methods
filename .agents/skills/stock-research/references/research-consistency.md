@@ -1,6 +1,6 @@
 # 研究计算与状态一致性
 
-本页接续2026-10-18两价发布契约；新准备使用价格v4 + audit-v4（two-price-controls/v7）；用户已授权评审后合并本地dev，实际采纳以匹配正文指纹的adopted handoff为准。冻结合同优先：旧controls-v6使用audit-v3，旧两价v1及controls-v2…v5继续audit-v2，使用各自旧字段/公式；更早价格v3/audit-v1使用 [legacy-audit-v1](legacy-audit-v1.md)，不追溯改写。只编码 canonical 已定义的计算与按scope控制，不另加折扣常数或投资阈值。
+本页接续2026-10-18两价发布契约；新准备使用价格v4 + audit-v5（two-price-controls/v8）；用户已授权评审后合并本地dev，实际采纳以匹配正文指纹的adopted handoff为准。冻结合同优先：旧controls-v7使用audit-v4，旧controls-v6使用audit-v3，旧两价v1及controls-v2…v5继续audit-v2，使用各自旧字段/公式；更早价格v3/audit-v1使用 [legacy-audit-v1](legacy-audit-v1.md)，不追溯改写。只编码 canonical 已定义的计算与按scope控制，不另加折扣常数或投资阈值。
 
 ## 一份可核算底稿
 
@@ -8,7 +8,7 @@
 
 ```sh
 python3 scripts/research_consistency.py render --audit output/<本轮>/research-audit.json --price-map output/<本轮>/price-map.json > output/<本轮>/research-checks.md
-python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v4
+python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v5
 ```
 
 把生成内容完整放入报告§5或§7，保留唯一的可见核算表与可展开JSON审计块。经营假设的数字表以此为准，正文解释依据，不另写一套未经桥接的收入/利润表。九节、原始证据、现金桥、Terminal、敏感性和监控仍按原契约完成。
@@ -17,9 +17,9 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 
 ## 审计输入
 
-顶层字段为 `schema_version, identity, valuation, baseline, discounts, risks, constraints, release_all_of, p1_basis`；仅audit-v4另必填`valuation_review`，旧版本不追补。
+顶层字段为 `schema_version, identity, valuation, baseline, discounts, risks, constraints, release_all_of, p1_basis`；audit-v4/v5另必填`valuation_review`，旧版本不追补。
 
-- `schema_version`：新合同为 `stock-research-audit/v4`；冻结v6用audit-v3、v1–v5用audit-v2，字段/公式/可见表保留原样。旧价格v3仍配audit-v1。
+- `schema_version`：新合同为 `stock-research-audit/v5`；冻结v7用audit-v4、v6用audit-v3、v1–v5用audit-v2，字段/公式/可见表保留原样。旧价格v3仍配audit-v1。
 - `identity`：`code, generator, valuation_date, currency`，与本轮价格JSON一致。
 - PE模型 `valuation`：`kind="profit_pe", currency, amount_unit="100_million", shares, fx_to_quote, horizon, profit_basis, scenarios`。shares为实际股数；同币种fx=1，跨币种方向与依据留正文。
 - `scenarios`必须有low/base/high，每项为`revenue, net_margin, adjustments, profit, pe, equity_adjustments, equity_value`。利润率用小数，例如11%写0.11。每项强制核验`收入×利润率＋调整=经常归母利润`、`利润×PE＋Σequity_adjustments=股权价值`（旧audit-v2仍核利润×PE），再核股本/币种换算后的V50。
@@ -29,6 +29,19 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 - `p1_basis`只列已明确报价的字段所对应的V50情景，例如单价`{"base":"base"}`，实际区间可为`{"low":"low","base":"base","high":"high"}`；base=null不填对应键。核验公式与明确报价一致，不代为生成缺价。
 
 折扣 `discounts`固定五项 `d_base/r_chip/r_v5/r_gov/r_terminal`，每项包含：
+
+### audit-v5 输入证据与计算差异（仅 controls-v8）
+
+下节 v4 字段保留给旧冻结。v5 沿用同一主模型与反解实现，但 DCF 顶层另必填 `year_end_offset`（−1<值<1，常规年末为0；每期指数=year+offset，终值=N+offset）；逐年以 `cash_tax` 取代 `tax_rate`，现金税≥0，可与合并亏损共存，NOPAT=收入×EBIT率−现金税。terminal以 `invested_capital` 取代 `roic`，非负且为显式期末的生产性资本，再投资=capital×growth；稳态须正FCFF，或原零利润/零增长残差。其它字段、金额和价格精度不变，负退款/有限期等不受支持时用专项模型并留缺口。API 的 `input_bridges=True` 仅由audit-v5路由，默认保留v4算法；反解同样固定现金税和IC、要求可持续正终值FCFF。初期合并税及终值有效税率均需在正文按税务实体/可用抵扣说明，程序不替原文核税。
+
+`valuation_review`另必填`input_basis`，精确五键`profit,investment,tax,capital,residual_discount`。各值精确含`status,affects,evidence,explanation,gaps`：
+
+- status为resolved/bounded/unresolved/not_applicable；resolved与bounded须非空evidence，bounded与unresolved须非空gaps，其余gaps=[]。bounded解释有依据区间及其条件，不是事实确认。evidence每项`{source,as_of}`，source定位原文/底稿，as_of为实际披露日期且≤估值日；研究假设的来源与推断分开，不借补证日回填未来事实。
+- affects为v50/p1/none。不适用必须none；重要未决不能none。未决影响v50则正式price_map.v50=null、valuation.kind=unavailable；影响p1则P1=null；所有未决均无新P1。诊断模型/敏感性另留底稿，不能挂在明确报价字段。
+- `risks`每项另必填`economic_key`，同一事实/期间/范围/损失机制共享键；重复键拒绝，独立残余须解释区别。键是经济裁决后的标识，任意换键不证明去重，人工继续核原文。
+- 未知折扣允许value=null且range=null，须residual_discount.status=unresolved、P1=null，保留reason、risk_ids及change。总乘数=null，不按0收费或取消风险；相对已知旧值变为未知同样需要变化分类/证据。缺口消失后重新论证，不自动沿用0。已知0仍按旧空risk_ids语义。
+
+利润恢复/费用、投入/折旧/ΔNWC、资本配对及残余去重按canonical §4.1B–D；同日期同包先等价迁移，再分纠错/假设调整，不引入通用PE、利润率或税率。审计只核结构、算术及证据声明，不能声称经济假设已证实。
 
 ### audit-v4 的 DCF 与估值复核字段
 

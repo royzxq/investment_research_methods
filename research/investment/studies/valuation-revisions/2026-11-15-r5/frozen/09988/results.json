@@ -1,0 +1,1206 @@
+{
+  "schema": "isolated-valuation-evidence-results/v1",
+  "valuation_date": "2026-11-09",
+  "batch_id": "5fcec3e82e044caaa8e6daa055b722e5",
+  "production_eligible": false,
+  "original_v50": 50.5616963666841,
+  "original_p1": 37.92127227501308,
+  "new_research_v50": 130.3075007851758,
+  "new_research_p1": 97.73062558888185,
+  "valuation_currency": "HKD_per_ordinary_share",
+  "discount_range_p1": {
+    "0.15": 110.76137566739942,
+    "0.2": 104.24600062814064,
+    "0.25": 97.73062558888185
+  },
+  "scenario_summary": {
+    "low": {
+      "v50_hkd": 44.727915876195716,
+      "conditional_p1_at_base_discount": 33.54593690714679,
+      "enterprise_cny_bn": 518.6603812864704,
+      "capital_bridge_cny_bn": 244.324846967033,
+      "explicit_pv_cny_bn": 67.37869271426592,
+      "terminal_pv_cny_bn": 451.2816885722044,
+      "terminal_share_of_ev": 0.8700909204841484,
+      "first_forward_revenue_cny_bn": 1134.4862799999999,
+      "first_forward_nopat_cny_bn": 39.99537759999998
+    },
+    "base": {
+      "v50_hkd": 130.3075007851758,
+      "conditional_p1_at_base_discount": 97.73062558888185,
+      "enterprise_cny_bn": 1810.324308204338,
+      "capital_bridge_cny_bn": 412.50893323076923,
+      "explicit_pv_cny_bn": 608.3849972732655,
+      "terminal_pv_cny_bn": 1201.9393109310724,
+      "terminal_share_of_ev": 0.6639359066681687,
+      "first_forward_revenue_cny_bn": 1179.89972,
+      "first_forward_nopat_cny_bn": 68.26879919999996
+    },
+    "high": {
+      "v50_hkd": 242.3247098405038,
+      "conditional_p1_at_base_discount": 181.74353238037784,
+      "enterprise_cny_bn": 3559.4595219117714,
+      "capital_bridge_cny_bn": 574.2044422417582,
+      "explicit_pv_cny_bn": 1093.9205482409805,
+      "terminal_pv_cny_bn": 2465.5389736707903,
+      "terminal_share_of_ev": 0.6926722887261714,
+      "first_forward_revenue_cny_bn": 1217.07868,
+      "first_forward_nopat_cny_bn": 88.7035006
+    }
+  },
+  "waterfall": [
+    {
+      "stage": "original",
+      "v50": 50.5616963666841,
+      "p1": 37.92127227501308
+    },
+    {
+      "stage": "certain_definition_corrections",
+      "v50": 50.5616963666841,
+      "p1": 37.92127227501308,
+      "delta_v50": 0,
+      "delta_v50_vs_previous": 0.0,
+      "delta_p1_vs_previous": 0.0
+    },
+    {
+      "stage": "capital_assumptions_fixed_old_profit_and_multiple",
+      "v50": 64.84579668747014,
+      "p1": 48.634347515602606,
+      "net_financial_income_removed_cny_bn": 15.074500000000004,
+      "capital_common_scope_cny_bn": 469.7809332307692,
+      "delta_v50_vs_previous": 14.284100320786038,
+      "delta_p1_vs_previous": 10.713075240589525
+    },
+    {
+      "stage": "new_operating_earnings_fixed_capital_bridge_and15_capitalization_not_equity_PE",
+      "v50": 85.8120167662597,
+      "p1": 64.35901257469477,
+      "delta_v50_vs_previous": 20.96622007878956,
+      "delta_p1_vs_previous": 15.724665059092167
+    },
+    {
+      "stage": "segment_DCF_operating_and_reinvestment_model_adopted",
+      "v50": 130.3075007851758,
+      "p1": 97.73062558888185,
+      "delta_v50_vs_previous": 44.49548401891609,
+      "delta_p1_vs_previous": 33.371613014187076
+    },
+    {
+      "stage": "residual_dbase_reassessed_retained25pct",
+      "v50": 130.3075007851758,
+      "p1": 97.73062558888185,
+      "delta_v50_vs_previous": 0.0,
+      "delta_p1_vs_previous": 0.0
+    }
+  ],
+  "dcf_details": {
+    "values": {
+      "low": 44.727915876195716,
+      "base": 130.3075007851758,
+      "high": 242.3247098405038
+    },
+    "details": {
+      "low": {
+        "segments": [
+          {
+            "id": "commerce",
+            "years": [
+              {
+                "year": 1,
+                "nopat": 972.4457759999999,
+                "fcff": 936.7081327999999,
+                "discount_factor": 1.115,
+                "present_value": 840.096980089686
+              },
+              {
+                "year": 2,
+                "nopat": 982.17023376,
+                "fcff": 946.075214128,
+                "discount_factor": 1.243225,
+                "present_value": 760.9847084220474
+              },
+              {
+                "year": 3,
+                "nopat": 991.9919360976,
+                "fcff": 955.5359662692799,
+                "discount_factor": 1.386195875,
+                "present_value": 689.3224713060699
+              },
+              {
+                "year": 4,
+                "nopat": 1001.9118554585763,
+                "fcff": 965.091325931973,
+                "discount_factor": 1.545608400625,
+                "present_value": 624.4086959812832
+              },
+              {
+                "year": 5,
+                "nopat": 1011.930974013162,
+                "fcff": 974.7422391912927,
+                "discount_factor": 1.723353366696875,
+                "present_value": 565.6078770772161
+              },
+              {
+                "year": 6,
+                "nopat": 1011.930974013162,
+                "fcff": 977.3128890637722,
+                "discount_factor": 1.9215390038670157,
+                "present_value": 508.6094464369297
+              },
+              {
+                "year": 7,
+                "nopat": 1011.930974013162,
+                "fcff": 977.3128890637722,
+                "discount_factor": 2.1425159893117223,
+                "present_value": 456.1519698985917
+              },
+              {
+                "year": 8,
+                "nopat": 1011.930974013162,
+                "fcff": 977.3128890637722,
+                "discount_factor": 2.3889053280825703,
+                "present_value": 409.10490573864723
+              },
+              {
+                "year": 9,
+                "nopat": 1011.930974013162,
+                "fcff": 977.3128890637722,
+                "discount_factor": 2.663629440812066,
+                "present_value": 366.91022936201546
+              },
+              {
+                "year": 10,
+                "nopat": 1011.930974013162,
+                "fcff": 977.3128890637722,
+                "discount_factor": 2.9699468265054536,
+                "present_value": 329.0674702798345
+              }
+            ],
+            "explicit_pv": 5550.264754592321,
+            "terminal_nopat": 1027.1099386233593,
+            "terminal_reinvestment": 77.03324539675195,
+            "terminal_fcff": 950.0766932266074,
+            "terminal_value": 9500.766932266075,
+            "terminal_pv": 3198.968697848715,
+            "enterprise_value": 8749.233452441036
+          },
+          {
+            "id": "cloud_and_ai_labs",
+            "years": [
+              {
+                "year": 1,
+                "nopat": -406.252,
+                "fcff": -2171.38394,
+                "discount_factor": 1.125,
+                "present_value": -1930.1190577777777
+              },
+              {
+                "year": 2,
+                "nopat": -338.4402,
+                "fcff": -1753.662266,
+                "discount_factor": 1.265625,
+                "present_value": -1385.609691654321
+              },
+              {
+                "year": 3,
+                "nopat": -215.7847,
+                "fcff": -1229.6573009,
+                "discount_factor": 1.423828125,
+                "present_value": -863.6276242260631
+              },
+              {
+                "year": 4,
+                "nopat": -88.24675039999997,
+                "fcff": -701.192303735,
+                "discount_factor": 1.601806640625,
+                "present_value": -437.7509032309953
+              },
+              {
+                "year": 5,
+                "nopat": 70.57792464000003,
+                "fcff": -241.70258235524997,
+                "discount_factor": 1.802032470703125,
+                "present_value": -134.12776200472203
+              },
+              {
+                "year": 6,
+                "nopat": 208.5761718288001,
+                "fcff": -2.5144100141374013,
+                "discount_factor": 2.0272865295410156,
+                "present_value": -1.2402834910103566
+              },
+              {
+                "year": 7,
+                "nopat": 344.94387614918423,
+                "fcff": 185.5496135465421,
+                "discount_factor": 2.2806973457336426,
+                "present_value": 81.35652628071766
+              },
+              {
+                "year": 8,
+                "nopat": 407.1910699566435,
+                "fcff": 248.52219680953147,
+                "discount_factor": 2.565784513950348,
+                "present_value": 96.86012034849344
+              },
+              {
+                "year": 9,
+                "nopat": 465.4787127549092,
+                "fcff": 307.701402944391,
+                "discount_factor": 2.8865075781941414,
+                "present_value": 106.5998943737038
+              },
+              {
+                "year": 10,
+                "nopat": 519.1930741375563,
+                "fcff": 262.4467186655628,
+                "discount_factor": 3.247321025468409,
+                "present_value": 80.81945597839568
+              }
+            ],
+            "explicit_pv": -4386.839325403579,
+            "terminal_nopat": 538.9246540742693,
+            "terminal_reinvestment": 112.27596959880609,
+            "terminal_fcff": 426.64868447546314,
+            "terminal_value": 4266.486844754631,
+            "terminal_pv": 1313.8481878733294,
+            "enterprise_value": -3072.9911375302495
+          },
+          {
+            "id": "other_businesses",
+            "years": [
+              {
+                "year": 1,
+                "nopat": -166.23999999999998,
+                "fcff": -166.23999999999998,
+                "discount_factor": 1.11,
+                "present_value": -149.76576576576576
+              },
+              {
+                "year": 2,
+                "nopat": -146.24,
+                "fcff": -146.24,
+                "discount_factor": 1.2321,
+                "present_value": -118.6916646376106
+              },
+              {
+                "year": 3,
+                "nopat": -116.24,
+                "fcff": -116.24,
+                "discount_factor": 1.367631,
+                "present_value": -84.99368616242246
+              },
+              {
+                "year": 4,
+                "nopat": -86.24000000000001,
+                "fcff": -86.24000000000001,
+                "discount_factor": 1.51807041,
+                "present_value": -56.80895921026483
+              },
+              {
+                "year": 5,
+                "nopat": -66.24000000000001,
+                "fcff": -66.24000000000001,
+                "discount_factor": 1.6850581551,
+                "present_value": -39.31021597059894
+              },
+              {
+                "year": 6,
+                "nopat": -46.24,
+                "fcff": -46.24,
+                "discount_factor": 1.870414552161,
+                "present_value": -24.72179226074573
+              },
+              {
+                "year": 7,
+                "nopat": -26.240000000000002,
+                "fcff": -26.240000000000002,
+                "discount_factor": 2.07616015289871,
+                "present_value": -12.638716701774682
+              },
+              {
+                "year": 8,
+                "nopat": -6.240000000000002,
+                "fcff": -6.240000000000002,
+                "discount_factor": 2.304537769717568,
+                "present_value": -2.707701336899652
+              },
+              {
+                "year": 9,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 2.5580369243865007,
+                "present_value": 0.0
+              },
+              {
+                "year": 10,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 2.839420986069016,
+                "present_value": 0.0
+              }
+            ],
+            "explicit_pv": -489.63850204608264,
+            "terminal_nopat": 0.0,
+            "terminal_reinvestment": 0.0,
+            "terminal_fcff": 0.0,
+            "terminal_value": 0.0,
+            "terminal_pv": 0.0,
+            "enterprise_value": -489.63850204608264
+          }
+        ],
+        "enterprise_value": 5186.603812864704,
+        "equity_adjustments": 2443.24846967033,
+        "equity_value": 7629.852282535034
+      },
+      "base": {
+        "segments": [
+          {
+            "id": "commerce",
+            "years": [
+              {
+                "year": 1,
+                "nopat": 1129.7881919999998,
+                "fcff": 1085.6513791999998,
+                "discount_factor": 1.1,
+                "present_value": 986.9557992727272
+              },
+              {
+                "year": 2,
+                "nopat": 1174.9797196799998,
+                "fcff": 1129.0774343679998,
+                "discount_factor": 1.21,
+                "present_value": 933.1218465851239
+              },
+              {
+                "year": 3,
+                "nopat": 1221.9789084671997,
+                "fcff": 1174.24053174272,
+                "discount_factor": 1.331,
+                "present_value": 882.2242913168444
+              },
+              {
+                "year": 4,
+                "nopat": 1270.8580648058878,
+                "fcff": 1221.2101530124287,
+                "discount_factor": 1.4641,
+                "present_value": 834.1029663359255
+              },
+              {
+                "year": 5,
+                "nopat": 1321.6923873981234,
+                "fcff": 1270.058559132926,
+                "discount_factor": 1.61051,
+                "present_value": 788.6064408994206
+              },
+              {
+                "year": 6,
+                "nopat": 1361.3431590200673,
+                "fcff": 1311.0502689814584,
+                "discount_factor": 1.771561,
+                "present_value": 740.0536978300258
+              },
+              {
+                "year": 7,
+                "nopat": 1402.1834537906693,
+                "fcff": 1350.3817770509022,
+                "discount_factor": 1.9487171,
+                "present_value": 692.9593716044789
+              },
+              {
+                "year": 8,
+                "nopat": 1444.2489574043896,
+                "fcff": 1390.8932303624294,
+                "discount_factor": 2.14358881,
+                "present_value": 648.8619570478302
+              },
+              {
+                "year": 9,
+                "nopat": 1487.5764261265213,
+                "fcff": 1432.6200272733022,
+                "discount_factor": 2.357947691,
+                "present_value": 607.5707415993319
+              },
+              {
+                "year": 10,
+                "nopat": 1532.2037189103166,
+                "fcff": 1475.5986280915013,
+                "discount_factor": 2.5937424601,
+                "present_value": 568.9071489521017
+              }
+            ],
+            "explicit_pv": 7683.3642614438095,
+            "terminal_nopat": 1562.847793288523,
+            "terminal_reinvestment": 125.02782346308184,
+            "terminal_fcff": 1437.8199698254411,
+            "terminal_value": 17972.749622818013,
+            "terminal_pv": 6929.273009674634,
+            "enterprise_value": 14612.637271118443
+          },
+          {
+            "id": "cloud_and_ai_labs",
+            "years": [
+              {
+                "year": 1,
+                "nopat": -307.8802,
+                "fcff": -1979.22514,
+                "discount_factor": 1.11,
+                "present_value": -1783.0857117117118
+              },
+              {
+                "year": 2,
+                "nopat": -106.96671200000004,
+                "fcff": -1431.758844,
+                "discount_factor": 1.2321,
+                "present_value": -1162.0475967859752
+              },
+              {
+                "year": 3,
+                "nopat": 135.03640875000008,
+                "fcff": -792.03035925,
+                "discount_factor": 1.367631,
+                "present_value": -579.1257724122954
+              },
+              {
+                "year": 4,
+                "nopat": 375.799932,
+                "fcff": -201.65800787499998,
+                "discount_factor": 1.51807041,
+                "present_value": -132.83837597163887
+              },
+              {
+                "year": 5,
+                "nopat": 630.5895995249999,
+                "fcff": 355.19290285624993,
+                "discount_factor": 1.6850581551,
+                "present_value": 210.78969991701618
+              },
+              {
+                "year": 6,
+                "nopat": 849.880370994,
+                "fcff": 725.7086180665625,
+                "discount_factor": 1.870414552161,
+                "present_value": 387.99346231994866
+              },
+              {
+                "year": 7,
+                "nopat": 1072.6904295720003,
+                "fcff": 949.1623839198035,
+                "discount_factor": 2.07616015289871,
+                "present_value": 457.1720455161391
+              },
+              {
+                "year": 8,
+                "nopat": 1196.9056639377602,
+                "fcff": 1024.7875697623622,
+                "discount_factor": 2.304537769717568,
+                "present_value": 444.6824795967456
+              },
+              {
+                "year": 9,
+                "nopat": 1304.6450037740262,
+                "fcff": 1084.6283266789653,
+                "discount_factor": 2.5580369243865007,
+                "present_value": 424.0080807039539
+              },
+              {
+                "year": 10,
+                "nopat": 1391.7808039249871,
+                "fcff": 1074.3926324850354,
+                "discount_factor": 2.839420986069016,
+                "present_value": 378.38440927086987
+              }
+            ],
+            "explicit_pv": -1354.0672795569478,
+            "terminal_nopat": 1445.2993832518423,
+            "terminal_reinvestment": 289.05987665036844,
+            "terminal_fcff": 1156.2395066014737,
+            "terminal_value": 14452.993832518423,
+            "terminal_pv": 5090.12009963609,
+            "enterprise_value": 3736.0528200791423
+          },
+          {
+            "id": "other_businesses",
+            "years": [
+              {
+                "year": 1,
+                "nopat": -139.22,
+                "fcff": -139.22,
+                "discount_factor": 1.11,
+                "present_value": -125.42342342342342
+              },
+              {
+                "year": 2,
+                "nopat": -91.74000000000002,
+                "fcff": -91.74000000000002,
+                "discount_factor": 1.2321,
+                "present_value": -74.45824202580961
+              },
+              {
+                "year": 3,
+                "nopat": -51.740000000000016,
+                "fcff": -51.740000000000016,
+                "discount_factor": 1.367631,
+                "present_value": -37.83184206851118
+              },
+              {
+                "year": 4,
+                "nopat": -11.74,
+                "fcff": -11.74,
+                "discount_factor": 1.51807041,
+                "present_value": -7.733501636462303
+              },
+              {
+                "year": 5,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 1.6850581551,
+                "present_value": 0.0
+              },
+              {
+                "year": 6,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 1.870414552161,
+                "present_value": 0.0
+              },
+              {
+                "year": 7,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 2.07616015289871,
+                "present_value": 0.0
+              },
+              {
+                "year": 8,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 2.304537769717568,
+                "present_value": 0.0
+              },
+              {
+                "year": 9,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 2.5580369243865007,
+                "present_value": 0.0
+              },
+              {
+                "year": 10,
+                "nopat": 0.0,
+                "fcff": 0.0,
+                "discount_factor": 2.839420986069016,
+                "present_value": 0.0
+              }
+            ],
+            "explicit_pv": -245.4470091542065,
+            "terminal_nopat": 0.0,
+            "terminal_reinvestment": 0.0,
+            "terminal_fcff": 0.0,
+            "terminal_value": 0.0,
+            "terminal_pv": 0.0,
+            "enterprise_value": -245.4470091542065
+          }
+        ],
+        "enterprise_value": 18103.24308204338,
+        "equity_adjustments": 4125.0893323076925,
+        "equity_value": 22228.332414351073
+      },
+      "high": {
+        "segments": [
+          {
+            "id": "commerce",
+            "years": [
+              {
+                "year": 1,
+                "nopat": 1184.246946,
+                "fcff": 1134.5106868,
+                "discount_factor": 1.09,
+                "present_value": 1040.8354924770642
+              },
+              {
+                "year": 2,
+                "nopat": 1289.99774424,
+                "fcff": 1237.277309488,
+                "discount_factor": 1.1881,
+                "present_value": 1041.3915575187273
+              },
+              {
+                "year": 3,
+                "nopat": 1404.1753492632001,
+                "fcff": 1348.29168842608,
+                "discount_factor": 1.295029,
+                "present_value": 1041.1285681062586
+              },
+              {
+                "year": 4,
+                "nopat": 1527.4102750099203,
+                "fcff": 1468.173594522573,
+                "discount_factor": 1.41158161,
+                "present_value": 1040.0911885800022
+              },
+              {
+                "year": 5,
+                "nopat": 1619.054891510515,
+                "fcff": 1556.264010193927,
+                "discount_factor": 1.5386239549,
+                "present_value": 1011.4648255915615
+              },
+              {
+                "year": 6,
+                "nopat": 1683.8170871709358,
+                "fcff": 1624.752075368233,
+                "discount_factor": 1.677100110841,
+                "present_value": 968.7865768212747
+              },
+              {
+                "year": 7,
+                "nopat": 1751.1697706577734,
+                "fcff": 1689.7421583829623,
+                "discount_factor": 1.82803912081669,
+                "present_value": 924.3468255909411
+              },
+              {
+                "year": 8,
+                "nopat": 1821.2165614840842,
+                "fcff": 1757.3318447182805,
+                "discount_factor": 1.992562641690192,
+                "present_value": 881.9455950592464
+              },
+              {
+                "year": 9,
+                "nopat": 1894.0652239434478,
+                "fcff": 1827.625118507012,
+                "discount_factor": 2.1718932794423096,
+                "present_value": 841.4893751024003
+              },
+              {
+                "year": 10,
+                "nopat": 1969.8278329011857,
+                "fcff": 1900.7301232472926,
+                "discount_factor": 2.3673636745921174,
+                "present_value": 802.8889450518316
+              }
+            ],
+            "explicit_pv": 9594.368949899308,
+            "terminal_nopat": 2019.0735287237153,
+            "terminal_reinvestment": 168.25612739364294,
+            "terminal_fcff": 1850.8174013300725,
+            "terminal_value": 28474.1138666165,
+            "terminal_pv": 12027.773414037207,
+            "enterprise_value": 21622.142363936517
+          },
+          {
+            "id": "cloud_and_ai_labs",
+            "years": [
+              {
+                "year": 1,
+                "nopat": -190.97194000000002,
+                "fcff": -2068.52988,
+                "discount_factor": 1.1,
+                "present_value": -1880.4817090909091
+              },
+              {
+                "year": 2,
+                "nopat": 98.2247955,
+                "fcff": -1433.1659835,
+                "discount_factor": 1.21,
+                "present_value": -1184.434697107438
+              },
+              {
+                "year": 3,
+                "nopat": 441.1262843250002,
+                "fcff": -695.5623416749997,
+                "discount_factor": 1.331,
+                "present_value": -522.5862822501877
+              },
+              {
+                "year": 4,
+                "nopat": 803.22789721875,
+                "fcff": 12.800533158749937,
+                "discount_factor": 1.4641,
+                "present_value": 8.742936383272957
+              },
+              {
+                "year": 5,
+                "nopat": 1164.8075268374998,
+                "fcff": 723.1728912102499,
+                "discount_factor": 1.61051,
+                "present_value": 449.03346841078286
+              },
+              {
+                "year": 6,
+                "nopat": 1542.1028135643749,
+                "fcff": 1352.5361629938375,
+                "discount_factor": 1.771561,
+                "present_value": 763.4714034649879
+              },
+              {
+                "year": 7,
+                "nopat": 1864.5966795048,
+                "fcff": 1775.4921937071495,
+                "discount_factor": 1.9487171,
+                "present_value": 911.1082330560703
+              },
+              {
+                "year": 8,
+                "nopat": 2111.0563474552805,
+                "fcff": 2021.0227073985773,
+                "discount_factor": 2.14358881,
+                "present_value": 942.822008572893
+              },
+              {
+                "year": 9,
+                "nopat": 2336.940855251703,
+                "fcff": 2196.3264484979413,
+                "discount_factor": 2.357947691,
+                "present_value": 931.456815976475
+              },
+              {
+                "year": 10,
+                "nopat": 2513.787898014288,
+                "fcff": 2325.932956023807,
+                "discount_factor": 2.5937424601,
+                "present_value": 896.7478428579731
+              }
+            ],
+            "explicit_pv": 1315.88002027392,
+            "terminal_nopat": 2600.7168999828086,
+            "terminal_reinvestment": 505.694952774435,
+            "terminal_fcff": 2095.0219472083736,
+            "terminal_value": 32231.106880128827,
+            "terminal_pv": 12426.48696851968,
+            "enterprise_value": 13742.366988793601
+          },
+          {
+            "id": "other_businesses",
+            "years": [
+              {
+                "year": 1,
+                "nopat": -106.24000000000001,
+                "fcff": -106.24000000000001,
+                "discount_factor": 1.11,
+                "present_value": -95.71171171171171
+              },
+              {
+                "year": 2,
+                "nopat": -46.24,
+                "fcff": -46.24,
+                "discount_factor": 1.2321,
+                "present_value": -37.5294213132051
+              },
+              {
+                "year": 3,
+                "nopat": -6.240000000000002,
+                "fcff": -6.240000000000002,
+                "discount_factor": 1.367631,
+                "present_value": -4.562634219317931
+              },
+              {
+                "year": 4,
+                "nopat": 25.32,
+                "fcff": 25.32,
+                "discount_factor": 1.51807041,
+                "present_value": 16.679068265351408
+              },
+              {
+                "year": 5,
+                "nopat": 40.31999999999999,
+                "fcff": 40.31999999999999,
+                "discount_factor": 1.6850581551,
+                "present_value": 23.92795754732109
+              },
+              {
+                "year": 6,
+                "nopat": 47.82,
+                "fcff": 47.82,
+                "discount_factor": 1.870414552161,
+                "present_value": 25.56652478176602
+              },
+              {
+                "year": 7,
+                "nopat": 55.31999999999999,
+                "fcff": 55.31999999999999,
+                "discount_factor": 2.07616015289871,
+                "present_value": 26.64534329047924
+              },
+              {
+                "year": 8,
+                "nopat": 62.82,
+                "fcff": 62.82,
+                "discount_factor": 2.304537769717568,
+                "present_value": 27.259262497441682
+              },
+              {
+                "year": 9,
+                "nopat": 62.82,
+                "fcff": 62.82,
+                "discount_factor": 2.5580369243865007,
+                "present_value": 24.557894141839352
+              },
+              {
+                "year": 10,
+                "nopat": 62.82,
+                "fcff": 62.82,
+                "discount_factor": 2.839420986069016,
+                "present_value": 22.12422895661203
+              }
+            ],
+            "explicit_pv": 28.956512236576074,
+            "terminal_nopat": 62.82,
+            "terminal_reinvestment": 0.0,
+            "terminal_fcff": 62.82,
+            "terminal_value": 571.0909090909091,
+            "terminal_pv": 201.12935415101845,
+            "enterprise_value": 230.08586638759454
+          }
+        ],
+        "enterprise_value": 35594.59521911771,
+        "equity_adjustments": 5742.044422417583,
+        "equity_value": 41336.639641535294
+      }
+    }
+  },
+  "pe_crosscheck": {
+    "first_forward_common_profit_cny_bn": 81.34329919999996,
+    "first_forward_common_margin": 0.0689408581264855,
+    "ordinary_PE15_v50": 71.52791644547366,
+    "pe_range": {
+      "12": 57.22233315637893,
+      "15": 71.52791644547366,
+      "18": 85.8334997345684
+    },
+    "asset_carveout_operating15_capitalization_v50": 85.8120167662597,
+    "implied_first_year_PE_of_DCF": 27.326568547088247,
+    "net_financial_income_cny_bn": 15.074500000000004,
+    "nci_profit_allowance_cny_bn": 2,
+    "warning": "NCI profit allowance and cash yield are research assumptions; capital-only waterfall replaces matched net financial income with financial NAV, hence remaining15 is operating earnings capitalization NOT ordinary equity PE."
+  },
+  "ai_ppe_diagnostic": [
+    {
+      "year": 1,
+      "closing_ppe_cny_bn": 465.0,
+      "da_to_average_ppe": 0.1437908496732026
+    },
+    {
+      "year": 2,
+      "closing_ppe_cny_bn": 595.0,
+      "da_to_average_ppe": 0.1509433962264151
+    },
+    {
+      "year": 3,
+      "closing_ppe_cny_bn": 685.0,
+      "da_to_average_ppe": 0.171875
+    },
+    {
+      "year": 4,
+      "closing_ppe_cny_bn": 740.0,
+      "da_to_average_ppe": 0.19649122807017544
+    },
+    {
+      "year": 5,
+      "closing_ppe_cny_bn": 765.0,
+      "da_to_average_ppe": 0.21926910299003322
+    },
+    {
+      "year": 6,
+      "closing_ppe_cny_bn": 775.0,
+      "da_to_average_ppe": 0.22727272727272727
+    },
+    {
+      "year": 7,
+      "closing_ppe_cny_bn": 785.0,
+      "da_to_average_ppe": 0.22435897435897437
+    },
+    {
+      "year": 8,
+      "closing_ppe_cny_bn": 800.0,
+      "da_to_average_ppe": 0.21451104100946372
+    },
+    {
+      "year": 9,
+      "closing_ppe_cny_bn": 820.0,
+      "da_to_average_ppe": 0.2037037037037037
+    },
+    {
+      "year": 10,
+      "closing_ppe_cny_bn": 850.0,
+      "da_to_average_ppe": 0.18562874251497005
+    }
+  ],
+  "same_model_sensitivity": [
+    {
+      "change": "all_WACC_-1.00%",
+      "v50": 150.7751728474658,
+      "p1_at25": 113.08137963559935,
+      "p1_at20": 120.62013827797264
+    },
+    {
+      "change": "all_WACC_+1.00%",
+      "v50": 114.5543773769847,
+      "p1_at25": 85.91578303273853,
+      "p1_at20": 91.64350190158777
+    },
+    {
+      "change": "AI_terminal_margin_16%",
+      "v50": 125.59601141313448,
+      "p1_at25": 94.19700855985086,
+      "p1_at20": 100.47680913050759
+    },
+    {
+      "change": "AI_terminal_margin_22%",
+      "v50": 135.01899015721708,
+      "p1_at25": 101.2642426179128,
+      "p1_at20": 108.01519212577367
+    },
+    {
+      "change": "AI_terminal_ROIC_12%",
+      "v50": 128.4425362420761,
+      "p1_at25": 96.33190218155707,
+      "p1_at20": 102.75402899366088
+    },
+    {
+      "change": "AI_terminal_ROIC_18%",
+      "v50": 131.55081048057556,
+      "p1_at25": 98.66310786043167,
+      "p1_at20": 105.24064838446046
+    },
+    {
+      "change": "AI_terminal_growth_2%",
+      "v50": 128.92336313075012,
+      "p1_at25": 96.6925223480626,
+      "p1_at20": 103.1386905046001
+    },
+    {
+      "change": "AI_terminal_growth_4%",
+      "v50": 132.0319247732476,
+      "p1_at25": 99.02394357993569,
+      "p1_at20": 105.62553981859809
+    },
+    {
+      "change": "AI_first5_capex_x0.8",
+      "v50": 139.17218817119203,
+      "p1_at25": 104.37914112839402,
+      "p1_at20": 111.33775053695364
+    },
+    {
+      "change": "AI_first5_capex_x1.2",
+      "v50": 121.44281339915953,
+      "p1_at25": 91.08211004936965,
+      "p1_at20": 97.15425071932764
+    },
+    {
+      "change": "commerce_all_year_and_terminal_margin_16%",
+      "v50": 122.40262963463077,
+      "p1_at25": 91.80197222597307,
+      "p1_at20": 97.92210370770462
+    },
+    {
+      "change": "commerce_all_year_and_terminal_margin_20%",
+      "v50": 142.28889015684726,
+      "p1_at25": 106.71666761763544,
+      "p1_at20": 113.83111212547782
+    },
+    {
+      "change": "capital_only_low",
+      "v50": 120.4481701145958,
+      "p1_at25": 90.33612758594685,
+      "p1_at20": 96.35853609167664
+    },
+    {
+      "change": "capital_only_high",
+      "v50": 139.7864564147063,
+      "p1_at25": 104.83984231102971,
+      "p1_at20": 111.82916513176504
+    },
+    {
+      "change": "AI_annual_capex_extra20bn_with_matching_terminal_reinvestment",
+      "v50": 118.24123714944368,
+      "p1_at25": 88.68092786208275,
+      "p1_at20": 94.59298971955495
+    }
+  ],
+  "reverse_at_frozen_price": {
+    "-0.01": {
+      "status": "no_solution",
+      "reason": "reverse: no root within supplied bounds"
+    },
+    "0": {
+      "parameter": 0.028219942067908718,
+      "modeled_price": 104.9,
+      "residual": 0.0
+    },
+    "0.01": {
+      "parameter": 0.114353250558278,
+      "modeled_price": 104.9,
+      "residual": 0.0
+    }
+  },
+  "capital": {
+    "low": {
+      "inputs": {
+        "cfo": 20,
+        "capex": 80,
+        "op_cash": 60,
+        "other": -15,
+        "nci": 75,
+        "listed": 0.85,
+        "private": 0.55,
+        "debt": 0.8,
+        "ant_profit": 4,
+        "ant_pe": 12,
+        "other_eq_profit": 1.3,
+        "other_eq_pe": 10
+      },
+      "bridge": {
+        "net_cash_before_operating_reserve": 155.40449696703297,
+        "net_cash_after_reserve": 95.40449696703297,
+        "quarter_equivalents": 1.4505494505494505,
+        "dividend_estimate": 17.25,
+        "buyback_estimate": 1.6,
+        "other_financial_assets": 170.50435,
+        "ant_equity": 48,
+        "other_equity_method": 13.0,
+        "nci": 75,
+        "mezzanine": 7.584,
+        "total": 244.32484696703295
+      }
+    },
+    "base": {
+      "inputs": {
+        "cfo": 35,
+        "capex": 70,
+        "op_cash": 45,
+        "other": 0,
+        "nci": 57.272,
+        "listed": 0.925,
+        "private": 0.75,
+        "debt": 0.9,
+        "ant_profit": 6.252,
+        "ant_pe": 14,
+        "other_eq_profit": 1.774,
+        "other_eq_pe": 12
+      },
+      "bridge": {
+        "net_cash_before_operating_reserve": 206.66823323076923,
+        "net_cash_after_reserve": 161.66823323076923,
+        "quarter_equivalents": 1.4505494505494505,
+        "dividend_estimate": 17.25,
+        "buyback_estimate": 1.6,
+        "other_financial_assets": 206.88070000000002,
+        "ant_equity": 87.52799999999999,
+        "other_equity_method": 21.288,
+        "nci": 57.272,
+        "mezzanine": 7.584,
+        "total": 412.50893323076923
+      }
+    },
+    "high": {
+      "inputs": {
+        "cfo": 45,
+        "capex": 60,
+        "op_cash": 30,
+        "other": 15,
+        "nci": 40,
+        "listed": 0.98,
+        "private": 0.9,
+        "debt": 1,
+        "ant_profit": 8,
+        "ant_pe": 17,
+        "other_eq_profit": 2.2,
+        "other_eq_pe": 14
+      },
+      "bridge": {
+        "net_cash_before_operating_reserve": 250.67922224175825,
+        "net_cash_after_reserve": 220.67922224175825,
+        "quarter_equivalents": 1.4505494505494505,
+        "dividend_estimate": 17.25,
+        "buyback_estimate": 1.6,
+        "other_financial_assets": 234.30922,
+        "ant_equity": 136,
+        "other_equity_method": 30.800000000000004,
+        "nci": 40,
+        "mezzanine": 7.584,
+        "total": 574.2044422417583
+      }
+    }
+  },
+  "old_controls_preserved": {
+    "codex": {
+      "entry": {
+        "status": "blocked",
+        "refs": [
+          "PRECHECK_CROWD_VERIFY",
+          "R13",
+          "R1",
+          "R8",
+          "R6_COMPANY",
+          "R3",
+          "R6_CN_PRICE_20261109",
+          "R6_US_CPI_20261110",
+          "R6_APPLE_CN_20261104"
+        ]
+      },
+      "add": {
+        "status": "blocked",
+        "refs": [
+          "PRECHECK_CROWD_VERIFY",
+          "R13",
+          "R1",
+          "R8",
+          "R6_COMPANY",
+          "R3",
+          "R14_COST_BRIDGE",
+          "R6_CN_PRICE_20261109",
+          "R6_US_CPI_20261110",
+          "R6_APPLE_CN_20261104"
+        ]
+      },
+      "holding": {
+        "status": "review_required",
+        "refs": [
+          "ALERT_FCF_202609",
+          "ALERT_GOV_202610"
+        ]
+      }
+    },
+    "dsh": {
+      "entry": {
+        "status": "blocked",
+        "refs": [
+          "PRECHECK_CROWD_VERIFY",
+          "R13",
+          "R1",
+          "R8",
+          "R3"
+        ]
+      },
+      "add": {
+        "status": "blocked",
+        "refs": [
+          "PRECHECK_CROWD_VERIFY",
+          "R13",
+          "R1",
+          "R8",
+          "R3",
+          "R14_COST_BRIDGE"
+        ]
+      },
+      "holding": {
+        "status": "review_required",
+        "refs": [
+          "ALERT_FCF_202609",
+          "ALERT_GOV_202610"
+        ]
+      }
+    }
+  },
+  "controls_reassessed": false,
+  "source_files_verified": 26,
+  "unavailable": {
+    "actual_20261109_cash": null,
+    "actual_20261109_financial_asset_breakdown": null,
+    "ant_separate_current_book_value": null,
+    "exact_nci_fair_value": null
+  }
+}

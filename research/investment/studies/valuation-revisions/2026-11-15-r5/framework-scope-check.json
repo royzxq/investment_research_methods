@@ -1,0 +1,20 @@
+{
+  "investment_framework.md": {
+    "before_bytes": 127456,
+    "after_bytes": 130839,
+    "before_lines": 956,
+    "after_lines": 968,
+    "outside_authorized_insertions_byte_identical": true,
+    "state_block_byte_identical": true,
+    "sha256": "14d0bf8641ad63565ae55ca27fea618fe0cbd8b4248f83ea3c6dd1addbce29d6"
+  },
+  "investment_framework_compact.md": {
+    "before_bytes": 85900,
+    "after_bytes": 88203,
+    "before_lines": 642,
+    "after_lines": 648,
+    "outside_authorized_insertions_byte_identical": true,
+    "state_block_byte_identical": true,
+    "sha256": "2820e1f2ba4843e297a5de2762aa095357ef056dda480643519f1834277a8467"
+  }
+}

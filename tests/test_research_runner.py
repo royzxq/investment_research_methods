@@ -103,7 +103,7 @@ price=receipt_price
 sys.path.insert(0,'__RESEARCH_TEST_ROOT__')
 sys.path.insert(0,'__RESEARCH_TEST_ROOT__/tests')
 from scripts.research_consistency import render_report_block, extract_audit
-from research_audit_fixture import audit_for, valuation_review_for
+from research_audit_fixture import audit_for, valuation_review_for, input_basis_for
 if generator=='codex' and b'codex-then-dsh-evidence/v1' in payload:
  from scripts import research_shared_evidence as shared
  fact_root=Path(re.search(r'本轮必须交付事实证据包：(.*?)。',payload.decode())[1]).parent
@@ -122,6 +122,10 @@ if b'two-price-controls/v6' in payload and doc['meta']['schema_version']=='stock
 if b'two-price-controls/v7' in payload and doc['meta']['schema_version']=='stock-research/v4' and mode not in ('wrong_audit_version','frozen_v3_audit'):
  audit['schema_version']='stock-research-audit/v4'
  audit['valuation_review']=valuation_review_for(doc)
+if b'two-price-controls/v8' in payload and doc['meta']['schema_version']=='stock-research/v4' and mode not in ('wrong_audit_version','frozen_v3_audit','frozen_v4_audit'):
+ audit['schema_version']='stock-research-audit/v5'
+ audit['valuation_review']['input_basis']=input_basis_for(doc)
+ for r in audit['risks']: r['economic_key']=r['id']
 if mode=='missing_lifecycle':
  for row in audit['constraints']: row.pop('lifecycle',None)
 if mode=='control_only':
@@ -366,7 +370,8 @@ class ResearchRunnerTests(unittest.TestCase):
                     (runner.ACCEPTANCE_CONTROLS_CONTRACT, '9cf8614a93cd36acaa1cd77f21cc392e91d863a059a75b7002f14807399f9ee3'),
                     (runner.PUBLIC_MONITORING_CONTRACT, '55baffbb6ab6bc78175a1fbe1fca58a7090166c9b2f42a020330463ffe6d3c2d'),
                     (runner.QUALITY_CONTROLS_CONTRACT, 'ba3853ad2d5973a8252ea36a3e32f2497e26226a6d78b5695305cb31205dc8d5'),
-                    (runner.CAPITAL_CONTROLS_CONTRACT, '7af3acdd4817b29cbf027c4809291a49f2fc585a512d1742145cd7cf5f4fdc9f'))
+                    (runner.CAPITAL_CONTROLS_CONTRACT, '7af3acdd4817b29cbf027c4809291a49f2fc585a512d1742145cd7cf5f4fdc9f'),
+                    (runner.VALUATION_CONTROLS_CONTRACT, '9524d096eb3c1b8d894a17f4ddb86f712c0c2a1192f309a50f75bbba38648c77'))
         with patch.object(runner, 'owned_path', side_effect=lambda root, relative: Path(root)/relative):
             for contract, digest in expected:
                 with self.subTest(contract=contract['prompt_template']):
@@ -374,12 +379,12 @@ class ResearchRunnerTests(unittest.TestCase):
                         Path('/offline/research'), frameworks, targets,
                         research_validation=runner.research_consistency.SCHEMA, delivery=contract)
                     self.assertEqual(hashlib.sha256(payload).hexdigest(), digest)
-                    self.assertNotIn(b'two-price-controls/v7', payload)
+                    self.assertNotIn(b'two-price-controls/v8', payload)
 
-    def test_v1_to_v6_frozen_recovers_under_new_default_without_rewriting(self):
+    def test_v1_to_v7_frozen_recovers_under_new_default_without_rewriting(self):
         for contract in (runner.OLD_TWO_PRICE_CONTRACT, runner.SCOPED_CONTROLS_CONTRACT,
                          runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT,
-                         runner.QUALITY_CONTROLS_CONTRACT, runner.CAPITAL_CONTROLS_CONTRACT):
+                         runner.QUALITY_CONTROLS_CONTRACT, runner.CAPITAL_CONTROLS_CONTRACT, runner.VALUATION_CONTROLS_CONTRACT):
             with self.subTest(contract=contract['prompt_template']):
                 other = ResearchRunnerTests('runTest')
                 try:
@@ -397,12 +402,12 @@ class ResearchRunnerTests(unittest.TestCase):
                 finally:
                     other.doCleanups()
 
-    def test_new_v7_requires_v4_audit_not_merely_capital_v3(self):
-        self.assertEqual(runner.NEW_CONTRACT['prompt_template'], 'two-price-controls/v7')
+    def test_new_v8_requires_v5_audit_not_merely_valuation_v4(self):
+        self.assertEqual(runner.NEW_CONTRACT['prompt_template'], 'two-price-controls/v8')
         run = prepare_request(self.request_path, self.methods)
         payload = next(run.glob('execution/*/*/prompt.txt')).read_text()
         self.assertIn('dcf_fcff', payload)
-        with patch.dict(os.environ, {'MOCK_MODE':'frozen_v3_audit'}):
+        with patch.dict(os.environ, {'MOCK_MODE':'frozen_v4_audit'}):
             entries = json.loads(self.execute().read_text())['results']
         self.assertTrue(all(e['status']=='failed' and 'frozen audit contract' in e['reason'] for e in entries), entries)
 
