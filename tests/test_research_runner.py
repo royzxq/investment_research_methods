@@ -225,6 +225,55 @@ class ResearchRunnerTests(unittest.TestCase):
     def execute(self, **kw):
         return run_batch(self.request_path, self.methods, generator='claude', cli=str(self.fake), timeout=10, **kw)
 
+    def test_historical_revision_freezes_explicit_published_r2_baseline(self):
+        report = self.methods/'research/investment/companies/2026-10-06/SH-600066/investment-600066-2026-10-06-research-codex-r2.md'
+        report.parent.mkdir(parents=True)
+        report.write_text('explicit accepted revision baseline')
+        self.request['tasks'][0]['data_pack_meta']['historical_valuation_revision'] = {
+            'original_reports': [dict(generator='codex', path=str(report), sha256=self.sha(report))]}
+        self.write_request()
+        run = prepare_request(self.request_path, self.methods)
+        manifest = json.loads((run/'framework-snapshot/manifest.json').read_text())
+        baseline = manifest['research_baselines']['SH-600066/codex']
+        self.assertIsNotNone(baseline)
+        self.assertEqual(baseline['original_path'], report.relative_to(self.methods).as_posix())
+        self.assertEqual((run/'framework-snapshot'/baseline['path']).read_text(), report.read_text())
+        self.assertIsNone(manifest['research_baselines']['SH-600066/claude'])
+        # A frozen batch uses its copied bytes, never reselects changed live history.
+        report.write_text('later live edit')
+        self.assertEqual(prepare_request(self.request_path, self.methods), run)
+        tenth = report.with_name(report.name.replace('-r2.md', '-r10.md'))
+        tenth.write_text('explicit tenth revision')
+        self.request['batch_id'] = 'b'*32
+        self.request['tasks'][0]['data_pack_meta']['historical_valuation_revision']['original_reports'] = [
+            dict(generator='codex', path=str(tenth), sha256=self.sha(tenth))]
+        self.write_request()
+        next_run = prepare_request(self.request_path, self.methods)
+        next_manifest = json.loads((next_run/'framework-snapshot/manifest.json').read_text())
+        self.assertTrue(next_manifest['research_baselines']['SH-600066/codex']['original_path'].endswith('-r10.md'))
+
+    def test_historical_revision_rejects_unbound_or_wrong_security_baseline(self):
+        for fault in ('hash', 'security', 'date', 'generator', 'outside', 'duplicate'):
+            with self.subTest(fault=fault):
+                other = ResearchRunnerTests('test_historical_revision_freezes_explicit_published_r2_baseline')
+                other.setUp()
+                try:
+                    report = other.methods/'research/investment/companies/2026-10-06/SH-600066/investment-600066-2026-10-06-research-codex-r2.md'
+                    if fault == 'security': report = Path(str(report).replace('600066', '600900'))
+                    if fault == 'date': report = Path(str(report).replace('2026-10-06', '2026-10-07'))
+                    if fault == 'generator': report = Path(str(report).replace('codex', 'claude'))
+                    if fault == 'outside': report = other.root/'investment-600066-2026-10-06-research-codex-r2.md'
+                    report.parent.mkdir(parents=True, exist_ok=True)
+                    report.write_text('bound baseline')
+                    descriptor = dict(generator='codex', path=str(report), sha256='0'*64 if fault=='hash' else other.sha(report))
+                    other.request['tasks'][0]['data_pack_meta']['historical_valuation_revision'] = {
+                        'original_reports': [descriptor, descriptor] if fault=='duplicate' else [descriptor]}
+                    other.write_request()
+                    with self.assertRaisesRegex(ValueError, 'historical.*baseline'):
+                        prepare_request(other.request_path, other.methods)
+                finally:
+                    other.doCleanups()
+
     def test_new_delivery_rejects_unusable_monitoring_before_publication(self):
         os.environ['MOCK_MODE'] = 'bad_monitor_source'
         result = self.execute()

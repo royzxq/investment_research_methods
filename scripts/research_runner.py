@@ -583,14 +583,39 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
         baselines = {}
         for task in research_request['tasks']:
             code, market = task['code'].split('.')
+            specified = {}
+            revision = task['data_pack_meta'].get('historical_valuation_revision')
+            if revision is not None:
+                references = revision.get('original_reports') if isinstance(revision, dict) else None
+                if not isinstance(references, list) or not references:
+                    raise ValueError('historical revision baseline references required')
+                parent = Path(root).resolve()/'research/investment/companies'/as_of/task['task_id']
+                for reference in references:
+                    if (not isinstance(reference, dict) or set(reference) != {'generator', 'path', 'sha256'}
+                            or any(not isinstance(reference[k], str) or not reference[k] for k in reference)
+                            or reference['generator'] not in GENERATORS
+                            or reference['generator'] in specified):
+                        raise ValueError('invalid or duplicate historical revision baseline')
+                    producer = reference['generator']
+                    source = (Path(root)/reference['path']).resolve(strict=True)
+                    pattern = rf'investment-{re.escape(code)}-{re.escape(as_of)}-research-{producer}(?:-r(?:[2-9]|[1-9][0-9]+))?\.md'
+                    if source.parent != parent or not re.fullmatch(pattern, source.name):
+                        raise ValueError('historical revision baseline security/date/producer or root mismatch')
+                    raw = source.read_bytes()
+                    if sha(raw) != reference['sha256']:
+                        raise ValueError('historical revision baseline hash mismatch')
+                    specified[producer] = (source.relative_to(Path(root).resolve()).as_posix(), raw)
             for generator in research_request['generators']:
                 key = task['task_id'] + '/' + generator
-                history = company_runs(market, code, as_of, root, generator=generator)
+                history = [] if generator in specified else company_runs(market, code, as_of, root, generator=generator)
                 baselines[key] = None
-                if history:
-                    price = _strict_json(history[-1].read_bytes(), 'baseline price map')
-                    original = price['meta']['report_path']
-                    raw = owned_path(root, original).read_bytes()
+                if generator in specified or history:
+                    if generator in specified:
+                        original, raw = specified[generator]
+                    else:
+                        price = _strict_json(history[-1].read_bytes(), 'baseline price map')
+                        original = price['meta']['report_path']
+                        raw = owned_path(root, original).read_bytes()
                     target = 'research-baselines/' + task['task_id'] + '-' + generator + '.md'
                     write_new(folder / target, raw)
                     (folder / target).chmod(0o444)
