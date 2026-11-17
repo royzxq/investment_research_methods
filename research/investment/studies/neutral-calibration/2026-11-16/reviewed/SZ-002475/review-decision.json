@@ -1,0 +1,92 @@
+{
+  "schema": "neutral-calibration-post-review/v1",
+  "task": "SZ-002475",
+  "valuation_date": "2026-11-16",
+  "evidence_cutoff": "2026-11-16T06:05:42.829845+08:00",
+  "review_date": "2026-11-17",
+  "generator": "codex",
+  "provenance": "Mechanical host/independent-review correction after the fixed Astra/xhigh trial; not a seventh model run",
+  "raw_trial_report": "research/investment/studies/neutral-calibration/2026-11-16/v10/SZ-002475/investment-002475-2026-11-16-research-codex.md",
+  "raw_trial_model_sha256": "844485618192e5e1bff36b2712c5ca1442a2a07a543ab75fd0c524678823d384",
+  "reviewed_model_path": "research/investment/studies/neutral-calibration/2026-11-16/reviewed/SZ-002475/reviewed-model.json",
+  "reviewed_model_sha256": "1b217b2966a125d68bd8a90e4e04a1bd78f4ade142b1497d972bcef53620a829",
+  "v50": {
+    "low": 11.47,
+    "base": 31.15,
+    "high": 56.95
+  },
+  "p1": {
+    "base": 23.67
+  },
+  "mode": "frozen",
+  "decision": "withdraw unsupported separate FV addition; financial-asset range already includes FV under the retained same-scope interpretation",
+  "qualification": "High subtotal independently matches source reconstruction to CNY 0.07 rounding. Original base/low construction formula was not found; their scope is retained consistently within the same parameter family, not claimed newly proven.",
+  "source_reconstruction_cny": {
+    "cash_net_trading_and_maturing": 88760233763.87,
+    "fv": 1251519240.69,
+    "mixed": 76139746248.77,
+    "h1_nondeposits": 8689961289.26,
+    "reconstructed_high": 157461537964.07,
+    "old_high": 157461537964.0,
+    "rounding_difference": 0.07
+  },
+  "correction_by_scenario": {
+    "low": {
+      "raw_price": 11.629791326172242,
+      "remove_extra_fv_fixed_options": 11.468166028772336,
+      "reviewed_price": 11.469177370700413,
+      "withdrawn_asset": 12.515192406899999,
+      "old_option_claim": 1.5435830603986698,
+      "reviewed_option_claim": 1.4652714407285554,
+      "option_feedback": 0.0010113419280771384,
+      "delta": -0.16061395547182936
+    },
+    "base": {
+      "raw_price": 31.305161102315243,
+      "remove_extra_fv_fixed_options": 31.143535804915338,
+      "reviewed_price": 31.147559173788228,
+      "withdrawn_asset": 12.515192406899999,
+      "old_option_claim": 24.537319202130114,
+      "reviewed_option_claim": 24.22577616785156,
+      "option_feedback": 0.0040233688728891865,
+      "delta": -0.1576019285270173
+    },
+    "high": {
+      "raw_price": 57.10656505336361,
+      "remove_extra_fv_fixed_options": 56.9449397559637,
+      "reviewed_price": 56.95017396341271,
+      "withdrawn_asset": 12.515192406899999,
+      "old_option_claim": 84.39641020003324,
+      "reviewed_option_claim": 83.99110784714814,
+      "option_feedback": 0.005234207449005747,
+      "delta": -0.15639108995090076
+    }
+  },
+  "raw_to_reviewed_bridge": {
+    "old_price": 31.305161102315243,
+    "new_price": 31.147559173788228,
+    "delta": -0.1576019285270173,
+    "changes": {
+      "operating_profit": 0.0,
+      "cash_tax": 0.0,
+      "net_investment": 0.0,
+      "working_capital": 0.0,
+      "terminal": 0.0,
+      "equity_bridge": -0.1576019285270173,
+      "capital_cost": 0.0
+    },
+    "convention": "First replace all operating/terminal/ownership components at the old uniform capital cost; capital-cost replacement is last. Interactions are allocated by this declared order, not independent additive sensitivities.",
+    "scope_note": "Amounts follow each model economic ownership scope; group and parent figures are not automatically equivalent. Terminal includes horizon, growth, margin, cash tax and IC effects. Single-run differences are not framework-only causal estimates."
+  },
+  "unchanged": [
+    "all operating forecasts, investment, NWC, tax, terminal assumptions, WACC, share count",
+    "financial-asset range and financial debt",
+    "all entry/add/holding controls",
+    "P1 multipliers 0.8 and 0.95"
+  ],
+  "limits": [
+    "No raw report/JSON/model is overwritten or automatically promoted to latest.",
+    "This review decision is not a new stock-research/v4 price-map delivery.",
+    "Raw v10 sensitivities remain raw-trial diagnostics; their base must not be relabeled as the reviewed price."
+  ]
+}

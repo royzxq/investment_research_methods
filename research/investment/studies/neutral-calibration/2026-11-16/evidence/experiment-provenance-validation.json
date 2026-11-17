@@ -1,0 +1,149 @@
+{
+  "protected_original_files": 116,
+  "original_differences": [],
+  "runs": [
+    {
+      "arm": "v9",
+      "task": "SZ-002475",
+      "checked_frozen_files": 48,
+      "requested_model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "completed_event_types": {
+        "agent_message": 8,
+        "command_execution": 59,
+        "file_change": 7
+      },
+      "network_candidates": [],
+      "subagent_events": [],
+      "usage": {
+        "input_tokens": 5307072,
+        "cached_input_tokens": 5079552,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 49396,
+        "reasoning_output_tokens": 10804
+      },
+      "started_at": "2026-11-17T00:40:54.539299+00:00",
+      "completed_at": "2026-11-17T01:08:37.504391+00:00"
+    },
+    {
+      "arm": "v9",
+      "task": "SH-688981",
+      "checked_frozen_files": 30,
+      "requested_model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "completed_event_types": {
+        "agent_message": 7,
+        "command_execution": 49,
+        "file_change": 6
+      },
+      "network_candidates": [],
+      "subagent_events": [],
+      "usage": {
+        "input_tokens": 5700191,
+        "cached_input_tokens": 5351936,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 50121,
+        "reasoning_output_tokens": 10113
+      },
+      "started_at": "2026-11-17T01:09:23.380991+00:00",
+      "completed_at": "2026-11-17T01:35:38.728203+00:00"
+    },
+    {
+      "arm": "v9",
+      "task": "SH-688041",
+      "checked_frozen_files": 36,
+      "requested_model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "completed_event_types": {
+        "agent_message": 9,
+        "command_execution": 62,
+        "file_change": 12
+      },
+      "network_candidates": [],
+      "subagent_events": [],
+      "usage": {
+        "input_tokens": 6445098,
+        "cached_input_tokens": 6078592,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 56350,
+        "reasoning_output_tokens": 14161
+      },
+      "started_at": "2026-11-17T00:40:54.539116+00:00",
+      "completed_at": "2026-11-17T01:20:22.675895+00:00"
+    },
+    {
+      "arm": "v10",
+      "task": "SZ-002475",
+      "checked_frozen_files": 48,
+      "requested_model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "completed_event_types": {
+        "agent_message": 9,
+        "command_execution": 72,
+        "file_change": 3
+      },
+      "network_candidates": [],
+      "subagent_events": [],
+      "usage": {
+        "input_tokens": 7269446,
+        "cached_input_tokens": 6951424,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 53445,
+        "reasoning_output_tokens": 9819
+      },
+      "started_at": "2026-11-17T01:08:37.509048+00:00",
+      "completed_at": "2026-11-17T01:45:54.489937+00:00"
+    },
+    {
+      "arm": "v10",
+      "task": "SH-688981",
+      "checked_frozen_files": 30,
+      "requested_model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "completed_event_types": {
+        "agent_message": 7,
+        "command_execution": 41,
+        "file_change": 9
+      },
+      "network_candidates": [],
+      "subagent_events": [],
+      "usage": {
+        "input_tokens": 6643498,
+        "cached_input_tokens": 6460672,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 55337,
+        "reasoning_output_tokens": 12427
+      },
+      "started_at": "2026-11-17T00:40:54.539335+00:00",
+      "completed_at": "2026-11-17T01:09:23.378267+00:00"
+    },
+    {
+      "arm": "v10",
+      "task": "SH-688041",
+      "checked_frozen_files": 36,
+      "requested_model": "gpt-6-astra",
+      "reasoning_effort": "xhigh",
+      "completed_event_types": {
+        "agent_message": 8,
+        "command_execution": 58,
+        "file_change": 6
+      },
+      "network_candidates": [],
+      "subagent_events": [],
+      "usage": {
+        "input_tokens": 6219318,
+        "cached_input_tokens": 5948800,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 47487,
+        "reasoning_output_tokens": 10020
+      },
+      "started_at": "2026-11-17T01:20:22.677695+00:00",
+      "completed_at": "2026-11-17T01:49:30.216875+00:00"
+    }
+  ],
+  "limits": [
+    "Model and effort are verified request arguments, not an independently exposed backend deployment fingerprint.",
+    "Runtime tool audit is a logged-operation and common network-command scan, not an operating-system network trace.",
+    "File hashes verify retention, not public availability or correctness of source contents."
+  ]
+}

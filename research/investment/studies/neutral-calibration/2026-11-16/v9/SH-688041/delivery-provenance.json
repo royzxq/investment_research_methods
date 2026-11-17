@@ -1,0 +1,118 @@
+{
+  "task": "SH-688041",
+  "arm": "v9",
+  "report_path": "research/investment/studies/neutral-calibration/2026-11-16/v9/SH-688041/investment-688041-2026-11-16-research-codex.md",
+  "price_map_path": "research/investment/studies/neutral-calibration/2026-11-16/v9/SH-688041/investment-688041-2026-11-16-price-map-codex.json",
+  "report_sha256": "97016883faa5e0b70415a366fd1a97a1fadbc907e896c6b1c25b11c6f07bfe0e",
+  "price_map_sha256": "52fbf69e0005dc833e21f9d58dcaa8eaa57f0e0bb6285d1e3bc56757d160e4e7",
+  "runtime_report_sha256": "596215dd9d96afa96901a3549e1675c9343325fa538c0b959b1f54c3994de37f",
+  "runtime_json_sha256": "52fbf69e0005dc833e21f9d58dcaa8eaa57f0e0bb6285d1e3bc56757d160e4e7",
+  "runtime_receipt": {
+    "task": "SH-688041",
+    "arm": "v9",
+    "command": [
+      "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--approve-for-me",
+      "-C",
+      "/Users/xinquanzhou/Workspace/investment_research_methods/output/audits/investment/2026-11-17/neutral-calibration/runs/v9/SH-688041",
+      "-m",
+      "gpt-6-astra",
+      "-c",
+      "model_reasoning_effort=\"xhigh\"",
+      "--json",
+      "-o",
+      "/Users/xinquanzhou/Workspace/investment_research_methods/output/audits/investment/2026-11-17/neutral-calibration/runs/v9/SH-688041/last-message.txt",
+      "-"
+    ],
+    "prompt_sha256": "98a08c799ef9f0fb5a3844549ec7bb6c40a2b799312b0953df232603ff251b25",
+    "started_at": "2026-11-17T00:40:54.539116+00:00",
+    "exit_code": 0,
+    "completed_at": "2026-11-17T01:20:22.675895+00:00",
+    "runtime_sha256": "c485b697bbd7da820f9ea169144df01d8888efe008541932dd7076977fdf3230"
+  },
+  "input_pack_sha256": "568159b983f9e55ff0eb3fbd9eceba5db84d30ee9c4eca3d5384ec20e6233c3f",
+  "evidence_cutoff": "2026-11-16T05:38:12.789327+08:00",
+  "framework_sha256": {
+    "investment_framework.md": "2b909852e5afacc1ea832a76540c04469439fb016692dc91c32bd7160e13fb32",
+    "investment_framework_compact.md": "2ad08f195bb6729dd8c7aea96ccaf85c1fa5504aa53cfd18beef90f0e0377d1e"
+  },
+  "v50": {
+    "low": 14.48,
+    "base": 45.11,
+    "high": 102.45
+  },
+  "p1": {
+    "base": 38.83
+  },
+  "controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "R8_AI_2027",
+        "R3_TIGHT_202611",
+        "R4_STANDALONE_202611",
+        "R5_DUAL_202611",
+        "R20_DOMESTIC_202611",
+        "R6_NBS_20261116",
+        "R6_NVDA_FY27Q3",
+        "R6_FOMC_20261029",
+        "R6_CNPRICE_20261109",
+        "R6_USCPI_20261110",
+        "R6_NVDA_GOV_20261111"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "R8_AI_2027",
+        "R3_TIGHT_202611",
+        "R4_STANDALONE_202611",
+        "R5_DUAL_202611",
+        "R20_DOMESTIC_202611",
+        "R6_NBS_20261116",
+        "R6_NVDA_FY27Q3",
+        "R13_LEFT_ADD_202611",
+        "R14_COST",
+        "R6_FOMC_20261029",
+        "R6_CNPRICE_20261109",
+        "R6_USCPI_20261110",
+        "R6_NVDA_GOV_20261111",
+        "ADD_PLAN_CANCELLED_20261116"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD_CASH_Q3",
+        "HOLD_UST10Y_20261009"
+      ]
+    }
+  },
+  "independent_unrounded_v50": {
+    "low": 14.476541648646108,
+    "base": 45.107676290370534,
+    "high": 102.45374402072075
+  },
+  "validation": "passed",
+  "runtime_event_types": {
+    "agent_message": 9,
+    "command_execution": 62,
+    "file_change": 12
+  },
+  "usage": [
+    {
+      "input_tokens": 6445098,
+      "cached_input_tokens": 6078592,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 56350,
+      "reasoning_output_tokens": 14161
+    }
+  ],
+  "runtime_errors": [],
+  "portability_change": "source paths only; all valuation and control fields preserved",
+  "limitations": "Requested model/effort are explicit CLI arguments; runtime JSON does not separately identify provider deployment. Single paired run per company does not estimate stochastic variability or prove causal method effects."
+}

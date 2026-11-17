@@ -1,0 +1,1835 @@
+{
+  "manifest": {
+    "batch_id": "372adfd34a82424299b6024f5f3baa11",
+    "valuation_date": "2026-11-16",
+    "workspace": "output/audits/investment/2026-11-16/valuation-v9-rerun-0f06a665/workspace",
+    "request_path": "output/audits/investment/2026-11-16/valuation-v9-rerun-0f06a665/input/request.json",
+    "request_sha256": "2541be054f67706548d1dfe49b192f534e76714599e948afc5c75cb0a833a84d",
+    "run": "output/audits/investment/2026-11-16/valuation-v9-rerun-0f06a665/workspace/output/runs/investment/2026-11-16/372adfd34a82424299b6024f5f3baa11",
+    "profile": {
+      "profile_id": "codex-astra-xhigh",
+      "revision": 1,
+      "producer": "codex",
+      "harness": "codex-cli",
+      "models": {
+        "main": {
+          "model": "gpt-6-astra",
+          "effort": "xhigh"
+        },
+        "subagent": {
+          "model": null
+        }
+      }
+    },
+    "delivery": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v6",
+      "prompt_template": "two-price-controls/v9"
+    },
+    "frameworks": {
+      "investment_framework.md": {
+        "path": "investment_framework.md",
+        "sha256": "2b909852e5afacc1ea832a76540c04469439fb016692dc91c32bd7160e13fb32"
+      },
+      "investment_framework_compact.md": {
+        "path": "investment_framework_compact.md",
+        "sha256": "2ad08f195bb6729dd8c7aea96ccaf85c1fa5504aa53cfd18beef90f0e0377d1e"
+      }
+    },
+    "maintenance": {
+      "path": "maintenance/research/investment/weekly/2026-11-16/investment-2026-11-16-handoff.json",
+      "sha256": "10bf765e2d37a5ca7a928d10d18740087f03cdf18e8be03f83a4270ec9489d95"
+    },
+    "sources": {
+      "SZ-002475": {
+        "original_run": "output/runs/investment/2026-11-16/56ddedea3e8149b494a6fccd31c3feea",
+        "original_request_sha256": "55cd9c7f6245ba131b5ba0bb2dcff157075ebfb27d6a5de78b315abed5313a01",
+        "data_pack": {
+          "path": "packs/SZ-002475.md",
+          "sha256": "8fc1e5db1c690565c28bc91396ed1470013fb134fe94a99893180fd14b1846a2"
+        },
+        "original_codex_evidence_sha256": "d2987aadf5d8b225dfb47987c02b62daeaae42c0207403ebd454c689099d4472",
+        "baselines": {
+          "codex": {
+            "receipt": "output/runs/investment/2026-11-16/56ddedea3e8149b494a6fccd31c3feea/execution/SZ-002475/codex/accepted.json",
+            "batch_id": "56ddedea3e8149b494a6fccd31c3feea",
+            "task_id": "SZ-002475",
+            "generator": "codex",
+            "profile": "codex-astra-xhigh",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T06:05:42.829845+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "8fc1e5db1c690565c28bc91396ed1470013fb134fe94a99893180fd14b1846a2",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SZ-002475/investment-002475-2026-11-16-research-codex.md",
+              "sha256": "2bf7058362041df2519de5250fad1508d744d04ce52a591841084b961afc46d4"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SZ-002475/investment-002475-2026-11-16-price-map-codex.json",
+              "sha256": "b7ca9485ae7347bdcac1aea214d5eded02ec642a8d4ff64fca88f9b8065ba03f"
+            },
+            "mode": "frozen",
+            "valuation_kind": "unavailable",
+            "v50_is_null": true,
+            "p1_is_null": true,
+            "input_states": {
+              "profit": "unresolved",
+              "investment": "unresolved",
+              "tax": "unresolved",
+              "capital": "unresolved",
+              "residual_discount": "unresolved"
+            }
+          },
+          "dsh": {
+            "receipt": "output/runs/investment/2026-11-16/56ddedea3e8149b494a6fccd31c3feea/execution/SZ-002475/dsh/accepted.json",
+            "batch_id": "56ddedea3e8149b494a6fccd31c3feea",
+            "task_id": "SZ-002475",
+            "generator": "dsh",
+            "profile": "dsh-deepseek-flash-high-context-v1",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T06:19:29.208078+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "8fc1e5db1c690565c28bc91396ed1470013fb134fe94a99893180fd14b1846a2",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SZ-002475/investment-002475-2026-11-16-research-dsh.md",
+              "sha256": "2600992feb2f33b6c2108fe1530254201abb48fcefba8ed2d35a027891faf033"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SZ-002475/investment-002475-2026-11-16-price-map-dsh.json",
+              "sha256": "60a546932a1179310731fab1a07f45a0183bca8c81e28287ea7585ee691f4084"
+            },
+            "mode": "frozen",
+            "valuation_kind": "dcf_fcff",
+            "v50_is_null": false,
+            "p1_is_null": false,
+            "input_states": {
+              "profit": "bounded",
+              "investment": "bounded",
+              "tax": "bounded",
+              "capital": "bounded",
+              "residual_discount": "resolved"
+            }
+          }
+        },
+        "original_predecessor": {
+          "path": "research-baselines/SZ-002475-codex.md",
+          "sha256": "717fc561cdc60e6970bc9e652984268b10a1a20f84f19137f0aedab7d99186e1",
+          "original_path": "research/investment/companies/2026-11-08/SZ-002475/investment-002475-2026-11-08-research-codex.md"
+        },
+        "original_frameworks": {
+          "investment_framework.md": {
+            "path": "investment_framework.md",
+            "sha256": "14d0bf8641ad63565ae55ca27fea618fe0cbd8b4248f83ea3c6dd1addbce29d6"
+          },
+          "investment_framework_compact.md": {
+            "path": "investment_framework_compact.md",
+            "sha256": "2820e1f2ba4843e297a5de2762aa095357ef056dda480643519f1834277a8467"
+          }
+        },
+        "evidence_cutoff": "2026-11-16T06:05:42.829845+08:00"
+      },
+      "SH-688981": {
+        "original_run": "output/runs/investment/2026-11-16/e0e73b33b4ec47af9ef26f9907e236a3",
+        "original_request_sha256": "5be8b98702a29d8582d23e40d1c116e1bbe472d884355b8766de2d7f8fe8f3a5",
+        "data_pack": {
+          "path": "packs/SH-688981.md",
+          "sha256": "14259ba540d348295f107ea29b4868c80ba0ad21619548f6362f83ec067c95e6"
+        },
+        "original_codex_evidence_sha256": "403393feb00b1f8bd70de1798b84d77073ad2a3dfad4b8ac46e34d2eea2f7a05",
+        "baselines": {
+          "codex": {
+            "receipt": "output/runs/investment/2026-11-16/e0e73b33b4ec47af9ef26f9907e236a3/execution/SH-688981/codex/accepted.json",
+            "batch_id": "e0e73b33b4ec47af9ef26f9907e236a3",
+            "task_id": "SH-688981",
+            "generator": "codex",
+            "profile": "codex-astra-xhigh",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:33:24.146247+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "14259ba540d348295f107ea29b4868c80ba0ad21619548f6362f83ec067c95e6",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688981/investment-688981-2026-11-16-research-codex.md",
+              "sha256": "b66579ce9b25db28a1bd01d34b0f9c08584ba671a2066e92db801ac702c6b248"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688981/investment-688981-2026-11-16-price-map-codex.json",
+              "sha256": "159f2a58f78f7087f30483c65d3e818d7d614b341f58b444439c2d538c5fc811"
+            },
+            "mode": "frozen",
+            "valuation_kind": "unavailable",
+            "v50_is_null": true,
+            "p1_is_null": true,
+            "input_states": {
+              "profit": "unresolved",
+              "investment": "unresolved",
+              "tax": "unresolved",
+              "capital": "unresolved",
+              "residual_discount": "unresolved"
+            }
+          },
+          "dsh": {
+            "receipt": "output/runs/investment/2026-11-16/e0e73b33b4ec47af9ef26f9907e236a3/execution/SH-688981/dsh/accepted.json",
+            "batch_id": "e0e73b33b4ec47af9ef26f9907e236a3",
+            "task_id": "SH-688981",
+            "generator": "dsh",
+            "profile": "dsh-deepseek-flash-high-context-v1",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:50:25.946866+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "14259ba540d348295f107ea29b4868c80ba0ad21619548f6362f83ec067c95e6",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688981/investment-688981-2026-11-16-research-dsh.md",
+              "sha256": "d094f44e87745a82bfbef0bacb033b690b2e224a86c9a702bfccd3e72cf13c9a"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688981/investment-688981-2026-11-16-price-map-dsh.json",
+              "sha256": "19a17b885a5de59751f74716e685798d6620cd3f79b544d2e49ced02563b7d16"
+            },
+            "mode": "buy_candidate",
+            "valuation_kind": "dcf_fcff",
+            "v50_is_null": false,
+            "p1_is_null": false,
+            "input_states": {
+              "profit": "resolved",
+              "investment": "bounded",
+              "tax": "bounded",
+              "capital": "bounded",
+              "residual_discount": "bounded"
+            }
+          }
+        },
+        "original_predecessor": null,
+        "original_frameworks": {
+          "investment_framework.md": {
+            "path": "investment_framework.md",
+            "sha256": "14d0bf8641ad63565ae55ca27fea618fe0cbd8b4248f83ea3c6dd1addbce29d6"
+          },
+          "investment_framework_compact.md": {
+            "path": "investment_framework_compact.md",
+            "sha256": "2820e1f2ba4843e297a5de2762aa095357ef056dda480643519f1834277a8467"
+          }
+        },
+        "evidence_cutoff": "2026-11-16T05:33:24.146247+08:00"
+      },
+      "SH-688041": {
+        "original_run": "output/runs/investment/2026-11-16/f9e906f1955c409d980b17736f9683d3",
+        "original_request_sha256": "e448aa1d4b1c18c491225a198d5e861e921e01ba329118e9c380ee2b68321a83",
+        "data_pack": {
+          "path": "packs/SH-688041.md",
+          "sha256": "568159b983f9e55ff0eb3fbd9eceba5db84d30ee9c4eca3d5384ec20e6233c3f"
+        },
+        "original_codex_evidence_sha256": "3201fc9092c36a48d3925f8c3df137e1930f4f6f329b14ef381419406c7bce5d",
+        "baselines": {
+          "codex": {
+            "receipt": "output/runs/investment/2026-11-16/f9e906f1955c409d980b17736f9683d3/execution/SH-688041/codex/accepted.json",
+            "batch_id": "f9e906f1955c409d980b17736f9683d3",
+            "task_id": "SH-688041",
+            "generator": "codex",
+            "profile": "codex-astra-xhigh",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:38:12.789327+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "568159b983f9e55ff0eb3fbd9eceba5db84d30ee9c4eca3d5384ec20e6233c3f",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md",
+              "sha256": "fad277b9b7ade331d1ed75c18c623c8e4302c3796d8c06b13be184f3c3ff6f75"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-price-map-codex.json",
+              "sha256": "3e6b38fa17c0ed305568cbece6cfb504993fbb88c6fb562df42ef1a57705fb8c"
+            },
+            "mode": "unavailable",
+            "valuation_kind": "unavailable",
+            "v50_is_null": true,
+            "p1_is_null": true,
+            "input_states": {
+              "profit": "unresolved",
+              "investment": "unresolved",
+              "tax": "unresolved",
+              "capital": "unresolved",
+              "residual_discount": "unresolved"
+            }
+          },
+          "dsh": {
+            "receipt": "output/runs/investment/2026-11-16/f9e906f1955c409d980b17736f9683d3/execution/SH-688041/dsh/accepted.json",
+            "batch_id": "f9e906f1955c409d980b17736f9683d3",
+            "task_id": "SH-688041",
+            "generator": "dsh",
+            "profile": "dsh-deepseek-flash-high-context-v1",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:55:01.551374+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "568159b983f9e55ff0eb3fbd9eceba5db84d30ee9c4eca3d5384ec20e6233c3f",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-dsh.md",
+              "sha256": "2db3093fdd1da905e334857702134d749468f58e2bb08e44f9636657bf83b2a8"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-price-map-dsh.json",
+              "sha256": "36711ef5b1a5ac163d1d0159ff6138264977febe065506db7defde7f3145f466"
+            },
+            "mode": "frozen",
+            "valuation_kind": "dcf_fcff",
+            "v50_is_null": false,
+            "p1_is_null": false,
+            "input_states": {
+              "profit": "resolved",
+              "investment": "bounded",
+              "tax": "bounded",
+              "capital": "bounded",
+              "residual_discount": "bounded"
+            }
+          }
+        },
+        "original_predecessor": null,
+        "original_frameworks": {
+          "investment_framework.md": {
+            "path": "investment_framework.md",
+            "sha256": "14d0bf8641ad63565ae55ca27fea618fe0cbd8b4248f83ea3c6dd1addbce29d6"
+          },
+          "investment_framework_compact.md": {
+            "path": "investment_framework_compact.md",
+            "sha256": "2820e1f2ba4843e297a5de2762aa095357ef056dda480643519f1834277a8467"
+          }
+        },
+        "evidence_cutoff": "2026-11-16T05:38:12.789327+08:00"
+      },
+      "SH-688256": {
+        "original_run": "output/runs/investment/2026-11-16/6ccd42d0f235450f862c98283220576f",
+        "original_request_sha256": "c896571e25848ac6f4351b42336d104809f6822058597a1082f0372a4cdfeba4",
+        "data_pack": {
+          "path": "packs/SH-688256.md",
+          "sha256": "ff944d9478b569fb9774b04538dccd2f012b8cf3033a1c5126e260befc906215"
+        },
+        "original_codex_evidence_sha256": "146d750f6a210fddcf1da71a18bc46750d6c8dae94a56b88305bbdb541d96d1c",
+        "baselines": {
+          "codex": {
+            "receipt": "output/runs/investment/2026-11-16/6ccd42d0f235450f862c98283220576f/execution/SH-688256/codex/accepted.json",
+            "batch_id": "6ccd42d0f235450f862c98283220576f",
+            "task_id": "SH-688256",
+            "generator": "codex",
+            "profile": "codex-astra-xhigh",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:34:23.588242+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "ff944d9478b569fb9774b04538dccd2f012b8cf3033a1c5126e260befc906215",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688256/investment-688256-2026-11-16-research-codex.md",
+              "sha256": "84936883560e78d98f6978396ab13bc4fd3783391e3e233075d82d3cd45673d5"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688256/investment-688256-2026-11-16-price-map-codex.json",
+              "sha256": "33b0931b8a5339bfb4df45fa6a6d7eb8d1dc4a6891ba39eb687e56968cced58f"
+            },
+            "mode": "frozen",
+            "valuation_kind": "unavailable",
+            "v50_is_null": true,
+            "p1_is_null": true,
+            "input_states": {
+              "profit": "unresolved",
+              "investment": "unresolved",
+              "tax": "unresolved",
+              "capital": "unresolved",
+              "residual_discount": "unresolved"
+            }
+          },
+          "dsh": {
+            "receipt": "output/runs/investment/2026-11-16/6ccd42d0f235450f862c98283220576f/execution/SH-688256/dsh/accepted.json",
+            "batch_id": "6ccd42d0f235450f862c98283220576f",
+            "task_id": "SH-688256",
+            "generator": "dsh",
+            "profile": "dsh-deepseek-flash-high-context-v1",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:52:42.713889+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "ff944d9478b569fb9774b04538dccd2f012b8cf3033a1c5126e260befc906215",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688256/investment-688256-2026-11-16-research-dsh.md",
+              "sha256": "36d7432b5b0fcff71ef0e88b0e711161c74261bfb598e2619eea112257247b0e"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688256/investment-688256-2026-11-16-price-map-dsh.json",
+              "sha256": "69ba146f660ca306ea17102dce2d1ccb2288d0a773d8bbdea4860a3cb0b9bd78"
+            },
+            "mode": "tracking",
+            "valuation_kind": "dcf_fcff",
+            "v50_is_null": false,
+            "p1_is_null": false,
+            "input_states": {
+              "profit": "resolved",
+              "investment": "bounded",
+              "tax": "bounded",
+              "capital": "resolved",
+              "residual_discount": "resolved"
+            }
+          }
+        },
+        "original_predecessor": null,
+        "original_frameworks": {
+          "investment_framework.md": {
+            "path": "investment_framework.md",
+            "sha256": "14d0bf8641ad63565ae55ca27fea618fe0cbd8b4248f83ea3c6dd1addbce29d6"
+          },
+          "investment_framework_compact.md": {
+            "path": "investment_framework_compact.md",
+            "sha256": "2820e1f2ba4843e297a5de2762aa095357ef056dda480643519f1834277a8467"
+          }
+        },
+        "evidence_cutoff": "2026-11-16T05:34:23.588242+08:00"
+      },
+      "SH-688825": {
+        "original_run": "output/runs/investment/2026-11-16/8571f90ccf6d4c1e8b22f5450d725906",
+        "original_request_sha256": "a6d5abeead97893133a538fe5325c0f32c5e3b73efc175d6528c35bb2d5def79",
+        "data_pack": {
+          "path": "packs/SH-688825.md",
+          "sha256": "281ff1ab8a884499e2d5f3e42faeb03f2e260ee29ddee2533c9094b8b2c8e4e1"
+        },
+        "original_codex_evidence_sha256": "3fc31c38878417a02b18cd7fd0d3282aa5f1fca2b2be13dac090ac98024b4ec4",
+        "baselines": {
+          "codex": {
+            "receipt": "output/runs/investment/2026-11-16/8571f90ccf6d4c1e8b22f5450d725906/execution/SH-688825/codex/accepted.json",
+            "batch_id": "8571f90ccf6d4c1e8b22f5450d725906",
+            "task_id": "SH-688825",
+            "generator": "codex",
+            "profile": "codex-astra-xhigh",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:26:19.209071+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "281ff1ab8a884499e2d5f3e42faeb03f2e260ee29ddee2533c9094b8b2c8e4e1",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688825/investment-688825-2026-11-16-research-codex.md",
+              "sha256": "67d335206b983d69f4f114c30a87d0e5dfb49eee21c4f2445f448c78377b48ae"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688825/investment-688825-2026-11-16-price-map-codex.json",
+              "sha256": "ffe01c74444caaeebeaed560c342118c399cb31b1e55f8ad6781d7ad644c9b20"
+            },
+            "mode": "frozen",
+            "valuation_kind": "unavailable",
+            "v50_is_null": true,
+            "p1_is_null": true,
+            "input_states": {
+              "profit": "unresolved",
+              "investment": "unresolved",
+              "tax": "unresolved",
+              "capital": "unresolved",
+              "residual_discount": "unresolved"
+            }
+          },
+          "dsh": {
+            "receipt": "output/runs/investment/2026-11-16/8571f90ccf6d4c1e8b22f5450d725906/execution/SH-688825/dsh/accepted.json",
+            "batch_id": "8571f90ccf6d4c1e8b22f5450d725906",
+            "task_id": "SH-688825",
+            "generator": "dsh",
+            "profile": "dsh-deepseek-flash-high-context-v1",
+            "valuation_date": "2026-11-16",
+            "completed_at": "2026-11-16T05:38:38.289315+08:00",
+            "audit_schema": "stock-research-audit/v5",
+            "historical_revision": false,
+            "pack_sha256": "281ff1ab8a884499e2d5f3e42faeb03f2e260ee29ddee2533c9094b8b2c8e4e1",
+            "report": {
+              "path": "research/investment/companies/2026-11-16/SH-688825/investment-688825-2026-11-16-research-dsh.md",
+              "sha256": "0c8f3041862a7be6e5d80da662ddc3908858e4c492ac8a10cf066dd8c27eda96"
+            },
+            "price_map": {
+              "path": "research/investment/companies/2026-11-16/SH-688825/investment-688825-2026-11-16-price-map-dsh.json",
+              "sha256": "19e0430dc83f632a2d2ed8da8a3e2b2883036a2d1637160834a4537fd169295b"
+            },
+            "mode": "buy_candidate",
+            "valuation_kind": "dcf_fcff",
+            "v50_is_null": false,
+            "p1_is_null": false,
+            "input_states": {
+              "profit": "bounded",
+              "investment": "bounded",
+              "tax": "bounded",
+              "capital": "bounded",
+              "residual_discount": "resolved"
+            }
+          }
+        },
+        "original_predecessor": null,
+        "original_frameworks": {
+          "investment_framework.md": {
+            "path": "investment_framework.md",
+            "sha256": "14d0bf8641ad63565ae55ca27fea618fe0cbd8b4248f83ea3c6dd1addbce29d6"
+          },
+          "investment_framework_compact.md": {
+            "path": "investment_framework_compact.md",
+            "sha256": "2820e1f2ba4843e297a5de2762aa095357ef056dda480643519f1834277a8467"
+          }
+        },
+        "evidence_cutoff": "2026-11-16T05:26:19.209071+08:00"
+      }
+    }
+  },
+  "cli_result_sha256": "0098784745137b00c01e5af323d918888556abfe73acae0034f9cb6d0a8dee1a",
+  "cli_failure": "账户用量上限，五份未产生验收结果；后续采用当前Codex会话隔离复评。",
+  "current_session_model": "gpt-6.1-sol",
+  "original_model": {
+    "model": "gpt-6-astra",
+    "effort": "xhigh"
+  },
+  "valuation_date": "2026-11-16",
+  "comparisons": [
+    {
+      "task_id": "SZ-002475",
+      "name": "立讯精密",
+      "status": "completed_in_current_session",
+      "reason": null,
+      "prior": {
+        "codex": {
+          "mode": "frozen",
+          "reason": "仍有效的R6事件与现金持续冻结；长期利润、必要投入、现金税和重大资本归属联合输入未闭合，本轮不提供新V50/P1；持仓质量继续复评，非确认退出。",
+          "v50": null,
+          "p1": null,
+          "v50_base_per_share_components": null,
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "unavailable",
+          "basis": {
+            "profit": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "历史利润口径已解决；长期分部毛利至EBIT/归母及联营贡献、成本传导/股权费用路径未形成有依据的中性联合范围。",
+              "gaps": [
+                "不能由单季3.993%直接规定长期4%；三季股份支付与税后归母对冲细分缺口。"
+              ]
+            },
+            "investment": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "IPO分用途分期只能约束该笔募集金；公司明示不足另筹。缺全公司销售扩张与营运资本、投用资产、寿命折旧、维护及增长投入联合桥。",
+              "gaps": [
+                "不将募资金额当全公司投入上限，也不将短期负FCF永久化；前瞻必要投入未可约束。"
+              ]
+            },
+            "tax": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "已知各法域与税费、递延科目，但合并所得税费用不等于现金所得税；所有税付现减退税也不等于企业所得税。",
+              "gaps": [
+                "未来分实体可用亏损/抵扣和利润分布尚未闭合，不能因并购亏损假设不缴税或退款。"
+              ]
+            },
+            "capital": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "登记股份、存量期权/库存稀释上限、IPO已入Q3、已兑付债及新增短融已核或可界定；不要求逐账户追IPO或期权波动率才估值。真正未决为Q3混合资金分类、经营必要现金、NCI/法律归属与必要投入及税的配对。",
+              "gaps": [
+                "现有金融资产完整加回/债务完整扣除可形成集团组件，但不能用受限本金置零；尚缺重要混合资产、必要现金及普通股归属的有据中性界。",
+                "存量期权和库存的同日免费股上界3.50239727%已可约束；该部分不是不可估原因，须与利润内SBC去重。"
+              ]
+            },
+            "residual_discount": {
+              "status": "unresolved",
+              "affects": "p1",
+              "explanation": "合理价值未定，不能分离旧20%安全边际与5%流动性尾部是否已被经营/资本桥吸收。",
+              "gaps": [
+                "d_base和r_v5的value/range均null，总乘数null；不是0，不形成新P1。"
+              ]
+            }
+          },
+          "availability_review": null,
+          "method_choice": "多业务且扩产并购期优先分部FCFF/WACC；已查分业务、IPO用途、资本附注，但不足闭合逐年EBIT、税、DA、capex、ΔNWC与终值生产性资本。本轮不伪造DCF；旧集团PE只作明确失效边界的诊断，other不作逃避。"
+        },
+        "dsh": {
+          "mode": "frozen",
+          "reason": "价值可估但买入资格冻结：2026年前三季度经营现金流-64.34亿元、资本开支148.39亿元，扩张依赖借款与H股募资，构成Precheck硬失败#3；R8订单可见度与R14成本传导/现金流桥仍缺证，entry/add受阻。公司事实可靠、估值可完成，故交付frozen观察价而非否决或不可估。",
+          "v50": {
+            "low": 34.34,
+            "base": 49.41,
+            "high": 67.48
+          },
+          "p1": {
+            "base": 37.2
+          },
+          "v50_base_per_share_components": {
+            "explicit": 12.078866939599116,
+            "terminal": 44.31237479137955,
+            "adjustments": -6.985359914675419,
+            "discount_rates": {
+              "CONS": 0.075,
+              "AUTO": 0.075,
+              "COMM": 0.075,
+              "OTHER": 0.075
+            }
+          },
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "dcf_fcff",
+          "basis": {
+            "profit": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "2026E合并收入4,110亿元＝前三季2,850.12亿元＋Q4按2025Q4 1,114.29亿元×13.1%估计；核心EBIT按“营业利润−投资收益−公允价值变动−资产处置收益＋财务费用”还原，2024/2025/前三季分别为111.18/140.54/124.66亿元（4.14%/4.23%/4.37%），2027–2033年分部EBIT率由各板块披露毛利率与费用率路径外推，属研究假设而非公司指引。",
+              "gaps": [
+                "分部EBIT、分部费用与莱尼/京西并表损益未披露，分部利润率由合并口径与板块毛利率校准",
+                "京西智行对价与标的全年损益未披露，按不超过集团收入1%的有界影响处理"
+              ]
+            },
+            "investment": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "资本开支由2025年179.04亿元升至2026年约200亿元，2027–2033年按215→250亿元、相对折旧由1.26倍收敛至1.02倍；营运资本按收入比10.0%→11.5%递增，ΔNWC按逐年增量计算，与应收/存货/应付的扩张方向一致。",
+              "gaps": [
+                "分部资本开支、资产投用与寿命未披露，按收入份额分摊；在建工程转固时点未知"
+              ]
+            },
+            "tax": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "显式期按EBIT×12%计提现金税（介于历史7.1%–10.9%与法定15%之间，反映高新技术优惠与研发加计）；终值按15%有效税率，避免把当前优惠永久化。合并亏损不产生自动退款。",
+              "gaps": [
+                "分税务主体应税利润、可用亏损与跨境预提税未披露，未建立实体级税表"
+              ]
+            },
+            "capital": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "权益桥＝经营EV＋货币资金(扣受限)＋交易性金融资产＋一年内到期定存(扣受限)＋联营企业8×48亿元−有息负债−少数股东权益−期权内在价值62.40亿元；WACC＝权益成本8.3%（Rf 2.0%、ERP 5.5%、β1.15）×87.6%＋税后债务成本1.5%×12.4%＝7.46%，取7.5%。",
+              "gaps": [
+                "其他流动资产中大额存单约293亿元的可自由部分未拆分（已知266.73亿元受限），未计入权益桥",
+                "京西智行对价与支付方式未披露；经营必要现金水位未单独界定",
+                "Rf/ERP/β为本轮研究参数，非本批取得的官方原文读数"
+              ]
+            },
+            "residual_discount": {
+              "status": "resolved",
+              "affects": "p1",
+              "explanation": "d_base 20%落在15%–22%论证区间上侧，覆盖联合预测误差、未披露并购对价与摊薄尾部；与基线同值同区间，未因模型更换而放大。",
+              "gaps": []
+            }
+          },
+          "availability_review": null,
+          "method_choice": "公司为多业务、投入期非金融企业，按canonical §4.1D以分部FCFF为主模型：四个板块分别给出收入与EBIT率路径，折旧/资本开支/营运资本按收入份额由合并口径分摊（分部资本开支未披露，不做虚构分部资本结构），经营EV经资本桥转普通股权益。上期PE法（18×2027E归母214.37亿元）只作交叉核验：PE把增长所需的资本开支与营运资本占用留在模型外，且对现金、联营与期权不做显式桥接，故不再作主锚。"
+        }
+      },
+      "pack_sha256": "8fc1e5db1c690565c28bc91396ed1470013fb134fe94a99893180fd14b1846a2",
+      "entry": {
+        "task_id": "SZ-002475",
+        "generator": "codex",
+        "status": "completed_in_current_session",
+        "reason": null,
+        "report": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SZ-002475/investment-002475-2026-11-16-research-codex.md",
+          "sha256": "ed8e6f8d01e2348554c85ad0bd9f9f9269aaf7fc30a8f936b50815dfc7ac2cf7"
+        },
+        "price_map": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SZ-002475/investment-002475-2026-11-16-price-map-codex.json",
+          "sha256": "f5a44422c16d6b10436ccfe70798bebeb109ba717bb515a8dd02b1afe4d2fe03"
+        }
+      },
+      "failed_cli_execution": {
+        "started_at": "2026-11-16T22:11:31.773324+08:00",
+        "completed_at": "2026-11-16T22:27:35.499307+08:00",
+        "exit_code": 1,
+        "attempt": 1
+      },
+      "audit_baseline": {
+        "report_path": "output/audits/investment/2026-11-16/valuation-v9-rerun-0f06a665/workspace/output/runs/investment/2026-11-16/372adfd34a82424299b6024f5f3baa11/framework-snapshot/research-baselines/SZ-002475-codex.md",
+        "sha256": "717fc561cdc60e6970bc9e652984268b10a1a20f84f19137f0aedab7d99186e1"
+      },
+      "rerun": {
+        "mode": "frozen",
+        "reason": "观察估值输入已可设界。R6窗口、既有现金与融资质量冻结继续，新建仓和追加均受限，持仓继续复评。",
+        "v50": {
+          "low": 11.47,
+          "base": 31.15,
+          "high": 56.95
+        },
+        "p1": {
+          "base": 23.67
+        },
+        "v50_base_per_share_components": {
+          "explicit": 6.752003563918023,
+          "terminal": 25.415153246106964,
+          "adjustments": -1.0195976362367598,
+          "discount_rates": {
+            "consumer": 0.09,
+            "auto": 0.09,
+            "datacenter": 0.09,
+            "other": 0.09
+          }
+        },
+        "controls": {
+          "entry": "blocked",
+          "add": "blocked",
+          "holding": "review_required"
+        },
+        "kind": "dcf_fcff",
+        "basis": {
+          "profit": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "2027收入4060–4750亿、中枢4450亿；先以2025/H1分部毛利、9M汽车毛利与报表费用分摊形成分部EBIT。消费3.8%、汽车5.0%、通讯9.5%、其他3.0%为基准首年研究判断，未把目标价或同端旧PE倒挤入利润。",
+            "gaps": [
+              "未来分客户订单、实际成交价及分部费用不完整；继续验证AI项目落地、汽车整合与汇率/材料压力。"
+            ]
+          },
+          "investment": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "以Q3窄生产性长期资产789.10亿与H1年化DA150.31亿约束期初资产；分部新增资本与收入增量、资产构成和寿命联动。核心NWC历史3.07%–10.80%跨季参考，本案6%–10%并显式滚Q4。终值资本包括生产、NWC、必要现金。",
+            "gaps": [
+              "精确分部累计产出、期后预付/投用进度和期限不披露；年末释放不是事实，下一年报核验。"
+            ]
+          },
+          "tax": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "境内高新15%、越南优惠0%/10%、德国约29%、墨西哥30%；2025/H1现金税有限代理约核心EBIT的9.45%/19.13%，预测约16%–25%组合。基准消费/通讯18%、汽车23%、其他25%；每年EBIT×现金税情景并固定投入对税单独敏感。",
+            "gaps": [
+              "逐主体抵扣和期后缴税日缺失；不跨主体抵消、没有自动亏损退款，优惠退出须更新。"
+            ]
+          },
+          "capital": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "H1拆分与Q3混合行的区间代理映射金融资产，所有融资及匹配抵押本金成对，生产预付不加回。以联营/NCI账面并作边界、最新登记股本、期权各档价格和余期研究代理，显式Q4分期，权益桥−296.44/−78.95/+44.00亿。",
+            "gaps": [
+              "逐账户归属/抵押映射、逐实体分红税/可用现金及Q4真实经营现金未知；须核同日原件。"
+            ]
+          },
+          "residual_discount": {
+            "status": "bounded",
+            "affects": "p1",
+            "explanation": "有界资本桥已计普通融资和资金限制，经营模型已扣日常汇率/材料压力，旧模型15%–20%范围只承担有限期模型仍未识别的分部归集与联合外推误差，取20%。旧0%–5%尾部只覆盖暂时无法周转的非线性再融资压力，取5%，与普通资本成本、单笔未偿和经营情景分开。",
+            "gaps": [
+              "未持有完整回款合同和跨区资金期限桶；新的证据若使残余超出原有区间应重作，不自动套用比例。"
+            ]
+          }
+        },
+        "availability_review": null,
+        "method_choice": "非金融多业务采用2027–2033分部FCFF及普通股资本桥。行业混合及高增速下旧PE不可充当本轮主估。当前不具备用稳定股东可分配现金开展DDM的条件。"
+      },
+      "v50_range_overlaps_dsh": true,
+      "deltas_vs_dsh": {
+        "v50": {
+          "low": {
+            "amount": -22.87,
+            "percentage": -66.59871869539896
+          },
+          "base": {
+            "amount": -18.26,
+            "percentage": -36.95608176482494
+          },
+          "high": {
+            "amount": -10.53,
+            "percentage": -15.604623592175459
+          }
+        },
+        "p1": {
+          "low": null,
+          "base": {
+            "amount": -13.53,
+            "percentage": -36.37096774193548
+          },
+          "high": null
+        }
+      },
+      "v50_dcf_per_share_bridge_vs_dsh": {
+        "explicit": -5.326863375681094,
+        "terminal": -18.897221545272583,
+        "adjustments": 5.965762278438659
+      },
+      "p1_base_bridge_vs_dsh": {
+        "v50_effect": -13.747662416514876,
+        "effective_multiplier_effect": 0.21766241651487553,
+        "codex_effective_multiplier": 0.7598715890850722,
+        "dsh_effective_multiplier": 0.7528840315725561
+      }
+    },
+    {
+      "task_id": "SH-688981",
+      "name": "中芯国际",
+      "status": "completed_in_current_session",
+      "reason": null,
+      "prior": {
+        "codex": {
+          "mode": "frozen",
+          "reason": "相关R6事件窗口冻结；必要再投资、现金税及普通股经济归属的长期输入未闭合，本轮不提供V50/P1/T1报价；R14另保留仅加仓未知限制。",
+          "v50": null,
+          "p1": null,
+          "v50_base_per_share_components": null,
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "unavailable",
+          "basis": {
+            "profit": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "历史CAS归母、扣非与IFRS调节已解决；Q4指引不能提供多年费用、折旧、产品结构和利润率恢复的中性联合路径。",
+              "gaps": [
+                "分业务可持续收入、研发/制造费用、经常补助和利润率桥；不把Q3毛利峰值或H1合并净利率直接外推。"
+              ]
+            },
+            "investment": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "已知承诺、采购应付、转固和设备寿命；2027以后必要投入、现金支付及生产性资本终值仍不能独立约束。",
+              "gaps": [
+                "逐厂替换/扩张与产能增量资本效率、交付付款里程碑、资产年龄、ΔNWC及终值生产性资本。"
+              ]
+            },
+            "tax": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "已取得H1/FY美元现金所得税和CAS当期/递延税分拆；法律主体可用抵扣与优惠期限未提供，不用合并低税率永久外推。",
+              "gaps": [
+                "逐税务实体盈利、亏损归属及优惠到期、现金缴税时点；Q3独立现金所得税仍缺。"
+              ]
+            },
+            "capital": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "最新实发股数及北方换股对价已核；集团现金债务/NCI、基金权利和未行权工具不能机械等同普通股权益，长期资产资金用途桥未闭合。",
+              "gaps": [
+                "逐厂自由现金归属与第三方权利价值、经营必需资金及投资收益配对、现存激励逐项期末对账和未来成本/稀释处理。"
+              ]
+            },
+            "residual_discount": {
+              "status": "unresolved",
+              "affects": "p1",
+              "explanation": "先独立完成合理价值后才可界定未被经营/再投资/资本桥吸收的残余；当前不设通用折扣，五项未知及总乘数均null。",
+              "gaps": [
+                "基础价值未完成，残余范围及相应公司特定论证区间不能确定；ETF机会成本亦未量化。"
+              ]
+            }
+          },
+          "availability_review": null,
+          "method_choice": "优先考虑按工厂/工艺平台分部FCFF配WACC；无法用已有披露闭合逐年投入和现金归属。合并FCFF、归母PE、FCFE、PB及DDM替代均逐项审查，详见§5；未用other掩盖受支持DCF，也未永久化短期负FCF。"
+        },
+        "dsh": {
+          "mode": "buy_candidate",
+          "reason": "盈利兑现、产能利用率97.3%与涨价落地支持研究资格；但A股110.50元远高于V50基准25.59元与P1 18.09元，且R14成本传导必要输入缺失，追加买入暂停。",
+          "v50": {
+            "low": 15.14,
+            "base": 25.59,
+            "high": 34.67
+          },
+          "p1": {
+            "base": 18.09
+          },
+          "v50_base_per_share_components": {
+            "explicit": 14.131000456053627,
+            "terminal": 18.881812493267898,
+            "adjustments": -7.418446776323822,
+            "discount_rates": {
+              "FOUNDRY": 0.09
+            }
+          },
+          "controls": {
+            "entry": "eligible",
+            "add": "blocked",
+            "holding": "normal"
+          },
+          "kind": "dcf_fcff",
+          "basis": {
+            "profit": {
+              "status": "resolved",
+              "affects": "v50",
+              "explanation": "CAS归母73.14亿元与IFRS归母75.61亿元差2.47亿元为联营企业股权被动稀释口径差异，已并列保留；扣非56.33亿元与归母差16.81亿元主要为政府补助6.61亿元、联营基金公允价值14.56亿元及税盾，估值用经常经营EBIT而非扣非净利；Q4为按指引的预测，不是已实现事实。",
+              "gaps": []
+            },
+            "investment": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "2026年capex取400亿元（1-9月291.42亿元＋Q4约110亿元，含设备交期顺延），2027年460亿元反映顺延与扩产；D&A以2025年273.07亿元×约1.3（管理层指引）推2026年约350亿元，其后按在建工程转固节奏外推；终值生产性资本按期末净固定资产＋营运资本内生推算。",
+              "gaps": [
+                "2027年起逐厂设备交付、投用与维护/扩张拆分未取得",
+                "在建工程626.52亿元转固时点与寿命分布未披露"
+              ]
+            },
+            "tax": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "现金税自EBIT的12%起、2032年升至15%、终值18%，反映集成电路税收优惠与287.89亿元未确认可抵扣亏损；合并亏损不代表无税，按税务主体的可用性未逐项核，故为有界而非已核。",
+              "gaps": [
+                "各税务主体优惠到期、亏损抵扣限额与支付时点未取得"
+              ]
+            },
+            "capital": {
+              "status": "bounded",
+              "affects": "none",
+              "explanation": "每股分母用8,562,439,270股；净债务101亿元、非经营资产346.8亿元、少数股东权益881亿元（与按32.2%损益份额扣减约882亿元一致）；未行权期权8,198,411份稀释约0.1%未单列。数据包“总市值9,461.5亿元”为A价×全部股本，按各上市地价格计经济市值约5,296.9亿元（媒体同口径约5,351亿元），该差异只影响终局粗筛口径，不改变每股价值。",
+              "gaps": [
+                "A/H两个上市地总市值口径差异未在数据包标注",
+                "未行权期权与未来股权激励的逐年稀释未建模"
+              ]
+            },
+            "residual_discount": {
+              "status": "bounded",
+              "affects": "p1",
+              "explanation": "五项折扣均非未知，总乘数0.7069；每项只承担模型未吸收的风险（筹码、周期尾部、管制尾部、结构过剩尾部、模型误差），不与收入/利润率/capex/终值重复。",
+              "gaps": [
+                "A/H溢价的持续性缺少统计检验，区间为判断",
+                "终值占比57%使d_base存在判断空间"
+              ]
+            }
+          },
+          "availability_review": null,
+          "method_choice": "单一“代工”分部FCFF为主模型：公司只披露8吋/12吋与应用结构，未披露分尺寸或分厂收入、EBIT与资本，分部DCF缺少可核分母，故合并建模并披露该限制（不以分尺寸收入占比伪拆损益）。PE仅作交叉核验：折旧约占收入42%，PE对折旧政策与利用率极敏感，不作为估值锚。"
+        }
+      },
+      "pack_sha256": "14259ba540d348295f107ea29b4868c80ba0ad21619548f6362f83ec067c95e6",
+      "entry": {
+        "task_id": "SH-688981",
+        "generator": "codex",
+        "status": "completed_in_current_session",
+        "reason": null,
+        "report": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688981/investment-688981-2026-11-16-research-codex.md",
+          "sha256": "eba04091c28ff8bbaa9f60daf87331382ffd40c56c4732e3e15a91ca6956acae"
+        },
+        "price_map": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688981/investment-688981-2026-11-16-price-map-codex.json",
+          "sha256": "b6a2cf634881fb6712c76ed8034db8deaa1fe02e4cf141c87ab4cc19a4189e84"
+        }
+      },
+      "failed_cli_execution": {
+        "started_at": "2026-11-16T22:11:31.776646+08:00",
+        "completed_at": "2026-11-16T22:28:17.065907+08:00",
+        "exit_code": 1,
+        "attempt": 1
+      },
+      "audit_baseline": null,
+      "rerun": {
+        "mode": "frozen",
+        "reason": "R6事件及事后复评冻结仍有效，已形成有依据且可复算的V50情景；融资尾部与独立安全边际未能可靠约束，观察P1暂缺。",
+        "v50": {
+          "low": 4.01,
+          "base": 11.61,
+          "high": 29.04
+        },
+        "p1": null,
+        "v50_base_per_share_components": {
+          "explicit": 0.13299447906579115,
+          "terminal": 11.097028911789792,
+          "adjustments": 0.3767583442912867,
+          "discount_rates": {
+            "WHOLLY": 0.09,
+            "JV_ATTRIBUTABLE": 0.09
+          }
+        },
+        "controls": {
+          "entry": "blocked",
+          "add": "blocked",
+          "holding": "review_required"
+        },
+        "kind": "dcf_fcff",
+        "basis": {
+          "profit": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "区分合并、归母及扣非。核心EBIT剔除其他经营收入、保留SBC。Q4管理层毛利26%–28%减12%–13%当前费率约束首年，复评按14%–15.5%约束基准；后续由产品组合与既有在建投用支撑约18%稳态。",
+            "gaps": [
+              "未公布逐厂费用和有效订单；净利或补贴不直接外推。"
+            ]
+          },
+          "investment": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "期初固定与在建资本2239.87亿元；资本强度1.95/2.20/2.50倍收入分情景，营运0.27/0.30/0.33倍。设备寿命结合当前折旧和在建投用，现金增量开支由资本桥闭合，开账设备应付另列一次。",
+            "gaps": [
+              "未来付款、投用及资产年龄并非逐厂已披露；约束不足的联合现金尾部另作V5。"
+            ]
+          },
+          "tax": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "同定义现金税÷核心集团EBIT 2025为12.15%、2026H1为11.90%，显式期前3年12.5%、之后与终值15%，同生产资本假设检验5%/25%。",
+            "gaps": [
+              "集团税付现可能含结算及非经营税，优惠实体、可抵亏损与未来支付年度不能精确逐厂映射。"
+            ]
+          },
+          "capital": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "营运现金流先按全资/非全资两类经济归属聚合；重要非全资厂股权40.90%–66.45%，中性48.5%近京城51%及2026H1重要非全资净资产母份额48.53%。现金债务同配对66.2%归属代理，以合并已核母份额和分配错位敏感性佐证，不把集团100%给普通股。",
+            "gaps": [
+              "逐厂净资金、投资权利及优先性未披露；失效边界为新增重大第三方经济安排或不能沿历史份额约束的转移。",
+              "期末与估值日股本错位用现有激励匡算，不能把授予额度作为已发生稀释。"
+            ]
+          },
+          "residual_discount": {
+            "status": "unresolved",
+            "affects": "p1",
+            "explanation": "已算纯折现滞后条件，但联合压力下建设付款、集团内部调拨和债务续接风险无法从同期报表有据分离为独立安全边际。",
+            "gaps": [
+              "压力期可用授信、资金时序及法律调拨条件缺失。"
+            ]
+          }
+        },
+        "availability_review": {
+          "decision_reason": "V50可用；无可辩护的公司现金压力风险残余折扣P1，现有R6资格冻结独立保留。",
+          "attempts": [
+            {
+              "inputs": [
+                "residual_discount"
+              ],
+              "method": "固定中性普通股DCF，将等价总价值推迟1或2年并用9%量化时间损失；将经营极端循环、在建占款、权益分配和资金成本合入独立V5，再剥离已计项。",
+              "bounds_or_failure": "基准价值纯延期每股10.65/9.77；这是9.00%折现率对应的8.26%/15.83%位移，缺实际融资可用额与项目现金付款重叠时点，不能视为残余风险的上下界。",
+              "impact": "联合V5普通股模型剩余约−23.85亿元（约−0.28元/股）但并不等于破产或可执行的负股价；一和二年的纯时间敏感性少量，无法覆盖压力资金链非线性。",
+              "conclusion": "不将纯时间损失或股权数值任意改标签为独立足额折扣，d_base及P1留空，报告保留条件结果。"
+            }
+          ],
+          "diagnostic_summary": "V50 低/基准/高4.01/11.61/29.04元；固定其他基准条件且价值纯延后1年/2年的演示为10.65/9.77元，不作为观察P1。若明细显示开工付款、授信、调拨与模型相背，重估而非沿用这些尺度。",
+          "next_evidence": "最近一期逐项设备应付/承诺付款时间表、短年期可用融资额度与法人现金调拨边界，三项结合普通股桥区分必要投入已入模型与独立融资尾部。"
+        },
+        "method_choice": "发行人只披露一个经营分部，按全资及重要非全资两个经济归属组建模，组内收入、股权比例、资本分配和毛利费用路径均为可核锚下条件代理，不冒充逐厂独立披露。"
+      },
+      "v50_range_overlaps_dsh": true,
+      "deltas_vs_dsh": {
+        "v50": {
+          "low": {
+            "amount": -11.13,
+            "percentage": -73.51387054161162
+          },
+          "base": {
+            "amount": -13.98,
+            "percentage": -54.63071512309496
+          },
+          "high": {
+            "amount": -5.63,
+            "percentage": -16.238823190077877
+          }
+        },
+        "p1": {
+          "low": null,
+          "base": null,
+          "high": null
+        },
+        "p1_interval_vs_dsh_base": {
+          "low": null,
+          "high": null
+        }
+      },
+      "v50_dcf_per_share_bridge_vs_dsh": {
+        "explicit": -13.998005976987836,
+        "terminal": -7.784783581478106,
+        "adjustments": 7.795205120615109
+      }
+    },
+    {
+      "task_id": "SH-688041",
+      "name": "海光信息",
+      "status": "completed_in_current_session",
+      "reason": null,
+      "prior": {
+        "codex": {
+          "mode": "unavailable",
+          "reason": "核心估值输入未决：必要投入、分主体现金税与普通股资本桥未闭合，不能形成有依据的中性V50；不是确认基本面失效。",
+          "v50": null,
+          "p1": null,
+          "v50_base_per_share_components": null,
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "unavailable",
+          "basis": {
+            "profit": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "历史归母/扣非/股份支付加回已核；中性长期收入、费用及利润率尚缺分业务或可替代的订单/费用路径依据，不能凭目标利润率反推费用。",
+              "gaps": [
+                "CPU/DCU销售与毛利结构、可执行订单覆盖、持续研发与激励的经济成本路径"
+              ]
+            },
+            "investment": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "历史占款、研发资本化及通用/专用技术10年/3年摊销政策已核；未来必要ΔNWC、CapEx投用与新增资产结构/DA及终值生产性资本未有可信边界。经营存货预付先列期初NWC和ΔNWC，不能整额再扣。短期负FCF不永久化。",
+              "gaps": [
+                "订单增长所需投入、备货可回收及交付周期、维护/增长CapEx和终值投入资本"
+              ]
+            },
+            "tax": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "税务主体10%/15%/25%及海光集成2026起10%已核，不等于合并现金税率；缺可用抵扣与应税利润分配。",
+              "gaps": [
+                "分主体应税利润、亏损与加计扣除可用额及缴税时点"
+              ]
+            },
+            "capital": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "公告股本时点桥可核；当前受限/定存分类、NCI公允经济权利、激励、期后付款及收益配对不足，不能直接将账面净现金全加普通股。",
+              "gaps": [
+                "9/30现金限制与法律主体归属、NCI未来权利、激励交付/融资所得、期后投资实付、注销登记确认"
+              ]
+            },
+            "residual_discount": {
+              "status": "unresolved",
+              "affects": "p1",
+              "explanation": "先完成合理价值后才能审查剩余风险；尚不能识别已吸收部分和有依据残余区间，五项折扣与总乘数保持null。",
+              "gaps": [
+                "中性模型完成后的独立残余误差与R22机会成本依据"
+              ]
+            }
+          },
+          "availability_review": null,
+          "method_choice": "优先评估CPU/DCU分部FCFF；分拆缺口本可用合并FCFF替代，但后者的现金税、投入和NCI桥仍未闭合。归母PE可避开直接扣NCI，却不能解决可持续利润与再投资和倍数的依据；DDM/FCFE缺分配现金桥。本轮未形成有依据的中性估值，不以other隐藏FCFF。"
+        },
+        "dsh": {
+          "mode": "frozen",
+          "reason": "在册事件窗口冻结：NVIDIA FY2027Q3业绩与电话会定于北京时间2026-11-18 05:20/06:00，估值日2026-11-16处前48小时窗，公司经AI算力资本开支链对估值与DCU需求预期有实质暴露，新开仓冻结、追加买入暂停，过窗须按实际结果复核。同时现价203.30元高于V50上沿121.94元、亦高于全部模型情景，R8（订单可见度+2027估值合理）不成立，估值不支持买入。保留完全核算的观察价V50 37.44/72.48/121.94元与P1 53.12元。",
+          "v50": {
+            "low": 37.44,
+            "base": 72.48,
+            "high": 121.94
+          },
+          "p1": {
+            "base": 53.12
+          },
+          "v50_base_per_share_components": {
+            "explicit": 26.606475632161775,
+            "terminal": 58.73638277030127,
+            "adjustments": -12.866820825672194,
+            "discount_rates": {
+              "HPC_CPU_DCU": 0.095
+            }
+          },
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "dcf_fcff",
+          "basis": {
+            "profit": {
+              "status": "resolved",
+              "affects": "v50",
+              "explanation": "采用已披露营业收入、营业成本、费用、其他收益、所得税与少数股东损益；EBIT=营业利润+财务费用（净利息收入）。扣非归母25.84亿元与归母28.47亿元差异2.62亿元为政府补助等非经常项，已在经常利润口径外说明。",
+              "gaps": []
+            },
+            "investment": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "营运资本/收入由2026年9月末93.5%按有依据路径降至2036年60%，资本开支由收入5.0%降至3.6%、折旧摊销由3.0%升至3.5%，终值生产性资本=2036年收入×(60%营运资本+5%固定/无形及开发支出)=705亿元。区间外推不外推为已证实产能计划。",
+              "gaps": [
+                "公司未披露2027-2036年产能/采购承诺与资本开支计划；营运资本强度路径为来源约束下的研究区间，不是已签合同"
+              ]
+            },
+            "tax": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "显式期现金税按EBIT的5%升至9%，终值有效率11%（10%重点集成电路设计企业优惠与部分主体25%的混合假设）；按合并口径而非单主体推税，未把合并亏损当免税或退款。",
+              "gaps": [
+                "各法律主体2026年9月末应税利润、可抵扣亏损余额与实际现金税支付明细未取得"
+              ]
+            },
+            "capital": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "净金融资产=货币资金76.77−受限8.32+一年内到期非流动资产40.17+其他流动资产中定期存款3.02+其他非流动资产中按6月末构成推算的定期存款21.60−有息负债71.58=61.66亿元；加其他权益工具投资6.30亿元、扣拟用于激励的回购上限8.00亿元；少数股东按18.1%（9M2026少数股东损益/合并净利润）分享经营价值，从经营EV中扣除。",
+              "gaps": [
+                "2026年9月末定期存款、受限资金与法律主体归属的逐项明细未取得（按6月末构成推算，约24.6亿元部分若不计则每股价值下降约1.06元）",
+                "少数股东权益以利润分享比例近似，未取得各子公司净资产/现金债务明细"
+              ]
+            },
+            "residual_discount": {
+              "status": "bounded",
+              "affects": "p1",
+              "explanation": "五项折扣均为本轮研究假设：d_base 18%（区间12%–18%，R18全面执行取上沿）、r_chip 3%、r_v5 5%、r_gov 3%、r_terminal 0；均已核对不与模型内已吸收的利润率、营运资本、税务、资本桥与少数股东重复。",
+              "gaps": [
+                "折扣区间为论证区间，不是统计置信区间；无同端历史折扣基线可接续（本端无既往正式报告）"
+              ]
+            }
+          },
+          "availability_review": null,
+          "method_choice": "公司为无晶圆高端处理器设计商，单一产品线“高端处理器”（CPU+DCU，公司未披露分部收入），处于高投入、盈利快速转换期，按canonical §4.1D优先采用持续经营FCFF分部/单分部DCF；无法拆分CPU/DCU现金流属不可拆分部分，已合并总部费用与抵消。PE仅作交叉核验，不作主模型；DDM/FCFE不适用（股息率0.12%、2026年OCF为负）。"
+        }
+      },
+      "pack_sha256": "568159b983f9e55ff0eb3fbd9eceba5db84d30ee9c4eca3d5384ec20e6233c3f",
+      "entry": {
+        "task_id": "SH-688041",
+        "generator": "codex",
+        "status": "completed_in_current_session",
+        "reason": null,
+        "report": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md",
+          "sha256": "b9d69eccb8e6a5bff3d96b5e096127feb478fba487db639e4e16e88916d3928f"
+        },
+        "price_map": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688041/investment-688041-2026-11-16-price-map-codex.json",
+          "sha256": "4da67a0218e17fe089f8e9679166ea49c79631e4e560f628d1d5d8ca1a811fbe"
+        }
+      },
+      "failed_cli_execution": {
+        "started_at": "2026-11-16T22:11:31.769884+08:00",
+        "completed_at": "2026-11-16T22:25:01.350375+08:00",
+        "exit_code": 1,
+        "attempt": 1
+      },
+      "audit_baseline": {
+        "report_path": "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md",
+        "sha256": "fad277b9b7ade331d1ed75c18c623c8e4302c3796d8c06b13be184f3c3ff6f75"
+      },
+      "rerun": {
+        "mode": "frozen",
+        "reason": "证据截止已处于存在实质暴露的R6窗口，独立保留建仓/追加冻结；V50和P1只作观察。R14仍未知，持仓现金复评开放。",
+        "v50": {
+          "low": 14.04,
+          "base": 44.6,
+          "high": 101.93
+        },
+        "p1": {
+          "base": 38.32
+        },
+        "v50_base_per_share_components": {
+          "explicit": 8.411114171356735,
+          "terminal": 45.129258427730264,
+          "adjustments": -8.941285936855527,
+          "discount_rates": {
+            "processor_consolidated": 0.0975
+          }
+        },
+        "controls": {
+          "entry": "blocked",
+          "add": "blocked",
+          "holding": "review_required"
+        },
+        "kind": "dcf_fcff",
+        "basis": {
+          "profit": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "2025/26H1/26Q3累计核心EBIT率21.75%/20.89%/21.58%；用实际前期Q4、单季同比及研发/采购成本构造合并三路径。",
+            "gaps": [
+              "没有CPU/DCU独立利润表、可执行订单余额或长期利润指引；正常化时需采购与研发率证实。"
+            ]
+          },
+          "investment": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "五项经营占款（含应收融资）年末103.93亿、Q3 198.61亿分别为收入72.29%、约100.10%；逐期计算，并用旧资产末期摊销与新CapEx次年起投用滚动。",
+            "gaps": [
+              "无法取得完整采购、验收、回款及现金流应计分项，终值基准75%经营占款比须真实周转兑现。"
+            ]
+          },
+          "tax": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "核经营主体0/10/15/25%税务及研发加计到期，历史现金税代理0.38/1.23亿元，模型近端有效税率区间5%–12%，稳态11%–17%，纯税压力固定生产资本。",
+            "gaps": [
+              "无法逐法人预测税损利用、跨期汇算与未来优惠；不把负会计税等同退现金。"
+            ]
+          },
+          "capital": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "现金、融资、历史科目推定定存与近三期NCI归属范围建桥；已付注销取消资金双扣，认缴配权益；存量激励独立权利与显式期新增劳动成本分开。",
+            "gaps": [
+              "Q3主体资金与存款受限构成未知，利润归属代理并非法律所有权；交割款、未来激励归属仍待实际披露。"
+            ]
+          },
+          "residual_discount": {
+            "status": "bounded",
+            "affects": "p1",
+            "explanation": "只按终值可分配现金时点估算误差做一至两年推迟压力，固定实际明示模型；R18采用上沿，经营价格、准备金及少数股东不重复扣。",
+            "gaps": [
+              "终值延迟年限是研究压力校准，不是统计界限。油价无可量化公司传导；追加资格保持受限。"
+            ]
+          }
+        },
+        "availability_review": null,
+        "method_choice": "CPU/DCU未披露分部现金数据，优先可复核的合并处理器FCFF；CNY WACC，与净金融资产、NCI和员工权利桥接。"
+      },
+      "v50_range_overlaps_dsh": true,
+      "deltas_vs_dsh": {
+        "v50": {
+          "low": {
+            "amount": -23.4,
+            "percentage": -62.5
+          },
+          "base": {
+            "amount": -27.88,
+            "percentage": -38.46578366445916
+          },
+          "high": {
+            "amount": -20.01,
+            "percentage": -16.409709693291784
+          }
+        },
+        "p1": {
+          "low": null,
+          "base": {
+            "amount": -14.8,
+            "percentage": -27.86144578313253
+          },
+          "high": null
+        }
+      },
+      "v50_dcf_per_share_bridge_vs_dsh": {
+        "explicit": -18.19536146080504,
+        "terminal": -13.607124342571,
+        "adjustments": 3.925534888816668
+      },
+      "p1_base_bridge_vs_dsh": {
+        "v50_effect": -20.433024282560705,
+        "effective_multiplier_effect": 5.633024282560706,
+        "codex_effective_multiplier": 0.8591928251121076,
+        "dsh_effective_multiplier": 0.7328918322295805
+      }
+    },
+    {
+      "task_id": "SH-688256",
+      "name": "寒武纪",
+      "status": "completed_in_current_session",
+      "reason": null,
+      "prior": {
+        "codex": {
+          "mode": "frozen",
+          "reason": "R6英伟达相关财报48h窗口冻结；另有利润/必要投入/主体现金税/资本归属未决，V50/P1明确不报价。R8、R14及本轮追加取消独立保留；持仓需复评而非已失效。",
+          "v50": null,
+          "p1": null,
+          "v50_base_per_share_components": null,
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "unavailable",
+          "basis": {
+            "profit": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "历史盈利及SBC已核，但长期产品/费用路径不能从激励目标倒推；中性联合路径尚不足以约束。",
+              "gaps": [
+                "产品销量售价和订单覆盖",
+                "独立毛利与含SBC研发/人员费用的持续路径"
+              ]
+            },
+            "investment": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "收入/采购/预付/承兑/资产投用与寿命尚未闭合；计划预算不能当实际耗尽或所需投入上限。",
+              "gaps": [
+                "订单消化和采购/票据付款条件",
+                "必要CapEx、投用/寿命/DA与终值生产性资本"
+              ]
+            },
+            "tax": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "首个获利年度和优惠方向已核；合并亏损不是跨主体税盾，税费不等于cash_tax。",
+              "gaps": [
+                "逐主体应税利润、可用亏损/加扣及现金支付期",
+                "优惠续期与长期实际税负边界"
+              ]
+            },
+            "capital": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "实际股数和已授权利数量已核；自由现金、未来费用与现有权利一致处理、未决劳动赔付期望未能可靠约束。",
+              "gaps": [
+                "同日同币种募集/自有理财和必要经营资本匹配",
+                "现存激励经济请求权与SBC服务成本配对",
+                "劳动赔付概率金额时点及基金剩余请求权"
+              ]
+            },
+            "residual_discount": {
+              "status": "unresolved",
+              "affects": "p1",
+              "explanation": "先独立价值后残余折扣；未知不按0或通用罚分，不能以低倍数遮盖资本缺口。",
+              "gaps": [
+                "已吸收经营/资本损失后的独立残余范围及有据区间"
+              ]
+            }
+          },
+          "availability_review": null,
+          "method_choice": "投入期非金融企业应优先云端经营FCFF加其它残差/共同研发投资，CNY WACC；必要投入和权益桥未决而unavailable，不用other或任意PE逃避。"
+        },
+        "dsh": {
+          "mode": "tracking",
+          "reason": "AI算力链结构阿尔法三条件未全部成立（订单可见度缺证、现价下2027年估值不合理），按R8只给跟踪价位；中性DCF V50 base 319.32元，现价978.88元高于高档情景761.43元，entry/add研究资格阻断；持有按OCF转化复核",
+          "v50": {
+            "low": 167.74,
+            "base": 319.32,
+            "high": 761.43
+          },
+          "p1": {
+            "base": 186.58
+          },
+          "v50_base_per_share_components": {
+            "explicit": 79.12237999769717,
+            "terminal": 234.0099048807419,
+            "adjustments": 6.185855461702011,
+            "discount_rates": {
+              "AI_CHIP": 0.1
+            }
+          },
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "dcf_fcff",
+          "basis": {
+            "profit": {
+              "status": "resolved",
+              "affects": "v50",
+              "explanation": "2026年前三季度EBIT率37.75%（营业利润扣除投资收益/公允价值变动/资产处置后35.97亿元÷95.26亿元）；基准年份EBIT率由毛利率、研发费用率与存货减值桥接，非用目标利润倒挤费用",
+              "gaps": []
+            },
+            "investment": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "CapEx按2026年11亿元并随测试设备/IP投入升至24亿元；ΔNWC由存货+预付+应收-应付票据-应付账款占收入比70%降至34%推导，属有来源约束的估算区间",
+              "gaps": [
+                "公司未披露产能/订单对应的资本开支计划与投用时间表，CapEx与ΔNWC路径为有界推断",
+                "2027-2032年营运资本占比下降速度无公司指引"
+              ]
+            },
+            "tax": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "2026-2027年现金税0；2028-2030年按12.5%法定减半并计研发加计扣除，取EBIT的9%；2031年起按25%并计加计扣除，取18%；终值18%",
+              "gaps": [
+                "逐税务主体的应税利润、可抵扣亏损余额与使用期限未披露",
+                "前期未确认递延所得税资产的可抵扣亏损将在未来抵减现金税的金额未量化"
+              ]
+            },
+            "capital": {
+              "status": "resolved",
+              "affects": "v50",
+              "explanation": "股本628,854,008股为实际股数；权益调整+38.9亿元=现金及交易性金融资产43.66亿元扣除经营必要现金10亿元，加长期股权投资3.69、其他债权投资0.93、其他非流动金融资产0.66，扣租赁负债0.06；无银行借款；限制性股票股份支付20.20亿元已在费用中，不再另扣稀释",
+              "gaps": []
+            },
+            "residual_discount": {
+              "status": "resolved",
+              "affects": "p1",
+              "explanation": "五项折扣各绑定独占风险ID并给出论证区间；五项之外不设通用折扣常数",
+              "gaps": []
+            }
+          },
+          "availability_review": null,
+          "method_choice": "单一经营分部经营现金流（FCFF）为主模型：公司为Fabless单一智能芯片业务、投入期营运资本占用巨大且税率路径明确，现金流模型能同时表达ΔNWC与税收退坡；归母PE仅作交叉核验（V50 base对应2026年38.5倍、2027年21.3倍、2028年14.5倍经常归母利润）"
+        }
+      },
+      "pack_sha256": "ff944d9478b569fb9774b04538dccd2f012b8cf3033a1c5126e260befc906215",
+      "entry": {
+        "task_id": "SH-688256",
+        "generator": "codex",
+        "status": "completed_in_current_session",
+        "reason": null,
+        "report": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688256/investment-688256-2026-11-16-research-codex.md",
+          "sha256": "bde6fbf0492ca709d896936ba50c8a02a1631cf27b156699cc9cf5d93cad30ce"
+        },
+        "price_map": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688256/investment-688256-2026-11-16-price-map-codex.json",
+          "sha256": "a642e6c82de1dd8813bf621b1fa8ec3725af3111ee08709b1f6b6bf399e1fd9a"
+        }
+      },
+      "failed_cli_execution": {
+        "started_at": "2026-11-16T22:25:01.500775+08:00",
+        "completed_at": "2026-11-16T22:25:13.442316+08:00",
+        "exit_code": 1,
+        "attempt": 1
+      },
+      "audit_baseline": null,
+      "rerun": {
+        "mode": "frozen",
+        "reason": "远期订单、库存回收与利润率缺少可共同验证的中性路径。公开诉请的尺度为 44.26 元/股，足额即付可使压力组权益余额转负，实际支付和权利归属仍无法确定。条件估值可用，但暂不采纳普通股中性 V50 或 P1。",
+        "v50": null,
+        "p1": null,
+        "v50_base_per_share_components": null,
+        "controls": {
+          "entry": "blocked",
+          "add": "blocked",
+          "holding": "review_required"
+        },
+        "kind": "unavailable",
+        "basis": {
+          "profit": {
+            "status": "unresolved",
+            "affects": "v50",
+            "explanation": "用前三季度收入 95.26 亿元、单季 35.31 亿元定位 2026 年约 130 亿元收入尺度。2027 年收入 145/180/215 亿元分别表示增速回落、延续扩张、供给释放，增速随后逐年下降。2027 年 EBIT 率 29%/34%/37%，以历史经营利润率、研发和减值为参照，终值为 25%/31%/34%。2026 年末营运资本假设 92–94 亿元，锚于三季末简化 NWC 87.20 亿元。2027 年资本支出 13–17 亿元，考虑前三季购建 7.88 亿元和设备/IP增长投入，折旧随投用增至 2033 年 11–23 亿元。营运资本占收入随采购、票据及回收改善保持或逐步趋近 48%–68%。联合路径受远期订单、价格及库存周转支撑程度影响，暂用于情景。",
+            "gaps": [
+              "产品销量售价和订单覆盖",
+              "独立毛利与含SBC研发/人员费用的持续路径"
+            ]
+          },
+          "investment": {
+            "status": "unresolved",
+            "affects": "v50",
+            "explanation": "用前三季度收入 95.26 亿元、单季 35.31 亿元定位 2026 年约 130 亿元收入尺度。2027 年收入 145/180/215 亿元分别表示增速回落、延续扩张、供给释放，增速随后逐年下降。2027 年 EBIT 率 29%/34%/37%，以历史经营利润率、研发和减值为参照，终值为 25%/31%/34%。2026 年末营运资本假设 92–94 亿元，锚于三季末简化 NWC 87.20 亿元。2027 年资本支出 13–17 亿元，考虑前三季购建 7.88 亿元和设备/IP增长投入，折旧随投用增至 2033 年 11–23 亿元。营运资本占收入随采购、票据及回收改善保持或逐步趋近 48%–68%。联合路径受远期订单、价格及库存周转支撑程度影响，暂用于情景。",
+            "gaps": [
+              "订单消化和采购/票据付款条件",
+              "必要CapEx、投用/寿命/DA与终值生产性资本"
+            ]
+          },
+          "tax": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "母公司获利年度两免三减半及其他主体 15%/25% 锚定情景。显式期用 EBIT 的 7%–22%，终值用 18%–23%，只用于利润主体构成和优惠期限敏感性。亏损年度不计现金退税，集团亏损不跨主体抵扣。",
+            "gaps": [
+              "各主体未来利润和优惠实际使用有待核验，区间适用于明确情景。"
+            ]
+          },
+          "capital": {
+            "status": "unresolved",
+            "affects": "v50",
+            "explanation": "Q3 现金及交易金融资产 43.66 亿元提供现金池上界，条件表不额外加回未核清用途的余额。经营扩张的 CapEx、营运资本已进现金流。实际 628,854,008 股，经营利润保留股份支付经济成本，同时对新增股本与认购资金成对核对。租赁及一年内相关负债近似扣除 0.19 亿元。公开劳动争议诉请 278.31946 亿元，条件上按足额即付的单项尺度为 44.26 元/股。法院受理及公司聘请律师的意见不足以估计支付概率、时点或期望金额。上市公司赔付与既有持股平台内部转让需区分，避免再扣一笔稀释。",
+            "gaps": [
+              "同日同币种募集/自有理财和必要经营资本匹配",
+              "现存激励经济请求权与SBC服务成本配对",
+              "劳动赔付概率金额时点及基金剩余请求权"
+            ]
+          },
+          "residual_discount": {
+            "status": "unresolved",
+            "affects": "p1",
+            "explanation": "基础价值和已吸收损失尚未采纳，不能定合理残余折扣。",
+            "gaps": [
+              "已吸收经营/资本损失后的独立残余范围及有据区间"
+            ]
+          }
+        },
+        "availability_review": {
+          "decision_reason": "远期订单、库存回收与利润率缺少可共同验证的中性路径。公开诉请的尺度为 44.26 元/股，足额即付可使压力组权益余额转负，实际支付和权利归属仍无法确定。条件估值可用，但暂不采纳普通股中性 V50 或 P1。",
+          "diagnostic_summary": "中间经营固定，若诉请不支付或按当前公开额一次支付，每股残值 108.59 或 64.33 元。压力组足额支付后每股经济残值 -5.36 元，代表权益耗尽情景。",
+          "next_evidence": "取得劳动案公开法院程序或处分结果并核对请求权主体、金额、时间。检查之后公开的财报中库存消化、收入回款和设备投用，重建中性现金流路径。",
+          "attempts": [
+            {
+              "inputs": [
+                "profit",
+                "investment"
+              ],
+              "method": "原财报和投资计划锚定三个FCFF情景，另检验归母PE和分红法",
+              "bounds_or_failure": "用前三季度收入 95.26 亿元、单季 35.31 亿元定位 2026 年约 130 亿元收入尺度。2027 年收入 145/180/215 亿元分别表示增速回落、延续扩张、供给释放，增速随后逐年下降。2027 年 EBIT 率 29%/34%/37%，以历史经营利润率、研发和减值为参照，终值为 25%/31%/34%。2026 年末营运资本假设 92–94 亿元，锚于三季末简化 NWC 87.20 亿元。2027 年资本支出 13–17 亿元，考虑前三季购建 7.88 亿元和设备/IP增长投入，折旧随投用增至 2033 年 11–23 亿元。营运资本占收入随采购、票据及回收改善保持或逐步趋近 48%–68%。联合路径受远期订单、价格及库存周转支撑程度影响，暂用于情景。",
+              "impact": "集团经营价值及终值可逐年复算，完整结果见§5。",
+              "conclusion": "可形成条件模型；需要经营、现金与归属证据收敛后裁决中性基准。"
+            },
+            {
+              "inputs": [
+                "capital"
+              ],
+              "method": "固定经营现金流，单列请求权和经济归属情景",
+              "bounds_or_failure": "Q3 现金及交易金融资产 43.66 亿元提供现金池上界，条件表不额外加回未核清用途的余额。经营扩张的 CapEx、营运资本已进现金流。实际 628,854,008 股，经营利润保留股份支付经济成本，同时对新增股本与认购资金成对核对。租赁及一年内相关负债近似扣除 0.19 亿元。公开劳动争议诉请 278.31946 亿元，条件上按足额即付的单项尺度为 44.26 元/股。法院受理及公司聘请律师的意见不足以估计支付概率、时点或期望金额。上市公司赔付与既有持股平台内部转让需区分，避免再扣一笔稀释。",
+              "impact": "中间经营固定，若诉请不支付或按当前公开额一次支付，每股残值 108.59 或 64.33 元。压力组足额支付后每股经济残值 -5.36 元，代表权益耗尽情景。",
+              "conclusion": "仍无充分依据采纳普通股 V50。"
+            },
+            {
+              "inputs": [
+                "residual_discount"
+              ],
+              "method": "逐项分清经营、权益与资格风险后检查剩余折扣",
+              "bounds_or_failure": "当期扣非归母直接乘倍数会混淆暂时税惠、经营占款和诉请。前三季 OCF/归母约 6.1%，因此即使核对了经常利润，仍缺足够证据把其变成可持续股东现金；分红法也缺可持续分配基础。",
+              "impact": "残余折扣仅影响P1；基础价值未采纳，该折扣无法有效论证。",
+              "conclusion": "P1 保持空值。"
+            }
+          ]
+        },
+        "method_choice": "集团 FCFF 条件情景及归母 PE 或分红替代法检验，估值数字未获正式采纳。"
+      },
+      "v50_range_overlaps_dsh": null,
+      "deltas_vs_dsh": {
+        "v50": {
+          "low": null,
+          "base": null,
+          "high": null
+        },
+        "p1": {
+          "low": null,
+          "base": null,
+          "high": null
+        },
+        "p1_interval_vs_dsh_base": {
+          "low": null,
+          "high": null
+        }
+      }
+    },
+    {
+      "task_id": "SH-688825",
+      "name": "长鑫科技",
+      "status": "completed_in_current_session",
+      "reason": null,
+      "prior": {
+        "codex": {
+          "mode": "frozen",
+          "reason": "R6实质暴露窗口有效；普通股资本归属、必要投入/现金税与持续盈利桥未闭合，V50/P1不可采纳，非确认经营失效。",
+          "v50": null,
+          "p1": null,
+          "v50_base_per_share_components": null,
+          "controls": {
+            "entry": "blocked",
+            "add": "blocked",
+            "holding": "review_required"
+          },
+          "kind": "unavailable",
+          "basis": {
+            "profit": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "历史利润口径已纠正；未来毛利、费用、工厂利润组合及基金估值义务的经常经济归属尚不足以形成中性联合路径。",
+              "gaps": [
+                "不得把73.05%合并率或扣非归母永久化；缺分厂利润及长协价量持续期"
+              ]
+            },
+            "investment": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "IPO及追加项目金额已知，2027投入节奏、投用和可售bit/折旧/营运资本联动未闭合。",
+              "gaps": [
+                "各工厂维护/成长投入与折旧时点；未确认承诺及已预付/应付不重扣"
+              ]
+            },
+            "tax": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "新桥十年免税已更新，其他主体税亏与优惠起算不同；合并有效税率不等于未来现金税。",
+              "gaps": [
+                "逐主体应税利润、可用亏损、优惠期限与现金税支付桥"
+              ]
+            },
+            "capital": {
+              "status": "unresolved",
+              "affects": "v50",
+              "explanation": "期末股本已核，普通股资本归属桥仍缺Q3基金资产/外部持有人负债配对和8月增资新比例。",
+              "gaps": [
+                "Q3新增309.44亿元其他非流动负债的性质和配对；现金层级；集电增资新经济权益；现有激励请求权"
+              ]
+            },
+            "residual_discount": {
+              "status": "unresolved",
+              "affects": "p1",
+              "explanation": "先完成独立合理价值与经济损失覆盖，再选择残余；目前不能用任意保守数替代核心缺口。",
+              "gaps": [
+                "五项折扣值/区间均未决，不等于零；无同端可沿用基线"
+              ]
+            }
+          },
+          "availability_review": null,
+          "method_choice": "投入周期显著、工厂经济权益不同，优先分厂/分产品FCFF再转普通股权益；必要资本与请求权未闭合。归母PE/EV-EBITDA亦无法凭历史峰值或外部平均倍数绕开，正式估值unavailable。"
+        },
+        "dsh": {
+          "mode": "buy_candidate",
+          "reason": "研究资格成立（盈利兑现、存储合约价与当期报表锚、2027年估值合理）；V50基准23.75元、P1 20.48元，现价39.98元已接近V50上沿41.71元的95.9%，买入资格由运行时按P1判断。",
+          "v50": {
+            "low": 12.63,
+            "base": 23.75,
+            "high": 41.71
+          },
+          "p1": {
+            "base": 20.48
+          },
+          "v50_base_per_share_components": {
+            "explicit": 16.01457003991817,
+            "terminal": 16.743047539655656,
+            "adjustments": -9.00592831476696,
+            "discount_rates": {
+              "dram": 0.09
+            }
+          },
+          "controls": {
+            "entry": "eligible",
+            "add": "eligible",
+            "holding": "normal"
+          },
+          "kind": "dcf_fcff",
+          "basis": {
+            "profit": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "利润＝收入×EBIT率，2026Q4—2027年由已披露季度数据与管理层预期约束，2028年后为周期回归假设；区间由低/高情景表达，不以目标利润率倒挤费用。",
+              "gaps": [
+                "2027年长协价格与量的具体条款未披露，2027年收入按合约价与产能路径设区间",
+                "消费级与车规级分产品毛利率未披露，无法分产品桥接"
+              ]
+            },
+            "investment": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "DA按净固定资产约17%、资本开支按已披露在建工程与新项目节奏外推，收入增长与ΔNWC（约收入变动3%）联动；必要投入不是预算上限。",
+              "gaps": [
+                "2027年资本开支计划未给数值（管理层仅称与客户需求、投资效率匹配）",
+                "在建工程转固时点未披露，折旧起点存在年度误差"
+              ]
+            },
+            "tax": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "按税务主体分别核应税利润与可用亏损：2027—2032年现金税按EBIT的10%—14%逐步抬升，终值15%，与免税期至2035年、集电15%及母子公司亏损抵扣一致。",
+              "gaps": [
+                "长鑫集电15%税率需2026年度汇算清缴确认",
+                "2036年后免税到期税率路径未披露"
+              ]
+            },
+            "capital": {
+              "status": "bounded",
+              "affects": "v50",
+              "explanation": "EV经净金融资产与少数股东权益桥转普通股权益：净金融资产1,759.84亿元按100%归母计入，少数股东按2026年1—9月损益占比32.81%分享合并权益；无未行权期权、可转债或库存股。",
+              "gaps": [
+                "2026年8月对长鑫集电增资后的准确持股比例未披露，Q3单季少数股东损益占比已升至38.8%",
+                "解禁与回购注销对股本的影响未定（回购25—50亿元尚待实施）"
+              ]
+            },
+            "residual_discount": {
+              "status": "resolved",
+              "affects": "none",
+              "explanation": "五项折扣均有明确取值与依据：d_base 12%（上沿）、r_chip 2%、r_v5/r_gov/r_terminal 归零并说明理由；无未知折扣。",
+              "gaps": []
+            }
+          },
+          "availability_review": null,
+          "method_choice": "DRAM制造为单一经营分部、持续经营、EBIT为正且资本开支/折旧/在建工程可逐年桥接，按canonical §4.1D以FCFF DCF为主模型（WACC 9.0%，低/高情景9.5%/8.5%）；PE仅作交叉核验，不把现金折入倍数。未采用EV/EBITDA归一化为主模型，因周期峰值EBITDA与折旧口径在扩产期不稳定。"
+        }
+      },
+      "pack_sha256": "281ff1ab8a884499e2d5f3e42faeb03f2e260ee29ddee2533c9094b8b2c8e4e1",
+      "entry": {
+        "task_id": "SH-688825",
+        "generator": "codex",
+        "status": "completed_in_current_session",
+        "reason": null,
+        "report": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688825/investment-688825-2026-11-16-research-codex.md",
+          "sha256": "b618909e245fb8ac922d44cd530acf5ad449a0fef1af540bffe11086f65a19ba"
+        },
+        "price_map": {
+          "path": "research/investment/studies/valuation-availability/2026-11-16/SH-688825/investment-688825-2026-11-16-price-map-codex.json",
+          "sha256": "931568692df15d2015d5fb8d0af7055d22b80e7126781e1fb17824e2bb17eda2"
+        }
+      },
+      "failed_cli_execution": {
+        "started_at": "2026-11-16T22:25:13.561084+08:00",
+        "completed_at": "2026-11-16T22:25:24.617293+08:00",
+        "exit_code": 1,
+        "attempt": 1
+      },
+      "audit_baseline": null,
+      "rerun": {
+        "mode": "frozen",
+        "reason": "集团层面可建立条件现金流。增资后厂别经济权益以及基金底层资产和外部请求权的配对未明确，历史损益占比尚无法约束普通股长期现金归属。保留条件估值，暂不采纳正式 V50 或 P1。",
+        "v50": null,
+        "p1": null,
+        "v50_base_per_share_components": null,
+        "controls": {
+          "entry": "blocked",
+          "add": "blocked",
+          "holding": "review_required"
+        },
+        "kind": "unavailable",
+        "basis": {
+          "profit": {
+            "status": "unresolved",
+            "affects": "v50",
+            "explanation": "以前三季度收入 2690.24 亿元、Q3 单季 1187.14 亿元设置 2027 年收入 3650/4500/5100 亿元。压力组价格回落和资本效率变弱，中间组经历周期回落后修复，改善组长协和良率转成持续产出。2027 年 EBIT 率 38%/49%/57%，反映近期高毛利在研发、制造费用和价格回落下的不同路径，终值下调至 22%/29%/36%。2027 年资本开支 600/660/730 亿元，参照 2025 年购建约 497.39 亿元、2026 年前三季度近 370 亿元及披露扩建计划。折旧起步 315–350 亿元，较 2025 约 246.80 亿元增加，随设备寿命 5–8 年与转固增长。集团初始生产性长期资本按财报固定资产和在建尺度近似取 2300 亿元，营运资本假设 450–485 亿元并随收入联动。会计应付和基金收款需要拆分，不能直接资本化原经营现金流。",
+            "gaps": [
+              "不得把73.05%合并率或扣非归母永久化；缺分厂利润及长协价量持续期"
+            ]
+          },
+          "investment": {
+            "status": "unresolved",
+            "affects": "v50",
+            "explanation": "以前三季度收入 2690.24 亿元、Q3 单季 1187.14 亿元设置 2027 年收入 3650/4500/5100 亿元。压力组价格回落和资本效率变弱，中间组经历周期回落后修复，改善组长协和良率转成持续产出。2027 年 EBIT 率 38%/49%/57%，反映近期高毛利在研发、制造费用和价格回落下的不同路径，终值下调至 22%/29%/36%。2027 年资本开支 600/660/730 亿元，参照 2025 年购建约 497.39 亿元、2026 年前三季度近 370 亿元及披露扩建计划。折旧起步 315–350 亿元，较 2025 约 246.80 亿元增加，随设备寿命 5–8 年与转固增长。集团初始生产性长期资本按财报固定资产和在建尺度近似取 2300 亿元，营运资本假设 450–485 亿元并随收入联动。会计应付和基金收款需要拆分，不能直接资本化原经营现金流。",
+            "gaps": [
+              "各工厂维护/成长投入与折旧时点；未确认承诺及已预付/应付不重扣"
+            ]
+          },
+          "tax": {
+            "status": "bounded",
+            "affects": "v50",
+            "explanation": "按半年报披露的新桥十年免税、其他主体税率和亏损利用约束税务情景。显式期用集团 EBIT 的 11%–22%，终值用 21%–24% 容纳优惠变化，均为研究假设。合并亏损不跨主体抵扣，不自动计税款退款。",
+            "gaps": [
+              "各主体未来利润和优惠实际使用有待核验，区间适用于明确情景。"
+            ]
+          },
+          "capital": {
+            "status": "unresolved",
+            "affects": "v50",
+            "explanation": "半年报其他非流动负债 87.54 亿元，附注明确对应合并结构化主体其他投资人款；三季报同科目 396.98 亿元，较半年末增 309.44 亿元。若新增额全是独立普通股负担，机械尺度约 0.46 元/股；需要同时查底层资产、请求权范围与清偿期。经营 EV 扣集团有息债务及租赁约 1379.40 亿元，再以历史归母利润份额 61.17%/67.18%/72.16% 模拟权利分成。股份 678.841 亿股。条件计算未加回归属不明的集团净金融资产，也不另扣账面 NCI。长期现金分配份额未证，不能把历史利润份额作为严格上下限；集电增资后实际比例需要公告确认。",
+            "gaps": [
+              "Q3新增309.44亿元其他非流动负债的性质和配对；现金层级；集电增资新经济权益；现有激励请求权"
+            ]
+          },
+          "residual_discount": {
+            "status": "unresolved",
+            "affects": "p1",
+            "explanation": "基础价值和已吸收损失尚未采纳，不能定合理残余折扣。",
+            "gaps": [
+              "五项折扣值/区间均未决，不等于零；无同端可沿用基线"
+            ]
+          }
+        },
+        "availability_review": {
+          "decision_reason": "集团层面可建立条件现金流。增资后厂别经济权益以及基金底层资产和外部请求权的配对未明确，历史损益占比尚无法约束普通股长期现金归属。保留条件估值，暂不采纳正式 V50 或 P1。",
+          "diagnostic_summary": "中间集团经营预测不变，只切换历史归母份额代理，扣集团有息债务且不加归属未明的净金融资产，得到 9.50–11.21 元/股。集团经营权利和非经营金融资产的归属仍需分别验证。",
+          "next_evidence": "查清三季报新增负债与基金资产的对应、普通股可分配资产，以及集电增资后经济权益。再用逐厂利润、投入、可售产出与实际执行的长协量价更新经营和归母价值路径。",
+          "attempts": [
+            {
+              "inputs": [
+                "profit",
+                "investment"
+              ],
+              "method": "原财报和投资计划锚定三个FCFF情景，另检验归母PE和分红法",
+              "bounds_or_failure": "以前三季度收入 2690.24 亿元、Q3 单季 1187.14 亿元设置 2027 年收入 3650/4500/5100 亿元。压力组价格回落和资本效率变弱，中间组经历周期回落后修复，改善组长协和良率转成持续产出。2027 年 EBIT 率 38%/49%/57%，反映近期高毛利在研发、制造费用和价格回落下的不同路径，终值下调至 22%/29%/36%。2027 年资本开支 600/660/730 亿元，参照 2025 年购建约 497.39 亿元、2026 年前三季度近 370 亿元及披露扩建计划。折旧起步 315–350 亿元，较 2025 约 246.80 亿元增加，随设备寿命 5–8 年与转固增长。集团初始生产性长期资本按财报固定资产和在建尺度近似取 2300 亿元，营运资本假设 450–485 亿元并随收入联动。会计应付和基金收款需要拆分，不能直接资本化原经营现金流。",
+              "impact": "集团经营价值及终值可逐年复算，完整结果见§5。",
+              "conclusion": "可形成条件模型；需要经营、现金与归属证据收敛后裁决中性基准。"
+            },
+            {
+              "inputs": [
+                "capital"
+              ],
+              "method": "固定经营现金流，单列请求权和经济归属情景",
+              "bounds_or_failure": "半年报其他非流动负债 87.54 亿元，附注明确对应合并结构化主体其他投资人款；三季报同科目 396.98 亿元，较半年末增 309.44 亿元。若新增额全是独立普通股负担，机械尺度约 0.46 元/股；需要同时查底层资产、请求权范围与清偿期。经营 EV 扣集团有息债务及租赁约 1379.40 亿元，再以历史归母利润份额 61.17%/67.18%/72.16% 模拟权利分成。股份 678.841 亿股。条件计算未加回归属不明的集团净金融资产，也不另扣账面 NCI。长期现金分配份额未证，不能把历史利润份额作为严格上下限；集电增资后实际比例需要公告确认。",
+              "impact": "中间集团经营预测不变，只切换历史归母份额代理，扣集团有息债务且不加归属未明的净金融资产，得到 9.50–11.21 元/股。集团经营权利和非经营金融资产的归属仍需分别验证。",
+              "conclusion": "仍无充分依据采纳普通股 V50。"
+            },
+            {
+              "inputs": [
+                "residual_discount"
+              ],
+              "method": "逐项分清经营、权益与资格风险后检查剩余折扣",
+              "bounds_or_failure": "9M 归母简单年化约 1761 亿元，Q3 简单年化约 2177 亿元。归母 PE 虽避免把集团利润全归普通股，两个年化都处于当前景气阶段，不能确定稳态收益或未来再投资及分配额。账面 PB 同样无法解释基金/NCI 实际权利。",
+              "impact": "残余折扣仅影响P1；基础价值未采纳，该折扣无法有效论证。",
+              "conclusion": "P1 保持空值。"
+            }
+          ]
+        },
+        "method_choice": "集团 FCFF 条件情景及归母 PE 或分红替代法检验，估值数字未获正式采纳。"
+      },
+      "v50_range_overlaps_dsh": null,
+      "deltas_vs_dsh": {
+        "v50": {
+          "low": null,
+          "base": null,
+          "high": null
+        },
+        "p1": {
+          "low": null,
+          "base": null,
+          "high": null
+        },
+        "p1_interval_vs_dsh_base": {
+          "low": null,
+          "high": null
+        }
+      }
+    }
+  ]
+}

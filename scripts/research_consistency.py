@@ -19,9 +19,11 @@ try:
 except ImportError:
     from stock_price_map import fields, json_number, load_json, number, require, string, validate_document
 
-SCHEMA = 'stock-research-audit/v6'
+SCHEMA = 'stock-research-audit/v7'
+AVAILABILITY_SCHEMA = 'stock-research-audit/v6'
+AVAILABILITY_SCHEMAS = {AVAILABILITY_SCHEMA, SCHEMA}
 INPUT_BRIDGES_SCHEMA = 'stock-research-audit/v5'
-INPUT_BRIDGES_SCHEMAS = {INPUT_BRIDGES_SCHEMA, SCHEMA}
+INPUT_BRIDGES_SCHEMAS = {INPUT_BRIDGES_SCHEMA, *AVAILABILITY_SCHEMAS}
 VALUATION_SCHEMA = 'stock-research-audit/v4'
 VALUATION_SCHEMAS = {VALUATION_SCHEMA, *INPUT_BRIDGES_SCHEMAS}
 CAPITAL_SCHEMA = 'stock-research-audit/v3'
@@ -210,10 +212,11 @@ def validate_valuation_review(audit, document):
     review = audit['valuation_review']
     fields(review, {'base_case', 'method_choice', 'pe_crosscheck', 'market_check', 'reverse_dcf'}
            | ({'input_basis'} if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS else set())
-           | ({'availability_review'} if audit['schema_version'] == SCHEMA else set()), 'valuation_review')
+           | ({'availability_review'} if audit['schema_version'] in AVAILABILITY_SCHEMAS else set())
+           | ({'neutral_review'} if audit['schema_version'] == SCHEMA else set()), 'valuation_review')
     if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS:
         validate_input_basis(review['input_basis'], document, audit)
-    if audit['schema_version'] == SCHEMA:
+    if audit['schema_version'] in AVAILABILITY_SCHEMAS:
         validate_availability_review(review['availability_review'], review['input_basis'], document, audit['constraints'])
     for key in ('base_case', 'method_choice', 'pe_crosscheck'):
         string(review[key], 'valuation_review.' + key)
@@ -328,7 +331,7 @@ def validate_audit(audit, document, *, root=None):
             require(quote_round(values[label], document['meta']['currency']) == number(pm['v50'][label], label),
                     'research audit V50 mismatch: ' + label)
     elif kind == 'dcf_fcff':
-        require(audit['schema_version'] in VALUATION_SCHEMAS, 'dcf_fcff requires audit-v4/v5/v6')
+        require(audit['schema_version'] in VALUATION_SCHEMAS, 'dcf_fcff requires audit-v4 or later')
         try:
             from .research_valuation import evaluate_dcf
         except ImportError:
@@ -375,6 +378,12 @@ def validate_audit(audit, document, *, root=None):
         for key in ('description', 'scope', 'source'):
             string(risk[key], 'risk.' + key)
         risks[ident] = risk
+    if audit['schema_version'] == SCHEMA:
+        try:
+            from . import research_neutral
+        except ImportError:
+            import research_neutral
+        research_neutral.validate(audit['valuation_review']['neutral_review'], risks.values(), document)
     previous = baseline_values(audit, root)
     fields(audit['discounts'], set(DISCOUNTS), 'discounts')
     factor, charged = Decimal(1), set()
@@ -383,7 +392,7 @@ def validate_audit(audit, document, *, root=None):
         value = None if entry['value'] is None else number(entry['value'], key)
         bounds = entry['range']
         if value is None:
-            require(audit['schema_version'] in INPUT_BRIDGES_SCHEMAS and pm['p1'] is None, 'unknown discount requires audit-v5/v6 and null P1')
+            require(audit['schema_version'] in INPUT_BRIDGES_SCHEMAS and pm['p1'] is None, 'unknown discount requires audit-v5 or later and null P1')
             require(audit['valuation_review']['input_basis']['residual_discount']['status'] == 'unresolved',
                     'unknown discount requires unresolved residual_discount')
             require(bounds is None, 'unknown discount range must be null')
@@ -687,7 +696,7 @@ def _render_checks(audit, document):
                   '- 反向DCF条件解：' + cell(json.dumps(review['reverse_dcf'], ensure_ascii=False, sort_keys=True, default=json_number))]
     if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS:
         lines += ['', '输入依据与未决缺口：' + cell(json.dumps(audit['valuation_review']['input_basis'], ensure_ascii=False, sort_keys=True, default=json_number))]
-    if audit['schema_version'] == SCHEMA and audit['valuation_review']['availability_review'] is not None:
+    if audit['schema_version'] in AVAILABILITY_SCHEMAS and audit['valuation_review']['availability_review'] is not None:
         availability = audit['valuation_review']['availability_review']
         lines += ['', '估值可用性复核：' + cell(availability['decision_reason']),
                   '', '| 输入 | 已尝试的方法 | 边界依据或失败原因 | 价值影响 | 裁决 |',
@@ -697,6 +706,12 @@ def _render_checks(audit, document):
             lines.append('| ' + ' | '.join(cell(value) for value in values) + ' |')
         lines += ['', '条件结果及适用限制：' + cell(availability['diagnostic_summary']),
                   '下一项有效证据：' + cell(availability['next_evidence'])]
+    if audit['schema_version'] == SCHEMA:
+        try:
+            from . import research_neutral
+        except ImportError:
+            import research_neutral
+        lines += research_neutral.render(audit['valuation_review']['neutral_review'], cell)
     lines += ['', '| 折扣 | 取值 | 论证区间 | 独占风险ID | 变化分类 |', '|---|---:|---|---|---|']
     factor = Decimal(1)
     for key in DISCOUNTS:

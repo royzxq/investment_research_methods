@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from scripts import stock_framework_bundle as bundle, research_runner as runner
 try:
     import test_research_runner as fixtures
@@ -36,6 +37,9 @@ class FrameworkBundleTests(unittest.TestCase):
         prompt = (run/'execution/SH-600066/codex/prompt.txt').read_text()
         self.assertIn('dividend_report_template.md', prompt)
         self.assertIn('路由变化逐条审议旧控制', prompt)
+        self.assertIn('two-price-controls/v10', prompt)
+        self.assertIn('JSON仍v4/audit-v7', prompt)
+        self.assertNotIn('stock-research-audit/v6', prompt)
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
 
     def test_legacy_pair_snapshot_and_prompt_remain_v1(self):
@@ -46,13 +50,17 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertNotIn('本批采用股票策略拆分依赖包', prompt)
 
     def test_early_v2_snapshot_keeps_original_rule_bytes_after_scope_migration(self):
-        old = ROOT / 'research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-methods'
+        old = ROOT / 'research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-r2-methods'
         for name in bundle.BUNDLE:
             shutil.copyfile(old/name, self.root/'framework'/name)
-        run = self.prepare()
+        with patch.object(runner, 'NEW_CONTRACT', runner.AVAILABILITY_CONTRACT):
+            run = self.prepare()
         hashes, snapshot = runner.snapshot_hashes(run)
         self.assertEqual(snapshot['schema_version'], 'stock-framework-snapshot/v2')
+        self.assertEqual(runner.delivery_contract(snapshot), runner.AVAILABILITY_CONTRACT)
         before = (run/'execution/SH-600066/codex/prompt.txt').read_bytes()
+        self.assertIn(b'audit-v6', before)
+        self.assertNotIn(b'two-price-controls/v10', before)
         self.enable_bundle()
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
         self.assertEqual(before, (run/'execution/SH-600066/codex/prompt.txt').read_bytes())
@@ -142,11 +150,10 @@ class FrameworkBundleTests(unittest.TestCase):
             self.assertEqual(files[name], (run/'framework-snapshot'/name).read_bytes())
 
     def test_future_default_does_not_invalidate_frozen_bundle_contract(self):
-        from unittest.mock import patch
         self.enable_bundle(); run = self.prepare()
         with patch.object(runner, 'NEW_CONTRACT', dict(prompt_template='future-default')):
             _, snapshot = runner.snapshot_hashes(run)
-            self.assertEqual(runner.delivery_contract(snapshot), runner.AVAILABILITY_CONTRACT)
+            self.assertEqual(runner.delivery_contract(snapshot), runner.NEUTRAL_CONTRACT)
 
     def test_adopted_bundle_mirror_survives_removing_live_maintenance(self):
         self.enable_bundle()

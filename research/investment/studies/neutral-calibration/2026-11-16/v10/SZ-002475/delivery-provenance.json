@@ -1,0 +1,116 @@
+{
+  "task": "SZ-002475",
+  "arm": "v10",
+  "report_path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SZ-002475/investment-002475-2026-11-16-research-codex.md",
+  "price_map_path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SZ-002475/investment-002475-2026-11-16-price-map-codex.json",
+  "report_sha256": "129056bfad611be971673a9ecf004cebba5f98d1c49c5e841524b73af7a77697",
+  "price_map_sha256": "4db80ddbcd4fa3a519e38db5febf412847a4c210d4a14a9c6a83a9744fc7127e",
+  "runtime_report_sha256": "4613c318e0c631b03e6fa6800051b9408f100d42d82ebe35adb8ce69b631f8a0",
+  "runtime_json_sha256": "4db80ddbcd4fa3a519e38db5febf412847a4c210d4a14a9c6a83a9744fc7127e",
+  "runtime_receipt": {
+    "task": "SZ-002475",
+    "arm": "v10",
+    "command": [
+      "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--approve-for-me",
+      "-C",
+      "/Users/xinquanzhou/Workspace/investment_research_methods/output/audits/investment/2026-11-17/neutral-calibration/runs/v10/SZ-002475",
+      "-m",
+      "gpt-6-astra",
+      "-c",
+      "model_reasoning_effort=\"xhigh\"",
+      "--json",
+      "-o",
+      "/Users/xinquanzhou/Workspace/investment_research_methods/output/audits/investment/2026-11-17/neutral-calibration/runs/v10/SZ-002475/last-message.txt",
+      "-"
+    ],
+    "prompt_sha256": "2f69cc70d5abb462fceded6123bba843a521368d2a4ef4f6edcbaf8dcd37fadd",
+    "started_at": "2026-11-17T01:08:37.509048+00:00",
+    "exit_code": 0,
+    "completed_at": "2026-11-17T01:45:54.489937+00:00",
+    "runtime_sha256": "6132b76947efaad76b75eb5b47582396b1a3d7d078e6eb8eef841bbbc619bc6a"
+  },
+  "input_pack_sha256": "8fc1e5db1c690565c28bc91396ed1470013fb134fe94a99893180fd14b1846a2",
+  "evidence_cutoff": "2026-11-16T06:05:42.829845+08:00",
+  "framework_sha256": {
+    "investment_framework.md": "288c122feebe8fc1fc0ac7016c30ddf6e8b889e410b33f5411d2ac878ef0bb98",
+    "investment_framework_compact.md": "7c1d26fea0862c49852f4471eb58ebb9ce36803959537e13135f49e57ebe4d6a"
+  },
+  "v50": {
+    "low": 11.63,
+    "base": 31.31,
+    "high": 57.11
+  },
+  "p1": {
+    "base": 23.79
+  },
+  "controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "CASH-FCF-2026Q3",
+        "DISCLOSURE_COVERAGE",
+        "MARKET_INPUTS",
+        "R3_EVIDENCE",
+        "R4",
+        "R6_NBS_20261109",
+        "R6_NBS_20261116",
+        "R6_NVDA_20261118",
+        "R8",
+        "R8-2026Q3"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "ADD_PLAN_20261108",
+        "CASH-FCF-2026Q3",
+        "DISCLOSURE_COVERAGE",
+        "MARKET_INPUTS",
+        "R14-2026Q3",
+        "R14_COST_EVIDENCE",
+        "R3_EVIDENCE",
+        "R4",
+        "R6_NBS_20261109",
+        "R6_NBS_20261116",
+        "R6_NVDA_20261118",
+        "R8",
+        "R8-2026Q3"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD-QUALITY-20261108",
+        "OCF_REVIEW"
+      ]
+    }
+  },
+  "independent_unrounded_v50": {
+    "low": 11.629791326172242,
+    "base": 31.305161102315243,
+    "high": 57.10656505336361
+  },
+  "validation": "passed",
+  "runtime_event_types": {
+    "agent_message": 9,
+    "command_execution": 72,
+    "file_change": 3
+  },
+  "usage": [
+    {
+      "input_tokens": 7269446,
+      "cached_input_tokens": 6951424,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 53445,
+      "reasoning_output_tokens": 9819
+    }
+  ],
+  "runtime_errors": [],
+  "portability_change": "source paths only; all valuation and control fields preserved",
+  "limitations": "Requested model/effort are explicit CLI arguments; runtime JSON does not separately identify provider deployment. Single paired run per company does not estimate stochastic variability or prove causal method effects."
+}

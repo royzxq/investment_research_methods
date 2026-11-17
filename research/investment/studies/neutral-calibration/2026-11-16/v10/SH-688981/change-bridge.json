@@ -1,0 +1,406 @@
+{
+  "schema": "stock-research-change-bridge/v1",
+  "classification": "internal-model-correction-with-unchanged-economic-parameters",
+  "baseline_path": "input/prior-codex.md",
+  "baseline_sha256": "eba04091c28ff8bbaa9f60daf87331382ffd40c56c4732e3e15a91ca6956acae",
+  "evidence_cutoff": "2026-11-16T05:33:24.146247+08:00",
+  "old_price": {
+    "mode": "frozen",
+    "reason": "R6事件及事后复评冻结仍有效，已形成有依据且可复算的V50情景；融资尾部与独立安全边际未能可靠约束，观察P1暂缺。",
+    "v50": {
+      "low": 4.01,
+      "base": 11.61,
+      "high": 29.04
+    },
+    "p1": null,
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    }
+  },
+  "recomputed_old_values": {
+    "low": 4.009895442335853,
+    "base": 11.60678173514687,
+    "high": 29.043054318699678
+  },
+  "independent_reconstruction_values": {
+    "low": 4.009895442335854,
+    "base": 11.606781735146871,
+    "high": 29.043054318699674
+  },
+  "new_values": {
+    "low": 4.133488272643466,
+    "base": 11.712246177880777,
+    "high": 29.043054318699674
+  },
+  "new_price": {
+    "v50": {
+      "low": 4.13,
+      "base": 11.71,
+      "high": 29.04
+    },
+    "p1": null,
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    }
+  },
+  "single_changes": [
+    {
+      "topic": "investment",
+      "classification": "unchanged",
+      "reason": "固定生产资本、DA和必要CapEx路径保留；资产寿命/利用率支持区间，未发现应更换基准的充分证据。",
+      "isolated_delta": {
+        "low": 0.0,
+        "base": 0.0,
+        "high": 0.0
+      },
+      "held_fixed": "all other input assumptions, time, currency, shares and control scopes",
+      "adopted": true
+    },
+    {
+      "topic": "cash_recovery",
+      "classification": "correction",
+      "reason": "以各组NWC相邻余额差替换总增量乘当期权重；总NWC及经营利润不变，内部资金归属计算纠错。",
+      "isolated_delta": {
+        "low": 0.12359283030761352,
+        "base": 0.10546444273390847,
+        "high": -2.9563442884488386e-15
+      },
+      "held_fixed": "all other input assumptions, time, currency, shares and control scopes",
+      "adopted": true
+    },
+    {
+      "topic": "terminal",
+      "classification": "unchanged",
+      "reason": "7期、g2%、终值利润率和IC不变；稳定期展开9期等价，未证明更长高增长期。",
+      "isolated_delta": {
+        "low": 0.0,
+        "base": 0.0,
+        "high": 0.0
+      },
+      "held_fixed": "all other input assumptions, time, currency, shares and control scopes",
+      "adopted": true
+    },
+    {
+      "topic": "capital_cost",
+      "classification": "unchanged",
+      "reason": "WACC及权重保留；本币借款1.79%补强解释并给独立替代，不把美国利率当人民币锚。",
+      "isolated_delta": {
+        "low": 0.0,
+        "base": 0.0,
+        "high": 0.0
+      },
+      "held_fixed": "all other input assumptions, time, currency, shares and control scopes",
+      "adopted": true
+    },
+    {
+      "topic": "capital_scope",
+      "classification": "unchanged",
+      "reason": "法律持股、股数、现金债务及投资代理不变；NWC分组现金纠错只在cash_recovery归因，不重复列收益。",
+      "isolated_delta": {
+        "low": 0.0,
+        "base": 0.0,
+        "high": 0.0
+      },
+      "held_fixed": "all other input assumptions, time, currency, shares and control scopes",
+      "adopted": true
+    },
+    {
+      "topic": "other_corrections",
+      "classification": "correction",
+      "reason": "北方换股现金为0、来源页码和旧现金购建/资产增加措辞纠正；原模型未加收购现金，估值无额外变化。",
+      "isolated_delta": {
+        "low": 0.0,
+        "base": 0.0,
+        "high": 0.0
+      },
+      "held_fixed": "all other input assumptions, time, currency, shares and control scopes",
+      "adopted": true
+    }
+  ],
+  "path_combinations": [
+    {
+      "diagnostic": true,
+      "adopted": false,
+      "parameters": {
+        "k": 1.95,
+        "w": 0.08
+      },
+      "new_base": 11.712246177880777,
+      "single_k": 14.122372826973534,
+      "single_w": 14.443395125973682,
+      "combined": 17.040581800021005,
+      "joint_delta": 5.328335622140226,
+      "additive_single_delta": 5.14127559718566,
+      "interaction": 0.18706002495456547,
+      "sequence_correction_then_k_then_w": [
+        11.60678173514687,
+        11.712246177880777,
+        14.122372826973534,
+        17.040581800021005
+      ],
+      "sequence_w_then_correction_then_k": [
+        11.60678173514687,
+        14.334652308046017,
+        14.443395125973682,
+        17.040581800021005
+      ],
+      "note": "顺序只影响归因边际，不影响相同终态；这些诊断组合未被采纳，不能冒充本次新旧差。"
+    },
+    {
+      "diagnostic": true,
+      "adopted": false,
+      "parameters": {
+        "k": 2.5,
+        "w": 0.1
+      },
+      "new_base": 11.712246177880777,
+      "single_k": 8.494907221182583,
+      "single_w": 9.706792815905576,
+      "combined": 6.649372731519641,
+      "joint_delta": -5.062873446361137,
+      "additive_single_delta": -5.222792318673397,
+      "interaction": 0.15991887231225985,
+      "sequence_correction_then_k_then_w": [
+        11.60678173514687,
+        11.712246177880777,
+        8.494907221182583,
+        6.649372731519641
+      ],
+      "sequence_w_then_correction_then_k": [
+        11.60678173514687,
+        9.60447023904639,
+        9.706792815905576,
+        6.649372731519641
+      ],
+      "note": "顺序只影响归因边际，不影响相同终态；这些诊断组合未被采纳，不能冒充本次新旧差。"
+    }
+  ],
+  "adopted_path": [
+    "reproduce frozen original model",
+    "fix group NWC rollforward only",
+    "retain other assumptions after neutral review"
+  ],
+  "adopted_combination_delta": {
+    "low": 0.12359283030761352,
+    "base": 0.10546444273390847,
+    "high": -2.9563442884488386e-15
+  },
+  "adopted_interaction": 0,
+  "interaction_note": "唯一采纳的数值变化是NWC纠错，故采纳路径无多项交互；不将未采纳单项敏感性累计。浮点旧模型与Decimal重算的1e-15差异是表示误差。",
+  "nwc_correction": [
+    {
+      "scenario": "low",
+      "year": 1,
+      "old_parent_delta_nwc": 31.49,
+      "new_parent_delta_nwc": 31.49,
+      "added_parent_fcff": 0.0,
+      "present_value": 0.0
+    },
+    {
+      "scenario": "low",
+      "year": 2,
+      "old_parent_delta_nwc": 19.572300000000027,
+      "new_parent_delta_nwc": 16.3053,
+      "added_parent_fcff": 3.267000000000028,
+      "present_value": 2.7000000000000233
+    },
+    {
+      "scenario": "low",
+      "year": 3,
+      "old_parent_delta_nwc": 16.936128000000053,
+      "new_parent_delta_nwc": 13.342428,
+      "added_parent_fcff": 3.593700000000053,
+      "present_value": 2.7000000000000397
+    },
+    {
+      "scenario": "low",
+      "year": 4,
+      "old_parent_delta_nwc": 13.485391920000005,
+      "new_parent_delta_nwc": 9.60419592,
+      "added_parent_fcff": 3.881196000000005,
+      "present_value": 2.6509090909090944
+    },
+    {
+      "scenario": "low",
+      "year": 5,
+      "old_parent_delta_nwc": 9.365114246400012,
+      "new_parent_delta_nwc": 5.2510464864,
+      "added_parent_fcff": 4.114067760000011,
+      "present_value": 2.554512396694222
+    },
+    {
+      "scenario": "low",
+      "year": 6,
+      "old_parent_delta_nwc": 7.304789112192012,
+      "new_parent_delta_nwc": 7.304789112192,
+      "added_parent_fcff": 1.16e-14,
+      "present_value": 6.547897588623818e-15
+    },
+    {
+      "scenario": "low",
+      "year": 7,
+      "old_parent_delta_nwc": 5.015955190371859,
+      "new_parent_delta_nwc": 5.01595519037184,
+      "added_parent_fcff": 1.85e-14,
+      "present_value": 9.493425187268075e-15
+    },
+    {
+      "scenario": "base",
+      "year": 1,
+      "old_parent_delta_nwc": 24.5455,
+      "new_parent_delta_nwc": 24.5455,
+      "added_parent_fcff": -1e-15,
+      "present_value": -9.174311926605505e-16
+    },
+    {
+      "scenario": "base",
+      "year": 2,
+      "old_parent_delta_nwc": 27.570900000000027,
+      "new_parent_delta_nwc": 24.6354,
+      "added_parent_fcff": 2.935500000000025,
+      "present_value": 2.470751620234008
+    },
+    {
+      "scenario": "base",
+      "year": 3,
+      "old_parent_delta_nwc": 26.539131600000037,
+      "new_parent_delta_nwc": 23.1926616,
+      "added_parent_fcff": 3.346470000000038,
+      "present_value": 2.5840888505199793
+    },
+    {
+      "scenario": "base",
+      "year": 4,
+      "old_parent_delta_nwc": 24.39505152,
+      "new_parent_delta_nwc": 20.64700512,
+      "added_parent_fcff": 3.7480464,
+      "present_value": 2.65521056200215
+    },
+    {
+      "scenario": "base",
+      "year": 5,
+      "old_parent_delta_nwc": 21.302731296000015,
+      "new_parent_delta_nwc": 19.241305776,
+      "added_parent_fcff": 2.061425520000017,
+      "present_value": 1.3397851459643988
+    },
+    {
+      "scenario": "base",
+      "year": 6,
+      "old_parent_delta_nwc": 17.255212349760022,
+      "new_parent_delta_nwc": 17.25521234976,
+      "added_parent_fcff": 2.1e-14,
+      "present_value": 1.2521613864463537e-14
+    },
+    {
+      "scenario": "base",
+      "year": 7,
+      "old_parent_delta_nwc": 12.193683393830394,
+      "new_parent_delta_nwc": 12.1936833938304,
+      "added_parent_fcff": -6e-15,
+      "present_value": -3.2822054690599048e-15
+    },
+    {
+      "scenario": "high",
+      "year": 1,
+      "old_parent_delta_nwc": 16.1082,
+      "new_parent_delta_nwc": 16.1082,
+      "added_parent_fcff": 0.0,
+      "present_value": 0.0
+    },
+    {
+      "scenario": "high",
+      "year": 2,
+      "old_parent_delta_nwc": 39.14292600000002,
+      "new_parent_delta_nwc": 39.142926,
+      "added_parent_fcff": 2e-14,
+      "present_value": 1.7146776406035664e-14
+    },
+    {
+      "scenario": "high",
+      "year": 3,
+      "old_parent_delta_nwc": 41.056580159999996,
+      "new_parent_delta_nwc": 41.05658016,
+      "added_parent_fcff": -1e-15,
+      "present_value": -7.938322410201697e-16
+    },
+    {
+      "scenario": "high",
+      "year": 4,
+      "old_parent_delta_nwc": 41.67242886239998,
+      "new_parent_delta_nwc": 41.6724288624,
+      "added_parent_fcff": -1.4e-14,
+      "present_value": -1.0290417939150348e-14
+    },
+    {
+      "scenario": "high",
+      "year": 5,
+      "old_parent_delta_nwc": 40.719916202688054,
+      "new_parent_delta_nwc": 40.719916202688,
+      "added_parent_fcff": 5.5e-14,
+      "present_value": 3.7432075836856424e-14
+    },
+    {
+      "scenario": "high",
+      "year": 6,
+      "old_parent_delta_nwc": 38.005255122508856,
+      "new_parent_delta_nwc": 38.0052551225088,
+      "added_parent_fcff": 5.4e-14,
+      "present_value": 3.402915985168766e-14
+    },
+    {
+      "scenario": "high",
+      "year": 7,
+      "old_parent_delta_nwc": 29.264046444331782,
+      "new_parent_delta_nwc": 29.264046444331775,
+      "added_parent_fcff": 8e-15,
+      "present_value": 4.667923162097072e-15
+    }
+  ],
+  "unresolved": [
+    "P1残余融资风险、付款时点与普通股追索",
+    "R14油价到采购/传导/现金压力桥",
+    "R3盈利对冲与隐含降息证据",
+    "三项R6冻结主张",
+    "逐厂现金和金融投资归属",
+    "设备替换/扩张支付与税务实体优惠",
+    "同范围TAM及ETF净回报/流动性、账户预算"
+  ],
+  "discount_changes": {
+    "d_base": {
+      "kind": "initial",
+      "reason": "原值与区间均为null，本次接续未决。冻结检查器对历史null参数要求initial；不表示没有历史基线或新增数值折扣。",
+      "evidence": [
+        "input/prior-codex.md §5/7及审计；本报告§5/7中性校准与留空复核"
+      ]
+    },
+    "r_chip": {
+      "kind": "unchanged",
+      "reason": "同证据下复核后数值及区间不变；NWC计算纠错已在DCF计价，不再改折扣。",
+      "evidence": [
+        "input/prior-codex.md §5/7及审计；本报告§5/7中性校准与留空复核"
+      ]
+    },
+    "r_v5": {
+      "kind": "unchanged",
+      "reason": "同证据下复核后数值及区间不变；NWC计算纠错已在DCF计价，不再改折扣。",
+      "evidence": [
+        "input/prior-codex.md §5/7及审计；本报告§5/7中性校准与留空复核"
+      ]
+    },
+    "r_gov": {
+      "kind": "unchanged",
+      "reason": "同证据下复核后数值及区间不变；NWC计算纠错已在DCF计价，不再改折扣。",
+      "evidence": [
+        "input/prior-codex.md §5/7及审计；本报告§5/7中性校准与留空复核"
+      ]
+    },
+    "r_terminal": {
+      "kind": "unchanged",
+      "reason": "同证据下复核后数值及区间不变；NWC计算纠错已在DCF计价，不再改折扣。",
+      "evidence": [
+        "input/prior-codex.md §5/7及审计；本报告§5/7中性校准与留空复核"
+      ]
+    }
+  }
+}

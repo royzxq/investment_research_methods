@@ -4,7 +4,7 @@
   "as_of": "2026-11-17",
   "revision": null,
   "status": "adopted",
-  "adoption_basis": "用户明确认可独立红利/非红利/共享规则方案并授权同步skill、模板、兼容检查，随后要求单独worktree实现。本记录只在codex/dividend-research-framework-20261117本地采纳；未合并、提交或生产发布，不覆盖并行原工作区。",
+  "adoption_basis": "用户明确授权按方案先作最小框架修订并用原数据/日期/证据截止固定配置隔离复跑；当前本地分支采纳，未授权推送或提升正式报价。",
   "supersedes": [
     "investment-2026-11-16-handoff"
   ],
@@ -12,13 +12,13 @@
   "methods": {
     "canonical": {
       "path": "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-methods/investment_framework.md",
-      "sha256": "affccca432c3dda6218ed785517708b7a69effbca585c762d534d1ce9a29f7c5",
-      "method_sha256": "abda2f87612433cbb648692c78958cd2ec0c618dcf8d91248c9239992fbaadb3"
+      "sha256": "288c122feebe8fc1fc0ac7016c30ddf6e8b889e410b33f5411d2ac878ef0bb98",
+      "method_sha256": "329eede537bae7691b14c9a52137002fe93e8ac74e0df50c6b8be8cabdcf731f"
     },
     "compact": {
       "path": "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-methods/investment_framework_compact.md",
-      "sha256": "8e5c2abf2d09a96ba157921d584a331382ae74971a954c67280e838a0d83da6a",
-      "method_sha256": "f2e70172b8b2e70e72fae23bb80866f0e5244af55036109a57e9f7d14377b501"
+      "sha256": "7c1d26fea0862c49852f4471eb58ebb9ce36803959537e13135f49e57ebe4d6a",
+      "method_sha256": "7a9a6cb2e90236efb015e8f834f2620632f1a2df969bd85e47c18ff51420e379"
     }
   },
   "reports": {
@@ -29,12 +29,12 @@
     },
     "change_decision": {
       "path": "research/investment/weekly/2026-11-17/investment-2026-11-17-change-decision.md",
-      "sha256": "59c3a0cb66a164431c6d334bf2b61897b80c66fbd86c24d978164b05510ccdc2",
+      "sha256": "97ec0ccdb54f3758837ac34151efff13542572c85ceb18a5940f679ff88b1ab5",
       "as_of": "2026-11-17"
     },
     "adaption_report": {
       "path": "research/investment/weekly/2026-11-17/investment-2026-11-17-adaption-report.md",
-      "sha256": "670d150b92f24ecf3f4800076926ba2f132efca48a321767bf6be819c00b3ccc",
+      "sha256": "1d7a74cd0cb11c1215c6ee4ca1e74b4c50299f9d462575aa7c622a38db2839ac",
       "as_of": "2026-11-17"
     }
   },
@@ -220,23 +220,18 @@
       "as_of": "2026-11-16"
     },
     {
-      "path": "research/investment/weekly/2026-11-17/evidence/dividend-validation.json",
-      "sha256": "e855f383c1f825b6e1e40675c5e09bed3fe7c694463ce776c95381f18383286a",
+      "path": "research/investment/weekly/2026-11-16/investment-2026-11-16-handoff.json",
+      "sha256": "10bf765e2d37a5ca7a928d10d18740087f03cdf18e8be03f83a4270ec9489d95",
+      "as_of": "2026-11-16"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-17/evidence/neutral-validation.json",
+      "sha256": "d96a79dffa968158321ac46c61d338b4232fb1dcf92de8746c359169f126314d",
       "as_of": "2026-11-17"
     },
     {
-      "path": "research/investment/weekly/2026-11-17/evidence/dividend-legacy-prompts.json",
-      "sha256": "fe8faf17c31c3e0404ab5a1f1bad40c2bbb61f8300901e6833ed7ba7704a7aa0",
-      "as_of": "2026-11-17"
-    },
-    {
-      "path": "research/investment/weekly/2026-11-17/evidence/dividend-fidelity.json",
-      "sha256": "df7c3f240fe551c6f591c811a6332ab0ae215d45dbbce7e60e2c226ae880d1ee",
-      "as_of": "2026-11-17"
-    },
-    {
-      "path": "research/investment/weekly/2026-11-17/evidence/dividend-source-workspace-drift.json",
-      "sha256": "fcefa7a217c71bb3252c0c14fb852c9bf5666df4095a99d5cdd5e8ccae87ee7c",
+      "path": "research/investment/weekly/2026-11-17/evidence/neutral-review-resolution.md",
+      "sha256": "3643cf4c1ca64ae5e27b763f68b7ff652425da5f6f7960bd6fa1fc45ffd475b9",
       "as_of": "2026-11-17"
     }
   ],
@@ -262,14 +257,14 @@
     {
       "kind": "method_change",
       "status": "adopted",
-      "summary": "按主持有目的拆分红利与非红利，抽共享规则，六文件冻结与数据补充",
-      "definition": "红利HD1–HD8、共享C0/C1及迁移节号；R9长期红利三项缺值不再机械阻断，真实风险与旧控制仍逐项复核",
-      "economic_reason": "现金分配质量和长期持有的证据结构不同于成长/轮动，分离主线且保留共同估值风险纪律",
-      "scope": "本地新研究/技能/输出/维护/冻结；不重写旧报告，不改变生产调度、JSON结构或账户执行",
-      "positive_case": "稳定现金公司以正常化普通分红和资本缓冲估值，缺非核心风格读数可保留可估性",
-      "negative_case": "借债派息、周期顶点、金融资本不足或治理失败不能因高息放行",
-      "boundary_case": "跨币种利差不算、旧除息权益剔除、未知税负/可持续收入null；已冻结旧限制不因切策略解除",
-      "compatibility_impact": "旧v1快照和十种历史提示不改字节，新v2绑定六份方法；方法变化需审议，原工作区并行v10未合入"
+      "summary": "所有已采纳V50完成中性校准；新controls-v10/audit-v7，价格v4不变",
+      "definition": "canonical §4.1D：投入/现金回收/终值/资本成本/归属的依据反证替代；逐年生产资本衔接，逐风险计价定位，联合依据和敏感性；不新增价格或资格否决",
+      "economic_reason": "使已给价报告也承担中性取值论证，避免多项悲观或乐观假设无依据叠加，以及现金流与资本成本重复补偿；不以接近外部估值为目标",
+      "scope": "新股票研究及其提示、审计、恢复和维护完成登记；旧冻结与正式报价不重写",
+      "positive_case": "短期高投入有事实锚、远期效率存在合理区间：保留有界估值，量化替代路径而非一律压力化",
+      "negative_case": "未来CapEx低于折旧却不能解释资产/产能与终值IC，或现金损失已扣又无残余依据提高WACC：补证/纠错，不自动提价",
+      "boundary_case": "V50有价但P1未决仍做neutral_review；真正不可估保留原availability_review；资本对账只能近似可说明代理，不新造空价门槛",
+      "compatibility_impact": "新v10/audit-v7增加neutral_review；旧v1-v9提示字节、原审计/输出不变；不声明新旧方法经济等价或自动完成pending"
     }
   ],
   "classification": {
@@ -1009,9 +1004,9 @@
     }
   ],
   "generator": "codex",
-  "deployment_status": "local_worktree_applied",
+  "deployment_status": "local_branch_applied",
   "account_execution": "none",
   "compatibility": [],
   "deployment_pending": true,
-  "method_identity": "stock-strategy-split-v1-common-v1-dcf-v3"
+  "method_identity": "stock-two-price-controls-v2-etf-relative-v1-dividend-v1-capital-v1-dcf-v4"
 }

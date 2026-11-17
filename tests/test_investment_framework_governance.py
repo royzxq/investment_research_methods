@@ -85,7 +85,7 @@ class InvestmentGovernanceTests(unittest.TestCase):
 
     def test_legacy_six_file_bundle_keeps_its_original_scope(self):
         # snapshot/v2 already existed before R9's full migration.
-        frozen = ROOT / "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-methods"
+        frozen = ROOT / "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-r2-methods"
         for name in BUNDLE:
             shutil.copyfile(frozen / name, self.root / "framework" / name)
         self.assertEqual(check(self.root)["strategy_scope"], "legacy")

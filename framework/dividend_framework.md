@@ -105,7 +105,7 @@
 
 ## HD8 交付与数据边界
 
-用独立九节模板，沿用 research/README 的公司报告路径、investment-前缀、真实 generator 隔离与增量基线。JSON仍stock-research/v4、audit-v6，新方法不添加股息字段到轻量价格JSON；详细分红台账、利差和情景放报告/证据，避免下游严格schema破坏。DDM/FCFE等专项模型用valuation.kind=other并定位未舍入计算，自动审计不声称复算专项模型；支持的PE/FCFF仍用真实类型，不借other跳过可自动校验的模型。
+用独立九节模板，沿用 research/README 的公司报告路径、investment-前缀、真实 generator 隔离与增量基线。轻量JSON仍stock-research/v4，审计依冻结合同。新controls-v10/audit-v7的已给V50须按共享§4.1D完成中性校准，不添加股息字段到轻量价格JSON；详细分红台账、利差和情景放报告/证据，避免下游严格schema破坏。DDM/FCFE等专项模型用valuation.kind=other并定位未舍入计算，自动审计不声称复算专项模型；支持的PE/FCFF仍用真实类型，不借other跳过可自动校验的模型。
 
 复用原数据包，专项补充分红事件、daily_basic股息字段及同日国债曲线；接口不是公司原文的替代。脚本见scripts/dividend_data.py及skills的数据reference，缺权限/历史/税务/港币基准明确null。可持续普通分红、特别分红分类与前瞻净收入均需研究核验，脚本不自动生成。
 

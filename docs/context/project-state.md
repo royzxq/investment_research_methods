@@ -1,9 +1,15 @@
 # 项目状态与迁移边界
 
-2026-11-17 红利拆分在独立worktree的codex/dividend-research-framework-20261117本地实现并采纳；同日复审r2进一步将原股票R9专用规则、强制分红预测/DDM及红利底仓映射迁至红利HD4A/HD6，原框架聚焦非红利。共享stock_research_common只保留通用分配一致性及原共同纪律。记录见[r2适配报告](../../research/investment/weekly/2026-11-17/investment-2026-11-17-adaption-report-r2.md)与[r2 handoff](../../research/investment/weekly/2026-11-17/investment-2026-11-17-handoff-r2.json)；首版及旧冻结文件不重写。六文件快照schema仍v2，以冻结正文scope标记区分早期版本；沿迁入controls-v9/audit-v6基线，原工作区并行v10未合入。本分支未发布生产，原5项pending、4项withdrawn及25项历史评估原样接续，无新个股复评/账户执行。此前专项Tushare股息/派息可用、yc_cb无权限、利差null的记录仍为当时结果，本轮未重取API；外部数据调度未改。
+2026-11-17 红利投研拆分已合入本地 dev。非红利框架保留 R9 历史索引，红利 HD4A/HD6 承接专用分红估值与利差。两轨共享 dev 的 V50 中性校准，当前新批次为六文件快照 v2、controls-v10 / audit-v7、价格 JSON v4。旧 v9 六文件仍按冻结原合同恢复。原5项待复评、4项撤回来源和25项历史评估接续。见[合并适配报告](../../research/investment/weekly/2026-11-17/investment-2026-11-17-adaption-report-r4.md)与[当前采纳记录](../../research/investment/weekly/2026-11-17/investment-2026-11-17-handoff-r4.json)。此前专项 Tushare 取数中股息/派息可用，yc_cb 无权限，利差为 null。
 
 
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
+
+## 已给价中性校准本地采纳（2026-11-17）
+
+用户授权先做最小修订，再按三股原包、估值日和证据截止固定配置复跑。新准备合同为 `two-price-controls/v10` / `stock-research-audit/v7`，价格schema仍v4；方法标识结尾为 `capital-v1-dcf-v4`。本次只新增已给价V50的五类假设、资本滚动、风险计价位置及联合敏感性审查，未修改R/D阈值、市场状态或原5项pending。旧冻结v1–v9按原合同恢复。合并前的中性校准方法见[11/17 原采纳记录](../../research/investment/weekly/2026-11-17/investment-2026-11-17-handoff.json)；[修改与验证](../../research/investment/weekly/2026-11-17/investment-2026-11-17-adaption-report.md)。未推送或重载调度。
+
+立讯、中芯、海光分别完成固定Astra/xhigh的旧v9与新v10隔离试跑，估值日均11/16，精确证据截止及原包哈希不变。审查后V50中值31.15／11.71／45.11；立讯原始v10的31.31因重复/未证独立的FV资产加回被撤回，原始试跑保留、主审机械校正另存。观察P1为23.67／null／38.83，均未解除原限制。详见[独立对照与校正](../../research/investment/studies/neutral-calibration/2026-11-16/investment-2026-11-16-neutral-calibration-comparison-codex.md)。本实验没有证明拒绝率下降或保守倾向消除；原正式报告、latest及生产完成登记保持。
 
 ## 估值审计与本地dev接续（2026-11-14）
 
@@ -34,7 +40,7 @@
 | 轨道 | 方法与状态 | 当前配套 |
 |---|---|---|
 | 期货 | [canonical](../../framework/futures_framework.md) v3.0；已有T信号可当前重评、在原有效期内向未来登记，不追认旧建议/成交。10/09行情已用v1.18输入重算，MA当前计划见[10/11重评](../../research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md)，实际执行条件与账户未齐 | [compact](../../framework/futures_framework_compact.md) / [数据协议](../../framework/FUTURES_DATA_PROTOCOL.md) v3.0，[future_data.py](../../scripts/future_data.py) v1.18.1及策略helper；新增handoff/refresh/continuity工具，10/11原v1.18真实API刷新通过、行情仍10/09；v1.18.1另修来源身份、未作新API验证；无收益验证 |
-| 股票 | [canonical](../../framework/investment_framework.md) 与 [compact](../../framework/investment_framework_compact.md) 本地方法标识 `stock-two-price-v1`；市场证据沿用原记录（正文背景10/11、已有受限观测块10/18），本次未重做行情研究 | 周更三类分流、明确采纳交接与批次正文快照；临时冻结可估但买入受限；R21口径已补齐。股票 PR #45 已合并至 main，当前期货分支接续该方法；`stock_data_pack.py` 尚未找到 |
+| 股票 | [canonical](../../framework/investment_framework.md) 与 [compact](../../framework/investment_framework_compact.md) 当前本地方法 `stock-two-price-controls-v2-etf-relative-v1-dividend-v1-capital-v1-dcf-v4`，按11/17匹配handoff接续；市场证据日期与pending沿原记录，本次未刷新行情 | 新准备controls-v10 / audit-v7，旧冻结合同兼容；三股历史同包实验单独保存，不提升正式报价或latest。11/17记录为当前本地方法入口；此前发布记录仍为历史 |
 | ETF | [canonical](../../framework/etf_framework.md) v2.1，八主题、双月评审 | v2.0 格式快照兼容；最近评审为 [10/01 review](../../research/etf/reviews/2026-10-01/etf-2026-10-01-review.md)，正文已于 10/02 修订；旧 monthly-review 不作为现行一期 |
 
 ## 待接续事项

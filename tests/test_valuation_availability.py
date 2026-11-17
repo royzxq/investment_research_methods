@@ -14,7 +14,7 @@ import test_research_consistency as consistency_tests
 
 def example():
     audit, document = audited()
-    audit['schema_version'] = checks.SCHEMA
+    audit['schema_version'] = checks.AVAILABILITY_SCHEMA
     audit['valuation_review']['availability_review'] = None
     return audit, document
 
@@ -49,12 +49,12 @@ def review(keys):
 class AvailabilityTests(unittest.TestCase):
     def test_v6_dcf_and_reverse_keep_cash_tax_and_productive_capital(self):
         audit, document = consistency_tests.ValuationAuditTests().dcf_example()
-        audit['schema_version'] = checks.SCHEMA
+        audit['schema_version'] = checks.AVAILABILITY_SCHEMA
         audit['valuation'] = bridged()
         audit['valuation_review'].update(input_basis=input_basis_for(document), availability_review=None)
         for risk in audit['risks']:
             risk['economic_key'] = risk['id']
-        checks.validate_report(checks.render_report_block(audit, document), document, expected_schema=checks.SCHEMA)
+        checks.validate_report(checks.render_report_block(audit, document), document, expected_schema=checks.AVAILABILITY_SCHEMA)
 
     def test_actual_price_interval_does_not_require_a_base_or_null_review(self):
         audit, document = example()
@@ -67,7 +67,7 @@ class AvailabilityTests(unittest.TestCase):
         audit['valuation_review']['input_basis']['tax'].update(status='bounded', gaps=['entity detail absent'],
             explanation='disclosed effective tax history supports a 20–30% range, with investment fixed')
         before = deepcopy(document)
-        checks.validate_report(checks.render_report_block(audit, document), document, expected_schema=checks.SCHEMA)
+        checks.validate_report(checks.render_report_block(audit, document), document, expected_schema=checks.AVAILABILITY_SCHEMA)
         self.assertEqual(document, before)
         self.assertEqual(document['research_controls']['entry']['status'], 'unknown')
         self.assertIsNotNone(document['price_map']['p1'])
@@ -102,7 +102,7 @@ class AvailabilityTests(unittest.TestCase):
         audit, document = unresolved('capital', 'investment')
         audit['valuation_review']['availability_review'] = review(['capital', 'investment'])
         block = checks.render_report_block(audit, document)
-        checks.validate_report(block, document, expected_schema=checks.SCHEMA)
+        checks.validate_report(block, document, expected_schema=checks.AVAILABILITY_SCHEMA)
         visible = block.split(checks.START)[0]
         self.assertIn('parent liability can exceed', visible)
         self.assertIn('下一项有效证据', visible)

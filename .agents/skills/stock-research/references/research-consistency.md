@@ -1,6 +1,6 @@
 # 研究计算与状态一致性
 
-本页接续2026-10-18两价发布契约；新准备使用价格v4 + audit-v6（two-price-controls/v9），依用户2026-11-16授权修改，实际本地采纳以匹配正文指纹的adopted handoff为准。冻结合同优先：旧controls-v8使用audit-v5，旧controls-v7使用audit-v4，旧controls-v6使用audit-v3，旧两价v1及controls-v2…v5继续audit-v2，使用各自旧字段/公式；更早价格v3/audit-v1使用 [legacy-audit-v1](legacy-audit-v1.md)，不追溯改写。只编码 canonical 已定义的计算与按scope控制，不另加折扣常数或投资阈值。
+本页接续2026-10-18两价发布契约；新准备使用价格v4 + audit-v7（two-price-controls/v10），依用户2026-11-17授权修改，实际本地采纳以匹配正文指纹的adopted handoff为准。冻结合同优先：旧controls-v9使用audit-v6，旧controls-v8使用audit-v5，旧controls-v7使用audit-v4，旧controls-v6使用audit-v3，旧两价v1及controls-v2…v5继续audit-v2，使用各自旧字段/公式；更早价格v3/audit-v1使用 [legacy-audit-v1](legacy-audit-v1.md)，不追溯改写。只编码 canonical 已定义的计算与按scope控制，不另加折扣常数或投资阈值。
 
 ## 一份可核算底稿
 
@@ -8,7 +8,7 @@
 
 ```sh
 python3 scripts/research_consistency.py render --audit output/<本轮>/research-audit.json --price-map output/<本轮>/price-map.json > output/<本轮>/research-checks.md
-python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v6
+python3 scripts/research_consistency.py check --report <本轮报告.md> --price-map <本轮价格.json> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v7
 ```
 
 把生成内容完整放入报告§5或§7，保留唯一的可见核算表与可展开JSON审计块。经营假设的数字表以此为准，正文解释依据，不另写一套未经桥接的收入/利润表。九节、原始证据、现金桥、Terminal、敏感性和监控仍按原契约完成。
@@ -17,9 +17,9 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 
 ## 审计输入
 
-顶层字段为 `schema_version, identity, valuation, baseline, discounts, risks, constraints, release_all_of, p1_basis`；audit-v4/v5/v6另必填`valuation_review`，旧版本不追补。
+顶层字段为 `schema_version, identity, valuation, baseline, discounts, risks, constraints, release_all_of, p1_basis`；audit-v4/v5/v6/v7另必填`valuation_review`，旧版本不追补。
 
-- `schema_version`：新合同为 `stock-research-audit/v6`；冻结v8用audit-v5、v7用audit-v4、v6用audit-v3、v1–v5用audit-v2，字段/公式/可见表保留原样。旧价格v3仍配audit-v1。
+- `schema_version`：新合同为 `stock-research-audit/v7`；冻结v9用audit-v6、v8用audit-v5、v7用audit-v4、v6用audit-v3、v1–v5用audit-v2，字段/公式/可见表保留原样。旧价格v3仍配audit-v1。
 - `identity`：`code, generator, valuation_date, currency`，与本轮价格JSON一致。
 - PE模型 `valuation`：`kind="profit_pe", currency, amount_unit="100_million", shares, fx_to_quote, horizon, profit_basis, scenarios`。shares为实际股数；同币种fx=1，跨币种方向与依据留正文。
 - `scenarios`必须有low/base/high，每项为`revenue, net_margin, adjustments, profit, pe, equity_adjustments, equity_value`。利润率用小数，例如11%写0.11。每项强制核验`收入×利润率＋调整=经常归母利润`、`利润×PE＋Σequity_adjustments=股权价值`（旧audit-v2仍核利润×PE），再核股本/币种换算后的V50。
@@ -30,7 +30,21 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 
 折扣 `discounts`固定五项 `d_base/r_chip/r_v5/r_gov/r_terminal`，每项包含：
 
-### audit-v6 可用性复核（仅新 controls-v9）
+### audit-v7 已给价中性校准（仅新 controls-v10）
+
+接续audit-v6全部字段与留空复核，`valuation_review`增加`neutral_review`。任何V50非null都必填（即使P1=null）；V50=null可填null，继续原可用性复核。检查失败应补论证/纠错，不通过删除报价、回退schema或填不适用绕过；有界但不精确仍允许观察估值，不新增公司否决。
+
+对象精确五键：
+
+- `assumptions`：五行，topic恰为`investment/cash_recovery/terminal/capital_cost/capital_scope`；每行精确含`topic,adopted,support,counterevidence,alternative,decision,evidence`。六个文字字段（含topic）非空；evidence非空列表，每项`source,as_of`，日期不晚于估值日且遵守更早实际证据截止。说明原文位置、事实/假设、反证、可支持替代与取舍，不以另端价格定参数。
+- `capital_bridge`：精确`status,scope,explanation,rows,terminal_reconciliation`。status为`reconciled/approximate/unavailable/not_applicable`，其余文字非空，说明单位/币种、集团或归母、现金购建与生产性资产增加差异。reconciled/approximate须有逐年rows，每行精确`scope,period,opening,capex,da,other,closing,other_reason`，period用YYYY、YYYYQ1–Q4、YYYY-MM-DD，或与主模型时点一一对应的tN（正整数期次）；同scope不混用日历与期次、按时间严格递增、期初接前期末，数值满足opening+capex-da+other=closing；other须明确可追溯原因，不倒挤。接期末NWC/其他生产性资本/范围差异与终值IC。代理说明范围；不能可靠对账可unavailable并说明影响与条件估值，金融/非适用方法可not_applicable，后两者rows=[]，不会自动取消V50。不能借not_applicable隐藏投入密集DCF。
+- `risk_pricing`：每个audit.risks中owner非eligibility的风险恰一行，精确`risk_id,cashflow,capital_bridge,capital_cost,p1,residual_reason`；各位置非空文字，无影响明确写无。比较已吸收与额外补偿，不能仅因ID不同判独立，也不把预期现金损失和系统性风险溢价自动等同。无价格风险可[]。
+- `joint_case`：精确`support,countercase,decision`三非空文字，解释多项假设联动、支持/反证及替代组合，不编联合概率；同样审查乐观叠加。复评解释单项顺序及交互。
+- `sensitivities`：非空列表，每行精确`topic,change,base_v50,alternative_v50,delta,calculation,limitation`。topic为上述五项或`joint_case`；文字非空。报价币种/股，base_v50与最终V50.base一致，delta=alternative_v50-base_v50；采用实际复算，不只改一个文本数字。不能量化时alternative_v50和delta均null，calculation/limitation说明路径、无法量化原因及影响方向。这里的替代结果是诊断，不冒充正式低高情景；优先覆盖主要分歧，无固定敏感性幅度或提价目标。
+
+展示由renderer从同一对象生成，原文证据、资本范围、联合合理性仍须人工复核；验证只证声明覆盖与算术。正式报告同时保留必要原始来源和敏感性计算，不只引用临时路径。
+
+### audit-v6 可用性复核（controls-v9及后续接续）
 
 沿用下节audit-v5五类输入和计算语义；`valuation_review`另必填`availability_review`。正式V50及P1均非null时该项可为null，无须额外拒绝论证。任一留空须填对象，精确四键：
 
@@ -48,7 +62,7 @@ python3 scripts/research_consistency.py check --report <本轮报告.md> --price
 `valuation_review`另必填`input_basis`，精确五键`profit,investment,tax,capital,residual_discount`。各值精确含`status,affects,evidence,explanation,gaps`：
 
 - status为resolved/bounded/unresolved/not_applicable；resolved与bounded须非空evidence，bounded与unresolved须非空gaps，其余gaps=[]。bounded解释有依据区间及其条件，不是事实确认。evidence每项`{source,as_of}`，source定位原文/底稿，as_of为实际披露日期且≤估值日；研究假设的来源与推断分开，不借补证日回填未来事实。
-- affects为v50/p1/none。不适用必须none；重要未决不能none。未决影响v50则正式price_map.v50=null、valuation.kind=unavailable；影响p1则P1=null；所有未决均无新P1。诊断模型/敏感性不能挂在明确报价字段；新audit-v6须在报告展示可用条件结果与限制。
+- affects为v50/p1/none。不适用必须none；重要未决不能none。未决影响v50则正式price_map.v50=null、valuation.kind=unavailable；影响p1则P1=null；所有未决均无新P1。诊断模型/敏感性不能挂在明确报价字段；audit-v6及后续须在报告展示可用条件结果与限制。
 - `risks`每项另必填`economic_key`，同一事实/期间/范围/损失机制共享键；重复键拒绝，独立残余须解释区别。键是经济裁决后的标识，任意换键不证明去重，人工继续核原文。
 - 未知折扣允许value=null且range=null，须residual_discount.status=unresolved、P1=null，保留reason、risk_ids及change。总乘数=null，不按0收费或取消风险；相对已知旧值变为未知同样需要变化分类/证据。缺口消失后重新论证，不自动沿用0。已知0仍按旧空risk_ids语义。
 

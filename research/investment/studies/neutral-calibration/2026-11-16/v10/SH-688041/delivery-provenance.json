@@ -1,0 +1,117 @@
+{
+  "task": "SH-688041",
+  "arm": "v10",
+  "report_path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SH-688041/investment-688041-2026-11-16-research-codex.md",
+  "price_map_path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SH-688041/investment-688041-2026-11-16-price-map-codex.json",
+  "report_sha256": "5390734d4ac706776e2755a3d7da4bf5a7807aa4194e50e10cc00b980ef7f71f",
+  "price_map_sha256": "dac4102c4fb96d1090b22a163a0f8ca795546b9d7852235bb397dda7ddb976f8",
+  "runtime_report_sha256": "60d8fed188ad11ccc5bae145b2c21f7035de799a2a0b42cd31ed0f67223c6585",
+  "runtime_json_sha256": "dac4102c4fb96d1090b22a163a0f8ca795546b9d7852235bb397dda7ddb976f8",
+  "runtime_receipt": {
+    "task": "SH-688041",
+    "arm": "v10",
+    "command": [
+      "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--approve-for-me",
+      "-C",
+      "/Users/xinquanzhou/Workspace/investment_research_methods/output/audits/investment/2026-11-17/neutral-calibration/runs/v10/SH-688041",
+      "-m",
+      "gpt-6-astra",
+      "-c",
+      "model_reasoning_effort=\"xhigh\"",
+      "--json",
+      "-o",
+      "/Users/xinquanzhou/Workspace/investment_research_methods/output/audits/investment/2026-11-17/neutral-calibration/runs/v10/SH-688041/last-message.txt",
+      "-"
+    ],
+    "prompt_sha256": "3c6eca1ec36137950b0e75a85edf4a172b0b9dadd8579201e89a31c0850a0053",
+    "started_at": "2026-11-17T01:20:22.677695+00:00",
+    "exit_code": 0,
+    "completed_at": "2026-11-17T01:49:30.216875+00:00",
+    "runtime_sha256": "9017d7d0f26a69000f0198e1dc1957f3820499439128f6b45c3230a20370df70"
+  },
+  "input_pack_sha256": "568159b983f9e55ff0eb3fbd9eceba5db84d30ee9c4eca3d5384ec20e6233c3f",
+  "evidence_cutoff": "2026-11-16T05:38:12.789327+08:00",
+  "framework_sha256": {
+    "investment_framework.md": "288c122feebe8fc1fc0ac7016c30ddf6e8b889e410b33f5411d2ac878ef0bb98",
+    "investment_framework_compact.md": "7c1d26fea0862c49852f4471eb58ebb9ce36803959537e13135f49e57ebe4d6a"
+  },
+  "v50": {
+    "low": 14.51,
+    "base": 45.11,
+    "high": 102.45
+  },
+  "p1": {
+    "base": 38.83
+  },
+  "controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "R8_AI_2027",
+        "R3_TIGHT_202611",
+        "R4_STANDALONE_202611",
+        "R5_DUAL_202611",
+        "R20_DOMESTIC_202611",
+        "R6_NBS_20261116",
+        "R6_NVDA_FY27Q3",
+        "R6_FOMC_20261029",
+        "R6_CNPRICE_20261109",
+        "R6_USCPI_20261110",
+        "R6_NVDA_GOV_20261111"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "R8_AI_2027",
+        "R3_TIGHT_202611",
+        "R4_STANDALONE_202611",
+        "R5_DUAL_202611",
+        "R20_DOMESTIC_202611",
+        "R6_NBS_20261116",
+        "R6_NVDA_FY27Q3",
+        "R13_LEFT_ADD_202611",
+        "R14_COST",
+        "R6_FOMC_20261029",
+        "R6_CNPRICE_20261109",
+        "R6_USCPI_20261110",
+        "R6_NVDA_GOV_20261111"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD_CASH_Q3",
+        "HOLD_UST10Y_20261009"
+      ]
+    }
+  },
+  "independent_unrounded_v50": {
+    "low": 14.509947190710967,
+    "base": 45.10810782722498,
+    "high": 102.4541755575752
+  },
+  "validation": "passed",
+  "runtime_event_types": {
+    "agent_message": 8,
+    "command_execution": 58,
+    "file_change": 6
+  },
+  "usage": [
+    {
+      "input_tokens": 6219318,
+      "cached_input_tokens": 5948800,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 47487,
+      "reasoning_output_tokens": 10020
+    }
+  ],
+  "runtime_errors": [],
+  "portability_change": "source paths only; all valuation and control fields preserved",
+  "limitations": "Requested model/effort are explicit CLI arguments; runtime JSON does not separately identify provider deployment. Single paired run per company does not estimate stochastic variability or prove causal method effects."
+}

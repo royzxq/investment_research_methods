@@ -24,4 +24,4 @@
 
 港股输出显式缺口，不调用A股接口替代；需港币匹配利率/税/汇率。指数官方股息率与5/10年历史分位本工具不获取/计算，数据不足保持null，不用样本平均或今日成分重建“历史官方值”。
 
-供runner使用时，在发布request前把补充包的截止内事实、来源/哈希和缺口附到原data pack；已冻结request/input不修改。手工研究记录补充文件路径/hash。外部ai_investment调度与默认build_pack未改，不能声称补充脚本已自动接入生产。JSON仍v4/audit-v6，不添加股息字段；报告使用framework/dividend_report_template.md，完整持有期监控/控制由研究者完成。
+供runner使用时，在发布request前把补充包的截止内事实、来源/哈希和缺口附到原data pack；已冻结request/input不修改。手工研究记录补充文件路径/hash。外部ai_investment调度与默认build_pack未改，不能声称补充脚本已自动接入生产。轻量JSON仍v4，不添加股息字段，审计按冻结合同；报告使用framework/dividend_report_template.md，完整持有期监控/控制由研究者完成。

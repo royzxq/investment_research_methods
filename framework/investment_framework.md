@@ -1,5 +1,5 @@
-<!-- stock-framework-dependencies: {"dividend_framework.md": "a9c886232b38df58bd4151b39c5221d18be772fb7bd0485beb08994da5f955c0", "dividend_framework_compact.md": "4db35e2b94f6aa097e61bfa85257713689249b1b38dffe2d575ac86f48a45539", "dividend_report_template.md": "a3c209dcff23809ee7f0c9342c9b417d00c03c32f9d9b97c7aa3d0baf9cfb3de", "stock_research_common.md": "75c024a6639d9f6870b02213147e7aedc37fd28dcc64e0afac4e42ec6a93ffac"} -->
-<!-- investment-method-version: stock-strategy-split-v2-common-v2-dcf-v3 -->
+<!-- stock-framework-dependencies: {"dividend_framework.md": "58db66ea3047027cb0414b1f55edef5031be3938c40fc1b0506b7a9371e2566c", "dividend_framework_compact.md": "424d93e499068a7307a5c6e47b031e3d5c26701fc1a6fb582e6d89629238a9ab", "dividend_report_template.md": "0079ce0205d456ccb580292558860fcbcac991b5fb54ddead19aaff0a84c72db", "stock_research_common.md": "1ab5f461cc4227c81673bd9ef842d4df59283ddc921c81d80fb8a0102dcd3269"} -->
+<!-- investment-method-version: stock-strategy-split-v2-common-v3-dcf-v4 -->
 <!-- stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6 -->
 
 > 策略拆分（2026-11-17，本地复审）：本框架主要负责非红利策略。长期可持续现金分配为主的研究转 [红利 canonical](dividend_framework.md)；仅有分红的成长/修复公司仍留本轨。共享 [基础规则](stock_research_common.md)，含 §4.1A–D、§5.2A、§6.1–2、§6.6。先按共享 C0 明确主策略；旧批次继续冻结版本，切换不能解除原控制。原市场状态未刷新；本次无生产发布。
@@ -16,7 +16,7 @@
 
 > 2026-11-14 经用户授权修订经济损失去重、三值条件、资本桥及估值/市场预期校验（§4.1B–D/§5.2A），并授权评审修复后合并本地 dev。实际方法采纳以匹配本地正文指纹的 adopted handoff 为准；不刷新历史市场状态，不把隔离估值提升为正式报价。
 
-> 2026-11-16 经用户授权增补 §4.1D 有依据假设、留空前可用性复核与观察用途分判；接续现金税/生产性资本口径，新冻结 controls-v9 / audit-v6，旧合同不改。当前观测与逐股待复评原样接续，本次未生成正式报价。实际本地采纳以匹配正文指纹的 adopted handoff 为准。
+> 2026-11-17 经用户授权增补 §4.1D 已给价报告的中性校准，接续有依据假设、留空前复核、观察用途及现金税/生产性资本口径；新冻结 controls-v10 / audit-v7，旧合同不改。当前观测与逐股待复评原样接续，隔离复评不提升正式报价。实际本地采纳以匹配正文指纹的 adopted handoff 为准。
 
 ### 状态观测与接续
 

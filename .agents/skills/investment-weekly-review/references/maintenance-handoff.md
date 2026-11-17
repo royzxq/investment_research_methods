@@ -47,3 +47,5 @@ python3 scripts/investment_maintenance.py validate research/investment/weekly/20
 输入桥方法（canonical §4.1D / controls-v8 / audit-v5）采纳后，按新正文哈希建立新handoff；继续带回原pending、撤回证据及原触发/截止，不重写历史或冒称旧估值等价。五类输入补证及未决范围从元研究经变化检测接框架适配；隔离诊断/条件区间不是公司completed凭证。新audit-v5完成报告同v3/v4强制lifecycle和acceptance；旧合同仍按自身版本检查，不因新入口补字段。
 
 2026-11-16可用性复核（canonical §4.1D / controls-v9 / audit-v6）仅用于新冻结。沿用五类输入及lifecycle/acceptance，任一正式V50/P1留空须有报告可见availability_review；有依据bounded可用，核心unresolved仍限制对应价格。新方法明确采纳后建立匹配正文的新handoff，旧pending/触发日期/撤回证据原样接续；方法修改不自动完成或取消个股复评，旧完成凭证按原审计核验。
+
+2026-11-17中性校准接续：新controls-v10/audit-v7保留v6可用性复核，所有已采纳V50须完成neutral_review；完成凭证仍核lifecycle/acceptance，旧冻结v1–v9不追补，隔离对照不清除pending。新方法以明确采纳和正文指纹接续，不更新历史市场证据。

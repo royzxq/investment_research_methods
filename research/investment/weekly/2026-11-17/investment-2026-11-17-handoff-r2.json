@@ -4,21 +4,21 @@
   "as_of": "2026-11-17",
   "revision": 2,
   "status": "adopted",
-  "adoption_basis": "用户已认可独立红利/非红利/共享规则方案，本轮明确要求review并将原股票框架的红利部分实际拆出。按此授权在独立worktree本地采纳R9及分红模型迁移、skill和模板同步；无提交、推送、合并或生产发布授权。",
+  "adoption_basis": "用户明确认可独立红利/非红利/共享规则方案并授权同步skill、模板、兼容检查，随后要求单独worktree实现。本记录只在codex/dividend-research-framework-20261117本地采纳；未合并、提交或生产发布，不覆盖并行原工作区。",
   "supersedes": [
-    "investment-2026-11-17-handoff"
+    "investment-2026-11-16-handoff"
   ],
   "method_status": "adopted",
   "methods": {
     "canonical": {
       "path": "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-r2-methods/investment_framework.md",
-      "sha256": "3df284881be5a6585f1b4e8ec6903d251155098b35b0752e88aabbbcf75eedda",
-      "method_sha256": "4290c9883f7dcdaeb422f567d85a62fd5ad3dba76699d3b422e77c26823e937a"
+      "sha256": "affccca432c3dda6218ed785517708b7a69effbca585c762d534d1ce9a29f7c5",
+      "method_sha256": "abda2f87612433cbb648692c78958cd2ec0c618dcf8d91248c9239992fbaadb3"
     },
     "compact": {
       "path": "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-r2-methods/investment_framework_compact.md",
-      "sha256": "581287776eb0cb93e243624d7e603c3491439c2ea2174f76ac8839513a1255b7",
-      "method_sha256": "bd2a6f21fc76172f75ec552e59e87738b97374704695f838e90be31fe91dbb88"
+      "sha256": "8e5c2abf2d09a96ba157921d584a331382ae74971a954c67280e838a0d83da6a",
+      "method_sha256": "f2e70172b8b2e70e72fae23bb80866f0e5244af55036109a57e9f7d14377b501"
     }
   },
   "reports": {
@@ -29,12 +29,12 @@
     },
     "change_decision": {
       "path": "research/investment/weekly/2026-11-17/investment-2026-11-17-change-decision-r2.md",
-      "sha256": "71bff8ba8b7a509153c80e631ffbfc3bbe589588c643c2175dd6bed982f466a2",
+      "sha256": "59712d0acea43af01bd4db6d73759d76f77665cd3dc84fb4ec8dfa92fbd08c10",
       "as_of": "2026-11-17"
     },
     "adaption_report": {
       "path": "research/investment/weekly/2026-11-17/investment-2026-11-17-adaption-report-r2.md",
-      "sha256": "10ef96dc276ca6d1d073d3ff40c04384577e1ccbe8ef74c9b2fb73c81942439c",
+      "sha256": "670d150b92f24ecf3f4800076926ba2f132efca48a321767bf6be819c00b3ccc",
       "as_of": "2026-11-17"
     }
   },
@@ -238,21 +238,6 @@
       "path": "research/investment/weekly/2026-11-17/evidence/dividend-source-workspace-drift.json",
       "sha256": "fcefa7a217c71bb3252c0c14fb852c9bf5666df4095a99d5cdd5e8ccae87ee7c",
       "as_of": "2026-11-17"
-    },
-    {
-      "path": "research/investment/weekly/2026-11-17/evidence/dividend-scope-review-fidelity.json",
-      "sha256": "f6769eec4c35ecec118544ba83e6b452a98b5df7dba2bb50cb76497784f5cdd4",
-      "as_of": "2026-11-17"
-    },
-    {
-      "path": "research/investment/weekly/2026-11-17/evidence/dividend-scope-review-validation.json",
-      "sha256": "1ae6475085a6a4f687e5c4341d3d2801e4081b052c650c79e9b14a45105a23db",
-      "as_of": "2026-11-17"
-    },
-    {
-      "path": "research/investment/weekly/2026-11-17/evidence/dividend-scope-legacy-prepare-check.json",
-      "sha256": "fb16d84103cb322a14115fc00d9600f108a0be307f1f5f5d30a7ea71780291dd",
-      "as_of": "2026-11-17"
     }
   ],
   "withdrawn_sources": [
@@ -277,14 +262,14 @@
     {
       "kind": "method_change",
       "status": "adopted",
-      "summary": "完成原股票红利专用规则与DDM的实际迁出，新增冻结scope兼容检查",
-      "definition": "原R9仅保留历史索引；专用利差拥挤归红利HD6，分红预测和完整模型归HD4A；共享§4.1A只保留实际模型依赖的分配一致性。非红利稳态现金流不再强制红利专题。",
-      "economic_reason": "长期现金分配与成长/修复等策略的证据需求不同，避免红利读数缺口误阻断非红利估值；实际分配与资本桥仍核证，避免价值遗漏。",
-      "scope": "仅本worktree新方法及skills/templates/治理；本轮无公司控制解除、行情刷新、JSON/审计升级或生产发布。",
-      "positive_case": "有分红的成长公司留非红利，按经营模型研究；现金分配主策略完整执行红利HD3/HD4A，缺辅助利差保留缺口。",
-      "negative_case": "借债派息、周期峰值、金融资本不足和治理偿付失败不能因红利标签或高息放行。",
-      "boundary_case": "同公司一套主基准；零与未知不同，金融/有限期模型按适用域，旧缺值限制也须按原scope逐项审议，不自动清零。",
-      "compatibility_impact": "新scope来自冻结正文，不依snapshot/v2推定；旧两文件与早期六文件原合同/正文/提示保留，跨方法可恢复不等于结论等价；原5项pending、4项withdrawn和25项评估原样接续。"
+      "summary": "按主持有目的拆分红利与非红利，抽共享规则，六文件冻结与数据补充",
+      "definition": "红利HD1–HD8、共享C0/C1及迁移节号；R9长期红利三项缺值不再机械阻断，真实风险与旧控制仍逐项复核",
+      "economic_reason": "现金分配质量和长期持有的证据结构不同于成长/轮动，分离主线且保留共同估值风险纪律",
+      "scope": "本地新研究/技能/输出/维护/冻结；不重写旧报告，不改变生产调度、JSON结构或账户执行",
+      "positive_case": "稳定现金公司以正常化普通分红和资本缓冲估值，缺非核心风格读数可保留可估性",
+      "negative_case": "借债派息、周期顶点、金融资本不足或治理失败不能因高息放行",
+      "boundary_case": "跨币种利差不算、旧除息权益剔除、未知税负/可持续收入null；已冻结旧限制不因切策略解除",
+      "compatibility_impact": "旧v1快照和十种历史提示不改字节，新v2绑定六份方法；方法变化需审议，原工作区并行v10未合入"
     }
   ],
   "classification": {
@@ -1028,5 +1013,5 @@
   "account_execution": "none",
   "compatibility": [],
   "deployment_pending": true,
-  "method_identity": "stock-strategy-split-v2-common-v2-dcf-v3"
+  "method_identity": "stock-strategy-split-v1-common-v1-dcf-v3"
 }

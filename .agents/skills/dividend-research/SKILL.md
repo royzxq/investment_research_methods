@@ -14,7 +14,7 @@ description: 按本仓独立红利框架研究或复评 A 股、港股的长期�
 早期六文件v2与新版都可能存在；R9迁出以冻结正文范围标记为准，未带标记仍按其旧规则，不套当前技能默认方法。
 3. 复用 [stock-research](../stock-research/SKILL.md) 的历史发现、数据校验、deep-research-auto取证、价格审计与落盘步骤；只执行一次共同流程，不递归再路由。把主策略、子类型和HD1–HD8缺口传给后端，基础规则与治理/偿付/事件风险不豁免。
 4. 按 [红利数据补充](references/data-and-output.md) 复用原数据包，必要时取专项补充；不是每次全量取数。公告原文核普通/特别、资本缓冲、分配权利和税；不把API现金分红自动当可持续净收入。
-5. 用独立九节模板交付，执行[红利估值与交付](references/valuation-and-output.md)，HD1–HD8（含HD4A）与共享规则完整执行；当前mode与entry/add/holding分判，历史控制逐条接续。DDM等专项计算可用other但必须保留真实计算证据，自动审计不能证明模型经济有效。
+5. 用独立九节模板交付，执行[红利估值与交付](references/valuation-and-output.md)，HD1–HD8（含HD4A）与共享规则完整执行，新controls-v10/audit-v7的已给V50按共享§4.1D完成中性校准；当前mode与entry/add/holding分判，历史控制逐条接续。DDM等专项计算可用other但必须保留真实计算证据，自动审计不能证明模型经济有效。
 6. 继续原报告路径、investment-前缀、generator隔离、v4价格JSON与适用audit。股息台账/利差/情景放正文和证据，不给最终轻量JSON加字段。监控≤7但完整条件表保留全部。校验命令复用stock-research，不覆盖同日已有结果，不自动提升隔离结果。
 
 ## 研究重点
