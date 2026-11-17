@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "checks": {
+    "shared_4.1B_byte_equal": true,
+    "shared_4.1C_byte_equal": true,
+    "shared_4.1D_byte_equal": true,
+    "shared_5.2A_byte_equal": true,
+    "shared_6.2_byte_equal": true,
+    "shared_6.6_byte_equal": true,
+    "canonical_dividend_detail_preserved": true,
+    "compact_dividend_detail_preserved": true,
+    "investment_framework.md_observations_byte_equal": true,
+    "investment_framework_compact.md_observations_byte_equal": true,
+    "runner_byte_equal": true,
+    "only_reviewed_definition_lines_changed": true,
+    "nondiv_has_no_active_r9_reference": true,
+    "nondiv_has_no_ddm_formula": true
+  },
+  "definition_lines_changed": [
+    "D8",
+    "R9"
+  ],
+  "files": [
+    {
+      "path": "framework/investment_framework.md",
+      "old_sha256": "affccca432c3dda6218ed785517708b7a69effbca585c762d534d1ce9a29f7c5",
+      "new_sha256": "3df284881be5a6585f1b4e8ec6903d251155098b35b0752e88aabbbcf75eedda",
+      "old_method_sha256": "abda2f87612433cbb648692c78958cd2ec0c618dcf8d91248c9239992fbaadb3",
+      "new_method_sha256": "4290c9883f7dcdaeb422f567d85a62fd5ad3dba76699d3b422e77c26823e937a"
+    },
+    {
+      "path": "framework/investment_framework_compact.md",
+      "old_sha256": "8e5c2abf2d09a96ba157921d584a331382ae74971a954c67280e838a0d83da6a",
+      "new_sha256": "581287776eb0cb93e243624d7e603c3491439c2ea2174f76ac8839513a1255b7",
+      "old_method_sha256": "f2e70172b8b2e70e72fae23bb80866f0e5244af55036109a57e9f7d14377b501",
+      "new_method_sha256": "bd2a6f21fc76172f75ec552e59e87738b97374704695f838e90be31fe91dbb88"
+    },
+    {
+      "path": "framework/stock_research_common.md",
+      "old_sha256": "a8b7756e3164de53ef788d56f774435f20361f5ba9ff44e28b1c8ebdb6608d94",
+      "new_sha256": "75c024a6639d9f6870b02213147e7aedc37fd28dcc64e0afac4e42ec6a93ffac",
+      "old_method_sha256": "a8b7756e3164de53ef788d56f774435f20361f5ba9ff44e28b1c8ebdb6608d94",
+      "new_method_sha256": "75c024a6639d9f6870b02213147e7aedc37fd28dcc64e0afac4e42ec6a93ffac"
+    },
+    {
+      "path": "framework/dividend_framework.md",
+      "old_sha256": "d451bbfe0088e0a1b08a502593edda20ad7452078ddbea9cd2acb3d586dc40d4",
+      "new_sha256": "a9c886232b38df58bd4151b39c5221d18be772fb7bd0485beb08994da5f955c0",
+      "old_method_sha256": "d451bbfe0088e0a1b08a502593edda20ad7452078ddbea9cd2acb3d586dc40d4",
+      "new_method_sha256": "a9c886232b38df58bd4151b39c5221d18be772fb7bd0485beb08994da5f955c0"
+    },
+    {
+      "path": "framework/dividend_framework_compact.md",
+      "old_sha256": "f19cc0e0ddb6a31c24ec3d39442b17e6cade143f8600976c0aac98babd30437b",
+      "new_sha256": "4db35e2b94f6aa097e61bfa85257713689249b1b38dffe2d575ac86f48a45539",
+      "old_method_sha256": "f19cc0e0ddb6a31c24ec3d39442b17e6cade143f8600976c0aac98babd30437b",
+      "new_method_sha256": "4db35e2b94f6aa097e61bfa85257713689249b1b38dffe2d575ac86f48a45539"
+    },
+    {
+      "path": "framework/dividend_report_template.md",
+      "old_sha256": "d15bd1ea5137f83bece8d314c88e6cee6e8b3a46cc5bd76d8d8192e97201e36e",
+      "new_sha256": "a3c209dcff23809ee7f0c9342c9b417d00c03c32f9d9b97c7aa3d0baf9cfb3de",
+      "old_method_sha256": "d15bd1ea5137f83bece8d314c88e6cee6e8b3a46cc5bd76d8d8192e97201e36e",
+      "new_method_sha256": "a3c209dcff23809ee7f0c9342c9b417d00c03c32f9d9b97c7aa3d0baf9cfb3de"
+    }
+  ],
+  "limits": "Exact retained-section checks plus manual scope review; not complete semantic equivalence or investment performance validation."
+}

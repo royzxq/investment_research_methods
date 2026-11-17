@@ -1,5 +1,8 @@
 # 项目状态与迁移边界
 
+2026-11-17 红利拆分在独立worktree的codex/dividend-research-framework-20261117本地实现并采纳；同日复审r2进一步将原股票R9专用规则、强制分红预测/DDM及红利底仓映射迁至红利HD4A/HD6，原框架聚焦非红利。共享stock_research_common只保留通用分配一致性及原共同纪律。记录见[r2适配报告](../../research/investment/weekly/2026-11-17/investment-2026-11-17-adaption-report-r2.md)与[r2 handoff](../../research/investment/weekly/2026-11-17/investment-2026-11-17-handoff-r2.json)；首版及旧冻结文件不重写。六文件快照schema仍v2，以冻结正文scope标记区分早期版本；沿迁入controls-v9/audit-v6基线，原工作区并行v10未合入。本分支未发布生产，原5项pending、4项withdrawn及25项历史评估原样接续，无新个股复评/账户执行。此前专项Tushare股息/派息可用、yc_cb无权限、利差null的记录仍为当时结果，本轮未重取API；外部数据调度未改。
+
+
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。
 
 ## 估值审计与本地dev接续（2026-11-14）

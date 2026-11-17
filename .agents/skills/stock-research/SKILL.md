@@ -7,19 +7,27 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 **两价已本地采纳（2026-10-18）**：保留原本地正式流程及 latest 规则；隔离复评不提升正式结果。旧冻结批次按下文版本路由恢复，不重写历史、不补造旧控制，未经授权不推送或外发。
 
-新准备批次使用 `two-price-controls/v8`（价格v4 / audit-v5），增加V50中性基准、分部DCF复算及同模型反向估值；继续保留v6经济损失去重、三值条件与资本桥、真实PE及权益调整，及 v5 财务定义/监控质量、v4 公开监控、v3 证据验收与 v2 控制语义。具体见[估值与轻量输出契约](references/valuation-and-output.md)、[研究一致性](references/research-consistency.md)和[共享证据与恢复验收](references/acceptance-gates.md)。已冻结 v1–v6 按原 prompt/input/hash 和各自门禁恢复，不追补新字段、不据版本升级解除旧限制。2026-11-14用户授权评审修复后合并本地dev；实际方法采纳以匹配正文指纹的adopted handoff为准，隔离估值不提升正式报价。
+新准备批次使用 `two-price-controls/v9`（价格v4 / audit-v6），增加有依据假设、留空前可用性复核与报告可见条件结果；继续保留v8输入依据/现金税/生产性资本、v7中性基准/DCF/反向估值、v6经济损失去重/三值条件/资本桥，及 v5 财务定义/监控质量、v4 公开监控、v3 证据验收与 v2 控制语义。具体见[估值与轻量输出契约](references/valuation-and-output.md)、[研究一致性](references/research-consistency.md)和[共享证据与恢复验收](references/acceptance-gates.md)。已冻结 v1–v8 按原 prompt/input/hash 和各自门禁恢复，不追补新字段、不据版本升级解除旧限制。2026-11-16用户授权本次方法修改；实际本地采纳以匹配正文指纹的adopted handoff为准，隔离估值不提升正式报价。
 
 输出目录、通用技能映射与发现命令统一见仓库 `research/README.md`；正式产物不写 `research/` 根目录。
+
+## 策略与冻结版本
+
+先判主持有逻辑，不能按是否分红或股息率自动分类。以长期可持续现金分配为主时，读取并执行同仓 [dividend-research](../dividend-research/SKILL.md) 的红利方法和模板；本技能仍提供共同取证、历史接续、审计及输出流程，不来回递归调用。非红利继续本框架，报告 §0 写主策略与理由。策略切换逐条核旧控制，不自动解除冻结。
+
+新方法使用 `stock_research_common.md` + 适用策略 canonical/compact；读取文件前先定位快照。runner 的 `stock-framework-snapshot/v2` 冻结六份文件（共享、原股票两份、红利两份、红利模板）；以全部冻结正文及哈希为准。旧 v1 快照仍仅原两份，不能套本次红利例外或现场补新依赖。依赖更改先审查并运行 `python3 scripts/stock_framework_bundle.py --sync`，再治理检查；研究运行器不会自动重签哈希。轻量 JSON v4、audit-v6、controls-v9不变，旧合同各按原版本。
+
+R9迁出和红利专题分流以冻结正文的 `stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6` 标记为准。未含标记的旧批次（包括早期六文件snapshot/v2）仍执行其原R9、分红条款及原合同；不能只凭snapshot/v2或今天的技能文本推定适用新版。
 
 ## 入口与边界
 
 - 自然语言“使用进行股票投研：<股票信息>”“使用 stock-research 进行股票投研：<股票信息>”或显式 `$stock-research` 都进入本流程；解析股票信息后直接执行研究并本地保存，不只给操作说明。
 - 生成端按实际宿主固定：Codex 使用 `generator=codex`，Claude Code 使用 `generator=claude`，DeepSeek Harness 使用 `generator=dsh`。它表示本次研究的生成端，不是行情来源或引用报告作者；不从旧文件或所读技能目录推断。新报告、JSON、scratch 和 latest 均按生成端隔离，具体命名见输出契约。
-- 从技能目录向上定位包含 `framework/`、`research/` 的仓库根，主代理先读根 `AGENTS.md`、`docs/context/project-state.md` 和完整 `framework/investment_framework_compact.md`；同一版本已读内容不重复整篇加载，子代理上下文按研究后端契约裁剪。方法和歧义以 `framework/investment_framework.md` 对应原文裁决。下列仓库路径相对根目录。
-- 按 compact §10 输出 0–8 九节报告；最终 JSON 仅含必要标识、P1/T1 价格地图、研究控制摘要和重点监控变量。完整证据、参数论证、Gate 判定及缺口留在 Markdown。
+- 从技能目录向上定位包含 `framework/`、`research/` 的仓库根，主代理先读根 `AGENTS.md`、`docs/context/project-state.md`，按上述策略与冻结版本读取完整适用 compact 和共享规则；同一版本已读内容不重复整篇加载，子代理上下文按研究后端契约裁剪。方法和歧义以 `framework/investment_framework.md` 对应原文裁决。下列仓库路径相对根目录。
+- 非红利按 compact §10、红利按冻结 dividend_report_template.md 输出 0–8 九节报告；最终 JSON 仅含必要标识、P1/T1 价格地图、研究控制摘要和重点监控变量。完整证据、参数论证、Gate 判定及缺口留在 Markdown。
 - 日期采用 `Asia/Shanghai`。估值日默认当天；历史研究按**公开披露日**限制证据，不只比较财报期末日。D1–D8 按已采纳方法结合截止日内最新兼容观测重新判断，旧段落中的“当前”只代表原观测日；按原规则刷新受影响状态不等于修改宏观方法、阈值或权重。缺证保持 unknown，未采纳方法不作生产有效规则；本工作区的已授权影子任务明确绑定候选版本，不冒充已采纳。
 - runner 提供 `framework-snapshot` 时，主、子研究统一使用其中冻结的 canonical/compact 及已采纳状态输入，禁止执行中改读工作区最新正文；批次指纹指向这些实际正文。手工复评用 `python3 scripts/investment_maintenance.py select --date <估值日>` 核对最新已采纳状态、方法兼容性、估值截止与证据来源，再冻结本轮输入；无兼容接续记录时沿用方法原文并补证受影响状态，不能拿未采纳提案或过期读数替代。状态触发只登记待复评，完成须有同一对象、证据截止及方法的实际报告；研究完成不等于账户执行。
-- **交付版本先判定**：普通新交付使用 v4 + audit-v5。已冻结v6仍用v4 + audit-v3，不追补valuation_review；已冻结 two-price v1 / controls v2–v5 仍使用 v4 + audit-v2，不追补 equity_adjustments；冻结合同优先于本默认。runner 已验证旧冻结批次要求 v3 时，按原审计要求（audit-v1 或原无强制审计）改用 [legacy-v3-output](references/legacy-v3-output.md) 和 [legacy-audit-v1](references/legacy-audit-v1.md)，并用原冻结框架；既有 prompt/input/hash 保持原字节，运行器附加的版本路由优先于本技能默认交付。无法恢复原合同则保留旧批次、新建任务，不混用新技能默认 writer。
+- **交付版本先判定**：普通新交付使用 v4 + audit-v6。已冻结v8仍audit-v5、v7仍audit-v4、v6仍audit-v3，按各自字段交付；已冻结 two-price v1 / controls v2–v5 仍使用 v4 + audit-v2，不追补 equity_adjustments；冻结合同优先于本默认。runner 已验证旧冻结批次要求 v3 时，按原审计要求（audit-v1 或原无强制审计）改用 [legacy-v3-output](references/legacy-v3-output.md) 和 [legacy-audit-v1](references/legacy-audit-v1.md)，并用原冻结框架；既有 prompt/input/hash 保持原字节，运行器附加的版本路由优先于本技能默认交付。无法恢复原合同则保留旧批次、新建任务，不混用新技能默认 writer。
 - 批量公告分流或年报候选章节定位按 [Jev 条件路由](references/jev-routing.md) 执行。runner 默认 `auto`，先提交公开候选 manifest，由程序判断阈值并记录调用/未调用原因；不能口头判断无需 Jev 后省略记录。排序不删除证据，原文和语义核验继续由当前宿主主模型完成。
 - 只做研究。不给下单金额、执行时间或账户分批计划；不交易，不自动 commit/push/开 PR。同日运行先检查旧文件，未获覆写授权则复用或隔离。
 
@@ -59,7 +67,7 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 1. 经营、客户、订单、交付、回款与盈利现金流；形成收入和利润率的区间依据。
 2. 产业竞争、供给/价格、政策第二环、TAM 与份额上限；明确分子分母和地域口径。
 3. 估值锚、可比口径、资本结构、股本、汇率及 V5；卖方预测只作外部参照，区分经常利润与一次性项目。
-4. 治理、筹码、拥挤度、国家队、分红与再融资；国家队动作仅按官方披露确认。
+4. 治理、筹码、实际拥挤/容量、国家队、资本配置与再融资；分配只补本模型实际依赖的输入，红利专项由对应入口组织。国家队动作仅按官方披露确认。
 5. 公司事件、D6 在册窗口及适用指数/温度读数；只为当前公司补输入，不改 D 层配置。
 
 后端可以提出估值假设与计算输入，不代主代理作买入裁决。正常包内字段不重复查；异常字段、关键事实交叉核验是明确例外。保留反向证据；打开媒体正文不等于打开其引用的公司公告。
@@ -74,18 +82,18 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 - **机制 §5**：六型、当期权重/状态/分支；正反馈与周期反转鉴别、R8/R15/R19 的适用性。研究覆盖权重不等于买入放宽。
 - **Gate §6**：逐分支记录；Non-Price Risk、联动约束与 R6 逐窗口暴露/预案齐备，无实质暴露可说明依据后不适用，过窗按实际影响及时复核。温度缺失不得默认冷档。价值可估性与买入资格分判：真实公司硬失败/治理红线或核心事实不足，按 canonical 停止新 P1；仅市场/相关事件临时冻结且事实可靠，继续完整 V50/V5、Terminal、折扣与观察 P1，保留 `frozen` 及解除条件，新建仓/追加均受阻，不能以 tracking 隐藏冻结。
 - **估值 §7**：执行canonical §4.1D中性基准、分部现金流及倍数交叉核验；多业务/投入期优先DCF，不适用说明替代与缺口。给收入/利润率/估值锚的低、中、高假设及V5，低高不冒充统计分位；市价在全部情景外须解释业务差异，不调整参数贴价。R3 的三项合取逐项判断，不把任一未知当命中或通过；盈利对冲按原文证据门槛判定。适用的 R14 油价压力情景、R20 内需情景不能因无法精确量化而默认为通过。
-- **可持续分红**：本轮实际方法含 canonical §4.1A 时（自动任务以冻结快照为准），按该节及 compact §7 执行基础估值，R22 未量化仍须完成适用的分红计入与去重。将分配能力、派息政策与权利时点、资本/再投资约束列入适用的 required_inputs，报告按[估值与轻量输出契约](references/valuation-and-output.md)留计算与裁决。旧快照按其原方法完成。
+- **资本配置与股东分配**：带新策略范围标记的非红利研究按共享§4.1A核主模型实际涉及的分配/留存/资本桥，不强制红利台账、逐年股息、减派压力或DDM。红利按独立入口及HD3/HD4A执行；旧冻结按其原canonical §4.1A完成，R22及唯一计价纪律均不变。
 - **Terminal §8**：固定K参数与四步仅作粗筛，不单独触发不可达冻结；按canonical §5.2A用同主模型反解单变量、给固定条件/区间/回代/业务约束与无解边界，再判断可达性和预期差。旧冻结按原方法。负 PE 的隐含倍数不用于正常盈利可达性判断。TAM、份额和稳态利润率先研究同口径区间，不因没有“官方稳态预测”就全部交回用户；公开事实不足以支持假设时明确保留缺口。
-- **Price Map §9**：逐项核对强制映射，包括 R1/R3/R5/R6/R9/R14/R17/R18/R19/R20/R21 和 D5 状态。R9 缺项或 D5 承接暂停等限制买入资格时，事实可靠者继续估值；D5 深化冻结仍用 frozen 输出观察价，非冻结的跟踪/观察限制用对应 mode。取消本轮追加/暂停追加/加仓从严分别列当前约束与解除依据；R21 退出仅回等待复核，不直接恢复买入或追加，原重建路径独立可用。
+- **Price Map §9**：逐项核对强制映射，新范围非红利包括R1/R3/R5/R6/R14/R17/R18/R19/R20/R21和D5；R9仅为迁出历史索引，不是新必查项。旧冻结的R9或本期D5承接暂停等实际适用限制存在时，事实可靠者继续估值；D5 深化冻结仍用 frozen 输出观察价，非冻结的跟踪/观察限制用对应 mode。取消本轮追加/暂停追加/加仓从严分别列当前约束与解除依据；R21 退出仅回等待复核，不直接恢复买入或追加，原重建路径独立可用。
 - **ETF、流动性与相对表现**：本轮实际方法含 R22 时（自动任务以冻结快照为准），执行 canonical §6.6 / compact §9，并按[研究一致性](references/research-consistency.md#r22-与既有审计的接入)接入审计；覆盖非成分股，缺口明确保留。旧快照不追补，不以身份或历史涨幅替代证据、自动加价或解除风险。
 
 ## 4. 估值参数与数值交付
 
-新冻结依 canonical §4.1D 与[研究一致性](references/research-consistency.md)核五类输入证据、现金税与必要资本；条件诊断和未决缺口不进入采纳报价。旧 controls-v7/audit-v4 及更早合同原样恢复，不追补字段。
+新冻结依 canonical §4.1D 与[研究一致性](references/research-consistency.md)核五类输入证据、现金税与必要资本。未来参数可用有依据假设，普通缺口先尝试边界/代理/替代模型，能支持中性区间则bounded并可估；任一V50/P1留空需availability_review，说明重要性、已试方法、条件结果及限制和下一证据。未触发现有硬否决优先观察，已触发freeze保留frozen用途。核心不可约束缺口仍留空，价格不解除资格限制；旧 controls-v8/audit-v5 及更早合同原样恢复。
 
 计算前必读 [估值与轻量输出契约](references/valuation-and-output.md)。关键约定：
 
-- 新自动交付及本次复评按 [研究一致性](references/research-consistency.md) 生成报告内唯一核算表与审计块，闭合收入→经常利润→股权价值→V50/P1链；独占风险归属、同端基线折扣变化和全部阻断的合取解除均在发布前校验。按 [共享证据与恢复验收](references/acceptance-gates.md) 另生成唯一验收块及可见表，不能仅自报 R14 passed，正文恢复逻辑须与各 scope 的全部有效约束一致。检查不替代原文/语义核验；新交付为 v4 + audit-v5，既有利润桥/风险归属/折扣检查保留，旧历史不追溯改写。
+- 新自动交付及本次复评按 [研究一致性](references/research-consistency.md) 生成报告内唯一核算表与审计块，闭合收入→经常利润→股权价值→V50/P1链；独占风险归属、同端基线折扣变化和全部阻断的合取解除均在发布前校验。按 [共享证据与恢复验收](references/acceptance-gates.md) 另生成唯一验收块及可见表，不能仅自报 R14 passed，正文恢复逻辑须与各 scope 的全部有效约束一致。检查不替代原文/语义核验；新交付为 v4 + audit-v6，既有利润桥/风险归属/折扣检查保留，旧历史不追溯改写。
 
 - 先按 canonical §1.3 三值判定与 §4.1B/§4.1C 完成经济损失去重和股本—资金—用途—收益桥。不同ID不证明损失独立，未知不算条件成立；规则命中次数不决定折扣。独立核验者复核已吸收/残余和现金桥，无可用独立能力时主代理反向核验并记录局限。确认重扣可correction，不需等待公司新闻；去重不解除资格/持仓限制。
 - canonical 已有数值必须沿用；未规定绝对档位的 `d_base/r_k` 是本次分析假设。研究者给证据、取值理由、区间/敏感性与风险去重说明，再选基准值。不得称其为框架默认值，也不创建通用折扣表替代 canonical。
@@ -106,7 +114,7 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 - 人工语义验收：关键证据冲突已裁决或明确影响；报告九节与 DCS 完整；币种/股本/现金桥/Terminal 算术正确；风险没有重复扣减；报告与 JSON 的 V50/P1/T1/研究控制/监控基线一致，P1 的每个已填值均能定位报告原句/表格、未填上下沿未被补造；非买入价位不含执行许可。
 - 数据验收：新披露查询的市场/主体/日期范围及分页缺口已交代；关键估值事实能定位原始文件、版本与页码/章节，抽取表格的单位、列头和附注已核对。取得公告目录、下载 PDF、文本提取和读原文核验是不同状态；未完成项写入报告对应缺口，完整取证仍留报告，最终 JSON 只在 monitoring 增加公开检索词 public_search，不复制完整证据。
 - 估值修订后，从最终 JSON 的 V50/P1/T1 回读核对引用和距现价百分比；build 不重写 T1 文本。控制另核报告/audit/摘要一致性，不能报价更新而沿用已经失效的旧 eligible。
-- 新交付运行 `python3 scripts/stock_price_map.py check <JSON> --require-monitoring-quality` 与 `python3 scripts/research_consistency.py check --report <报告> --price-map <JSON> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v5`；分别验证报价/精度/T1 引用/监控交付/控制结构、证据绑定与按 scope 的全部恢复条件。已验证的旧冻结合同不追加新参数，按其原验收分支运行。它们不证明原文提取语义、来源真实性、经济风险不重叠或估值合理性。
+- 新交付运行 `python3 scripts/stock_price_map.py check <JSON> --require-monitoring-quality` 与 `python3 scripts/research_consistency.py check --report <报告> --price-map <JSON> --require-lifecycle --require-acceptance --expected-schema stock-research-audit/v6`；分别验证报价/精度/T1 引用/监控交付/控制结构、证据绑定与按 scope 的全部恢复条件。已验证的旧冻结合同不追加新参数，按其原验收分支运行。它们不证明原文提取语义、来源真实性、经济风险不重叠或估值合理性。
 - 最终文件：`research/investment/companies/<日期>/<市场>-<代码>/investment-<代码>-<日期>-research-<生成端>.md`、`research/investment/companies/<日期>/<市场>-<代码>/investment-<代码>-<日期>-price-map-<生成端>.json`。生产正式流程验证完成后按输出契约选择同一生成端截止日内最近正式 v4/v3/v2，刷新 `output/indexes/investment/<市场>-<代码>/investment-<代码>-latest-<生成端>.json` 为所选日期 JSON 的完全相同副本；`meta.report_path` 始终指向对应报告，不因格式新旧越过较新估值日。新完成的正式研究按此规则刷新本端 latest；隔离复评仍不自动覆盖正式产物。
 - 同日同一生成端已有产物先核对报告 §0 的输入/框架指纹与证据截止。完全匹配且未要求复评可复用；其它情况自动选择未使用的 `-r2/-r3…` 同后缀报告和 JSON，隔离运行不刷新 latest。只有用户明确授权才覆写原文件或提升隔离版；不能因旧指纹缺失假定输入相同。
 - 报告 §0 记录生成端、运行模式、`research_mode` 及理由、数据/证据日期、框架版本及 SHA-256、已提供数据包指纹、隔离/复评来源及基线实际证据截止，摘要列出沿用／更新／纠错／待补证范围和依据（无项明确无）；完整推导、本期结论所依赖的关键事实及其原始来源和页码/章节仍直接保留在报告，不能只引用旧报告或被忽略的 scratch 目录。

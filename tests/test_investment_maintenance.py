@@ -462,7 +462,7 @@ class MaintenanceTests(unittest.TestCase):
         from scripts import research_consistency as checks, research_acceptance as acceptance
         from tests.research_audit_fixture import valuation_review_for
         from tests.test_research_acceptance import fixture
-        for schema in ('stock-research-audit/v3', 'stock-research-audit/v4', 'stock-research-audit/v5'):
+        for schema in ('stock-research-audit/v3', 'stock-research-audit/v4', 'stock-research-audit/v5', 'stock-research-audit/v6'):
             for missing in (None, 'acceptance', 'lifecycle'):
                 with self.subTest(schema=schema, missing=missing):
                     record = self.complete_v4_record()
@@ -473,10 +473,18 @@ class MaintenanceTests(unittest.TestCase):
                     audit['schema_version'] = schema
                     if schema in checks.VALUATION_SCHEMAS:
                         audit['valuation_review'] = valuation_review_for(document)
-                    if schema == checks.SCHEMA:
+                    if schema in checks.INPUT_BRIDGES_SCHEMAS:
                         from tests.research_audit_fixture import input_basis_for
                         audit['valuation_review']['input_basis'] = input_basis_for(document)
                         for risk in audit['risks']: risk['economic_key'] = risk['id']
+                    if schema == checks.SCHEMA:
+                        audit['valuation_review']['availability_review'] = dict(
+                            decision_reason='offline missing evidence; no adopted quote',
+                            attempts=[dict(inputs=['capital'], method='offline net asset alternative',
+                                bounds_or_failure='no claim perimeter in offline source',
+                                impact='unbounded claim may exhaust equity', conclusion='unavailable')],
+                            diagnostic_summary='offline control-only fixture; no conditional price asserted',
+                            next_evidence='offline company thesis review')
                     if missing == 'lifecycle':
                         for row in audit['constraints']:
                             row.pop('lifecycle')

@@ -1,0 +1,102 @@
+[
+  {
+    "contract": {
+      "price_schema": "stock-research/v3",
+      "audit_schema": null,
+      "prompt_template": "report-quotes/v3"
+    },
+    "identical": true,
+    "bytes": 6310,
+    "sha256": "ce2d1fe78bc9686e46facacaef3ce79f4634f7372b2c5be0c30c9112c350b5ad"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v2",
+      "prompt_template": "two-price/v1"
+    },
+    "identical": true,
+    "bytes": 8323,
+    "sha256": "0bbcb8d1a4573fc781eb18ad8007c1e6a87fcb697d791753e38f9c53eb42fea1"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v2",
+      "prompt_template": "two-price-controls/v2"
+    },
+    "identical": true,
+    "bytes": 9180,
+    "sha256": "e2b594305c656a221153572b81f656b1b0cbfc0ac9930af31ff3129e237429e5"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v2",
+      "prompt_template": "two-price-controls/v3"
+    },
+    "identical": true,
+    "bytes": 10071,
+    "sha256": "9eff9345e424f6c4691dee911b5784a36d45645f07eec3470309897083d60d95"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v2",
+      "prompt_template": "two-price-controls/v4"
+    },
+    "identical": true,
+    "bytes": 11090,
+    "sha256": "51da4c811807b31127d221c34d70c58bf23856b6310ba8704241a76e3f778a88"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v2",
+      "prompt_template": "two-price-controls/v5"
+    },
+    "identical": true,
+    "bytes": 12312,
+    "sha256": "2fe739b2744f068dffa34d447f4d7716cb411fa6fde53d79e6c9002d12a49d1b"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v3",
+      "prompt_template": "two-price-controls/v6"
+    },
+    "identical": true,
+    "bytes": 14335,
+    "sha256": "6a69dbd9de5dae32d6b3718c17751181f65921bdd65361166ac3315bae361fd1"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v4",
+      "prompt_template": "two-price-controls/v7"
+    },
+    "identical": true,
+    "bytes": 15886,
+    "sha256": "8de62dcd6671ff818411b8c0c3900c2a4c2209e1e9f669597e6f65faa1f4a803"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v5",
+      "prompt_template": "two-price-controls/v8"
+    },
+    "identical": true,
+    "bytes": 17375,
+    "sha256": "b410de565c7a6e001c660379ce9e15cb4f4d1afd89e1f9ae32ab486a0e207346"
+  },
+  {
+    "contract": {
+      "price_schema": "stock-research/v4",
+      "audit_schema": "stock-research-audit/v6",
+      "prompt_template": "two-price-controls/v9"
+    },
+    "identical": true,
+    "bytes": 18992,
+    "sha256": "194caa5d633d900a88f37259ba6d6a979c92484d048a0c90ddade5420317d2f1"
+  }
+]

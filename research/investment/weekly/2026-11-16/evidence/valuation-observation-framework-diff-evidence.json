@@ -1,0 +1,35 @@
+{
+  "investment_framework.md": {
+    "before": {
+      "sha256": "14d0bf8641ad63565ae55ca27fea618fe0cbd8b4248f83ea3c6dd1addbce29d6",
+      "method_sha256": "a44efae46a01474f54d4c0af28ef010f712afab310a4f2e4974e3ffd8f2cb9f8",
+      "bytes": 130839,
+      "lines": 968
+    },
+    "after": {
+      "sha256": "2b909852e5afacc1ea832a76540c04469439fb016692dc91c32bd7160e13fb32",
+      "method_sha256": "6303f7f694f21805a2122c2db7a67b8539a00a37e741f214084ab2f602c86e7e",
+      "bytes": 133468,
+      "lines": 974
+    }
+  },
+  "investment_framework_compact.md": {
+    "before": {
+      "sha256": "2820e1f2ba4843e297a5de2762aa095357ef056dda480643519f1834277a8467",
+      "method_sha256": "e4cd7b99dec7ece11fe96fb0266fb2450d9805d22eeb39e21a396e63c5d2827f",
+      "bytes": 88203,
+      "lines": 648
+    },
+    "after": {
+      "sha256": "2ad08f195bb6729dd8c7aea96ccaf85c1fa5504aa53cfd18beef90f0e0377d1e",
+      "method_sha256": "782ff89d54dab37e9652c8e6a8c11706379773e23fed3cd21176fe83aa24769d",
+      "bytes": 89909,
+      "lines": 654
+    }
+  },
+  "scope_checks": {
+    "observation_block_unchanged": true,
+    "rule_id_sequence_unchanged": true,
+    "placeholders_unchanged": true
+  }
+}

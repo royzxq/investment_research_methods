@@ -1,0 +1,30 @@
+[
+  {
+    "section": "#### 4.1A",
+    "verbatim_except_approved_R9_scope": true,
+    "bytes": 19205
+  },
+  {
+    "section": "#### 5.2A",
+    "verbatim_except_approved_R9_scope": true,
+    "bytes": 1291
+  },
+  {
+    "section": "#### 6.1",
+    "verbatim_except_approved_R9_scope": true,
+    "bytes": 4374
+  },
+  {
+    "section": "#### 6.6",
+    "verbatim_except_approved_R9_scope": true,
+    "bytes": 8960
+  },
+  {
+    "section": "three-valued truth",
+    "verbatim": true
+  },
+  {
+    "unchanged": "observation JSON and unaffected R/D definition lines",
+    "equal": true
+  }
+]

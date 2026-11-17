@@ -19,9 +19,11 @@ try:
 except ImportError:
     from stock_price_map import fields, json_number, load_json, number, require, string, validate_document
 
-SCHEMA = 'stock-research-audit/v5'
+SCHEMA = 'stock-research-audit/v6'
+INPUT_BRIDGES_SCHEMA = 'stock-research-audit/v5'
+INPUT_BRIDGES_SCHEMAS = {INPUT_BRIDGES_SCHEMA, SCHEMA}
 VALUATION_SCHEMA = 'stock-research-audit/v4'
-VALUATION_SCHEMAS = {VALUATION_SCHEMA, SCHEMA}
+VALUATION_SCHEMAS = {VALUATION_SCHEMA, *INPUT_BRIDGES_SCHEMAS}
 CAPITAL_SCHEMA = 'stock-research-audit/v3'
 SCOPED_SCHEMA = 'stock-research-audit/v2'
 LEGACY_SCHEMA = 'stock-research-audit/v1'
@@ -116,7 +118,7 @@ def baseline_values(audit, root):
         quote = string(entry['quote'], 'baseline quote')
         require(quote in report, 'baseline quote absent from original report: ' + key)
         if entry['value'] is None:
-            require(prior is None or (prior.get('schema_version') == SCHEMA and
+            require(prior is None or (prior.get('schema_version') in INPUT_BRIDGES_SCHEMAS and
                     prior['discounts'][key].get('value') is None), 'existing audited baseline value cannot be discarded')
             require(entry.get('range') is None, 'missing historical discount cannot have a numeric range')
             result[key] = dict(value=None, range=None)
@@ -172,12 +174,47 @@ def validate_input_basis(basis, document, audit):
             require(document['price_map']['p1'] is None, key + ': unresolved input cannot retain P1')
 
 
+def validate_availability_review(review, basis, document, constraints):
+    """Require a visible assessment before withholding quotes, not invented bounds.
+
+    Coverage and nonempty reasoning are checkable. Whether the attempt is
+    economically sufficient still requires research judgment.
+    """
+    missing = any(document['price_map'][key] is None for key in ('v50', 'p1'))
+    if review is None:
+        require(not missing, 'availability_review required when V50 or P1 is null')
+        return
+    fields(review, {'decision_reason', 'attempts', 'diagnostic_summary', 'next_evidence'}, 'availability_review')
+    for key in ('decision_reason', 'diagnostic_summary', 'next_evidence'):
+        string(review[key], 'availability_review.' + key)
+    require(isinstance(review['attempts'], list), 'availability_review.attempts must be list')
+    confirmed_failure = isinstance(constraints, list) and any(
+        isinstance(row, dict) and row.get('status') == 'blocking'
+        and row.get('action') in ('reject', 'invalidated', 'exit_required') for row in constraints)
+    require(not missing or review['attempts'] or confirmed_failure,
+            'availability_review: null quotes need an attempt unless a confirmed hard failure applies')
+    covered = set()
+    for attempt in review['attempts']:
+        fields(attempt, {'inputs', 'method', 'bounds_or_failure', 'impact', 'conclusion'}, 'availability_review.attempt')
+        inputs = text_list(attempt['inputs'], 'availability_review.inputs')
+        require(set(inputs) <= set(basis), 'availability_review: unknown input')
+        require(not covered.intersection(inputs), 'availability_review: duplicate input coverage')
+        covered.update(inputs)
+        for key in ('method', 'bounds_or_failure', 'impact', 'conclusion'):
+            string(attempt[key], 'availability_review.' + key)
+    unresolved = {key for key, row in basis.items() if row['status'] == 'unresolved'}
+    require(unresolved <= covered, 'availability_review: every unresolved input requires an attempt')
+
+
 def validate_valuation_review(audit, document):
     review = audit['valuation_review']
     fields(review, {'base_case', 'method_choice', 'pe_crosscheck', 'market_check', 'reverse_dcf'}
-           | ({'input_basis'} if audit['schema_version'] == SCHEMA else set()), 'valuation_review')
-    if audit['schema_version'] == SCHEMA:
+           | ({'input_basis'} if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS else set())
+           | ({'availability_review'} if audit['schema_version'] == SCHEMA else set()), 'valuation_review')
+    if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS:
         validate_input_basis(review['input_basis'], document, audit)
+    if audit['schema_version'] == SCHEMA:
+        validate_availability_review(review['availability_review'], review['input_basis'], document, audit['constraints'])
     for key in ('base_case', 'method_choice', 'pe_crosscheck'):
         string(review[key], 'valuation_review.' + key)
     market = review['market_check']
@@ -214,11 +251,11 @@ def validate_valuation_review(audit, document):
         require(isinstance(case, dict), 'reverse case must be object')
         close(case.get('target_price'), number(market['price'], 'market price'), 'reverse target price', Decimal('.000001'))
         if reverse['status'] == 'solved':
-            validate_reverse_dcf(audit['valuation'], case, input_bridges=audit['schema_version'] == SCHEMA)
+            validate_reverse_dcf(audit['valuation'], case, input_bridges=audit['schema_version'] in INPUT_BRIDGES_SCHEMAS)
         else:
             fields(case, {'scenario', 'segment_id', 'variable', 'target_price', 'lower', 'upper'}, 'reverse no_solution case')
             try:
-                solve_reverse_dcf(audit['valuation'], input_bridges=audit['schema_version'] == SCHEMA, **case)
+                solve_reverse_dcf(audit['valuation'], input_bridges=audit['schema_version'] in INPUT_BRIDGES_SCHEMAS, **case)
             except ReverseNoSolutionError:
                 continue
             raise ValueError('reverse no_solution claim has a solution')
@@ -291,12 +328,12 @@ def validate_audit(audit, document, *, root=None):
             require(quote_round(values[label], document['meta']['currency']) == number(pm['v50'][label], label),
                     'research audit V50 mismatch: ' + label)
     elif kind == 'dcf_fcff':
-        require(audit['schema_version'] in VALUATION_SCHEMAS, 'dcf_fcff requires audit-v4 or v5')
+        require(audit['schema_version'] in VALUATION_SCHEMAS, 'dcf_fcff requires audit-v4/v5/v6')
         try:
             from .research_valuation import evaluate_dcf
         except ImportError:
             from research_valuation import evaluate_dcf
-        values = evaluate_dcf(model, input_bridges=audit['schema_version'] == SCHEMA)['values']
+        values = evaluate_dcf(model, input_bridges=audit['schema_version'] in INPUT_BRIDGES_SCHEMAS)['values']
         if model['currency'] == document['meta']['currency']:
             require(number(model['fx_to_quote'], 'fx') == 1, 'same-currency fx must be 1')
         require(pm['v50'] is not None, 'DCF requires quoted V50')
@@ -325,8 +362,8 @@ def validate_audit(audit, document, *, root=None):
     risks, economic_keys = {}, set()
     for risk in audit['risks']:
         fields(risk, {'id', 'description', 'owner', 'scope', 'source'}
-               | ({'economic_key'} if audit['schema_version'] == SCHEMA else set()), 'risk')
-        if audit['schema_version'] == SCHEMA:
+               | ({'economic_key'} if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS else set()), 'risk')
+        if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS:
             key = string(risk['economic_key'], 'risk.economic_key')
             require(key not in economic_keys, 'duplicate economic_key: ' + key)
             economic_keys.add(key)
@@ -346,7 +383,7 @@ def validate_audit(audit, document, *, root=None):
         value = None if entry['value'] is None else number(entry['value'], key)
         bounds = entry['range']
         if value is None:
-            require(audit['schema_version'] == SCHEMA and pm['p1'] is None, 'unknown discount requires audit-v5 and null P1')
+            require(audit['schema_version'] in INPUT_BRIDGES_SCHEMAS and pm['p1'] is None, 'unknown discount requires audit-v5/v6 and null P1')
             require(audit['valuation_review']['input_basis']['residual_discount']['status'] == 'unresolved',
                     'unknown discount requires unresolved residual_discount')
             require(bounds is None, 'unknown discount range must be null')
@@ -622,7 +659,7 @@ def _render_checks(audit, document):
             from .research_valuation import evaluate_dcf
         except ImportError:
             from research_valuation import evaluate_dcf
-        result = evaluate_dcf(model, input_bridges=audit['schema_version'] == SCHEMA)
+        result = evaluate_dcf(model, input_bridges=audit['schema_version'] in INPUT_BRIDGES_SCHEMAS)
         lines += ['', '| 情景 | 经营价值 | 权益调整 | 权益价值 | V50 |', '|---|---:|---:|---:|---:|']
         for key in SCENARIOS:
             row = result['details'][key]
@@ -648,8 +685,18 @@ def _render_checks(audit, document):
             lines.append('- ' + key + '：' + cell(review[key]))
         lines += ['- 市价核对：' + cell(json.dumps(review['market_check'], ensure_ascii=False, sort_keys=True, default=json_number)),
                   '- 反向DCF条件解：' + cell(json.dumps(review['reverse_dcf'], ensure_ascii=False, sort_keys=True, default=json_number))]
-    if audit['schema_version'] == SCHEMA:
+    if audit['schema_version'] in INPUT_BRIDGES_SCHEMAS:
         lines += ['', '输入依据与未决缺口：' + cell(json.dumps(audit['valuation_review']['input_basis'], ensure_ascii=False, sort_keys=True, default=json_number))]
+    if audit['schema_version'] == SCHEMA and audit['valuation_review']['availability_review'] is not None:
+        availability = audit['valuation_review']['availability_review']
+        lines += ['', '估值可用性复核：' + cell(availability['decision_reason']),
+                  '', '| 输入 | 已尝试的方法 | 边界依据或失败原因 | 价值影响 | 裁决 |',
+                  '|---|---|---|---|---|']
+        for attempt in availability['attempts']:
+            values = [', '.join(attempt['inputs'])] + [attempt[key] for key in ('method', 'bounds_or_failure', 'impact', 'conclusion')]
+            lines.append('| ' + ' | '.join(cell(value) for value in values) + ' |')
+        lines += ['', '条件结果及适用限制：' + cell(availability['diagnostic_summary']),
+                  '下一项有效证据：' + cell(availability['next_evidence'])]
     lines += ['', '| 折扣 | 取值 | 论证区间 | 独占风险ID | 变化分类 |', '|---|---:|---|---|---|']
     factor = Decimal(1)
     for key in DISCOUNTS:

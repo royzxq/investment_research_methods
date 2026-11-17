@@ -1,0 +1,94 @@
+{
+  "as_of": "2026-11-17",
+  "status": "passed",
+  "governance": {
+    "status": "passed",
+    "method_version": "stock-strategy-split-v2-common-v2-dcf-v3",
+    "strategy_scope": "non_dividend; R9 -> dividend-HD6",
+    "state_as_of": "2026-11-15",
+    "method_fingerprints": {
+      "investment_framework.md": "4290c9883f7dcdaeb422f567d85a62fd5ad3dba76699d3b422e77c26823e937a",
+      "investment_framework_compact.md": "bd2a6f21fc76172f75ec552e59e87738b97374704695f838e90be31fe91dbb88",
+      "stock_research_common.md": "75c024a6639d9f6870b02213147e7aedc37fd28dcc64e0afac4e42ec6a93ffac",
+      "dividend_framework.md": "a9c886232b38df58bd4151b39c5221d18be772fb7bd0485beb08994da5f955c0",
+      "dividend_framework_compact.md": "4db35e2b94f6aa097e61bfa85257713689249b1b38dffe2d575ac86f48a45539",
+      "dividend_report_template.md": "a3c209dcff23809ee7f0c9342c9b417d00c03c32f9d9b97c7aa3d0baf9cfb3de"
+    },
+    "sizes": {
+      "investment_framework.md": {
+        "bytes": 100535,
+        "lines": 875
+      },
+      "investment_framework_compact.md": {
+        "bytes": 87056,
+        "lines": 653
+      },
+      "stock_research_common.md": {
+        "bytes": 34119,
+        "lines": 150
+      },
+      "dividend_framework.md": {
+        "bytes": 17810,
+        "lines": 112
+      },
+      "dividend_framework_compact.md": {
+        "bytes": 8291,
+        "lines": 27
+      },
+      "dividend_report_template.md": {
+        "bytes": 2916,
+        "lines": 30
+      }
+    },
+    "limits": "Structure only; not complete semantic equivalence, evidence truth or investment effectiveness"
+  },
+  "full_regression": {
+    "tests": 1430,
+    "status": "passed",
+    "command": "/Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v",
+    "log": {
+      "path": "output/dividend-framework-review-2026-11-17/dividend-scope-full-tests-unrestricted.log",
+      "sha256": "d787cdc1daed2f20e20ac90b1e5879cdc49e6cccb228826f81bf1441ffdb61d4"
+    },
+    "first_sandbox_run": {
+      "tests": 1430,
+      "errors": 46,
+      "cause": "44 local socket permission errors and 2 ps permission errors; retried with permission outside sandbox",
+      "log": {
+        "path": "output/dividend-framework-review-2026-11-17/dividend-scope-full-tests.log",
+        "sha256": "c1ebe0585ed45f6fbe4d3bbb565d7ce159fcabe84403f750d8b0d6245c727b66"
+      }
+    }
+  },
+  "targeted": {
+    "governance": 10,
+    "bundle": 14,
+    "status": "passed"
+  },
+  "skill_validation": [
+    {
+      "skill": ".agents/skills/stock-research",
+      "status": "passed"
+    },
+    {
+      "skill": ".agents/skills/dividend-research",
+      "status": "passed"
+    },
+    {
+      "skill": ".agents/skills/investment-weekly-review",
+      "status": "passed"
+    },
+    {
+      "skill": ".agents/skills/framework-condense",
+      "status": "passed"
+    }
+  ],
+  "local_markdown_link_check": {
+    "count": 71,
+    "missing": []
+  },
+  "real_api_this_review": false,
+  "provider_executed": false,
+  "account_execution": "none",
+  "limits": "Structure, regression, byte-retention and local frozen-batch compatibility only; no new market research, dividend API call, company reassessment, deployment or investment performance proof."
+}

@@ -1,0 +1,111 @@
+{
+  "as_of": "2026-11-17",
+  "completed_at": "2026-11-17T09:06:06.342030+08:00",
+  "scope": "local worktree implementation; no deployment, stock valuation, account action or profitability validation",
+  "offline_tests": {
+    "count": 1425,
+    "status": "passed",
+    "python": "/Users/xinquanzhou/miniconda3/bin/python3",
+    "command": "python3 -m unittest discover -s tests -v",
+    "log_sha256": "01728981a4674a6955d5af2b905726376332877c2f36d0b116cbc188e6c7576e"
+  },
+  "focused_tests": {
+    "dividend_data": 13,
+    "framework_bundle": 13,
+    "runner_after_fix": 104,
+    "recovery_after_fix": 9
+  },
+  "historical_prompt_byte_comparisons": {
+    "contracts": 10,
+    "identical": true
+  },
+  "skills": [
+    {
+      "path": ".agents/skills/stock-research",
+      "status": "passed"
+    },
+    {
+      "path": ".agents/skills/dividend-research",
+      "status": "passed"
+    },
+    {
+      "path": ".agents/skills/deep-research-auto",
+      "status": "passed"
+    },
+    {
+      "path": ".agents/skills/investment-weekly-review",
+      "status": "passed"
+    },
+    {
+      "path": ".agents/skills/framework-condense",
+      "status": "passed"
+    },
+    {
+      "path": ".claude/skills/dividend-research",
+      "status": "passed"
+    }
+  ],
+  "governance": {
+    "status": "passed",
+    "method_version": "stock-strategy-split-v1-common-v1-dcf-v3",
+    "state_as_of": "2026-11-15",
+    "method_fingerprints": {
+      "investment_framework.md": "abda2f87612433cbb648692c78958cd2ec0c618dcf8d91248c9239992fbaadb3",
+      "investment_framework_compact.md": "f2e70172b8b2e70e72fae23bb80866f0e5244af55036109a57e9f7d14377b501",
+      "stock_research_common.md": "a8b7756e3164de53ef788d56f774435f20361f5ba9ff44e28b1c8ebdb6608d94",
+      "dividend_framework.md": "d451bbfe0088e0a1b08a502593edda20ad7452078ddbea9cd2acb3d586dc40d4",
+      "dividend_framework_compact.md": "f19cc0e0ddb6a31c24ec3d39442b17e6cade143f8600976c0aac98babd30437b",
+      "dividend_report_template.md": "d15bd1ea5137f83bece8d314c88e6cee6e8b3a46cc5bd76d8d8192e97201e36e"
+    },
+    "sizes": {
+      "investment_framework.md": {
+        "bytes": 101334,
+        "lines": 871
+      },
+      "investment_framework_compact.md": {
+        "bytes": 90917,
+        "lines": 657
+      },
+      "stock_research_common.md": {
+        "bytes": 37341,
+        "lines": 164
+      },
+      "dividend_framework.md": {
+        "bytes": 11055,
+        "lines": 84
+      },
+      "dividend_framework_compact.md": {
+        "bytes": 3676,
+        "lines": 15
+      },
+      "dividend_report_template.md": {
+        "bytes": 2912,
+        "lines": 30
+      }
+    },
+    "limits": "Structure only; not complete semantic equivalence, evidence truth or investment effectiveness"
+  },
+  "api_smoke": {
+    "code": "600900.SH",
+    "effective_date": "2026-11-16",
+    "status": "partial",
+    "endpoints": {
+      "daily_basic": {
+        "status": "ok",
+        "error_type": null
+      },
+      "dividend": {
+        "status": "ok",
+        "error_type": null
+      },
+      "yc_cb": {
+        "status": "unavailable",
+        "error_type": "PermissionError"
+      }
+    },
+    "trailing_spread_pp": null,
+    "notes": "yc_cb permission unavailable; no substituted benchmark or fabricated value"
+  },
+  "baseline": "eb77f77 + saved 31-file prerequisite manifest; controls-v9/audit-v6",
+  "concurrent_source_workspace": "controls-v10 observed but not merged; integration compatibility remains outside this frozen baseline"
+}

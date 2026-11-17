@@ -6,7 +6,8 @@ import shutil
 import tempfile
 import unittest
 
-from scripts.investment_framework_governance import check, FILES, ROOT
+from scripts.investment_framework_governance import check, FILES, ROOT, STRATEGY_SCOPE
+from scripts.stock_framework_bundle import BUNDLE, sync
 
 
 class InvestmentGovernanceTests(unittest.TestCase):
@@ -15,7 +16,7 @@ class InvestmentGovernanceTests(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         self.root = Path(temp.name)
         (self.root / "framework").mkdir()
-        for name in FILES:
+        for name in BUNDLE:
             shutil.copyfile(ROOT / "framework" / name, self.root / "framework" / name)
 
     def replace(self, name, old, new):
@@ -64,6 +65,30 @@ class InvestmentGovernanceTests(unittest.TestCase):
                      '"schema": "investment-state/v1", "threshold": 123')
         with self.assertRaises(ValueError):
             check(self.root)
+
+    def test_migrated_rule_cannot_be_reactivated_by_a_compact_reference(self):
+        path = self.root / "framework" / FILES[1]
+        path.write_text(path.read_text() + "\n稳态现金流依赖[R9]放行。\n")
+        with self.assertRaisesRegex(ValueError, "active compact reference"):
+            check(self.root)
+
+    def test_scope_and_migration_destination_cannot_silently_disappear(self):
+        self.replace(FILES[0], STRATEGY_SCOPE, "")
+        with self.assertRaisesRegex(ValueError, "Strategy scope"):
+            check(self.root)
+
+    def test_missing_migrated_model_is_rejected_even_after_hash_sync(self):
+        self.replace("dividend_framework.md", "### HD4A ", "### Archived model ")
+        sync(self.root)
+        with self.assertRaisesRegex(ValueError, "HD4A"):
+            check(self.root)
+
+    def test_legacy_six_file_bundle_keeps_its_original_scope(self):
+        # snapshot/v2 already existed before R9's full migration.
+        frozen = ROOT / "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-methods"
+        for name in BUNDLE:
+            shutil.copyfile(frozen / name, self.root / "framework" / name)
+        self.assertEqual(check(self.root)["strategy_scope"], "legacy")
 
 
 if __name__ == "__main__":

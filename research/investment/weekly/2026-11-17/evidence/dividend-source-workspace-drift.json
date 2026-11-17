@@ -1,0 +1,80 @@
+{
+  "scope": "Read-only observation; concurrent source workspace edits not merged or overwritten",
+  "files": [
+    {
+      "path": ".agents/skills/investment-weekly-review/SKILL.md",
+      "baseline_sha256": "461891485ff6c006ea7d083c5e5992f6784cd04e9cd78c53645ec16d8a9ae676",
+      "observed_sha256": "851eb9f7548e6e4055a0b16b17b5e776bcd2a0a60d605742598049912cb3a9a8"
+    },
+    {
+      "path": ".agents/skills/investment-weekly-review/references/maintenance-handoff.md",
+      "baseline_sha256": "c6078b81befcd81b3cc7b646900c1be91e044e4547da6610bb027ce525171e0f",
+      "observed_sha256": "1ec073616b6bc2fd0c60cd9ad6c90b280707e266bd5f9e55f9181a3f65083689"
+    },
+    {
+      "path": ".agents/skills/stock-research/SKILL.md",
+      "baseline_sha256": "0d3590fddedf0f10b2bd99dd92c541dae967076391a98768e618a3b56129e8d5",
+      "observed_sha256": "e2bf2518ced6b0033a86436a3dd112cf6cbc1ea5cc5cabc371d82992429bcd1e"
+    },
+    {
+      "path": ".agents/skills/stock-research/references/research-consistency.md",
+      "baseline_sha256": "b3ca64af606ce6776bbbe163a095c91a472d4a5be0fba6572e2dba8778df79a2",
+      "observed_sha256": "3f02e2e44d79b13c054422f9131a09278b607e5e6e28624a326f76cc41af04b5"
+    },
+    {
+      "path": ".agents/skills/stock-research/references/valuation-and-output.md",
+      "baseline_sha256": "3df2ad3c06998a6d21ebc985698d9e35b1a0b350e9636714cdf1c36d4865c2a9",
+      "observed_sha256": "e740945d7d63fde5633299a0261587e95a3b0cfe63e4652edbc46353e4d4998b"
+    },
+    {
+      "path": "framework/investment_framework.md",
+      "baseline_sha256": "2b909852e5afacc1ea832a76540c04469439fb016692dc91c32bd7160e13fb32",
+      "observed_sha256": "288c122feebe8fc1fc0ac7016c30ddf6e8b889e410b33f5411d2ac878ef0bb98"
+    },
+    {
+      "path": "framework/investment_framework_compact.md",
+      "baseline_sha256": "2ad08f195bb6729dd8c7aea96ccaf85c1fa5504aa53cfd18beef90f0e0377d1e",
+      "observed_sha256": "7c1d26fea0862c49852f4471eb58ebb9ce36803959537e13135f49e57ebe4d6a"
+    },
+    {
+      "path": "scripts/research_acceptance.py",
+      "baseline_sha256": "be1a2286617383a305bc3fac7ae47bd4983073a1d215f457f841ce58f361ae13",
+      "observed_sha256": "5b93af60fcd0a2553a3a03a80b729f2740f5b9d513740aa1a08974aee3b59221"
+    },
+    {
+      "path": "scripts/research_consistency.py",
+      "baseline_sha256": "b2965bd0d3ceec81d9ae688690906f50680919f86c61df2d5b96ae6d3b75b89e",
+      "observed_sha256": "5fca04608b1db0dc0dd74194073f9c86e65ff65f724ebf5ac8dcd52efca09b07"
+    },
+    {
+      "path": "scripts/research_recovery.py",
+      "baseline_sha256": "3665ef175abb5c9d1f269f0ec39de3cc756f6c7bbb5ad23af42bb25bc22af4b3",
+      "observed_sha256": "0d2273f19d2495e25ffe19315fe998251dbcbc41a53b69b2c29d2c10413296cb"
+    },
+    {
+      "path": "scripts/research_runner.py",
+      "baseline_sha256": "27a68deb64c4fd49628096faf8976bcd0e137de6ebb9bb6348f7be53836b1eb9",
+      "observed_sha256": "6b401e10263098ac3bda6516ee8d8ec2646409d26c81ae3302d0e63641c701e8"
+    },
+    {
+      "path": "tests/test_investment_maintenance.py",
+      "baseline_sha256": "91c8f99e9462f052da4f6fc18eba06639a02befa46c210b882afba16cc41f052",
+      "observed_sha256": "dfc4f52e3eb7110cd6cdb38378bd6d669b7f4eb371229323b091ac34390d1ab5"
+    },
+    {
+      "path": "tests/test_public_monitoring.py",
+      "baseline_sha256": "d6bb65a1ef157823f51f997476c7345cc437cbef69b8816a3bd35e834f8d6493",
+      "observed_sha256": "4e18a0dc5e00d5e3305b00e914af83ac90dd551e8e51a672694c67d7ccbe8ad8"
+    },
+    {
+      "path": "tests/test_research_runner.py",
+      "baseline_sha256": "127107ca1758c73474ff5a638dcafff2aa921ba6c27d013e0c0b30b44b35cf60",
+      "observed_sha256": "080d1068ea8b3b2a39b8aad8f2589f6988e5f1a64ec65b29bd411432ecd6ee3f"
+    },
+    {
+      "path": "tests/test_valuation_availability.py",
+      "baseline_sha256": "a5a5d4f6f28b5a3ef18e64dad5df80abac0e1fd3d5b1c2b2027bd046677a2b55",
+      "observed_sha256": "e77fcc40a9a9e7a047a569bd73e791de9d63003c51eef5d5a831899738ebeab4"
+    }
+  ]
+}

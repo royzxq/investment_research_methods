@@ -1,5 +1,8 @@
 # investment_research_methods
 
+股票策略：以长期现金分配为主的研究使用[红利框架](framework/dividend_framework.md)与[红利技能](.agents/skills/dividend-research/SKILL.md)；非红利继续[原股票框架](framework/investment_framework.md)，共同遵循[共享基础规则](framework/stock_research_common.md)。新方法在独立worktree本地实现，未发布生产；旧冻结不重写。
+
+
 **两价本地采纳（2026-10-18）**：依用户授权将核心报价收敛为 P1/T1，新研究使用 v4/audit-v2，独立保留加仓、逻辑失效及退出条件；旧历史/冻结批次按原协议读取。已完成回测和本地部署验证，不要求前瞻影子期，未推送远端。
 
 研究输出按领域与日期整理，入口见 [研究导航与输出契约](research/README.md)及[报告索引](research/INDEX.md)。正式成果留在 `research/`，缓存、中间文件和可重建索引留在被忽略的 `output/`。

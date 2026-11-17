@@ -1,0 +1,35 @@
+{
+  "full_regression": {
+    "tests": 1399,
+    "seconds": 276.172,
+    "status": "passed",
+    "log": "output/audits/investment/2026-11-16/valuation-observation/full-tests-r2.log",
+    "sha256": "706b0e1b7b9fb4d63c2cb785d70ba7b8e73351795eb5c4ce0c4721ff52b5d2c0"
+  },
+  "final_targeted": {
+    "tests": 100,
+    "seconds": 0.814,
+    "status": "passed",
+    "log": "output/audits/investment/2026-11-16/valuation-observation/final-targeted-tests.log",
+    "sha256": "6943e84897cdbdfb36b47aff8bbd9acd92ddf6941770ed846f760b79ceb0d27a"
+  },
+  "shared_evidence_rerun": {
+    "tests": 21,
+    "seconds": 33.778,
+    "status": "passed",
+    "log": "output/audits/investment/2026-11-16/valuation-observation/shared-evidence-rerun.log",
+    "sha256": "a147486e6bf3d4d9678024f4ef248ec4fc39479b5fbd63e0172df3d25aa58dbf"
+  },
+  "python": "/Users/xinquanzhou/miniconda3/bin/python3",
+  "python_version": "3.11.7",
+  "initial_run": "1397 tests, 3 prepared prompt hash errors while prompt text changed during the run; final frozen-source full rerun passed",
+  "sandbox_note": "Initial runner test could not run ps in sandbox; final offline suite ran with approved escalation. No live market/model API calls.",
+  "skills": {
+    "stock-research": "passed with system python3 quick_validate.py",
+    "investment-weekly-review": "passed with system python3 quick_validate.py"
+  },
+  "governance": "passed",
+  "live_model_comparison": "not_run",
+  "company_conclusions_changed": false,
+  "limitations": "Structural/arithmetic/compatibility verification does not prove economic assumptions, investment effectiveness or reduced real-model abstention."
+}

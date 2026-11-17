@@ -9,12 +9,15 @@ import re
 
 try:
     from .investment_maintenance import method_fingerprint
+    from . import stock_framework_bundle
 except ImportError:
     from investment_maintenance import method_fingerprint
+    import stock_framework_bundle
 
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ("investment_framework.md", "investment_framework_compact.md")
+STRATEGY_SCOPE = "<!-- stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6 -->"
 
 
 def check(root=ROOT):
@@ -48,7 +51,44 @@ def check(root=ROOT):
         references = set(re.findall(rf"\[({prefix}\d+)\]", compact))
         if references - expected:
             raise ValueError(f"Undefined {prefix} references: {sorted(references - expected)}")
+    contents = stock_framework_bundle.capture(Path(root) / "framework")
+    scoped = any("stock-strategy-scope:" in texts[name] for name in FILES)
+    if scoped or versions[0].startswith("stock-strategy-split-v2-"):
+        if any(texts[name].count(STRATEGY_SCOPE) != 1 for name in FILES):
+            raise ValueError("Strategy scope must agree in canonical and compact")
+        if set(contents) != set(stock_framework_bundle.BUNDLE):
+            raise ValueError("Migrated rules require the full strategy bundle")
+        # R9 is a migration index, not a live dependency of non-dividend rules.
+        if "[R9]" in compact:
+            raise ValueError("Migrated R9 cannot remain an active compact reference")
+        r9 = next(line for line in compact.splitlines() if line.startswith("- **R9 "))
+        if "已迁出" not in r9 or "dividend_framework.md#hd6" not in r9:
+            raise ValueError("R9 must retain its migration destination")
+        if any("### HD4A " not in contents[name].decode()
+               for name in ("dividend_framework.md", "dividend_framework_compact.md")):
+            raise ValueError("Migrated dividend model needs canonical and compact HD4A")
+    if set(contents) == set(stock_framework_bundle.BUNDLE):
+        dividend_versions = []
+        for name in ("dividend_framework.md", "dividend_framework_compact.md"):
+            body = contents[name].decode()
+            version = re.findall(r"<!-- dividend-method-version: ([\w.-]+) -->", body)
+            if len(version) != 1:
+                raise ValueError("require one dividend method version")
+            dividend_versions += version
+            pattern = r"(?m)^## (HD\d+) " if name == "dividend_framework.md" else r"(?m)^- \*\*(HD\d+) "
+            found = Counter(re.findall(pattern, body))
+            if found != Counter({f"HD{i}": 1 for i in range(1, 9)}):
+                raise ValueError("dividend definitions missing or duplicated")
+        if len(set(dividend_versions)) != 1:
+            raise ValueError("dividend method versions differ")
+        for name in stock_framework_bundle.DEPENDENCIES:
+            texts[name] = contents[name].decode()
+            fingerprints[name] = method_fingerprint(contents[name])
+        template = texts['dividend_report_template.md']
+        if re.findall(r'(?m)^## ([0-8])\.', template) != list('012345678'):
+            raise ValueError('dividend report must retain nine sections')
     return {"status": "passed", "method_version": versions[0],
+            "strategy_scope": "non_dividend; R9 -> dividend-HD6" if scoped else "legacy",
             "state_as_of": states[0]["as_of"], "method_fingerprints": fingerprints,
             "sizes": {name: {"bytes": len(text.encode("utf-8")), "lines": len(text.splitlines())}
                       for name, text in texts.items()},

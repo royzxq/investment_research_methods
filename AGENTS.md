@@ -6,6 +6,7 @@
 
 | 请求 | Codex 入口 |
 |---|---|
+| 红利股投研、长期收息或现金分配逻辑复评 | `.agents/skills/dividend-research/SKILL.md` |
 | 个股深度调研、价格地图或复评 | `.agents/skills/stock-research/SKILL.md` |
 | 独立深度研究或个股研究取证后端 | `.agents/skills/deep-research-auto/SKILL.md` |
 | 股票市场元研究、变化比较、框架更新或完整周更 | `.agents/skills/investment-weekly-review/SKILL.md` |
@@ -18,6 +19,7 @@
 自然语言“使用进行股票投研：<股票信息>”路由到 `stock-research`，默认按北京时间当天估值并本地保存。Codex 运行标记 `generator=codex`；报告、JSON 和 latest 与 Claude/DSH 按真实生成端隔离，遵循 `research/README.md`，不改写未标注来源的历史文件。
 
 - 方法、参数及歧义裁决以现行 canonical 为准：`framework/investment_framework.md`、`framework/futures_framework.md`、`framework/etf_framework.md`。compact 是同一框架的执行导航，保留数值、逻辑、例外与解除条件。
+- 股票主策略按持有目的分流：非红利用 investment_framework，红利用 dividend_framework，两者共享 stock_research_common；红利报告用 dividend_report_template。新快照v2冻结六份依赖，旧v1保留原两份；v2不代表都采用最新方法，以冻结正文的stock-strategy-scope标记判R9迁出。原框架R9仅历史索引；红利模型/预测在HD4A，共享§4.1A只保留分配一致性。先审方法再显式运行 scripts/stock_framework_bundle.py --sync 绑定依赖，治理检查不自动修复哈希。共享规则/红利变更也须核股票维护接续与旧控制。
 - 股票文件以 `investment-` 开头，ETF 文件以 `etf-` 开头，期货日期报告无前缀；发现历史时严格匹配本轨文件类型。实际读取完整标记、数据日期和行情锚，不继承旧报告对“最新”的断言。
 - ETF 框架 v2.1 接受 v2.0 快照；旧卡片、旧 schema、旧预算和已删除的分配工具仅属历史。
 - 当前待办与历史边界见 `docs/context/project-state.md`；运行数据脚本或排查环境时读 `docs/context/environment.md`。
