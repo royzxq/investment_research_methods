@@ -1,0 +1,254 @@
+{
+  "schema": "stock-research-change-bridge/v1",
+  "currency": "CNY",
+  "unit": "per_share",
+  "baseline": {
+    "report_path": "input/prior-codex.md",
+    "sha256": "b9d69eccb8e6a5bff3d96b5e096127feb478fba487db639e4e16e88916d3928f"
+  },
+  "old_reported_v50": {
+    "low": 14.04,
+    "base": 44.6,
+    "high": 101.93
+  },
+  "recomputed_old_v50": {
+    "low": 14.037604677743147,
+    "base": 44.59908666223147,
+    "high": 101.92868400017679
+  },
+  "new_v50": {
+    "low": 14.476541648646108,
+    "base": 45.10767629037054,
+    "high": 102.45374402072075
+  },
+  "old_reported_p1": 38.32,
+  "new_p1": 38.83,
+  "categories": [
+    {
+      "category": "投入",
+      "change": "unchanged",
+      "delta_v50": 0,
+      "reason": "CapEx和逐批折旧保持；历史8.14%-10.05%收入投入及3-10年寿命可支持旧条件区间，非已证实未来预算。"
+    },
+    {
+      "category": "现金回收",
+      "change": "unchanged",
+      "delta_v50": 0,
+      "reason": "销售、经营NWC周转和现金税路径保持。公司没有新回款事实；75%终态周转接近2025的72.29%但须实际改善。"
+    },
+    {
+      "category": "终值",
+      "change": "unchanged",
+      "delta_v50": 0,
+      "reason": "g、EBIT率、现金税及生产资本均不变；非经营资产不进入经营终值。"
+    },
+    {
+      "category": "资本成本",
+      "change": "unchanged",
+      "delta_v50": 0,
+      "reason": "人民币WACC 8.75%-11.25%、base9.75%仍为研究假设；未刷新利率、beta或风险偏好。"
+    },
+    {
+      "category": "普通股归属",
+      "change": "correction",
+      "component": "restricted_cash_pair",
+      "reason": "保留原NCI比例、股本和员工权利。补货币资金差额的经济权益并同步按原比例分配NCI，不作为自由现金。"
+    },
+    {
+      "category": "其他纠错",
+      "change": "correction",
+      "component": "nonoperating_equity",
+      "reason": "补经营EV以外的非经营权益投资，扣处置税代理；原页码与陈旧审计文字纠错不改变经营预测。"
+    }
+  ],
+  "single_changes_fixed_other_factors": {
+    "restricted_cash_pair": {
+      "values": {
+        "low": 14.25993885008418,
+        "base": 44.85809948659819,
+        "high": 102.2041672169484
+      },
+      "delta": {
+        "low": 0.22233417234103311,
+        "base": 0.25901282436671874,
+        "high": 0.2754832167716117
+      }
+    },
+    "nonoperating_equity": {
+      "values": {
+        "low": 14.254207476305076,
+        "base": 44.84866346600382,
+        "high": 102.17826080394914
+      },
+      "delta": {
+        "low": 0.21660279856192807,
+        "base": 0.24957680377234515,
+        "high": 0.24957680377234515
+      }
+    }
+  },
+  "sequential_path": [
+    {
+      "stage": "old",
+      "values": {
+        "low": 14.037604677743147,
+        "base": 44.59908666223147,
+        "high": 101.92868400017679
+      }
+    },
+    {
+      "stage": "restricted_cash_pair",
+      "values": {
+        "low": 14.25993885008418,
+        "base": 44.85809948659819,
+        "high": 102.2041672169484
+      }
+    },
+    {
+      "stage": "then_nonoperating_equity",
+      "values": {
+        "low": 14.476541648646108,
+        "base": 45.10767629037054,
+        "high": 102.45374402072075
+      }
+    }
+  ],
+  "path_combinations": {
+    "old": {
+      "low": 14.037604677743147,
+      "base": 44.59908666223147,
+      "high": 101.92868400017679
+    },
+    "cash_only": {
+      "low": 14.25993885008418,
+      "base": 44.85809948659819,
+      "high": 102.2041672169484
+    },
+    "investments_only": {
+      "low": 14.254207476305076,
+      "base": 44.84866346600382,
+      "high": 102.17826080394914
+    },
+    "both": {
+      "low": 14.476541648646108,
+      "base": 45.10767629037054,
+      "high": 102.45374402072075
+    }
+  },
+  "total_delta": {
+    "low": 0.4389369709029612,
+    "base": 0.5085896281390638,
+    "high": 0.5250600205439568
+  },
+  "interaction": {
+    "low": 0.0,
+    "base": 0.0,
+    "high": -1e-28
+  },
+  "interaction_explanation": "本次两项修正只进线性权益桥，NCI比例固定，V50交互为数值精度内0；反向顺序同终点。此性质不适用于下列联动经营敏感性。d_base按相同绝对终值时点损失/新权益重算，比例桥非线性；不把单项敏感性相加冒充联合结果。",
+  "discount_bridge": {
+    "old": {
+      "d_base": {
+        "value": 0.14074018345138053,
+        "range": [
+          0.07364116869506085,
+          0.14074018345138053
+        ],
+        "risk_ids": [
+          "TERMINAL_CASHFORM_DELAY"
+        ],
+        "reason": "保持本体基准利率、产出及显式期现金路径，独立延迟普通股对应终值一至两年形成风险缓冲区间；遵循D1/R18从严取上沿。到期日并非已披露。",
+        "change": {
+          "kind": "initial",
+          "reason": "旧同端仅有留空记录，本次第一次建立可复算价格。",
+          "evidence": [
+            "FIN-2026Q3 p6–12",
+            "FIN-2025FY p32",
+            "本报告§5终值时点敏感性"
+          ]
+        }
+      },
+      "r_chip": {
+        "value": 0,
+        "range": [
+          0,
+          0
+        ],
+        "risk_ids": [],
+        "reason": "没有可核公募、板块换手或官方国家队新增残余；不因未知造确定损失，继续资格监控。",
+        "change": {
+          "kind": "initial",
+          "reason": "旧同端仅有留空记录，无可继承明确折扣。",
+          "evidence": [
+            "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md"
+          ]
+        }
+      },
+      "r_v5": {
+        "value": 0,
+        "range": [
+          0,
+          0
+        ],
+        "risk_ids": [],
+        "reason": "采购、门槛和正常占款压力已进入经营模型及必要现金留存。油价弹性和实际可用融资待核，R14独立限制追加；当前独立可量化残余未证，不增重复扣减。",
+        "change": {
+          "kind": "initial",
+          "reason": "旧同端仅有留空记录，无可继承明确折扣。",
+          "evidence": [
+            "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md"
+          ]
+        }
+      },
+      "r_gov": {
+        "value": 0,
+        "range": [
+          0,
+          0
+        ],
+        "risk_ids": [],
+        "reason": "关联投资以认缴配对权益和情景净损失纳入普通股资本桥，未确认侵占或又一可量化损失。",
+        "change": {
+          "kind": "initial",
+          "reason": "旧同端仅有留空记录，无可继承明确折扣。",
+          "evidence": [
+            "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md"
+          ]
+        }
+      },
+      "r_terminal": {
+        "value": 0,
+        "range": [
+          0,
+          0
+        ],
+        "risk_ids": [],
+        "reason": "终值竞争进入利润率和长期增长边界，现金到达时点误差已由d_base唯一计量，不重复扣。",
+        "change": {
+          "kind": "initial",
+          "reason": "旧同端仅有留空记录，无可继承明确折扣。",
+          "evidence": [
+            "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md"
+          ]
+        }
+      }
+    },
+    "new_d_base_range": [
+      0.07281086357445897,
+      0.13915333607966077
+    ],
+    "kind": "correction",
+    "reason": "终值一/两年时点风险的绝对金额不变；纠正权益资产分母后重算比例，非解除风险。"
+  },
+  "unresolved": [
+    "9/30保证金逐项用途、质押债务和解付时间",
+    "9/30定存构成及各法律主体归属",
+    "9/30非经营投资税基和处置权利、11/16价格未刷新",
+    "CPU/DCU分部现金流及合并抵消",
+    "现有激励归属与未来更新成本区分",
+    "R14油价采购传导及现金生存桥",
+    "可执行订单及回款",
+    "R22全收益和机会成本",
+    "R6旧事件及持仓复评未完成"
+  ]
+}

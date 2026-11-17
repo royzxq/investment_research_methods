@@ -1,0 +1,451 @@
+{
+  "kind": "dcf_fcff",
+  "currency": "CNY",
+  "amount_unit": "100_million",
+  "shares": 2319612775,
+  "fx_to_quote": 1,
+  "year_end_offset": -0.8767123287671232,
+  "scenarios": {
+    "low": {
+      "segments": [
+        {
+          "id": "processor_consolidated",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7",
+          "assumptions": "low: consolidated processor cash flows; Q4 bridge then 2027–2033; no fabricated CPU/DCU split.",
+          "discount_rate": 0.1125,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 58.556897708700006,
+              "ebit_margin": 0.196,
+              "capex": 6.4,
+              "da": 3.5,
+              "delta_nwc": 13.658950000000004,
+              "cash_tax": 1.1477151950905202
+            },
+            {
+              "year": 2,
+              "revenue": 260.13,
+              "ebit_margin": 0.194,
+              "capex": 28.6143,
+              "da": 14.993333333333334,
+              "delta_nwc": 53.06652,
+              "cash_tax": 5.046522
+            },
+            {
+              "year": 3,
+              "revenue": 312.156,
+              "ebit_margin": 0.2,
+              "capex": 33.712848,
+              "da": 18.170003333333334,
+              "delta_nwc": 46.82339999999999,
+              "cash_tax": 7.491744000000001
+            },
+            {
+              "year": 4,
+              "revenue": 358.9794,
+              "ebit_margin": 0.205,
+              "capex": 38.0518164,
+              "da": 22.536334533333335,
+              "delta_nwc": 39.64381199999997,
+              "cash_tax": 10.30270878
+            },
+            {
+              "year": 5,
+              "revenue": 394.87734,
+              "ebit_margin": 0.21,
+              "capex": 41.4621207,
+              "da": 28.06175836,
+              "delta_nwc": 27.2824344,
+              "cash_tax": 12.43863621
+            },
+            {
+              "year": 6,
+              "revenue": 426.4675272,
+              "ebit_margin": 0.213,
+              "capex": 43.9261553016,
+              "da": 31.92101319,
+              "delta_nwc": 21.797229168,
+              "cash_tax": 13.625637494040001
+            },
+            {
+              "year": 7,
+              "revenue": 452.05557883200004,
+              "ebit_margin": 0.216,
+              "capex": 45.657613462032,
+              "da": 36.67540302704,
+              "delta_nwc": 19.53221274576009,
+              "cash_tax": 15.623040804433922
+            },
+            {
+              "year": 8,
+              "revenue": 470.1378019852801,
+              "ebit_margin": 0.218,
+              "capex": 47.01378019852801,
+              "da": 40.6341822759808,
+              "delta_nwc": 12.115089512697637,
+              "cash_tax": 16.39840653324657
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.215,
+            "tax_rate": 0.17,
+            "invested_capital": 561.392295463397
+          }
+        }
+      ],
+      "equity_adjustments": [
+        {
+          "id": "cash_eq",
+          "amount": 69.43128132,
+          "reason": "9/30 cash equivalent balance; original model precision retained; interest income excluded from EBIT",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "deposits",
+          "amount": 60.27056357,
+          "reason": "deposit proxy excludes operating prepayments",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "financing",
+          "amount": -71.57916507,
+          "reason": "matched short/long/current debt and leases retained",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "op_reserve",
+          "amount": -10.0,
+          "reason": "minimum operating liquidity stock, not forecast expenditure",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "restricted_asset_matched_debt",
+          "amount": 7.334126666599999,
+          "reason": "restricted monetary claim offsets financing already deducted; not immediately distributable cash; recovery proxy",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "nci",
+          "amount": -151.4550844042738,
+          "reason": "NCI economic share proxy; no second deduction of book NCI",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "existing_award_claim",
+          "amount": -26.2,
+          "reason": "existing unclosed employee rights; replacement future labour in EBIT",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "unfunded_equity_net",
+          "amount": -1.84749,
+          "reason": "subscription paid and acquired asset paired; scenario net loss only",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "parent_nonoperating_equity",
+          "amount": 5.799225407744444,
+          "reason": "Q3 nonoperating equity book mark, paired with estimated gain income tax; parent OCI ownership proxy; not cash",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        }
+      ],
+      "equity_value": 336.5745886814852
+    },
+    "base": {
+      "segments": [
+        {
+          "id": "processor_consolidated",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7",
+          "assumptions": "base: consolidated processor cash flows; Q4 bridge then 2027–2033; no fabricated CPU/DCU split.",
+          "discount_rate": 0.0975,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 71.0848977087,
+              "ebit_margin": 0.216,
+              "capex": 6.0,
+              "da": 3.5,
+              "delta_nwc": 10.993269999999995,
+              "cash_tax": 1.074803653355544
+            },
+            {
+              "year": 2,
+              "revenue": 297.8532,
+              "ebit_margin": 0.217,
+              "capex": 29.487466800000004,
+              "da": 14.9,
+              "delta_nwc": 70.381608,
+              "cash_tax": 5.1707315519999995
+            },
+            {
+              "year": 3,
+              "revenue": 381.25209600000005,
+              "ebit_margin": 0.225,
+              "capex": 36.981453312000006,
+              "da": 18.28040892,
+              "delta_nwc": 66.95739936000007,
+              "cash_tax": 7.720354944
+            },
+            {
+              "year": 4,
+              "revenue": 465.12755712000006,
+              "ebit_margin": 0.233,
+              "capex": 44.652245483520005,
+              "da": 23.409414692800002,
+              "delta_nwc": 57.72156733439999,
+              "cash_tax": 10.837472080896003
+            },
+            {
+              "year": 5,
+              "revenue": 544.1992418304001,
+              "ebit_margin": 0.241,
+              "capex": 51.154728732057606,
+              "da": 30.528271972288003,
+              "delta_nwc": 47.02439602483196,
+              "cash_tax": 14.426721900923905
+            },
+            {
+              "year": 6,
+              "revenue": 614.945143268352,
+              "ebit_margin": 0.249,
+              "capex": 56.57495318068838,
+              "da": 36.53271310310144,
+              "delta_nwc": 40.270743895449584,
+              "cash_tax": 18.374560880858358
+            },
+            {
+              "year": 7,
+              "revenue": 670.2902061625038,
+              "ebit_margin": 0.255,
+              "capex": 60.32611855462534,
+              "da": 43.80267507032873,
+              "delta_nwc": 24.16734413044628,
+              "cash_tax": 20.510880308572613
+            },
+            {
+              "year": 8,
+              "revenue": 710.507618532254,
+              "ebit_margin": 0.26,
+              "capex": 62.52467043083835,
+              "da": 50.344048296405305,
+              "delta_nwc": 16.75725515406259,
+              "cash_tax": 24.01515750639019
+            }
+          ],
+          "terminal": {
+            "growth": 0.025,
+            "margin": 0.26,
+            "tax_rate": 0.13,
+            "invested_capital": 699.8037299657966
+          }
+        }
+      ],
+      "equity_adjustments": [
+        {
+          "id": "cash_eq",
+          "amount": 69.43128132,
+          "reason": "9/30 cash equivalent balance; original model precision retained; interest income excluded from EBIT",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "deposits",
+          "amount": 61.607402,
+          "reason": "deposit proxy excludes operating prepayments",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "financing",
+          "amount": -71.57916507,
+          "reason": "matched short/long/current debt and leases retained",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "op_reserve",
+          "amount": -7.5,
+          "reason": "minimum operating liquidity stock, not forecast expenditure",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "restricted_asset_matched_debt",
+          "amount": 7.334126666599999,
+          "reason": "restricted monetary claim offsets financing already deducted; not immediately distributable cash; recovery proxy",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "nci",
+          "amount": -235.26501619428052,
+          "reason": "NCI economic share proxy; no second deduction of book NCI",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "existing_award_claim",
+          "amount": -24.5,
+          "reason": "existing unclosed employee rights; replacement future labour in EBIT",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "unfunded_equity_net",
+          "amount": -0.923745,
+          "reason": "subscription paid and acquired asset paired; scenario net loss only",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "parent_nonoperating_equity",
+          "amount": 5.799225407744444,
+          "reason": "Q3 nonoperating equity book mark, paired with estimated gain income tax; parent OCI ownership proxy; not cash",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        }
+      ],
+      "equity_value": 1046.3334317210856
+    },
+    "high": {
+      "segments": [
+        {
+          "id": "processor_consolidated",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7",
+          "assumptions": "high: consolidated processor cash flows; Q4 bridge then 2027–2033; no fabricated CPU/DCU split.",
+          "discount_rate": 0.0875,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 78.19089770869999,
+              "ebit_margin": 0.23,
+              "capex": 5.5,
+              "da": 3.5,
+              "delta_nwc": 8.634449999999987,
+              "cash_tax": 0.8991953236500501
+            },
+            {
+              "year": 2,
+              "revenue": 330.2201,
+              "ebit_margin": 0.238,
+              "capex": 29.719808999999998,
+              "da": 14.783333333333333,
+              "delta_nwc": 86.65430900000001,
+              "cash_tax": 4.715543027999999
+            },
+            {
+              "year": 3,
+              "revenue": 449.09933599999994,
+              "ebit_margin": 0.253,
+              "capex": 39.969840903999994,
+              "da": 18.217955433333334,
+              "delta_nwc": 78.8565598799999,
+              "cash_tax": 7.953549240559999
+            },
+            {
+              "year": 4,
+              "revenue": 574.8471500799999,
+              "ebit_margin": 0.269,
+              "capex": 51.16139635711999,
+              "da": 24.044251644266666,
+              "delta_nwc": 75.62832818240003,
+              "cash_tax": 12.370710669721598
+            },
+            {
+              "year": 5,
+              "revenue": 701.3135230975998,
+              "ebit_margin": 0.282,
+              "capex": 61.01427650949118,
+              "da": 32.748577460928,
+              "delta_nwc": 70.59123002982392,
+              "cash_tax": 17.79933721621708
+            },
+            {
+              "year": 6,
+              "revenue": 813.5236867932158,
+              "ebit_margin": 0.292,
+              "capex": 69.96303706421655,
+              "da": 41.022600779809274,
+              "delta_nwc": 58.629810530959276,
+              "cash_tax": 23.7548916543619
+            },
+            {
+              "year": 7,
+              "revenue": 903.0112923404696,
+              "ebit_margin": 0.298,
+              "capex": 76.75595984893992,
+              "da": 51.017997307593134,
+              "delta_nwc": 36.44586116833625,
+              "cash_tax": 26.90973651174599
+            },
+            {
+              "year": 8,
+              "revenue": 966.2220828043025,
+              "ebit_margin": 0.302,
+              "capex": 81.16265495556142,
+              "da": 60.57511338586312,
+              "delta_nwc": 23.658895859320296,
+              "cash_tax": 32.097897590758926
+            }
+          ],
+          "terminal": {
+            "growth": 0.03,
+            "margin": 0.3,
+            "tax_rate": 0.11,
+            "invested_capital": 847.562631572842
+          }
+        }
+      ],
+      "equity_adjustments": [
+        {
+          "id": "cash_eq",
+          "amount": 69.43128132,
+          "reason": "9/30 cash equivalent balance; original model precision retained; interest income excluded from EBIT",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "deposits",
+          "amount": 62.94424029,
+          "reason": "deposit proxy excludes operating prepayments",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "financing",
+          "amount": -71.57916507,
+          "reason": "matched short/long/current debt and leases retained",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "op_reserve",
+          "amount": -5.0,
+          "reason": "minimum operating liquidity stock, not forecast expenditure",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "restricted_asset_matched_debt",
+          "amount": 7.334126666599999,
+          "reason": "restricted monetary claim offsets financing already deducted; not immediately distributable cash; recovery proxy",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "nci",
+          "amount": -353.1717426365221,
+          "reason": "NCI economic share proxy; no second deduction of book NCI",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "existing_award_claim",
+          "amount": -20.0,
+          "reason": "existing unclosed employee rights; replacement future labour in EBIT",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "unfunded_equity_net",
+          "amount": -0.0,
+          "reason": "subscription paid and acquired asset paired; scenario net loss only",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        },
+        {
+          "id": "parent_nonoperating_equity",
+          "amount": 5.799225407744444,
+          "reason": "Q3 nonoperating equity book mark, paired with estimated gain income tax; parent OCI ownership proxy; not cash",
+          "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12; FIN-2026H1.pages.txt pp80–83,93–94,106–107,111–119,124,133,136–142; FIN-2025FY.pages.txt pp31–32; B000 pp1–3; B025 pp4–7"
+        }
+      ],
+      "equity_value": 2376.540144754442
+    }
+  }
+}

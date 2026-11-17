@@ -1,0 +1,637 @@
+{
+  "kind": "dcf_fcff",
+  "currency": "CNY",
+  "amount_unit": "100_million",
+  "shares": 8580935853,
+  "fx_to_quote": 1,
+  "year_end_offset": 0,
+  "scenarios": {
+    "low": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.1,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 360.0,
+              "ebit_margin": 0.16,
+              "cash_tax": 7.2,
+              "da": 79.4525832496,
+              "capex": 101.4819774496,
+              "delta_nwc": 18.8
+            },
+            {
+              "year": 2,
+              "revenue": 376.2,
+              "ebit_margin": 0.165,
+              "cash_tax": 7.759125,
+              "da": 91.2736,
+              "capex": 137.4736,
+              "delta_nwc": 5.346
+            },
+            {
+              "year": 3,
+              "revenue": 384.912,
+              "ebit_margin": 0.17,
+              "cash_tax": 8.17938,
+              "da": 104.0864,
+              "capex": 148.0864,
+              "delta_nwc": 2.87496
+            },
+            {
+              "year": 4,
+              "revenue": 385.33968,
+              "ebit_margin": 0.17,
+              "cash_tax": 9.82616184,
+              "da": 112.400406272,
+              "capex": 130.744006272,
+              "delta_nwc": 0.1411344
+            },
+            {
+              "year": 5,
+              "revenue": 377.1795456,
+              "ebit_margin": 0.17,
+              "cash_tax": 9.6180784128,
+              "da": 116.81874879488,
+              "capex": 141.75249279488,
+              "delta_nwc": -2.692844352
+            },
+            {
+              "year": 6,
+              "revenue": 388.494931968,
+              "ebit_margin": 0.17,
+              "cash_tax": 9.906620765184,
+              "da": 120.8805953214464,
+              "capex": 140.3289156414464,
+              "delta_nwc": 3.73407750144
+            },
+            {
+              "year": 7,
+              "revenue": 396.26483060736,
+              "ebit_margin": 0.17,
+              "cash_tax": 10.10475318048768,
+              "da": 123.88271065310413,
+              "capex": 137.23722393950413,
+              "delta_nwc": 2.5640665509888
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.17,
+            "tax_rate": 0.15,
+            "invested_capital": 811.8475717068288
+          }
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.1,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 243.0,
+              "ebit_margin": 0.1,
+              "cash_tax": 3.0375,
+              "da": 126.76298509368,
+              "capex": 161.90988220368,
+              "delta_nwc": 12.69
+            },
+            {
+              "year": 2,
+              "revenue": 276.21,
+              "ebit_margin": 0.105,
+              "cash_tax": 3.62525625,
+              "da": 145.62288,
+              "capex": 219.33288,
+              "delta_nwc": 10.9593
+            },
+            {
+              "year": 3,
+              "revenue": 307.9296,
+              "ebit_margin": 0.11,
+              "cash_tax": 4.234032,
+              "da": 166.06512,
+              "capex": 236.26512,
+              "delta_nwc": 10.467468
+            },
+            {
+              "year": 4,
+              "revenue": 336.605544,
+              "ebit_margin": 0.12,
+              "cash_tax": 6.058899792,
+              "da": 179.3297390976,
+              "capex": 208.5961190976,
+              "delta_nwc": 9.46306152
+            },
+            {
+              "year": 5,
+              "revenue": 360.67794048,
+              "ebit_margin": 0.13,
+              "cash_tax": 7.03321983936,
+              "da": 186.379003759104,
+              "capex": 226.159658959104,
+              "delta_nwc": 7.9438908384
+            },
+            {
+              "year": 6,
+              "revenue": 371.4982786944,
+              "ebit_margin": 0.13,
+              "cash_tax": 7.2442164345408,
+              "da": 192.85949526285313,
+              "capex": 223.88840631885313,
+              "delta_nwc": 3.570711610752
+            },
+            {
+              "year": 7,
+              "revenue": 378.928244268288,
+              "ebit_margin": 0.13,
+              "cash_tax": 7.389100763231616,
+              "da": 197.64923381472522,
+              "capex": 218.95575273984522,
+              "delta_nwc": 2.45188863938304
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.13,
+            "tax_rate": 0.15,
+            "invested_capital": 1211.678785789655
+          }
+        }
+      ],
+      "equity_adjustments": [
+        {
+          "id": "CASH",
+          "amount": 598.266907181914,
+          "reason": "库存资金独立归属代理；不计经营利息收益",
+          "source": "input/evidence/sources/ S2 PDF8；S3 PDF143–146"
+        },
+        {
+          "id": "DEBT",
+          "amount": -665.1153513974539,
+          "reason": "含租赁有息债务；与现金归属分别测试",
+          "source": "input/evidence/sources/ S2 PDF8"
+        },
+        {
+          "id": "INVESTMENTS",
+          "amount": 195.141372063,
+          "reason": "非经营投资独立计价，其收益从经营利润剔除",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "OPERATING_CASH",
+          "amount": -59.58,
+          "reason": "必要现金不在NWC内，不再扣同笔工程预留",
+          "source": "input/evidence/sources/ S2 PDF6；报告§5现金成本尺度"
+        },
+        {
+          "id": "OPENING_EQUIPMENT_PAYABLE",
+          "amount": -102.61,
+          "reason": "已入期初固定资产的设备应付仅在此支付一次",
+          "source": "input/evidence/sources/ S5 PDF68"
+        },
+        {
+          "id": "DERIVATIVE_NET",
+          "amount": 0.54975128,
+          "reason": "未计经营流的期初衍生净资产",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "BALANCE_LAG",
+          "amount": 0.0,
+          "reason": "保留9/30余额至估值日过渡条件，不造期后事实",
+          "source": "input/evidence/sources/ S1余额日；报告§5"
+        },
+        {
+          "id": "EXERCISE_PROCEEDS",
+          "amount": 1.45,
+          "reason": "现存工具全稀释分母对应条件行权款，非现有现金",
+          "source": "input/evidence/sources/ S5 PDF68–69；S6；S7"
+        }
+      ],
+      "equity_value": 354.69197716681356
+    },
+    "base": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.09,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 399.0,
+              "ebit_margin": 0.2,
+              "cash_tax": 9.975,
+              "da": 89.24702642,
+              "capex": 104.28042892,
+              "delta_nwc": 14.7
+            },
+            {
+              "year": 2,
+              "revenue": 433.2,
+              "ebit_margin": 0.2,
+              "cash_tax": 10.83,
+              "da": 99.82,
+              "capex": 134.82,
+              "delta_nwc": 10.26
+            },
+            {
+              "year": 3,
+              "revenue": 460.9248,
+              "ebit_margin": 0.2,
+              "cash_tax": 11.52312,
+              "da": 114.12,
+              "capex": 179.12,
+              "delta_nwc": 8.31744
+            },
+            {
+              "year": 4,
+              "revenue": 480.33216,
+              "ebit_margin": 0.2,
+              "cash_tax": 14.4099648,
+              "da": 128.761110016,
+              "capex": 187.601910016,
+              "delta_nwc": 5.822208
+            },
+            {
+              "year": 5,
+              "revenue": 504.348768,
+              "ebit_margin": 0.2,
+              "cash_tax": 15.13046304,
+              "da": 140.19510883328,
+              "capex": 198.90237283328,
+              "delta_nwc": 7.2049824
+            },
+            {
+              "year": 6,
+              "revenue": 534.60969408,
+              "ebit_margin": 0.2,
+              "cash_tax": 16.0382908224,
+              "da": 149.9200375635968,
+              "capex": 197.4729214035968,
+              "delta_nwc": 9.078277824
+            },
+            {
+              "year": 7,
+              "revenue": 555.9940818432,
+              "ebit_margin": 0.2,
+              "cash_tax": 16.679822455296,
+              "da": 157.34751904248628,
+              "capex": 190.95155695608628,
+              "delta_nwc": 6.41531632896
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.2,
+            "tax_rate": 0.15,
+            "invested_capital": 1040.50321030656
+          }
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.09,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 267.235,
+              "ebit_margin": 0.12,
+              "cash_tax": 4.008525,
+              "da": 129.8544234411,
+              "capex": 151.7280240786,
+              "delta_nwc": 9.8455
+            },
+            {
+              "year": 2,
+              "revenue": 315.153,
+              "ebit_margin": 0.13,
+              "cash_tax": 5.12123625,
+              "da": 145.2381,
+              "capex": 196.1631,
+              "delta_nwc": 14.3754
+            },
+            {
+              "year": 3,
+              "revenue": 364.737072,
+              "ebit_margin": 0.145,
+              "cash_tax": 6.61085943,
+              "da": 166.0446,
+              "capex": 260.6196,
+              "delta_nwc": 14.8752216
+            },
+            {
+              "year": 4,
+              "revenue": 414.1530624,
+              "ebit_margin": 0.16,
+              "cash_tax": 9.9396734976,
+              "da": 187.34741507328,
+              "capex": 272.96077907328,
+              "delta_nwc": 14.82479712
+            },
+            {
+              "year": 5,
+              "revenue": 454.27414032,
+              "ebit_margin": 0.17,
+              "cash_tax": 11.58399057816,
+              "da": 203.9838833524224,
+              "capex": 289.4029524724224,
+              "delta_nwc": 12.036323376
+            },
+            {
+              "year": 6,
+              "revenue": 481.5305887392,
+              "ebit_margin": 0.172,
+              "cash_tax": 12.42348918947136,
+              "da": 218.13365465503335,
+              "capex": 287.3231006422333,
+              "delta_nwc": 8.17693452576
+            },
+            {
+              "year": 7,
+              "revenue": 500.791812288768,
+              "ebit_margin": 0.172,
+              "cash_tax": 12.920428757050214,
+              "da": 228.94064020681753,
+              "capex": 277.8345153711055,
+              "delta_nwc": 5.7783670648704
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.172,
+            "tax_rate": 0.15,
+            "invested_capital": 1421.4782979581184
+          }
+        }
+      ],
+      "equity_adjustments": [
+        {
+          "id": "CASH",
+          "amount": 598.266907181914,
+          "reason": "库存资金独立归属代理；不计经营利息收益",
+          "source": "input/evidence/sources/ S2 PDF8；S3 PDF143–146"
+        },
+        {
+          "id": "DEBT",
+          "amount": -665.1153513974539,
+          "reason": "含租赁有息债务；与现金归属分别测试",
+          "source": "input/evidence/sources/ S2 PDF8"
+        },
+        {
+          "id": "INVESTMENTS",
+          "amount": 229.57808478,
+          "reason": "非经营投资独立计价，其收益从经营利润剔除",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "OPERATING_CASH",
+          "amount": -39.72,
+          "reason": "必要现金不在NWC内，不再扣同笔工程预留",
+          "source": "input/evidence/sources/ S2 PDF6；报告§5现金成本尺度"
+        },
+        {
+          "id": "OPENING_EQUIPMENT_PAYABLE",
+          "amount": -92.68,
+          "reason": "已入期初固定资产的设备应付仅在此支付一次",
+          "source": "input/evidence/sources/ S5 PDF68"
+        },
+        {
+          "id": "DERIVATIVE_NET",
+          "amount": 0.54975128,
+          "reason": "未计经营流的期初衍生净资产",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "BALANCE_LAG",
+          "amount": 0.0,
+          "reason": "保留9/30余额至估值日过渡条件，不造期后事实",
+          "source": "input/evidence/sources/ S1余额日；报告§5"
+        },
+        {
+          "id": "EXERCISE_PROCEEDS",
+          "amount": 1.45,
+          "reason": "现存工具全稀释分母对应条件行权款，非现有现金",
+          "source": "input/evidence/sources/ S5 PDF68–69；S6；S7"
+        }
+      ],
+      "equity_value": 1005.0203314693938
+    },
+    "high": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.08,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 420.0,
+              "ebit_margin": 0.22,
+              "cash_tax": 11.55,
+              "da": 107.096431704,
+              "capex": 125.136514704,
+              "delta_nwc": 8.4
+            },
+            {
+              "year": 2,
+              "revenue": 495.6,
+              "ebit_margin": 0.23,
+              "cash_tax": 14.2485,
+              "da": 120.096,
+              "capex": 165.096,
+              "delta_nwc": 20.412
+            },
+            {
+              "year": 3,
+              "revenue": 574.896,
+              "ebit_margin": 0.24,
+              "cash_tax": 17.24688,
+              "da": 137.256,
+              "capex": 212.256,
+              "delta_nwc": 21.40992
+            },
+            {
+              "year": 4,
+              "revenue": 655.38144,
+              "ebit_margin": 0.24,
+              "cash_tax": 23.59373184,
+              "da": 157.4642809344,
+              "capex": 260.3170009344,
+              "delta_nwc": 21.7310688
+            },
+            {
+              "year": 5,
+              "revenue": 734.0272128,
+              "ebit_margin": 0.24,
+              "cash_tax": 26.4249796608,
+              "da": 177.713875580928,
+              "capex": 287.256201980928,
+              "delta_nwc": 21.234358656
+            },
+            {
+              "year": 6,
+              "revenue": 807.42993408,
+              "ebit_margin": 0.24,
+              "cash_tax": 29.06747762688,
+              "da": 197.0961487577088,
+              "capex": 299.3356533977088,
+              "delta_nwc": 19.8187347456
+            },
+            {
+              "year": 7,
+              "revenue": 863.9500294656,
+              "ebit_margin": 0.24,
+              "cash_tax": 31.1022010607616,
+              "da": 213.65796701014426,
+              "capex": 292.38238558294427,
+              "delta_nwc": 15.260425754112
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.24,
+            "tax_rate": 0.15,
+            "invested_capital": 1436.625477568512
+          }
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.08,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 385.41,
+              "ebit_margin": 0.16,
+              "cash_tax": 7.7082,
+              "da": 166.053017357052,
+              "capex": 194.024166048552,
+              "delta_nwc": 7.7082
+            },
+            {
+              "year": 2,
+              "revenue": 454.7838,
+              "ebit_margin": 0.18,
+              "cash_tax": 10.2326355,
+              "da": 186.208848,
+              "capex": 255.981348,
+              "delta_nwc": 18.730926
+            },
+            {
+              "year": 3,
+              "revenue": 527.549208,
+              "ebit_margin": 0.19,
+              "cash_tax": 12.52929369,
+              "da": 212.815428,
+              "capex": 329.102928,
+              "delta_nwc": 19.64666016
+            },
+            {
+              "year": 4,
+              "revenue": 601.40609712,
+              "ebit_margin": 0.2,
+              "cash_tax": 18.0421829136,
+              "da": 244.1483675887872,
+              "capex": 403.6215099487872,
+              "delta_nwc": 19.9413600624
+            },
+            {
+              "year": 5,
+              "revenue": 673.5748287744,
+              "ebit_margin": 0.2,
+              "cash_tax": 20.207244863232,
+              "da": 275.54536408822884,
+              "capex": 445.3907411714289,
+              "delta_nwc": 19.485557546688
+            },
+            {
+              "year": 6,
+              "revenue": 740.93231165184,
+              "ebit_margin": 0.2,
+              "cash_tax": 22.2279693495552,
+              "da": 305.5975786488275,
+              "capex": 464.1199305931475,
+              "delta_nwc": 18.1865203769088
+            },
+            {
+              "year": 7,
+              "revenue": 792.7975734674689,
+              "ebit_margin": 0.2,
+              "cash_tax": 23.783927204024064,
+              "da": 331.2766778492287,
+              "capex": 453.3388888463551,
+              "delta_nwc": 14.003620690219776
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.2,
+            "tax_rate": 0.15,
+            "invested_capital": 2079.863427220863
+          }
+        }
+      ],
+      "equity_adjustments": [
+        {
+          "id": "CASH",
+          "amount": 598.266907181914,
+          "reason": "库存资金独立归属代理；不计经营利息收益",
+          "source": "input/evidence/sources/ S2 PDF8；S3 PDF143–146"
+        },
+        {
+          "id": "DEBT",
+          "amount": -665.1153513974539,
+          "reason": "含租赁有息债务；与现金归属分别测试",
+          "source": "input/evidence/sources/ S2 PDF8"
+        },
+        {
+          "id": "INVESTMENTS",
+          "amount": 241.056989019,
+          "reason": "非经营投资独立计价，其收益从经营利润剔除",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "OPERATING_CASH",
+          "amount": -19.86,
+          "reason": "必要现金不在NWC内，不再扣同笔工程预留",
+          "source": "input/evidence/sources/ S2 PDF6；报告§5现金成本尺度"
+        },
+        {
+          "id": "OPENING_EQUIPMENT_PAYABLE",
+          "amount": -82.75,
+          "reason": "已入期初固定资产的设备应付仅在此支付一次",
+          "source": "input/evidence/sources/ S5 PDF68"
+        },
+        {
+          "id": "DERIVATIVE_NET",
+          "amount": 0.54975128,
+          "reason": "未计经营流的期初衍生净资产",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "BALANCE_LAG",
+          "amount": 0.0,
+          "reason": "保留9/30余额至估值日过渡条件，不造期后事实",
+          "source": "input/evidence/sources/ S1余额日；报告§5"
+        },
+        {
+          "id": "EXERCISE_PROCEEDS",
+          "amount": 1.45,
+          "reason": "现存工具全稀释分母对应条件行权款，非现有现金",
+          "source": "input/evidence/sources/ S5 PDF68–69；S6；S7"
+        }
+      ],
+      "equity_value": 2492.165860839565
+    }
+  }
+}

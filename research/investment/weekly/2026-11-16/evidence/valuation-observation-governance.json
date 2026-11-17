@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "method_version": "stock-two-price-controls-v2-etf-relative-v1-dividend-v1-capital-v1-dcf-v3",
+  "state_as_of": "2026-11-15",
+  "method_fingerprints": {
+    "investment_framework.md": "6303f7f694f21805a2122c2db7a67b8539a00a37e741f214084ab2f602c86e7e",
+    "investment_framework_compact.md": "782ff89d54dab37e9652c8e6a8c11706379773e23fed3cd21176fe83aa24769d"
+  },
+  "sizes": {
+    "investment_framework.md": {
+      "bytes": 133468,
+      "lines": 974
+    },
+    "investment_framework_compact.md": {
+      "bytes": 89909,
+      "lines": 654
+    }
+  },
+  "limits": "Structure only; not complete semantic equivalence, evidence truth or investment effectiveness"
+}

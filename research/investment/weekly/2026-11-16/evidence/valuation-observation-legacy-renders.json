@@ -1,0 +1,974 @@
+{
+  "research/investment/companies/2026-11-16/SH-688981/investment-688981-2026-11-16-research-codex.md": {
+    "report_sha256": "b66579ce9b25db28a1bd01d34b0f9c08584ba671a2066e92db801ac702c6b248",
+    "price_sha256": "159f2a58f78f7087f30483c65d3e818d7d614b341f58b444439c2d538c5fc811",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "37ee7a6f2fbf43c6da5e9fa0ed90603a3b985314503a09a2f3cbe4fe6c8729a0"
+  },
+  "research/investment/companies/2026-11-16/SH-688981/investment-688981-2026-11-16-research-dsh.md": {
+    "report_sha256": "d094f44e87745a82bfbef0bacb033b690b2e224a86c9a702bfccd3e72cf13c9a",
+    "price_sha256": "19a17b885a5de59751f74716e685798d6620cd3f79b544d2e49ced02563b7d16",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "781a7b5470c6225c6ade889693f48d2b052235f910219a8a4d9ce1052d2f2ed1"
+  },
+  "research/investment/companies/2026-11-16/SH-688825/investment-688825-2026-11-16-research-codex.md": {
+    "report_sha256": "67d335206b983d69f4f114c30a87d0e5dfb49eee21c4f2445f448c78377b48ae",
+    "price_sha256": "ffe01c74444caaeebeaed560c342118c399cb31b1e55f8ad6781d7ad644c9b20",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "c08d9d2d5a5af10b38eb3616844a2fcb0e2e120d4d60c26945f71359a8be4a58"
+  },
+  "research/investment/companies/2026-11-16/SH-688825/investment-688825-2026-11-16-research-dsh.md": {
+    "report_sha256": "0c8f3041862a7be6e5d80da662ddc3908858e4c492ac8a10cf066dd8c27eda96",
+    "price_sha256": "19e0430dc83f632a2d2ed8da8a3e2b2883036a2d1637160834a4537fd169295b",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "df1ab1481c70c4f1decd34393be35ca5b83d2c82f36991f6307472c065765032"
+  },
+  "research/investment/companies/2026-11-16/SH-688256/investment-688256-2026-11-16-research-codex.md": {
+    "report_sha256": "84936883560e78d98f6978396ab13bc4fd3783391e3e233075d82d3cd45673d5",
+    "price_sha256": "33b0931b8a5339bfb4df45fa6a6d7eb8d1dc4a6891ba39eb687e56968cced58f",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "bb8b5f261d25634287a373ca90a1e145ea3020f2162ba85236073c6e06c7a02d"
+  },
+  "research/investment/companies/2026-11-16/SH-688256/investment-688256-2026-11-16-research-dsh.md": {
+    "report_sha256": "36d7432b5b0fcff71ef0e88b0e711161c74261bfb598e2619eea112257247b0e",
+    "price_sha256": "69ba146f660ca306ea17102dce2d1ccb2288d0a773d8bbdea4860a3cb0b9bd78",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "06b1d0d13f0533d7b61fd150ba75022059951d280d1a71bf1ff414fa35dfa26d"
+  },
+  "research/investment/companies/2026-11-16/SZ-002475/investment-002475-2026-11-16-research-dsh.md": {
+    "report_sha256": "2600992feb2f33b6c2108fe1530254201abb48fcefba8ed2d35a027891faf033",
+    "price_sha256": "60a546932a1179310731fab1a07f45a0183bca8c81e28287ea7585ee691f4084",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "9d193daf3b5213908db922263836fd54b092c63dbf105165ca476092ac8e9553"
+  },
+  "research/investment/companies/2026-11-16/SZ-002475/investment-002475-2026-11-16-research-codex.md": {
+    "report_sha256": "2bf7058362041df2519de5250fad1508d744d04ce52a591841084b961afc46d4",
+    "price_sha256": "b7ca9485ae7347bdcac1aea214d5eded02ec642a8d4ff64fca88f9b8065ba03f",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "8583efb61c94cf9778d9d0c6f68bdf25dd09cf6a162a4b60d349b00f70f7beeb"
+  },
+  "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-codex.md": {
+    "report_sha256": "fad277b9b7ade331d1ed75c18c623c8e4302c3796d8c06b13be184f3c3ff6f75",
+    "price_sha256": "3e6b38fa17c0ed305568cbece6cfb504993fbb88c6fb562df42ef1a57705fb8c",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "ee76921d759d04241534ad8cfc14215e267bcce8c876a4fb94f4efd82cc62249"
+  },
+  "research/investment/companies/2026-11-16/SH-688041/investment-688041-2026-11-16-research-dsh.md": {
+    "report_sha256": "2db3093fdd1da905e334857702134d749468f58e2bb08e44f9636657bf83b2a8",
+    "price_sha256": "36711ef5b1a5ac163d1d0159ff6138264977febe065506db7defde7f3145f466",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "f4d733c05089071df1bbbc95102208c355ded0331c2d2f8c11e33383592522f9"
+  },
+  "research/investment/companies/2026-11-02/SH-601021/investment-601021-2026-11-02-research-codex.md": {
+    "report_sha256": "c7f689e6bf674c0ff0c4d140a65aef860b0a5022ad4e6d96c55993e981729379",
+    "price_sha256": "e0d2470aa7a5440c31309bede55523a29cb8b3f05d1609a065a685dc9a6be918",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "1c95483f9e592a0af6bdd98d17b632b3fe7f33a490d084062374a1bfb67bb012"
+  },
+  "research/investment/companies/2026-11-02/SH-601021/investment-601021-2026-11-02-research-dsh.md": {
+    "report_sha256": "3ddee8a1b8d8e2748b7c4f578dd580091f9236b3e6b4f8aa106eba7851ee6011",
+    "price_sha256": "3749293af61221daf8cb2f9d32aa98fafce7de09d3b2bf7d30c564beba8556af",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "22f2a85a890a2923e7393146e4067acc016accbae86356eab9e34a3e41566ab1"
+  },
+  "research/investment/companies/2026-11-02/HK-00941/investment-00941-2026-11-02-research-codex.md": {
+    "report_sha256": "6da1c3b7eed35701b3b950998bc3b24cfa5d8b5b4873ec5219719a49f7c709bf",
+    "price_sha256": "3d80de51f3d380f16085e6ca3ec91aec9d026476e73a73756d6ba83e698e4ed5",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "221304560ef6a7bda2fb1fade28a350229e91e5e0fc9336838e45888df3fb947"
+  },
+  "research/investment/companies/2026-11-02/HK-00941/investment-00941-2026-11-02-research-dsh.md": {
+    "report_sha256": "7c44aad30085244306c2b0bc88a7dc91ac1694aa497d1bc01bf51216cfd39ee9",
+    "price_sha256": "89f64d8d1fe1a4be5d7dccd5c15c2f763f05dd133fe6eb6011a853efefd44715",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "da4b1d7053bad8f1d9df19a0f4d7068de349f33236a3c78cebbab2a6d51a801b"
+  },
+  "research/investment/companies/2026-11-02/SH-688111/investment-688111-2026-11-02-research-codex.md": {
+    "report_sha256": "2b0f54b4375ff5e4f631a92c063f9b6e6bababa417024f250d040a3966d50ba8",
+    "price_sha256": "551527a332e66066e52ec19c4d787c918d2cafcdfa442ae93be8e240b6075f2d",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "6af4eb26a6745630db19eb7f3fef09fc97fd189023d78946f632435f2f2c7993"
+  },
+  "research/investment/companies/2026-11-02/SH-688111/investment-688111-2026-11-02-research-dsh.md": {
+    "report_sha256": "30d2d12565cbc87a4e4998c7ac0137c0c56a5e31c9ffd96603ce3d55f6003513",
+    "price_sha256": "c87a6e5611890a08f5b941a048c1a6bb7e548b28d0c3b0ef9d5d6dcea219ee10",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "e3947979eb93c5e5c7fcfb002bf524c0f4dfe2943a06bff86a342b822c528441"
+  },
+  "research/investment/companies/2026-11-02/SH-600048/investment-600048-2026-11-02-research-codex.md": {
+    "report_sha256": "1475e05d6f5ba56c968f5a7eae0819e0fbda26b085029df4651376252a1e93c5",
+    "price_sha256": "594f9b46fb10168a3242319351ce9cffb7e1dac89e18907b2c7e8e1d4781a5ac",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "b507da3ece1486ec0beb4c89f39ee1a3c3fcc8363fa680a6f1e0dcbbed2850b3"
+  },
+  "research/investment/companies/2026-11-02/SH-600048/investment-600048-2026-11-02-research-dsh.md": {
+    "report_sha256": "0605cb2df08a286a720d9d4202fe85f841f475117ea5d5663bab9c0e972534ad",
+    "price_sha256": "24de0b3ff033db98a974177347b3ff1a6b0cddb3031a31d36a2d1b46d56b0a44",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "a0481bbf830ff351c6772119991630d434b0f7f5a2084b685065f98a4dc2ba93"
+  },
+  "research/investment/companies/2026-11-02/SH-600036/investment-600036-2026-11-02-research-codex.md": {
+    "report_sha256": "0202a6cad870f779ded90e3e67be6f7c0a0ca7775e4cb594082499417dd01fde",
+    "price_sha256": "ba97594389a2d8197c390c06f881a25a6400e04c9f88ccac08572880438f6a94",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "14cb311077ed2c18569ec1da0380262bc8f8050ef21f8c59eab30bf681fa3bbe"
+  },
+  "research/investment/companies/2026-11-02/SH-600036/investment-600036-2026-11-02-research-dsh.md": {
+    "report_sha256": "87881d84f1d9927189f6a1ee9cbd778ebe672f6294c063d8a9f73a8adb72ebed",
+    "price_sha256": "698cdabb1822918667b998bbeb0a14160c773b721e48a0c38f0a8f07745f0dee",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "74df1725dc0b96397e48986b7c84e892a75e54cef0d66ef443421d843a6b5511"
+  },
+  "research/investment/companies/2026-11-05/SH-600276/investment-600276-2026-11-05-research-codex.md": {
+    "report_sha256": "4eafe25bf8fa21ff5fdfdc84e768ce5cf83eff433d8304c206c7cd5622132016",
+    "price_sha256": "214d1ce1c6a92a77a8ddb8597919c9953a4412981048cd59eabde0b5b2388ff5",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "66f7cd21b41c14c03e4352b22f0f55a448481d7855dbd981e22f4d8e2c1947e0"
+  },
+  "research/investment/companies/2026-11-05/SH-600276/investment-600276-2026-11-05-research-dsh.md": {
+    "report_sha256": "62d25fe8327998eb5fbae03cff7c0717b1a87b96ad240f2766c75db9f7696991",
+    "price_sha256": "b2c7901dbe337c65250fadf3b293348ee5a9cd1aefc4d44f94f02bc610605762",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "65c54dd4bbc28495185622dd363192535cf0e50c6f6db2cc953825d7bb08d1fa"
+  },
+  "research/investment/companies/2026-11-05/SH-600089/investment-600089-2026-11-05-research-codex.md": {
+    "report_sha256": "d05a859e1da38d3a854db2f47105058711c5ca264260d5d6f079491242037462",
+    "price_sha256": "f20a5171154064c1b8d9da0cf59b3ed50a22dbbd8c6645c461a099b73dc384f8",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "a1b9113a8d89a23219ce540e316e7134ae686cbd4cc54ea443efc7a539b6141c"
+  },
+  "research/investment/companies/2026-11-05/SH-600089/investment-600089-2026-11-05-research-dsh.md": {
+    "report_sha256": "84de50d1a7b2d9a517f3b0e1ee15937c609c3bac802062bb721cf82afd9fa079",
+    "price_sha256": "c3b7d9498802a7f94285c8433014d4e5a5e39163483d1b96850607a75ed47454",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "0338248e4aeb51e3f7fa79e0a29fd297ee579c9c76817fe789392a1a11734417"
+  },
+  "research/investment/companies/2026-11-05/SH-603337/investment-603337-2026-11-05-research-codex.md": {
+    "report_sha256": "ee6d95085a3f352de4db6ca6d061362fee4ad12cb92fa7ba0671acdfd6aa2ac4",
+    "price_sha256": "dc70f40365593db89db46ac74720db8b3fe85e108bb8058f374d29289fbd5643",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "ab22f86c61e93c25403e0c60ecf813e6e327205f8a190015e27b5f7a082007d1"
+  },
+  "research/investment/companies/2026-11-05/SH-603337/investment-603337-2026-11-05-research-dsh.md": {
+    "report_sha256": "776700411be1a11535d0ee3e1734a1d79166dc7b44705e803870524b232ef826",
+    "price_sha256": "35f40125942fbbdc37208e8d941530b4b6746eb5eef7d2747d7d0fbe5b8d69ef",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "fbb7e5518f20eba368fb7c32135104973de63c18aa4d60784285dea7e1241127"
+  },
+  "research/investment/companies/2026-11-05/SH-603337/investment-603337-2026-11-05-research-codex-r2.md": {
+    "report_sha256": "5299690ce990bc9f31f70ae8d4c5c8b4b0740d80f4d2c8e74dbd6175309ee0a3",
+    "price_sha256": "4d4e78c6259a23b7db79c6808166dd493a17a0f37a33c865a4ce1f1bc5851b09",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "9a579bd4cff0d4141bac96c38787a1424260e28c3f5003a40a376d8c1c4f4004"
+  },
+  "research/investment/companies/2026-11-05/SH-600875/investment-600875-2026-11-05-research-codex.md": {
+    "report_sha256": "68656df0b1d7d5e9566c15f57f5b7b6c4475a6974152fb019f194a949ae8af81",
+    "price_sha256": "93b9bcaaab36ac6e96e687bc6c5c76c411c1052d79b829aea56fd9763ebbb3a9",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "6c777d21ead029515585abda2da90ba5e87afa0e02da3f4eb54fb474325d3f67"
+  },
+  "research/investment/companies/2026-11-05/SH-600875/investment-600875-2026-11-05-research-dsh.md": {
+    "report_sha256": "becf82089e990997bb8644d96242d604435f5df41e1128761d644cb63d3e4d15",
+    "price_sha256": "8e679bcc07572ec2ed4ccc51614a403767e8fcf545d5a6a6fabf8f1eb199d92c",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "87e2619a1158c75bf60314b4f9be1adcb41acec80de432316c042d46c7d06567"
+  },
+  "research/investment/companies/2026-11-05/SH-600887/investment-600887-2026-11-05-research-dsh.md": {
+    "report_sha256": "655de78d6c4893e3792a157d584cda73a92ec5cb2df557630c7af2311eb5355b",
+    "price_sha256": "98dfc29074dc8fbd0759ea9778f7bf26c28d4237b6580c164c1323a293957168",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "b154a235136d92780d0890059219ab3fa6d014c157b822e271e790a3593593c3"
+  },
+  "research/investment/companies/2026-11-05/SH-600887/investment-600887-2026-11-05-research-codex-r2.md": {
+    "report_sha256": "1505179b85ca5a7eb25ccd4861f715f4ace8dc9b4f33b96cddef22ea5e484bd0",
+    "price_sha256": "0db1d2a050a23d2539ec2b417fab56e1323761ca9ac91db343f255ec1ea586e6",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "286bb6d9442cfe28f54e02f7718324b7c196e70f7f7ef6df974363b4074762fe"
+  },
+  "research/investment/companies/2026-11-05/SH-600887/investment-600887-2026-11-05-research-codex-r3.md": {
+    "report_sha256": "1a130539c0c74c3eba2fb3254440ccb99d85bab98688e31cfc03954b678e3c89",
+    "price_sha256": "de4ff0834531994ad9f23480049624fe3b353b85dab9521804a0a3e5d7a07f8d",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "727a18959bca919bd988aa1afb3ad35ac80dfab79f59fa58527cb709274e239d"
+  },
+  "research/investment/companies/2026-11-05/SH-600887/investment-600887-2026-11-05-research-codex.md": {
+    "report_sha256": "8a2f40a35f2a9f45fe74cd78e14011fdd447e9b9436207558369acb9a50a2ac8",
+    "price_sha256": "f91d323f8b3d308ac940ba15297044c2e784fdf727ec3bf2df8e7e069527960a",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "eb8bb38314e3cde435072ec023d51d3305b0b5c14bb16fb4e13df045c584f4ee"
+  },
+  "research/investment/companies/2026-11-05/SH-600887/investment-600887-2026-11-05-research-dsh-r3.md": {
+    "report_sha256": "6661a7cb297ddaf3a276597774f2d90662e9b30fc6a6f00cbbf1dee502b8df71",
+    "price_sha256": "487b2ac4b50460c0290d29d37049cb704e22a96ba9e6c5d047ffa66ec1f24bf6",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "390e9df7a22408ace6afe9da844dbaf5641c7c689871b21828e27218aff58225"
+  },
+  "research/investment/companies/2026-11-05/SH-600887/investment-600887-2026-11-05-research-dsh-r2.md": {
+    "report_sha256": "afbc467779e0392f67c4a19c7504a1fcb007cf3f259abbb3044f6fcb5e22ccbc",
+    "price_sha256": "8d2dbc80a0bed1a6c2a3cb37a8e1f4bc74e73eae77cac211fa4723abed0ecd68",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "7776d9c244d5693ce5cd82d66057cb48be5494c97f21706cdbde9fe8562f5048"
+  },
+  "research/investment/companies/2026-11-04/HK-01952/investment-01952-2026-11-04-research-codex-r2.md": {
+    "report_sha256": "de4ecdb7bf8da0984fd649521f4367c2e10deae3dfabefbf354262ce44882dde",
+    "price_sha256": "5bb6e68c74524a8d1f48b81be8b0c72ee519b00d231b78190666069eddc7c1f0",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "00facebc9ce02afde4b8ae7478c7cf4521e6f25b5f15d8f30631828a90e87553"
+  },
+  "research/investment/companies/2026-11-04/HK-01952/investment-01952-2026-11-04-research-dsh.md": {
+    "report_sha256": "7ff3a32a691ed187fe1bef66f2994820209c0f08060771e5eb3775f3159c8b09",
+    "price_sha256": "b8ea32bd05f985562ffc4bf5ec74752a19ae426f0821737d210d2420a0c9f568",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "31e4d0441ae994f2232175df646c2d16a172aef602a064ace3109d6e7072df71"
+  },
+  "research/investment/companies/2026-11-04/HK-01952/investment-01952-2026-11-04-research-dsh-r2.md": {
+    "report_sha256": "93455154724757841bbe276116dcde3b0a7fec93e0293ded2d7538750fffdbf2",
+    "price_sha256": "8927959614c658c670a6e990b7464e690b96bc7322d56b819cbccf3a686e3176",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "b60de3ba8797b925fc238dec6891ae4e5eef37e5c0775e4d85e37c7306638a06"
+  },
+  "research/investment/companies/2026-11-04/HK-01952/investment-01952-2026-11-04-research-codex.md": {
+    "report_sha256": "6c2d98ad658b6ca533e9a53eb3822f450892eb9d687644e592e96fbd47ddf39a",
+    "price_sha256": "1e244083cd5e4a3c615f6ec1672269501adb25960375e8767209dfc65784115b",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "46074f83c5c5bb33661b6999d30e340e08475426a82a3fd220f22b2bdd0e8a8d"
+  },
+  "research/investment/companies/2026-11-04/SH-600900/investment-600900-2026-11-04-research-codex-r2.md": {
+    "report_sha256": "0b719704708fff936d31d34c19aad1d0c9f7e01c1875bd3e64e23498d38cee81",
+    "price_sha256": "de551ac07811241d27f9a8d78ca96786c3b7dc227a9db958083283ab0e8614c8",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "a25d4022d113c90d93308c4c441ebb2acd9e24cfa85a51d4c887c458311f4e73"
+  },
+  "research/investment/companies/2026-11-04/SH-600900/investment-600900-2026-11-04-research-codex.md": {
+    "report_sha256": "8fb4ef930b84e420db28b409dc576e02d16ff8465a6154a5c760558694e38c6a",
+    "price_sha256": "0c47528052af893e7f7faf0d983d4c71d629ea973be5194473b76f11a7b61b59",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "b2f805bc0e41d9959d7e908e405f7817cf798cfad829f9175d6316c0d931ac07"
+  },
+  "research/investment/companies/2026-11-04/SH-600900/investment-600900-2026-11-04-research-dsh.md": {
+    "report_sha256": "e15692aedec6eacc63710c29264ad46d27ca301404a5ec3315ad42b6d602a33c",
+    "price_sha256": "1605a68a4166e7ad963390371493ae020cb4560beb9bb54d3ce2a1540262da51",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "00d430fca3021263664a2a1a7ce177884116075f4d489d67a5c402f3b131c3c9"
+  },
+  "research/investment/companies/2026-11-04/HK-01093/investment-01093-2026-11-04-research-dsh-r2.md": {
+    "report_sha256": "fdffed85fe13a3fbc5cd206cf348f60f12ccc9a0effe07582bb1b7872d7c7115",
+    "price_sha256": "3eeaa9da585e6fa7dbc05274a34af30abe510a46d1f9ad8716a703b60f6ab2e6",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "904c9cc72d21479e4090151d6eb4b86acfb05df682613c63fe313e30cb803c0f"
+  },
+  "research/investment/companies/2026-11-04/HK-01093/investment-01093-2026-11-04-research-codex.md": {
+    "report_sha256": "d5eda5fd6f97dee3f8d570395ef886ff0e87ad8bd8b05f27efc1943935195778",
+    "price_sha256": "2b23f7c923d7691589fc9e7fe906376eaab8798067bb9143ee46d7c741f9b308",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "e2ad5d3b8d60cf327a88443cab93592215034d185977479983e27f5a91af1ad3"
+  },
+  "research/investment/companies/2026-11-04/HK-01093/investment-01093-2026-11-04-research-codex-r2.md": {
+    "report_sha256": "986e11ed4108dda5296aabcfd6f15ecdc6af2ffc86d32aff75540f5acdb85770",
+    "price_sha256": "4c1ecd32b70f65f1a9b0abc0c592d6daeb6f23ee674eeee897f223627320aa63",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "8be5b986b9c367f2caa2d6fe426f00980be899303a4bec00ee2bba8ade1678e2"
+  },
+  "research/investment/companies/2026-11-04/HK-01093/investment-01093-2026-11-04-research-dsh.md": {
+    "report_sha256": "b3061030efb51079e57bf97ab8b4475a29898df8eca12dead292a2512609d569",
+    "price_sha256": "abe3b321691dce1d7be87d65a9eb85211b341acb2ecf7cdc42863c2250da3ff4",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d831eeac02e579b37b66b7188ead16872b43313a55054f5fc8f4d43440ec6aa6"
+  },
+  "research/investment/companies/2026-11-04/SZ-000651/investment-000651-2026-11-04-research-codex.md": {
+    "report_sha256": "9c51f4ac6667c7dad4e49c2b9e42f11f915b0ecfa676b1138a05034fb80767e5",
+    "price_sha256": "36617369c0205dc3a52f72110f12e8191efa80c7ee87f268b0fd3d86fd273343",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "4059a6eb9f31b580030125458f86840915971b1702af3e5e8eca58860c6a1167"
+  },
+  "research/investment/companies/2026-11-04/SZ-000651/investment-000651-2026-11-04-research-dsh.md": {
+    "report_sha256": "0515f41160e1083af1190f145f8f006a29d339c03dc4b0b6767d881c80c80a3b",
+    "price_sha256": "5c237ce8ec9a7060cc2662342820b3a1d3e862077d9f898c78130f3ccd3ac4f7",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "483ea58f69f5951b6cd3279ec3f2b28c5aa5597515c2faaee409a284c54b07aa"
+  },
+  "research/investment/companies/2026-11-04/SZ-300760/investment-300760-2026-11-04-research-codex.md": {
+    "report_sha256": "bad25846a09286fba90fa08c6fa5b264ac8f07b5e4ba8bf839ec27c0d2a3fda1",
+    "price_sha256": "020d669a9de42ac6c5e916ef71738518ee15ee9c0f10444e9281aa9d05ce7e78",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "ac436a7e497fdf63ee074da0f39fb03bf05f59de3f4fd83c8a9a78aa68d1f13f"
+  },
+  "research/investment/companies/2026-11-04/SZ-300760/investment-300760-2026-11-04-research-dsh.md": {
+    "report_sha256": "69642e850db3ba917c8eacd1e8b2111d2ed2834fdabb645454652e956602cec8",
+    "price_sha256": "00393dc68865d416cbbf4ae0b304071b8180c8e074ab65019eed02d6650838b2",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "70887898213acf1c540dfb846f2d5b5cf51e5cce1c51c4d8c78506ef117994b8"
+  },
+  "research/investment/companies/2026-11-03/HK-01211/investment-01211-2026-11-03-research-codex.md": {
+    "report_sha256": "ff4f9056f1af06b3eae29994731db5e37c26e9f840c464ef2ccf4c85eb552ac2",
+    "price_sha256": "7e8305a3df1d79c95163d639c73c2c62f6ac29640dbf5f4ff8a40bd2b690946d",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "e976fc57f5e1e445ed3849bc581ce3683f16a73c4a85361da3e4a80a36231ed7"
+  },
+  "research/investment/companies/2026-11-03/HK-01211/investment-01211-2026-11-03-research-dsh.md": {
+    "report_sha256": "e10f2e3f252c92427ee90d30a7e8945ae4c24848765e1f64c0bb84dfb4e7a650",
+    "price_sha256": "c0829a50fe751f7b449a12e76be19c73f2f78bb3da138d5e5ad0bdd32c3f9b57",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "e95dab841308e2f8588783c2cdc0f6f04883409285ae8d1bc5407a1a27b4fc77"
+  },
+  "research/investment/companies/2026-11-03/SH-600050/investment-600050-2026-11-03-research-codex.md": {
+    "report_sha256": "d2a3090438e562487ba9863d5c62c670a3fd192490f07fa6e89a0f9a875b306c",
+    "price_sha256": "8381768baf4601f1cb27c5499f6d808161156acc040c35b0dc6dc0ffc926fb83",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "316b6edc1ee445dd4d134fff5596823a220812d14a24099f7e3da3bce5ca6969"
+  },
+  "research/investment/companies/2026-11-03/SH-600050/investment-600050-2026-11-03-research-dsh.md": {
+    "report_sha256": "a6264a5695e5e40ec593c2edddd98096d2c148b2d34d3f0bfa1c177777579865",
+    "price_sha256": "ba004b334b4dc7ab76f4f62022e22b487464288ba464dd1274596df778490b9d",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "b1fc3045d1e4477d37fadd1ea85e819658882c6ff74fd19daac87273e1fd5378"
+  },
+  "research/investment/companies/2026-11-03/SH-601919/investment-601919-2026-11-03-research-codex.md": {
+    "report_sha256": "129939b50fe0b0fa56942aa2ea9dbb6a513191f7e164b5ee095cd1e6ef527732",
+    "price_sha256": "3794352b56e22cf1e4cc82c074a09ed05318235ecb95a13b957f63349527436d",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "86dcc65316ae51a019e445dd4401a9a8d2072e136ca4d3f3568b637a5900a1a2"
+  },
+  "research/investment/companies/2026-11-03/SH-601919/investment-601919-2026-11-03-research-dsh.md": {
+    "report_sha256": "34f824f6ccd7523052edca55ebe67dc39a9b8006afd4940414db54b56f541940",
+    "price_sha256": "5943688623c125737656f644cd0fcdd285a057e1c25ae500449028567bd20dc1",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "8eaf4b7679c2437f931bf7d40317f11bfbf533418e0f5d069099107e9e45a022"
+  },
+  "research/investment/companies/2026-11-03/SH-600988/investment-600988-2026-11-03-research-codex.md": {
+    "report_sha256": "115069b954d20579ed1d070dc9bf10b1d13f968a0b1ba723557e7da363ad6aa5",
+    "price_sha256": "f7837bae7736156a38367c716f8c384838aecb2e366c175369c2f53ad658a21b",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "35efd6e8a55ac2d4d986b9c654c278aa07ca7566e78e2bba2703689a05775646"
+  },
+  "research/investment/companies/2026-11-03/SH-600988/investment-600988-2026-11-03-research-dsh.md": {
+    "report_sha256": "fb28c3a2dc0da80065ae6ecba86aabdce7cd835f940c61ab57690e4623179e0b",
+    "price_sha256": "3164a6553533c46bac07d8c6f944117e5aeff25a14445dc822a7d07c087ff4e6",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "5b3d1cdf86d00fcad21506cc6f02bd6312b0559c2aae0391dbae5012768aad3d"
+  },
+  "research/investment/companies/2026-11-03/SH-603993/investment-603993-2026-11-03-research-codex.md": {
+    "report_sha256": "51bd6b56b4c57f1d8dfec2449c6cd74db63a983b4734a1de4e26b013a634def8",
+    "price_sha256": "be40c4029d19b7d2ee0b13cb47532d6283e1fc6c3d95a031a570fa60b8473e3e",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "5e0066f2bc5a2f8eb59b072ed5209015a9132ba9681a64fde3c410681957ece9"
+  },
+  "research/investment/companies/2026-11-03/SH-603993/investment-603993-2026-11-03-research-dsh.md": {
+    "report_sha256": "4ab052262952631d60fa9122aefd4fce842500e07402814ca074e089967108d7",
+    "price_sha256": "dec65f1978fcff1c7750004f009873d305bce9739ea9495892ee1a0c84665a96",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "539e2237694c4632e7a77b10943df982e0b86cc039f57c43d1c4122a9c9286a5"
+  },
+  "research/investment/companies/2026-11-14/SH-601877/investment-601877-2026-11-14-research-dsh.md": {
+    "report_sha256": "4f5ec56eb6a5002b3f052eba8f09a27aa8e3f0aeaf6eb6814b2b0a12c2d71bbe",
+    "price_sha256": "021a99af13e243c83cdc4ae7527d6ca33f9f2fa5a43c28e9119310f241d06a84",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "35f85f25c64a7968ab1bed612b76ffac9de504e3ccdd421d2f18dfc213b7a1f3"
+  },
+  "research/investment/companies/2026-11-14/SH-601877/investment-601877-2026-11-14-research-codex.md": {
+    "report_sha256": "1d251cb8ce8a84ee55e68ecb6d8426159dcb5fc26d705e3f28fbad62c72f4ef5",
+    "price_sha256": "d4e66a2e8ba25ee9bbc3856d4c9daf416147507a9cd1bb0752e00dcbe2a2e48e",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "b8e4aa7220ab0e9ba67286aefd9c475e013a1c28311645d20ed9d26e5bba76e4"
+  },
+  "research/investment/companies/2026-11-14/SZ-002439/investment-002439-2026-11-14-research-codex.md": {
+    "report_sha256": "31091752853297d36b922c51d137e986b9d49656801935e9d328de4b64ebcb79",
+    "price_sha256": "656994c513bd906d65f2a09e4a640af9afb02c28b501d1bc152f09cbd8949de1",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "546815116a112ca83d16cdef18730ac8e90b8aa5b5d029eea5dad7d33b712cb8"
+  },
+  "research/investment/companies/2026-11-14/SZ-002439/investment-002439-2026-11-14-research-dsh.md": {
+    "report_sha256": "6479d6b7420ee229067c8678842816b09913415563bd16da3b47ab25389fae2a",
+    "price_sha256": "8d2c028ee7437af5ca5a3e605722ffe79f16cb8e2df1f9ed444e7f53221b0e54",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "9bb015ca8e3055927120e0e9a4cd7a4546bba54958b6ba6ce068c35e1230e42a"
+  },
+  "research/investment/companies/2026-11-14/SZ-300454/investment-300454-2026-11-14-research-codex.md": {
+    "report_sha256": "525d8268f78c6302a42c070cf520f6bc451f49ed7b941a24fdcc0c656a467893",
+    "price_sha256": "4bb4a7461b143c985e36115e8e89697ed823ecc5ddacef4ba812d138683dd165",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d9f436ad37c0d41488c88965f3f969c4139f5fb67c3a1dfb1d00a9737d015482"
+  },
+  "research/investment/companies/2026-11-14/HK-00700/investment-00700-2026-11-14-research-codex.md": {
+    "report_sha256": "653ace881d3225fd7fb15fe696d99f1962a7ccd08bcebed3b16ae73ef902d204",
+    "price_sha256": "f338ddfd87841570ce68afdf9f1b8f11f22a8a9a1614f703be3cde2776241a12",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "0d91e9d540c85003895c1b292c8ab2c54490f6aeecaa91d8b8c2ef5292efed9b"
+  },
+  "research/investment/companies/2026-11-14/HK-00700/investment-00700-2026-11-14-research-dsh.md": {
+    "report_sha256": "ed32accc5d26ec454a0aeacc970a0bc8a9fc656408456c05191a089eda386173",
+    "price_sha256": "151f97c9361b240d0bf25f9bbd3138ea7d4e430698a3ecfeca0d75cbcf4da52f",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "4691e8ca03870ff441acc0a6fe8d9a47450c62ddcedf8a48691e06188e4c8083"
+  },
+  "research/investment/companies/2026-11-14/SH-600406/investment-600406-2026-11-14-research-dsh.md": {
+    "report_sha256": "9e086b706c8fff5801c26042ca3b9ee706170758d1878714312857eae148cf22",
+    "price_sha256": "4baf6ee220bad4d51414c55a0578ff90723c0d4f6ef107568a1cfdedabcb5a8e",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "9f0fda1153ce486f1e0018f4351eaa26aa03dab2a7a902e9640bb55522a12d79"
+  },
+  "research/investment/companies/2026-11-14/SH-600406/investment-600406-2026-11-14-research-codex.md": {
+    "report_sha256": "b471cd4e522989a95a69af1c1434e00a2d74818c7050492ac6b6be6ca5405b79",
+    "price_sha256": "1d03209c273fbf79dc719cd9f3f47643a9061b84e60d05ab852acf317c746a10",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "9075f699a8e83ef6732b5911925b30dee18ef84b1610f1d0b9f5b35d59a48da7"
+  },
+  "research/investment/companies/2026-11-14/SH-600406/investment-600406-2026-11-14-research-codex-r2.md": {
+    "report_sha256": "8e118b4b2bbb95c6529bc1c058aa4fbb03ffd0a43fcd56daafba8707341fb3f0",
+    "price_sha256": "c6602aa58cb66940647f4e18adf13a9f4526d39e2f6b00da2b76518eb4d89b9d",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "1d30e222069fd19710293fc44f1adce9722600c9f20c06d57ebd9565af29a0c7"
+  },
+  "research/investment/companies/2026-11-13/SH-600066/investment-600066-2026-11-13-research-codex-r2.md": {
+    "report_sha256": "9030ff0285a1b19078a637cf1eace1e6a2bc06b2799405d7ba582dbbe6664947",
+    "price_sha256": "8b359b1f6249eaf4447ab0a86a1bc806f0c04234dbf8b6b2d375548e5007f2cc",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "92b7c161e2be88b0453d384ff86278d7a309bc479c335eca423bc95d63626d33"
+  },
+  "research/investment/companies/2026-11-13/SH-600066/investment-600066-2026-11-13-research-codex.md": {
+    "report_sha256": "98dcdb85150523ebaed73c2549c8793f8e766355adcb665f4d0a6ad4e4a0e167",
+    "price_sha256": "f4a9eeacc452617c3113e1dbda3d4e32a30a97f93208315f05a86bc3919287f1",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "5723b60ca7c4c45032d205045c960ecca95f6aa240a68499aa10ddfe0fe3841d"
+  },
+  "research/investment/companies/2026-11-13/SH-688018/investment-688018-2026-11-13-research-codex.md": {
+    "report_sha256": "8f9fe63a2bea0e678bb63616b3efee6774280775704d5829e28103c5a111d51d",
+    "price_sha256": "7e3fe963e082575b4690ff7ab84cb910949a8593a34c5b438cfd28f00dcbf8cd",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "15025c96fecf945c4bcd08d63fe6f5234cfce7943c822b3e44285098dbd4268b"
+  },
+  "research/investment/companies/2026-11-13/SH-688018/investment-688018-2026-11-13-research-codex-r2.md": {
+    "report_sha256": "1eb1542173f86d2d08606216199033b986afa29399a7534d84c9ae090f5cb69e",
+    "price_sha256": "463f05a99734365b88cb1ba7e63929e0e278fd970a7197afe832f61bee3a411f",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "8cc07a91fce705720176de67b5aa82639a331765ef3ef46610ae0eecab6ba985"
+  },
+  "research/investment/companies/2026-11-13/SH-688018/investment-688018-2026-11-13-research-dsh.md": {
+    "report_sha256": "58151a73389e8b850525c4561209a3a6725e285658577cacf8169cc3b1fd451f",
+    "price_sha256": "fee34e8f8b3b6e17025af51039bb458576bd0505b4ae5751d26b739b9f53754b",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "9bdfeb85184764bcb3782de901cb58cdf5d3d6d2d0e11192af716707eb5e95f9"
+  },
+  "research/investment/companies/2026-11-13/SZ-000651/investment-000651-2026-11-13-research-codex-r2.md": {
+    "report_sha256": "19ee68869fd2256808dea9d450b521ba6f7ed8eeb5ae03b1367cfaf1088c56e1",
+    "price_sha256": "90dd4f7c0d506781ced96ca5832f28be6c69cf4dcff84ebed4bebd991e63b1bf",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "63d93b041cff26bac9587f96a92a4d691d693604817812874351e2a34a31c4f4"
+  },
+  "research/investment/companies/2026-11-13/SZ-000651/investment-000651-2026-11-13-research-codex-r3.md": {
+    "report_sha256": "4ee2b0d51244f16f3c85bd256f8cea45426408085fcf4669b27c67ef90918712",
+    "price_sha256": "b3702e0fb59a7b2696f059dc49cc881efa9adf37f4a7a72f83902652a9c1f20f",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "779ce3c94ad42a8d610cf24e3bb59ff155994f2a017b159d770db5a28a3d528f"
+  },
+  "research/investment/companies/2026-11-13/SZ-000651/investment-000651-2026-11-13-research-dsh.md": {
+    "report_sha256": "09872142a7218c7744115b32b905df94cadc0351e2673bf5a9da519a6a83c4e9",
+    "price_sha256": "220c1a43a7d773ec5b37244b567a80849c09f11bf466c74a7aa6f72ace80f3c0",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "99b0e8a57824261d93f58017d01ceb670d15dc8bb662452baa5801546412e67c"
+  },
+  "research/investment/companies/2026-11-13/SZ-000651/investment-000651-2026-11-13-research-dsh-r2.md": {
+    "report_sha256": "2fde76b56417d11d85ffb01e18ebbbb322df53f9ea9cd753945c5545beb52f3a",
+    "price_sha256": "18b1b93b694455d21f0e44f16a172992bcda0a1ea337928f43694c65776f6f4d",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "0e23bc82909ebdf3dbdbca519e843c9bd9000c62ea5c485d1866a64d3bba6443"
+  },
+  "research/investment/companies/2026-11-13/SZ-000651/investment-000651-2026-11-13-research-codex.md": {
+    "report_sha256": "ea6bf01d4955207f8d0fbf92f7753b8108d254eed188d5307d10f0e883689fc9",
+    "price_sha256": "7b5299a1d5c051a42c9b485b53b444572962a12e69998acce0ab3a7f3790b347",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "4dfd6e57f9b1453bbb43dbd2152bd82f191a58cc2a7d6908d3b8f13738d87f55"
+  },
+  "research/investment/companies/2026-11-13/SZ-300760/investment-300760-2026-11-13-research-dsh.md": {
+    "report_sha256": "e34170893bd8ba286900fa1bf6a34ebaff7173a37edfaaf7ec04f8a98f571600",
+    "price_sha256": "7cd03327aee996aabb37e8243b376f7279b39cd4499de7cfd5fd1782403fddbe",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "38d6cad5e8a8c40e191c764ffdbd3e574f15114c8ae1d1e9705dcbad3fcc909f"
+  },
+  "research/investment/companies/2026-11-13/SZ-300760/investment-300760-2026-11-13-research-codex.md": {
+    "report_sha256": "61d4c24a83cee7b41d9dcde97a0a9397687725edb3442ac5dfc1e6d8681f0460",
+    "price_sha256": "300c954f6c1ccaaa91a59dceb9381873da68c7f88cf8a338e4c19f0e58a87499",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "0fccf5ec489c890b9958f9e02aa57aa8e93127c177b00485504795715b74543f"
+  },
+  "research/investment/companies/2026-11-12/SH-601021/investment-601021-2026-11-12-research-dsh-r2.md": {
+    "report_sha256": "a3288658517a881d9c43dac19dde0ab23a97a9b0a3743b4bbc642a8e52278d57",
+    "price_sha256": "0f121f04dea0b047f42b5c5297e9e0321b60d081b7e52f586b2fce7ea36ab894",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "1f12f697932188c6f23c784d90f99177453ce97f33b376a75f3eadec85f6990e"
+  },
+  "research/investment/companies/2026-11-12/SH-601021/investment-601021-2026-11-12-research-codex-r2.md": {
+    "report_sha256": "e9381a28bf02b3aaa92a72ee626373294678facf9b282090c3ad76e5ad8f1db5",
+    "price_sha256": "ca9f69eb7b018d7b69a495ce12e9123594edfb6cd8bb0116904b8c7b83b91655",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "80d779c5c821ab421f2179c1282d02625565988f0b0765dcbdccd9e2525f4b12"
+  },
+  "research/investment/companies/2026-11-12/HK-01211/investment-01211-2026-11-12-research-codex-r2.md": {
+    "report_sha256": "a08ca2318f82430531d7df05d875e8c7a4020ec0d3f2b8d1ef4472f02f84a06e",
+    "price_sha256": "e8c403ea0a90a09dca699584c2cb409b63a1e225d8aae51e4a17c73b8493bf33",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "af6b451a27a3057f3ba747526cd20b8164bea82d3041c05ba98ea47aba031167"
+  },
+  "research/investment/companies/2026-11-12/HK-01211/investment-01211-2026-11-12-research-dsh-r2.md": {
+    "report_sha256": "f25797ff1c76bccb07cba637425b1f94472065b01d2e4d5739d237fcdee82711",
+    "price_sha256": "e443657c68da167084e3e6686604dfb52e0847cb2b1291ca68209c0e79002466",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d6fff8fbcfadf8f7798a22473d161bda11a2dbed08e9a79bee081d311a744d77"
+  },
+  "research/investment/companies/2026-11-12/SH-600089/investment-600089-2026-11-12-research-dsh.md": {
+    "report_sha256": "0254ebb0faff716f36a3b84a2f957bb35e6f408f229355127b7a39e561e3bc2b",
+    "price_sha256": "df0183684ec8cc73eb67b9efd30de1ecb6cf35ade1fcad9aad2b684c3c83dede",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d3f80dbf378ab3f4ff509617389bdbc4fe02e048f5b21f0e60f089252f4c2f2d"
+  },
+  "research/investment/companies/2026-11-12/SH-600089/investment-600089-2026-11-12-research-codex.md": {
+    "report_sha256": "ac6f013e23a3fde53195b8a97546626d968748c79469b7bc1db759f45741b444",
+    "price_sha256": "d188839aa422ed52f625be07dbf230e873c2355736cca57a850bd82399c926f6",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "22f7885662e71ecd29cde7601a9bd2b5e548daa44c94875aaf28df5daac14b47"
+  },
+  "research/investment/companies/2026-11-12/SH-601318/investment-601318-2026-11-12-research-dsh.md": {
+    "report_sha256": "085e3d7617ebc3df0c1e086c90b17d2d46da804812ecf59a8a4a691ec7738e17",
+    "price_sha256": "e9b28b7568ecd50a3665f8b4e92ef683fdb115694fd4a49a539508a7d3bcf074",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "ebda1d6acd311b033946b147b9efb96bc81d43b18a8a96fbcbe92095086db2ba"
+  },
+  "research/investment/companies/2026-11-12/SH-601318/investment-601318-2026-11-12-research-codex.md": {
+    "report_sha256": "8b7a306229dee6864f59c3eecad44cddffb69f1d7feec3cd4ccdba637e7d60da",
+    "price_sha256": "6e9b2e206269e1f282bd440056e2e9d24314af360dfabc0acb6848a736a2f78b",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d3ce3ecccd019356817be2114441f981a96a9df883d5f92e25491a70ef61b480"
+  },
+  "research/investment/companies/2026-11-12/HK-00941/investment-00941-2026-11-12-research-codex-r2.md": {
+    "report_sha256": "279e945854ad4038fc21a25a7a88a808ac5b59ca3a9948b991d4fde1a453b3c1",
+    "price_sha256": "b6a7ec71ffb959c166ffcd0bc35850e27b46ef676fad777799b6505ee6989d50",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "c2b92ad723b1994c165098945c924448a7f4bde7c7b50c3772408a1bd0d5c1c0"
+  },
+  "research/investment/companies/2026-11-12/HK-00941/investment-00941-2026-11-12-research-dsh-r2.md": {
+    "report_sha256": "4b89702e361ef1db345ceca635bcec63961e6559666c0f6aa8ff61e86192db7a",
+    "price_sha256": "8871793e3f67e4132311e0e633a296edff1f008eeabe1895d9e0beadf92fd5f4",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "788b4005dc1103df4f7430f4844a25e8c116b363d5115d9377ea78a75462c884"
+  },
+  "research/investment/companies/2026-11-12/SH-600988/investment-600988-2026-11-12-research-codex-r2.md": {
+    "report_sha256": "7ba8166c29956d94ba638a00f20dd6ed1a2f167befa858af1ca1b5c91b9f87d9",
+    "price_sha256": "fe501ccc5895de02dbbfbc00a365f7fd6baea3bcfe7d6ef7328b9f9134853662",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "8112b616dba1f336b370ab9b59f393cbd6c69c0ba953cc4d851e74bfc0beeb0c"
+  },
+  "research/investment/companies/2026-11-12/SH-600988/investment-600988-2026-11-12-research-dsh-r2.md": {
+    "report_sha256": "26d4b3241b0312ef868e4336df1acb1ff8211ea2e6108450df5b6a2f285bccef",
+    "price_sha256": "97e749cc68dd094357bb9d92e612ad7cf522cd2d3d622ad70b20a9bfa8f55b50",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "586f280ab6eca577a0810e4a7a40f15f073231df193efbe2e4f52906441d7878"
+  },
+  "research/investment/companies/2026-11-12/SH-601058/investment-601058-2026-11-12-research-codex.md": {
+    "report_sha256": "6bdb2965d868ffb32e61a5019bdc6a3fc85feddcfcb510df04dcb2c8216f94a7",
+    "price_sha256": "8d6c961e51eb2b3e879477d725f1387ac923448542c80e98e72a89169fb8d0fd",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "1c650729aa93b56de6d37665d809d04a55b579f1b2837382247b7be7881d853f"
+  },
+  "research/investment/companies/2026-11-12/SH-601058/investment-601058-2026-11-12-research-dsh.md": {
+    "report_sha256": "da141fd31c89de396f80eb86440fd074f91756824fec663a3490808395241381",
+    "price_sha256": "6493d078ca1ccc0b62afc22736d963cba2a66d543a80e14721793e6e45e79b52",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "f48ca1e602ab2fa866b133b250b51c93b7ab2ef2fc9a4ddf7125c33539c44169"
+  },
+  "research/investment/companies/2026-11-12/HK-01109/investment-01109-2026-11-12-research-codex.md": {
+    "report_sha256": "2d715187b038033f0a211734187b7a628338bb1f70e312342c1bbd5365026178",
+    "price_sha256": "7024fee7bd3552050de28ba993a54d4d54d2c008b748e0ff30d796b2a8ac53df",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "a53b539bd9fbbbaa8d84c5406580acd31ad26249beed79569fbaf12d062b3ffa"
+  },
+  "research/investment/companies/2026-11-12/HK-01109/investment-01109-2026-11-12-research-dsh-r2.md": {
+    "report_sha256": "7f9558754d6b18632839314533e90225a56f33d1f440067c2e92ca8a39072739",
+    "price_sha256": "8ba57efd871b25379b80d9163390163dab64230bca20a8604748bc19a3cec36b",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "685d01bb1e264686750f3200502c3287519bca44d895fbcb231074d12c8dd844"
+  },
+  "research/investment/companies/2026-11-12/SH-600036/investment-600036-2026-11-12-research-dsh-r2.md": {
+    "report_sha256": "3d8ddf64929982610e81f6f2c00173fdd7fd719225effdb5a2e6fadaa8b1bf9b",
+    "price_sha256": "2fd66b2e439ed583b0ad233c926fb3f8aea52dd40655eb7f1219205cf7334d72",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "bf0d0e56791277be7c9cf90aa29e0f09f2ab53cf8e12e65a74e0a1d8cbb644f4"
+  },
+  "research/investment/companies/2026-11-12/SH-600036/investment-600036-2026-11-12-research-codex-r2.md": {
+    "report_sha256": "d608082d753448c7cd010ded1f5433bd80ac5724f55c4f5f813b7040cac6ea4b",
+    "price_sha256": "907bd153cddf004923b0a39bf25a42ec7d80e24f7942d1fcbaf9973ad9d6d00e",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "832216683f6c81722b48e26d1d5117eaf507812c67e41197c512a5fbb07ddeeb"
+  },
+  "research/investment/companies/2026-11-12/SH-605499/investment-605499-2026-11-12-research-dsh-r2.md": {
+    "report_sha256": "c915b3d14ebae2d847a984f16a979d0075c3ec8f1626cfdc3a873536cd1514cf",
+    "price_sha256": "13a74180b4aedf0b42681ab98731e23b0f2b39a17b63076ee41d58644a9ef4a4",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "745dd35ec199752a84168e71a58da8b5ecc141f9604db728ffc19a6f74ad8625"
+  },
+  "research/investment/companies/2026-11-12/SH-605499/investment-605499-2026-11-12-research-codex-r2.md": {
+    "report_sha256": "d1ea99cb6b24bf7396d54ca964f537a1375a4b1128a1d06a1d0e92413f9252ec",
+    "price_sha256": "fa8f9ebbac4acd6bf3538811a0ffa785520dd09943e61aa27900e51b11cb2a25",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "4658df7c200dd2ce719e9356731b9d2f9a77c38e68f99efd60d93e69042d27db"
+  },
+  "research/investment/companies/2026-11-15/HK-02020/investment-02020-2026-11-15-research-dsh.md": {
+    "report_sha256": "af025145439c50f7f12a5622459621fe55fd9cfcbd354432d73053911e398e33",
+    "price_sha256": "4cba0c6dbd828d4a8f6a419b14e222785988986d2fffa114a76f4aa3f021feab",
+    "audit_schema": "stock-research-audit/v4",
+    "render_sha256": "5d59d89028169d7277d9baf2c532044a5e132588294713b4c7faaa66e2d7021e"
+  },
+  "research/investment/companies/2026-11-15/HK-02020/investment-02020-2026-11-15-research-codex.md": {
+    "report_sha256": "e02e3c9bf6df7f3b703f2e81c491e2b036c29d9271cf686083b1b1ed159a391c",
+    "price_sha256": "20787980f1bdca21f7e42bac53c89dc6f3c76a86b2920b57deabe5ae9e04c028",
+    "audit_schema": "stock-research-audit/v4",
+    "render_sha256": "698f02746944bd723f62b776e10ba62a6b6ee14c8ac15172e0bb73245a02a653"
+  },
+  "research/investment/companies/2026-11-08/HK-09961/investment-09961-2026-11-08-research-codex-r2.md": {
+    "report_sha256": "19d935ff3e664ded6725be234d4ffdad01ea9a3b9e064ee43190a54718b4cf39",
+    "price_sha256": "945f46ac9cdd4001c50678ef2f6996a733a19af1b8adf50ab8106c5ababf8f95",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "bc54c6c127123545cf71ca666d6db67f88854ca2259a8bb1f7ad8c949850cb9a"
+  },
+  "research/investment/companies/2026-11-08/HK-09961/investment-09961-2026-11-08-research-dsh.md": {
+    "report_sha256": "a3af92c7c40867d6310e90b86ef60a5b6dc3127da6134981a03d9b058e9fab59",
+    "price_sha256": "d1d18ae234008d49c910826d80f78295cd50d7c685355c7ad919e119dfb4a9b2",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "c24682934ea18abe4d4ffca482998560e35366ae961c4c8648b08e313da51165"
+  },
+  "research/investment/companies/2026-11-08/HK-09961/investment-09961-2026-11-08-research-codex.md": {
+    "report_sha256": "a8717db4e996b5565bac9f5ac6e335af56ee7759c77b682c10c8af7f2f4749ee",
+    "price_sha256": "3bb16643e53b05076cd8a98cb1f22ad1e336889625973cffaa56a97d36185a39",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "14f03f8aa8e73520c7318f7dc7b30d825b68567db612e99a545895fc055dd7ae"
+  },
+  "research/investment/companies/2026-11-08/HK-01810/investment-01810-2026-11-08-research-codex-r2.md": {
+    "report_sha256": "59a61c778f2f755a2cf13b93e82f7a591dc79d761c1292c02e1629c8d3524158",
+    "price_sha256": "b9964f7347b07f5f9bea53de04b21c92efc084bda13256823655641ba18b8591",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "a7cb8e779e70fc5beaf6e3bfeb2e7f9a8d2661b209016bdbe1fdc3630e552c31"
+  },
+  "research/investment/companies/2026-11-08/HK-01810/investment-01810-2026-11-08-research-codex.md": {
+    "report_sha256": "53b86f3c484517a44aa6a0cf9a566dd756b3499c75b53ee7597f0fac81d974be",
+    "price_sha256": "27dbeb5427884dd2b9cd6b3681987508c5cd742d3146ede96c27d02dad1e0572",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "27b1c800b5ca53f3b49b6387ed7b334c2945bacebc2532e152a9a2cdffb18243"
+  },
+  "research/investment/companies/2026-11-08/HK-01810/investment-01810-2026-11-08-research-dsh.md": {
+    "report_sha256": "2a9b5d2fab06406bcb58a1406a2c2caa737545fee5ab6df7f66856f205582ce7",
+    "price_sha256": "7f149c397d6fe70b3599edecb4426fd7f6a50f2c89aaae83d0a434be226224ad",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "2003c74372e3db33dad7aa264b995ac79f775ac3ff4ce2f1b2ef4a640aaa3224"
+  },
+  "research/investment/companies/2026-11-08/SH-600938/investment-600938-2026-11-08-research-codex.md": {
+    "report_sha256": "617d969baaae54f8c824dcf21789c6f5d2b330cb39d06abe860b35de6855e903",
+    "price_sha256": "14aa95ef7d4a2b762a95b456e5d62e3225d779cbe164c8b928504c9ca5c2d9c1",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "cd44f02d819f2185294e204de2729fc4e94bc4b7c211855a9db17f0e24d0a661"
+  },
+  "research/investment/companies/2026-11-08/SH-600938/investment-600938-2026-11-08-research-dsh.md": {
+    "report_sha256": "43a3c7dd7f7513ffe318883c5d5f1b76be59d37133b46ceac304dc96500b08b6",
+    "price_sha256": "35419ed916e53bbb7ff330c2a721238a8c2e4bbcd2278bf335474db0160c6bf8",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "f45ecbf5d1351c67f402ca08607152e554cbaa20703a084865c5ad1e4f10e514"
+  },
+  "research/investment/companies/2026-11-08/HK-06886/investment-06886-2026-11-08-research-dsh.md": {
+    "report_sha256": "08344301112620d52eebccc38be7cad00f219831bb54802ce84cbcfae52caf38",
+    "price_sha256": "9aed0b9ca988833ef476efd8f096a97de4c3c9be5115a2328ef3fc007b041d95",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "bcb2a8a003400b81e05b594ce9571c66f3147c366240b04bf5eced015c00d48d"
+  },
+  "research/investment/companies/2026-11-08/HK-06886/investment-06886-2026-11-08-research-codex.md": {
+    "report_sha256": "133de1b31ac6068b2b5577c21041a0220a32e399c782e0ab60afbae741fa9d65",
+    "price_sha256": "e713dc3a3b9f96de7a455ccd7554d1d9a4aaa4f386bb793335dc61ebadc35026",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "6d5740a56b6aed8615d4ff471c83159346b557eea837ac23cff60248f675940d"
+  },
+  "research/investment/companies/2026-11-08/SZ-002475/investment-002475-2026-11-08-research-dsh.md": {
+    "report_sha256": "8f2115b0ed77eabb6a7b6357dcfb137df631f1315aad6815b6ed1ef7801a6439",
+    "price_sha256": "af6c246291dda92685358c191daa216ff4883f866ecdb2fc4fe047ce14a73f11",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "52a4b0b215baa3e7edf15fc7db6750eec1fcdc791ea0f92a82110bd4cf407e2c"
+  },
+  "research/investment/companies/2026-11-08/SZ-002475/investment-002475-2026-11-08-research-codex.md": {
+    "report_sha256": "717fc561cdc60e6970bc9e652984268b10a1a20f84f19137f0aedab7d99186e1",
+    "price_sha256": "221b968c21eaa252c6cd5a48bd172d0162f8a2a8b2c1c11ed87503ffc6755094",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "081e2ec4cd702945079eed5e0c73148aadeb4601aeaa88ff4915cbc97dd95256"
+  },
+  "research/investment/companies/2026-11-06/SH-601877/investment-601877-2026-11-06-research-codex.md": {
+    "report_sha256": "193cecc18e699061cc24429c9350b004a5583c75cb6847226b796c3b827facd6",
+    "price_sha256": "8ee26333b84bfaca5d8c6d0af48abdf2db3a08a4a37e7631c4bdc1fb09be9c8a",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "4fc7d869393acb053f34009625f41487cd7e580cac4155dfeabc5892cde3082c"
+  },
+  "research/investment/companies/2026-11-06/SH-601877/investment-601877-2026-11-06-research-dsh.md": {
+    "report_sha256": "a3dd161fa9db4800d39a9912d257dd94ec2660fbd7f9005520832b1ee5587e09",
+    "price_sha256": "be889b4b1d240cf2cf357c0834b921efd4f387ef6d46935219649b187a7eae64",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "6d1717a388005bfe6810ffc45114e78fdd4596ecf89138a4dca26cd8828acaac"
+  },
+  "research/investment/companies/2026-11-06/SZ-002439/investment-002439-2026-11-06-research-dsh.md": {
+    "report_sha256": "5ae0d7115b8957f11f61bb53cecb410e3b690c1e22902757524378649738321f",
+    "price_sha256": "dbd5b227cfed26428ae21770fd5ef6a9f4f5f4dd9eac3072b70bc6e292162ff5",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "b5914b450e2f43b27ec330a0cb49c504cc8792cc1882a55a1d1e7e068fcc4dec"
+  },
+  "research/investment/companies/2026-11-06/SZ-002439/investment-002439-2026-11-06-research-codex.md": {
+    "report_sha256": "8b707a6e8108b21e03e2d185e7bd5fcac13a6e90f81d87c3fffe5af8d541fe56",
+    "price_sha256": "6032bb4f350b07402837c7862214837617ed867a4aea6f65697d20708328a4f3",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d56e123b339ea59a38fb2800dc90c60448649509ebc36d874676ccf376b579a8"
+  },
+  "research/investment/companies/2026-11-06/SZ-300454/investment-300454-2026-11-06-research-dsh.md": {
+    "report_sha256": "6aa9aba7dc81b34b21a554b88eb5482b7552c145b61a5213aa9c3cf45c3217c5",
+    "price_sha256": "583f214b1811f69375316355adcee627e56e633022ac70d1a3ea04db8818c433",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "487a38c63fb99e741d2bd1d83cfe8febd8b1567c82e1ca4d20287479d9e79048"
+  },
+  "research/investment/companies/2026-11-06/SZ-300454/investment-300454-2026-11-06-research-codex.md": {
+    "report_sha256": "d20eab6f390bc2071b990917f9c3d71ed65f4909c2d2e86e45f8dba1979f20f3",
+    "price_sha256": "fcace3a9c5e7e46d22dc12bce9d01f007bf9d7f81e17c012cc50895b22cf12a5",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "41d48faad2a1ea720d0cae8b730a23c77914117d8759cdc136fd1335188f3375"
+  },
+  "research/investment/companies/2026-11-06/HK-00700/investment-00700-2026-11-06-research-dsh.md": {
+    "report_sha256": "1d59c044bcdfdd49c845db663a307008784a14bd3496ba4a099ad5df4d755c0d",
+    "price_sha256": "6da658ef90b5b7a471bd4cb7d1723e45c6bee983d44216dd7aeb1d4ef66d8d9a",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "9ad74db648b264136008fc22a0048a4069eac945044ca4f01ab4c70b5e5ee7a2"
+  },
+  "research/investment/companies/2026-11-06/HK-00700/investment-00700-2026-11-06-research-codex.md": {
+    "report_sha256": "b7db8fccb39bf98d9cb2ee78e3a18d12c48227dcf49983a77f22821a456dd843",
+    "price_sha256": "91f4986fc067df14c413088e13ab9cf6a62f93e3c29822e8cfe8dc6fd2583936",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "61363ce46dc574da52c90bf18d69aab43fb5712b857fa90cf880ea60013b5901"
+  },
+  "research/investment/companies/2026-11-06/SH-600406/investment-600406-2026-11-06-research-codex.md": {
+    "report_sha256": "129329ef76044760ebdc12235daf5efb4a99f6706553564d5d8590ed14152cf9",
+    "price_sha256": "f519ce0ac127961020910c095760017adca2d269d838c5dc8516c6291089f36b",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "086d37888f508978dd63731e29de7f03aa995114064306e3330e979eb34b9b8d"
+  },
+  "research/investment/companies/2026-11-06/SH-600406/investment-600406-2026-11-06-research-dsh.md": {
+    "report_sha256": "15e607fa87d9807d2a070588e62b875a76a1793ffd98fe6720bc5f699a977458",
+    "price_sha256": "6b1c6b2914fd7cae8a37956eafc6f62fe0e6f6c81d4424587332c6ee88f1954f",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d65cc0aba11bf2eb7c7490d899581554e423c0a842966b6ec8ff95194aabba50"
+  },
+  "research/investment/companies/2026-11-01/HK-02513/investment-02513-2026-11-01-research-codex-r2.md": {
+    "report_sha256": "29c05e14047f8f17de793023f0dc661f0e5860ca0fb397aa617765e1dddd6277",
+    "price_sha256": "4d23b8dd29d8843a60c55b145aeb64d1be5c16cc9aa4a6c26aef645b2289f6d5",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "62f17ab4505896bac26d5ca20fcc03ca1fd81814fa0f4a771d66e0577c806af8"
+  },
+  "research/investment/companies/2026-11-01/HK-02513/investment-02513-2026-11-01-research-codex.md": {
+    "report_sha256": "b6ce1d3e256378d49600112eb4c899c0255db050e448774b2b6d64725fcaf8ed",
+    "price_sha256": "9e28dec6684a4fd735314691f0c07554f19008087e1f251e3d2ba901ccadffaa",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "c2368eae39686a9c2a0a59d577846ec8bdb05fb494df65bcd2367829d2263e1f"
+  },
+  "research/investment/companies/2026-11-01/HK-02318/investment-02318-2026-11-01-research-dsh.md": {
+    "report_sha256": "124911cfcdcedb61f7fbd50dde721ca89370f6d5caee60bea24d2c2a039eea5f",
+    "price_sha256": "1e1f874d10c5b285de7e2ade79f8c5ff0ef3a1abb02a82de2b2d7860cbe0bf02",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "44c9f063739a2bdd52ec11f63e5fd65b9e3e8375e3f2aa14002241a30b57b1cc"
+  },
+  "research/investment/companies/2026-11-01/HK-02318/investment-02318-2026-11-01-research-codex.md": {
+    "report_sha256": "29a8449809ecaed899a2a9577d0c0d07ae2287484fa8bcfec581a7a8053210a6",
+    "price_sha256": "2167509cce26b74dd73bcb39ef9cc7bfdbba3bd7de62adb1c1f3bf9ce5a5cf78",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "4dbc3ec20139e62b58c5e4439b19006ac5ec08514f363531a97e0ebe69ff6ad9"
+  },
+  "research/investment/companies/2026-11-01/SH-601318/investment-601318-2026-11-01-research-dsh.md": {
+    "report_sha256": "da1b6e17acd7c456d2368280e143c4e4a746bfcec664917fa288b615bbddb6b0",
+    "price_sha256": "53e07b8daee48ed3e379159e0e3c75798b5d2e8dce925726a31c7fd7b8080673",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "f5ea1a96c149f8dd6524e66b018242e8e4d6b5204bf1954950eb686a9e474908"
+  },
+  "research/investment/companies/2026-11-01/SH-601318/investment-601318-2026-11-01-research-codex.md": {
+    "report_sha256": "b5188e0d5329dfdba97cc296e0d35b7f060538fdac6b414441b47188856384e1",
+    "price_sha256": "02430cae85d2667c540f0769cd9463ef8a078dc61165baecec91efc249ae2ed2",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "779b58a6aa10db50804b19868453fa239dcbd047e3d70836e7f591acd80b450e"
+  },
+  "research/investment/companies/2026-11-01/HK-09988/investment-09988-2026-11-01-research-dsh.md": {
+    "report_sha256": "066737b368c1e4d03816e50b5c3d94c6d7545cb1ffe6d42744852eb25b8b4738",
+    "price_sha256": "92d8efaf8a942b44c13f2ed2491db0577f74a5714a1714e3eb790e84e7b79695",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "2ad85c105bfa29f5fbea40e90dfdaca34a177a1b8e99429fefcb9284e0b500e7"
+  },
+  "research/investment/companies/2026-11-01/HK-09988/investment-09988-2026-11-01-research-codex.md": {
+    "report_sha256": "591ee7fce68ae95fde235507415d8c6eb66856eb5c3629f4149b189724dcb790",
+    "price_sha256": "8c1f9eff8b99245660dcff1805c9c40b08f0c592b8d28e1107320c8f123bbebb",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "1a7c380e27b0a02b6028c7fa01898c40fbce75f05d1275a8cb54b888d9357704"
+  },
+  "research/investment/companies/2026-11-01/SH-688099/investment-688099-2026-11-01-research-codex.md": {
+    "report_sha256": "aad8ecea1869081414f830bd491c7139ee8d1e001478aa9bd14d081fc2f013c5",
+    "price_sha256": "bcd618bc3cb29230edbb5c6356961465fae374104388cff3baa1c2d511dc00ee",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "95e74d05fc690f301fb1dc4ef1686732ab1e319802f9550fd240b5ddab053a33"
+  },
+  "research/investment/companies/2026-11-01/SH-688099/investment-688099-2026-11-01-research-codex-r2.md": {
+    "report_sha256": "590f490ff0ba80af6f9763133b1482e32310b781cf100ec1329a0f67f6adae2b",
+    "price_sha256": "be10dc023dd873c708207b524b3c44c734a800a38e6e1f0ed286d4ae92702080",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "b8b2d4ad6c75635094bae84540c49dc6bdba3754ea7063d3252bef65c47392be"
+  },
+  "research/investment/companies/2026-11-01/SH-688099/investment-688099-2026-11-01-research-dsh.md": {
+    "report_sha256": "d29bff46c33a95a6ad7a2d9348052bbcc1dc8e71fb80ac8db4c0147e0289d2ea",
+    "price_sha256": "cda181a3c99294b78cc1c1a1c354845ab7eabd860aba21745228ea90dbf28670",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "1b8962b39dee10159c4c1c50e3db19e133d8aa8dde1f4f29d314833187932cb2"
+  },
+  "research/investment/companies/2026-11-07/SZ-000333/investment-000333-2026-11-07-research-dsh.md": {
+    "report_sha256": "b9ac593d3ed86896370e1d800901f2c23d33b1cd1821a7c8294904c52d909e5d",
+    "price_sha256": "05240144ad6e3455d9edac88c11e8dc1d402ca3998c851d48eaaa2eccfc64c6d",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "86984e55b1367302a46f66768c794205a80acc657ff0d611267613b57925e545"
+  },
+  "research/investment/companies/2026-11-07/SZ-000333/investment-000333-2026-11-07-research-codex.md": {
+    "report_sha256": "b6c643f795a35df8c0acc5b2c91d2b14a9f72dd52b966f70175726785291ccde",
+    "price_sha256": "aa2bd2d333e47a67cbc2e78886f1fcd319d6dd4e437803906a82019b45c110d7",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "9528d9e10d8f9c7eaa6b0616560d3c65fb4d12d08bb59987e7315f6c7902809c"
+  },
+  "research/investment/companies/2026-11-07/SZ-000333/investment-000333-2026-11-07-research-codex-r2.md": {
+    "report_sha256": "d3a9d4a59a152695ff288384bc61fea80a0b065bbfc7868dda83dc0a2025b9b9",
+    "price_sha256": "0533799f69c17ebd3644bc2ad6f4da2998df26840aa3c6245b9e9702a544d28b",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "2c0e030f5b3aa2a6365475827c1d40973efb8df557b46e810758703ccc4870f1"
+  },
+  "research/investment/companies/2026-11-07/SH-688208/investment-688208-2026-11-07-research-codex.md": {
+    "report_sha256": "b89c846b74efbf016e54747870ec73e6b3c369579c77aada23207906da61c265",
+    "price_sha256": "453f8e24472de32718bac27d1e707247e8b9e112af5b49023c2c3aa89ce354c6",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "ff7f769bbbf1c43a3ef6d06d39a69c920bca8d723a0aa1c0db50bfb01f2480a9"
+  },
+  "research/investment/companies/2026-11-07/SH-688208/investment-688208-2026-11-07-research-dsh.md": {
+    "report_sha256": "9d4ef6eb5ea4d14c648016e0fbde5b1fcbf1afc75f6e23a7667f714ef7209bec",
+    "price_sha256": "8f12f94664237b0817cbc554004f7098083f0aaaf775eee893958e3719c02d51",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "a4240d64850c34fe009983a28ad2dc226249b411912f499c846d52abf39b233a"
+  },
+  "research/investment/companies/2026-11-07/SZ-002371/investment-002371-2026-11-07-research-dsh.md": {
+    "report_sha256": "187d45d75ec36676c246de0043f4bc2a0ee4bbe1a7f6f6d89509289898e99df9",
+    "price_sha256": "f4d6e323ea268de723e5ee635714b0c530399cac071c850aa364d70ce8422dcb",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "a7008dd1507a1f385525193575aab8a8aecfef920f99dd666b5a151f0fc8eae4"
+  },
+  "research/investment/companies/2026-11-07/SZ-002371/investment-002371-2026-11-07-research-codex.md": {
+    "report_sha256": "70908b09d238dd9cf48497e46dad379fc5aa024eba9fe34aaff4a880bae0f165",
+    "price_sha256": "51bfa019a64752a69ca886bbc281e859e0f62f996c8d34485f42b742f7d8b6e8",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "3f45d658eced0d7afcc5deddc45341b080316c49b87094afd0df8e9da289e8b8"
+  },
+  "research/investment/companies/2026-11-07/SH-688356/investment-688356-2026-11-07-research-codex.md": {
+    "report_sha256": "c39402b0d984304cb18ec55147e37f04525c73176aab3a5f59d83fdb33216280",
+    "price_sha256": "b13747419b0dba187955a858362b852153bd340b137097abe36b5e713e0e0404",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "282c09def95058ff98a9da69148f56467e9ab3a92bf3b5b8c5ea9c0c4364f35c"
+  },
+  "research/investment/companies/2026-11-07/SH-688356/investment-688356-2026-11-07-research-codex-r2.md": {
+    "report_sha256": "234a6b769946a18b7d79a4c4934143f319138e4b04c9b65f2466b7a90f966ff9",
+    "price_sha256": "0d307cc95e2e74f4d7bc209d8ddc2f4db25c2fad226bb39620a1db9f2cecfa70",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "330c53308a5ba2f4ffc5b085a1c080c57515b81da61ae5eab5629755b9ca38ce"
+  },
+  "research/investment/companies/2026-11-07/SH-688356/investment-688356-2026-11-07-research-dsh-r2.md": {
+    "report_sha256": "3504071e69366a7a7b70e2c3f6bd66820e8b6734ce69cc77b32fc262b8e433e3",
+    "price_sha256": "0823bd7ff81d56a4037ac5b7587d9717989eea76e997b874285e1e37269f160f",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "76167ea3373e6d62614a2ccd0f48f4adb0620ad24c420e801ec7c41b7c3147e7"
+  },
+  "research/investment/companies/2026-11-07/SH-688356/investment-688356-2026-11-07-research-dsh.md": {
+    "report_sha256": "7ce10d14a3e3c6a310d4df7ba87b779196b391af016b9beb5587e8910a8603dd",
+    "price_sha256": "2f258d1da316f738db6298a83a3672fd1b2b7e61dd203c9912f094342ae4663e",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d762cdb8ec82df65de52714e107aa537ec2e6d5151f9873852d5c04cc7a41ebe"
+  },
+  "research/investment/companies/2026-11-07/SZ-000988/investment-000988-2026-11-07-research-codex.md": {
+    "report_sha256": "9f83048d9b7ba835e160b9cacb72eb4150bef5acdba7a06c975309d5b26b0ad5",
+    "price_sha256": "3fdc3f21dc468ab9dd462eb94f5f6d5ae7a7b9fe6a8489640278dc18ec70fc05",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "946f20cd98c7d002880b6a559e6a8faab5e366e93cc24e41c07e437645ebf7c2"
+  },
+  "research/investment/companies/2026-11-07/SZ-000988/investment-000988-2026-11-07-research-dsh.md": {
+    "report_sha256": "27af81ee65ebfe6b48e9a0f099e387dc4a916c47b0fac2b8f2ab591d0b2e62ae",
+    "price_sha256": "87bcf7e051b35d2e94b128b7f0d8fb8620e37f5bd7d6549aa2e5c6da223b98ab",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "1cc220a9c9902690313ceba58739a26aeeeeaf65ebe6dbe0a8521734a8f13b44"
+  },
+  "research/investment/companies/2026-11-09/HK-02513/investment-02513-2026-11-09-research-codex.md": {
+    "report_sha256": "453e84a8469faec2fa0520e302ea7286b69886fe434a34c83b36706de7ce2b8b",
+    "price_sha256": "ae9270d4be36342f34f13fa256cc9f4f745566ae687945ffaa557bea8fc1b153",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "d7b3f3e3cd7dc9dab3e73a0b3d18c4c9ebf9ae7e2e5285c8056a28ea64b0d715"
+  },
+  "research/investment/companies/2026-11-09/HK-02513/investment-02513-2026-11-09-research-dsh.md": {
+    "report_sha256": "b08da27ed664f32f6b0bf0051f51c2c6ef68f05bb854c58724abe8c0d1d7afdd",
+    "price_sha256": "2972458376e4db1de278fb98eb6647acd3ced6f204d5dad7b507c265ee8b9611",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "ef50b0579c061f66757ee27986e4321d94138e717fd16e87a2a658733b2c6715"
+  },
+  "research/investment/companies/2026-11-09/HK-02318/investment-02318-2026-11-09-research-codex.md": {
+    "report_sha256": "48a324b69f3573d909095bb33ad0301bd8765a40ae98fcbae0df72cef6e8a201",
+    "price_sha256": "94013e5089f9eb6daa4878948f0da4d462d8546b89a59eb3684bc55953c9db44",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "a8d38654c96cb9663e9751e2b25247730fefe22e89cad047cd7792a900088bb2"
+  },
+  "research/investment/companies/2026-11-09/HK-02318/investment-02318-2026-11-09-research-dsh.md": {
+    "report_sha256": "cd1997bb56f046ff593abeec3b81a8df02daabcd829cd62e1126a9063f2bf730",
+    "price_sha256": "ad1f42eb2269c589bc1f52f9e7a3a506598df7c400e668cf0ffd0957e6b3aa01",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "fd6578d378b0f20d830531acee1f4c40edf685610322af61e0c4c20e4d59d83f"
+  },
+  "research/investment/companies/2026-11-09/SH-601988/investment-601988-2026-11-09-research-codex.md": {
+    "report_sha256": "5690ff6f5fb9398dbd21c32d3783597ce6a4ca466659fef663497cd257d704f1",
+    "price_sha256": "4509bcc84ff27527af3baf64d607f49f6fa653267402d0ac92551677569534d6",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "84e911cb16fce44baccf38317206d8befbbd43b10563134bb227e1e788932aed"
+  },
+  "research/investment/companies/2026-11-09/SH-601988/investment-601988-2026-11-09-research-dsh.md": {
+    "report_sha256": "2946ca0554194d2c05e85695cc3ae5bb1cf46cc982cf949cfa7e1aca3e274cda",
+    "price_sha256": "cc4960f7a387267fa0228a64bc8eac3d63e91122b82f6bf2ba985c232265072e",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "84121a94935ef87cb2119ad037d73ddc6e689c024b462964820c23992610512e"
+  },
+  "research/investment/companies/2026-11-09/HK-09988/investment-09988-2026-11-09-research-codex.md": {
+    "report_sha256": "27ff0a31345175ba23ee7c573efb768847d8a0933e82f9d7bc3ec896d400f67a",
+    "price_sha256": "6d8d8cd21b33eb6879fb20e65396f4d4ec854c94fe2e11e5a8afc6edf9c04991",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "945af1470d01787a3f93803c4f009397481858e5d0599bf694c82f5a703f63ae"
+  },
+  "research/investment/companies/2026-11-09/HK-09988/investment-09988-2026-11-09-research-codex-r2.md": {
+    "report_sha256": "544e6555fdc36234679ef862819cbdf607580d071a6c8d72e864df664c2fbbff",
+    "price_sha256": "04a0163c861200226a7cf025b81e030e70d1874ed85d029bfa3f71b2b631a28c",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "69ab8467f3dc2a6f0e41a28b9ab25f51209a26d65681244fd68aa9f1db30fb8b"
+  },
+  "research/investment/companies/2026-11-09/HK-09988/investment-09988-2026-11-09-research-dsh-r2.md": {
+    "report_sha256": "bae18d561f5f86c23064c6c2e0c141d300fccc51b57ab203c5695e0025532d12",
+    "price_sha256": "7126c66731c9afa0e4d8e35c5473b506543eabaa0d6214224ff460bc8c3be9cf",
+    "audit_schema": "stock-research-audit/v5",
+    "render_sha256": "8befd3c1eb8fc49c441f3bbf9ac33dedff3268ee23ad0f78a5d5251d771c74c1"
+  },
+  "research/investment/companies/2026-11-09/HK-09988/investment-09988-2026-11-09-research-dsh.md": {
+    "report_sha256": "d6073639f63c685e5e47480d84f2fdc34db8df25eba0e0faa8efb54fbc40f686",
+    "price_sha256": "74cf5970146256f2faeabdd8a8ee183facb09165d452278ba7b4d56d430bcb28",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "5e9a65deca3b567d4b10f9b91c1fcd88c568ab158c1bab0903baa4893ad58f45"
+  },
+  "research/investment/companies/2026-11-09/HK-00788/investment-00788-2026-11-09-research-dsh.md": {
+    "report_sha256": "40816431ec41aa29bfe7d4587232b0fae30df88081bb4251d8373530ca05ce48",
+    "price_sha256": "bb8251d75f10fda7f664b763db711d671158791978bf7a574138550a36f1c08d",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "436793429ce8e4b6a4ce7916290f459bdd7680a6e4d85d16a67f9ec2bd70e7a4"
+  },
+  "research/investment/companies/2026-11-09/HK-00788/investment-00788-2026-11-09-research-codex.md": {
+    "report_sha256": "357a7855ccf2f98c8e377f0f2e9b850b0cd65eccb3cdc4d396231f65ed83cbe4",
+    "price_sha256": "be0a7f6fedbc1c06b529e482414695a1a2d7f775be6d87b06c61b89811e3fbc3",
+    "audit_schema": "stock-research-audit/v2",
+    "render_sha256": "696ddabcddb4cdc8832341c479f4c8b62969ceb5ac95f858a70ab4450ad50709"
+  }
+}

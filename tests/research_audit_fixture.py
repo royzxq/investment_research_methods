@@ -63,3 +63,18 @@ def input_basis_for(document):
                      explanation='offline explicit evidence and reconciled assumptions', gaps=[],
                      evidence=[dict(source='offline fixture', as_of=document['meta']['valuation_date'])])
             for key in ('profit', 'investment', 'tax', 'capital', 'residual_discount')}
+
+
+def neutral_review_for(audit, document):
+    """Explicitly synthetic declarations for structural tests, never valuations."""
+    if document['price_map']['v50'] is None:
+        return None
+    return dict(
+        assumptions=[dict(topic=topic, adopted='offline bounded path', support='offline operating evidence',
+            counterevidence='offline slower/faster recovery alternative', alternative='offline same-scope countercase',
+            decision='offline selected path with limits', evidence=[dict(source='offline fixture', as_of=document['meta']['valuation_date'])])
+            for topic in ('investment','cash_recovery','terminal','capital_cost','capital_scope')],
+        capital_bridge=dict(status='not_applicable',scope='offline PE fixture',explanation='no explicit asset schedule in this synthetic test',rows=[],terminal_reconciliation='offline earnings/capital crosscheck only'),
+        risk_pricing=[dict(risk_id=r['id'],cashflow='none',capital_bridge='none',capital_cost='none',p1='offline residual',residual_reason='offline independent residual') for r in audit['risks'] if r['owner']!='eligibility'],
+        joint_case=dict(support='offline evidence',countercase='offline alternative combination',decision='offline no automatic worst-case stacking'),
+        sensitivities=[dict(topic='joint_case',change='offline inability example',base_v50=document['price_map']['v50']['base'],alternative_v50=None,delta=None,calculation='synthetic fixture has no countermodel',limitation='no claim of investment validity')])

@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "code": "002475.SZ",
+    "generator": "codex",
+    "valuation_date": "2026-11-16",
+    "currency": "CNY",
+    "name": "立讯精密",
+    "report_path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SZ-002475/investment-002475-2026-11-16-research-codex.md",
+    "schema_version": "stock-research/v4"
+  },
+  "price_map": {
+    "mode": "frozen",
+    "reason": "同截止复评保留有界分部现金流，纠正漏列非流动投资资产并联动期权。R6及现金/融资持续冻结、R8/R4和其他资格限制仍在；观察价不授权新增暴露，持仓须复评。",
+    "v50": {
+      "low": 11.63,
+      "base": 31.31,
+      "high": 57.11
+    },
+    "p1": {
+      "base": 23.79
+    },
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    }
+  },
+  "research_controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "CASH-FCF-2026Q3",
+        "DISCLOSURE_COVERAGE",
+        "MARKET_INPUTS",
+        "R3_EVIDENCE",
+        "R4",
+        "R6_NBS_20261109",
+        "R6_NBS_20261116",
+        "R6_NVDA_20261118",
+        "R8",
+        "R8-2026Q3"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "ADD_PLAN_20261108",
+        "CASH-FCF-2026Q3",
+        "DISCLOSURE_COVERAGE",
+        "MARKET_INPUTS",
+        "R14-2026Q3",
+        "R14_COST_EVIDENCE",
+        "R3_EVIDENCE",
+        "R4",
+        "R6_NBS_20261109",
+        "R6_NBS_20261116",
+        "R6_NVDA_20261118",
+        "R8",
+        "R8-2026Q3"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD-QUALITY-20261108",
+        "OCF_REVIEW"
+      ]
+    }
+  },
+  "monitoring": [
+    {
+      "id": "OCF_REVIEW",
+      "kind": "thesis_invalidation",
+      "state": "triggered",
+      "variable": "经营现金回收与年度资金质量",
+      "current": "2026年前三季OCF -64.34亿元，购建付现148.39亿元；简式FCF -212.73亿元",
+      "as_of": "2026-09-30",
+      "trigger": "现金明显弱于利润的持仓复评已触发；2026年报OCF<0或OCF/归母<0.5且净负债/权益继续升，强化复评。",
+      "action": "核营运资本和匹配流动性并评估减仓；解除按§7全部现金控制合取，核心失效确认才升级退出。",
+      "source": "巨潮《2026年第三季度报告》2026-10-30第1、8、12–13页 https://static.cninfo.com.cn/finalpage/2026-10-30/1225645369.PDF",
+      "next_check": "2026年报及其现金、债务附注；预约日期尚未公告核实",
+      "public_search": "立讯精密 2026 第三季度报告 103741 1225645369"
+    },
+    {
+      "id": "FX_FY2026",
+      "kind": "general",
+      "state": "watching",
+      "variable": "全年财务费用汇兑与套保口径",
+      "current": "前三季财务费用项汇兑损失28.66亿元；全年值未定，非套保后归母净损失",
+      "as_of": "2026-09-30",
+      "trigger": "原观察阈值为2026全年同口径汇兑损失>20亿元，或全年扣非净利率<3.5%且OCF/归母<0.5；目前仅累计预警。",
+      "action": "全年披露后核工具、税和少数权益再重算并评估减仓；口径或期间核对完成才可关闭误报，其他控制独立保留。",
+      "source": "巨潮《投资者关系活动记录表2026-005》2026-11-02第3–5页及三季报第2页 https://static.cninfo.com.cn/finalpage/2026-11-02/1225651350.PDF",
+      "next_check": "2026全年财务费用/套保明细及年报；日期待发行人公告",
+      "public_search": "立讯精密 2026 11 2 投资者关系 28.66"
+    },
+    {
+      "id": "COMMS_FY2026",
+      "kind": "general",
+      "state": "watching",
+      "variable": "通讯及数据中心收入和毛利兑现",
+      "current": "2026H1收入166.09亿元、同比49.66%，毛利率17.29%且同比下降2.48个百分点",
+      "as_of": "2026-06-30",
+      "trigger": "2026年报该业务收入增速<25%或毛利率<15%时复评；Q3未披露同口径分部数据，不判触发。",
+      "action": "下修相关增长/利润路径并重做现金模型；恢复须后续分部改善与投入回报证据，不能以产品定点替代。",
+      "source": "巨潮《2026年半年度报告》2026-08-25第12–13页 https://static.cninfo.com.cn/finalpage/2026-08-25/1225500221.PDF",
+      "next_check": "2026年报产品分部收入成本表及后续IR",
+      "public_search": "立讯精密 2026 半年度报告 166.09 17.29 1225500221"
+    },
+    {
+      "id": "SCP010_REFINANCING",
+      "kind": "general",
+      "state": "watching",
+      "variable": "短融资金用途与到期清偿",
+      "current": "SCP010于11/12发行10亿元、11/13起息，1.42%、270天；拟归还11/20到期商票10亿元，未核实已清偿",
+      "as_of": "2026-11-13",
+      "trigger": "公告出现用途改变、未清偿、展期或新增限制资金时重查资金桥；计划还款未当已发生。",
+      "action": "核原债退出与新债现金配对、重做流动性及持仓复评；实际清偿仅关闭该笔疑问，不解除整体现金冻结。",
+      "source": "上海清算所《26立讯精工SCP010发行情况公告》2026-11-13第1页及《续发募集说明书》2026-11-11第10页；冻结原件input/evidence/sources/E1-pages.txt、E2-pages.txt",
+      "next_check": "2026-11-20原商票清偿的公开披露；2027-08-10本券兑付",
+      "public_search": "“立讯精密” “2026年度第十期” “续发募集说明书”"
+    }
+  ]
+}

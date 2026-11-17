@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "code": "688825.SH",
+    "name": "长鑫科技",
+    "valuation_date": "2026-11-16",
+    "currency": "CNY",
+    "report_path": "research/investment/studies/valuation-availability/2026-11-16/SH-688825/investment-688825-2026-11-16-research-codex.md",
+    "generator": "codex",
+    "schema_version": "stock-research/v4"
+  },
+  "price_map": {
+    "mode": "frozen",
+    "reason": "集团层面可建立条件现金流。增资后厂别经济权益以及基金底层资产和外部请求权的配对未明确，历史损益占比尚无法约束普通股长期现金归属。保留条件估值，暂不采纳正式 V50 或 P1。",
+    "v50": null,
+    "p1": null,
+    "t1": {
+      "price_condition": "本轮不提供T1报价"
+    }
+  },
+  "research_controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "CORE_BRIDGE_2026Q3",
+        "R8_ORDER_2026Q3",
+        "R3_R4_REVIEW_20261116",
+        "R20_DOMESTIC_20261116",
+        "TEMP",
+        "R6_CN_20261116",
+        "R6_COMPANY_20261117",
+        "R6_NVDA_20261118"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "CORE_BRIDGE_2026Q3",
+        "R8_ORDER_2026Q3",
+        "R3_R4_REVIEW_20261116",
+        "R20_DOMESTIC_20261116",
+        "TEMP",
+        "R6_CN_20261116",
+        "R6_COMPANY_20261117",
+        "R14_COST_20261116",
+        "R13_DURATION_20261116",
+        "R6_NVDA_20261118"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD_CAPITAL_2026Q3"
+      ]
+    }
+  },
+  "monitoring": [
+    {
+      "id": "M_EARNINGS",
+      "kind": "general",
+      "state": "watching",
+      "variable": "毛利与普通股盈利归属",
+      "current": "2026Q3毛利89.53%；归母544.35亿元、合并净利889.83亿元；归母占比61.17%",
+      "as_of": "2026-09-30",
+      "trigger": "下一期正式报告若毛利下降或归母占比继续下降，按产品/工厂组合核是否削弱持有论据；无预设机械清仓阈值。",
+      "action": "复核经营和普通股盈利路径；资本/税桥补齐后重算，不把价格回撤当证伪。",
+      "source": "长鑫科技2026年第三季度报告p1–2/9–10；https://static.cninfo.com.cn/finalpage/2026-10-31/1225649723.PDF",
+      "next_check": "2026年年度报告或更早业绩预告/说明会正式披露",
+      "public_search": "长鑫科技 2026 第三季度报告 132040054067"
+    },
+    {
+      "id": "M_CAPITAL",
+      "kind": "general",
+      "state": "watching",
+      "variable": "结构化主体请求权及资产对应",
+      "current": "2026-09末其他非流动负债396.98亿元，6月末87.54亿元；Q3分项未披露",
+      "as_of": "2026-09-30",
+      "trigger": "后续附注披露新增负债性质、底层资产或分厂权益变动，核对应本金和收益；未披露不算风险解除。",
+      "action": "重建资本桥；确认可归属及清偿顺序后方评估CORE_BRIDGE解除。",
+      "source": "长鑫科技2026半年报p141/161–164及第三季度报告p8–9；https://static.cninfo.com.cn/finalpage/2026-08-29/1225529543.PDF",
+      "next_check": "11月17日说明会记录；若未披露则下一份含附注的定期报告",
+      "public_search": "长鑫科技 2026 半年度报告 结构化主体 其他持有人"
+    },
+    {
+      "id": "M_CASH",
+      "kind": "general",
+      "state": "watching",
+      "variable": "经营现金流组成及再投资",
+      "current": "2026年前三季度OCF2547.51亿元、购建资产369.98亿元、其他经营收款334.61亿元",
+      "as_of": "2026-09-30",
+      "trigger": "下一期合并OCF弱于同口径净利、其他收款异常延续或投入增长但产出未兑现，核来源与投资回报。",
+      "action": "拆经营/外部资金并复核持有逻辑；确认核心现金流证伪才转失效/退出。",
+      "source": "长鑫科技2026年第三季度报告p11–13；https://static.cninfo.com.cn/finalpage/2026-10-31/1225649723.PDF",
+      "next_check": "2026年度现金流及附注；更早重大投资/资金公告",
+      "public_search": "长鑫科技 2026 第三季度报告 132040054067"
+    },
+    {
+      "id": "M_PROJECTS",
+      "kind": "general",
+      "state": "watching",
+      "variable": "研发与后道测试项目实施",
+      "current": "9/29披露两新项目总投资349亿元、超募资金安排180亿元，建设期30/37个月；10/19股东会已通过",
+      "as_of": "2026-10-19",
+      "trigger": "正式披露进度延误、预算/建设内容或收益预期变化时，区分已支出和剩余必要投入。",
+      "action": "更新CapEx—投用—折旧桥；不将计划金额全作已花掉或额外重复扣现金。",
+      "source": "长鑫科技关于使用部分超募资金投资建设新项目的公告p2–6；https://static.cninfo.com.cn/finalpage/2026-09-29/1225586345.PDF；10/20股东会决议p4：https://static.cninfo.com.cn/finalpage/2026-10-20/1225611371.PDF",
+      "next_check": "下一份募集资金使用/重大投资进展公告或2026年报",
+      "public_search": "长鑫科技 2026 超募资金 新项目 349 180"
+    },
+    {
+      "id": "R6_COMPANY_20261117",
+      "kind": "entry_constraint",
+      "state": "triggered",
+      "variable": "公司三季度业绩说明会",
+      "current": "已公告11月17日15:00–16:00召开；截至本轮清晨已进入48小时窗",
+      "as_of": "2026-11-16",
+      "trigger": "说明会正式记录发布后核公司订单、归母贡献、资金用途和资本开支回答；会议结果尚未发生。",
+      "action": "本窗口冻结新增；完成事后复评且其它各scope约束全部解除才恢复相应研究资格。",
+      "source": "长鑫科技2026-020公告p1–2，上证路演中心；https://static.cninfo.com.cn/finalpage/2026-10-31/1225649704.PDF",
+      "next_check": "2026-11-17会议后首次正式公开记录",
+      "public_search": "长鑫科技 2026 年第三季度业绩说明会 11月17日"
+    }
+  ]
+}

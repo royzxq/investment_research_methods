@@ -1,0 +1,44 @@
+[
+  {
+    "path": "research/investment/studies/neutral-calibration/2026-11-16/reviewed/SZ-002475/model.py",
+    "sha256": "78c74fae21dd2552e11ea33d1a8bc57e877f4a8e8aa5c30d2cd1d9d04b4244dd",
+    "exit_code": 0,
+    "output": "output/audits/investment/2026-11-17/neutral-calibration/final-reproductions/reviewed-SZ-002475.json"
+  },
+  {
+    "path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SH-688041/model.py",
+    "sha256": "f750dc7a2ec57b993620b60070a9356014e86b1446463151d0c850652b9b50c1",
+    "exit_code": 0,
+    "output": "output/audits/investment/2026-11-17/neutral-calibration/final-reproductions/v10-SH-688041.json"
+  },
+  {
+    "path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SH-688981/model.py",
+    "sha256": "10914522c77e61618aad350bab02dbd860e28aeb62cb71e9ae91be55508a11cc",
+    "exit_code": 0,
+    "output": "output/audits/investment/2026-11-17/neutral-calibration/final-reproductions/v10-SH-688981.json"
+  },
+  {
+    "path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SZ-002475/model.py",
+    "sha256": "b333a67f20ae1fd025b296416a2cc8b7fc36a0ca2f16fc8fe7673285bc4e0198",
+    "exit_code": 0,
+    "output": "output/audits/investment/2026-11-17/neutral-calibration/final-reproductions/v10-SZ-002475.json"
+  },
+  {
+    "path": "research/investment/studies/neutral-calibration/2026-11-16/v9/SH-688041/model.py",
+    "sha256": "cf6be86cc62eb21e7b3fd70d8017d1d6f754c45b68b0637dc983f58eed54422f",
+    "exit_code": 0,
+    "output": "output/audits/investment/2026-11-17/neutral-calibration/final-reproductions/v9-SH-688041.json"
+  },
+  {
+    "path": "research/investment/studies/neutral-calibration/2026-11-16/v9/SH-688981/model.py",
+    "sha256": "d0ff38236446343efc696d3c062dc323e413dbb06f0d3221fb1c157d24d436e2",
+    "exit_code": 0,
+    "output": "output/audits/investment/2026-11-17/neutral-calibration/final-reproductions/v9-SH-688981.json"
+  },
+  {
+    "path": "research/investment/studies/neutral-calibration/2026-11-16/v9/SZ-002475/model.py",
+    "sha256": "c0a5cae9edacdf3baf53d10abbbf9070864386b4c783681b4359de01bfb21637",
+    "exit_code": 0,
+    "output": "output/audits/investment/2026-11-17/neutral-calibration/final-reproductions/v9-SZ-002475.json"
+  }
+]

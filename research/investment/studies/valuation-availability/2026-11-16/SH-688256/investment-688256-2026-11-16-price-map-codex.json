@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "code": "688256.SH",
+    "name": "寒武纪",
+    "valuation_date": "2026-11-16",
+    "currency": "CNY",
+    "report_path": "research/investment/studies/valuation-availability/2026-11-16/SH-688256/investment-688256-2026-11-16-research-codex.md",
+    "generator": "codex",
+    "schema_version": "stock-research/v4"
+  },
+  "price_map": {
+    "mode": "frozen",
+    "reason": "远期订单、库存回收与利润率缺少可共同验证的中性路径。公开诉请的尺度为 44.26 元/股，足额即付可使压力组权益余额转负，实际支付和权利归属仍无法确定。条件估值可用，但暂不采纳普通股中性 V50 或 P1。",
+    "v50": null,
+    "p1": null,
+    "t1": {
+      "price_condition": "本轮不提供T1报价"
+    }
+  },
+  "research_controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "VAL_INPUT_V8_20261116",
+        "R8_ORDER_2026Q3",
+        "R6_NVDA_20261118"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "VAL_INPUT_V8_20261116",
+        "R8_ORDER_2026Q3",
+        "R6_NVDA_20261118",
+        "R14_COST_2026Q3",
+        "ADD_PLAN_20261116"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD_OCF_2026Q3",
+        "HOLD_LITIGATION_20261001"
+      ]
+    }
+  },
+  "monitoring": [
+    {
+      "id": "HOLD_OCF_2026Q3",
+      "kind": "general",
+      "state": "triggered",
+      "variable": "利润现金转化及库存预付占用",
+      "current": "2026前三季OCF2.2764亿/归母37.1452亿=6.13%；Q3单季OCF-0.8368亿，净存货116.65亿、预付30.44亿。",
+      "as_of": "2026-09-30",
+      "trigger": "现金弱已触发复评；下一正式报表若库存预付继续吸资、减值/票据偿付压力扩大，复核核心现金假设。",
+      "action": "持仓复评；查明资金回收与偿付并形成有证据结论才解除，确认核心现金流证伪则升级退出要求。",
+      "source": "寒武纪2026第三季度报告pp1、6–12；https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF",
+      "next_check": "2026年报或更早重大现金/减值公告",
+      "public_search": "寒武纪 2026 第三季度报告 9526401914 227636767"
+    },
+    {
+      "id": "HOLD_LITIGATION_20261001",
+      "kind": "general",
+      "state": "triggered",
+      "variable": "梁军劳动争议程序和请求权",
+      "current": "10/1公告诉请278.31946056亿元，已立案未开庭；另6案胜诉不等于本劳动案结案。",
+      "as_of": "2026-10-01",
+      "trigger": "下次程序/裁判/和解或诉请变化；当前未决状态已触发持仓复评。",
+      "action": "核赔付概率金额时点及普通股承受性；生效解决或有据边界并完成复评才解除，不按诉请全额扣债务。",
+      "source": "寒武纪2026-036诉讼公告pp1–2；https://static.cninfo.com.cn/finalpage/2026-10-01/1225592148.PDF",
+      "next_check": "下一诉讼进展公告；开庭日期未公告",
+      "public_search": "寒武纪 2026 离职高管 诉讼 27831946056"
+    },
+    {
+      "id": "MON_FUNDS_2026Q3",
+      "kind": "general",
+      "state": "watching",
+      "variable": "募集资金实际使用与用途余额",
+      "current": "9/30累计使用10.757064亿元、专户0.808522亿元；10/22归还临补10亿，随后新额度不等于已用。",
+      "as_of": "2026-10-24",
+      "trigger": "后续实际使用/投资结构/临补用途变更，或现金管理与必要投入配对出现差异。",
+      "action": "重建同日资金—用途桥；公开余额本身不关闭自由现金缺口，核用途与实际付款后才可更新估值输入。",
+      "source": "中信证券10/24临补核查意见pp1–3、寒武纪归还公告；https://static.cninfo.com.cn/finalpage/2026-10-24/1225620955.PDF",
+      "next_check": "下一募资使用专项报告或用途变更公告",
+      "public_search": "寒武纪 2026 10月24 募集资金 8085.22"
+    },
+    {
+      "id": "MON_AWARDS_20260817",
+      "kind": "general",
+      "state": "watching",
+      "variable": "未归属激励与实际归属股数资金",
+      "current": "2026首次授予400万股、750元/股；预计成本20.200264亿元，属附条件会计测算。",
+      "as_of": "2026-08-18",
+      "trigger": "新归属/作废/预留授予或费用估计修订。",
+      "action": "同步更新实际股本、到账款与SBC权利桥；不能只计稀释或把认购款预先加现金，相关控制仍待输入闭合。",
+      "source": "寒武纪8/18首次授予公告pp8–9及归属公告pp4–5；https://static.cninfo.com.cn/finalpage/2026-08-18/1225478704.PDF",
+      "next_check": "下一归属、作废或股份支付正式披露",
+      "public_search": "寒武纪 2026年8月18日 归属"
+    },
+    {
+      "id": "MON_CONCENTRATION_2025",
+      "kind": "general",
+      "state": "watching",
+      "variable": "客户和供应商集中披露",
+      "current": "2025前五客户88.66%、第一26.21%；前五供应商75.23%、第一55.34%，不是2026最新销售集中度。",
+      "as_of": "2025-12-31",
+      "trigger": "下一年报同口径集中度/新老客户结构及供应中断披露，若集中加深且现金质量未改善则复核。",
+      "action": "重评收入持续性与供应成本；匿名客户不自动判假，旧集中度不冒充当前。R8仍需独立订单证据。",
+      "source": "寒武纪2025年报p30、2026中报风险章节；https://static.cninfo.com.cn/finalpage/2026-03-13/1225007336.PDF",
+      "next_check": "2026年报客户/供应商附注或更早重大合同公告",
+      "public_search": "site.cambricon.com 寒武纪 投资者关系 供应商 2025"
+    },
+    {
+      "id": "R6_NVDA_20261118",
+      "kind": "entry_constraint",
+      "state": "triggered",
+      "variable": "英伟达财报窗口与竞争供需信息",
+      "current": "官方安排北京时间11/18约05:20发布、06:00电话会；本轮封口已进入48小时。",
+      "as_of": "2026-10-28",
+      "trigger": "财报与指引实际披露后核产品供给、价格/需求及国内客户传导；当前为窗口触发非业绩下修。",
+      "action": "冻结新增、暂停追加；结果后逐股复评及全部其它scope约束解除，不按过窗自动恢复。",
+      "source": "NVIDIA Investor Relations，10/28财报日程新闻；https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/",
+      "next_check": "2026-11-18 05:20起，实际结果公开后",
+      "public_search": "NVIDIA November 17 2026 results conference call 13:20"
+    }
+  ]
+}

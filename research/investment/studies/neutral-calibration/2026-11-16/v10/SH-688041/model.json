@@ -1,0 +1,434 @@
+{
+  "schema_version": "neutral-calibration-model/v1",
+  "identity": {
+    "code": "688041.SH",
+    "generator": "codex",
+    "model": "gpt-6-astra/xhigh",
+    "valuation_date": "2026-11-16",
+    "run_date": "2026-11-17",
+    "evidence_cutoff": "2026-11-16T05:38:12.789327+08:00",
+    "currency": "CNY",
+    "amount_unit": "100_million",
+    "shares": 2319612775
+  },
+  "prior_cases": {
+    "low": {
+      "total26": 208.104,
+      "growth": [
+        0.25,
+        0.2,
+        0.15,
+        0.1,
+        0.08,
+        0.06,
+        0.04
+      ],
+      "margins": [
+        0.196,
+        0.194,
+        0.2,
+        0.205,
+        0.21,
+        0.213,
+        0.216,
+        0.218
+      ],
+      "wc": [
+        1.02,
+        1.02,
+        1.0,
+        0.98,
+        0.96,
+        0.94,
+        0.93,
+        0.92
+      ],
+      "capex": [
+        6.4,
+        0.11,
+        0.108,
+        0.106,
+        0.105,
+        0.103,
+        0.101,
+        0.1
+      ],
+      "tax": [
+        0.1,
+        0.1,
+        0.12,
+        0.14,
+        0.15,
+        0.15,
+        0.16,
+        0.16
+      ],
+      "wacc": 0.1125,
+      "g": 0.02,
+      "tm": 0.215,
+      "tt": 0.17,
+      "nci": 0.296809,
+      "deposits": 60.27056357,
+      "reserve": 10.0,
+      "award": 26.2,
+      "claims_loss": 1.84749
+    },
+    "base": {
+      "total26": 220.632,
+      "growth": [
+        0.35,
+        0.28,
+        0.22,
+        0.17,
+        0.13,
+        0.09,
+        0.06
+      ],
+      "margins": [
+        0.216,
+        0.217,
+        0.225,
+        0.233,
+        0.241,
+        0.249,
+        0.255,
+        0.26
+      ],
+      "wc": [
+        0.95,
+        0.94,
+        0.91,
+        0.87,
+        0.83,
+        0.8,
+        0.77,
+        0.75
+      ],
+      "capex": [
+        6.0,
+        0.099,
+        0.097,
+        0.096,
+        0.094,
+        0.092,
+        0.09,
+        0.088
+      ],
+      "tax": [
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.11,
+        0.12,
+        0.12,
+        0.13
+      ],
+      "wacc": 0.0975,
+      "g": 0.025,
+      "tm": 0.26,
+      "tt": 0.13,
+      "nci": 0.180803,
+      "deposits": 61.607402,
+      "reserve": 7.5,
+      "award": 24.5,
+      "claims_loss": 0.923745
+    },
+    "high": {
+      "total26": 227.738,
+      "growth": [
+        0.45,
+        0.36,
+        0.28,
+        0.22,
+        0.16,
+        0.11,
+        0.07
+      ],
+      "margins": [
+        0.23,
+        0.238,
+        0.253,
+        0.269,
+        0.282,
+        0.292,
+        0.298,
+        0.302
+      ],
+      "wc": [
+        0.91,
+        0.89,
+        0.83,
+        0.78,
+        0.74,
+        0.71,
+        0.68,
+        0.66
+      ],
+      "capex": [
+        5.5,
+        0.09,
+        0.089,
+        0.089,
+        0.087,
+        0.086,
+        0.085,
+        0.084
+      ],
+      "tax": [
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.1,
+        0.11
+      ],
+      "wacc": 0.0875,
+      "g": 0.03,
+      "tm": 0.3,
+      "tt": 0.11,
+      "nci": 0.128711,
+      "deposits": 62.94424029,
+      "reserve": 5.0,
+      "award": 20.0,
+      "claims_loss": 0.0
+    }
+  },
+  "cases": {
+    "low": {
+      "total26": 208.104,
+      "growth": [
+        0.25,
+        0.2,
+        0.15,
+        0.1,
+        0.08,
+        0.06,
+        0.04
+      ],
+      "margins": [
+        0.196,
+        0.194,
+        0.2,
+        0.205,
+        0.21,
+        0.213,
+        0.216,
+        0.218
+      ],
+      "wc": [
+        1.02,
+        1.02,
+        1.0,
+        0.98,
+        0.96,
+        0.94,
+        0.93,
+        0.92
+      ],
+      "capex": [
+        6.4,
+        0.11,
+        0.108,
+        0.106,
+        0.105,
+        0.103,
+        0.101,
+        0.1
+      ],
+      "tax": [
+        0.1,
+        0.1,
+        0.12,
+        0.14,
+        0.15,
+        0.15,
+        0.16,
+        0.16
+      ],
+      "wacc": 0.1125,
+      "g": 0.02,
+      "tm": 0.215,
+      "tt": 0.17,
+      "nci": 0.296809,
+      "deposits": 60.27056357,
+      "reserve": 10.0,
+      "award": 26.2,
+      "claims_loss": 1.84749
+    },
+    "base": {
+      "total26": 220.632,
+      "growth": [
+        0.35,
+        0.28,
+        0.22,
+        0.17,
+        0.13,
+        0.09,
+        0.06
+      ],
+      "margins": [
+        0.216,
+        0.217,
+        0.225,
+        0.233,
+        0.241,
+        0.249,
+        0.255,
+        0.26
+      ],
+      "wc": [
+        0.95,
+        0.94,
+        0.91,
+        0.87,
+        0.83,
+        0.8,
+        0.77,
+        0.75
+      ],
+      "capex": [
+        6.0,
+        0.099,
+        0.097,
+        0.096,
+        0.094,
+        0.092,
+        0.09,
+        0.088
+      ],
+      "tax": [
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.11,
+        0.12,
+        0.12,
+        0.13
+      ],
+      "wacc": 0.0975,
+      "g": 0.025,
+      "tm": 0.26,
+      "tt": 0.13,
+      "nci": 0.180803,
+      "deposits": 61.607402,
+      "reserve": 7.5,
+      "award": 24.5,
+      "claims_loss": 0.923745
+    },
+    "high": {
+      "total26": 227.738,
+      "growth": [
+        0.45,
+        0.36,
+        0.28,
+        0.22,
+        0.16,
+        0.11,
+        0.07
+      ],
+      "margins": [
+        0.23,
+        0.238,
+        0.253,
+        0.269,
+        0.282,
+        0.292,
+        0.298,
+        0.302
+      ],
+      "wc": [
+        0.91,
+        0.89,
+        0.83,
+        0.78,
+        0.74,
+        0.71,
+        0.68,
+        0.66
+      ],
+      "capex": [
+        5.5,
+        0.09,
+        0.089,
+        0.089,
+        0.087,
+        0.086,
+        0.085,
+        0.084
+      ],
+      "tax": [
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.1,
+        0.11
+      ],
+      "wacc": 0.0875,
+      "g": 0.03,
+      "tm": 0.3,
+      "tt": 0.11,
+      "nci": 0.128711,
+      "deposits": 62.94424029,
+      "reserve": 5.0,
+      "award": 20.0,
+      "claims_loss": 0.0
+    }
+  },
+  "timing": {
+    "year_end_offset": -0.8767123287671232,
+    "first_flow": "2026Q4 at 2026-12-31",
+    "later_flows": "2027–2033 year-end; retain original 365-day grid",
+    "opening_balance_date": "2026-09-30"
+  },
+  "opening_nwc": 198.60713,
+  "opening_productive_fixed": 40.5189116278,
+  "legacy_da": [
+    3.5,
+    13.5,
+    10,
+    6.5,
+    4,
+    2,
+    1,
+    0.0189116278
+  ],
+  "new_cohorts": [
+    {
+      "weight": 0.4,
+      "life": 3
+    },
+    {
+      "weight": 0.6,
+      "life": 6
+    }
+  ],
+  "capital_changes": {
+    "restricted_monetary_assets": 7.334126666599999,
+    "outside_equity_book": 6.2991282486,
+    "parent_oci_after_tax": 4.4991255677,
+    "outside_equity_gain_tax_rate": 0.1,
+    "restricted_recovery": 1,
+    "outside_equity_recovery": 1,
+    "restricted_allocation": "same consolidated NCI fraction as paired debt",
+    "outside_equity_allocation": "parent ordinary shareholders; Q3 OCI fully attributed to parent"
+  },
+  "source_scope": "Frozen input/evidence only; see report §0/§5. All future path parameters are assumptions, not realized facts.",
+  "opening_bridge": {
+    "ytd_revenue": 149.5471022913,
+    "cash_eq": 69.43128132,
+    "financing": 71.57916507,
+    "source": "input/evidence/sources/FIN-2026Q3.pages.txt pp6–12, published 2026-10-20; cash_eq preserves prior rounding versus source 69.4312813162"
+  },
+  "p1_timing_delay_years": [
+    1,
+    2
+  ],
+  "assumption_register": "Report §5.2–5.6 and embedded audit.valuation_review.neutral_review document source facts, inference, counterevidence and uncertainty for every parameter family. These are bounded research assumptions, not company guidance."
+}

@@ -1,0 +1,325 @@
+{
+  "schema": "neutral-calibration-change-bridge/v1",
+  "identity": {
+    "code": "002475.SZ",
+    "generator": "codex",
+    "valuation_date": "2026-11-16",
+    "run_date": "2026-11-17",
+    "evidence_cutoff": "2026-11-16T06:05:42.829845+08:00",
+    "contract": "two-price-controls/v9",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "xhigh"
+  },
+  "baseline": {
+    "report_path": "input/prior-codex.md",
+    "sha256": "ed8e6f8d01e2348554c85ad0bd9f9f9269aaf7fc30a8f936b50815dfc7ac2cf7",
+    "price_map_path": "input/prior-price-map.json",
+    "price_map_sha256": "f5a44422c16d6b10436ccfe70798bebeb109ba717bb515a8dd02b1afe4d2fe03"
+  },
+  "old_price": {
+    "mode": "frozen",
+    "reason": "观察估值输入已可设界。R6窗口、既有现金与融资质量冻结继续，新建仓和追加均受限，持仓继续复评。",
+    "v50": {
+      "low": 11.47,
+      "base": 31.15,
+      "high": 56.95
+    },
+    "p1": {
+      "base": 23.67
+    },
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    }
+  },
+  "recomputed_old": {
+    "rounded_v50": {
+      "low": 11.47,
+      "base": 31.15,
+      "high": 56.95
+    },
+    "unrounded_v50": {
+      "low": "11.469177370700412477168244809912870200247685064557",
+      "base": "31.147559173788226564508117863481261996900490366903",
+      "high": "56.950173963412710688640047792997068323368483037151"
+    },
+    "p1": 23.67,
+    "source": "output/neutral-review/prior-reproduction/final-calc.json",
+    "full_reproduction_equals_frozen": true
+  },
+  "new_price": {
+    "rounded_v50": {
+      "low": 11.47,
+      "base": 31.15,
+      "high": 56.95
+    },
+    "unrounded_v50": {
+      "low": "11.469177370700412477168244809912870200247685064557",
+      "base": "31.147559173788226564508117863481261996900490366903",
+      "high": "56.950173963412710688640047792997068323368483037151"
+    },
+    "p1": 23.67,
+    "t1": "接近V50上沿时复核",
+    "mode": "frozen"
+  },
+  "single_changes": [
+    {
+      "category": "profit",
+      "classification": "unchanged",
+      "reason": "S1/S2/S5给历史收入、毛利/费用和项目进展；基准不是最坏值组合，2027–2033增速逐期收敛。旧预测仍为bounded，没有新证据支持改变。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    },
+    {
+      "category": "investment",
+      "classification": "unchanged",
+      "reason": "S5 p90/164寿命与DA、S1 capex及资产，足以支持必要净投入系数和完整资产桥；没有将IPO预算再扣一遍。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    },
+    {
+      "category": "cash_recovery",
+      "classification": "unchanged",
+      "reason": "Q3核心NWC410.36亿与2025年末季节差异支持6%–10%假设，基准8%；Q4释放不是已实现。继续原46/92及45/365时点。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    },
+    {
+      "category": "terminal",
+      "classification": "unchanged",
+      "reason": "七年后g2%、分部稳态EBIT、期末生产资本与再投资闭合；终值占比高已揭示并做敏感性，不额外重复扣终局。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    },
+    {
+      "category": "capital_cost",
+      "classification": "unchanged",
+      "reason": "人民币WACC低/中/高10%/9%/8.5%为资金回报假设；单笔短融利率非WACC，没有新增证据改变。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    },
+    {
+      "category": "ordinary_equity",
+      "classification": "unchanged",
+      "reason": "原金融资产/债务/NCI/联营/既有期权区间尚可设界，最新股本不变，IPO和短融成对；账面代理仍有局限。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    },
+    {
+      "category": "cash_tax",
+      "classification": "unchanged",
+      "reason": "现金税逐分部18%/23%/18%/25%基准有法定/历史代理锚；不把递延税或合并亏损当现金退款。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    },
+    {
+      "category": "other_corrections",
+      "classification": "correction",
+      "reason": "ROE12.71%→13.86%；混合行/9M分部推断标签、SCP发行与起息日、C5会议标题及宏观来源核验边界纠正，均不在原模型数值输入中；2025年末同定义NWC由旧文约102.03亿纠正为101.917305亿，原模型仍用Q3 410.360147亿和独立6%–10%预测比例，故数值桥影响0。",
+      "delta_v50": {
+        "low": 0,
+        "base": 0,
+        "high": 0
+      },
+      "fixed_others": true
+    }
+  ],
+  "path_combinations": [
+    {
+      "scenario": "low",
+      "old": "11.469177370700412477168244809912870200247685064557",
+      "new": "11.469177370700412477168244809912870200247685064557",
+      "delta": 0,
+      "combined_recalculation": true
+    },
+    {
+      "scenario": "base",
+      "old": "31.147559173788226564508117863481261996900490366903",
+      "new": "31.147559173788226564508117863481261996900490366903",
+      "delta": 0,
+      "combined_recalculation": true
+    },
+    {
+      "scenario": "high",
+      "old": "56.950173963412710688640047792997068323368483037151",
+      "new": "56.950173963412710688640047792997068323368483037151",
+      "delta": 0,
+      "combined_recalculation": true
+    }
+  ],
+  "order": [
+    "profit",
+    "investment",
+    "cash_recovery",
+    "terminal",
+    "capital_cost",
+    "ordinary_equity",
+    "cash_tax",
+    "other_corrections"
+  ],
+  "interaction": {
+    "actual_model_change": 0,
+    "explanation": "实际保留全部数值输入；每一项及全部组合实算差均为0。以下非零敏感性不是本轮变化，不与变化桥相加。",
+    "illustrative_joint_sensitivity": "0.491229862458609619894322945",
+    "illustrative_definition": "WACC+1pp和终局EBIT率-0.5pp联合减单项差之和；固定资本桥，联合价24.0366172681，交互+0.4912298625元。"
+  },
+  "sensitivity_not_changes": {
+    "isolated_sensitivity": {
+      "WACC+1pp": {
+        "value": "26.272780349991556690025447555595899762377993508139",
+        "p1": "19.96731306599358308441934014",
+        "delta": "-4.874778823796669874482670308"
+      },
+      "WACC-1pp": {
+        "value": "37.711341753948294916585477831901981108746268660049",
+        "p1": "28.66061973300070413660496315",
+        "delta": "6.563782580160068352077359968"
+      },
+      "terminal-margin-0.5pp": {
+        "value": "28.420166229447133112902544869678815820189920494410",
+        "p1": "21.59932633437982116580593410",
+        "delta": "-2.727392944341093451605572994"
+      },
+      "cash-tax+5pp": {
+        "value": "28.416679649858427977080008401343188861503643394505",
+        "p1": "21.59667653389240526258080639",
+        "delta": "-2.730879523929798587428109462"
+      },
+      "g=1%": {
+        "value": "29.532763558004863370098998908669720299477191410776",
+        "p1": "22.44490030408369616127523917",
+        "delta": "-1.614795615783363194409118955"
+      },
+      "g=3%": {
+        "value": "33.300619994832710823720276469896650926798222308404",
+        "p1": "25.30847119607286022602741012",
+        "delta": "2.153060821044484259212158606"
+      },
+      "terminal-IC+20%": {
+        "value": "30.317514327304549715311882341377149640356070923060",
+        "p1": "23.04131088875145778363703058",
+        "delta": "-0.8300448464836768491962355221"
+      },
+      "V5:margin-1pp,WACC+2pp": {
+        "value": "16.117057656274262874917150978559488696283762725777",
+        "p1": "12.24896381876843978493703474",
+        "delta": "-15.03050151751396368959096688"
+      },
+      "joint:WACC+1pp,terminal-margin-0.5pp": {
+        "value": "24.036617268109072858314197506582611031176336921702",
+        "p1": "18.26782912376289537231879011",
+        "delta": "-7.110941905679153706193920357"
+      },
+      "horizon:5-year-earlier-steady-state": {
+        "value": "30.104896284051740933057799990837149285156704369416",
+        "p1": "22.87972117587932310912392799",
+        "delta": "-1.042662889736485631450317873"
+      }
+    },
+    "interaction": "0.491229862458609619894322945",
+    "reverse_by_scenario": {
+      "low": {
+        "lower": 0.085,
+        "upper": 0.125,
+        "prices": [
+          "11.469177370700412477168244809912870200247685064557",
+          "13.778581653057169722293165060236804457685791360855"
+        ],
+        "implied_margin": "0.7527189078381426257505804372",
+        "within_bounds": false,
+        "modeled_price": "50.020000000000004286798187526963527055437862301183",
+        "residual": "4.286798187526963527055437862E-15"
+      },
+      "base": {
+        "lower": 0.085,
+        "upper": 0.125,
+        "prices": [
+          "29.427792045330591211641253766461603416209398510630",
+          "34.013837721217618819286224691847359631385643460690"
+        ],
+        "implied_margin": "0.2646075260474721541863903969",
+        "within_bounds": false,
+        "modeled_price": "50.020000000000005252582655422614349871485066151836",
+        "residual": "5.252582655422614349871485066E-15"
+      },
+      "high": {
+        "lower": 0.085,
+        "upper": 0.125,
+        "prices": [
+          "51.204828606685494912914165770252744751105420171746",
+          "58.865289082321782613882008467245176180789503992286"
+        ],
+        "implied_margin": "0.07881327735869777971922676858",
+        "within_bounds": false,
+        "modeled_price": "50.020000000000000053771306047867842762316630834832",
+        "residual": "5.377130604786784276231663083E-17"
+      }
+    },
+    "scope": "Sensitivities fix initial equity adjustments, including options and Q4 cash; they are not full revised scenarios.",
+    "horizon_definition": "五年提前稳态联合诊断：保留2027–2031现金流；用2031收入、原终局EBIT率/税率/g及2031期末生产资本/NWC/最低现金计算终值。原估值日、45/365偏移、WACC和股权桥固定；舍去2032–2033扩张。非单纯将同额现金流提前，也非本轮采纳变更。"
+  },
+  "discount_changes": {
+    "d_base": {
+      "kind": "unchanged",
+      "reason": "与本轮直接基线 input/prior-codex.md（估值日及证据截止相同）相比，数值和范围均不变；按本报告§5/§7独立复核经营已吸收损失、资本配对与剩余风险，没有据旧P1或市价倒推。",
+      "evidence": []
+    },
+    "r_chip": {
+      "kind": "unchanged",
+      "reason": "与本轮直接基线 input/prior-codex.md（估值日及证据截止相同）相比，数值和范围均不变；按本报告§5/§7独立复核经营已吸收损失、资本配对与剩余风险，没有据旧P1或市价倒推。",
+      "evidence": []
+    },
+    "r_v5": {
+      "kind": "unchanged",
+      "reason": "与本轮直接基线 input/prior-codex.md（估值日及证据截止相同）相比，数值和范围均不变；按本报告§5/§7独立复核经营已吸收损失、资本配对与剩余风险，没有据旧P1或市价倒推。",
+      "evidence": []
+    },
+    "r_gov": {
+      "kind": "unchanged",
+      "reason": "与本轮直接基线 input/prior-codex.md（估值日及证据截止相同）相比，数值和范围均不变；按本报告§5/§7独立复核经营已吸收损失、资本配对与剩余风险，没有据旧P1或市价倒推。",
+      "evidence": []
+    },
+    "r_terminal": {
+      "kind": "unchanged",
+      "reason": "与本轮直接基线 input/prior-codex.md（估值日及证据截止相同）相比，数值和范围均不变；按本报告§5/§7独立复核经营已吸收损失、资本配对与剩余风险，没有据旧P1或市价倒推。",
+      "evidence": []
+    }
+  },
+  "unresolved": [
+    "R14油价成本比例/传导/现金生存桥",
+    "R8客户订单交付回款及2027兑现",
+    "Q4实际NWC释放与分部费用",
+    "同日混合存款、NCI经济价值、跨境分配税和期权精确寿命/波动",
+    "温度/基金与板块拥挤/宏观连续数据",
+    "截止内公告完整覆盖、历史R6原件不足及新窗口实质映射",
+    "ETF同窗全收益、可投资前瞻回报和交易容量",
+    "未来分红及具体支付时点"
+  ]
+}
