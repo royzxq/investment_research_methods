@@ -466,6 +466,26 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '同公司一套基准/P1/T1；路由变化逐条审议旧控制，不自动解除。'
                    f'红利完整九节按独立模板，JSON仍v4/{"audit-v7" if contract == NEUTRAL_CONTRACT else "audit-v6"}；不强套成长K或缺拥挤三值即冻结。'
                    '红利台账/利差/压力现金流放报告，不扩轻量JSON。全部六份冻结哈希须在§0绑定。\n\n')
+    if 'research_route' in task.get('data_pack_meta', {}):
+        route = task['data_pack_meta']['research_route']
+        # New explicit routing metadata only. Old requests retain byte-identical
+        # prompts and their original holding-purpose contract on recovery.
+        if set(frameworks) != set(stock_framework_bundle.BUNDLE):
+            raise ValueError('automatic research route requires full strategy framework bundle')
+        try:
+            from .dividend_data import validate_route
+        except ImportError:
+            from dividend_data import validate_route
+        validate_route(route, task['code'], request['valuation_date'])
+        skill = 'dividend-research' if route['strategy'] == 'dividend' else 'stock-research'
+        prefix = prefix.replace('使用 stock-research 技能进行股票复研', f'使用 {skill} 技能进行股票复研', 1)
+        prefix = prefix.replace('先按stock_research_common.md的C0和用户持有目的确定dividend/non_dividend，在报告§0声明理由；有分红不自动路由。',
+                                '本任务按已校验的research_route自动选轨，不再按持有目的重选；在报告§0声明冻结规则及证据。')
+        prefix += ('本任务冻结的自动路由（优先于skill默认人工路由）：' + json.dumps(route, ensure_ascii=False)
+                   + f'。唯一主策略为{route["strategy"]}，执行{skill}。阈值单位是百分点，严格大于才进红利。'
+                   '这是研究分工，不是可持续分红/买入资格结论；质量不足须在已选轨内作出否定或缺口判断，不静默换轨。'
+                   '不要按运行时行情或当前配置重算；新证据引发的路由变化留下一批明确复评，旧约束逐项接续。'
+                   '报告§0披露股息率、国债利率、利差、观测日期、阈值和规则版本；红利补充数据的缺口继续取证。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
         result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)

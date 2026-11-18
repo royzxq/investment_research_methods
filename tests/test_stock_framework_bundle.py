@@ -42,6 +42,46 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertNotIn('stock-research-audit/v6', prompt)
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
 
+    def route(self, strategy='dividend'):
+        return dict(schema_version='stock-research-route/v1', rule='dividend-spread/v1',
+            code='600066.SH', valuation_date='2026-10-06', status='classified', strategy=strategy,
+            threshold_pp=2, comparison='>', max_age_days=7, spread_pp=3 if strategy=='dividend' else 2,
+            trailing_yield=dict(value=5 if strategy=='dividend' else 4, unit='percent', currency='CNY',
+                as_of='2026-10-06', basis='gross_ttm', source='https://tushare.pro'),
+            government_10y=dict(value=2, unit='percent', currency='CNY', as_of='2026-10-06',
+                tenor_years=10, curve_type='government_ytm', source='https://tushare.pro'))
+
+    def test_automatic_dividend_selects_skill_and_recovers_frozen_route(self):
+        self.enable_bundle()
+        self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = self.route()
+        self.fixture.write_request()
+        run = self.prepare()
+        prompt = (run/'execution/SH-600066/codex/prompt.txt').read_bytes()
+        self.assertIn('使用 dividend-research 技能'.encode(), prompt)
+        self.assertNotIn('先按stock_research_common.md的C0和用户持有目的'.encode(), prompt)
+        self.assertIn('dividend_report_template.md'.encode(), prompt)
+        self.assertIn('"threshold_pp": 2'.encode(), prompt)
+        runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
+        self.assertEqual(prompt, (run/'execution/SH-600066/codex/prompt.txt').read_bytes())
+
+    def test_automatic_non_dividend_and_invalid_routes(self):
+        self.enable_bundle()
+        route = self.route('non_dividend')
+        self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = route
+        self.fixture.write_request()
+        run = self.prepare()
+        self.assertIn('使用 stock-research 技能', (run/'execution/SH-600066/codex/prompt.txt').read_text())
+        route['status'] = 'pending'
+        self.fixture.write_request()
+        with self.assertRaises(ValueError):
+            runner.read_request(self.fixture.request_path)
+
+    def test_automatic_route_refuses_legacy_two_file_bundle(self):
+        self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = self.route()
+        self.fixture.write_request()
+        with self.assertRaisesRegex(ValueError, 'full strategy framework bundle'):
+            self.prepare()
+
     def test_legacy_pair_snapshot_and_prompt_remain_v1(self):
         run = self.prepare(); hashes, snapshot = runner.snapshot_hashes(run)
         self.assertEqual(set(hashes), set(bundle.CORE))

@@ -1,6 +1,6 @@
 # 项目状态与迁移边界
 
-2026-11-17 红利投研拆分已合入本地 dev。非红利框架保留 R9 历史索引，红利 HD4A/HD6 承接专用分红估值与利差。两轨共享 dev 的 V50 中性校准，当前新批次为六文件快照 v2、controls-v10 / audit-v7、价格 JSON v4。旧 v9 六文件仍按冻结原合同恢复。原5项待复评、4项撤回来源和25项历史评估接续。见[合并适配报告](../../research/investment/weekly/2026-11-17/investment-2026-11-17-adaption-report-r4.md)与[当前采纳记录](../../research/investment/weekly/2026-11-17/investment-2026-11-17-handoff-r4.json)。此前专项 Tushare 取数中股息/派息可用，yc_cb 无权限，利差为 null。
+2026-11-18 当前采纳：A股与港股统一以同日中国十年国债作筛选，默认利差分别严格大于2及3.5个百分点。中债官网可替代TuShare国债权限；指定候选和每日抓包共用入口，旧冻结任务不改。港股的跨币种筛选差不写入同币种估值利差。5项待复评、4项撤回、25项历史评估接续。见[本轮适配验证](../../research/investment/weekly/2026-11-18/investment-2026-11-18-adaption-report.md)、[当前采纳](../../research/investment/weekly/2026-11-18/investment-2026-11-18-handoff.json)及[11月17日旧路由记录](../../research/investment/weekly/2026-11-17/investment-2026-11-17-handoff-r5.json)。
 
 
 核对日期：2026-10-11（本次接续股票与期货；ETF沿用原核对日期）。这里记录接续线索，不替代 canonical，也不把历史行情、账户或拟议更新当作当前事实。

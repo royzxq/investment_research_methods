@@ -17,9 +17,11 @@ import sys
 from zoneinfo import ZoneInfo
 
 try:
+    from .dividend_data import validate_route
     from .research_paths import company_path
     from .stock_price_map import fields, iso_date, no_duplicates, reject_constant, require, string, validate_document
 except ImportError:
+    from dividend_data import validate_route
     from research_paths import company_path
     from stock_price_map import fields, iso_date, no_duplicates, reject_constant, require, string, validate_document
 
@@ -166,6 +168,8 @@ def _validate_request(request, request_root):
             string(source, f"{label}.sources")
         require(len(set(sources)) == len(sources), f"{label}.sources: duplicates")
         require(isinstance(task["data_pack_meta"], dict), f"{label}.data_pack_meta: expected object")
+        if 'research_route' in task['data_pack_meta']:
+            validate_route(task['data_pack_meta']['research_route'], task['code'], request['valuation_date'])
         _artifact(task["data_pack"], request_root, f"{label}.data_pack")
     return request
 

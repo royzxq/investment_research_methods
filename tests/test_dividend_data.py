@@ -99,7 +99,7 @@ class DividendDataTests(unittest.TestCase):
 
     def test_hk_no_a_share_calls(self):
         self.assertEqual(self.build('00941.HK')['status'], 'partial')
-        self.assertEqual(self.calls, [])
+        self.assertEqual([ep for ep, params in self.calls], ['hk_cash_ttm'])
 
     def test_tampered_cache_rejected_and_output_not_overwritten(self):
         a = self.build()

@@ -1,8 +1,10 @@
-<!-- stock-framework-dependencies: {"dividend_framework.md": "58db66ea3047027cb0414b1f55edef5031be3938c40fc1b0506b7a9371e2566c", "dividend_framework_compact.md": "424d93e499068a7307a5c6e47b031e3d5c26701fc1a6fb582e6d89629238a9ab", "dividend_report_template.md": "0079ce0205d456ccb580292558860fcbcac991b5fb54ddead19aaff0a84c72db", "stock_research_common.md": "1ab5f461cc4227c81673bd9ef842d4df59283ddc921c81d80fb8a0102dcd3269"} -->
+<!-- stock-framework-dependencies: {"dividend_framework.md": "2982e01707fbe6eee314cd4ac36b5570a325cc541592ef4d8f636814528ccbc5", "dividend_framework_compact.md": "38fcac0db1adea1af5aed4a9000164a14206ab50e59e4fc8050f25bb8231c595", "dividend_report_template.md": "e56b205fcb0902f105f1a6ea40a15d82f67f28b9999e599e8739a560d1a4d3f2", "stock_research_common.md": "09d19db4ca7ad22949d4f73a3296de55b69383d4e07087a6141cbf7f82e493bb"} -->
 # 个股调研框架 · 精简版
 
-<!-- investment-method-version: stock-strategy-split-v2-common-v3-dcf-v4 -->
+<!-- investment-method-version: stock-strategy-split-v4-common-v5-dcf-v4 -->
 <!-- stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6 -->
+
+自动任务以共享C0的冻结research_route选轨：TTM税前股息率－同日中国人民币十年国债YTM严格>分市场阈值（默认A股2、港股3.5个百分点）进入红利，否则本轨；最新股票观测≤估值日且不超过7自然日，缺失/超龄/未来/错币种pending，重取仍缺不派研究。报告§0披露规则/阈值/读数/日期/来源/利差，恢复不重算；候选分类非质量或交易门槛。无该元数据按下述持有目的；旧批次不追补，切换逐条接续旧控制。
 
 > 策略拆分（2026-11-17，本地复审）：本框架主要负责非红利策略。长期可持续现金分配为主的研究转 [红利 canonical](dividend_framework.md)；仅有分红的成长/修复公司仍留本轨。共享 [基础规则](stock_research_common.md)，含 §4.1A–D、§5.2A、§6.1–2、§6.6。先按共享 C0 明确主策略；旧批次继续冻结版本，切换不能解除原控制。原市场状态未刷新；本次无生产发布。
 
