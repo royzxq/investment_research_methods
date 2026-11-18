@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "selected_handoff": "research/investment/weekly/2026-11-16/investment-2026-11-16-handoff.json",
+  "handoff_sha256": "10bf765e2d37a5ca7a928d10d18740087f03cdf18e8be03f83a4270ec9489d95",
+  "contract": {
+    "price_schema": "stock-research/v4",
+    "audit_schema": "stock-research-audit/v6",
+    "prompt_template": "two-price-controls/v9"
+  },
+  "source_hashes": {
+    "scripts/research_consistency.py": "b2965bd0d3ceec81d9ae688690906f50680919f86c61df2d5b96ae6d3b75b89e",
+    "scripts/research_runner.py": "27a68deb64c4fd49628096faf8976bcd0e137de6ebb9bb6348f7be53836b1eb9",
+    "scripts/research_recovery.py": "3665ef175abb5c9d1f269f0ec39de3cc756f6c7bbb5ad23af42bb25bc22af4b3",
+    "scripts/research_acceptance.py": "be1a2286617383a305bc3fac7ae47bd4983073a1d215f457f841ce58f361ae13",
+    "tests/test_valuation_availability.py": "a5a5d4f6f28b5a3ef18e64dad5df80abac0e1fd3d5b1c2b2027bd046677a2b55",
+    "tests/test_research_runner.py": "127107ca1758c73474ff5a638dcafff2aa921ba6c27d013e0c0b30b44b35cf60",
+    "tests/test_investment_maintenance.py": "91c8f99e9462f052da4f6fc18eba06639a02befa46c210b882afba16cc41f052",
+    "tests/test_public_monitoring.py": "d6bb65a1ef157823f51f997476c7345cc437cbef69b8816a3bd35e834f8d6493"
+  },
+  "unchanged_old_pending": true
+}

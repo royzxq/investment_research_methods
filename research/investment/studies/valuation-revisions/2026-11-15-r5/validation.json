@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "review": "PASS",
+  "full_offline_tests": {
+    "command": "myenv/bin/python -m unittest discover -s tests -v",
+    "passed": 1386,
+    "seconds": 296.534,
+    "network": "no live research or quote writes; mocked endpoints",
+    "sandbox_note": "Two process tests initially blocked by sandbox ps; complete suite rerun with approved local process inspection and passed"
+  },
+  "same_pack_regression": {
+    "command": "myenv/bin/python -m pytest research/investment/studies/valuation-revisions/2026-11-15-r5/test_replay.py -q",
+    "passed": 6
+  },
+  "audit_cli": {
+    "09988": "passed, no adopted prices",
+    "01810": "passed, no adopted prices"
+  },
+  "framework_governance": "passed; structural only",
+  "skill_validation": {
+    "stock-research": "passed",
+    "investment-weekly-review": "passed"
+  },
+  "production_protection": {
+    "production_before.json": {
+      "files": 5732,
+      "changed": []
+    },
+    "r4_before.json": {
+      "files": 340,
+      "changed": []
+    }
+  },
+  "old_frozen_contracts": "v1-v7 restore; v7 prompt and v4 rendering golden bytes; legacy v3 prices unchanged",
+  "external_calls": "No live API/research run and no formal quote update",
+  "review_type": "primary-agent adversarial code and financial-assumption boundary review"
+}

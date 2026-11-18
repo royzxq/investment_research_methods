@@ -1,0 +1,461 @@
+{
+  "schema_version": "stock-change-bridge/v1",
+  "baseline": {
+    "report_path": "input/prior-codex.md",
+    "sha256": "ed8e6f8d01e2348554c85ad0bd9f9f9269aaf7fc30a8f936b50815dfc7ac2cf7",
+    "discounts": {
+      "d_base": {
+        "value": 0.2,
+        "range": [
+          0.15,
+          0.2
+        ],
+        "quote": "| d_base | 20% | 15%—20% | MODEL_RESIDUAL | unchanged |"
+      },
+      "r_chip": {
+        "value": 0,
+        "range": [
+          0,
+          0
+        ],
+        "quote": "| r_chip | 0% | 0%—0% | 无额外扣减 | unchanged |"
+      },
+      "r_v5": {
+        "value": 0.05,
+        "range": [
+          0,
+          0.05
+        ],
+        "quote": "| r_v5 | 5% | 0%—5% | LIQUIDITY_TAIL | unchanged |"
+      },
+      "r_gov": {
+        "value": 0,
+        "range": [
+          0,
+          0
+        ],
+        "quote": "| r_gov | 0% | 0%—0% | 无额外扣减 | unchanged |"
+      },
+      "r_terminal": {
+        "value": 0,
+        "range": [
+          0,
+          0
+        ],
+        "quote": "| r_terminal | 0% | 0%—0% | 无额外扣减 | unchanged |"
+      }
+    }
+  },
+  "valuation_date": "2026-11-16",
+  "evidence_cutoff": "2026-11-16T06:05:42.829845+08:00",
+  "unit": "CNY/share; capital adjustments CNY 100 million",
+  "old_price": {
+    "low": 11.47,
+    "base": 31.15,
+    "high": 56.95
+  },
+  "recomputed_old_price": {
+    "low": 11.469177370700413,
+    "base": 31.147559173788228,
+    "high": 56.95017396341271
+  },
+  "new_price": {
+    "low": 11.63,
+    "base": 31.31,
+    "high": 57.11
+  },
+  "new_unrounded_price": {
+    "low": 11.629791326172242,
+    "base": 31.305161102315243,
+    "high": 57.10656505336361
+  },
+  "old_p1": 23.67,
+  "new_p1": 23.79,
+  "adopted_order": [
+    "investment",
+    "cash_recovery",
+    "terminal",
+    "capital_cost",
+    "capital_scope",
+    "other_corrections"
+  ],
+  "single_changes": [
+    {
+      "topic": "investment",
+      "classification": "unchanged",
+      "fixed_others_delta": 0,
+      "joint_feedback_delta": 0,
+      "adopted_delta": 0,
+      "reason": "历史资本寿命/规模支持原有界投资路径；替代未采纳"
+    },
+    {
+      "topic": "cash_recovery",
+      "classification": "unchanged",
+      "fixed_others_delta": 0,
+      "joint_feedback_delta": 0,
+      "adopted_delta": 0,
+      "reason": "8%核心NWC为季节释放与回款滞后的折中预测；日期不变"
+    },
+    {
+      "topic": "terminal",
+      "classification": "unchanged",
+      "fixed_others_delta": 0,
+      "joint_feedback_delta": 0,
+      "adopted_delta": 0,
+      "reason": "逐年衰减与成熟利润率假设保留；同稳态延期等值"
+    },
+    {
+      "topic": "capital_cost",
+      "classification": "unchanged",
+      "fixed_others_delta": 0,
+      "joint_feedback_delta": 0,
+      "adopted_delta": 0,
+      "reason": "人民币9%长期研究代理保留，未用短券利率或美债直接替换"
+    },
+    {
+      "topic": "capital_scope",
+      "classification": "correction",
+      "fixed_others_delta": 0.1616252973999065,
+      "joint_feedback_delta": -0.0040233688728891345,
+      "adopted_delta": 0.15760192852701735,
+      "reason": "S1 PDF8两个投资余额原被遗漏；对应收益已排除，补回后重估期权"
+    },
+    {
+      "topic": "other_corrections",
+      "classification": "correction",
+      "fixed_others_delta": 0,
+      "joint_feedback_delta": 0,
+      "adopted_delta": 0,
+      "reason": "ROE12.71%→披露加权13.86%，发行日11/12与起息日11/13分开；均无模型数值传导"
+    }
+  ],
+  "scenario_combinations": {
+    "low": {
+      "old": 11.469177370700413,
+      "fv_only_fixed_options": 11.63080266810032,
+      "new": 11.629791326172242,
+      "fv_asset_delta": 0.1616252973999065,
+      "option_feedback_delta": -0.0010113419280771384,
+      "total_delta": 0.16061395547182936,
+      "old_option_claim": 1.4652714407285554,
+      "new_option_claim": 1.5435830603986698
+    },
+    "base": {
+      "old": 31.147559173788228,
+      "fv_only_fixed_options": 31.309184471188132,
+      "new": 31.305161102315243,
+      "fv_asset_delta": 0.1616252973999065,
+      "option_feedback_delta": -0.0040233688728891345,
+      "total_delta": 0.15760192852701735,
+      "old_option_claim": 24.225776167851564,
+      "new_option_claim": 24.537319202130114
+    },
+    "high": {
+      "old": 56.95017396341271,
+      "fv_only_fixed_options": 57.11179926081262,
+      "new": 57.10656505336361,
+      "fv_asset_delta": 0.1616252973999065,
+      "option_feedback_delta": -0.0052342074490054884,
+      "total_delta": 0.156391089950901,
+      "old_option_claim": 83.99110784714816,
+      "new_option_claim": 84.39641020003324
+    }
+  },
+  "diagnostic_sensitivities": [
+    {
+      "name": "investment_k_minus20pct",
+      "value": 32.565770121812605,
+      "quoted": 32.57,
+      "delta": 1.2606090194973625
+    },
+    {
+      "name": "investment_k_plus20pct",
+      "value": 30.04455208281788,
+      "quoted": 30.04,
+      "delta": -1.2606090194973627
+    },
+    {
+      "name": "opening_production_plus10pct",
+      "value": 31.145391542919892,
+      "quoted": 31.15,
+      "delta": -0.15976955939535023
+    },
+    {
+      "name": "opening_production_minus10pct",
+      "value": 31.464930661710593,
+      "quoted": 31.46,
+      "delta": 0.1597695593953506
+    },
+    {
+      "name": "cash_nwc_6pct",
+      "value": 33.097211581671544,
+      "quoted": 33.1,
+      "delta": 1.7920504793562995
+    },
+    {
+      "name": "cash_nwc_10pct",
+      "value": 29.513110622958944,
+      "quoted": 29.51,
+      "delta": -1.7920504793562995
+    },
+    {
+      "name": "terminal_margin_minus50bp",
+      "value": 28.577768157974152,
+      "quoted": 28.58,
+      "delta": -2.7273929443410934
+    },
+    {
+      "name": "terminal_margin_plus50bp",
+      "value": 34.03255404665634,
+      "quoted": 34.03,
+      "delta": 2.7273929443410947
+    },
+    {
+      "name": "capital_cost_plus100bp",
+      "value": 26.429563865859404,
+      "quoted": 26.43,
+      "delta": -4.8755972364558415
+    },
+    {
+      "name": "capital_cost_minus100bp",
+      "value": 37.86977057299184,
+      "quoted": 37.87,
+      "delta": 6.564609470676599
+    },
+    {
+      "name": "capital_cost_minus50bp",
+      "value": 34.32736428864399,
+      "quoted": 34.33,
+      "delta": 3.022203186328747
+    },
+    {
+      "name": "capital_nci_low_claim",
+      "value": 32.003754475240704,
+      "quoted": 32.0,
+      "delta": 0.6985933729254588
+    },
+    {
+      "name": "capital_nci_high_claim",
+      "value": 30.713761911931837,
+      "quoted": 30.71,
+      "delta": -0.5913991903834066
+    },
+    {
+      "name": "capital_associate_annualized_earnings_zero_growth",
+      "value": 35.290776808341995,
+      "quoted": 35.29,
+      "delta": 3.985615706026751
+    },
+    {
+      "name": "capital_mixed_deposits_H1_absolute_split",
+      "value": 31.411827892299105,
+      "quoted": 31.41,
+      "delta": 0.10666678998386106
+    },
+    {
+      "name": "capital_fv_investments_minus20pct",
+      "value": 31.272836042835262,
+      "quoted": 31.27,
+      "delta": -0.03232505947998126
+    },
+    {
+      "name": "cash_tax_plus5pp",
+      "value": 28.574281578385445,
+      "quoted": 28.57,
+      "delta": -2.7308795239297985
+    },
+    {
+      "name": "terminal_g_0.01",
+      "value": 29.69036548653188,
+      "quoted": 29.69,
+      "delta": -1.6147956157833632
+    },
+    {
+      "name": "terminal_g_0.03",
+      "value": 33.45822192335973,
+      "quoted": 33.46,
+      "delta": 2.1530608210444844
+    },
+    {
+      "name": "terminal_identical_steady_state_extend2y",
+      "value": 31.305161102315243,
+      "quoted": 31.31,
+      "delta": -2.85834178312532e-15
+    },
+    {
+      "name": "V5_margin_minus100bp_WACC_plus200bp",
+      "value": 16.27303107452371,
+      "quoted": 16.27,
+      "delta": -15.032130027791533
+    },
+    {
+      "name": "R20_consumer_auto_firstyear_minus5pct",
+      "value": 31.251898529483157,
+      "quoted": 31.25,
+      "delta": -0.05326257283208678
+    }
+  ],
+  "diagnostic_joint_paths": [
+    {
+      "name": "efficiency_recovery",
+      "order": [
+        "investment",
+        "cash_recovery",
+        "terminal",
+        "capital_cost",
+        "capital_scope"
+      ],
+      "isolated": [
+        {
+          "name": "investment",
+          "value": 32.565770121812605,
+          "quoted": 32.57,
+          "delta": 1.2606090194973625
+        },
+        {
+          "name": "cash_recovery",
+          "value": 33.097211581671544,
+          "quoted": 33.1,
+          "delta": 1.7920504793562995
+        },
+        {
+          "name": "terminal",
+          "value": 34.03255404665634,
+          "quoted": 34.03,
+          "delta": 2.7273929443410947
+        },
+        {
+          "name": "capital_cost",
+          "value": 34.32736428864399,
+          "quoted": 34.33,
+          "delta": 3.022203186328747
+        },
+        {
+          "name": "capital_scope",
+          "value": 32.003754475240704,
+          "quoted": 32.0,
+          "delta": 0.6985933729254588
+        }
+      ],
+      "steps": [
+        {
+          "topic": "investment",
+          "price": 32.565770121812605,
+          "sequential_delta": 1.2606090194973625
+        },
+        {
+          "topic": "cash_recovery",
+          "price": 34.3578206011689,
+          "sequential_delta": 1.7920504793562995
+        },
+        {
+          "topic": "terminal",
+          "price": 37.08521354551,
+          "sequential_delta": 2.7273929443410947
+        },
+        {
+          "topic": "capital_cost",
+          "price": 40.494423495744556,
+          "sequential_delta": 3.4092099502345543
+        },
+        {
+          "topic": "capital_scope",
+          "price": 41.193016868670014,
+          "sequential_delta": 0.6985933729254588
+        }
+      ],
+      "combined_fixed_options": 41.193016868670014,
+      "arithmetic_sum_single_deltas": 9.500849002448962,
+      "interaction_fixed_options": 0.38700676390580735,
+      "option_claim": 45.466914416994,
+      "option_interaction": -0.2702916536222826,
+      "combined_repriced_options": 40.922725215047734,
+      "total_change": 9.617564112732486
+    },
+    {
+      "name": "slow_recovery",
+      "order": [
+        "investment",
+        "cash_recovery",
+        "terminal",
+        "capital_cost",
+        "capital_scope"
+      ],
+      "isolated": [
+        {
+          "name": "investment",
+          "value": 30.04455208281788,
+          "quoted": 30.04,
+          "delta": -1.2606090194973627
+        },
+        {
+          "name": "cash_recovery",
+          "value": 29.513110622958944,
+          "quoted": 29.51,
+          "delta": -1.7920504793562995
+        },
+        {
+          "name": "terminal",
+          "value": 28.577768157974152,
+          "quoted": 28.58,
+          "delta": -2.7273929443410934
+        },
+        {
+          "name": "capital_cost",
+          "value": 26.429563865859404,
+          "quoted": 26.43,
+          "delta": -4.8755972364558415
+        },
+        {
+          "name": "capital_scope",
+          "value": 30.713761911931837,
+          "quoted": 30.71,
+          "delta": -0.5913991903834066
+        }
+      ],
+      "steps": [
+        {
+          "topic": "investment",
+          "price": 30.04455208281788,
+          "sequential_delta": -1.2606090194973627
+        },
+        {
+          "topic": "cash_recovery",
+          "price": 28.25250160346158,
+          "sequential_delta": -1.7920504793562995
+        },
+        {
+          "topic": "terminal",
+          "price": 25.525108659120487,
+          "sequential_delta": -2.7273929443410934
+        },
+        {
+          "topic": "capital_cost",
+          "price": 21.275792892064935,
+          "sequential_delta": -4.249315767055554
+        },
+        {
+          "topic": "capital_scope",
+          "price": 20.684393701681525,
+          "sequential_delta": -0.5913991903834066
+        }
+      ],
+      "combined_fixed_options": 20.684393701681525,
+      "arithmetic_sum_single_deltas": -11.247048870034003,
+      "interaction_fixed_options": 0.6262814694002865,
+      "option_claim": 7.509179921299097,
+      "option_interaction": 0.21990697273770918,
+      "combined_repriced_options": 20.904300674419236,
+      "total_change": -10.400860427896008
+    }
+  ],
+  "unresolved_items": [
+    "R14成本权重/传导/套保与油价增量现金桥",
+    "经营回款全年实际值和现金税实体映射",
+    "生产性资本代理与现金购建/新增资产差异",
+    "联营可持续利润与分配、NCI估值、跨境可用现金与税",
+    "同截止市场/窗口原文和历史公告覆盖缺口",
+    "未来股权激励替代费用/实际期权期限、波动与库存股再授予路径"
+  ],
+  "interaction_explanation": "正式变化仅资本范围纠错：FV资产单项固定旧期权+0.1616252974元，期权重估交互-0.0040233689元，基准总差+0.1576019285元；其他五类正式变化为零。诊断五因子组合另列孤立差、顺序差、组合差及期权交互，不相加冒充正式差。"
+}

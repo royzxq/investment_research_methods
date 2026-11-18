@@ -1,0 +1,52 @@
+{
+  "scope": "Final verification after model-period tN compatibility extension; no economic-rule change after trials froze",
+  "full_regression": {
+    "command": "/Users/xinquanzhou/miniconda3/bin/python3 -m unittest discover -s tests -v",
+    "tests": 1410,
+    "seconds": 255.366,
+    "status": "passed",
+    "log": "output/audits/investment/2026-11-17/neutral-calibration/full-tests-final-conda.log",
+    "sha256": "277bae56282b7dba34b7d697de778ca5b33fa331da6e2cf508593266e072f767"
+  },
+  "prior_targeted": {
+    "tests": 45,
+    "status": "passed",
+    "log": "output/audits/investment/2026-11-17/neutral-calibration/final-neutral-tests-r2.log"
+  },
+  "resolved_environment_attempts": [
+    {
+      "command": "python3 -m unittest discover -s tests -v",
+      "status": "failed",
+      "failures": 1,
+      "errors": 3,
+      "reason": "System Python cannot import tests helper namespace or pymupdf; same code passed under documented Conda Python",
+      "log": "output/audits/investment/2026-11-17/neutral-calibration/full-tests-final-r2.log"
+    },
+    {
+      "command": "Conda Python skill-creator quick_validate for two skills",
+      "status": "failed",
+      "reason": "Conda lacks yaml; both skills passed with system Python, no packages installed"
+    }
+  ],
+  "framework_governance": "passed",
+  "skill_quick_validate": {
+    "interpreter": "python3",
+    "stock-research": "passed",
+    "investment-weekly-review": "passed"
+  },
+  "git_diff_check": "passed",
+  "protected_original_check": {
+    "files": 116,
+    "changed": 0
+  },
+  "code_sha256": {
+    "scripts/research_neutral.py": "37120bf97d8279d6d34d7ca84ad6be2c9d301ff6ea2c4cccbb753a46b33b796b",
+    "scripts/research_consistency.py": "5fca04608b1db0dc0dd74194073f9c86e65ff65f724ebf5ac8dcd52efca09b07",
+    "scripts/research_runner.py": "6b401e10263098ac3bda6516ee8d8ec2646409d26c81ae3302d0e63641c701e8",
+    "tests/test_valuation_neutral.py": "f90a0172a59ac723930a827668e7aa934eba1a72916699191a5a42a8c74236c0"
+  },
+  "limits": [
+    "Offline checks do not prove source accuracy, economic neutrality or investment effectiveness",
+    "Six historical model trials are separately recorded; no new financial-data API verification"
+  ]
+}

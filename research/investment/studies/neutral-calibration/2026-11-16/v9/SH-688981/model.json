@@ -1,0 +1,2116 @@
+{
+  "schema_version": "smic-frozen-valuation-model/v1",
+  "meta": {
+    "code": "688981.SH",
+    "generator": "codex",
+    "model": "gpt-6-astra",
+    "reasoning": "xhigh",
+    "run_date": "2026-11-17",
+    "valuation_date": "2026-11-16",
+    "evidence_cutoff": "2026-11-16T05:33:24.146247+08:00",
+    "currency": "CNY",
+    "amount_unit": "100_million",
+    "forecast_end_dates": [
+      "2027-11-16",
+      "2028-11-16",
+      "2029-11-16",
+      "2030-11-16",
+      "2031-11-16",
+      "2032-11-16",
+      "2033-11-16"
+    ],
+    "framework_sha256": {
+      "investment_framework.md": "2b909852e5afacc1ea832a76540c04469439fb016692dc91c32bd7160e13fb32",
+      "investment_framework_compact.md": "2ad08f195bb6729dd8c7aea96ccaf85c1fa5504aa53cfd18beef90f0e0377d1e"
+    },
+    "pack_sha256": "14259ba540d348295f107ea29b4868c80ba0ad21619548f6362f83ec067c95e6",
+    "baseline_path": "input/prior-codex.md",
+    "baseline_sha256": "eba04091c28ff8bbaa9f60daf87331382ffd40c56c4732e3e15a91ca6956acae"
+  },
+  "inputs": {
+    "constants": {
+      "shares": 8580935853,
+      "opening_fixed_capital": 2239.86639,
+      "opening_active_capital": 1613.34717,
+      "opening_nwc": 250,
+      "cas_nci_thousand": 88098312,
+      "ifrs_nci_thousand": 13068833,
+      "funds_usd_thousand": 13406216,
+      "debt_usd_thousand": 14904184,
+      "associates_cny_thousand": 25548311,
+      "noncurrent_financial_cny_thousand": 9131158,
+      "derivative_asset_cny_thousand": 172641,
+      "derivative_liability_cny_thousand": 89597,
+      "exercise_proceeds": 1.45
+    },
+    "params": {
+      "low": {
+        "r": 900,
+        "g": [
+          0.1,
+          0.08,
+          0.06,
+          0.04,
+          0.03,
+          0.02
+        ],
+        "j": [
+          0.6,
+          0.62,
+          0.64,
+          0.66,
+          0.68,
+          0.68,
+          0.68
+        ],
+        "own": 0.45,
+        "km": 0.78,
+        "k": 2.5,
+        "n": 0.33,
+        "w": 0.1,
+        "whole": [
+          0.16,
+          0.165,
+          0.17,
+          0.17,
+          0.17,
+          0.17,
+          0.17
+        ],
+        "joint": [
+          0.1,
+          0.105,
+          0.11,
+          0.12,
+          0.13,
+          0.13,
+          0.13
+        ],
+        "cashp": 0.662,
+        "debtp": 0.662,
+        "ip": 0.662,
+        "iv": 0.85,
+        "reserve": 90,
+        "payable": 155,
+        "lag": 0,
+        "ramp": [
+          2340,
+          2550,
+          2750
+        ]
+      },
+      "v5": {
+        "r": 900,
+        "g": [
+          0.1,
+          0.08,
+          0.06,
+          0.04,
+          0.03,
+          0.02
+        ],
+        "j": [
+          0.6,
+          0.62,
+          0.64,
+          0.66,
+          0.68,
+          0.7,
+          0.7
+        ],
+        "own": 0.409,
+        "km": 0.8,
+        "k": 2.6,
+        "n": 0.35,
+        "w": 0.105,
+        "whole": [
+          0.16,
+          0.165,
+          0.17,
+          0.17,
+          0.17,
+          0.17,
+          0.17
+        ],
+        "joint": [
+          0.1,
+          0.105,
+          0.11,
+          0.12,
+          0.13,
+          0.13,
+          0.13
+        ],
+        "cashp": 0.6,
+        "debtp": 0.75,
+        "ip": 0.409,
+        "iv": 0.85,
+        "reserve": 90,
+        "payable": 170,
+        "lag": -20,
+        "ramp": [
+          2340,
+          2550,
+          2750
+        ]
+      },
+      "base": {
+        "r": 950,
+        "g": [
+          0.14,
+          0.12,
+          0.1,
+          0.08,
+          0.06,
+          0.04
+        ],
+        "j": [
+          0.58,
+          0.6,
+          0.62,
+          0.64,
+          0.65,
+          0.65,
+          0.65
+        ],
+        "own": 0.485,
+        "km": 0.75,
+        "k": 2.2,
+        "n": 0.3,
+        "w": 0.09,
+        "whole": [
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "joint": [
+          0.12,
+          0.13,
+          0.145,
+          0.16,
+          0.17,
+          0.172,
+          0.172
+        ],
+        "cashp": 0.662,
+        "debtp": 0.662,
+        "ip": 0.662,
+        "iv": 1,
+        "reserve": 60,
+        "payable": 140,
+        "lag": 0,
+        "ramp": [
+          2300,
+          2440,
+          2700
+        ]
+      },
+      "high": {
+        "r": 1000,
+        "g": [
+          0.18,
+          0.16,
+          0.14,
+          0.12,
+          0.1,
+          0.07
+        ],
+        "j": [
+          0.58,
+          0.58,
+          0.58,
+          0.58,
+          0.58,
+          0.58,
+          0.58
+        ],
+        "own": 0.6645,
+        "km": 0.7,
+        "k": 1.95,
+        "n": 0.27,
+        "w": 0.08,
+        "whole": [
+          0.22,
+          0.23,
+          0.24,
+          0.24,
+          0.24,
+          0.24,
+          0.24
+        ],
+        "joint": [
+          0.16,
+          0.18,
+          0.19,
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "cashp": 0.662,
+        "debtp": 0.662,
+        "ip": 0.662,
+        "iv": 1.05,
+        "reserve": 30,
+        "payable": 125,
+        "lag": 0,
+        "ramp": [
+          2300,
+          2450,
+          2700
+        ]
+      }
+    },
+    "source_anchors": {
+      "profit": "S2 PDF2/4–6；S12 PDF18；推断详报告§5.3，分部利润非披露值",
+      "investment": "S1 PDF12；S3 PDF85/112–114/163；S5 PDF68/74；期初NWC250为H1约225的Q3有界代理",
+      "tax": "S5 PDF58/61；S12 PDF110/118；现金税前3年12.5%以后15%为研究假设",
+      "capital": "S3 PDF143–146；S2 PDF8/11；S6/S7；股权/资产归属均为条件代理",
+      "timing": "保留原第一年至第七年距估值日1…7年，偏移0；9/30余额至估值日不刷新，lag=0仅条件基准"
+    }
+  },
+  "algorithm": {
+    "nwc": "For each economic group: delta_nwc_t = N_t*share_t - N_(t-1)*share_(t-1), then ordinary-share attribution; opening share equals first-year share to preserve old convention.",
+    "change_kind": "correction",
+    "unchanged": "All numeric operating, capital intensity, tax, timing, share-count, WACC and equity-bridge assumptions retained after independent review."
+  },
+  "valuation": {
+    "kind": "dcf_fcff",
+    "currency": "CNY",
+    "amount_unit": "100_million",
+    "shares": 8580935853,
+    "fx_to_quote": 1,
+    "year_end_offset": 0,
+    "scenarios": {
+      "low": {
+        "segments": [
+          {
+            "id": "WHOLLY",
+            "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+            "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+            "discount_rate": 0.1,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 360.0,
+                "ebit_margin": 0.16,
+                "cash_tax": 7.2,
+                "da": 79.4525832496,
+                "capex": 101.4819774496,
+                "delta_nwc": 18.8
+              },
+              {
+                "year": 2,
+                "revenue": 376.2,
+                "ebit_margin": 0.165,
+                "cash_tax": 7.759125,
+                "da": 91.2736,
+                "capex": 137.4736,
+                "delta_nwc": 5.346
+              },
+              {
+                "year": 3,
+                "revenue": 384.912,
+                "ebit_margin": 0.17,
+                "cash_tax": 8.17938,
+                "da": 104.0864,
+                "capex": 148.0864,
+                "delta_nwc": 2.87496
+              },
+              {
+                "year": 4,
+                "revenue": 385.33968,
+                "ebit_margin": 0.17,
+                "cash_tax": 9.82616184,
+                "da": 112.400406272,
+                "capex": 130.744006272,
+                "delta_nwc": 0.1411344
+              },
+              {
+                "year": 5,
+                "revenue": 377.1795456,
+                "ebit_margin": 0.17,
+                "cash_tax": 9.6180784128,
+                "da": 116.81874879488,
+                "capex": 141.75249279488,
+                "delta_nwc": -2.692844352
+              },
+              {
+                "year": 6,
+                "revenue": 388.494931968,
+                "ebit_margin": 0.17,
+                "cash_tax": 9.906620765184,
+                "da": 120.8805953214464,
+                "capex": 140.3289156414464,
+                "delta_nwc": 3.73407750144
+              },
+              {
+                "year": 7,
+                "revenue": 396.26483060736,
+                "ebit_margin": 0.17,
+                "cash_tax": 10.10475318048768,
+                "da": 123.88271065310413,
+                "capex": 137.23722393950413,
+                "delta_nwc": 2.5640665509888
+              }
+            ],
+            "terminal": {
+              "growth": 0.02,
+              "margin": 0.17,
+              "tax_rate": 0.15,
+              "invested_capital": 811.8475717068288
+            }
+          },
+          {
+            "id": "JV_ATTRIBUTABLE",
+            "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+            "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+            "discount_rate": 0.1,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 243.0,
+                "ebit_margin": 0.1,
+                "cash_tax": 3.0375,
+                "da": 126.76298509368,
+                "capex": 161.90988220368,
+                "delta_nwc": 12.69
+              },
+              {
+                "year": 2,
+                "revenue": 276.21,
+                "ebit_margin": 0.105,
+                "cash_tax": 3.62525625,
+                "da": 145.62288,
+                "capex": 219.33288,
+                "delta_nwc": 10.9593
+              },
+              {
+                "year": 3,
+                "revenue": 307.9296,
+                "ebit_margin": 0.11,
+                "cash_tax": 4.234032,
+                "da": 166.06512,
+                "capex": 236.26512,
+                "delta_nwc": 10.467468
+              },
+              {
+                "year": 4,
+                "revenue": 336.605544,
+                "ebit_margin": 0.12,
+                "cash_tax": 6.058899792,
+                "da": 179.3297390976,
+                "capex": 208.5961190976,
+                "delta_nwc": 9.46306152
+              },
+              {
+                "year": 5,
+                "revenue": 360.67794048,
+                "ebit_margin": 0.13,
+                "cash_tax": 7.03321983936,
+                "da": 186.379003759104,
+                "capex": 226.159658959104,
+                "delta_nwc": 7.9438908384
+              },
+              {
+                "year": 6,
+                "revenue": 371.4982786944,
+                "ebit_margin": 0.13,
+                "cash_tax": 7.2442164345408,
+                "da": 192.85949526285313,
+                "capex": 223.88840631885313,
+                "delta_nwc": 3.570711610752
+              },
+              {
+                "year": 7,
+                "revenue": 378.928244268288,
+                "ebit_margin": 0.13,
+                "cash_tax": 7.389100763231616,
+                "da": 197.64923381472522,
+                "capex": 218.95575273984522,
+                "delta_nwc": 2.45188863938304
+              }
+            ],
+            "terminal": {
+              "growth": 0.02,
+              "margin": 0.13,
+              "tax_rate": 0.15,
+              "invested_capital": 1211.678785789655
+            }
+          }
+        ],
+        "equity_adjustments": [
+          {
+            "id": "CASH",
+            "amount": 598.266907181914,
+            "reason": "库存资金独立归属代理；不计经营利息收益",
+            "source": "input/evidence/sources/ S2 PDF8；S3 PDF143–146"
+          },
+          {
+            "id": "DEBT",
+            "amount": -665.1153513974539,
+            "reason": "含租赁有息债务；与现金归属分别测试",
+            "source": "input/evidence/sources/ S2 PDF8"
+          },
+          {
+            "id": "INVESTMENTS",
+            "amount": 195.141372063,
+            "reason": "非经营投资独立计价，其收益从经营利润剔除",
+            "source": "input/evidence/sources/ S1 PDF11–12"
+          },
+          {
+            "id": "OPERATING_CASH",
+            "amount": -59.58,
+            "reason": "必要现金不在NWC内，不再扣同笔工程预留",
+            "source": "input/evidence/sources/ S2 PDF6；报告§5现金成本尺度"
+          },
+          {
+            "id": "OPENING_EQUIPMENT_PAYABLE",
+            "amount": -102.61,
+            "reason": "已入期初固定资产的设备应付仅在此支付一次",
+            "source": "input/evidence/sources/ S5 PDF68"
+          },
+          {
+            "id": "DERIVATIVE_NET",
+            "amount": 0.54975128,
+            "reason": "未计经营流的期初衍生净资产",
+            "source": "input/evidence/sources/ S1 PDF11–12"
+          },
+          {
+            "id": "BALANCE_LAG",
+            "amount": 0.0,
+            "reason": "保留9/30余额至估值日过渡条件，不造期后事实",
+            "source": "input/evidence/sources/ S1余额日；报告§5"
+          },
+          {
+            "id": "EXERCISE_PROCEEDS",
+            "amount": 1.45,
+            "reason": "现存工具全稀释分母对应条件行权款，非现有现金",
+            "source": "input/evidence/sources/ S5 PDF68–69；S6；S7"
+          }
+        ],
+        "equity_value": 354.69197716681356
+      },
+      "base": {
+        "segments": [
+          {
+            "id": "WHOLLY",
+            "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+            "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+            "discount_rate": 0.09,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 399.0,
+                "ebit_margin": 0.2,
+                "cash_tax": 9.975,
+                "da": 89.24702642,
+                "capex": 104.28042892,
+                "delta_nwc": 14.7
+              },
+              {
+                "year": 2,
+                "revenue": 433.2,
+                "ebit_margin": 0.2,
+                "cash_tax": 10.83,
+                "da": 99.82,
+                "capex": 134.82,
+                "delta_nwc": 10.26
+              },
+              {
+                "year": 3,
+                "revenue": 460.9248,
+                "ebit_margin": 0.2,
+                "cash_tax": 11.52312,
+                "da": 114.12,
+                "capex": 179.12,
+                "delta_nwc": 8.31744
+              },
+              {
+                "year": 4,
+                "revenue": 480.33216,
+                "ebit_margin": 0.2,
+                "cash_tax": 14.4099648,
+                "da": 128.761110016,
+                "capex": 187.601910016,
+                "delta_nwc": 5.822208
+              },
+              {
+                "year": 5,
+                "revenue": 504.348768,
+                "ebit_margin": 0.2,
+                "cash_tax": 15.13046304,
+                "da": 140.19510883328,
+                "capex": 198.90237283328,
+                "delta_nwc": 7.2049824
+              },
+              {
+                "year": 6,
+                "revenue": 534.60969408,
+                "ebit_margin": 0.2,
+                "cash_tax": 16.0382908224,
+                "da": 149.9200375635968,
+                "capex": 197.4729214035968,
+                "delta_nwc": 9.078277824
+              },
+              {
+                "year": 7,
+                "revenue": 555.9940818432,
+                "ebit_margin": 0.2,
+                "cash_tax": 16.679822455296,
+                "da": 157.34751904248628,
+                "capex": 190.95155695608628,
+                "delta_nwc": 6.41531632896
+              }
+            ],
+            "terminal": {
+              "growth": 0.02,
+              "margin": 0.2,
+              "tax_rate": 0.15,
+              "invested_capital": 1040.50321030656
+            }
+          },
+          {
+            "id": "JV_ATTRIBUTABLE",
+            "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+            "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+            "discount_rate": 0.09,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 267.235,
+                "ebit_margin": 0.12,
+                "cash_tax": 4.008525,
+                "da": 129.8544234411,
+                "capex": 151.7280240786,
+                "delta_nwc": 9.8455
+              },
+              {
+                "year": 2,
+                "revenue": 315.153,
+                "ebit_margin": 0.13,
+                "cash_tax": 5.12123625,
+                "da": 145.2381,
+                "capex": 196.1631,
+                "delta_nwc": 14.3754
+              },
+              {
+                "year": 3,
+                "revenue": 364.737072,
+                "ebit_margin": 0.145,
+                "cash_tax": 6.61085943,
+                "da": 166.0446,
+                "capex": 260.6196,
+                "delta_nwc": 14.8752216
+              },
+              {
+                "year": 4,
+                "revenue": 414.1530624,
+                "ebit_margin": 0.16,
+                "cash_tax": 9.9396734976,
+                "da": 187.34741507328,
+                "capex": 272.96077907328,
+                "delta_nwc": 14.82479712
+              },
+              {
+                "year": 5,
+                "revenue": 454.27414032,
+                "ebit_margin": 0.17,
+                "cash_tax": 11.58399057816,
+                "da": 203.9838833524224,
+                "capex": 289.4029524724224,
+                "delta_nwc": 12.036323376
+              },
+              {
+                "year": 6,
+                "revenue": 481.5305887392,
+                "ebit_margin": 0.172,
+                "cash_tax": 12.42348918947136,
+                "da": 218.13365465503335,
+                "capex": 287.3231006422333,
+                "delta_nwc": 8.17693452576
+              },
+              {
+                "year": 7,
+                "revenue": 500.791812288768,
+                "ebit_margin": 0.172,
+                "cash_tax": 12.920428757050214,
+                "da": 228.94064020681753,
+                "capex": 277.8345153711055,
+                "delta_nwc": 5.7783670648704
+              }
+            ],
+            "terminal": {
+              "growth": 0.02,
+              "margin": 0.172,
+              "tax_rate": 0.15,
+              "invested_capital": 1421.4782979581184
+            }
+          }
+        ],
+        "equity_adjustments": [
+          {
+            "id": "CASH",
+            "amount": 598.266907181914,
+            "reason": "库存资金独立归属代理；不计经营利息收益",
+            "source": "input/evidence/sources/ S2 PDF8；S3 PDF143–146"
+          },
+          {
+            "id": "DEBT",
+            "amount": -665.1153513974539,
+            "reason": "含租赁有息债务；与现金归属分别测试",
+            "source": "input/evidence/sources/ S2 PDF8"
+          },
+          {
+            "id": "INVESTMENTS",
+            "amount": 229.57808478,
+            "reason": "非经营投资独立计价，其收益从经营利润剔除",
+            "source": "input/evidence/sources/ S1 PDF11–12"
+          },
+          {
+            "id": "OPERATING_CASH",
+            "amount": -39.72,
+            "reason": "必要现金不在NWC内，不再扣同笔工程预留",
+            "source": "input/evidence/sources/ S2 PDF6；报告§5现金成本尺度"
+          },
+          {
+            "id": "OPENING_EQUIPMENT_PAYABLE",
+            "amount": -92.68,
+            "reason": "已入期初固定资产的设备应付仅在此支付一次",
+            "source": "input/evidence/sources/ S5 PDF68"
+          },
+          {
+            "id": "DERIVATIVE_NET",
+            "amount": 0.54975128,
+            "reason": "未计经营流的期初衍生净资产",
+            "source": "input/evidence/sources/ S1 PDF11–12"
+          },
+          {
+            "id": "BALANCE_LAG",
+            "amount": 0.0,
+            "reason": "保留9/30余额至估值日过渡条件，不造期后事实",
+            "source": "input/evidence/sources/ S1余额日；报告§5"
+          },
+          {
+            "id": "EXERCISE_PROCEEDS",
+            "amount": 1.45,
+            "reason": "现存工具全稀释分母对应条件行权款，非现有现金",
+            "source": "input/evidence/sources/ S5 PDF68–69；S6；S7"
+          }
+        ],
+        "equity_value": 1005.0203314693938
+      },
+      "high": {
+        "segments": [
+          {
+            "id": "WHOLLY",
+            "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+            "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+            "discount_rate": 0.08,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 420.0,
+                "ebit_margin": 0.22,
+                "cash_tax": 11.55,
+                "da": 107.096431704,
+                "capex": 125.136514704,
+                "delta_nwc": 8.4
+              },
+              {
+                "year": 2,
+                "revenue": 495.6,
+                "ebit_margin": 0.23,
+                "cash_tax": 14.2485,
+                "da": 120.096,
+                "capex": 165.096,
+                "delta_nwc": 20.412
+              },
+              {
+                "year": 3,
+                "revenue": 574.896,
+                "ebit_margin": 0.24,
+                "cash_tax": 17.24688,
+                "da": 137.256,
+                "capex": 212.256,
+                "delta_nwc": 21.40992
+              },
+              {
+                "year": 4,
+                "revenue": 655.38144,
+                "ebit_margin": 0.24,
+                "cash_tax": 23.59373184,
+                "da": 157.4642809344,
+                "capex": 260.3170009344,
+                "delta_nwc": 21.7310688
+              },
+              {
+                "year": 5,
+                "revenue": 734.0272128,
+                "ebit_margin": 0.24,
+                "cash_tax": 26.4249796608,
+                "da": 177.713875580928,
+                "capex": 287.256201980928,
+                "delta_nwc": 21.234358656
+              },
+              {
+                "year": 6,
+                "revenue": 807.42993408,
+                "ebit_margin": 0.24,
+                "cash_tax": 29.06747762688,
+                "da": 197.0961487577088,
+                "capex": 299.3356533977088,
+                "delta_nwc": 19.8187347456
+              },
+              {
+                "year": 7,
+                "revenue": 863.9500294656,
+                "ebit_margin": 0.24,
+                "cash_tax": 31.1022010607616,
+                "da": 213.65796701014426,
+                "capex": 292.38238558294427,
+                "delta_nwc": 15.260425754112
+              }
+            ],
+            "terminal": {
+              "growth": 0.02,
+              "margin": 0.24,
+              "tax_rate": 0.15,
+              "invested_capital": 1436.625477568512
+            }
+          },
+          {
+            "id": "JV_ATTRIBUTABLE",
+            "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+            "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+            "discount_rate": 0.08,
+            "years": [
+              {
+                "year": 1,
+                "revenue": 385.41,
+                "ebit_margin": 0.16,
+                "cash_tax": 7.7082,
+                "da": 166.053017357052,
+                "capex": 194.024166048552,
+                "delta_nwc": 7.7082
+              },
+              {
+                "year": 2,
+                "revenue": 454.7838,
+                "ebit_margin": 0.18,
+                "cash_tax": 10.2326355,
+                "da": 186.208848,
+                "capex": 255.981348,
+                "delta_nwc": 18.730926
+              },
+              {
+                "year": 3,
+                "revenue": 527.549208,
+                "ebit_margin": 0.19,
+                "cash_tax": 12.52929369,
+                "da": 212.815428,
+                "capex": 329.102928,
+                "delta_nwc": 19.64666016
+              },
+              {
+                "year": 4,
+                "revenue": 601.40609712,
+                "ebit_margin": 0.2,
+                "cash_tax": 18.0421829136,
+                "da": 244.1483675887872,
+                "capex": 403.6215099487872,
+                "delta_nwc": 19.9413600624
+              },
+              {
+                "year": 5,
+                "revenue": 673.5748287744,
+                "ebit_margin": 0.2,
+                "cash_tax": 20.207244863232,
+                "da": 275.54536408822884,
+                "capex": 445.3907411714289,
+                "delta_nwc": 19.485557546688
+              },
+              {
+                "year": 6,
+                "revenue": 740.93231165184,
+                "ebit_margin": 0.2,
+                "cash_tax": 22.2279693495552,
+                "da": 305.5975786488275,
+                "capex": 464.1199305931475,
+                "delta_nwc": 18.1865203769088
+              },
+              {
+                "year": 7,
+                "revenue": 792.7975734674689,
+                "ebit_margin": 0.2,
+                "cash_tax": 23.783927204024064,
+                "da": 331.2766778492287,
+                "capex": 453.3388888463551,
+                "delta_nwc": 14.003620690219776
+              }
+            ],
+            "terminal": {
+              "growth": 0.02,
+              "margin": 0.2,
+              "tax_rate": 0.15,
+              "invested_capital": 2079.863427220863
+            }
+          }
+        ],
+        "equity_adjustments": [
+          {
+            "id": "CASH",
+            "amount": 598.266907181914,
+            "reason": "库存资金独立归属代理；不计经营利息收益",
+            "source": "input/evidence/sources/ S2 PDF8；S3 PDF143–146"
+          },
+          {
+            "id": "DEBT",
+            "amount": -665.1153513974539,
+            "reason": "含租赁有息债务；与现金归属分别测试",
+            "source": "input/evidence/sources/ S2 PDF8"
+          },
+          {
+            "id": "INVESTMENTS",
+            "amount": 241.056989019,
+            "reason": "非经营投资独立计价，其收益从经营利润剔除",
+            "source": "input/evidence/sources/ S1 PDF11–12"
+          },
+          {
+            "id": "OPERATING_CASH",
+            "amount": -19.86,
+            "reason": "必要现金不在NWC内，不再扣同笔工程预留",
+            "source": "input/evidence/sources/ S2 PDF6；报告§5现金成本尺度"
+          },
+          {
+            "id": "OPENING_EQUIPMENT_PAYABLE",
+            "amount": -82.75,
+            "reason": "已入期初固定资产的设备应付仅在此支付一次",
+            "source": "input/evidence/sources/ S5 PDF68"
+          },
+          {
+            "id": "DERIVATIVE_NET",
+            "amount": 0.54975128,
+            "reason": "未计经营流的期初衍生净资产",
+            "source": "input/evidence/sources/ S1 PDF11–12"
+          },
+          {
+            "id": "BALANCE_LAG",
+            "amount": 0.0,
+            "reason": "保留9/30余额至估值日过渡条件，不造期后事实",
+            "source": "input/evidence/sources/ S1余额日；报告§5"
+          },
+          {
+            "id": "EXERCISE_PROCEEDS",
+            "amount": 1.45,
+            "reason": "现存工具全稀释分母对应条件行权款，非现有现金",
+            "source": "input/evidence/sources/ S5 PDF68–69；S6；S7"
+          }
+        ],
+        "equity_value": 2492.165860839565
+      }
+    }
+  },
+  "group_rows": {
+    "low": [
+      {
+        "year": 1,
+        "revenue": 900.0,
+        "joint_revenue_share": 0.6,
+        "fixed_capital": 2340.0,
+        "construction": 500.0,
+        "nwc": 297.0,
+        "da": 361.14810568,
+        "maintenance_capex": 361.14810568,
+        "growth_capex": 100.13361,
+        "capex": 461.28171568,
+        "delta_nwc": 47.0,
+        "core_ebit": 111.6,
+        "wholly_nwc": 118.8,
+        "joint_nwc_before_attribution": 178.2
+      },
+      {
+        "year": 2,
+        "revenue": 990.0,
+        "joint_revenue_share": 0.62,
+        "fixed_capital": 2550.0,
+        "construction": 420.0,
+        "nwc": 326.7,
+        "da": 414.88,
+        "maintenance_capex": 414.88,
+        "growth_capex": 210.0,
+        "capex": 624.88,
+        "delta_nwc": 29.7,
+        "core_ebit": 126.522,
+        "wholly_nwc": 124.146,
+        "joint_nwc_before_attribution": 202.554
+      },
+      {
+        "year": 3,
+        "revenue": 1069.2,
+        "joint_revenue_share": 0.64,
+        "fixed_capital": 2750.0,
+        "construction": 350.0,
+        "nwc": 352.836,
+        "da": 473.12,
+        "maintenance_capex": 473.12,
+        "growth_capex": 200.0,
+        "capex": 673.12,
+        "delta_nwc": 26.136,
+        "core_ebit": 140.70672,
+        "wholly_nwc": 127.02096,
+        "joint_nwc_before_attribution": 225.81504
+      },
+      {
+        "year": 4,
+        "revenue": 1133.352,
+        "joint_revenue_share": 0.66,
+        "fixed_capital": 2833.38,
+        "construction": 340.0056,
+        "nwc": 374.00616,
+        "da": 510.9109376,
+        "maintenance_capex": 510.9109376,
+        "growth_capex": 83.38,
+        "capex": 594.2909376,
+        "delta_nwc": 21.17016,
+        "core_ebit": 155.269224,
+        "wholly_nwc": 127.1620944,
+        "joint_nwc_before_attribution": 246.8440656
+      },
+      {
+        "year": 5,
+        "revenue": 1178.68608,
+        "joint_revenue_share": 0.68,
+        "fixed_capital": 2946.7152,
+        "construction": 353.605824,
+        "nwc": 388.9664064,
+        "da": 530.994312704,
+        "maintenance_capex": 530.994312704,
+        "growth_capex": 113.3352,
+        "capex": 644.329512704,
+        "delta_nwc": 14.9602464,
+        "core_ebit": 168.316372224,
+        "wholly_nwc": 124.469250048,
+        "joint_nwc_before_attribution": 264.497156352
+      },
+      {
+        "year": 6,
+        "revenue": 1214.0466624,
+        "joint_revenue_share": 0.68,
+        "fixed_capital": 3035.116656,
+        "construction": 364.21399872,
+        "nwc": 400.635398592,
+        "da": 549.45725146112,
+        "maintenance_capex": 549.45725146112,
+        "growth_capex": 88.401456,
+        "capex": 637.85870746112,
+        "delta_nwc": 11.668992192,
+        "core_ebit": 173.36586339072,
+        "wholly_nwc": 128.20332754944,
+        "joint_nwc_before_attribution": 272.43207104256
+      },
+      {
+        "year": 7,
+        "revenue": 1238.327595648,
+        "joint_revenue_share": 0.68,
+        "fixed_capital": 3095.81898912,
+        "construction": 371.4982786944,
+        "nwc": 408.64810656384,
+        "da": 563.1032302413824,
+        "maintenance_capex": 563.1032302413824,
+        "growth_capex": 60.70233312,
+        "capex": 623.8055633613824,
+        "delta_nwc": 8.01270797184,
+        "core_ebit": 176.8331806585344,
+        "wholly_nwc": 130.7673941004288,
+        "joint_nwc_before_attribution": 277.8807124634112
+      }
+    ],
+    "base": [
+      {
+        "year": 1,
+        "revenue": 950.0,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 2300.0,
+        "construction": 500.0,
+        "nwc": 285.0,
+        "da": 356.98810568,
+        "maintenance_capex": 356.98810568,
+        "growth_capex": 60.13361,
+        "capex": 417.12171568,
+        "delta_nwc": 35.0,
+        "core_ebit": 145.92,
+        "wholly_nwc": 119.7,
+        "joint_nwc_before_attribution": 165.3
+      },
+      {
+        "year": 2,
+        "revenue": 1083.0,
+        "joint_revenue_share": 0.6,
+        "fixed_capital": 2440.0,
+        "construction": 420.0,
+        "nwc": 324.9,
+        "da": 399.28,
+        "maintenance_capex": 399.28,
+        "growth_capex": 140.0,
+        "capex": 539.28,
+        "delta_nwc": 39.9,
+        "core_ebit": 171.114,
+        "wholly_nwc": 129.96,
+        "joint_nwc_before_attribution": 194.94
+      },
+      {
+        "year": 3,
+        "revenue": 1212.96,
+        "joint_revenue_share": 0.62,
+        "fixed_capital": 2700.0,
+        "construction": 350.0,
+        "nwc": 363.888,
+        "da": 456.48,
+        "maintenance_capex": 456.48,
+        "growth_capex": 260.0,
+        "capex": 716.48,
+        "delta_nwc": 38.988,
+        "core_ebit": 201.230064,
+        "wholly_nwc": 138.27744,
+        "joint_nwc_before_attribution": 225.61056
+      },
+      {
+        "year": 4,
+        "revenue": 1334.256,
+        "joint_revenue_share": 0.64,
+        "fixed_capital": 2935.3632,
+        "construction": 352.243584,
+        "nwc": 400.2768,
+        "da": 515.044440064,
+        "maintenance_capex": 515.044440064,
+        "growth_capex": 235.3632,
+        "capex": 750.407640064,
+        "delta_nwc": 36.3888,
+        "core_ebit": 232.6942464,
+        "wholly_nwc": 144.099648,
+        "joint_nwc_before_attribution": 256.177152
+      },
+      {
+        "year": 5,
+        "revenue": 1440.99648,
+        "joint_revenue_share": 0.65,
+        "fixed_capital": 3170.192256,
+        "construction": 380.42307072,
+        "nwc": 432.298944,
+        "da": 560.78043533312,
+        "maintenance_capex": 560.78043533312,
+        "growth_capex": 234.829056,
+        "capex": 795.60949133312,
+        "delta_nwc": 32.022144,
+        "core_ebit": 260.09986464,
+        "wholly_nwc": 151.3046304,
+        "joint_nwc_before_attribution": 280.9943136
+      },
+      {
+        "year": 6,
+        "revenue": 1527.4562688,
+        "joint_revenue_share": 0.65,
+        "fixed_capital": 3360.40379136,
+        "construction": 403.2484549632,
+        "nwc": 458.23688064,
+        "da": 599.6801502543872,
+        "maintenance_capex": 599.6801502543872,
+        "growth_capex": 190.21153536,
+        "capex": 789.8916856143873,
+        "delta_nwc": 25.93793664,
+        "core_ebit": 277.69154966784,
+        "wholly_nwc": 160.382908224,
+        "joint_nwc_before_attribution": 297.853972416
+      },
+      {
+        "year": 7,
+        "revenue": 1588.554519552,
+        "joint_revenue_share": 0.65,
+        "fixed_capital": 3494.8199430144,
+        "construction": 419.378393161728,
+        "nwc": 476.5663558656,
+        "da": 629.3900761699451,
+        "maintenance_capex": 629.3900761699451,
+        "growth_capex": 134.4161516544,
+        "capex": 763.8062278243451,
+        "delta_nwc": 18.3294752256,
+        "core_ebit": 288.7992116545536,
+        "wholly_nwc": 166.79822455296,
+        "joint_nwc_before_attribution": 309.76813131264
+      }
+    ],
+    "high": [
+      {
+        "year": 1,
+        "revenue": 1000.0,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 2300.0,
+        "construction": 500.0,
+        "nwc": 270.0,
+        "da": 356.98810568,
+        "maintenance_capex": 356.98810568,
+        "growth_capex": 60.13361,
+        "capex": 417.12171568,
+        "delta_nwc": 20.0,
+        "core_ebit": 185.2,
+        "wholly_nwc": 113.4,
+        "joint_nwc_before_attribution": 156.6
+      },
+      {
+        "year": 2,
+        "revenue": 1180.0,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 2450.0,
+        "construction": 420.0,
+        "nwc": 318.6,
+        "da": 400.32,
+        "maintenance_capex": 400.32,
+        "growth_capex": 150.0,
+        "capex": 550.32,
+        "delta_nwc": 48.6,
+        "core_ebit": 237.18,
+        "wholly_nwc": 133.812,
+        "joint_nwc_before_attribution": 184.788
+      },
+      {
+        "year": 3,
+        "revenue": 1368.8,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 2700.0,
+        "construction": 350.0,
+        "nwc": 369.576,
+        "da": 457.52,
+        "maintenance_capex": 457.52,
+        "growth_capex": 250.0,
+        "capex": 707.52,
+        "delta_nwc": 50.976,
+        "core_ebit": 288.8168,
+        "wholly_nwc": 155.22192,
+        "joint_nwc_before_attribution": 214.35408
+      },
+      {
+        "year": 4,
+        "revenue": 1560.432,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 3042.8424,
+        "construction": 365.141088,
+        "nwc": 421.31664,
+        "da": 524.880936448,
+        "maintenance_capex": 524.880936448,
+        "growth_capex": 342.8424,
+        "capex": 867.723336448,
+        "delta_nwc": 51.74064,
+        "core_ebit": 338.3016576,
+        "wholly_nwc": 176.9529888,
+        "joint_nwc_before_attribution": 244.3636512
+      },
+      {
+        "year": 5,
+        "revenue": 1747.68384,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 3407.983488,
+        "construction": 408.95801856,
+        "nwc": 471.8746368,
+        "da": 592.37958526976,
+        "maintenance_capex": 592.37958526976,
+        "growth_capex": 365.141088,
+        "capex": 957.52067326976,
+        "delta_nwc": 50.5579968,
+        "core_ebit": 378.897856512,
+        "wholly_nwc": 198.187347456,
+        "joint_nwc_before_attribution": 273.687289344
+      },
+      {
+        "year": 6,
+        "revenue": 1922.452224,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 3748.7818368,
+        "construction": 449.853820416,
+        "nwc": 519.06210048,
+        "da": 656.987162525696,
+        "maintenance_capex": 656.987162525696,
+        "growth_capex": 340.7983488,
+        "capex": 997.785511325696,
+        "delta_nwc": 47.18746368,
+        "core_ebit": 416.7876421632,
+        "wholly_nwc": 218.0060822016,
+        "joint_nwc_before_attribution": 301.0560182784
+      },
+      {
+        "year": 7,
+        "revenue": 2057.02387968,
+        "joint_revenue_share": 0.58,
+        "fixed_capital": 4011.196565376,
+        "construction": 481.34358784512,
+        "nwc": 555.3964475136,
+        "da": 712.1932233671475,
+        "maintenance_capex": 712.1932233671475,
+        "growth_capex": 262.414728576,
+        "capex": 974.6079519431476,
+        "delta_nwc": 36.3343470336,
+        "core_ebit": 445.962777114624,
+        "wholly_nwc": 233.266507955712,
+        "joint_nwc_before_attribution": 322.129939557888
+      }
+    ]
+  },
+  "results": {
+    "low": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 57.6,
+              "nopat": 50.4,
+              "fcff": 9.5706058,
+              "pv": 8.700550727272727
+            },
+            {
+              "year": 2,
+              "ebit": 62.073,
+              "nopat": 54.313875,
+              "fcff": 2.767875,
+              "pv": 2.2875
+            },
+            {
+              "year": 3,
+              "ebit": 65.43504,
+              "nopat": 57.25566,
+              "fcff": 10.3807,
+              "pv": 7.799173553719008
+            },
+            {
+              "year": 4,
+              "ebit": 65.5077456,
+              "nopat": 55.68158376,
+              "fcff": 37.19684936,
+              "pv": 25.405948610067618
+            },
+            {
+              "year": 5,
+              "ebit": 64.120522752,
+              "nopat": 54.5024443392,
+              "fcff": 32.2615446912,
+              "pv": 20.031881013591967
+            },
+            {
+              "year": 6,
+              "ebit": 66.04413843456,
+              "nopat": 56.137517669376,
+              "fcff": 32.955119847936,
+              "pv": 18.602306015957677
+            },
+            {
+              "year": 7,
+              "ebit": 67.3650212032512,
+              "nopat": 57.26026802276352,
+              "fcff": 41.34168818537472,
+              "pv": 21.214822913687534
+            }
+          ],
+          "explicit_pv": 104.04218283429654,
+          "terminal_nopat": 58.40547338321879,
+          "terminal_reinvestment": 16.236951434136575,
+          "terminal_fcff": 42.16852194908221,
+          "terminal_roic": 0.07194142769981696,
+          "terminal_value": 527.1065243635277,
+          "terminal_pv": 270.48899214951604
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 24.3,
+              "nopat": 21.2625,
+              "fcff": -26.57439711,
+              "pv": -24.158542827272726
+            },
+            {
+              "year": 2,
+              "ebit": 29.00205,
+              "nopat": 25.37679375,
+              "fcff": -59.29250625,
+              "pv": -49.002071280991736
+            },
+            {
+              "year": 3,
+              "ebit": 33.872256,
+              "nopat": 29.638224,
+              "fcff": -51.029244,
+              "pv": -38.339026296018034
+            },
+            {
+              "year": 4,
+              "ebit": 40.39266528,
+              "nopat": 34.333765488,
+              "fcff": -4.395676032,
+              "pv": -3.002305875281743
+            },
+            {
+              "year": 5,
+              "ebit": 46.8881322624,
+              "nopat": 39.85491242304,
+              "fcff": -7.86963361536,
+              "pv": -4.886423316440134
+            },
+            {
+              "year": 6,
+              "ebit": 48.294776230272,
+              "nopat": 41.0505597957312,
+              "fcff": 6.4509371289792,
+              "pv": 3.641385833724721
+            },
+            {
+              "year": 7,
+              "ebit": 49.26067175487744,
+              "nopat": 41.871570991645825,
+              "fcff": 18.113163427142783,
+              "pv": 9.29491685947785
+            }
+          ],
+          "explicit_pv": -106.4520669028018,
+          "terminal_nopat": 42.70900241147874,
+          "terminal_reinvestment": 24.2335757157931,
+          "terminal_fcff": 18.47542669568564,
+          "terminal_roic": 0.035247792494481234,
+          "terminal_value": 230.9428336960705,
+          "terminal_pv": 118.5101899583426
+        }
+      ],
+      "enterprise_value": 386.58929803935337,
+      "equity_adjustments": -31.897320872539822,
+      "equity_value": 354.69197716681356,
+      "per_share": 4.133488272643466
+    },
+    "base": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 79.8,
+              "nopat": 69.825,
+              "fcff": 40.0915975,
+              "pv": 36.781282110091745
+            },
+            {
+              "year": 2,
+              "ebit": 86.64,
+              "nopat": 75.81,
+              "fcff": 30.55,
+              "pv": 25.71332379429341
+            },
+            {
+              "year": 3,
+              "ebit": 92.18496,
+              "nopat": 80.66184,
+              "fcff": 7.3444,
+              "pv": 5.671224350960481
+            },
+            {
+              "year": 4,
+              "ebit": 96.066432,
+              "nopat": 81.6564672,
+              "fcff": 16.9934592,
+              "pv": 12.038594920487807
+            },
+            {
+              "year": 5,
+              "ebit": 100.8697536,
+              "nopat": 85.73929056,
+              "fcff": 19.82704416,
+              "pv": 12.886218297107314
+            },
+            {
+              "year": 6,
+              "ebit": 106.921938816,
+              "nopat": 90.8836479936,
+              "fcff": 34.2524863296,
+              "pv": 20.42363846271748
+            },
+            {
+              "year": 7,
+              "ebit": 111.19881636864,
+              "nopat": 94.518993913344,
+              "fcff": 54.499639670784,
+              "pv": 29.813169231540233
+            }
+          ],
+          "explicit_pv": 143.32745116719846,
+          "terminal_nopat": 96.40937379161088,
+          "terminal_reinvestment": 20.8100642061312,
+          "terminal_fcff": 75.59930958547967,
+          "terminal_roic": 0.09265648854961832,
+          "terminal_value": 1079.990136935424,
+          "terminal_pv": 590.7915889967007
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 32.0682,
+              "nopat": 28.059675,
+              "fcff": -3.6594256375,
+              "pv": -3.35727122706422
+            },
+            {
+              "year": 2,
+              "ebit": 40.96989,
+              "nopat": 35.84865375,
+              "fcff": -29.45174625,
+              "pv": -24.788945585388436
+            },
+            {
+              "year": 3,
+              "ebit": 52.88687544,
+              "nopat": 46.27601601,
+              "fcff": -63.17420559,
+              "pv": -48.78207792257934
+            },
+            {
+              "year": 4,
+              "ebit": 66.264489984,
+              "nopat": 56.3248164864,
+              "fcff": -44.1133446336,
+              "pv": -31.251005482849838
+            },
+            {
+              "year": 5,
+              "ebit": 77.2266038544,
+              "nopat": 65.64261327624,
+              "fcff": -31.81277921976,
+              "pv": -20.676123700301815
+            },
+            {
+              "year": 6,
+              "ebit": 82.8232612631424,
+              "nopat": 70.39977207367104,
+              "fcff": -6.96660843928896,
+              "pv": -4.153960991509015
+            },
+            {
+              "year": 7,
+              "ebit": 86.1361917136681,
+              "nopat": 73.21576295661788,
+              "fcff": 18.54352072745948,
+              "pv": 10.143940857882203
+            }
+          ],
+          "explicit_pv": -122.86544405181046,
+          "terminal_nopat": 74.68007821575024,
+          "terminal_reinvestment": 28.429565959162368,
+          "terminal_fcff": 46.25051225658787,
+          "terminal_roic": 0.05253691056910569,
+          "terminal_value": 660.721603665541,
+          "terminal_pv": 361.4373435128449
+        }
+      ],
+      "enterprise_value": 972.6909396249337,
+      "equity_adjustments": 32.32939184446018,
+      "equity_value": 1005.0203314693938,
+      "per_share": 11.712246177880777
+    },
+    "high": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 92.4,
+              "nopat": 80.85,
+              "fcff": 54.409917,
+              "pv": 50.379552777777775
+            },
+            {
+              "year": 2,
+              "ebit": 113.988,
+              "nopat": 99.7395,
+              "fcff": 34.3275,
+              "pv": 29.430298353909464
+            },
+            {
+              "year": 3,
+              "ebit": 137.97504,
+              "nopat": 120.72816,
+              "fcff": 24.31824,
+              "pv": 19.304602956866333
+            },
+            {
+              "year": 4,
+              "ebit": 157.2915456,
+              "nopat": 133.69781376,
+              "fcff": 9.11402496,
+              "pv": 6.699080424732002
+            },
+            {
+              "year": 5,
+              "ebit": 176.166531072,
+              "nopat": 149.7415514112,
+              "fcff": 18.9648663552,
+              "pv": 12.907169375339878
+            },
+            {
+              "year": 6,
+              "ebit": 193.7831841792,
+              "nopat": 164.71570655232,
+              "fcff": 42.65746716672,
+              "pv": 26.881440168230235
+            },
+            {
+              "year": 7,
+              "ebit": 207.348007071744,
+              "nopat": 176.2458060109824,
+              "fcff": 82.2609616840704,
+              "pv": 47.9984810476815
+            }
+          ],
+          "explicit_pv": 193.6006251045372,
+          "terminal_nopat": 179.77072213120204,
+          "terminal_reinvestment": 28.73250955137024,
+          "terminal_fcff": 151.03821257983182,
+          "terminal_roic": 0.1251340206185567,
+          "terminal_value": 2517.303542997197,
+          "terminal_pv": 1468.822439298205
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 61.6656,
+              "nopat": 53.9574,
+              "fcff": 18.2780513085,
+              "pv": 16.924121581944444
+            },
+            {
+              "year": 2,
+              "ebit": 81.861084,
+              "nopat": 71.6284485,
+              "fcff": -16.8749775,
+              "pv": -14.467573302469136
+            },
+            {
+              "year": 3,
+              "ebit": 100.23434952,
+              "nopat": 87.70505583,
+              "fcff": -48.22910433,
+              "pv": -38.28581797267947
+            },
+            {
+              "year": 4,
+              "ebit": 120.281219424,
+              "nopat": 102.2390365104,
+              "fcff": -77.175465912,
+              "pv": -56.726271348795066
+            },
+            {
+              "year": 5,
+              "ebit": 134.71496575488,
+              "nopat": 114.507720891648,
+              "fcff": -74.82321373824,
+              "pv": -50.92342201831122
+            },
+            {
+              "year": 6,
+              "ebit": 148.186462330368,
+              "nopat": 125.9584929808128,
+              "fcff": -50.750379340416,
+              "pv": -31.98134761312598
+            },
+            {
+              "year": 7,
+              "ebit": 158.55951469349375,
+              "nopat": 134.7755874894697,
+              "fcff": -1.29024419787648,
+              "pv": -0.7528450970036225
+            }
+          ],
+          "explicit_pv": -176.21315577044004,
+          "terminal_nopat": 137.4710992392591,
+          "terminal_reinvestment": 41.59726854441726,
+          "terminal_fcff": 95.87383069484183,
+          "terminal_roic": 0.06609621451104102,
+          "terminal_value": 1597.8971782473639,
+          "terminal_pv": 932.357656123803
+        }
+      ],
+      "enterprise_value": 2418.567564756105,
+      "equity_adjustments": 73.59829608346018,
+      "equity_value": 2492.165860839565,
+      "per_share": 29.043054318699674
+    }
+  },
+  "v5": {
+    "valuation": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.105,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 360.0,
+              "ebit_margin": 0.16,
+              "cash_tax": 7.2,
+              "da": 72.229621136,
+              "capex": 92.256343136,
+              "delta_nwc": 26.0
+            },
+            {
+              "year": 2,
+              "revenue": 376.2,
+              "ebit_margin": 0.165,
+              "cash_tax": 7.759125,
+              "da": 83.4752,
+              "capex": 130.2752,
+              "delta_nwc": 5.67
+            },
+            {
+              "year": 3,
+              "revenue": 384.912,
+              "ebit_margin": 0.17,
+              "cash_tax": 8.17938,
+              "da": 95.745536,
+              "capex": 136.929536,
+              "delta_nwc": 3.0492
+            },
+            {
+              "year": 4,
+              "revenue": 385.33968,
+              "ebit_margin": 0.17,
+              "cash_tax": 9.82616184,
+              "da": 104.8790110208,
+              "capex": 138.2380510208,
+              "delta_nwc": 0.149688
+            },
+            {
+              "year": 5,
+              "revenue": 377.1795456,
+              "ebit_margin": 0.17,
+              "cash_tax": 9.6180784128,
+              "da": 110.430817042432,
+              "capex": 134.004538642432,
+              "delta_nwc": -2.85604704
+            },
+            {
+              "year": 6,
+              "revenue": 364.21399872,
+              "ebit_margin": 0.17,
+              "cash_tax": 9.28745696736,
+              "da": 114.27110830391295,
+              "capex": 132.65861115191296,
+              "delta_nwc": -4.537941408
+            },
+            {
+              "year": 7,
+              "revenue": 371.4982786944,
+              "ebit_margin": 0.17,
+              "cash_tax": 9.4732061067072,
+              "da": 117.10947189020754,
+              "capex": 129.73555717916753,
+              "delta_nwc": 2.54949799104
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.17,
+            "tax_rate": 0.15,
+            "invested_capital": 773.95474728
+          }
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "source": "input/evidence/sources/S3-2026H1-CAS.pdf PDF143–146；S1-2026Q3-CAS.pdf PDF12；S2-2026Q3-IFRS.pdf PDF2/5/6；本报告§5",
+          "assumptions": "研究经济归属组，非披露分部。收入/资本/归属沿用经复核的有界假设；各组ΔNWC为期末存量减期初存量；SBC保留成本；经营补贴不外推。",
+          "discount_rate": 0.105,
+          "years": [
+            {
+              "year": 1,
+              "revenue": 220.86,
+              "ebit_margin": 0.1,
+              "cash_tax": 2.76075,
+              "da": 118.167660178496,
+              "capex": 150.931377370496,
+              "delta_nwc": 15.951
+            },
+            {
+              "year": 2,
+              "revenue": 251.0442,
+              "ebit_margin": 0.105,
+              "cash_tax": 3.294955125,
+              "da": 136.5654272,
+              "capex": 213.1302272,
+              "delta_nwc": 10.56447
+            },
+            {
+              "year": 3,
+              "revenue": 279.873792,
+              "ebit_margin": 0.11,
+              "cash_tax": 3.84826464,
+              "da": 156.639696896,
+              "capex": 224.016720896,
+              "delta_nwc": 10.0903572
+            },
+            {
+              "year": 4,
+              "revenue": 305.93703888,
+              "ebit_margin": 0.12,
+              "cash_tax": 5.50686669984,
+              "da": 171.5820620300288,
+              "capex": 226.1574514700288,
+              "delta_nwc": 9.122136408
+            },
+            {
+              "year": 5,
+              "revenue": 327.8161725696,
+              "ebit_margin": 0.13,
+              "cash_tax": 6.3924153651072,
+              "da": 180.66481668141876,
+              "capex": 219.23142521901875,
+              "delta_nwc": 7.65769679136
+            },
+            {
+              "year": 6,
+              "revenue": 347.58155944512,
+              "ebit_margin": 0.13,
+              "cash_tax": 6.77784040917984,
+              "da": 186.9475331852016,
+              "capex": 217.0294878445296,
+              "delta_nwc": 6.917885406432
+            },
+            {
+              "year": 7,
+              "revenue": 354.5331906340224,
+              "ebit_margin": 0.13,
+              "cash_tax": 6.913397217363436,
+              "da": 191.59109601237952,
+              "capex": 212.24737154511809,
+              "delta_nwc": 2.43307091611584
+            }
+          ],
+          "terminal": {
+            "growth": 0.02,
+            "margin": 0.13,
+            "tax_rate": 0.15,
+            "invested_capital": 1177.5566688915744
+          }
+        }
+      ],
+      "equity_adjustments": [
+        {
+          "id": "CASH",
+          "amount": 542.2358675364779,
+          "reason": "库存资金独立归属代理；不计经营利息收益",
+          "source": "input/evidence/sources/ S2 PDF8；S3 PDF143–146"
+        },
+        {
+          "id": "DEBT",
+          "amount": -753.5294766587468,
+          "reason": "含租赁有息债务；与现金归属分别测试",
+          "source": "input/evidence/sources/ S2 PDF8"
+        },
+        {
+          "id": "INVESTMENTS",
+          "amount": 120.5631739785,
+          "reason": "非经营投资独立计价，其收益从经营利润剔除",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "OPERATING_CASH",
+          "amount": -54.0,
+          "reason": "必要现金不在NWC内，不再扣同笔工程预留",
+          "source": "input/evidence/sources/ S2 PDF6；报告§5现金成本尺度"
+        },
+        {
+          "id": "OPENING_EQUIPMENT_PAYABLE",
+          "amount": -127.5,
+          "reason": "已入期初固定资产的设备应付仅在此支付一次",
+          "source": "input/evidence/sources/ S5 PDF68"
+        },
+        {
+          "id": "DERIVATIVE_NET",
+          "amount": 0.498264,
+          "reason": "未计经营流的期初衍生净资产",
+          "source": "input/evidence/sources/ S1 PDF11–12"
+        },
+        {
+          "id": "BALANCE_LAG",
+          "amount": -20.0,
+          "reason": "保留9/30余额至估值日过渡条件，不造期后事实",
+          "source": "input/evidence/sources/ S1余额日；报告§5"
+        },
+        {
+          "id": "EXERCISE_PROCEEDS",
+          "amount": 1.45,
+          "reason": "现存工具全稀释分母对应条件行权款，非现有现金",
+          "source": "input/evidence/sources/ S5 PDF68–69；S6；S7"
+        }
+      ],
+      "equity_value": -9.276986824162863
+    },
+    "group_rows": [
+      {
+        "year": 1,
+        "revenue": 900.0,
+        "joint_revenue_share": 0.6,
+        "fixed_capital": 2340.0,
+        "construction": 500.0,
+        "nwc": 315.0,
+        "da": 361.14810568,
+        "maintenance_capex": 361.14810568,
+        "growth_capex": 100.13361,
+        "capex": 461.28171568,
+        "delta_nwc": 65.0,
+        "core_ebit": 111.6,
+        "wholly_nwc": 126.0,
+        "joint_nwc_before_attribution": 189.0
+      },
+      {
+        "year": 2,
+        "revenue": 990.0,
+        "joint_revenue_share": 0.62,
+        "fixed_capital": 2574.0,
+        "construction": 420.0,
+        "nwc": 346.5,
+        "da": 417.376,
+        "maintenance_capex": 417.376,
+        "growth_capex": 234.0,
+        "capex": 651.376,
+        "delta_nwc": 31.5,
+        "core_ebit": 126.522,
+        "wholly_nwc": 131.67,
+        "joint_nwc_before_attribution": 214.83
+      },
+      {
+        "year": 3,
+        "revenue": 1069.2,
+        "joint_revenue_share": 0.64,
+        "fixed_capital": 2779.92,
+        "construction": 350.0,
+        "nwc": 374.22,
+        "da": 478.72768,
+        "maintenance_capex": 478.72768,
+        "growth_capex": 205.92,
+        "capex": 684.64768,
+        "delta_nwc": 27.72,
+        "core_ebit": 140.70672,
+        "wholly_nwc": 134.7192,
+        "joint_nwc_before_attribution": 239.5008
+      },
+      {
+        "year": 4,
+        "revenue": 1133.352,
+        "joint_revenue_share": 0.66,
+        "fixed_capital": 2946.7152,
+        "construction": 353.605824,
+        "nwc": 396.6732,
+        "da": 524.395055104,
+        "maintenance_capex": 524.395055104,
+        "growth_capex": 166.7952,
+        "capex": 691.190255104,
+        "delta_nwc": 22.4532,
+        "core_ebit": 155.269224,
+        "wholly_nwc": 134.868888,
+        "joint_nwc_before_attribution": 261.804312
+      },
+      {
+        "year": 5,
+        "revenue": 1178.68608,
+        "joint_revenue_share": 0.68,
+        "fixed_capital": 3064.583808,
+        "construction": 367.75005696,
+        "nwc": 412.540128,
+        "da": 552.15408521216,
+        "maintenance_capex": 552.15408521216,
+        "growth_capex": 117.868608,
+        "capex": 670.02269321216,
+        "delta_nwc": 15.866928,
+        "core_ebit": 168.316372224,
+        "wholly_nwc": 132.01284096,
+        "joint_nwc_before_attribution": 280.52728704
+      },
+      {
+        "year": 6,
+        "revenue": 1214.0466624,
+        "joint_revenue_share": 0.7,
+        "fixed_capital": 3156.52132224,
+        "construction": 378.7825586688,
+        "nwc": 424.91633184,
+        "da": 571.3555415195648,
+        "maintenance_capex": 571.3555415195648,
+        "growth_capex": 91.93751424,
+        "capex": 663.2930557595648,
+        "delta_nwc": 12.37620384,
+        "core_ebit": 172.3946260608,
+        "wholly_nwc": 127.474899552,
+        "joint_nwc_before_attribution": 297.441432288
+      },
+      {
+        "year": 7,
+        "revenue": 1238.327595648,
+        "joint_revenue_share": 0.7,
+        "fixed_capital": 3219.6517486848,
+        "construction": 386.358209842176,
+        "nwc": 433.4146584768,
+        "da": 585.5473594510377,
+        "maintenance_capex": 585.5473594510377,
+        "growth_capex": 63.1304264448,
+        "capex": 648.6777858958377,
+        "delta_nwc": 8.4983266368,
+        "core_ebit": 175.842518582016,
+        "wholly_nwc": 130.02439754304,
+        "joint_nwc_before_attribution": 303.39026093376
+      }
+    ],
+    "results": {
+      "segments": [
+        {
+          "id": "WHOLLY",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 57.6,
+              "nopat": 50.4,
+              "fcff": 4.373278,
+              "pv": 3.9577176470588236
+            },
+            {
+              "year": 2,
+              "ebit": 62.073,
+              "nopat": 54.313875,
+              "fcff": 1.843875,
+              "pv": 1.5101042157203988
+            },
+            {
+              "year": 3,
+              "ebit": 65.43504,
+              "nopat": 57.25566,
+              "fcff": 13.02246,
+              "pv": 9.651752973287316
+            },
+            {
+              "year": 4,
+              "ebit": 65.5077456,
+              "nopat": 55.68158376,
+              "fcff": 22.17285576,
+              "pv": 14.872107628200613
+            },
+            {
+              "year": 5,
+              "ebit": 64.120522752,
+              "nopat": 54.5024443392,
+              "fcff": 33.7847697792,
+              "pv": 20.50735142261806
+            },
+            {
+              "year": 6,
+              "ebit": 61.9163797824,
+              "nopat": 52.62892281504,
+              "fcff": 38.77936137504,
+              "pv": 21.30232394080219
+            },
+            {
+              "year": 7,
+              "ebit": 63.154707378048,
+              "nopat": 53.6815012713408,
+              "fcff": 38.5059179913408,
+              "pv": 19.142186156472633
+            }
+          ],
+          "explicit_pv": 90.94354398416003,
+          "terminal_nopat": 54.755131296767615,
+          "terminal_reinvestment": 15.4790949456,
+          "terminal_fcff": 39.27603635116762,
+          "terminal_roic": 0.0707472,
+          "terminal_value": 462.0710158960896,
+          "terminal_pv": 229.7062338776716
+        },
+        {
+          "id": "JV_ATTRIBUTABLE",
+          "flows": [
+            {
+              "year": 1,
+              "ebit": 22.086,
+              "nopat": 19.32525,
+              "fcff": -29.389467192,
+              "pv": -26.596802888687783
+            },
+            {
+              "year": 2,
+              "ebit": 26.359641,
+              "nopat": 23.064685875,
+              "fcff": -64.064584125,
+              "pv": -52.467872586556375
+            },
+            {
+              "year": 3,
+              "ebit": 30.78611712,
+              "nopat": 26.93785248,
+              "fcff": -50.52952872,
+              "pv": -37.45056840735674
+            },
+            {
+              "year": 4,
+              "ebit": 36.7124446656,
+              "nopat": 31.20557796576,
+              "fcff": -32.49194788224,
+              "pv": -21.793482589026606
+            },
+            {
+              "year": 5,
+              "ebit": 42.616102434048,
+              "nopat": 36.2236870689408,
+              "fcff": -10.0006182600192,
+              "pv": -6.070374149121143
+            },
+            {
+              "year": 6,
+              "ebit": 45.1856027278656,
+              "nopat": 38.40776231868576,
+              "fcff": 1.40792225292576,
+              "pv": 0.7734014912012624
+            },
+            {
+              "year": 7,
+              "ebit": 46.08931478242291,
+              "nopat": 39.17591756505948,
+              "fcff": 16.086571116205075,
+              "pv": 7.997008122101672
+            }
+          ],
+          "explicit_pv": -135.6086910074457,
+          "terminal_nopat": 39.95943591636066,
+          "terminal_reinvestment": 23.551133377831487,
+          "terminal_fcff": 16.408302538529178,
+          "terminal_roic": 0.033934193548387094,
+          "terminal_value": 193.03885339446092,
+          "terminal_pv": 95.96409746522006
+        }
+      ],
+      "enterprise_value": 281.005184319606,
+      "equity_adjustments": -290.28217114376884,
+      "equity_value": -9.276986824162863,
+      "per_share": -0.10811159741882367
+    },
+    "warning": "Joint survival stress; negative residual is not a negative quoted share price or a finding of insolvency."
+  },
+  "assumption_review": {
+    "gross_and_expense_bridge": "报告§5.3独立核原EBIT的毛利/费用可行性：base全资首/终30%/31%毛利，10%/11%费用；非全资24%/29%毛利，12%/11.8%费用。非披露分部预测。数值估值仍以原逐年EBIT数组为准。",
+    "equity_bridge": "低/中/高投资账面倍率0.85/1/1.05、设备应付155/140/125、必要现金90/60/30是锚定披露余额/成本量级的研究假设，非事实或严格损失边界。",
+    "depreciation": "CapEx=DA+delta fixed capital，DA在既定EBIT的FCFF中抵消；不能单改DA获取额外现金/税盾，改资产寿命应重核费用和投入。",
+    "limitations": "无新事实；全部原始证据截至2026-11-16T05:33:24.146247+08:00，原件在input/evidence；P1仍null且冻结不解除。"
+  }
+}

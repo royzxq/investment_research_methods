@@ -1,5 +1,8 @@
 # 研究成果导航与输出契约
 
+红利研究属于股票轨内的独立策略，复用本表的公司报告、maintenance、weekly路径与investment-前缀；主策略写报告§0，不新设research根目录。可选原始补充缓存写output/cache/investment/dividend；正式报告保留所用数据的来源、日期和哈希。跨策略复评不覆盖旧报告，generator/latest与审计语义不变。
+
+
 正式研究、必要证据及持续状态保存在本目录；缓存和中间文件保存在被 Git 忽略的 `output/`。公司研究按日期优先组织，打开一天即可查看当天研究的公司；程序使用 `scripts/research_paths.py`。以下路径均相对仓库根，日期采用 Asia/Shanghai，目录按需创建。公司研究目录目前整体被 Git 忽略，只在本地保留，正式交付不等于自动入库。
 
 ## 阅读入口

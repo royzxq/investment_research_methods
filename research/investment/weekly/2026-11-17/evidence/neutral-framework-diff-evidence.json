@@ -1,0 +1,30 @@
+{
+  "investment_framework.md": {
+    "before": {
+      "sha256": "2b909852e5afacc1ea832a76540c04469439fb016692dc91c32bd7160e13fb32",
+      "method_sha256": "6303f7f694f21805a2122c2db7a67b8539a00a37e741f214084ab2f602c86e7e",
+      "bytes": 133468,
+      "lines": 974
+    },
+    "after": {
+      "sha256": "288c122feebe8fc1fc0ac7016c30ddf6e8b889e410b33f5411d2ac878ef0bb98",
+      "method_sha256": "329eede537bae7691b14c9a52137002fe93e8ac74e0df50c6b8be8cabdcf731f",
+      "bytes": 135527,
+      "lines": 980
+    }
+  },
+  "investment_framework_compact.md": {
+    "before": {
+      "sha256": "2ad08f195bb6729dd8c7aea96ccaf85c1fa5504aa53cfd18beef90f0e0377d1e",
+      "method_sha256": "782ff89d54dab37e9652c8e6a8c11706379773e23fed3cd21176fe83aa24769d",
+      "bytes": 89909,
+      "lines": 654
+    },
+    "after": {
+      "sha256": "7c1d26fea0862c49852f4471eb58ebb9ce36803959537e13135f49e57ebe4d6a",
+      "method_sha256": "7a9a6cb2e90236efb015e8f834f2620632f1a2df969bd85e47c18ff51420e379",
+      "bytes": 91381,
+      "lines": 656
+    }
+  }
+}

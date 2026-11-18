@@ -85,13 +85,14 @@ class PublicationRestoreTests(unittest.TestCase):
 
     def test_recovery_rechecks_frozen_audit_version_lifecycle_and_acceptance(self):
         cases = [('frozen_v3_audit', 'frozen audit contract'),
+                 ('frozen_v4_audit', 'frozen audit contract'),
                  ('missing_lifecycle', 'explicit lifecycle'),
                  ('missing_acceptance', 'acceptance')]
         for mode, error in cases:
             other = PublicationRestoreTests('runTest')
             try:
                 # All hashes and native receipts bind these exact invalid bytes.
-                # Simulate a prior process that failed to enforce its v7 gates;
+                # Simulate a prior process that failed to enforce its v8 gates;
                 # recovery must independently reject it on both actual paths.
                 malformed = fixture.FAKE_CLI.replace("mode=os.environ.get('MOCK_MODE','success')", f'mode={mode!r}')
                 with patch.object(fixture, 'FAKE_CLI', malformed), \
@@ -113,7 +114,7 @@ class PublicationRestoreTests(unittest.TestCase):
                 other.doCleanups()
 
     def test_older_frozen_contracts_restore_without_version_upgrade(self):
-        for contract in (runner.CAPITAL_CONTROLS_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT):
+        for contract in (runner.VALUATION_CONTROLS_CONTRACT, runner.CAPITAL_CONTROLS_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT):
             other = PublicationRestoreTests('runTest')
             try:
                 with patch.object(runner, 'NEW_CONTRACT', contract):

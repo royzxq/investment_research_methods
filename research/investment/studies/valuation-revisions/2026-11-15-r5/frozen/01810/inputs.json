@@ -1,0 +1,2347 @@
+{
+  "schema": "isolated-evidence-dcf/v1",
+  "code": "01810.HK",
+  "valuation_date": "2026-11-08",
+  "execution_date": "2026-11-15",
+  "batch": "142ea5b77a734fabb28da81c20cd7f7d",
+  "scope": "incremental valuation evidence only; no production write or Gate release",
+  "amount_unit": "100_million_CNY",
+  "quote_currency": "HKD",
+  "shares": "25796319757",
+  "cny_per_hkd": "0.85712",
+  "market_price": "30.38",
+  "facts": {
+    "bank_cash": "372.52369",
+    "current_deposits": "624.65572",
+    "long_deposits": "657.10773",
+    "short_amortized_investment": "5",
+    "borrowings": "392.76762",
+    "lease_liabilities": "50.40762",
+    "fund_lp_noncurrent": "142.32160",
+    "intangible_payables": "50.74695",
+    "construction_payables": "17.80532",
+    "capital_commitments": "16.14868",
+    "operating_capital_commitments": "7.52000",
+    "investment_commitment": "8.62868",
+    "nci_book": "1.19490",
+    "restricted_cash": "41.38063",
+    "india_restricted": "35.35831",
+    "h2_buyback_hkd": "1843987842.26",
+    "h1_parent_profit": "141.85525",
+    "h1_total_profit": "141.97953",
+    "sbc": "23.21102",
+    "nonifrs_fv_adjustment": "59.59689",
+    "acquisition_amortization": "0.72004",
+    "investor_liability_value_adjustment": "11.56715",
+    "nonifrs_tax_effect": "5.03123",
+    "adjusted_profit": "122.91208",
+    "other_gains": "3.49095",
+    "finance_income": "25.66152",
+    "finance_cost": "14.54927",
+    "fund_liability_losses_in_finance": "8.16249",
+    "debt_lease_intangible_interest": "6.38678",
+    "equity_method_profit": "0.86198",
+    "other_income": "32.45020",
+    "cash_capex": "37.73539",
+    "deferred_intangible_payment": "17.21099",
+    "h1_da": "49.85901",
+    "h1_new_business_operating_loss_rounded": "57",
+    "gross_excluded_portfolio_dsh": "1294.72141",
+    "october_option_proceeds_usd": "402529",
+    "cny_per_usd_20261106": "6.7168",
+    "ordinary_equity_investments": "185.82791",
+    "preferred_investments": "382.43530",
+    "treasury_investments": "198.90149",
+    "fund_investments": "86.26543",
+    "short_fvtpl": "215.05612",
+    "long_amortized": "160.08606",
+    "equity_method_assets": "66.14910",
+    "deferred_tax_liability_net": "28.22040",
+    "deferred_tax_liability_gross": "38.59684",
+    "current_income_tax_liability": "35.31512",
+    "deposits_payable": "79.13044",
+    "loan_receivables_net": "130.89949",
+    "award_payables": "3.47152",
+    "india_claim_inr": "108332278898",
+    "india_attached_deposits_inr": "41570000000",
+    "india_interim_restricted_inr": "49170230000",
+    "h1_rou_da": "12.69524",
+    "h1_lease_cash": "14.07339",
+    "h1_core_ebit": "51.96324",
+    "h1_revenue": "2080.63227",
+    "h1_cogs": "1646.44189",
+    "h1_rd": "181.85665",
+    "h1_sales": "169.24978",
+    "h1_admin": "31.12071",
+    "h1_gross_capital_additions_ex_rou": "80.50026"
+  },
+  "original": {
+    "codex": {
+      "revenue": {
+        "low": [
+          "1600",
+          "1050",
+          "350",
+          "780",
+          "20"
+        ],
+        "base": [
+          "1750",
+          "1200",
+          "380",
+          "1050",
+          "20"
+        ],
+        "high": [
+          "1900",
+          "1350",
+          "410",
+          "1220",
+          "20"
+        ]
+      },
+      "margin": {
+        "low": [
+          ".015",
+          ".03",
+          ".40",
+          "-.05",
+          "0"
+        ],
+        "base": [
+          ".025",
+          ".04",
+          ".45",
+          "-.02",
+          "0"
+        ],
+        "high": [
+          ".035",
+          ".05",
+          ".48",
+          ".02",
+          "0"
+        ]
+      },
+      "tax": ".20",
+      "multiple": {
+        "low": "16",
+        "base": "18",
+        "high": "20"
+      },
+      "discount_divisor": "1.10",
+      "operating_reserve": {
+        "low": "400",
+        "base": "300",
+        "high": "250"
+      },
+      "future_reserve": {
+        "low": "200",
+        "base": "100",
+        "high": "50"
+      },
+      "discounts": {
+        "d_base": ".30",
+        "r_chip": ".03",
+        "r_v5": ".10",
+        "r_gov": ".03",
+        "r_terminal": ".08"
+      },
+      "published_v50": {
+        "low": "9.977",
+        "base": "16.959",
+        "high": "26.464"
+      },
+      "published_p1": "9.248"
+    },
+    "dsh": {
+      "revenue": {
+        "low": "4150",
+        "base": "4450",
+        "high": "4800"
+      },
+      "operating_net_margin": {
+        "low": ".0355",
+        "base": ".0445",
+        "high": ".0555"
+      },
+      "multiple": {
+        "low": "13",
+        "base": "16",
+        "high": "19"
+      },
+      "discount_divisor": "1",
+      "discounts": {
+        "d_base": ".15",
+        "r_chip": ".03",
+        "r_v5": ".05",
+        "r_gov": ".02",
+        "r_terminal": ".03"
+      },
+      "published_v50": {
+        "low": "13.746",
+        "base": "19.414",
+        "high": "27.977"
+      },
+      "published_p1": "14.455"
+    }
+  },
+  "controls_preserved": {
+    "codex": "original frozen; entry/add restrictions including R14 unchanged",
+    "dsh": "original tracking; entry/add earnings-quality restrictions unchanged"
+  },
+  "new_research_assumptions": {
+    "investment_mark_scope": "All disclosed consolidated investments plus bank resources, paired with all fund LP debt; no claim of nonrecourse; no separate fund NAV added. Loans remain operating assets in fintech cash flows.",
+    "investment_marks_date": "2026-06-30; unchanged midcase marks are a research hypothesis at 2026-11-08, not measured current NAV",
+    "tax_reserve": "Net reported DTL used as allocation proxy; gross DTL and zero are sensitivities, no unsupported tax refund",
+    "operating_cash": "One month cash operating costs about325 hundred-million CNY; base300, low400, high250; includes finance/subsidiary liquidity; all deposits additionally ring-fenced tested separately",
+    "h2_cash_roll": "July1-Nov8 operating/financing-income/working-capital/asset-value change excluding known share events. -60/base0/+60; base zero is net offset scenario, not absence of cash flows. Expense SBC retained as economic cost; additional issuance from July-Oct already in shares. Existing-debt principal settlement changes both cash and debt and is not an extra deduction.",
+    "future_investment": "Annual gross additions and working-capital change expressly deducted in FCFF. Existing intangible and construction payable deducted in bridge; no future payment of same asset in capex. Unincurred PP&E commitment included in future capex, investment commitment creates asset (not full loss).",
+    "lease": "Operating-cash-rent method: EBIT reduced by annualized (cash lease payment minus ROU DA), scaled with revenue; DA excludes ROU; existing lease liability not deducted; future recurring rent remains in EBIT. This is an assumed normalized rent path, not a claim all contracts renew at same price.",
+    "sbc": "Normal SBC retained in segment EBIT; not added back in FCFF, equivalent recurring cash compensation. No separate normal-SBC pricing penalty. Basic issued denominator maintained for original comparison; incremental award dilution is separately tested, not stacked automatically.",
+    "fintech": "Internet includes fintech. Loan assets are operating assets (not separately added to NAV); ΔNWC includes funding needs. Required liquidity included in reserve; deposit cash not presumed distributable. Exact finance sub cash/investment allocation remains uncertain, bounded by an all-deposit extra-ringfence sensitivity.",
+    "capital_cost": "CNY nominal WACC8.5/9.5/11%, not HK listing currency shortcut. Range combines low CNY debt costs with much larger equity business/competition premium; 9.5% is research assumption, not estimated CAPM. P1 operates at an explicit 12% unlevered operating hurdle and is not a promised 12% stock IRR.",
+    "residual_price_risks": "No automatic fixed price charges for unquantified market flows, ordinary costs already in FCFF, or high market implied terminal expectations. Independent legal/recall and capital shocks remain named sensitivities; all original nonprice controls remain.",
+    "ev_coupling": "2027 revenue explicitly units*manufacturerASP+related services; gross margin minus R&D/sales/admin/SBC costs; costs grow in nominal CNY, not an independent margin guess. Base60万*22万元+50亿元=1370亿元, gross22%, opex310.5亿元, EBIT-9.1亿元; thereafter12% revenue and7% opex growth. Prior1050/-2% combination held only as original-comparison DCF."
+  },
+  "projection_years": [
+    2027,
+    2028,
+    2029,
+    2030,
+    2031,
+    2032
+  ],
+  "year_end_offset": "0.1452054794520547945205479452",
+  "stub_days": "53",
+  "required_operating_return": "0.12",
+  "scenario_config": {
+    "base": {
+      "wacc": "0.095",
+      "operating_cash": "300",
+      "h2_cash_roll": "0",
+      "equity_asset_mark_factor": "1",
+      "treasury_asset_mark_factor": "1",
+      "investment_tax_reserve": "28.2204",
+      "stub_fcff": "0",
+      "segments": [
+        {
+          "id": "phone",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1750",
+              "reported_ebit_margin": "0.025",
+              "tax_rate": "0.20",
+              "da": "26.250",
+              "capex": "28.000",
+              "delta_nwc": "0.4431944"
+            },
+            {
+              "year": 2028,
+              "revenue": "1785.00",
+              "reported_ebit_margin": "0.028",
+              "tax_rate": "0.20",
+              "da": "26.77500",
+              "capex": "28.56000",
+              "delta_nwc": "0.7000"
+            },
+            {
+              "year": 2029,
+              "revenue": "1820.7000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "27.3105000",
+              "capex": "29.1312000",
+              "delta_nwc": "0.714000"
+            },
+            {
+              "year": 2030,
+              "revenue": "1857.114000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "27.856710000",
+              "capex": "29.713824000",
+              "delta_nwc": "0.72828000"
+            },
+            {
+              "year": 2031,
+              "revenue": "1894.25628000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "28.41384420000",
+              "capex": "30.30810048000",
+              "delta_nwc": "0.7428456000"
+            },
+            {
+              "year": 2032,
+              "revenue": "1932.1414056000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "28.9821210840000",
+              "capex": "30.9142624896000",
+              "delta_nwc": "0.757702512000"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.12",
+          "terminal_reported_ebit_margin": "0.03",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "iot",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1200",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "24.00",
+              "capex": "36.00",
+              "delta_nwc": "1.616336"
+            },
+            {
+              "year": 2028,
+              "revenue": "1272.00",
+              "reported_ebit_margin": "0.045",
+              "tax_rate": "0.20",
+              "da": "25.4400",
+              "capex": "38.1600",
+              "delta_nwc": "1.4400"
+            },
+            {
+              "year": 2029,
+              "revenue": "1348.3200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "26.966400",
+              "capex": "40.449600",
+              "delta_nwc": "1.526400"
+            },
+            {
+              "year": 2030,
+              "revenue": "1429.219200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "28.58438400",
+              "capex": "42.87657600",
+              "delta_nwc": "1.61798400"
+            },
+            {
+              "year": 2031,
+              "revenue": "1514.97235200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "30.2994470400",
+              "capex": "45.4491705600",
+              "delta_nwc": "1.7150630400"
+            },
+            {
+              "year": 2032,
+              "revenue": "1605.8706931200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "32.117413862400",
+              "capex": "48.176120793600",
+              "delta_nwc": "1.817966822400"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.15",
+          "terminal_reported_ebit_margin": "0.05",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "internet",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "380",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "7.60",
+              "capex": "11.40",
+              "delta_nwc": "0.1951964"
+            },
+            {
+              "year": 2028,
+              "revenue": "399.00",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "7.9800",
+              "capex": "11.9700",
+              "delta_nwc": "0.3800"
+            },
+            {
+              "year": 2029,
+              "revenue": "418.9500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "8.379000",
+              "capex": "12.568500",
+              "delta_nwc": "0.399000"
+            },
+            {
+              "year": 2030,
+              "revenue": "439.897500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "8.79795000",
+              "capex": "13.19692500",
+              "delta_nwc": "0.41895000"
+            },
+            {
+              "year": 2031,
+              "revenue": "461.89237500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "9.2378475000",
+              "capex": "13.8567712500",
+              "delta_nwc": "0.4398975000"
+            },
+            {
+              "year": 2032,
+              "revenue": "484.9869937500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "9.699739875000",
+              "capex": "14.549609812500",
+              "delta_nwc": "0.461892375000"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.25",
+          "terminal_reported_ebit_margin": "0.45",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "ev_ai",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1370.00000000",
+              "reported_ebit_margin": "-0.006642335766423357664233576642",
+              "tax_rate": "0",
+              "da": "27.4000000000",
+              "capex": "82.2000000000",
+              "delta_nwc": "9.4958988000",
+              "gross_profit": "301.4000000000",
+              "allocated_operating_expense": "310.5"
+            },
+            {
+              "year": 2028,
+              "revenue": "1534.4000000000",
+              "reported_ebit_margin": "0.003475625651720542231491136601",
+              "tax_rate": ".20",
+              "da": "30.688000000000",
+              "capex": "92.064000000000",
+              "delta_nwc": "3.288000000000",
+              "gross_profit": "337.568000000000",
+              "allocated_operating_expense": "332.235"
+            },
+            {
+              "year": 2029,
+              "revenue": "1718.528000000000",
+              "reported_ebit_margin": "0.01314189236369730373901385372",
+              "tax_rate": ".20",
+              "da": "34.37056000000000",
+              "capex": "94.519040000000000",
+              "delta_nwc": "3.68256000000000",
+              "gross_profit": "378.07616000000000",
+              "allocated_operating_expense": "355.49145"
+            },
+            {
+              "year": 2030,
+              "revenue": "1924.75136000000000",
+              "reported_ebit_margin": "0.02237662931174653125066502096",
+              "tax_rate": ".20",
+              "da": "38.4950272000000000",
+              "capex": "96.2375680000000000",
+              "delta_nwc": "4.1244672000000000",
+              "gross_profit": "423.4452992000000000",
+              "allocated_operating_expense": "380.3758515"
+            },
+            {
+              "year": 2031,
+              "revenue": "2155.7215232000000000",
+              "reported_ebit_margin": "0.03119910121747213253411747538",
+              "tax_rate": ".20",
+              "da": "43.114430464000000000",
+              "capex": "97.0074685440000000000",
+              "delta_nwc": "4.619403264000000000",
+              "gross_profit": "474.258735104000000000",
+              "allocated_operating_expense": "407.002161105"
+            },
+            {
+              "year": 2032,
+              "revenue": "2414.408105984000000000",
+              "reported_ebit_margin": "0.03962771277026355518884437380",
+              "tax_rate": ".20",
+              "da": "48.28816211968000000000",
+              "capex": "96.57632423936000000000",
+              "delta_nwc": "5.17373165568000000000",
+              "gross_profit": "531.16978331648000000000",
+              "allocated_operating_expense": "435.49231238235"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.12",
+          "terminal_reported_ebit_margin": "0.03962771277026355518884437380",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "other",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0",
+          "terminal_tax_rate": "0"
+        }
+      ]
+    },
+    "low": {
+      "wacc": "0.11",
+      "operating_cash": "400",
+      "h2_cash_roll": "-60",
+      "equity_asset_mark_factor": "0.8",
+      "treasury_asset_mark_factor": "0.98",
+      "investment_tax_reserve": "38.59684",
+      "stub_fcff": "-12",
+      "segments": [
+        {
+          "id": "phone",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.015",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.018",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0.02",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "iot",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1050",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "21.00",
+              "capex": "36.750",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "1071.00",
+              "reported_ebit_margin": "0.032",
+              "tax_rate": "0.20",
+              "da": "21.4200",
+              "capex": "37.48500",
+              "delta_nwc": "1.0500"
+            },
+            {
+              "year": 2029,
+              "revenue": "1092.4200",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "21.848400",
+              "capex": "38.2347000",
+              "delta_nwc": "1.071000"
+            },
+            {
+              "year": 2030,
+              "revenue": "1114.268400",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "22.28536800",
+              "capex": "38.999394000",
+              "delta_nwc": "1.09242000"
+            },
+            {
+              "year": 2031,
+              "revenue": "1136.55376800",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "22.7310753600",
+              "capex": "39.77938188000",
+              "delta_nwc": "1.1142684000"
+            },
+            {
+              "year": 2032,
+              "revenue": "1159.2848433600",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "23.185696867200",
+              "capex": "40.5749695176000",
+              "delta_nwc": "1.136553768000"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.12",
+          "terminal_reported_ebit_margin": "0.035",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "internet",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "350",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.00",
+              "capex": "12.250",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "357.00",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.1400",
+              "capex": "12.49500",
+              "delta_nwc": "0.3500"
+            },
+            {
+              "year": 2029,
+              "revenue": "364.1400",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.282800",
+              "capex": "12.7449000",
+              "delta_nwc": "0.357000"
+            },
+            {
+              "year": 2030,
+              "revenue": "371.422800",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.42845600",
+              "capex": "12.999798000",
+              "delta_nwc": "0.36414000"
+            },
+            {
+              "year": 2031,
+              "revenue": "378.85125600",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.5770251200",
+              "capex": "13.25979396000",
+              "delta_nwc": "0.3714228000"
+            },
+            {
+              "year": 2032,
+              "revenue": "386.4282811200",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.728565622400",
+              "capex": "13.5249898392000",
+              "delta_nwc": "0.378851256000"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.2",
+          "terminal_reported_ebit_margin": "0.4",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "ev_ai",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "985.00000000",
+              "reported_ebit_margin": "-0.1045685279187817258883248731",
+              "tax_rate": "0",
+              "da": "19.7000000000",
+              "capex": "73.87500000000",
+              "delta_nwc": "4.4897470000",
+              "gross_profit": "197.0000000000",
+              "allocated_operating_expense": "300"
+            },
+            {
+              "year": 2028,
+              "revenue": "1083.5000000000",
+              "reported_ebit_margin": "-0.07464928472542685740655283802",
+              "tax_rate": "0",
+              "da": "21.670000000000",
+              "capex": "75.845000000000",
+              "delta_nwc": "4.925000000000",
+              "gross_profit": "222.1175000000000",
+              "allocated_operating_expense": "303.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "1191.850000000000",
+              "reported_ebit_margin": "-0.04676888870243738725510760582",
+              "tax_rate": "0",
+              "da": "23.83700000000000",
+              "capex": "77.470250000000000",
+              "delta_nwc": "5.41750000000000",
+              "gross_profit": "250.28850000000000",
+              "allocated_operating_expense": "306.0300"
+            },
+            {
+              "year": 2030,
+              "revenue": "1311.03500000000000",
+              "reported_ebit_margin": "-0.02376052508132887375241698353",
+              "tax_rate": "0",
+              "da": "26.2207000000000000",
+              "capex": "78.6621000000000000",
+              "delta_nwc": "5.9592500000000000",
+              "gross_profit": "277.93942000000000000",
+              "allocated_operating_expense": "309.090300"
+            },
+            {
+              "year": 2031,
+              "revenue": "1442.1385000000000000",
+              "reported_ebit_margin": "-0.002471027574674693172673775785",
+              "tax_rate": "0",
+              "da": "28.842770000000000000",
+              "capex": "79.3176175000000000000",
+              "delta_nwc": "6.555175000000000000",
+              "gross_profit": "308.6176390000000000000",
+              "allocated_operating_expense": "312.18120300"
+            },
+            {
+              "year": 2032,
+              "revenue": "1586.352350000000000000",
+              "reported_ebit_margin": "0.01624023831779869081418135132",
+              "tax_rate": ".20",
+              "da": "31.72704700000000000000",
+              "capex": "79.31761750000000000000",
+              "delta_nwc": "7.21069250000000000000",
+              "gross_profit": "341.065755250000000000000",
+              "allocated_operating_expense": "315.3030150300"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0.01624023831779869081418135132",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "other",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0",
+          "terminal_tax_rate": "0"
+        }
+      ]
+    },
+    "high": {
+      "wacc": "0.085",
+      "operating_cash": "250",
+      "h2_cash_roll": "60",
+      "equity_asset_mark_factor": "1.1",
+      "treasury_asset_mark_factor": "1",
+      "investment_tax_reserve": "28.2204",
+      "stub_fcff": "12",
+      "segments": [
+        {
+          "id": "phone",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1900",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "28.500",
+              "capex": "30.400",
+              "delta_nwc": "1.7215972"
+            },
+            {
+              "year": 2028,
+              "revenue": "1976.00",
+              "reported_ebit_margin": "0.038",
+              "tax_rate": "0.20",
+              "da": "29.64000",
+              "capex": "31.61600",
+              "delta_nwc": "0.7600"
+            },
+            {
+              "year": 2029,
+              "revenue": "2055.0400",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "30.8256000",
+              "capex": "32.8806400",
+              "delta_nwc": "0.790400"
+            },
+            {
+              "year": 2030,
+              "revenue": "2137.241600",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "32.058624000",
+              "capex": "34.195865600",
+              "delta_nwc": "0.82201600"
+            },
+            {
+              "year": 2031,
+              "revenue": "2222.73126400",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "33.34096896000",
+              "capex": "35.56370022400",
+              "delta_nwc": "0.8548966400"
+            },
+            {
+              "year": 2032,
+              "revenue": "2311.6405145600",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "34.6746077184000",
+              "capex": "36.9862482329600",
+              "delta_nwc": "0.889092505600"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.15",
+          "terminal_reported_ebit_margin": "0.04",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "iot",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1350",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "27.00",
+              "capex": "40.50",
+              "delta_nwc": "2.308168"
+            },
+            {
+              "year": 2028,
+              "revenue": "1458.00",
+              "reported_ebit_margin": "0.055",
+              "tax_rate": "0.20",
+              "da": "29.1600",
+              "capex": "43.7400",
+              "delta_nwc": "1.0800"
+            },
+            {
+              "year": 2029,
+              "revenue": "1574.6400",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "31.492800",
+              "capex": "47.239200",
+              "delta_nwc": "1.166400"
+            },
+            {
+              "year": 2030,
+              "revenue": "1700.611200",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "34.01222400",
+              "capex": "51.01833600",
+              "delta_nwc": "1.25971200"
+            },
+            {
+              "year": 2031,
+              "revenue": "1836.66009600",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "36.7332019200",
+              "capex": "55.0998028800",
+              "delta_nwc": "1.3604889600"
+            },
+            {
+              "year": 2032,
+              "revenue": "1983.5929036800",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "39.671858073600",
+              "capex": "59.507787110400",
+              "delta_nwc": "1.469328076800"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.18",
+          "terminal_reported_ebit_margin": "0.06",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "internet",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "410",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "8.20",
+              "capex": "12.30",
+              "delta_nwc": "0.3975982"
+            },
+            {
+              "year": 2028,
+              "revenue": "438.70",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "8.7740",
+              "capex": "13.1610",
+              "delta_nwc": "0.2870"
+            },
+            {
+              "year": 2029,
+              "revenue": "469.4090",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "9.388180",
+              "capex": "14.082270",
+              "delta_nwc": "0.307090"
+            },
+            {
+              "year": 2030,
+              "revenue": "502.267630",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "10.04535260",
+              "capex": "15.06802890",
+              "delta_nwc": "0.32858630"
+            },
+            {
+              "year": 2031,
+              "revenue": "537.42636410",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "10.7485272820",
+              "capex": "16.1227909230",
+              "delta_nwc": "0.3515873410"
+            },
+            {
+              "year": 2032,
+              "revenue": "575.0462095870",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "11.500924191740",
+              "capex": "17.251386287610",
+              "delta_nwc": "0.376198454870"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.3",
+          "terminal_reported_ebit_margin": "0.48",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "ev_ai",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1670.00000000",
+              "reported_ebit_margin": "0.03443113772455089820359281437",
+              "tax_rate": ".20",
+              "da": "33.4000000000",
+              "capex": "100.2000000000",
+              "delta_nwc": "7.7479494000",
+              "gross_profit": "417.5000000000",
+              "allocated_operating_expense": "360"
+            },
+            {
+              "year": 2028,
+              "revenue": "1937.2000000000",
+              "reported_ebit_margin": "0.04558125129052240346892422052",
+              "tax_rate": ".20",
+              "da": "38.744000000000",
+              "capex": "106.5460000000000",
+              "delta_nwc": "2.672000000000",
+              "gross_profit": "484.300000000000",
+              "allocated_operating_expense": "396.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "2247.152000000000",
+              "reported_ebit_margin": "0.05615463484446089984122124360",
+              "tax_rate": ".20",
+              "da": "44.94304000000000",
+              "capex": "112.35760000000000",
+              "delta_nwc": "3.09952000000000",
+              "gross_profit": "561.78800000000000",
+              "allocated_operating_expense": "435.6000"
+            },
+            {
+              "year": 2030,
+              "revenue": "2606.69632000000000",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": ".20",
+              "da": "52.1339264000000000",
+              "capex": "117.30133440000000000",
+              "delta_nwc": "3.5954432000000000",
+              "gross_profit": "651.6740800000000000",
+              "allocated_operating_expense": "495.2723008000000000"
+            },
+            {
+              "year": 2031,
+              "revenue": "3023.7677312000000000",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": ".20",
+              "da": "60.475354624000000000",
+              "capex": "120.950709248000000000",
+              "delta_nwc": "4.170714112000000000",
+              "gross_profit": "755.941932800000000000",
+              "allocated_operating_expense": "574.515868928000000000"
+            },
+            {
+              "year": 2032,
+              "revenue": "3507.570568192000000000",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": ".20",
+              "da": "70.15141136384000000000",
+              "capex": "140.30282272768000000000",
+              "delta_nwc": "4.83802836992000000000",
+              "gross_profit": "876.89264204800000000000",
+              "allocated_operating_expense": "666.43840795648000000000"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.15",
+          "terminal_reported_ebit_margin": "0.06",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "other",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0",
+          "terminal_tax_rate": "0"
+        }
+      ]
+    }
+  },
+  "manifest": [
+    {
+      "path": "sources/check-investments.png",
+      "sha256": "1842eacea6b3562b97133b6d145eef123fbaa8244ab40e0efd974bf4c5ffdd9c",
+      "bytes": 131906
+    },
+    {
+      "path": "sources/check-lp.png",
+      "sha256": "5746edad8c7ac3aef2595b5a14da486a6557256850d4529a67fdbf5f7d67fcf9",
+      "bytes": 125565
+    },
+    {
+      "path": "sources/ev-2025q4-excerpt.json",
+      "sha256": "91f8e178b93a46f07040aba3332373418de4a7f7fa68a4800fe46416e2dc0552",
+      "bytes": 21696
+    },
+    {
+      "path": "sources/ev-2025q4-locators.json",
+      "sha256": "520443c64487a8fdc183f920c3f8472af07c85e0795d7c88d77724b70c7c3353",
+      "bytes": 9367
+    },
+    {
+      "path": "sources/ev-research-source-snapshots.json",
+      "sha256": "8c667cd785c790c082b0cc5be7f6cfe9b639907cc9c01969bce44702106e6be9",
+      "bytes": 10705
+    },
+    {
+      "path": "sources/india-followup-search.json",
+      "sha256": "327e8c77c57adfcb84f0c68cc2562d71aabddfee609fb501efd390a9e55f8629",
+      "bytes": 15703
+    },
+    {
+      "path": "sources/interim-2026.pdf",
+      "sha256": "e27b604854c08d2ca3eefffebabef647ae2a8dde92d4e08d5580746ab4dbfdce",
+      "bytes": 839008
+    },
+    {
+      "path": "sources/interim-2026.txt",
+      "sha256": "14a3689b6dec0bc8029b5a33334ea66b5518e5e3642aec4fa2e833b2d7c747a7",
+      "bytes": 346890
+    },
+    {
+      "path": "sources/monthly-202610.pdf",
+      "sha256": "c2be44af84ad70b86b29f402a85f03759753c22d279cbcfc5ab8bf964a63a88a",
+      "bytes": 74278
+    },
+    {
+      "path": "sources/original-codex.md",
+      "sha256": "53b86f3c484517a44aa6a0cf9a566dd756b3499c75b53ee7597f0fac81d974be",
+      "bytes": 84056
+    },
+    {
+      "path": "sources/original-dsh.md",
+      "sha256": "2a9b5d2fab06406bcb58a1406a2c2caa737545fee5ab6df7f66856f205582ce7",
+      "bytes": 79186
+    },
+    {
+      "path": "sources/pack.md",
+      "sha256": "4c53ea20a25e661b8583382093f7297e95f7d39c0393469bb3501b144eb62264",
+      "bytes": 4016
+    },
+    {
+      "path": "sources/previous-inputs.json",
+      "sha256": "cdab16896fa1656b232cf73156f1fc88b10e2c9e3991f7f0bdb901333a52a0e8",
+      "bytes": 21513
+    },
+    {
+      "path": "sources/safe-fx.txt",
+      "sha256": "89a92ca53d1c4ca9a77cf843d9e4928374489cee758fd4dc7d24790be45b0287",
+      "bytes": 2172
+    },
+    {
+      "path": "sources/web-read-snapshots.json",
+      "sha256": "617616d81170484378ef05c7ed7608e3bf2dec364eceeccfd08c98c3752d1831",
+      "bytes": 18766
+    }
+  ],
+  "frozen_operating_dcf_scenario_config": {
+    "base": {
+      "wacc": "0.095",
+      "operating_cash": "300",
+      "h2_cash_roll": "0",
+      "equity_asset_mark_factor": "1",
+      "treasury_asset_mark_factor": "1",
+      "investment_tax_reserve": "28.2204",
+      "stub_fcff": "0",
+      "segments": [
+        {
+          "id": "phone",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1750",
+              "reported_ebit_margin": "0.025",
+              "tax_rate": "0.20",
+              "da": "26.250",
+              "capex": "28.000",
+              "delta_nwc": "0.4431944"
+            },
+            {
+              "year": 2028,
+              "revenue": "1785.00",
+              "reported_ebit_margin": "0.028",
+              "tax_rate": "0.20",
+              "da": "26.77500",
+              "capex": "28.56000",
+              "delta_nwc": "0.7000"
+            },
+            {
+              "year": 2029,
+              "revenue": "1820.7000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "27.3105000",
+              "capex": "29.1312000",
+              "delta_nwc": "0.714000"
+            },
+            {
+              "year": 2030,
+              "revenue": "1857.114000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "27.856710000",
+              "capex": "29.713824000",
+              "delta_nwc": "0.72828000"
+            },
+            {
+              "year": 2031,
+              "revenue": "1894.25628000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "28.41384420000",
+              "capex": "30.30810048000",
+              "delta_nwc": "0.7428456000"
+            },
+            {
+              "year": 2032,
+              "revenue": "1932.1414056000",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "28.9821210840000",
+              "capex": "30.9142624896000",
+              "delta_nwc": "0.757702512000"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.12",
+          "terminal_reported_ebit_margin": "0.03",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "iot",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1200",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "24.00",
+              "capex": "36.00",
+              "delta_nwc": "1.616336"
+            },
+            {
+              "year": 2028,
+              "revenue": "1272.00",
+              "reported_ebit_margin": "0.045",
+              "tax_rate": "0.20",
+              "da": "25.4400",
+              "capex": "38.1600",
+              "delta_nwc": "1.4400"
+            },
+            {
+              "year": 2029,
+              "revenue": "1348.3200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "26.966400",
+              "capex": "40.449600",
+              "delta_nwc": "1.526400"
+            },
+            {
+              "year": 2030,
+              "revenue": "1429.219200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "28.58438400",
+              "capex": "42.87657600",
+              "delta_nwc": "1.61798400"
+            },
+            {
+              "year": 2031,
+              "revenue": "1514.97235200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "30.2994470400",
+              "capex": "45.4491705600",
+              "delta_nwc": "1.7150630400"
+            },
+            {
+              "year": 2032,
+              "revenue": "1605.8706931200",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "32.117413862400",
+              "capex": "48.176120793600",
+              "delta_nwc": "1.817966822400"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.15",
+          "terminal_reported_ebit_margin": "0.05",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "internet",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "380",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "7.60",
+              "capex": "11.40",
+              "delta_nwc": "0.1951964"
+            },
+            {
+              "year": 2028,
+              "revenue": "399.00",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "7.9800",
+              "capex": "11.9700",
+              "delta_nwc": "0.3800"
+            },
+            {
+              "year": 2029,
+              "revenue": "418.9500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "8.379000",
+              "capex": "12.568500",
+              "delta_nwc": "0.399000"
+            },
+            {
+              "year": 2030,
+              "revenue": "439.897500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "8.79795000",
+              "capex": "13.19692500",
+              "delta_nwc": "0.41895000"
+            },
+            {
+              "year": 2031,
+              "revenue": "461.89237500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "9.2378475000",
+              "capex": "13.8567712500",
+              "delta_nwc": "0.4398975000"
+            },
+            {
+              "year": 2032,
+              "revenue": "484.9869937500",
+              "reported_ebit_margin": "0.45",
+              "tax_rate": "0.20",
+              "da": "9.699739875000",
+              "capex": "14.549609812500",
+              "delta_nwc": "0.461892375000"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.25",
+          "terminal_reported_ebit_margin": "0.45",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "ev_ai",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1050",
+              "reported_ebit_margin": "-0.02",
+              "tax_rate": "0",
+              "da": "21.00",
+              "capex": "63.00",
+              "delta_nwc": "3.0958988"
+            },
+            {
+              "year": 2028,
+              "revenue": "1176.00",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "23.5200",
+              "capex": "70.5600",
+              "delta_nwc": "2.5200"
+            },
+            {
+              "year": 2029,
+              "revenue": "1317.1200",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "26.342400",
+              "capex": "72.4416000",
+              "delta_nwc": "2.822400"
+            },
+            {
+              "year": 2030,
+              "revenue": "1475.174400",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "29.50348800",
+              "capex": "73.75872000",
+              "delta_nwc": "3.16108800"
+            },
+            {
+              "year": 2031,
+              "revenue": "1652.19532800",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "33.0439065600",
+              "capex": "74.34878976000",
+              "delta_nwc": "3.5404185600"
+            },
+            {
+              "year": 2032,
+              "revenue": "1850.4587673600",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "37.009175347200",
+              "capex": "74.018350694400",
+              "delta_nwc": "3.965268787200"
+            }
+          ],
+          "terminal_growth": "0.02",
+          "terminal_roic": "0.12",
+          "terminal_reported_ebit_margin": "0.04",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "other",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0",
+          "terminal_tax_rate": "0"
+        }
+      ]
+    },
+    "low": {
+      "wacc": "0.11",
+      "operating_cash": "400",
+      "h2_cash_roll": "-60",
+      "equity_asset_mark_factor": "0.8",
+      "treasury_asset_mark_factor": "0.98",
+      "investment_tax_reserve": "38.59684",
+      "stub_fcff": "-12",
+      "segments": [
+        {
+          "id": "phone",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.015",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.018",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "1600",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.000",
+              "capex": "30.400",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0.02",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "iot",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1050",
+              "reported_ebit_margin": "0.03",
+              "tax_rate": "0.20",
+              "da": "21.00",
+              "capex": "36.750",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "1071.00",
+              "reported_ebit_margin": "0.032",
+              "tax_rate": "0.20",
+              "da": "21.4200",
+              "capex": "37.48500",
+              "delta_nwc": "1.0500"
+            },
+            {
+              "year": 2029,
+              "revenue": "1092.4200",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "21.848400",
+              "capex": "38.2347000",
+              "delta_nwc": "1.071000"
+            },
+            {
+              "year": 2030,
+              "revenue": "1114.268400",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "22.28536800",
+              "capex": "38.999394000",
+              "delta_nwc": "1.09242000"
+            },
+            {
+              "year": 2031,
+              "revenue": "1136.55376800",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "22.7310753600",
+              "capex": "39.77938188000",
+              "delta_nwc": "1.1142684000"
+            },
+            {
+              "year": 2032,
+              "revenue": "1159.2848433600",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "23.185696867200",
+              "capex": "40.5749695176000",
+              "delta_nwc": "1.136553768000"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.12",
+          "terminal_reported_ebit_margin": "0.035",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "internet",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "350",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.00",
+              "capex": "12.250",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "357.00",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.1400",
+              "capex": "12.49500",
+              "delta_nwc": "0.3500"
+            },
+            {
+              "year": 2029,
+              "revenue": "364.1400",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.282800",
+              "capex": "12.7449000",
+              "delta_nwc": "0.357000"
+            },
+            {
+              "year": 2030,
+              "revenue": "371.422800",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.42845600",
+              "capex": "12.999798000",
+              "delta_nwc": "0.36414000"
+            },
+            {
+              "year": 2031,
+              "revenue": "378.85125600",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.5770251200",
+              "capex": "13.25979396000",
+              "delta_nwc": "0.3714228000"
+            },
+            {
+              "year": 2032,
+              "revenue": "386.4282811200",
+              "reported_ebit_margin": "0.4",
+              "tax_rate": "0.20",
+              "da": "7.728565622400",
+              "capex": "13.5249898392000",
+              "delta_nwc": "0.378851256000"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.2",
+          "terminal_reported_ebit_margin": "0.4",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "ev_ai",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "780",
+              "reported_ebit_margin": "-0.05",
+              "tax_rate": "0",
+              "da": "15.60",
+              "capex": "58.500",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "826.80",
+              "reported_ebit_margin": "-0.03",
+              "tax_rate": "0",
+              "da": "16.5360",
+              "capex": "57.8760",
+              "delta_nwc": "2.3400"
+            },
+            {
+              "year": 2029,
+              "revenue": "876.4080",
+              "reported_ebit_margin": "-0.01",
+              "tax_rate": "0",
+              "da": "17.528160",
+              "capex": "56.9665200",
+              "delta_nwc": "2.480400"
+            },
+            {
+              "year": 2030,
+              "revenue": "928.992480",
+              "reported_ebit_margin": "0.01",
+              "tax_rate": "0.20",
+              "da": "18.57984960",
+              "capex": "55.73954880",
+              "delta_nwc": "2.62922400"
+            },
+            {
+              "year": 2031,
+              "revenue": "984.73202880",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "19.6946405760",
+              "capex": "54.16026158400",
+              "delta_nwc": "2.7869774400"
+            },
+            {
+              "year": 2032,
+              "revenue": "1043.8159505280",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "20.876319010560",
+              "capex": "52.190797526400",
+              "delta_nwc": "2.954196086400"
+            }
+          ],
+          "terminal_growth": "0.015",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0.02",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "other",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0",
+          "terminal_tax_rate": "0"
+        }
+      ]
+    },
+    "high": {
+      "wacc": "0.085",
+      "operating_cash": "250",
+      "h2_cash_roll": "60",
+      "equity_asset_mark_factor": "1.1",
+      "treasury_asset_mark_factor": "1",
+      "investment_tax_reserve": "28.2204",
+      "stub_fcff": "12",
+      "segments": [
+        {
+          "id": "phone",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1900",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "28.500",
+              "capex": "30.400",
+              "delta_nwc": "1.7215972"
+            },
+            {
+              "year": 2028,
+              "revenue": "1976.00",
+              "reported_ebit_margin": "0.038",
+              "tax_rate": "0.20",
+              "da": "29.64000",
+              "capex": "31.61600",
+              "delta_nwc": "0.7600"
+            },
+            {
+              "year": 2029,
+              "revenue": "2055.0400",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "30.8256000",
+              "capex": "32.8806400",
+              "delta_nwc": "0.790400"
+            },
+            {
+              "year": 2030,
+              "revenue": "2137.241600",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "32.058624000",
+              "capex": "34.195865600",
+              "delta_nwc": "0.82201600"
+            },
+            {
+              "year": 2031,
+              "revenue": "2222.73126400",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "33.34096896000",
+              "capex": "35.56370022400",
+              "delta_nwc": "0.8548966400"
+            },
+            {
+              "year": 2032,
+              "revenue": "2311.6405145600",
+              "reported_ebit_margin": "0.04",
+              "tax_rate": "0.20",
+              "da": "34.6746077184000",
+              "capex": "36.9862482329600",
+              "delta_nwc": "0.889092505600"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.15",
+          "terminal_reported_ebit_margin": "0.04",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "iot",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1350",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "27.00",
+              "capex": "40.50",
+              "delta_nwc": "2.308168"
+            },
+            {
+              "year": 2028,
+              "revenue": "1458.00",
+              "reported_ebit_margin": "0.055",
+              "tax_rate": "0.20",
+              "da": "29.1600",
+              "capex": "43.7400",
+              "delta_nwc": "1.0800"
+            },
+            {
+              "year": 2029,
+              "revenue": "1574.6400",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "31.492800",
+              "capex": "47.239200",
+              "delta_nwc": "1.166400"
+            },
+            {
+              "year": 2030,
+              "revenue": "1700.611200",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "34.01222400",
+              "capex": "51.01833600",
+              "delta_nwc": "1.25971200"
+            },
+            {
+              "year": 2031,
+              "revenue": "1836.66009600",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "36.7332019200",
+              "capex": "55.0998028800",
+              "delta_nwc": "1.3604889600"
+            },
+            {
+              "year": 2032,
+              "revenue": "1983.5929036800",
+              "reported_ebit_margin": "0.06",
+              "tax_rate": "0.20",
+              "da": "39.671858073600",
+              "capex": "59.507787110400",
+              "delta_nwc": "1.469328076800"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.18",
+          "terminal_reported_ebit_margin": "0.06",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "internet",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "410",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "8.20",
+              "capex": "12.30",
+              "delta_nwc": "0.3975982"
+            },
+            {
+              "year": 2028,
+              "revenue": "438.70",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "8.7740",
+              "capex": "13.1610",
+              "delta_nwc": "0.2870"
+            },
+            {
+              "year": 2029,
+              "revenue": "469.4090",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "9.388180",
+              "capex": "14.082270",
+              "delta_nwc": "0.307090"
+            },
+            {
+              "year": 2030,
+              "revenue": "502.267630",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "10.04535260",
+              "capex": "15.06802890",
+              "delta_nwc": "0.32858630"
+            },
+            {
+              "year": 2031,
+              "revenue": "537.42636410",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "10.7485272820",
+              "capex": "16.1227909230",
+              "delta_nwc": "0.3515873410"
+            },
+            {
+              "year": 2032,
+              "revenue": "575.0462095870",
+              "reported_ebit_margin": "0.48",
+              "tax_rate": "0.20",
+              "da": "11.500924191740",
+              "capex": "17.251386287610",
+              "delta_nwc": "0.376198454870"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.3",
+          "terminal_reported_ebit_margin": "0.48",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "ev_ai",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "1220",
+              "reported_ebit_margin": "0.02",
+              "tax_rate": "0.20",
+              "da": "24.40",
+              "capex": "73.20",
+              "delta_nwc": "3.2479494"
+            },
+            {
+              "year": 2028,
+              "revenue": "1415.20",
+              "reported_ebit_margin": "0.035",
+              "tax_rate": "0.20",
+              "da": "28.3040",
+              "capex": "77.83600",
+              "delta_nwc": "1.9520"
+            },
+            {
+              "year": 2029,
+              "revenue": "1641.6320",
+              "reported_ebit_margin": "0.045",
+              "tax_rate": "0.20",
+              "da": "32.832640",
+              "capex": "82.081600",
+              "delta_nwc": "2.264320"
+            },
+            {
+              "year": 2030,
+              "revenue": "1904.293120",
+              "reported_ebit_margin": "0.05",
+              "tax_rate": "0.20",
+              "da": "38.08586240",
+              "capex": "85.693190400",
+              "delta_nwc": "2.62661120"
+            },
+            {
+              "year": 2031,
+              "revenue": "2208.98001920",
+              "reported_ebit_margin": "0.055",
+              "tax_rate": "0.20",
+              "da": "44.1796003840",
+              "capex": "88.3592007680",
+              "delta_nwc": "3.0468689920"
+            },
+            {
+              "year": 2032,
+              "revenue": "2562.4168222720",
+              "reported_ebit_margin": "0.055",
+              "tax_rate": "0.20",
+              "da": "51.248336445440",
+              "capex": "102.496672890880",
+              "delta_nwc": "3.534368030720"
+            }
+          ],
+          "terminal_growth": "0.025",
+          "terminal_roic": "0.15",
+          "terminal_reported_ebit_margin": "0.055",
+          "terminal_tax_rate": "0.20"
+        },
+        {
+          "id": "other",
+          "rows": [
+            {
+              "year": 2027,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2028,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2029,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2030,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2031,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            },
+            {
+              "year": 2032,
+              "revenue": "20",
+              "reported_ebit_margin": "0",
+              "tax_rate": "0",
+              "da": "0.40",
+              "capex": "0.40",
+              "delta_nwc": "0.00"
+            }
+          ],
+          "terminal_growth": "0",
+          "terminal_roic": "0.1",
+          "terminal_reported_ebit_margin": "0",
+          "terminal_tax_rate": "0"
+        }
+      ]
+    }
+  },
+  "ev_coupled_assumptions": {
+    "low": {
+      "units": 450000,
+      "asp_cny": 210000,
+      "related_revenue": "40",
+      "growth": ".10",
+      "gross_margin": [
+        ".20",
+        ".205",
+        ".21",
+        ".212",
+        ".214",
+        ".215"
+      ],
+      "opex_2027": "300",
+      "opex_growth": ".01",
+      "cap_margin": null,
+      "revenue_2027": "985.00000000"
+    },
+    "base": {
+      "units": 600000,
+      "asp_cny": 220000,
+      "related_revenue": "50",
+      "growth": ".12",
+      "gross_margin": [
+        ".22",
+        ".22",
+        ".22",
+        ".22",
+        ".22",
+        ".22"
+      ],
+      "opex_2027": "310.5",
+      "opex_growth": ".07",
+      "cap_margin": null,
+      "revenue_2027": "1370.00000000"
+    },
+    "high": {
+      "units": 700000,
+      "asp_cny": 230000,
+      "related_revenue": "60",
+      "growth": ".16",
+      "gross_margin": [
+        ".25",
+        ".25",
+        ".25",
+        ".25",
+        ".25",
+        ".25"
+      ],
+      "opex_2027": "360",
+      "opex_growth": ".10",
+      "cap_margin": ".06",
+      "revenue_2027": "1670.00000000"
+    }
+  }
+}

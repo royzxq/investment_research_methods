@@ -9,6 +9,11 @@ import math
 from pathlib import Path
 import re
 
+try:
+    from . import stock_framework_bundle
+except ImportError:
+    import stock_framework_bundle
+
 SCHEMA = "investment-maintenance/v1"
 KINDS = {"market-research", "change-decision", "adaption-report", "handoff"}
 CHANGE_KINDS = {"state_refresh", "evidence_correction", "method_change"}
@@ -181,9 +186,8 @@ def freeze_methods(root, as_of, revision=None):
     folder = Path(root) / "research/investment/weekly" / as_of / "evidence" / (stem + "-methods")
     folder.mkdir(parents=True, exist_ok=True)
     refs = {}
-    for role, name in (("canonical", "investment_framework.md"), ("compact", "investment_framework_compact.md")):
-        raw = (Path(root) / "framework" / name).read_bytes()
-        fingerprint = method_fingerprint(raw)
+    contents = stock_framework_bundle.capture(Path(root) / "framework")
+    for name, raw in contents.items():
         target = folder / name
         if target.exists():
             if target.read_bytes() != raw:
@@ -191,7 +195,9 @@ def freeze_methods(root, as_of, revision=None):
         else:
             with target.open("xb") as stream:
                 stream.write(raw)
-        refs[role] = {**file_ref(root, target), "method_sha256": fingerprint}
+        if name in stock_framework_bundle.CORE:
+            role = ('canonical', 'compact')[stock_framework_bundle.CORE.index(name)]
+            refs[role] = {**file_ref(root, target), "method_sha256": method_fingerprint(raw)}
     return refs
 
 
@@ -223,6 +229,14 @@ def _method_pair(root, methods):
         if ref.get("method_sha256", fingerprint) != fingerprint:
             raise ValueError("Method fingerprint does not match frozen content")
         result.append(fingerprint)
+    paths = [_path(root, methods[role]['path']) for role in ('canonical', 'compact')]
+    maps = [stock_framework_bundle.dependency_map(path.read_bytes()) for path in paths]
+    if any(mapping is not None for mapping in maps):
+        if maps[0] != maps[1] or paths[0].parent != paths[1].parent:
+            raise ValueError('method pair dependency closure differs')
+        contents = {name: path.read_bytes() for name, path in zip(stock_framework_bundle.CORE, paths)}
+        contents.update({name: (paths[0].parent / name).read_bytes() for name in stock_framework_bundle.DEPENDENCIES})
+        stock_framework_bundle.validate(contents)
     return tuple(result)
 
 
@@ -335,7 +349,7 @@ def validate_handoff(record, root):
             report_raw = _check_ref(root, completion["report"])
             if meta["schema_version"] == "stock-research/v4":
                 text = report_raw.decode("utf-8")
-                # audit-v3/v4 only belong to controls-v6/v7, whose existing
+                # audit-v3/v4/v5 only belong to controls-v6/v7/v8, whose existing
                 # delivery contracts require both gates. audit-v2 spans older
                 # frozen contracts, so do not infer new requirements by date.
                 strict = extract_audit(text)["schema_version"] in CAPITAL_SCHEMAS

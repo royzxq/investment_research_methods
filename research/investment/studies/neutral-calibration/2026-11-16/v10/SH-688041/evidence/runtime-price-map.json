@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "schema_version": "stock-research/v4",
+    "code": "688041.SH",
+    "name": "海光信息",
+    "valuation_date": "2026-11-16",
+    "currency": "CNY",
+    "report_path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SH-688041/investment-688041-2026-11-16-research-codex.md",
+    "generator": "codex"
+  },
+  "price_map": {
+    "mode": "frozen",
+    "reason": "同截止R6财报窗口冻结；资本桥纠错后V50/P1可估但仅供观察，原entry/add限制和持仓现金/利率复评均保留。",
+    "v50": {
+      "low": 14.51,
+      "base": 45.11,
+      "high": 102.45
+    },
+    "p1": {
+      "base": 38.83
+    },
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    }
+  },
+  "research_controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "R8_AI_2027",
+        "R3_TIGHT_202611",
+        "R4_STANDALONE_202611",
+        "R5_DUAL_202611",
+        "R20_DOMESTIC_202611",
+        "R6_NBS_20261116",
+        "R6_NVDA_FY27Q3",
+        "R6_FOMC_20261029",
+        "R6_CNPRICE_20261109",
+        "R6_USCPI_20261110",
+        "R6_NVDA_GOV_20261111"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "R8_AI_2027",
+        "R3_TIGHT_202611",
+        "R4_STANDALONE_202611",
+        "R5_DUAL_202611",
+        "R20_DOMESTIC_202611",
+        "R6_NBS_20261116",
+        "R6_NVDA_FY27Q3",
+        "R13_LEFT_ADD_202611",
+        "R14_COST",
+        "R6_FOMC_20261029",
+        "R6_CNPRICE_20261109",
+        "R6_USCPI_20261110",
+        "R6_NVDA_GOV_20261111"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD_CASH_Q3",
+        "HOLD_UST10Y_20261009"
+      ]
+    }
+  },
+  "monitoring": [
+    {
+      "id": "HOLD_CASH_Q3",
+      "kind": "thesis_invalidation",
+      "state": "triggered",
+      "variable": "经营现金与利润及占款转换",
+      "current": "2026年前三季OCF−24.4278亿元、归母28.4651亿元；应收60.2622、存货89.2138、预付58.8466亿元",
+      "as_of": "2026-09-30",
+      "trigger": "当前已显著弱于利润；后续正式披露继续核回款与库存/预付转化，未设任意单季硬阈值",
+      "action": "如持有立即复评并评估减仓；解释暂时占款/永久损失并形成处置记录才解除，确认核心现金证伪再退出",
+      "source": "海光信息2026三季报PDF pp1、6–12，2026-10-20披露；冻结原件input/evidence/sources/FIN-2026Q3.pdf；https://static.cninfo.com.cn/finalpage/2026-10-20/1225611145.PDF",
+      "public_search": "海光信息 2026 三季度报告 经营活动现金流 2442780168",
+      "next_check": "下一次正式业绩/2026年报披露时，具体披露日未取得"
+    },
+    {
+      "id": "MON_PROFIT_COST",
+      "kind": "general",
+      "state": "watching",
+      "variable": "毛利率与归母扣非及股份支付口径",
+      "current": "2026年前三季毛利率56.59%、归母扣非25.8424亿元；公司调整归母加回股份支付影响7.3943亿元",
+      "as_of": "2026-09-30",
+      "trigger": "后续报告成本/费用进一步挤压或调整利润增长不能由归母扣非与现金印证时复评",
+      "action": "核原文定义及成本/费用/资本化方向并重建盈利；原有资格须各自解除，单项毛利改善不代R14通过",
+      "source": "海光信息2026三季报p6、10；中报pp24–25成本解释；https://static.cninfo.com.cn/finalpage/2026-10-20/1225611145.PDF；https://static.cninfo.com.cn/finalpage/2026-08-14/1225472510.PDF",
+      "public_search": "海光信息 2026 半年度报告 原材料 存储配套辅料",
+      "next_check": "2026年度报告与正式业绩说明会"
+    },
+    {
+      "id": "MON_CAPITAL_FLOWS",
+      "kind": "general",
+      "state": "watching",
+      "variable": "回购实际支付与专项贷款履约",
+      "current": "2026-11-13专项贷款承诺最高7.2亿元、3年；5–8亿元回购计划用于员工激励，未核提款或实际回购支付",
+      "as_of": "2026-11-13",
+      "trigger": "正式借款合同、首次回购或回购进展公布实际金额/用途时更新",
+      "action": "同时核现金、债务、回购取得股份与员工权利；承诺不当到账，实付不当100%损失；无进展公告不推定恶化",
+      "source": "海光信息2026-044专项贷款承诺函公告pp1–2及2026-039回购报告；https://static.cninfo.com.cn/finalpage/2026-11-13/1225669717.PDF",
+      "public_search": "海光信息 2026 股票回购专项贷款 承诺函 7.2",
+      "next_check": "首次回购/回购进展/正式贷款相关公告"
+    },
+    {
+      "id": "MON_SHARE_RIGHTS",
+      "kind": "general",
+      "state": "watching",
+      "variable": "注销登记与激励实际归属股数",
+      "current": "2026-11-13公告注销520,125股后总股本2,323,817,966；剩余库存股4,205,191，登记独立确认待补",
+      "as_of": "2026-11-13",
+      "trigger": "股本变动确认或激励归属、作废、登记公告给出实际数量时核对",
+      "action": "实际交付所得与库存股、新发股配对，重算已有和新增激励成本，避免费用与稀释重复。",
+      "source": "海光信息2026-043注销公告pp1–3及2026-026限制股授予公告；https://static.cninfo.com.cn/finalpage/2026-11-13/1225669706.PDF",
+      "public_search": "海光信息 2026 043 注销 总股本",
+      "next_check": "注销登记/下一股份变动或激励归属公告"
+    }
+  ]
+}

@@ -35,17 +35,15 @@ def due_candidates(path, day):
 def collect(ai_root, exchange, candidate):
     # Use the installed AI repository and interpreter in this short-lived child.
     sys.path.insert(0, str(ai_root))
-    import share_data
+    from src.analysis.research_strategy import build_routed_pack
     from src.analysis.research_exchange import publish_request
     from src.decision.reeval_targets import ReevalTarget, research_trigger
 
     ticker, suffix = candidate['code'].split('.')
     market = 'HK' if suffix == 'HK' else 'A'
     day = candidate['research_on']
-    markdown, meta = share_data.build_pack(ticker, market, date=day.replace('-', ''),
-                                           years=5, with_macro=False)
-    if meta.get('missing_core'):
-        raise ValueError('candidate data pack missing core data: ' + ','.join(meta['missing_core']))
+    markdown, meta = build_routed_pack(ticker, market, candidate['code'], day.replace('-', ''),
+                                      Path(exchange).parent / day)
     target = ReevalTarget(candidate['name'], ticker, market, [SOURCE], day,
                           {SOURCE: {'research_on': day, 'order': candidate['order']}})
     pack = dict(market=market, code=ticker, name=target.name, sources=target.sources,

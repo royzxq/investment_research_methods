@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "schema_version": "stock-research/v4",
+    "code": "09988.HK",
+    "name": "阿里巴巴",
+    "valuation_date": "2026-11-09",
+    "currency": "HKD",
+    "generator": "codex",
+    "report_path": "research/investment/studies/valuation-revisions/2026-11-15-r5/09988-audit.md"
+  },
+  "price_map": {
+    "mode": "unavailable",
+    "reason": "隔离回归，关键资本/经营假设未闭合",
+    "v50": null,
+    "p1": null,
+    "t1": {
+      "price_condition": "未形成新报价；原持仓与卖出控制留在原报告，本隔离件不接执行"
+    }
+  },
+  "research_controls": {
+    "entry": {
+      "status": "unknown",
+      "refs": [
+        "VALUATION_INPUTS"
+      ]
+    },
+    "add": {
+      "status": "unknown",
+      "refs": [
+        "VALUATION_INPUTS"
+      ]
+    },
+    "holding": {
+      "status": "unknown",
+      "refs": [
+        "HOLDING_NOT_REASSESSED"
+      ]
+    }
+  },
+  "monitoring": []
+}

@@ -36,7 +36,7 @@ try:
     )
     from .research_paths import company_path, company_runs
     from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
-    from . import research_jev
+    from . import research_jev, stock_framework_bundle
     from . import research_consistency
     from . import research_harness, research_runtime, research_shared_evidence, research_dsh_metrics
 except ImportError:
@@ -47,14 +47,15 @@ except ImportError:
     )
     from research_paths import company_path, company_runs
     from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
-    import research_jev
+    import research_jev, stock_framework_bundle
     import research_consistency
     import research_harness, research_runtime, research_shared_evidence, research_dsh_metrics
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
 FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
-SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'
+SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'  # Exact legacy pair.
+BUNDLE_SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v2'
 OLD_TWO_PRICE_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
 SCOPED_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v2')
 ACCEPTANCE_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v3')
@@ -62,7 +63,13 @@ PUBLIC_MONITORING_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-p
 QUALITY_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v5')
 CAPITAL_CONTROLS_CONTRACT = dict(QUALITY_CONTROLS_CONTRACT, audit_schema='stock-research-audit/v3', prompt_template='two-price-controls/v6')
 VALUATION_CONTROLS_CONTRACT = dict(CAPITAL_CONTROLS_CONTRACT, audit_schema='stock-research-audit/v4', prompt_template='two-price-controls/v7')
-NEW_CONTRACT = VALUATION_CONTROLS_CONTRACT
+INPUT_BRIDGES_CONTRACT = dict(VALUATION_CONTROLS_CONTRACT, audit_schema='stock-research-audit/v5', prompt_template='two-price-controls/v8')
+AVAILABILITY_CONTRACT = dict(INPUT_BRIDGES_CONTRACT, audit_schema='stock-research-audit/v6', prompt_template='two-price-controls/v9')
+NEUTRAL_CONTRACT = dict(AVAILABILITY_CONTRACT, audit_schema='stock-research-audit/v7', prompt_template='two-price-controls/v10')
+NEW_CONTRACT = NEUTRAL_CONTRACT
+
+# Accept existing v9 bundles as well as freshly prepared v10 bundles.
+BUNDLE_CONTRACTS = (AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT)
 
 
 def delivery_contract(snapshot):
@@ -71,14 +78,14 @@ def delivery_contract(snapshot):
         if snapshot.get('research_validation') not in (None, research_consistency.LEGACY_SCHEMA):
             raise ValueError('new audit requires a frozen delivery contract')
         return dict(price_schema='stock-research/v3', audit_schema=snapshot.get('research_validation'), prompt_template='report-quotes/v3')
-    if contract not in (VALUATION_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, QUALITY_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, SCOPED_CONTROLS_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
+    if contract not in (NEUTRAL_CONTRACT, AVAILABILITY_CONTRACT, INPUT_BRIDGES_CONTRACT, VALUATION_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, QUALITY_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, SCOPED_CONTROLS_CONTRACT, OLD_TWO_PRICE_CONTRACT) or snapshot.get('research_validation') != contract['audit_schema']:
         raise ValueError('unsupported frozen delivery contract')
     return dict(contract)
 
 
 def validate_delivery_monitoring(document, contract):
-    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT):
-        validate_monitoring_delivery(document, quality=contract in (QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT))
+    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
+        validate_monitoring_delivery(document, quality=contract in (QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT))
 
 
 def verified_legacy_writer(manifest, *, meta, output):
@@ -250,16 +257,11 @@ def read_request(path):
 
 
 def framework_hashes(root):
-    return {name: sha((Path(root) / 'framework' / name).read_bytes()) for name in FRAMEWORKS}
+    return {name: sha(raw) for name, raw in framework_bytes(root).items()}
 
 
 def framework_bytes(root):
-    """Capture one stable pair, never hash a different read from the saved bytes."""
-    paths = {name: Path(root) / 'framework' / name for name in FRAMEWORKS}
-    contents = {name: path.read_bytes() for name, path in paths.items()}
-    if contents != {name: path.read_bytes() for name, path in paths.items()}:
-        raise ValueError('framework changed while preparing snapshot; retry preparation')
-    return contents
+    return stock_framework_bundle.capture(Path(root) / 'framework')
 
 
 def make_legacy_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
@@ -344,7 +346,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                'entry/add=eligible|blocked|unknown，holding=normal|review_required|invalidated|exit_required|unknown。'
                'monitoring增加id/kind/state；控制refs绑定报告audit，scope分entry/add/holding，全部解除按scope合取；'
                '未知不允许新增，复评不等于失效或成交。新build默认v4，不可借旧writer绕过。\n\n')
-    if contract in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT):
+    if contract in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
         prefix += ('本批控制语义two-price-controls/v2：每条audit约束显式lifecycle=persistent/runtime/observation；'
                    '只有已触发持续研究限制或必要资格缺证可进入blocking/unknown。'
                    '纯现价相对P1/T1、最低收益由运行时判断，不制造永久价格阻断；'
@@ -354,7 +356,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '规则ID与具体事件/计划实例稳定；同义ID必须有证据映射，不自动去重；'
                    '每项解除注明必要合取/合法替代路径/仅触发复评。多来源不同主张的解除用clearance.covers列出其内容SHA256；'
                    '不能只因日期过去、跌价或另一个来源缺席解除。\n\n')
-    if contract in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT):
+    if contract in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
         prefix += ('本批验收语义two-price-controls/v3：读取 '
                    '.agents/skills/stock-research/references/acceptance-gates.md，'
                    '在报告保留唯一 stock-research-acceptance/v1 验收输入及由 '
@@ -365,7 +367,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '规则内部合法替代路径和复评阶段保留，不得以大部分解除或价格到位代替全部必要解除证据。'
                    '正文与结构化验收及审计一致；检查失败回原稿定向修正，不改投资方法或历史报告。'
                    '本批发布前强制 research_consistency.py check --require-lifecycle --require-acceptance。\n\n')
-    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT):
+    if contract in (PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
         prefix += ('本批监控摘要two-price-controls/v4：monitoring只留0–7个公开可查核心变量，不凑数，按估值/逻辑失效影响排序、同义去重。'
                    '每项public_search填写本轮实际使用的通用搜索检索词，source定位机构、文档/指标、披露期及章节或URL；'
                    '必须已通过普通搜索找到并读到无需内部权限或付费订阅的公开原文，搜索摘要、URL及模型声明不等于已核验。'
@@ -374,7 +376,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '每项一两句保留当前值/期间、触发、动作和公开查询路径，不重复估值推导。'
                    '无合格项monitoring=[]，报告说明缺口；完整研究条件、全部有效/未知风险及解除证据继续留报告/audit，'
                    '不得因不可公开核验或七项上限解除、合并、截断任何research_controls或refs。\n\n')
-    if contract in (QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT):
+    if contract in (QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
         prefix += ('本批研究质量two-price-controls/v5：按stock-research的估值输出契约核对财务定义与调节表。'
                    '采用调整后利润须区分公司披露定义、研究调整及预测假设；股份支付等项目先查原文加回/扣除方向，'
                    '算术闭合不证明口径正确。影响估值的口径冲突须回原文裁决，不能用任意折扣或改标签掩盖。'
@@ -385,7 +387,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '不先提供拟采用结论；无法独立核验则主代理复查并披露方式，结果留现有底稿/报告，不另建打分表。'
                    '发布前运行stock_price_map.py check <JSON> --require-monitoring-quality；'
                    '程序只拦无效来源/检索占位与排版重复，公开性、口径含义及触发方向仍须逐项语义核验。\n\n')
-    if contract in (CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT):
+    if contract in (CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
         prefix = prefix.replace('stock-research-audit/v2', 'stock-research-audit/v3').replace('审计v2按', '审计v3按')
         prefix = prefix.replace('利润×PE＝权益价值', '利润×真实PE＋独立权益调整＝权益价值')
         prefix = prefix.replace('不再同ID扣价', '不再对同一期间、范围的经济损失扣价（不同ID也不得重复）')
@@ -404,7 +406,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '可用独立核验者复核损失归属和资金桥，不先给目标价；无独立能力则主代理反向复核并记录局限。'
                    '程序只验证算术、ID归属和冻结版本，跨ID经济同义、来源与假设仍须语义复核。'
                    '正式报价文件由属主处理，研究只忠实提取最终明确报价；发布前另强制--expected-schema stock-research-audit/v3。\n\n')
-    if contract == VALUATION_CONTROLS_CONTRACT:
+    if contract in (VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
         prefix = prefix.replace('stock-research-audit/v3', 'stock-research-audit/v4').replace('审计v3按', '审计v4按')
         prefix = prefix.replace('真正非PE模型仍用other保留专项计算', '支持范围内的持续经营非金融FCFF使用dcf_fcff；其它模型用other保留专项计算与覆盖限制')
         prefix += ('本批估值依据与预期校验two-price-controls/v7：执行canonical §4.1D及§5.2A。'
@@ -417,6 +419,73 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    'audit-v4新增valuation_review；dcf_fcff按research-consistency.md填写逐年分部、terminal、权益桥，scripts/research_valuation.py复算。'
                    '反向case与同一模型和市场价绑定，程序核回代；other不能掩盖受支持的FCFF，模型有效性和原文真实性仍需人工核验。'
                    '旧冻结v1–v6仍按其原prompt/input/hash恢复，不追补新字段。正式报价及latest不由审计更新。\n\n')
+    if contract in (INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
+        prefix = prefix.replace('stock-research-audit/v4', 'stock-research-audit/v5').replace('audit-v4新增', 'audit-v5接续').replace('审计v4按', '审计v5按')
+        prefix += ('本批输入依据与投入闭合two-price-controls/v8：执行canonical §4.1B–D及research-consistency.md的新合同。'
+                   '长期利润率从已披露利润、竞争恢复和费用路径桥接，区分年化、管理层目标和研究假设；不能以目标利润率反推费用。'
+                   '收入/营运资本、CapEx/资产投用/寿命/折旧、现金税逐项联动；必要投入是实现预测所需条件，不是拍定上限。'
+                   'cash_tax按税务主体和可用亏损/抵扣核算；合并亏损不证明无税，也不自动产生退款。'
+                   '终值invested_capital为显式期末生产性资本，纯税务敏感性固定该资本，再投资=capital×g；不再固定ROIC让投入机械随税变。'
+                   '资本资产与普通股请求权、期权/LP/NCI/限制资金/预提税成对；未行权不能当不存在，已计成本也不等于请求权已结清。'
+                   'input_basis五项记录证据日期、resolved/bounded/unresolved/not_applicable、影响范围及缺口。'
+                   '未决影响V50则正式V50/P1均null，影响P1则P1=null；条件诊断放独立底稿，不转成正式报价。'
+                   '未知折扣value/range=null，总乘数null，不默认为0；不同risk ID的同一损失使用同一economic_key，重复键拒绝。'
+                   '同估值日同数据包先比较等价模型，再单列correction及假设/模型变化，披露顺序和交互，不按旧价或现价校准。'
+                   '仅新冻结采用v8；旧v1–v7字节及合同不变。算术与声明审计不证明证据真实、假设中性或投资准确。\n\n')
+    if contract in (AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT):
+        prefix = prefix.replace('stock-research-audit/v5', 'stock-research-audit/v6').replace('audit-v5接续', 'audit-v6接续').replace('审计v5按', '审计v6按')
+        prefix = prefix.replace('条件诊断放独立底稿，不转成正式报价。', '条件诊断及限制在正式报告可见，不能冒充正式报价。')
+        prefix = prefix.replace('仅新冻结采用v8；旧v1–v7字节及合同不变。', '本批接续v8输入桥；旧冻结合同不改。')
+        prefix += ('本批估值可用性复核two-price-controls/v9：执行canonical §4.1D。'
+                   '未来参数允许以截止内事实为锚作研究假设；未披露精确值、存在风险或数据有缺口，不单独构成unresolved。'
+                   '先检查缺口的重要性、保守边界与替代方法；能支持有依据且联动自洽的中性区间即bounded，可采纳V50和观察P1。'
+                   '不能仅以没有逐主体明细、完美资本拆分或确定远期预算判不可估；同类证据可支持合理代理，披露差异与敏感性。'
+                   '未触发既有硬否决时优先观察；已触发freeze且可估保留frozen观察价，其他资格限制按实际scope观察；rejected须引用已触发硬否决。'
+                   '风险由现金流/资本桥/独立折扣计价一次；下跌不能自动解除治理、偿付或必要资格约束。'
+                   'audit-v6在valuation_review增加availability_review；V50/P1均有值时该项可为null，任一价格留空必须填decision_reason、attempts、diagnostic_summary、next_evidence。'
+                   'attempts按相关输入合组，覆盖全部unresolved，列inputs、method、bounds_or_failure、impact、conclusion；没有未决输入但因硬否决留空时可为空列表并说明硬否决。'
+                   '优先量化敏感性，无法量化则说明传导/重要性和不能设界的具体原因，不强造数字。'
+                   '即使正式价格不能采用，也展示可用条件估值、固定条件和失效边界；无法形成任何条件结果须解释，下一证据须具体。'
+                   '仅新冻结采用v9/audit-v6；旧v1–v8保持原合同及字节。验证检查完成性与算术，不能证明假设可信或强迫出价。\n\n')
+    if contract == NEUTRAL_CONTRACT:
+        prefix = prefix.replace('stock-research-audit/v6', 'stock-research-audit/v7')
+        prefix = prefix.replace('仅新冻结采用v9/audit-v6；旧v1–v8保持原合同及字节。', '本批接续v9可用性复核；旧冻结合同不改。')
+        prefix += ('本批中性校准two-price-controls/v10：执行canonical §4.1D已给价中性校准，audit-v7接续v6全部字段，valuation_review新增neutral_review。'
+                   '任何已采纳V50均须中性校准，P1留空也不能跳过；V50留空时neutral_review可null，继续原availability_review。'
+                   '按stock-research/references/research-consistency.md的audit-v7精确契约写assumptions、capital_bridge、risk_pricing、joint_case、sensitivities。'
+                   '五项覆盖投入/现金回收/终值/资本成本/普通股归属；给截止内依据、反证、替代和取舍。生产资产逐年滚动并接终值IC，明确现金购建与资产增加/集团与归母差异。'
+                   '逐风险定位现金流、资本桥、资本成本及P1，额外折现补偿说明独立残余；联合乐观或悲观假设均须依据和替代组合。'
+                   '敏感性优先复算，不能量化保留原因而非编数；不确定但可设界仍给有界估值/观察，不为格式撤回报价，也不为接近别端或市价调参数。'
+                   '仅新冻结v10/audit-v7适用，旧v1–v9提示/合同不变，结构算术通过不证明经济中性。\n\n')
+    if set(frameworks) == set(stock_framework_bundle.BUNDLE):
+        prefix += ('本批采用股票策略拆分依赖包：前文只列两份框架的阅读要求扩展为本批快照内全部六份文件，'
+                   '不得读取工作区现行方法替代冻结依赖。先按stock_research_common.md的C0和用户持有目的'
+                   '确定dividend/non_dividend，在报告§0声明理由；有分红不自动路由。'
+                   'dividend读dividend_framework_compact.md、dividend_framework.md及dividend_report_template.md，'
+                   'non_dividend读原investment框架；两者均完整执行共享基础规则及适用原风险。'
+                   '同公司一套基准/P1/T1；路由变化逐条审议旧控制，不自动解除。'
+                   f'红利完整九节按独立模板，JSON仍v4/{"audit-v7" if contract == NEUTRAL_CONTRACT else "audit-v6"}；不强套成长K或缺拥挤三值即冻结。'
+                   '红利台账/利差/压力现金流放报告，不扩轻量JSON。全部六份冻结哈希须在§0绑定。\n\n')
+    if 'research_route' in task.get('data_pack_meta', {}):
+        route = task['data_pack_meta']['research_route']
+        # New explicit routing metadata only. Old requests retain byte-identical
+        # prompts and their original holding-purpose contract on recovery.
+        if set(frameworks) != set(stock_framework_bundle.BUNDLE):
+            raise ValueError('automatic research route requires full strategy framework bundle')
+        try:
+            from .dividend_data import validate_route
+        except ImportError:
+            from dividend_data import validate_route
+        validate_route(route, task['code'], request['valuation_date'])
+        skill = 'dividend-research' if route['strategy'] == 'dividend' else 'stock-research'
+        prefix = prefix.replace('使用 stock-research 技能进行股票复研', f'使用 {skill} 技能进行股票复研', 1)
+        prefix = prefix.replace('先按stock_research_common.md的C0和用户持有目的确定dividend/non_dividend，在报告§0声明理由；有分红不自动路由。',
+                                '本任务按已校验的research_route自动选轨，不再按持有目的重选；在报告§0声明冻结规则及证据。')
+        prefix += ('本任务冻结的自动路由（优先于skill默认人工路由）：' + json.dumps(route, ensure_ascii=False)
+                   + f'。唯一主策略为{route["strategy"]}，执行{skill}。阈值单位是百分点，严格大于才进红利。'
+                   '这是研究分工，不是可持续分红/买入资格结论；质量不足须在已选轨内作出否定或缺口判断，不静默换轨。'
+                   '不要按运行时行情或当前配置重算；新证据引发的路由变化留下一批明确复评，旧约束逐项接续。'
+                   '报告§0披露股息率、国债利率、利差、观测日期、阈值和规则版本；红利补充数据的缺口继续取证。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
         result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)
@@ -528,6 +597,16 @@ def freeze_maintenance(run, root, as_of):
             for item in value:
                 collect(item)
     collect(selected['record'])
+    # Maintenance still uses its pair schema; follow the signed closure too.
+    for role in ('canonical', 'compact'):
+        descriptor = selected['record']['methods'][role]
+        _, body = _artifact(dict(path=descriptor['path'], sha256=descriptor['sha256']), root, 'maintenance method')
+        dependencies = stock_framework_bundle.dependency_map(body) or {}
+        for name, digest in dependencies.items():
+            relative = (Path(descriptor['path']).parent / name).as_posix()
+            previous = references.setdefault(relative, digest)
+            if previous != digest:
+                raise ValueError('maintenance framework dependency hash disagreement')
     sources = []
     for relative, digest in sorted(references.items()):
         _, raw = _artifact(dict(path=relative, sha256=digest), root, 'maintenance source')
@@ -544,12 +623,14 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
     folder = run / 'framework-snapshot'
     if folder.exists():
         raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
+    stock_framework_bundle.validate(contents)
     folder.mkdir()
     for name, raw in contents.items():
         write_new(folder / name, raw)
         (folder / name).chmod(0o444)
     maintenance = freeze_maintenance(run, root, as_of)
-    document = dict(schema_version=SNAPSHOT_SCHEMA, captured_at=stamp(),
+    schema = BUNDLE_SNAPSHOT_SCHEMA if set(contents) == set(stock_framework_bundle.BUNDLE) else SNAPSHOT_SCHEMA
+    document = dict(schema_version=schema, captured_at=stamp(),
                     origin='legacy_exact_hash_migration' if legacy_inputs is not None else 'prepared',
                     frameworks={name: dict(path=name, sha256=sha(raw))
                                 for name, raw in contents.items()},
@@ -569,14 +650,39 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
         baselines = {}
         for task in research_request['tasks']:
             code, market = task['code'].split('.')
+            specified = {}
+            revision = task['data_pack_meta'].get('historical_valuation_revision')
+            if revision is not None:
+                references = revision.get('original_reports') if isinstance(revision, dict) else None
+                if not isinstance(references, list) or not references:
+                    raise ValueError('historical revision baseline references required')
+                parent = Path(root).resolve()/'research/investment/companies'/as_of/task['task_id']
+                for reference in references:
+                    if (not isinstance(reference, dict) or set(reference) != {'generator', 'path', 'sha256'}
+                            or any(not isinstance(reference[k], str) or not reference[k] for k in reference)
+                            or reference['generator'] not in GENERATORS
+                            or reference['generator'] in specified):
+                        raise ValueError('invalid or duplicate historical revision baseline')
+                    producer = reference['generator']
+                    source = (Path(root)/reference['path']).resolve(strict=True)
+                    pattern = rf'investment-{re.escape(code)}-{re.escape(as_of)}-research-{producer}(?:-r(?:[2-9]|[1-9][0-9]+))?\.md'
+                    if source.parent != parent or not re.fullmatch(pattern, source.name):
+                        raise ValueError('historical revision baseline security/date/producer or root mismatch')
+                    raw = source.read_bytes()
+                    if sha(raw) != reference['sha256']:
+                        raise ValueError('historical revision baseline hash mismatch')
+                    specified[producer] = (source.relative_to(Path(root).resolve()).as_posix(), raw)
             for generator in research_request['generators']:
                 key = task['task_id'] + '/' + generator
-                history = company_runs(market, code, as_of, root, generator=generator)
+                history = [] if generator in specified else company_runs(market, code, as_of, root, generator=generator)
                 baselines[key] = None
-                if history:
-                    price = _strict_json(history[-1].read_bytes(), 'baseline price map')
-                    original = price['meta']['report_path']
-                    raw = owned_path(root, original).read_bytes()
+                if generator in specified or history:
+                    if generator in specified:
+                        original, raw = specified[generator]
+                    else:
+                        price = _strict_json(history[-1].read_bytes(), 'baseline price map')
+                        original = price['meta']['report_path']
+                        raw = owned_path(root, original).read_bytes()
                     target = 'research-baselines/' + task['task_id'] + '-' + generator + '.md'
                     write_new(folder / target, raw)
                     (folder / target).chmod(0o444)
@@ -650,12 +756,17 @@ def migrate_legacy_prepared(run, request, raw, packs, root):
 def snapshot_hashes(run):
     folder = run / 'framework-snapshot'
     document = _strict_json((folder / 'manifest.json').read_bytes(), 'framework snapshot')
-    if (not isinstance(document, dict) or document.get('schema_version') != SNAPSHOT_SCHEMA
-            or set(document.get('frameworks', {})) != set(FRAMEWORKS)
+    expected = (stock_framework_bundle.BUNDLE if isinstance(document, dict)
+                and document.get('schema_version') == BUNDLE_SNAPSHOT_SCHEMA else FRAMEWORKS)
+    if (not isinstance(document, dict) or document.get('schema_version') not in (SNAPSHOT_SCHEMA, BUNDLE_SNAPSHOT_SCHEMA)
+            or not isinstance(document.get('frameworks'), dict)
+            or set(document['frameworks']) != set(expected)
             or document.get('origin') not in ('prepared', 'legacy_exact_hash_migration')):
         raise ValueError('framework snapshot manifest mismatch')
     frameworks = {}
-    delivery_contract(document)
+    contract = delivery_contract(document)
+    if expected == stock_framework_bundle.BUNDLE and contract not in BUNDLE_CONTRACTS:
+        raise ValueError('strategy bundle requires the current frozen delivery contract')
     research_shared_evidence.enabled(document)
     if document.get('research_validation') not in (None, *research_consistency.SUPPORTED_SCHEMAS):
         raise ValueError('unsupported prepared research validation contract')
@@ -665,12 +776,15 @@ def snapshot_hashes(run):
         for baseline in document['research_baselines'].values():
             if baseline is not None:
                 _artifact(dict(path=baseline['path'], sha256=baseline['sha256']), folder, 'research baseline')
-    for name in FRAMEWORKS:
+    frozen_contents = {}
+    for name in expected:
         descriptor = document['frameworks'][name]
         if not isinstance(descriptor, dict) or descriptor.get('path') != name:
             raise ValueError('framework snapshot path mismatch')
         _, body = _artifact(descriptor, folder, 'framework snapshot ' + name)
         frameworks[name] = sha(body)
+        frozen_contents[name] = body
+    stock_framework_bundle.validate(frozen_contents)
     maintenance = document.get('maintenance')
     if maintenance is not None:
         if not isinstance(maintenance, dict) or set(maintenance) != {'handoff', 'sources'}:
@@ -843,7 +957,7 @@ def _recovery_inputs(request, raw, packs, parent_run, root):
             raise ValueError('recovery snapshot dependency path collision')
         files[relative] = body
 
-    for name in FRAMEWORKS:
+    for name in snapshot['frameworks']:
         copy_artifact(snapshot['frameworks'][name], 'recovery parent framework')
     maintenance = snapshot.get('maintenance')
     if maintenance is not None:
@@ -1533,8 +1647,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     audit_result = research_consistency.validate_report(
                         report_raw.decode('utf-8'), document, root=root,
                         expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
-                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT),
-                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT))
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT),
+                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT))
                 if frozen['evidence_workflow'] is not None:
                     if generator == 'codex':
                         process['shared_evidence'] = research_shared_evidence.freeze(folder, request, task)
@@ -1583,8 +1697,8 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     validate_delivery_monitoring(document, frozen['delivery'])
                     audit_result = research_consistency.validate_report(report_raw.decode('utf-8'),
                         document, root=root, expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
-                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT),
-                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT))
+                        require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT),
+                        require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT))
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))
                     write_new(folder / 'runner/research-validation.json', encode(audit_result))
                 if generator == 'dsh' and profile.get('tools', {}).get('evidence_context'):

@@ -1,0 +1,299 @@
+{
+  "schema": "r4-sources/v1",
+  "scope": "targeted historical evidence; not exhaustive announcement scan",
+  "sources": [
+    {
+      "id": "alibaba_business/BC1",
+      "url": "https://data.alibabagroup.com/ecms-files/1567773279/9a0e4864-83fe-4a69-aa1e-e5c14f5b2e73/EN%20Jun%202026%20Q%20-%20Alibaba%20Earnings%20Call.pdf",
+      "details_file": "evidence/alibaba_business/handoff.json",
+      "first_publication_date": null,
+      "event_date": "2026-08-20",
+      "site_reported_date": "2026-08-27",
+      "read_status": "read_original_selected_pages",
+      "local_path": "evidence/alibaba_business/sources/june2026-call.pdf",
+      "sha256": "3e003216cdf8b780861f2c861cff5b090b500787b22de01ebd56bbc63a7b36b5"
+    },
+    {
+      "id": "alibaba_business/BC2",
+      "url": "https://data.alibabagroup.com/ecms-files/1508695866/9e0f30c9-651f-41f9-a269-90db4b7d0dd7/EN%20Mar%202026%20Q%20-%20Alibaba%20Earnings%20Call.pdf",
+      "details_file": "evidence/alibaba_business/handoff.json",
+      "first_publication_date": null,
+      "event_date": "2026-05-13",
+      "site_reported_date": "2026-05-23",
+      "read_status": "read_original_selected_pages",
+      "local_path": "evidence/alibaba_business/sources/march2026-call.pdf",
+      "sha256": "adaab17803e2aa884ff61ddabe5f6103f071154ebd9dbcb693542b75979eb29b"
+    },
+    {
+      "id": "alibaba_business/BR1",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000745.pdf",
+      "details_file": "evidence/alibaba_business/handoff.json",
+      "first_publication_date": "2026-08-20",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_original_selected_pages",
+      "local_path": "09988/sources/june2026.pdf",
+      "sha256": "20f681e2561f5af21de9a513e3233160e1492fcbcdfdf69c0b2676aa7c44924a"
+    },
+    {
+      "id": "alibaba_business/BA1",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0618/2026061800844.pdf",
+      "details_file": "evidence/alibaba_business/handoff.json",
+      "first_publication_date": "2026-06-18",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_original_selected_pages",
+      "local_path": "09988/sources/annual2026.pdf",
+      "sha256": "cfd546af210e57bbf687c4c34eba6826fa61b6cf2c4c54638a703c1d74ed4cc7"
+    },
+    {
+      "id": "alibaba_business/BW1",
+      "url": "https://www.alibabagroup.com/en-US/document-2027233133950140416",
+      "details_file": "evidence/alibaba_business/handoff.json",
+      "first_publication_date": "2026-08-20",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_original_web_article",
+      "local_path": "evidence/alibaba_business/sources/monetization-20260820.html",
+      "sha256": "ccd4ff25a6fba9369a4aac160aea06786311229dc6ff839944d888046d65a80d"
+    },
+    {
+      "id": "alibaba_business/BW2",
+      "url": "https://www.alibabagroup.com/en-US/document-2041268239081668608",
+      "details_file": "evidence/alibaba_business/handoff.json",
+      "first_publication_date": "2026-09-25",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_original_web_article",
+      "local_path": "evidence/alibaba_business/sources/apsara-20260925.html",
+      "sha256": "90428141fe4d30e016f906c194386fa75f8b2ca19a9f2fd80dda6ad811d7f934"
+    },
+    {
+      "id": "alibaba_business/BI1",
+      "url": "https://www.alibabagroup.com/en-US/ir-financial-reports-quarterly-results",
+      "details_file": "evidence/alibaba_business/handoff.json",
+      "first_publication_date": null,
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_metadata",
+      "local_path": "evidence/alibaba_business/sources/quarterly-index-browser-agent.html",
+      "sha256": "b904912e5e8880c07584ce7e1505f6b033542e87fe3f599119da785de7923fcb"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S1",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0618/2026061800844.pdf",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2026-06-18",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_original",
+      "local_path": "09988/sources/annual2026.pdf",
+      "sha256": "cfd546af210e57bbf687c4c34eba6826fa61b6cf2c4c54638a703c1d74ed4cc7"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S2",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000745.pdf",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2026-08-20",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_original",
+      "local_path": "09988/sources/june2026.pdf",
+      "sha256": "20f681e2561f5af21de9a513e3233160e1492fcbcdfdf69c0b2676aa7c44924a"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S3",
+      "url": "https://data.alibabagroup.com/ecms-files/1567773279/9a0e4864-83fe-4a69-aa1e-e5c14f5b2e73/EN%20Jun%202026%20Q%20-%20Alibaba%20Earnings%20Call.pdf",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": null,
+      "event_date": "2026-08-20",
+      "site_reported_date": null,
+      "read_status": "read_original",
+      "local_path": "evidence/alibaba_business/sources/june2026-call.pdf",
+      "sha256": "3e003216cdf8b780861f2c861cff5b090b500787b22de01ebd56bbc63a7b36b5"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S4",
+      "url": "https://12366.chinatax.gov.cn/bzds/058/058-5-1.html",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2020-03-23",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/primary_final.json",
+      "sha256": "af8a0b73425c024c7b836cefcf99264ec4124fec8147edbc5ae9e589b5606c13"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S5",
+      "url": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5202426/content.html",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2018-07-11",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/primary_final.json",
+      "sha256": "af8a0b73425c024c7b836cefcf99264ec4124fec8147edbc5ae9e589b5606c13"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S6",
+      "url": "https://www.chinatax.gov.cn/chinatax/n810341/n810765/c102408/202301/c5196137/content.html",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2023-03-26",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/tax_full.json",
+      "sha256": "96265cb7535418d9c73211f5c08c6c3fb95e6e01fd7750679c454150c9fcfb52"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S7",
+      "url": "https://shanghai.chinatax.gov.cn/zcfw/zcfgk/qysds/202309/t468599.html",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2023-09-07",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/tax_full.json",
+      "sha256": "96265cb7535418d9c73211f5c08c6c3fb95e6e01fd7750679c454150c9fcfb52"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S8",
+      "url": "https://www.alibabacloud.com/blog/603595",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2026-09-23",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/primary_final.json",
+      "sha256": "af8a0b73425c024c7b836cefcf99264ec4124fec8147edbc5ae9e589b5606c13"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S9",
+      "url": "https://home.alibabagroup.com/en-US/document-1830678592242057216",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2025-02-24",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/capex_plan_read.json",
+      "sha256": "55a96c64a8d71b38f27c70678ed23e306f72d5bcbf4731c61b8611b8a8ba5a78"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-S10",
+      "url": "https://home.alibabagroup.com/en-US/document-1911884625546838016",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": "2025-09-29",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/capex_plan_read.json",
+      "sha256": "55a96c64a8d71b38f27c70678ed23e306f72d5bcbf4731c61b8611b8a8ba5a78"
+    },
+    {
+      "id": "alibaba_cloud_tax/CT-X1",
+      "url": "https://stbrain.kjt.zj.gov.cn/CarrierList.aspx?Code=HT",
+      "details_file": "evidence/alibaba_cloud_tax/source_index.json",
+      "first_publication_date": null,
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "read_official_web_body",
+      "local_path": "evidence/alibaba_cloud_tax/sources/tax_full.json",
+      "sha256": "96265cb7535418d9c73211f5c08c6c3fb95e6e01fd7750679c454150c9fcfb52"
+    },
+    {
+      "id": "xiaomi_capital/S1",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0923/2026092300296.pdf",
+      "details_file": "evidence/xiaomi_capital/handoff.json",
+      "first_publication_date": "2026-09-23",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "R2原件只读；全文文本精读指定页；并非全报告逐页审阅",
+      "local_path": "01810/sources/interim-2026.pdf",
+      "sha256": "e27b604854c08d2ca3eefffebabef647ae2a8dde92d4e08d5580746ab4dbfdce"
+    },
+    {
+      "id": "xiaomi_capital/S2",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042800526.pdf",
+      "details_file": "evidence/xiaomi_capital/handoff.json",
+      "first_publication_date": "2026-04-28",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "原始PDF及文本已读指定页；PDF349、391渲染图目检",
+      "local_path": "evidence/xiaomi_capital/sources/xiaomi-annual-2025.pdf",
+      "sha256": "b787f0290513e48a95078ed2a68dc1e240da68d204e5dd9aedc59b66a7c75ec2"
+    },
+    {
+      "id": "xiaomi_capital/S3",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2020/1218/2020121800220_c.pdf",
+      "details_file": "evidence/xiaomi_capital/handoff.json",
+      "first_publication_date": "2020-12-18",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "原始PDF下载；全文文本精读指定页",
+      "local_path": "evidence/xiaomi_capital/sources/xiaomi-bond-20201218.pdf",
+      "sha256": "bdfc73b4099e05a2c63df62556561647ca503451a2416028d0dc16e9864ed148"
+    },
+    {
+      "id": "xiaomi_capital/S4",
+      "url": "https://static.sse.com.cn/disclosure/bond/announcement/company/c/new/2026-04-13/245028_20260413_ZK01.pdf",
+      "details_file": "evidence/xiaomi_capital/handoff.json",
+      "first_publication_date": "2026-04-13",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "官方HTTPS超时，使用同官方域名路径HTTP下载；全文文本精读指定页",
+      "local_path": "evidence/xiaomi_capital/sources/sse-bond-http.pdf",
+      "sha256": "11b044b97c0d84460cc6407064ad65131602271794c95b82b90bc42f0d30c04e"
+    },
+    {
+      "id": "xiaomi_capital/S5",
+      "url": "https://static.sse.com.cn/disclosure/bond/announcement/company/c/new/2026-04-30/245028_20260430_9RHD.pdf",
+      "details_file": "evidence/xiaomi_capital/handoff.json",
+      "first_publication_date": "2026-04-30",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "同官方路径HTTP下载；101页扫描件完整Vision OCR；PDF53/65/66/73图像目检关键表格",
+      "local_path": "evidence/xiaomi_capital/sources/sse-audit-http.pdf",
+      "sha256": "69e08aaad5273dffb5a984444aebfdcb4137f00ca10c7c712a77ddd363ce1011"
+    },
+    {
+      "id": "xiaomi_capital/S6",
+      "url": "https://static.sse.com.cn/disclosure/bond/announcement/company/c/new/2026-08-30/241298_20260830_9GJY.pdf",
+      "details_file": "evidence/xiaomi_capital/handoff.json",
+      "first_publication_date": "2026-08-30",
+      "event_date": null,
+      "site_reported_date": null,
+      "read_status": "同官方路径HTTP下载；8页完整Vision OCR；PDF1/2/4/8图像目检；半年财报未经审计",
+      "local_path": "evidence/xiaomi_capital/sources/sse-h1-http.pdf",
+      "sha256": "8bdd477750800344582e8cf728a62beb24d92cc836085d080d65e9c1aeb08539"
+    },
+    {
+      "id": "root/25",
+      "url": "https://ir.mi.com/static-files/bdeea0b9-246c-45be-8cb4-ab4faaddf80a",
+      "local_path": "evidence/root/presentation-read.json",
+      "sha256": "9081f1dab5df653c5480cfe701b504a198055a7ce0a5e5696eab319cac6c68f6",
+      "location": "PDF6/30–34; expenses PDF32",
+      "read_status": "official_pdf_text_via_web; local_download_failed; no_root_image_verification",
+      "document_date": null
+    },
+    {
+      "id": "root/26",
+      "url": "https://12366.chinatax.gov.cn/bzds/058/058-5-1.html",
+      "local_path": "evidence/root/primary-read.json",
+      "sha256": "d27b4e52f3428c5ad112f9d969a14e3920f8a313458a7e3e444415e442990a82",
+      "location": "Articles41,50,52",
+      "read_status": "official_web_text",
+      "document_date": "2020-03-23"
+    },
+    {
+      "id": "root/27",
+      "url": "https://indiankanoon.org/doc/94384175/",
+      "local_path": "evidence/root/primary-read.json",
+      "sha256": "d27b4e52f3428c5ad112f9d969a14e3920f8a313458a7e3e444415e442990a82",
+      "location": "WP31389/31421/31425; common order",
+      "read_status": "court_text_mirror; official_site_copy_not_obtained",
+      "document_date": "2026-09-22"
+    }
+  ],
+  "double_source_status": "Some facts have only a company/filing source; independent rereading is not independent second sourcing. No blanket dual-source pass.",
+  "time_limitations": "Official mutable call/presentation pages may attribute pre-cutoff events, but first upload and immutable pre-cutoff bytes are not proven; see report and per-source metadata."
+}

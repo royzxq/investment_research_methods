@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "name": "中芯国际",
+    "code": "688981.SH",
+    "currency": "CNY",
+    "valuation_date": "2026-11-16",
+    "generator": "codex",
+    "report_path": "research/investment/studies/neutral-calibration/2026-11-16/v10/SH-688981/investment-688981-2026-11-16-research-codex.md",
+    "schema_version": "stock-research/v4"
+  },
+  "price_map": {
+    "mode": "frozen",
+    "reason": "冻结证据下可估V50；仅修正分组营运资本现金衔接。R6事件及事后复评冻结接续，P1独立融资残余仍未决；新建与加仓均受限。",
+    "v50": {
+      "low": 4.13,
+      "base": 11.71,
+      "high": 29.04
+    },
+    "p1": null,
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    }
+  },
+  "research_controls": {
+    "entry": {
+      "status": "blocked",
+      "refs": [
+        "R3_NO_CUT_20261116",
+        "R6_CN_ACTIVITY_20261116",
+        "R6_FOMC_20261028",
+        "R6_US_CPI_20261110",
+        "P1_TAIL_20261116"
+      ]
+    },
+    "add": {
+      "status": "blocked",
+      "refs": [
+        "R3_NO_CUT_20261116",
+        "R6_CN_ACTIVITY_20261116",
+        "R6_FOMC_20261028",
+        "R6_US_CPI_20261110",
+        "R14_COST_20261116",
+        "P1_TAIL_20261116"
+      ]
+    },
+    "holding": {
+      "status": "review_required",
+      "refs": [
+        "HOLD_CASH_ATTRIBUTION_2026Q3"
+      ]
+    }
+  },
+  "monitoring": [
+    {
+      "id": "M_PRODUCT_MARGIN",
+      "kind": "general",
+      "state": "watching",
+      "variable": "晶圆收入、利用率与毛利兑现",
+      "current": "2026Q3利用率97.3%、IFRS毛利率29.9%；Q4管理层指引收入环比+4%至+6%、毛利率26%至28%",
+      "as_of": "2026-11-12",
+      "trigger": "Q4正式结果低于其已披露指引范围，或利用率回落同时净产品组合/成本无法解释时",
+      "action": "复评利润持续性并重建经营桥；单季低于29.9%本身不是失效，恢复须实际结果及成本解释闭合",
+      "source": "中芯国际2026Q3 IFRS业绩公布，PDF2/4–7：https://www.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200683_c.pdf；本轮复读input/evidence同名冻结原件，检索词接续上轮实际记录，本轮未联网。",
+      "next_check": "2026Q4业绩正式公告及管理层指引更新，确切披露日未取得",
+      "public_search": "中芯国际 2026 第三季度 97.3 资本支出 1094.3"
+    },
+    {
+      "id": "M_CASH_CAPEX",
+      "kind": "general",
+      "state": "watching",
+      "variable": "经营现金与现金购建及资本承诺",
+      "current": "2026前三季度OCF286.25494亿元、现金购建291.41761亿元，差额−5.16267亿元；H1承诺410.13287亿元",
+      "as_of": "2026-11-12",
+      "trigger": "后续财报按同长度累计同比或单季环比核算，现金购建后缺口扩大或OCF显著弱于同口径利润时",
+      "action": "复评融资与项目回收；解除相应复评须付款/投用/回收闭合，不能只看经营指标CapEx下降",
+      "source": "中芯国际2026Q3 CAS PDF16–17及H1 PDF163：https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200706_c.pdf；https://static.cninfo.com.cn/finalpage/2026-08-28/1225520297.PDF；本轮复读input/evidence同名冻结原件，检索词接续上轮实际记录，本轮未联网。",
+      "next_check": "2026年报现金流量表、固定资产与承诺附注",
+      "public_search": "中芯国际 2026 半年度 资本开支 税项"
+    }
+  ]
+}

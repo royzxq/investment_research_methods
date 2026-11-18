@@ -1,0 +1,45 @@
+{
+  "status": "complete",
+  "valuation_date": "2026-11-16",
+  "actual_run_date": "2026-11-17",
+  "trial_runs": 6,
+  "post_review_corrections": 1,
+  "original_report_and_index_changes": 0,
+  "adopted_summary": {
+    "SZ-002475": {
+      "v50_base": 31.15,
+      "p1": 23.67,
+      "raw_v10_base": 31.31,
+      "raw_uplift_adopted": false
+    },
+    "SH-688981": {
+      "v50_base": 11.71,
+      "p1": null
+    },
+    "SH-688041": {
+      "v50_base": 45.11,
+      "p1": 38.83
+    }
+  },
+  "artifacts": {
+    "research/investment/studies/neutral-calibration/2026-11-16/investment-2026-11-16-neutral-calibration-comparison-codex.md": "af63252a349eca1c387df3b6924fc03fb52dac6fdd56af8b29e91b26ba842062",
+    "research/investment/studies/neutral-calibration/2026-11-16/comparison.json": "ef92d2b50fab077f34c7048b6f104abf043f803721a9c902736cd9af76caee48",
+    "research/investment/studies/neutral-calibration/2026-11-16/reviewed/SZ-002475/review-decision.json": "62665d27cf8d8cd455084386e3e40383e56b7a2a5443bac8aa1d62834f951632",
+    "research/investment/studies/neutral-calibration/2026-11-16/reviewed/SZ-002475/reviewed-model.json": "1b217b2966a125d68bd8a90e4e04a1bd78f4ade142b1497d972bcef53620a829",
+    "docs/context/project-state.md": "3ac24767ced4ff5d0575577ada2457e817d268088223b351d54175e70cc94aea"
+  },
+  "validation": [
+    "1410 offline tests passed under documented Conda interpreter",
+    "six original trials validated against frozen audit contracts; not a semantic approval",
+    "independent FCFF reproductions and seven archived programs passed",
+    "independent source/scope review withdrew Luxshare extra FV addition",
+    "116 protected originals unchanged, 228 frozen input checks passed",
+    "local report links and all attribution sums passed"
+  ],
+  "limits": [
+    "one trial per arm; not causal effect or refusal-rate proof",
+    "DSH original reports not rerun",
+    "all final research prices remain frozen / entry and add blocked",
+    "Luxshare correction is a host mechanical review supplement, not another model run or production v4 delivery"
+  ]
+}

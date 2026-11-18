@@ -1,5 +1,7 @@
 # 股票研究框架适配（阶段③）
 
+股票策略拆分后，canonical包括非红利、红利与共享基础规则；定向适配按授权范围选择，涉及共享规则须检查两轨。红利模板属于冻结依赖，修改后显式同步stock_framework_bundle，再验证；不能只改股票两份而遗漏依赖。
+
 只处理变化报告指定的正文修改范围；没有方法变化仍可能有状态/证据修订，不能仅凭旧 `update_needed=no` 拒绝。无需改正文时直接返回无正文变更，独立 handoff 仍由完整流程完成。单阶段到此结束，不自动精简、提交或开 PR。
 
 - 输入 `AS_OF_DATE`、`CURRENT_STOCK_RESEARCH_FRAMEWORK` 现行已采纳 canonical 全文、完整 `FRAMEWORK_UPDATE_RESULT`，读取 `projects/investment_adaption/INSTRUCTIONS.md`。

@@ -1,0 +1,16 @@
+{
+  "legacy_report_pairs": 162,
+  "report_failures": [],
+  "legacy_prompt_contracts": 8,
+  "prompt_hashes_unchanged": true,
+  "prompt_hashes": {
+    "two-price/v1": "95d4562e2154dea92d5057c1e0bb2c5fcb906e442af591ca66cde2637009ba5c",
+    "two-price-controls/v2": "d7974951f4290986ed47708f77a01eb8353492ad1222cdea7f192dcf6f0ca7f6",
+    "two-price-controls/v3": "ee969d31cbe8f204aa2ab7cff8387adf38fe19ab7ffe95875d600938e44ce3de",
+    "two-price-controls/v4": "444d5cac9933d2b8d446f05f8d5f6534dacce29cf48ee8f8c5ce9cd3e10c2338",
+    "two-price-controls/v5": "9c635f68f830e1e9721b54339394d4b711f4a0e47fd4d20d457aaeea12a8406f",
+    "two-price-controls/v6": "fa2473b1c4ffe45870b7a63a5323710c64dab0c0257cd330d693e7c419a4e60a",
+    "two-price-controls/v7": "029c564eadc1588b72cc198a574bce5f10eae88d967a22d1427ed8ebb4c5e29d",
+    "two-price-controls/v8": "599460e7d4c916ddb7f582febfef920ac47cb62241bacf2323425db901e4f88b"
+  }
+}

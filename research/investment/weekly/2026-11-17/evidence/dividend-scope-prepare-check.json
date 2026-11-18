@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "operation": "prepare_and_verify_only",
+  "provider_executed": false,
+  "account_execution": "none",
+  "batch_id": "10f7c04e88374034b7a25e0d8a5734c2",
+  "snapshot_schema": "stock-framework-snapshot/v2",
+  "delivery_contract": {
+    "price_schema": "stock-research/v4",
+    "audit_schema": "stock-research-audit/v6",
+    "prompt_template": "two-price-controls/v9"
+  },
+  "framework_sha256": {
+    "investment_framework.md": "3df284881be5a6585f1b4e8ec6903d251155098b35b0752e88aabbbcf75eedda",
+    "investment_framework_compact.md": "581287776eb0cb93e243624d7e603c3491439c2ea2174f76ac8839513a1255b7",
+    "stock_research_common.md": "75c024a6639d9f6870b02213147e7aedc37fd28dcc64e0afac4e42ec6a93ffac",
+    "dividend_framework.md": "a9c886232b38df58bd4151b39c5221d18be772fb7bd0485beb08994da5f955c0",
+    "dividend_framework_compact.md": "4db35e2b94f6aa097e61bfa85257713689249b1b38dffe2d575ac86f48a45539",
+    "dividend_report_template.md": "a3c209dcff23809ee7f0c9342c9b417d00c03c32f9d9b97c7aa3d0baf9cfb3de"
+  },
+  "maintenance_handoff_sha256": "141819dfce962f2949c557f9a4a6538b62db6135db749ffe65f5dd57aa6677cb",
+  "frozen_dependency_count": 6,
+  "maintenance_dependencies_mirrored": true,
+  "run_path": "output/runs/investment/2026-11-17/10f7c04e88374034b7a25e0d8a5734c2"
+}

@@ -43,3 +43,9 @@ python3 scripts/investment_maintenance.py validate research/investment/weekly/20
 两个方法指纹均相同时，可接续不同状态字节版本；只凭版本标签相同不够。正文其他差异默认需审查，受影响判断重评。确属兼容澄清时可新增 compatibility 项，包含 status=adopted、reason、对方两份不可变 methods、review 报告 ref；审查说明阈值/逻辑/适用对象/动作/例外/解除条件是否改变。helper 只验证该凭证完整，不证明语义等价。
 
 事件触发或按需 refresh 只补有关证据，不强制每日全市场研究。新证据更新受影响观察和复评队列，不凭状态变化重置公司研究历史。R21 辅助 `evaluate_repair_exit(observations,trading_days,calendar=...)` 只计算已定义的深化退出：提供权威完整交易日历并校验连续三个 A 股交易日；研究流程另核实所选窗口截至 AS_OF 是最新可用的完整三日，helper 不把全年日历末尾当当前窗口。三个交易日中各日成交>1.6万亿元、完整两融日变动>-150亿元、科创50官方收盘>=1516.2。缺口 unknown；融资代理、盘中指数、混日数据拒绝。输出 met 仅可回等待复核，旧独立重建路径及逐股买入检查照常，不由 helper 代替。
+
+输入桥方法（canonical §4.1D / controls-v8 / audit-v5）采纳后，按新正文哈希建立新handoff；继续带回原pending、撤回证据及原触发/截止，不重写历史或冒称旧估值等价。五类输入补证及未决范围从元研究经变化检测接框架适配；隔离诊断/条件区间不是公司completed凭证。新audit-v5完成报告同v3/v4强制lifecycle和acceptance；旧合同仍按自身版本检查，不因新入口补字段。
+
+2026-11-16可用性复核（canonical §4.1D / controls-v9 / audit-v6）仅用于新冻结。沿用五类输入及lifecycle/acceptance，任一正式V50/P1留空须有报告可见availability_review；有依据bounded可用，核心unresolved仍限制对应价格。新方法明确采纳后建立匹配正文的新handoff，旧pending/触发日期/撤回证据原样接续；方法修改不自动完成或取消个股复评，旧完成凭证按原审计核验。
+
+2026-11-17中性校准接续：新controls-v10/audit-v7保留v6可用性复核，所有已采纳V50须完成neutral_review；完成凭证仍核lifecycle/acceptance，旧冻结v1–v9不追补，隔离对照不清除pending。新方法以明确采纳和正文指纹接续，不更新历史市场证据。

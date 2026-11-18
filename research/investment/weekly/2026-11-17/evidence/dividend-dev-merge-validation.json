@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "governance": "passed",
+  "shared_4.1D_matches_dev": true,
+  "observations_match_both_branches": true,
+  "historical_method_bytes_preserved": true,
+  "handoff": "investment-2026-11-17-handoff-r4",
+  "prepared_snapshots": [
+    {
+      "batch": "f3cb417269a6461ba1fa93f021764fb3",
+      "contract": "two-price-controls/v9"
+    },
+    {
+      "batch": "10f7c04e88374034b7a25e0d8a5734c2",
+      "contract": "two-price-controls/v9"
+    },
+    {
+      "batch": "c000963708b849c7a206ae0bb60c6175",
+      "contract": "two-price-controls/v10"
+    }
+  ],
+  "ddm_audit_v7": true,
+  "full_regression": {
+    "test_count": 1442,
+    "duration_seconds": 313.173,
+    "status": "passed",
+    "log": "output/dividend-framework-review-2026-11-17/dividend-dev-full.log",
+    "command": "python3 -m unittest discover -s tests -v"
+  },
+  "targeted_tests": 47,
+  "skill_validation": [
+    "stock-research",
+    "dividend-research",
+    "deep-research-auto",
+    "investment-weekly-review",
+    "framework-condense"
+  ],
+  "futures_governance": "passed",
+  "prepared_provider_execution": false
+}

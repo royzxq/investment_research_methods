@@ -1,6 +1,6 @@
 ---
 name: framework-condense
-description: 依据本仓股票或期货 canonical 保真维护 compact，核对规则、数值、逻辑、例外、稳定编号和当期状态；用于适配后的精简版同步或独立定向整理。
+description: 依据本仓股票（含红利及共享规则）或期货 canonical 保真维护 compact，核对规则、数值、逻辑、例外、稳定编号和当期状态；用于适配后的精简版同步或独立定向整理。
 ---
 
 # 框架保真维护
@@ -12,6 +12,8 @@ canonical 保存完整有效规则，compact 是同一框架的详略表达；�
 不设压缩比例、目标字数或硬体积上限。只要求 compact 维护时不改 canonical 规则；用户同时授权 canonical 治理时才在该范围处理。实际标的研究可用 compact 导航，方法修订、参数核对及歧义裁决仍回 canonical。
 
 期货 v3 主版本重构按已完成的 canonical 与迁移记录承接 T / V、G1–G6 和新稳定标识。明确退休的 A–H、加权评分、旧冻结不再作为 compact 有效规则补回；旧编号保留在历史及迁移映射，不能误称新旧方法语义等价。此项不改变股票框架的编号、评分或保真要求。
+
+股票拆分后的保真范围包括非红利canonical/compact、红利canonical/compact与共享stock_research_common.md；红利保留HD1–HD8，原R/D不重编号；R9为已迁出索引，不能为了编号齐全补回非红利有效规则。HD4A承接原分红模型与公式，定向核完整定义和compact的数字/边界。共享正文为唯一完整定义，compact摘要不能替代其数值、例外与解除条件。模板也在依赖集合中；变更审完显式运行stock_framework_bundle.py --sync，再用investment_framework_governance.py检查全部依赖。只做compact定向整理时不顺带改变共享方法。
 
 完成七项自审后，更新 compact 当前方法/状态日期；将覆盖核对、数值/引用检查、尺寸统计、抽检、歧义和验证限制写入适配报告的“精简版同步”（期货 §9、股票 §8），独立维护则按用户授权交付核对记录。报告链接完整框架，不粘贴全文；未完整核验不能声称“100%语义等价”。
 

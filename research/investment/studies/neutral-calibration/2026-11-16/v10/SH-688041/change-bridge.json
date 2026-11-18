@@ -1,0 +1,365 @@
+{
+  "schema_version": "neutral-calibration-change-bridge/v1",
+  "identity": {
+    "code": "688041.SH",
+    "generator": "codex",
+    "model": "gpt-6-astra/xhigh",
+    "valuation_date": "2026-11-16",
+    "run_date": "2026-11-17",
+    "evidence_cutoff": "2026-11-16T05:38:12.789327+08:00",
+    "currency": "CNY",
+    "amount_unit": "100_million",
+    "shares": 2319612775
+  },
+  "baseline": {
+    "path": "input/prior-codex.md",
+    "sha256": "b9d69eccb8e6a5bff3d96b5e096127feb478fba487db639e4e16e88916d3928f"
+  },
+  "old_price": {
+    "mode": "frozen",
+    "reason": "证据截止已处于存在实质暴露的R6窗口，独立保留建仓/追加冻结；V50和P1只作观察。R14仍未知，持仓现金复评开放。",
+    "v50": {
+      "low": 14.04,
+      "base": 44.6,
+      "high": 101.93
+    },
+    "p1": {
+      "base": 38.32
+    },
+    "t1": {
+      "price_condition": "接近V50上沿时复核"
+    }
+  },
+  "recomputed_old_price": {
+    "low": 14.037604677743147,
+    "base": 44.59908666223147,
+    "high": 101.92868400017679
+  },
+  "new_price": {
+    "low": 14.509947190710967,
+    "base": 45.10810782722498,
+    "high": 102.4541755575752
+  },
+  "new_p1": 38.83,
+  "old_model_exact_reproduction": true,
+  "unchanged_categories": [
+    {
+      "category": "investment",
+      "delta_v50": 0,
+      "reason": "Retain cash CapEx and 3/6 year cohort assumptions; validate rollforward, disclose cash/addition gap."
+    },
+    {
+      "category": "cash_recovery",
+      "delta_v50": 0,
+      "reason": "Retain revenue, NWC and taxes; historical 72.29% versus Q3 100.10% support bounded 75% terminal ratio, not proof."
+    },
+    {
+      "category": "terminal",
+      "delta_v50": 0,
+      "reason": "Retain 2033 transition, 2.5% growth and 26% margin; explicitly test alternatives."
+    },
+    {
+      "category": "capital_cost",
+      "delta_v50": 0,
+      "reason": "Retain CNY WACC 9.75%; no new rate observations or reduction in risk premium."
+    },
+    {
+      "category": "capital_scope_existing",
+      "delta_v50": 0,
+      "reason": "Retain economic shares, NCI, employee claims and uncalled capital paired net-loss proxy."
+    },
+    {
+      "category": "other_corrections",
+      "delta_v50": 0,
+      "reason": "Correct R14 locator to H1 PDF p32, and provenance/old stale risk text; no cash-flow effect."
+    }
+  ],
+  "single_changes_fixed_other_factors": [
+    {
+      "category": "capital_scope",
+      "id": "restricted_assets",
+      "kind": "correction",
+      "old_v50": 44.59908666223147,
+      "alternative_v50": 44.8580994865982,
+      "delta_v50": 0.25901282436672296,
+      "mechanism": "Add 7.3341266666 consolidated restricted monetary claims paired with deducted financing; same NCI percentage; book recovery is bounded assumption."
+    },
+    {
+      "category": "capital_scope",
+      "id": "nonoperating_equity",
+      "kind": "correction",
+      "old_v50": 44.59908666223147,
+      "alternative_v50": 44.849095002858256,
+      "delta_v50": 0.25000834062678495,
+      "mechanism": "Add 6.2991282486 book value less 0.4999028409 estimated income tax; parent attribution from OCI; no NCI second deduction."
+    }
+  ],
+  "sequential_path": [
+    {
+      "step": 0,
+      "change": "reproduce prior model",
+      "v50": 44.59908666223147,
+      "increment": 0
+    },
+    {
+      "step": 1,
+      "change": "restricted assets paired with debt",
+      "v50": 44.8580994865982,
+      "increment": 0.25901282436672296
+    },
+    {
+      "step": 2,
+      "change": "parent investment net tax",
+      "v50": 45.10810782722498,
+      "increment": 0.2500083406267813
+    }
+  ],
+  "joint_change": {
+    "delta_v50": 0.5090211649935042,
+    "sum_single_deltas": 0.5090211649935079,
+    "interaction": -3.6767895810592465e-15,
+    "explanation": "Two additive asset adjustments at fixed operating parameters; ordering independent to floating precision. NCI allocation and investment tax are recomputed inside their own bridges. This zero interaction does not generalize to operating scenarios."
+  },
+  "p1_bridge": {
+    "old_exact": 38.322203023625,
+    "new_v50_old_discount": 38.75958445647668,
+    "new_v50_rebased_discount": 38.8312241886185,
+    "old_discount": {
+      "value": 0.14074018345138053,
+      "range": [
+        0.07364116869506085,
+        0.14074018345138053
+      ],
+      "risk_ids": [
+        "TERMINAL_CASHFORM_DELAY"
+      ],
+      "reason": "保持本体基准利率、产出及显式期现金路径，独立延迟普通股对应终值一至两年形成风险缓冲区间；遵循D1/R18从严取上沿。到期日并非已披露。",
+      "change": {
+        "kind": "initial",
+        "reason": "旧同端仅有留空记录，本次第一次建立可复算价格。",
+        "evidence": [
+          "FIN-2026Q3 p6–12",
+          "FIN-2025FY p32",
+          "本报告§5终值时点敏感性"
+        ]
+      }
+    },
+    "new_discount_range": [
+      0.07281016701296372,
+      0.1391520048379876
+    ],
+    "classification": "model_change: preserve absolute terminal cash timing loss; re-express against changed ordinary equity denominator; no new evidence or release"
+  },
+  "unresolved": [
+    "9/30 deposit and restricted asset legal entities/release dates",
+    "minority cash ownership versus profit-share proxy",
+    "unvested employee-service overlap and actual vesting",
+    "cash CapEx versus productive additions, utilization and disposal forecast",
+    "company oil/price/hedging stress bridge",
+    "executable orders and long-run TAM",
+    "R22 ETF return/capacity and account data"
+  ],
+  "combined_operating_paths": {
+    "low": {
+      "parameters": {
+        "total26": 208.104,
+        "growth": [
+          0.25,
+          0.2,
+          0.15,
+          0.1,
+          0.08,
+          0.06,
+          0.04
+        ],
+        "margins": [
+          0.196,
+          0.194,
+          0.2,
+          0.205,
+          0.21,
+          0.213,
+          0.216,
+          0.218
+        ],
+        "wc": [
+          1.02,
+          1.02,
+          1.0,
+          0.98,
+          0.96,
+          0.94,
+          0.93,
+          0.92
+        ],
+        "capex": [
+          6.4,
+          0.11,
+          0.108,
+          0.106,
+          0.105,
+          0.103,
+          0.101,
+          0.1
+        ],
+        "tax": [
+          0.1,
+          0.1,
+          0.12,
+          0.14,
+          0.15,
+          0.15,
+          0.16,
+          0.16
+        ],
+        "wacc": 0.1125,
+        "g": 0.02,
+        "tm": 0.215,
+        "tt": 0.17,
+        "nci": 0.296809,
+        "deposits": 60.27056357,
+        "reserve": 10.0,
+        "award": 26.2,
+        "claims_loss": 1.84749
+      },
+      "old_v50": 14.037604677743147,
+      "new_v50": 14.509947190710967,
+      "change": 0.4723425129678199,
+      "method": "Full joint-path recalculation with that path's revenue, margin, investment, NWC, tax, WACC, NCI and capital claims; not a sum of one-factor sensitivities."
+    },
+    "base": {
+      "parameters": {
+        "total26": 220.632,
+        "growth": [
+          0.35,
+          0.28,
+          0.22,
+          0.17,
+          0.13,
+          0.09,
+          0.06
+        ],
+        "margins": [
+          0.216,
+          0.217,
+          0.225,
+          0.233,
+          0.241,
+          0.249,
+          0.255,
+          0.26
+        ],
+        "wc": [
+          0.95,
+          0.94,
+          0.91,
+          0.87,
+          0.83,
+          0.8,
+          0.77,
+          0.75
+        ],
+        "capex": [
+          6.0,
+          0.099,
+          0.097,
+          0.096,
+          0.094,
+          0.092,
+          0.09,
+          0.088
+        ],
+        "tax": [
+          0.07,
+          0.08,
+          0.09,
+          0.1,
+          0.11,
+          0.12,
+          0.12,
+          0.13
+        ],
+        "wacc": 0.0975,
+        "g": 0.025,
+        "tm": 0.26,
+        "tt": 0.13,
+        "nci": 0.180803,
+        "deposits": 61.607402,
+        "reserve": 7.5,
+        "award": 24.5,
+        "claims_loss": 0.923745
+      },
+      "old_v50": 44.59908666223147,
+      "new_v50": 45.10810782722498,
+      "change": 0.5090211649935042,
+      "method": "Full joint-path recalculation with that path's revenue, margin, investment, NWC, tax, WACC, NCI and capital claims; not a sum of one-factor sensitivities."
+    },
+    "high": {
+      "parameters": {
+        "total26": 227.738,
+        "growth": [
+          0.45,
+          0.36,
+          0.28,
+          0.22,
+          0.16,
+          0.11,
+          0.07
+        ],
+        "margins": [
+          0.23,
+          0.238,
+          0.253,
+          0.269,
+          0.282,
+          0.292,
+          0.298,
+          0.302
+        ],
+        "wc": [
+          0.91,
+          0.89,
+          0.83,
+          0.78,
+          0.74,
+          0.71,
+          0.68,
+          0.66
+        ],
+        "capex": [
+          5.5,
+          0.09,
+          0.089,
+          0.089,
+          0.087,
+          0.086,
+          0.085,
+          0.084
+        ],
+        "tax": [
+          0.05,
+          0.06,
+          0.07,
+          0.08,
+          0.09,
+          0.1,
+          0.1,
+          0.11
+        ],
+        "wacc": 0.0875,
+        "g": 0.03,
+        "tm": 0.3,
+        "tt": 0.11,
+        "nci": 0.128711,
+        "deposits": 62.94424029,
+        "reserve": 5.0,
+        "award": 20.0,
+        "claims_loss": 0.0
+      },
+      "old_v50": 101.92868400017679,
+      "new_v50": 102.4541755575752,
+      "change": 0.5254915573983999,
+      "method": "Full joint-path recalculation with that path's revenue, margin, investment, NWC, tax, WACC, NCI and capital claims; not a sum of one-factor sensitivities."
+    }
+  }
+}

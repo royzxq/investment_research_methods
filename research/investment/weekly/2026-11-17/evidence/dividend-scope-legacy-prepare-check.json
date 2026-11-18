@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "operation": "verify_existing_prepared_only",
+  "provider_executed": false,
+  "snapshot_schema": "stock-framework-snapshot/v2",
+  "dependency_count": 6,
+  "run_path": "output/runs/investment/2026-11-17/f3cb417269a6461ba1fa93f021764fb3",
+  "note": "Old frozen six-file v2 remains verifiable after current scope migration; no claim of method equivalence."
+}
