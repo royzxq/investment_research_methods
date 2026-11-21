@@ -18,6 +18,7 @@ except ImportError:
     from stock_price_map import SUPPORTED_SCHEMAS, validate_document
 
 ROOT = Path(__file__).resolve().parents[1]
+AI_WATCHLIST_DIR = Path("research/investment/tracking/ai-business")
 WEEKLY_KINDS = {"market-research", "change-decision", "adaption-report", "execution-audit"}
 GENERATORS = ("codex", "claude", "dsh", "coze")
 

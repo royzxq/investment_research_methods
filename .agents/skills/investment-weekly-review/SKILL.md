@@ -17,6 +17,8 @@ description: 维护本仓 A 股与港股研究框架，执行周度元研究、�
 
 新依赖通过 `python3 scripts/stock_framework_bundle.py --sync` 显式更新两份原框架的依赖哈希，再运行治理/回归；不得在prepare/check中自动重签。既有handoff的canonical/compact指纹据此传递绑定全部方法，不另起平行采纳协议；v4冻结八份文件（含普通股按各自条件选读的AI业务和创新药核心管线模板），旧v3七份、v2六份、v1两份均按原集合恢复，改动须核新旧方法兼容。共享或红利方法修订归入 `method_change`。分类和 `publish` 授权均不代替专项复评授权。
 
+完整周更覆盖[A 股和港股 AI 业务重点核验名单](../../../research/investment/tracking/ai-business/README.md)。研究与比较阶段提出有来源的名单变动；full/refresh 在已有状态采纳环节落实新增、更新或移出，保存完整新版本并纳入 handoff 的 dated evidence 引用。无变动沿用已生效版本，周报注明覆盖与缺口。
+
 ## 选择范围
 
 | 模式 | 读取与执行 | 结束边界 |

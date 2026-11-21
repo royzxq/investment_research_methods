@@ -1,0 +1,122 @@
+{
+  "available_at": "2026-11-21T10:32:03+08:00",
+  "entries": {
+    "688256.SH": {
+      "name": "寒武纪",
+      "business": "智能芯片",
+      "evidence": "三季报将收入增长与拓展人工智能应用市场联系起来。",
+      "check": "按产品代际核实际交付、应收回款与持续研发投入。",
+      "source_date": "2026-10-24",
+      "source_title": "2026 年第三季度报告，主要会计数据变动原因",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF"
+    },
+    "688041.SH": {
+      "name": "海光信息",
+      "business": "通用处理器与深算处理器",
+      "evidence": "年报披露深算处理器（DCU）可用于模型训练和推理，公司同时销售通用 CPU。",
+      "check": "区分 DCU 与 CPU 的销量及毛利，核流片和研发投入能否由交付回款覆盖。",
+      "source_date": "2026-04-08",
+      "source_title": "2025 年年度报告，主要产品",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-08/1225083088.PDF"
+    },
+    "601138.SH": {
+      "name": "工业富联",
+      "business": "AI 服务器及机柜",
+      "evidence": "半年报披露云服务商 AI 服务器收入及 GPU、ASIC 机柜出货增长。",
+      "check": "从机柜出货追至客户验收、毛利和营运资本占用，辨认高价值外购件的影响。",
+      "source_date": "2026-08-12",
+      "source_title": "2026 年半年度报告，云计算业务",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-12/1225468066.PDF"
+    },
+    "300308.SZ": {
+      "name": "中际旭创",
+      "business": "高速光模块",
+      "evidence": "半年报披露面向数据中心的 800G、1.6T 等高速光模块业务。",
+      "check": "核 AI 集群需求对应的代际出货、实现售价和良率，以及换代对现金流的影响。",
+      "source_date": "2026-08-22",
+      "source_title": "2026 年半年度报告，主营业务分析",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-22/1225491753.PDF"
+    },
+    "300502.SZ": {
+      "name": "新易盛",
+      "business": "高速光模块",
+      "evidence": "年报披露 1.6T 光模块已批量出货。",
+      "check": "核产品批量交付与客户验收、中国及泰国产能利用率和扩产回收期。",
+      "source_date": "2026-04-24",
+      "source_title": "2025 年年度报告，公司未来发展的展望",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-24/1225172598.PDF"
+    },
+    "688111.SH": {
+      "name": "金山办公",
+      "business": "办公订阅与内嵌 AI",
+      "evidence": "年报披露 WPS AI 功能与 WPS 365、个人订阅业务。",
+      "check": "核可归因于 AI 的付费转化、续费和每席净收入变化，扣除推理成本并与套餐对账。",
+      "source_date": "2026-03-26",
+      "source_title": "2025 年年度报告，主要业务及经营情况",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-03-26/1225032227.PDF"
+    },
+    "09988.HK": {
+      "name": "阿里巴巴-W",
+      "business": "AI 云与算力、模型及应用",
+      "evidence": "中期业绩分别披露 AI 云与算力、AI 实验室与应用业务。",
+      "check": "分开核第三方付费与集团内部需求，以利用率、设备投入和更新周期检验云现金流。",
+      "source_date": "2026-11-19",
+      "source_title": "截至 2026 年 9 月 30 日止六个月中期业绩",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111900874_c.pdf"
+    },
+    "09888.HK": {
+      "name": "百度集团-SW",
+      "business": "智能云、AI 应用及营销",
+      "evidence": "季度业绩分别披露智能云基础设施、AI 应用与 AI 原生营销。",
+      "check": "核智能云利用率及资本开支，并对照 AI 搜索带来的广告增量与被替代的收入。",
+      "source_date": "2026-11-16",
+      "source_title": "2026 年第三季度业绩，业务进展",
+      "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600627_c.pdf"
+    },
+    "00700.HK": {
+      "name": "腾讯控股",
+      "business": "内嵌 AI 与应用",
+      "evidence": "季度业绩披露模型升级、WorkBuddy 等 AI 产品进展。",
+      "check": "分别核营销转化改善与软件付费贡献，扣训练和推理开支，避免与原业务增长重复计量。",
+      "source_date": "2026-11-18",
+      "source_title": "2026 年第三季度业绩，业务回顾",
+      "source_url": "https://www.tencent.com/wp-content/uploads/2026/11/Tencent-Announces-2026-Third-Quarter-Results.pdf"
+    },
+    "00992.HK": {
+      "name": "联想集团",
+      "business": "AI 终端与基础设施",
+      "evidence": "中期业绩披露按公司定义统计的 AI 相关收入。",
+      "check": "拆分 AI PC 与基础设施的收入和毛利，核终端换机溢价及服务器资金占用。",
+      "source_date": "2026-11-19",
+      "source_title": "2026/27 财年中期业绩，财务摘要及业务回顾",
+      "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111900158_c.pdf"
+    },
+    "00020.HK": {
+      "name": "商汤-W",
+      "business": "生成式 AI 与算力服务",
+      "evidence": "年报披露生成式 AI 收入占比及业务发展。",
+      "check": "核已确认收入转回现金的速度，以及算力租赁、设备更新与持续研发支出。",
+      "source_date": "2026-04-27",
+      "source_title": "2025 年年度报告，管理层讨论与分析",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042700723_c.pdf"
+    },
+    "00100.HK": {
+      "name": "MiniMax",
+      "business": "开放平台与 AI 原生应用",
+      "evidence": "中报区分服务开发者及企业的开放平台与 AI 原生产品。",
+      "check": "平台核付费调用净价与单位推理成本，应用核订阅留存及获客成本，按披露口径对账。",
+      "source_date": "2026-09-30",
+      "source_title": "2026 年中期报告，第 4–5 页",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002173.pdf"
+    },
+    "02513.HK": {
+      "name": "智谱",
+      "business": "云端及本地部署模型服务",
+      "evidence": "中期业绩分别披露云端与本地部署业务。",
+      "check": "云端核付费规模、折后净价与推理成本，本地部署核项目验收和回款。",
+      "source_date": "2026-08-31",
+      "source_title": "2026 年中期业绩，第 20–21 页",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101539.pdf"
+    }
+  }
+}

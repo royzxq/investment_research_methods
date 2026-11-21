@@ -17,6 +17,8 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 新方法使用 `stock_research_common.md` + 适用策略 canonical/compact；读取文件前先定位快照。runner 的 `stock-framework-snapshot/v4` 冻结八份方法文件。普通策略仅当 AI 业务成败足以改变利润、现金流或对现价的解释时选读同批 `ai_business_supplement.md`；仅当少数核心管线的成败会明显改变公司整体估值时选读同批 `drug_pipeline_supplement.md`。分别判断适用性，结果并回原九节报告的一套估值。手工研究按所用框架正文的同一入口执行。旧 v3 只读原七份，含 AI 模板；旧 v2 仍只使用其六份冻结文件。旧 v1 快照仍仅原两份，不能套本次红利例外或现场补新依赖。依赖更改先审查并运行 `python3 scripts/stock_framework_bundle.py --sync`，再治理检查；研究运行器不会自动重签哈希。轻量 JSON v4、当前新交付为audit-v7、controls-v10，旧冻结仍按各自合同。
 
+确定主策略后按[AI 业务重点核验名单](../../../research/investment/tracking/ai-business/README.md)核验。手工任务用证券代码和估值证据截止时点查询；批次仅用任务提示中的冻结名单，历史批次不追补。名单内在 §0 写明 AI专项启用或跳过及具体理由；名单外也可根据实质暴露当次启用，并将新增线索留给周更。
+
 R9迁出和红利专题分流以冻结正文的 `stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6` 标记为准。未含标记的旧批次（包括早期六文件snapshot/v2）仍执行其原R9、分红条款及原合同；不能只凭snapshot/v2或今天的技能文本推定适用新版。
 
 ## 入口与边界

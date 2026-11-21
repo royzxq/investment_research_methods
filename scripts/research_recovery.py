@@ -205,7 +205,7 @@ def validate_completed(context, methods, folder):
 
     receipt = adapter.receipt(folder, _strict_json, already_written, runner.encode)
     actual = runner.accepted_entry(receipt, request, task, 'dsh', entry['started_at'],
-                                   entry['completed_at'], methods, frozen['frameworks'], frozen['targets'])
+                                   entry['completed_at'], methods, frozen['frameworks'], frozen['targets'], frozen['ai_watchlist'])
     require(actual == entry, 'recovery terminal receipt differs from result entry')
     if frozen['research_validation']:
         report = _contained_path(methods, entry['report']['path'], 'recovery report').read_bytes()
@@ -365,7 +365,7 @@ def staged_publication(context, methods, *, check_stopped=True):
             'publication restore requires the original completed candidate')
     candidate = candidates[0]
     actual = runner.accepted_entry(receipt, request, task, generator, candidate['started_at'],
-        candidate['completed_at'], staged, frozen['frameworks'], frozen['targets'])
+        candidate['completed_at'], staged, frozen['frameworks'], frozen['targets'], frozen['ai_watchlist'])
     require(actual == candidate and candidate['started_at'] == process['started_at']
             and _timestamp(candidate['completed_at'], 'native completion')
                 <= _timestamp(process['completed_at'], 'publication failure'),

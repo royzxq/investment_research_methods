@@ -36,7 +36,7 @@ try:
     )
     from .research_paths import company_path, company_runs
     from .stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
-    from . import research_jev, stock_framework_bundle
+    from . import research_jev, stock_ai_watchlist, stock_framework_bundle
     from . import research_consistency
     from . import research_harness, research_runtime, research_shared_evidence, research_dsh_metrics
 except ImportError:
@@ -47,7 +47,7 @@ except ImportError:
     )
     from research_paths import company_path, company_runs
     from stock_price_map import SCHEMA, validate_price_references, validate_t1_delivery, validate_monitoring_delivery
-    import research_jev, stock_framework_bundle
+    import research_jev, stock_ai_watchlist, stock_framework_bundle
     import research_consistency
     import research_harness, research_runtime, research_shared_evidence, research_dsh_metrics
 
@@ -334,7 +334,7 @@ def make_legacy_prompt(request, task, generator, pack, root, frameworks, targets
 
 def make_prompt(request, task, generator, pack, root, frameworks, targets, attempt=1,
                 *, snapshot=True, maintenance=None, research_validation=None, research_baseline=None,
-                delivery=None, evidence_workflow=None):
+                delivery=None, evidence_workflow=None, ai_watchlist=None):
     contract = NEW_CONTRACT if delivery is None else delivery
     payload = make_legacy_prompt(request, task, generator, pack, root, frameworks, targets, attempt,
         snapshot=snapshot, maintenance=maintenance, research_validation=research_validation,
@@ -498,12 +498,14 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '不要按运行时行情或当前配置重算；新证据引发的路由变化留下一批明确复评，旧约束逐项接续。'
                    '报告§0披露股息率、国债利率、利差、观测日期、阈值和规则版本；红利补充数据的缺口继续取证。\n\n')
     route = task.get('data_pack_meta', {}).get('research_route', {})
-    if stock_framework_bundle.AI_SUPPLEMENT in frameworks and route.get('strategy') != 'dividend':
+    if (stock_framework_bundle.AI_SUPPLEMENT in frameworks and route.get('strategy') != 'dividend'
+            and ai_watchlist is None):
         prefix += ('仅普通策略命中冻结框架的 AI 业务调用条件时，读取本批 ai_business_supplement.md '
                    '中的适用业务行并入原报告。其余任务直接跳过，无需填写或列为缺口。\n\n')
     if stock_framework_bundle.PIPELINE_SUPPLEMENT in frameworks and route.get('strategy') != 'dividend':
         prefix += ('仅普通策略中少数核心管线的成败会明显改变公司整体估值时，读取本批 drug_pipeline_supplement.md，'
                    '将可归属的管线增量并回原报告的一套公司估值。其余任务跳过。\n\n')
+    prefix += stock_ai_watchlist.instructions(ai_watchlist, route.get('strategy'))
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
         result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)
@@ -659,6 +661,10 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
                     frameworks={name: dict(path=name, sha256=sha(raw))
                                 for name, raw in contents.items()},
                     legacy_inputs=legacy_inputs, maintenance=maintenance)
+    if stock_framework_bundle.AI_SUPPLEMENT in contents and research_request is not None and legacy_inputs is None:
+        watchlists = stock_ai_watchlist.freeze(root, research_request)
+        if watchlists:
+            document['ai_watchlists'] = watchlists
     if evidence_workflow is not None:
         research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow))
         document['evidence_workflow'] = evidence_workflow
@@ -859,10 +865,11 @@ def verify_prepared(run, original_raw, root):
                 if legacy.get(key) != original:
                     raise ValueError('migrated legacy input history mismatch')
                 input_folder = run / 'framework-snapshot/legacy-inputs' / task['task_id'] / generator
+            ai_watchlist = (snapshot.get('ai_watchlists') or {}).get(task['task_id'])
             prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                                  frameworks, targets, maintenance=snapshot.get('maintenance'),
                                  research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot),
-                             evidence_workflow=snapshot.get('evidence_workflow'))
+                                 ai_watchlist=ai_watchlist, evidence_workflow=snapshot.get('evidence_workflow'))
             if (input_folder / 'prompt.txt').read_bytes() != prompt:
                 raise ValueError(f"prepared prompt mismatch: {task['task_id']} {generator}")
             record = _strict_json((input_folder / 'input.json').read_bytes(), 'input record')
@@ -876,6 +883,7 @@ def verify_prepared(run, original_raw, root):
                                                          research_validation=snapshot.get('research_validation'),
                                                          research_baseline=baseline, delivery=delivery_contract(snapshot),
                                                          evidence_workflow=snapshot.get('evidence_workflow'),
+                                                         ai_watchlist=ai_watchlist,
                                                          execution_profile=research_runtime.profile_for_plan(runtime_plan, generator),
                                                          execution_plan_sha256=(snapshot.get('execution_plan') or {}).get('sha256'))
     return request, raw, packs, verified
@@ -914,6 +922,7 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
         prompt = make_prompt(request, task, generator, packs[task['task_id']], root,
                              frameworks, targets, maintenance=snapshot.get('maintenance'),
                              research_validation=snapshot.get('research_validation'), research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             ai_watchlist=(snapshot.get('ai_watchlists') or {}).get(task['task_id']),
                              evidence_workflow=snapshot.get('evidence_workflow'))
         folder = run / 'execution' / task['task_id'] / generator
         write_new(folder / 'prompt.txt', prompt)
@@ -963,6 +972,9 @@ def _recovery_inputs(request, raw, packs, parent_run, root):
         profiles={'dsh': research_runtime.profile_for_plan(parent_plan, 'dsh')}), request, raw)
     plan_raw = research_runtime.canonical_bytes(plan)
     inherited = deepcopy(snapshot)
+    if 'ai_watchlists' in snapshot:
+        inherited['ai_watchlists'] = {t['task_id']: snapshot['ai_watchlists'][t['task_id']] for t in request['tasks']
+                                     if t['task_id'] in snapshot['ai_watchlists']}
     if research_shared_evidence.enabled(snapshot):
         inherited['evidence_parent_request'] = dict(path=(parent_run / 'request.json').relative_to(root).as_posix(), sha256=sha(parent_raw))
     inherited['execution_plan'] = dict(path=research_runtime.PLAN_FILENAME, sha256=sha(plan_raw))
@@ -1054,6 +1066,7 @@ def prepare_recovery_request(request_path, parent_run, root=ROOT):
         prompt = make_prompt(request, task, 'dsh', packs[task['task_id']], root, frameworks, targets,
                              maintenance=snapshot.get('maintenance'), research_validation=snapshot.get('research_validation'),
                              research_baseline=baseline, delivery=delivery_contract(snapshot),
+                             ai_watchlist=(snapshot.get('ai_watchlists') or {}).get(task['task_id']),
                              evidence_workflow=snapshot.get('evidence_workflow'))
         folder = run / 'execution' / task['task_id'] / 'dsh'
         write_new(folder / 'prompt.txt', prompt)
@@ -1140,7 +1153,7 @@ def provider_receipt(folder, generator, profile=None):
     return adapter.receipt(folder, _strict_json, write_new, encode)
 
 
-def accepted_entry(receipt, request, task, generator, started, completed, root, frameworks, targets):
+def accepted_entry(receipt, request, task, generator, started, completed, root, frameworks, targets, ai_watchlist=None):
     schema = receipt_schema(request, task, generator, targets)
     if not isinstance(receipt, dict) or set(receipt) != set(schema['required']):
         raise ValueError('research receipt fields mismatch')
@@ -1164,6 +1177,8 @@ def accepted_entry(receipt, request, task, generator, started, completed, root, 
         entry[field] = dict(path=relative, sha256=sha(artifact.read_bytes()))
     report = _contained_path(root, entry['report']['path'], 'report')
     section_zero = _report_sections(report.read_bytes())[0]
+    route = task['data_pack_meta'].get('research_route') or {}
+    stock_ai_watchlist.validate_decision(section_zero, ai_watchlist, route.get('strategy'))
     for binding in (request['batch_id'], task['data_pack']['sha256'], *frameworks.values()):
         if binding not in section_zero:
             raise ValueError('report section 0 missing batch/input/framework binding')
@@ -1531,7 +1546,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                                       maintenance=frozen['maintenance'],
                                       research_validation=frozen['research_validation'],
                                       research_baseline=frozen['research_baseline'], delivery=frozen['delivery'],
-                                      evidence_workflow=frozen['evidence_workflow'])
+                                      evidence_workflow=frozen['evidence_workflow'], ai_watchlist=frozen['ai_watchlist'])
                 first = execution_folder(run, task, generator)
                 prior_path = owned_path(root, first/'entry.json')
                 if prior_path.is_symlink():
@@ -1654,7 +1669,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                 raise ValueError('DSH frozen runtime changed during research')
             receipt = provider_receipt(folder, generator, profile)
             completed = stamp()
-            entry = accepted_entry(receipt, request, task, generator, started, completed, staged, frozen['frameworks'], targets)
+            entry = accepted_entry(receipt, request, task, generator, started, completed, staged, frozen['frameworks'], targets, frozen['ai_watchlist'])
             check_path = folder / 'candidate-result.json'
             save(check_path, manifest(request, request_raw, [entry]))
             load_results(check_path, run / 'request.json', staged)
