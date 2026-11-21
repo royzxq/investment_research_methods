@@ -10,7 +10,7 @@ description: 按本仓独立红利框架研究或复评 A 股、港股的长期�
 ## 方法与工作流
 
 1. 定位含 framework/research 的仓库，读 AGENTS.md、research/README.md 及当前项目状态；日期 Asia/Shanghai，生成端按真实宿主。读取适用历史，优先增量，不重复整套全量取证。
-2. 有 runner 快照优先原合同：v2 读取冻结 stock_research_common.md、dividend_framework.md、dividend_framework_compact.md、dividend_report_template.md，实质适用的基础/行业风险回冻结 investment_framework.md；v1缺本独立框架时仅按旧股票方法完成，不追加新规则。无快照用现行对应文件，说明方法绑定及采纳状态。
+2. 有 runner 快照优先原合同：v2、v3 均读取冻结 stock_research_common.md、dividend_framework.md、dividend_framework_compact.md、dividend_report_template.md，实质适用的基础/行业风险回冻结 investment_framework.md；v1缺本独立框架时仅按旧股票方法完成，不追加新规则。无快照用现行对应文件，说明方法绑定及采纳状态。
 早期六文件v2与新版都可能存在；R9迁出以冻结正文范围标记为准，未带标记仍按其旧规则，不套当前技能默认方法。
 3. 复用 [stock-research](../stock-research/SKILL.md) 的历史发现、数据校验、deep-research-auto取证、价格审计与落盘步骤；只执行一次共同流程，不递归再路由。把主策略、子类型和HD1–HD8缺口传给后端，基础规则与治理/偿付/事件风险不豁免。
 4. 按 [红利数据补充](references/data-and-output.md) 复用原数据包，必要时取专项补充；不是每次全量取数。公告原文核普通/特别、资本缓冲、分配权利和税；不把API现金分红自动当可持续净收入。
@@ -21,4 +21,4 @@ description: 按本仓独立红利框架研究或复评 A 股、港股的长期�
 
 长期现金质量优先于TTM高息；正常年、未来12月有权取得、压力及特别分红分开。金融按资产质量/资本/分配约束，周期按正常化与低谷，分红成长核再投资，有限期不编永续。利差只是定价背景，缺三项拥挤读数不自动失败，但真实风险/必要资格缺证照常控制。净收入底线y_min未提供，不启用新门槛。
 
-框架修订交investment-weekly-review；本技能不改规则、调度器或账户状态，不执行交易或外发。
+发现红利方法问题时记录证据与影响，留待单独授权的专项复评；本技能不改规则、调度器或账户状态，不执行交易或外发。

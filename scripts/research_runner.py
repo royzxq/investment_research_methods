@@ -56,6 +56,10 @@ MAX_INPUT_BYTES = 10_000_000  # Below Claude Code's documented 10MB stdin limit.
 FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
 SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'  # Exact legacy pair.
 BUNDLE_SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v2'
+AI_SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v3'
+SNAPSHOT_FILES = {SNAPSHOT_SCHEMA: FRAMEWORKS,
+                  BUNDLE_SNAPSHOT_SCHEMA: stock_framework_bundle.STRATEGY_BUNDLE,
+                  AI_SNAPSHOT_SCHEMA: stock_framework_bundle.BUNDLE}
 OLD_TWO_PRICE_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
 SCOPED_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v2')
 ACCEPTANCE_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v3')
@@ -457,20 +461,25 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '逐风险定位现金流、资本桥、资本成本及P1，额外折现补偿说明独立残余；联合乐观或悲观假设均须依据和替代组合。'
                    '敏感性优先复算，不能量化保留原因而非编数；不确定但可设界仍给有界估值/观察，不为格式撤回报价，也不为接近别端或市价调参数。'
                    '仅新冻结v10/audit-v7适用，旧v1–v9提示/合同不变，结构算术通过不证明经济中性。\n\n')
-    if set(frameworks) == set(stock_framework_bundle.BUNDLE):
-        prefix += ('本批采用股票策略拆分依赖包：前文只列两份框架的阅读要求扩展为本批快照内全部六份文件，'
+    has_strategy_bundle = set(stock_framework_bundle.STRATEGY_BUNDLE).issubset(frameworks)
+    if has_strategy_bundle:
+        has_ai_supplement = stock_framework_bundle.AI_SUPPLEMENT in frameworks
+        scope = ('按主策略读取适用的冻结文件，' if has_ai_supplement else
+                 '前文只列两份框架的阅读要求扩展为本批快照内全部六份文件，')
+        file_count = '七' if has_ai_supplement else '六'
+        prefix += (f'本批采用股票策略拆分依赖包：{scope}'
                    '不得读取工作区现行方法替代冻结依赖。先按stock_research_common.md的C0和用户持有目的'
                    '确定dividend/non_dividend，在报告§0声明理由；有分红不自动路由。'
                    'dividend读dividend_framework_compact.md、dividend_framework.md及dividend_report_template.md，'
                    'non_dividend读原investment框架；两者均完整执行共享基础规则及适用原风险。'
                    '同公司一套基准/P1/T1；路由变化逐条审议旧控制，不自动解除。'
                    f'红利完整九节按独立模板，JSON仍v4/{"audit-v7" if contract == NEUTRAL_CONTRACT else "audit-v6"}；不强套成长K或缺拥挤三值即冻结。'
-                   '红利台账/利差/压力现金流放报告，不扩轻量JSON。全部六份冻结哈希须在§0绑定。\n\n')
+                   f'红利台账/利差/压力现金流放报告，不扩轻量JSON。全部{file_count}份冻结哈希须在§0绑定。\n\n')
     if 'research_route' in task.get('data_pack_meta', {}):
         route = task['data_pack_meta']['research_route']
         # New explicit routing metadata only. Old requests retain byte-identical
         # prompts and their original holding-purpose contract on recovery.
-        if set(frameworks) != set(stock_framework_bundle.BUNDLE):
+        if not has_strategy_bundle:
             raise ValueError('automatic research route requires full strategy framework bundle')
         try:
             from .dividend_data import validate_route
@@ -486,6 +495,10 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    '这是研究分工，不是可持续分红/买入资格结论；质量不足须在已选轨内作出否定或缺口判断，不静默换轨。'
                    '不要按运行时行情或当前配置重算；新证据引发的路由变化留下一批明确复评，旧约束逐项接续。'
                    '报告§0披露股息率、国债利率、利差、观测日期、阈值和规则版本；红利补充数据的缺口继续取证。\n\n')
+    route = task.get('data_pack_meta', {}).get('research_route', {})
+    if stock_framework_bundle.AI_SUPPLEMENT in frameworks and route.get('strategy') != 'dividend':
+        prefix += ('仅普通策略命中冻结框架的 AI 业务调用条件时，读取本批 ai_business_supplement.md '
+                   '中的适用业务行并入原报告。其余任务直接跳过，无需填写或列为缺口。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
         result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)
@@ -596,10 +609,16 @@ def freeze_maintenance(run, root, as_of):
         elif isinstance(value, list):
             for item in value:
                 collect(item)
-    collect(selected['record'])
-    # Maintenance still uses its pair schema; follow the signed closure too.
-    for role in ('canonical', 'compact'):
-        descriptor = selected['record']['methods'][role]
+    record = selected['record']
+    collect(record)
+    # validate_handoff also reopens method pairs from compatibility reviews
+    # and completed company reviews inside the frozen mirror.
+    pairs = [record['methods']]
+    pairs.extend(item['methods'] for item in record.get('compatibility', []))
+    pairs.extend(item['methods'] for item in record.get('reviews', []) if item['status'] == 'completed')
+    for pair in pairs:
+        # The canonical and compact maps were checked for equality during selection.
+        descriptor = pair['canonical']
         _, body = _artifact(dict(path=descriptor['path'], sha256=descriptor['sha256']), root, 'maintenance method')
         dependencies = stock_framework_bundle.dependency_map(body) or {}
         for name, digest in dependencies.items():
@@ -623,13 +642,13 @@ def write_framework_snapshot(run, contents, root, as_of, *, legacy_inputs=None, 
     folder = run / 'framework-snapshot'
     if folder.exists():
         raise ValueError('framework snapshot preparation incomplete; preserve this batch and rebuild')
-    stock_framework_bundle.validate(contents)
+    ordered_files = stock_framework_bundle.validate(contents)
     folder.mkdir()
     for name, raw in contents.items():
         write_new(folder / name, raw)
         (folder / name).chmod(0o444)
     maintenance = freeze_maintenance(run, root, as_of)
-    schema = BUNDLE_SNAPSHOT_SCHEMA if set(contents) == set(stock_framework_bundle.BUNDLE) else SNAPSHOT_SCHEMA
+    schema = next(version for version, files in SNAPSHOT_FILES.items() if files == ordered_files)
     document = dict(schema_version=schema, captured_at=stamp(),
                     origin='legacy_exact_hash_migration' if legacy_inputs is not None else 'prepared',
                     frameworks={name: dict(path=name, sha256=sha(raw))
@@ -756,16 +775,16 @@ def migrate_legacy_prepared(run, request, raw, packs, root):
 def snapshot_hashes(run):
     folder = run / 'framework-snapshot'
     document = _strict_json((folder / 'manifest.json').read_bytes(), 'framework snapshot')
-    expected = (stock_framework_bundle.BUNDLE if isinstance(document, dict)
-                and document.get('schema_version') == BUNDLE_SNAPSHOT_SCHEMA else FRAMEWORKS)
-    if (not isinstance(document, dict) or document.get('schema_version') not in (SNAPSHOT_SCHEMA, BUNDLE_SNAPSHOT_SCHEMA)
+    if (not isinstance(document, dict) or not isinstance(document.get('schema_version'), str)
+            or document['schema_version'] not in SNAPSHOT_FILES
             or not isinstance(document.get('frameworks'), dict)
-            or set(document['frameworks']) != set(expected)
+            or set(document['frameworks']) != set(SNAPSHOT_FILES[document['schema_version']])
             or document.get('origin') not in ('prepared', 'legacy_exact_hash_migration')):
         raise ValueError('framework snapshot manifest mismatch')
     frameworks = {}
     contract = delivery_contract(document)
-    if expected == stock_framework_bundle.BUNDLE and contract not in BUNDLE_CONTRACTS:
+    expected = SNAPSHOT_FILES[document['schema_version']]
+    if expected != FRAMEWORKS and contract not in BUNDLE_CONTRACTS:
         raise ValueError('strategy bundle requires the current frozen delivery contract')
     research_shared_evidence.enabled(document)
     if document.get('research_validation') not in (None, *research_consistency.SUPPORTED_SCHEMAS):

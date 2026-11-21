@@ -235,7 +235,7 @@ def _method_pair(root, methods):
         if maps[0] != maps[1] or paths[0].parent != paths[1].parent:
             raise ValueError('method pair dependency closure differs')
         contents = {name: path.read_bytes() for name, path in zip(stock_framework_bundle.CORE, paths)}
-        contents.update({name: (paths[0].parent / name).read_bytes() for name in stock_framework_bundle.DEPENDENCIES})
+        contents.update({name: (paths[0].parent / name).read_bytes() for name in maps[0]})
         stock_framework_bundle.validate(contents)
     return tuple(result)
 

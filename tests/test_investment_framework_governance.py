@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 from scripts.investment_framework_governance import check, FILES, ROOT, STRATEGY_SCOPE
-from scripts.stock_framework_bundle import BUNDLE, sync
+from scripts.stock_framework_bundle import AI_SUPPLEMENT, BUNDLE, STRATEGY_BUNDLE, sync
 
 
 class InvestmentGovernanceTests(unittest.TestCase):
@@ -86,9 +86,14 @@ class InvestmentGovernanceTests(unittest.TestCase):
     def test_legacy_six_file_bundle_keeps_its_original_scope(self):
         # snapshot/v2 already existed before R9's full migration.
         frozen = ROOT / "research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-r2-methods"
-        for name in BUNDLE:
+        for name in STRATEGY_BUNDLE:
             shutil.copyfile(frozen / name, self.root / "framework" / name)
         self.assertEqual(check(self.root)["strategy_scope"], "legacy")
+
+    def test_ai_supplement_must_be_reachable_from_both_editions(self):
+        self.replace(FILES[1], f"]({AI_SUPPLEMENT})", "（已移除）")
+        with self.assertRaisesRegex(ValueError, "AI supplement entry"):
+            check(self.root)
 
 
 if __name__ == "__main__":
