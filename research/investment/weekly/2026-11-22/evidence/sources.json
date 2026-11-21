@@ -1,0 +1,326 @@
+{
+  "as_of": "2026-11-22",
+  "timezone": "Asia/Shanghai",
+  "sources": [
+    {
+      "id": "retail",
+      "title": "国家统计局社会消费品零售总额",
+      "release": "2026-11-16",
+      "period": "2026-10",
+      "observation": "社零同比0.4%，除汽车2.5%。",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202611/t20261116_1965839.html"
+    },
+    {
+      "id": "industry",
+      "title": "国新办、统计局经济运行发布会",
+      "release": "2026-11-16",
+      "period": "2026-10",
+      "observation": "规上工业增加值同比4.8%，高技术制造业17.6%。购进价格增速高于出厂，需用企业提价/毛利验证传导。",
+      "url": "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261116_1965869.html"
+    },
+    {
+      "id": "loan26oct",
+      "title": "人民银行金融统计报告，上海金融办转载",
+      "release": "2026-11-16",
+      "period": "2026-01/10",
+      "observation": "前十月人民币贷款增加11.42万亿元。",
+      "url": "https://jrj.sh.gov.cn/SCGK194/20261116/00d09e641a1148d5bdee81e3f0f483de.html"
+    },
+    {
+      "id": "loan26sep",
+      "title": "人民银行金融统计报告，上海金融办转载",
+      "release": "2026-10-15",
+      "period": "2026-01/09",
+      "observation": "前三季同口径11.52万亿元。",
+      "url": "https://jrj.sh.gov.cn/SCGK194/20261015/24a15f78c09947de9eb58a48c2fdb451.html"
+    },
+    {
+      "id": "loan25oct",
+      "title": "人民银行金融统计报告，中国政府网",
+      "release": "2025-11-13",
+      "period": "2025-01/10",
+      "observation": "同口径14.97万亿元。",
+      "url": "https://app.www.gov.cn/govdata/gov/202511/13/540033/article.html"
+    },
+    {
+      "id": "loan25sep",
+      "title": "人民银行金融统计报告，中国政府网",
+      "release": "2025-10-15",
+      "period": "2025-01/09",
+      "observation": "同口径14.75万亿元。",
+      "url": "https://app.www.gov.cn/govdata/gov/202510/15/538518/article.html"
+    },
+    {
+      "id": "LPR",
+      "title": "全国银行间同业拆借中心 LPR",
+      "release": "2026-11-20",
+      "period": "2026-11",
+      "observation": "1年3.0%，5年以上3.5%。",
+      "url": "https://www.chinamoney.com.cn/chinese/rdgz/20261120/3453464.html"
+    },
+    {
+      "id": "CGB",
+      "title": "中国债券信息网国债收益率曲线",
+      "release": "2026-11-20",
+      "period": "2026-11-20",
+      "observation": "10年期1.5803%，供同日C0筛选，个股每股分红/价格仍须核验。",
+      "url": "https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/more?locale=cn_zh"
+    },
+    {
+      "id": "HKCPI",
+      "title": "香港政府综合消费物价指数",
+      "release": "2026-11-20",
+      "period": "2026-10",
+      "observation": "综合同比2.2%，基本2.0%，9月分别1.9%、2.1%；差饷宽减措施时点影响综合同比。",
+      "url": "https://www.info.gov.hk/gia/general/202611/20/P2026112000306.htm"
+    },
+    {
+      "id": "UST",
+      "title": "美国财政部 Daily Treasury Par Yield Curve Rates",
+      "release": "2026-11-20",
+      "period": "2026-11-12/20",
+      "observation": "同口径10年期逐日与五日窗口见calculations.json；11/20三十年5.31%。日期为美国交易日。",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve"
+    },
+    {
+      "id": "FED",
+      "title": "美联储十月议息会议纪要",
+      "release": "2026-11-18",
+      "period": "2026-10-27/28",
+      "observation": "美国11/18发布；10票维持3.75%–4.00%，两票支持加25bp。多数路径仍有条件性紧缩风险。",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20261028.htm"
+    },
+    {
+      "id": "BLS",
+      "title": "BLS October CPI",
+      "release": "2026-11-10",
+      "period": "2026-10",
+      "observation": "整体/核心季调环比+0.4%/+0.3%；可比去年10月资料缺，相关同比保持空值。",
+      "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm"
+    },
+    {
+      "id": "SSE",
+      "title": "上交所市场运行情况",
+      "release": "2026-11-20",
+      "period": "2026-11-16/20",
+      "observation": "科创50约1231；ETF成交19390亿元、份额22732亿、市值35317亿元（含货币ETF）；沪港通下港股通成交2143亿元。",
+      "url": "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10838542/files/42313bdc5e6d4878ae94d0c4c01877a1.pdf"
+    },
+    {
+      "id": "CSI",
+      "title": "中证指数上证科创板50指数历史行情",
+      "release": "2026-11-20",
+      "period": "2026-11-18/20",
+      "observation": "官方收盘按日1247.99、1270.78、1231.09；发布接口回包保留。",
+      "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000688&startDate=20261118&endDate=20261120"
+    },
+    {
+      "id": "HSI",
+      "title": "恒生指数公司季检结果",
+      "release": "2026-11-20",
+      "period": "公告日2026-11-20，生效2026-12-07",
+      "observation": "HSI 95只无变更，国企指数成分两进两出，恒生科技30扩至50，恒生生科30维持；12/4收市实施。",
+      "url": "https://www.hsi.com.hk/content/dam/wpb/hsil/en_hk/press_releases/content/20261120T174500.pdf"
+    },
+    {
+      "id": "HK13",
+      "title": "港交所每日报价表",
+      "release": "2026-11-13",
+      "period": "2026-11-13",
+      "observation": "主板及仅交易证券；提取收市买卖报价、股数及全天成交。",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261113e.htm"
+    },
+    {
+      "id": "HK20",
+      "title": "港交所每日报价表",
+      "release": "2026-11-20",
+      "period": "2026-11-20",
+      "observation": "两日九只样本见hkex-quotes.json。",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261120e.htm"
+    },
+    {
+      "id": "CSI300",
+      "title": "中证沪深300指数单张",
+      "release": "2026-02-27",
+      "period": "2026-02-27",
+      "observation": "用于界定指数范围；不把旧权重作为11月结构。",
+      "url": "https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000300factsheet.pdf"
+    },
+    {
+      "id": "510300",
+      "title": "华泰柏瑞沪深300ETF产品资料概要",
+      "release": "2026-08-13",
+      "period": "2026-08",
+      "observation": "管理费0.15%、托管费0.05%（年率）；净值内含。",
+      "url": "https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/fund/announcement/c/new/2026-08-13/510300_20260813_FPSL.pdf"
+    },
+    {
+      "id": "CNI",
+      "title": "国证指数权重上限安排",
+      "release": "2026-11-06",
+      "period": "2026-12-14生效",
+      "observation": "创业板相关指数渐进调整，逐指数查权重。",
+      "url": "https://www.cnindex.com.cn/zh_information/notices_news/2026/202611/P020261106683336733126.pdf"
+    },
+    {
+      "id": "NVIDIA",
+      "title": "NVIDIA FY2027 Q3业绩",
+      "release": "2026-11-17",
+      "period": "季末2026-10-25",
+      "observation": "美国11/17公布；总收入1158亿美元、数据中心1076亿美元、GAAP毛利率74.8%。须另核国内企业交付与回款。",
+      "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/default.aspx"
+    },
+    {
+      "id": "BIS",
+      "title": "BIS关于第三地远程访问先进计算的规则",
+      "release": "2026-11-16",
+      "period": "2026-11",
+      "observation": "云服务、先进算力及相关服务的实际最终用户和适用条件须逐项查。",
+      "url": "https://www.bis.gov/press-release/bis-issues-rule-addressing-remote-access-american-super-intelligence-technology"
+    },
+    {
+      "id": "S5548",
+      "title": "美国政府出版局 S.5548 introduced text",
+      "release": "2026-09-24",
+      "period": "第119届国会，提出版本",
+      "observation": "该文本只证明提案，具体雇主、产品和联邦系统合同须另证。",
+      "url": "https://www.govinfo.gov/app/details/BILLS-119s5548is"
+    },
+    {
+      "id": "tencent",
+      "title": "腾讯截至九月底三季度未经审计业绩",
+      "release": "2026-11-18",
+      "period": "2026Q3",
+      "observation": "收入同比约+8%，经营利润约−7%。经营现金26亿元，资本开支付款651亿元、内容46亿元、租赁20亿元，公司FCF −691亿元；剔除算力预付的公司敏感性为+169亿元。",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800448.pdf"
+    },
+    {
+      "id": "alibaba",
+      "title": "阿里巴巴九月季度业绩",
+      "release": "2026-11-19",
+      "period": "截至2026-09-30三个月",
+      "observation": "云外部经常性收入同比+67%（排除设备）；集团经营现金156.90亿元，FCF −344.72亿元。",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111900874_c.pdf"
+    },
+    {
+      "id": "baidu",
+      "title": "百度三季度业绩",
+      "release": "2026-11-16",
+      "period": "2026Q3",
+      "observation": "AI云基础设施收入同比+94%，一般性业务同比+1%，集团经营现金28亿元。",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600627_c.pdf"
+    },
+    {
+      "id": "lenovo",
+      "title": "联想集团中期业绩",
+      "release": "2026-11-19",
+      "period": "截至2026-09-30第二财季",
+      "observation": "AI相关收入同比+79%，收入占比36%；基础设施方案经营利润率9.6%，集团FCF 12亿美元。",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111900158_c.pdf"
+    },
+    {
+      "id": "eopt",
+      "title": "新易盛投资者关系活动记录",
+      "release": "2026-11-18",
+      "period": "2026-11",
+      "observation": "管理层称1.6T批量、客户订单未削减；下一代产品预测与本期交付分别核验。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678180.PDF"
+    },
+    {
+      "id": "zhongji",
+      "title": "中际旭创投资者关系活动记录",
+      "release": "2026-11-06",
+      "period": "2026-11",
+      "observation": "光模块需求与产能线索；仍需按客户和现金验证。",
+      "url": "https://disc.static.szse.cn/disc/disk03/finalpage/2026-11-06/2f157d83-5aaf-486b-be0b-b9c0f01bf8e6.PDF"
+    },
+    {
+      "id": "repurchase",
+      "title": "中际旭创董事长提议回购",
+      "release": "2026-11-18",
+      "period": "2026-11",
+      "observation": "提议与实际支付分开。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678038.PDF"
+    },
+    {
+      "id": "zhongjiH",
+      "title": "中际旭创半年报",
+      "release": "2026-08-22",
+      "period": "2026H1",
+      "observation": "A/H证券身份、800G/1.6T产品披露。",
+      "url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-08-22/037d5232-a9bd-4ec3-a28e-e446195d65d9.PDF"
+    },
+    {
+      "id": "lux",
+      "title": "立讯精密半年报",
+      "release": "2026-08-24",
+      "period": "2026H1",
+      "observation": "通信与数据中心业务166.09亿元、同比49.66%；800G光模块批量交付。分部还包含非AI业务。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-24/1225500491.PDF"
+    },
+    {
+      "id": "sense",
+      "title": "商汤季度业务更新",
+      "release": "2026-11-18",
+      "period": "2026Q3及前九月",
+      "observation": "前九月收入37.92亿元、同比+30.4%，毛利率43.4%；Q3生成式AI收入超过翻倍。",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800925_c.pdf"
+    },
+    {
+      "id": "fii",
+      "title": "工业富联召开业绩交流会公告",
+      "release": "2026-11-17",
+      "period": "2026-11-23 15:00–16:00",
+      "observation": "三季报已经披露；交流会只对实际订单、毛利、现金等新增信息复核。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-17/1225674105.PDF"
+    },
+    {
+      "id": "FDA",
+      "title": "美国FDA Complete Response Letter BLA761524",
+      "release": "2026-11-13",
+      "period": "EGFR突变、三代EGFR-TKI治疗后晚期非鳞NSCLC",
+      "observation": "PFS获益幅度有限，最终OS未显示显著获益；建议补充对照多区域试验证明临床意义。日期为FDA签署日。",
+      "url": "https://download.open.fda.gov/crl/CRL_BLA761524_20261113.pdf"
+    },
+    {
+      "id": "summit",
+      "title": "Summit Therapeutics BLA update",
+      "release": "2026-11-15",
+      "period": "同一美国申报",
+      "observation": "美国合作方公开披露CRL，后续讨论方案。",
+      "url": "https://s206.q4cdn.com/652410165/files/doc_news/Summit-Therapeutics-Provides-Update-Regarding-Ivonescimab-Biologics-License-Application-2026.pdf"
+    },
+    {
+      "id": "akeso",
+      "title": "康方生物自愿性公告",
+      "release": "2026-11-16",
+      "period": "美国依沃西单抗特定适应症",
+      "observation": "港股发行人公开美国审评结果；确认为本地复评触发日。",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600292_c.pdf"
+    },
+    {
+      "id": "hengrui",
+      "title": "恒瑞医药临床试验批准通知书公告",
+      "release": "2026-11-18",
+      "period": "HRS-2329联用方案",
+      "observation": "Ib/II期获准，不涉及Novo合同首付款到账。",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800719_c.pdf"
+    },
+    {
+      "id": "hkevents",
+      "title": "港交所 Equity Market Pulse",
+      "release": "2026-11月日历",
+      "period": "2026-11下旬",
+      "observation": "小米、金山云11/24业绩日历仅作预案，具体披露时刻待核。",
+      "url": "https://www.hkex.com.hk/News/News-Centre/Equity-Market-Pulse/-/media/C08BF69A4FC4480F953D8B2B107929B9.ashx"
+    },
+    {
+      "id": "meituan",
+      "title": "美团董事会会议日期",
+      "release": "2026-11-17",
+      "period": "2026-11-27",
+      "observation": "业绩董事会拟举行日期。",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700394.pdf"
+    }
+  ]
+}

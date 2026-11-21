@@ -1,0 +1,65 @@
+{
+  "source": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000688&startDate=20261118&endDate=20261120",
+  "retrieved": "2026-11-22",
+  "issuer_response": {
+    "code": "200",
+    "msg": "Success",
+    "data": [
+      {
+        "tradeDate": "20261118",
+        "indexCode": "000688",
+        "indexNameCnAll": "上证科创板50成份指数",
+        "indexNameCn": "科创50",
+        "indexNameEnAll": "SSE Science and Technology Innovation Board 50 Index",
+        "indexNameEn": "STAR 50",
+        "open": 1238.62,
+        "high": 1263.5,
+        "low": 1213.76,
+        "close": 1247.99,
+        "change": 26.8,
+        "changePct": 2.19,
+        "tradingVol": 927669800.0,
+        "tradingValue": 907.48,
+        "consNumber": 50.0,
+        "peg": 56.38
+      },
+      {
+        "tradeDate": "20261119",
+        "indexCode": "000688",
+        "indexNameCnAll": "上证科创板50成份指数",
+        "indexNameCn": "科创50",
+        "indexNameEnAll": "SSE Science and Technology Innovation Board 50 Index",
+        "indexNameEn": "STAR 50",
+        "open": 1242.28,
+        "high": 1276.78,
+        "low": 1220.38,
+        "close": 1270.78,
+        "change": 22.79,
+        "changePct": 1.83,
+        "tradingVol": 1227234500.0,
+        "tradingValue": 1101.21,
+        "consNumber": 50.0,
+        "peg": 56.7
+      },
+      {
+        "tradeDate": "20261120",
+        "indexCode": "000688",
+        "indexNameCnAll": "上证科创板50成份指数",
+        "indexNameCn": "科创50",
+        "indexNameEnAll": "SSE Science and Technology Innovation Board 50 Index",
+        "indexNameEn": "STAR 50",
+        "open": 1230.04,
+        "high": 1254.6,
+        "low": 1219.37,
+        "close": 1231.09,
+        "change": -39.69,
+        "changePct": -3.12,
+        "tradingVol": 1024370000.0,
+        "tradingValue": 919.45,
+        "consNumber": 50.0,
+        "peg": 54.62
+      }
+    ],
+    "success": true
+  }
+}

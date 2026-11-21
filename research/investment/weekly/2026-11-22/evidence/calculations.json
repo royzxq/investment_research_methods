@@ -1,0 +1,157 @@
+{
+  "as_of": "2026-11-22",
+  "calendar": [
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20"
+  ],
+  "sessions": [
+    {
+      "date": "2026-11-12",
+      "turnover_trillion": 1.932076981,
+      "margin_balance_yi": 23028.64590917,
+      "margin_change_yi": null,
+      "margin_exchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close",
+      "star50_close": null,
+      "vendor_star50": 1309.8367
+    },
+    {
+      "date": "2026-11-13",
+      "turnover_trillion": 1.655668212,
+      "margin_balance_yi": 22865.25020302,
+      "margin_change_yi": -163.395706,
+      "margin_exchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close",
+      "star50_close": null,
+      "vendor_star50": 1279.6615
+    },
+    {
+      "date": "2026-11-16",
+      "turnover_trillion": 1.484490459,
+      "margin_balance_yi": 22650.12230005,
+      "margin_change_yi": -215.127903,
+      "margin_exchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close",
+      "star50_close": null,
+      "vendor_star50": 1213.6833
+    },
+    {
+      "date": "2026-11-17",
+      "turnover_trillion": 1.457694597,
+      "margin_balance_yi": 22466.05183331,
+      "margin_change_yi": -184.070467,
+      "margin_exchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close",
+      "star50_close": null,
+      "vendor_star50": 1221.1859
+    },
+    {
+      "date": "2026-11-18",
+      "turnover_trillion": 1.369702223,
+      "margin_balance_yi": 22378.29802764,
+      "margin_change_yi": -87.753806,
+      "margin_exchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close",
+      "star50_close": 1247.99,
+      "vendor_star50": 1247.9905
+    },
+    {
+      "date": "2026-11-19",
+      "turnover_trillion": 1.305147267,
+      "margin_balance_yi": 22222.85074252,
+      "margin_change_yi": -155.447285,
+      "margin_exchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close",
+      "star50_close": 1270.78,
+      "vendor_star50": 1270.7833
+    },
+    {
+      "date": "2026-11-20",
+      "turnover_trillion": 1.422200423,
+      "margin_balance_yi": null,
+      "margin_change_yi": null,
+      "margin_exchanges": [
+        "SSE"
+      ],
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close",
+      "star50_close": 1231.09,
+      "vendor_star50": 1231.089
+    }
+  ],
+  "repair_exit": "not_met",
+  "week_prices": {
+    "csi300": {
+      "start": 4016.2897,
+      "end": 3954.565,
+      "pct": -1.536858757972559
+    },
+    "hsi": {
+      "start": 23637.6,
+      "end": 22410.8,
+      "pct": -5.190036213490368
+    }
+  },
+  "ten_year_cmt": {
+    "2026-11-12": 5.1,
+    "2026-11-13": 5.15,
+    "2026-11-16": 5.12,
+    "2026-11-17": 5.1,
+    "2026-11-18": 5.07,
+    "2026-11-19": 5.04,
+    "2026-11-20": 4.92
+  },
+  "five_session_endings": {
+    "2026-11-18": true,
+    "2026-11-19": true,
+    "2026-11-20": false
+  },
+  "loan_cumulative_trillion": {
+    "2026-10": 11.42,
+    "2026-09": 11.52,
+    "2025-10": 14.97,
+    "2025-09": 14.75
+  },
+  "loan_monthly_approx_yi": {
+    "2026-10": -1000,
+    "2025-10": 2200,
+    "yoy_change": -3200
+  },
+  "loan_rounding": "由原表万亿元两位数差分，取约数",
+  "retail_yoy_pct": 0.4
+}

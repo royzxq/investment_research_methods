@@ -1,0 +1,134 @@
+{
+  "as_of": "2026-11-22",
+  "scope": "只读原项目research/investment/companies，列示11/01以来本地已归档正式配对；更早报告按上期接续。专项目录历史试跑单列，未形成完成凭证。",
+  "pairs": {
+    "SZ-300308": [],
+    "SZ-300502": [],
+    "SH-600276": [
+      {
+        "company_archive_relative": "2026-11-05/SH-600276/investment-600276-2026-11-05-research-codex.md",
+        "report_sha256": "4eafe25bf8fa21ff5fdfdc84e768ce5cf83eff433d8304c206c7cd5622132016",
+        "price_map_filename": "investment-600276-2026-11-05-price-map-codex.json",
+        "price_map_sha256": "214d1ce1c6a92a77a8ddb8597919c9953a4412981048cd59eabde0b5b2388ff5"
+      },
+      {
+        "company_archive_relative": "2026-11-05/SH-600276/investment-600276-2026-11-05-research-dsh.md",
+        "report_sha256": "62d25fe8327998eb5fbae03cff7c0717b1a87b96ad240f2766c75db9f7696991",
+        "price_map_filename": "investment-600276-2026-11-05-price-map-dsh.json",
+        "price_map_sha256": "b2c7901dbe337c65250fadf3b293348ee5a9cd1aefc4d44f94f02bc610605762"
+      },
+      {
+        "company_archive_relative": "2026-11-19/SH-600276/investment-600276-2026-11-19-research-codex.md",
+        "report_sha256": "538f388dc8302da2bc908713c033aa78dcaa6766d4c7207fcddf133210c2b09e",
+        "price_map_filename": "investment-600276-2026-11-19-price-map-codex.json",
+        "price_map_sha256": "8c6f9a090af5db64ef3d7dcffa2443b40318901896bbfa5d4c9afda87b611aac"
+      },
+      {
+        "company_archive_relative": "2026-11-19/SH-600276/investment-600276-2026-11-19-research-dsh.md",
+        "report_sha256": "8b474dcadbf0783b71ec7d9879452f02970f71ef862c86f56656cbae9a83eee1",
+        "price_map_filename": "investment-600276-2026-11-19-price-map-dsh.json",
+        "price_map_sha256": "9ed03cbd2c11d780796abd59da62c2437720f40d0eff62434f5af33fe2d5ab09"
+      }
+    ],
+    "HK-01276": [],
+    "HK-09926": [],
+    "HK-00700": [
+      {
+        "company_archive_relative": "2026-11-06/HK-00700/investment-00700-2026-11-06-research-codex.md",
+        "report_sha256": "b7db8fccb39bf98d9cb2ee78e3a18d12c48227dcf49983a77f22821a456dd843",
+        "price_map_filename": "investment-00700-2026-11-06-price-map-codex.json",
+        "price_map_sha256": "91f4986fc067df14c413088e13ab9cf6a62f93e3c29822e8cfe8dc6fd2583936"
+      },
+      {
+        "company_archive_relative": "2026-11-06/HK-00700/investment-00700-2026-11-06-research-dsh.md",
+        "report_sha256": "1d59c044bcdfdd49c845db663a307008784a14bd3496ba4a099ad5df4d755c0d",
+        "price_map_filename": "investment-00700-2026-11-06-price-map-dsh.json",
+        "price_map_sha256": "6da658ef90b5b7a471bd4cb7d1723e45c6bee983d44216dd7aeb1d4ef66d8d9a"
+      },
+      {
+        "company_archive_relative": "2026-11-14/HK-00700/investment-00700-2026-11-14-research-codex.md",
+        "report_sha256": "653ace881d3225fd7fb15fe696d99f1962a7ccd08bcebed3b16ae73ef902d204",
+        "price_map_filename": "investment-00700-2026-11-14-price-map-codex.json",
+        "price_map_sha256": "f338ddfd87841570ce68afdf9f1b8f11f22a8a9a1614f703be3cde2776241a12"
+      },
+      {
+        "company_archive_relative": "2026-11-14/HK-00700/investment-00700-2026-11-14-research-dsh.md",
+        "report_sha256": "ed32accc5d26ec454a0aeacc970a0bc8a9fc656408456c05191a089eda386173",
+        "price_map_filename": "investment-00700-2026-11-14-price-map-dsh.json",
+        "price_map_sha256": "151f97c9361b240d0bf25f9bbd3138ea7d4e430698a3ecfeca0d75cbcf4da52f"
+      }
+    ],
+    "HK-09988": [
+      {
+        "company_archive_relative": "2026-11-01/HK-09988/investment-09988-2026-11-01-research-codex.md",
+        "report_sha256": "591ee7fce68ae95fde235507415d8c6eb66856eb5c3629f4149b189724dcb790",
+        "price_map_filename": "investment-09988-2026-11-01-price-map-codex.json",
+        "price_map_sha256": "8c1f9eff8b99245660dcff1805c9c40b08f0c592b8d28e1107320c8f123bbebb"
+      },
+      {
+        "company_archive_relative": "2026-11-01/HK-09988/investment-09988-2026-11-01-research-dsh.md",
+        "report_sha256": "066737b368c1e4d03816e50b5c3d94c6d7545cb1ffe6d42744852eb25b8b4738",
+        "price_map_filename": "investment-09988-2026-11-01-price-map-dsh.json",
+        "price_map_sha256": "92d8efaf8a942b44c13f2ed2491db0577f74a5714a1714e3eb790e84e7b79695"
+      },
+      {
+        "company_archive_relative": "2026-11-09/HK-09988/investment-09988-2026-11-09-research-codex-r2.md",
+        "report_sha256": "544e6555fdc36234679ef862819cbdf607580d071a6c8d72e864df664c2fbbff",
+        "price_map_filename": "investment-09988-2026-11-09-price-map-codex-r2.json",
+        "price_map_sha256": "04a0163c861200226a7cf025b81e030e70d1874ed85d029bfa3f71b2b631a28c"
+      },
+      {
+        "company_archive_relative": "2026-11-09/HK-09988/investment-09988-2026-11-09-research-codex.md",
+        "report_sha256": "27ff0a31345175ba23ee7c573efb768847d8a0933e82f9d7bc3ec896d400f67a",
+        "price_map_filename": "investment-09988-2026-11-09-price-map-codex.json",
+        "price_map_sha256": "6d8d8cd21b33eb6879fb20e65396f4d4ec854c94fe2e11e5a8afc6edf9c04991"
+      },
+      {
+        "company_archive_relative": "2026-11-09/HK-09988/investment-09988-2026-11-09-research-dsh-r2.md",
+        "report_sha256": "bae18d561f5f86c23064c6c2e0c141d300fccc51b57ab203c5695e0025532d12",
+        "price_map_filename": "investment-09988-2026-11-09-price-map-dsh-r2.json",
+        "price_map_sha256": "7126c66731c9afa0e4d8e35c5473b506543eabaa0d6214224ff460bc8c3be9cf"
+      },
+      {
+        "company_archive_relative": "2026-11-09/HK-09988/investment-09988-2026-11-09-research-dsh.md",
+        "report_sha256": "d6073639f63c685e5e47480d84f2fdc34db8df25eba0e0faa8efb54fbc40f686",
+        "price_map_filename": "investment-09988-2026-11-09-price-map-dsh.json",
+        "price_map_sha256": "74cf5970146256f2faeabdd8a8ee183facb09165d452278ba7b4d56d430bcb28"
+      }
+    ],
+    "SZ-002475": [
+      {
+        "company_archive_relative": "2026-11-08/SZ-002475/investment-002475-2026-11-08-research-codex.md",
+        "report_sha256": "717fc561cdc60e6970bc9e652984268b10a1a20f84f19137f0aedab7d99186e1",
+        "price_map_filename": "investment-002475-2026-11-08-price-map-codex.json",
+        "price_map_sha256": "221b968c21eaa252c6cd5a48bd172d0162f8a2a8b2c1c11ed87503ffc6755094"
+      },
+      {
+        "company_archive_relative": "2026-11-08/SZ-002475/investment-002475-2026-11-08-research-dsh.md",
+        "report_sha256": "8f2115b0ed77eabb6a7b6357dcfb137df631f1315aad6815b6ed1ef7801a6439",
+        "price_map_filename": "investment-002475-2026-11-08-price-map-dsh.json",
+        "price_map_sha256": "af6c246291dda92685358c191daa216ff4883f866ecdb2fc4fe047ce14a73f11"
+      },
+      {
+        "company_archive_relative": "2026-11-16/SZ-002475/investment-002475-2026-11-16-research-codex.md",
+        "report_sha256": "2bf7058362041df2519de5250fad1508d744d04ce52a591841084b961afc46d4",
+        "price_map_filename": "investment-002475-2026-11-16-price-map-codex.json",
+        "price_map_sha256": "b7ca9485ae7347bdcac1aea214d5eded02ec642a8d4ff64fca88f9b8065ba03f"
+      },
+      {
+        "company_archive_relative": "2026-11-16/SZ-002475/investment-002475-2026-11-16-research-dsh.md",
+        "report_sha256": "2600992feb2f33b6c2108fe1530254201abb48fcefba8ed2d35a027891faf033",
+        "price_map_filename": "investment-002475-2026-11-16-price-map-dsh.json",
+        "price_map_sha256": "60a546932a1179310731fab1a07f45a0183bca8c81e28287ea7585ee691f4084"
+      }
+    ]
+  },
+  "notes": {
+    "SH-600276": "11/19 Codex 仍将Novo合同生效、3亿美元首付款到账和会计确认列待查。BMS相关现金与11/18获准试验均属不同事项。",
+    "HK-09926": "FDA原件、合作方和港股公告证实该适应症的美国注册结果；未找到正式同期专项启用留底；历史试跑不能充当当日基线。旧收入归属事项仍独立。",
+    "HK-00700": "11/14 Codex 以Q2 FCF -138亿元为已知并要求11/18复核。",
+    "HK-09988": "11/09 Codex-r2 六月底季度FCF -446.70亿元，要求核云投资现金转化。",
+    "SZ-002475": "11/16正式报告提供通信与数据中心业务线索，以发行人半年报复核；无独立新增批次。"
+  },
+  "qualified_completions": []
+}

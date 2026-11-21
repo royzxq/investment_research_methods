@@ -1,0 +1,149 @@
+{
+  "available_at": "2026-11-22T02:19:31+08:00",
+  "entries": {
+    "688256.SH": {
+      "name": "寒武纪",
+      "business": "智能芯片",
+      "evidence": "三季报将收入增长与拓展人工智能应用市场联系起来。",
+      "check": "按产品代际核实际交付、应收回款与持续研发投入。",
+      "source_date": "2026-10-24",
+      "source_title": "2026 年第三季度报告，主要会计数据变动原因",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF"
+    },
+    "688041.SH": {
+      "name": "海光信息",
+      "business": "通用处理器与深算处理器",
+      "evidence": "年报披露深算处理器（DCU）可用于模型训练和推理，公司同时销售通用 CPU。",
+      "check": "区分 DCU 与 CPU 的销量及毛利，核流片和研发投入能否由交付回款覆盖。",
+      "source_date": "2026-04-08",
+      "source_title": "2025 年年度报告，主要产品",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-08/1225083088.PDF"
+    },
+    "601138.SH": {
+      "name": "工业富联",
+      "business": "AI 服务器及机柜",
+      "evidence": "半年报披露云服务商 AI 服务器收入及 GPU、ASIC 机柜出货增长。",
+      "check": "从机柜出货追至客户验收、毛利和营运资本占用，辨认高价值外购件的影响。",
+      "source_date": "2026-08-12",
+      "source_title": "2026 年半年度报告，云计算业务",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-12/1225468066.PDF"
+    },
+    "300308.SZ": {
+      "name": "中际旭创",
+      "business": "高速光模块",
+      "evidence": "光模块需求与产能线索；仍需按客户和现金验证。",
+      "check": "按客户核光模块交付、在手订单、回款及美国联邦关键系统实质暴露；分开记录11/18回购提议。",
+      "source_date": "2026-11-06",
+      "source_title": "中际旭创投资者关系活动记录",
+      "source_url": "https://disc.static.szse.cn/disc/disk03/finalpage/2026-11-06/2f157d83-5aaf-486b-be0b-b9c0f01bf8e6.PDF"
+    },
+    "300502.SZ": {
+      "name": "新易盛",
+      "business": "高速光模块",
+      "evidence": "管理层称1.6T批量、客户订单未削减；下一代产品预测与本期交付分别核验。",
+      "check": "核1.6T交付毛利、收款、客户订单和成都/泰国产能利用率，区分未来NPO规划。",
+      "source_date": "2026-11-18",
+      "source_title": "新易盛投资者关系活动记录",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678180.PDF"
+    },
+    "688111.SH": {
+      "name": "金山办公",
+      "business": "办公订阅与内嵌 AI",
+      "evidence": "年报披露 WPS AI 功能与 WPS 365、个人订阅业务。",
+      "check": "核可归因于 AI 的付费转化、续费和每席净收入变化，扣除推理成本并与套餐对账。",
+      "source_date": "2026-03-26",
+      "source_title": "2025 年年度报告，主要业务及经营情况",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-03-26/1225032227.PDF"
+    },
+    "09988.HK": {
+      "name": "阿里巴巴-W",
+      "business": "AI 云与算力、模型及应用",
+      "evidence": "云外部经常性收入同比+67%（排除设备）；集团经营现金156.90亿元，FCF −344.72亿元。",
+      "check": "核外部经常性收入、设备收入、客户预付及基础设施支出的现金回收。",
+      "source_date": "2026-11-19",
+      "source_title": "阿里巴巴九月季度业绩",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111900874_c.pdf"
+    },
+    "09888.HK": {
+      "name": "百度集团-SW",
+      "business": "智能云、AI 应用及营销",
+      "evidence": "AI云基础设施收入同比+94%，一般性业务同比+1%，集团经营现金28亿元。",
+      "check": "分别核智能云基础设施、应用收入、成本与集团现金，核广告下滑抵消程度。",
+      "source_date": "2026-11-16",
+      "source_title": "百度三季度业绩",
+      "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600627_c.pdf"
+    },
+    "00700.HK": {
+      "name": "腾讯控股",
+      "business": "内嵌 AI 与应用",
+      "evidence": "收入同比约+8%，经营利润约−7%。经营现金26亿元，资本开支付款651亿元、内容46亿元、租赁20亿元，公司FCF −691亿元；剔除算力预付的公司敏感性为+169亿元。",
+      "check": "核预付算力转为费用或资产的节奏、后续云收费、现金回收及普通股分配覆盖。",
+      "source_date": "2026-11-18",
+      "source_title": "腾讯截至九月底三季度未经审计业绩",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800448.pdf"
+    },
+    "00992.HK": {
+      "name": "联想集团",
+      "business": "AI 终端与基础设施",
+      "evidence": "AI相关收入同比+79%，收入占比36%；基础设施方案经营利润率9.6%，集团FCF 12亿美元。",
+      "check": "按ISG核订单转收入、客户融资与应收，集团自由现金能否持续覆盖分红。",
+      "source_date": "2026-11-19",
+      "source_title": "联想集团中期业绩",
+      "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111900158_c.pdf"
+    },
+    "00020.HK": {
+      "name": "商汤-W",
+      "business": "生成式 AI 与算力服务",
+      "evidence": "前九月收入37.92亿元、同比+30.4%，毛利率43.4%；Q3生成式AI收入超过翻倍。",
+      "check": "核生成式业务付费及收款、算力成本、集团利润和新增融资稀释。",
+      "source_date": "2026-11-18",
+      "source_title": "商汤季度业务更新",
+      "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800925_c.pdf"
+    },
+    "00100.HK": {
+      "name": "MiniMax",
+      "business": "开放平台与 AI 原生应用",
+      "evidence": "中报区分服务开发者及企业的开放平台与 AI 原生产品。",
+      "check": "平台核付费调用净价与单位推理成本，应用核订阅留存及获客成本，按披露口径对账。",
+      "source_date": "2026-09-30",
+      "source_title": "2026 年中期报告，第 4–5 页",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002173.pdf"
+    },
+    "02513.HK": {
+      "name": "智谱",
+      "business": "云端及本地部署模型服务",
+      "evidence": "中期业绩分别披露云端与本地部署业务。",
+      "check": "云端核付费规模、折后净价与推理成本，本地部署核项目验收和回款。",
+      "source_date": "2026-08-31",
+      "source_title": "2026 年中期业绩，第 20–21 页",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101539.pdf"
+    },
+    "002475.SZ": {
+      "name": "立讯精密",
+      "business": "通信与数据中心互联、散热及供电",
+      "evidence": "通信与数据中心业务166.09亿元、同比49.66%；800G光模块批量交付。分部还包含非AI业务。",
+      "check": "分别核分部毛利、800G销量、客户验收与回款。核1.6T是否由验证转为交付。",
+      "source_date": "2026-08-24",
+      "source_title": "立讯精密半年报",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-24/1225500491.PDF"
+    },
+    "02475.HK": {
+      "name": "立讯精密",
+      "business": "通信与数据中心互联、散热及供电",
+      "evidence": "通信与数据中心业务166.09亿元、同比49.66%；800G光模块批量交付。分部还包含非AI业务。",
+      "check": "分别核分部毛利、800G销量、客户验收与回款。核1.6T是否由验证转为交付。",
+      "source_date": "2026-08-24",
+      "source_title": "立讯精密半年报",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-24/1225500491.PDF"
+    },
+    "03308.HK": {
+      "name": "中际旭创",
+      "business": "高速光模块",
+      "evidence": "A/H证券身份、800G/1.6T产品披露。",
+      "check": "按A/H同一经营主体核800G与1.6T出货、毛利、现金和客户风险，证券价格/流动性按各自柜台。",
+      "source_date": "2026-08-22",
+      "source_title": "中际旭创半年报",
+      "source_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-08-22/037d5232-a9bd-4ec3-a28e-e446195d65d9.PDF"
+    }
+  }
+}

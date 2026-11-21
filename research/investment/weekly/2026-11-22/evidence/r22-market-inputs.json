@@ -1,0 +1,204 @@
+{
+  "provider": "Tushare HTTPS",
+  "retrieved_at": "2026-11-22T02:08:31.810636+08:00",
+  "calls": [
+    {
+      "key": "a_total",
+      "api": "index_daily",
+      "params": {
+        "ts_code": "H00300.CSI",
+        "start_date": "20251106",
+        "end_date": "20261120"
+      },
+      "fields": "trade_date,close",
+      "status": "ok",
+      "rows": [
+        {
+          "trade_date": "20261120",
+          "close": 5955.8307
+        },
+        {
+          "trade_date": "20261113",
+          "close": 6048.3191
+        },
+        {
+          "trade_date": "20261106",
+          "close": 6105.3173
+        },
+        {
+          "trade_date": "20261030",
+          "close": 6001.1414
+        },
+        {
+          "trade_date": "20251106",
+          "close": 6902.6619
+        }
+      ]
+    },
+    {
+      "key": "a_etf_nav",
+      "api": "fund_nav",
+      "params": {
+        "ts_code": "510300.SH",
+        "start_date": "20251106",
+        "end_date": "20261120"
+      },
+      "fields": "ann_date,nav_date,unit_nav,adj_nav",
+      "status": "ok",
+      "rows": [
+        {
+          "ann_date": "20261120",
+          "nav_date": "20261120",
+          "unit_nav": 4.0286,
+          "adj_nav": 1.891343
+        },
+        {
+          "ann_date": "20261113",
+          "nav_date": "20261113",
+          "unit_nav": 4.0919,
+          "adj_nav": 1.921061
+        },
+        {
+          "ann_date": "20261106",
+          "nav_date": "20261106",
+          "unit_nav": 4.1312,
+          "adj_nav": 1.939512
+        },
+        {
+          "ann_date": "20261030",
+          "nav_date": "20261030",
+          "unit_nav": 4.0609,
+          "adj_nav": 1.906507
+        },
+        {
+          "ann_date": "20251107",
+          "nav_date": "20251106",
+          "unit_nav": 4.8061,
+          "adj_nav": 2.20122552
+        }
+      ]
+    },
+    {
+      "key": "hk_tech",
+      "api": "index_global",
+      "params": {
+        "ts_code": "HSTECH",
+        "start_date": "20251106",
+        "end_date": "20261120"
+      },
+      "fields": "trade_date,close",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "key": "a_etf_units",
+      "api": "etf_share_size",
+      "params": {
+        "ts_code": "510300.SH",
+        "start_date": "20261113",
+        "end_date": "20261120"
+      },
+      "fields": "trade_date,ts_code,total_share,total_size",
+      "status": "api_error",
+      "code": 40203
+    },
+    {
+      "key": "a_optics_308",
+      "api": "daily",
+      "params": {
+        "ts_code": "300308.SZ",
+        "start_date": "20261113",
+        "end_date": "20261120"
+      },
+      "fields": "trade_date,amount,vol,close",
+      "status": "ok",
+      "rows": [
+        {
+          "trade_date": "20261120",
+          "amount": 14940766.55488,
+          "vol": 378437.39,
+          "close": 393.2
+        },
+        {
+          "trade_date": "20261119",
+          "amount": 16608376.43918,
+          "vol": 416550.08,
+          "close": 408.4
+        },
+        {
+          "trade_date": "20261118",
+          "amount": 16438620.40044,
+          "vol": 416368.24,
+          "close": 396.3
+        },
+        {
+          "trade_date": "20261117",
+          "amount": 20474930.84226,
+          "vol": 518833.89,
+          "close": 393.0
+        },
+        {
+          "trade_date": "20261116",
+          "amount": 23539365.49778,
+          "vol": 553065.45,
+          "close": 408.97
+        },
+        {
+          "trade_date": "20261113",
+          "amount": 25873664.12763,
+          "vol": 536097.14,
+          "close": 466.2
+        }
+      ]
+    },
+    {
+      "key": "a_optics_502",
+      "api": "daily",
+      "params": {
+        "ts_code": "300502.SZ",
+        "start_date": "20261113",
+        "end_date": "20261120"
+      },
+      "fields": "trade_date,amount,vol,close",
+      "status": "ok",
+      "rows": [
+        {
+          "trade_date": "20261120",
+          "amount": 14741024.14726,
+          "vol": 890402.83,
+          "close": 165.0
+        },
+        {
+          "trade_date": "20261119",
+          "amount": 14629765.64804,
+          "vol": 902115.46,
+          "close": 167.06
+        },
+        {
+          "trade_date": "20261118",
+          "amount": 12806597.33563,
+          "vol": 804249.67,
+          "close": 158.21
+        },
+        {
+          "trade_date": "20261117",
+          "amount": 14090068.31957,
+          "vol": 876373.24,
+          "close": 160.0
+        },
+        {
+          "trade_date": "20261116",
+          "amount": 15607029.00436,
+          "vol": 904675.65,
+          "close": 166.8
+        },
+        {
+          "trade_date": "20261113",
+          "amount": 19650652.00049,
+          "vol": 1007632.22,
+          "close": 187.58
+        }
+      ]
+    }
+  ]
+}
