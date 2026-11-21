@@ -15,7 +15,7 @@ description: 按本仓股票框架研究或复评单只 A 股、港股，优先�
 
 新自动任务先遵循经校验并冻结的data_pack_meta.research_route：dividend执行红利技能/模板，non_dividend执行本框架；TTM税前股息率减同日中国人民币十年期国债到期收益率，默认A股严格>2个百分点、港股严格>3.5个百分点才进红利，阈值与观测以批次为准，细则见共享C0。pending不得冒充普通任务，报告§0披露规则与输入；不因质量不足改选轨，不按最新行情重算。旧冻结无此元数据不追补；无自动路由的手工研究先判主持有逻辑，不能按是否分红或股息率自动分类。以长期可持续现金分配为主时，读取并执行同仓 [dividend-research](../dividend-research/SKILL.md) 的红利方法和模板；本技能仍提供共同取证、历史接续、审计及输出流程，不来回递归调用。非红利继续本框架，报告 §0 写主策略与理由。策略切换逐条核旧控制，不自动解除冻结。
 
-新方法使用 `stock_research_common.md` + 适用策略 canonical/compact；读取文件前先定位快照。runner 的 `stock-framework-snapshot/v3` 在原六份文件之外冻结 `ai_business_supplement.md`。普通策略仅当 AI 业务成败足以改变利润、现金流或对现价的解释时，从同一快照读取该模板的适用部分，并回原九节报告；其余股票直接跳过。手工研究按所用框架正文的同一入口执行。旧 v2 仍只使用其六份冻结文件。旧 v1 快照仍仅原两份，不能套本次红利例外或现场补新依赖。依赖更改先审查并运行 `python3 scripts/stock_framework_bundle.py --sync`，再治理检查；研究运行器不会自动重签哈希。轻量 JSON v4、当前新交付为audit-v7、controls-v10，旧冻结仍按各自合同。
+新方法使用 `stock_research_common.md` + 适用策略 canonical/compact；读取文件前先定位快照。runner 的 `stock-framework-snapshot/v4` 冻结八份方法文件。普通策略仅当 AI 业务成败足以改变利润、现金流或对现价的解释时选读同批 `ai_business_supplement.md`；仅当少数核心管线的成败会明显改变公司整体估值时选读同批 `drug_pipeline_supplement.md`。分别判断适用性，结果并回原九节报告的一套估值。手工研究按所用框架正文的同一入口执行。旧 v3 只读原七份，含 AI 模板；旧 v2 仍只使用其六份冻结文件。旧 v1 快照仍仅原两份，不能套本次红利例外或现场补新依赖。依赖更改先审查并运行 `python3 scripts/stock_framework_bundle.py --sync`，再治理检查；研究运行器不会自动重签哈希。轻量 JSON v4、当前新交付为audit-v7、controls-v10，旧冻结仍按各自合同。
 
 R9迁出和红利专题分流以冻结正文的 `stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6` 标记为准。未含标记的旧批次（包括早期六文件snapshot/v2）仍执行其原R9、分红条款及原合同；不能只凭snapshot/v2或今天的技能文本推定适用新版。
 

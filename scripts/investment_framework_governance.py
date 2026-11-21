@@ -67,10 +67,12 @@ def check(root=ROOT):
         if any("### HD4A " not in contents[name].decode()
                for name in ("dividend_framework.md", "dividend_framework_compact.md")):
             raise ValueError("Migrated dividend model needs canonical and compact HD4A")
-    link = f"]({stock_framework_bundle.AI_SUPPLEMENT})"
-    expected_links = int(stock_framework_bundle.AI_SUPPLEMENT in contents)
-    if any(texts[name].count(link) != expected_links for name in FILES):
-        raise ValueError("AI supplement entry must match the signed dependencies in both editions")
+    for supplement in (stock_framework_bundle.AI_SUPPLEMENT, stock_framework_bundle.PIPELINE_SUPPLEMENT):
+        link = f"]({supplement})"
+        expected_count = int(supplement in contents)
+        entries = [[line for line in texts[name].splitlines() if link in line] for name in FILES]
+        if any(texts[name].count(link) != expected_count for name in FILES) or entries[0] != entries[1]:
+            raise ValueError(f"{supplement} entry must match the signed bundle and agree in both editions")
     if set(stock_framework_bundle.STRATEGY_BUNDLE).issubset(contents):
         dividend_versions = []
         for name in ("dividend_framework.md", "dividend_framework_compact.md"):

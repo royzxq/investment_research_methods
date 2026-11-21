@@ -32,7 +32,7 @@ class FrameworkBundleTests(unittest.TestCase):
         self.enable_bundle(); run = self.prepare()
         hashes, snapshot = runner.snapshot_hashes(run)
         self.assertEqual(set(hashes), set(bundle.BUNDLE))
-        self.assertEqual(snapshot['schema_version'], 'stock-framework-snapshot/v3')
+        self.assertEqual(snapshot['schema_version'], 'stock-framework-snapshot/v4')
         self.assertEqual(runner.delivery_contract(snapshot), runner.NEW_CONTRACT)
         prompt = (run/'execution/SH-600066/codex/prompt.txt').read_text()
         self.assertIn('dividend_report_template.md', prompt)
@@ -40,7 +40,8 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertIn('two-price-controls/v10', prompt)
         self.assertIn('JSON仍v4/audit-v7', prompt)
         self.assertNotIn('stock-research-audit/v6', prompt)
-        self.assertIn('全部七份冻结哈希', prompt)
+        self.assertIn('全部八份冻结哈希', prompt)
+        self.assertIn('少数核心管线的成败会明显改变公司整体估值时', prompt)
         self.assertIn('仅普通策略命中冻结框架的 AI 业务调用条件时', prompt)
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
 
@@ -63,6 +64,7 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertNotIn('先按stock_research_common.md的C0和用户持有目的'.encode(), prompt)
         self.assertIn('dividend_report_template.md'.encode(), prompt)
         self.assertNotIn('仅普通策略命中'.encode(), prompt)
+        self.assertNotIn('读取本批 drug_pipeline_supplement.md'.encode(), prompt)
         self.assertIn('"threshold_pp": 2'.encode(), prompt)
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
         self.assertEqual(prompt, (run/'execution/SH-600066/codex/prompt.txt').read_bytes())
@@ -73,7 +75,9 @@ class FrameworkBundleTests(unittest.TestCase):
         self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = route
         self.fixture.write_request()
         run = self.prepare()
-        self.assertIn('使用 stock-research 技能', (run/'execution/SH-600066/codex/prompt.txt').read_text())
+        prompt = (run/'execution/SH-600066/codex/prompt.txt').read_text()
+        self.assertIn('使用 stock-research 技能', prompt)
+        self.assertIn('少数核心管线的成败会明显改变公司整体估值时', prompt)
         route['status'] = 'pending'
         self.fixture.write_request()
         with self.assertRaises(ValueError):
@@ -91,6 +95,22 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertEqual(snapshot['schema_version'], runner.SNAPSHOT_SCHEMA)
         prompt = (run/'execution/SH-600066/codex/prompt.txt').read_text()
         self.assertNotIn('本批采用股票策略拆分依赖包', prompt)
+
+    def test_v3_recovery_keeps_its_seven_files_and_original_prompt(self):
+        old = ROOT / 'research/investment/weekly/2026-11-20/evidence/investment-2026-11-20-handoff-methods'
+        for name in bundle.AI_BUNDLE:
+            shutil.copyfile(old/name, self.root/'framework'/name)
+        run = self.prepare()
+        hashes, snapshot = runner.snapshot_hashes(run)
+        self.assertEqual(snapshot['schema_version'], runner.AI_SNAPSHOT_SCHEMA)
+        self.assertEqual(set(hashes), set(bundle.AI_BUNDLE))
+        path = run/'execution/SH-600066/codex/prompt.txt'
+        prompt = path.read_bytes()
+        self.assertIn('全部七份冻结哈希'.encode(), prompt)
+        self.assertNotIn(bundle.PIPELINE_SUPPLEMENT.encode(), prompt)
+        self.enable_bundle()
+        runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
+        self.assertEqual(path.read_bytes(), prompt)
 
     def test_early_v2_snapshot_keeps_original_rule_bytes_after_scope_migration(self):
         old = ROOT / 'research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-r2-methods'
@@ -135,15 +155,18 @@ class FrameworkBundleTests(unittest.TestCase):
     def test_supplement_is_frozen_and_cannot_be_substituted_or_downgraded(self):
         self.enable_bundle()
         run = self.prepare()
-        live = self.root / 'framework' / bundle.AI_SUPPLEMENT
-        live.write_text('changed after preparation')
-        runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
-        with self.assertRaisesRegex(ValueError, 'dependency hash'):
-            bundle.capture(live.parent)
+        for name in (bundle.AI_SUPPLEMENT, bundle.PIPELINE_SUPPLEMENT):
+            with self.subTest(supplement=name):
+                live = self.root / 'framework' / name
+                live.write_text('changed after preparation')
+                runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
+                with self.assertRaisesRegex(ValueError, name):
+                    bundle.capture(live.parent)
+                shutil.copyfile(ROOT/'framework'/name, live)
         manifest = run/'framework-snapshot/manifest.json'
         document = json.loads(manifest.read_bytes())
         manifest.chmod(0o644)
-        for version in (runner.BUNDLE_SNAPSHOT_SCHEMA, [], {}):
+        for version in (runner.AI_SNAPSHOT_SCHEMA, runner.BUNDLE_SNAPSHOT_SCHEMA, [], {}):
             with self.subTest(version=version):
                 document['schema_version'] = version
                 manifest.write_text(json.dumps(document))
@@ -229,7 +252,7 @@ class FrameworkBundleTests(unittest.TestCase):
         shutil.rmtree(self.root/'research')
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
 
-    def test_compatible_v2_handoff_dependencies_survive_in_v3_mirror(self):
+    def test_compatible_v2_handoff_dependencies_survive_in_current_mirror(self):
         old = ROOT / 'research/investment/weekly/2026-11-18/evidence/investment-2026-11-18-handoff-methods'
         for name in bundle.STRATEGY_BUNDLE:
             shutil.copyfile(old/name, self.root/'framework'/name)
