@@ -1,6 +1,6 @@
 """Optional A-share dividend evidence add-on; no forecasts, trades or schema rewrites.
 
-Units: daily_basic.dv_ttm and yc_cb.yield are percent; difference is percentage
+Units: daily_basic.dv_ttm and the ChinaBond yield are percent; difference is percentage
 points. Raw dividend rows require primary-source reconciliation before aggregation.
 """
 from __future__ import annotations
@@ -18,17 +18,26 @@ from zoneinfo import ZoneInfo
 
 SCHEMA = 'dividend-data-addon/v1'
 SOURCES = {'daily_basic': 'https://tushare.pro/document/2?doc_id=32',
-           'dividend': 'https://tushare.pro/document/2?doc_id=103',
-           'yc_cb': 'https://tushare.pro/document/2?doc_id=201'}
+           'dividend': 'https://tushare.pro/document/2?doc_id=103'}
 FIELDS = {
  'daily_basic': 'ts_code,trade_date,close,dv_ratio,dv_ttm,pb',
- 'dividend': 'ts_code,end_date,ann_date,div_proc,cash_div,cash_div_tax,record_date,ex_date,pay_date,imp_ann_date,base_date,base_share',
- 'yc_cb': 'ts_code,trade_date,curve_name,curve_type,curve_term,yield'}
-LIMITS = {'daily_basic': 6000, 'dividend': 2000, 'yc_cb': 2000}
+ 'dividend': 'ts_code,end_date,ann_date,div_proc,cash_div,cash_div_tax,record_date,ex_date,pay_date,imp_ann_date,base_date,base_share'}
+LIMITS = {'daily_basic': 6000, 'dividend': 2000}
 SOURCES.update(chinabond_10y='https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery',
-               hk_cash_ttm='https://query1.finance.yahoo.com/v8/finance/chart/')
+               hk_cash_ttm='Tushare hk_daily/hk_basic/hk_adjfactor/hk_tradecal + Eastmoney RPT_HKF10_MAIN_DIVBASIC')
 FIELDS.update(chinabond_10y='trade_date,yield', hk_cash_ttm='ts_code,trade_date,close,dv_ttm,dividend_events')
 LIMITS.update(chinabond_10y=2, hk_cash_ttm=2)
+
+
+HK_EVIDENCE_GAPS = {
+    'dividend_history_unavailable', 'incomplete_dividend_history', 'duplicate_dividend_rows',
+    'invalid_disclosure_date', 'wrong_dividend_security', 'missing_ex_date',
+    'unverified_disclosure_version', 'unverified_hkd_conversion', 'unrecognized_distribution_terms',
+    'ambiguous_cash_amount', 'unverified_hkd_counter', 'missing_raw_close', 'stale_raw_close',
+    'missing_calendar_anchor', 'incomplete_twelve_month_history', 'incomplete_factor_sessions',
+    'raw_close_disagreement', 'unexplained_corporate_action', 'corporate_action_amount_mismatch',
+    'unconfirmed_ex_date', 'missing_explicit_zero_disclosures', 'incomplete_hk_calendar',
+}
 
 
 def day(value):
@@ -73,11 +82,17 @@ def request_rows(token, endpoint, params):
         # Standalone CLI reuses the same public providers as the scheduler.
         import importlib.util
         root = Path(os.environ.get('AI_INVESTMENT_ROOT', Path(__file__).resolve().parents[2] / 'ai_investment'))
+        if endpoint == 'hk_cash_ttm':
+            import sys
+            sys.path.insert(0, str(root))
+            try:
+                from src.data.adapter import DataAdapter
+                return DataAdapter().get_research_dividend_rows(endpoint, params, FIELDS[endpoint])
+            finally:
+                sys.path.pop(0)
         spec = importlib.util.spec_from_file_location('_public_research_yields', root/'src/data/services/research_yields.py')
         provider = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(provider)
-        if endpoint == 'hk_cash_ttm':
-            return provider.hk_quote(params)
         return [{'trade_date': params['trade_date'], 'yield': provider.bond_value(params['trade_date'])}]
     if not token:
         raise RuntimeError('TUSHARE_TOKEN unavailable')
@@ -117,6 +132,16 @@ def write_once(path, value):
         os.unlink(name)
 
 
+def _hk_v2_evidence(rows):
+    if len(rows) != 1 or not isinstance(rows[0], dict):
+        return False
+    row = rows[0]
+    coverage = row.get('coverage')
+    return (row.get('evidence_version') == 2 and row.get('source') == SOURCES['hk_cash_ttm']
+            and isinstance(coverage, dict) and isinstance(coverage.get('factor_sessions'), int)
+            and coverage['factor_sessions'] > 0 and isinstance(row.get('dividend_events'), list))
+
+
 def fetch(endpoint, params, cache, call):
     identity = {'endpoint': endpoint, 'params': params, 'fields': FIELDS[endpoint]}
     key = hashlib.sha256(canonical(identity)).hexdigest()
@@ -130,12 +155,19 @@ def fetch(endpoint, params, cache, call):
                 or any(not isinstance(row, dict) for row in rows)
                 or not isinstance(doc.get('retrieved_at'), str)):
             raise ValueError('invalid dividend cache; preserve and use an isolated cache directory')
+        if endpoint == 'hk_cash_ttm' and params.get('evidence_version') == 2 and (
+                doc.get('source') != SOURCES[endpoint] or not _hk_v2_evidence(rows)):
+            raise ValueError('invalid HK provider version in cache')
         return {**doc, 'cache_path': str(path.resolve()), 'cached': True}
     now = datetime.now(ZoneInfo('Asia/Shanghai')).isoformat()
     try:
+        if endpoint == 'hk_cash_ttm' and params.get('evidence_version') != 2:
+            raise ValueError('legacy HK evidence requires its original snapshot')
         rows = call(endpoint, params)
         if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
             raise ValueError('invalid rows')
+        if endpoint == 'hk_cash_ttm' and rows and not _hk_v2_evidence(rows):
+            raise ValueError('HK source version mismatch')
         # Reject NaN rather than converting unverified quantities to zero.
         digest = hashlib.sha256(canonical(rows)).hexdigest()
         status = 'empty' if not rows else ('possibly_truncated' if len(rows) >= LIMITS[endpoint] else 'ok')
@@ -143,8 +175,13 @@ def fetch(endpoint, params, cache, call):
                    rows_sha256=digest, source=SOURCES[endpoint])
     except Exception as exc:
         # Deliberately no str(exc): clients may echo token/body in exceptions.
-        return dict(identity=identity, status='unavailable', retrieved_at=now,
-                    rows=[], source=SOURCES[endpoint], error_type=type(exc).__name__)
+        failure = dict(identity=identity, status='unavailable', retrieved_at=now,
+                       rows=[], source=SOURCES[endpoint], error_type=type(exc).__name__)
+        if endpoint == 'hk_cash_ttm':
+            from_hint = getattr(exc, 'evidence_gap', None)
+            if isinstance(from_hint, str) and from_hint in HK_EVIDENCE_GAPS:
+                failure['evidence_gap'] = from_hint
+        return failure
     if status == 'ok':
         try:
             write_once(path, doc)
@@ -180,6 +217,8 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
         result['gaps'] = list(route['gaps']) + ['HK payout originals, investor taxes/FX and matched HKD benchmark required; A-share interfaces not substituted']
         if route['status'] == 'classified':
             validate_route(route, code, cutoff.isoformat())
+            if market_as_of is not None and route['trailing_yield']['as_of'] != market_day.isoformat():
+                raise ValueError('frozen route and market date differ')
             doc = route['sources']['quote_search']
             quotes = fetch('hk_cash_ttm', doc['identity']['params'], cache, call)
             if quotes.get('rows_sha256') != doc['rows_sha256']:
@@ -187,16 +226,13 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
             result['dividend_events'] = [{**event, 'ordinary_or_special':'unverified', 'investor_net_cash_verified':False}
                                         for event in quotes['rows'][0]['dividend_events']]
         return result
-    requests = {'daily_basic': dict(ts_code=code, trade_date=market_date),
-                'dividend': dict(ts_code=code),
-                'yc_cb': dict(ts_code='1001.CB', curve_type='0', curve_term=10, trade_date=market_date)}
-    if not include_dividends:
-        requests.pop('dividend')
+    requests = {'daily_basic': dict(ts_code=code, trade_date=market_date)}
+    if include_dividends:
+        requests['dividend'] = dict(ts_code=code)
     if route is not None:
         validate_route(route, code, cutoff.isoformat())
         if route['trailing_yield']['as_of'] != market_day.isoformat():
             raise ValueError('frozen route and market date differ')
-        requests.pop('yc_cb')
     for endpoint, params in requests.items():
         endpoint_cache = Path(cache) / ('dividend-asof-' + as_of) if endpoint == 'dividend' else Path(cache)
         result['sources'][endpoint] = fetch(endpoint, params, endpoint_cache, call)
@@ -212,14 +248,14 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
             source=SOURCES['daily_basic'])
     else:
         result['gaps'].append('unique same-day dv_ttm unavailable')
-    # Official docs sample uses legacy curve code 101 for 1001.CB; require name too.
     if route is not None:
         if not result['trailing_yield'] or result['trailing_yield']['value'] != route['trailing_yield']['value']:
             raise ValueError('dividend addon and frozen yield differ')
         result['government_10y'] = route['government_10y'].copy()
-        result['sources'].update({k:v.copy() for k,v in route['sources'].items() if k in ('yc_cb','chinabond_10y')})
+        bond_source = result['government_10y']['source']
+        result['sources'].update({k:v.copy() for k,v in route['sources'].items() if v.get('source') == bond_source})
     else:
-        result['government_10y'] = tushare_bond(usable('yc_cb'), market_date) or public_bond(market_date, cache, call, result['sources'])
+        result['government_10y'] = public_bond(market_date, cache, call, result['sources'])
         if not result['government_10y']:
             result['gaps'].append('unique same-day CNY government 10y YTM unavailable')
     result['trailing_spread_pp'] = same_day_spread(result['trailing_yield'], result['government_10y'])
@@ -269,16 +305,6 @@ ROUTE_SCHEMA = 'stock-research-route/v1'
 ROUTE_RULE = 'dividend-spread/v1'
 CN_RULE = 'dividend-spread/cn10y-v2'
 MAX_ROUTE_AGE_DAYS = 7
-
-
-def tushare_bond(rows, effective):
-    rates = [r for r in rows if r.get('ts_code') in ('1001.CB', '101', 101)
-             and r.get('curve_name') == '中债国债收益率曲线' and str(r.get('curve_type')) == '0'
-             and number(r.get('curve_term')) == 10 and r.get('trade_date') == effective]
-    if len(rates) == 1 and number(rates[0].get('yield')) is not None:
-        return dict(value=number(rates[0]['yield']), unit='percent', currency='CNY',
-                    as_of=day(effective).isoformat(), tenor_years=10, curve_type='government_ytm',
-                    series='ChinaBond 1001.CB / type 0 / 10y', source=SOURCES['yc_cb'])
 
 
 def public_bond(effective, cache, call, sources):
@@ -347,7 +373,10 @@ def classify(code, as_of, cache, call, *, threshold_pp=None):
     start = cutoff - timedelta(days=MAX_ROUTE_AGE_DAYS)
     hk = code.endswith('.HK')
     endpoint = 'hk_cash_ttm' if hk else 'daily_basic'
-    quotes = fetch(endpoint, dict(ts_code=code, start_date=start.strftime('%Y%m%d'), end_date=as_of), cache, call)
+    params = dict(ts_code=code, start_date=start.strftime('%Y%m%d'), end_date=as_of)
+    if hk:
+        params['evidence_version'] = 2  # old frozen snapshots retain their original cache identity
+    quotes = fetch(endpoint, params, cache, call)
     result['sources']['quote_search'] = {k: v for k, v in quotes.items() if k != 'rows'}
     valid = []
     if quotes['status'] == 'ok':
@@ -358,7 +387,7 @@ def classify(code, as_of, cache, call, *, threshold_pp=None):
             except (ValueError, TypeError):
                 continue
     if not valid:
-        result['gaps'] = ['recent ' + endpoint + ' unavailable: ' + quotes['status']]
+        result['gaps'] = ['recent ' + endpoint + ' unavailable: ' + quotes.get('evidence_gap', quotes['status'])]
         return result
     effective = max(row['trade_date'] for row in valid)
     latest = [row for row in valid if row['trade_date'] == effective]
@@ -367,14 +396,10 @@ def classify(code, as_of, cache, call, *, threshold_pp=None):
         return result
     if hk:
         result['trailing_yield'] = dict(value=number(latest[0]['dv_ttm']), unit='percent', currency='HKD',
-            as_of=day(effective).isoformat(), source=SOURCES[endpoint]+f'{int(code[:5]):04}.HK')
+            as_of=day(effective).isoformat(), source=quotes['source'])
         result['government_10y'] = public_bond(effective, cache, call, result['sources'])
         if not result['government_10y']:
-            backup = fetch('yc_cb', dict(ts_code='1001.CB', curve_type='0', curve_term=10, trade_date=effective), cache, call)
-            result['sources']['yc_cb'] = {k:v for k,v in backup.items() if k != 'rows'}
-            result['government_10y'] = tushare_bond(backup['rows'], effective) if backup['status'] == 'ok' else None
-            if not result['government_10y']:
-                result['gaps'].append('missing same-day ChinaBond CNY 10Y')
+            result['gaps'].append('missing same-day ChinaBond CNY 10Y')
     else:
         evidence = build(code, effective, cache, call, include_dividends=False)
         result.update(trailing_yield=evidence['trailing_yield'], government_10y=evidence['government_10y'], gaps=evidence['gaps'])
