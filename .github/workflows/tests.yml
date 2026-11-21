@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install numpy pandas tushare six pymupdf
+          python -m pip install numpy pandas tushare six pymupdf openpyxl pypdf
 
       # 直接导入以保留缺失依赖的 traceback，避免被 future_data.py 的退出提示遮住。
       - name: Verify dependency imports

@@ -13,8 +13,7 @@ class DividendDataTests(unittest.TestCase):
         self.calls = []
         self.rows = {
             'daily_basic': [dict(ts_code='600900.SH', trade_date='20261116', dv_ttm=4.4)],
-            'yc_cb': [dict(ts_code='1001.CB', curve_name='中债国债收益率曲线', trade_date='20261116',
-                           curve_type='0', curve_term=10, **{'yield': 1.6285})],
+            'chinabond_10y': [dict(trade_date='20261116', **{'yield': 1.6285})],
             'dividend': [dict(ts_code='600900.SH', ann_date='20260301', imp_ann_date='20260501',
                              div_proc='实施', cash_div_tax=1, ex_date='20260601', pay_date='20260602')]}
 
@@ -35,7 +34,7 @@ class DividendDataTests(unittest.TestCase):
         self.rows['daily_basic'][0]['ts_code'] = '600066.SH'
         self.rows['dividend'][0]['ts_code'] = '600066.SH'
         self.build('600066.SH')
-        self.assertEqual(sum(name == 'yc_cb' for name, _ in self.calls), 1)
+        self.assertEqual(sum(name == 'chinabond_10y' for name, _ in self.calls), 1)
 
     def test_dividend_cache_does_not_hide_next_day_disclosures(self):
         self.build(); self.build(as_of='20261117')
@@ -74,12 +73,12 @@ class DividendDataTests(unittest.TestCase):
                 self.assertIsNone(data.same_day_spread(s, dict(b, **patch)))
         self.assertEqual(data.same_day_spread(dict(s,value=0),b), -1.6)
 
-    def test_wrong_curve_or_duplicate_rate_returns_gap(self):
-        self.rows['yc_cb'] *= 2
+    def test_duplicate_rate_returns_gap(self):
+        self.rows['chinabond_10y'] *= 2
         self.assertIsNone(self.build()['trailing_spread_pp'])
 
     def test_date_mismatch_never_forward_filled(self):
-        self.rows['yc_cb'][0]['trade_date'] = '20261113'
+        self.rows['chinabond_10y'][0]['trade_date'] = '20261113'
         self.assertIsNone(self.build()['trailing_spread_pp'])
 
     def test_permission_failure_does_not_echo_secret_or_cache_failure(self):
@@ -103,7 +102,7 @@ class DividendDataTests(unittest.TestCase):
 
     def test_tampered_cache_rejected_and_output_not_overwritten(self):
         a = self.build()
-        p = Path(a['sources']['yc_cb']['cache_path'])
+        p = Path(a['sources']['chinabond_10y']['cache_path'])
         d = json.loads(p.read_text()); d['rows'][0]['yield'] = 0; p.write_text(json.dumps(d))
         with self.assertRaisesRegex(ValueError,'cache'): self.build()
         out = self.cache/'output.json'; data.write_once(out, a)

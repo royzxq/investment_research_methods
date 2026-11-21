@@ -6,11 +6,11 @@
 |---|---|---|
 | 历史估值 | Tushare daily_basic dv_ratio/dv_ttm/pb/close | 百分数，沿供应商定义；不是前瞻普通股息率 |
 | 派息事件 | dividend，cash_div_tax/ann_date/imp_ann_date/div_proc/record_date/ex_date/pay_date/base_share | 税前元/股；base_share万股。cash_div不能直接当特定投资者净现金；预案/实施去重、普通/特别由原文分类 |
-| 利率 | yc_cb 1001.CB、curve_type=0、curve_term=10 | 中债国债到期收益率曲线，百分数；非活跃券、非即期曲线；单独权限 |
+| 利率 | 中债公开历史查询的国债到期收益率曲线 10 年列 | 按股票行情有效日取人民币国债 10 年期到期收益率，单位为百分数 |
 | 派生 | 同日同币种 dv_ttm − 国债yield | 单位百分点，仅描述历史收益率相对利率，不代替必要权益回报 |
 | 研究输入 | 可持续普通分红/未来12月权益/压力、税渠道/汇率 | 不由API自动推算；未知null，不能由TTM复制 |
 
-已核官方文档：[每日指标](https://tushare.pro/document/2?doc_id=32)、[分红送股](https://tushare.pro/document/2?doc_id=103)、[国债曲线](https://tushare.pro/document/2?doc_id=201)（2026-11-17读取）。当前接口权限仍以真实请求为准；无权限不申请付费、不切未声明口径。
+已核官方文档与发布页：[每日指标](https://tushare.pro/document/2?doc_id=32)、[分红送股](https://tushare.pro/document/2?doc_id=103)、[中债到期收益率曲线](https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/more?locale=cn_zh)。中债国债曲线由中央结算公司在工作日北京时间 17:30 发布。国债数据取自中债公开页面，缺同日有效观测时保留缺口。
 
 按需要执行，路径在当前worktree，估值日选实际有效交易日；日期不匹配保留null：
 

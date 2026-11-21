@@ -27,7 +27,8 @@ class RouteTests(unittest.TestCase):
         for value, strategy in [(5.1, 'non_dividend'), (5.11, 'dividend')]:
             def call(ep, params):
                 if ep == 'hk_cash_ttm':
-                    return [dict(ts_code='00941.HK', trade_date='20261113', dv_ttm=value, dividend_events=[])]
+                    return [dict(ts_code='00941.HK', trade_date='20261113', dv_ttm=value, dividend_events=[],
+                                 evidence_version=2, source=dd.SOURCES['hk_cash_ttm'], coverage={'factor_sessions':249})]
                 self.assertEqual(ep, 'chinabond_10y')
                 return [{'trade_date':'20261113','yield':1.6}]
             with tempfile.TemporaryDirectory() as tmp:
@@ -36,25 +37,62 @@ class RouteTests(unittest.TestCase):
                 addon = dd.build('00941.HK','20261116',tmp,call,route=route)
                 self.assertEqual(addon['screening_spread_pp'], route['spread_pp'])
                 self.assertIsNone(addon['trailing_spread_pp'])
+                with self.assertRaisesRegex(ValueError, 'market date'):
+                    dd.build('00941.HK','20261116',tmp,call,route=route,market_as_of='20261114')
                 for update in ({'rule':dd.ROUTE_RULE}, {'government_10y':{**route['government_10y'],'currency':'HKD'}}):
                     with self.assertRaises(ValueError):
                         dd.validate_route({**route,**update},'00941.HK','2026-11-16')
 
-    def test_fallback_preserves_provider_when_tushare_refuses(self):
-        def call(ep,p):
-            if ep=='daily_basic': return [dict(ts_code='600900.SH',trade_date='20261113',dv_ttm=4)]
-            if ep=='yc_cb': raise PermissionError('forbidden')
-            return [{'trade_date':p['trade_date'],'yield':1.6}]
+    def test_old_provider_cannot_create_tushare_snapshot(self):
+        old = dict(ts_code='00941.HK', trade_date='20261113', close=40, dv_ttm=5, dividend_events=[])
         with tempfile.TemporaryDirectory() as tmp:
-            r=dd.classify('600900.SH','20261116',tmp,call)
-            self.assertEqual((r['strategy'], r['government_10y']['source']), ('dividend',dd.SOURCES['chinabond_10y']))
+            route = dd.classify('00941.HK', '20261116', tmp, lambda *args: [old])
+            self.assertEqual(route['status'], 'pending')
+            self.assertFalse(list(Path(tmp).rglob('*.json')))
+            # Restoring an old route can read an old cache, never query a v2 provider on its behalf.
+            legacy = dd.fetch('hk_cash_ttm', {'ts_code':'00941.HK'}, tmp, lambda *a: self.fail('queried'))
+            self.assertEqual(legacy.get('error_type'), 'ValueError')
+
+    def test_a_route_uses_public_curve_as_only_bond_provider(self):
+        def call(endpoint, params):
+            if endpoint == 'daily_basic':
+                return [dict(ts_code='600900.SH', trade_date='20261113', dv_ttm=4)]
+            self.assertEqual(endpoint, 'chinabond_10y')
+            self.assertEqual(params, dict(trade_date='20261113'))
+            return [{'trade_date': '20261113', 'yield': 1.6}]
+        with tempfile.TemporaryDirectory() as tmp:
+            route = dd.classify('600900.SH', '20261116', tmp, call)
+        self.assertEqual(route['strategy'], 'dividend')
+        self.assertEqual(route['government_10y']['source'], dd.SOURCES['chinabond_10y'])
+        self.assertEqual(set(route['sources']), {'quote_search', 'daily_basic', 'chinabond_10y'})
+
+    def test_curve_failure_leaves_both_markets_pending_without_another_query(self):
+        for code, quote in [('600900.SH', 'daily_basic'), ('00941.HK', 'hk_cash_ttm')]:
+            with self.subTest(code=code), tempfile.TemporaryDirectory() as tmp:
+                calls = []
+
+                def call(endpoint, params):
+                    calls.append(endpoint)
+                    if endpoint == quote:
+                        row = dict(ts_code=code, trade_date='20261113', dv_ttm=6)
+                        if endpoint == 'hk_cash_ttm':
+                            row.update(evidence_version=2, source=dd.SOURCES[endpoint],
+                                       coverage={'factor_sessions':249}, dividend_events=[])
+                        return [row]
+                    raise RuntimeError('provider unavailable')
+
+                route = dd.classify(code, '20261116', tmp, call)
+                self.assertEqual(route['status'], 'pending')
+                self.assertIsNone(route['government_10y'])
+                expected = [quote, quote, 'chinabond_10y'] if quote == 'daily_basic' else [quote, 'chinabond_10y']
+                self.assertEqual(calls, expected)
+
     def classify(self, value=4, rate=2, code='600001.SH', **kwargs):
         def call(endpoint, params):
             if endpoint == 'daily_basic':
                 return [dict(ts_code=code, trade_date='20261113', dv_ttm=value)]
-            if endpoint == 'yc_cb':
-                return [dict(ts_code='1001.CB', trade_date='20261113', curve_name='中债国债收益率曲线',
-                             curve_type='0', curve_term=10, **{'yield': rate})]
+            if endpoint == 'chinabond_10y':
+                return [dict(trade_date='20261113', **{'yield': rate})]
             self.fail('classification must not fetch dividend history')
         with tempfile.TemporaryDirectory() as tmp:
             return dd.classify(code, '20261116', Path(tmp), call, **kwargs)
@@ -110,8 +148,7 @@ class RouteTests(unittest.TestCase):
             def call(endpoint, params):
                 if endpoint == 'daily_basic':
                     return [dict(ts_code='600001.SH', trade_date=d, dv_ttm=v) for d, v in quotes]
-                return [dict(ts_code='1001.CB', trade_date=bond_day, curve_name='中债国债收益率曲线',
-                             curve_type='0', curve_term=10, **{'yield': 2})]
+                return [dict(trade_date=bond_day, **{'yield': 2})]
             with tempfile.TemporaryDirectory() as tmp:
                 result = dd.classify('600001.SH', '20261116', Path(tmp), call)
                 self.assertEqual(result['status'], 'pending')
@@ -121,13 +158,31 @@ class RouteTests(unittest.TestCase):
             if endpoint == 'daily_basic':
                 self.assertEqual(params['trade_date'], '20261113')
                 return [dict(ts_code='600001.SH', trade_date='20261113', dv_ttm=5)]
-            if endpoint == 'yc_cb':
+            if endpoint == 'chinabond_10y':
                 self.assertEqual(params['trade_date'], '20261113')
-                return [dict(ts_code='1001.CB', trade_date='20261113', curve_name='中债国债收益率曲线',
-                             curve_type='0', curve_term=10, **{'yield': 2})]
+                return [dict(trade_date='20261113', **{'yield': 2})]
             return [dict(ts_code='600001.SH', ann_date='20261116', imp_ann_date='20261116', div_proc='实施')]
         with tempfile.TemporaryDirectory() as tmp:
             addon = dd.build('600001.SH', '20261116', Path(tmp), call, market_as_of='20261113')
         self.assertEqual(addon['trailing_yield']['as_of'], '2026-11-13')
         self.assertEqual(len(addon['dividend_events']), 1)
         self.assertEqual(addon['status'], 'complete')
+
+    def test_frozen_addon_reuses_legacy_bond_without_calling_provider(self):
+        route = self.classify(5)
+        legacy = route['sources'].pop('chinabond_10y')
+        legacy_url = 'https://tushare.pro/document/2?doc_id=201'
+        route['sources']['yc_cb'] = {**legacy, 'source': legacy_url}
+        route['government_10y']['source'] = legacy_url
+        calls = []
+
+        def call(endpoint, params):
+            calls.append(endpoint)
+            return [dict(ts_code='600001.SH', trade_date='20261113', dv_ttm=5)]
+
+        with tempfile.TemporaryDirectory() as tmp:
+            addon = dd.build('600001.SH', '20261116', tmp, call, include_dividends=False,
+                             market_as_of='20261113', route=route)
+        self.assertEqual(calls, ['daily_basic'])
+        self.assertEqual(addon['government_10y'], route['government_10y'])
+        self.assertEqual(addon['sources']['yc_cb']['source'], legacy_url)

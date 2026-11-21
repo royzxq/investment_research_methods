@@ -61,7 +61,7 @@ Codex 失败或事实包缺失时，DSH 记录依赖失败且不启动，不自�
 
 ## DSH 生产接入（2026-10-23）
 
-显式生产配置为 `config/research_runtime.production.json`：Codex 使用 GPT-6 Astra、Extra High（`gpt-6-astra` / `xhigh`），DSH 主/子使用 DeepSeek Flash、high；保留 CC 绑定供旧请求准备/恢复。配置可有三项绑定，但每个批次只选择其请求中的两个基础业务席位。仅改变 active 不会把旧 CC 请求改为 DSH，回退同样只影响新请求。手工 runner 的默认无配置行为保留 legacy；DSH 必须带含 DSH 的显式配置。
+显式生产配置为 `config/research_runtime.production.json`：Codex 使用 GPT-6.2 Astra、Extra High（`gpt-6.2-astra` / `xhigh`），DSH 主/子使用 DeepSeek Flash、high；保留 CC 绑定供旧请求准备/恢复。配置可有三项绑定，但每个批次只选择其请求中的两个基础业务席位。仅改变 active 不会把旧 CC 请求改为 DSH，回退同样只影响新请求。手工 runner 的默认无配置行为保留 legacy；DSH 必须带含 DSH 的显式配置。
 
 DSH 使用官方 headless、每次独立 HOME/状态目录、workspace-write + approval never，后台不弹确认。此策略不宣称与 CC auto-review 等价。完成必须有有序 completed 终态、正式严格 JSON 回执与共享验收，退出码0不能代替交付。DeepSeek 凭据仅内存转交；Jev 使用已存在的受限 key 文件，可信工具桥仅转交 TUSHARE_TOKEN，不恢复其它应用秘密。不得将密钥写入 profile、patch、日志。
 

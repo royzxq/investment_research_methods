@@ -19,7 +19,10 @@ ETF 轨道数据快照 — Tushare Pro + akshare (etf_data v0.1)
   · TD/TE 取基金复权净值对指数，窗口=两者共同日期的近3年（剔除基金成立后半年的建仓期）；优先全收益指数，
     只有价格指数时照算并标"指数不含分红"；外币指数按外管局中间价折人民币；币种未核=缺口。
   · 基金代码后缀一律取 fund_basic 返回的 ts_code，不按前缀推断交易所。
-  · --as-of 只截断行情、净值与估值序列；基金清单、费率、赎回费、股票名称与行业是运行当日口径，
+  · 02800.HK 收盘折溢价只用同一交易日的不复权港币收盘价与管理人已披露的每单位港币净值。
+  · 场内外公募 fund_nav 按净值日和公告日双重截断，修订从修订公告日计入；接口仅提供日期，按日核对。
+  · 02800.HK 费率按截止日选取管理人已披露且生效的版本。其余基金的清单、费率与赎回费，
+    以及股票名称与行业均按运行日取值，行情、净值与估值序列按截止日截断；
     index_weight 取 AS_OF 前 45 天内最近一期。回放历史日期时这几项不是 point-in-time。
 
 诚实声明(v0.1, 2026-09-19)：各接口于 2026-09-19 本地实测可用(tushare 1.4.29 / akshare 1.18.64)。
@@ -37,6 +40,9 @@ import re
 import sys
 import time
 from datetime import datetime, timedelta
+from decimal import Decimal
+from html import unescape
+from io import BytesIO
 from pathlib import Path
 
 import pandas as pd
@@ -55,9 +61,8 @@ except ImportError:  # direct script invocation
 try:
     import akshare as ak
     import requests
-    import tushare as ts
 except ImportError:
-    sys.exit("缺少依赖: 请先执行  pip install tushare akshare pandas")
+    sys.exit("缺少依赖: 请先执行  pip install akshare pandas openpyxl pypdf")
 
 HTTP_TIMEOUT = 45
 
@@ -110,29 +115,18 @@ HOLDINGS = [
     ("000307.OF", "易方达黄金ETF联接-A", "Au99.99"),
     ("013528.OF", "嘉实中证细分化工产业主题ETF联接-C", "000813.CSI"),
 ]
-HK_ETF = ("02800", "盈富基金", "HSI")    # 盈立证券直持；akshare 新浪港股日线，无净值源
+HK_ETF = ("02800", "盈富基金", "HSI")    # 盈立证券直持，港币柜台
 
 STATIC_GAPS = [   # 运行时探测不到的缺口；探测得到的由 gap() 逐次登记
     "§1 港股指数(恒生科技/恒指/港股通红利低波/两只港股创新药)无估值源，§4 自聚合也覆盖不了港股成分（个股估值无源）",
     "§3 恒生科技、恒指、恒生港股通红利低波动的成分与权重无现成源；QDII 标的成分无源",
     "§5 港股与跨境指数无全收益序列 → TD 对价格指数计算，含分红差",
-    "§5 02800 的费率与净值无源",
 ]
 
 # ============================ 运行时状态 ============================
-pro = None
 INTERFACES = {}
 GAPS = []
 LADDER_ROWS = {}   # §6b 的机器可读行；只有正式快照写成功后才落到 LADDER_SIDECAR
-
-
-def api():
-    global pro
-    if pro is None:
-        if not TOKEN:
-            sys.exit("请先设置环境变量 TUSHARE_TOKEN")
-        pro = ts.pro_api(TOKEN)
-    return pro
 
 
 def gap(section, text):
@@ -182,7 +176,7 @@ def pairs(df, column):
 # ============================ 取数 ============================
 def full_levels(code, source):
     """指数/现货全历史日线收盘（翻页取全）。§6b 的回撤状态分位是扩张窗，必须用全部历史，与规则验证同口径。"""
-    df, complete = paged_history(f"{source}:{code}", lambda end: getattr(api(), source)(ts_code=code, end_date=end),
+    df, complete = paged_history(f"{source}:{code}", lambda end: _pro_rows(source, ts_code=code, end_date=end),
                                  pause=6.5 if source == "index_global" else 0.35)   # index_global 每分钟限 10 次
     if df is None:
         return None
@@ -193,7 +187,7 @@ def full_levels(code, source):
 
 def daily_levels(code, source, start):
     """指数/现货日线收盘 -> DataFrame(trade_date, close)，升序、去重、截至 CUTOFF。"""
-    df = fetch(f"{source}:{code}", lambda: getattr(api(), source)(ts_code=code, start_date=start, end_date=CUTOFF))
+    df = fetch(f"{source}:{code}", lambda: _pro_rows(source, ts_code=code, start_date=start, end_date=CUTOFF))
     if df is None:
         return None
     df = df[["trade_date", "close"]].dropna().drop_duplicates("trade_date").sort_values("trade_date")
@@ -222,7 +216,7 @@ def paged_history(label, call, pause=0.35):
 
 
 def valuation_history(code):
-    df, complete = paged_history(f"index_dailybasic:{code}", lambda end: api().index_dailybasic(
+    df, complete = paged_history(f"index_dailybasic:{code}", lambda end: _pro_rows("index_dailybasic",
         ts_code=code, end_date=end, fields="ts_code,trade_date,pe_ttm,pb"))
     if df is not None and not complete:
         gap("§1", f"{code} 估值历史翻页中断于 {df['trade_date'].iloc[0]} 之前，分位与分位点基于截断样本")
@@ -233,26 +227,47 @@ def fund_universe():
     """场外基金须 offset 分页(单页上限 15000)；场内(LOF/ETF)一页取完。"""
     frames, offset = [], 0
     while True:
-        page = fetch(f"fund_basic:O@{offset}", lambda: api().fund_basic(market="O", offset=offset, limit=15000))
+        page = fetch(f"fund_basic:O@{offset}", lambda: _pro_rows("fund_basic", market="O", offset=offset, limit=15000))
         if page is None or (frames and page["ts_code"].iloc[0] == frames[0]["ts_code"].iloc[0]):   # 后者=offset 被忽略
             break
         frames.append(page)
         if len(page) < 15000:
             break
         offset += len(page)
-    listed = fetch("fund_basic:E", lambda: api().fund_basic(market="E"))
+    listed = fetch("fund_basic:E", lambda: _pro_rows("fund_basic", market="E"))
     if listed is not None:
         frames.append(listed)
     return pd.concat(frames, ignore_index=True) if frames else None
 
 
 def fund_nav(code):
-    df = fetch(f"fund_nav:{code}", lambda: api().fund_nav(
-        ts_code=code, fields="ts_code,ann_date,nav_date,unit_nav,adj_nav,net_asset,total_netasset"))
+    """每个净值日只取截至 CUTOFF 已公告的最新版本，日期上界含当日。"""
+    fields = "ts_code,ann_date,nav_date,unit_nav,adj_nav,net_asset,total_netasset"
+    df = fetch(f"fund_nav:{code}", lambda: _pro_rows("fund_nav", ts_code=code, end_date=CUTOFF, fields=fields))
     if df is None:
         return None
-    df = df[df["nav_date"] <= CUTOFF].sort_values(["nav_date", "ann_date"])
-    return df.drop_duplicates("nav_date", keep="last").rename(columns={"nav_date": "trade_date"}).reset_index(drop=True)
+    if not set(fields.split(",")) <= set(df.columns):
+        gap("§5", f"{code} 净值接口缺少所需字段")
+        return None
+
+    df = df.loc[df["ts_code"].eq(code), fields.split(",")].copy()
+    for field in ("nav_date", "ann_date"):
+        text = df[field].astype("string")
+        dates = pd.to_datetime(text.where(text.str.fullmatch(r"[0-9]{8}")), format="%Y%m%d", errors="coerce")
+        df[field] = dates.dt.strftime("%Y%m%d").astype("string")
+    valid = df["nav_date"].notna() & df["ann_date"].notna() & df["nav_date"].le(df["ann_date"])
+    if not valid.all():
+        gap("§5", f"{code} 有 {(~valid).sum()} 条净值或公告日期无效，已排除")
+    visible = df.loc[valid & df["ann_date"].le(CUTOFF)].drop_duplicates()
+    latest_dates = visible.groupby("nav_date")["ann_date"].transform("max")
+    latest = visible.loc[visible["ann_date"].eq(latest_dates)]
+    # 相同净值日和公告日的异值记录没有先后依据。
+    conflicts = latest["nav_date"].duplicated(keep=False)
+    if conflicts.any():
+        days = "、".join(sorted(latest.loc[conflicts, "nav_date"].unique()))
+        gap("§5", f"{code} 同一公告日的净值版本冲突，已排除净值日 {days}")
+    return (latest.loc[~conflicts].sort_values("nav_date")
+            .rename(columns={"nav_date": "trade_date"}).reset_index(drop=True))
 
 
 def parse_pct(text):
@@ -276,20 +291,94 @@ def redemption_ladder(code6):
     return "；".join(f"{row['适用期限']} {row['赎回费率']}" for _, row in df.iterrows())
 
 
+def _pro_rows(endpoint, fields="", **params):
+    if not TOKEN:
+        sys.exit("请先设置环境变量 TUSHARE_TOKEN")
+    response = requests.post("https://api.tushare.pro", allow_redirects=False, timeout=(5, 20),
+                             json=dict(api_name=endpoint, token=TOKEN, fields=fields, params=params))
+    response.raise_for_status()
+    body = response.json()
+    if body["code"] != 0:
+        raise ValueError(f"{endpoint} 服务状态 {body['code']}")
+    return pd.DataFrame(body["data"]["items"], columns=body["data"]["fields"])
+
+
+def _macro_series(frame, date_key, columns, *, start=None, fx=False):
+    """Normalize either provider to dated, observed values before selecting its source."""
+    if frame.empty:
+        return pd.DataFrame()
+    result = frame[[date_key, *columns]].rename(columns={date_key: "trade_date", **columns}).copy()
+    result["trade_date"] = pd.to_datetime(result["trade_date"].astype(str)).dt.strftime("%Y%m%d")
+    result = result.loc[result.trade_date.between(start or "00000000", CUTOFF)].copy()
+    values = list(columns.values())
+    for col in values:
+        numbers = pd.to_numeric(result[col], errors="raise")
+        if numbers.isin([float("inf"), -float("inf")]).any() or (fx and numbers.le(0).any()):
+            raise ValueError("中间价或收益率无效")
+        result[col] = numbers / 100 if fx else numbers
+    result = result.dropna(subset=values).drop_duplicates().sort_values("trade_date")
+    if result.trade_date.duplicated().any():
+        raise ValueError("同日观测数值冲突")
+    return result.reset_index(drop=True)
+
+
+def _prefer_macro(primary_label, primary, backup_label, backup):
+    frame = fetch(primary_label, primary, pause=0)
+    reason = INTERFACES.get(primary_label, "缺数")
+    if frame is not None:
+        frame.attrs["source"] = primary_label
+        latest = frame.trade_date.iloc[-1]
+        if latest == CUTOFF:
+            return frame
+        reason = f"主源最新 {latest}"
+    alternative = fetch(backup_label, backup, pause=0)
+    if alternative is not None and (frame is None or alternative.trade_date.iloc[-1] > latest):
+        alternative.attrs["source"] = f"{backup_label}（备用，{primary_label}：{reason}）"
+        return alternative
+    return frame
+
+
+def _tushare_fx():
+    series = []
+    for currency in ("HKD", "USD"):
+        code = "CNY" + currency
+        end = CUTOFF
+        pages = []
+        while True:
+            page = _pro_rows("fx_midrate", "ts_code,trade_date,mid_rate", ts_code=code, end_date=end, limit=1000)
+            if page.empty:
+                break
+            if (not page.ts_code.eq(code).all() or not page.trade_date.le(end).all()
+                    or not page.trade_date.is_monotonic_decreasing):
+                raise ValueError(f"{code} 中间价分页返回错误")
+            pages.append(page)
+            if len(page) < 1000:
+                break
+            end = (datetime.strptime(page.trade_date.min(), "%Y%m%d") - timedelta(days=1)).strftime("%Y%m%d")
+        if not pages:
+            return pd.DataFrame()
+        series.append(_macro_series(pd.concat(pages), "trade_date", {"mid_rate": currency}, fx=True))
+    if not series[0].trade_date.equals(series[1].trade_date):
+        raise ValueError("港元与美元中间价的公布日期不齐")
+    return series[0].merge(series[1], on="trade_date", validate="one_to_one")
+
+
 def fx_rates():
-    """外管局人民币中间价(每 100 外币) -> 每 1 外币折人民币。"""
-    df = fetch("ak.currency_boc_safe", lambda: ak.currency_boc_safe(), pause=0)
-    if df is None:
-        return None
-    df = df.rename(columns={"日期": "trade_date", "港元": "HKD", "美元": "USD"})[["trade_date", "HKD", "USD"]]
-    df["trade_date"] = pd.to_datetime(df["trade_date"]).dt.strftime("%Y%m%d")
-    df[["HKD", "USD"]] = df[["HKD", "USD"]] / 100
-    return df[df["trade_date"] <= CUTOFF].sort_values("trade_date").reset_index(drop=True)
+    """SAFE daily central parity, in CNY per one unit of foreign currency."""
+    return _prefer_macro("Tushare.fx_midrate", _tushare_fx, "AKShare.currency_boc_safe",
+                         lambda: _macro_series(ak.currency_boc_safe(), "日期", {"美元": "USD", "港元": "HKD"}, fx=True))
 
 
-def bond_yields():
-    """中国 10 年国债取中债国债收益率曲线（chinabond，经 akshare，单次最多一年，逐年取并缓存）；
-    美国 10 年取东财汇总接口，仅供 §7 展示——该接口时通时断(2026-09-19 多次超时)，失败不影响股债利差。"""
+def _us_yields():
+    start = days_ago(30)
+    return _prefer_macro("Tushare.us_tycr", lambda: _macro_series(
+        _pro_rows("us_tycr", "date,y10", start_date=start, end_date=CUTOFF), "date", {"y10": "us10y"}, start=start),
+        "AKShare.bond_zh_us_rate", lambda: _macro_series(
+            ak.bond_zh_us_rate(start_date=start), "日期", {"美国国债收益率10年": "us10y"}, start=start))
+
+
+def _china_yields():
+    """中国十年到期收益率取中债国债收益率曲线，逐年缓存。"""
     frames = []
     for year in range(AGGREGATION_START, int(CUTOFF[:4]) + 1):
         end = min(f"{year}1231", CUTOFF)
@@ -307,14 +396,21 @@ def bond_yields():
     china["cn10y"] = pd.to_numeric(china["cn10y"], errors="coerce")
     china = china.dropna().drop_duplicates("trade_date")
     china["cn10y_date"] = china["trade_date"]
-    us = fetch("ak.bond_zh_us_rate", lambda: ak.bond_zh_us_rate(start_date=days_ago(30)), pause=0)
-    if us is not None:
-        us = us.rename(columns={"日期": "trade_date", "美国国债收益率10年": "us10y"})[["trade_date", "us10y"]]
-        us["trade_date"] = pd.to_datetime(us["trade_date"]).dt.strftime("%Y%m%d")
-        china = china.merge(us, how="outer", on="trade_date")
+    return china[china.trade_date <= CUTOFF]
+
+
+def bond_yields():
+    china, us = _china_yields(), _us_yields()
+    if china is None and us is None:
+        return None
+    if china is None:
+        result = us.assign(cn10y=float("nan"), cn10y_date=None)
+    elif us is None:
+        result = china.assign(us10y=float("nan"))
     else:
-        china["us10y"] = None
-    return china[china["trade_date"] <= CUTOFF].sort_values("trade_date").reset_index(drop=True)
+        result = china.merge(us, on="trade_date", how="outer")
+    result.attrs["us10y_source"] = us.attrs["source"] if us is not None else None
+    return result.sort_values("trade_date").reset_index(drop=True)
 
 
 def asof_join(left, right, columns):
@@ -351,7 +447,7 @@ def percentile_cell(df, column, window_years):
 def valuation_block(title, df, bonds):
     """df: trade_date, pe_ttm, pb。打印当前值与两种窗口的分位。"""
     lines = [f"\n[{title}]  数据 {df['trade_date'].iloc[0]} → {df['trade_date'].iloc[-1]}，共 {len(df)} 期"]
-    if bonds is not None:
+    if bonds is not None and bonds["cn10y"].notna().any():
         df = asof_join(df, bonds, ["cn10y", "cn10y_date"])
         df["erp"] = [erp_spread(pe, y) for pe, y in zip(df["pe_ttm"], df["cn10y"])]
     else:
@@ -428,7 +524,7 @@ def section_decomposition(lg, basics, levels):
 
 # ============================ §3 指数结构 ============================
 def latest_weights(code, start, end):
-    df = fetch(f"index_weight:{code}@{end}", lambda: api().index_weight(index_code=code, start_date=start, end_date=end))
+    df = fetch(f"index_weight:{code}@{end}", lambda: _pro_rows("index_weight", index_code=code, start_date=start, end_date=end))
     if df is None:
         return None
     return df[df["trade_date"] == df["trade_date"].max()].sort_values("weight", ascending=False).reset_index(drop=True)
@@ -442,8 +538,8 @@ def load_pool_codes(path):
 
 def section_structure(pool_codes):
     lines = ["\n---- §3 指数结构 (tushare index_weight 月度、point-in-time；权重单位 %) ----"]
-    stocks = fetch("stock_basic", lambda: api().stock_basic(exchange="", list_status="L", fields="ts_code,name,industry"))
-    hk = fetch("hk_basic", lambda: api().hk_basic(list_status="L"))
+    stocks = fetch("stock_basic", lambda: _pro_rows("stock_basic", exchange="", list_status="L", fields="ts_code,name,industry"))
+    hk = fetch("hk_basic", lambda: _pro_rows("hk_basic", list_status="L"))
     names = {}
     industries = {}
     if stocks is not None:
@@ -515,7 +611,7 @@ def weight_history(code):
             if start > CUTOFF:
                 break
             df = cached_csv(f"index_weight_{code}_{year}H{half}.csv", f"index_weight:{code}:{year}H{half}",
-                            lambda s=start, e=min(end, CUTOFF): api().index_weight(index_code=code, start_date=s, end_date=e),
+                            lambda s=start, e=min(end, CUTOFF): _pro_rows("index_weight", index_code=code, start_date=s, end_date=e),
                             immutable=end < days_ago(45))   # 月末权重发布有滞后：半年结束 45 天后才视为定稿
             if df is not None:
                 frames.append(df)
@@ -535,7 +631,7 @@ def market_fundamentals(day):
     for back in range(7):
         probe = (datetime.strptime(day, "%Y%m%d") - timedelta(days=back)).strftime("%Y%m%d")
         label = f"daily_basic:{probe}"
-        df = cached_csv(f"daily_basic_{probe}.csv", label, lambda p=probe: api().daily_basic(
+        df = cached_csv(f"daily_basic_{probe}.csv", label, lambda p=probe: _pro_rows("daily_basic",
             trade_date=p, fields="ts_code,pe_ttm,pb,dv_ttm"), immutable=probe < days_ago(5))
         if df is not None:
             for column in ("pe_ttm", "pb", "dv_ttm"):
@@ -626,7 +722,7 @@ def total_cap_pe(weights, day):
         return None
     members = set(current.loc[current["trade_date"] == current["trade_date"].max(), "con_code"])
     df = cached_csv(f"daily_basic_mv_{day}.csv", f"daily_basic_mv:{day}",
-                    lambda: api().daily_basic(trade_date=day, fields="ts_code,pe_ttm,total_mv"), immutable=day < CUTOFF)
+                    lambda: _pro_rows("daily_basic", trade_date=day, fields="ts_code,pe_ttm,total_mv"), immutable=day < CUTOFF)
     if df is None:
         return None
     df = df[df["ts_code"].isin(members)].assign(pe_ttm=lambda d: pd.to_numeric(d["pe_ttm"], errors="coerce"),
@@ -734,10 +830,290 @@ def fee_cells(code, row):
     return text
 
 
+def trahk_tushare_prices():
+    # 当前 SDK 默认用 HTTP；凭据只发往官方 HTTPS 端点。
+    code = HK_ETF[0] + ".HK"
+    prices = _pro_rows("hk_daily", "ts_code,trade_date,close,vol", ts_code=code,
+                       start_date=days_ago(30), end_date=CUTOFF)
+    return prices.loc[prices["ts_code"].eq(code)].rename(columns={"vol": "volume"})
+
+
+def latest_trahk_price(prices):
+    days = pd.to_datetime(prices["trade_date"], errors="coerce").dt.strftime("%Y%m%d")
+    close = pd.to_numeric(prices["close"], errors="coerce")
+    volume = pd.to_numeric(prices["volume"], errors="coerce")
+    traded = days.le(CUTOFF) & close.gt(0) & close.lt(float("inf")) & volume.gt(0)
+    daily = pd.DataFrame({"day": days[traded], "close": close[traded]}).drop_duplicates()
+    latest = daily.loc[daily.day.eq(daily.day.max())]
+    if len(latest) > 1:
+        raise ValueError("同一交易日有多个不复权收盘价")
+    return latest
+
+
+TRAHK_HKEX = "https://www1.hkexnews.hk"
+
+
+def trahk_filing_index(first, last, limit=100):
+    # 披露易的盈富基金发行人 ID；文件内另核对 02800 柜台、币种及估值日。
+    params = dict(stockId="1000165705", market="SEHK", language="en", category="0", searchType="0",
+                  sortDir="0", sortByOptions="DateTime", documentType="-1", t1code="-2", t2Gcode="-2",
+                  t2code="-2", fromDate=first, toDate=last, rowRange=str(limit), title="")
+    response = requests.get(TRAHK_HKEX + "/search/titleSearchServlet.do", params=params, timeout=HTTP_TIMEOUT)
+    response.raise_for_status()
+    return response.json()
+
+
+def trahk_disclosure(day):
+    from openpyxl import load_workbook
+
+    page = trahk_filing_index(day, CUTOFF)
+    releases = []
+    for item in json.loads(page["result"]):
+        if ("02800" not in re.split(r"<br\s*/?>", item["STOCK_CODE"])
+                or item["LONG_TEXT"] != "Trading Information of Exchange Traded Funds"):
+            continue
+        issued = datetime.strptime(item["DATE_TIME"], "%d/%m/%Y %H:%M")
+        if day <= issued.strftime("%Y%m%d") <= CUTOFF:
+            releases.append((issued, item["FILE_LINK"]))
+
+    for issued, path in sorted(set(releases), reverse=True):
+        if not re.fullmatch(r"/listedco/listconews/sehk/\d{4}/\d{4}/\d+\.xlsx", path, re.I):
+            raise ValueError("不识别的披露易交易资料文件")
+        if len({p for t, p in releases if t == issued}) != 1:
+            raise ValueError("同一披露时刻存在多份交易资料")
+        response = requests.get(TRAHK_HKEX + path, timeout=HTTP_TIMEOUT)
+        response.raise_for_status()
+        book = load_workbook(BytesIO(response.content), read_only=True, data_only=True)
+        try:
+            sheet = book.active
+            sheet.reset_dimensions()  # 披露易文件会把实际多行的工作表标作 A1:A1。
+            rows = {}
+            for r in sheet.values:
+                if r and r[0] == "Notes":
+                    break  # 下方持股清单也有 Stock Code 表头。
+                if r and r[0]:
+                    rows[r[0]] = r
+        finally:
+            book.close()
+        codes = rows["Stock Code"]
+        column, = [i for i, value in enumerate(codes) if str(value).zfill(5) == HK_ETF[0]]
+        valuation_day = rows["Date (ddmmmyyyy)"][column].strftime("%Y%m%d")
+        if valuation_day > issued.strftime("%Y%m%d"):
+            raise ValueError("净值日在披露日之后")
+        if valuation_day > day:
+            return None  # 管理人已有更新估值，不能将滞后行情显示为最新折溢价。
+        if valuation_day < day:
+            continue
+        nav_row = rows["N.A.V. per Unit in Trading Currency (Note 1)"]
+        if nav_row[column - 1] != "HKD":
+            raise ValueError("02800 的单位净值币种未经确认为 HKD")
+        nav = Decimal(str(nav_row[column]))
+        premium = Decimal(str(rows["Premium / Discount (%) (Note 5)"][column]))
+        if not nav.is_finite() or nav <= 0 or not premium.is_finite():
+            raise ValueError("无效的单位净值或公告折溢价")
+        return pd.DataFrame([dict(nav=nav, premium=premium, published=issued, url=TRAHK_HKEX + path)])
+    return None
+
+
+# 恒生投资管理各年度持续收费估算的首份产品资料概要。保留披露精度及公告编号。
+# 截至 2026-11-21 已核对；同一估算的重印不改变首次适用日。
+TRAHK_ONGOING_CHARGES = (
+    ("2022091900035", "0.08%", 2021),
+    ("2023042802725", "0.08%", 2022),
+    ("2024043000842", "0.07%", 2023),
+    ("2025042301284", "0.066%", 2024),
+    ("2026041700316", "0.060%", 2025),
+)
+
+
+def trahk_document(number):
+    return f"https://www1.hkexnews.hk/listedco/listconews/sehk/{number[:4]}/{number[4:8]}/{number}.pdf"
+
+
+# 只登记已对照管理人文件的完整香港日。复核后追加日期，保留旧日期供历史回放。
+# 首次核对在 11 月 21 日上午完成，21 日新发布的文件仍需检查。
+TRAHK_FEE_REVIEW_DAYS = ("20261120",)
+
+
+def trahk_notice_text(url):
+    from pypdf import PdfReader
+
+    response = requests.get(url, timeout=HTTP_TIMEOUT)
+    response.raise_for_status()
+    reader = PdfReader(BytesIO(response.content))
+    pages = [page.extract_text() or "" for page in reader.pages]
+    if not pages or any(not text.strip() for text in pages):
+        raise ValueError("公告含无法提取文字的页面")
+    return " ".join(" ".join(pages).split())
+
+
+def trahk_fee_notice_kind(title, category, url):
+    if re.search(r"\b(?:key (?:product )?facts?(?: statement)?|kfs)\b", title, re.I):
+        return "产品资料概要相关文件"
+    fee = r"\b(?:(?:management|manager(?:[’']s)?|trustee(?:[’']s)?|custod(?:y|ian)|administration|annual|ongoing|operating)\s+(?:fees?|charges?|expenses?)|expense ratio|fee (?:structure|rates?|cap))\b"
+    if re.search(fee, title, re.I) or re.search(r"\bfees?\b|\bcharges?\b", title, re.I):
+        return "费率相关公告"
+    # 此基金曾以 Notice to Unitholders 为题披露费用上限，标题本身不能定性。
+    if (re.search(r"dividend|distribution|monthly return|trading information", category, re.I)
+            or not (re.search(r"matters relating to collective investment schemes", category, re.I)
+                    or re.search(r"\bnotice\b|\bannouncement\b|\baddendum\b|\bsupplement\b", title, re.I))):
+        return None
+    body = trahk_notice_text(url)
+    # 只取费率和变更措辞同时出现的句子；保留费率上限等需要人工判断的结果。
+    unchanged = r"no (?:change|impact|effect|increase)|will not (?:affect|change)|remain(?:s)? unchanged"
+    for sentence in re.split(r"(?<=[.!?])\s+", body):
+        if re.search(unchanged, sentence, re.I):
+            # 同一句可先说明一项不变，再宣布另一项费率下降。
+            clauses = re.split(r"[,;]|\b(?:but|however|whereas)\b", sentence, flags=re.I)
+        else:
+            clauses = [sentence]
+        for clause in clauses:
+            if re.search(unchanged, clause, re.I):
+                continue
+            if (re.search(r"\b(?:fees?|charges?|ongoing expenses?|expense ratios?)\b", clause, re.I)
+                    and re.search(r"\b(?:chang\w*|amend\w*|revis\w*|reduc\w*|increas\w*|adjust\w*|updat\w*|"
+                                  r"waiv\w*|caps?|capped|lower\w*|introduc\w*|effective|with effect)\b", clause, re.I)):
+                return "公告正文涉及费率"
+    return None
+
+
+def trahk_fee_filing_pages(first, last):
+    limit = 100
+    for _ in range(2):
+        page = trahk_filing_index(first, last, limit)
+        rows = json.loads(page["result"])
+        total = int(page["recordCnt"])
+        if not isinstance(rows, list) or type(page["hasNextRow"]) is not bool or total < 0:
+            raise ValueError("公告索引格式异常")
+        # 先交付已有记录，补查失败时仍能展示第一页发现的公告。
+        yield rows
+        if not page["hasNextRow"] and len(rows) == total:
+            return
+        limit = max(2 * limit, total)
+    raise ValueError("公告索引返回不全")
+
+
+def trahk_fee_notice_lines():
+    reviewed = max((day for day in TRAHK_FEE_REVIEW_DAYS if day <= CUTOFF), default=None)
+    if reviewed is None or reviewed == CUTOFF:
+        return ["  费率公告检查 · 按截止日已收录的管理人文件回放费率。"]
+    start = datetime.strptime(reviewed, "%Y%m%d") + timedelta(days=1)
+    end = datetime.strptime(CUTOFF, "%Y%m%d")
+    label = "HKEXnews:02800 费率公告"
+    alerts, problems, seen = {}, [], set()
+    while start <= end:
+        through = min(start + timedelta(days=89), end)
+        first, last = start.strftime("%Y%m%d"), through.strftime("%Y%m%d")
+        start = through + timedelta(days=1)
+        rows = []
+        try:
+            for page in trahk_fee_filing_pages(first, last):
+                rows.extend(page)
+        except (requests.RequestException, ValueError, KeyError, TypeError) as exc:
+            problems.append(f"{first}–{last} 公告索引无法核实（{type(exc).__name__}）")
+        for item in rows:
+            try:
+                if "02800" not in re.split(r"\s*<br\s*/?>\s*", item["STOCK_CODE"], flags=re.I):
+                    continue
+                issued = datetime.strptime(item["DATE_TIME"], "%d/%m/%Y %H:%M")
+                if not first <= issued.strftime("%Y%m%d") <= last:
+                    continue
+                title = " ".join(unescape(item["TITLE"]).split())
+                category = unescape(item["LONG_TEXT"])
+                if category == "Trading Information of Exchange Traded Funds":
+                    continue
+                path = item["FILE_LINK"]
+                if not re.fullmatch(r"/listedco/listconews/sehk/\d{4}/\d{4}/[\w-]+\.[a-z0-9]+", path, re.I):
+                    raise ValueError("公告原文链接无法确认")
+                url = TRAHK_HKEX + path
+                key = (issued, url)
+                if key in seen:
+                    continue
+                seen.add(key)
+                try:
+                    kind = trahk_fee_notice_kind(title, category, url)
+                except Exception as exc:  # PDF 无字、损坏或下载失败，保留人工可读的原文入口。
+                    problems.append(f"{issued:%Y-%m-%d %H:%M} {title} 正文待核（{type(exc).__name__}） {url}")
+                    continue
+                if kind:
+                    alerts[key] = f"  费率待复核 · {issued:%Y-%m-%d %H:%M} 香港时间 · {kind} · {title} · {url}"
+            except (ValueError, TypeError, KeyError) as exc:
+                problems.append(f"{first}–{last} 公告条目无法核实（{type(exc).__name__}）")
+
+    lines = [alerts[key] for key in sorted(alerts)]
+    INTERFACES[label] = "检查不完整" if problems else "通"
+    if problems:
+        lines.append("  费率公告检查不完整 · " + "；".join(dict.fromkeys(problems)))
+        gap("§5", "02800 费率公告检查不完整，详见该基金公告原文或索引")
+    if lines:
+        lines.append(f"  费率沿用截至快照日已核对的条款（公告复核覆盖至 {reviewed}）。")
+    else:
+        lines.append(f"  费率公告检查 · 截至 {CUTOFF}，自 {reviewed} 核对后未发现需复核的新文件。")
+    return lines
+
+
+def trahk_fee_lines():
+    labels = ("管理费", "受托人费", "持续收费比率")
+    known = [record for record in TRAHK_ONGOING_CHARGES if record[0][:8] <= CUTOFF]
+    if not known:
+        return [f"  {label} {gap('§5', f'02800 {label} 未收录该截止日的管理人文件')}" for label in labels]
+
+    document, ongoing, year = known[-1]
+    since = datetime.strptime(document[:8], "%Y%m%d").date()
+    tiers = ("2022-09-19 起，按基金净资产（港元）分段累加年费。首150亿 0.045%，"
+             "150亿以上至300亿 0.030%，300亿以上至450亿 0.020%，超过450亿部分 0.015%。")
+    terms_source = trahk_document(document)
+    if CUTOFF >= "20250919":
+        tiers += " 2025-09-19 起，本项分档费用与年率 0.019% 的上限按季取低。"
+        if CUTOFF >= "20251008":
+            tiers += (" 2025-10-08 起按每日基金净资产计算。季上限按该季平均每日净资产及天数折算，"
+                      "全年本项收费亦以该年平均每日净资产的 0.019% 为限。")
+            terms_source = trahk_document(max("2025100800069", document))
+        terms_source += " | 上限生效公告 " + trahk_document("2025091500355")
+
+    if document != TRAHK_ONGOING_CHARGES[0][0]:
+        terms_source += " | 分档起始文件 " + trahk_document(TRAHK_ONGOING_CHARGES[0][0])
+    lines = [f"  {label} {tiers} | 恒生投资管理《产品资料概要》 {terms_source}" for label in labels[:2]]
+    basis = "按调低费率估算的管理费和受托人费，加上该年其他经常开支" if year <= 2022 else "该年管理费、受托人费及其他经常开支之和"
+    lines.append(f"  持续收费比率 {ongoing}（全年估算，已含管理费和受托人费），自 {since} 起披露采用。"
+                 f" 统计期间 {year}-01-01 至 {year}-12-31。以{basis}除以同期平均净资产。"
+                 f" | 恒生投资管理《产品资料概要》 {trahk_document(document)}")
+    return lines
+
+
+def trahk_lines():
+    code, name, key = HK_ETF
+    index_name = next(entry["name"] for entry in INDEX_POOL if entry["key"] == key)
+    lines = [f"\n[{code}.HK] {name} | 跟踪 {index_name} | 盈立证券直持 | 港币柜台"]
+    lines.extend(trahk_fee_lines())
+    lines.extend(trahk_fee_notice_lines())
+    price = fetch(f"hk_daily:{code}.HK", lambda: latest_trahk_price(trahk_tushare_prices()))
+    source = "Tushare hk_daily"
+    if price is None or price.iloc[0].day < CUTOFF:
+        sina = fetch(f"ak.stock_hk_daily:{code}", lambda: latest_trahk_price(
+            ak.stock_hk_daily(symbol=code, adjust="").rename(columns={"date": "trade_date"})), pause=0)
+        if sina is not None and (price is None or sina.iloc[0].day > price.iloc[0].day):
+            price, source = sina, "新浪港股日线"
+    if price is None:
+        return lines + [f"  收盘价及折溢价 {gap('§5', '02800 无可用不复权收盘价')}"]
+    day, close = price.iloc[0][["day", "close"]]
+    lines.append(f"  收盘价 {close:.2f} HKD @{day}（{source}，未复权）")
+    report = fetch("HKEXnews:02800 交易资料", lambda: trahk_disclosure(day), pause=0)
+    if report is None:
+        return lines + [f"  港币单位净值及收盘折溢价 {gap('§5', f'02800 @{day} 缺少可核对的已披露同日净值')}"]
+    row = report.iloc[0]
+    lines.append(f"  每单位净值 {row.nav:.4f} HKD @{day} | 管理人披露 {row.published:%Y-%m-%d %H:%M} 香港时间 | {row.url}")
+    pct = (Decimal(str(close)) / row.nav - 1) * 100
+    if abs(pct - row.premium) > Decimal("0.005"):  # 公告按百分数保留两位小数。
+        return lines + [f"  收盘折溢价 {gap('§5', f'02800 @{day} 收盘价推算折溢价与公告不符')}（公告 {row.premium:+.2f}%）"]
+    lines.append(f"  收盘折溢价 {pct:+.4f}%（收盘价 / 每单位净值 − 1；管理人公告 {row.premium:+.2f}%）")
+    return lines
+
+
 def section_tools(universe, levels, fx):
     lines = ["\n---- §5 工具池 (持仓基金；场外基金按净值申赎、无溢价) ----"]
     if universe is None:
-        return lines + [f"  {gap('§5', 'fund_basic 不可得，工具池整节缺失')}"]
+        return lines + [f"  {gap('§5', 'fund_basic 不可得，内地基金资料缺失')}"] + trahk_lines()
     universe = universe.assign(stem=universe["name"].str.replace(r"-[A-Z]$", "", regex=True))
     index_by_key = {entry["key"]: entry for entry in INDEX_POOL}
     for code, expected_name, key in HOLDINGS:
@@ -761,20 +1137,12 @@ def section_tools(universe, levels, fx):
         size_text = (f"net_asset {num(size['net_asset'].iloc[0] / 1e8)} 亿 / total_netasset "
                      f"{num(size['total_netasset'].iloc[0] / 1e8)} 亿 @{size['trade_date'].iloc[0]}"
                      "（tushare 原字段；A/C 两类 net_asset 同值，是否分份额口径未核）") if not size.empty else gap("§5", code + " 规模")
-        lines.append(f"  净值: {num(last['unit_nav'], 4)} @{last['trade_date']} | 复权净值 {num(last['adj_nav'], 4)} | 规模 {size_text}")
+        lines.append(f"  净值: {num(last['unit_nav'], 4)} @{last['trade_date']} | 复权净值 {num(last['adj_nav'], 4)} | 净值公告日 {last['ann_date']} | 规模 {size_text}")
         lines.append(f"  {tracking_cells(nav, entry, levels, fx, row['found_date'])}")
         siblings = universe[(universe["stem"] == row["stem"]) & (universe["ts_code"] != code) & (universe["status"] == "L")]
         for _, sibling in siblings.iterrows():
             lines.append(f"  同基金其他份额 {sibling['ts_code']} {sibling['name']}: {fee_cells(sibling['ts_code'], sibling)}")
-    code, name, key = HK_ETF
-    price = fetch(f"ak.stock_hk_daily:{code}", lambda: ak.stock_hk_daily(symbol=code, adjust=""), pause=0)
-    lines.append(f"\n[{code}.HK] {name} | 跟踪 {index_by_key[key]['name']} | 盈立证券直持 | 费率/净值 {MARK}")
-    if price is not None:
-        price = price.assign(trade_date=pd.to_datetime(price["date"]).dt.strftime("%Y%m%d")).query("trade_date <= @CUTOFF")
-        lines.append(f"  收盘价: {num(price['close'].iloc[-1])} HKD @{price['trade_date'].iloc[-1]} (新浪港股日线，未复权)")
-    else:
-        lines.append(f"  收盘价: {gap('§5', '02800 行情不可得')}")
-    return lines
+    return lines + trahk_lines()
 
 
 # ============================ §6 趋势 ============================
@@ -839,13 +1207,14 @@ def section_macro(bonds, fx, levels):
     if bonds is not None:
         for label, column in (("中国10年国债(中债曲线)", "cn10y"), ("美国10年国债", "us10y")):
             series = bonds.dropna(subset=[column])
-            lines.append(f"  {label}: {num(series[column].iloc[-1], 4, '%')} @{series['trade_date'].iloc[-1]}" if not series.empty
+            source = f" · {bonds.attrs['us10y_source']}" if column == "us10y" and not series.empty else ""
+            lines.append(f"  {label}: {num(series[column].iloc[-1], 4, '%')} @{series['trade_date'].iloc[-1]}{source}" if not series.empty
                          else f"  {label}: {gap('§7', label + ' 不可得')}")
     else:
         lines.append(f"  国债收益率: {gap('§7', '中美10年国债收益率不可得')}")
     if fx is not None:
         last = fx.iloc[-1]
-        lines.append(f"  人民币中间价: USD {num(last['USD'], 4)} / HKD {num(last['HKD'], 5)} @{last['trade_date']}")
+        lines.append(f"  人民币中间价（每 1 单位外币兑人民币元）: USD {num(last['USD'], 4)} / HKD {num(last['HKD'], 5)} @{last['trade_date']} · {fx.attrs['source']}")
     else:
         lines.append(f"  汇率: {gap('§7', '外管局中间价不可得')}")
     gold = levels.get("Au99.99")

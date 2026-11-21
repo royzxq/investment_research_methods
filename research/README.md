@@ -22,6 +22,7 @@
 | 期货 V 观察锚 | `futures/anchors/<日期>/<日期>-anchors[-rN].json`；来源计算留同日 evidence/研究报告，冻结及撤回不可变 | 共享接续后仍需核本期适用性 |
 | 期货跨 worktree 本地接续 | 主 checkout 的 `futures/local-continuity/`：内容寻址来源副本、采纳索引 | Git 忽略的持续状态，非缓存；`scripts/futures_continuity.py location` 定位，不能仅留 memory |
 | 股票周更及单阶段 | `investment/weekly/<日期>/investment-<日期>-{market-research,change-decision,adaption-report}[-rN].md` | `output/runs/investment/<日期>/<run-id>/` |
+| AI 业务重点核验名单 | [版本、查询和周更说明](investment/tracking/ai-business/)；逐版保留证券及一手证据 | 已准备批次冻结对应证券的核验提示 |
 | 股票状态、纠错及方法接续 | `investment/weekly/<日期>/investment-<日期>-handoff[-rN].json`；方法正文快照及必要来源放同日 `evidence/` | 采纳、替代和待复评凭证是持续研究记录，不是可丢弃缓存 |
 | 保真审计、脚本同步 | 随本期报告；必要附件放本期 `evidence/`；data-sync 和 compact 摘要仍写适配报告原章节 | `output/audits/<轨道>/<日期>/<run-id>/` |
 | 独立修复、治理、核对 | `<轨道>/maintenance/<日期>/` | 本次运行目录 |
