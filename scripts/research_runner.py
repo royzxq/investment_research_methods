@@ -57,9 +57,11 @@ FRAMEWORKS = ('investment_framework.md', 'investment_framework_compact.md')
 SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v1'  # Exact legacy pair.
 BUNDLE_SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v2'
 AI_SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v3'
+PIPELINE_SNAPSHOT_SCHEMA = 'stock-framework-snapshot/v4'
 SNAPSHOT_FILES = {SNAPSHOT_SCHEMA: FRAMEWORKS,
                   BUNDLE_SNAPSHOT_SCHEMA: stock_framework_bundle.STRATEGY_BUNDLE,
-                  AI_SNAPSHOT_SCHEMA: stock_framework_bundle.BUNDLE}
+                  AI_SNAPSHOT_SCHEMA: stock_framework_bundle.AI_BUNDLE,
+                  PIPELINE_SNAPSHOT_SCHEMA: stock_framework_bundle.BUNDLE}
 OLD_TWO_PRICE_CONTRACT = dict(price_schema='stock-research/v4', audit_schema='stock-research-audit/v2', prompt_template='two-price/v1')
 SCOPED_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v2')
 ACCEPTANCE_CONTROLS_CONTRACT = dict(OLD_TWO_PRICE_CONTRACT, prompt_template='two-price-controls/v3')
@@ -466,7 +468,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
         has_ai_supplement = stock_framework_bundle.AI_SUPPLEMENT in frameworks
         scope = ('按主策略读取适用的冻结文件，' if has_ai_supplement else
                  '前文只列两份框架的阅读要求扩展为本批快照内全部六份文件，')
-        file_count = '七' if has_ai_supplement else '六'
+        file_count = {6: '六', 7: '七', 8: '八'}[len(frameworks)]
         prefix += (f'本批采用股票策略拆分依赖包：{scope}'
                    '不得读取工作区现行方法替代冻结依赖。先按stock_research_common.md的C0和用户持有目的'
                    '确定dividend/non_dividend，在报告§0声明理由；有分红不自动路由。'
@@ -499,6 +501,9 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
     if stock_framework_bundle.AI_SUPPLEMENT in frameworks and route.get('strategy') != 'dividend':
         prefix += ('仅普通策略命中冻结框架的 AI 业务调用条件时，读取本批 ai_business_supplement.md '
                    '中的适用业务行并入原报告。其余任务直接跳过，无需填写或列为缺口。\n\n')
+    if stock_framework_bundle.PIPELINE_SUPPLEMENT in frameworks and route.get('strategy') != 'dividend':
+        prefix += ('仅普通策略中少数核心管线的成败会明显改变公司整体估值时，读取本批 drug_pipeline_supplement.md，'
+                   '将可归属的管线增量并回原报告的一套公司估值。其余任务跳过。\n\n')
     result = (prefix + '<research_data_pack>\n' + pack_text).encode('utf-8')
     if research_shared_evidence.enabled(dict(evidence_workflow=evidence_workflow)):
         result += b'\n</research_data_pack>\n' + research_shared_evidence.frozen_instructions(generator)

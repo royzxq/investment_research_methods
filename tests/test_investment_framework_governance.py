@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 from scripts.investment_framework_governance import check, FILES, ROOT, STRATEGY_SCOPE
-from scripts.stock_framework_bundle import AI_SUPPLEMENT, BUNDLE, STRATEGY_BUNDLE, sync
+from scripts.stock_framework_bundle import AI_SUPPLEMENT, PIPELINE_SUPPLEMENT, BUNDLE, STRATEGY_BUNDLE, sync
 
 
 class InvestmentGovernanceTests(unittest.TestCase):
@@ -92,7 +92,12 @@ class InvestmentGovernanceTests(unittest.TestCase):
 
     def test_ai_supplement_must_be_reachable_from_both_editions(self):
         self.replace(FILES[1], f"]({AI_SUPPLEMENT})", "（已移除）")
-        with self.assertRaisesRegex(ValueError, "AI supplement entry"):
+        with self.assertRaisesRegex(ValueError, "ai_business_supplement"):
+            check(self.root)
+
+    def test_pipeline_entry_keeps_the_same_trigger_in_both_editions(self):
+        self.replace(FILES[1], "仅当少数核心管线的成败会明显改变公司整体估值时", "凡医药公司")
+        with self.assertRaisesRegex(ValueError, PIPELINE_SUPPLEMENT):
             check(self.root)
 
 

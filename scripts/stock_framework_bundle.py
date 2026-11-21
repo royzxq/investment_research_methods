@@ -10,8 +10,12 @@ CORE = ('investment_framework.md', 'investment_framework_compact.md')
 STRATEGY_DEPENDENCIES = ('stock_research_common.md', 'dividend_framework.md',
                          'dividend_framework_compact.md', 'dividend_report_template.md')
 AI_SUPPLEMENT = 'ai_business_supplement.md'
-DEPENDENCIES = STRATEGY_DEPENDENCIES + (AI_SUPPLEMENT,)
+PIPELINE_SUPPLEMENT = 'drug_pipeline_supplement.md'
+AI_DEPENDENCIES = STRATEGY_DEPENDENCIES + (AI_SUPPLEMENT,)
+DEPENDENCIES = AI_DEPENDENCIES + (PIPELINE_SUPPLEMENT,)
+DEPENDENCY_VERSIONS = (STRATEGY_DEPENDENCIES, AI_DEPENDENCIES, DEPENDENCIES)
 STRATEGY_BUNDLE = CORE + STRATEGY_DEPENDENCIES
+AI_BUNDLE = CORE + AI_DEPENDENCIES
 BUNDLE = CORE + DEPENDENCIES
 MARKER = re.compile(r'<!-- stock-framework-dependencies: (.*?) -->')
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,7 +31,7 @@ def dependency_map(raw):
     if not isinstance(pairs, list) or any(not isinstance(p, tuple) or len(p) != 2 for p in pairs):
         raise ValueError('invalid stock framework dependencies')
     result = dict(pairs)
-    if (len(result) != len(pairs) or set(result) not in (set(STRATEGY_DEPENDENCIES), set(DEPENDENCIES))
+    if (len(result) != len(pairs) or not any(result.keys() == set(names) for names in DEPENDENCY_VERSIONS)
             or any(not isinstance(v, str) or
             not re.fullmatch('[0-9a-f]{64}', v) for v in result.values())):
         raise ValueError('invalid stock framework dependencies')
@@ -45,7 +49,7 @@ def validate(contents):
     for name, digest in maps[0].items():
         if hashlib.sha256(contents[name]).hexdigest() != digest:
             raise ValueError('stock framework dependency hash mismatch: ' + name)
-    return BUNDLE if AI_SUPPLEMENT in maps[0] else STRATEGY_BUNDLE
+    return CORE + next(names for names in DEPENDENCY_VERSIONS if maps[0].keys() == set(names))
 
 
 def capture(folder):
