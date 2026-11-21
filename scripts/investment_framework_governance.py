@@ -56,7 +56,7 @@ def check(root=ROOT):
     if scoped or versions[0].startswith("stock-strategy-split-v2-"):
         if any(texts[name].count(STRATEGY_SCOPE) != 1 for name in FILES):
             raise ValueError("Strategy scope must agree in canonical and compact")
-        if set(contents) != set(stock_framework_bundle.BUNDLE):
+        if not set(stock_framework_bundle.STRATEGY_BUNDLE).issubset(contents):
             raise ValueError("Migrated rules require the full strategy bundle")
         # R9 is a migration index, not a live dependency of non-dividend rules.
         if "[R9]" in compact:
@@ -67,7 +67,11 @@ def check(root=ROOT):
         if any("### HD4A " not in contents[name].decode()
                for name in ("dividend_framework.md", "dividend_framework_compact.md")):
             raise ValueError("Migrated dividend model needs canonical and compact HD4A")
-    if set(contents) == set(stock_framework_bundle.BUNDLE):
+    link = f"]({stock_framework_bundle.AI_SUPPLEMENT})"
+    expected_links = int(stock_framework_bundle.AI_SUPPLEMENT in contents)
+    if any(texts[name].count(link) != expected_links for name in FILES):
+        raise ValueError("AI supplement entry must match the signed dependencies in both editions")
+    if set(stock_framework_bundle.STRATEGY_BUNDLE).issubset(contents):
         dividend_versions = []
         for name in ("dividend_framework.md", "dividend_framework_compact.md"):
             body = contents[name].decode()
@@ -82,6 +86,8 @@ def check(root=ROOT):
         if len(set(dividend_versions)) != 1:
             raise ValueError("dividend method versions differ")
         for name in stock_framework_bundle.DEPENDENCIES:
+            if name not in contents:
+                continue
             texts[name] = contents[name].decode()
             fingerprints[name] = method_fingerprint(contents[name])
         template = texts['dividend_report_template.md']

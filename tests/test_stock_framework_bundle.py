@@ -32,7 +32,7 @@ class FrameworkBundleTests(unittest.TestCase):
         self.enable_bundle(); run = self.prepare()
         hashes, snapshot = runner.snapshot_hashes(run)
         self.assertEqual(set(hashes), set(bundle.BUNDLE))
-        self.assertEqual(snapshot['schema_version'], 'stock-framework-snapshot/v2')
+        self.assertEqual(snapshot['schema_version'], 'stock-framework-snapshot/v3')
         self.assertEqual(runner.delivery_contract(snapshot), runner.NEW_CONTRACT)
         prompt = (run/'execution/SH-600066/codex/prompt.txt').read_text()
         self.assertIn('dividend_report_template.md', prompt)
@@ -40,6 +40,8 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertIn('two-price-controls/v10', prompt)
         self.assertIn('JSON仍v4/audit-v7', prompt)
         self.assertNotIn('stock-research-audit/v6', prompt)
+        self.assertIn('全部七份冻结哈希', prompt)
+        self.assertIn('仅普通策略命中冻结框架的 AI 业务调用条件时', prompt)
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
 
     def route(self, strategy='dividend'):
@@ -60,6 +62,7 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertIn('使用 dividend-research 技能'.encode(), prompt)
         self.assertNotIn('先按stock_research_common.md的C0和用户持有目的'.encode(), prompt)
         self.assertIn('dividend_report_template.md'.encode(), prompt)
+        self.assertNotIn('仅普通策略命中'.encode(), prompt)
         self.assertIn('"threshold_pp": 2'.encode(), prompt)
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
         self.assertEqual(prompt, (run/'execution/SH-600066/codex/prompt.txt').read_bytes())
@@ -91,7 +94,7 @@ class FrameworkBundleTests(unittest.TestCase):
 
     def test_early_v2_snapshot_keeps_original_rule_bytes_after_scope_migration(self):
         old = ROOT / 'research/investment/weekly/2026-11-17/evidence/investment-2026-11-17-handoff-r2-methods'
-        for name in bundle.BUNDLE:
+        for name in bundle.STRATEGY_BUNDLE:
             shutil.copyfile(old/name, self.root/'framework'/name)
         with patch.object(runner, 'NEW_CONTRACT', runner.AVAILABILITY_CONTRACT):
             run = self.prepare()
@@ -101,10 +104,12 @@ class FrameworkBundleTests(unittest.TestCase):
         before = (run/'execution/SH-600066/codex/prompt.txt').read_bytes()
         self.assertIn(b'audit-v6', before)
         self.assertNotIn(b'two-price-controls/v10', before)
+        self.assertNotIn(bundle.AI_SUPPLEMENT.encode(), before)
+        self.assertIn('全部六份冻结哈希'.encode(), before)
         self.enable_bundle()
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
         self.assertEqual(before, (run/'execution/SH-600066/codex/prompt.txt').read_bytes())
-        for name in bundle.BUNDLE:
+        for name in bundle.STRATEGY_BUNDLE:
             self.assertEqual((run/'framework-snapshot'/name).read_bytes(), (old/name).read_bytes())
         self.assertEqual(runner.framework_compatibility(run, self.root, hashes,
                          '2026-10-06')['classification'], 'needs_review')
@@ -126,6 +131,24 @@ class FrameworkBundleTests(unittest.TestCase):
     def test_missing_dependency_cannot_prepare(self):
         self.enable_bundle(); (self.root/'framework/dividend_report_template.md').unlink()
         with self.assertRaises(OSError): self.prepare()
+
+    def test_supplement_is_frozen_and_cannot_be_substituted_or_downgraded(self):
+        self.enable_bundle()
+        run = self.prepare()
+        live = self.root / 'framework' / bundle.AI_SUPPLEMENT
+        live.write_text('changed after preparation')
+        runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
+        with self.assertRaisesRegex(ValueError, 'dependency hash'):
+            bundle.capture(live.parent)
+        manifest = run/'framework-snapshot/manifest.json'
+        document = json.loads(manifest.read_bytes())
+        manifest.chmod(0o644)
+        for version in (runner.BUNDLE_SNAPSHOT_SCHEMA, [], {}):
+            with self.subTest(version=version):
+                document['schema_version'] = version
+                manifest.write_text(json.dumps(document))
+                with self.assertRaisesRegex(ValueError, 'manifest'):
+                    runner.snapshot_hashes(run)
 
     def test_tampered_frozen_dependency_or_omission_rejected(self):
         self.enable_bundle(); run = self.prepare()
@@ -203,5 +226,18 @@ class FrameworkBundleTests(unittest.TestCase):
         self.assertIsNotNone(snapshot['maintenance'])
         copied = {Path(item['original_path']).name for item in snapshot['maintenance']['sources']}
         self.assertTrue(set(bundle.BUNDLE) <= copied)
+        shutil.rmtree(self.root/'research')
+        runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
+
+    def test_compatible_v2_handoff_dependencies_survive_in_v3_mirror(self):
+        old = ROOT / 'research/investment/weekly/2026-11-18/evidence/investment-2026-11-18-handoff-methods'
+        for name in bundle.STRATEGY_BUNDLE:
+            shutil.copyfile(old/name, self.root/'framework'/name)
+        prior, reports = self.fixture.make_handoff()
+        review = dict(methods=json.loads(prior.read_bytes())['methods'], status='adopted',
+                      reason='Reviewed fixture methods', review=reports['change_decision'])
+        self.enable_bundle()
+        self.fixture.make_handoff(revision=2, supersedes=[prior.stem], compatibility=[review])
+        run = self.prepare()
         shutil.rmtree(self.root/'research')
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)

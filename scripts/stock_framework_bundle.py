@@ -1,4 +1,4 @@
-"""Bind the shared/dividend method closure without changing legacy pair snapshots."""
+"""Bind each generation of the stock framework to its exact method files."""
 from __future__ import annotations
 import argparse
 import hashlib
@@ -7,8 +7,11 @@ from pathlib import Path
 import re
 
 CORE = ('investment_framework.md', 'investment_framework_compact.md')
-DEPENDENCIES = ('stock_research_common.md', 'dividend_framework.md',
-                'dividend_framework_compact.md', 'dividend_report_template.md')
+STRATEGY_DEPENDENCIES = ('stock_research_common.md', 'dividend_framework.md',
+                         'dividend_framework_compact.md', 'dividend_report_template.md')
+AI_SUPPLEMENT = 'ai_business_supplement.md'
+DEPENDENCIES = STRATEGY_DEPENDENCIES + (AI_SUPPLEMENT,)
+STRATEGY_BUNDLE = CORE + STRATEGY_DEPENDENCIES
 BUNDLE = CORE + DEPENDENCIES
 MARKER = re.compile(r'<!-- stock-framework-dependencies: (.*?) -->')
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,11 +24,11 @@ def dependency_map(raw):
     if len(found) != 1:
         raise ValueError('require one stock framework dependency marker')
     pairs = json.loads(found[0], object_pairs_hook=list)
-    if (not isinstance(pairs, list) or any(not isinstance(p, tuple) or len(p) != 2 for p in pairs)
-            or len(pairs) != len(DEPENDENCIES)):
+    if not isinstance(pairs, list) or any(not isinstance(p, tuple) or len(p) != 2 for p in pairs):
         raise ValueError('invalid stock framework dependencies')
     result = dict(pairs)
-    if (set(result) != set(DEPENDENCIES) or any(not isinstance(v, str) or
+    if (len(result) != len(pairs) or set(result) not in (set(STRATEGY_DEPENDENCIES), set(DEPENDENCIES))
+            or any(not isinstance(v, str) or
             not re.fullmatch('[0-9a-f]{64}', v) for v in result.values())):
         raise ValueError('invalid stock framework dependencies')
     return result
@@ -37,19 +40,20 @@ def validate(contents):
         if set(contents) != set(CORE):
             raise ValueError('legacy framework must contain the exact original pair')
         return CORE
-    if maps[0] is None or maps[0] != maps[1] or set(contents) != set(BUNDLE):
+    if maps[0] is None or maps[0] != maps[1] or set(contents) != set(CORE).union(maps[0]):
         raise ValueError('stock framework dependency closure missing or inconsistent')
     for name, digest in maps[0].items():
         if hashlib.sha256(contents[name]).hexdigest() != digest:
             raise ValueError('stock framework dependency hash mismatch: ' + name)
-    return BUNDLE
+    return BUNDLE if AI_SUPPLEMENT in maps[0] else STRATEGY_BUNDLE
 
 
 def capture(folder):
     folder = Path(folder)
     contents = {name: (folder / name).read_bytes() for name in CORE}
-    if any(dependency_map(raw) is not None for raw in contents.values()):
-        contents.update({name: (folder / name).read_bytes() for name in DEPENDENCIES})
+    declared = dependency_map(contents[CORE[0]]) or {}
+    # Historical prompt hashes also bind the file order.
+    contents.update({name: (folder / name).read_bytes() for name in DEPENDENCIES if name in declared})
     validate(contents)
     if contents != {name: (folder / name).read_bytes() for name in contents}:
         raise ValueError('framework changed while preparing snapshot; retry preparation')

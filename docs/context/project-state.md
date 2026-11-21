@@ -1,5 +1,7 @@
 # 项目状态与迁移边界
 
+2026-11-20 本地采纳：普通股票仅在 AI 业务成败足以改变利润、现金流或现价解释时选读[业务补充模板](../../framework/ai_business_supplement.md)，结果并回公司原估值。新批次按 v3 冻结七份方法文件，已准备的 v1/v2 继续使用原文件。市场观测、5 项待复评与 4 个撤回来源按原日期接续。见[适配记录](../../research/investment/weekly/2026-11-20/investment-2026-11-20-adaption-report.md)及[本地接续](../../research/investment/weekly/2026-11-20/investment-2026-11-20-handoff.json)。
+
 2026-11-18 当前采纳：A股与港股统一以同日中国十年国债作筛选，默认利差分别严格大于2及3.5个百分点。中债官网可替代TuShare国债权限；指定候选和每日抓包共用入口，旧冻结任务不改。港股的跨币种筛选差不写入同币种估值利差。5项待复评、4项撤回、25项历史评估接续。见[本轮适配验证](../../research/investment/weekly/2026-11-18/investment-2026-11-18-adaption-report.md)、[当前采纳](../../research/investment/weekly/2026-11-18/investment-2026-11-18-handoff.json)及[11月17日旧路由记录](../../research/investment/weekly/2026-11-17/investment-2026-11-17-handoff-r5.json)。
 
 
