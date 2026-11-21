@@ -1,0 +1,1 @@
+{"evidence_corrections": [{"affected_checks": [{"candidate_id": "20261009-MA2701-trend-long-v3", "rule_id": "G2"}], "reason": "撤回信号必须晚于版本生效的额外门；当前重评与历史回填不同，价格原始证据未变", "recalculation": "completed", "withdrawn_evidence_id": "FRAMEWORK"}]}

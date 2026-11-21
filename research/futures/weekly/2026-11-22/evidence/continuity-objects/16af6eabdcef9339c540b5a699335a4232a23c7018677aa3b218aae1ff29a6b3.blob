@@ -1,0 +1,1 @@
+{"corrections": {"scope": ["仅撤回10/11 r3 的 MA2701 当前 G2 产业适用性 pass，待核需求负反馈与专属行情；原 ID、信号日、登记、10/13 截止不变；其他路线仍属10/09历史。"], "supersedes": [{"path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md", "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c"}]}}

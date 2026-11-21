@@ -1,0 +1,1 @@
+{"evidence_corrections": [{"affected_checks": [{"candidate_id": "20261023-RB2701-trend-short-v3", "rule_id": "G3"}], "reason": "11/01已采纳审计r6及collect继承remaining_window标签与原10/27截止、正文expired不一致；本期改expired，不重启原时钟", "recalculation": "completed", "withdrawn_evidence_id": "RB-WINDOW-OLD"}]}

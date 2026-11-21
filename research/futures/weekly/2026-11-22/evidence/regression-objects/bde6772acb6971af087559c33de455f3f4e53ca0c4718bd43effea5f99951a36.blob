@@ -1,0 +1,8 @@
+test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle (test_investment_maintenance.MaintenanceTests.test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle) ... ok
+test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch (test_investment_maintenance.MaintenanceTests.test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch) ... ok
+test_weekly_v4_dcf_completion_and_state_only_compatibility (test_investment_maintenance.MaintenanceTests.test_weekly_v4_dcf_completion_and_state_only_compatibility) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.153s
+
+OK

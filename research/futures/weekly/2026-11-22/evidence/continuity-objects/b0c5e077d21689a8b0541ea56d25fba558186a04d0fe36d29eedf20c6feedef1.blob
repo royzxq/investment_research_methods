@@ -1,0 +1,1 @@
+{"corrections": {"scope": ["仅更新 MA2701 10/15 存量价格/期限/产业风险，并新增 M2701 10/15 价格触发与待核审计；原 MA 信号日、登记及 10/13 截止和 10/11 市场研究其他范围不变"], "supersedes": [{"path": "research/futures/weekly/2026-10-13/2026-10-13-execution-audit.md", "sha256": "dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127"}]}}

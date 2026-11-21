@@ -1,0 +1,111 @@
+{
+  "as_of_date": "2026-11-22",
+  "assessed_at": "2026-11-22T01:11:31.198598+08:00",
+  "scope": "read_only_regression_triage_no_source_changes",
+  "actual_baseline": "98c260f71ff725240b3024c46e0bda1250829643",
+  "logs": {
+    "offline-tests.log": {
+      "path": "output/runs/futures/2026-11-22/automation/offline-tests.log",
+      "sha256": "ad38f17efa088bb3d60e9ae25f04fe805dcbcef925a1d0b3c6994a1a638a3982",
+      "bytes": 393343
+    },
+    "offline-tests-r2.log": {
+      "path": "output/runs/futures/2026-11-22/automation/offline-tests-r2.log",
+      "sha256": "e1b297096de18416963f84f3105224d35ab4299293c59feff6ccfb3a58b67063",
+      "bytes": 347968
+    },
+    "offline-tests-conda.log": {
+      "path": "output/runs/futures/2026-11-22/automation/offline-tests-conda.log",
+      "sha256": "9475648bcbf3122068734ff82e758fc4a88008fa44985276f42309e8b4f4b39e",
+      "bytes": 223541
+    },
+    "baseline-triage-conda.log": {
+      "path": "output/runs/futures/2026-11-22/automation/baseline-triage-conda.log",
+      "sha256": "bde6772acb6971af087559c33de455f3f4e53ca0c4718bd43effea5f99951a36",
+      "bytes": 670
+    }
+  },
+  "first_sandbox_run": {
+    "status": "completed",
+    "tests": 1494,
+    "seconds": 344.42,
+    "result": "FAILED (failures=1, errors=49)"
+  },
+  "system_python_unsandboxed_run": {
+    "status": "completed",
+    "tests": 1494,
+    "seconds": 366.858,
+    "result": "FAILED (failures=1, errors=3)"
+  },
+  "conda_full_run_at_assessment": {
+    "status": "pending",
+    "last_line": "vate/var/folders/0y/3r3y_sg55hbgz1p4w5qyp_200000gn/T/tmpf_h_00tn/methods/output/runs/investment/2026-10-06/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/execution/SH-600066/codex/process.json\"}"
+  },
+  "targeted_conda_3_tests": {
+    "command": "/Users/xinquanzhou/miniconda3/bin/python3; sys.path.insert(0, 'tests'); unittest.loadTestsFromNames(three failed test_investment_maintenance.MaintenanceTests cases)",
+    "result": {
+      "status": "completed",
+      "tests": 3,
+      "seconds": 0.153,
+      "result": "OK"
+    },
+    "stdout": "test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle (test_investment_maintenance.MaintenanceTests.test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle) ... ok\ntest_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch (test_investment_maintenance.MaintenanceTests.test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch) ... ok\ntest_weekly_v4_dcf_completion_and_state_only_compatibility (test_investment_maintenance.MaintenanceTests.test_weekly_v4_dcf_completion_and_state_only_compatibility) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.153s\n\nOK\n"
+  },
+  "findings": [
+    {
+      "tests": [
+        "test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle",
+        "test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch",
+        "test_weekly_v4_dcf_completion_and_state_only_compatibility"
+      ],
+      "system_error": "ModuleNotFoundError: tests.research_audit_fixture / tests.test_research_acceptance",
+      "cause": "System Python3.10 resolves tests to user-site /Users/xinquanzhou/Library/Python/3.10/lib/python/site-packages/tests/__init__.py instead of the repository namespace tests directory. Conda3.11 resolves tests as a namespace including the repository and all three targeted tests pass.",
+      "classification": "baseline_test_import_environment_collision",
+      "impact": "These errors occur before stock-valuation acceptance/lifecycle assertions, so this system run cannot validate those assertions; the three directed Conda cases do exercise them and pass. No futures method or report behavior defect established."
+    },
+    {
+      "tests": [
+        "test_installed_pymupdf_preserves_pages_marks_blank_and_renders_original"
+      ],
+      "system_error": "ModuleNotFoundError: pymupdf in isolated -I subprocess",
+      "cause": "Existing _pdf_python probe imports pymupdf without -I and chooses system Python whose pymupdf is only in user-site. The PDF test executes selected interpreter with -I, which hides that user-site package. Verified python3 -I find_spec(pymupdf)=None; Conda3.11 -I resolves its environment site-packages/pymupdf.",
+      "classification": "baseline_pdf_interpreter_probe_and_isolation_environment_mismatch",
+      "impact": "System-Python PDF fallback isolated execution is not verified by this run. Conda full regression is the appropriate documented interpreter; final suite result remains separate and pending until completed. No source fix or method change made."
+    },
+    {
+      "tests": "46 sandbox-only extra errors relative to r2",
+      "cause": "Sandbox socket bind and ps execution restrictions disappear in authorized unsandboxed r2; r2 completes with only 3 import errors and 1 PDF failure.",
+      "classification": "execution_environment_restriction",
+      "impact": "Do not report first-run 49 errors as 49 production defects."
+    }
+  ],
+  "r2_failure_trace": "\n======================================================================\nERROR: test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle (test_investment_maintenance.MaintenanceTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/futures-weekly-automation-2026-11-22/tests/test_investment_maintenance.py\", line 463, in test_weekly_capital_and_dcf_contracts_require_acceptance_and_lifecycle\n    from tests.research_audit_fixture import valuation_review_for\nModuleNotFoundError: No module named 'tests.research_audit_fixture'\n\n======================================================================\nERROR: test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch (test_investment_maintenance.MaintenanceTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/futures-weekly-automation-2026-11-22/tests/test_investment_maintenance.py\", line 389, in test_weekly_completion_accepts_v3_capital_bridge_and_rejects_cash_mismatch\n    from tests.test_research_acceptance import fixture\nModuleNotFoundError: No module named 'tests.test_research_acceptance'\n\n======================================================================\nERROR: test_weekly_v4_dcf_completion_and_state_only_compatibility (test_investment_maintenance.MaintenanceTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/futures-weekly-automation-2026-11-22/tests/test_investment_maintenance.py\", line 429, in test_weekly_v4_dcf_completion_and_state_only_compatibility\n    from tests.test_research_acceptance import fixture\nModuleNotFoundError: No module named 'tests.test_research_acceptance'\n\n======================================================================\nFAIL: test_installed_pymupdf_preserves_pages_marks_blank_and_renders_original (test_research_document_recovery.DocumentRecoveryTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/futures-weekly-automation-2026-11-22/tests/test_research_document_recovery.py\", line 131, in test_installed_pymupdf_preserves_pages_marks_blank_and_renders_original\n    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)\nAssertionError: 1 != 0 : Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'pymupdf'\n\n\n----------------------------------------------------------------------\nRan 1494 tests in 366.858s\n\nFAILED (failures=1, errors=3)\n",
+  "source_identity": [
+    {
+      "path": "tests/test_investment_maintenance.py",
+      "sha256": "dfc4f52e3eb7110cd6cdb38378bd6d669b7f4eb371229323b091ac34390d1ab5",
+      "matches_actual_adopted_origin_main_baseline": true
+    },
+    {
+      "path": "tests/test_research_document_recovery.py",
+      "sha256": "23e7cacf5ddd026c369d000a82d6e430de123cc8e953f99297b64898d4937483",
+      "matches_actual_adopted_origin_main_baseline": true
+    },
+    {
+      "path": "scripts/research_dsh.py",
+      "sha256": "a96dec96258a5acd690232f8c5d489b2401ec60002a7a41aec415cb0be73eccb",
+      "matches_actual_adopted_origin_main_baseline": true
+    },
+    {
+      "path": "scripts/investment_maintenance.py",
+      "sha256": "9f1295b30602b151ddf2eb3c5edd6f8e5fc3a0ccc3035ffc5feb9879fbde61b1",
+      "matches_actual_adopted_origin_main_baseline": true
+    }
+  ],
+  "actions_taken": [
+    "Read existing logs and related source only",
+    "Ran the three failed non-socket stock-maintenance tests under documented Conda Python3.11: all passed",
+    "Inspected import resolution and isolated PDF module availability without network",
+    "Did not edit source, tests, framework, parameters, or execute trading"
+  ]
+}

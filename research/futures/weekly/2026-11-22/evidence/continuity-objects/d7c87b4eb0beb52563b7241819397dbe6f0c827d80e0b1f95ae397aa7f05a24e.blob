@@ -1,0 +1,242 @@
+{
+  "pair_checks": [
+    {
+      "pair": [
+        "MA2701",
+        "MA2705"
+      ],
+      "last_three": [
+        {
+          "date": "20261111",
+          "near": 3114.0,
+          "far": 2767.0,
+          "near_minus_far": 347.0
+        },
+        {
+          "date": "20261112",
+          "near": 3163.0,
+          "far": 2788.0,
+          "near_minus_far": 375.0
+        },
+        {
+          "date": "20261113",
+          "near": 3222.0,
+          "far": 2833.0,
+          "near_minus_far": 389.0
+        }
+      ],
+      "price_confirmation": "not_evaluated_without_frozen_economic_anchor",
+      "matched_calendar_rows": 198,
+      "nonempty_same_pair_rows": 121,
+      "last61_missing_pair_settle_rows": 0
+    },
+    {
+      "pair": [
+        "RB2701",
+        "RB2703"
+      ],
+      "last_three": [
+        {
+          "date": "20261111",
+          "near": 3039.0,
+          "far": 3029.0,
+          "near_minus_far": 10.0
+        },
+        {
+          "date": "20261112",
+          "near": 3031.0,
+          "far": 3022.0,
+          "near_minus_far": 9.0
+        },
+        {
+          "date": "20261113",
+          "near": 3033.0,
+          "far": 3018.0,
+          "near_minus_far": 15.0
+        }
+      ],
+      "price_confirmation": "not_evaluated_without_frozen_economic_anchor",
+      "matched_calendar_rows": 199,
+      "nonempty_same_pair_rows": 163,
+      "last61_missing_pair_settle_rows": 0
+    },
+    {
+      "pair": [
+        "SR2701",
+        "SR2705"
+      ],
+      "last_three": [
+        {
+          "date": "20261111",
+          "near": 5172.0,
+          "far": 5239.0,
+          "near_minus_far": -67.0
+        },
+        {
+          "date": "20261112",
+          "near": 5194.0,
+          "far": 5258.0,
+          "near_minus_far": -64.0
+        },
+        {
+          "date": "20261113",
+          "near": 5155.0,
+          "far": 5220.0,
+          "near_minus_far": -65.0
+        }
+      ],
+      "price_confirmation": "not_evaluated_without_frozen_economic_anchor",
+      "matched_calendar_rows": 198,
+      "nonempty_same_pair_rows": 121,
+      "last61_missing_pair_settle_rows": 0
+    },
+    {
+      "pair": [
+        "MA2705",
+        "MA2709"
+      ],
+      "last_three": [
+        {
+          "date": "20261111",
+          "near": 2767.0,
+          "far": 2651.0,
+          "near_minus_far": 116.0
+        },
+        {
+          "date": "20261112",
+          "near": 2788.0,
+          "far": 2660.0,
+          "near_minus_far": 128.0
+        },
+        {
+          "date": "20261113",
+          "near": 2833.0,
+          "far": 2708.0,
+          "near_minus_far": 125.0
+        }
+      ],
+      "price_confirmation": "not_evaluated_without_frozen_economic_anchor",
+      "matched_calendar_rows": 121,
+      "nonempty_same_pair_rows": 38,
+      "last61_missing_pair_settle_rows": 23
+    },
+    {
+      "pair": [
+        "RB2703",
+        "RB2705"
+      ],
+      "last_three": [
+        {
+          "date": "20261111",
+          "near": 3029.0,
+          "far": 3041.0,
+          "near_minus_far": -12.0
+        },
+        {
+          "date": "20261112",
+          "near": 3022.0,
+          "far": 3034.0,
+          "near_minus_far": -12.0
+        },
+        {
+          "date": "20261113",
+          "near": 3018.0,
+          "far": 3036.0,
+          "near_minus_far": -18.0
+        }
+      ],
+      "price_confirmation": "not_evaluated_without_frozen_economic_anchor",
+      "matched_calendar_rows": 163,
+      "nonempty_same_pair_rows": 123,
+      "last61_missing_pair_settle_rows": 0
+    }
+  ],
+  "sr_input": {
+    "side": "short",
+    "entry": 5146,
+    "entry_date": "2026-11-16",
+    "latest_exit_date": "2026-12-11",
+    "price_unit": "CNY/tonne",
+    "multiplier": 10,
+    "tick_value": 10,
+    "round_trip_fees": 12,
+    "round_trip_slippage": 20,
+    "targets": null,
+    "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions"
+  },
+  "sr_arithmetic": {
+    "rule_version": "v3.0",
+    "strategy": "trend",
+    "scope": "v3_plan_arithmetic_only",
+    "status": "valid",
+    "signal": "triggered",
+    "side": "short",
+    "missing_fields": [],
+    "issues": [],
+    "execution_permission": "not_evaluated",
+    "methodology_validation": "forward_research_not_performance_validated",
+    "risk_unit": 1052.0,
+    "cost_unit": 32.0,
+    "net_reward": null,
+    "reward_risk": null,
+    "targets": null,
+    "stop": 5248.0,
+    "final_lots": null,
+    "pending_checks": [
+      "frozen_prospective_definition_and_evidence",
+      "economic_causality",
+      "contract_life_and_forced_exit_dates",
+      "latest_executable_quotes",
+      "stress_and_events",
+      "account_and_capacity"
+    ],
+    "signal_inputs": {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "triggered",
+      "side": "short",
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "SR2701",
+      "price_basis": "close",
+      "product": "SR",
+      "market_trade_date": "20261113",
+      "as_of_date": "20261114",
+      "signal_close": 5146.0,
+      "prior20_high": 5430.0,
+      "prior20_low": 5154.0,
+      "prior10_low": 5154.0,
+      "prior10_high": 5285.0,
+      "atr20": 50.879444253502236,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260813",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 0.6138250138781698,
+      "volatility_status": "available",
+      "high_volatility": false
+    },
+    "entry_expiry": "20261117",
+    "entry_date": "20261116",
+    "latest_exit_date": "20261211",
+    "entry": 5146.0,
+    "signal_date": "2026-11-13",
+    "valid_until": "2026-11-17",
+    "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+    "prior10_channel_stop": 5285.0,
+    "entry_range": [
+      5121,
+      5153
+    ]
+  },
+  "sr_20261211_distance_if_last_20270114": 23,
+  "execution_permission": "not_evaluated",
+  "references": [
+    "research/futures/refresh/2026-11-15/evidence/2026-11-15-signal-refresh/market-inputs.json",
+    "research/futures/weekly/2026-11-15/evidence/tushare-supplement.json"
+  ]
+}

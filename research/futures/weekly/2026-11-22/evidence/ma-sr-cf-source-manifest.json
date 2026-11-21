@@ -1,0 +1,70 @@
+[
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-ma-longzhong-inventory.html",
+    "url": "https://nenghua.mysteel.com/a/26111816/A554672BA695A523.html",
+    "error": "HTTPSConnectionPool(host='nenghua.mysteel.com', port=443): Max retries exceeded with url: /a/26111816/A554672BA695A523.html (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x105a1bc10>, 'Connection to nenghua.mysteel.com timed out. (connect timeout=25)'))"
+  },
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-ma-longzhong-view.html",
+    "url": "https://nenghua.mysteel.com/a/26112015/4DB722E502A97855.html",
+    "status": 200,
+    "sha256": "03da0ec532e497f04438781765f5e7446f0150e9e5b708ae95d3761e9a511ee0",
+    "bytes": 113203,
+    "captured_at": "2026-11-22T01:04:22.990902+08:00"
+  },
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-ma-cnfin.html",
+    "url": "https://www.cnfin.com/kx/detail/20261118/4497066_1.html",
+    "status": 200,
+    "sha256": "fe9cbefeef3c2fe02d6f96833d569d334e41042a543a9ff570dbf8d8c0f8dfea",
+    "bytes": 52362,
+    "captured_at": "2026-11-22T01:04:24.200892+08:00"
+  },
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-sr-20261120.html",
+    "url": "https://www.yntw.com/2026/11/39813.html",
+    "status": 200,
+    "sha256": "f04260fa271dee3a3e78695986c0153453d754e82c988927956bdaf08cf5ef66",
+    "bytes": 72489,
+    "captured_at": "2026-11-22T01:04:25.425576+08:00"
+  },
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-sr-usda-news.html",
+    "url": "https://www.yntw.com/2026/11/39804.html",
+    "status": 200,
+    "sha256": "e36290a10769159226bab0c5bc16ea3cf493253c676f2f5988451a97b6aa1526",
+    "bytes": 74047,
+    "captured_at": "2026-11-22T01:04:25.704612+08:00"
+  },
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-cf-prices.html",
+    "url": "https://www.cottonchina.org.cn/newprice/",
+    "status": 200,
+    "sha256": "b9076b7e7c84be8c409621a2aa036e9701efb83b7dfb319323d8d3bc16090c9a",
+    "bytes": 18885,
+    "captured_at": "2026-11-22T01:04:28.645735+08:00"
+  },
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-sr-fas.html",
+    "url": "https://fas-prod.azureedge.us/data/sugar-world-markets-and-trade-11172026",
+    "status": 200,
+    "sha256": "d8feb7d8e56db733ad08880a0a9c169dec68054be29a7af0e2390c54a4399fe3",
+    "bytes": 32673,
+    "captured_at": "2026-11-22T01:04:34.534075+08:00"
+  },
+  {
+    "path": "research/futures/weekly/2026-11-22/evidence/ma-sr-cf-sr-2711-rules.pdf",
+    "url": "https://www.czce.com.cn/cn/content_file/flfg/zcjywgz/pzxz/2026/11/a97e74ce10cf4e92a51c2e5a4da697a3.pdf",
+    "status": 200,
+    "sha256": "7278ef8ef074b2e7a914059e1ccd47ab2e1a8a697dcef0605327a361b25b5514",
+    "bytes": 162315,
+    "captured_at": "2026-11-22T01:04:36.638097+08:00"
+  },
+  {
+    "url": "https://www.fas.usda.gov/sites/default/files/2026-11/sugar.pdf",
+    "status": 403,
+    "local_file": null,
+    "note": "HTTP download failed; successful official apps.fas.usda.gov rolling PDF web read frozen in ma-sr-cf-official-readings.json and ma-sr-cf-usda-report-readings.json",
+    "captured_at": "2026-11-22T01:06:52.931815+08:00"
+  }
+]

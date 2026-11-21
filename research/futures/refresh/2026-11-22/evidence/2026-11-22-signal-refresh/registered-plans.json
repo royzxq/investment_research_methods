@@ -1,0 +1,270 @@
+{
+  "as_of_date": "2026-11-22",
+  "candidates": [
+    {
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261009-MA2701-trend-long-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-15",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+        "execution_reuse": false,
+        "materialized_root": "sources/782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-15"
+      },
+      "contracts": [
+        "MA2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "缺执行或必要经济输入",
+      "direction": "long",
+      "entry_window_state": "expired",
+      "evaluated_at": "2026-11-15T01:17:47.773776+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "OLD-MA-PATH",
+        "SHARED",
+        "EVENT"
+      ],
+      "execution_permission": "not_evaluated",
+      "final_lots": null,
+      "first_blocker": "G3",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "performance_status": "not_automated",
+      "plan": {
+        "alternate_entry": {
+          "availability": "outside_original_entry_range",
+          "entry_date": "2026-10-13",
+          "latest_exit_date": "2026-11-09",
+          "same_signal_valid_until": "2026-10-13"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/ec72726d1dd2d82308f236fc8d3f2724192b1b206f1d9f42606711b83da4b14a",
+        "cost_basis": "研究预算，非用户实收；实际费用/滑点变化后必须重算",
+        "earliest_future_execution_at": "2026-10-12T09:00:00+08:00",
+        "entry": 3338,
+        "entry_date": "2026-10-12",
+        "entry_quote_status": "historical_only",
+        "entry_range": [
+          3289,
+          3387
+        ],
+        "entry_window_state": "expired",
+        "evaluated_at": "2026-10-11T18:14:54+08:00",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-06",
+        "registered_at": "2026-10-11T18:14:54+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-09",
+        "stop": 3139,
+        "targets": null,
+        "valid_until": "2026-10-13"
+      },
+      "position_status": "unknown",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "signal": "unknown",
+      "signal_evidence_refs": [],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-10-09",
+      "unknown_checks": [
+        "G1",
+        "G2",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    },
+    {
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261023-RB2701-trend-short-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-15",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+        "execution_reuse": false,
+        "materialized_root": "sources/782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-15"
+      },
+      "contracts": [
+        "RB2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "缺执行或必要经济输入",
+      "direction": "short",
+      "entry_window_state": "expired",
+      "evaluated_at": "2026-11-15T01:17:47.773776+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "OLD-RB-PATH",
+        "SHARED",
+        "EVENT"
+      ],
+      "execution_permission": "not_evaluated",
+      "final_lots": null,
+      "first_blocker": "G3",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+      "performance_status": "not_automated",
+      "plan": {
+        "alternate_entry": {
+          "daily_range_intersection": [
+            3034,
+            3044
+          ],
+          "entry_date": "2026-10-27",
+          "latest_exit_date": "2026-11-23",
+          "original_reference_quote_reachable": false,
+          "same_signal_valid_until": "2026-10-27"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297.blob",
+        "cost_basis": "research cost budget, not actual broker fee; revalidate actual fill and costs",
+        "earliest_future_execution_at": "2026-10-26T09:00:00+08:00",
+        "entry": 3047,
+        "entry_date": "2026-10-26",
+        "entry_quote_status": "historical_only",
+        "entry_range": [
+          3034,
+          3050
+        ],
+        "entry_window_state": "expired",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-20",
+        "registered_at": "2026-10-25T01:06:50.045735+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-23",
+        "stop": 3103,
+        "targets": null,
+        "valid_until": "2026-10-27"
+      },
+      "position_status": "unknown",
+      "registered_at": "2026-10-25T01:06:50.045735+08:00",
+      "signal": "unknown",
+      "signal_evidence_refs": [],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-10-23",
+      "unknown_checks": [
+        "G1",
+        "G2",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    },
+    {
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261113-SR2701-trend-short-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-15",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+        "execution_reuse": false,
+        "materialized_root": "sources/782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-15"
+      },
+      "contracts": [
+        "SR2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "价格确认与最低经济依据已具备，已观察日夜盘末价失去严格突破侧，第二日另被事件阻止；真实账户和报价未知。",
+      "direction": "short",
+      "eligible_session_condition": [],
+      "entry_window_state": "cancelled_quote_lost_breakout",
+      "evaluated_at": "2026-11-15T01:17:47.773776+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "PRICE-SR2701",
+        "SUPPLY-SR",
+        "PLAN-SR",
+        "EVENT"
+      ],
+      "execution_permission": "not_evaluated",
+      "explicitly_excluded_sessions": [
+        "2026-11-13 21:00–23:00 prior to registration",
+        "2026-11-16 day session: cancelled after latest observed quote 5154 lost the strict breakout",
+        "2026-11-17 trading date, event prohibition"
+      ],
+      "final_lots": null,
+      "first_blocker": "G3",
+      "holding_position_management_if_any": "相关报告前重做压力且不能承担则减退；原T止损及条件12/11最晚界独立核。",
+      "indicative_calculation_ref": "research/futures/weekly/2026-11-15/evidence/price-and-plan-calculation.json",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261113-observe-SR2701-trend-short-v3",
+      "plan": {
+        "entry": null,
+        "entry_range": null,
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": null,
+        "registered_at": "2026-11-15T01:17:47.773776+08:00",
+        "registration_scope": "research_observation_and_entry_disposition_only_no_execution_plan",
+        "signal_date": "2026-11-13",
+        "stop": null,
+        "targets": null,
+        "valid_until": "2026-11-17"
+      },
+      "registered_at": "2026-11-15T01:17:47.773776+08:00",
+      "signal": "triggered",
+      "signal_evidence_refs": [
+        "PRICE-SR2701"
+      ],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-11-13",
+      "unknown_checks": [
+        "G1",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    }
+  ],
+  "execution_permission": "not_evaluated",
+  "final_lots": null,
+  "schema": "futures-local-continuity/v1",
+  "scope": "candidate_continuity_only"
+}

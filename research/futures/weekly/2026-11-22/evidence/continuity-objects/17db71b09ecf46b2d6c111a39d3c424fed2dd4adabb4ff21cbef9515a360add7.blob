@@ -1,0 +1,1 @@
+{"evidence_corrections": [{"affected_checks": [{"candidate_id": "20261009-MA2701-trend-long-v3", "rule_id": "G2"}], "reason": "继承10/12已采纳的当前产业pass撤回；本期MTO/低库分歧重评仍unknown，不恢复旧pass。", "recalculation": "completed", "withdrawn_evidence_id": "WITHDRAWN-MA-G2"}]}

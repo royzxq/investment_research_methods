@@ -1,0 +1,112 @@
+{
+  "as_of_date": "2026-11-22",
+  "captured_at": "2026-11-22T01:04:19.607686+08:00",
+  "files": [
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-dadi-meal-1117.html",
+      "sha256": "a49d4f71dad428f85b2f53cd90fcb42f17b4f5153c483553b6b020c9bcf29d1b",
+      "bytes": 159614
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-dadi-meal-1117.html.txt",
+      "sha256": "dc0d45f4d7248df16b60a6bb81514211af7185459496b563ed443e1e386aaf96",
+      "bytes": 17222
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-ea-daily-1120.pdf",
+      "sha256": "8fc6aafb23e6557528e64844b55b735cf6505afc62e15425921e0ef1cc68acec",
+      "bytes": 3180120
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-ea-daily-1120.pdf.txt",
+      "sha256": "100839ae12efaeb03f67f49ecefd4dbd2574fc1d9c3badf730c09e7da3827ca1",
+      "bytes": 35370
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-ea-steel-1120.pdf",
+      "sha256": "67315342e84aef631fef4e821261c6131993ae88d6651f207f112def12a84ee4",
+      "bytes": 3092520
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-ea-steel-1120.pdf.txt",
+      "sha256": "724d6ccefff790a3e29929de74d8d429466222b0ad9bb6c34557977dd12cc6b5",
+      "bytes": 16977
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-everbright-steel-1120.html",
+      "sha256": "4e60fb2cc0f1018b9d3e7eb317180930ec262ba086fe87f0f241383604598240",
+      "bytes": 106464
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-everbright-steel-1120.html.txt",
+      "sha256": "dc3e9609ccbe20165ff8cca5d52af2b99a8e539e7e49916d2f19825c5b3c6b4f",
+      "bytes": 13271
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-handan-lift-1116.html",
+      "sha256": "ac81ab19a985f36b651ad60a82c98aac264ba002af29fe4e21e295fbb8aa349a",
+      "bytes": 57988
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-handan-lift-1116.html.txt",
+      "sha256": "6ffb9ecf9e71d1246a5bc52daa9c62193a495174a6e273999d0e4f02216b7cdd",
+      "bytes": 2607
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-nbs-property-1116.html",
+      "sha256": "a1e6fd8ab44499808676b154799bb98f484de671dbe062b0df5f89960fc0b777",
+      "bytes": 101800
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-nbs-property-1116.html.txt",
+      "sha256": "14c928184c837c7ede1267be6c292df8a5dd0cdb4c84ead576772739f9664461",
+      "bytes": 7163
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-public.md",
+      "sha256": "b7f3a60819c817891f851d92f1d4f60476d8d053800b0f881acdb3d29924692b",
+      "bytes": 10143
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-limits-1116.html",
+      "sha256": "6dc3e7d737e5a58f3edef078a62e766302f75ba1b189751467a985add3c342a0",
+      "bytes": 119395
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-limits-1116.html.txt",
+      "sha256": "61a96128f2fab5ab619d376305208250feffec46890337124330bceb5aa46786",
+      "bytes": 7218
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-limits-1120.html",
+      "sha256": "d468c9ab61aa9be39332261c3573fc083b53589db95cb4fba2849ad9bba99ad7",
+      "bytes": 119229
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-limits-1120.html.txt",
+      "sha256": "1dd4c90bb1b81d63e679d0fb9a0d2dfa364a7ce726c94f862bc78da0b1009311",
+      "bytes": 7212
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-notice-index.html",
+      "sha256": "c9e9419ec415d11509c3201145c2d69f9716c86fe573a5dbc86492ea1be71ac7",
+      "bytes": 129563
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-notice-index.html.txt",
+      "sha256": "e0bd328872c1ae8a57bd4621cc206864734bc73c74952b3be0465852d3db12c0",
+      "bytes": 8516
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-risk-1120.html",
+      "sha256": "db80d6b64b6c79aa08f73ba7a5936b5d3ab73113fae87a606e790a916411f5cc",
+      "bytes": 119190
+    },
+    {
+      "path": "research/futures/weekly/2026-11-22/evidence/m-rb-shfe-risk-1120.html.txt",
+      "sha256": "f06115d7e9a83dcd20ed30ad49095751aac25218f0464da8c7f96669460740ce",
+      "bytes": 7119
+    }
+  ],
+  "limits": "Web open failure followed by HTTP original read is documented in m-rb-public.md; no API/account or current quotes verified by this evidence subtask."
+}

@@ -1,0 +1,1617 @@
+{
+  "schema": "futures-continuity-reconciliation/v1",
+  "as_of_date": "2026-11-22",
+  "reviewed_at": "2026-11-22T01:03:46.734307+08:00",
+  "consumed": [
+    "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+    "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+    "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+    "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+    "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+    "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+    "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+    "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+    "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+    "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+    "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+    "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018",
+    "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+    "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+    "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+    "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6",
+    "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+  ],
+  "source_index": "research/futures/weekly/2026-11-22/evidence/continuity-source-index.json",
+  "review_scope": [
+    {
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "as_of_date": "2026-10-11",
+      "historical_candidate_count": 8,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1.blob",
+        "sha256": "60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1",
+        "bytes": 6953,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-handoff.json",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "as_of_date": "2026-10-11",
+      "historical_candidate_count": 8,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1.blob",
+        "sha256": "60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1",
+        "bytes": 6953,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-handoff.json",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "as_of_date": "2026-10-11",
+      "historical_candidate_count": 8,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1.blob",
+        "sha256": "60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1",
+        "bytes": 6953,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-handoff.json",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+      "as_of_date": "2026-10-12",
+      "historical_candidate_count": 1,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587.blob",
+        "sha256": "29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587",
+        "bytes": 41487,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-12/2026-10-12-execution-audit.md",
+        "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/a30b24e8886f003497e0799aa33c38902d6bedefb2b7ed1ccd54dd036d8d175e.blob",
+        "sha256": "a30b24e8886f003497e0799aa33c38902d6bedefb2b7ed1ccd54dd036d8d175e",
+        "bytes": 4562,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-12/2026-10-12-handoff.json",
+        "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+      "as_of_date": "2026-10-13",
+      "historical_candidate_count": 1,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127.blob",
+        "sha256": "dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127",
+        "bytes": 14811,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-13/2026-10-13-execution-audit.md",
+        "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/cd584efebb73cf39fa2600b9112bcc4e0c5d3accac11e43a17500ebea21f8563.blob",
+        "sha256": "cd584efebb73cf39fa2600b9112bcc4e0c5d3accac11e43a17500ebea21f8563",
+        "bytes": 4542,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-13/2026-10-13-handoff.json",
+        "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+      "as_of_date": "2026-10-15",
+      "historical_candidate_count": 2,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f.blob",
+        "sha256": "a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+        "bytes": 20878,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit.md",
+        "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/b512e640fddcdedae37a34787b70aac52384199a5825a5cfba37870c90070d8f.blob",
+        "sha256": "b512e640fddcdedae37a34787b70aac52384199a5825a5cfba37870c90070d8f",
+        "bytes": 4544,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-15/2026-10-15-handoff.json",
+        "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+      "as_of_date": "2026-10-15",
+      "historical_candidate_count": 2,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95.blob",
+        "sha256": "6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+        "bytes": 21061,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit-r2.md",
+        "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/c14b5c28c4affbce02483577bafef5fdc2c716a527391843b36cca7a9ee1be32.blob",
+        "sha256": "c14b5c28c4affbce02483577bafef5fdc2c716a527391843b36cca7a9ee1be32",
+        "bytes": 5001,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-15/2026-10-15-handoff.json",
+        "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+      "as_of_date": "2026-10-18",
+      "historical_candidate_count": 9,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c.blob",
+        "sha256": "d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c",
+        "bytes": 80920,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md",
+        "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/45cf35af79c76b54e7e7f499206e2e3260b060efa33f2dcbb358a0560bd43811.blob",
+        "sha256": "45cf35af79c76b54e7e7f499206e2e3260b060efa33f2dcbb358a0560bd43811",
+        "bytes": 5345,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-18/2026-10-18-handoff.json",
+        "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "as_of_date": "2026-10-18",
+      "historical_candidate_count": 9,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c.blob",
+        "sha256": "d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c",
+        "bytes": 80920,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md",
+        "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/45cf35af79c76b54e7e7f499206e2e3260b060efa33f2dcbb358a0560bd43811.blob",
+        "sha256": "45cf35af79c76b54e7e7f499206e2e3260b060efa33f2dcbb358a0560bd43811",
+        "bytes": 5345,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-18/2026-10-18-handoff.json",
+        "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "as_of_date": "2026-10-25",
+      "historical_candidate_count": 10,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+        "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422.blob",
+        "sha256": "f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422",
+        "bytes": 5699,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-handoff.json",
+        "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "as_of_date": "2026-10-25",
+      "historical_candidate_count": 10,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+        "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422.blob",
+        "sha256": "f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422",
+        "bytes": 5699,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-handoff.json",
+        "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018",
+      "as_of_date": "2026-11-01",
+      "historical_candidate_count": 11,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6.blob",
+        "sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6",
+        "bytes": 62201,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r6.md",
+        "entry_id": "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/8cd99398fc3e9d9294e558cf24c26cf752fe4c017ebec1929d0e2922f52c92ec.blob",
+        "sha256": "8cd99398fc3e9d9294e558cf24c26cf752fe4c017ebec1929d0e2922f52c92ec",
+        "bytes": 4432,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-11-01/2026-11-01-handoff.json",
+        "entry_id": "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "as_of_date": "2026-11-01",
+      "historical_candidate_count": 11,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6.blob",
+        "sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6",
+        "bytes": 62201,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r6.md",
+        "entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/8cd99398fc3e9d9294e558cf24c26cf752fe4c017ebec1929d0e2922f52c92ec.blob",
+        "sha256": "8cd99398fc3e9d9294e558cf24c26cf752fe4c017ebec1929d0e2922f52c92ec",
+        "bytes": 4432,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-11-01/2026-11-01-handoff.json",
+        "entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+      "as_of_date": "2026-11-08",
+      "historical_candidate_count": 11,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310.blob",
+        "sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310",
+        "bytes": 79130,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-execution-audit-r2.md",
+        "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/93b39ca60b2a544906d43ba1f62cb4884278b8c08dbb348ea3c55949b9d43ff6.blob",
+        "sha256": "93b39ca60b2a544906d43ba1f62cb4884278b8c08dbb348ea3c55949b9d43ff6",
+        "bytes": 5030,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-handoff.json",
+        "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "as_of_date": "2026-11-08",
+      "historical_candidate_count": 11,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310.blob",
+        "sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310",
+        "bytes": 79130,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-execution-audit-r2.md",
+        "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/93b39ca60b2a544906d43ba1f62cb4884278b8c08dbb348ea3c55949b9d43ff6.blob",
+        "sha256": "93b39ca60b2a544906d43ba1f62cb4884278b8c08dbb348ea3c55949b9d43ff6",
+        "bytes": 5030,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-handoff.json",
+        "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6",
+      "as_of_date": "2026-11-15",
+      "historical_candidate_count": 11,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/160a71215e45409e7ee28fed6b59a9f612ecd5f8ec75c1273664f104a79d1617.blob",
+        "sha256": "160a71215e45409e7ee28fed6b59a9f612ecd5f8ec75c1273664f104a79d1617",
+        "bytes": 4423,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-handoff.json",
+        "entry_id": "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    },
+    {
+      "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "as_of_date": "2026-11-15",
+      "historical_candidate_count": 11,
+      "current_account_verified": false,
+      "audit_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      },
+      "adoption_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/160a71215e45409e7ee28fed6b59a9f612ecd5f8ec75c1273664f104a79d1617.blob",
+        "sha256": "160a71215e45409e7ee28fed6b59a9f612ecd5f8ec75c1273664f104a79d1617",
+        "bytes": 4423,
+        "role": "adoption_receipt",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-handoff.json",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      },
+      "method_compatible": true,
+      "disposition": "本期仅接事实、纠错和原时钟；所有执行判断须以本期行情/经济证据和真实账户重新核。"
+    }
+  ],
+  "requires_plan_reassessment": [],
+  "requires_method_reassessment": [],
+  "correction_decisions": [
+    {
+      "group": 0,
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "received_record_sha256": "34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6.blob",
+        "sha256": "34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6",
+        "bytes": 710,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/0",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162"
+      },
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅修正历史版本时间障碍，不追认成交、不延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 1,
+      "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+      "received_record_sha256": "edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4.blob",
+        "sha256": "edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4",
+        "bytes": 310,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/1",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162"
+      },
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅修正历史版本时间障碍，不追认成交、不延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 2,
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "received_record_sha256": "34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6.blob",
+        "sha256": "34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6",
+        "bytes": 710,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/2",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43"
+      },
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅修正历史版本时间障碍，不追认成交、不延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 3,
+      "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+      "received_record_sha256": "edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4.blob",
+        "sha256": "edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4",
+        "bytes": 310,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/3",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43"
+      },
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅修正历史版本时间障碍，不追认成交、不延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 4,
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "received_record_sha256": "34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6.blob",
+        "sha256": "34e7b9fe1a6e862791763961540d5a376bc99c2afad616a517e235d21465f3d6",
+        "bytes": 710,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/4",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019"
+      },
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅修正历史版本时间障碍，不追认成交、不延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 5,
+      "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "received_record_sha256": "edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4.blob",
+        "sha256": "edbb7709ba48e3645c915dc343cb48cec7144494ecf57999c921dfa72ba526c4",
+        "bytes": 310,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/5",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c.blob",
+        "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+        "bytes": 66438,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md",
+        "entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019"
+      },
+      "disposition": "保留撤回“信号必须晚于方法生效日”的错误额外门；仅修正历史版本时间障碍，不追认成交、不延长原窗口。后续MA当前产业pass撤回继续优先。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 6,
+      "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+      "received_record_sha256": "16af6eabdcef9339c540b5a699335a4232a23c7018677aa3b218aae1ff29a6b3",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/16af6eabdcef9339c540b5a699335a4232a23c7018677aa3b218aae1ff29a6b3.blob",
+        "sha256": "16af6eabdcef9339c540b5a699335a4232a23c7018677aa3b218aae1ff29a6b3",
+        "bytes": 391,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/6",
+        "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587.blob",
+        "sha256": "29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587",
+        "bytes": 41487,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-12/2026-10-12-execution-audit.md",
+        "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be"
+      },
+      "disposition": "继续撤回MA2701旧当前G2产业pass；10/12的需求负反馈与专属行情缺口不能由10/11低库存旧证据填补。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 7,
+      "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9",
+      "received_record_sha256": "07d4817a8ba723aa3ffc39ade8f3d4dfd733753861393097e8c0c28ade76b7a3",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/07d4817a8ba723aa3ffc39ade8f3d4dfd733753861393097e8c0c28ade76b7a3.blob",
+        "sha256": "07d4817a8ba723aa3ffc39ade8f3d4dfd733753861393097e8c0c28ade76b7a3",
+        "bytes": 376,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/7",
+        "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127.blob",
+        "sha256": "dd6278975f05d16414805cc608aa289fb66fd5ba163e7f440960b8d5e4681127",
+        "bytes": 14811,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-13/2026-10-13-execution-audit.md",
+        "entry_id": "adc398e1296df65efa9a0f8740e68f7e9d8ee0b672b9d6e40368dd3debe11ab9"
+      },
+      "disposition": "仅接续MA10/13行情、产业反证与原截止；当日日高3278低于3289原带，入场到期不证明已平仓。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 8,
+      "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f",
+      "received_record_sha256": "b0c5e077d21689a8b0541ea56d25fba558186a04d0fe36d29eedf20c6feedef1",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/b0c5e077d21689a8b0541ea56d25fba558186a04d0fe36d29eedf20c6feedef1.blob",
+        "sha256": "b0c5e077d21689a8b0541ea56d25fba558186a04d0fe36d29eedf20c6feedef1",
+        "bytes": 395,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/8",
+        "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f.blob",
+        "sha256": "a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+        "bytes": 20878,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit.md",
+        "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f"
+      },
+      "disposition": "M10/15首稿registered_at=null保留为历史缺字段；同稿evaluated_at=19:30:56和显式r2构成登记纠正依据，不启动新时钟。MA旧计划原钟保持。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 9,
+      "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c",
+      "received_record_sha256": "5573d72baa7e3bbbf476ee167562ca6f7c546cd8c1e4d3658fcac70b0f5033f8",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/5573d72baa7e3bbbf476ee167562ca6f7c546cd8c1e4d3658fcac70b0f5033f8.blob",
+        "sha256": "5573d72baa7e3bbbf476ee167562ca6f7c546cd8c1e4d3658fcac70b0f5033f8",
+        "bytes": 592,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/9",
+        "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95.blob",
+        "sha256": "6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+        "bytes": 21061,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit-r2.md",
+        "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c"
+      },
+      "disposition": "采纳显式r2对M真实登记2026-10-15T19:30:56+08:00的限定补正；仍无数值执行计划，原10/15信号、10/19截止不变，不增加许可。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 10,
+      "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+      "received_record_sha256": "2c1ff4da7efda99beb581872e08bddec5c05b754840067508704cf54e1961f75",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/2c1ff4da7efda99beb581872e08bddec5c05b754840067508704cf54e1961f75.blob",
+        "sha256": "2c1ff4da7efda99beb581872e08bddec5c05b754840067508704cf54e1961f75",
+        "bytes": 892,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/10",
+        "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c.blob",
+        "sha256": "d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c",
+        "bytes": 80920,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md",
+        "entry_id": "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631"
+      },
+      "disposition": "10/18本期状态现属历史；保留M10/16越带取消、MA过期入场与持仓退出分开、原ID/登记/截止及所有更早撤回。两入口同报告不同捕获不构成独立经济证据。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 11,
+      "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "received_record_sha256": "2c1ff4da7efda99beb581872e08bddec5c05b754840067508704cf54e1961f75",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/2c1ff4da7efda99beb581872e08bddec5c05b754840067508704cf54e1961f75.blob",
+        "sha256": "2c1ff4da7efda99beb581872e08bddec5c05b754840067508704cf54e1961f75",
+        "bytes": 892,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/11",
+        "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c.blob",
+        "sha256": "d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c",
+        "bytes": 80920,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-18/2026-10-18-execution-audit.md",
+        "entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd"
+      },
+      "disposition": "10/18本期状态现属历史；保留M10/16越带取消、MA过期入场与持仓退出分开、原ID/登记/截止及所有更早撤回。两入口同报告不同捕获不构成独立经济证据。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 12,
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "received_record_sha256": "55fffb6c5e9c4a6c8e4d27d07a3891711883b12135ffc307e247f959f057802e",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/55fffb6c5e9c4a6c8e4d27d07a3891711883b12135ffc307e247f959f057802e.blob",
+        "sha256": "55fffb6c5e9c4a6c8e4d27d07a3891711883b12135ffc307e247f959f057802e",
+        "bytes": 1237,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/12",
+        "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+        "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05"
+      },
+      "disposition": "10/25当前状态现属历史；M109.60原发布者/全样本及Mysteel归属未核，撤回与109.08硬拼，仅保留转引自身+0.48%；M取消/MA止损条件/RB原10/27截止及全部时钟接续。原准备对历史缺口不当作本期缺口。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 13,
+      "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+      "received_record_sha256": "17db71b09ecf46b2d6c111a39d3c424fed2dd4adabb4ff21cbef9515a360add7",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/17db71b09ecf46b2d6c111a39d3c424fed2dd4adabb4ff21cbef9515a360add7.blob",
+        "sha256": "17db71b09ecf46b2d6c111a39d3c424fed2dd4adabb4ff21cbef9515a360add7",
+        "bytes": 313,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/13",
+        "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+        "entry_id": "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05"
+      },
+      "disposition": "MA旧G2当前pass继续撤回；非致命分歧可以后续新证据重评，旧pass不自动恢复，不改变原计划或风险规则。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 14,
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "received_record_sha256": "55fffb6c5e9c4a6c8e4d27d07a3891711883b12135ffc307e247f959f057802e",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/55fffb6c5e9c4a6c8e4d27d07a3891711883b12135ffc307e247f959f057802e.blob",
+        "sha256": "55fffb6c5e9c4a6c8e4d27d07a3891711883b12135ffc307e247f959f057802e",
+        "bytes": 1237,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/14",
+        "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+        "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d"
+      },
+      "disposition": "10/25当前状态现属历史；M109.60原发布者/全样本及Mysteel归属未核，撤回与109.08硬拼，仅保留转引自身+0.48%；M取消/MA止损条件/RB原10/27截止及全部时钟接续。原准备对历史缺口不当作本期缺口。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 15,
+      "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "received_record_sha256": "17db71b09ecf46b2d6c111a39d3c424fed2dd4adabb4ff21cbef9515a360add7",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/17db71b09ecf46b2d6c111a39d3c424fed2dd4adabb4ff21cbef9515a360add7.blob",
+        "sha256": "17db71b09ecf46b2d6c111a39d3c424fed2dd4adabb4ff21cbef9515a360add7",
+        "bytes": 313,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/15",
+        "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484.blob",
+        "sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+        "bytes": 67644,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-10-25/2026-10-25-execution-audit-r2.md",
+        "entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d"
+      },
+      "disposition": "MA旧G2当前pass继续撤回；非致命分歧可以后续新证据重评，旧pass不自动恢复，不改变原计划或风险规则。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 16,
+      "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+      "received_record_sha256": "a0c47028c329b8d5bda7e51295a7df549efd3431eb0f7cff0681d99fd2327596",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/a0c47028c329b8d5bda7e51295a7df549efd3431eb0f7cff0681d99fd2327596.blob",
+        "sha256": "a0c47028c329b8d5bda7e51295a7df549efd3431eb0f7cff0681d99fd2327596",
+        "bytes": 598,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/16",
+        "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310.blob",
+        "sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310",
+        "bytes": 79130,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-execution-audit-r2.md",
+        "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98"
+      },
+      "disposition": "保留RB-WINDOW-OLD为invalid历史诊断；11/01 remaining_window与原10/27截止矛盾，按11/08已采纳纠正expired和G3 fail。不能因11/23条件持仓上限尚未来临而重开入场窗；11/08行情认证失败只描述当期，不外推本期。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 17,
+      "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+      "received_record_sha256": "3faec54d563524efb793c78e71a82345869f055cbd17022465c7d328acd3597d",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/3faec54d563524efb793c78e71a82345869f055cbd17022465c7d328acd3597d.blob",
+        "sha256": "3faec54d563524efb793c78e71a82345869f055cbd17022465c7d328acd3597d",
+        "bytes": 346,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/17",
+        "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310.blob",
+        "sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310",
+        "bytes": 79130,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-execution-audit-r2.md",
+        "entry_id": "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98"
+      },
+      "disposition": "保留RB-WINDOW-OLD为invalid历史诊断；11/01 remaining_window与原10/27截止矛盾，按11/08已采纳纠正expired和G3 fail。不能因11/23条件持仓上限尚未来临而重开入场窗；11/08行情认证失败只描述当期，不外推本期。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 18,
+      "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "received_record_sha256": "a0c47028c329b8d5bda7e51295a7df549efd3431eb0f7cff0681d99fd2327596",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/a0c47028c329b8d5bda7e51295a7df549efd3431eb0f7cff0681d99fd2327596.blob",
+        "sha256": "a0c47028c329b8d5bda7e51295a7df549efd3431eb0f7cff0681d99fd2327596",
+        "bytes": 598,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/18",
+        "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310.blob",
+        "sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310",
+        "bytes": 79130,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-execution-audit-r2.md",
+        "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+      },
+      "disposition": "保留RB-WINDOW-OLD为invalid历史诊断；11/01 remaining_window与原10/27截止矛盾，按11/08已采纳纠正expired和G3 fail。不能因11/23条件持仓上限尚未来临而重开入场窗；11/08行情认证失败只描述当期，不外推本期。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 19,
+      "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "received_record_sha256": "3faec54d563524efb793c78e71a82345869f055cbd17022465c7d328acd3597d",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/3faec54d563524efb793c78e71a82345869f055cbd17022465c7d328acd3597d.blob",
+        "sha256": "3faec54d563524efb793c78e71a82345869f055cbd17022465c7d328acd3597d",
+        "bytes": 346,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/19",
+        "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310.blob",
+        "sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310",
+        "bytes": 79130,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-08/2026-11-08-execution-audit-r2.md",
+        "entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+      },
+      "disposition": "保留RB-WINDOW-OLD为invalid历史诊断；11/01 remaining_window与原10/27截止矛盾，按11/08已采纳纠正expired和G3 fail。不能因11/23条件持仓上限尚未来临而重开入场窗；11/08行情认证失败只描述当期，不外推本期。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 20,
+      "entry_id": "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6",
+      "received_record_sha256": "ab2e6bf0c7a9833f52f759d6bb0a31caeee24c61b5543bfc91c65760730a1a10",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/ab2e6bf0c7a9833f52f759d6bb0a31caeee24c61b5543bfc91c65760730a1a10.blob",
+        "sha256": "ab2e6bf0c7a9833f52f759d6bb0a31caeee24c61b5543bfc91c65760730a1a10",
+        "bytes": 605,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/20",
+        "entry_id": "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6"
+      },
+      "disposition": "保留11/15 MA-ALT-OLD/RB-ALT-OLD撤回：MA10/13全天H3278不及原带3289，备选不可达；10/12可达条件价最迟10/20触止损，11/06时间界已过。RB10/27参考3047不可达而原带3034–3044仍有日线交集；11/13结束下场参考3059仅历史条件路径，不能冒充11/20未触止损或实际持仓。原11/20/11/23时间界保留，等本期路径新核。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    },
+    {
+      "group": 21,
+      "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "received_record_sha256": "ab2e6bf0c7a9833f52f759d6bb0a31caeee24c61b5543bfc91c65760730a1a10",
+      "received_record_source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/ab2e6bf0c7a9833f52f759d6bb0a31caeee24c61b5543bfc91c65760730a1a10.blob",
+        "sha256": "ab2e6bf0c7a9833f52f759d6bb0a31caeee24c61b5543bfc91c65760730a1a10",
+        "bytes": 605,
+        "role": "extracted_correction_record_canonical_serialization",
+        "original_path": "continuity.json#/corrections/21",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      },
+      "source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      },
+      "disposition": "保留11/15 MA-ALT-OLD/RB-ALT-OLD撤回：MA10/13全天H3278不及原带3289，备选不可达；10/12可达条件价最迟10/20触止损，11/06时间界已过。RB10/27参考3047不可达而原带3034–3044仍有日线交集；11/13结束下场参考3059仅历史条件路径，不能冒充11/20未触止损或实际持仓。原11/20/11/23时间界保留，等本期路径新核。",
+      "method_change": false,
+      "adopted_scope": "historical_facts_and_withdrawals_with_current_reassessment"
+    }
+  ],
+  "conflicts": [
+    {
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "received_reason": "original_clock_or_identity_changed",
+      "original_sources": [
+        {
+          "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f.blob",
+          "sha256": "a6a63b7d3f06009ebee3e47efa43493884b978889da408fe4da2a818158a0e2f",
+          "bytes": 20878,
+          "role": "audit_consulted",
+          "original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit.md",
+          "entry_id": "23f2be40d57b616444166c1b7fe6f0a3a88fb2559d5c149711b5428a3dc1234f"
+        },
+        {
+          "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95.blob",
+          "sha256": "6eb13f978186a768bcc9f6ba1ba15e8b4996bae0f766051535a4ba9b29316b95",
+          "bytes": 21061,
+          "role": "audit_consulted",
+          "original_path": "research/futures/weekly/2026-10-15/2026-10-15-execution-audit-r2.md",
+          "entry_id": "7cdda2ded414aeeb9763e41466ecf43e8ddc3132a62c3c1b42380e6f6dd5625c"
+        }
+      ],
+      "resolution": "采纳10/15显式r2仅补真实登记19:30:56的限定纠正；首稿原件保留null，不修改、不增加新机会。后续10/18至11/15明确沿用该原钟和取消/到期。",
+      "retained_signal_date": "2026-10-15",
+      "retained_registered_at": "2026-10-15T19:30:56+08:00",
+      "retained_valid_until": "2026-10-19",
+      "entry_disposition": "cancelled_after_2026-10-16_price_deviation_and_expired",
+      "collector_residual": "needs_reconciliation仍由工具保留；本裁决不删除冲突或改旧存储，M未导出不等于可以漏审。",
+      "execution_reuse": false
+    }
+  ],
+  "known_signal_opportunities": [
+    {
+      "product": "MA",
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "signal_date": "2026-10-09",
+      "valid_until": "2026-10-13",
+      "original_plan": {
+        "alternate_entry": {
+          "availability": "outside_original_entry_range",
+          "entry_date": "2026-10-13",
+          "latest_exit_date": "2026-11-09",
+          "same_signal_valid_until": "2026-10-13"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/ec72726d1dd2d82308f236fc8d3f2724192b1b206f1d9f42606711b83da4b14a",
+        "cost_basis": "研究预算，非用户实收；实际费用/滑点变化后必须重算",
+        "earliest_future_execution_at": "2026-10-12T09:00:00+08:00",
+        "entry": 3338,
+        "entry_date": "2026-10-12",
+        "entry_quote_status": "historical_only",
+        "entry_range": [
+          3289,
+          3387
+        ],
+        "entry_window_state": "expired",
+        "evaluated_at": "2026-10-11T18:14:54+08:00",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-06",
+        "registered_at": "2026-10-11T18:14:54+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-09",
+        "stop": 3139,
+        "targets": null,
+        "valid_until": "2026-10-13"
+      },
+      "latest_adopted_entry_window_state": "expired",
+      "actual_position_status": "unknown",
+      "actual_entry": null,
+      "actual_effective_stop": null,
+      "actual_exit": null,
+      "pnl": null,
+      "current_lots": null,
+      "current_disposition": "原入场已expired；10/13备选不可达已撤回。10/12可能原带价的条件路径最迟10/20触止损且11/06时间上限已过。账户未知不能记实际平仓；若仍有实际旧仓，应核退出执行而非恢复入场。",
+      "source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      }
+    },
+    {
+      "product": "M",
+      "opportunity_id": "20261015-observe-M2701-trend-short-v3",
+      "registered_at": "2026-10-15T19:30:56+08:00",
+      "signal_date": "2026-10-15",
+      "valid_until": "2026-10-19",
+      "original_plan": {
+        "entry": null,
+        "entry_quote_status": "historical_only",
+        "entry_range": null,
+        "entry_window_state": "cancelled_and_expired",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": null,
+        "registered_at": "2026-10-15T19:30:56+08:00",
+        "signal_date": "2026-10-15",
+        "stop": null,
+        "targets": null,
+        "valid_until": "2026-10-19"
+      },
+      "latest_adopted_entry_window_state": "cancelled_and_expired",
+      "actual_position_status": "unknown",
+      "actual_entry": null,
+      "actual_effective_stop": null,
+      "actual_exit": null,
+      "pnl": null,
+      "current_lots": null,
+      "current_disposition": "首稿null与r2显式补正冲突已逐项裁决；当前使用原19:30:56登记。10/16越带已取消，10/19截止不延；3310/3410从未成为有效执行计划，不推定仓位。",
+      "source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      }
+    },
+    {
+      "product": "RB",
+      "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+      "registered_at": "2026-10-25T01:06:50.045735+08:00",
+      "signal_date": "2026-10-23",
+      "valid_until": "2026-10-27",
+      "original_plan": {
+        "alternate_entry": {
+          "daily_range_intersection": [
+            3034,
+            3044
+          ],
+          "entry_date": "2026-10-27",
+          "latest_exit_date": "2026-11-23",
+          "original_reference_quote_reachable": false,
+          "same_signal_valid_until": "2026-10-27"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297.blob",
+        "cost_basis": "research cost budget, not actual broker fee; revalidate actual fill and costs",
+        "earliest_future_execution_at": "2026-10-26T09:00:00+08:00",
+        "entry": 3047,
+        "entry_date": "2026-10-26",
+        "entry_quote_status": "historical_only",
+        "entry_range": [
+          3034,
+          3050
+        ],
+        "entry_window_state": "expired",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-20",
+        "registered_at": "2026-10-25T01:06:50.045735+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-23",
+        "stop": 3103,
+        "targets": null,
+        "valid_until": "2026-10-27"
+      },
+      "latest_adopted_entry_window_state": "expired",
+      "actual_position_status": "unknown",
+      "actual_entry": null,
+      "actual_effective_stop": null,
+      "actual_exit": null,
+      "pnl": null,
+      "current_lots": null,
+      "current_disposition": "原入场10/27已expired，remaining_window旧错持续撤回。10/26路径原11/20时间上限已过；10/27仅原带3034–3044可达的条件路径最迟11/23，须本期价格路径和真实Entry/SL重核，较早止损/逻辑退出优先，不推定实际持仓。",
+      "source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      }
+    },
+    {
+      "product": "SR",
+      "opportunity_id": "20261113-observe-SR2701-trend-short-v3",
+      "registered_at": "2026-11-15T01:17:47.773776+08:00",
+      "signal_date": "2026-11-13",
+      "valid_until": "2026-11-17",
+      "original_plan": {
+        "entry": null,
+        "entry_range": null,
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": null,
+        "registered_at": "2026-11-15T01:17:47.773776+08:00",
+        "registration_scope": "research_observation_and_entry_disposition_only_no_execution_plan",
+        "signal_date": "2026-11-13",
+        "stop": null,
+        "targets": null,
+        "valid_until": "2026-11-17"
+      },
+      "latest_adopted_entry_window_state": "cancelled_quote_lost_breakout",
+      "actual_position_status": "unknown",
+      "actual_entry": null,
+      "actual_effective_stop": null,
+      "actual_exit": null,
+      "pnl": null,
+      "current_lots": null,
+      "current_disposition": "原11/13信号后11/14（归11/16交易日）5154买一/5155卖一已失严格跌破侧，11/15明确cancelled_quote_lost_breakout；仅研究观察登记无Entry/SL/数量。原11/17截止现已过，不因后续价格再次弱势复活旧机会。",
+      "source": {
+        "path": "research/futures/weekly/2026-11-22/evidence/continuity-objects/77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404.blob",
+        "sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+        "bytes": 63812,
+        "role": "audit_consulted",
+        "original_path": "research/futures/weekly/2026-11-15/2026-11-15-execution-audit.md",
+        "entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      }
+    }
+  ],
+  "historical_screen_inventory": [
+    {
+      "original_candidate_or_opportunity_id": "20261011-observe-M2701-trend-short-v3",
+      "source_entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261011-observe-RB2701-trend-short-v3",
+      "source_entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261011-observe-SR2701-trend-unknown-v3",
+      "source_entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261011-observe-CF2701-trend-unknown-v3",
+      "source_entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261011-observe-MA2701-MA2705-economic_reversion-unknown-v3",
+      "source_entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261011-observe-RB2701-RB2703-economic_reversion-unknown-v3",
+      "source_entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261011-observe-SR2701-SR2705-economic_reversion-unknown-v3",
+      "source_entry_id": "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261016-RB2701-trend-current-v3",
+      "source_entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261016-MA2701-trend-current-v3",
+      "source_entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261016-SR2701-trend-current-v3",
+      "source_entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261016-CF2701-trend-current-v3",
+      "source_entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261016-MA2701-MA2705-economic-reversion-research-v3",
+      "source_entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261016-RB2701-RB2703-economic-reversion-research-v3",
+      "source_entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261016-SR2701-SR2705-economic-reversion-research-v3",
+      "source_entry_id": "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261023-CF2701-trend-current-v3",
+      "source_entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261023-M2701-trend-current-v3",
+      "source_entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261023-MA2701-trend-current-v3",
+      "source_entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261023-SR2701-trend-current-v3",
+      "source_entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261023-MA2701-MA2705-economic-reversion-research-v3",
+      "source_entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261023-RB2701-RB2703-economic-reversion-research-v3",
+      "source_entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261023-SR2701-SR2705-economic-reversion-research-v3",
+      "source_entry_id": "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-CF2701-trend-screen-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-M2701-trend-screen-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-MA2701-trend-screen-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-RB2701-trend-screen-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-SR2701-trend-screen-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-MA2701-MA2705-economic-reversion-research-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-RB2701-RB2703-economic-reversion-research-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261030-SR2701-SR2705-economic-reversion-research-v3",
+      "source_entry_id": "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-MA2701-trend-unassessed-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-RB2701-trend-unassessed-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-M2701-trend-unassessed-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-SR2701-trend-unassessed-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-CF2701-trend-unassessed-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-MA2701-MA2705-economic-reversion-research-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-RB2701-RB2703-economic-reversion-research-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261108-SR2701-SR2705-economic-reversion-research-v3",
+      "source_entry_id": "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261113-CF2701-trend-screen-v3",
+      "source_entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261113-M2701-trend-screen-v3",
+      "source_entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261113-MA2701-trend-screen-v3",
+      "source_entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261113-RB2701-trend-screen-v3",
+      "source_entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "no_signal",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261113-MA2701-MA2705-V-v3",
+      "source_entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261113-RB2701-RB2703-V-v3",
+      "source_entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    },
+    {
+      "original_candidate_or_opportunity_id": "20261113-SR2701-SR2705-V-v3",
+      "source_entry_id": "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47",
+      "original_signal_date": null,
+      "original_registered_at": null,
+      "historical_status": "incomplete",
+      "disposition": "未有原signal_date/数值执行计划的历史筛选或V研究记录；不推定现有持仓、不另计新机会。当前五T/三V由本期刷新与审计重新核。"
+    }
+  ],
+  "duplicate_capture_groups": [
+    {
+      "entry_ids": [
+        "2e9af79c24eb5589e8f8ec5d7725f69dbc3bfacf7dfeb2325dc230d39164c162",
+        "ab35dac451043558e009a854f68c49703a6d19e6452fc85376046cd97d9f4b43",
+        "d04a14af14f267b722ed121a591886fac4bc6860ca4da2e1a294978a677fd019"
+      ],
+      "audit_sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+      "handoff_sha256": "60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1",
+      "independent_economic_evidence": false,
+      "decision": "同报告/同采纳字节的不同捕获范围只算一次事实，不作相互交叉验证。"
+    },
+    {
+      "entry_ids": [
+        "20dd9789b974b23468b4e4e061fec003b68e6f1560fb3c4f7fc326a4de1ef631",
+        "778503a790184b991e90e40eb4f9edeee7757572392b6c0214943271d20820dd"
+      ],
+      "audit_sha256": "d3c5d076008d76e2f56e269f3e5956e942225d6f34ae6440287dec9d7ae47a1c",
+      "handoff_sha256": "45cf35af79c76b54e7e7f499206e2e3260b060efa33f2dcbb358a0560bd43811",
+      "independent_economic_evidence": false,
+      "decision": "同报告/同采纳字节的不同捕获范围只算一次事实，不作相互交叉验证。"
+    },
+    {
+      "entry_ids": [
+        "39d1c98497beb40542930563319766a008e9398af71710181ed738ab15a48b05",
+        "5102529f473cf07340f297905ce8e0c4a8ad0584db55d8380eeeff0fbccdf08d"
+      ],
+      "audit_sha256": "c60c24e584bcb608f1d570451cab02fd6cc2ecab7ce67608ae44be3d6f883484",
+      "handoff_sha256": "f4887d240784c4182f5bcbd52bea4f09b59c366a181d32e9125a006410a8d422",
+      "independent_economic_evidence": false,
+      "decision": "同报告/同采纳字节的不同捕获范围只算一次事实，不作相互交叉验证。"
+    },
+    {
+      "entry_ids": [
+        "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018",
+        "fa1e07df6f77e77419b214b45ce3477a2c28451fc36acda27196633fe12e09aa"
+      ],
+      "audit_sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6",
+      "handoff_sha256": "8cd99398fc3e9d9294e558cf24c26cf752fe4c017ebec1929d0e2922f52c92ec",
+      "independent_economic_evidence": false,
+      "decision": "同报告/同采纳字节的不同捕获范围只算一次事实，不作相互交叉验证。"
+    },
+    {
+      "entry_ids": [
+        "c3e8ee5872a93e7c9c88546263a494485325ffa6d62f9fc071f71ec61d1bfa98",
+        "eff2a66bb4fb4128aef1a34e1abb615c75845a153697ceab1cf3c0fcdb9b2c30"
+      ],
+      "audit_sha256": "3a92eda6afdbdacda621c2045bb50ac9629b79f6209c8708fb54dd8082723310",
+      "handoff_sha256": "93b39ca60b2a544906d43ba1f62cb4884278b8c08dbb348ea3c55949b9d43ff6",
+      "independent_economic_evidence": false,
+      "decision": "同报告/同采纳字节的不同捕获范围只算一次事实，不作相互交叉验证。"
+    },
+    {
+      "entry_ids": [
+        "61a1494188e019bc39833426cc524bc353733928c50a44857a2972fe75d3a4b6",
+        "782952c8dc7d005b8226a46e6fb663c59384302504d11b43c01a22598e758d47"
+      ],
+      "audit_sha256": "77afec171e3c8549ab4ee0080e090b7f9d3eef1531ea7ce36add346a2f049404",
+      "handoff_sha256": "160a71215e45409e7ee28fed6b59a9f612ecd5f8ec75c1273664f104a79d1617",
+      "independent_economic_evidence": false,
+      "decision": "同报告/同采纳字节的不同捕获范围只算一次事实，不作相互交叉验证。"
+    }
+  ],
+  "inherited_unregistered_historical_signals": {
+    "source": {
+      "path": "research/futures/weekly/2026-11-15/evidence/continuity-objects/068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6.blob",
+      "sha256": "068c08221e88c8ea651017a7bceaf158fb3a31314a9b29b9e329d801d6559aa6",
+      "bytes": 62201,
+      "role": "audit_consulted",
+      "original_path": "research/futures/weekly/2026-11-01/2026-11-01-execution-audit-r6.md",
+      "entry_id": "2bff2889f1ae1c9252bda4976464c2eada443b7a0f4778d06c45f042b42a8018"
+    },
+    "decision": "10/27 MA多、M/SR/CF空的历史原窗10/28–29已过，无当日登记不补造机会/成交；10/29 M空原窗10/30、11/02在10/30失突破且越带取消，不复活。周更不能声称覆盖期间所有逐日信号。"
+  },
+  "all_actual_account_inputs": null,
+  "execution_reuse": false,
+  "actual_trade_performance": null,
+  "limits": "本文件只裁决共享历史来源、纠错和原时钟，最新行情、公告与经济反证/压力由本期研究及审计另核。没有将入场到期等同实际持仓退出。",
+  "verification": {
+    "all_indexed_bytes_sha256_checked": true,
+    "source_reference_count": 88,
+    "unique_content_objects": 46,
+    "new_objects": 26,
+    "missing_explicit_superseded_objects": []
+  }
+}
