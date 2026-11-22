@@ -496,7 +496,9 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
                    + f'。唯一主策略为{route["strategy"]}，执行{skill}。阈值单位是百分点，严格大于才进红利。'
                    '这是研究分工，不是可持续分红/买入资格结论；质量不足须在已选轨内作出否定或缺口判断，不静默换轨。'
                    '不要按运行时行情或当前配置重算；新证据引发的路由变化留下一批明确复评，旧约束逐项接续。'
-                   '报告§0披露股息率、国债利率、利差、观测日期、阈值和规则版本；红利补充数据的缺口继续取证。\n\n')
+                   + ('报告§0说明已核对的窗口内未查到现金派息，因此按普通策略复研。股息率和利差留空，披露查找范围、来源及规则版本。\n\n'
+                      if route.get('no_cash_evidence') else
+                      '报告§0披露股息率、国债利率、利差、观测日期、阈值和规则版本；红利补充数据的缺口继续取证。\n\n'))
     route = task.get('data_pack_meta', {}).get('research_route', {})
     if (stock_framework_bundle.AI_SUPPLEMENT in frameworks and route.get('strategy') != 'dividend'
             and ai_watchlist is None):

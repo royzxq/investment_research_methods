@@ -206,6 +206,11 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
         strict_point_in_time=False, history_percentile=None, forward_ordinary_dividend=None,
         forward_net_yield=None, sources={}, gaps=[], trailing_yield=None,
         government_10y=None, trailing_spread_pp=None, dividend_events=[])
+    if route is not None and route.get('rule') == NO_CASH_RULE:
+        validate_route(route, code, cutoff.isoformat())
+        result['sources'] = route['sources'].copy()
+        result['gaps'] = ['No cash payout found in the checked window; yield unavailable']
+        return result
     if code.endswith('.HK'):
         if route is None:
             route = classify(code, as_of, cache, call)
@@ -217,6 +222,9 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
         result['gaps'] = list(route['gaps']) + ['HK payout originals, investor taxes/FX and matched HKD benchmark required; A-share interfaces not substituted']
         if route['status'] == 'classified':
             validate_route(route, code, cutoff.isoformat())
+            if route['rule'] == NO_CASH_RULE:
+                result['gaps'].append('No cash payout found in the checked window; yield unavailable')
+                return result
             if market_as_of is not None and route['trailing_yield']['as_of'] != market_day.isoformat():
                 raise ValueError('frozen route and market date differ')
             doc = route['sources']['quote_search']
@@ -304,6 +312,7 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
 ROUTE_SCHEMA = 'stock-research-route/v1'
 ROUTE_RULE = 'dividend-spread/v1'
 CN_RULE = 'dividend-spread/cn10y-v2'
+NO_CASH_RULE = 'dividend-spread/no-cash-found-v1'
 MAX_ROUTE_AGE_DAYS = 7
 
 
@@ -330,17 +339,97 @@ def screening_spread(stock, bond):
     return float(Decimal(str(a)) - Decimal(str(b))) if a is not None and a >= 0 and b is not None else None
 
 
+def _previous_year(day):
+    try:
+        return day.replace(year=day.year - 1)
+    except ValueError:  # February 29
+        return day.replace(year=day.year - 1, day=28)
+
+
+def _a_no_cash_found(rows, code, start, end, cutoff):
+    for row in rows:
+        if row.get('ts_code') != code:
+            return False
+        try:
+            ex_day = day(row['ex_date']) if row.get('ex_date') else None
+            if ex_day and not start < ex_day <= end:
+                continue
+            notice = day(row.get('ann_date'))
+            if notice > cutoff:
+                if ex_day:
+                    return False
+                continue
+            if ex_day is None and row.get('pay_date'):
+                if notice <= day(row['pay_date']) <= start:
+                    continue
+                return False
+        except ValueError:
+            return False
+        raw_amounts = [row.get(key) for key in ('cash_div_tax', 'cash_div')]
+        amounts = [number(value) for value in raw_amounts if value is not None]
+        if any(amount is None or amount != 0 for amount in amounts):
+            return False
+        if ex_day is not None:
+            if not amounts:
+                return False
+        elif row.get('div_proc') not in ('预案', '股东大会通过', '停止实施', '不分配'):
+            return False
+    return True
+
+
+def _validate_no_cash_route(route, code, valuation_date):
+    evidence = route.get('no_cash_evidence')
+    sources = route.get('sources')
+    if (route.get('strategy') != 'non_dividend' or not isinstance(evidence, dict)
+            or not isinstance(sources, dict) or type(evidence.get('cash_events')) is not int
+            or evidence['cash_events'] != 0
+            or any(key not in route or route[key] is not None
+                   for key in ('trailing_yield', 'government_10y', 'spread_pp'))):
+        raise ValueError('invalid no-cash research route')
+    try:
+        end = date.fromisoformat(evidence['end_inclusive'])
+        cutoff = date.fromisoformat(valuation_date)
+    except (KeyError, TypeError, ValueError):
+        raise ValueError('invalid no-cash evidence dates') from None
+    start = _previous_year(end)
+    if (evidence['end_inclusive'] != end.isoformat() or evidence.get('start_exclusive') != start.isoformat()
+            or not 0 <= (cutoff - end).days <= MAX_ROUTE_AGE_DAYS):
+        raise ValueError('invalid no-cash evidence window')
+    hk = code.endswith('.HK')
+    quote_params = dict(ts_code=code, start_date=(cutoff - timedelta(days=MAX_ROUTE_AGE_DAYS)).strftime('%Y%m%d'),
+                        end_date=cutoff.strftime('%Y%m%d'))
+    if hk:
+        quote_params['evidence_version'] = 2
+    required = [('quote_search', 'hk_cash_ttm' if hk else 'daily_basic', quote_params, ('ok',))]
+    if not hk:
+        required.append(('cash_search', 'dividend', {'ts_code': code}, ('ok', 'empty')))
+    for key, endpoint, params, statuses in required:
+        source = sources.get(key)
+        identity = dict(endpoint=endpoint, params=params, fields=FIELDS[endpoint])
+        if (not isinstance(source, dict) or source.get('status') not in statuses
+                or source.get('identity') != identity or source.get('source') != SOURCES[endpoint]
+                or not re.fullmatch(r'[0-9a-f]{64}', str(source.get('rows_sha256', '')))
+                or (source['status'] == 'empty' and source['rows_sha256'] != hashlib.sha256(canonical([])).hexdigest())):
+            raise ValueError('missing successful cash search')
+    if hk and (type(evidence.get('factor_sessions')) is not int or evidence['factor_sessions'] <= 0
+               or type(evidence.get('factor_changes')) is not int or evidence['factor_changes'] != 0):
+        raise ValueError('invalid no-cash factor coverage')
+    return route
+
+
 def validate_route(route, code, valuation_date):
     """Admission contract shared by producer and consumer; never recompute from live data."""
     if not isinstance(route, dict):
         raise ValueError('research_route must be an object')
     threshold = number(route.get('threshold_pp'))
-    if (route.get('schema_version') != ROUTE_SCHEMA or route.get('rule') not in (ROUTE_RULE, CN_RULE)
+    if (route.get('schema_version') != ROUTE_SCHEMA or route.get('rule') not in (ROUTE_RULE, CN_RULE, NO_CASH_RULE)
             or route.get('code') != code or route.get('valuation_date') != valuation_date
             or route.get('status') != 'classified' or route.get('comparison') != '>'
             or threshold is None or threshold < 0
             or route.get('max_age_days') != MAX_ROUTE_AGE_DAYS):
         raise ValueError('invalid or pending research_route')
+    if route['rule'] == NO_CASH_RULE:
+        return _validate_no_cash_route(route, code, valuation_date)
     stock, bond = route.get('trailing_yield'), route.get('government_10y')
     if not isinstance(stock, dict) or not isinstance(bond, dict):
         raise ValueError('research_route observations required')
@@ -357,7 +446,7 @@ def validate_route(route, code, valuation_date):
 
 
 def classify(code, as_of, cache, call, *, threshold_pp=None):
-    """Lightweight preflight; missing evidence is pending, never non-dividend."""
+    """Classify on the measured spread or a successful search with no cash payouts."""
     cutoff = day(as_of)
     threshold = number((3.5 if code.endswith('.HK') else 2.0) if threshold_pp is None else threshold_pp)
     if threshold is None or threshold < 0:
@@ -391,6 +480,34 @@ def classify(code, as_of, cache, call, *, threshold_pp=None):
         return result
     effective = max(row['trade_date'] for row in valid)
     latest = [row for row in valid if row['trade_date'] == effective]
+    if (len(latest) == 1 and 'dv_ttm' in latest[0] and latest[0]['dv_ttm'] is None
+            and (number(latest[0].get('close')) or 0) > 0):
+        day_end = day(effective)
+        window = _previous_year(day_end)
+        evidence = None
+        if hk:
+            coverage = latest[0]['coverage']
+            if (not latest[0]['dividend_events'] and type(coverage.get('factor_changes')) is int
+                    and coverage['factor_changes'] == 0 and type(coverage.get('factor_sessions')) is int
+                    and coverage.get('start_exclusive') == window.isoformat()
+                    and coverage.get('end_inclusive') == day_end.isoformat()):
+                evidence = coverage
+            else:
+                result['gaps'] = ['HK payout or factor evidence does not cover the observed quote window']
+        else:
+            search = fetch('dividend', {'ts_code': code}, Path(cache) / ('dividend-asof-' + as_of), call)
+            result['sources']['cash_search'] = {k: v for k, v in search.items() if k != 'rows'}
+            if search['status'] not in ('ok', 'empty'):
+                result['gaps'] = ['cash dividend search: ' + search['status']]
+            elif _a_no_cash_found(search['rows'], code, window, day_end, cutoff):
+                evidence = dict(start_exclusive=window.isoformat(), end_inclusive=day_end.isoformat())
+            else:
+                result['gaps'] = ['dividend history contains a payout or unresolved event']
+        if evidence is not None:
+            result.update(rule=NO_CASH_RULE, status='classified', strategy='non_dividend',
+                          no_cash_evidence={**evidence, 'cash_events': 0})
+            return validate_route(result, code, cutoff.isoformat())
+        return result
     if len(latest) != 1 or number(latest[0].get('dv_ttm')) is None or number(latest[0]['dv_ttm']) < 0:
         result['gaps'] = ['latest observation lacks unique valid dv_ttm; older yield not substituted']
         return result

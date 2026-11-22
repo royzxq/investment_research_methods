@@ -13,15 +13,20 @@ class RouteTests(unittest.TestCase):
     def test_methods_candidate_cannot_publish_before_classification(self):
         from scripts.research_candidate_packs import collect
         routing = types.ModuleType('src.analysis.research_strategy')
-        routing.build_routed_pack = Mock(side_effect=RuntimeError('classification pending'))
+        route = dict(status='pending', gaps=['missing rate'])
+        routing.build_routed_pack = Mock(return_value=('base markdown', {'research_route': route}))
+        routing.save_daily_pack = Mock()
+        routing.ClassificationPending = ValueError
         exchange = types.ModuleType('src.analysis.research_exchange')
         exchange.publish_request = Mock()
         targets = types.ModuleType('src.decision.reeval_targets')
         targets.ReevalTarget = targets.research_trigger = Mock()
         with tempfile.TemporaryDirectory() as temp, patch.dict(sys.modules, {m.__name__:m for m in (routing,exchange,targets)}), patch.object(sys, 'path', sys.path.copy()):
-            with self.assertRaisesRegex(RuntimeError, 'classification pending'):
-                collect(Path(temp), Path(temp)/'exchange', dict(code='00941.HK',research_on='2026-11-16'))
+            with self.assertRaisesRegex(ValueError, 'missing rate'):
+                collect(Path(temp), Path(temp)/'exchange', dict(code='00941.HK',name='中国移动',order=0,research_on='2026-11-16'))
             routing.build_routed_pack.assert_called_once_with('00941','HK','00941.HK','20261116',Path(temp)/'2026-11-16')
+            routing.save_daily_pack.assert_called_once_with(Path(temp)/'2026-11-16', '中国移动', '00941',
+                '> 触发来源: 人工指定调研候选 | 估值日: 2026-11-16\n\nbase markdown', route)
             exchange.publish_request.assert_not_called()
     def test_china_benchmark_market_thresholds_and_separate_valuation(self):
         for value, strategy in [(5.1, 'non_dividend'), (5.11, 'dividend')]:
@@ -109,6 +114,74 @@ class RouteTests(unittest.TestCase):
         for value in (None, float('nan'), True, -1):
             self.assertEqual(self.classify(value)['status'], 'pending')
         self.assertEqual(self.classify(code='00700.HK')['status'], 'pending')
+
+    def test_no_cash_search_defaults_without_fabricating_yield(self):
+        for code, endpoint in [('600001.SH', 'daily_basic'), ('00941.HK', 'hk_cash_ttm')]:
+            with self.subTest(code=code), tempfile.TemporaryDirectory() as tmp:
+                calls = []
+
+                def call(name, params):
+                    calls.append(name)
+                    if name == 'dividend':
+                        return [dict(ts_code=code, ann_date='20260829', div_proc='预案',
+                                     cash_div_tax=0, ex_date=None)]
+                    self.assertEqual(name, endpoint)
+                    quote = dict(ts_code=code, trade_date='20261113', dv_ttm=None, close=25)
+                    if code.endswith('.HK'):
+                        quote.update(evidence_version=2, source=dd.SOURCES[name], dividend_events=[],
+                                     coverage=dict(start_exclusive='2025-11-13', end_inclusive='2026-11-13',
+                                                   factor_sessions=249, factor_changes=0))
+                    return [quote]
+
+                route = dd.classify(code, '20261116', tmp, call)
+                self.assertEqual(route['strategy'], 'non_dividend')
+                self.assertEqual(route['rule'], dd.NO_CASH_RULE)
+                self.assertTrue(all(route[key] is None for key in ('trailing_yield','government_10y','spread_pp')))
+                self.assertEqual(calls, [endpoint] if code.endswith('.HK') else [endpoint, 'dividend'])
+                self.assertEqual(dd.validate_route(route, code, '2026-11-16'), route)
+                for key in route['sources']:
+                    wrong = copy.deepcopy(route)
+                    wrong['sources'][key]['identity']['params']['start_date'] = '20261112'
+                    with self.assertRaises(ValueError):
+                        dd.validate_route(wrong, code, '2026-11-16')
+                missing_quote = copy.deepcopy(route)
+                del missing_quote['sources']['quote_search']
+                with self.assertRaises(ValueError):
+                    dd.validate_route(missing_quote, code, '2026-11-16')
+                for invalid in ({'strategy':'dividend'}, {'trailing_yield':{'value':0}},
+                                {'no_cash_evidence':{**route['no_cash_evidence'],'start_exclusive':'2026-11-01'}},
+                                {'sources':{'quote_search':{'status':'unavailable'}}}):
+                    with self.assertRaises(ValueError):
+                        dd.validate_route({**route, **invalid}, code, '2026-11-16')
+
+    def test_hk_no_cash_search_must_cover_the_observed_quote_day(self):
+        quote = dict(ts_code='00941.HK', trade_date='20261113', close=25, dv_ttm=None, dividend_events=[],
+                     evidence_version=2, source=dd.SOURCES['hk_cash_ttm'],
+                     coverage=dict(start_exclusive='2025-11-12', end_inclusive='2026-11-12',
+                                   factor_sessions=248, factor_changes=0))
+        with tempfile.TemporaryDirectory() as tmp:
+            route = dd.classify('00941.HK', '20261116', tmp, lambda *args: [quote])
+            self.assertEqual(route['status'], 'pending')
+
+    def test_absence_rule_requires_successful_search_without_known_payout(self):
+        baseline = dict(ts_code='600001.SH', ann_date='20260301', imp_ann_date='20260501',
+                        div_proc='实施', cash_div_tax=1, ex_date='20260601')
+        for case, rows in [('empty', []), ('failure', None), ('paid', [baseline]),
+                           ('payment date only', [{**baseline, 'ex_date':None, 'pay_date':'20260605',
+                               'div_proc':'股东大会通过', 'cash_div_tax':None}]),
+                           ('unverified', [{**baseline,'cash_div_tax':None}]),
+                           ('wrong security', [{**baseline,'ts_code':'600002.SH'}])]:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp:
+                def call(endpoint, params):
+                    if endpoint == 'daily_basic':
+                        return [dict(ts_code='600001.SH', trade_date='20261113', dv_ttm=None, close=12)]
+                    self.assertEqual(endpoint, 'dividend')
+                    if rows is None:
+                        raise RuntimeError('connection failed')
+                    return rows
+
+                route = dd.classify('600001.SH', '20261116', tmp, call)
+                self.assertEqual(route['status'], 'classified' if case == 'empty' else 'pending')
 
     def test_frozen_route_validates_identity_dates_values(self):
         route = self.classify(4.01)

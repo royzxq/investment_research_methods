@@ -83,6 +83,24 @@ class FrameworkBundleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.read_request(self.fixture.request_path)
 
+    def test_default_non_dividend_prompt_reports_no_payout_found(self):
+        from scripts import dividend_data as dd
+        self.enable_bundle()
+        def call(endpoint, params):
+            if endpoint == 'daily_basic':
+                return [dict(ts_code='600066.SH', trade_date='20261006', dv_ttm=None, close=20)]
+            self.assertEqual(endpoint, 'dividend')
+            return []
+        route = dd.classify('600066.SH', '20261006', self.root/'cache', call)
+        self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = route
+        self.fixture.write_request()
+        run = self.prepare()
+        prompt = (run/'execution/SH-600066/codex/prompt.txt').read_bytes()
+        self.assertIn('使用 stock-research 技能'.encode(), prompt)
+        self.assertIn('未查到现金派息'.encode(), prompt)
+        self.assertIn('股息率和利差留空'.encode(), prompt)
+        runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
+
     def test_automatic_route_refuses_legacy_two_file_bundle(self):
         self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = self.route()
         self.fixture.write_request()

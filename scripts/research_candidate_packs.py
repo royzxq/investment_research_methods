@@ -35,19 +35,24 @@ def due_candidates(path, day):
 def collect(ai_root, exchange, candidate):
     # Use the installed AI repository and interpreter in this short-lived child.
     sys.path.insert(0, str(ai_root))
-    from src.analysis.research_strategy import build_routed_pack
+    from src.analysis.research_strategy import ClassificationPending, build_routed_pack, save_daily_pack
     from src.analysis.research_exchange import publish_request
     from src.decision.reeval_targets import ReevalTarget, research_trigger
 
     ticker, suffix = candidate['code'].split('.')
     market = 'HK' if suffix == 'HK' else 'A'
     day = candidate['research_on']
-    markdown, meta = build_routed_pack(ticker, market, candidate['code'], day.replace('-', ''),
-                                      Path(exchange).parent / day)
+    directory = Path(exchange).parent / day
+    markdown, meta = build_routed_pack(ticker, market, candidate['code'], day.replace('-', ''), directory)
+    markdown = f'> 触发来源: 人工指定调研候选 | 估值日: {day}\n\n{markdown}'
+    route = meta['research_route']
+    if route['status'] == 'pending':
+        save_daily_pack(directory, candidate['name'], ticker, markdown, route)
+        raise ClassificationPending(route)
     target = ReevalTarget(candidate['name'], ticker, market, [SOURCE], day,
                           {SOURCE: {'research_on': day, 'order': candidate['order']}})
     pack = dict(market=market, code=ticker, name=target.name, sources=target.sources,
-                markdown=f'> 触发来源: 人工指定调研候选 | 估值日: {day}\n\n{markdown}',
+                markdown=markdown,
                 meta={**meta, 'research_trigger': research_trigger(target)})
     return publish_request(exchange, [pack], day)
 
