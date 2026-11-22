@@ -1,7 +1,7 @@
-<!-- stock-framework-dependencies: {"ai_business_supplement.md": "7506667cf95dbd0a0d7d1dbd88761cd13eee9293d7ce3d4aa7805441dfedcbe0", "dividend_framework.md": "2982e01707fbe6eee314cd4ac36b5570a325cc541592ef4d8f636814528ccbc5", "dividend_framework_compact.md": "38fcac0db1adea1af5aed4a9000164a14206ab50e59e4fc8050f25bb8231c595", "dividend_report_template.md": "e56b205fcb0902f105f1a6ea40a15d82f67f28b9999e599e8739a560d1a4d3f2", "drug_pipeline_supplement.md": "e98bcae26d48a6baf2871d574bd2273b95cc57201b54240235f4cd46f44849ca", "stock_research_common.md": "09d19db4ca7ad22949d4f73a3296de55b69383d4e07087a6141cbf7f82e493bb"} -->
+<!-- stock-framework-dependencies: {"ai_business_supplement.md": "7506667cf95dbd0a0d7d1dbd88761cd13eee9293d7ce3d4aa7805441dfedcbe0", "dividend_framework.md": "879492a5237c83b78756da971d1a9923edc5a5bb9616f7588f8a80e9667ce25d", "dividend_framework_compact.md": "a97e7e2c2c2c054f8003df0a82b924bbabe3cd5a398b489c3d97de25e62cf79f", "dividend_report_template.md": "6b19ffa2c7e1b3c48b7d8f813569de4a8a00be1c3f14876f2177f0dce499cd11", "drug_pipeline_supplement.md": "e98bcae26d48a6baf2871d574bd2273b95cc57201b54240235f4cd46f44849ca", "stock_research_common.md": "7b9f0849d7f24f4803db5ec85685fc01ca42349744ec9c1d41de0b965bf79da5"} -->
 # 个股调研框架 · 精简版
 
-<!-- investment-method-version: stock-strategy-split-v4-common-v5-dcf-v4-ai-v1-pipeline-v1 -->
+<!-- investment-method-version: stock-strategy-split-v4-common-v6-dcf-v4-ai-v1-pipeline-v1 -->
 <!-- stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6 -->
 
 自动任务以共享C0的冻结research_route选轨：TTM税前股息率－同日中国人民币十年国债YTM严格>分市场阈值（默认A股2、港股3.5个百分点）进入红利，否则本轨；最新股票观测≤估值日且不超过7自然日，缺失/超龄/未来/错币种pending，重取仍缺不派研究。报告§0披露规则/阈值/读数/日期/来源/利差，恢复不重算；候选分类非质量或交易门槛。无该元数据按下述持有目的；旧批次不追补，切换逐条接续旧控制。
@@ -18,7 +18,7 @@
 
 方法修订日期：2026-11-17，本次经用户授权同步 canonical §4.1D 已给价报告的中性校准，接续有依据假设、留空复核、观察用途及 §4.1B–D/§5.2A；实际采纳以匹配正文指纹的 adopted handoff 为准。历史市场状态不刷新，隔离估值不提升正式报价。下述采纳记录保留历史接续依据。
 
-两价初始采纳日期：2026-10-18；当前方法由已采纳的两价及控制语义接续R22与共享股东分配一致性，版本身份见文件头及最新 adopted 方法副本。未涉及的固定核心参数沿用 canonical。正文历史状态日期：2026-10-11（A/H 最近实际交易日10/9），受限观测按块内日期。与[完整版](investment_framework.md)同步；方法、参数及歧义以完整版为准。
+两价初始采纳日期：2026-10-18；当前方法由已采纳的两价及控制语义接续R22与共享股东分配一致性，版本身份见文件头及最新 adopted 方法副本。未涉及的固定核心参数沿用 canonical。本次业务数据取证适配日期为 2026-11-22。正文历史状态日期：2026-10-11（A/H 最近实际交易日10/9），受限观测按块内日期。与[完整版](investment_framework.md)同步；方法、参数及歧义以完整版为准。
 
 控制语义采纳接续：`stock-two-price-controls-v2` 于2026-10-19先隔离验证，后经 PR #51（2026-10-20，`346caada9172b4346c6b9246cb66978b06024ba4`）合并 main、10/25及11/01 adopted handoff 接续；旧“仅隔离”注记不再代表当前生产状态。市场状态未刷新。
 
@@ -460,13 +460,15 @@
 
 ## 2. 数据输入契约
 
-随附 `stock_data_pack.py` 数据包：量价/估值/财务/分位/Terminal 初值**视为既定输入，直接引用，不重查不重算**。
+有随附数据包时按本次估值版本取用。量价、估值、财务、分位及 Terminal 初值经自检后直接引用。影响结论的冲突或口径不明时定向核原文。
 
 **自检 mini-gate（引用前必过）**：① 时效一致（最新交易日 vs 估值时点；财报为最新已披露期）；② 缺失检测（「—」/「数据为空」→ 转 `[需人工补充]`，禁止旧记忆或估算填充）；③ 异常标记（OCF/净利剧烈背离、分位=100%/0%、扣非与表观异常偏离 → 标「存疑」，不作 Gate/熔断硬依据，二次核对）。
 
 **字段→模块**：量价快照→Price Map；估值分位（PE/PB/PS/换手 近1/3/5年）→[R1]前2项/不对称性；盈利数据（营收&YoY/归母&YoY/毛利净利率/扣非/ROE）→Precheck#1；现金流（OCF/OCF·净利比/应收·存货·合同负债/capex）→Precheck#3、#8；北向持股→Chip；
 
 披露日历→[R6]；Terminal 初值（隐含终局利润=市值×K、隐含倍数=K×PE_TTM）→§8；温度代理（50ETF 波指、沪深300）+宏观（中国PPI/CPI、美国CPI）→§6 温度、Precheck#4。
+
+按[共享业务取证规则](stock_research_common.md#用业务数据检验持有假设)执行。主策略依 C0。字段齐全度、业务标签与短窗涨跌本身均不构成估值加减项或交易门槛。§1/3 首研列持有假设及反证，复评对照上次预期，未留预期从本期建基线。§2–5 按实际分部核主体、期间、可见披露与原产品口径，分开集团实绩、业务实绩及行业参考，去除分项重叠。对决定结论的变化说明维持或调整哪个盈利、现金流或投入假设及每股影响，已有计价只计一次。分别核报告期、披露日和观测日；只有观测时间的产品分项须用当时冻结值或截止内原文做历史研究。方向、旧期或缺数按 §4.1D 补证或设界；旧包无补充段仍可研究，旧冻结按原方法。§6–7 按 [R22] 匹配同日同口径的宽基/行业/同行，5/20/60 日是近期观察，价格与含息收益分列，差额缺证则分别列可核读数。只有股价变化时沿用有依据的经营假设，核对现价隐含条件与预期回报；命中既有价格或风险条件按原条件处理。§8 列下一项能改变假设的披露。
 
 **数据包不替代**（AI 搜索+人工补充）：订单真实性；海外 capex 指引与订单联动；政策实锤；Terminal 假设（TAM/份额上限/稳态净利率）；国家队持仓（[R11]）；紧缩体制判断输入（点阵图/降息预期/沃什路径/隐含降息 bp）；SOX、VHSI 精确值。
 

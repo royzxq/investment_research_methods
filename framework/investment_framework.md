@@ -1,5 +1,5 @@
-<!-- stock-framework-dependencies: {"ai_business_supplement.md": "7506667cf95dbd0a0d7d1dbd88761cd13eee9293d7ce3d4aa7805441dfedcbe0", "dividend_framework.md": "2982e01707fbe6eee314cd4ac36b5570a325cc541592ef4d8f636814528ccbc5", "dividend_framework_compact.md": "38fcac0db1adea1af5aed4a9000164a14206ab50e59e4fc8050f25bb8231c595", "dividend_report_template.md": "e56b205fcb0902f105f1a6ea40a15d82f67f28b9999e599e8739a560d1a4d3f2", "drug_pipeline_supplement.md": "e98bcae26d48a6baf2871d574bd2273b95cc57201b54240235f4cd46f44849ca", "stock_research_common.md": "09d19db4ca7ad22949d4f73a3296de55b69383d4e07087a6141cbf7f82e493bb"} -->
-<!-- investment-method-version: stock-strategy-split-v4-common-v5-dcf-v4-ai-v1-pipeline-v1 -->
+<!-- stock-framework-dependencies: {"ai_business_supplement.md": "7506667cf95dbd0a0d7d1dbd88761cd13eee9293d7ce3d4aa7805441dfedcbe0", "dividend_framework.md": "879492a5237c83b78756da971d1a9923edc5a5bb9616f7588f8a80e9667ce25d", "dividend_framework_compact.md": "a97e7e2c2c2c054f8003df0a82b924bbabe3cd5a398b489c3d97de25e62cf79f", "dividend_report_template.md": "6b19ffa2c7e1b3c48b7d8f813569de4a8a00be1c3f14876f2177f0dce499cd11", "drug_pipeline_supplement.md": "e98bcae26d48a6baf2871d574bd2273b95cc57201b54240235f4cd46f44849ca", "stock_research_common.md": "7b9f0849d7f24f4803db5ec85685fc01ca42349744ec9c1d41de0b965bf79da5"} -->
+<!-- investment-method-version: stock-strategy-split-v4-common-v6-dcf-v4-ai-v1-pipeline-v1 -->
 <!-- stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6 -->
 
 自动任务以共享C0的冻结research_route选轨：TTM税前股息率－同日中国人民币十年国债YTM严格>分市场阈值（默认A股2、港股3.5个百分点）进入红利，否则本轨；最新股票观测≤估值日且不超过7自然日，缺失/超龄/未来/错币种pending，重取仍缺不派研究。报告§0披露规则/阈值/读数/日期/来源/利差，恢复不重算；候选分类非质量或交易门槛。无该元数据按下述持有目的；旧批次不追补，切换逐条接续旧控制。
@@ -440,7 +440,7 @@
 
 ### 0.1 基本约定
 
-本次调研随附 `stock_data_pack.py` 生成的【数据包】。数据包提供的量价 / 估值 / 财务 / 分位 / Terminal 初值，**视为既定输入，分析时直接引用，不重复查询、不重新计算**。AI 的工作从「采集 + 计算 + 判断」收敛为「校验 + 判断」。
+有随附数据包时使用本次估值对应的版本。数据包提供的量价、估值、财务、分位及 Terminal 初值，经 §0.3 自检后直接引用。对影响结论的冲突或范围不明的指标定向核对原文。AI 的工作从「采集 + 计算 + 判断」收敛为「校验 + 判断」。
 
 ### 0.2 数据包 → 框架模块映射
 
@@ -454,6 +454,8 @@
 | 业绩预告 · 快报 / 财报披露日历 | 滚动事件窗口（公司财报窗口） |
 | Terminal 初值（隐含终局利润 = 市值×K、隐含倍数 = K×PE_TTM、当前 TTM 利润） | Terminal & Expectation 5.2 |
 | 温度代理（50ETF 波指、沪深300 近端）、宏观（中国PPI / 中国CPI / 美国CPI） | Gate 3.1 市场温度、Precheck#4 海外流动性（部分） |
+| 市场及业务对照、主策略对照（如有） | §6.6 相对表现与归因。普通策略依据主营核对主基准，明示同业个股或指数及观察窗口 |
+| 分部经营指标、分产品收入与披露缺口（如有） | Precheck、公司机制与估值。按[共享规则「用业务数据检验持有假设」](stock_research_common.md#用业务数据检验持有假设)，从可比实绩追踪到受影响的盈利、现金流或再投资假设 |
 
 ### 0.3 数据自检 mini-gate（必过）
 
@@ -871,7 +873,7 @@ V5 核心 = 看最坏情况下能否活下来、会不会因现金流/融资/供
 - Gate / 价值可估性 / 买入资格（分别说明；冻结观察价无执行含义）：
 - Precheck：
 - 机制类型 / 当前权重（高/中高/中）（负反馈修复型须注明当前状态、新增退出三项合取是否满足及真实账户执行证据状态；本期未取得执行证据填 `null`，后续取得可核证据则如实填写；供给冲击重估型须注明贵金属/油气分支；事件驱动重估型须注明"规划型（政策链 (a)）/ 实锤型（(b) 及以上）"；内需暴露程度须标注）：
-- 收益验证主线：
+- 支撑持有逻辑的关键假设与收益验证主线（复评引用上次预期，变化原因和估值影响见 §5）：
 - 叙事依赖度：
 - 紧缩下独立成立性（成立/部分成立/不成立——盈利能否对冲估值压缩）：
 - 温度：
