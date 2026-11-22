@@ -1,0 +1,32 @@
+{
+  "available_at": "2026-11-22T14:07:05+08:00",
+  "entries": {
+    "688256.SH": {
+      "name": "寒武纪",
+      "business": "智能芯片",
+      "evidence": "三季报将收入增长与拓展人工智能应用市场联系起来。",
+      "check": "按产品代际核实际交付、应收回款与持续研发投入。",
+      "source_date": "2026-10-24",
+      "source_title": "2026 年第三季度报告，主要会计数据变动原因",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF"
+    },
+    "02513.HK": {
+      "name": "智谱",
+      "business": "云端及本地部署模型服务",
+      "evidence": "中期业绩分别披露云端与本地部署业务。",
+      "check": "云端核付费规模、折后净价与推理成本，本地部署核项目验收和回款。",
+      "source_date": "2026-08-31",
+      "source_title": "2026 年中期业绩，第 20–21 页",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101539.pdf"
+    },
+    "02158.HK": {
+      "name": "医渡科技",
+      "business": "以 YiduCore 为基础的医疗智能解决方案",
+      "evidence": "年度业绩披露医疗 AI 平台、临床助手等核心产品已部署，分别列示医疗、生命科学和健康管理三类业务收入。",
+      "check": "区分软件收费、项目实施、临床研究与健康管理服务，按合同核交付、续费、毛利和回款。",
+      "source_date": "2026-06-30",
+      "source_title": "截至 2026 年 3 月底的年度业绩，财务摘要与业务回顾",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0630/2026063000111.pdf"
+    }
+  }
+}

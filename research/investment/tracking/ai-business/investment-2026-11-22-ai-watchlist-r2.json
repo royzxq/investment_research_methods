@@ -1,0 +1,131 @@
+{
+  "available_at": "2026-11-22T14:01:06+08:00",
+  "entries": {
+    "688256.SH": {
+      "name": "寒武纪",
+      "business": "智能芯片",
+      "evidence": "三季报将收入增长与拓展人工智能应用市场联系起来。",
+      "check": "按产品代际核实际交付、应收回款与持续研发投入。",
+      "source_date": "2026-10-24",
+      "source_title": "2026 年第三季度报告，主要会计数据变动原因",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF"
+    },
+    "688041.SH": {
+      "name": "海光信息",
+      "business": "通用处理器与深算处理器",
+      "evidence": "年报披露深算处理器（DCU）可用于模型训练和推理，公司同时销售通用 CPU。",
+      "check": "区分 DCU 与 CPU 的销量及毛利，核流片和研发投入能否由交付回款覆盖。",
+      "source_date": "2026-04-08",
+      "source_title": "2025 年年度报告，主要产品",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-08/1225083088.PDF"
+    },
+    "688111.SH": {
+      "name": "金山办公",
+      "business": "办公订阅与内嵌 AI",
+      "evidence": "年报披露 WPS AI 功能与 WPS 365、个人订阅业务。",
+      "check": "核可归因于 AI 的付费转化、续费和每席净收入变化，扣除推理成本并与套餐对账。",
+      "source_date": "2026-03-26",
+      "source_title": "2025 年年度报告，主要业务及经营情况",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-03-26/1225032227.PDF"
+    },
+    "09988.HK": {
+      "name": "阿里巴巴-W",
+      "business": "AI 云与算力、模型及应用",
+      "evidence": "云外部经常性收入同比+67%（排除设备）；集团经营现金156.90亿元，FCF −344.72亿元。",
+      "check": "核外部经常性收入、设备收入、客户预付及基础设施支出的现金回收。",
+      "source_date": "2026-11-19",
+      "source_title": "阿里巴巴九月季度业绩",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111900874_c.pdf"
+    },
+    "00700.HK": {
+      "name": "腾讯控股",
+      "business": "内嵌 AI 与应用",
+      "evidence": "收入同比约+8%，经营利润约−7%。经营现金26亿元，资本开支付款651亿元、内容46亿元、租赁20亿元，公司FCF −691亿元；剔除算力预付的公司敏感性为+169亿元。",
+      "check": "核预付算力转为费用或资产的节奏、后续云收费、现金回收及普通股分配覆盖。",
+      "source_date": "2026-11-18",
+      "source_title": "腾讯截至九月底三季度未经审计业绩",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800448.pdf"
+    },
+    "02513.HK": {
+      "name": "智谱",
+      "business": "云端及本地部署模型服务",
+      "evidence": "中期业绩分别披露云端与本地部署业务。",
+      "check": "云端核付费规模、折后净价与推理成本，本地部署核项目验收和回款。",
+      "source_date": "2026-08-31",
+      "source_title": "2026 年中期业绩，第 20–21 页",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101539.pdf"
+    },
+    "002475.SZ": {
+      "name": "立讯精密",
+      "business": "通信与数据中心互联、散热及供电",
+      "evidence": "通信与数据中心业务166.09亿元、同比49.66%；800G光模块批量交付。分部还包含非AI业务。",
+      "check": "分别核分部毛利、800G销量、客户验收与回款。核1.6T是否由验证转为交付。",
+      "source_date": "2026-08-24",
+      "source_title": "立讯精密半年报",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-24/1225500491.PDF"
+    },
+    "000988.SZ": {
+      "name": "华工科技",
+      "business": "高速光互联",
+      "evidence": "半年报披露 800G 和 1.6T 光模块已批量交付，光互联业务包含 AI 与传统通信产品。",
+      "check": "分代际核出货、客户验收、毛利和回款，区分批量产品与下一代展示样品。",
+      "source_date": "2026-08-27",
+      "source_title": "2026 年半年度报告，光互联业务",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225513179.PDF"
+    },
+    "688825.SH": {
+      "name": "长鑫科技",
+      "business": "服务器内存",
+      "evidence": "公司在业绩交流中将企业级 DDR5 的销量和价格表现与服务器需求、市场份额提升联系起来，并讨论 AI 数据中心需求。",
+      "check": "核服务器客户订单和交付，分开估计 AI 增量、普通服务器需求及全行业涨价，扣扩产与折旧。",
+      "source_date": "2026-10-31",
+      "source_title": "10 月 30 日投资者关系活动记录",
+      "source_url": "https://dataclouds.cninfo.com.cn/shgonggao/investor/2026/20261031/28d024d8253df5d5c750e701ae616b97.pdf"
+    },
+    "300454.SZ": {
+      "name": "深信服",
+      "business": "安全软件与 AI 算力网关",
+      "evidence": "半年报披露安全 GPT 系列、AI 安全运营方案和自研 AI 算力网关。",
+      "check": "核独立合同、订阅续费及每客户服务成本，区分套餐内功能与增量收费。",
+      "source_date": "2026-08-22",
+      "source_title": "2026 年半年度报告，主要业务及核心竞争力",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-22/1225490793.PDF"
+    },
+    "600050.SH": {
+      "name": "中国联通",
+      "business": "智算中心及智能计算",
+      "evidence": "半年报披露智算中心与智能计算收入增长，算力投资占资本开支的 37%。",
+      "check": "拆出智算收费与利用率，核设备更新、回款及归属 A 股股东的可分配现金。",
+      "source_date": "2026-08-19",
+      "source_title": "2026 年半年度报告摘要，经营情况讨论",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-19/1225480022.PDF"
+    },
+    "00941.HK": {
+      "name": "中国移动-H",
+      "business": "智算服务和 AI 数据中心",
+      "evidence": "半年报披露智算服务收入 53 亿元，并单列 AI 数据中心收入增速。",
+      "check": "核付费利用率及客户账单，扣新增设备、电力和更新投入，核资本开支对分红覆盖的影响。",
+      "source_date": "2026-08-14",
+      "source_title": "2026 年半年度报告，董事长报告书",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-14/1225472195.PDF"
+    },
+    "02158.HK": {
+      "name": "医渡科技",
+      "business": "医疗 AI 项目交付",
+      "evidence": "公司公告关联公司中标海南 AI 赋能健康岛项目，披露项目总额约 1,476 万元。",
+      "check": "核项目归属、验收、确认收入与回款，区分一次性实施收入和可续费服务。",
+      "source_date": "2026-04-22",
+      "source_title": "海南 AI 赋能健康岛建设项目中标公告",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0422/2026042200181.pdf"
+    },
+    "01810.HK": {
+      "name": "小米集团-W",
+      "business": "自研模型与终端 AI",
+      "evidence": "一季报披露 MiMo 模型公开测试，以及跨终端智能助手测试进展。",
+      "check": "区分外部付费调用与免费或内部使用，核终端可归因的提价或留存贡献，扣训练与推理成本。",
+      "source_date": "2026-05-26",
+      "source_title": "2026 年第一季度业绩，业务回顾",
+      "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0526/2026052600770.pdf"
+    }
+  }
+}
