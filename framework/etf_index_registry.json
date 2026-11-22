@@ -11,6 +11,7 @@
       "tr_code": "H00300.CSI",
       "weight_code": "000300.SH",
       "valuation_code": "000300.SH",
+      "valuation_start_month": "2005-04",
       "lg_symbol": "沪深300",
       "decomposition_anchors": [
         [
@@ -158,6 +159,7 @@
       "tr_code": "H00905.CSI",
       "weight_code": "000905.SH",
       "valuation_code": "000905.SH",
+      "valuation_start_month": "2007-01",
       "lg_symbol": "中证500"
     },
     {

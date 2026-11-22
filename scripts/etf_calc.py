@@ -122,13 +122,18 @@ def _history_sample(observations, min_years, window_years):
     return result, [value for _, value in sample]
 
 
-def expanding_percentile(observations, *, min_years=5, window_years=None):
+def expanding_percentile(observations, *, min_years=5, window_years=None, include_latest=True):
     """Percentile (0-100) of the latest value within its own history.
 
     Repo convention: share of the sample strictly below the current value,
-    the current value included in the sample.
+    the current value included unless it is a separate, provisional observation.
     """
     result, sample = _history_sample(observations, min_years, window_years)
+    if not include_latest and sample:
+        sample = sample[:-1]
+        result["sample_n"] = len(sample)
+        if not sample:
+            result["missing_fields"].append("empty_reference_sample")
     result["percentile"] = 100 * sum(value < result["current"] for value in sample) / len(sample) if sample else None
     return _finish(result, ("percentile",))
 

@@ -15,7 +15,7 @@ ETF 轨道数据快照 — Tushare Pro + akshare (etf_data v0.1)
   §8 记分结算：本版不做（年度评估所需收益数据由用户提供）
 
 口径：
-  · 分位=样本中严格低于当前值的占比(0-100，当前值计入样本)，历史不足5年不出结论。
+  · 分位=样本中严格低于当前值的占比(0-100，已完成观测计入样本，宽基指数月中当前值单列)，历史不足5年不出结论。
   · TD/TE 取基金复权净值对指数，窗口=两者共同日期的近3年（剔除基金成立后半年的建仓期）；优先全收益指数，
     只有价格指数时照算并标"指数不含分红"；外币指数按外管局中间价折人民币；币种未核=缺口。
   · 基金代码后缀一律取 fund_basic 返回的 ts_code，不按前缀推断交易所。
@@ -35,10 +35,12 @@ akshare 费率来自天天基金页面，未与基金公告逐只核对。
 import argparse
 import csv
 import json
+import math
 import os
 import re
 import sys
 import time
+from functools import lru_cache
 from datetime import datetime, timedelta
 from decimal import Decimal
 from html import unescape
@@ -182,7 +184,9 @@ def full_levels(code, source):
         return None
     if not complete:
         gap("§6", f"{code} 历史翻页中断，回撤状态分位基于 {df['trade_date'].iloc[0]} 之后的截断样本")
-    return df[["trade_date", "close"]].dropna().reset_index(drop=True)
+    result = df[["trade_date", "close"]].dropna().reset_index(drop=True)
+    result.attrs["complete"] = complete
+    return result
 
 
 def daily_levels(code, source, start):
@@ -203,7 +207,10 @@ def paged_history(label, call, pause=0.35):
     frames, end = [], CUTOFF
     while True:
         df = fetch(label, lambda: call(end), pause)
-        if df is None or df["trade_date"].max() > end:   # 后者=接口忽略了 end_date，再翻页只会死循环
+        if df is not None and df["trade_date"].max() > end:
+            INTERFACES[label] = "失败 接口忽略截止日"
+            break
+        if df is None:
             break
         frames.append(df)
         end = (datetime.strptime(df["trade_date"].min(), "%Y%m%d") - timedelta(days=1)).strftime("%Y%m%d")
@@ -219,7 +226,9 @@ def valuation_history(code):
     df, complete = paged_history(f"index_dailybasic:{code}", lambda end: _pro_rows("index_dailybasic",
         ts_code=code, end_date=end, fields="ts_code,trade_date,pe_ttm,pb"))
     if df is not None and not complete:
-        gap("§1", f"{code} 估值历史翻页中断于 {df['trade_date'].iloc[0]} 之前，分位与分位点基于截断样本")
+        gap("§1", f"{code} 估值历史翻页中断于 {df['trade_date'].iloc[0]} 之前，主源历史不完整")
+    if df is not None:
+        df.attrs["complete"] = complete
     return df
 
 
@@ -425,20 +434,110 @@ def lg_valuation(symbol):
     """乐咕乐股月频：指数点位、滚动市盈率、市净率。"""
     pe = fetch(f"ak.stock_index_pe_lg:{symbol}", lambda: ak.stock_index_pe_lg(symbol=symbol), pause=0)
     pb = fetch(f"ak.stock_index_pb_lg:{symbol}", lambda: ak.stock_index_pb_lg(symbol=symbol), pause=0)
-    if pe is None:
+    if pe is None or not {"日期", "指数", "滚动市盈率"}.issubset(pe.columns):
         return None
     df = pe.rename(columns={"日期": "trade_date", "指数": "close", "滚动市盈率": "pe_ttm"})[["trade_date", "close", "pe_ttm"]]
-    if pb is not None:
+    if pb is not None and {"日期", "市净率"}.issubset(pb.columns):
         df = df.merge(pb.rename(columns={"日期": "trade_date", "市净率": "pb"})[["trade_date", "pb"]], how="left")
     else:
         df["pb"] = None
-    df["trade_date"] = pd.to_datetime(df["trade_date"]).dt.strftime("%Y%m%d")
+    df["trade_date"] = pd.to_datetime(df["trade_date"], errors="coerce").dt.strftime("%Y%m%d")
     return df[df["trade_date"] <= CUTOFF].sort_values("trade_date").reset_index(drop=True)
 
 
+def valuation_calendar(first_month, cutoff):
+    """Read the complete SSE calendar, including the remaining sessions of the cutoff month."""
+    start = pd.Period(first_month, freq="M").start_time
+    last = pd.Timestamp(cutoff) + pd.offsets.MonthEnd(0)
+    days = []
+    while start <= last:
+        end = min(start + pd.DateOffset(years=5) - pd.Timedelta(days=1), last)
+        label = f"trade_cal:宽基估值@{start:%Y%m%d}"
+        frame = fetch(label, lambda: _pro_rows("trade_cal", exchange="SSE",
+                      start_date=start.strftime("%Y%m%d"), end_date=end.strftime("%Y%m%d"), fields="cal_date,is_open"))
+        if frame is None:
+            return None
+        dates = pd.date_range(start, end).strftime("%Y%m%d")
+        if not {"is_open", "cal_date"}.issubset(frame.columns):
+            INTERFACES[label] = "失败 交易日历字段不全"
+            return None
+        flags = pd.to_numeric(frame["is_open"], errors="coerce")
+        if sorted(frame["cal_date"].astype(str)) != dates.tolist() or not flags.isin([0, 1]).all():
+            INTERFACES[label] = "失败 交易日历不完整"
+            return None
+        days.extend(frame.loc[flags.eq(1), "cal_date"].astype(str))
+        start = end + pd.Timedelta(days=1)
+    return sorted(days)
+
+
+def broad_valuation(entry, basic, level, load_backup, *, open_days=None):
+    """Use one source for completed monthly samples and the separately dated current mark."""
+    first = entry["valuation_start_month"]
+    end = pd.Timestamp(CUTOFF)
+    required = pd.period_range(first, end.to_period("M") - 1, freq="M").strftime("%Y%m")
+    start_day = first.replace("-", "") + "01"
+    expected_ends = {}
+    for day in sorted(open_days or []):
+        if start_day <= day <= CUTOFF:
+            expected_ends[day[:6]] = day
+
+    def checked(frame, source):
+        frame = frame.loc[frame.trade_date.between(start_day, CUTOFF)].sort_values("trade_date").copy()
+        months = frame.trade_date.str[:6]
+        if frame.empty or months.duplicated().any() or not set(required).issubset(months):
+            raise ValueError("月末历史不完整")
+        day = frame.trade_date.iloc[-1]
+        if open_days:
+            actual = set(frame.trade_date)
+            for required_day in expected_ends.values():
+                if required_day not in actual:
+                    raise ValueError(f"{required_day} 缺月末或当期观测")
+            if set(expected_ends.values()) != actual:
+                raise ValueError("含交易日历以外的观测")
+        if not open_days and day != pd.offsets.BDay().rollback(end).strftime("%Y%m%d"):
+            raise ValueError(f"交易日历不可用，无法确认末笔观测 {day} 的时效")
+        values = frame[["pe_ttm", "pb", "close"]].apply(pd.to_numeric, errors="coerce")
+        valid = values.gt(0) & values.lt(math.inf)
+        if not valid.all().all():
+            raise ValueError(f"{frame.loc[~valid.all(axis=1), 'trade_date'].iloc[0]} 缺有效 PE、PB 或点位")
+        frame[values.columns] = values
+        frame.attrs["source"] = source
+        frame.attrs["provisional"] = (day[:6] == CUTOFF[:6] and
+            (day < max(open_days) if open_days else not end.is_month_end))
+        return frame
+
+    try:
+        if basic is None or level is None:
+            raise ValueError("估值或指数点位缺数")
+        if not open_days:
+            raise ValueError("交易日历不可用")
+        if not basic.attrs.get("complete", True) or not level.attrs.get("complete", True):
+            raise ValueError("历史翻页不完整")
+        quotes = level.loc[level.trade_date.between(start_day, CUTOFF)].sort_values("trade_date")
+        ends = quotes.groupby(quotes.trade_date.str[:6]).tail(1)
+        frame = ends.merge(basic[["trade_date", "pe_ttm", "pb"]], on="trade_date",
+                           how="left", validate="one_to_one")
+        return checked(frame, "Tushare index_dailybasic / index_daily")
+    except (ValueError, KeyError) as exc:
+        reason = str(exc)
+    try:
+        backup = load_backup(entry["lg_symbol"])
+        if backup is None:
+            raise ValueError("乐咕无数据")
+        return checked(backup, f"乐咕月频（备用，Tushare {reason}）")
+    except (ValueError, KeyError) as exc:
+        gap("§1", f"{entry['key']} Tushare {reason}；备用 {exc}")
+        return None
+
+
+def monthly_title(frame):
+    return (f"{frame.attrs['source']}，月频，历史起点 {frame.trade_date.iloc[0]}，"
+            f"当前观测 {frame.trade_date.iloc[-1]}")
+
+
 # ============================ §1 估值 ============================
-def percentile_cell(df, column, window_years):
-    result = expanding_percentile(pairs(df, column), window_years=window_years)
+def percentile_cell(df, column, window_years, *, include_latest=True):
+    result = expanding_percentile(pairs(df, column), window_years=window_years, include_latest=include_latest)
     if result["status"] != "complete":
         return f"—({result['missing_fields'][0]})"
     return f"{result['percentile']:.1f} (n={result['sample_n']}, 自{iso(result['first_date'])})"
@@ -447,6 +546,10 @@ def percentile_cell(df, column, window_years):
 def valuation_block(title, df, bonds):
     """df: trade_date, pe_ttm, pb。打印当前值与两种窗口的分位。"""
     lines = [f"\n[{title}]  数据 {df['trade_date'].iloc[0]} → {df['trade_date'].iloc[-1]}，共 {len(df)} 期"]
+    digits = 4 if "provisional" in df.attrs else 2
+    provisional = df.attrs.get("provisional", False)
+    if provisional:
+        lines.append("  当月观测单列，历史分位及分位点仅取已完成月份。")
     if bonds is not None and bonds["cn10y"].notna().any():
         df = asof_join(df, bonds, ["cn10y", "cn10y_date"])
         df["erp"] = [erp_spread(pe, y) for pe, y in zip(df["pe_ttm"], df["cn10y"])]
@@ -455,12 +558,12 @@ def valuation_block(title, df, bonds):
         if not any("10年国债收益率不可得" in item for item in GAPS):
             gap("§1", "10年国债收益率不可得 → 各指数的股债利差不可算")
     last = df.iloc[-1]
-    rows = [("PE_TTM (分位高=贵)", "pe_ttm", num(last["pe_ttm"])), ("PB (分位高=贵)", "pb", num(last["pb"])),
+    rows = [("PE_TTM (分位高=贵)", "pe_ttm", num(last["pe_ttm"], digits)), ("PB (分位高=贵)", "pb", num(last["pb"], digits)),
             ("股债利差 100/PE−10年国债 (分位高=便宜)", "erp", num(last["erp"], suffix="pp"))]
     for label, column, current in rows:
-        lines.append(f"  {label}: 当前 {current} | 扩张窗分位 {percentile_cell(df, column, None)}"
-                     f" | 10年窗分位 {percentile_cell(df, column, 10)}")
-        levels = history_quantiles(pairs(df, column))["levels"]
+        lines.append(f"  {label}: 当前 {current} | 扩张窗分位 {percentile_cell(df, column, None, include_latest=not provisional)}"
+                     f" | 10年窗分位 {percentile_cell(df, column, 10, include_latest=not provisional)}")
+        levels = history_quantiles(pairs(df.iloc[:-1] if provisional else df, column))["levels"]
         if levels is not None:   # 情景的期末倍数只能取自这里，不由 AI 估
             lines.append("    历史分位点(扩张窗): " + " / ".join(f"P{point} {level:.2f}" for point, level in levels.items()))
     lines.append(f"  10年国债(估值日或之前最近一期): {num(last['cn10y'], 4, '%')} @{last['cn10y_date'] or '—'}")
@@ -469,12 +572,14 @@ def valuation_block(title, df, bonds):
     return lines
 
 
-def section_valuation(bonds, lg, basics):
+def section_valuation(bonds, monthly, basics):
     lines = ["\n---- §1 估值 (PE/PB/股债利差及分位；两个来源算法不同，不可混用) ----"]
     for entry in INDEX_POOL:
-        if entry.get("lg_symbol") and lg.get(entry["key"]) is not None:
-            lines += valuation_block(f"{entry['name']} {entry['key']} | 乐咕乐股月频", lg[entry["key"]], bonds)
-        if basics.get(entry["key"]) is not None:
+        if entry.get("lg_symbol"):
+            frame = monthly.get(entry["key"])
+            if frame is not None:
+                lines += valuation_block(f"{entry['name']} {entry['key']} | {monthly_title(frame)}", frame, bonds)
+        elif basics.get(entry["key"]) is not None:
             lines += valuation_block(f"{entry['name']} {entry['key']} | tushare index_dailybasic 日频",
                                      basics[entry["key"]], bonds)
     missing = [entry["name"] for entry in INDEX_POOL if not entry.get("valuation_code") and not entry.get("lg_symbol")]
@@ -505,14 +610,14 @@ def decomposition_rows(df, anchors):
     return rows
 
 
-def section_decomposition(lg, basics, levels):
+def section_decomposition(monthly, basics, levels):
     lines = ["\n---- §2 回报分解 (隐含每股盈利=点位÷PE；三项为复利关系 (1+价格)=(1+盈利)(1+估值)) ----"]
     for entry in INDEX_POOL:
-        df = lg.get(entry["key"])
+        df = monthly.get(entry["key"])
         if df is not None:
             anchors = [("自数据起点", df["trade_date"].iloc[0]), *entry.get("decomposition_anchors", []),
                        ("滚动10年", days_ago(3653)), ("滚动5年", days_ago(1826))]
-            lines += [f"\n[{entry['name']} | 乐咕乐股月频]"] + decomposition_rows(df, anchors)
+            lines += [f"\n[{entry['name']} | {monthly_title(df)}]"] + decomposition_rows(df, anchors)
         basic, level = basics.get(entry["key"]), levels.get(entry["key"])
         if basic is not None and level is not None and not entry.get("lg_symbol"):
             df = basic.merge(level, on="trade_date").dropna(subset=["pe_ttm"])
@@ -671,7 +776,7 @@ def aggregate_all(weights_by_key):
     return {key: pd.DataFrame(series) for key, series in rows.items() if series}
 
 
-def section_aggregation(bonds, lg, basics, levels):
+def section_aggregation(bonds, load_backup, basics, levels, monthly):
     lines = ["\n---- §4 指数口径估值自聚合 (成分权重 × 个股 pe_ttm/pb/dv_ttm；亏损股盈利按 0 计，PE 因此偏低；月末口径) ----",
              "  口径：按**指数权重**（自由流通调整）调和加权 = 持有该指数的组合市盈率，点位换算与它自洽。"
              "乐咕与 tushare index_dailybasic 是**总市值加权**（Σ总市值÷Σ净利润），低估值大盘股占比更高，读数系统性偏低；两种口径不可混用。"]
@@ -710,8 +815,10 @@ def section_aggregation(bonds, lg, basics, levels):
         lines.append(f"  股息率(权重加权): 当前 {num(last['dividend_yield_pct'], suffix='%')} | 扩张窗分位 "
                      f"{percentile_cell(usable, 'dividend_yield_pct', None)} | 亏损股权重 {num(last['loss_weight_pct'])}% | "
                      f"个股估值覆盖 {num(last['coverage_pct'])}% | 不完整月份 {int((series['status'] != 'complete').sum())} 个")
-    lines += pit_cross_check(weights_by_key.get("000300.SH"), aggregated.get("000300.SH"), lg.get("000300.SH"), basics.get("000300.SH"))
-    lines += level_table(aggregated, lg, basics, levels)
+    benchmark = next((entry for entry in INDEX_POOL if entry["key"] == "000300.SH"), None)
+    audit = load_backup(benchmark["lg_symbol"]) if benchmark and "000300.SH" in aggregated else None
+    lines += pit_cross_check(weights_by_key.get("000300.SH"), aggregated.get("000300.SH"), audit, basics.get("000300.SH"))
+    lines += level_table(aggregated, monthly, basics, levels)
     return lines
 
 
@@ -758,21 +865,31 @@ def pit_cross_check(weights, own, monthly, daily):
     return lines
 
 
-def level_table(aggregated, lg, basics, levels):
+def level_table(aggregated, monthly, basics, levels):
     """估值分位点 → 指数点位（盈利不变假设：点位 × 目标倍数 ÷ 当前倍数）。卡里仍须引用分位点与当前值经 calc 复算。"""
-    lines = ["\n  -- 4b 估值分位点对应的指数点位（PE 扩张窗 P10/P25/P50/P75/P90；来源优先：自聚合 > 乐咕 > tushare） --"]
+    lines = ["\n  -- 4b 估值分位点对应的指数点位（PE 扩张窗 P10/P25/P50/P75/P90；自聚合优先；宽基估值 Tushare 主、乐咕备） --"]
     rows = []
     for entry in INDEX_POOL:
         key = entry["key"]
-        source, df = next(((label, table[key]) for label, table in (("自聚合", aggregated), ("乐咕", lg), ("tushare", basics))
-                           if table.get(key) is not None), (None, None))
         level = levels.get(key)
-        if df is None or level is None:
-            continue
-        quantiles = history_quantiles(pairs(df, "pe_ttm"))["levels"]
-        priced = level[level["trade_date"] <= df["trade_date"].iloc[-1]]   # 点位取估值日当天：两者不同日则换算出的点位是错的
-        current_pe = df["pe_ttm"].iloc[-1]
-        if quantiles is None or pd.isna(current_pe) or priced.empty:
+        candidates = [("自聚合", aggregated.get(key), level)]
+        if entry.get("lg_symbol"):
+            frame = monthly.get(key)
+            if frame is not None:
+                candidates.append((frame.attrs["source"], frame, frame))
+        else:
+            candidates.append(("Tushare 日频", basics.get(key), level))
+        for source, df, series in candidates:
+            if df is None or series is None or df.empty:
+                continue
+            day = df["trade_date"].iloc[-1]
+            priced = series[series["trade_date"] == day]
+            history = df.iloc[:-1] if df.attrs.get("provisional") else df
+            quantiles = history_quantiles(pairs(history, "pe_ttm"))["levels"]
+            current_pe = df["pe_ttm"].iloc[-1]
+            if quantiles is not None and pd.notna(current_pe) and current_pe > 0 and not priced.empty:
+                break
+        else:
             continue
         current_level = priced["close"].iloc[-1]
         rows.append({"指数": entry["name"], "来源": source, "估值日": df["trade_date"].iloc[-1], "当前PE": num(current_pe),
@@ -1242,10 +1359,9 @@ def run(snapshot, pool_csv):
 
     bonds, fx = bond_yields(), fx_rates()
     history_start = days_ago(int((TRACKING_YEARS + 1) * 365.25))
-    levels, lg, basics = {}, {}, {}
+    levels, basics = {}, {}
+    load_backup = lru_cache(maxsize=2)(lg_valuation)  # 沪深300的备用与交叉核对共用本次响应
     for entry in INDEX_POOL:
-        if entry.get("lg_symbol"):
-            lg[entry["key"]] = lg_valuation(entry["lg_symbol"])
         if entry.get("valuation_code"):
             basics[entry["key"]] = valuation_history(entry["valuation_code"])
         if entry["source"]:
@@ -1253,10 +1369,16 @@ def run(snapshot, pool_csv):
         if entry.get("tr_code"):
             levels[entry["tr_code"]] = daily_levels(entry["tr_code"], "index_daily", history_start)
 
-    body = section_valuation(bonds, lg, basics)
-    body += section_decomposition(lg, basics, levels)
+    benchmarks = [entry for entry in INDEX_POOL if entry.get("lg_symbol")]
+    open_days = valuation_calendar(min(entry["valuation_start_month"] for entry in benchmarks), CUTOFF) if benchmarks else []
+    monthly = {}
+    for entry in benchmarks:
+        key = entry["key"]
+        monthly[key] = broad_valuation(entry, basics.get(key), levels.get(key), load_backup, open_days=open_days)
+    body = section_valuation(bonds, monthly, basics)
+    body += section_decomposition(monthly, basics, levels)
     body += section_structure(load_pool_codes(pool_csv) if pool_csv else None)
-    body += section_aggregation(bonds, lg, basics, levels)
+    body += section_aggregation(bonds, load_backup, basics, levels, monthly)
     body += section_tools(fund_universe(), levels, fx)
     body += section_trend(levels)
     body += section_drawdown_ladder(levels)
