@@ -76,7 +76,7 @@ def same_day_spread(stock, bond):
     return round(a - b, 10)
 
 
-def request_rows(token, endpoint, params):
+def request_rows(token, endpoint, params, *, fields=None):
     # HTTPS only; do not include remote messages/response body in errors/logs.
     if endpoint in ('hk_cash_ttm', 'chinabond_10y'):
         # Standalone CLI reuses the same public providers as the scheduler.
@@ -97,8 +97,9 @@ def request_rows(token, endpoint, params):
     if not token:
         raise RuntimeError('TUSHARE_TOKEN unavailable')
     import requests
-    response = requests.post('https://api.tushare.pro', timeout=(10, 25),
-        json={'api_name': endpoint, 'token': token, 'params': params, 'fields': FIELDS[endpoint]})
+    fields = fields or FIELDS[endpoint]
+    response = requests.post('https://api.tushare.pro', timeout=(10, 25), allow_redirects=False,
+        json={'api_name': endpoint, 'token': token, 'params': params, 'fields': fields})
     response.raise_for_status()
     payload = response.json()
     if payload.get('code') != 0:
@@ -107,12 +108,12 @@ def request_rows(token, endpoint, params):
             raise PermissionError('provider permission unavailable')
         raise RuntimeError('provider denied request or reported an API error')
     data = payload.get('data') or {}
-    fields, items = data.get('fields'), data.get('items')
-    if (not isinstance(fields, list) or not isinstance(items, list) or len(set(fields)) != len(fields)
-            or not set(FIELDS[endpoint].split(',')) <= set(fields)
-            or any(not isinstance(row, list) or len(row) != len(fields) for row in items)):
+    columns, items = data.get('fields'), data.get('items')
+    if (not isinstance(columns, list) or not isinstance(items, list) or len(set(columns)) != len(columns)
+            or not set(fields.split(',')) <= set(columns)
+            or any(not isinstance(row, list) or len(row) != len(columns) for row in items)):
         raise ValueError('provider response schema mismatch')
-    return [dict(zip(fields, row)) for row in items]
+    return [dict(zip(columns, row)) for row in items]
 
 
 def canonical(value):

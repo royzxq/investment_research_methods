@@ -141,6 +141,7 @@ class V3IdentityExportTests(unittest.TestCase):
                 patch.object(data, "INDICATOR_CONTRACTS", list(contracts)), \
                 patch.object(data, "research_pairs", return_value=list(pairs)), \
                 patch.object(data, "daily", side_effect=lambda sym: frames[sym]), \
+                patch.object(data, "weekly_public_risk", return_value=dict(calendars={}, rows=[], issues=[], observed_at="fixture")), \
                 patch.object(data, "api", side_effect=AssertionError("offline fixture only")), redirect_stdout(io.StringIO()):
             result = data.collect_v3_research()
             saved = json.loads((Path(directory) / "v3_research_inputs_20261011.json").read_text())
@@ -151,7 +152,7 @@ class V3IdentityExportTests(unittest.TestCase):
         frame, _ = self.frame()
         result = self.collect({"M2701": frame})
         row = result["trend"][0]
-        self.assertEqual(result["script_version"], "v1.18.1")
+        self.assertEqual(result["script_version"], "v1.18.2")
         self.assertEqual(row["status"], "valid")
         market = row["market_inputs"]
         for key, value in frame.attrs["provenance"].items():
@@ -181,9 +182,9 @@ class V3IdentityExportTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             snapshot = Path(folder) / "snapshot.txt"
             original = payload["trend"][0]
-            snapshot.write_text("== v3.0 框架数据脚本 v1.18.1 | AS_OF=20261011 |\n"
+            snapshot.write_text("== v3.0 框架数据脚本 v1.18.2 | AS_OF=20261011 |\n"
                                 f"T M2701: {original['status']} / {original['signal']} / {original['side']}\n"
-                                "== 快照完成 | AS_OF=20261011 | 脚本 v1.18.1 | 本行存在即输出完整 ==\n")
+                                "== 快照完成 | AS_OF=20261011 | 脚本 v1.18.2 | 本行存在即输出完整 ==\n")
             now = max(datetime.fromisoformat(market["fetched_at"]), datetime.fromisoformat("2026-10-11T23:00:00+08:00"))
             result = refresh.evaluate(payload, snapshot, "20261011", now)
         row = next(x for x in result["trend"] if x["contract"] == "M2701")

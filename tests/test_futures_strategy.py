@@ -411,6 +411,7 @@ class V3DataIntegrationTests(unittest.TestCase):
                 patch.object(module, "_trade_cal", return_value=market["trading_dates"]), \
                 patch.object(module, "CAL_DEGRADED", []), patch.object(module, "INDICATOR_CONTRACTS", ["M2701"]), \
                 patch.object(module, "daily", return_value=frame), patch.object(module, "research_pairs", return_value=[]), \
+                patch.object(module, "weekly_public_risk", return_value=dict(calendars={}, rows=[], issues=[], observed_at="fixture")), \
                 patch.object(module, "api", side_effect=AssertionError("network forbidden")), redirect_stdout(io.StringIO()):
             result = module.collect_v3_research()
             saved = json.loads((Path(directory) / f"v3_research_inputs_{market['as_of_date']}.json").read_text())

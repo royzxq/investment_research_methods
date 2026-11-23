@@ -54,11 +54,13 @@ try:
                            level_at_drawdown_state, month_end_levels, return_decomposition, sma_state,
                            tracking_difference, tracking_error)
     from .price_evidence import completed_day_cutoff
+    from . import weekly_etf_shares
 except ImportError:  # direct script invocation
     from etf_calc import (aggregate_valuation, drawdown_states, erp_spread, expanding_percentile, history_quantiles,
                           level_at_drawdown_state, month_end_levels, return_decomposition, sma_state,
                           tracking_difference, tracking_error)
     from price_evidence import completed_day_cutoff
+    import weekly_etf_shares
 
 try:
     import akshare as ak
@@ -1349,6 +1351,27 @@ def _valid_date(text):
     return text
 
 
+def section_weekly_shares():
+    from zoneinfo import ZoneInfo
+    try:
+        text = weekly_etf_shares.snapshot_section(AS_OF, market_cutoff=CUTOFF)
+        if text is None and AS_OF == datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%Y%m%d'):
+            def query(endpoint, params, fields):
+                return _pro_rows(endpoint, fields=fields, **params).astype(object).where(
+                    lambda df: df.notna(), None).to_dict('records')
+            doc = weekly_etf_shares.collect(AS_OF, query, market_cutoff=CUTOFF)
+            text = weekly_etf_shares.render(doc)
+            for code, item in doc['funds'].items():
+                if item['errors'] or item['summary']['share_change_at_nav_yi_cny'] is None:
+                    gap('§5', f'{code} 周度份额或净值拆分缺口')
+    except (OSError, ValueError, KeyError, RuntimeError) as exc:
+        text = None
+        gap('§5', f'ETF 周度份额读取失败 {type(exc).__name__}')
+    if text is None:
+        text = gap('§5', '本周缺截至该日已采集的 ETF 份额证据')
+    return ['\n---- §5 场内 ETF 样本周度份额 ----', text]
+
+
 def run(snapshot, pool_csv):
     global CUTOFF
     CUTOFF = min(AS_OF, completed_day_cutoff())
@@ -1380,6 +1403,7 @@ def run(snapshot, pool_csv):
     body += section_structure(load_pool_codes(pool_csv) if pool_csv else None)
     body += section_aggregation(bonds, load_backup, basics, levels, monthly)
     body += section_tools(fund_universe(), levels, fx)
+    body += section_weekly_shares()
     body += section_trend(levels)
     body += section_drawdown_ladder(levels)
     body += section_macro(bonds, fx, levels)

@@ -1,0 +1,267 @@
+{
+  "as_of": "2026-11-22",
+  "ETF_LIQUIDITY_CONTEXT": {
+    "window": "2026-11-16/20",
+    "sse_including_cash_etfs": {
+      "turnover_yi_cny": 19390,
+      "units_yi": 22732,
+      "market_value_yi_cny": 35317,
+      "prior": [
+        18202,
+        22399,
+        35838
+      ],
+      "units_change_yi": 333,
+      "market_value_change_yi_cny": -521,
+      "net_subscriptions": null,
+      "gross_creations": null,
+      "gross_redemptions": null
+    },
+    "hkex_sample": "hkex-quotes.json，11/13、20收市；计划纳入/剔除为11/20盘后公布，12/04收市实施、12/07生效。样本随公告挑选，两个收市点均在公告前。",
+    "stress_matched_depth": null,
+    "fund_holding_and_weight_change": null,
+    "direct_linked_funds": "未叠加联接基金；周度合计不能还原个别基金申购、赎回、拆分、分红或价格影响。",
+    "a_optic_turnover": "r22-market-inputs.json 两家A股成交仅作跨市场背景；未匹配流通市值、行业、压力环境。",
+    "index_pro_forma_weights_percent": {
+      "basis": "假设按11/18重平衡，非12/7实际持仓；HSI季检附录3",
+      "03308.HK": 0.54,
+      "02475.HK": 0.26,
+      "HSTECH_IT_sector_before": 48.33,
+      "HSTECH_IT_sector_after": 48.69
+    },
+    "listed_etf_sample": {
+      "scope": "两只宽基、两只行业 ETF，沪深上市份额逐只去重。",
+      "sessions": [
+        "20261113",
+        "20261116",
+        "20261117",
+        "20261118",
+        "20261119",
+        "20261120"
+      ],
+      "observed": "20261122",
+      "data": "investment-2026-11-22-etf-shares.json",
+      "exchange_checks": "investment-2026-11-22-etf-exchange-check.json",
+      "matched_observations": 24,
+      "max_absolute_share_difference_wan": 0,
+      "funds": {
+        "510300.SH": {
+          "delta_yi_shares": 95.616,
+          "price_change_pct": -1.5919666911584751,
+          "factor_stable": true,
+          "share_change_at_nav_yi_cny": 386.8384392,
+          "nav_effect_yi_cny": -30.519362714099973,
+          "weekly_turnover_yi_cny": 533.23877258
+        },
+        "159915.SZ": {
+          "delta_yi_shares": 79.74,
+          "price_change_pct": -8.681408681408687,
+          "factor_stable": true,
+          "share_change_at_nav_yi_cny": 182.083267,
+          "nav_effect_yi_cny": -101.91724138708001,
+          "weekly_turnover_yi_cny": 619.931837781
+        },
+        "512480.SH": {
+          "delta_yi_shares": 4.280000000000023,
+          "price_change_pct": -6.052963430012614,
+          "factor_stable": true,
+          "share_change_at_nav_yi_cny": 3.1489840000000173,
+          "nav_effect_yi_cny": -10.156765506399994,
+          "weekly_turnover_yi_cny": 56.36763016
+        },
+        "512170.SH": {
+          "delta_yi_shares": 5.93,
+          "price_change_pct": -5.014749262536878,
+          "factor_stable": true,
+          "share_change_at_nav_yi_cny": 1.9536529999999999,
+          "nav_effect_yi_cny": -10.924791100500004,
+          "weekly_turnover_yi_cny": 18.999913669999994
+        }
+      },
+      "gross_creations": null,
+      "gross_redemptions": null,
+      "actual_cash": null,
+      "investor_identity": null
+    }
+  },
+  "BENCHMARK_CONTEXT": [
+    {
+      "benchmark": "000300",
+      "investable_candidate": "510300.SH 华泰柏瑞沪深300ETF",
+      "coverage": "300只沪深A股大市值宽基，集中度/行业权重待当期原表",
+      "currency": "CNY",
+      "risk_style_weights": "大盘；当前权重/集中度unknown",
+      "fees_tracking": "8月13日产品资料概要，年管理费0.15%、托管费0.05%；复权净值已扣内含费用。净值与全收益差异未做收益归因。",
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算",
+      "historical_terms_source": "../2026-11-15/evidence/r22-context.json（香港费用沿用旧时点）",
+      "four_common_windows": [
+        {
+          "start": "2026-10-30",
+          "end": "2026-11-06",
+          "index_gross_tr_pct": 1.735935,
+          "fund_adj_nav_return_pct": 1.731176,
+          "difference_pp": -0.004758
+        },
+        {
+          "start": "2025-11-06",
+          "end": "2026-11-06",
+          "index_gross_tr_pct": -11.551263,
+          "fund_adj_nav_return_pct": -11.889446,
+          "difference_pp": -0.338183
+        },
+        {
+          "start": "2026-11-06",
+          "end": "2026-11-13",
+          "index_gross_tr_pct": -0.933583,
+          "fund_adj_nav_return_pct": -0.951322,
+          "difference_pp": -0.017739
+        },
+        {
+          "start": "2026-11-13",
+          "end": "2026-11-20",
+          "index_gross_tr_pct": -1.529159,
+          "fund_adj_nav_return_pct": -1.546958,
+          "difference_pp": -0.017799
+        }
+      ],
+      "window_data": "Tushare H00300.CSI 全收益收盘及510300.SH复权单位净值；指数与可投资基金比较，不代表单一行业。"
+    },
+    {
+      "benchmark": "HSI",
+      "investable_candidate": "2800 / 82800",
+      "coverage": "香港上市宽基",
+      "currency": "HKD（82800人民币交易柜台不改变基础风险）",
+      "risk_style_weights": "大盘；当期集中度unknown",
+      "fees_tracking": "KFS ongoing 0.060%；2025差异有NAV与adjusted NAV两口径，不当alpha；实际比较优先净值含分红且不重复扣费",
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算",
+      "historical_terms_source": "../2026-11-15/evidence/r22-context.json（香港费用沿用旧时点）",
+      "current_common_total_return": null,
+      "current_index_weights": null,
+      "current_window": [
+        "2026-11-13",
+        "2026-11-20"
+      ]
+    },
+    {
+      "benchmark": "HSTECH",
+      "investable_candidate": "3033",
+      "coverage": "港股大型科技；不能代表含生物科技的全部科技行业",
+      "currency": "HKD",
+      "risk_style_weights": "科技成长/集中度待核",
+      "fees_tracking": "2026/3文件管理费0.99%，非全部费用，当前总费率/跟踪差异unknown",
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算",
+      "historical_terms_source": "../2026-11-15/evidence/r22-context.json（香港费用沿用旧时点）",
+      "current_common_total_return": null,
+      "current_index_weights": null,
+      "current_window": [
+        "2026-11-13",
+        "2026-11-20"
+      ],
+      "indicative_weight_source": "11/20恒指公司附录3按11/18模拟的重平衡；IT从48.33%到48.69%，非当日基金持仓与实际执行"
+    },
+    {
+      "benchmark": "HSTCI / HSTCL / HSTCMS",
+      "investable_candidate": null,
+      "coverage": "香港广义科技含生物科技；大/中小盘分组",
+      "currency": "HKD",
+      "risk_style_weights": "行业组合与HSTECH不同，当前个股权重unknown",
+      "fees_tracking": "产品费用不适用，未证明存在可买替代",
+      "forward": {
+        "H": null,
+        "scenarios": null,
+        "return_interval": null,
+        "absolute_return_floor": null,
+        "stock_extra_requirement": null,
+        "status": "未量化；不能以历史涨幅填充"
+      },
+      "attribution": {
+        "earnings": null,
+        "valuation": null,
+        "risk_exposure": null,
+        "flows": null,
+        "unexplained": null
+      },
+      "sector_matching": "宽基不能自动作行业超额基准；公司主营、地域、币种及风险暴露需匹配，尚无个股相对总收益计算",
+      "historical_terms_source": "../2026-11-15/evidence/r22-context.json（香港费用沿用旧时点）",
+      "current_common_total_return": null,
+      "current_index_weights": null,
+      "current_window": [
+        "2026-11-13",
+        "2026-11-20"
+      ]
+    }
+  ],
+  "common_window_policy": "承接事先声明的长短窗口，另顺延每周共同端点，不按结果改基准。香港收市价为价格口径，跨币种转换与含分红序列待补。",
+  "absorbed": "市场交易成本先归容量和执行，经营与资本开支归现金流，成长和风险溢价须核既有估值审计。只有独立剩余影响交个股共享§6.6。",
+  "sector_relative_total_return": null,
+  "forward_stock_minus_etf_return": null,
+  "h_abs": null,
+  "a": null,
+  "hk_price_comparison": {
+    "start": "2026-11-13",
+    "end": "2026-11-20",
+    "hkd_closing_price_return_pct": {
+      "00100": -32.8084,
+      "02513": -18.2174,
+      "01658": -1.7652,
+      "02313": -0.895,
+      "03308": -16.7375,
+      "02475": -6.1903,
+      "02800": -4.9747,
+      "03033": -7.8284,
+      "02828": -4.9546
+    },
+    "vs_03033_pp": {
+      "00100": -24.98,
+      "02513": -10.389,
+      "03308": -8.9091,
+      "02475": 1.6381
+    },
+    "limit": "科技ETF作板块代理，成分与业务权重不同，未调整公司行为、派息、交易冲击或风格风险；只提供价格诊断，行业超额总回报和原因未核。"
+  }
+}

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-v3.0 框架数据脚本 — Tushare Pro 版 (v1.18.1)
+v3.0 框架数据脚本 — Tushare Pro 版 (v1.18.2)
 ====================================================================
+v1.18.2（2026-11-23）：增加最近完整交易周的真实月份合约公开风控参数与逐日来源。
+
 v1.18.1（2026-10-11，合约来源身份修复）：
   fut_daily 显式请求并逐行核验响应 ts_code，来源身份由响应导出，请求标签单独记录；
   缓存命中复核响应列与 provenance，不用缓存键或外层合约替补缺失/错配身份。
@@ -117,6 +119,8 @@ import sys
 import math
 import time
 import argparse
+from functools import partial
+from types import SimpleNamespace
 import json
 from datetime import datetime
 from pathlib import Path
@@ -124,6 +128,8 @@ import numpy as np
 import pandas as pd
 
 try:
+    from . import futures_public_risk
+    from .dividend_data import request_rows
     from .futures_risk import precheck_2atr
     from .futures_strategy import trend_inputs
     from .price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
@@ -131,6 +137,8 @@ try:
     from .price_evidence import weekly_anchor_days, d8_weekly_rank, settle_shadow_plan, parse_shadow_plan
     from .validate_futures_audit import load_audit
 except ImportError:  # direct script invocation
+    import futures_public_risk
+    from dividend_data import request_rows
     from futures_risk import precheck_2atr
     from futures_strategy import trend_inputs
     from price_evidence import select_price, weekly_price_evidence, spread_change_series, completed_day_cutoff
@@ -138,15 +146,11 @@ except ImportError:  # direct script invocation
     from price_evidence import weekly_anchor_days, d8_weekly_rank, settle_shadow_plan, parse_shadow_plan
     from validate_futures_audit import load_audit
 
-try:
-    import tushare as ts
-except ImportError:
-    sys.exit("缺少依赖: 请先执行  pip install tushare pandas numpy")
 
 try:
-    from .research_paths import ROOT, artifact_path, discover, snapshot_output
+    from .research_paths import ROOT, artifact_path, discover, snapshot_output, write_json
 except ImportError:
-    from research_paths import ROOT, artifact_path, discover, snapshot_output
+    from research_paths import ROOT, artifact_path, discover, snapshot_output, write_json
 
 # ============================ 配置区 ============================
 # 环境变量优先; 也可直接在此粘贴:  TOKEN = "你的tushare_token"
@@ -304,12 +308,18 @@ _T3_PRODS = set()   # §0b 计算出的「事件T-3」受影响品种集合(供�
 _EARLY_PRODS = set()  # 已有提前风险窗，不伪装为实际事件T-3
 
 
+def _table(endpoint, *, fields, **params):
+    rows = request_rows(TOKEN, endpoint, params, fields=fields)
+    return pd.DataFrame.from_records(rows, columns=fields.split(","))
+
+
 def api():
     global pro
     if pro is None:
         if not TOKEN or "填入" in TOKEN:
             sys.exit("请先设置环境变量 TUSHARE_TOKEN, 或在配置区直接填入 TOKEN")
-        pro = ts.pro_api(TOKEN)
+        pro = SimpleNamespace(**{name: partial(_table, name) for name in
+                                ("fut_basic", "trade_cal", "fut_daily", "fut_mapping")})
     return pro
 
 
@@ -1125,6 +1135,16 @@ def collect_spread_research():
     return results
 
 
+def weekly_public_risk(cutoff):
+    contracts = {sym for sym in INDICATOR_CONTRACTS if sym not in SIGNAL_LEGS}
+    for _, _, near, far, kind in research_pairs():
+        if kind != "信号":
+            contracts.update((near, far))
+    codes = [sym + "." + TS_SUFFIX[EXCH[_prod(sym)]] for sym in contracts]
+    return futures_public_risk.collect(AS_OF, cutoff, codes,
+        lambda endpoint, params, fields: request_rows(TOKEN, endpoint, params, fields=fields))
+
+
 def collect_v3_research():
     """v3 raw inputs; no anchors, account values or current trade permission inferred."""
     calendar = _trade_cal()
@@ -1184,12 +1204,13 @@ def collect_v3_research():
             item.update(status="incomplete", missing_fields=[str(exc), "frozen_economic_anchor_and_mechanism"])
         spreads.append(item)
         print(f"  V {near}-{far} ({stage}): 原始结算包，经济锚未输入，signal=unknown；分位不代替回归信号")
-    output = dict(rule_version="v3.0", script_version="v1.18.1", scope="v3_research_inputs_only",
+    public_risk = weekly_public_risk(cutoff)
+    print(futures_public_risk.render(public_risk))
+    output = dict(rule_version="v3.0", script_version="v1.18.2", public_risk=public_risk, scope="v3_research_inputs_only",
                   as_of_date=AS_OF, trend=trends, economic_reversion=spreads,
                   execution_permission="not_evaluated")
     os.makedirs(OUTDIR, exist_ok=True)
-    with open(f"{OUTDIR}/v3_research_inputs_{AS_OF}.json", "w", encoding="utf-8") as handle:
-        json.dump(output, handle, ensure_ascii=False, indent=2, allow_nan=False)
+    write_json(Path(OUTDIR) / f"v3_research_inputs_{AS_OF}.json", output, overwrite=True)
     print("  信号比较只说明行情条件；规则冻结/生效时间、产业证据、事件与账户执行门另核。")
     print("  计划算术：python3 scripts/futures_strategy.py validate-plan --input <JSON>；容量：futures_risk.py size-v3。")
     return output
@@ -1253,7 +1274,7 @@ def atr_recheck():
 def main_mapping(prod):
     """fut_mapping 主力映射 {trade_date: ts_code}; 回看覆盖 D8 所需年份。"""
     if prod not in _mapping_cache:
-        df = api().fut_mapping(ts_code=f"{prod}.{TS_SUFFIX[EXCH[prod]]}",
+        df = api().fut_mapping(fields="ts_code,trade_date,mapping_ts_code", ts_code=f"{prod}.{TS_SUFFIX[EXCH[prod]]}",
                                start_date=shift_year_date(AS_OF, YEARS + 1), end_date=AS_OF)
         time.sleep(0.4)
         if df is None or df.empty:
@@ -1453,7 +1474,7 @@ def _valid_date(s):
 def main():
     global AS_OF
     parser = argparse.ArgumentParser(
-        description="v3.0 框架数据脚本 (Tushare Pro, v1.18.1)")
+        description="v3.0 框架数据脚本 (Tushare Pro, v1.18.2)")
     parser.add_argument(
         "--as-of", type=_valid_date, default=AS_OF, metavar="YYYYMMDD",
         help="复盘基准日 (缺省=运行当天, 当前默认 %(default)s)")
@@ -1474,12 +1495,12 @@ def main():
 
 
 def print_completion():
-    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.18.1 | 本行存在即输出完整 ==")
+    print(f"== 快照完成 | AS_OF={AS_OF} | 脚本 v1.18.2 | 本行存在即输出完整 ==")
 
 
 def run(snapshot, include_legacy_v2=False):
 
-    print(f"== v3.0 框架数据脚本 v1.18.1 | AS_OF={AS_OF} | scope=v3_research_inputs_only | "
+    print(f"== v3.0 框架数据脚本 v1.18.2 | AS_OF={AS_OF} | scope=v3_research_inputs_only | "
           f"legacy_v2={include_legacy_v2} | 事件日期线索{len(EVENTS)}项(用户维护) ==")
     print(f"日线上界={min(AS_OF, completed_day_cutoff())}（北京时间18:00前保守排除当天；"
           "实际最新行情日逐腿显示；本时刻规则不宣称数据源已发布最终结算）")
@@ -1501,7 +1522,7 @@ def run(snapshot, include_legacy_v2=False):
         for event in EVENTS:
             print(f"  日期核验线索={event[0]}~{event[1]} | {event[2]} | {event[4]}")
         print("  已省略v2分位门、D系列、季节和固定目标影子结算；加--legacy-v2仅供历史复核。")
-        print("  当前账户、挂单、真实成本、保证金/限仓与压力测试尚未核；不得将本输出当成交易许可。")
+        print("  当前账户、挂单、真实成本、经纪商实收保证金、账户剩余限额与压力测试尚未核；不得将本输出当成交易许可。")
         print(f"\n完成。v3输入已写入 {OUTDIR}/；快照={snapshot or '未写(--no-snapshot)'}。")
         print_completion()
         return

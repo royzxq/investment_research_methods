@@ -1,0 +1,822 @@
+{
+  "schema": "listed-etf-week/v1",
+  "cutoff": "20261122",
+  "sessions": [
+    "20261113",
+    "20261116",
+    "20261117",
+    "20261118",
+    "20261119",
+    "20261120"
+  ],
+  "funds": {
+    "510300.SH": {
+      "name": "沪深300ETF华泰柏瑞",
+      "summary": {
+        "sessions": [
+          "20261113",
+          "20261116",
+          "20261117",
+          "20261118",
+          "20261119",
+          "20261120"
+        ],
+        "shares_wan": [
+          4562328.77,
+          4700118.77,
+          4834308.77,
+          4968408.77,
+          5154078.77,
+          5518488.77
+        ],
+        "close_cny": [
+          4.083,
+          4.054,
+          4.042,
+          4.058,
+          4.06,
+          4.018
+        ],
+        "unit_nav_cny": [
+          4.0919,
+          4.0549,
+          4.0513,
+          4.0585,
+          4.0594,
+          4.0286
+        ],
+        "amount_thousand_cny": [
+          3489035.672,
+          8100953.829,
+          8114734.031,
+          7639193.014,
+          11293465.472,
+          18175530.912
+        ],
+        "adjustment_factors": [
+          1.2671,
+          1.2671,
+          1.2671,
+          1.2671,
+          1.2671,
+          1.2671
+        ],
+        "delta_yi_shares": 95.616,
+        "price_change_pct": -1.5919666911584751,
+        "factor_stable": true,
+        "share_change_at_nav_yi_cny": 386.8384392,
+        "nav_effect_yi_cny": -30.519362714099973,
+        "weekly_turnover_yi_cny": 533.23877258
+      },
+      "errors": {},
+      "inputs": {
+        "fund_share": [
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261120",
+            "fd_share": 5518488.77
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261119",
+            "fd_share": 5154078.77
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261118",
+            "fd_share": 4968408.77
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261117",
+            "fd_share": 4834308.77
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261116",
+            "fd_share": 4700118.77
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261113",
+            "fd_share": 4562328.77
+          }
+        ],
+        "fund_daily": [
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261120",
+            "close": 4.018,
+            "amount": 18175530.912
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261119",
+            "close": 4.06,
+            "amount": 11293465.472
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261118",
+            "close": 4.058,
+            "amount": 7639193.014
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261117",
+            "close": 4.042,
+            "amount": 8114734.031
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261116",
+            "close": 4.054,
+            "amount": 8100953.829
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261113",
+            "close": 4.083,
+            "amount": 3489035.672
+          }
+        ],
+        "fund_nav": [
+          {
+            "ts_code": "510300.SH",
+            "nav_date": "20261120",
+            "ann_date": "20261120",
+            "unit_nav": 4.0286
+          },
+          {
+            "ts_code": "510300.SH",
+            "nav_date": "20261119",
+            "ann_date": "20261119",
+            "unit_nav": 4.0594
+          },
+          {
+            "ts_code": "510300.SH",
+            "nav_date": "20261118",
+            "ann_date": "20261118",
+            "unit_nav": 4.0585
+          },
+          {
+            "ts_code": "510300.SH",
+            "nav_date": "20261117",
+            "ann_date": "20261117",
+            "unit_nav": 4.0513
+          },
+          {
+            "ts_code": "510300.SH",
+            "nav_date": "20261116",
+            "ann_date": "20261116",
+            "unit_nav": 4.0549
+          },
+          {
+            "ts_code": "510300.SH",
+            "nav_date": "20261113",
+            "ann_date": "20261113",
+            "unit_nav": 4.0919
+          }
+        ],
+        "fund_adj": [
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261120",
+            "adj_factor": 1.2671
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261119",
+            "adj_factor": 1.2671
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261118",
+            "adj_factor": 1.2671
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261117",
+            "adj_factor": 1.2671
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261116",
+            "adj_factor": 1.2671
+          },
+          {
+            "ts_code": "510300.SH",
+            "trade_date": "20261113",
+            "adj_factor": 1.2671
+          }
+        ]
+      }
+    },
+    "159915.SZ": {
+      "name": "创业板ETF易方达",
+      "summary": {
+        "sessions": [
+          "20261113",
+          "20261116",
+          "20261117",
+          "20261118",
+          "20261119",
+          "20261120"
+        ],
+        "shares_wan": [
+          4520045.4936,
+          4620245.4936,
+          4685945.4936,
+          4902045.4936,
+          4990745.4936,
+          5317445.4936
+        ],
+        "close_cny": [
+          2.442,
+          2.334,
+          2.31,
+          2.328,
+          2.308,
+          2.23
+        ],
+        "unit_nav_cny": [
+          2.4424,
+          2.3356,
+          2.3076,
+          2.3271,
+          2.3087,
+          2.2269
+        ],
+        "amount_thousand_cny": [
+          11791155.3666,
+          11185140.2044,
+          11106647.9324,
+          13835357.237,
+          10502192.7167,
+          15363845.6876
+        ],
+        "adjustment_factors": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "delta_yi_shares": 79.74,
+        "price_change_pct": -8.681408681408687,
+        "factor_stable": true,
+        "share_change_at_nav_yi_cny": 182.083267,
+        "nav_effect_yi_cny": -101.91724138708001,
+        "weekly_turnover_yi_cny": 619.931837781
+      },
+      "errors": {},
+      "inputs": {
+        "fund_share": [
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261120",
+            "fd_share": 5317445.4936
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261119",
+            "fd_share": 4990745.4936
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261118",
+            "fd_share": 4902045.4936
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261117",
+            "fd_share": 4685945.4936
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261116",
+            "fd_share": 4620245.4936
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261113",
+            "fd_share": 4520045.4936
+          }
+        ],
+        "fund_daily": [
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261120",
+            "close": 2.23,
+            "amount": 15363845.6876
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261119",
+            "close": 2.308,
+            "amount": 10502192.7167
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261118",
+            "close": 2.328,
+            "amount": 13835357.237
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261117",
+            "close": 2.31,
+            "amount": 11106647.9324
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261116",
+            "close": 2.334,
+            "amount": 11185140.2044
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261113",
+            "close": 2.442,
+            "amount": 11791155.3666
+          }
+        ],
+        "fund_nav": [
+          {
+            "ts_code": "159915.SZ",
+            "nav_date": "20261120",
+            "ann_date": "20261120",
+            "unit_nav": 2.2269
+          },
+          {
+            "ts_code": "159915.SZ",
+            "nav_date": "20261119",
+            "ann_date": "20261119",
+            "unit_nav": 2.3087
+          },
+          {
+            "ts_code": "159915.SZ",
+            "nav_date": "20261118",
+            "ann_date": "20261118",
+            "unit_nav": 2.3271
+          },
+          {
+            "ts_code": "159915.SZ",
+            "nav_date": "20261117",
+            "ann_date": "20261117",
+            "unit_nav": 2.3076
+          },
+          {
+            "ts_code": "159915.SZ",
+            "nav_date": "20261116",
+            "ann_date": "20261116",
+            "unit_nav": 2.3356
+          },
+          {
+            "ts_code": "159915.SZ",
+            "nav_date": "20261113",
+            "ann_date": "20261113",
+            "unit_nav": 2.4424
+          }
+        ],
+        "fund_adj": [
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261120",
+            "adj_factor": 1.0
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261119",
+            "adj_factor": 1.0
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261118",
+            "adj_factor": 1.0
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261117",
+            "adj_factor": 1.0
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261116",
+            "adj_factor": 1.0
+          },
+          {
+            "ts_code": "159915.SZ",
+            "trade_date": "20261113",
+            "adj_factor": 1.0
+          }
+        ]
+      }
+    },
+    "512480.SH": {
+      "name": "半导体ETF国联安",
+      "summary": {
+        "sessions": [
+          "20261113",
+          "20261116",
+          "20261117",
+          "20261118",
+          "20261119",
+          "20261120"
+        ],
+        "shares_wan": [
+          2093800.72,
+          2129000.72,
+          2141400.72,
+          2126600.72,
+          2117800.72,
+          2136600.72
+        ],
+        "close_cny": [
+          0.793,
+          0.749,
+          0.759,
+          0.771,
+          0.779,
+          0.745
+        ],
+        "unit_nav_cny": [
+          0.7938,
+          0.7487,
+          0.7567,
+          0.7704,
+          0.7788,
+          0.7451
+        ],
+        "amount_thousand_cny": [
+          1358230.669,
+          1161923.606,
+          1308716.29,
+          1124395.556,
+          1106819.628,
+          934907.936
+        ],
+        "adjustment_factors": [
+          3.9276,
+          3.9276,
+          3.9276,
+          3.9276,
+          3.9276,
+          3.9276
+        ],
+        "delta_yi_shares": 4.280000000000023,
+        "price_change_pct": -6.052963430012614,
+        "factor_stable": true,
+        "share_change_at_nav_yi_cny": 3.1489840000000173,
+        "nav_effect_yi_cny": -10.156765506399994,
+        "weekly_turnover_yi_cny": 56.36763016
+      },
+      "errors": {},
+      "inputs": {
+        "fund_share": [
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261120",
+            "fd_share": 2136600.72
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261119",
+            "fd_share": 2117800.72
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261118",
+            "fd_share": 2126600.72
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261117",
+            "fd_share": 2141400.72
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261116",
+            "fd_share": 2129000.72
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261113",
+            "fd_share": 2093800.72
+          }
+        ],
+        "fund_daily": [
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261120",
+            "close": 0.745,
+            "amount": 934907.936
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261119",
+            "close": 0.779,
+            "amount": 1106819.628
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261118",
+            "close": 0.771,
+            "amount": 1124395.556
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261117",
+            "close": 0.759,
+            "amount": 1308716.29
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261116",
+            "close": 0.749,
+            "amount": 1161923.606
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261113",
+            "close": 0.793,
+            "amount": 1358230.669
+          }
+        ],
+        "fund_nav": [
+          {
+            "ts_code": "512480.SH",
+            "nav_date": "20261120",
+            "ann_date": "20261120",
+            "unit_nav": 0.7451
+          },
+          {
+            "ts_code": "512480.SH",
+            "nav_date": "20261119",
+            "ann_date": "20261119",
+            "unit_nav": 0.7788
+          },
+          {
+            "ts_code": "512480.SH",
+            "nav_date": "20261118",
+            "ann_date": "20261118",
+            "unit_nav": 0.7704
+          },
+          {
+            "ts_code": "512480.SH",
+            "nav_date": "20261117",
+            "ann_date": "20261117",
+            "unit_nav": 0.7567
+          },
+          {
+            "ts_code": "512480.SH",
+            "nav_date": "20261116",
+            "ann_date": "20261116",
+            "unit_nav": 0.7487
+          },
+          {
+            "ts_code": "512480.SH",
+            "nav_date": "20261113",
+            "ann_date": "20261113",
+            "unit_nav": 0.7938
+          }
+        ],
+        "fund_adj": [
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261120",
+            "adj_factor": 3.9276
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261119",
+            "adj_factor": 3.9276
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261118",
+            "adj_factor": 3.9276
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261117",
+            "adj_factor": 3.9276
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261116",
+            "adj_factor": 3.9276
+          },
+          {
+            "ts_code": "512480.SH",
+            "trade_date": "20261113",
+            "adj_factor": 3.9276
+          }
+        ]
+      }
+    },
+    "512170.SH": {
+      "name": "医疗ETF华宝",
+      "summary": {
+        "sessions": [
+          "20261113",
+          "20261116",
+          "20261117",
+          "20261118",
+          "20261119",
+          "20261120"
+        ],
+        "shares_wan": [
+          6761082.05,
+          6774082.05,
+          6765382.05,
+          6799482.05,
+          6794982.05,
+          6820382.05
+        ],
+        "close_cny": [
+          0.339,
+          0.337,
+          0.338,
+          0.333,
+          0.332,
+          0.322
+        ],
+        "unit_nav_cny": [
+          0.3389,
+          0.3381,
+          0.3392,
+          0.334,
+          0.3325,
+          0.3228
+        ],
+        "amount_thousand_cny": [
+          362058.591,
+          405002.955,
+          339212.198,
+          459141.772,
+          249145.718,
+          447488.724
+        ],
+        "adjustment_factors": [
+          3.1192,
+          3.1192,
+          3.1192,
+          3.1192,
+          3.1192,
+          3.1192
+        ],
+        "delta_yi_shares": 5.93,
+        "price_change_pct": -5.014749262536878,
+        "factor_stable": true,
+        "share_change_at_nav_yi_cny": 1.9536529999999999,
+        "nav_effect_yi_cny": -10.924791100500004,
+        "weekly_turnover_yi_cny": 18.999913669999994
+      },
+      "errors": {},
+      "inputs": {
+        "fund_share": [
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261120",
+            "fd_share": 6820382.05
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261119",
+            "fd_share": 6794982.05
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261118",
+            "fd_share": 6799482.05
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261117",
+            "fd_share": 6765382.05
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261116",
+            "fd_share": 6774082.05
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261113",
+            "fd_share": 6761082.05
+          }
+        ],
+        "fund_daily": [
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261120",
+            "close": 0.322,
+            "amount": 447488.724
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261119",
+            "close": 0.332,
+            "amount": 249145.718
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261118",
+            "close": 0.333,
+            "amount": 459141.772
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261117",
+            "close": 0.338,
+            "amount": 339212.198
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261116",
+            "close": 0.337,
+            "amount": 405002.955
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261113",
+            "close": 0.339,
+            "amount": 362058.591
+          }
+        ],
+        "fund_nav": [
+          {
+            "ts_code": "512170.SH",
+            "nav_date": "20261120",
+            "ann_date": "20261120",
+            "unit_nav": 0.3228
+          },
+          {
+            "ts_code": "512170.SH",
+            "nav_date": "20261119",
+            "ann_date": "20261119",
+            "unit_nav": 0.3325
+          },
+          {
+            "ts_code": "512170.SH",
+            "nav_date": "20261118",
+            "ann_date": "20261118",
+            "unit_nav": 0.334
+          },
+          {
+            "ts_code": "512170.SH",
+            "nav_date": "20261117",
+            "ann_date": "20261117",
+            "unit_nav": 0.3392
+          },
+          {
+            "ts_code": "512170.SH",
+            "nav_date": "20261116",
+            "ann_date": "20261116",
+            "unit_nav": 0.3381
+          },
+          {
+            "ts_code": "512170.SH",
+            "nav_date": "20261113",
+            "ann_date": "20261113",
+            "unit_nav": 0.3389
+          }
+        ],
+        "fund_adj": [
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261120",
+            "adj_factor": 3.1192
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261119",
+            "adj_factor": 3.1192
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261118",
+            "adj_factor": 3.1192
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261117",
+            "adj_factor": 3.1192
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261116",
+            "adj_factor": 3.1192
+          },
+          {
+            "ts_code": "512170.SH",
+            "trade_date": "20261113",
+            "adj_factor": 3.1192
+          }
+        ]
+      }
+    }
+  }
+}
