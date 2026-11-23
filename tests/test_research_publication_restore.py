@@ -84,7 +84,8 @@ class PublicationRestoreTests(unittest.TestCase):
             other.doCleanups()
 
     def test_recovery_rechecks_frozen_audit_version_lifecycle_and_acceptance(self):
-        cases = [('frozen_v3_audit', 'frozen audit contract'),
+        cases = [('publisher_control', 'PUBLICATION_PRICE_UNAVAILABLE is publisher-owned'),
+                 ('frozen_v3_audit', 'frozen audit contract'),
                  ('frozen_v4_audit', 'frozen audit contract'),
                  ('missing_lifecycle', 'explicit lifecycle'),
                  ('missing_acceptance', 'acceptance')]

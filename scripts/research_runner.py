@@ -1602,6 +1602,10 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     f"本批audit门禁：{frozen['delivery']['audit_schema'] or '原合同无强制审计，不追溯添加'}。"
                     f'build必须加 --legacy-snapshot {run / "framework-snapshot/manifest.json"}；'
                     '不改原始prompt/input/hash，不将本批升级为v4。\n').encode('utf-8')
+            else:
+                payload += (f'\n{research_consistency.PUBLICATION_PRICE_ID} 是写回端专属状态。'
+                            '基线或触发快照中的记录仅供正文说明历史。本轮监控项 ID、审计约束、各范围 refs 和 '
+                            'release_all_of 只填研究侧约束。按实际证据交付本轮价格和风险。\n').encode('utf-8')
             payload += research_jev.instructions(folder).encode('utf-8')
             payload += workspace_instructions(folder).encode('utf-8')
             dependency = None
@@ -1687,7 +1691,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     _, report_raw = _artifact(entry['report'], staged, 'report')
                     audit_result = research_consistency.validate_report(
                         report_raw.decode('utf-8'), document, root=root,
-                        expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
+                        new_delivery=True, expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
                         require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT),
                         require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT))
                 if frozen['evidence_workflow'] is not None:
@@ -1737,7 +1741,7 @@ def execute_task(run, request, request_raw, task, generator, cli, root, timeout,
                     document = _strict_json(price_raw, 'price map')
                     validate_delivery_monitoring(document, frozen['delivery'])
                     audit_result = research_consistency.validate_report(report_raw.decode('utf-8'),
-                        document, root=root, expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
+                        document, root=root, new_delivery=True, expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
                         require_lifecycle=frozen['delivery'] in (SCOPED_CONTROLS_CONTRACT, ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT),
                         require_acceptance=frozen['delivery'] in (ACCEPTANCE_CONTROLS_CONTRACT, PUBLIC_MONITORING_CONTRACT, QUALITY_CONTROLS_CONTRACT, CAPITAL_CONTROLS_CONTRACT, VALUATION_CONTROLS_CONTRACT, INPUT_BRIDGES_CONTRACT, AVAILABILITY_CONTRACT, NEUTRAL_CONTRACT))
                     audit_result.update(report_sha256=sha(report_raw), price_map_sha256=sha(price_raw))

@@ -75,7 +75,7 @@ if generator=='dsh' and b'codex-then-dsh-evidence/v1' in payload and mode!='miss
  evidence_hash=re.search(r'^事实包SHA256：(.*)$',payload.decode(),re.M)[1]
  body=body.replace('## 1. section',f'共享事实包SHA256：{evidence_hash}\n\n## 1. section')
 report_file.write_text(body)
-doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code],'valuation_date':day,'currency':'CNY','generator':generator,'report_path':report},
+doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力','00700.HK':'腾讯控股'}[code],'valuation_date':day,'currency':'HKD' if market=='HK' else 'CNY','generator':generator,'report_path':report},
 'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':24,'high':30},'p1':{'base':12},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
 'monitoring':[{'variable':'income','current':None,'as_of':None,'trigger':'falls','action':'review','source':'offline','next_check':'next report'}]}
 if mode=='legacy_delivery':
@@ -94,6 +94,8 @@ if '本批交付契约：stock-research/v4' in payload.decode() and mode!='legac
 if mode=='control_only' and doc['meta']['schema_version']=='stock-research/v4':
  doc['price_map'].update(mode='unavailable',reason='quotes cannot be verified; holding exit independently confirmed',p1=None,t1=dict(price_condition='本轮不提供T1报价'))
  doc['research_controls']=dict(entry=dict(status='blocked',refs=['offline_gate','EXIT']),add=dict(status='blocked',refs=['offline_gate','EXIT']),holding=dict(status='exit_required',refs=['EXIT']))
+if mode=='publisher_control':
+ for scope in ('entry','add'): doc['research_controls'][scope]['refs']=['PUBLICATION_PRICE_UNAVAILABLE']
 if mode=='bad_monitor_source': doc['monitoring'][0]['source']='; ;'
 if mode=='bad_monitor_search': doc['monitoring'][0]['public_search']='待补充'
 receipt_price=price
@@ -116,6 +118,9 @@ if generator=='codex' and b'codex-then-dsh-evidence/v1' in payload:
   facts=[dict(id='F1',kind='disclosed',statement='Reported revenue',value=100,unit='CNY',period='H1',source_id='S1',quote=source.decode(),locator='p1')],gaps=[],coverage=[])
  (fact_root/'bundle.json').write_bytes(shared.encode(evidence))
 audit=audit_for(doc)
+if mode=='publisher_control':
+ audit['constraints'][0]['id']='PUBLICATION_PRICE_UNAVAILABLE'
+ for scope in ('entry','add'): audit['release_all_of'][scope]=['PUBLICATION_PRICE_UNAVAILABLE']
 if b'two-price-controls/v6' in payload and doc['meta']['schema_version']=='stock-research/v4' and mode!='wrong_audit_version':
  audit['schema_version']='stock-research-audit/v3'
  for row in audit['valuation']['scenarios'].values(): row['equity_adjustments']=[]
@@ -281,6 +286,15 @@ class ResearchRunnerTests(unittest.TestCase):
                         prepare_request(other.request_path, other.methods)
                 finally:
                     other.doCleanups()
+
+    def test_new_delivery_rejects_publisher_constraint_before_publication(self):
+        os.environ['MOCK_MODE'] = 'publisher_control'
+        result = self.execute()
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('PUBLICATION_PRICE_UNAVAILABLE is publisher-owned', entry['reason'])
+        self.assertIn('PUBLICATION_PRICE_UNAVAILABLE', self.capture.read_text())
+        self.assertFalse(list((self.methods/'research').rglob('*-price-map-*.json')))
 
     def test_new_delivery_rejects_unusable_monitoring_before_publication(self):
         os.environ['MOCK_MODE'] = 'bad_monitor_source'

@@ -32,6 +32,7 @@ LEGACY_SCHEMA = 'stock-research-audit/v1'
 SCOPED_SCHEMAS = {SCOPED_SCHEMA, CAPITAL_SCHEMA, *VALUATION_SCHEMAS}
 CAPITAL_SCHEMAS = {CAPITAL_SCHEMA, *VALUATION_SCHEMAS}
 SUPPORTED_SCHEMAS = {LEGACY_SCHEMA, *SCOPED_SCHEMAS}
+PUBLICATION_PRICE_ID = 'PUBLICATION_PRICE_UNAVAILABLE'
 DISCOUNTS = ('d_base', 'r_chip', 'r_v5', 'r_gov', 'r_terminal')
 SCENARIOS = ('low', 'base', 'high')
 START, END = '<!-- research-audit:start -->', '<!-- research-audit:end -->'
@@ -578,6 +579,10 @@ def validate_scoped_controls(audit, document, *, root=None):
                 if old.get('status') not in {'blocking', 'unknown'}:
                     continue
                 ident = old['id']
+                # Publication state in an older report is history. Only the CSV
+                # publisher may carry it forward or clear it against a new quote.
+                if ident == PUBLICATION_PRICE_ID and ident not in rules:
+                    continue
                 require(ident in rules, 'unresolved baseline constraint omitted: ' + ident)
                 row = rules[ident]
                 old_scopes = set(old.get('scope', ['entry', 'add']))
@@ -753,9 +758,31 @@ def constraint_claim_sha256(rule):
     return hashlib.sha256(raw).hexdigest()
 
 
+def _validate_delivery_control_ownership(audit, document):
+    """Only the publisher can declare price availability. Narrative history is allowed."""
+    for field, items in (('audit.constraints', audit.get('constraints')), ('monitoring', document.get('monitoring'))):
+        if isinstance(items, list):
+            for index, item in enumerate(items):
+                if isinstance(item, dict) and item.get('id') == PUBLICATION_PRICE_ID:
+                    raise ValueError(f'{PUBLICATION_PRICE_ID} is publisher-owned: {field}[{index}].id')
+    controls = document.get('research_controls')
+    release = audit.get('release_all_of')
+    for scope in ('entry', 'add', 'holding'):
+        summary = controls.get(scope) if isinstance(controls, dict) else None
+        refs = summary.get('refs') if isinstance(summary, dict) else None
+        if isinstance(refs, list) and PUBLICATION_PRICE_ID in refs:
+            raise ValueError(f'{PUBLICATION_PRICE_ID} is publisher-owned: research_controls.{scope}.refs')
+        required = release.get(scope) if isinstance(release, dict) else None
+        if isinstance(required, list) and PUBLICATION_PRICE_ID in required:
+            raise ValueError(f'{PUBLICATION_PRICE_ID} is publisher-owned: audit.release_all_of.{scope}')
+
+
 def validate_report(report, document, *, root=None, expected_baseline=None, require_lifecycle=False,
-                    require_acceptance=False, expected_schema=None):
+                    require_acceptance=False, expected_schema=None, new_delivery=False):
     audit = extract_audit(report)
+    require(isinstance(audit, dict), 'research audit must be an object')
+    if new_delivery and document.get('meta', {}).get('schema_version') == 'stock-research/v4':
+        _validate_delivery_control_ownership(audit, document)
     if expected_schema is not None:
         require(audit.get('schema_version') == expected_schema, 'frozen audit contract mismatch')
     result = validate_audit(audit, document, root=root)
