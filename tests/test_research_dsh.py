@@ -179,6 +179,33 @@ class ResearchDSHTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.adapter.validate_profile(item)
 
+    def test_tushare_is_opt_in_and_binds_the_nonsecret_bridge(self):
+        item = profile()
+        item['tools'] = dict(search='deepseek-search-api', fetch='http', tushare=dsh.TUSHARE_MCP_VERSION)
+        legacy_patch = (self.folder / 'dsh-runtime.patch.json').read_text()
+        self.assertNotIn('tushareMcp', legacy_patch)
+        folder = self.root / 'tushare'
+        folder.mkdir()
+        (folder / 'receipt-schema.json').write_text('{"type":"object"}')
+        context = harness.LaunchContext(folder, self.root, 'dsh', {}, 'delivery')
+        with patch.dict(os.environ, {'TUSHARE_TOKEN': 'private-mcp-fixture'}):
+            with patch.object(dsh, '_aktools_runtime', return_value=('/locked/python', 'a' * 64)):
+                self.adapter.command('/local/dsh', context, item)
+        raw = (folder / 'dsh-runtime.patch.json').read_text()
+        self.assertNotIn('private-mcp-fixture', raw)
+        config = next(entry['config'] for row in json.loads(raw) for entry in row.get('insert', [])
+                      if entry['id'] == 'research-mcp-tushare')
+        self.assertEqual(config['serverName'], 'tushareMcp')
+        self.assertIn('TUSHARE_TOKEN', config['env'])
+        self.assertFalse(config['failOnStartupError'])
+        self.assertEqual(Path(config['args'][-1]), folder.resolve() / dsh.TUSHARE_MCP_SCRIPT)
+        (folder / dsh.TUSHARE_MCP_SCRIPT).write_text('changed')
+        with self.assertRaisesRegex(ValueError, 'Tushare MCP runtime changed'):
+            self.adapter.receipt(folder, _strict_json, write_new, encode)
+        item['tools']['tushare'] = 'https://untrusted.invalid'
+        with self.assertRaises(ValueError):
+            self.adapter.validate_profile(item)
+
     def test_missing_or_drifted_aktools_installation_fails_closed(self):
         with self.assertRaisesRegex(ValueError, 'missing or differs'):
             dsh._aktools_runtime(self.root)

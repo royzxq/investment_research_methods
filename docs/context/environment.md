@@ -59,4 +59,10 @@ API 的网络、币种、字段口径仍按每次实际返回核验；安装/预
 
 ## DSH 长正文与上下文接续（2026-11-08 后续）
 
-当前新准备批次使用 `dsh-deepseek-flash-high-context-v1`，在体检及补证上叠加 `evidence-context-v1`。原生网页和恢复文档进入每次尝试的 `evidence-context/`，通过短定位簿、稳定 evidence_id 和原件哈希跨裁剪/压缩接续。关键输入与反证标记保留口径和未决状态；新 runner 对最终暂存报告核引用文字、链接、位置和已标记的必引项。无登记引用时为 not_exercised，不视为已核事实。需要本机 Node.js 20+（本次22.14.0），复用现有DSH/PyMuPDF，不安装依赖。旧冻结批次不变；回退选择 recovery-v1。范围、原件保留要求、验证和语义边界见[上下文 ADR](../adr/ADR-20261108-dsh-evidence-context.md)。
+`dsh-deepseek-flash-high-context-v1` 在体检及补证上叠加 `evidence-context-v1`。原生网页和恢复文档进入每次尝试的 `evidence-context/`，通过短定位簿、稳定 evidence_id 和原件哈希跨裁剪/压缩接续。关键输入与反证标记保留口径和未决状态；新 runner 对最终暂存报告核引用文字、链接、位置和已标记的必引项。无登记引用时为 not_exercised，不视为已核事实。需要本机 Node.js 20+（本次22.14.0），复用现有DSH/PyMuPDF，不安装依赖。旧冻结批次不变；回退选择 recovery-v1。范围、原件保留要求、验证和语义边界见[上下文 ADR](../adr/ADR-20261108-dsh-evidence-context.md)。
+
+## 股票调研的 Tushare MCP（2026-11-24）
+
+本机 Codex 注册 `tushareMcp` 并传递现有 `TUSHARE_TOKEN`。新准备的 DSH 股票批次使用 `dsh-deepseek-flash-high-tushare-v1`，在原 context profile 上加载同一个只读取数服务。两端通过 stdio 启动 `scripts/research_tushare_mcp.py`，复用已锁定的 AKTools 环境中的 MCP SDK。含凭据的请求地址在取数进程内构造。DSH 尝试目录记录桥接代码和摘要，配置只保留环境变量引用。后续 DSH 批次可将 `active.dsh` 切回 `dsh-deepseek-flash-high-context-v1`。
+
+优先使用已有数据包，按具体缺口查询 A/H 股行情、标准财务、分红或对照数据。接口权限和覆盖按返回结果核验。MCP 工具不可用时继续已有取数路径。网页及 AKTools 自动体检范围见股票取数说明第 6 节，Tushare 返回按共同证据规则核验。[股票取数说明](../../.agents/skills/stock-research/references/data-acquisition.md)

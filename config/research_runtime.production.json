@@ -131,11 +131,30 @@
         "evidence_recovery": "evidence-recovery-v1",
         "evidence_context": "evidence-context-v1"
       }
+    },
+    {
+      "profile_id": "dsh-deepseek-flash-high-tushare-v1",
+      "revision": 1,
+      "producer": "dsh",
+      "harness": "dsh-cli",
+      "models": {
+        "main": {"model": "deepseek-flash", "effort": "high"},
+        "subagent": {"model": "deepseek-flash"}
+      },
+      "tools": {
+        "search": "deepseek-search-api",
+        "fetch": "http",
+        "aktools": "aktools-0.1.4-r1",
+        "data_health": "data-health-v1",
+        "evidence_recovery": "evidence-recovery-v1",
+        "evidence_context": "evidence-context-v1",
+        "tushare": "tushare-mcp-v1"
+      }
     }
   ],
   "active": {
     "codex": "codex-6-2-astra-xhigh",
     "claude": "claude-inherited",
-    "dsh": "dsh-deepseek-flash-high-context-v1"
+    "dsh": "dsh-deepseek-flash-high-tushare-v1"
   }
 }

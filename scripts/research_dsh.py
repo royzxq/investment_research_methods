@@ -34,6 +34,9 @@ RECEIPT_ENCODING = 'strict-json-or-single-json-fence/v1'
 DATA_HEALTH_VERSION = 'data-health-v1'
 EVIDENCE_RECOVERY_VERSION = 'evidence-recovery-v1'
 EVIDENCE_CONTEXT_VERSION = 'evidence-context-v1'
+TUSHARE_MCP_VERSION = 'tushare-mcp-v1'
+TUSHARE_MCP_SERVER = 'tushareMcp'
+TUSHARE_MCP_SCRIPT = 'research_tushare_mcp.py'
 
 
 def _data_health_source():
@@ -268,7 +271,8 @@ class DSHCLIAdapter(CLIAdapter):
         if 'tools' in profile:
             tools = profile['tools']
             if (type(tools) is not dict or not {'search', 'fetch'}.issubset(tools)
-                    or set(tools) - {'search', 'fetch', 'aktools', 'data_health', 'evidence_recovery', 'evidence_context'}
+                    or set(tools) - {'search', 'fetch', 'aktools', 'data_health', 'evidence_recovery',
+                                     'evidence_context', 'tushare'}
                     or tools['search'] not in ('deepseek-official', 'deepseek-search-api')
                     or tools['fetch'] not in ('http', 'deepseek-fetch-api')
                     or tools.get('aktools') not in (None, 'aktools-0.1.4-r1')
@@ -276,7 +280,8 @@ class DSHCLIAdapter(CLIAdapter):
                     or ('evidence_recovery' in tools and (tools['evidence_recovery'] != EVIDENCE_RECOVERY_VERSION
                         or tools.get('data_health') != DATA_HEALTH_VERSION))
                     or ('evidence_context' in tools and (tools['evidence_context'] != EVIDENCE_CONTEXT_VERSION
-                        or tools.get('evidence_recovery') != EVIDENCE_RECOVERY_VERSION))):
+                        or tools.get('evidence_recovery') != EVIDENCE_RECOVERY_VERSION))
+                    or ('tushare' in tools and tools['tushare'] != TUSHARE_MCP_VERSION)):
                 raise ValueError('DSH tools require the supported nonsecret provider selections')
         models = profile['models']
         if models['main']['model'] is None or models['subagent']['model'] is None:
@@ -288,7 +293,7 @@ class DSHCLIAdapter(CLIAdapter):
         super().preflight(cli, root, profile, codex_check=codex_check)
         _key(os.environ)
         _pdf_python()
-        if profile.get('tools', {}).get('aktools'):
+        if profile.get('tools', {}).get('aktools') or profile.get('tools', {}).get('tushare'):
             _aktools_runtime(root)
         if profile.get('tools', {}).get('data_health'):
             _data_health_source()
@@ -423,6 +428,14 @@ class DSHCLIAdapter(CLIAdapter):
                          '交付前research_check_citations检查文本；runner还会核最终暂存报告的引用和已标记的关键漏引。'
                          '机械核验不证明事实或经济推论；不改变投资方法或最终JSON字段。')
         aktools_runtime = None
+        tushare_source = None
+        if profile.get('tools', {}).get('tushare'):
+            tushare_source = _regular_bytes(Path(__file__).with_name(TUSHARE_MCP_SCRIPT))
+            _new(folder / TUSHARE_MCP_SCRIPT, tushare_source)
+            delivery += ('\n已有数据包优先。需补 A/H 股行情、标准财务、分红或同业数据时，'
+                         '可按需调用 tushareMcp，按证券、期间和字段缩小查询。'
+                         '按 data-acquisition.md 核日期、复权、币种、单位及覆盖；'
+                         '财务与公告仍回原文。权限错误、空表或不可用时换源并记录缺口。')
         if profile.get('tools', {}).get('aktools'):
             aktools_runtime = _aktools_runtime(context.root)
             delivery += ('\n可按需用 AKTools MCP 获取结构化历史财务、补已有数据缺口：先 search_interfaces，'
@@ -476,6 +489,15 @@ class DSHCLIAdapter(CLIAdapter):
             rows.append({'insert': [{'id': 'research-evidence-context',
                 'name': str(folder / 'dsh-evidence-context.mjs'), 'config': evidence_context}]})
         mcp_rows = []
+        if tushare_source:
+            tushare_python = (aktools_runtime or _aktools_runtime(context.root))[0]
+            mcp_rows.append({'id': 'research-mcp-tushare', 'name': '@deepseek-ai/dsh-mcp-client',
+                'config': {'serverName': TUSHARE_MCP_SERVER, 'transport': 'stdio', 'command': tushare_python,
+                    'args': ['-I', '-B', str(folder / TUSHARE_MCP_SCRIPT)],
+                    # Cordis resolves this expression in memory just before plugin activation.
+                    'env': {'TUSHARE_TOKEN': {'__jsExpr': 'process.env.TUSHARE_TOKEN || ""'}},
+                    'toolCallTimeoutMs': 20000, 'failOnStartupError': False,
+                    'reconnect': {'enabled': False}}})
         if aktools_runtime:
             # AKTools writes a local log in cwd; keep it inside this attempt.
             aktools_cwd = folder / 'dsh-aktools'
@@ -490,6 +512,8 @@ class DSHCLIAdapter(CLIAdapter):
         for name, server in context.mcp_servers.items():
             if name == 'aktools' and aktools_runtime:
                 raise ValueError('DSH MCP AKTools namespace is reserved by the frozen tool profile')
+            if name == TUSHARE_MCP_SERVER and tushare_source:
+                raise ValueError('DSH MCP Tushare namespace is reserved by the frozen tool profile')
             if not re.fullmatch(r'[A-Za-z0-9_-]{1,32}', name):
                 raise ValueError('DSH MCP server namespace is invalid')
             config = {'serverName': name, 'transport': 'stdio', 'command': server['command'],
@@ -508,6 +532,8 @@ class DSHCLIAdapter(CLIAdapter):
             'subagent_model': subagent_model, 'subagent_effort': effort,
             **({'aktools_runtime': profile['tools']['aktools'], 'aktools_lock_sha256': aktools_runtime[1]}
                if aktools_runtime else {}),
+            **({'tushare_version': TUSHARE_MCP_VERSION,
+                'tushare_sha256': hashlib.sha256(tushare_source).hexdigest()} if tushare_source else {}),
             **({'data_health_version': DATA_HEALTH_VERSION,
                 'data_health_sha256': hashlib.sha256(health_source).hexdigest()} if health_source else {}),
             **({'evidence_recovery_version': EVIDENCE_RECOVERY_VERSION,
@@ -558,6 +584,11 @@ class DSHCLIAdapter(CLIAdapter):
                 raise ValueError('DSH evidence recovery runtime changed or is unsupported')
         if 'evidence_context_version' in metadata or 'evidence_context_sha256' in metadata:
             self._validate_evidence_context(folder, metadata)
+        if 'tushare_version' in metadata or 'tushare_sha256' in metadata:
+            if (version != 'research-dsh-runtime/v2' or metadata.get('tushare_version') != TUSHARE_MCP_VERSION
+                    or hashlib.sha256(_regular_bytes(folder / TUSHARE_MCP_SCRIPT)).hexdigest()
+                    != metadata.get('tushare_sha256')):
+                raise ValueError('DSH Tushare MCP runtime changed or is unsupported')
         for name, field in (('dsh-runtime.patch.json', 'patch_sha256'),
                             ('dsh-data-environment.mjs', 'data_environment_sha256')):
             raw = _regular_bytes(folder / name)

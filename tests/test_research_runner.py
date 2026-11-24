@@ -75,7 +75,16 @@ if generator=='dsh' and b'codex-then-dsh-evidence/v1' in payload and mode!='miss
  evidence_hash=re.search(r'^事实包SHA256：(.*)$',payload.decode(),re.M)[1]
  body=body.replace('## 1. section',f'共享事实包SHA256：{evidence_hash}\n\n## 1. section')
 report_file.write_text(body)
-doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':{'600066.SH':'宇通客车','600900.SH':'长江电力','00700.HK':'腾讯控股'}[code],'valuation_date':day,'currency':'HKD' if market=='HK' else 'CNY','generator':generator,'report_path':report},
+company_names = {
+    '600066.SH': '宇通客车',
+    '600900.SH': '长江电力',
+    '600276.SH': '恒瑞医药',
+    '600519.SH': '贵州茅台',
+    '600887.SH': '伊利股份',
+    '600036.SH': '招商银行',
+    '00700.HK': '腾讯控股',
+}
+doc={'meta':{'schema_version':'stock-research/v3','code':code,'name':company_names[code],'valuation_date':day,'currency':'HKD' if market=='HK' else 'CNY','generator':generator,'report_path':report},
 'price_map':{'mode':'tracking','reason':'offline fixture','v50':{'low':20,'base':24,'high':30},'p1':{'base':12},'p2':{'status':'cancelled','price':None,'reason':'cancelled'},'t1':{'price_condition':'接近V50基准时复核','events':['review']},'t2':{'price_condition':'unavailable','events':['failure']}},
 'monitoring':[{'variable':'income','current':None,'as_of':None,'trigger':'falls','action':'review','source':'offline','next_check':'next report'}]}
 if mode=='legacy_delivery':
