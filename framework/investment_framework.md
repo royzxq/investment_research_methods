@@ -1,5 +1,5 @@
-<!-- stock-framework-dependencies: {"ai_business_supplement.md": "7506667cf95dbd0a0d7d1dbd88761cd13eee9293d7ce3d4aa7805441dfedcbe0", "dividend_framework.md": "879492a5237c83b78756da971d1a9923edc5a5bb9616f7588f8a80e9667ce25d", "dividend_framework_compact.md": "a97e7e2c2c2c054f8003df0a82b924bbabe3cd5a398b489c3d97de25e62cf79f", "dividend_report_template.md": "6b19ffa2c7e1b3c48b7d8f813569de4a8a00be1c3f14876f2177f0dce499cd11", "drug_pipeline_supplement.md": "e98bcae26d48a6baf2871d574bd2273b95cc57201b54240235f4cd46f44849ca", "stock_research_common.md": "7b9f0849d7f24f4803db5ec85685fc01ca42349744ec9c1d41de0b965bf79da5"} -->
-<!-- investment-method-version: stock-strategy-split-v4-common-v6-dcf-v4-ai-v1-pipeline-v1 -->
+<!-- stock-framework-dependencies: {"ai_business_supplement.md": "7506667cf95dbd0a0d7d1dbd88761cd13eee9293d7ce3d4aa7805441dfedcbe0", "dividend_framework.md": "106ddc768c1218340feaf030b80775d66beef66982e14299709531eb7b6bd335", "dividend_framework_compact.md": "6556d1406f9e6f562be2d9edf3e3ca6f41c2d0d3d1142475f573fdc5692ccc97", "dividend_report_template.md": "a1c2e19a800b6754c80fc37bd1379f49cc3009e2910208ece9a9049ebba6c03b", "drug_pipeline_supplement.md": "e98bcae26d48a6baf2871d574bd2273b95cc57201b54240235f4cd46f44849ca", "stock_research_common.md": "1725f4bad7b701e1967fa0543dc14772b97b27387aadd5fa5a533f24811d60db"} -->
+<!-- investment-method-version: stock-strategy-split-v4-common-v7-dcf-v4-ai-v1-pipeline-v1 -->
 <!-- stock-strategy-scope: non_dividend; migrated-rules: R9=dividend-HD6 -->
 
 自动任务以共享C0的冻结research_route选轨：TTM税前股息率－同日中国人民币十年国债YTM严格>分市场阈值（默认A股2、港股3.5个百分点）进入红利，否则本轨；最新股票观测≤估值日且不超过7自然日，缺失/超龄/未来/错币种pending，重取仍缺不派研究。报告§0披露规则/阈值/读数/日期/来源/利差，恢复不重算；候选分类非质量或交易门槛。无该元数据按下述持有目的；旧批次不追补，切换逐条接续旧控制。
@@ -815,7 +815,7 @@ V5 核心 = 看最坏情况下能否活下来、会不会因现金流/融资/供
 
 #### 6.4 T1 与独立持仓处置条件
 
-**T1 价格条件**：接近 V50 上沿时进入减仓/卖出评估；报告可给经论证的明确金额或有效 V50 引用，不任意增加固定涨幅。明显高于 V50 时，应按高估程度评估减仓/退出，不另报第二个卖出金额，也不把高估直接当成经营逻辑证伪。
+**T1 价格条件**按[共享 §6.4 持仓复评起点](stock_research_common.md#64-t1-持仓复评起点)执行。报告说明继续持有所需回报、隐含经营要求、兑现证据，以及为什么在选定价格开始评估。若有利条件在上沿之前就必须同时兑现，可提前复评；选择上沿同样须举证。明显高于 V50 时，应按高估程度评估减仓/退出，不另报第二个卖出金额，也不把高估直接当成经营逻辑证伪。
 
 **复评 / 减仓评估条件（不等待 T1）**：可达性「可能」转「困难」；预期差正转中性；政策传导/盈利兑现弱化；订单/回款/现金流弱化；拥挤度上升但基本面未同步加强；双轴由「双中/一利一中」恶化为「一利一损」；板块国家队首次明显减持（确认）；**美联储/沃什边际转鹰、降息预期下修**（高估值成长）；**估值分位升至追高否决阈值附近（PE/PB 分位接近 80%）** `[脚本已供分位可直接判]`；海外 AI capex 指引边际转弱（订单未转弱时先观察/复评）。单周/单日回调本身不构成减仓或退出条件（须 capex/订单证据转弱，仅限已验证龙头）。
 

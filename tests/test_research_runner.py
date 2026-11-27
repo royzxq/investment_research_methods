@@ -704,6 +704,8 @@ class ResearchRunnerTests(unittest.TestCase):
         self.assertEqual(list((self.methods/'research').rglob('*.json')), [])
 
     def test_noncanonical_t1_is_retryable_and_never_published(self):
+        for name, body in runner.framework_bytes(ROOT).items():
+            (self.methods / 'framework' / name).write_bytes(body)
         bad = "股价≥30元/股；现价25元（2026-10-06收盘）"
         self.fake.write_text(FAKE_CLI.replace("'price_condition':'接近V50基准时复核'",
                                              f"'price_condition':{bad!r}"))
@@ -721,6 +723,9 @@ class ResearchRunnerTests(unittest.TestCase):
         retry = runner.run_provider(result.parent, request, raw, request['tasks'][0], 'claude',
                                     str(self.fake), self.methods, 10, threading.Event(), attempt=2)
         self.assertEqual(retry['status'], 'completed', retry['reason'])
+        retry_prompt = (folder/'retry-1/prompt.txt').read_text()
+        self.assertIn('不以V50补价', retry_prompt)
+        self.assertNotIn('V50基准兜底依据', retry_prompt)
         retried = json.loads((folder/'retry-1/process.json').read_text())
         self.assertFalse(retried['retryable'])
 
@@ -750,6 +755,7 @@ else:
                                     str(self.fake), self.methods, 10, threading.Event(), attempt=2)
         self.assertEqual(retry['status'], 'completed', retry['reason'])
         prompt = (first/'retry-1/prompt.txt').read_text()
+        self.assertIn('V50基准兜底依据', prompt)  # Original two-file snapshot.
         import re
         feedback = json.loads(re.search(r'<previous_delivery_failure>\n(.*?)\n</previous_delivery_failure>', prompt, re.S)[1])
         self.assertEqual(feedback['error'], entry['reason'])
