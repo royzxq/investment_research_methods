@@ -34,9 +34,9 @@
 ```json
 {
   "schema": "investment-state/v1",
-  "as_of": "2026-11-22",
-  "evidence_cutoff": "2026-11-22",
-  "source_report": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+  "as_of": "2026-11-29",
+  "evidence_cutoff": "2026-11-29",
+  "source_report": "research/investment/weekly/2026-11-29/investment-2026-11-29-market-research.md",
   "observations": [
     {
       "id": "us_cpi_yoy",
@@ -80,82 +80,82 @@
     },
     {
       "id": "ust_cmt_10y",
-      "value": 4.92,
+      "value": 4.94,
       "unit": "percent; US Treasury daily CMT",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/sources.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/market-inputs.json",
       "status": "verified"
     },
     {
       "id": "ust_cmt_30y",
-      "value": 5.31,
+      "value": 5.33,
       "unit": "percent; US Treasury daily CMT",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/sources.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/market-inputs.json",
       "status": "verified"
     },
     {
       "id": "star50_provider_close",
-      "value": 1231.089,
+      "value": 1346.2544,
       "unit": "index_points; Tushare",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/tushare-inputs.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/tushare.json",
       "status": "verified"
     },
     {
       "id": "shsz_turnover",
-      "value": 14222.00423,
+      "value": 19997.94449,
       "unit": "100m CNY; SSE and SZSE all share indices",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/market-inputs.json",
       "status": "verified"
     },
     {
       "id": "a_margin_complete_balance",
-      "value": 22222.85074252,
+      "value": 21346.42216632,
       "unit": "100m CNY; latest complete SSE/SZSE/BSE",
-      "observed_at": "2026-11-19",
-      "source": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+      "observed_at": "2026-11-26",
+      "source": "research/investment/weekly/2026-11-29/evidence/market-inputs.json",
       "status": "verified"
     },
     {
       "id": "a_margin_complete_daily_change",
-      "value": -155.447285,
+      "value": -157.73665658,
       "unit": "100m CNY; latest complete day pair",
-      "observed_at": "2026-11-19",
-      "source": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+      "observed_at": "2026-11-26",
+      "source": "research/investment/weekly/2026-11-29/evidence/market-inputs.json",
       "status": "verified"
     },
     {
       "id": "hsi_close",
-      "value": 22410.8,
+      "value": 22694.77,
       "unit": "points; Tushare price index",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/tushare-inputs.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/tushare.json",
       "status": "verified"
     },
     {
       "id": "hk_mainboard_turnover",
-      "value": 2702.99646695,
+      "value": 2571.40494366,
       "unit": "100m HKD; HKEX main board and trading only stocks",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/hkex-quotes.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/r22.json",
       "status": "verified"
     },
     {
       "id": "a_margin_complete_balance_latest",
       "value": null,
       "unit": "100m CNY; only SSE returned",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/tushare-inputs.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/tushare.json",
       "status": "unknown"
     },
     {
       "id": "star50_official_close",
-      "value": 1231.09,
+      "value": 1346.25,
       "unit": "index_points; CSI daily official",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/csi-star50.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/market-inputs.json",
       "status": "verified"
     },
     {
@@ -232,34 +232,34 @@
     },
     {
       "id": "star50_official_rounded_close",
-      "value": 1231,
+      "value": 1346,
       "unit": "integer points; SSE weekly rounded",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/sources.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/investment-2026-11-29-market-research.md",
       "status": "verified"
     },
     {
       "id": "sse_etf_weekly_turnover",
-      "value": 19390,
+      "value": 20547,
       "unit": "100m CNY; includes money market ETFs",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/r22-context.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/r22.json",
       "status": "verified"
     },
     {
       "id": "sse_etf_shares",
-      "value": 22732,
+      "value": 23344,
       "unit": "100m units; includes money market ETFs",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/r22-context.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/r22.json",
       "status": "verified"
     },
     {
       "id": "sse_etf_market_value",
-      "value": 35317,
+      "value": 37631,
       "unit": "100m CNY; includes money market ETFs",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/r22-context.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/r22.json",
       "status": "verified"
     },
     {
@@ -330,16 +330,16 @@
       "id": "a_margin_complete_daily_change_latest",
       "value": null,
       "unit": "100m CNY; only SSE returned",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/tushare-inputs.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/tushare.json",
       "status": "unknown"
     },
     {
       "id": "hk_mainboard_turnover_latest",
-      "value": 2702.99646695,
+      "value": 2571.40494366,
       "unit": "100m HKD; HKEX main board and trading only stocks",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/hkex-quotes.json",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/evidence/r22.json",
       "status": "verified"
     },
     {
@@ -384,10 +384,10 @@
     },
     {
       "id": "cn_treasury_10y",
-      "value": 1.5803,
-      "unit": "percent; ChinaBond government curve",
-      "observed_at": "2026-11-20",
-      "source": "research/investment/weekly/2026-11-22/evidence/sources.json",
+      "value": 1.6,
+      "unit": "percent; MOF China government curve; published to two decimals",
+      "observed_at": "2026-11-27",
+      "source": "research/investment/weekly/2026-11-29/investment-2026-11-29-market-research.md",
       "status": "verified"
     },
     {
@@ -420,6 +420,38 @@
       "unit": "percent; October underlying CPI",
       "observed_at": "2026-10-31",
       "source": "research/investment/weekly/2026-11-22/evidence/sources.json",
+      "status": "verified"
+    },
+    {
+      "id": "cn_industrial_profit_oct_yoy",
+      "value": 20.1,
+      "unit": "percent; October industrial profit YoY",
+      "observed_at": "2026-10-31",
+      "source": "research/investment/weekly/2026-11-29/investment-2026-11-29-market-research.md",
+      "status": "verified"
+    },
+    {
+      "id": "cn_industrial_profit_ytd_yoy",
+      "value": 16.0,
+      "unit": "percent; Jan-Oct cumulative industrial profit YoY",
+      "observed_at": "2026-10-31",
+      "source": "research/investment/weekly/2026-11-29/investment-2026-11-29-market-research.md",
+      "status": "verified"
+    },
+    {
+      "id": "cn_industrial_receivables_days",
+      "value": 72.2,
+      "unit": "days; average receivables collection period",
+      "observed_at": "2026-10-31",
+      "source": "research/investment/weekly/2026-11-29/investment-2026-11-29-market-research.md",
+      "status": "verified"
+    },
+    {
+      "id": "hk_goods_exports_yoy",
+      "value": 65.6,
+      "unit": "percent; October nominal merchandise export value YoY",
+      "observed_at": "2026-10-31",
+      "source": "research/investment/weekly/2026-11-29/investment-2026-11-29-market-research.md",
       "status": "verified"
     }
   ]
