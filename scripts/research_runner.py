@@ -29,6 +29,7 @@ import time
 from zoneinfo import ZoneInfo
 
 try:
+    from .dividend_data import validate_route
     from .investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from .research_exchange import (
         RESULT_SCHEMA, GENERATORS, result_schema, _artifact, _contained_path, _report_sections,
@@ -40,6 +41,7 @@ try:
     from . import research_consistency, stock_disclosure_evidence
     from . import research_harness, research_runtime, research_shared_evidence, research_dsh_metrics
 except ImportError:
+    from dividend_data import validate_route
     from investment_maintenance import check_adoption_lifecycle, method_fingerprint, select_adopted, validate_handoff
     from research_exchange import (
         RESULT_SCHEMA, GENERATORS, result_schema, _artifact, _contained_path, _report_sections,
@@ -483,11 +485,7 @@ def make_prompt(request, task, generator, pack, root, frameworks, targets, attem
         # prompts and their original holding-purpose contract on recovery.
         if not has_strategy_bundle:
             raise ValueError('automatic research route requires full strategy framework bundle')
-        try:
-            from .dividend_data import validate_route
-        except ImportError:
-            from dividend_data import validate_route
-        validate_route(route, task['code'], request['valuation_date'])
+        validate_route(route, task['code'], request['valuation_date'], allow_legacy_no_cash=True)
         skill = 'dividend-research' if route['strategy'] == 'dividend' else 'stock-research'
         prefix = prefix.replace('使用 stock-research 技能进行股票复研', f'使用 {skill} 技能进行股票复研', 1)
         prefix = prefix.replace('先按stock_research_common.md的C0和用户持有目的确定dividend/non_dividend，在报告§0声明理由；有分红不自动路由。',
@@ -897,6 +895,10 @@ def prepare_request(request_path, root=ROOT, *, runtime_config=None):
     if run.exists():
         verify_prepared(run, raw, root)
         return run
+    for task in request['tasks']:
+        route = task['data_pack_meta'].get('research_route')
+        if route is not None:
+            validate_route(route, task['code'], request['valuation_date'])
     config = (research_runtime.validate_config(runtime_config) if isinstance(runtime_config, dict)
               else research_runtime.load_config(runtime_config))
     runtime_plan = research_runtime.build_plan(request, raw, config)

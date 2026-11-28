@@ -208,7 +208,7 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
         forward_net_yield=None, sources={}, gaps=[], trailing_yield=None,
         government_10y=None, trailing_spread_pp=None, dividend_events=[])
     if route is not None and route.get('rule') == NO_CASH_RULE:
-        validate_route(route, code, cutoff.isoformat())
+        validate_route(route, code, cutoff.isoformat(), allow_legacy_no_cash=True)
         result['sources'] = route['sources'].copy()
         result['gaps'] = ['No cash payout found in the checked window; yield unavailable']
         return result
@@ -223,9 +223,6 @@ def build(code, as_of, cache, call, *, include_dividends=True, market_as_of=None
         result['gaps'] = list(route['gaps']) + ['HK payout originals, investor taxes/FX and matched HKD benchmark required; A-share interfaces not substituted']
         if route['status'] == 'classified':
             validate_route(route, code, cutoff.isoformat())
-            if route['rule'] == NO_CASH_RULE:
-                result['gaps'].append('No cash payout found in the checked window; yield unavailable')
-                return result
             if market_as_of is not None and route['trailing_yield']['as_of'] != market_day.isoformat():
                 raise ValueError('frozen route and market date differ')
             doc = route['sources']['quote_search']
@@ -418,8 +415,8 @@ def _validate_no_cash_route(route, code, valuation_date):
     return route
 
 
-def validate_route(route, code, valuation_date):
-    """Admission contract shared by producer and consumer; never recompute from live data."""
+def validate_route(route, code, valuation_date, *, allow_legacy_no_cash=False):
+    """Validate admission under C0, with opt-in for reading or replaying frozen inputs."""
     if not isinstance(route, dict):
         raise ValueError('research_route must be an object')
     threshold = number(route.get('threshold_pp'))
@@ -430,6 +427,8 @@ def validate_route(route, code, valuation_date):
             or route.get('max_age_days') != MAX_ROUTE_AGE_DAYS):
         raise ValueError('invalid or pending research_route')
     if route['rule'] == NO_CASH_RULE:
+        if not allow_legacy_no_cash:
+            raise ValueError('no-cash research route is historical only; valid yield and bond observations required')
         return _validate_no_cash_route(route, code, valuation_date)
     stock, bond = route.get('trailing_yield'), route.get('government_10y')
     if not isinstance(stock, dict) or not isinstance(bond, dict):
@@ -447,7 +446,7 @@ def validate_route(route, code, valuation_date):
 
 
 def classify(code, as_of, cache, call, *, threshold_pp=None):
-    """Classify on the measured spread or a successful search with no cash payouts."""
+    """Classify on the measured spread and record evidence gaps for pending routes."""
     cutoff = day(as_of)
     threshold = number((3.5 if code.endswith('.HK') else 2.0) if threshold_pp is None else threshold_pp)
     if threshold is None or threshold < 0:
@@ -505,9 +504,8 @@ def classify(code, as_of, cache, call, *, threshold_pp=None):
             else:
                 result['gaps'] = ['dividend history contains a payout or unresolved event']
         if evidence is not None:
-            result.update(rule=NO_CASH_RULE, status='classified', strategy='non_dividend',
-                          no_cash_evidence={**evidence, 'cash_events': 0})
-            return validate_route(result, code, cutoff.isoformat())
+            result['no_cash_evidence'] = {**evidence, 'cash_events': 0}
+            result['gaps'] = ['no cash payout found in the checked window; TTM yield unavailable']
         return result
     if len(latest) != 1 or number(latest[0].get('dv_ttm')) is None or number(latest[0]['dv_ttm']) < 0:
         result['gaps'] = ['latest observation lacks unique valid dv_ttm; older yield not substituted']
