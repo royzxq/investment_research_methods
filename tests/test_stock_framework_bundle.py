@@ -83,23 +83,40 @@ class FrameworkBundleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.read_request(self.fixture.request_path)
 
-    def test_default_non_dividend_prompt_reports_no_payout_found(self):
+    def test_no_payout_route_can_only_resume_an_existing_frozen_batch(self):
         from scripts import dividend_data as dd
         self.enable_bundle()
+
         def call(endpoint, params):
             if endpoint == 'daily_basic':
                 return [dict(ts_code='600066.SH', trade_date='20261006', dv_ttm=None, close=20)]
             self.assertEqual(endpoint, 'dividend')
             return []
+
         route = dd.classify('600066.SH', '20261006', self.root/'cache', call)
         self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = route
         self.fixture.write_request()
-        run = self.prepare()
+        with self.assertRaisesRegex(ValueError, 'pending research_route'):
+            self.prepare()
+
+        route.update(rule=dd.NO_CASH_RULE, status='classified', strategy='non_dividend', gaps=[])
+        self.fixture.write_request()
+        with self.assertRaisesRegex(ValueError, 'historical'):
+            self.prepare()
+        self.assertFalse((self.root/'output/runs').exists())
+
+        # Recreate a batch prepared before the new admission check.
+        def validate_legacy(route, code, valuation_date, **kwargs):
+            return dd.validate_route(route, code, valuation_date, allow_legacy_no_cash=True)
+
+        with patch.object(runner, 'validate_route', side_effect=validate_legacy):
+            run = self.prepare()
         prompt = (run/'execution/SH-600066/codex/prompt.txt').read_bytes()
         self.assertIn('使用 stock-research 技能'.encode(), prompt)
         self.assertIn('未查到现金派息'.encode(), prompt)
         self.assertIn('股息率和利差留空'.encode(), prompt)
         runner.verify_prepared(run, (run/'request.json').read_bytes(), self.root)
+        self.assertEqual(self.prepare(), run)
 
     def test_automatic_route_refuses_legacy_two_file_bundle(self):
         self.fixture.request['tasks'][0]['data_pack_meta']['research_route'] = self.route()

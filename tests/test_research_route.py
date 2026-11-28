@@ -115,7 +115,7 @@ class RouteTests(unittest.TestCase):
             self.assertEqual(self.classify(value)['status'], 'pending')
         self.assertEqual(self.classify(code='00700.HK')['status'], 'pending')
 
-    def test_no_cash_search_defaults_without_fabricating_yield(self):
+    def test_no_cash_search_keeps_missing_yield_pending_in_both_markets(self):
         for code, endpoint in [('600001.SH', 'daily_basic'), ('00941.HK', 'hk_cash_ttm')]:
             with self.subTest(code=code), tempfile.TemporaryDirectory() as tmp:
                 calls = []
@@ -134,25 +134,36 @@ class RouteTests(unittest.TestCase):
                     return [quote]
 
                 route = dd.classify(code, '20261116', tmp, call)
-                self.assertEqual(route['strategy'], 'non_dividend')
-                self.assertEqual(route['rule'], dd.NO_CASH_RULE)
-                self.assertTrue(all(route[key] is None for key in ('trailing_yield','government_10y','spread_pp')))
+                self.assertEqual(route['status'], 'pending')
+                self.assertEqual(route['rule'], dd.CN_RULE)
+                for key in ('strategy', 'trailing_yield', 'government_10y', 'spread_pp'):
+                    self.assertIsNone(route[key])
+                self.assertIn('yield unavailable', route['gaps'][0])
+                self.assertEqual(route['no_cash_evidence']['cash_events'], 0)
                 self.assertEqual(calls, [endpoint] if code.endswith('.HK') else [endpoint, 'dividend'])
-                self.assertEqual(dd.validate_route(route, code, '2026-11-16'), route)
-                for key in route['sources']:
-                    wrong = copy.deepcopy(route)
+                with self.assertRaisesRegex(ValueError, 'pending research_route'):
+                    dd.validate_route(route, code, '2026-11-16')
+
+                legacy = {**route, 'rule': dd.NO_CASH_RULE, 'status': 'classified',
+                          'strategy': 'non_dividend', 'gaps': []}
+                with self.assertRaisesRegex(ValueError, 'historical'):
+                    dd.validate_route(legacy, code, '2026-11-16')
+                self.assertEqual(dd.validate_route(legacy, code, '2026-11-16',
+                                                   allow_legacy_no_cash=True), legacy)
+                for key in legacy['sources']:
+                    wrong = copy.deepcopy(legacy)
                     wrong['sources'][key]['identity']['params']['start_date'] = '20261112'
                     with self.assertRaises(ValueError):
-                        dd.validate_route(wrong, code, '2026-11-16')
-                missing_quote = copy.deepcopy(route)
+                        dd.validate_route(wrong, code, '2026-11-16', allow_legacy_no_cash=True)
+                missing_quote = copy.deepcopy(legacy)
                 del missing_quote['sources']['quote_search']
                 with self.assertRaises(ValueError):
-                    dd.validate_route(missing_quote, code, '2026-11-16')
+                    dd.validate_route(missing_quote, code, '2026-11-16', allow_legacy_no_cash=True)
                 for invalid in ({'strategy':'dividend'}, {'trailing_yield':{'value':0}},
                                 {'no_cash_evidence':{**route['no_cash_evidence'],'start_exclusive':'2026-11-01'}},
                                 {'sources':{'quote_search':{'status':'unavailable'}}}):
                     with self.assertRaises(ValueError):
-                        dd.validate_route({**route, **invalid}, code, '2026-11-16')
+                        dd.validate_route({**legacy, **invalid}, code, '2026-11-16', allow_legacy_no_cash=True)
 
     def test_hk_no_cash_search_must_cover_the_observed_quote_day(self):
         quote = dict(ts_code='00941.HK', trade_date='20261113', close=25, dv_ttm=None, dividend_events=[],
@@ -181,7 +192,9 @@ class RouteTests(unittest.TestCase):
                     return rows
 
                 route = dd.classify('600001.SH', '20261116', tmp, call)
-                self.assertEqual(route['status'], 'classified' if case == 'empty' else 'pending')
+                self.assertEqual(route['status'], 'pending')
+                self.assertIsNone(route['strategy'])
+                self.assertEqual('no_cash_evidence' in route, case == 'empty')
 
     def test_frozen_route_validates_identity_dates_values(self):
         route = self.classify(4.01)

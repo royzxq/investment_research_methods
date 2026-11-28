@@ -169,7 +169,9 @@ def _validate_request(request, request_root):
         require(len(set(sources)) == len(sources), f"{label}.sources: duplicates")
         require(isinstance(task["data_pack_meta"], dict), f"{label}.data_pack_meta: expected object")
         if 'research_route' in task['data_pack_meta']:
-            validate_route(task['data_pack_meta']['research_route'], task['code'], request['valuation_date'])
+            # Historical result and recovery readers still need the original route contract.
+            validate_route(task['data_pack_meta']['research_route'], task['code'], request['valuation_date'],
+                           allow_legacy_no_cash=True)
         _artifact(task["data_pack"], request_root, f"{label}.data_pack")
     return request
 
