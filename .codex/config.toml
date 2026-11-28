@@ -1,0 +1,5 @@
+[mcp_servers.stock_analysis]
+command = "/bin/sh"
+args = ["-c", 'root=$(git rev-parse --show-toplevel) || exit; export STOCK_CACHE_DIR="$root/output/cache/stock-analysis"; exec "$root/output/runtime/stock-analysis-0.2.11/bin/stock-analysis-mcp"']
+enabled_tools = ["get_announcements", "get_etf_details"]
+tool_timeout_sec = 500

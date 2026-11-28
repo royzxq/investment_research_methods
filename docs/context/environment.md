@@ -66,3 +66,19 @@ API 的网络、币种、字段口径仍按每次实际返回核验；安装/预
 本机 Codex 注册 `tushareMcp` 并传递现有 `TUSHARE_TOKEN`。新准备的 DSH 股票批次使用 `dsh-deepseek-flash-high-tushare-v1`，在原 context profile 上加载同一个只读取数服务。两端通过 stdio 启动 `scripts/research_tushare_mcp.py`，复用已锁定的 AKTools 环境中的 MCP SDK。含凭据的请求地址在取数进程内构造。DSH 尝试目录记录桥接代码和摘要，配置只保留环境变量引用。后续 DSH 批次可将 `active.dsh` 切回 `dsh-deepseek-flash-high-context-v1`。
 
 优先使用已有数据包，按具体缺口查询 A/H 股行情、标准财务、分红或对照数据。接口权限和覆盖按返回结果核验。MCP 工具不可用时继续已有取数路径。网页及 AKTools 自动体检范围见股票取数说明第 6 节，Tushare 返回按共同证据规则核验。[股票取数说明](../../.agents/skills/stock-research/references/data-acquisition.md)
+
+## Codex 项目级公告与 ETF 持仓查询（2026-11-24）
+
+本项目的 [Codex 配置](../../.codex/config.toml) 通过 stdio 启动 `stock_analysis`，允许 `get_announcements` 和 `get_etf_details`。本机已信任该项目。自动个股研究的 Codex CLI 也从仓库根启动并以该目录为工作路径。DSH 可通过同股 Codex 共享事实包读到研究员已核验的披露。上游 [0.2.11 源码](https://github.com/Weaxs/stock-analysis-plugin/tree/1d98e97424f7adbf33ef1fad84295129a4d67de2) 装在 `output/runtime/stock-analysis-0.2.11`，公开数据缓存写入 `output/cache/stock-analysis`。
+
+项目配置从启动目录解析当前 Git worktree 的根，在该 worktree 的 `output/` 下启动插件并写缓存。需要使用工具的每个 worktree 均从其根目录安装同一提交。
+
+生产配置 `codex-6-2-astra-xhigh-disclosures-v1` 在每个新个股批次的 Codex 尝试中预取近 90 个自然日的全类别公告，在运行目录保存 `runner/stock-announcements.json`，在 process.json 登记状态和 SHA-256，并在发布前与原始目录字节核对。单次预取最长 60 秒，失败时交给正常的官方目录查询。手工入口 `scripts/stock_disclosure_evidence.py` 调用上述两个 MCP 工具使用的同版本插件 CLI；ETF 查询需从原报核对期间及公开日期，整基金重叠还需核对全表及行数。已有执行计划按冻结配置接续。
+
+```sh
+uv venv --python /Users/xinquanzhou/miniconda3/bin/python3 output/runtime/stock-analysis-0.2.11
+uv pip install --python output/runtime/stock-analysis-0.2.11/bin/python 'stock-analysis-plugin @ git+https://github.com/Weaxs/stock-analysis-plugin.git@1d98e97424f7adbf33ef1fad84295129a4d67de2'
+codex mcp get stock_analysis
+```
+
+2026-11-24 在从项目根启动的新 Codex 会话中核验了工具清单及两类真实调用。比亚迪 A/H 股 2026 年三季报链接与已存原件一致，512480 的 2026 年半年报持仓返回 120 行，兆易创新占净值 7.82%。

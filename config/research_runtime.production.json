@@ -32,6 +32,17 @@
       }
     },
     {
+      "profile_id": "codex-6-2-astra-xhigh-disclosures-v1",
+      "revision": 1,
+      "producer": "codex",
+      "harness": "codex-cli",
+      "models": {
+        "main": {"model": "gpt-6.2-astra", "effort": "xhigh"},
+        "subagent": {"model": null}
+      },
+      "tools": {"stock_disclosures": "stock-analysis-v1"}
+    },
+    {
       "profile_id": "claude-inherited",
       "revision": 1,
       "producer": "claude",
@@ -153,7 +164,7 @@
     }
   ],
   "active": {
-    "codex": "codex-6-2-astra-xhigh",
+    "codex": "codex-6-2-astra-xhigh-disclosures-v1",
     "claude": "claude-inherited",
     "dsh": "dsh-deepseek-flash-high-tushare-v1"
   }
