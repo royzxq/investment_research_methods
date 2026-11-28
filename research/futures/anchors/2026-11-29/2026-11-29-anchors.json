@@ -1,0 +1,97 @@
+{
+  "schema": "futures-weekly-anchor-review/v1",
+  "as_of_date": "2026-11-29",
+  "frozen_at": "2026-11-29T01:10:52.509006+08:00",
+  "review_status": "no_economic_anchor_available",
+  "anchors": [],
+  "withdrawals": [],
+  "signal_observations": [],
+  "next_review": "2026-12-04",
+  "notes": "冻结研究处置。没有继承数值锚、到期锚或撤回项；如取得同库同批经济区间，另存未来修订并绑定真实冻结时点。",
+  "source_refs": [
+    "research/futures/weekly/2026-11-29/evidence/public-readings.md",
+    "research/futures/weekly/2026-11-29/evidence/ordered-pairs.json"
+  ],
+  "review": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "status": "research_only",
+      "basis": "港库较上周增2.13，太仓01升水仍高。补1月、5月可交割货权及同库全套费用；区域现货紧张无法给两月估值。",
+      "calculation": null,
+      "missing": [
+        "可实现同库同品级仓储、资金、税费与交割成本",
+        "按月可交割量和当前流通量",
+        "5–20交易日修复机制及双侧合理区间"
+      ],
+      "recovery": "核真实到港/提货、交割库货权和分月货源，先冻结数值锚再核未来信号。",
+      "valid_until": null,
+      "review_due": "2026-12-04",
+      "invalidation": "月份、仓单资格、可实现费用或5–20日收敛机制变化时重新核定；未形成数值锚。"
+    },
+    {
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "status": "research_only",
+      "basis": "05–09跨注销，尚缺适用批次重新注册和仓储融资成本；合约历史尚缺13日。",
+      "calculation": null,
+      "missing": [
+        "同库同批注销重注册路径和损耗费用",
+        "两个交割月可交货源",
+        "5–20日机制"
+      ],
+      "recovery": "核精确批次及费用，以未来来源独立冻结适用区间。",
+      "valid_until": null,
+      "review_due": "2026-12-04",
+      "invalidation": "月份、仓单资格、可实现费用或5–20日收敛机制变化时重新核定；未形成数值锚。"
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "status": "research_only",
+      "basis": "本周厂库增5.32，成为可交割货源仍受规格、库点、货龄限制。补01、03可交付同批成本，做市安排不能替代真实双腿报价。",
+      "calculation": null,
+      "missing": [
+        "可跨两月交付的具体同规格同库仓单",
+        "融资物流税费与真实进出库路径",
+        "能在5–20日修复的可检验供应变化"
+      ],
+      "recovery": "核冬储流向、仓单批次及全成本；数量不直接换公允价差。",
+      "valid_until": null,
+      "review_due": "2026-12-04",
+      "invalidation": "月份、仓单资格、可实现费用或5–20日收敛机制变化时重新核定；未形成数值锚。"
+    },
+    {
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "status": "research_only",
+      "basis": "03–05跨春季复产，须取得春季分月库存、同库物流和资金成本。不能沿用01–03区间。",
+      "calculation": null,
+      "missing": [
+        "春季开工/交割地分月供应",
+        "仓单货龄和完整持有交割成本",
+        "5–20日机制及数值区间"
+      ],
+      "recovery": "按该有序对独立取证并作未来冻结。",
+      "valid_until": null,
+      "review_due": "2026-12-04",
+      "invalidation": "月份、仓单资格、可实现费用或5–20日收敛机制变化时重新核定；未形成数值锚。"
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "status": "research_only",
+      "basis": "旧糖仓单11/30到期，新季第三方库按交割资质、月份和仓储融资拆分后再评。",
+      "calculation": null,
+      "missing": [
+        "新糖从开榨至库点可交割的数量与时间",
+        "当前适用仓储融资运费和进口反事实",
+        "5–20交易日机制及双侧区间"
+      ],
+      "recovery": "核新糖实际到货、分月货源与全成本；不能从历史0.5元/吨日造对称区间。",
+      "valid_until": null,
+      "review_due": "2026-12-04",
+      "invalidation": "月份、仓单资格、可实现费用或5–20日收敛机制变化时重新核定；未形成数值锚。"
+    }
+  ]
+}

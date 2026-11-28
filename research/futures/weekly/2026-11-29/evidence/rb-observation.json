@@ -1,0 +1,103 @@
+{
+  "opportunity_id": "20261127-observe-RB2701-trend-long-v3",
+  "registered_at": "2026-11-29T01:10:52.509006+08:00",
+  "signal_date": "2026-11-27",
+  "valid_until": "2026-12-01",
+  "entry_disposition": "research_only_no_entry_under_stress",
+  "market_ref": "research/futures/refresh/2026-11-29/evidence/2026-11-29-signal-refresh/market-inputs.json",
+  "arithmetic_input": {
+    "side": "long",
+    "entry": 3083,
+    "entry_date": "2026-11-30",
+    "latest_exit_date": "2026-12-17",
+    "price_unit": "CNY/tonne",
+    "multiplier": 10,
+    "tick_value": 10,
+    "round_trip_fees": 20,
+    "round_trip_slippage": 20,
+    "targets": null,
+    "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions"
+  },
+  "arithmetic": {
+    "rule_version": "v3.0",
+    "strategy": "trend",
+    "scope": "v3_plan_arithmetic_only",
+    "status": "valid",
+    "signal": "triggered",
+    "side": "long",
+    "missing_fields": [],
+    "issues": [],
+    "execution_permission": "not_evaluated",
+    "methodology_validation": "forward_research_not_performance_validated",
+    "risk_unit": 670.0,
+    "cost_unit": 40.0,
+    "net_reward": null,
+    "reward_risk": null,
+    "targets": null,
+    "stop": 3020.0,
+    "final_lots": null,
+    "pending_checks": [
+      "frozen_prospective_definition_and_evidence",
+      "economic_causality",
+      "contract_life_and_forced_exit_dates",
+      "latest_executable_quotes",
+      "stress_and_events",
+      "account_and_capacity"
+    ],
+    "signal_inputs": {
+      "rule_version": "v3.0",
+      "strategy": "trend",
+      "scope": "v3_market_inputs_only",
+      "status": "valid",
+      "signal": "triggered",
+      "side": "long",
+      "missing_fields": [],
+      "issues": [],
+      "execution_permission": "not_evaluated",
+      "methodology_validation": "forward_research_not_performance_validated",
+      "contract": "RB2701",
+      "price_basis": "close",
+      "product": "RB",
+      "market_trade_date": "20261127",
+      "as_of_date": "20261127",
+      "signal_close": 3077.0,
+      "prior20_high": 3075.0,
+      "prior20_low": 2955.0,
+      "prior10_low": 2955.0,
+      "prior10_high": 3075.0,
+      "atr20": 31.21757634278476,
+      "atr_initialization": "61_bars_first20_TR_mean_then_Wilder",
+      "sample_start": "20260827",
+      "targets": null,
+      "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+      "volatility_ratio": 1.0699459137567033,
+      "volatility_status": "available",
+      "high_volatility": false
+    },
+    "entry_expiry": "20261201",
+    "entry_date": "20261130",
+    "latest_exit_date": "20261217",
+    "entry": 3083.0,
+    "signal_date": "2026-11-27",
+    "valid_until": "2026-12-01",
+    "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+    "prior10_channel_stop": 2955.0,
+    "entry_range": [
+      3076,
+      3092
+    ]
+  },
+  "pressure": [
+    {
+      "exit": 2955,
+      "loss": 1320,
+      "ratio": 1.9701492537313432
+    },
+    {
+      "exit": 2919,
+      "loss": 1680,
+      "ratio": 2.5074626865671643
+    }
+  ],
+  "entry_quote": "11/27夜盘末3083，已过时段，不回填。11/30或12/1假设都以12/17退出为上限。"
+}

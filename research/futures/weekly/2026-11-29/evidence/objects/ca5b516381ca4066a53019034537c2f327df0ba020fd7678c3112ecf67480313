@@ -1,0 +1,58 @@
+{
+  "schema": "futures-weekly-anchor-review/v1",
+  "as_of_date": "2026-11-15",
+  "review_status": "no_economic_anchor_available",
+  "anchors": [],
+  "withdrawals": [],
+  "signal_observations": [],
+  "next_review": "2026-11-20",
+  "notes": "共享材料无有效锚或待撤回项目。以下均为有序对的研究判断，非冻结信号锚。近远同日结算只作背景，未来锚须先记录独立经济依据及冻结时间。",
+  "source_refs": [
+    "research/futures/weekly/2026-11-15/evidence/price-and-plan-calculation.json",
+    "research/futures/weekly/2026-11-15/evidence/m-rb-public.md",
+    "research/futures/weekly/2026-11-15/evidence/ma-sr-cf-public.md"
+  ],
+  "review": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "status": "research_only",
+      "settle_spread_20261113": 389,
+      "basis": "港库再累而厂库微降，现货供应分布有分歧。历史仓储价2元/吨日按120自然日仅240，缺具体库点可实现费、融资、移库和交割衔接。",
+      "recovery": "核库点分布、按期到港和提货，确认何种新增货能在5–20交易日修复两个月的可交割差。"
+    },
+    {
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "status": "research_only",
+      "settle_spread_20261113": 125,
+      "basis": "准备对两腿已更新。MA旧非通用仓单及5月注销涉及跨注销重新注册，新业务规则从MA2711适用。",
+      "recovery": "核注销到重注册的同库同批路线、成本及两个交割月可交付量。",
+      "price_data_status": "latest_both_legs_present; 38 nonempty joint observations; 23 of last 61 joint dates missing far settlement"
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "status": "research_only",
+      "settle_spread_20261113": 15,
+      "basis": "产需同降而库存仍去化，注册仓单不代表月份可交货源。60日仓储示意9元/吨，若确走仓库进出各一次则39–45元/吨，融资物流税费另缺，90日有效仓单及生产日期受限。",
+      "recovery": "查同规格、同交割地、跨月仍有效的具体仓单及全成本，跟踪近端仓单回补或复产能否驱动5–20日修复。"
+    },
+    {
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "status": "research_only",
+      "settle_spread_20261113": -18,
+      "basis": "准备对两腿已更新。冬季去库不能外推春节后复工和两个交割月的交付量。",
+      "recovery": "用春季项目开工/冬储去向及交割地货龄成本验证，独立冻结未来适用区间。"
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "status": "research_only",
+      "settle_spread_20261113": -65,
+      "basis": "年度产量预测上修、开榨推进与陈糖去库、进口成本反向并存，年度仓单注销及可交割新糖不同。历史0.5元/吨日按120日仅60元/吨，不代表适用仓单全成本。",
+      "recovery": "核广西开榨到销区到货与分月可交割、适用仓储/融资/运费及进口反事实；测试5–20日机制和区间可否在信号前冻结。"
+    }
+  ]
+}

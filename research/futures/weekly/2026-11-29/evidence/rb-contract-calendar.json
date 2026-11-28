@@ -1,0 +1,720 @@
+{
+  "observed_at": "2026-11-29T01:08:27.253240+08:00",
+  "source": "Tushare Pro trade_cal / fut_daily / fut_basic",
+  "calendar": [
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261008",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261009",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261012",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261013",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261014",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261015",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261016",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261019",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261020",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261021",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261022",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261023",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261026",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261027",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261028",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261029",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261030",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261102",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261103",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261104",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261105",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261106",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261109",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261110",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261111",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261112",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261113",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261116",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261117",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261118",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261119",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261120",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261123",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261124",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261125",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261126",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261127",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261130",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261201",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261202",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261203",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261204",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261207",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261208",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261209",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261210",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261211",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261214",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261215",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261216",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261217",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261218",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261221",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261222",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261223",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261224",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261225",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261228",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261229",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261230",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20261231",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270104",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270105",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270106",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270107",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270108",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270111",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270112",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270113",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270114",
+      "is_open": 1
+    },
+    {
+      "exchange": "SHFE",
+      "cal_date": "20270115",
+      "is_open": 1
+    }
+  ],
+  "rb": [
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261020",
+      "vol": 437297.0,
+      "oi": 1762987.0,
+      "open": 3071.0,
+      "high": 3077.0,
+      "low": 3062.0,
+      "close": 3070.0,
+      "settle": 3069.0,
+      "pre_settle": 3080.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261021",
+      "vol": 505011.0,
+      "oi": 1744488.0,
+      "open": 3074.0,
+      "high": 3086.0,
+      "low": 3072.0,
+      "close": 3081.0,
+      "settle": 3080.0,
+      "pre_settle": 3069.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261022",
+      "vol": 709037.0,
+      "oi": 1808829.0,
+      "open": 3081.0,
+      "high": 3081.0,
+      "low": 3051.0,
+      "close": 3059.0,
+      "settle": 3064.0,
+      "pre_settle": 3080.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261023",
+      "vol": 853959.0,
+      "oi": 1827860.0,
+      "open": 3054.0,
+      "high": 3059.0,
+      "low": 3031.0,
+      "close": 3047.0,
+      "settle": 3043.0,
+      "pre_settle": 3064.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261026",
+      "vol": 564567.0,
+      "oi": 1834280.0,
+      "open": 3053.0,
+      "high": 3053.0,
+      "low": 3033.0,
+      "close": 3037.0,
+      "settle": 3041.0,
+      "pre_settle": 3043.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261027",
+      "vol": 823042.0,
+      "oi": 1838109.0,
+      "open": 3036.0,
+      "high": 3044.0,
+      "low": 3012.0,
+      "close": 3040.0,
+      "settle": 3026.0,
+      "pre_settle": 3041.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261028",
+      "vol": 582544.0,
+      "oi": 1827956.0,
+      "open": 3043.0,
+      "high": 3053.0,
+      "low": 3031.0,
+      "close": 3043.0,
+      "settle": 3041.0,
+      "pre_settle": 3026.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261029",
+      "vol": 742495.0,
+      "oi": 1749307.0,
+      "open": 3043.0,
+      "high": 3072.0,
+      "low": 3042.0,
+      "close": 3056.0,
+      "settle": 3060.0,
+      "pre_settle": 3041.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261030",
+      "vol": 597934.0,
+      "oi": 1780849.0,
+      "open": 3056.0,
+      "high": 3057.0,
+      "low": 3025.0,
+      "close": 3030.0,
+      "settle": 3039.0,
+      "pre_settle": 3060.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261102",
+      "vol": 715629.0,
+      "oi": 1866893.0,
+      "open": 3030.0,
+      "high": 3032.0,
+      "low": 3006.0,
+      "close": 3007.0,
+      "settle": 3019.0,
+      "pre_settle": 3039.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261103",
+      "vol": 702802.0,
+      "oi": 1878506.0,
+      "open": 3005.0,
+      "high": 3019.0,
+      "low": 2990.0,
+      "close": 2991.0,
+      "settle": 3002.0,
+      "pre_settle": 3019.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261104",
+      "vol": 565993.0,
+      "oi": 1855150.0,
+      "open": 2991.0,
+      "high": 3013.0,
+      "low": 2988.0,
+      "close": 3008.0,
+      "settle": 2999.0,
+      "pre_settle": 3002.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261105",
+      "vol": 872723.0,
+      "oi": 1731454.0,
+      "open": 3008.0,
+      "high": 3047.0,
+      "low": 3008.0,
+      "close": 3042.0,
+      "settle": 3030.0,
+      "pre_settle": 2999.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261106",
+      "vol": 706345.0,
+      "oi": 1681929.0,
+      "open": 3042.0,
+      "high": 3059.0,
+      "low": 3030.0,
+      "close": 3038.0,
+      "settle": 3041.0,
+      "pre_settle": 3030.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261109",
+      "vol": 558767.0,
+      "oi": 1680452.0,
+      "open": 3045.0,
+      "high": 3051.0,
+      "low": 3031.0,
+      "close": 3037.0,
+      "settle": 3039.0,
+      "pre_settle": 3041.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261110",
+      "vol": 519680.0,
+      "oi": 1667947.0,
+      "open": 3030.0,
+      "high": 3043.0,
+      "low": 3022.0,
+      "close": 3036.0,
+      "settle": 3033.0,
+      "pre_settle": 3039.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261111",
+      "vol": 591800.0,
+      "oi": 1635148.0,
+      "open": 3036.0,
+      "high": 3049.0,
+      "low": 3028.0,
+      "close": 3045.0,
+      "settle": 3039.0,
+      "pre_settle": 3033.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261112",
+      "vol": 662582.0,
+      "oi": 1668748.0,
+      "open": 3044.0,
+      "high": 3047.0,
+      "low": 3018.0,
+      "close": 3024.0,
+      "settle": 3031.0,
+      "pre_settle": 3039.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261113",
+      "vol": 621675.0,
+      "oi": 1613828.0,
+      "open": 3025.0,
+      "high": 3041.0,
+      "low": 3020.0,
+      "close": 3035.0,
+      "settle": 3033.0,
+      "pre_settle": 3031.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261116",
+      "vol": 659809.0,
+      "oi": 1648571.0,
+      "open": 3035.0,
+      "high": 3040.0,
+      "low": 3011.0,
+      "close": 3014.0,
+      "settle": 3022.0,
+      "pre_settle": 3033.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261117",
+      "vol": 1090817.0,
+      "oi": 1824845.0,
+      "open": 3012.0,
+      "high": 3017.0,
+      "low": 2960.0,
+      "close": 2965.0,
+      "settle": 2978.0,
+      "pre_settle": 3022.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261118",
+      "vol": 854120.0,
+      "oi": 1795402.0,
+      "open": 2963.0,
+      "high": 2985.0,
+      "low": 2955.0,
+      "close": 2977.0,
+      "settle": 2968.0,
+      "pre_settle": 2978.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261119",
+      "vol": 665277.0,
+      "oi": 1703132.0,
+      "open": 2985.0,
+      "high": 2993.0,
+      "low": 2975.0,
+      "close": 2983.0,
+      "settle": 2983.0,
+      "pre_settle": 2968.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261120",
+      "vol": 1212122.0,
+      "oi": 1504348.0,
+      "open": 2990.0,
+      "high": 3032.0,
+      "low": 2986.0,
+      "close": 2999.0,
+      "settle": 3011.0,
+      "pre_settle": 2983.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261123",
+      "vol": 724144.0,
+      "oi": 1457694.0,
+      "open": 3000.0,
+      "high": 3008.0,
+      "low": 2980.0,
+      "close": 3004.0,
+      "settle": 2994.0,
+      "pre_settle": 3011.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261124",
+      "vol": 892143.0,
+      "oi": 1315918.0,
+      "open": 3004.0,
+      "high": 3033.0,
+      "low": 2997.0,
+      "close": 3028.0,
+      "settle": 3015.0,
+      "pre_settle": 2994.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261125",
+      "vol": 1224301.0,
+      "oi": 1141219.0,
+      "open": 3027.0,
+      "high": 3075.0,
+      "low": 3014.0,
+      "close": 3062.0,
+      "settle": 3047.0,
+      "pre_settle": 3015.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261126",
+      "vol": 625419.0,
+      "oi": 1051398.0,
+      "open": 3065.0,
+      "high": 3072.0,
+      "low": 3051.0,
+      "close": 3070.0,
+      "settle": 3063.0,
+      "pre_settle": 3047.0
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261127",
+      "vol": 788157.0,
+      "oi": 962499.0,
+      "open": 3075.0,
+      "high": 3093.0,
+      "low": 3057.0,
+      "close": 3077.0,
+      "settle": 3073.0,
+      "pre_settle": 3063.0
+    }
+  ],
+  "contract": [
+    {
+      "ts_code": "RB2701.SHF",
+      "last_ddate": "20270119",
+      "delist_date": "20270115",
+      "trade_unit": "吨",
+      "multiplier": null
+    }
+  ]
+}

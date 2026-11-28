@@ -1,0 +1,102 @@
+{
+  "schema": "futures-economic-anchors/v1",
+  "as_of_date": "2026-11-01",
+  "generator": "codex",
+  "frozen_at": "2026-11-01T01:09:19.373229+08:00",
+  "anchors": [],
+  "withdrawals": [],
+  "signal_observations": [],
+  "existing_active_anchor_count": 0,
+  "research_records": [
+    {
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "status": "research_only",
+      "economic_evidence": "10/28港库35.38万吨、转引周-1.00；国产负荷升和外采MTO全停为反证；历史官方仓储2元/吨天、进出库分路线。",
+      "calculation": "假设120自然日仅仓储2*120=240元/吨，不是精确交割持有期或双侧锚。",
+      "missing": [
+        "2027当期费用/融资/税费",
+        "同库同品级持货/仓单注销可实现性",
+        "月间供需到价格的数值转换及5–20日机制"
+      ],
+      "applicable_months": [
+        "2027-01",
+        "2027-05"
+      ],
+      "source_refs": [
+        "research/futures/weekly/2026-11-01/evidence/ma-sr-cf-research.md"
+      ],
+      "review_due": "2026-11-06",
+      "invalidation_conditions": [
+        "实据推翻原供需解释",
+        "费用/库容/仓单有效期不适用目标月份"
+      ],
+      "numeric_anchor_frozen": false
+    },
+    {
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "status": "research_only",
+      "economic_evidence": "官方仓储0.15元/吨天，入出库各15或18，仓库实物90日/45日入库，厂单180日；螺纹产增/表需增且去库。",
+      "calculation": "假设60自然日仅仓储9元/吨；另收30–36取决于真实物流，不是公允S区间。",
+      "missing": [
+        "真实仓单生产日期/交割路线",
+        "货值融资/地区品级税费",
+        "近远需求转换及5–20日收敛证据"
+      ],
+      "applicable_months": [
+        "2027-01",
+        "2027-03"
+      ],
+      "source_refs": [
+        "research/futures/weekly/2026-11-01/evidence/m-rb-research-r2.md"
+      ],
+      "review_due": "2026-11-06",
+      "invalidation_conditions": [
+        "仓单不能覆盖目标交割",
+        "需求/供给机制或成本不再适用"
+      ],
+      "numeric_anchor_frozen": false
+    },
+    {
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "status": "research_only",
+      "economic_evidence": "沐甜陈糖清库/11月中下旬计划开榨；经纪商仓储摘要0.5元/吨天，年度仓单有效期。",
+      "calculation": "假设120自然日仅仓储60元/吨，不能复制正负60双侧区间。",
+      "missing": [
+        "新季实际供应/开榨与仓单量",
+        "2027适用官方费用及融资",
+        "近远月合理价差/5–20日催化"
+      ],
+      "applicable_months": [
+        "2027-01",
+        "2027-05"
+      ],
+      "source_refs": [
+        "research/futures/weekly/2026-11-01/evidence/ma-sr-cf-research.md"
+      ],
+      "review_due": "2026-11-06",
+      "invalidation_conditions": [
+        "开榨延期或年度/仓单适用性变化",
+        "数值成本或供需机制不成立"
+      ],
+      "numeric_anchor_frozen": false
+    }
+  ],
+  "preparation_pairs": [
+    {
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "raw_gap": "latest61 missing33 far_settle dates",
+      "economic_gap": "cross-May cancellation and future supply/financing not quantified"
+    },
+    {
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "raw_gap": null,
+      "economic_gap": "no independent numeric band and 5–20day mechanism"
+    }
+  ],
+  "lifecycle_note": "No inherited active anchor exists; empty withdrawals does not implicitly revoke any historical record. New evidence requires future-applicable immutable revision, cannot change old signal clocks."
+}

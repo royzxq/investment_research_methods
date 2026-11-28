@@ -1,0 +1,17 @@
+{
+  "crush": {
+    "url": "https://ncp.mysteel.com/a/26112718/DC34D177BFA23F74.html",
+    "download_sha256": "8cf2b9ccdb09f865afd240708f4909176d0162c1735eb3e14a1b8e2d50a66354",
+    "http_status": 200
+  },
+  "pickup": {
+    "url": "https://ncp.mysteel.com/a/26112718/EA21761DE8639A43.html",
+    "download_sha256": "149286d377d99267b57fd44959ff8ce4a040f921427e0257475d5f4443113d05",
+    "http_status": 200
+  },
+  "steel": {
+    "url": "https://gc.m.mysteel.com/a/26112616/791346B86E36364D_abc.html",
+    "download_sha256": "ab858e0b2d567f98834431f3e33b784352b2bbbf74e0c08a544a3b4a0fc1a12f",
+    "http_status": 200
+  }
+}

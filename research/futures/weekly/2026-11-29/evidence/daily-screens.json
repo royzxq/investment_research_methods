@@ -1,0 +1,252 @@
+[
+  {
+    "contract": "MA2701",
+    "market_trade_date": "20261123",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3021.0,
+    "prior20_high": 3615.0,
+    "prior20_low": 3014.0
+  },
+  {
+    "contract": "MA2701",
+    "market_trade_date": "20261124",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3040.0,
+    "prior20_high": 3615.0,
+    "prior20_low": 2984.0
+  },
+  {
+    "contract": "MA2701",
+    "market_trade_date": "20261125",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3064.0,
+    "prior20_high": 3615.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "MA2701",
+    "market_trade_date": "20261126",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3176.0,
+    "prior20_high": 3615.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "MA2701",
+    "market_trade_date": "20261127",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3126.0,
+    "prior20_high": 3615.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "RB2701",
+    "market_trade_date": "20261123",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3004.0,
+    "prior20_high": 3072.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "RB2701",
+    "market_trade_date": "20261124",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3028.0,
+    "prior20_high": 3072.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "RB2701",
+    "market_trade_date": "20261125",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3062.0,
+    "prior20_high": 3072.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "RB2701",
+    "market_trade_date": "20261126",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3070.0,
+    "prior20_high": 3075.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "RB2701",
+    "market_trade_date": "20261127",
+    "signal": "triggered",
+    "status": "valid",
+    "side": "long",
+    "signal_close": 3077.0,
+    "prior20_high": 3075.0,
+    "prior20_low": 2955.0
+  },
+  {
+    "contract": "M2701",
+    "market_trade_date": "20261123",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3122.0,
+    "prior20_high": 3285.0,
+    "prior20_low": 3041.0
+  },
+  {
+    "contract": "M2701",
+    "market_trade_date": "20261124",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3130.0,
+    "prior20_high": 3219.0,
+    "prior20_low": 3041.0
+  },
+  {
+    "contract": "M2701",
+    "market_trade_date": "20261125",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3104.0,
+    "prior20_high": 3219.0,
+    "prior20_low": 3041.0
+  },
+  {
+    "contract": "M2701",
+    "market_trade_date": "20261126",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3126.0,
+    "prior20_high": 3213.0,
+    "prior20_low": 3041.0
+  },
+  {
+    "contract": "M2701",
+    "market_trade_date": "20261127",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 3183.0,
+    "prior20_high": 3204.0,
+    "prior20_low": 3041.0
+  },
+  {
+    "contract": "SR2701",
+    "market_trade_date": "20261123",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 5029.0,
+    "prior20_high": 5380.0,
+    "prior20_low": 5012.0
+  },
+  {
+    "contract": "SR2701",
+    "market_trade_date": "20261124",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 5114.0,
+    "prior20_high": 5300.0,
+    "prior20_low": 5007.0
+  },
+  {
+    "contract": "SR2701",
+    "market_trade_date": "20261125",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 5103.0,
+    "prior20_high": 5300.0,
+    "prior20_low": 5007.0
+  },
+  {
+    "contract": "SR2701",
+    "market_trade_date": "20261126",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 5170.0,
+    "prior20_high": 5285.0,
+    "prior20_low": 5007.0
+  },
+  {
+    "contract": "SR2701",
+    "market_trade_date": "20261127",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 5217.0,
+    "prior20_high": 5285.0,
+    "prior20_low": 5007.0
+  },
+  {
+    "contract": "CF2701",
+    "market_trade_date": "20261123",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 15400.0,
+    "prior20_high": 15860.0,
+    "prior20_low": 15030.0
+  },
+  {
+    "contract": "CF2701",
+    "market_trade_date": "20261124",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 15430.0,
+    "prior20_high": 15640.0,
+    "prior20_low": 15030.0
+  },
+  {
+    "contract": "CF2701",
+    "market_trade_date": "20261125",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 15370.0,
+    "prior20_high": 15640.0,
+    "prior20_low": 15030.0
+  },
+  {
+    "contract": "CF2701",
+    "market_trade_date": "20261126",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 15465.0,
+    "prior20_high": 15640.0,
+    "prior20_low": 15030.0
+  },
+  {
+    "contract": "CF2701",
+    "market_trade_date": "20261127",
+    "signal": "not_triggered",
+    "status": "valid",
+    "side": null,
+    "signal_close": 15555.0,
+    "prior20_high": 15640.0,
+    "prior20_low": 15030.0
+  }
+]

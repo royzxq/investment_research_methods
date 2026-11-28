@@ -1,0 +1,137 @@
+{
+  "cz20261120": {
+    "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261120/FutureDataClearParams.txt",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/2f8c3cb37f482d77cd4111ddc5fa358bcaae560f8dea6dfce61c78181f793ff6",
+    "sha256": "2f8c3cb37f482d77cd4111ddc5fa358bcaae560f8dea6dfce61c78181f793ff6"
+  },
+  "cz20261123": {
+    "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261123/FutureDataClearParams.txt",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/6bdbae6e3a4de3d0e117b6d8113a1f6fde3a6d0a8256f3e97c4e2ffdd5b3831b",
+    "sha256": "6bdbae6e3a4de3d0e117b6d8113a1f6fde3a6d0a8256f3e97c4e2ffdd5b3831b"
+  },
+  "cz20261124": {
+    "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261124/FutureDataClearParams.txt",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/9daea7e05edd5dffad0a0eb3c8cc2f3ac9e2696364debea06d336e412607bf60",
+    "sha256": "9daea7e05edd5dffad0a0eb3c8cc2f3ac9e2696364debea06d336e412607bf60"
+  },
+  "cz20261125": {
+    "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261125/FutureDataClearParams.txt",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/d889eb5c1bcc9d921e8dadb82ad3992020f7dbdbe424d33ae2c34987b8d081f9",
+    "sha256": "d889eb5c1bcc9d921e8dadb82ad3992020f7dbdbe424d33ae2c34987b8d081f9"
+  },
+  "cz20261126": {
+    "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261126/FutureDataClearParams.txt",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/7b2d7df0473434f8adb386f56068174682f2c16ea66d2384aa6d34e036fc97d1",
+    "sha256": "7b2d7df0473434f8adb386f56068174682f2c16ea66d2384aa6d34e036fc97d1"
+  },
+  "cz20261127": {
+    "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261127/FutureDataClearParams.txt",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/f02fc600227fd746210af63d3473c4a65090eb0f7fdeca98f297683c085e49b8",
+    "sha256": "f02fc600227fd746210af63d3473c4a65090eb0f7fdeca98f297683c085e49b8"
+  },
+  "settle20261120": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261120.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/6c2123bda30f38b71d875281a169d26d4191478d5a10d4d3f7f088322da275f2",
+    "sha256": "6c2123bda30f38b71d875281a169d26d4191478d5a10d4d3f7f088322da275f2"
+  },
+  "settle20261123": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261123.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/845d956e2b9adb44d8ccf2a8a50fbf1ba0ac1f189b7c579374a6ed40484db494",
+    "sha256": "845d956e2b9adb44d8ccf2a8a50fbf1ba0ac1f189b7c579374a6ed40484db494"
+  },
+  "settle20261124": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261124.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/d9a9becfad5a58a16098bba7fb31d80aa028da8719d1d92157dbdcc0c39b7165",
+    "sha256": "d9a9becfad5a58a16098bba7fb31d80aa028da8719d1d92157dbdcc0c39b7165"
+  },
+  "settle20261125": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261125.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/b5043443fa690087e2629fbfb39b44a6cdec47aa78529ac824836635e441100b",
+    "sha256": "b5043443fa690087e2629fbfb39b44a6cdec47aa78529ac824836635e441100b"
+  },
+  "settle20261126": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261126.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/0427898f4bca07362df367ca59d8de3755abf7f9fdf37e31cbf9f1e02373584f",
+    "sha256": "0427898f4bca07362df367ca59d8de3755abf7f9fdf37e31cbf9f1e02373584f"
+  },
+  "settle20261127": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261127.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/e2d73acfff752d0ba7c758880cf3796eedfa2cf0b421d3914257681a2ab40dfc",
+    "sha256": "e2d73acfff752d0ba7c758880cf3796eedfa2cf0b421d3914257681a2ab40dfc"
+  },
+  "bars20261120": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261120.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/f54c6a3aaca464809d45da4ede81f7471408938a6a698707921925d330ad30d8",
+    "sha256": "f54c6a3aaca464809d45da4ede81f7471408938a6a698707921925d330ad30d8"
+  },
+  "bars20261123": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261123.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/04a2b2bcf7db82d3ee1d9a53ec9e915b2536ce60a0451782bc8aa9010e0c6cbe",
+    "sha256": "04a2b2bcf7db82d3ee1d9a53ec9e915b2536ce60a0451782bc8aa9010e0c6cbe"
+  },
+  "bars20261124": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261124.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/5ea1f5fd1c82d5546dde6cae8183e49a68b891f2c3dc22ada7122bb1ed640942",
+    "sha256": "5ea1f5fd1c82d5546dde6cae8183e49a68b891f2c3dc22ada7122bb1ed640942"
+  },
+  "bars20261125": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261125.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/92c73d161440fd08d5971354ccae8c77995d4b877f44d1e0ef03e9d989c86c71",
+    "sha256": "92c73d161440fd08d5971354ccae8c77995d4b877f44d1e0ef03e9d989c86c71"
+  },
+  "bars20261126": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261126.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/732798343d0948826f73faf64b3b97cc8c8430f422c180fa6a25df9fd6bf0474",
+    "sha256": "732798343d0948826f73faf64b3b97cc8c8430f422c180fa6a25df9fd6bf0474"
+  },
+  "bars20261127": {
+    "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261127.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/4e7c5c0ab89d66d513749b34d7089077af99d36fe85033ce9891946f3f4980cb",
+    "sha256": "4e7c5c0ab89d66d513749b34d7089077af99d36fe85033ce9891946f3f4980cb"
+  },
+  "param20261120": {
+    "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261120.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/bda1b10eb79d103dad45c629c72ea21b426a40de9e778c11d4d34c692b6440c2",
+    "sha256": "bda1b10eb79d103dad45c629c72ea21b426a40de9e778c11d4d34c692b6440c2"
+  },
+  "param20261123": {
+    "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261123.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/ea827a6c5f1307e17e11aaff082ad98a5b922c605c03e1a3c6e37427c977dc28",
+    "sha256": "ea827a6c5f1307e17e11aaff082ad98a5b922c605c03e1a3c6e37427c977dc28"
+  },
+  "param20261124": {
+    "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261124.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/7faeb96a6162f942f620d9699320b6b83f7593cf9ead4e77bc4dc5fec1199c25",
+    "sha256": "7faeb96a6162f942f620d9699320b6b83f7593cf9ead4e77bc4dc5fec1199c25"
+  },
+  "param20261125": {
+    "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261125.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/1ece1d318a97bcd470e22b6bc734facd1f906b685d46ee4abf255a0550eefb50",
+    "sha256": "1ece1d318a97bcd470e22b6bc734facd1f906b685d46ee4abf255a0550eefb50"
+  },
+  "param20261126": {
+    "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261126.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/afb8f947a3ad079409a106e1329ab174ecab97a67e6c069ef38a5d2c17f44062",
+    "sha256": "afb8f947a3ad079409a106e1329ab174ecab97a67e6c069ef38a5d2c17f44062"
+  },
+  "param20261127": {
+    "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261127.dat",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/89e824cd7145cca31b92989ccdc6e17c4bb74dfbb11dfc47f24a3d6ab1c15a02",
+    "sha256": "89e824cd7145cca31b92989ccdc6e17c4bb74dfbb11dfc47f24a3d6ab1c15a02"
+  },
+  "rb": {
+    "url": "https://www.shfe.com.cn/regulation/exchangerules/productrules/202512/t20251231_829962.html",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/e415925eded98bffd26ec32e48b7ff4ac431e6b03d66b51724f2943bcd46f662",
+    "sha256": "e415925eded98bffd26ec32e48b7ff4ac431e6b03d66b51724f2943bcd46f662"
+  },
+  "dce": {
+    "url": "https://www.hongtaqh.com/tzzjy/zcfg/zlgz/202511/20251117_11189.html",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/6814a6fcca601bd106f44a3f415ab12f0f4318a493314d204a8eb31ab3a3be1b",
+    "sha256": "6814a6fcca601bd106f44a3f415ab12f0f4318a493314d204a8eb31ab3a3be1b"
+  },
+  "xml": {
+    "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261127/FutureDataReferenceData.xml",
+    "path": "research/futures/weekly/2026-11-29/evidence/objects/be62c246e5bd3bf1c09a776cd61fb65be0b3dd089ff56fdb2c2a0e2360ddd06a",
+    "sha256": "be62c246e5bd3bf1c09a776cd61fb65be0b3dd089ff56fdb2c2a0e2360ddd06a"
+  }
+}

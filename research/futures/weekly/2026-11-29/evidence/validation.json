@@ -1,0 +1,28 @@
+{
+  "baseline": "e54d933c1197c0ee2324087defab402df38dc231",
+  "as_of_date": "2026-11-29",
+  "verified_at": "2026-11-29T01:15:24.701585+08:00",
+  "offline": {
+    "python": "Conda 3.11",
+    "tests": 1544,
+    "result": "OK",
+    "seconds": 269.581,
+    "sandbox_first": {
+      "tests": 1544,
+      "errors": 46,
+      "context": "local socket/process access restricted"
+    }
+  },
+  "audit": {
+    "first": "invalid_null_numeric_plan_with_G3_pass",
+    "adopted": "r2_valid"
+  },
+  "venue": {
+    "complete_rows": 50,
+    "weeks": 1,
+    "dce_direct_daily": false
+  },
+  "governance": "30 current anchors, 277 historical IDs; baseline check passed",
+  "execution_permission": "not_evaluated",
+  "performance": null
+}

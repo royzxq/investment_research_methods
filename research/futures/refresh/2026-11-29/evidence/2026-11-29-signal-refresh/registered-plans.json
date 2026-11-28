@@ -1,0 +1,272 @@
+{
+  "as_of_date": "2026-11-29",
+  "candidates": [
+    {
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261009-MA2701-trend-long-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-22",
+        "entry_id": "c52b75c31db24e4a5f37c73aaaf58ecf856457aa9c92235c6bb49d66a5b14057",
+        "execution_reuse": false,
+        "materialized_root": "sources/c52b75c31db24e4a5f37c73aaaf58ecf856457aa9c92235c6bb49d66a5b14057",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-29"
+      },
+      "contracts": [
+        "MA2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "Original entry disposition is settled; actual holding/fill/effective stop unknown, current public gaps remain.",
+      "direction": "long",
+      "entry_window_state": "expired",
+      "evaluated_at": "2026-11-22T01:06:18.091729+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "SHARED",
+        "OLDPATH",
+        "CAL",
+        "EVENT",
+        "OTHER"
+      ],
+      "execution_permission": "not_evaluated",
+      "final_lots": null,
+      "first_blocker": "G3",
+      "holding_review": "Original10/13 deadline expired;10/13 H3278 below3289. Original reachable10/12 conditional fills touch initial/tightened SL by10/20;20-day ceiling elapsed. No revival.",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261011-observe-MA2701-trend-long-v3",
+      "plan": {
+        "alternate_entry": {
+          "availability": "outside_original_entry_range",
+          "entry_date": "2026-10-13",
+          "latest_exit_date": "2026-11-09",
+          "same_signal_valid_until": "2026-10-13"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-10-18/evidence/shared-sources/objects/ec72726d1dd2d82308f236fc8d3f2724192b1b206f1d9f42606711b83da4b14a",
+        "cost_basis": "研究预算，非用户实收；实际费用/滑点变化后必须重算",
+        "earliest_future_execution_at": "2026-10-12T09:00:00+08:00",
+        "entry": 3338,
+        "entry_date": "2026-10-12",
+        "entry_quote_status": "historical_only",
+        "entry_range": [
+          3289,
+          3387
+        ],
+        "entry_window_state": "expired",
+        "evaluated_at": "2026-10-11T18:14:54+08:00",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-06",
+        "registered_at": "2026-10-11T18:14:54+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-09",
+        "stop": 3139,
+        "targets": null,
+        "valid_until": "2026-10-13"
+      },
+      "registered_at": "2026-10-11T18:14:54+08:00",
+      "signal": "triggered",
+      "signal_evidence_refs": [
+        "SHARED"
+      ],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-11-20",
+      "unknown_checks": [
+        "G1",
+        "G2",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    },
+    {
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261023-RB2701-trend-short-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-22",
+        "entry_id": "c52b75c31db24e4a5f37c73aaaf58ecf856457aa9c92235c6bb49d66a5b14057",
+        "execution_reuse": false,
+        "materialized_root": "sources/c52b75c31db24e4a5f37c73aaaf58ecf856457aa9c92235c6bb49d66a5b14057",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-29"
+      },
+      "contracts": [
+        "RB2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "Original entry disposition is settled; actual holding/fill/effective stop unknown, current public gaps remain.",
+      "direction": "short",
+      "entry_window_state": "expired",
+      "evaluated_at": "2026-11-22T01:06:18.091729+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "SHARED",
+        "OLDPATH",
+        "CAL",
+        "EVENT",
+        "MRB"
+      ],
+      "execution_permission": "not_evaluated",
+      "final_lots": null,
+      "first_blocker": "G3",
+      "holding_review": "Original10/27 deadline expired.10/26 path20th day11/20 elapsed;10/27 reachable3034–3044 alternative20th day11/23. Through11/20 no conditional price-stop touch, next-session reference3051 only for surviving10/27 path, actual fill/SL/exit unknown.",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261025-observe-RB2701-trend-short-v3",
+      "plan": {
+        "alternate_entry": {
+          "daily_range_intersection": [
+            3034,
+            3044
+          ],
+          "entry_date": "2026-10-27",
+          "latest_exit_date": "2026-11-23",
+          "original_reference_quote_reachable": false,
+          "same_signal_valid_until": "2026-10-27"
+        },
+        "arithmetic_ref": "research/futures/weekly/2026-11-01/evidence/shared-sources/objects/5ca506b6db3213a317f866c2bb615cdf95d91b12aad56a6c77752a97584fc297.blob",
+        "cost_basis": "research cost budget, not actual broker fee; revalidate actual fill and costs",
+        "earliest_future_execution_at": "2026-10-26T09:00:00+08:00",
+        "entry": 3047,
+        "entry_date": "2026-10-26",
+        "entry_quote_status": "historical_only",
+        "entry_range": [
+          3034,
+          3050
+        ],
+        "entry_window_state": "expired",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": "2026-11-20",
+        "registered_at": "2026-10-25T01:06:50.045735+08:00",
+        "round_trip_fee_budget": 20,
+        "round_trip_slippage_budget": 20,
+        "signal_date": "2026-10-23",
+        "stop": 3103,
+        "targets": null,
+        "valid_until": "2026-10-27"
+      },
+      "registered_at": "2026-10-25T01:06:50.045735+08:00",
+      "signal": "triggered",
+      "signal_evidence_refs": [
+        "SHARED"
+      ],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-11-20",
+      "unknown_checks": [
+        "G1",
+        "G2",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    },
+    {
+      "all_blockers": [
+        "G3"
+      ],
+      "candidate_id": "20261113-SR2701-trend-short-v3",
+      "continuity_source": {
+        "as_of_date": "2026-11-22",
+        "entry_id": "c52b75c31db24e4a5f37c73aaaf58ecf856457aa9c92235c6bb49d66a5b14057",
+        "execution_reuse": false,
+        "materialized_root": "sources/c52b75c31db24e4a5f37c73aaaf58ecf856457aa9c92235c6bb49d66a5b14057",
+        "method_compatible": true,
+        "producer": "weekly",
+        "scope": "local",
+        "source_root": "/private/tmp/futures-weekly-automation-2026-11-29"
+      },
+      "contracts": [
+        "SR2701"
+      ],
+      "data_feasibility": "temporary_gap",
+      "data_feasibility_reason": "Original entry disposition is settled; actual holding/fill/effective stop unknown, current public gaps remain.",
+      "direction": "short",
+      "entry_window_state": "cancelled_quote_lost_breakout_and_expired",
+      "evaluated_at": "2026-11-22T01:06:18.091729+08:00",
+      "evaluation_order": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ],
+      "evidence_quality": "weak",
+      "evidence_refs": [
+        "SHARED",
+        "OLDPATH",
+        "CAL",
+        "EVENT",
+        "OTHER"
+      ],
+      "execution_permission": "not_evaluated",
+      "final_lots": null,
+      "first_blocker": "G3",
+      "holding_review": "Original11/13 signal cancelled_quote_lost_breakout on11/15; original11/17 deadline elapsed. Null entry/stop remain null; no re-registration or extension.",
+      "not_evaluated_after_no_signal": [],
+      "only_blocker": null,
+      "opportunity_id": "20261113-observe-SR2701-trend-short-v3",
+      "plan": {
+        "entry": null,
+        "entry_range": null,
+        "entry_window_state": "cancelled_quote_lost_breakout_and_expired",
+        "exit_rule": "initial_2atr_and_prior10_channel_tighten_only_max20_sessions",
+        "latest_exit_date": null,
+        "registered_at": "2026-11-15T01:17:47.773776+08:00",
+        "registration_scope": "research_observation_and_entry_disposition_only_no_execution_plan",
+        "signal_date": "2026-11-13",
+        "stop": null,
+        "targets": null,
+        "valid_until": "2026-11-17"
+      },
+      "registered_at": "2026-11-15T01:17:47.773776+08:00",
+      "signal": "triggered",
+      "signal_evidence_refs": [
+        "SHARED"
+      ],
+      "source_status": "incomplete",
+      "status": "incomplete",
+      "strategy": "trend",
+      "trade_date": "2026-11-20",
+      "unknown_checks": [
+        "G1",
+        "G2",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    }
+  ],
+  "execution_permission": "not_evaluated",
+  "final_lots": null,
+  "schema": "futures-local-continuity/v1",
+  "scope": "candidate_continuity_only"
+}

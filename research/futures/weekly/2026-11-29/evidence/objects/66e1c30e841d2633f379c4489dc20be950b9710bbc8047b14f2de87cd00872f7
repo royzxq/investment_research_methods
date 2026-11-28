@@ -1,0 +1,255 @@
+{
+  "anchors": null,
+  "as_of_date": "2026-10-12",
+  "captured_at": "2026-10-12T19:40:40.839025+08:00",
+  "effective_at": "2026-10-12T19:40:12.253538+08:00",
+  "entry_id": "d6231250dc45983546f937a437713cf77c0e6bc6d10a763f65881ce1b01677be",
+  "files": {
+    "framework/futures_framework.md": {
+      "bytes": 31131,
+      "object": "objects/ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+      "sha256": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458"
+    },
+    "output/cache/futures/v3_research_inputs_20261011.json": {
+      "bytes": 575128,
+      "object": "objects/99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+      "sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8"
+    },
+    "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh-r2.json": {
+      "bytes": 3922,
+      "object": "objects/854783dc6e04272d97e61532fa9f85b4c491e59a3a121b7586b96ac052c8f0ef",
+      "sha256": "854783dc6e04272d97e61532fa9f85b4c491e59a3a121b7586b96ac052c8f0ef"
+    },
+    "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh-r2.md": {
+      "bytes": 1303,
+      "object": "objects/ac442f00f549c1aa85663e23fd8e4252ebaf0a7e91b898e515374231860311c0",
+      "sha256": "ac442f00f549c1aa85663e23fd8e4252ebaf0a7e91b898e515374231860311c0"
+    },
+    "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh.json": {
+      "bytes": 3364,
+      "object": "objects/b3e938fe86b04cfc2e442682f216794950858f351b991f6f2438ada8ddb33b45",
+      "sha256": "b3e938fe86b04cfc2e442682f216794950858f351b991f6f2438ada8ddb33b45"
+    },
+    "research/futures/refresh/2026-10-12/2026-10-12-signal-refresh.md": {
+      "bytes": 1218,
+      "object": "objects/3453afd6fb829b872a8e8b9ec3a506402a9b107350b7e45d6420785f2379e070",
+      "sha256": "3453afd6fb829b872a8e8b9ec3a506402a9b107350b7e45d6420785f2379e070"
+    },
+    "research/futures/refresh/2026-10-12/2026-10-12-stock-plan-check.md": {
+      "bytes": 3885,
+      "object": "objects/84992b77fa5c85d15ba41b526f96449f1a2151a6cf70d2312b362bdc72625e83",
+      "sha256": "84992b77fa5c85d15ba41b526f96449f1a2151a6cf70d2312b362bdc72625e83"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/data-snapshot.txt": {
+      "bytes": 13196,
+      "object": "objects/0920fa3b031f4e0949df6a904bcd06a51e12f35478c6345e7d67babf255a35fc",
+      "sha256": "0920fa3b031f4e0949df6a904bcd06a51e12f35478c6345e7d67babf255a35fc"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/frozen-anchors.json": {
+      "bytes": 70,
+      "object": "objects/519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/market-inputs.json": {
+      "bytes": 5617,
+      "object": "objects/f69caa80fdb33bca3f68d314b6244f9a186e926601d193f699e553bc45e68090",
+      "sha256": "f69caa80fdb33bca3f68d314b6244f9a186e926601d193f699e553bc45e68090"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh-r2/registered-plans.json": {
+      "bytes": 3536,
+      "object": "objects/608d8598898036ebc7aaf24b7bd1f361a1e267a7500d422841e008b526189e5d",
+      "sha256": "608d8598898036ebc7aaf24b7bd1f361a1e267a7500d422841e008b526189e5d"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/data-snapshot.txt": {
+      "bytes": 13526,
+      "object": "objects/651eeeee25f1aa3a3ad5cbd841d432545ecf46f97e7ea9bf5679a41cfa8a0e86",
+      "sha256": "651eeeee25f1aa3a3ad5cbd841d432545ecf46f97e7ea9bf5679a41cfa8a0e86"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/frozen-anchors.json": {
+      "bytes": 70,
+      "object": "objects/519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd",
+      "sha256": "519a0f9f15b2041b20ef8f2b296cf7603ec40be45f0c53c8459b3cfbd7c6a9dd"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/market-inputs.json": {
+      "bytes": 5672,
+      "object": "objects/832d6df1b14506dcb88a558154c80bcb573a935e21d1c425aba2c48065c0b20d",
+      "sha256": "832d6df1b14506dcb88a558154c80bcb573a935e21d1c425aba2c48065c0b20d"
+    },
+    "research/futures/refresh/2026-10-12/evidence/2026-10-12-signal-refresh/registered-plans.json": {
+      "bytes": 3536,
+      "object": "objects/608d8598898036ebc7aaf24b7bd1f361a1e267a7500d422841e008b526189e5d",
+      "sha256": "608d8598898036ebc7aaf24b7bd1f361a1e267a7500d422841e008b526189e5d"
+    },
+    "research/futures/snapshots/2026-10-11-data-snapshot.txt": {
+      "bytes": 11689,
+      "object": "objects/a6efcee8b55ec77f2833473b499e48e83ca9ec5cf3632997fb51603fc4d1ccef",
+      "sha256": "a6efcee8b55ec77f2833473b499e48e83ca9ec5cf3632997fb51603fc4d1ccef"
+    },
+    "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r2.md": {
+      "bytes": 61727,
+      "object": "objects/95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b",
+      "sha256": "95577fe5e23d08f98663223d7b4078e7ce46a336e13b35093b74084697ee2a7b"
+    },
+    "research/futures/weekly/2026-10-11/2026-10-11-execution-audit-r3.md": {
+      "bytes": 66438,
+      "object": "objects/e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c",
+      "sha256": "e4a9003a69c4df91fae39c587906b2549a704a6b80fd2a1775b1eb74eea6e14c"
+    },
+    "research/futures/weekly/2026-10-11/2026-10-11-handoff.json": {
+      "bytes": 6953,
+      "object": "objects/60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1",
+      "sha256": "60cdcc383d69fa030224611696e01dbf7e71653af09268f42868e7d31506cfc1"
+    },
+    "research/futures/weekly/2026-10-11/2026-10-11-market-research-r2.md": {
+      "bytes": 12842,
+      "object": "objects/ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa",
+      "sha256": "ae63fea433500f8ad07db75371f4e47b7b555c1d5012faa1487e8071c1454eaa"
+    },
+    "research/futures/weekly/2026-10-11/evidence/handoff-history/276e325aa2bda4dd844ab6bc4ea216adb848f47cd457fd1c63cdf769a581f2c3.json": {
+      "bytes": 1901,
+      "object": "objects/276e325aa2bda4dd844ab6bc4ea216adb848f47cd457fd1c63cdf769a581f2c3",
+      "sha256": "276e325aa2bda4dd844ab6bc4ea216adb848f47cd457fd1c63cdf769a581f2c3"
+    },
+    "research/futures/weekly/2026-10-11/evidence/handoff-history/method-baseline-acb8b0aa4bc22ddcf9d5b44fc2bc49ef70974439dd4edcab175296e08d1cd18f/framework/futures_framework.md": {
+      "bytes": 30959,
+      "object": "objects/87ead048d86d09ef9559d8572a8bc7396d5396f37d4ddcc432d4ade404d67e63",
+      "sha256": "87ead048d86d09ef9559d8572a8bc7396d5396f37d4ddcc432d4ade404d67e63"
+    },
+    "research/futures/weekly/2026-10-11/evidence/handoff-history/method-baseline-acb8b0aa4bc22ddcf9d5b44fc2bc49ef70974439dd4edcab175296e08d1cd18f/scripts/future_data.py": {
+      "bytes": 92748,
+      "object": "objects/b5c110f9e20d8666c54d35f85b989310932a82904933ec4faa693f992ed9b8d7",
+      "sha256": "b5c110f9e20d8666c54d35f85b989310932a82904933ec4faa693f992ed9b8d7"
+    },
+    "research/futures/weekly/2026-10-11/evidence/handoff-history/method-baseline-acb8b0aa4bc22ddcf9d5b44fc2bc49ef70974439dd4edcab175296e08d1cd18f/scripts/futures_risk.py": {
+      "bytes": 26245,
+      "object": "objects/9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+      "sha256": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8"
+    },
+    "research/futures/weekly/2026-10-11/evidence/handoff-history/method-baseline-acb8b0aa4bc22ddcf9d5b44fc2bc49ef70974439dd4edcab175296e08d1cd18f/scripts/futures_strategy.py": {
+      "bytes": 22672,
+      "object": "objects/24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+      "sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r2/2026-10-11-market-inputs-codex.json": {
+      "bytes": 575128,
+      "object": "objects/99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8",
+      "sha256": "99413f48adbd5f6269f9ded3ff5b5dc1bb385c5b0f0090907357bcfef11008a8"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r2/2026-10-11-screening-codex.json": {
+      "bytes": 5898,
+      "object": "objects/51dfb8df45265fd438745e517ca79ee858258f3db5121f29a03156c84b783f67",
+      "sha256": "51dfb8df45265fd438745e517ca79ee858258f3db5121f29a03156c84b783f67"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r2/2026-10-11-supplied-snapshot-codex.txt": {
+      "bytes": 11689,
+      "object": "objects/a6efcee8b55ec77f2833473b499e48e83ca9ec5cf3632997fb51603fc4d1ccef",
+      "sha256": "a6efcee8b55ec77f2833473b499e48e83ca9ec5cf3632997fb51603fc4d1ccef"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r2/m-evidence-codex.md": {
+      "bytes": 9312,
+      "object": "objects/0dcfe15b827009c0790b963971ffa17bb30eff53c0a838c36646acf4ab71cc4d",
+      "sha256": "0dcfe15b827009c0790b963971ffa17bb30eff53c0a838c36646acf4ab71cc4d"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r2/other-evidence-codex.md": {
+      "bytes": 11634,
+      "object": "objects/ec41d60b37b8c9b6823eeb84df930ea0b8d95ec8cba4cc06cddd1abcbe1e01f0",
+      "sha256": "ec41d60b37b8c9b6823eeb84df930ea0b8d95ec8cba4cc06cddd1abcbe1e01f0"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r2/rb-evidence-codex.md": {
+      "bytes": 10872,
+      "object": "objects/ac28bdb9b47cfd261d4733f701cc97190fc818474e3bf2416a8832522be4d29f",
+      "sha256": "ac28bdb9b47cfd261d4733f701cc97190fc818474e3bf2416a8832522be4d29f"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r3/2026-10-11-framework-before-current-reassessment.md": {
+      "bytes": 28946,
+      "object": "objects/f1cb10419ec03dd1b7c5b7f24f3b1a57a11e973a0e555eac6c93e09547880a04",
+      "sha256": "f1cb10419ec03dd1b7c5b7f24f3b1a57a11e973a0e555eac6c93e09547880a04"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r3/2026-10-11-ma-plan-arithmetic-codex.json": {
+      "bytes": 13647,
+      "object": "objects/ec72726d1dd2d82308f236fc8d3f2724192b1b206f1d9f42606711b83da4b14a",
+      "sha256": "ec72726d1dd2d82308f236fc8d3f2724192b1b206f1d9f42606711b83da4b14a"
+    },
+    "research/futures/weekly/2026-10-11/evidence/v3-r3/ma-current-rules-codex.md": {
+      "bytes": 8600,
+      "object": "objects/e3a4f7e2c9968c3731ebe6b465b5e24fbea5ed75c12a3388423595b4bec5d588",
+      "sha256": "e3a4f7e2c9968c3731ebe6b465b5e24fbea5ed75c12a3388423595b4bec5d588"
+    },
+    "research/futures/weekly/2026-10-12/2026-10-12-execution-audit.md": {
+      "bytes": 41487,
+      "object": "objects/29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587",
+      "sha256": "29070c619da9c1cf9d78454613c913176a64bbf498a0c98c0fd2355966eef587"
+    },
+    "research/futures/weekly/2026-10-12/2026-10-12-handoff.json": {
+      "bytes": 4562,
+      "object": "objects/a30b24e8886f003497e0799aa33c38902d6bedefb2b7ed1ccd54dd036d8d175e",
+      "sha256": "a30b24e8886f003497e0799aa33c38902d6bedefb2b7ed1ccd54dd036d8d175e"
+    },
+    "scripts/future_data.py": {
+      "bytes": 96367,
+      "object": "objects/1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7",
+      "sha256": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7"
+    },
+    "scripts/futures_risk.py": {
+      "bytes": 26245,
+      "object": "objects/9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+      "sha256": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8"
+    },
+    "scripts/futures_strategy.py": {
+      "bytes": 22672,
+      "object": "objects/24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444",
+      "sha256": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444"
+    }
+  },
+  "handoff": "research/futures/weekly/2026-10-12/2026-10-12-handoff.json",
+  "method": {
+    "canonical_full_sha256": "ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458",
+    "dependencies": {
+      "scripts/futures_risk.py": "881d0638174179a0f3517f3dd9f5c143a01e860bd11d15a76cde743a0fd26f19",
+      "scripts/futures_strategy.py": "093a6194c435e99d5c4247530ec61171b18b146fe1735c8bd05280fa342b7ac5"
+    },
+    "fingerprint_schema": "futures-effective-rules/v1",
+    "path": "framework/futures_framework.md",
+    "revision": "origin/main 24e7285; canonical ffa7c08762af97700064854d5cf4c9480ece70c65c0ba54d6b272d75cbd01458; refresh-only state reassessment",
+    "rule_sections": {
+      "r-v3-account": "e2913a4f75177eceeab4c856a633d197d4925c5c3b63c8bdcef4113b61c2b97d",
+      "r-v3-audit": "741675242b5e8bd9616d1cc365962b64e04d9556b0b11898c8625ce88d3f1a9d",
+      "r-v3-budget": "91d5981c97fc8d079f80fb93659531ad6606b77b836f77438d79ccf7a064fc42",
+      "r-v3-calendar": "de876d0c34b7ebc5e04fd339b3774fee2bdf63d9d02ed83c8a0e70ca6af2fb61",
+      "r-v3-data": "7f50bbd5f7d46519d6328db564b83f5dbead890b2610ec1f6985cc847d88acf1",
+      "r-v3-economics": "a28ec6fa1cc4cd46cdde6a8c6d1c110820fd6b710eba61c6c4adb04a66428434",
+      "r-v3-event": "e92033b6762bd9a2b60434ed399ea67d6c0b1e7e2abb86d710f970f6bdfa0e02",
+      "r-v3-expiry": "4a2574c2b4bdf57788539848ae02734d5642b5005c7f8061c029ce3d8aabae51",
+      "r-v3-factors": "ae6a7d2d50725136a874e8ac16db70d1fdb7f63d0f3cc55282e9f72da2a0d736",
+      "r-v3-gap": "57793d9c1dfc9e84874e49bc7dc39ccfc0d843aaa993cab03f6993c4680ded8e",
+      "r-v3-liquidity": "86806e831b97ab3c81a67020589a9ef7b0d9f7382d09dbe779490ac5e9f688db",
+      "r-v3-manage": "e2beb1ceaf330ea2e6dede59209f3d68aeadfacb75c95f3980f49bb1967d6bda",
+      "r-v3-margin": "90b57870c9e5a039ec8dc5538ecb3a1f38c760e5b750c568ab50c74bccaf11b6",
+      "r-v3-pair": "ef20a22534a928e247ab4c7e6ab44bf91ddcf54ca9254f45d09f7aa0bd2b60ee",
+      "r-v3-plan-t": "5315eb7516730fbd8e05e54a40deb78ec95065e8548c7f4a03fe1fb4b80a058f",
+      "r-v3-plan-v": "7896ee1e7f62c74943b2dd060bd12b5d8cfa01cedaa3dccd8711e1ae65c665a6",
+      "r-v3-pool": "4685daa7ee7da441b33ddd53d74973f9d3135e17e8f5a795f46ead7304fe070d",
+      "r-v3-quality": "c03221c9598a7f72297ed018286a35de6aa1ad195a189cf24f415cb8bd2329fc",
+      "r-v3-retirement": "e52a13bcc08b45c4197ca08d1438506bca9f3c7e02610b2622a589505227e19a",
+      "r-v3-roll": "247f63376cf69c340ba472e880f7e38012b0b2a3966ec25294302bf7d81299f9",
+      "r-v3-scope": "5b81af28271d88744c25d02d644a11a1f11ea503795a2725d2cd8a8f6320f712",
+      "r-v3-shadow": "8004a466099a2f4891e61a0ce4f07bc03e7e4ec9a4a91d88d11f51d262731302",
+      "r-v3-signal-t": "2bba1ec2abad37b6fbf38771d178801908e6aa4f2d649112cd97825029f69ba9",
+      "r-v3-signal-v": "73837a3e9d75da928ab23c19864db2d7a066b08a76d5828ae06a79e3f4d56330",
+      "r-v3-status": "4df254ab718d3b7df4aefd8113c59761821d786691e0828ccdc27c3f5bf7066e",
+      "r-v3-stop": "30bcc722990fdf8381dbade33c0c5f4e726fd74c62e4a9336bf9e7938acfd719",
+      "r-v3-validation": "04733e6117c79567975f740b60da79227dec3c3abb14b6e76dadfc9f7252272b",
+      "r-v3-workflow": "ac406122dda886b8c2569f0173b6b2cdd0f8126dd0e4d14156347f47f82ac897"
+    },
+    "sha256": "c3b3f87f039c46fda68f8d584f28d9496529a166100526c44c04cb564c879a55",
+    "source_dependencies": {
+      "scripts/future_data.py": "1d8f3bb1c6c139520a0462703030874522d71e20da50b56a6e085ada3f7c47a7",
+      "scripts/futures_risk.py": "9c10a5aa2f668d15b91b0e2b92bbb2b0c3d1f4ebcae4866034658d66077e99f8",
+      "scripts/futures_strategy.py": "24cc9025e289244eb804e57083b146b7b53f517920afe69d276f7c47cba9b444"
+    },
+    "version": "v3.0"
+  },
+  "producer": "daily",
+  "schema": "futures-local-continuity/v1",
+  "source_root": "/private/tmp/futures-daily-automation-3-2026-10-12"
+}

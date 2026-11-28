@@ -1,0 +1,1158 @@
+{
+  "week_ending": "20261127",
+  "observed_at": "2026-11-29T01:09:04.306915+08:00",
+  "input_sha256": "2daf391c5c49b8744a70fb321e08e57a21cb535152a16e65f6cfcc92ba23f047",
+  "adopted_inputs_sha256": "9aaa95e907d0b0643b4111876bcea4875786735eece38d1bbc4df9d4749a7273",
+  "sources": {
+    "cz20261120": {
+      "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261120/FutureDataClearParams.txt",
+      "sha256": "2f8c3cb37f482d77cd4111ddc5fa358bcaae560f8dea6dfce61c78181f793ff6"
+    },
+    "cz20261123": {
+      "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261123/FutureDataClearParams.txt",
+      "sha256": "6bdbae6e3a4de3d0e117b6d8113a1f6fde3a6d0a8256f3e97c4e2ffdd5b3831b"
+    },
+    "cz20261124": {
+      "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261124/FutureDataClearParams.txt",
+      "sha256": "9daea7e05edd5dffad0a0eb3c8cc2f3ac9e2696364debea06d336e412607bf60"
+    },
+    "cz20261125": {
+      "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261125/FutureDataClearParams.txt",
+      "sha256": "d889eb5c1bcc9d921e8dadb82ad3992020f7dbdbe424d33ae2c34987b8d081f9"
+    },
+    "cz20261126": {
+      "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261126/FutureDataClearParams.txt",
+      "sha256": "7b2d7df0473434f8adb386f56068174682f2c16ea66d2384aa6d34e036fc97d1"
+    },
+    "cz20261127": {
+      "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261127/FutureDataClearParams.txt",
+      "sha256": "f02fc600227fd746210af63d3473c4a65090eb0f7fdeca98f297683c085e49b8"
+    },
+    "settle20261120": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261120.dat",
+      "sha256": "6c2123bda30f38b71d875281a169d26d4191478d5a10d4d3f7f088322da275f2"
+    },
+    "settle20261123": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261123.dat",
+      "sha256": "845d956e2b9adb44d8ccf2a8a50fbf1ba0ac1f189b7c579374a6ed40484db494"
+    },
+    "settle20261124": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261124.dat",
+      "sha256": "d9a9becfad5a58a16098bba7fb31d80aa028da8719d1d92157dbdcc0c39b7165"
+    },
+    "settle20261125": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261125.dat",
+      "sha256": "b5043443fa690087e2629fbfb39b44a6cdec47aa78529ac824836635e441100b"
+    },
+    "settle20261126": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261126.dat",
+      "sha256": "0427898f4bca07362df367ca59d8de3755abf7f9fdf37e31cbf9f1e02373584f"
+    },
+    "settle20261127": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/js20261127.dat",
+      "sha256": "e2d73acfff752d0ba7c758880cf3796eedfa2cf0b421d3914257681a2ab40dfc"
+    },
+    "bars20261120": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261120.dat",
+      "sha256": "f54c6a3aaca464809d45da4ede81f7471408938a6a698707921925d330ad30d8"
+    },
+    "bars20261123": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261123.dat",
+      "sha256": "04a2b2bcf7db82d3ee1d9a53ec9e915b2536ce60a0451782bc8aa9010e0c6cbe"
+    },
+    "bars20261124": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261124.dat",
+      "sha256": "5ea1f5fd1c82d5546dde6cae8183e49a68b891f2c3dc22ada7122bb1ed640942"
+    },
+    "bars20261125": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261125.dat",
+      "sha256": "92c73d161440fd08d5971354ccae8c77995d4b877f44d1e0ef03e9d989c86c71"
+    },
+    "bars20261126": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261126.dat",
+      "sha256": "732798343d0948826f73faf64b3b97cc8c8430f422c180fa6a25df9fd6bf0474"
+    },
+    "bars20261127": {
+      "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20261127.dat",
+      "sha256": "4e7c5c0ab89d66d513749b34d7089077af99d36fe85033ce9891946f3f4980cb"
+    },
+    "param20261120": {
+      "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261120.dat",
+      "sha256": "bda1b10eb79d103dad45c629c72ea21b426a40de9e778c11d4d34c692b6440c2"
+    },
+    "param20261123": {
+      "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261123.dat",
+      "sha256": "ea827a6c5f1307e17e11aaff082ad98a5b922c605c03e1a3c6e37427c977dc28"
+    },
+    "param20261124": {
+      "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261124.dat",
+      "sha256": "7faeb96a6162f942f620d9699320b6b83f7593cf9ead4e77bc4dc5fec1199c25"
+    },
+    "param20261125": {
+      "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261125.dat",
+      "sha256": "1ece1d318a97bcd470e22b6bc734facd1f906b685d46ee4abf255a0550eefb50"
+    },
+    "param20261126": {
+      "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261126.dat",
+      "sha256": "afb8f947a3ad079409a106e1329ab174ecab97a67e6c069ef38a5d2c17f44062"
+    },
+    "param20261127": {
+      "url": "https://www.shfe.com.cn/data/busiparamdata/future/ContractDailyTradeArgument20261127.dat",
+      "sha256": "89e824cd7145cca31b92989ccdc6e17c4bb74dfbb11dfc47f24a3d6ab1c15a02"
+    },
+    "rb": {
+      "url": "https://www.shfe.com.cn/regulation/exchangerules/productrules/202512/t20251231_829962.html",
+      "sha256": "e415925eded98bffd26ec32e48b7ff4ac431e6b03d66b51724f2943bcd46f662"
+    },
+    "dce": {
+      "url": "https://www.hongtaqh.com/tzzjy/zcfg/zlgz/202511/20251117_11189.html",
+      "sha256": "6814a6fcca601bd106f44a3f415ab12f0f4318a493314d204a8eb31ab3a3be1b"
+    },
+    "xml": {
+      "url": "https://www.czce.com.cn/cn/DFSStaticFiles/Future/2026/20261127/FutureDataReferenceData.xml",
+      "sha256": "be62c246e5bd3bf1c09a776cd61fb65be0b3dd089ff56fdb2c2a0e2360ddd06a"
+    }
+  },
+  "contracts": {
+    "CF2701.ZCE": {
+      "20261123": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261120",
+          "cz20261123",
+          "xml"
+        ],
+        "settlement_basis_day": "20261120",
+        "prior_settle": 15520.0,
+        "band_pct": 6.0,
+        "tick": 5.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 60557,
+        "closing_table_position_limit_lots": 59850,
+        "session_open_limit_lots": 10000
+      },
+      "20261124": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261123",
+          "cz20261124",
+          "xml"
+        ],
+        "settlement_basis_day": "20261123",
+        "prior_settle": 15415.0,
+        "band_pct": 6.0,
+        "tick": 5.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 59850,
+        "closing_table_position_limit_lots": 59248,
+        "session_open_limit_lots": 10000
+      },
+      "20261125": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261124",
+          "cz20261125",
+          "xml"
+        ],
+        "settlement_basis_day": "20261124",
+        "prior_settle": 15455.0,
+        "band_pct": 6.0,
+        "tick": 5.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 59248,
+        "closing_table_position_limit_lots": 58770,
+        "session_open_limit_lots": 10000
+      },
+      "20261126": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261125",
+          "cz20261126",
+          "xml"
+        ],
+        "settlement_basis_day": "20261125",
+        "prior_settle": 15405.0,
+        "band_pct": 6.0,
+        "tick": 5.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 58770,
+        "closing_table_position_limit_lots": 56867,
+        "session_open_limit_lots": 10000
+      },
+      "20261127": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261126",
+          "cz20261127",
+          "xml"
+        ],
+        "settlement_basis_day": "20261126",
+        "prior_settle": 15450.0,
+        "band_pct": 6.0,
+        "tick": 5.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 56867,
+        "closing_table_position_limit_lots": 58174,
+        "session_open_limit_lots": 10000
+      }
+    },
+    "M2701.DCE": {
+      "20261123": {
+        "status": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+        "sources": [
+          "dce"
+        ],
+        "board": "both_prices_match_prior_dce_parameter_row",
+        "settlement_basis_day": "20261120",
+        "prior_oi": 1863991,
+        "close_oi": 1828585,
+        "session_position_limit_lots": 93199,
+        "closing_table_position_limit_lots": 91429
+      },
+      "20261124": {
+        "status": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+        "sources": [
+          "dce"
+        ],
+        "board": "both_prices_match_prior_dce_parameter_row",
+        "settlement_basis_day": "20261123",
+        "prior_oi": 1828585,
+        "close_oi": 1798318,
+        "session_position_limit_lots": 91429,
+        "closing_table_position_limit_lots": 89915
+      },
+      "20261125": {
+        "status": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+        "sources": [
+          "dce"
+        ],
+        "board": "both_prices_match_prior_dce_parameter_row",
+        "settlement_basis_day": "20261124",
+        "prior_oi": 1798318,
+        "close_oi": 1765598,
+        "session_position_limit_lots": 89915,
+        "closing_table_position_limit_lots": 88279
+      },
+      "20261126": {
+        "status": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+        "sources": [
+          "dce"
+        ],
+        "board": "both_prices_match_prior_dce_parameter_row",
+        "settlement_basis_day": "20261125",
+        "prior_oi": 1765598,
+        "close_oi": 1699193,
+        "session_position_limit_lots": 88279,
+        "closing_table_position_limit_lots": 84959
+      },
+      "20261127": {
+        "status": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+        "sources": [
+          "dce"
+        ],
+        "board": "both_prices_match_prior_dce_parameter_row",
+        "settlement_basis_day": "20261126",
+        "prior_oi": 1699193,
+        "close_oi": 1677772,
+        "session_position_limit_lots": 84959,
+        "closing_table_position_limit_lots": 83888
+      }
+    },
+    "MA2701.ZCE": {
+      "20261123": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261120",
+          "cz20261123",
+          "xml"
+        ],
+        "settlement_basis_day": "20261120",
+        "prior_settle": 3071.0,
+        "band_pct": 8.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 9.0,
+        "session_position_limit_lots": 81843,
+        "closing_table_position_limit_lots": 85233,
+        "session_open_limit_lots": 25000
+      },
+      "20261124": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261123",
+          "cz20261124",
+          "xml"
+        ],
+        "settlement_basis_day": "20261123",
+        "prior_settle": 3030.0,
+        "band_pct": 8.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 9.0,
+        "session_position_limit_lots": 85233,
+        "closing_table_position_limit_lots": 86238,
+        "session_open_limit_lots": 25000
+      },
+      "20261125": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261124",
+          "cz20261125",
+          "xml"
+        ],
+        "settlement_basis_day": "20261124",
+        "prior_settle": 3001.0,
+        "band_pct": 8.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 9.0,
+        "session_position_limit_lots": 86238,
+        "closing_table_position_limit_lots": 83876,
+        "session_open_limit_lots": 25000
+      },
+      "20261126": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261125",
+          "cz20261126",
+          "xml"
+        ],
+        "settlement_basis_day": "20261125",
+        "prior_settle": 3061.0,
+        "band_pct": 8.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 9.0,
+        "session_position_limit_lots": 83876,
+        "closing_table_position_limit_lots": 83703,
+        "session_open_limit_lots": 25000
+      },
+      "20261127": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261126",
+          "cz20261127",
+          "xml"
+        ],
+        "settlement_basis_day": "20261126",
+        "prior_settle": 3166.0,
+        "band_pct": 8.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 9.0,
+        "session_position_limit_lots": 83703,
+        "closing_table_position_limit_lots": 78513,
+        "session_open_limit_lots": 25000
+      }
+    },
+    "MA2705.ZCE": {
+      "20261123": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261120",
+          "cz20261123",
+          "xml"
+        ],
+        "settlement_basis_day": "20261120",
+        "prior_settle": 2722.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 25000
+      },
+      "20261124": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261123",
+          "cz20261124",
+          "xml"
+        ],
+        "settlement_basis_day": "20261123",
+        "prior_settle": 2664.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30512,
+        "session_open_limit_lots": 25000
+      },
+      "20261125": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261124",
+          "cz20261125",
+          "xml"
+        ],
+        "settlement_basis_day": "20261124",
+        "prior_settle": 2641.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30512,
+        "closing_table_position_limit_lots": 31224,
+        "session_open_limit_lots": 25000
+      },
+      "20261126": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261125",
+          "cz20261126",
+          "xml"
+        ],
+        "settlement_basis_day": "20261125",
+        "prior_settle": 2696.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 31224,
+        "closing_table_position_limit_lots": 31661,
+        "session_open_limit_lots": 25000
+      },
+      "20261127": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261126",
+          "cz20261127",
+          "xml"
+        ],
+        "settlement_basis_day": "20261126",
+        "prior_settle": 2751.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 31661,
+        "closing_table_position_limit_lots": 32259,
+        "session_open_limit_lots": 25000
+      }
+    },
+    "MA2709.ZCE": {
+      "20261123": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261120",
+          "cz20261123",
+          "xml"
+        ],
+        "settlement_basis_day": "20261120",
+        "prior_settle": 2593.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 25000
+      },
+      "20261124": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261123",
+          "cz20261124",
+          "xml"
+        ],
+        "settlement_basis_day": "20261123",
+        "prior_settle": 2530.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 25000
+      },
+      "20261125": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261124",
+          "cz20261125",
+          "xml"
+        ],
+        "settlement_basis_day": "20261124",
+        "prior_settle": 2512.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 25000
+      },
+      "20261126": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261125",
+          "cz20261126",
+          "xml"
+        ],
+        "settlement_basis_day": "20261125",
+        "prior_settle": 2557.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 25000
+      },
+      "20261127": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261126",
+          "cz20261127",
+          "xml"
+        ],
+        "settlement_basis_day": "20261126",
+        "prior_settle": 2586.0,
+        "band_pct": 6.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 7.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 25000
+      }
+    },
+    "RB2701.SHF": {
+      "20261123": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261123",
+          "settle20261123",
+          "bars20261120",
+          "bars20261123",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          1504348,
+          1457694
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      },
+      "20261124": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261124",
+          "settle20261124",
+          "bars20261123",
+          "bars20261124",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          1457694,
+          1315918
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      },
+      "20261125": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261125",
+          "settle20261125",
+          "bars20261124",
+          "bars20261125",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          1315918,
+          1141219
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      },
+      "20261126": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261126",
+          "settle20261126",
+          "bars20261125",
+          "bars20261126",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          1141219,
+          1051398
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      },
+      "20261127": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261127",
+          "settle20261127",
+          "bars20261126",
+          "bars20261127",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          1051398,
+          962499
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      }
+    },
+    "RB2703.SHF": {
+      "20261123": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261123",
+          "settle20261123",
+          "bars20261120",
+          "bars20261123",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          459525,
+          457748
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "90,000手（规则档）",
+          "fixed_branch_lots": 90000,
+          "fraction": null
+        }
+      },
+      "20261124": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261124",
+          "settle20261124",
+          "bars20261123",
+          "bars20261124",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          457748,
+          466506
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "90,000手（规则档）",
+          "fixed_branch_lots": 90000,
+          "fraction": null
+        }
+      },
+      "20261125": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261125",
+          "settle20261125",
+          "bars20261124",
+          "bars20261125",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          466506,
+          472003
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "90,000手（规则档）",
+          "fixed_branch_lots": 90000,
+          "fraction": null
+        }
+      },
+      "20261126": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261126",
+          "settle20261126",
+          "bars20261125",
+          "bars20261126",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          472003,
+          464589
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "90,000手（规则档）",
+          "fixed_branch_lots": 90000,
+          "fraction": null
+        }
+      },
+      "20261127": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261127",
+          "settle20261127",
+          "bars20261126",
+          "bars20261127",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          464589,
+          469951
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "90,000手（规则档）",
+          "fixed_branch_lots": 90000,
+          "fraction": null
+        }
+      }
+    },
+    "RB2705.SHF": {
+      "20261123": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261123",
+          "settle20261123",
+          "bars20261120",
+          "bars20261123",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          866124,
+          912513
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓跨90万手档位，盘中适用基数待核",
+          "fixed_branch_lots": null,
+          "fraction": null
+        }
+      },
+      "20261124": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261124",
+          "settle20261124",
+          "bars20261123",
+          "bars20261124",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          912513,
+          991099
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      },
+      "20261125": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261125",
+          "settle20261125",
+          "bars20261124",
+          "bars20261125",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          991099,
+          974075
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      },
+      "20261126": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261126",
+          "settle20261126",
+          "bars20261125",
+          "bars20261126",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          974075,
+          1032101
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      },
+      "20261127": {
+        "status": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "param20261127",
+          "settle20261127",
+          "bars20261126",
+          "bars20261127",
+          "rb"
+        ],
+        "observed_single_side_oi": [
+          1032101,
+          1109063
+        ],
+        "band_pct": [
+          5.0,
+          5.0
+        ],
+        "settlement_margin_pct": {
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "position_rule": {
+          "description": "单向持仓量×10%（规则档）",
+          "fixed_branch_lots": null,
+          "fraction": 0.1
+        }
+      }
+    },
+    "SR2701.ZCE": {
+      "20261123": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261120",
+          "cz20261123",
+          "xml"
+        ],
+        "settlement_basis_day": "20261120",
+        "prior_settle": 5047.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 66084,
+        "closing_table_position_limit_lots": 65163,
+        "session_open_limit_lots": 10000
+      },
+      "20261124": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261123",
+          "cz20261124",
+          "xml"
+        ],
+        "settlement_basis_day": "20261123",
+        "prior_settle": 5025.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 65163,
+        "closing_table_position_limit_lots": 62240,
+        "session_open_limit_lots": 10000
+      },
+      "20261125": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261124",
+          "cz20261125",
+          "xml"
+        ],
+        "settlement_basis_day": "20261124",
+        "prior_settle": 5075.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 62240,
+        "closing_table_position_limit_lots": 57718,
+        "session_open_limit_lots": 10000
+      },
+      "20261126": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261125",
+          "cz20261126",
+          "xml"
+        ],
+        "settlement_basis_day": "20261125",
+        "prior_settle": 5120.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 57718,
+        "closing_table_position_limit_lots": 53590,
+        "session_open_limit_lots": 10000
+      },
+      "20261127": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261126",
+          "cz20261127",
+          "xml"
+        ],
+        "settlement_basis_day": "20261126",
+        "prior_settle": 5167.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 53590,
+        "closing_table_position_limit_lots": 49267,
+        "session_open_limit_lots": 10000
+      }
+    },
+    "SR2705.ZCE": {
+      "20261123": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261120",
+          "cz20261123",
+          "xml"
+        ],
+        "settlement_basis_day": "20261120",
+        "prior_settle": 5104.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 10000
+      },
+      "20261124": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261123",
+          "cz20261124",
+          "xml"
+        ],
+        "settlement_basis_day": "20261123",
+        "prior_settle": 5075.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 10000
+      },
+      "20261125": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261124",
+          "cz20261125",
+          "xml"
+        ],
+        "settlement_basis_day": "20261124",
+        "prior_settle": 5122.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 10000
+      },
+      "20261126": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261125",
+          "cz20261126",
+          "xml"
+        ],
+        "settlement_basis_day": "20261125",
+        "prior_settle": 5160.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 10000
+      },
+      "20261127": {
+        "status": "CZCE逐日结算原表与合约参考数据",
+        "board": "provider_absolute_vs_exchange_band_within_one_tick",
+        "sources": [
+          "cz20261126",
+          "cz20261127",
+          "xml"
+        ],
+        "settlement_basis_day": "20261126",
+        "prior_settle": 5206.0,
+        "band_pct": 5.0,
+        "tick": 1.0,
+        "general_settlement_margin_pct": 6.0,
+        "session_position_limit_lots": 30000,
+        "closing_table_position_limit_lots": 30000,
+        "session_open_limit_lots": 10000
+      }
+    }
+  }
+}

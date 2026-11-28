@@ -1,0 +1,217 @@
+[
+  {
+    "pair": [
+      "MA2701",
+      "MA2705"
+    ],
+    "complete": 61,
+    "n": 61,
+    "last": {
+      "trade_date": "20261127",
+      "near_contract": "MA2701",
+      "far_contract": "MA2705",
+      "near_settle": 3155.0,
+      "far_settle": 2763.0
+    },
+    "sources": {
+      "MA2701": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2701",
+        "ts_code": "MA2701.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2701.ZCE",
+        "requested_ts_code_raw": "MA2701.ZCE",
+        "response_ts_code_values": [
+          "MA2701.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:23.132083+08:00"
+      },
+      "MA2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2705",
+        "ts_code": "MA2705.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2705.ZCE",
+        "requested_ts_code_raw": "MA2705.ZCE",
+        "response_ts_code_values": [
+          "MA2705.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:26.228291+08:00"
+      }
+    }
+  },
+  {
+    "pair": [
+      "RB2701",
+      "RB2703"
+    ],
+    "complete": 61,
+    "n": 61,
+    "last": {
+      "trade_date": "20261127",
+      "near_contract": "RB2701",
+      "far_contract": "RB2703",
+      "near_settle": 3073.0,
+      "far_settle": 3011.0
+    },
+    "sources": {
+      "RB2701": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2701",
+        "ts_code": "RB2701.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2701.SHF",
+        "requested_ts_code_raw": "RB2701.SHF",
+        "response_ts_code_values": [
+          "RB2701.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:23.723983+08:00"
+      },
+      "RB2703": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2703",
+        "ts_code": "RB2703.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2703.SHF",
+        "requested_ts_code_raw": "RB2703.SHF",
+        "response_ts_code_values": [
+          "RB2703.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:26.843514+08:00"
+      }
+    }
+  },
+  {
+    "pair": [
+      "SR2701",
+      "SR2705"
+    ],
+    "complete": 61,
+    "n": 61,
+    "last": {
+      "trade_date": "20261127",
+      "near_contract": "SR2701",
+      "far_contract": "SR2705",
+      "near_settle": 5205.0,
+      "far_settle": 5238.0
+    },
+    "sources": {
+      "SR2701": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "SR2701",
+        "ts_code": "SR2701.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "SR2701.ZCE",
+        "requested_ts_code_raw": "SR2701.ZCE",
+        "response_ts_code_values": [
+          "SR2701.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:24.983377+08:00"
+      },
+      "SR2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "SR2705",
+        "ts_code": "SR2705.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "SR2705.ZCE",
+        "requested_ts_code_raw": "SR2705.ZCE",
+        "response_ts_code_values": [
+          "SR2705.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:27.483140+08:00"
+      }
+    }
+  },
+  {
+    "pair": [
+      "MA2705",
+      "MA2709"
+    ],
+    "complete": 48,
+    "n": 61,
+    "last": {
+      "trade_date": "20261127",
+      "near_contract": "MA2705",
+      "far_contract": "MA2709",
+      "near_settle": 2763.0,
+      "far_settle": 2608.0
+    },
+    "sources": {
+      "MA2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2705",
+        "ts_code": "MA2705.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2705.ZCE",
+        "requested_ts_code_raw": "MA2705.ZCE",
+        "response_ts_code_values": [
+          "MA2705.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:26.228291+08:00"
+      },
+      "MA2709": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "MA2709",
+        "ts_code": "MA2709.ZCE",
+        "exchange": "CZCE",
+        "requested_ts_code": "MA2709.ZCE",
+        "requested_ts_code_raw": "MA2709.ZCE",
+        "response_ts_code_values": [
+          "MA2709.ZCE"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:28.275054+08:00"
+      }
+    }
+  },
+  {
+    "pair": [
+      "RB2703",
+      "RB2705"
+    ],
+    "complete": 61,
+    "n": 61,
+    "last": {
+      "trade_date": "20261127",
+      "near_contract": "RB2703",
+      "far_contract": "RB2705",
+      "near_settle": 3011.0,
+      "far_settle": 3029.0
+    },
+    "sources": {
+      "RB2703": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2703",
+        "ts_code": "RB2703.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2703.SHF",
+        "requested_ts_code_raw": "RB2703.SHF",
+        "response_ts_code_values": [
+          "RB2703.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:26.843514+08:00"
+      },
+      "RB2705": {
+        "source": "Tushare Pro fut_daily",
+        "contract": "RB2705",
+        "ts_code": "RB2705.SHF",
+        "exchange": "SHFE",
+        "requested_ts_code": "RB2705.SHF",
+        "requested_ts_code_raw": "RB2705.SHF",
+        "response_ts_code_values": [
+          "RB2705.SHF"
+        ],
+        "identity_basis": "fut_daily_response_ts_code",
+        "fetched_at": "2026-11-29T01:05:28.844910+08:00"
+      }
+    }
+  }
+]
