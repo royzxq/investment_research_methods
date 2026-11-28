@@ -28,6 +28,32 @@ def cutoff(value):
     return _timestamp(value, 'AI watchlist cutoff').astimezone(ZONE)
 
 
+def read_release(path, *, until=None):
+    """Parse a draft or published release using the same entry and evidence checks."""
+    raw = path.read_bytes()
+    doc = _strict_json(raw, 'AI watchlist')
+    if not isinstance(doc, dict) or set(doc) != {'available_at', 'entries'}:
+        raise ValueError(f'invalid AI watchlist fields: {path}')
+    available = _timestamp(doc['available_at'], 'AI watchlist available_at').astimezone(ZONE)
+    match = FILENAME.fullmatch(path.name)
+    if match and available.date().isoformat() != match[1]:
+        raise ValueError(f'AI watchlist availability differs from filename: {path}')
+    if until is not None and available > until:
+        return None
+    entries = doc['entries']
+    if not isinstance(entries, dict):
+        raise ValueError(f'invalid AI watchlist entries: {path}')
+    for code, row in entries.items():
+        if (not CODE.fullmatch(code) or not isinstance(row, dict) or set(row) != FIELDS
+                or not all(isinstance(v, str) and v.strip() for v in row.values())):
+            raise ValueError(f'invalid AI watchlist entry: {code}')
+        url = urlsplit(row['source_url'])
+        if (url.scheme != 'https' or not url.hostname
+                or date.fromisoformat(row['source_date']) > available.date()):
+            raise ValueError(f'invalid AI watchlist source: {code}')
+    return available, path.name, hashlib.sha256(raw).hexdigest(), entries
+
+
 def releases(root, until):
     """Read eligible releases once per batch, newest availability first."""
     versions = []
@@ -37,27 +63,9 @@ def releases(root, until):
             raise ValueError(f'invalid AI watchlist filename: {path.name}')
         if date.fromisoformat(match[1]) > until.astimezone(ZONE).date():
             continue
-        raw = path.read_bytes()
-        doc = _strict_json(raw, 'AI watchlist')
-        if not isinstance(doc, dict) or set(doc) != {'available_at', 'entries'}:
-            raise ValueError(f'invalid AI watchlist fields: {path}')
-        available = _timestamp(doc['available_at'], 'AI watchlist available_at').astimezone(ZONE)
-        if available.date().isoformat() != match[1]:
-            raise ValueError(f'AI watchlist availability differs from filename: {path}')
-        if available > until:
-            continue
-        entries = doc['entries']
-        if not isinstance(entries, dict):
-            raise ValueError(f'invalid AI watchlist entries: {path}')
-        for code, row in entries.items():
-            if (not CODE.fullmatch(code) or not isinstance(row, dict) or set(row) != FIELDS
-                    or not all(isinstance(v, str) and v.strip() for v in row.values())):
-                raise ValueError(f'invalid AI watchlist entry: {code}')
-            url = urlsplit(row['source_url'])
-            if (url.scheme != 'https' or not url.hostname
-                    or date.fromisoformat(row['source_date']) > available.date()):
-                raise ValueError(f'invalid AI watchlist source: {code}')
-        versions.append((available, path.name, hashlib.sha256(raw).hexdigest(), entries))
+        version = read_release(path, until=until)
+        if version is not None:
+            versions.append(version)
     if len({v[0] for v in versions}) != len(versions):
         raise ValueError('ambiguous AI watchlist availability')
     return sorted(versions, reverse=True)

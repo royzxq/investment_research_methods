@@ -1,0 +1,236 @@
+[
+  {
+    "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-13",
+    "sha256": "2f2db1a93aea8dfd9404502f7421fda8cb094c695bb7ab934124f54d5e42bc8e",
+    "records": [
+      {
+        "code": "510300.SH",
+        "day": "20261113",
+        "official_wan": "4562328.77",
+        "name": "300ETF",
+        "tushare_wan": "4562328.77",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512170.SH",
+        "day": "20261113",
+        "official_wan": "6761082.05",
+        "name": "医疗ETF",
+        "tushare_wan": "6761082.05",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512480.SH",
+        "day": "20261113",
+        "official_wan": "2093800.72",
+        "name": "半导体",
+        "tushare_wan": "2093800.72",
+        "difference_wan": "0.00"
+      }
+    ]
+  },
+  {
+    "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-16",
+    "sha256": "4f56f7b50186667eac2735024622c14a843cb1ecdd18ee88286b04bbc6cd303c",
+    "records": [
+      {
+        "code": "510300.SH",
+        "day": "20261116",
+        "official_wan": "4700118.77",
+        "name": "300ETF",
+        "tushare_wan": "4700118.77",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512170.SH",
+        "day": "20261116",
+        "official_wan": "6774082.05",
+        "name": "医疗ETF",
+        "tushare_wan": "6774082.05",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512480.SH",
+        "day": "20261116",
+        "official_wan": "2129000.72",
+        "name": "半导体",
+        "tushare_wan": "2129000.72",
+        "difference_wan": "0.00"
+      }
+    ]
+  },
+  {
+    "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-17",
+    "sha256": "226459fc2311544ad1cd96f0d84bbdc0ecb12044c497590c7f4645614047c4e3",
+    "records": [
+      {
+        "code": "510300.SH",
+        "day": "20261117",
+        "official_wan": "4834308.77",
+        "name": "300ETF",
+        "tushare_wan": "4834308.77",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512170.SH",
+        "day": "20261117",
+        "official_wan": "6765382.05",
+        "name": "医疗ETF",
+        "tushare_wan": "6765382.05",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512480.SH",
+        "day": "20261117",
+        "official_wan": "2141400.72",
+        "name": "半导体",
+        "tushare_wan": "2141400.72",
+        "difference_wan": "0.00"
+      }
+    ]
+  },
+  {
+    "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-18",
+    "sha256": "b9ca356bc93ac0fca6a64467f375e041c50b079f487848c095e794af8c00fb77",
+    "records": [
+      {
+        "code": "510300.SH",
+        "day": "20261118",
+        "official_wan": "4968408.77",
+        "name": "300ETF",
+        "tushare_wan": "4968408.77",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512170.SH",
+        "day": "20261118",
+        "official_wan": "6799482.05",
+        "name": "医疗ETF",
+        "tushare_wan": "6799482.05",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512480.SH",
+        "day": "20261118",
+        "official_wan": "2126600.72",
+        "name": "半导体",
+        "tushare_wan": "2126600.72",
+        "difference_wan": "0.00"
+      }
+    ]
+  },
+  {
+    "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-19",
+    "sha256": "a87135326c2b7fd4e9fde6984bc3908bec63b2255c3f2413c5eafa5d61144e38",
+    "records": [
+      {
+        "code": "510300.SH",
+        "day": "20261119",
+        "official_wan": "5154078.77",
+        "name": "300ETF",
+        "tushare_wan": "5154078.77",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512170.SH",
+        "day": "20261119",
+        "official_wan": "6794982.05",
+        "name": "医疗ETF",
+        "tushare_wan": "6794982.05",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512480.SH",
+        "day": "20261119",
+        "official_wan": "2117800.72",
+        "name": "半导体",
+        "tushare_wan": "2117800.72",
+        "difference_wan": "0.00"
+      }
+    ]
+  },
+  {
+    "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-20",
+    "sha256": "b396184b6597b3b3eb379ef464c4fa07c2b7cd5c163d026bf72937f1e0631121",
+    "records": [
+      {
+        "code": "510300.SH",
+        "day": "20261120",
+        "official_wan": "5518488.77",
+        "name": "300ETF",
+        "tushare_wan": "5518488.77",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512170.SH",
+        "day": "20261120",
+        "official_wan": "6820382.05",
+        "name": "医疗ETF",
+        "tushare_wan": "6820382.05",
+        "difference_wan": "0.00"
+      },
+      {
+        "code": "512480.SH",
+        "day": "20261120",
+        "official_wan": "2136600.72",
+        "name": "半导体",
+        "tushare_wan": "2136600.72",
+        "difference_wan": "0.00"
+      }
+    ]
+  },
+  {
+    "url": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=scsj_fund_jjgm&TABKEY=tab1&txtStart=2026-11-13&txtEnd=2026-11-20&jjlb=ETF",
+    "sha256": "7fbd1ac0b43ddb18dfde9e374ac19801895b2df9895e094d3b4b2523f7b6734e",
+    "records": [
+      {
+        "day": "20261120",
+        "name": "创业板ETF易方达",
+        "code": "159915.SZ",
+        "official_wan": "5317445.4936",
+        "tushare_wan": "5317445.4936",
+        "difference_wan": "0.0000"
+      },
+      {
+        "day": "20261119",
+        "name": "创业板ETF易方达",
+        "code": "159915.SZ",
+        "official_wan": "4990745.4936",
+        "tushare_wan": "4990745.4936",
+        "difference_wan": "0.0000"
+      },
+      {
+        "day": "20261118",
+        "name": "创业板ETF易方达",
+        "code": "159915.SZ",
+        "official_wan": "4902045.4936",
+        "tushare_wan": "4902045.4936",
+        "difference_wan": "0.0000"
+      },
+      {
+        "day": "20261117",
+        "name": "创业板ETF易方达",
+        "code": "159915.SZ",
+        "official_wan": "4685945.4936",
+        "tushare_wan": "4685945.4936",
+        "difference_wan": "0.0000"
+      },
+      {
+        "day": "20261116",
+        "name": "创业板ETF易方达",
+        "code": "159915.SZ",
+        "official_wan": "4620245.4936",
+        "tushare_wan": "4620245.4936",
+        "difference_wan": "0.0000"
+      },
+      {
+        "day": "20261113",
+        "name": "创业板ETF易方达",
+        "code": "159915.SZ",
+        "official_wan": "4520045.4936",
+        "tushare_wan": "4520045.4936",
+        "difference_wan": "0.0000"
+      }
+    ]
+  }
+]

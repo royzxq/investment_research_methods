@@ -113,6 +113,58 @@ class TwoPriceContinuityTests(unittest.TestCase):
             current['constraints'][0]['clearance']=dict(evidence=['new evidence section 2'])
             audit.validate_audit(current,doc,root=root)
 
+    def test_zhipu_publisher_state_is_history_only_at_delivery(self):
+        import hashlib
+        import json
+        import tempfile
+
+        reserved = 'PUBLICATION_PRICE_UNAVAILABLE'
+        value = sample()
+        value['meta'].update(code='02513.HK', name='智谱', currency='HKD', valuation_date='2026-11-23')
+        value['valuation']['currency'] = 'HKD'
+        value['t1']['price_condition'] = '股价≥30港元/股'
+        old = deepcopy(value)
+        old.update(mode='unavailable', reason='missing quote', p1=None)
+        for scope in ('entry', 'add'):
+            old['research_controls'][scope] = dict(status='unknown', refs=[reserved])
+        doc = prices.build_document(old)
+        prior = audit_for(doc)
+        prior['constraints'] = [dict(id=reserved, scope=['entry', 'add'], status='unknown', action='unavailable',
+                                     reason='prior publication lacked a price pair', release_conditions=['valid pair'])]
+        prior['release_all_of'] = dict(entry=[reserved], add=[reserved], holding=[])
+        raw = audit.render_report_block(prior, doc).encode()
+        audit.validate_report(raw.decode(), doc)
+        with self.assertRaisesRegex(ValueError, reserved + '.*constraints'):
+            audit.validate_report(raw.decode(), doc, new_delivery=True)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root/'prior.md').write_bytes(raw)
+            current_doc = prices.build_document(value)
+            current = audit_for(current_doc)
+            current['baseline'] = dict(report_path='prior.md', sha256=hashlib.sha256(raw).hexdigest(),
+                discounts={k: dict(value=v['value'], quote='explicit offline assumption')
+                           for k, v in prior['discounts'].items()})
+            for discount in current['discounts'].values():
+                discount['change']['kind'] = 'unchanged'
+            report = reserved + ' was recorded in the previous publication.\n' + audit.render_report_block(
+                current, current_doc, root=root)
+            audit.validate_report(report, current_doc, root=root, new_delivery=True)
+            watching = deepcopy(current_doc)
+            watching['monitoring'][0].update(id=reserved, kind='entry_constraint', state='watching')
+            audit.validate_report(report, watching, root=root)
+            with self.assertRaisesRegex(ValueError, reserved + r'.*monitoring\[0\]\.id'):
+                audit.validate_report(report, watching, root=root, new_delivery=True)
+            for field in ('research_controls.add.refs', 'release_all_of.add'):
+                modified_doc, modified_report = deepcopy(current_doc), report
+                if field.startswith('research_controls'):
+                    modified_doc['research_controls']['add'] = dict(status='blocked', refs=[reserved])
+                else:
+                    modified = deepcopy(current)
+                    modified['release_all_of']['add'] = [reserved]
+                    modified_report = audit.START + '\n```json\n' + json.dumps(modified) + '\n```\n' + audit.END
+                with self.subTest(field=field), self.assertRaisesRegex(ValueError, reserved + '.*' + field):
+                    audit.validate_report(modified_report, modified_doc, root=root, new_delivery=True)
+
     def test_confirmed_exit_blocks_both_scopes_but_is_not_execution(self):
         value=sample();value.update(mode='frozen',reason='logic failed')
         value['research_controls']=dict(entry=dict(status='blocked',refs=['EXIT','FREEZE']),add=dict(status='blocked',refs=['EXIT','FREEZE']),holding=dict(status='exit_required',refs=['EXIT']))

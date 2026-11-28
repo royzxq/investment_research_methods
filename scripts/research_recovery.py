@@ -164,7 +164,7 @@ def validate_failed_parent(context, methods):
     return process
 
 
-def validate_completed(context, methods, folder):
+def validate_completed(context, methods, folder, *, new_delivery=True):
     """Revalidate persisted success read-only, including native terminal evidence."""
     request, task = context['request'], context['task']
     entry = context['entries']['dsh']
@@ -212,7 +212,7 @@ def validate_completed(context, methods, folder):
         price = read(_contained_path(methods, entry['price_map']['path'], 'recovery price'))
         runner.validate_delivery_monitoring(price, frozen['delivery'])
         runner.research_consistency.validate_report(report.decode(), price, root=methods,
-            expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
+            new_delivery=new_delivery, expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
             require_lifecycle=frozen['delivery'] in (runner.SCOPED_CONTROLS_CONTRACT,
                 runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT,
                 runner.CAPITAL_CONTROLS_CONTRACT, runner.VALUATION_CONTROLS_CONTRACT, runner.INPUT_BRIDGES_CONTRACT, runner.AVAILABILITY_CONTRACT, runner.NEUTRAL_CONTRACT),
@@ -310,11 +310,11 @@ def load_supplement(path, methods, exchange):
     validate_recovery_run(run, methods, exchange)
     result = recovered['seal']['results'][0]
     folder = bound(dict(path=result['manifest'], sha256=result['manifest_sha256']), methods).parent
-    validate_completed(recovered, methods, folder)
+    validate_completed(recovered, methods, folder, new_delivery=False)
     return base_path, recovery_path, value
 
 
-def staged_publication(context, methods, *, check_stopped=True):
+def staged_publication(context, methods, *, check_stopped=True, new_delivery=True):
     """Reaccept the exact native completion lost to a publication-file collision.
 
     This deliberately has no CLI launch, retry, new request or research path.
@@ -379,7 +379,7 @@ def staged_publication(context, methods, *, check_stopped=True):
     runner.validate_t1_delivery(document)
     runner.validate_delivery_monitoring(document, frozen['delivery'])
     audit = runner.research_consistency.validate_report(report_raw.decode(), document, root=methods,
-        expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
+        new_delivery=new_delivery, expected_baseline=frozen['research_baseline'], expected_schema=frozen['research_validation'],
         require_lifecycle=frozen['delivery'] in (runner.SCOPED_CONTROLS_CONTRACT,
             runner.ACCEPTANCE_CONTROLS_CONTRACT, runner.PUBLIC_MONITORING_CONTRACT, runner.QUALITY_CONTROLS_CONTRACT,
             runner.CAPITAL_CONTROLS_CONTRACT, runner.VALUATION_CONTROLS_CONTRACT, runner.INPUT_BRIDGES_CONTRACT, runner.AVAILABILITY_CONTRACT, runner.NEUTRAL_CONTRACT),
@@ -408,7 +408,7 @@ def load_publication_restore(path, methods, exchange):
     _timestamp(intent['created_at'], 'publication restore authorization')
     require(intent_path.parent == methods / 'output/research_recovery' /
             ('publication-' + wrapper['base_seal']['sha256'] + '-codex'), 'publication intent location mismatch')
-    folder, staged, candidate, frozen, audit = staged_publication(base, methods, check_stopped=False)
+    folder, staged, candidate, frozen, audit = staged_publication(base, methods, check_stopped=False, new_delivery=False)
     require(intent['inputs'] == publication_inputs(folder, parent_run(base, methods), methods),
             'publication restore original evidence changed')
     recovery_path = bound(wrapper['recovery_seal'], methods)
@@ -458,7 +458,7 @@ def restore_publication(seal_path, exchange, methods=ROOT, *, authorization):
                 load_supplement(wrapper_path, methods, exchange)
                 notify_coze(wrapper_path, methods)
                 return wrapper_path
-            folder, staged, candidate, frozen, audit = staged_publication(base, methods)
+            folder, staged, candidate, frozen, audit = staged_publication(base, methods, new_delivery=True)
             intent = dict(schema_version=PUBLICATION_SCHEMA, created_at=runner.stamp(),
                 authorization=authorization, base_seal=parent,
                 inputs=publication_inputs(folder, parent_run(base, methods), methods))
@@ -624,7 +624,7 @@ def execute(intent_path, exchange, methods=ROOT, *, cli=None):
             supplement = None
             if entry['status'] == 'completed':
                 recovered = load_base(private, methods, exchange, private=True)
-                validate_completed(recovered, methods, last_folder)
+                validate_completed(recovered, methods, last_folder, new_delivery=True)
                 wrapper = dict(base['seal'], schema_version=SEAL_SCHEMA,
                                base_seal=descriptor(base['path'], methods), recovery_seal=descriptor(private, methods),
                                recovery_intent=descriptor(intent_path, methods), recovered_generators=['dsh'])

@@ -29,6 +29,7 @@
 
 ## 搜索与证据
 
+- Codex 个股复评接续上次实际取证截止查全类别公告，新生产批次预取近 90 天目录。R22 选定具体境内场内 ETF、或 ETF 双月评审核对底仓重叠时，查询按截止日可用的基金持仓。执行[公告复评与 ETF 持仓核验](.agents/skills/stock-research/references/data-acquisition.md#codex-的公告复评与-etf-持仓核验)，从已读原文提取可共享事实。
 - 普通联网检索默认使用当前会话内置网页搜索与页面读取；暂不调用 `gemini-search` / `gemini_web_search`，也不先尝试 Gemini。
 - 检索摘要用于发现资料；关键事实继续打开原始来源核验并记录日期，不能声称未读的正文已验证。OpenAI 产品问题遵循 `openai-docs` 的官方来源顺序。
 - Gemini 密钥只从 `GEMINI_API_KEY` 环境变量读取；不输出变量值，不将密钥写入仓库。服务实现为 `.codex/mcp/gemini_search_mcp.py`。

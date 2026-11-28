@@ -1,0 +1,3291 @@
+{
+  "schema": "futures-public-risk/v1",
+  "as_of_date": "20261123",
+  "cutoff": "20261122",
+  "observed_at": "2026-11-23T08:36:20.959121+08:00",
+  "codes": [
+    "CF2701.ZCE",
+    "M2701.DCE",
+    "MA2701.ZCE",
+    "MA2705.ZCE",
+    "MA2709.ZCE",
+    "RB2701.SHF",
+    "RB2703.SHF",
+    "RB2705.SHF",
+    "SR2701.ZCE",
+    "SR2705.ZCE"
+  ],
+  "calendars": {
+    "CZCE": {
+      "friday": "2026-11-20",
+      "prior": "20261113",
+      "sessions": [
+        "20261116",
+        "20261117",
+        "20261118",
+        "20261119",
+        "20261120"
+      ]
+    },
+    "DCE": {
+      "friday": "2026-11-20",
+      "prior": "20261113",
+      "sessions": [
+        "20261116",
+        "20261117",
+        "20261118",
+        "20261119",
+        "20261120"
+      ]
+    },
+    "SHFE": {
+      "friday": "2026-11-20",
+      "prior": "20261113",
+      "sessions": [
+        "20261116",
+        "20261117",
+        "20261118",
+        "20261119",
+        "20261120"
+      ]
+    }
+  },
+  "raw": {
+    "CF2701.ZCE": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "up_limit": 16385.0,
+          "down_limit": 14525.0,
+          "m_ratio": 7.0
+        },
+        "20261119": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "up_limit": 16490.0,
+          "down_limit": 14620.0,
+          "m_ratio": 7.0
+        },
+        "20261118": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "up_limit": 16410.0,
+          "down_limit": 14550.0,
+          "m_ratio": 7.0
+        },
+        "20261117": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "up_limit": 16470.0,
+          "down_limit": 14600.0,
+          "m_ratio": 7.0
+        },
+        "20261116": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "up_limit": 16480.0,
+          "down_limit": 14610.0,
+          "m_ratio": 7.0
+        },
+        "20261113": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "up_limit": 16460.0,
+          "down_limit": 14590.0,
+          "m_ratio": 7.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "settle": 15520.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261119": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "settle": 15455.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261118": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "settle": 15555.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261117": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "settle": 15480.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261116": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "settle": 15535.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261113": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "settle": 15545.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261120",
+          "pre_settle": 15455.0,
+          "settle": 15520.0,
+          "high": 15625.0,
+          "low": 15415.0,
+          "oi": 605569.0
+        },
+        "20261119": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261119",
+          "pre_settle": 15555.0,
+          "settle": 15455.0,
+          "high": 15545.0,
+          "low": 15340.0,
+          "oi": 613774.0
+        },
+        "20261118": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261118",
+          "pre_settle": 15480.0,
+          "settle": 15555.0,
+          "high": 15635.0,
+          "low": 15460.0,
+          "oi": 624820.0
+        },
+        "20261117": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261117",
+          "pre_settle": 15535.0,
+          "settle": 15480.0,
+          "high": 15620.0,
+          "low": 15400.0,
+          "oi": 633126.0
+        },
+        "20261116": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261116",
+          "pre_settle": 15545.0,
+          "settle": 15535.0,
+          "high": 15640.0,
+          "low": 15435.0,
+          "oi": 640968.0
+        },
+        "20261113": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261113",
+          "pre_settle": 15525.0,
+          "settle": 15545.0,
+          "high": 15590.0,
+          "low": 15480.0,
+          "oi": 632615.0
+        }
+      },
+      "fut_trade_param": {
+        "20261120": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "tick_size": "5.0",
+          "pre_settle_price": "15455.0",
+          "price_limit": "6",
+          "position_limit": "61378",
+          "trade_limit": "10000"
+        },
+        "20261119": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "tick_size": "5.0",
+          "pre_settle_price": "15555.0",
+          "price_limit": "6",
+          "position_limit": "62482",
+          "trade_limit": "10000"
+        },
+        "20261118": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "tick_size": "5.0",
+          "pre_settle_price": "15480.0",
+          "price_limit": "6",
+          "position_limit": "63313",
+          "trade_limit": "10000"
+        },
+        "20261117": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "tick_size": "5.0",
+          "pre_settle_price": "15535.0",
+          "price_limit": "6",
+          "position_limit": "64097",
+          "trade_limit": "10000"
+        },
+        "20261116": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "tick_size": "5.0",
+          "pre_settle_price": "15545.0",
+          "price_limit": "6",
+          "position_limit": "63262",
+          "trade_limit": "10000"
+        },
+        "20261113": {
+          "ts_code": "CF2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "tick_size": "5.0",
+          "pre_settle_price": "15525.0",
+          "price_limit": "6",
+          "position_limit": "62481",
+          "trade_limit": "10000"
+        }
+      }
+    },
+    "M2701.DCE": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261120",
+          "exchange": "DCE",
+          "up_limit": 3249.0,
+          "down_limit": 2883.0,
+          "m_ratio": 7.0
+        },
+        "20261119": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261119",
+          "exchange": "DCE",
+          "up_limit": 3281.0,
+          "down_limit": 2911.0,
+          "m_ratio": 7.0
+        },
+        "20261118": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261118",
+          "exchange": "DCE",
+          "up_limit": 3274.0,
+          "down_limit": 2904.0,
+          "m_ratio": 7.0
+        },
+        "20261117": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261117",
+          "exchange": "DCE",
+          "up_limit": 3318.0,
+          "down_limit": 2944.0,
+          "m_ratio": 7.0
+        },
+        "20261116": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261116",
+          "exchange": "DCE",
+          "up_limit": 3316.0,
+          "down_limit": 2942.0,
+          "m_ratio": 7.0
+        },
+        "20261113": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261113",
+          "exchange": "DCE",
+          "up_limit": 3327.0,
+          "down_limit": 2951.0,
+          "m_ratio": 7.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261120",
+          "exchange": "DCE",
+          "settle": 3083.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.07,
+          "s_hedging_margin_rate": 0.07
+        },
+        "20261119": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261119",
+          "exchange": "DCE",
+          "settle": 3066.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.07,
+          "s_hedging_margin_rate": 0.07
+        },
+        "20261118": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261118",
+          "exchange": "DCE",
+          "settle": 3096.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.07,
+          "s_hedging_margin_rate": 0.07
+        },
+        "20261117": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261117",
+          "exchange": "DCE",
+          "settle": 3089.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.07,
+          "s_hedging_margin_rate": 0.07
+        },
+        "20261116": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261116",
+          "exchange": "DCE",
+          "settle": 3131.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.07,
+          "s_hedging_margin_rate": 0.07
+        },
+        "20261113": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261113",
+          "exchange": "DCE",
+          "settle": 3129.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.07,
+          "s_hedging_margin_rate": 0.07
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261120",
+          "pre_settle": 3066.0,
+          "settle": 3083.0,
+          "high": 3108.0,
+          "low": 3060.0,
+          "oi": 1863991.0
+        },
+        "20261119": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261119",
+          "pre_settle": 3096.0,
+          "settle": 3066.0,
+          "high": 3090.0,
+          "low": 3041.0,
+          "oi": 1870068.0
+        },
+        "20261118": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261118",
+          "pre_settle": 3089.0,
+          "settle": 3096.0,
+          "high": 3115.0,
+          "low": 3082.0,
+          "oi": 1882969.0
+        },
+        "20261117": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261117",
+          "pre_settle": 3131.0,
+          "settle": 3089.0,
+          "high": 3118.0,
+          "low": 3072.0,
+          "oi": 1890853.0
+        },
+        "20261116": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261116",
+          "pre_settle": 3129.0,
+          "settle": 3131.0,
+          "high": 3163.0,
+          "low": 3103.0,
+          "oi": 1899962.0
+        },
+        "20261113": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261113",
+          "pre_settle": 3139.0,
+          "settle": 3129.0,
+          "high": 3164.0,
+          "low": 3106.0,
+          "oi": 1878990.0
+        }
+      },
+      "fut_trade_param_dce": {
+        "20261120": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261120",
+          "exchange": "DCE",
+          "trade_type": "期货",
+          "type": "分开限仓",
+          "spec_buy_rate": 0.07,
+          "hedge_buy_rate": 0.07,
+          "rise_limit_rate": 0.06,
+          "rise_limit": 3267.0,
+          "fall_limit": 2899.0,
+          "client_buy_posi_quota": 93199.0
+        },
+        "20261119": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261119",
+          "exchange": "DCE",
+          "trade_type": "期货",
+          "type": "分开限仓",
+          "spec_buy_rate": 0.07,
+          "hedge_buy_rate": 0.07,
+          "rise_limit_rate": 0.06,
+          "rise_limit": 3249.0,
+          "fall_limit": 2883.0,
+          "client_buy_posi_quota": 93503.0
+        },
+        "20261118": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261118",
+          "exchange": "DCE",
+          "trade_type": "期货",
+          "type": "分开限仓",
+          "spec_buy_rate": 0.07,
+          "hedge_buy_rate": 0.07,
+          "rise_limit_rate": 0.06,
+          "rise_limit": 3281.0,
+          "fall_limit": 2911.0,
+          "client_buy_posi_quota": 94148.0
+        },
+        "20261117": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261117",
+          "exchange": "DCE",
+          "trade_type": "期货",
+          "type": "分开限仓",
+          "spec_buy_rate": 0.07,
+          "hedge_buy_rate": 0.07,
+          "rise_limit_rate": 0.06,
+          "rise_limit": 3274.0,
+          "fall_limit": 2904.0,
+          "client_buy_posi_quota": 94542.0
+        },
+        "20261116": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261116",
+          "exchange": "DCE",
+          "trade_type": "期货",
+          "type": "分开限仓",
+          "spec_buy_rate": 0.07,
+          "hedge_buy_rate": 0.07,
+          "rise_limit_rate": 0.06,
+          "rise_limit": 3318.0,
+          "fall_limit": 2944.0,
+          "client_buy_posi_quota": 94998.0
+        },
+        "20261113": {
+          "ts_code": "M2701.DCE",
+          "trade_date": "20261113",
+          "exchange": "DCE",
+          "trade_type": "期货",
+          "type": "分开限仓",
+          "spec_buy_rate": 0.07,
+          "hedge_buy_rate": 0.07,
+          "rise_limit_rate": 0.06,
+          "rise_limit": 3316.0,
+          "fall_limit": 2942.0,
+          "client_buy_posi_quota": 93949.0
+        }
+      }
+    },
+    "MA2701.ZCE": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "up_limit": 3311.0,
+          "down_limit": 2819.0,
+          "m_ratio": 9.0
+        },
+        "20261119": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "up_limit": 3380.0,
+          "down_limit": 2878.0,
+          "m_ratio": 9.0
+        },
+        "20261118": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "up_limit": 3392.0,
+          "down_limit": 2888.0,
+          "m_ratio": 9.0
+        },
+        "20261117": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "up_limit": 3504.0,
+          "down_limit": 2984.0,
+          "m_ratio": 9.0
+        },
+        "20261116": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "up_limit": 3480.0,
+          "down_limit": 2964.0,
+          "m_ratio": 9.0
+        },
+        "20261113": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "up_limit": 3417.0,
+          "down_limit": 2909.0,
+          "m_ratio": 9.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "settle": 3071.0,
+          "long_margin_rate": 9.0,
+          "short_margin_rate": 9.0,
+          "b_hedging_margin_rate": 9.0,
+          "s_hedging_margin_rate": 9.0
+        },
+        "20261119": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "settle": 3065.0,
+          "long_margin_rate": 9.0,
+          "short_margin_rate": 9.0,
+          "b_hedging_margin_rate": 9.0,
+          "s_hedging_margin_rate": 9.0
+        },
+        "20261118": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "settle": 3129.0,
+          "long_margin_rate": 9.0,
+          "short_margin_rate": 9.0,
+          "b_hedging_margin_rate": 9.0,
+          "s_hedging_margin_rate": 9.0
+        },
+        "20261117": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "settle": 3140.0,
+          "long_margin_rate": 9.0,
+          "short_margin_rate": 9.0,
+          "b_hedging_margin_rate": 9.0,
+          "s_hedging_margin_rate": 9.0
+        },
+        "20261116": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "settle": 3244.0,
+          "long_margin_rate": 9.0,
+          "short_margin_rate": 9.0,
+          "b_hedging_margin_rate": 9.0,
+          "s_hedging_margin_rate": 9.0
+        },
+        "20261113": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "settle": 3222.0,
+          "long_margin_rate": 9.0,
+          "short_margin_rate": 9.0,
+          "b_hedging_margin_rate": 9.0,
+          "s_hedging_margin_rate": 9.0
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261120",
+          "pre_settle": 3065.0,
+          "settle": 3071.0,
+          "high": 3110.0,
+          "low": 3042.0,
+          "oi": 818424.0
+        },
+        "20261119": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261119",
+          "pre_settle": 3129.0,
+          "settle": 3065.0,
+          "high": 3111.0,
+          "low": 3014.0,
+          "oi": 852716.0
+        },
+        "20261118": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261118",
+          "pre_settle": 3140.0,
+          "settle": 3129.0,
+          "high": 3182.0,
+          "low": 3071.0,
+          "oi": 841603.0
+        },
+        "20261117": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261117",
+          "pre_settle": 3244.0,
+          "settle": 3140.0,
+          "high": 3183.0,
+          "low": 3099.0,
+          "oi": 846918.0
+        },
+        "20261116": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261116",
+          "pre_settle": 3222.0,
+          "settle": 3244.0,
+          "high": 3314.0,
+          "low": 3166.0,
+          "oi": 867686.0
+        },
+        "20261113": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261113",
+          "pre_settle": 3163.0,
+          "settle": 3222.0,
+          "high": 3280.0,
+          "low": 3152.0,
+          "oi": 877998.0
+        }
+      },
+      "fut_trade_param": {
+        "20261120": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "3065.0",
+          "price_limit": "8",
+          "position_limit": "85272",
+          "trade_limit": "25000"
+        },
+        "20261119": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "3129.0",
+          "price_limit": "8",
+          "position_limit": "84161",
+          "trade_limit": "25000"
+        },
+        "20261118": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "3140.0",
+          "price_limit": "8",
+          "position_limit": "84692",
+          "trade_limit": "25000"
+        },
+        "20261117": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "3244.0",
+          "price_limit": "8",
+          "position_limit": "86769",
+          "trade_limit": "25000"
+        },
+        "20261116": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "3222.0",
+          "price_limit": "8",
+          "position_limit": "87800",
+          "trade_limit": "25000"
+        },
+        "20261113": {
+          "ts_code": "MA2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "3163.0",
+          "price_limit": "8",
+          "position_limit": "92352",
+          "trade_limit": "25000"
+        }
+      }
+    },
+    "MA2705.ZCE": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "up_limit": 2870.0,
+          "down_limit": 2544.0,
+          "m_ratio": 7.0
+        },
+        "20261119": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "up_limit": 2943.0,
+          "down_limit": 2609.0,
+          "m_ratio": 7.0
+        },
+        "20261118": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "up_limit": 2966.0,
+          "down_limit": 2630.0,
+          "m_ratio": 7.0
+        },
+        "20261117": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "up_limit": 3040.0,
+          "down_limit": 2694.0,
+          "m_ratio": 7.0
+        },
+        "20261116": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "up_limit": 3003.0,
+          "down_limit": 2663.0,
+          "m_ratio": 7.0
+        },
+        "20261113": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "up_limit": 2956.0,
+          "down_limit": 2620.0,
+          "m_ratio": 7.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "settle": 2722.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261119": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "settle": 2707.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261118": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "settle": 2776.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261117": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "settle": 2798.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261116": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "settle": 2867.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261113": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "settle": 2833.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261120",
+          "pre_settle": 2707.0,
+          "settle": 2722.0,
+          "high": 2750.0,
+          "low": 2697.0,
+          "oi": 291033.0
+        },
+        "20261119": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261119",
+          "pre_settle": 2776.0,
+          "settle": 2707.0,
+          "high": 2744.0,
+          "low": 2653.0,
+          "oi": 282608.0
+        },
+        "20261118": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261118",
+          "pre_settle": 2798.0,
+          "settle": 2776.0,
+          "high": 2827.0,
+          "low": 2718.0,
+          "oi": 283616.0
+        },
+        "20261117": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261117",
+          "pre_settle": 2867.0,
+          "settle": 2798.0,
+          "high": 2831.0,
+          "low": 2766.0,
+          "oi": 268453.0
+        },
+        "20261116": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261116",
+          "pre_settle": 2833.0,
+          "settle": 2867.0,
+          "high": 2908.0,
+          "low": 2816.0,
+          "oi": 242503.0
+        },
+        "20261113": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261113",
+          "pre_settle": 2788.0,
+          "settle": 2833.0,
+          "high": 2887.0,
+          "low": 2770.0,
+          "oi": 233935.0
+        }
+      },
+      "fut_trade_param": {
+        "20261120": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2707.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261119": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2776.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261118": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2798.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261117": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2867.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261116": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2833.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261113": {
+          "ts_code": "MA2705.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2788.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        }
+      }
+    },
+    "MA2709.ZCE": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "up_limit": 2732.0,
+          "down_limit": 2422.0,
+          "m_ratio": 7.0
+        },
+        "20261119": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "up_limit": 2784.0,
+          "down_limit": 2468.0,
+          "m_ratio": 7.0
+        },
+        "20261118": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "up_limit": 2819.0,
+          "down_limit": 2499.0,
+          "m_ratio": 7.0
+        },
+        "20261117": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "up_limit": 2892.0,
+          "down_limit": 2564.0,
+          "m_ratio": 7.0
+        },
+        "20261116": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "up_limit": 2871.0,
+          "down_limit": 2545.0,
+          "m_ratio": 7.0
+        },
+        "20261113": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "up_limit": 2820.0,
+          "down_limit": 2500.0,
+          "m_ratio": 7.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "settle": 2593.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261119": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "settle": 2577.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261118": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "settle": 2626.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261117": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "settle": 2659.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261116": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "settle": 2728.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        },
+        "20261113": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "settle": 2708.0,
+          "long_margin_rate": 7.0,
+          "short_margin_rate": 7.0,
+          "b_hedging_margin_rate": 7.0,
+          "s_hedging_margin_rate": 7.0
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261120",
+          "pre_settle": 2577.0,
+          "settle": 2593.0,
+          "high": 2620.0,
+          "low": 2576.0,
+          "oi": 15937.0
+        },
+        "20261119": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261119",
+          "pre_settle": 2626.0,
+          "settle": 2577.0,
+          "high": 2604.0,
+          "low": 2536.0,
+          "oi": 15463.0
+        },
+        "20261118": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261118",
+          "pre_settle": 2659.0,
+          "settle": 2626.0,
+          "high": 2680.0,
+          "low": 2583.0,
+          "oi": 14190.0
+        },
+        "20261117": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261117",
+          "pre_settle": 2728.0,
+          "settle": 2659.0,
+          "high": 2696.0,
+          "low": 2628.0,
+          "oi": 12787.0
+        },
+        "20261116": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261116",
+          "pre_settle": 2708.0,
+          "settle": 2728.0,
+          "high": 2766.0,
+          "low": 2691.0,
+          "oi": 11738.0
+        },
+        "20261113": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261113",
+          "pre_settle": 2660.0,
+          "settle": 2708.0,
+          "high": 2750.0,
+          "low": 2645.0,
+          "oi": 11558.0
+        }
+      },
+      "fut_trade_param": {
+        "20261120": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2577.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261119": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2626.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261118": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2659.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261117": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2728.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261116": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2708.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        },
+        "20261113": {
+          "ts_code": "MA2709.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "2660.0",
+          "price_limit": "6",
+          "position_limit": "30000",
+          "trade_limit": "25000"
+        }
+      }
+    },
+    "RB2701.SHF": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261120",
+          "exchange": "SHFE",
+          "up_limit": 3132.0,
+          "down_limit": 2833.0,
+          "m_ratio": 7.0
+        },
+        "20261119": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261119",
+          "exchange": "SHFE",
+          "up_limit": 3116.0,
+          "down_limit": 2819.0,
+          "m_ratio": 7.0
+        },
+        "20261118": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261118",
+          "exchange": "SHFE",
+          "up_limit": 3126.0,
+          "down_limit": 2829.0,
+          "m_ratio": 7.0
+        },
+        "20261117": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261117",
+          "exchange": "SHFE",
+          "up_limit": 3173.0,
+          "down_limit": 2870.0,
+          "m_ratio": 7.0
+        },
+        "20261116": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261116",
+          "exchange": "SHFE",
+          "up_limit": 3184.0,
+          "down_limit": 2881.0,
+          "m_ratio": 7.0
+        },
+        "20261113": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261113",
+          "exchange": "SHFE",
+          "up_limit": 3182.0,
+          "down_limit": 2879.0,
+          "m_ratio": 7.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261120",
+          "exchange": "SHFE",
+          "settle": 3011.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261119": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261119",
+          "exchange": "SHFE",
+          "settle": 2983.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261118": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261118",
+          "exchange": "SHFE",
+          "settle": 2968.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261117": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261117",
+          "exchange": "SHFE",
+          "settle": 2978.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261116": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261116",
+          "exchange": "SHFE",
+          "settle": 3022.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261113": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261113",
+          "exchange": "SHFE",
+          "settle": 3033.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261120",
+          "pre_settle": 2983.0,
+          "settle": 3011.0,
+          "high": 3032.0,
+          "low": 2986.0,
+          "oi": 1504348.0
+        },
+        "20261119": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261119",
+          "pre_settle": 2968.0,
+          "settle": 2983.0,
+          "high": 2993.0,
+          "low": 2975.0,
+          "oi": 1703132.0
+        },
+        "20261118": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261118",
+          "pre_settle": 2978.0,
+          "settle": 2968.0,
+          "high": 2985.0,
+          "low": 2955.0,
+          "oi": 1795402.0
+        },
+        "20261117": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261117",
+          "pre_settle": 3022.0,
+          "settle": 2978.0,
+          "high": 3017.0,
+          "low": 2960.0,
+          "oi": 1824845.0
+        },
+        "20261116": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261116",
+          "pre_settle": 3033.0,
+          "settle": 3022.0,
+          "high": 3040.0,
+          "low": 3011.0,
+          "oi": 1648571.0
+        },
+        "20261113": {
+          "ts_code": "RB2701.SHF",
+          "trade_date": "20261113",
+          "pre_settle": 3031.0,
+          "settle": 3033.0,
+          "high": 3041.0,
+          "low": 3020.0,
+          "oi": 1613828.0
+        }
+      }
+    },
+    "RB2703.SHF": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261120",
+          "exchange": "SHFE",
+          "up_limit": 3102.0,
+          "down_limit": 2807.0,
+          "m_ratio": 7.0
+        },
+        "20261119": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261119",
+          "exchange": "SHFE",
+          "up_limit": 3092.0,
+          "down_limit": 2797.0,
+          "m_ratio": 7.0
+        },
+        "20261118": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261118",
+          "exchange": "SHFE",
+          "up_limit": 3104.0,
+          "down_limit": 2809.0,
+          "m_ratio": 7.0
+        },
+        "20261117": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261117",
+          "exchange": "SHFE",
+          "up_limit": 3155.0,
+          "down_limit": 2854.0,
+          "m_ratio": 7.0
+        },
+        "20261116": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261116",
+          "exchange": "SHFE",
+          "up_limit": 3168.0,
+          "down_limit": 2867.0,
+          "m_ratio": 7.0
+        },
+        "20261113": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261113",
+          "exchange": "SHFE",
+          "up_limit": 3173.0,
+          "down_limit": 2870.0,
+          "m_ratio": 7.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261120",
+          "exchange": "SHFE",
+          "settle": 2974.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261119": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261119",
+          "exchange": "SHFE",
+          "settle": 2955.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261118": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261118",
+          "exchange": "SHFE",
+          "settle": 2945.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261117": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261117",
+          "exchange": "SHFE",
+          "settle": 2957.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261116": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261116",
+          "exchange": "SHFE",
+          "settle": 3005.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261113": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261113",
+          "exchange": "SHFE",
+          "settle": 3018.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261120",
+          "pre_settle": 2955.0,
+          "settle": 2974.0,
+          "high": 2992.0,
+          "low": 2959.0,
+          "oi": 459525.0
+        },
+        "20261119": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261119",
+          "pre_settle": 2945.0,
+          "settle": 2955.0,
+          "high": 2962.0,
+          "low": 2947.0,
+          "oi": 466991.0
+        },
+        "20261118": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261118",
+          "pre_settle": 2957.0,
+          "settle": 2945.0,
+          "high": 2956.0,
+          "low": 2935.0,
+          "oi": 470409.0
+        },
+        "20261117": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261117",
+          "pre_settle": 3005.0,
+          "settle": 2957.0,
+          "high": 2996.0,
+          "low": 2943.0,
+          "oi": 475982.0
+        },
+        "20261116": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261116",
+          "pre_settle": 3018.0,
+          "settle": 3005.0,
+          "high": 3025.0,
+          "low": 2993.0,
+          "oi": 465765.0
+        },
+        "20261113": {
+          "ts_code": "RB2703.SHF",
+          "trade_date": "20261113",
+          "pre_settle": 3022.0,
+          "settle": 3018.0,
+          "high": 3027.0,
+          "low": 3009.0,
+          "oi": 460729.0
+        }
+      }
+    },
+    "RB2705.SHF": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261120",
+          "exchange": "SHFE",
+          "up_limit": 3117.0,
+          "down_limit": 2820.0,
+          "m_ratio": 7.0
+        },
+        "20261119": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261119",
+          "exchange": "SHFE",
+          "up_limit": 3114.0,
+          "down_limit": 2817.0,
+          "m_ratio": 7.0
+        },
+        "20261118": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261118",
+          "exchange": "SHFE",
+          "up_limit": 3131.0,
+          "down_limit": 2832.0,
+          "m_ratio": 7.0
+        },
+        "20261117": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261117",
+          "exchange": "SHFE",
+          "up_limit": 3174.0,
+          "down_limit": 2871.0,
+          "m_ratio": 7.0
+        },
+        "20261116": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261116",
+          "exchange": "SHFE",
+          "up_limit": 3187.0,
+          "down_limit": 2884.0,
+          "m_ratio": 7.0
+        },
+        "20261113": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261113",
+          "exchange": "SHFE",
+          "up_limit": 3185.0,
+          "down_limit": 2882.0,
+          "m_ratio": 7.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261120",
+          "exchange": "SHFE",
+          "settle": 2987.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261119": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261119",
+          "exchange": "SHFE",
+          "settle": 2969.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261118": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261118",
+          "exchange": "SHFE",
+          "settle": 2966.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261117": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261117",
+          "exchange": "SHFE",
+          "settle": 2982.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261116": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261116",
+          "exchange": "SHFE",
+          "settle": 3023.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        },
+        "20261113": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261113",
+          "exchange": "SHFE",
+          "settle": 3036.0,
+          "long_margin_rate": 0.07,
+          "short_margin_rate": 0.07,
+          "b_hedging_margin_rate": 0.06,
+          "s_hedging_margin_rate": 0.06
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261120",
+          "pre_settle": 2969.0,
+          "settle": 2987.0,
+          "high": 3007.0,
+          "low": 2967.0,
+          "oi": 866124.0
+        },
+        "20261119": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261119",
+          "pre_settle": 2966.0,
+          "settle": 2969.0,
+          "high": 2982.0,
+          "low": 2962.0,
+          "oi": 846062.0
+        },
+        "20261118": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261118",
+          "pre_settle": 2982.0,
+          "settle": 2966.0,
+          "high": 2979.0,
+          "low": 2956.0,
+          "oi": 788713.0
+        },
+        "20261117": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261117",
+          "pre_settle": 3023.0,
+          "settle": 2982.0,
+          "high": 3017.0,
+          "low": 2965.0,
+          "oi": 695318.0
+        },
+        "20261116": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261116",
+          "pre_settle": 3036.0,
+          "settle": 3023.0,
+          "high": 3042.0,
+          "low": 3014.0,
+          "oi": 586811.0
+        },
+        "20261113": {
+          "ts_code": "RB2705.SHF",
+          "trade_date": "20261113",
+          "pre_settle": 3034.0,
+          "settle": 3036.0,
+          "high": 3044.0,
+          "low": 3025.0,
+          "oi": 549929.0
+        }
+      }
+    },
+    "SR2701.ZCE": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "up_limit": 5349.0,
+          "down_limit": 4839.0,
+          "m_ratio": 6.0
+        },
+        "20261119": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "up_limit": 5387.0,
+          "down_limit": 4873.0,
+          "m_ratio": 6.0
+        },
+        "20261118": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "up_limit": 5313.0,
+          "down_limit": 4807.0,
+          "m_ratio": 6.0
+        },
+        "20261117": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "up_limit": 5380.0,
+          "down_limit": 4866.0,
+          "m_ratio": 6.0
+        },
+        "20261116": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "up_limit": 5413.0,
+          "down_limit": 4897.0,
+          "m_ratio": 6.0
+        },
+        "20261113": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "up_limit": 5454.0,
+          "down_limit": 4934.0,
+          "m_ratio": 6.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "settle": 5047.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261119": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "settle": 5094.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261118": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "settle": 5130.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261117": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "settle": 5060.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261116": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "settle": 5123.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261113": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "settle": 5155.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261120",
+          "pre_settle": 5094.0,
+          "settle": 5047.0,
+          "high": 5080.0,
+          "low": 5012.0,
+          "oi": 660837.0
+        },
+        "20261119": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261119",
+          "pre_settle": 5130.0,
+          "settle": 5094.0,
+          "high": 5122.0,
+          "low": 5063.0,
+          "oi": 673171.0
+        },
+        "20261118": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261118",
+          "pre_settle": 5060.0,
+          "settle": 5130.0,
+          "high": 5151.0,
+          "low": 5101.0,
+          "oi": 682202.0
+        },
+        "20261117": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261117",
+          "pre_settle": 5123.0,
+          "settle": 5060.0,
+          "high": 5102.0,
+          "low": 5015.0,
+          "oi": 737137.0
+        },
+        "20261116": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261116",
+          "pre_settle": 5155.0,
+          "settle": 5123.0,
+          "high": 5166.0,
+          "low": 5093.0,
+          "oi": 736556.0
+        },
+        "20261113": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261113",
+          "pre_settle": 5194.0,
+          "settle": 5155.0,
+          "high": 5174.0,
+          "low": 5134.0,
+          "oi": 718966.0
+        }
+      },
+      "fut_trade_param": {
+        "20261120": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5094.0",
+          "price_limit": "5",
+          "position_limit": "67318",
+          "trade_limit": "10000"
+        },
+        "20261119": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5130.0",
+          "price_limit": "5",
+          "position_limit": "68221",
+          "trade_limit": "10000"
+        },
+        "20261118": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5060.0",
+          "price_limit": "5",
+          "position_limit": "73714",
+          "trade_limit": "10000"
+        },
+        "20261117": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5123.0",
+          "price_limit": "5",
+          "position_limit": "73656",
+          "trade_limit": "10000"
+        },
+        "20261116": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5155.0",
+          "price_limit": "5",
+          "position_limit": "71897",
+          "trade_limit": "10000"
+        },
+        "20261113": {
+          "ts_code": "SR2701.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5194.0",
+          "price_limit": "5",
+          "position_limit": "68604",
+          "trade_limit": "10000"
+        }
+      }
+    },
+    "SR2705.ZCE": {
+      "ft_limit": {
+        "20261120": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "up_limit": 5410.0,
+          "down_limit": 4894.0,
+          "m_ratio": 6.0
+        },
+        "20261119": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "up_limit": 5442.0,
+          "down_limit": 4922.0,
+          "m_ratio": 6.0
+        },
+        "20261118": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "up_limit": 5378.0,
+          "down_limit": 4864.0,
+          "m_ratio": 6.0
+        },
+        "20261117": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "up_limit": 5445.0,
+          "down_limit": 4925.0,
+          "m_ratio": 6.0
+        },
+        "20261116": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "up_limit": 5481.0,
+          "down_limit": 4959.0,
+          "m_ratio": 6.0
+        },
+        "20261113": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "up_limit": 5521.0,
+          "down_limit": 4995.0,
+          "m_ratio": 6.0
+        }
+      },
+      "fut_settle": {
+        "20261120": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "settle": 5104.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261119": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "settle": 5152.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261118": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "settle": 5182.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261117": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "settle": 5121.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261116": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "settle": 5185.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        },
+        "20261113": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "settle": 5220.0,
+          "long_margin_rate": 6.0,
+          "short_margin_rate": 6.0,
+          "b_hedging_margin_rate": 6.0,
+          "s_hedging_margin_rate": 6.0
+        }
+      },
+      "fut_daily": {
+        "20261120": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261120",
+          "pre_settle": 5152.0,
+          "settle": 5104.0,
+          "high": 5139.0,
+          "low": 5071.0,
+          "oi": 286981.0
+        },
+        "20261119": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261119",
+          "pre_settle": 5182.0,
+          "settle": 5152.0,
+          "high": 5180.0,
+          "low": 5122.0,
+          "oi": 271490.0
+        },
+        "20261118": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261118",
+          "pre_settle": 5121.0,
+          "settle": 5182.0,
+          "high": 5204.0,
+          "low": 5146.0,
+          "oi": 261792.0
+        },
+        "20261117": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261117",
+          "pre_settle": 5185.0,
+          "settle": 5121.0,
+          "high": 5158.0,
+          "low": 5079.0,
+          "oi": 264377.0
+        },
+        "20261116": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261116",
+          "pre_settle": 5220.0,
+          "settle": 5185.0,
+          "high": 5231.0,
+          "low": 5157.0,
+          "oi": 246405.0
+        },
+        "20261113": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261113",
+          "pre_settle": 5258.0,
+          "settle": 5220.0,
+          "high": 5239.0,
+          "low": 5201.0,
+          "oi": 235589.0
+        }
+      },
+      "fut_trade_param": {
+        "20261120": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261120",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5152.0",
+          "price_limit": "5",
+          "position_limit": "30000",
+          "trade_limit": "10000"
+        },
+        "20261119": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261119",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5182.0",
+          "price_limit": "5",
+          "position_limit": "30000",
+          "trade_limit": "10000"
+        },
+        "20261118": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261118",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5121.0",
+          "price_limit": "5",
+          "position_limit": "30000",
+          "trade_limit": "10000"
+        },
+        "20261117": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261117",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5185.0",
+          "price_limit": "5",
+          "position_limit": "30000",
+          "trade_limit": "10000"
+        },
+        "20261116": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261116",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5220.0",
+          "price_limit": "5",
+          "position_limit": "30000",
+          "trade_limit": "10000"
+        },
+        "20261113": {
+          "ts_code": "SR2705.ZCE",
+          "trade_date": "20261113",
+          "exchange": "CZCE",
+          "tick_size": "1.0",
+          "pre_settle_price": "5258.0",
+          "price_limit": "5",
+          "position_limit": "30000",
+          "trade_limit": "10000"
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "ts_code": "CF2701.ZCE",
+      "trade_date": "20261116",
+      "up_limit": 16480.0,
+      "down_limit": 14610.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 63262,
+      "position_source_date": "20261116",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 64097,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "CF2701.ZCE",
+      "trade_date": "20261117",
+      "up_limit": 16470.0,
+      "down_limit": 14600.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 64097,
+      "position_source_date": "20261117",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 63313,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "CF2701.ZCE",
+      "trade_date": "20261118",
+      "up_limit": 16410.0,
+      "down_limit": 14550.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 63313,
+      "position_source_date": "20261118",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 62482,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "CF2701.ZCE",
+      "trade_date": "20261119",
+      "up_limit": 16490.0,
+      "down_limit": 14620.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 62482,
+      "position_source_date": "20261119",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 61378,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "CF2701.ZCE",
+      "trade_date": "20261120",
+      "up_limit": 16385.0,
+      "down_limit": 14525.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 61378,
+      "position_source_date": "20261120",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 60557,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "M2701.DCE",
+      "trade_date": "20261116",
+      "up_limit": 3316.0,
+      "down_limit": 2942.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 93949,
+      "position_source_date": "20261113",
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": 94998,
+      "issues": [],
+      "exchange_check": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+      "board_check": "both_prices_match_prior_dce_parameter_row"
+    },
+    {
+      "ts_code": "M2701.DCE",
+      "trade_date": "20261117",
+      "up_limit": 3318.0,
+      "down_limit": 2944.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 94998,
+      "position_source_date": "20261116",
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": 94542,
+      "issues": [],
+      "exchange_check": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+      "board_check": "both_prices_match_prior_dce_parameter_row"
+    },
+    {
+      "ts_code": "M2701.DCE",
+      "trade_date": "20261118",
+      "up_limit": 3274.0,
+      "down_limit": 2904.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 94542,
+      "position_source_date": "20261117",
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": 94148,
+      "issues": [],
+      "exchange_check": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+      "board_check": "both_prices_match_prior_dce_parameter_row"
+    },
+    {
+      "ts_code": "M2701.DCE",
+      "trade_date": "20261119",
+      "up_limit": 3281.0,
+      "down_limit": 2911.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 94148,
+      "position_source_date": "20261118",
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": 93503,
+      "issues": [],
+      "exchange_check": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+      "board_check": "both_prices_match_prior_dce_parameter_row"
+    },
+    {
+      "ts_code": "M2701.DCE",
+      "trade_date": "20261120",
+      "up_limit": 3249.0,
+      "down_limit": 2883.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 93503,
+      "position_source_date": "20261119",
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": 93199,
+      "issues": [],
+      "exchange_check": "Tushare相邻日参数与限仓规则复算；未取得大商所逐日原表",
+      "board_check": "both_prices_match_prior_dce_parameter_row"
+    },
+    {
+      "ts_code": "MA2701.ZCE",
+      "trade_date": "20261116",
+      "up_limit": 3480.0,
+      "down_limit": 2964.0,
+      "minimum_margin_pct": 9.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 9.0,
+        "short_margin_rate": 9.0,
+        "b_hedging_margin_rate": 9.0,
+        "s_hedging_margin_rate": 9.0
+      },
+      "session_position_limit_lots": 87800,
+      "position_source_date": "20261116",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 86769,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2701.ZCE",
+      "trade_date": "20261117",
+      "up_limit": 3504.0,
+      "down_limit": 2984.0,
+      "minimum_margin_pct": 9.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 9.0,
+        "short_margin_rate": 9.0,
+        "b_hedging_margin_rate": 9.0,
+        "s_hedging_margin_rate": 9.0
+      },
+      "session_position_limit_lots": 86769,
+      "position_source_date": "20261117",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 84692,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2701.ZCE",
+      "trade_date": "20261118",
+      "up_limit": 3392.0,
+      "down_limit": 2888.0,
+      "minimum_margin_pct": 9.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 9.0,
+        "short_margin_rate": 9.0,
+        "b_hedging_margin_rate": 9.0,
+        "s_hedging_margin_rate": 9.0
+      },
+      "session_position_limit_lots": 84692,
+      "position_source_date": "20261118",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 84161,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2701.ZCE",
+      "trade_date": "20261119",
+      "up_limit": 3380.0,
+      "down_limit": 2878.0,
+      "minimum_margin_pct": 9.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 9.0,
+        "short_margin_rate": 9.0,
+        "b_hedging_margin_rate": 9.0,
+        "s_hedging_margin_rate": 9.0
+      },
+      "session_position_limit_lots": 84161,
+      "position_source_date": "20261119",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 85272,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2701.ZCE",
+      "trade_date": "20261120",
+      "up_limit": 3311.0,
+      "down_limit": 2819.0,
+      "minimum_margin_pct": 9.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 9.0,
+        "short_margin_rate": 9.0,
+        "b_hedging_margin_rate": 9.0,
+        "s_hedging_margin_rate": 9.0
+      },
+      "session_position_limit_lots": 85272,
+      "position_source_date": "20261120",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 81843,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2705.ZCE",
+      "trade_date": "20261116",
+      "up_limit": 3003.0,
+      "down_limit": 2663.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261116",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2705.ZCE",
+      "trade_date": "20261117",
+      "up_limit": 3040.0,
+      "down_limit": 2694.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261117",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2705.ZCE",
+      "trade_date": "20261118",
+      "up_limit": 2966.0,
+      "down_limit": 2630.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261118",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2705.ZCE",
+      "trade_date": "20261119",
+      "up_limit": 2943.0,
+      "down_limit": 2609.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261119",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2705.ZCE",
+      "trade_date": "20261120",
+      "up_limit": 2870.0,
+      "down_limit": 2544.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261120",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2709.ZCE",
+      "trade_date": "20261116",
+      "up_limit": 2871.0,
+      "down_limit": 2545.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261116",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2709.ZCE",
+      "trade_date": "20261117",
+      "up_limit": 2892.0,
+      "down_limit": 2564.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261117",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2709.ZCE",
+      "trade_date": "20261118",
+      "up_limit": 2819.0,
+      "down_limit": 2499.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261118",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2709.ZCE",
+      "trade_date": "20261119",
+      "up_limit": 2784.0,
+      "down_limit": 2468.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261119",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "MA2709.ZCE",
+      "trade_date": "20261120",
+      "up_limit": 2732.0,
+      "down_limit": 2422.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 7.0,
+        "s_hedging_margin_rate": 7.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261120",
+      "session_open_limit_lots": 25000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261116",
+      "up_limit": 3184.0,
+      "down_limit": 2881.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "单向持仓量×10%（规则档）",
+        "fixed_branch_lots": null,
+        "fraction": 0.1
+      }
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261117",
+      "up_limit": 3173.0,
+      "down_limit": 2870.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "单向持仓量×10%（规则档）",
+        "fixed_branch_lots": null,
+        "fraction": 0.1
+      }
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261118",
+      "up_limit": 3126.0,
+      "down_limit": 2829.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "单向持仓量×10%（规则档）",
+        "fixed_branch_lots": null,
+        "fraction": 0.1
+      }
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261119",
+      "up_limit": 3116.0,
+      "down_limit": 2819.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "单向持仓量×10%（规则档）",
+        "fixed_branch_lots": null,
+        "fraction": 0.1
+      }
+    },
+    {
+      "ts_code": "RB2701.SHF",
+      "trade_date": "20261120",
+      "up_limit": 3132.0,
+      "down_limit": 2833.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "单向持仓量×10%（规则档）",
+        "fixed_branch_lots": null,
+        "fraction": 0.1
+      }
+    },
+    {
+      "ts_code": "RB2703.SHF",
+      "trade_date": "20261116",
+      "up_limit": 3168.0,
+      "down_limit": 2867.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2703.SHF",
+      "trade_date": "20261117",
+      "up_limit": 3155.0,
+      "down_limit": 2854.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2703.SHF",
+      "trade_date": "20261118",
+      "up_limit": 3104.0,
+      "down_limit": 2809.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2703.SHF",
+      "trade_date": "20261119",
+      "up_limit": 3092.0,
+      "down_limit": 2797.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2703.SHF",
+      "trade_date": "20261120",
+      "up_limit": 3102.0,
+      "down_limit": 2807.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2705.SHF",
+      "trade_date": "20261116",
+      "up_limit": 3187.0,
+      "down_limit": 2884.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2705.SHF",
+      "trade_date": "20261117",
+      "up_limit": 3174.0,
+      "down_limit": 2871.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2705.SHF",
+      "trade_date": "20261118",
+      "up_limit": 3131.0,
+      "down_limit": 2832.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2705.SHF",
+      "trade_date": "20261119",
+      "up_limit": 3114.0,
+      "down_limit": 2817.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "RB2705.SHF",
+      "trade_date": "20261120",
+      "up_limit": 3117.0,
+      "down_limit": 2820.0,
+      "minimum_margin_pct": 7.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 7.0,
+        "short_margin_rate": 7.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": null,
+      "position_source_date": null,
+      "session_open_limit_lots": null,
+      "closing_table_position_limit_lots": null,
+      "issues": [],
+      "exchange_check": "SHFE交易参数、结算参数、日行情及螺纹钢细则第四十七条",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick",
+      "position_rule": {
+        "description": "90,000手（规则档）",
+        "fixed_branch_lots": 90000,
+        "fraction": null
+      }
+    },
+    {
+      "ts_code": "SR2701.ZCE",
+      "trade_date": "20261116",
+      "up_limit": 5413.0,
+      "down_limit": 4897.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 71897,
+      "position_source_date": "20261116",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 73656,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2701.ZCE",
+      "trade_date": "20261117",
+      "up_limit": 5380.0,
+      "down_limit": 4866.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 73656,
+      "position_source_date": "20261117",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 73714,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2701.ZCE",
+      "trade_date": "20261118",
+      "up_limit": 5313.0,
+      "down_limit": 4807.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 73714,
+      "position_source_date": "20261118",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 68221,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2701.ZCE",
+      "trade_date": "20261119",
+      "up_limit": 5387.0,
+      "down_limit": 4873.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 68221,
+      "position_source_date": "20261119",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 67318,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2701.ZCE",
+      "trade_date": "20261120",
+      "up_limit": 5349.0,
+      "down_limit": 4839.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 67318,
+      "position_source_date": "20261120",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 66084,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2705.ZCE",
+      "trade_date": "20261116",
+      "up_limit": 5481.0,
+      "down_limit": 4959.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261116",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2705.ZCE",
+      "trade_date": "20261117",
+      "up_limit": 5445.0,
+      "down_limit": 4925.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261117",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2705.ZCE",
+      "trade_date": "20261118",
+      "up_limit": 5378.0,
+      "down_limit": 4864.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261118",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2705.ZCE",
+      "trade_date": "20261119",
+      "up_limit": 5442.0,
+      "down_limit": 4922.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261119",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    },
+    {
+      "ts_code": "SR2705.ZCE",
+      "trade_date": "20261120",
+      "up_limit": 5410.0,
+      "down_limit": 4894.0,
+      "minimum_margin_pct": 6.0,
+      "settlement_margin_pct": {
+        "long_margin_rate": 6.0,
+        "short_margin_rate": 6.0,
+        "b_hedging_margin_rate": 6.0,
+        "s_hedging_margin_rate": 6.0
+      },
+      "session_position_limit_lots": 30000,
+      "position_source_date": "20261120",
+      "session_open_limit_lots": 10000,
+      "closing_table_position_limit_lots": 30000,
+      "issues": [],
+      "exchange_check": "CZCE逐日结算原表与合约参考数据",
+      "board_check": "provider_absolute_vs_exchange_band_within_one_tick"
+    }
+  ],
+  "issues": [],
+  "account_margin_rate": null,
+  "remaining_position_capacity": null,
+  "final_lots": null,
+  "execution_permission": "not_evaluated",
+  "input_sha256": "e575e4fa9e2dbd5886c2fe3a6ba668f5b6be7e99e13f82854baa9694e7cf29dc",
+  "exchange_checks": "research/futures/weekly/2026-11-22/evidence/public-risk-exchange-checks.json"
+}

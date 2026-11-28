@@ -67,6 +67,47 @@ payload=sys.stdin.buffer.read()""")
         manifest.chmod(0o644)
         manifest.write_bytes(runner.encode(snapshot))
 
+    def test_production_codex_delivers_index_or_explicit_gap_to_cli(self):
+        config = runtime.load_config(ROOT / 'config/research_runtime.production.json')
+        run = self.prepare(config)
+        result = runner.run_batch(self.f.request_path, self.f.methods, generator='codex',
+                                  cli=str(self.f.fake), timeout=10, runtime_config=config)
+        self.assertEqual(json.loads(result.read_text())['results'][0]['status'], 'completed')
+        folder = run / 'execution/SH-600066/codex'
+        process = json.loads((folder / 'process.json').read_bytes())
+        record = process['stock_announcements']
+        path = run / record['path']
+        self.assertEqual(self.f.sha(path), record['sha256'])
+        self.assertEqual(json.loads(path.read_bytes())['reason'], 'plugin_runtime_unavailable')
+        self.assertIn(str(path), self.f.capture.read_text())
+        self.assertNotIn(str(path), (folder / 'prompt.txt').read_text())
+
+    def test_changed_announcements_index_blocks_codex_publication(self):
+        config = runtime.load_config(ROOT / 'config/research_runtime.production.json')
+        run = self.prepare(config)
+        code = self.f.fake.read_text().replace('payload=sys.stdin.buffer.read()', """payload=sys.stdin.buffer.read()
+index = Path(args[args.index('-o') + 1]).parent / 'runner/stock-announcements.json'
+index.write_text('{}')
+""")
+        self.f.fake.write_text(code)
+        with patch.object(runner, 'publish_pair') as publish:
+            result = runner.run_batch(self.f.request_path, self.f.methods, generator='codex',
+                                      cli=str(self.f.fake), timeout=10, runtime_config=config)
+        entry = json.loads(result.read_text())['results'][0]
+        self.assertEqual(entry['status'], 'failed')
+        self.assertIn('executed stock announcement index changed during research', entry['reason'])
+        publish.assert_not_called()
+        self.assertFalse((run / 'execution/SH-600066/codex/accepted.json').exists())
+
+    def test_frozen_codex_without_disclosure_profile_skips_prefetch(self):
+        self.prepare(runtime.load_config())
+        config = runtime.load_config(ROOT / 'config/research_runtime.production.json')
+        with patch.object(runner.stock_disclosure_evidence, 'filings') as query:
+            result = runner.run_batch(self.f.request_path, self.f.methods, generator='codex',
+                                      cli=str(self.f.fake), timeout=10, runtime_config=config)
+        self.assertEqual(json.loads(result.read_text())['results'][0]['status'], 'completed')
+        query.assert_not_called()
+
     def test_new_plan_binds_request_without_changing_input_contract(self):
         run = self.prepare(self.config())
         request, raw, folder = self.context(run)

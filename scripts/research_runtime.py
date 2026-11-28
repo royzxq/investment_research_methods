@@ -103,9 +103,12 @@ def _validate_profile(value: Any) -> Profile:
     # Additive opt-in: absent tools preserve the exact historical DSH patch.
     optional = {'tools'} if isinstance(value, dict) and 'tools' in value else set()
     _fields(value, PROFILE_KEYS | optional, 'profile')
-    if optional:
+    if optional and value.get('producer') == 'codex' and value.get('harness') == 'codex-cli':
+        _require(value['tools'] == {'stock_disclosures': 'stock-analysis-v1'},
+                 'profile.tools: unsupported Codex disclosure workflow')
+    elif optional:
         _require(value.get('harness') == 'dsh-cli' and value.get('producer') == 'dsh',
-                 'profile.tools: only supported by DSH')
+                 'profile.tools: unsupported producer or harness')
     _slug(value['profile_id'], 'profile.profile_id')
     _require(type(value['revision']) is int and value['revision'] > 0,
              'profile.revision: expected positive integer')

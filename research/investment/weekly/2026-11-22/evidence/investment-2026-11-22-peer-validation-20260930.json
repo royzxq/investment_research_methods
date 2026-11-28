@@ -1,0 +1,412 @@
+{
+  "observed": "20261122",
+  "period": "20260930",
+  "raw_snapshot": "investment-2026-11-22-a-peers-20260930.json.gz",
+  "sha256": "dcd100010ad7ed26dba615f52a18baf6f83b85a3d4a9a09ce9f65a9a9296d8ce",
+  "raw_input_rows": {
+    "income_vip": 8728,
+    "balancesheet_vip": 8623,
+    "cashflow_vip": 5609,
+    "disclosure_date": 5587,
+    "index_member_all": 5919,
+    "fina_mainbz_vip": 105
+  },
+  "universe_definition": "实际披露日历或三张合并报表任一出现的沪深北 A 股代码并集，含未满足入样条件的代码。",
+  "reporting_or_calendar_codes": 5599,
+  "verified_3_statements": 5577,
+  "complete_5_amounts": 5577,
+  "unverified_disclosure": [
+    "000016.SZ",
+    "000046.SZ",
+    "000671.SZ",
+    "000732.SZ",
+    "000961.SZ",
+    "001381.SZ",
+    "300064.SZ",
+    "300090.SZ",
+    "300104.SZ",
+    "300367.SZ",
+    "301139.SZ",
+    "301661.SZ",
+    "600631.SH",
+    "600823.SH",
+    "600891.SH",
+    "601558.SH",
+    "688613.SH",
+    "688827.SH",
+    "688845.SH",
+    "920067.BJ",
+    "920309.BJ",
+    "920319.BJ"
+  ],
+  "company_type_conflicts": [
+    "600621.SH"
+  ],
+  "date_differences": {
+    "002687.SZ": {
+      "actual": "20261029",
+      "statements": {
+        "income_vip": "20261030",
+        "balancesheet_vip": "20261029",
+        "cashflow_vip": "20261029"
+      }
+    },
+    "301378.SZ": {
+      "actual": "20261029",
+      "statements": {
+        "income_vip": "20261029",
+        "balancesheet_vip": "20261029",
+        "cashflow_vip": "20261116"
+      }
+    },
+    "688485.SH": {
+      "actual": "20261031",
+      "statements": {
+        "income_vip": "20261031",
+        "balancesheet_vip": "20261107",
+        "cashflow_vip": "20261107"
+      }
+    },
+    "688662.SH": {
+      "actual": "20261021",
+      "statements": {
+        "income_vip": "20261114",
+        "balancesheet_vip": "20261114",
+        "cashflow_vip": "20261021"
+      }
+    }
+  },
+  "raw_product_codes": [
+    "832010.BJ",
+    "837291.BJ",
+    "873855.BJ",
+    "874042.BJ",
+    "874049.BJ",
+    "874251.BJ",
+    "874347.BJ",
+    "874382.BJ",
+    "874387.BJ",
+    "874527.BJ",
+    "874567.BJ",
+    "874586.BJ",
+    "874659.BJ",
+    "874697.BJ",
+    "874798.BJ",
+    "874801.BJ",
+    "874884.BJ",
+    "874930.BJ",
+    "875008.BJ",
+    "875058.BJ"
+  ],
+  "reporting_codes_with_product_rows": 0,
+  "metric_basis": "同观察日申万三级及同报表公司类型，剔除自身。各比率在公司内计算，收入与资产分母须为正，每个指标按有效公司取中位数。",
+  "samples": {
+    "600036.SH": {
+      "name": "招商银行",
+      "report": "https://static.cninfo.com.cn/finalpage/2026-10-31/1225649239.PDF",
+      "pages": "2、13–14",
+      "source_unit": "人民币百万元",
+      "reported_amounts": {
+        "total_revenue": "264852",
+        "n_income_attr_p": "116476",
+        "total_assets": "13760456",
+        "total_liab": "12369990",
+        "n_cashflow_act": "146188"
+      },
+      "difference_cny": {
+        "total_revenue": "0.0",
+        "n_income_attr_p": "0.0",
+        "total_assets": "0.0",
+        "total_liab": "0.0",
+        "n_cashflow_act": "0.0"
+      },
+      "route": "dividend",
+      "members": {
+        "000001.SZ": "平安银行",
+        "600000.SH": "浦发银行",
+        "600015.SH": "华夏银行",
+        "600016.SH": "民生银行",
+        "601166.SH": "兴业银行",
+        "601818.SH": "光大银行",
+        "601916.SH": "浙商银行",
+        "601998.SH": "中信银行"
+      },
+      "actual_date": "20261031",
+      "statement_filing_dates": {
+        "income_vip": "20261031",
+        "balancesheet_vip": "20261031",
+        "cashflow_vip": "20261031"
+      },
+      "industry": "股份制银行Ⅲ",
+      "metrics": {
+        "parent_margin": {
+          "label": "归母净利润/营业总收入",
+          "unit": "%",
+          "own": 43.97776871611315,
+          "n": 8,
+          "peer_median": 29.63787662862601
+        },
+        "liabilities_to_assets": {
+          "label": "期末负债/资产",
+          "unit": "%",
+          "own": 89.89520405428425,
+          "n": 8,
+          "peer_median": 91.38883644014089
+        }
+      },
+      "valid_product_rows": 0,
+      "issuer_supplement": {
+        "period": "20260930",
+        "published": "20261031",
+        "group_advanced_cet1_pct": 14.39,
+        "group_weighted_cet1_pct": 12.08,
+        "pages": "10–11",
+        "pack_basis": "集团高级法见第10页"
+      }
+    },
+    "688018.SH": {
+      "name": "乐鑫科技",
+      "report": "https://star.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-24/688018_20261024_MYMV.pdf",
+      "pages": "2、14–16",
+      "source_unit": "人民币元",
+      "reported_amounts": {
+        "total_revenue": "2369988495.94",
+        "n_income_attr_p": "552921175.06",
+        "total_assets": "5258889141.93",
+        "total_liab": "592389862.98",
+        "n_cashflow_act": "318320784.02"
+      },
+      "difference_cny": {
+        "total_revenue": "0.00",
+        "n_income_attr_p": "0.00",
+        "total_assets": "0.00",
+        "total_liab": "0.00",
+        "n_cashflow_act": "0.00"
+      },
+      "route": "non_dividend",
+      "members": {
+        "001309.SZ": "德明利",
+        "002049.SZ": "紫光国微",
+        "002213.SZ": "大为股份",
+        "300053.SZ": "航宇微",
+        "300077.SZ": "国民技术",
+        "300223.SZ": "君正股份",
+        "300327.SZ": "中颖电子",
+        "300458.SZ": "全志科技",
+        "300613.SZ": "富瀚微",
+        "300672.SZ": "国科微",
+        "301308.SZ": "江波龙",
+        "301536.SZ": "星宸科技",
+        "301666.SZ": "大普微-UW",
+        "603316.SH": "诚邦股份",
+        "603501.SH": "豪威集团",
+        "603893.SH": "瑞芯微",
+        "603986.SH": "兆易创新",
+        "688008.SH": "澜起科技",
+        "688041.SH": "海光信息",
+        "688047.SH": "龙芯中科",
+        "688049.SH": "炬芯科技",
+        "688099.SH": "晶晨股份",
+        "688107.SH": "安路科技",
+        "688110.SH": "东芯股份",
+        "688123.SH": "聚辰股份",
+        "688213.SH": "思特威-W",
+        "688252.SH": "天德钰",
+        "688256.SH": "寒武纪",
+        "688259.SH": "创耀科技",
+        "688262.SH": "国芯科技",
+        "688279.SH": "峰岹科技",
+        "688332.SH": "中科蓝讯",
+        "688380.SH": "中微半导",
+        "688385.SH": "复旦微电",
+        "688416.SH": "恒烁股份",
+        "688449.SH": "联芸科技",
+        "688486.SH": "龙迅股份",
+        "688521.SH": "芯原股份",
+        "688525.SH": "佰维存储",
+        "688589.SH": "力合微",
+        "688591.SH": "泰凌微",
+        "688593.SH": "新相微",
+        "688595.SH": "芯海科技",
+        "688608.SH": "恒玄科技",
+        "688620.SH": "安凯微",
+        "688702.SH": "盛科通信-U",
+        "688709.SH": "成都华微",
+        "688728.SH": "格科微",
+        "688766.SH": "普冉股份",
+        "688795.SH": "摩尔线程-U",
+        "688801.SH": "燧原科技",
+        "688802.SH": "沐曦股份-U",
+        "688807.SH": "优迅股份",
+        "688825.SH": "长鑫科技",
+        "920138.BJ": "杰理科技"
+      },
+      "actual_date": "20261024",
+      "statement_filing_dates": {
+        "income_vip": "20261024",
+        "balancesheet_vip": "20261024",
+        "cashflow_vip": "20261024"
+      },
+      "industry": "数字芯片设计",
+      "metrics": {
+        "parent_margin": {
+          "label": "归母净利润/营业总收入",
+          "unit": "%",
+          "own": 23.330120631690946,
+          "n": 55,
+          "peer_median": 18.12932434156689
+        },
+        "liabilities_to_assets": {
+          "label": "期末负债/资产",
+          "unit": "%",
+          "own": 11.264543651562777,
+          "n": 55,
+          "peer_median": 24.9732752003383
+        },
+        "operating_cash_margin": {
+          "label": "经营现金流/营业总收入",
+          "unit": "%",
+          "own": 13.43132190579455,
+          "n": 55,
+          "peer_median": 2.3895356247723623
+        }
+      },
+      "valid_product_rows": 0
+    },
+    "688825.SH": {
+      "name": "长鑫科技",
+      "report": "https://static.cninfo.com.cn/finalpage/2026-10-31/1225649723.PDF",
+      "pages": "1–2、7–9",
+      "source_unit": "人民币元",
+      "reported_amounts": {
+        "total_revenue": "269024106510.18",
+        "n_income_attr_p": "132040054067.23",
+        "total_assets": "672535210198.62",
+        "total_liab": "244385126458.98",
+        "n_cashflow_act": "254751254805.69"
+      },
+      "difference_cny": {
+        "total_revenue": "0.00",
+        "n_income_attr_p": "0.00",
+        "total_assets": "0.00",
+        "total_liab": "0.00",
+        "n_cashflow_act": "0.00"
+      },
+      "route": "non_dividend",
+      "members": {
+        "001309.SZ": "德明利",
+        "002049.SZ": "紫光国微",
+        "002213.SZ": "大为股份",
+        "300053.SZ": "航宇微",
+        "300077.SZ": "国民技术",
+        "300223.SZ": "君正股份",
+        "300327.SZ": "中颖电子",
+        "300458.SZ": "全志科技",
+        "300613.SZ": "富瀚微",
+        "300672.SZ": "国科微",
+        "301308.SZ": "江波龙",
+        "301536.SZ": "星宸科技",
+        "301666.SZ": "大普微-UW",
+        "603316.SH": "诚邦股份",
+        "603501.SH": "豪威集团",
+        "603893.SH": "瑞芯微",
+        "603986.SH": "兆易创新",
+        "688008.SH": "澜起科技",
+        "688018.SH": "乐鑫科技",
+        "688041.SH": "海光信息",
+        "688047.SH": "龙芯中科",
+        "688049.SH": "炬芯科技",
+        "688099.SH": "晶晨股份",
+        "688107.SH": "安路科技",
+        "688110.SH": "东芯股份",
+        "688123.SH": "聚辰股份",
+        "688213.SH": "思特威-W",
+        "688252.SH": "天德钰",
+        "688256.SH": "寒武纪",
+        "688259.SH": "创耀科技",
+        "688262.SH": "国芯科技",
+        "688279.SH": "峰岹科技",
+        "688332.SH": "中科蓝讯",
+        "688380.SH": "中微半导",
+        "688385.SH": "复旦微电",
+        "688416.SH": "恒烁股份",
+        "688449.SH": "联芸科技",
+        "688486.SH": "龙迅股份",
+        "688521.SH": "芯原股份",
+        "688525.SH": "佰维存储",
+        "688589.SH": "力合微",
+        "688591.SH": "泰凌微",
+        "688593.SH": "新相微",
+        "688595.SH": "芯海科技",
+        "688608.SH": "恒玄科技",
+        "688620.SH": "安凯微",
+        "688702.SH": "盛科通信-U",
+        "688709.SH": "成都华微",
+        "688728.SH": "格科微",
+        "688766.SH": "普冉股份",
+        "688795.SH": "摩尔线程-U",
+        "688801.SH": "燧原科技",
+        "688802.SH": "沐曦股份-U",
+        "688807.SH": "优迅股份",
+        "920138.BJ": "杰理科技"
+      },
+      "actual_date": "20261031",
+      "statement_filing_dates": {
+        "income_vip": "20261031",
+        "balancesheet_vip": "20261031",
+        "cashflow_vip": "20261031"
+      },
+      "industry": "数字芯片设计",
+      "metrics": {
+        "parent_margin": {
+          "label": "归母净利润/营业总收入",
+          "unit": "%",
+          "own": 49.08112353947491,
+          "n": 55,
+          "peer_median": 18.12932434156689
+        },
+        "liabilities_to_assets": {
+          "label": "期末负债/资产",
+          "unit": "%",
+          "own": 36.337893206633105,
+          "n": 55,
+          "peer_median": 23.73052061724534
+        },
+        "operating_cash_margin": {
+          "label": "经营现金流/营业总收入",
+          "unit": "%",
+          "own": 94.69458261951335,
+          "n": 55,
+          "peer_median": 2.3895356247723623
+        }
+      },
+      "valid_product_rows": 0
+    }
+  },
+  "comparison_basis": {
+    "prior_espressif_pack": "ai_investment/investment_rawdata/data_packs/2026-11-22/乐鑫科技_688018.md",
+    "prior_espressif_sha256": "1d5e79cb2a7bd2e51376d5b708b533ee21d16e1a935081f56216477c32bb647b",
+    "original_weekly": "../investment-2026-11-22-market-research.md",
+    "prior_issuer_gaps": "../investment-2026-11-22-adaption-report-r5.md"
+  },
+  "peer_coverage": {
+    "parent_margin": {
+      "label": "归母净利润/营业总收入",
+      "with_own_metric_and_group": 5573,
+      "with_own_and_at_least_one_other": 5563,
+      "distinct_group_and_type": 337
+    },
+    "liabilities_to_assets": {
+      "label": "期末负债/资产",
+      "with_own_metric_and_group": 5574,
+      "with_own_and_at_least_one_other": 5564,
+      "distinct_group_and_type": 337
+    },
+    "operating_cash_margin": {
+      "label": "经营现金流/营业总收入",
+      "with_own_metric_and_group": 5485,
+      "with_own_and_at_least_one_other": 5475,
+      "distinct_group_and_type": 331
+    }
+  }
+}

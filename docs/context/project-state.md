@@ -1,5 +1,7 @@
 # 项目状态与迁移边界
 
+2026-11-22 本地 dev 已采纳按主策略与实际业务补充的个股数据包。普通与红利研究按冻结版本核验经营假设，本地周更接续原报告和披露。见[采纳决定](../../research/investment/weekly/2026-11-22/investment-2026-11-22-change-decision-r5.md)及[当前方法与待复评清单](../../research/investment/weekly/2026-11-22/investment-2026-11-22-handoff-r5.json)。
+
 2026-11-21 本地采纳的[创新药核心管线模板](../../framework/drug_pipeline_supplement.md)仅在少数核心管线的成败会明显改变公司整体估值时启用。新准备批次按 v4 冻结八份方法文件，既有批次按原快照恢复。当天第二次修订增加研究当天留底及关键结果披露后复核。见[初次接入](../../research/investment/weekly/2026-11-21/investment-2026-11-21-adaption-report.md)、[本次修订](../../research/investment/weekly/2026-11-21/investment-2026-11-21-adaption-report-r2.md)和[本地接续](../../research/investment/weekly/2026-11-21/investment-2026-11-21-handoff-r2.json)。
 
 2026-11-20 本地采纳：普通股票仅在 AI 业务成败足以改变利润、现金流或现价解释时选读[业务补充模板](../../framework/ai_business_supplement.md)，结果并回公司原估值。新批次按 v3 冻结七份方法文件，已准备的 v1/v2 继续使用原文件。市场观测、5 项待复评与 4 个撤回来源按原日期接续。见[适配记录](../../research/investment/weekly/2026-11-20/investment-2026-11-20-adaption-report.md)及[本地接续](../../research/investment/weekly/2026-11-20/investment-2026-11-20-handoff.json)。

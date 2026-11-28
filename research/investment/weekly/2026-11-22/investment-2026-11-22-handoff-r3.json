@@ -1,0 +1,1117 @@
+{
+  "schema": "investment-maintenance/v1",
+  "id": "investment-2026-11-22-handoff-r3",
+  "as_of": "2026-11-22",
+  "revision": 3,
+  "status": "adopted",
+  "adoption_basis": "按用户关于 AI 科技股分类的纠正，局部采用公司主营口径的 r3 名单。",
+  "supersedes": [],
+  "method_status": "adopted",
+  "methods": {
+    "canonical": {
+      "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+      "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+      "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+    },
+    "compact": {
+      "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+      "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+      "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+    }
+  },
+  "reports": {
+    "market_research": {
+      "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+      "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+      "as_of": "2026-11-22"
+    },
+    "change_decision": {
+      "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-change-decision-r3.md",
+      "sha256": "627348623dba4e58e6aef2f559ef3a26598b3efda8fb9d851c10e7143011fbf2",
+      "as_of": "2026-11-22"
+    }
+  },
+  "evidence": [
+    {
+      "path": "research/investment/weekly/2026-11-21/investment-2026-11-21-handoff-r2.json",
+      "sha256": "90c1a5594098f10f6d1b34a35897bf0feb119fc4f33e259258836a432813b716",
+      "as_of": "2026-11-21"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-15/investment-2026-11-15-market-research.md",
+      "sha256": "b90f55c6e922dba7eb3d6e002807f8ce25ddfe23f982771327285e9f4d8607c8",
+      "as_of": "2026-11-15"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-15/evidence/r22-context.json",
+      "sha256": "91e25abf9dfaf6a3d8365b344ec279ff7881117c9c1067ebff029d60778466a7",
+      "as_of": "2026-11-15"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+      "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+      "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/csi-star50.json",
+      "sha256": "8188a6e6a7747ab02ce72c8792b363936b0683dbed44def1624faf8426dbf990",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/hkex-quotes.json",
+      "sha256": "80451435ccbe40299c2c16f9781f00f2293ba26b675af1e20ab2b6e057ce36dd",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/r22-context.json",
+      "sha256": "1f942052b83a6c5fa6be4097ae9b1942f67da1dbd264787592c373ad6cbb0b32",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/r22-market-inputs.json",
+      "sha256": "46b37490e9afeabc9ba3e5cdec5a88cd1bff02f72c48a8a9756c8c0961a53f0b",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+      "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/evidence/tushare-inputs.json",
+      "sha256": "ef622818ed390dede24f79ef3947fae6ffddf8c7cfd60f85f9f773ea1b3fe3b1",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-change-decision.md",
+      "sha256": "2751d114f3ba64cfa47190d1dc0bafece04963b4afdf31f44ef16853ff17d772",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/tracking/ai-business/investment-2026-11-22-ai-watchlist-r3.json",
+      "sha256": "a6bf6eaf1dcc1de376c919a5245fb74547fac1b94a5fa95ef8b1759a6b6d893c",
+      "as_of": "2026-11-22"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-change-decision-r2.md",
+      "sha256": "d7f2ddc31a2164d8102959add28e5b544dfc6a86b1f5c7391b492a4e1e80c939",
+      "as_of": "2026-11-22"
+    }
+  ],
+  "withdrawn_sources": [
+    {
+      "path": "research/investment/weekly/2026-10-11/investment-2026-10-11-change-decision.md",
+      "sha256": "06b59f529cf18cbfe55c08dffe10ca99ecb8c75ed5fbba6678e43fe681b2187a"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-01/investment-2026-11-01-handoff.json",
+      "sha256": "fda43aaf255b7923a81eac8be8f70579b8011b09ab0c9c091de07d283b7fe08b"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-06/investment-2026-11-06-handoff-r2.json",
+      "sha256": "55cb5e344a07d90e3582a607e1e1d204570f1760e46ea3b7fcbae54b2cb489b4"
+    },
+    {
+      "path": "research/investment/weekly/2026-11-06/investment-2026-11-06-handoff-r3.json",
+      "sha256": "1bcfb1598deadff205fbf0ba42b6b0c494339690b9d89a0e3b33ddc4ddc01d6c"
+    }
+  ],
+  "changes": [
+    {
+      "kind": "state_refresh",
+      "summary": "更新同月社零/贷款、货币价格及国内约束。"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "三日官方科创50、沪深成交与完整两融，R21未达。"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "十年美债周中触发、最新五日不触发；R2结合会议纪要复核。"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "补R22四个总收益与基金净值窗口、两日港股价差及指数拟调整。"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "从活跃池中按公司主营复核，AI 常设名单收窄至3只；其余既有复评事项接续。"
+    },
+    {
+      "kind": "state_refresh",
+      "summary": "更新利润、算力预付/资本支出与派息线索；五条旧事项接续。"
+    },
+    {
+      "kind": "evidence_correction",
+      "summary": "纠正前版覆盖全市场的名单口径。池内保留7只、补入7只，移出池外8只和暂停1只。"
+    },
+    {
+      "kind": "evidence_correction",
+      "summary": "此前将分部 AI 暴露等同公司主营，现移出11只，名单外专项仍按实际估值影响启用。"
+    }
+  ],
+  "classification": {
+    "evidence_correction": true,
+    "method_change": false,
+    "state_refresh": true,
+    "update_needed": false
+  },
+  "rule_evaluations": [
+    {
+      "rule_id": "UST10Y/historical-review-open",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "10/18接续确认历史五日>5%强制复评；未取得受暴露公司完成凭证，保留开放事项，不等于全市场自动冻结。 10/9首次触发的10/5–9序列见10/11未撤回市场研究，仅作历史事实。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-11/investment-2026-10-11-market-research.md",
+          "sha256": "4906a6f05f50fe4db622b39c7f82e5d59ab3f1661275341eed95ccdb81ce7dee",
+          "as_of": "2026-10-11"
+        }
+      ],
+      "trigger_date": "2026-10-09"
+    },
+    {
+      "rule_id": "R2/CPI-observation",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "9月3.7/核心环比0.3命中原观察分支；只适用受暴露高估值成长。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/macro-sources.md",
+          "sha256": "a4f94c9b1998447afa47af5873c2c20222f00473edb360fd918ca070380f2489",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-10-14"
+    },
+    {
+      "rule_id": "R6/S5548-named-exposure",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "SZ-300308",
+        "SZ-300502"
+      ],
+      "summary": "历史已触发复评事项仍开放；原触发日保留，最新进程/公司入账缺完成凭证。9/24原始提案命名式风险接续pending；最新全立法行动链及实际收入敞口仍unknown，无全面禁令判断。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-09-24"
+    },
+    {
+      "rule_id": "Precheck2/Hengrui-settlement",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "SH-600276",
+        "HK-01276"
+      ],
+      "summary": "历史已触发复评事项仍开放；原触发日保留，最新进程/公司入账缺完成凭证。原合同预期Q4，未核交割/到账/收入，延续受影响部分核验pending。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-09-29"
+    },
+    {
+      "rule_id": "Precheck2/Akeso-income-attribution",
+      "rule_status": "adopted",
+      "as_of": "2026-10-25",
+      "result": "triggered",
+      "affected_objects": [
+        "HK-09926"
+      ],
+      "summary": "历史已触发复评事项仍开放；原触发日保留，最新进程/公司入账缺完成凭证。AZ20亿美元交割对象为Summit；康方实际权益/里程碑/入账另核，原核验事项pending。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-10-18/evidence/source-ledger.md",
+          "sha256": "b905655b6c8644a4a43b3618d02b9a29d58ed1ebfc493d0f95a087e6a5ffa42c",
+          "as_of": "2026-10-18"
+        },
+        {
+          "path": "research/investment/weekly/2026-10-25/evidence/adoption-review.md",
+          "sha256": "5670732b9b9253f7f33e04a0e3cb99b0901dcbee9d78fbb7f5e883e559ec3224",
+          "as_of": "2026-10-25"
+        }
+      ],
+      "trigger_date": "2026-10-05"
+    },
+    {
+      "rule_id": "R6/FOMC-post-event",
+      "as_of": "2026-11-01",
+      "rule_status": "adopted",
+      "result": "triggered",
+      "trigger_date": "2026-10-29",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "会议已结束，对存在实质估值/融资暴露公司按实际结果复核；all是筛查范围，不是所有公司一律冻结。公司清单待定向核验，无新增批次授权。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-01/evidence/source-ledger.md",
+          "sha256": "97a4e74fb5e2105809c9e0588be1b3fea21c420778dcd568aaa2bdddb79f19a4",
+          "as_of": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "rule_id": "D5/deepening",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-20",
+      "result": "triggered",
+      "affected_objects": [
+        "A"
+      ],
+      "summary": "修复池承接及存量追加仍受限。最新三日成交和指数明确低于门槛，19日完整两融日差亦低于-150亿。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+          "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/csi-star50.json",
+          "sha256": "8188a6e6a7747ab02ce72c8792b363936b0683dbed44def1624faf8426dbf990",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R21/repair-exit",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-20",
+      "result": "not_triggered",
+      "affected_objects": [
+        "A"
+      ],
+      "summary": "以日历核连续18–20日，helper为not_met；20日两融仅沪市，有其他独立失败项。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+          "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/csi-star50.json",
+          "sha256": "8188a6e6a7747ab02ce72c8792b363936b0683dbed44def1624faf8426dbf990",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "D5/original-rebuild",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-20",
+      "result": "not_triggered",
+      "affected_objects": [
+        "A"
+      ],
+      "summary": "独立重建三条件未达，三日成交均小于2万亿且收盘低于1577.36。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+          "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "UST10Y/rolling-five-gt5-in-week",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-18",
+      "result": "triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "11/18和11/19截止的各五个美国交易日全数严格>5%；限有实际久期或再融资暴露对象。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+          "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "UST10Y/latest-five-gt5",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-20",
+      "result": "not_triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "11/20截止的最新五日期末4.92%；此前触发待复核。30Y 5.31%低于前高5.60%。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+          "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R2/CPI-gt4",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-10",
+      "result": "unknown",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "10月美国CPI同比缺，不能判定>4%；核心环比0.3%。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R2/FOMC-release",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-18",
+      "result": "not_triggered",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "10月纪要于美东11/18公开，维持3.75%–4.00%且两票倾向加息；路径回撤证据不足。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R20/domestic-release",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-16",
+      "result": "not_triggered",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "仅收入依赖内需的对象。10月社零0.4%，10月人民币贷款较去年同期约少增3200亿元，两项解除条件均未满足。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+          "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R14/new-threshold",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "同一布伦特主力合约连续结算缺口。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+          "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R17/gold-dollar",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "all"
+      ],
+      "summary": "黄金与美元阈值所需连续同口径序列缺口。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+          "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R7/capex-and-orders",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "有海外供应商收入及部分下游交付，缺全链同对象的预算、订单与现金，不认定普遍脱钩。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+          "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R19/policy-second-link",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "融资成本已知，政策至合同或到账的第二环需逐公司证实。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+          "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R22",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "已采用R22并填两项上下文；实际压力流动性、行业归因、前瞻机会成本和独立剩余价格影响未量化。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/r22-context.json",
+          "sha256": "1f942052b83a6c5fa6be4097ae9b1942f67da1dbd264787592c373ad6cbb0b32",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/NVDA-governance-exposure",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "既有治理线索仍须证明公司的具体订单、客户及融资暴露。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+          "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "VALUATION/4.1A-dividend",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "中国10年期1.5803%；联想普通息已宣派、中际回购属提议。逐股TTM股息利差和持续可分配现金缺完整核验。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+          "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "VALUATION/4.1BCD-capital-dcf",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "利润和算力投入有更新，税务、归属资本和独立剩余折扣需逐股补核，未生成新公司估值。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/investment-2026-11-22-market-research.md",
+          "sha256": "740975069d17efd1cea6e9846900dea3d900d59ef2ac45b3d61a5b151efcd951",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/CN-Nov16-post-event",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-16",
+      "result": "triggered",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "11/16国内经营数据已披露，有内需实质暴露者按实际结果复核。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/calculations.json",
+          "sha256": "5bd66a28e807482ea9a81cb060fb43bc108d47d9b630069d29974cbfc6887ce9",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/NVDA-Nov18-post-event",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-18",
+      "result": "triggered",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "北京时间11/18已知财报；按客户、产品、订单与回款复评供应链实质暴露。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/next-company-calendar",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-22",
+      "result": "unknown",
+      "affected_objects": [
+        "A",
+        "HK"
+      ],
+      "summary": "工业富联11/23说明会，以及小米、金山云11/24和美团11/27日历。公司实质暴露、具体时刻及预案逐对象判定。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/Akeso-ivonescimab-US-CRL",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-16",
+      "result": "triggered",
+      "affected_objects": [
+        "HK-09926"
+      ],
+      "summary": "美国EGFR突变非鳞NSCLC限定适应症，复核新试验、时点、合作权益与普通股现金。旧事项独立，历史缺当日专项留底。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+          "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/Tencent-Q3-cash",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-18",
+      "result": "triggered",
+      "affected_objects": [
+        "HK-00700"
+      ],
+      "summary": "Q3 FCF -691亿元，核预付算力和现金恢复及分配覆盖。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+          "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+          "as_of": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "rule_id": "R6/Alibaba-SepQ-cash",
+      "rule_status": "adopted",
+      "as_of": "2026-11-22",
+      "observed_at": "2026-11-19",
+      "result": "triggered",
+      "affected_objects": [
+        "HK-09988"
+      ],
+      "summary": "九月季FCF -344.72亿元，拆分经常云收入、设备开支、客户预付与现金回收。",
+      "evidence": [
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/sources.json",
+          "sha256": "9e19f2d760b58505cd1e1ab0cddec020df140d1b9a9d9addea94062dc5f5efaa",
+          "as_of": "2026-11-22"
+        },
+        {
+          "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+          "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+          "as_of": "2026-11-22"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "company": "SZ-300308",
+      "trigger_id": "R6/S5548-named-exposure",
+      "trigger_date": "2026-09-24",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日及历史方法/证据截止保留；当前方法为controls-v2-etf-relative-v1，与历史方法并非仅观测差异。尚无对应事项完成配对及必要方法兼容验收，不关闭pending、不启动批次、不重置168小时冷却。 2026-11-12接续分红基础估值方法，原pending与触发时钟继续保留，实际完成按新方法核验。 2026-11-14本地dev方法接续：历史方法/触发日/证据截止保持；未来完成核资本及DCF适用审计，隔离实验不关闭pending。 2026-11-15核main已部署；当前方法正文冻结重新绑定，原触发/历史方法/截止不改，配对盘点不等于触发事项或兼容验收完成。",
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "current_followup": "原触发、证据截止及当时方法保留。11/22重新核对公司正式档案，现有配对未证实完成原事项。未来复评核实际合同及适用审计。"
+    },
+    {
+      "company": "SZ-300502",
+      "trigger_id": "R6/S5548-named-exposure",
+      "trigger_date": "2026-09-24",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日及历史方法/证据截止保留；当前方法为controls-v2-etf-relative-v1，与历史方法并非仅观测差异。尚无对应事项完成配对及必要方法兼容验收，不关闭pending、不启动批次、不重置168小时冷却。 2026-11-12接续分红基础估值方法，原pending与触发时钟继续保留，实际完成按新方法核验。 2026-11-14本地dev方法接续：历史方法/触发日/证据截止保持；未来完成核资本及DCF适用审计，隔离实验不关闭pending。 2026-11-15核main已部署；当前方法正文冻结重新绑定，原触发/历史方法/截止不改，配对盘点不等于触发事项或兼容验收完成。",
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "current_followup": "原触发、证据截止及当时方法保留。11/22重新核对公司正式档案，现有配对未证实完成原事项。未来复评核实际合同及适用审计。"
+    },
+    {
+      "company": "SH-600276",
+      "trigger_id": "Precheck2/Hengrui-settlement",
+      "trigger_date": "2026-09-29",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日及历史方法/证据截止保留；当前方法为controls-v2-etf-relative-v1，与历史方法并非仅观测差异。尚无对应事项完成配对及必要方法兼容验收，不关闭pending、不启动批次、不重置168小时冷却。 2026-11-12接续分红基础估值方法，原pending与触发时钟继续保留，实际完成按新方法核验。 2026-11-14本地dev方法接续：历史方法/触发日/证据截止保持；未来完成核资本及DCF适用审计，隔离实验不关闭pending。 2026-11-15核main已部署；当前方法正文冻结重新绑定，原触发/历史方法/截止不改，配对盘点不等于触发事项或兼容验收完成。",
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "current_followup": "原触发、证据截止及当时方法保留。11/22重新核对公司正式档案，现有配对未证实完成原事项。未来复评核实际合同及适用审计。"
+    },
+    {
+      "company": "HK-01276",
+      "trigger_id": "Precheck2/Hengrui-settlement",
+      "trigger_date": "2026-09-29",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日及历史方法/证据截止保留；当前方法为controls-v2-etf-relative-v1，与历史方法并非仅观测差异。尚无对应事项完成配对及必要方法兼容验收，不关闭pending、不启动批次、不重置168小时冷却。 2026-11-12接续分红基础估值方法，原pending与触发时钟继续保留，实际完成按新方法核验。 2026-11-14本地dev方法接续：历史方法/触发日/证据截止保持；未来完成核资本及DCF适用审计，隔离实验不关闭pending。 2026-11-15核main已部署；当前方法正文冻结重新绑定，原触发/历史方法/截止不改，配对盘点不等于触发事项或兼容验收完成。",
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "current_followup": "原触发、证据截止及当时方法保留。11/22重新核对公司正式档案，现有配对未证实完成原事项。未来复评核实际合同及适用审计。"
+    },
+    {
+      "company": "HK-09926",
+      "trigger_id": "Precheck2/Akeso-income-attribution",
+      "trigger_date": "2026-10-05",
+      "identified_at": "2026-10-18",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-10-25",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework.md",
+          "sha256": "c570475a042643df8ecad64a92b50ee86d4816a983430ce805d76f17a88c3378",
+          "method_sha256": "1ba69fd41b54c45a3b1109a1532b9a51f9a9e65026723af6439a2267d0747f0f"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-01/evidence/investment-2026-11-01-handoff-methods/investment_framework_compact.md",
+          "sha256": "7abbcae54201ae58765abac70e7b50ae35fb2764b9133d41da23e2863d38c673",
+          "method_sha256": "e38a4400f41f7991170767d145de4b1501050972a2b3d71ec11590114ce84b5f"
+        }
+      },
+      "note": "原触发日及历史方法/证据截止保留；当前方法为controls-v2-etf-relative-v1，与历史方法并非仅观测差异。尚无对应事项完成配对及必要方法兼容验收，不关闭pending、不启动批次、不重置168小时冷却。 2026-11-12接续分红基础估值方法，原pending与触发时钟继续保留，实际完成按新方法核验。 2026-11-14本地dev方法接续：历史方法/触发日/证据截止保持；未来完成核资本及DCF适用审计，隔离实验不关闭pending。 2026-11-15核main已部署；当前方法正文冻结重新绑定，原触发/历史方法/截止不改，配对盘点不等于触发事项或兼容验收完成。",
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "current_followup": "原触发、证据截止及当时方法保留。11/22重新核对公司正式档案，现有配对未证实完成原事项。未来复评核实际合同及适用审计。"
+    },
+    {
+      "company": "HK-09926",
+      "trigger_id": "R6/Akeso-ivonescimab-US-CRL",
+      "trigger_date": "2026-11-16",
+      "identified_at": "2026-11-22",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-11-22",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "note": "美国EGFR突变非鳞NSCLC限定适应症，复核新试验、时点、合作权益与普通股现金。旧事项独立，历史缺当日专项留底。"
+    },
+    {
+      "company": "HK-00700",
+      "trigger_id": "R6/Tencent-Q3-cash",
+      "trigger_date": "2026-11-18",
+      "identified_at": "2026-11-22",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-11-22",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "note": "Q3 FCF -691亿元，核预付算力和现金恢复及分配覆盖。"
+    },
+    {
+      "company": "HK-09988",
+      "trigger_id": "R6/Alibaba-SepQ-cash",
+      "trigger_date": "2026-11-19",
+      "identified_at": "2026-11-22",
+      "status": "pending",
+      "completion": null,
+      "evidence_cutoff": "2026-11-22",
+      "methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "required_completion_methods": {
+        "canonical": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework.md",
+          "sha256": "1d6517bd875d786f6ab211ca02bd67adb802db4d61cff5d70aa4b454f884f040",
+          "method_sha256": "bc7388d3e58e98c879b376816ac659d4a8cb701a03cf09cfb19f09b506fc1a7a"
+        },
+        "compact": {
+          "path": "research/investment/weekly/2026-11-22/evidence/investment-2026-11-22-handoff-methods/investment_framework_compact.md",
+          "sha256": "0d6a136d0f1c5015c870dc13a661039b01bb5f143fbadc3e2c562bd3f02afdec",
+          "method_sha256": "3925fe6e56df62ea659c4c4ccb5ff477c2d0c1eda28e48515565d96ca6f6d364"
+        }
+      },
+      "completion_inventory": {
+        "path": "research/investment/weekly/2026-11-22/evidence/company-inventory.json",
+        "sha256": "2cfa2638e9b7b3ee79e68f0ba9c1951ddfec0f90114fd900af088384a8cfc19d",
+        "as_of": "2026-11-22"
+      },
+      "note": "九月季FCF -344.72亿元，拆分经常云收入、设备开支、客户预付与现金回收。"
+    }
+  ],
+  "generator": "codex",
+  "deployment_status": "verified_origin_main",
+  "deployment_pending": false,
+  "compatibility": [],
+  "account_execution": null,
+  "method_identity": "stock-strategy-split-v4-common-v5-dcf-v4-ai-v1-pipeline-v1"
+}

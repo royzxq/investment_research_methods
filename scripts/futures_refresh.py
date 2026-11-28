@@ -2,8 +2,7 @@
 
 Default is offline reuse. --fetch explicitly permits the existing data collector
 to run in an isolated directory. --check-only is always offline and writes nothing.
-The real-date calendar is inherited from the future_data v1.18 family (current
-collector v1.18.1, Tushare SSE calendar),
+The real-date calendar is inherited from the future_data v1.18 family (Tushare SSE calendar),
 not reconstructed from weekdays; night-session/execution calendars remain unverified.
 """
 from __future__ import annotations
@@ -33,7 +32,7 @@ except ImportError:
 
 CHINA = ZoneInfo("Asia/Shanghai")
 VERSION = "1.2"
-CALENDAR_SOURCE = "future_data v1.18 family (current collector v1.18.1): Tushare Pro trade_cal(exchange=SSE); actual dated sessions"
+CALENDAR_SOURCE = "future_data v1.18 family: Tushare Pro trade_cal(exchange=SSE); actual dated sessions"
 
 
 def stamp(value):

@@ -61,9 +61,6 @@ if get('task_id')+':'+generator==os.environ.get('MOCK_PARALLEL_FAIL',''): sys.ex
 '''
 FAKE_CLI = _fixture.FAKE_CLI.replace(
     "ticker,market=code.split('.')", TRACE_CODE + "\nticker,market=code.split('.')"
-).replace(
-    "{'600066.SH':'宇通客车','600900.SH':'长江电力'}[code]",
-    "{'600066.SH':'宇通客车','600900.SH':'长江电力','600276.SH':'恒瑞医药','600519.SH':'贵州茅台','600887.SH':'伊利股份','600036.SH':'招商银行'}[code]",
 )
 
 
