@@ -1,0 +1,507 @@
+{
+  "as_of": "2026-11-29",
+  "ETF_LIQUIDITY_CONTEXT": {
+    "week": [
+      "2026-11-20",
+      "2026-11-27"
+    ],
+    "hk_quote_url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261127e.htm",
+    "hk_market_turnover_hkd": 257140494366,
+    "hk_close_quotes": {
+      "00100": {
+        "close": 110.1,
+        "bid": 110.1,
+        "ask": 110.2,
+        "turnover_hkd": 2368941212.0,
+        "spread_bp": 9.079,
+        "prior_spread_bp": 9.761,
+        "prior_turnover_hkd": 1488179896,
+        "prior_close": 102.4,
+        "price_return_pct": 7.5195
+      },
+      "02513": {
+        "close": 347.4,
+        "bid": 347.4,
+        "ask": 347.6,
+        "turnover_hkd": 5770522848.0,
+        "spread_bp": 5.755,
+        "prior_spread_bp": 5.99,
+        "prior_turnover_hkd": 2198043275,
+        "prior_close": 334.0,
+        "price_return_pct": 4.012
+      },
+      "01658": {
+        "close": 5.475,
+        "bid": 5.475,
+        "ask": 5.48,
+        "turnover_hkd": 365602177.0,
+        "spread_bp": 9.128,
+        "prior_spread_bp": 8.981,
+        "prior_turnover_hkd": 310021808,
+        "prior_close": 5.565,
+        "price_return_pct": -1.6173
+      },
+      "02313": {
+        "close": 42.0,
+        "bid": 41.98,
+        "ask": 42.0,
+        "turnover_hkd": 229849183.0,
+        "spread_bp": 4.763,
+        "prior_spread_bp": 4.754,
+        "prior_turnover_hkd": 439784044,
+        "prior_close": 42.08,
+        "price_return_pct": -0.1901
+      },
+      "03308": {
+        "close": 597.5,
+        "bid": 597.5,
+        "ask": 598.0,
+        "turnover_hkd": 3174763563.0,
+        "spread_bp": 8.365,
+        "prior_spread_bp": 8.167,
+        "prior_turnover_hkd": 1716558287,
+        "prior_close": 490.0,
+        "price_return_pct": 21.9388
+      },
+      "02475": {
+        "close": 50.25,
+        "bid": 50.1,
+        "ask": 50.25,
+        "turnover_hkd": 148660819.0,
+        "spread_bp": 29.895,
+        "prior_spread_bp": 4.43,
+        "prior_turnover_hkd": 321568766,
+        "prior_close": 45.16,
+        "price_return_pct": 11.271
+      },
+      "02800": {
+        "close": 22.84,
+        "bid": 22.82,
+        "ask": 22.84,
+        "turnover_hkd": 12772663782.0,
+        "spread_bp": 8.76,
+        "prior_spread_bp": 8.869,
+        "prior_turnover_hkd": 28914506303,
+        "prior_close": 22.54,
+        "price_return_pct": 1.331
+      },
+      "03033": {
+        "close": 3.564,
+        "bid": 3.562,
+        "ask": 3.564,
+        "turnover_hkd": 14954197845.0,
+        "spread_bp": 5.613,
+        "prior_spread_bp": 5.819,
+        "prior_turnover_hkd": 21092428784,
+        "prior_close": 3.438,
+        "price_return_pct": 3.6649
+      },
+      "02828": {
+        "close": 78.46,
+        "bid": 78.42,
+        "ask": 78.5,
+        "turnover_hkd": 7227226869.0,
+        "spread_bp": 10.196,
+        "prior_spread_bp": 2.581,
+        "prior_turnover_hkd": 11670317768,
+        "prior_close": 77.5,
+        "price_return_pct": 1.2387
+      }
+    },
+    "sse_weekly_including_cash_etf": {
+      "turnover_yi_cny": 20547,
+      "units_yi": 23344,
+      "value_yi_cny": 37631
+    },
+    "exchange_units_wan": {
+      "2026-11-20": {
+        "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-20",
+        "rows": [
+          {
+            "STAT_DATE": "2026-11-20",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "510300",
+            "NUM": "21",
+            "SEC_NAME": "300ETF",
+            "TOT_VOL": "5518488.77"
+          },
+          {
+            "STAT_DATE": "2026-11-20",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512170",
+            "NUM": "96",
+            "SEC_NAME": "医疗ETF",
+            "TOT_VOL": "6820382.05"
+          },
+          {
+            "STAT_DATE": "2026-11-20",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512480",
+            "NUM": "116",
+            "SEC_NAME": "半导体",
+            "TOT_VOL": "2136600.72"
+          }
+        ]
+      },
+      "2026-11-23": {
+        "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-23",
+        "rows": [
+          {
+            "STAT_DATE": "2026-11-23",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "510300",
+            "NUM": "21",
+            "SEC_NAME": "300ETF",
+            "TOT_VOL": "5558718.77"
+          },
+          {
+            "STAT_DATE": "2026-11-23",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512170",
+            "NUM": "96",
+            "SEC_NAME": "医疗ETF",
+            "TOT_VOL": "6830682.05"
+          },
+          {
+            "STAT_DATE": "2026-11-23",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512480",
+            "NUM": "116",
+            "SEC_NAME": "半导体",
+            "TOT_VOL": "2147400.72"
+          }
+        ]
+      },
+      "2026-11-24": {
+        "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-24",
+        "rows": [
+          {
+            "STAT_DATE": "2026-11-24",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "510300",
+            "NUM": "21",
+            "SEC_NAME": "300ETF",
+            "TOT_VOL": "5481048.77"
+          },
+          {
+            "STAT_DATE": "2026-11-24",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512170",
+            "NUM": "96",
+            "SEC_NAME": "医疗ETF",
+            "TOT_VOL": "6828282.05"
+          },
+          {
+            "STAT_DATE": "2026-11-24",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512480",
+            "NUM": "116",
+            "SEC_NAME": "半导体",
+            "TOT_VOL": "2135800.72"
+          }
+        ]
+      },
+      "2026-11-25": {
+        "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-25",
+        "rows": [
+          {
+            "STAT_DATE": "2026-11-25",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "510300",
+            "NUM": "21",
+            "SEC_NAME": "300ETF",
+            "TOT_VOL": "5592468.77"
+          },
+          {
+            "STAT_DATE": "2026-11-25",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512170",
+            "NUM": "96",
+            "SEC_NAME": "医疗ETF",
+            "TOT_VOL": "6837682.05"
+          },
+          {
+            "STAT_DATE": "2026-11-25",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512480",
+            "NUM": "116",
+            "SEC_NAME": "半导体",
+            "TOT_VOL": "2184600.72"
+          }
+        ]
+      },
+      "2026-11-26": {
+        "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-26",
+        "rows": [
+          {
+            "STAT_DATE": "2026-11-26",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "510300",
+            "NUM": "21",
+            "SEC_NAME": "300ETF",
+            "TOT_VOL": "5610288.77"
+          },
+          {
+            "STAT_DATE": "2026-11-26",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512170",
+            "NUM": "96",
+            "SEC_NAME": "医疗ETF",
+            "TOT_VOL": "6855082.05"
+          },
+          {
+            "STAT_DATE": "2026-11-26",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512480",
+            "NUM": "116",
+            "SEC_NAME": "半导体",
+            "TOT_VOL": "2207000.72"
+          }
+        ]
+      },
+      "2026-11-27": {
+        "url": "https://query.sse.com.cn/commonQuery.do?isPagination=true&pageHelp.pageSize=2000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-11-27",
+        "rows": [
+          {
+            "STAT_DATE": "2026-11-27",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "510300",
+            "NUM": "21",
+            "SEC_NAME": "300ETF",
+            "TOT_VOL": "5763738.77"
+          },
+          {
+            "STAT_DATE": "2026-11-27",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512170",
+            "NUM": "96",
+            "SEC_NAME": "医疗ETF",
+            "TOT_VOL": "6787982.05"
+          },
+          {
+            "STAT_DATE": "2026-11-27",
+            "ETF_TYPE": "跨市",
+            "SEC_CODE": "512480",
+            "NUM": "116",
+            "SEC_NAME": "半导体",
+            "TOT_VOL": "2110600.72"
+          }
+        ]
+      }
+    },
+    "gross_creations": null,
+    "gross_redemptions": null,
+    "participant_identity": null,
+    "stress_depth": null
+  },
+  "BENCHMARK_CONTEXT": {
+    "window": [
+      "2026-11-20",
+      "2026-11-27"
+    ],
+    "returns_pct": {
+      "tr": 2.763021789722786,
+      "nav": 2.7577758238458205,
+      "csi300": 2.7436393130470638,
+      "hsi": 1.267112285148242
+    },
+    "q3_510300": {
+      "report_period": "2026-09-30",
+      "published": "2026-10-27",
+      "source": "https://static.howbuy.com/gkxx/ggfile/2026/2026-10/2026-10-27/5625023.pdf",
+      "document_sha256": "fd19ca5832055d08712a104814792c2461c7280602f661c97f4d2f02d559cff1",
+      "section": "5.3.1 指数投资前十名",
+      "positions": [
+        {
+          "code": "300308.SZ",
+          "weight_pct": 3.56,
+          "shares": 4706344
+        },
+        {
+          "code": "300502.SZ",
+          "weight_pct": 2.13,
+          "shares": 5864205
+        }
+      ]
+    },
+    "hk_sector_total_return": null,
+    "forward_horizon": null,
+    "forward_opportunity_cost": null,
+    "A_sector_price_window": {
+      "raw": {
+        "index_daily:000993.SH": {
+          "status": 0,
+          "fields": [
+            "trade_date",
+            "close"
+          ],
+          "items": [
+            [
+              "20261127",
+              7923.1011
+            ],
+            [
+              "20261126",
+              7050.4842
+            ],
+            [
+              "20261125",
+              7078.4721
+            ],
+            [
+              "20261124",
+              7469.2233
+            ],
+            [
+              "20261123",
+              7369.75
+            ],
+            [
+              "20261120",
+              7274.9829
+            ]
+          ]
+        },
+        "daily:300308.SZ": {
+          "status": 0,
+          "fields": [
+            "trade_date",
+            "close"
+          ],
+          "items": [
+            [
+              "20261127",
+              516.15
+            ],
+            [
+              "20261126",
+              430.18
+            ],
+            [
+              "20261125",
+              409.0
+            ],
+            [
+              "20261124",
+              417.0
+            ],
+            [
+              "20261123",
+              417.2
+            ],
+            [
+              "20261120",
+              393.2
+            ]
+          ]
+        },
+        "daily:300502.SZ": {
+          "status": 0,
+          "fields": [
+            "trade_date",
+            "close"
+          ],
+          "items": [
+            [
+              "20261127",
+              226.84
+            ],
+            [
+              "20261126",
+              189.03
+            ],
+            [
+              "20261125",
+              181.3
+            ],
+            [
+              "20261124",
+              180.01
+            ],
+            [
+              "20261123",
+              181.36
+            ],
+            [
+              "20261120",
+              165.0
+            ]
+          ]
+        },
+        "adj_factor:300308.SZ": {
+          "status": 0,
+          "fields": [
+            "trade_date",
+            "adj_factor"
+          ],
+          "items": [
+            [
+              "20261127",
+              6.6136
+            ],
+            [
+              "20261126",
+              6.6136
+            ],
+            [
+              "20261125",
+              6.6136
+            ],
+            [
+              "20261124",
+              6.6136
+            ],
+            [
+              "20261123",
+              6.6136
+            ],
+            [
+              "20261120",
+              6.6136
+            ]
+          ]
+        },
+        "adj_factor:300502.SZ": {
+          "status": 0,
+          "fields": [
+            "trade_date",
+            "adj_factor"
+          ],
+          "items": [
+            [
+              "20261127",
+              16.7445
+            ],
+            [
+              "20261126",
+              16.7445
+            ],
+            [
+              "20261125",
+              16.7445
+            ],
+            [
+              "20261124",
+              16.7445
+            ],
+            [
+              "20261123",
+              16.7445
+            ],
+            [
+              "20261120",
+              16.7445
+            ]
+          ]
+        }
+      },
+      "return_pct": {
+        "index_daily:000993.SH": 8.908862177531706,
+        "daily:300308.SZ": 31.26907426246186,
+        "daily:300502.SZ": 37.47878787878789
+      },
+      "source": "Tushare index_daily, daily, adj_factor; 000993.SH, 300308.SZ, 300502.SZ",
+      "issuer": "https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000993factsheet.pdf"
+    }
+  }
+}

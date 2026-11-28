@@ -1,0 +1,341 @@
+[
+  {
+    "tool": "get_announcements",
+    "code": "000988.SZ",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:47.443731+08:00",
+    "category": "all",
+    "status": "empty_unconfirmed",
+    "filings": [],
+    "provider_total": 0,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "002371.SZ",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:50.094606+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-28",
+        "title": "关于召开2026年第二次临时股东会的通知",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-28/1225692131.PDF"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "关于2026年员工持股计划完成股票购买的公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225683013.PDF"
+      }
+    ],
+    "provider_total": 2,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "002475.SZ",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:47.971339+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-28",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-28/1225693969.PDF"
+      },
+      {
+        "date": "2026-11-27",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-27/1225691357.PDF"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225685238.PDF"
+      }
+    ],
+    "provider_total": 3,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "02158.HK",
+    "source": "hkexnews",
+    "directory": "HKEXnews English",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:42.571436+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-22",
+        "title": "INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 SEPTEMBER 2026",
+        "document_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1122/2026112200029.pdf"
+      }
+    ],
+    "provider_total": 1,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "02513.HK",
+    "source": "hkexnews",
+    "directory": "HKEXnews English",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:41.229694+08:00",
+    "category": "all",
+    "status": "empty_unconfirmed",
+    "filings": [],
+    "provider_total": 0,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "09926.HK",
+    "source": "hkexnews",
+    "directory": "HKEXnews English",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:51.781513+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-25",
+        "title": "VOLUNTARY ANNOUNCEMENT - ON-MARKET SHARE PURCHASE",
+        "document_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112501599.pdf"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "VOLUNTARY ANNOUNCEMENT - ON-MARKET SHARE PURCHASE",
+        "document_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401159.pdf"
+      },
+      {
+        "date": "2026-11-23",
+        "title": "VOLUNTARY ANNOUNCEMENT - ON-MARKET SHARE PURCHASE",
+        "document_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301498.pdf"
+      }
+    ],
+    "provider_total": 3,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "600276.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:51.978398+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-28",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-28/1225693023.PDF"
+      },
+      {
+        "date": "2026-11-27",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-27/1225690794.PDF"
+      },
+      {
+        "date": "2026-11-26",
+        "title": "恒瑞医药关于获得药物临床试验批准通知书的公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-26/1225687751.PDF"
+      },
+      {
+        "date": "2026-11-26",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-26/1225688168.PDF"
+      },
+      {
+        "date": "2026-11-25",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-25/1225686201.PDF"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "H股公告-翌日披露报表",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225684613.PDF"
+      }
+    ],
+    "provider_total": 6,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "601138.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:50.180460+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-25",
+        "title": "富士康工业互联网股份有限公司第四届董事会第六次会议决议公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-25/1225686617.PDF"
+      },
+      {
+        "date": "2026-11-25",
+        "title": "富士康工业互联网股份有限公司关于公司2026年前三季度利润分配方案的公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-25/1225686622.PDF"
+      }
+    ],
+    "provider_total": 2,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "688018.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:49.446706+08:00",
+    "category": "all",
+    "status": "empty_unconfirmed",
+    "filings": [],
+    "provider_total": 0,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "688041.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:46.298095+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-24",
+        "title": "海光信息技术股份有限公司董事会薪酬与考核委员会关于公司2025年限制性股票激励计划首次授予部分第一个归属期归属名单的核查意见",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225684231.PDF"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "海光信息技术股份有限公司第三届董事会第六次会议决议的公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225684227.PDF"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "海光信息技术股份有限公司关于作废部分已授予尚未归属的限制性股票的公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225684228.PDF"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "海光信息技术股份有限公司关于2025年限制性股票激励计划首次授予部分第一个归属期符合归属条件的公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225684233.PDF"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "北京市中伦律师事务所关于海光信息技术股份有限公司2025年限制性股票激励计划首次授予及作废部分限制性股票相关事项的法律意见书",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-24/1225684224.PDF"
+      }
+    ],
+    "provider_total": 5,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "688099.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:48.176466+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-28",
+        "title": "晶晨股份关于召开2026年第三季度业绩说明会的公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-28/1225691684.PDF"
+      }
+    ],
+    "provider_total": 1,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "688256.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:41.229249+08:00",
+    "category": "all",
+    "status": "empty_unconfirmed",
+    "filings": [],
+    "provider_total": 0,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "688825.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:46.980857+08:00",
+    "category": "all",
+    "status": "indexed",
+    "filings": [
+      {
+        "date": "2026-11-25",
+        "title": "关于回购股份事项前十名股东和前十名无限售条件股东持股情况公告",
+        "document_url": "https://static.cninfo.com.cn/finalpage/2026-11-25/1225686756.PDF"
+      }
+    ],
+    "provider_total": 1,
+    "truncated": false,
+    "rejected_rows": 0
+  },
+  {
+    "tool": "get_announcements",
+    "code": "688981.SH",
+    "source": "cninfo",
+    "directory": "CNInfo A-share",
+    "start_date": "2026-11-22",
+    "end_date": "2026-11-29",
+    "queried_at": "2026-11-29T02:05:49.449561+08:00",
+    "category": "all",
+    "status": "empty_unconfirmed",
+    "filings": [],
+    "provider_total": 0,
+    "truncated": false,
+    "rejected_rows": 0
+  }
+]

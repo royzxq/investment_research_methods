@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-11-29T02:08:32.835149+08:00",
+  "active_count": 64,
+  "sources": {
+    "investment_prediction.csv": "4489cce1afc3df2969ee0bd81a50eeb63c7d98d6553fde2d8e88e1d0222b2b55",
+    "paused_stocks.csv": "ef8468e5e21e433cbc7ea9b0d76fedfa1aab386f644bcfbc0ef1b9023a09cd59"
+  },
+  "release_sha256": "9aa84f79460d4efef295c4a9fd34bf1b74e5d12205254b353cd24a8526f6db53",
+  "matched_count": 11
+}

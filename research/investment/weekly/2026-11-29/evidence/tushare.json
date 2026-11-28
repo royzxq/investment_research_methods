@@ -1,0 +1,500 @@
+{
+  "sh": {
+    "api": "index_daily",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "000001.SH"
+    },
+    "rows": [
+      {
+        "ts_code": "000001.SH",
+        "trade_date": "20261127",
+        "amount": 929777242.1442,
+        "close": 3606.4868
+      },
+      {
+        "ts_code": "000001.SH",
+        "trade_date": "20261126",
+        "amount": 613332810.4525,
+        "close": 3476.8816
+      },
+      {
+        "ts_code": "000001.SH",
+        "trade_date": "20261125",
+        "amount": 652709381.5961,
+        "close": 3476.4697
+      },
+      {
+        "ts_code": "000001.SH",
+        "trade_date": "20261124",
+        "amount": 771861010.3087,
+        "close": 3548.3694
+      },
+      {
+        "ts_code": "000001.SH",
+        "trade_date": "20261123",
+        "amount": 738500418.8231,
+        "close": 3538.948
+      },
+      {
+        "ts_code": "000001.SH",
+        "trade_date": "20261120",
+        "amount": 702573853.1158,
+        "close": 3533.7929
+      }
+    ],
+    "status": 0
+  },
+  "sz": {
+    "api": "index_daily",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "399106.SZ"
+    },
+    "rows": [
+      {
+        "ts_code": "399106.SZ",
+        "trade_date": "20261127",
+        "amount": 1070017207.17468,
+        "close": 2029.8607
+      },
+      {
+        "ts_code": "399106.SZ",
+        "trade_date": "20261126",
+        "amount": 704044360.24214,
+        "close": 1893.9024
+      },
+      {
+        "ts_code": "399106.SZ",
+        "trade_date": "20261125",
+        "amount": 730388152.60818,
+        "close": 1897.5501
+      },
+      {
+        "ts_code": "399106.SZ",
+        "trade_date": "20261124",
+        "amount": 883224915.52593,
+        "close": 1965.4275
+      },
+      {
+        "ts_code": "399106.SZ",
+        "trade_date": "20261123",
+        "amount": 814379754.01374,
+        "close": 1969.8201
+      },
+      {
+        "ts_code": "399106.SZ",
+        "trade_date": "20261120",
+        "amount": 719626569.82159,
+        "close": 1924.8968
+      }
+    ],
+    "status": 0
+  },
+  "csi300": {
+    "api": "index_daily",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "000300.SH"
+    },
+    "rows": [
+      {
+        "ts_code": "000300.SH",
+        "trade_date": "20261127",
+        "amount": 614337436.1303,
+        "close": 4063.064
+      },
+      {
+        "ts_code": "000300.SH",
+        "trade_date": "20261126",
+        "amount": 371397575.3294,
+        "close": 3900.5483
+      },
+      {
+        "ts_code": "000300.SH",
+        "trade_date": "20261125",
+        "amount": 410985201.3693,
+        "close": 3898.2356
+      },
+      {
+        "ts_code": "000300.SH",
+        "trade_date": "20261124",
+        "amount": 506865912.7909,
+        "close": 3963.8232
+      },
+      {
+        "ts_code": "000300.SH",
+        "trade_date": "20261123",
+        "amount": 458279260.2846,
+        "close": 3958.2938
+      },
+      {
+        "ts_code": "000300.SH",
+        "trade_date": "20261120",
+        "amount": 441107729.3551,
+        "close": 3954.565
+      }
+    ],
+    "status": 0
+  },
+  "star": {
+    "api": "index_daily",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "000688.SH"
+    },
+    "rows": [
+      {
+        "ts_code": "000688.SH",
+        "trade_date": "20261127",
+        "amount": 131589966.2519,
+        "close": 1346.2544
+      },
+      {
+        "ts_code": "000688.SH",
+        "trade_date": "20261126",
+        "amount": 73376738.3796,
+        "close": 1169.9913
+      },
+      {
+        "ts_code": "000688.SH",
+        "trade_date": "20261125",
+        "amount": 82282620.4637,
+        "close": 1186.1418
+      },
+      {
+        "ts_code": "000688.SH",
+        "trade_date": "20261124",
+        "amount": 100124032.657,
+        "close": 1250.0922
+      },
+      {
+        "ts_code": "000688.SH",
+        "trade_date": "20261123",
+        "amount": 89555016.201,
+        "close": 1227.8856
+      },
+      {
+        "ts_code": "000688.SH",
+        "trade_date": "20261120",
+        "amount": 91944689.9018,
+        "close": 1231.089
+      }
+    ],
+    "status": 0
+  },
+  "tr": {
+    "api": "index_daily",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "H00300.CSI"
+    },
+    "rows": [
+      {
+        "ts_code": "H00300.CSI",
+        "trade_date": "20261127",
+        "amount": null,
+        "close": 6120.3916
+      },
+      {
+        "ts_code": "H00300.CSI",
+        "trade_date": "20261126",
+        "amount": null,
+        "close": 5875.2478
+      },
+      {
+        "ts_code": "H00300.CSI",
+        "trade_date": "20261125",
+        "amount": null,
+        "close": 5871.6697
+      },
+      {
+        "ts_code": "H00300.CSI",
+        "trade_date": "20261124",
+        "amount": null,
+        "close": 5969.9203
+      },
+      {
+        "ts_code": "H00300.CSI",
+        "trade_date": "20261123",
+        "amount": null,
+        "close": 5961.5925
+      },
+      {
+        "ts_code": "H00300.CSI",
+        "trade_date": "20261120",
+        "amount": null,
+        "close": 5955.8307
+      }
+    ],
+    "status": 0
+  },
+  "hsi": {
+    "api": "index_global",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "HSI"
+    },
+    "rows": [
+      {
+        "trade_date": "20261127",
+        "close": 22694.77
+      },
+      {
+        "trade_date": "20261126",
+        "close": 22226.88
+      },
+      {
+        "trade_date": "20261125",
+        "close": 21966.01
+      },
+      {
+        "trade_date": "20261124",
+        "close": 22219.65
+      },
+      {
+        "trade_date": "20261123",
+        "close": 22383.74
+      },
+      {
+        "trade_date": "20261120",
+        "close": 22410.8
+      }
+    ],
+    "status": 0
+  },
+  "margin": {
+    "api": "margin",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127"
+    },
+    "rows": [
+      {
+        "trade_date": "20261127",
+        "exchange_id": "SSE",
+        "rzrqye": 1124886425399.0
+      },
+      {
+        "trade_date": "20261126",
+        "exchange_id": "SZSE",
+        "rzrqye": 1007923309721.0
+      },
+      {
+        "trade_date": "20261126",
+        "exchange_id": "SSE",
+        "rzrqye": 1119731973861.0
+      },
+      {
+        "trade_date": "20261126",
+        "exchange_id": "BSE",
+        "rzrqye": 6986933050.0
+      },
+      {
+        "trade_date": "20261125",
+        "exchange_id": "SZSE",
+        "rzrqye": 1015611098982.0
+      },
+      {
+        "trade_date": "20261125",
+        "exchange_id": "SSE",
+        "rzrqye": 1127703771300.0
+      },
+      {
+        "trade_date": "20261125",
+        "exchange_id": "BSE",
+        "rzrqye": 7101012008.0
+      },
+      {
+        "trade_date": "20261124",
+        "exchange_id": "SZSE",
+        "rzrqye": 1026041601915.0
+      },
+      {
+        "trade_date": "20261124",
+        "exchange_id": "SSE",
+        "rzrqye": 1138562931131.0
+      },
+      {
+        "trade_date": "20261124",
+        "exchange_id": "BSE",
+        "rzrqye": 7172779195.0
+      },
+      {
+        "trade_date": "20261123",
+        "exchange_id": "SZSE",
+        "rzrqye": 1026326808476.0
+      },
+      {
+        "trade_date": "20261123",
+        "exchange_id": "SSE",
+        "rzrqye": 1137677031394.0
+      },
+      {
+        "trade_date": "20261123",
+        "exchange_id": "BSE",
+        "rzrqye": 7130879632.0
+      },
+      {
+        "trade_date": "20261120",
+        "exchange_id": "SZSE",
+        "rzrqye": 1033278308812.0
+      },
+      {
+        "trade_date": "20261120",
+        "exchange_id": "SSE",
+        "rzrqye": 1139447767407.0
+      },
+      {
+        "trade_date": "20261120",
+        "exchange_id": "BSE",
+        "rzrqye": 7070296393.0
+      }
+    ],
+    "status": 0
+  },
+  "cal": {
+    "api": "trade_cal",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261129",
+      "exchange": "SSE"
+    },
+    "rows": [
+      {
+        "cal_date": "20261129",
+        "is_open": 0
+      },
+      {
+        "cal_date": "20261128",
+        "is_open": 0
+      },
+      {
+        "cal_date": "20261127",
+        "is_open": 1
+      },
+      {
+        "cal_date": "20261126",
+        "is_open": 1
+      },
+      {
+        "cal_date": "20261125",
+        "is_open": 1
+      },
+      {
+        "cal_date": "20261124",
+        "is_open": 1
+      },
+      {
+        "cal_date": "20261123",
+        "is_open": 1
+      },
+      {
+        "cal_date": "20261122",
+        "is_open": 0
+      },
+      {
+        "cal_date": "20261121",
+        "is_open": 0
+      },
+      {
+        "cal_date": "20261120",
+        "is_open": 1
+      }
+    ],
+    "status": 0
+  },
+  "nav": {
+    "api": "fund_nav",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "510300.SH"
+    },
+    "rows": [
+      {
+        "ann_date": "20261127",
+        "nav_date": "20261127",
+        "unit_nav": 4.1397,
+        "adj_nav": 1.943502
+      },
+      {
+        "ann_date": "20261126",
+        "nav_date": "20261126",
+        "unit_nav": 3.9741,
+        "adj_nav": 1.865756
+      },
+      {
+        "ann_date": "20261125",
+        "nav_date": "20261125",
+        "unit_nav": 3.9718,
+        "adj_nav": 1.864677
+      },
+      {
+        "ann_date": "20261124",
+        "nav_date": "20261124",
+        "unit_nav": 4.0383,
+        "adj_nav": 1.895897
+      },
+      {
+        "ann_date": "20261123",
+        "nav_date": "20261123",
+        "unit_nav": 4.0328,
+        "adj_nav": 1.893315
+      },
+      {
+        "ann_date": "20261120",
+        "nav_date": "20261120",
+        "unit_nav": 4.0286,
+        "adj_nav": 1.891343
+      }
+    ],
+    "status": 0
+  },
+  "510300.SH": {
+    "api": "etf_share_size",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "510300.SH"
+    },
+    "rows": [],
+    "status": 40203
+  },
+  "512480.SH": {
+    "api": "etf_share_size",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "512480.SH"
+    },
+    "rows": [],
+    "status": 40203
+  },
+  "159915.SZ": {
+    "api": "etf_share_size",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "159915.SZ"
+    },
+    "rows": [],
+    "status": 40203
+  },
+  "512170.SH": {
+    "api": "etf_share_size",
+    "params": {
+      "start_date": "20261120",
+      "end_date": "20261127",
+      "ts_code": "512170.SH"
+    },
+    "rows": [],
+    "status": 40203
+  }
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "company": "SZ-300308",
+    "week_candidates": []
+  },
+  {
+    "company": "SZ-300502",
+    "week_candidates": []
+  },
+  {
+    "company": "SH-600276",
+    "week_candidates": []
+  },
+  {
+    "company": "HK-01276",
+    "week_candidates": [
+      {
+        "available_directory": "2026-11-24",
+        "report": "investment-01276-2026-11-24-research-codex.md",
+        "report_sha256": "7a2e83b6be0e1a96a191200227db7a404a8bbd05fa7ea868a608b6a575351a64",
+        "price_map": "investment-01276-2026-11-24-price-map-codex.json",
+        "price_map_sha256": "1da52005abf86a69e182dbf71f77437d77b3382e4c45582f78998bf62a9b4e57",
+        "local_audit": "passed"
+      },
+      {
+        "available_directory": "2026-11-24",
+        "report": "investment-01276-2026-11-24-research-dsh.md",
+        "report_sha256": "0059e3ec97b11b7459a056ca55df1820506a09af779dfd03a5ec3178e6874c88",
+        "price_map": "investment-01276-2026-11-24-price-map-dsh.json",
+        "price_map_sha256": "b3366fb68dd710b6f81d9c281b21508bcfcb689d8d263c061396d27a2a79689c",
+        "local_audit": "passed"
+      }
+    ]
+  },
+  {
+    "company": "HK-09926",
+    "week_candidates": []
+  },
+  {
+    "company": "HK-00700",
+    "week_candidates": [
+      {
+        "available_directory": "2026-11-22",
+        "report": "investment-00700-2026-11-22-research-codex.md",
+        "report_sha256": "854e38cc762b8453f19e9e69c5679872c54ca09cc460f3086ac55694c22c95c0",
+        "price_map": "investment-00700-2026-11-22-price-map-codex.json",
+        "price_map_sha256": "9c9e4b4840c5fde387a9e98765e56e8a438699e0cca58272626da9601f8a07c3",
+        "local_audit": "passed"
+      },
+      {
+        "available_directory": "2026-11-22",
+        "report": "investment-00700-2026-11-22-research-dsh.md",
+        "report_sha256": "ef86b10303dfab9863a2b063b674f8fe3d61bd5353b1202f4b2e7b0e11049315",
+        "price_map": "investment-00700-2026-11-22-price-map-dsh.json",
+        "price_map_sha256": "e8948b7d2b12c154fdb81bf9a29d6a9c452cd8b64a24a0191d318df819a4540c",
+        "local_audit": "passed"
+      }
+    ]
+  },
+  {
+    "company": "HK-09988",
+    "week_candidates": [
+      {
+        "available_directory": "2026-11-23",
+        "report": "investment-09988-2026-11-23-research-codex.md",
+        "report_sha256": "3056c7d2c6b212bcf4c42cd9d09324b752333bd23be565f1d4858e4b0dcc7d56",
+        "price_map": "investment-09988-2026-11-23-price-map-codex.json",
+        "price_map_sha256": "b8865fc62f3fd34d2937f6b991a1bc1ea2602f57f62781436a34d7c37944dbd5",
+        "local_audit": "passed"
+      },
+      {
+        "available_directory": "2026-11-23",
+        "report": "investment-09988-2026-11-23-research-dsh.md",
+        "report_sha256": "3264aaefd925f94cef41b60a5ca9cd9d518e019a594a00dd8f07cdc0d498c46f",
+        "price_map": "investment-09988-2026-11-23-price-map-dsh.json",
+        "price_map_sha256": "a99b3bd8d07eed3c47a6ab4f2f462f4b3a1204b72a412ac593c0a615459ee994",
+        "local_audit": "passed"
+      }
+    ]
+  },
+  {
+    "company": "HK-01810",
+    "week_candidates": [
+      {
+        "available_directory": "2026-11-24",
+        "report": "investment-01810-2026-11-24-research-codex.md",
+        "report_sha256": "cb35a4e900d7a16e1a34583460469af098e623dbe73eb9e211f3ac70ab14f7bc",
+        "price_map": "investment-01810-2026-11-24-price-map-codex.json",
+        "price_map_sha256": "ab519b403950d7139a51f0bdf69864f7ac79c4f9245f8a30867a40a9a94a7a38",
+        "local_audit": "passed"
+      },
+      {
+        "available_directory": "2026-11-24",
+        "report": "investment-01810-2026-11-24-research-dsh.md",
+        "report_sha256": "c19021f68a1b3706c7d6e7e64038f40f6b3937b2b907e2f504b58a0602188ea2",
+        "price_map": "investment-01810-2026-11-24-price-map-dsh.json",
+        "price_map_sha256": "cce5e45f13deb91d86b37b3f7a99518ebc1a18329c9d9ddce9b92e7685b27db5",
+        "local_audit": "passed"
+      }
+    ]
+  }
+]

@@ -1,0 +1,204 @@
+{
+  "cutoff": "2026-11-29",
+  "calendar": [
+    "2026-11-20",
+    "2026-11-23",
+    "2026-11-24",
+    "2026-11-25",
+    "2026-11-26",
+    "2026-11-27"
+  ],
+  "R21_window": [
+    {
+      "date": "2026-11-25",
+      "turnover_trillion": 1.38309753420428,
+      "margin_change_yi": -213.61429951,
+      "complete_margin_balance_yi": 21504.1588229,
+      "exchange_ids": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "star50_close": 1186.14,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-26",
+      "turnover_trillion": 1.3173771706946402,
+      "margin_change_yi": -157.73665658,
+      "complete_margin_balance_yi": 21346.42216632,
+      "exchange_ids": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "star50_close": 1169.99,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    },
+    {
+      "date": "2026-11-27",
+      "turnover_trillion": 1.9997944493188802,
+      "margin_change_yi": null,
+      "complete_margin_balance_yi": null,
+      "exchange_ids": [
+        "SSE"
+      ],
+      "star50_close": 1346.25,
+      "margin_basis": "complete_daily_change",
+      "index_basis": "official_close"
+    }
+  ],
+  "R21_result": "not_met",
+  "source_csi": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000688&startDate=20261125&endDate=20261127",
+  "csi": [
+    {
+      "tradeDate": "20261125",
+      "indexCode": "000688",
+      "indexNameCnAll": "上证科创板50成份指数",
+      "indexNameCn": "科创50",
+      "indexNameEnAll": "SSE Science and Technology Innovation Board 50 Index",
+      "indexNameEn": "STAR 50",
+      "open": 1218.69,
+      "high": 1230.4,
+      "low": 1185.45,
+      "close": 1186.14,
+      "change": -63.95,
+      "changePct": -5.12,
+      "tradingVol": 953208400.0,
+      "tradingValue": 822.83,
+      "consNumber": 50.0,
+      "peg": 52.59
+    },
+    {
+      "tradeDate": "20261126",
+      "indexCode": "000688",
+      "indexNameCnAll": "上证科创板50成份指数",
+      "indexNameCn": "科创50",
+      "indexNameEnAll": "SSE Science and Technology Innovation Board 50 Index",
+      "indexNameEn": "STAR 50",
+      "open": 1201.06,
+      "high": 1202.31,
+      "low": 1156.57,
+      "close": 1169.99,
+      "change": -16.15,
+      "changePct": -1.36,
+      "tradingVol": 879183500.0,
+      "tradingValue": 733.77,
+      "consNumber": 50.0,
+      "peg": 52.6
+    },
+    {
+      "tradeDate": "20261127",
+      "indexCode": "000688",
+      "indexNameCnAll": "上证科创板50成份指数",
+      "indexNameCn": "科创50",
+      "indexNameEnAll": "SSE Science and Technology Innovation Board 50 Index",
+      "indexNameEn": "STAR 50",
+      "open": 1177.48,
+      "high": 1347.62,
+      "low": 1174.13,
+      "close": 1346.25,
+      "change": 176.26,
+      "changePct": 15.07,
+      "tradingVol": 1432875000.0,
+      "tradingValue": 1315.9,
+      "consNumber": 50.0,
+      "peg": 60.78
+    }
+  ],
+  "us_source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
+  "us_cmt": [
+    {
+      "date": "2026-11-02T00:00:00",
+      "10y": "4.91",
+      "30y": "5.28"
+    },
+    {
+      "date": "2026-11-03T00:00:00",
+      "10y": "4.95",
+      "30y": "5.32"
+    },
+    {
+      "date": "2026-11-04T00:00:00",
+      "10y": "4.90",
+      "30y": "5.28"
+    },
+    {
+      "date": "2026-11-05T00:00:00",
+      "10y": "4.84",
+      "30y": "5.25"
+    },
+    {
+      "date": "2026-11-06T00:00:00",
+      "10y": "4.86",
+      "30y": "5.26"
+    },
+    {
+      "date": "2026-11-09T00:00:00",
+      "10y": "4.88",
+      "30y": "5.26"
+    },
+    {
+      "date": "2026-11-10T00:00:00",
+      "10y": "4.98",
+      "30y": "5.35"
+    },
+    {
+      "date": "2026-11-12T00:00:00",
+      "10y": "5.10",
+      "30y": "5.43"
+    },
+    {
+      "date": "2026-11-13T00:00:00",
+      "10y": "5.15",
+      "30y": "5.47"
+    },
+    {
+      "date": "2026-11-16T00:00:00",
+      "10y": "5.12",
+      "30y": "5.46"
+    },
+    {
+      "date": "2026-11-17T00:00:00",
+      "10y": "5.10",
+      "30y": "5.46"
+    },
+    {
+      "date": "2026-11-18T00:00:00",
+      "10y": "5.07",
+      "30y": "5.41"
+    },
+    {
+      "date": "2026-11-19T00:00:00",
+      "10y": "5.04",
+      "30y": "5.40"
+    },
+    {
+      "date": "2026-11-20T00:00:00",
+      "10y": "4.92",
+      "30y": "5.31"
+    },
+    {
+      "date": "2026-11-23T00:00:00",
+      "10y": "4.92",
+      "30y": "5.29"
+    },
+    {
+      "date": "2026-11-24T00:00:00",
+      "10y": "4.91",
+      "30y": "5.30"
+    },
+    {
+      "date": "2026-11-25T00:00:00",
+      "10y": "4.85",
+      "30y": "5.24"
+    },
+    {
+      "date": "2026-11-27T00:00:00",
+      "10y": "4.94",
+      "30y": "5.33"
+    }
+  ]
+}

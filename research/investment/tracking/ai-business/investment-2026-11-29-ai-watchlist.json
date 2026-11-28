@@ -1,0 +1,104 @@
+{
+  "available_at": "2026-11-29T02:08:32+08:00",
+  "entries": {
+    "688256.SH": {
+      "name": "寒武纪",
+      "business": "智能芯片",
+      "evidence": "三季报将收入增长与拓展人工智能应用市场联系起来。",
+      "check": "按产品代际核实际交付、应收回款与持续研发投入。",
+      "source_date": "2026-10-24",
+      "source_title": "2026 年第三季度报告，主要会计数据变动原因",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF"
+    },
+    "02513.HK": {
+      "name": "智谱",
+      "business": "云端及本地部署模型服务",
+      "evidence": "中期业绩分别披露云端与本地部署业务。",
+      "check": "云端核付费规模、折后净价与推理成本，本地部署核项目验收和回款。",
+      "source_date": "2026-08-31",
+      "source_title": "2026 年中期业绩，第 20–21 页",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101539.pdf"
+    },
+    "02158.HK": {
+      "name": "医渡科技",
+      "business": "以 YiduCore 为基础的医疗智能解决方案",
+      "evidence": "截至9月底半年收入3.7704亿元，医疗业务1.22867亿元持平，生命科学2.01531亿元同比增长9.1%，集团毛利下降4.1%。",
+      "check": "分部重列后核医院项目验收、药企业务回款及现金消耗。分拆其他利得、减值及费用对扭亏的贡献。",
+      "source_date": "2026-11-22",
+      "source_title": "截至2026年9月30日止六个月中期业绩，财务摘要、损益表",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1122/2026112200030_c.pdf"
+    },
+    "688041.SH": {
+      "name": "海光信息",
+      "business": "通用处理器与深算处理器",
+      "evidence": "年报披露深算处理器（DCU）可用于模型训练和推理，公司同时销售通用 CPU。",
+      "check": "区分 DCU 与 CPU 的销量及毛利，核流片和研发投入能否由交付回款覆盖。",
+      "source_date": "2026-04-08",
+      "source_title": "2025 年年度报告，主要产品",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-08/1225083088.PDF"
+    },
+    "688825.SH": {
+      "name": "长鑫科技",
+      "business": "服务器内存",
+      "evidence": "公司在业绩交流中将企业级 DDR5 的销量和价格表现与服务器需求、市场份额提升联系起来，并讨论 AI 数据中心需求。",
+      "check": "核服务器客户订单和交付，分开估计 AI 增量、普通服务器需求及全行业涨价，扣扩产与折旧。",
+      "source_date": "2026-10-31",
+      "source_title": "10 月 30 日投资者关系活动记录",
+      "source_url": "https://dataclouds.cninfo.com.cn/shgonggao/investor/2026/20261031/28d024d8253df5d5c750e701ae616b97.pdf"
+    },
+    "000988.SZ": {
+      "name": "华工科技",
+      "business": "高速光互联",
+      "evidence": "半年报披露 800G 和 1.6T 光模块已批量交付，光互联业务包含 AI 与传统通信产品。",
+      "check": "分代际核出货、客户验收、毛利和回款，区分批量产品与下一代展示样品。",
+      "source_date": "2026-08-27",
+      "source_title": "2026 年半年度报告，光互联业务",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225513179.PDF"
+    },
+    "002475.SZ": {
+      "name": "立讯精密",
+      "business": "通信与数据中心互联、散热及供电",
+      "evidence": "公司在数据中心业务交流中披露，800G、1.6T 可插拔光模块已获量产订单并进入批量生产。",
+      "check": "核两代光模块的交付验收、实现单价、毛利与回款；区分批量订单、在产和收入确认。",
+      "source_date": "2026-11-02",
+      "source_title": "投资者关系活动记录，数据中心业务产品布局与进展",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-11-02/1225651350.PDF"
+    },
+    "688099.SH": {
+      "name": "晶晨股份",
+      "business": "端侧 AI 系统级芯片",
+      "evidence": "三季报披露 A311Y3 已量产，部分端侧 AI 客户产品进入量产阶段；前三季度业绩主要贡献仍来自电视芯片。",
+      "check": "从定点追至出货和回款，单列端侧芯片毛利，拆开电视芯片提价贡献。",
+      "source_date": "2026-10-30",
+      "source_title": "2026 年第三季度报告，AIoT SoC 业务",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225645326.PDF"
+    },
+    "688018.SH": {
+      "name": "乐鑫科技",
+      "business": "嵌入式 AI 微控制器",
+      "evidence": "半年报披露用于嵌入式 AI 与信号处理的 ESP32-S31 已于 7 月量产。",
+      "check": "核实际用于语音或视觉推理的客户和出货量、单机价值量与毛利；通用连接需求单列。",
+      "source_date": "2026-07-31",
+      "source_title": "2026 年半年度报告，董事长致辞",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-07-31/1225448878.PDF"
+    },
+    "688981.SH": {
+      "name": "中芯国际",
+      "business": "晶圆代工",
+      "evidence": "公司在半年报经营分析中将 AI 配套芯片需求、海外订单回流和本地制造需求并列为订单背景。",
+      "check": "核 AI 配套订单对应的工艺平台、产能利用率、定价及折旧，区分补库存、国产替代与 AI 的影响。",
+      "source_date": "2026-08-28",
+      "source_title": "2026 年半年度报告，经营情况的讨论与分析",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-28/1225520297.PDF"
+    },
+    "002371.SZ": {
+      "name": "北方华创",
+      "business": "先进封装设备",
+      "evidence": "公司披露混合键合设备通过客户验证并获得批量订单，产品可用于高带宽内存、芯粒和图像传感器等。",
+      "check": "核已订设备的终端用途、交付验收及回款，区分 AI 存储和计算相关订单、其他封装需求与国产替代。",
+      "source_date": "2026-08-26",
+      "source_title": "2026 年半年度报告，键合设备",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-08-26/1225501903.PDF"
+    }
+  }
+}
